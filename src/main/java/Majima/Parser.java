@@ -14,6 +14,12 @@ import Majima.task.Task;
 
 public class Parser {
 
+    /**
+     * Returns a corresponding command based off the input of the user.
+     *
+     * @param input The input of the user, to be parsed.
+     * @return The corresponding command, or an error if the input is not understood.
+     */
     public static Command parse(String input) throws MajimaException {
         String[] parts = input.split(" ", 2);
         String command = parts[0];

@@ -11,10 +11,18 @@ public class AddDeadlineCommand extends Command {
     private String description;
     private String deadline;
 
+    /**
+     * Adds a AddDeadlineCommand object, which when executed, will create the corresponding
+     * deadline task in the list of tasks.
+     *
+     * @param description The description of the task. A String.
+     * @param deadline The deadline of the task, in the format "dd-MM-YYYY HHmm"
+     */
     public AddDeadlineCommand(String description, String deadline) {
         this.description = description;
         this.deadline = deadline;
     }
+
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MajimaException {

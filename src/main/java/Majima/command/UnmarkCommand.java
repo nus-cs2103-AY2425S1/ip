@@ -9,6 +9,13 @@ import Majima.ui.Ui;
 public class UnmarkCommand extends Command {
     private int index;
 
+    /**
+     * Adds a UnmarkCommand object, which when executed, will unmark the corresponding
+     * task as undone in the list of tasks and saves it to the .txt file.
+     *
+     * @param index The int index of the task in the list of tasks to be
+     *              marked as undone.
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }

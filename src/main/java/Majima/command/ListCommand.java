@@ -4,6 +4,9 @@ import Majima.task.TaskList;
 import Majima.ui.Ui;
 import Majima.storage.Storage;
 
+/**
+ * When a ListCommand executes, it will print out all tasks to the console.
+ */
 public class ListCommand extends Command {
 
     @Override

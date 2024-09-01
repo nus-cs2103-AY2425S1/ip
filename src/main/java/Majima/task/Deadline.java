@@ -8,6 +8,13 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     protected LocalDateTime deadline;
 
+    /**
+     * Parses the input from the user's console. If valid, adds a task of type Deadline
+     * to the list and .txt file, by calling other methods, such as those in Majima.Parse.
+     *
+     * @param description String Description of the deadline
+     * @param by String deadline in the format of "dd-MM-YYYY HHmm"
+     */
     public Deadline(String description, String by) throws MajimaException {
         super(description, TaskType.DEADLINE);
         try {
