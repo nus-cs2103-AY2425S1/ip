@@ -1,3 +1,5 @@
+package elysia.command;
+
 /**
  * Represents a ToDo task with a description
  */

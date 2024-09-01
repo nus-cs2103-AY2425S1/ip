@@ -1,3 +1,5 @@
+package elysia.command;
+
 import java.lang.annotation.Native;
 /**
  * Represents a basic task

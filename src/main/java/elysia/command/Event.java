@@ -1,3 +1,5 @@
+package elysia.command;
+
 /**
  * Represents an Event task with a description, starting time
  * and end time
