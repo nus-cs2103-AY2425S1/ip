@@ -12,12 +12,13 @@ public class Storage {
 
             if (Files.exists(filePath)) {
                 System.out.println("Data found and loaded from: " + filePath.toAbsolutePath());
+                System.out.println("*the first word will always be read as the command*");
+                Notgpt.lnDiv();
             } else {
                 Files.createFile(filePath);
-                System.out.println("File created successfully at: " + filePath.toAbsolutePath());
-                String content = "This is a new file created using java.nio.file.Files";
-                Files.writeString(filePath, content);
-                System.out.println("Content written to the new file.");
+                System.out.println("New Data file successfully created at: " + filePath.toAbsolutePath());
+                System.out.println("*the first word will always be read as the command*");
+                Notgpt.lnDiv();
             }
 
         } catch (IOException e) {

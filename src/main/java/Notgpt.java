@@ -13,9 +13,6 @@ public class Notgpt {
                 + "                   |___/|_|        \n";
         System.out.println(logo + "\n" + "hi, I'm Not-gpt,\ndo you really need me to do sth for you?");
         lnDiv();
-        System.out.println("*the first word will always be read as the command*");
-        lnDiv();
         Parser.parse();
-
     }
 }
