@@ -12,8 +12,10 @@ public class Parser {
         } else if (input.startsWith("delete ")) {
             int num = Integer.parseInt(input.replaceAll("[^0-9]", ""));
             return new DeleteCommand(num);
-        } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+        } else if (input.startsWith("todo ") || input.startsWith("deadline") || input.startsWith("event")) {
             return new AddCommand(input);
+        } else if(input.startsWith("find ")) {
+            return new FindCommand(input.substring(5));
         } else {
             throw(new InputErrorException("Sorry I don't know how to do that"));
         }

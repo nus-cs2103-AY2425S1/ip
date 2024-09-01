@@ -88,4 +88,15 @@ public class TaskList {
         n--;
         return str;
     }
+
+    public String find(String keyword) throws InputErrorException {
+        TaskList tempList = new TaskList();
+        for (int i = 0; i < n; i++) {
+            Task tempTask = tasks.get(i);
+            if (tempTask.description.contains(keyword)) {
+                tempList.add(tempTask);
+            }
+        }
+        return tempList.get();
+    }
 }
