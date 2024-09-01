@@ -37,6 +37,16 @@ public abstract class Task {
     }
 
     /**
+     * Finds whether a given keyword is in the description of the Task.
+     *
+     * @param keyword keyword to check
+     * @return true if it contains, false otherwise
+     */
+    public boolean findTask(String keyword) {
+        return this.description.contains(keyword);
+    }
+
+    /**
      * Parses the save-file format of the task.
      *
      * @param delimiter The delimiter to separate the fields.

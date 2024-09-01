@@ -13,24 +13,19 @@ import infinity.ui.Ui;
  */
 public class TaskList {
 
+    /** Max size of the Task List. */
     public static final int MAX_SIZE = 100;
 
-    private final Ui botUI;
-
-    /** Maximum size of the task list */
     private ArrayList<Task> tasks = new ArrayList<>(MAX_SIZE);
-    private int nextTaskIndex = 0;
+    private int nextTaskIndex;
 
     /**
      * Constructor for the TaskList class.
      *
      * @param initialTask The initial list of tasks. If empty, pass in an empty ArrayList.
-     * @param botUI The initialised UI object to interact with the user.
      */
-    @SuppressWarnings("unchecked")
-    public TaskList(ArrayList initialTask, Ui botUI) {
-        this.tasks = (ArrayList<Task>) initialTask;
-        this.botUI = botUI;
+    public TaskList(ArrayList<Task> initialTask) {
+        this.tasks = initialTask;
         this.nextTaskIndex = initialTask.size();
     }
 
@@ -39,50 +34,50 @@ public class TaskList {
      *
      * @param <T> Type of Task that extends Task. Examples include ToDos, Events and Deadline.
      * @param task The task, T, to be added.
+     * @return The bot output.
      * @throws InfinityException If the task list is full.
      */
-    public <T extends Task> void addTask(T task) throws InfinityException {
+    public <T extends Task> String addTask(T task) throws InfinityException {
         if (nextTaskIndex >= MAX_SIZE) {
-            throw new InfinityException(
-                    "I'm sorry, but I can't remember more tasks.");
+            throw new InfinityException(Ui.botSays("I'm sorry, but I can't remember more tasks."));
         }
 
         tasks.add(task);
         nextTaskIndex++;
 
-        botUI.botSays(String.format("I've added '%s'", task));
+        return Ui.botSays(String.format("I've added '%s'", task));
     }
 
     /**
      * Deletes a task from the list of tasks.
      *
      * @param currentInput The string input from the user, but only the index as string.
+     * @return The bot output.
      * @throws InfinityException If the task index is out of bounds or not a number.
      */
-    public void deleteTask(String currentInput) throws InfinityException {
-        int taskIndex = 0;
+    public String deleteTask(String currentInput) throws InfinityException {
+        int taskIndex;
 
         try {
             taskIndex = Integer.parseInt(currentInput);
         } catch (NumberFormatException e) {
-            throw new InfinityException("Hey! That's not a number");
+            throw new InfinityException(Ui.botSays("Hey! That's not a number"));
         }
 
         taskIndex--;
 
         if (taskIndex >= nextTaskIndex || taskIndex < 0) {
             throw new InfinityException(
-                    "Hmmm, you seem to have chose a task that doesn't exist. Nice try :)");
+                    Ui.botSays("Hmmm, you seem to have chose a task that doesn't exist. Nice try :)"));
         } else {
             try {
                 Task removedTask = tasks.remove(taskIndex);
 
-                botUI.botSays(String.format(
-                        "I've removed task %d:", taskIndex + 1));
-                System.out.println(removedTask.toString());
+                return Ui.botSays(String.format(
+                        "I've removed task %d:\n%s", taskIndex + 1, removedTask.toString()));
             } catch (IndexOutOfBoundsException e) {
                 throw new InfinityException(
-                        "Hmmm, you seem to have chose a task that doesn't exist. Nice try :)");
+                        Ui.botSays("Hmmm, you seem to have chose a task that doesn't exist. Nice try :)"));
             }
         }
     }
@@ -91,25 +86,27 @@ public class TaskList {
      * Marks a task as done.
      *
      * @param currentInput The full string input from the user.
+     * @return The bot output.
      * @throws InfinityException If the task index is out of bounds or not a number.
      */
-    public void markTask(String currentInput) throws InfinityException {
+    public String markTask(String currentInput) throws InfinityException {
         String[] words = currentInput.split(" ");
         int taskIndex;
 
         try {
             taskIndex = Integer.parseInt(words[1]) - 1;
+            tasks.get(taskIndex).markAsDone();
             if (taskIndex >= nextTaskIndex || taskIndex < 0) {
-                throw new InfinityException(
-                        "Hmmm, I can't find that task. Please try again.");
+                throw new IndexOutOfBoundsException();
             }
         } catch (NumberFormatException e) {
-            throw new InfinityException("Hey! That's not a number");
+            throw new InfinityException(Ui.botSays("Hey! That's not a number"));
+        } catch (IndexOutOfBoundsException e) {
+            throw new InfinityException(
+                    Ui.botSays("Hmmm, I can't find that task. Please try again."));
         }
 
-        tasks.get(taskIndex).markAsDone();
-
-        botUI.botSays(String.format(
+        return Ui.botSays(String.format(
                 "I've marked task %d as done:\n%s",
                 taskIndex + 1,
                 tasks.get(taskIndex).toString()));
@@ -117,9 +114,11 @@ public class TaskList {
 
     /**
      * Lists all the tasks in the list.
+     *
+     * @return The bot output.
      */
-    public void listTasks() {
-        botUI.listTasks(this);
+    public String listTasks() {
+        return Ui.listTasks(this);
     }
 
     /**
@@ -138,24 +137,31 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return tasks;
-    };
+    }
 
     /**
      * Finds tasks with a keyword and lists them.
      *
      * @param keyword The keyword to search for in the tasks.
+     * @return The bot output.
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         int i = 1;
-        botUI.botSays("Alright, alright, let me find that for you...", false);
+        StringBuilder botOutput = new StringBuilder(
+                Ui.botSays("Alright, alright, let me find that for you...\n", false));
+
         for (Task task : tasks) {
-            if (task.toString().contains(keyword)) {
-                botUI.listTask(task, i);
+            if (task.findTask(keyword)) {
+                botOutput.append(Ui.listTask(task, i));
+                botOutput.append("\n");
                 i++;
             }
         }
+
         if (i == 1) {
-            botUI.botSays("Strange, I can't find any tasks with that keyword...");
+            botOutput.append("\nStrange, I can't find any tasks with that keyword...");
         }
+
+        return botOutput.toString();
     }
 }

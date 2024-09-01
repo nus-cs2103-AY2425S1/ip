@@ -1,118 +1,58 @@
 package infinity;
 
+import infinity.command.Command;
 import infinity.infinityexception.InfinityException;
 import infinity.storage.Storage;
-import infinity.task.Deadline;
-import infinity.task.Event;
-import infinity.task.Task;
-import infinity.task.ToDos;
 import infinity.tasklist.TaskList;
 import infinity.ui.Ui;
+import infinity.ui.components.DialogBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 
 /**
  * This is the Infinity Bot that will run the program. Create a new instance and it will run.
- *
- * @param <T> Type of Task that extends Task. Examples include ToDos, Events and Deadline.
  */
-public class Infinity <T extends Task> {
+public class Infinity {
 
-    private enum KnownCommands {
-        BYE,
-        DEADLINE,
-        DELETE,
-        EVENT,
-        FIND,
-        LIST,
-        MARK,
-        SAVE,
-        TODO
-    }
-
-    private Ui botUI = new Ui();
-    private Storage storage = new Storage(botUI);
-    private TaskList botTasks;
+    private static TaskList botTasks;
 
     /**
      * Constructor for the Infinity class.
-     * Initialises the bot and runs infinitely until "bye" command is given
+     * Initialises the bot and runs infinitely until "bye" command is given.
+     *
+     * @param dialogContainer The container to insert a new response.
+     * @param botImage The image to display on the bot's side.
      */
-    public Infinity() {
+    public Infinity(VBox dialogContainer, Image botImage) {
 
-        this.botTasks = new TaskList(storage.readFile(), botUI);
-
-        while (true) {
-            String currentInput = botUI.nextInput();
-
+        if (botTasks == null) {
             try {
-
-                if (currentInput.equals(KnownCommands.BYE.toString().toLowerCase())) {
-
-                    botUI.endBot();
-
-                } else if (currentInput.equals(KnownCommands.LIST.toString().toLowerCase())) {
-
-                    botUI.listTasks(this.botTasks);
-
-                } else if (currentInput.startsWith(KnownCommands.MARK.toString().toLowerCase())
-                        && currentInput.length() > 5) {
-
-                    this.botTasks.markTask(currentInput);
-                    storage.saveFile(this.botTasks.getTasks());
-
-                } else if (currentInput.startsWith(KnownCommands.TODO.toString().toLowerCase())
-                        && currentInput.length() > 5) {
-
-                    this.botTasks.addTask(new ToDos(currentInput.substring(5)));
-                    storage.saveFile(this.botTasks.getTasks());
-
-                } else if (currentInput.startsWith(KnownCommands.DEADLINE.toString().toLowerCase())
-                        && currentInput.length() > 9) {
-
-                    this.botTasks.addTask(new Deadline(currentInput.substring(9)));
-                    storage.saveFile(this.botTasks.getTasks());
-
-                } else if (currentInput.startsWith(KnownCommands.EVENT.toString().toLowerCase())
-                        && currentInput.length() > 6) {
-
-                    this.botTasks.addTask(new Event(currentInput.substring(6)));
-                    storage.saveFile(this.botTasks.getTasks());
-
-                } else if (currentInput.startsWith(KnownCommands.DELETE.toString().toLowerCase())
-                        && currentInput.length() > 7) {
-
-                    this.botTasks.deleteTask(currentInput.substring(7));
-                    storage.saveFile(this.botTasks.getTasks());
-
-                } else if (currentInput.startsWith(KnownCommands.FIND.toString().toLowerCase())
-                        && currentInput.length() > 5) {
-
-                    this.botTasks.findTasks(currentInput.substring(5));
-
-                } else if (currentInput.startsWith(KnownCommands.SAVE.toString().toLowerCase())) {
-
-                    storage.saveFile(this.botTasks.getTasks());
-
-                } else {
-
-                    botUI.echo(currentInput);
-
-                }
-
+                botTasks = new TaskList(Storage.readFile());
+                dialogContainer.getChildren().addAll(
+                        DialogBox.createBotDialog(Ui.botSays(String.format(
+                                "Hello, I'm a dummy bot called %s\n%s",
+                                Ui.BOT_NAME,
+                                "What can I not do for you?")), botImage));
             } catch (InfinityException e) {
-
-                botUI.botSays(e.getMessage());
-
+                dialogContainer.getChildren().addAll(DialogBox.createBotDialog(
+                        "Loading of save file was unsuccessful: " + e.getMessage(), botImage));
             }
         }
+
     }
 
     /**
-     * Main method to run the Infinity bot.
+     * Runs the bot when supplied with a new user input.
      *
-     * @param args The arguments to run the bot.
+     * @param currentInput The new user input to process.
+     * @return The message the bot should output.
      */
-    public static void main(String[] args) {
-        Infinity infinityBot = new Infinity();
+    public static String newUserInput(String currentInput) {
+        try {
+            return Command.findCommand(currentInput, botTasks);
+        } catch (InfinityException e) {
+            return e.getMessage();
+        }
     }
 
 }
