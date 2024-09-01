@@ -1,6 +1,10 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class DeadlineTask extends Task {
 
     private final String deadline;
+    private final LocalDate date;
 
     public DeadlineTask(String description, String deadline) throws IllegalInputPotongException {
         super(description);
@@ -8,6 +12,7 @@ public class DeadlineTask extends Task {
             throw new IllegalInputPotongException();
         }
         this.deadline = deadline;
+        this.date = LocalDate.parse(deadline);
     }
 
     public DeadlineTask(String description, String deadline, boolean isDone) throws IllegalInputPotongException {
@@ -16,6 +21,7 @@ public class DeadlineTask extends Task {
             throw new IllegalInputPotongException();
         }
         this.deadline = deadline;
+        this.date = LocalDate.parse(deadline);
     }
 
     @Override
@@ -29,6 +35,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.deadline);
+        return String.format("[D]%s (by: %s)", super.toString(),
+                             this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 }
