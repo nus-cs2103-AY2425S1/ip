@@ -189,6 +189,10 @@ public class TaskTracker {
 
     }
 
+    /**
+     * Compares the keyword provided by user with the task description of each task in the list.
+     * @param compareTask  Represents the keyword provided by the user.
+     */
     public void findTask(String compareTask) {
         int numMatch = 0;
         String output = "Here are some tasks matching your description:";
