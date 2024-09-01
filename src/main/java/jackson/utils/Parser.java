@@ -3,7 +3,7 @@ package jackson.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jackson.actions.Actions;
+import jackson.enums.Actions;
 import jackson.exceptions.SyntaxException;
 
 /**

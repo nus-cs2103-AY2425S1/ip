@@ -2,7 +2,7 @@ package jackson.utils;
 
 import java.util.regex.Matcher;
 
-import jackson.actions.Actions;
+import jackson.enums.Actions;
 
 /**
  * Class to handle response.
