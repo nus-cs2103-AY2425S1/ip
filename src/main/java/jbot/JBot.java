@@ -30,10 +30,6 @@ public class JBot {
                 Ui.display(command, userInput);
                 Storage.updateData();
 
-                if (command.equals(ByeCommand.getInstance())) {
-                    JBot.isRunning = false;
-                }
-
             } catch (Exception e) {
                 Ui.handleError(e);
             }

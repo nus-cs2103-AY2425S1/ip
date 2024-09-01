@@ -82,12 +82,10 @@ public class Storage {
 
         if (task instanceof ToDoTask) {
             return String.format("{\"type\":\"%s\",\"name\":\"%s\",\"done\":\"%s\"}", type, name, status);
-        } else if (task instanceof EventTask) {
-            EventTask eventTask = (EventTask) task;
+        } else if (task instanceof EventTask eventTask) {
             return String.format("{\"type\":\"%s\",\"name\":\"%s\",\"done\":\"%s\",\"from\":\"%s\",\"to\":\"%s\"}",
                     type, name, status, eventTask.getFrom(), eventTask.getTo());
-        } else if (task instanceof DeadlineTask) {
-            DeadlineTask deadlineTask = (DeadlineTask) task;
+        } else if (task instanceof DeadlineTask deadlineTask) {
             return String.format("{\"type\":\"%s\",\"name\":\"%s\",\"done\":\"%s\",\"deadline\":\"%s\"}",
                     type, name, status, deadlineTask.getDeadlineAsString());
         }
@@ -104,7 +102,7 @@ public class Storage {
                 json.append(line);
             }
 
-            if (json.length() == 0) {
+            if (json.isEmpty()) {
                 TaskList.setList(tasks);
             }
 
