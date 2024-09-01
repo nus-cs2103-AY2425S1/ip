@@ -28,6 +28,10 @@ abstract class Task {
         return this.isDone ? "X" : " ";
     }
 
+    public String getOriginalCommand() {
+        return this.description;
+    }
+
     public String toString() {
         String s = "[" + this.getStatusIcon() + "] ";
         s += this.getDescription();

@@ -1,0 +1,3 @@
+todo xyz
+event bcd /from today /to tmr
+deadline me /by fri
