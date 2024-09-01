@@ -74,15 +74,19 @@ public class Lumina {
     }
 
     private ArrayList<Task> readData() {
+        // intialize empty array
         ArrayList<Task> retTasks = new ArrayList<>();
 
+        // get path to data file
         Path path = Paths.get("./data/data.txt");
 
+        // get line stream and collect it into an array
         try (Stream<String> lines = Files.lines(path)) {
             retTasks = lines.map(this::parseDataLine).
                     filter(Objects::nonNull).
                     collect(Collectors.toCollection(ArrayList::new));
         } catch (IOException e) {
+            // error handling
             System.err.println(e.getMessage());
         }
 
@@ -137,7 +141,10 @@ public class Lumina {
      * Loads all valid data onto the current list of tasks from data.txt
      */
     private void loadData() {
+        // create data directory and file if not exists
         createDataDirectoryAndFileIfNotExists();
+
+        // read data and load it onto tasks
         tasks = readData();
     }
 
