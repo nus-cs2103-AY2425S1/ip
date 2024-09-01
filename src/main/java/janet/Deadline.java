@@ -43,6 +43,9 @@ public class Deadline extends Task {
                 indexOfBy = i;
             }
         }
+        if (indexOfBy == 0) {
+            throw new JanetException("WHOOPS! Missing/Wrong keywords for creating deadline...");
+        }
         // get description of janet.Deadline
         String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfBy);
         String description = String.join(" ", descriptionArray);
@@ -51,7 +54,7 @@ public class Deadline extends Task {
             // converts due date from (yyyy-MM-dd) to (MM dd yyyy)
             // converts time from (hh:mm) to (hh:mm a)
             dueDate = Task.DateAndTimeFormatter(commandDetails[commandDetails.length - 2], commandDetails[commandDetails.length - 1]);
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             throw new JanetException("WHOOPS! Ensure that the due date is in the format: yyyy-MM-dd hh:mm (24hr)");
         }
         return new String[]{description, dueDate};
