@@ -5,11 +5,15 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
     private final ArrayList<Task> parent;
+    private final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd MM uuuu");
 
     public TaskList(ArrayList<Task> list) {
         this.parent = list;
@@ -20,7 +24,7 @@ public class TaskList {
         System.out.println("""
                 Choose a task type (1, 2 or 3):
                 1. Todo - No end date
-                2. tasks.Deadline - Has end date
+                2. Deadline - Has end date
                 3. Event - Has start and end date
                 """);
         switch(getInputFromUser(sc, "(1, 2 or 3) > ")) {
@@ -29,15 +33,16 @@ public class TaskList {
                 System.out.println("Friday > Okay, I've added a todo: " + task);
                 break;
             case "2":
-                System.out.println("What is the deadline?");
-                this.parent.add(new Deadline(task, getInputFromUser(sc, "Deadline > ")));
+                System.out.println("What is the deadline? In dd mm yyyy");
+                this.parent.add(new Deadline(task, getDate("d", sc)));
                 System.out.println("Friday > Okay, I've added a deadline: " + task);
                 break;
             case "3":
-                System.out.println("What is the start date?");
-                String start = getInputFromUser(sc, "Start Date > ");
-                System.out.println("What is the end date?");
-                this.parent.add(new Event(task, start, getInputFromUser(sc, "End Date > ")));
+                System.out.println("What is the start date? In dd mm yyyy");
+                LocalDate start = getDate("es", sc);
+                System.out.println("What is the end date? In dd mm yyyy");
+                LocalDate end = getDate("ee", sc);
+                this.parent.add(new Event(task, start, end));
                 System.out.println("Friday > Okay, I've added an event: " + task);
                 break;
             default:
@@ -96,6 +101,21 @@ public class TaskList {
                 return str.trim();
             }
         }
+    }
+
+    public LocalDate getDate(String type, Scanner sc) {
+        try {
+            switch (type) {
+                case "d":
+                    return LocalDate.parse(getInputFromUser(sc, "Deadline (in dd mm yyyy) > "), this.inputFormatter);
+                case "es":
+                    return LocalDate.parse(getInputFromUser(sc, "Start Date (in dd mm yyyy) > "), this.inputFormatter);
+                case "ee":
+                    return LocalDate.parse(getInputFromUser(sc, "End Date (in dd mm yyyy) > "), this.inputFormatter);
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Friday > Invalid date format! Please follow dd mm yyy format! e.g 26 06 2002");
+        } return getDate(type, sc);
     }
 
     public int countCompleted(boolean test) {

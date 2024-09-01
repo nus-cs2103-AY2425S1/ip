@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Storage {
@@ -65,7 +66,7 @@ public class Storage {
                 if (values.length != 4) {
                     throw new IOException("Unexpected number of parameters");
                 }
-                task = new Deadline(values[1], values[3]);
+                task = new Deadline(values[1], LocalDate.parse(values[3]));
                 if (values[2].equals("y")) {
                     task.setDone();
                 }
@@ -74,7 +75,7 @@ public class Storage {
                 if (values.length != 5) {
                     throw new IOException("Unexpected number of parameters");
                 }
-                task = new Event(values[1], values[3], values[4]);
+                task = new Event(values[1], LocalDate.parse(values[3]), LocalDate.parse(values[4]));
                 if (values[2].equals("y")) {
                     task.setDone();
                 }
