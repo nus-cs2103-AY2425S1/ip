@@ -9,7 +9,7 @@ public class DeleteCommand extends Command {
             System.out.println("index out of bounds");
             return;
         }
-        System.out.println("deleted: " + taskList.getTaskToString(numToDelete));
+        System.out.println("deleted: " + taskList.getTaskToString(numToDelete - 1));
         taskList.remove(numToDelete - 1);
     }
 }

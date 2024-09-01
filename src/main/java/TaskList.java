@@ -38,9 +38,11 @@ public class TaskList {
     }
 
     void listTasks() {
-        for (Task t : this.tasks) {
-            System.out.println(t);
+        String s = "";
+        for (int i = 0; i < this.tasks.size(); i++) {
+            s += String.format("%d.", i + 1) +  this.tasks.get(i) + "\n";
         }
+        System.out.println(s.stripTrailing());
     }
 
     String getTaskToString(int index) {

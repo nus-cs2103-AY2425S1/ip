@@ -4,10 +4,18 @@ public class AddCommand extends Command {
 
     public AddCommand(String action, String desc) {
         this.action = action;
-        this.desc = desc;
+        this.desc = desc.stripLeading();
     }
 
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        if (this.desc == "") {
+            try {
+                throw new EmptyDescException();
+            } catch (EmptyDescException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+        }
         if (action.equals("todo")) {
             try {
                 Task t = new ToDoTask(desc);

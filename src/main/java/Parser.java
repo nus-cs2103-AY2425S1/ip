@@ -61,7 +61,9 @@ public class Parser {
     static Command parse(String fullCommand) {
         String action = fullCommand.split(" ")[0];
         String desc = fullCommand.substring(fullCommand.indexOf(" ") + 1);
-        desc = desc.stripLeading();
+        if (fullCommand.indexOf(" ") == -1) {
+            desc = "";
+        }
         Command c = null;
         if (action.equals("mark")) {
             c = new MarkCommand(Integer.parseInt(desc) - 1);
@@ -75,6 +77,7 @@ public class Parser {
             c = new ListCommand();
             // System.out.println(this.getTasksString());
         } else if (action.equals("todo") || action.equals("deadline") || action.equals("event")) {
+            //System.out.println("action is: " + action + " and desc is: " + desc + ".");
             c = new AddCommand(action, desc);
         } else if (action.equals("delete")) {
             c = new DeleteCommand(Integer.parseInt(desc));

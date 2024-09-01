@@ -15,6 +15,10 @@ public class Ui {
                 HLINE);
     }
 
+    void showGoodbye() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
     void showLine() {
         System.out.println(HLINE);
     }
