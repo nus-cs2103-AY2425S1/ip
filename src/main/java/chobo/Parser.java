@@ -1,5 +1,7 @@
 package chobo;
 
+import java.util.ArrayList;
+
 /**
  * The type Parser.
  */
@@ -38,10 +40,10 @@ public class Parser {
             }
             if (action.equals("mark")) {
                 taskList.getTask(taskId).mark();
-                ui.showTaskMarked(taskList.getTask(taskId));
+                ui.printTaskMarked(taskList.getTask(taskId));
             } else if (action.equals("unmark")) {
                 taskList.getTask(taskId).unmark();
-                ui.showTaskUnmarked(taskList.getTask(taskId));
+                ui.printTaskUnmarked(taskList.getTask(taskId));
             } else {
                 Task removedTask = taskList.getTask(taskId);
                 taskList.deleteTask(taskId);
@@ -90,6 +92,23 @@ public class Parser {
             taskList.addTask(event);
             ui.printTaskAdded(event, taskList.getTotalTask());
             storage.saveTasks(taskList.getTasks());
+            break;
+
+
+        case "find":
+            if (input.length < 2) {
+                throw new InputException("find");
+            }
+            String keyword = input[1].trim();
+            ArrayList<Task> matchedTasks = new ArrayList<>();
+
+            for (Task task : taskList.getTasks()) {
+                if (task.getName().contains(keyword)) {
+                    matchedTasks.add(task);
+                }
+            }
+
+            ui.printMatchedTasks(matchedTasks);
             break;
 
         default:

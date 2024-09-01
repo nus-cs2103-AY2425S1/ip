@@ -5,6 +5,9 @@ package chobo;
  * This exception is used to handle various cases of incorrect or missing input.
  */
 public class InputException extends Exception {
+    /**
+     * Instantiates a new Input exception.
+     */
     public InputException() {
         super("invalid input");
     }
@@ -21,6 +24,7 @@ public class InputException extends Exception {
                 : msg.equals("event") ? "event format: event xxxxx /from xxxxx /to xxxxx"
                 : msg.equals("deadline") ? "deadline format: deadline xxxxx /by xxxx"
                 : msg.equals("id") ? "invalid task ID"
+                : msg.equals("find") ? "find format: find xxxxx"
                 : "invalid input");
     }
 }

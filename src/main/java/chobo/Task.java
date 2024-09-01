@@ -64,11 +64,6 @@ public abstract class Task {
         return this.name;
     }
 
-    /**
-     * Get done boolean.
-     *
-     * @return the boolean
-     */
     @Override
     public String toString() {
         String checked = this.isDone ? "[X] " : "[ ] ";

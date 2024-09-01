@@ -83,7 +83,7 @@ public class Ui {
      *
      * @param task the task
      */
-    public void showTaskMarked(Task task) {
+    public void printTaskMarked(Task task) {
         printLine();
         System.out.println("Nice! I have marked this task as done:\n" + task);
         printLine();
@@ -94,9 +94,28 @@ public class Ui {
      *
      * @param task the task
      */
-    public void showTaskUnmarked(Task task) {
+    public void printTaskUnmarked(Task task) {
         printLine();
         System.out.println("OK, I have marked this task as not done yet\n" + task);
         printLine();
+    }
+
+
+    /**
+     * Print matched tasks.
+     *
+     * @param tasks the array of tasks
+     */
+    public void printMatchedTasks(ArrayList<Task> tasks) {
+        System.out.println("____________________________________________________________");
+        if (tasks.isEmpty()) {
+            System.out.println("No such tasks.");
+        } else {
+            System.out.println("The matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        }
+        System.out.println("____________________________________________________________");
     }
 }
