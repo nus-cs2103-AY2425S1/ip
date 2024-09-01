@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -6,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Scanner;
 
 public class Gallium {
     public static void main(String[] args) {
@@ -19,30 +17,12 @@ public class Gallium {
         String mark = "mark";
         String unmark = "unmark";
 
-        try {
-            File dir = new File("./data");
-            dir.mkdirs();
-            File f = new File(dir, "gallium.txt");
-            f.createNewFile();
-            Scanner scanner = new Scanner(f);
-            while (scanner.hasNextLine()) {
-                String taskDesc = scanner.nextLine();
-                if (taskDesc.startsWith("[T]")) {
-                    Todo todo = new Todo(taskDesc);
-                    taskList.add(todo);
-                } else if (taskDesc.startsWith("[D]")) {
-                    Deadline deadline = new Deadline(taskDesc);
-                    taskList.add(deadline);
-                } else if (taskDesc.startsWith("[E]")) {
-                    Event event = new Event(taskDesc);
-                    taskList.add(event);
-                }
-                Task.count = taskList.size() + 1;
-            }
-            scanner.close();
-        } catch (IOException e) {
-            ui.showCreateFileError(e);
-        }
+        // File dir = new File("./data");
+        // dir.mkdirs();
+        // File f = new File(dir, "gallium.txt");
+        // f.createNewFile();
+        Storage storage = new Storage("./data/gallium.txt");
+        tasklist = storage.load();
 
         while (!Message.equals(bye)) {
             try {
