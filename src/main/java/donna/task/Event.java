@@ -37,7 +37,8 @@ public class Event extends Task {
             this.from = LocalDateTime.parse(from, inputFormatter);
             this.to = LocalDateTime.parse(to, inputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DonnaException("Invalid date and time format! Please use dd/MM/yyyy HHmm (24hr format)"
+            throw new DonnaException(
+                    "Invalid date and time format! Please use dd/MM/yyyy HHmm (24hr format)"
                     + "\n" + "Use this format for specifying the date and time for both,"
                     + "\n" + "/from and /to");
         }

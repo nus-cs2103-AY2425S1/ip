@@ -2,6 +2,9 @@ package donna.task;
 
 import donna.DonnaException;
 
+/**
+ * Represents a ToDo task which includes a description.
+ */
 public class ToDo extends Task {
     private final String description;
 
