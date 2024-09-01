@@ -13,8 +13,7 @@ public class Gallium {
         Ui ui = new Ui();
         ArrayList<Task> taskList = new ArrayList<Task>();
         TaskList tasklist = new TaskList(taskList);
-        Scanner userInput = new Scanner(System.in);
-        String Message = userInput.nextLine();
+        String Message = ui.readNextLine();
         String bye = "bye";
         String list = "list";
         String mark = "mark";
@@ -125,7 +124,7 @@ public class Gallium {
                     ui.showWrongIndex();
                 }
             }
-            Message = userInput.nextLine();
+            Message = ui.readNextLine();
         }
 
         StringBuilder listStringBuilder = new StringBuilder();
@@ -143,6 +142,6 @@ public class Gallium {
         }
 
         ui.printByeMessage();
-        userInput.close();
+        ui.closeScanner();
     }
 }

@@ -1,6 +1,4 @@
 import java.io.IOException;
-import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -11,6 +9,14 @@ public class Ui {
     public Ui() {
         this.userInput = new Scanner(System.in);
         System.out.println("Hello! I am Gallium. What can I do for you?");
+    }
+
+    public String readNextLine() {
+        return userInput.nextLine();
+    }
+
+    public void closeScanner() {
+        userInput.close();
     }
 
     public void printAnyMessage(String message) {

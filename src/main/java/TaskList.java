@@ -27,7 +27,7 @@ public class TaskList {
         StringBuilder listStringBuilder = new StringBuilder();
         for (int i = 1; i <= taskList.size(); i++) {
             Task task = taskList.get(i - 1);
-            listStringBuilder.append("    ").append(task.toString()).append("\n");
+            listStringBuilder.append("    ").append(i + ". " + task.toString()).append("\n");
         }
         String listString = listStringBuilder.toString();
         return listString;
