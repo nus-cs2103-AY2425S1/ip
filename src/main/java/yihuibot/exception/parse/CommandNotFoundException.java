@@ -13,6 +13,6 @@ public class CommandNotFoundException extends ParseException {
      * @param input the user's input.
      */
     public CommandNotFoundException(String input) {
-        super("Command not found for '" + input + "'");
+        super("Sorry, I don't understand the command '" + input + "'.");
     }
 }
