@@ -1,16 +1,4 @@
-import java.io.IOException;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 
 /**
  * The Lumina class represents a simple chatbot.
