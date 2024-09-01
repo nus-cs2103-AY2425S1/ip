@@ -31,6 +31,17 @@ public class Ui {
         return "Here are the tasks in your list:\n" + sb.toString();
     }
 
+    public static String diffListDisplay(String header, ArrayList<Task> list) {
+        int length = list.size();
+        // use String Builder to ensure that the string can be created on another line
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            sb.append(i + 1 + ". " + list.get(i).printTask()).append("\n");
+        }
+
+        return header + "\n" + sb.toString();
+    }
     /**
      * Generates a string confirming that a task has been added to the list.
      * @param task

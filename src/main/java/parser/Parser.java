@@ -13,6 +13,9 @@ import task.ToDoTask;
 
 import prince.Prince;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Parses input commands by user and performs the corresponding actions
  *
@@ -38,9 +41,33 @@ public class Parser {
     public static String parseConversation(String command) throws UnknownWordException, IncompleteDescException {
         /*if(command.equals("bye")) { //string cannot do ==
             return "Bye! Hope to see you again soon!";*/
-        if(command.equals("list")) {
+        if (command.equals("list")) {
             return Ui.listDisplay(TaskList.getList());
-        } else if(command.startsWith("mark") || command.startsWith("unmark") || command.startsWith("delete")) {
+        } else if (command.trim().startsWith("find")) {
+
+            String[] searchEngine = command.split(" ", 2);
+
+            if (searchEngine.length < 2) {
+                return "Please specify a keyword to search after 'find'.";
+            }
+
+            String wordToSearch = searchEngine[1];
+
+            ArrayList<Task> taskList = TaskList.getList();
+            ArrayList<Task> outputList = new ArrayList<Task>();
+            int length = taskList.size();
+            for (int i = 0; i < length; i++) {
+                Task task = taskList.get(i);
+                String taskDesc = task.getDescription();
+                if (taskDesc.contains(wordToSearch)) {
+                    outputList.add(task);
+                }
+            }
+
+            return Ui.diffListDisplay("Here are the matching tasks in your list:", outputList);
+
+        } else if (command.startsWith("mark") || command.startsWith("unmark") ||
+                command.startsWith("delete")) {
             // used the library function .startsWith() to match the prefix to mark/unmark
             // use.split("") to split up the words
             // use.parseInt(num) to extract integer from the string
@@ -56,33 +83,38 @@ public class Parser {
                 return "Task number is out of range. Please retry.";
             }
 
-            if(stringList[0].equals("mark")) {
+            if (stringList[0].equals("mark")) {
                 return t.markDone();
-            } else if(stringList[0].equals("unmark")){
+            } else if (stringList[0].equals("unmark")){
                 return t.markIncomplete();
             } else {
                 TaskList.delTask(taskNum - 1);
                 return Ui.taskDelDescription(taskNum, t);
             }
 
-        } else if(checkCommandLength(command)) {
-            if(command.equals("todo") || command.equals("deadline") || command.equals("event")) {
+        } else if (checkCommandLength(command)) {
+            if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
                 throw new IncompleteDescException("OH NO! Description of the task cannot be empty!\n " +
                         "Please retry with a command like this format <task type> <task>");
             } else {
-                throw new UnknownWordException("Sorry, I do not know what that means :(\n " +
+                throw new UnknownWordException("Sorry, I do not know what that means :(\n" +
                         "Please try again with a proper command.");
             }
+        } else if (!checkUnknownCommand(command)) {
+            System.out.println("Unknown command detected: " + command);
+            throw new UnknownWordException("Sorry, I do not know what that means :(\n" +
+                    "Please try again with a proper command.");
         } else {
             // according to the first word, create a new specific task
             // split into two, first word is type, and the second phrase is task
+            System.out.println("Command passed checkUnknownCommand: " + command);
 
             String[] split = command.split(" ", 2);
 
             String type = split[0];
             String stringTask = split[1];
 
-            if(type.equals(Prince.TaskType.todo.toString())) {
+            if (type.equals(Prince.TaskType.todo.toString())) {
                 ToDoTask tsk = new ToDoTask(stringTask);
                 TaskList.addTask(tsk);
                 return Ui.taskAddDescription(tsk);
@@ -99,7 +131,7 @@ public class Parser {
                     DeadlinesTask tsk = new DeadlinesTask(taskDes, deadline);
                     TaskList.addTask(tsk);
                     return Ui.taskAddDescription(tsk);
-                } catch(InvalidDeadlineException e) {
+                } catch (InvalidDeadlineException e) {
                     return e.getMessage();
                 }
 
@@ -125,12 +157,24 @@ public class Parser {
      * Checks if command's length is one word
      * this method is used to check whether the commands are likely incomplete
      *
-     * @param command
+     * @param cmd
      * @return true if command length is only 1
      */
-    public static boolean checkCommandLength(String command) {
-        String[] split = command.split(" ");
+    public static boolean checkCommandLength(String cmd) {
+        String[] split = cmd.trim().split(" ", 2);
         return split.length == 1;
     }
+
+    /**
+     * Checks if command starts with a task type
+     * this method is used to check whether the commands are likely unknown commands
+     *
+     * @param cmd
+     * @return true if command length is only 1
+     */
+    public static boolean checkUnknownCommand(String cmd) {
+        return (cmd.startsWith("todo") || cmd.startsWith("deadline") || cmd.startsWith("event"));
+    }
+
 
 }

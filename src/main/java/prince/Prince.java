@@ -80,7 +80,7 @@ public class Prince {
         Scanner scanner = new Scanner(System.in);
         String line = "";
 
-        System.out.println("Hello! I'm prince.Prince!");
+        System.out.println("Hello! I'm Prince!");
         System.out.println("What would you like me to add to your TODO list today?");
 
 
@@ -91,8 +91,7 @@ public class Prince {
                     ui.terminationMessage();
                     break;
                 }
-                String s = parser.parseConversation(line);
-                System.out.println(s);
+                System.out.println(parser.parseConversation(line));
                 System.out.println("How else would you like me to edit your TODO list today?");
                 Storage.pushTasksToFile(TaskList.getList());
             } catch (IncompleteDescException | UnknownWordException e) {
