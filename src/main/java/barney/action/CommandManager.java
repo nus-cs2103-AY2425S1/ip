@@ -7,14 +7,11 @@ import barney.action.commands.DeadlineCommand;
 import barney.action.commands.DeleteCommand;
 import barney.action.commands.EndCommand;
 import barney.action.commands.EventCommand;
+import barney.action.commands.FindCommand;
 import barney.action.commands.ListCommand;
 import barney.action.commands.MarkCommand;
 import barney.action.commands.TodoCommand;
-<<<<<<< Updated upstream
-import barney.action.commands.FindCommand;
-=======
 import barney.action.commands.UnmarkCommand;
->>>>>>> Stashed changes
 import barney.data.exception.BarneyException;
 import barney.data.exception.InvalidCommandException;
 
@@ -43,49 +40,22 @@ public class CommandManager {
         HashMap<String, String> commandMap = new HashMap<String, String>();
         commandMap.put("command", commandType.toString());
         switch (commandType) {
-<<<<<<< Updated upstream
-        case LIST:
-            break;
-        case MARK:
-            commandMap.put(commandType.commandArgs[0], line);
-            break;
-        case UNMARK:
-            commandMap.put(commandType.commandArgs[0], line);
-            break;
-        case DELETE:
-            commandMap.put(commandType.commandArgs[0], line);
-            break;
-        case TODO:
-            commandMap.put(commandType.commandArgs[0], line);
-            break;
-        case DEADLINE:
-=======
         case LIST, BYE -> {
         }
         case MARK, UNMARK, DELETE, TODO, FIND -> commandMap.put(commandType.commandArgs[0], line);
         case DEADLINE -> {
->>>>>>> Stashed changes
             String[] deadlineArgs = line.split("/by");
             commandMap.put(commandType.commandArgs[0], deadlineArgs[0].trim());
             commandMap.put(commandType.commandArgs[1], deadlineArgs[1].trim());
-            break;
-        case EVENT:
+        }
+        case EVENT -> {
             String[] eventArgs = line.split("/from");
             String[] timeArgs = eventArgs[1].split("/to");
             commandMap.put(commandType.commandArgs[0], eventArgs[0].trim());
             commandMap.put(commandType.commandArgs[1], timeArgs[0].trim());
             commandMap.put(commandType.commandArgs[2], timeArgs[1].trim());
-<<<<<<< Updated upstream
-            break;
-        case FIND:
-            commandMap.put(commandType.commandArgs[0], line);
-            break;
-        case BYE:
-            break;
-=======
         }
         default -> throw new IllegalArgumentException("Invalid command type");
->>>>>>> Stashed changes
         }
         return commandMap;
     }
