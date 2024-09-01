@@ -35,6 +35,6 @@ public class ListCommand extends Command {
     @Override
     public String execute(TaskList taskList) throws InvalidCommandException {
         ArrayList<Task> result = taskList.getTaskList();
-        return generateTaskListResponse(result, "Here are the tasks in your list:");
+        return generateTaskListResponse("Here are the tasks in your list:", result.toArray(new Task[0]));
     }
 }

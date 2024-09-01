@@ -51,7 +51,7 @@ public class DateCommand extends Command {
         try {
             LocalDateTime date = DateTimeUtility.parse(this.getArgument());
             ArrayList<Task> result = taskList.findByDate(date);
-            return generateTaskListResponse(result, "Here are the tasks on: " + format(date));
+            return generateTaskListResponse("Here are the tasks on: " + format(date), result.toArray(new Task[0]));
         } catch (InvalidDateException e) {
             throw new InvalidCommandException(e.getMessage());
         }
