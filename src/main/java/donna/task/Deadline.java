@@ -6,11 +6,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Deadline task which includes a description and a due date/time.
+ */
 public class Deadline extends Task {
     private final LocalDateTime by;
     private final String description;
-    private final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+    private final DateTimeFormatter inputFormatter =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private final DateTimeFormatter outputFormatter =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
     /**
      * Constructs a Deadline task with the specified description and due date/time.
@@ -27,7 +32,8 @@ public class Deadline extends Task {
         try {
             this.by = LocalDateTime.parse(by, inputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DonnaException("Invalid date and time format! Please use dd/MM/yyyy HHmm (24hr format)");
+            throw new DonnaException(
+                    "Invalid date and time format! Please use dd/MM/yyyy HHmm (24hr format)");
         }
         this.description = description;
     }
@@ -39,7 +45,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "D | " + (this.isDone() ? "1" : "0") + " | " + this.description + " | " + this.by.format(inputFormatter);
+        return "D | " + (this.isDone() ? "1" : "0") + " | " + this.description + " | "
+                + this.by.format(inputFormatter);
     }
 
     @Override
@@ -50,8 +57,9 @@ public class Deadline extends Task {
     /**
      * Returns a string representation of the deadline task for display purposes.
      * Includes the description, status, and due date/time.
+     * Format used "[D][status] description (by: MMM dd yyyy, h:mma)".
      *
-     * @return A string representing the deadline task in the format "[D][status] description (by: formatted date)".
+     * @return A string representing the deadline task.
      */
     @Override
     public String toString() {
