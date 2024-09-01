@@ -26,23 +26,35 @@ public class Parser {
     public void run(String Message) {
         while (!Message.equals(BYE)) {
             try {
-                if (Message.equals(LIST)) {
-                    runList();
-                } else if (Message.matches(MARK + " \\d+") || Message.matches(UNMARK + " \\d+")) {
-                    runMark(Message);
-                } else if (Message.equals("todo") || Message.equals("todo ") || Message.equals("deadline")
-                        || Message.equals("deadline ") || Message.equals("event") || Message.equals("event ")) {
-                    throw new GalliumException("OOPS!!! The description of a " + Message + " cannot be empty.");
-                } else if (Message.startsWith(TODO) || Message.startsWith(DEADLINE)
-                        || Message.startsWith(EVENT)) {
-                    runAdd(Message);
-                } else if (Message.startsWith(DELETE)) {
-                    runDelete(Message);
-                } else if (Message.startsWith(DATE)) {
-                    runDate(Message);
-                } else {
-                    throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
+                switch (Message) {
+                    case LIST:
+                        runList();
+                        break;
+
+                    case "todo":
+                    case "todo ":
+                    case "deadline":
+                    case "deadline ":
+                    case "event":
+                    case "event ":
+                        throw new GalliumException("OOPS!!! The description of a " + Message + " cannot be empty.");
+
+                    default:
+                        if (Message.matches(MARK + " \\d+") || Message.matches(UNMARK + " \\d+")) {
+                            runMark(Message);
+                        } else if (Message.startsWith(TODO) || Message.startsWith(DEADLINE)
+                                || Message.startsWith(EVENT)) {
+                            runAdd(Message);
+                        } else if (Message.startsWith(DELETE)) {
+                            runDelete(Message);
+                        } else if (Message.startsWith(DATE)) {
+                            runDate(Message);
+                        } else {
+                            throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
+                        }
+                        break;
                 }
+
             } catch (GalliumException e) {
                 ui.showGalliumException(e);
                 // Message = userInput.nextLine();
