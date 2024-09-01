@@ -96,6 +96,24 @@ public class Ui {
 
     }
 
+    public void showFindOutput(TaskList foundTasks) {
+        String[] strArr = foundTasks.toTaskStrings();
+        String output = LINE
+                + "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < strArr.length; i++) {
+            output += String.format("%d. %s\n", i + 1, strArr[i]);
+        }
+        output += LINE;
+        System.out.print(output);
+    }
+
+    public void showFoundNothingMessage() {
+        String output = LINE
+                + "Sorry! Could not find any matching tasks :(\n"
+                + LINE;
+        System.out.print(output);
+    }
+
     public void showUnknownInputError() {
         String output = LINE
                 + "Sorry! I couldn't recognise that :(\n"
@@ -156,6 +174,14 @@ public class Ui {
         String output = LINE
                 + "Invalid syntax. Please follow this syntax for Delete:\n"
                 + "\t delete <task index>\n"
+                + LINE;
+        System.out.print(output);
+    }
+
+    public void showFindSyntax() {
+        String output = LINE
+                + "Invalid syntax. Please follow this syntax for Find:\n"
+                + "\t find <search string>\n"
                 + LINE;
         System.out.print(output);
     }

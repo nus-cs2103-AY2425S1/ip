@@ -65,4 +65,24 @@ public class TaskList {
             return fileStrings;
         }
     }
+
+    public List<Task> searchTasks(String searchWord) {
+        List<Task> result = new ArrayList<>();
+        for (Task t : this.tasks) {
+            int found = t.getName().indexOf(searchWord);
+            if (found != -1) { //found is -1 if task name does not contain searchWord
+                result.add(t);
+            }
+        }
+        return result;
+    }
+
+    public static TaskList fromList(List<Task> listOfTask) {
+        TaskList taskList = new TaskList();
+        for (Task t : listOfTask) {
+            taskList.addTask(t);
+        }
+
+        return taskList;
+    }
 }
