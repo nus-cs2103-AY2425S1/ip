@@ -42,6 +42,6 @@ public class FindCommand extends Command {
         }
 
         ArrayList<Task> result = taskList.find(this.getArgument());
-        return generateTaskListResponse(result, "Here are the matching tasks in your list:");
+        return generateTaskListResponse("Here are the matching tasks in your list:", result.toArray(new Task[0]));
     }
 }

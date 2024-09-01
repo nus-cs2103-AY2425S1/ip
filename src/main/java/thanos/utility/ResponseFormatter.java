@@ -1,7 +1,5 @@
 package thanos.utility;
 
-import java.util.ArrayList;
-
 import thanos.tasks.Task;
 
 /**
@@ -24,20 +22,26 @@ public class ResponseFormatter {
 
     /**
      * Generates a formatted response displaying the list of tasks.
+     * <p>
+     * This method creates a string representation of the tasks, including a header,
+     * and formats each task with its index. If no tasks are provided, it returns a message
+     * indicating that no tasks were found.
+     * </p>
      *
-     * @param taskList The list of tasks to be displayed.
      * @param header The header to be displayed before listing the tasks.
-     * @return A formatted string listing all tasks, or a message indicating no tasks were found if the list is empty.
+     * @param taskList Varargs parameter representing the tasks to be displayed.
+     * @return A formatted string listing all tasks with their indices, or a message indicating
+     *         that no tasks were found if the varargs parameter is empty.
      */
-    public static String generateTaskListResponse(ArrayList<Task> taskList, String header) {
-        if (taskList.isEmpty()) {
+    public static String generateTaskListResponse(String header, Task... taskList) {
+        if (taskList.length == 0) {
             return "No tasks found\n";
         }
 
         StringBuilder sb = new StringBuilder();
         sb.append(header).append("\n");
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
+        for (int i = 0; i < taskList.length; i++) {
+            Task task = taskList[i];
             sb.append(String.format("%d.%s\n", i + 1, task));
         }
         return sb.toString();
