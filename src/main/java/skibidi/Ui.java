@@ -1,4 +1,4 @@
-package common;
+package skibidi;
 
 public class Ui {
     private String logo = "   _____ _  _______ ____ _____ _____ _____\n"

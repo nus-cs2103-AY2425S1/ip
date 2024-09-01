@@ -1,8 +1,8 @@
 package commands;
 
-import common.Command;
-import common.SkibidiException;
-import common.Ui;
+import skibidi.Command;
+import skibidi.SkibidiException;
+import skibidi.Ui;
 import storage.TaskStorage;
 import storage.Deadline;
 

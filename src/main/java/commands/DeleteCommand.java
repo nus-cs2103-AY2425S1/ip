@@ -1,10 +1,10 @@
 package commands;
 
-import common.Ui;
-import common.Command;
+import skibidi.Ui;
+import skibidi.Command;
 import storage.Task;
 import storage.TaskStorage;
-import common.SkibidiException;
+import skibidi.SkibidiException;
 
 import java.io.IOException;
 

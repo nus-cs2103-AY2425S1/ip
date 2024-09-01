@@ -1,7 +1,7 @@
 package commands;
 
-import common.Command;
-import common.Ui;
+import skibidi.Command;
+import skibidi.Ui;
 import storage.Task;
 import storage.TaskStorage;
 
