@@ -83,6 +83,11 @@ public class Parser {
             }
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             return new DeleteCommand(taskIndex);
+        case "find":
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new HanaException("OOPS!!! The search keyword cannot be empty.");
+            }
+            return new FindCommand(parts[1]);
         case "bye":
             return new ExitCommand();
         default:
