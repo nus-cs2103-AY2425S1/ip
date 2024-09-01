@@ -13,8 +13,12 @@ public class Task {
     }
     public String toString() {
         String status;
-        if(done) status = "[X] ";
-        else status = "[ ] ";
+        if(done) {
+            status = "[X] ";
+        }
+        else {
+            status = "[ ] ";
+        }
         return status + task;
     }
     public boolean isReal(){
