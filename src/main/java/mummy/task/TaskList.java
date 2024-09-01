@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 /**
  * Represents a list of tasks.
- * 
  * @see Task
  * @see TaskListException
  */
@@ -25,7 +24,6 @@ public class TaskList {
 
     /**
      * Constructs a TaskList object.
-     * 
      * @param lines the list of strings representing the tasks
      */
     public TaskList(List<String> lines) {

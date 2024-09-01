@@ -37,7 +37,6 @@ public class Ui {
 
     /**
      * Reads the next command from the user.
-     * 
      * @return The command entered by the user as a string.
      */
     public String readCommand() {

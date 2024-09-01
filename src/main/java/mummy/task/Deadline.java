@@ -51,7 +51,6 @@ public class Deadline extends Task {
 
     /**
      * Returns the due date of the task as a LocalDate object.
-     * 
      * @return The due date of the task as a LocalDate object, or null if the due date is not in a valid format.
      */
     public LocalDate getDueByLocalDate() {

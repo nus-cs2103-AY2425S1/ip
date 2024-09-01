@@ -8,6 +8,10 @@ import mummy.ui.MummyException;
 import mummy.ui.Ui;
 import mummy.utility.Storage;
 
+/**
+ * Represents a command to add a new ToDo task.
+ * Inherits from the Command class.
+ */
 public class ToDoCommand extends Command {
 
     public ToDoCommand(HashMap<String, String> arguments) {

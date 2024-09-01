@@ -11,7 +11,8 @@ import mummy.utility.Storage;
 
 /**
  * Represents an abstract class for commands in the application.
- * Each command is responsible for executing a specific action and can be extended to implement different types of commands.
+ * Each command is responsible for executing a specific action and
+ * can be extended to implement different types of commands.
  */
 public abstract class Command {
 
@@ -92,7 +93,6 @@ public abstract class Command {
         }
     }
 
-    
     /**
      * Adds a task to the task list.
      *

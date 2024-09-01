@@ -26,7 +26,6 @@ public class Storage {
 
     /**
      * Loads data from the specified file.
-     * 
      * @return An ArrayList of strings containing the lines of the file.
      * @throws IOException If an I/O error occurs while reading the file.
      */
@@ -54,7 +53,6 @@ public class Storage {
 
     /**
      * Saves the collection of lines to the file specified by the current IO path.
-     * 
      * @param lines the collection of lines to be saved
      * @throws IOException if an I/O error occurs while writing to the file
      */
