@@ -1,3 +1,7 @@
+package nimbus.task;
+
+import nimbus.exception.WrongDateTimeFormatException;
+import nimbus.ui.DateTime;
 
 public class EventTask extends Task {
     private final String taskName;

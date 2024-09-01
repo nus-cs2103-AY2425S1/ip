@@ -1,3 +1,9 @@
+package nimbus.command;
+
+import nimbus.task.Task;
+import nimbus.ui.TaskList;
+import nimbus.ui.Ui;
+
 import java.util.ArrayList;
 
 public class MarkCommand extends Command {
@@ -21,7 +27,7 @@ public class MarkCommand extends Command {
             System.out.println("Already Marked");
         } else if (index < tasks.size()) {
             tasks.get(index).complete();
-            System.out.println("Nimbus shall mark this as done:\n" +
+            System.out.println("Nimbus.Nimbus shall mark this as done:\n" +
                     "    " + tasks.get(index).toString() + Ui.horizontalLine);
         }
     }

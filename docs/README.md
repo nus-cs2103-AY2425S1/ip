@@ -1,4 +1,4 @@
-# Nimbus User Guide
+# nimbus.nimbus User Guide
 
 // Update the title above to match the actual product name
 
@@ -22,27 +22,27 @@ expected output
 
 ## Level 0
 
-Nimbus is now able to say hi and bye!
+nimbus.nimbus is now able to say hi and bye!
 
-Check out the ASCII art when you start Nimbus!
+Check out the ASCII art when you start nimbus.nimbus!
 
 
 ## Level 1
 
-Nimbus is mimicking you.
+nimbus.nimbus is mimicking you.
 
 ## Level 2
 
-Nimbus can now add tasks into a list
+nimbus.nimbus can now add tasks into a list
 
-Nimbus can show you your list
+nimbus.nimbus can show you your list
 
 ## Level 3
 
-Nimbus can mark tasks as completed or incomplete
+nimbus.nimbus can mark tasks as completed or incomplete
 
-Nimbus will tell you if the task exist if it is out of range
+nimbus.nimbus will tell you if the task exist if it is out of range
 
 ## Level 4
 
-Nimbus now knows how to handle todo, deadline and event task types
+nimbus.nimbus now knows how to handle todo, deadline and event task types

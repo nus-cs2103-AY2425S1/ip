@@ -1,3 +1,7 @@
+package nimbus.ui;
+
+import nimbus.exception.*;
+
 import java.io.*;
 
 public class Nimbus {

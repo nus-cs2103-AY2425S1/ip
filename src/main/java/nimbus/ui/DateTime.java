@@ -1,3 +1,7 @@
+package nimbus.ui;
+
+import nimbus.exception.WrongDateTimeFormatException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -5,7 +9,7 @@ import java.time.format.DateTimeParseException;
 public class DateTime {
     LocalDateTime dateTime;
 
-    public DateTime(String dateTime) throws WrongDateTimeFormatException{
+    public DateTime(String dateTime) throws WrongDateTimeFormatException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
             this.dateTime = LocalDateTime.parse(dateTime, formatter);

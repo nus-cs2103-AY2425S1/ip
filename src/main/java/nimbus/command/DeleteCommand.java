@@ -1,3 +1,9 @@
+package nimbus.command;
+
+import nimbus.task.Task;
+import nimbus.ui.TaskList;
+import nimbus.ui.Ui;
+
 import java.util.ArrayList;
 
 public class DeleteCommand  extends Command {
@@ -23,7 +29,7 @@ public class DeleteCommand  extends Command {
             String temp = tasks.get(index).toString();
             Task task = tasks.get(index);
             taskList.delete(task);
-            System.out.println("Nimbus has removed the task! \n" +
+            System.out.println("Nimbus.Nimbus has removed the task! \n" +
                     "    " + temp + "\n" + "You have " + tasks.size() + " tasks left!" + Ui.horizontalLine);
         }
     }

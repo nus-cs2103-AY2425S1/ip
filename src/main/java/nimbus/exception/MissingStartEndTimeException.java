@@ -1,9 +1,13 @@
+package nimbus.exception;
+
+import nimbus.ui.Ui;
+
 public class MissingStartEndTimeException extends Exception {
-    private static String horizontalLine = "\n-------------------------------------------------";
+
     private String missing;
 
     public MissingStartEndTimeException(String missing) {
-        super("Nimbus noticed that you did not include the " + missing + horizontalLine);
+        super("Nimbus.Nimbus noticed that you did not include the " + missing + Ui.horizontalLine);
     }
 
     @Override

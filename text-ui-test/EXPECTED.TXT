@@ -13,49 +13,49 @@ Hello from
 ------------------------------------------------- 
 How can I help you today~ UwU
 -------------------------------------------------
-Nimbus added this: 
+nimbus.nimbus added this:
 [T][ ] Tutorial
 -------------------------------------------------
 Oh noo, you cant leave the description of todo empty!!
 -------------------------------------------------
-Nimbus added this:
+nimbus.nimbus added this:
 [D][ ] quiz  (by: 2pm)
 -------------------------------------------------
 Oh noo, you cant leave the description of deadline empty!!
 -------------------------------------------------
-Nimbus noticed that you did not include a deadline! Use /by!
+nimbus.nimbus noticed that you did not include a deadline! Use /by!
 -------------------------------------------------
-Nimbus added this:
+nimbus.nimbus added this:
 [E][ ] signature event  from: Monday 7pm  to: 8pm
 -------------------------------------------------
 Oh noo, you cant leave the description of event empty!!
 -------------------------------------------------
-Nimbus noticed that you did not include the /from
+nimbus.nimbus noticed that you did not include the /from
 -------------------------------------------------
-Nimbus noticed that you did not include the /to
+nimbus.nimbus noticed that you did not include the /to
 -------------------------------------------------
-Nimbus says this is your list:
+nimbus.nimbus says this is your list:
 1. [T][ ] Tutorial
 2. [D][ ] quiz  (by: 2pm)
 3. [E][ ] signature event  from: Monday 7pm  to: 8pm
 -------------------------------------------------
-Nimbus shall mark this as done:
+nimbus.nimbus shall mark this as done:
     [T][X] Tutorial
 -------------------------------------------------
-Nimbus shall mark this as done:
+nimbus.nimbus shall mark this as done:
     [D][X] quiz  (by: 2pm)
 -------------------------------------------------
-Nimbus shall mark this as not done:
+nimbus.nimbus shall mark this as not done:
     [T][ ] Tutorial
 -------------------------------------------------
-Nimbus says this is your list:
+nimbus.nimbus says this is your list:
 1. [T][ ] Tutorial
 2. [D][X] quiz  (by: 2pm)
 3. [E][ ] signature event  from: Monday 7pm  to: 8pm
 -------------------------------------------------
-Sorry Nimbus don't understand what you are saying QwQ
+Sorry nimbus.nimbus don't understand what you are saying QwQ
 Try using todo, deadline or event!
 -------------------------------------------------
 There is no task 10
-Nimbus: BAIBAI! NIMBUS WEEEEEEEEE
+nimbus.nimbus: BAIBAI! NIMBUS WEEEEEEEEE
 -------------------------------------------------

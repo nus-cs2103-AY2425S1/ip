@@ -1,3 +1,13 @@
+package nimbus.command;
+
+import nimbus.exception.*;
+import nimbus.task.DeadlineTask;
+import nimbus.task.EventTask;
+import nimbus.task.Task;
+import nimbus.task.TodoTask;
+import nimbus.ui.TaskList;
+import nimbus.ui.Ui;
+
 import java.util.ArrayList;
 
 public class AddCommand extends Command {
@@ -56,8 +66,8 @@ public class AddCommand extends Command {
                 System.out.println("Please use keywords: todo, deadline or event");
                 return;
             }
-            System.out.println("Nimbus added this: \n" + tasks.get(tasks.size() - 1).toString() +
-                    "\n" + "Nimbus says you have " + tasks.size() + " tasks in your list!" + Ui.horizontalLine);
+            System.out.println("Nimbus.Nimbus added this: \n" + tasks.get(tasks.size() - 1).toString() +
+                    "\n" + "Nimbus.Nimbus says you have " + tasks.size() + " tasks in your list!" + Ui.horizontalLine);
         } catch (WrongInputException e) {
             System.out.println(e.toString());
         } catch (MissingDescriptionException u) {

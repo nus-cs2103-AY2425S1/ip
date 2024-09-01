@@ -1,3 +1,7 @@
+package nimbus.ui;
+
+import nimbus.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -21,7 +25,7 @@ public class TaskList {
 
     @Override
     public String toString() {
-        String output = "Nimbus says this is your list: \n";
+        String output = "Nimbus.Nimbus says this is your list: \n";
         for (int i = 0; i < taskList.size(); i++) {
             if (i == taskList.size() - 1) {
                 output += (String.valueOf(i + 1) + ". " + taskList.get(i));

@@ -1,3 +1,8 @@
+package nimbus.task;
+
+import nimbus.exception.WrongDateTimeFormatException;
+import nimbus.ui.DateTime;
+
 public class DeadlineTask extends Task {
     private String taskName;
     private DateTime deadline;

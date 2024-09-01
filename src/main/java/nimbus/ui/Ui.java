@@ -1,3 +1,7 @@
+package nimbus.ui;
+
+import nimbus.exception.*;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -34,8 +38,7 @@ public class Ui {
         System.out.println(endingMessage);
     }
 
-    public void run() throws MissingStartEndTimeException, MissingDeadlineException,
-            MissingDescriptionException, WrongInputException, WrongDateTimeFormatException, IOException {
+    public void run() throws WrongDateTimeFormatException, IOException {
 
         Parser parser = new Parser(taskList);
         String userInput ="";

@@ -1,3 +1,11 @@
+package nimbus.ui;
+
+import nimbus.exception.WrongDateTimeFormatException;
+import nimbus.task.DeadlineTask;
+import nimbus.task.EventTask;
+import nimbus.task.Task;
+import nimbus.task.TodoTask;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -57,10 +65,10 @@ public class Storage {
                             TodoTask todoTask;
                             todoTask = new TodoTask(description, isCompleted);
                             taskList.add(todoTask);
-//                            logger.log(Level.INFO,"Todo Task is added");
+//                            logger.log(Level.INFO,"Todo nimbus.task.Task is added");
                         } else {
                             logger.log(Level.WARNING, "Corrupted Line: " + line +
-                                    " Line wrong format for TodoTask");
+                                    " Line wrong format for nimbus.task.TodoTask");
                         }
                         break;
                     case "D":
@@ -70,10 +78,10 @@ public class Storage {
                             DeadlineTask deadlineTask = new DeadlineTask(description,
                                     isCompleted, deadline);
                             taskList.add(deadlineTask);
-//                            logger.log(Level.INFO,"Deadline Task is added");
+//                            logger.log(Level.INFO,"Deadline nimbus.task.Task is added");
                         } else {
                             logger.log(Level.WARNING, "Corrupted Line: " + line +
-                                    " Line wrong format for DeadlineTask");
+                                    " Line wrong format for nimbus.task.DeadlineTask");
                         }
                         break;
                     case "E":
@@ -93,14 +101,14 @@ public class Storage {
                             EventTask eventTask = new EventTask(description, isCompleted,
                                     startTime, endTime);
                             taskList.add(eventTask);
-//                            logger.log(Level.INFO,"Event Task is added");
+//                            logger.log(Level.INFO,"Event nimbus.task.Task is added");
                         } else {
                             logger.log(Level.WARNING, "Corrupted Line: " + line +
-                                    " Line wrong format for EventTask");
+                                    " Line wrong format for nimbus.task.EventTask");
                         }
                         break;
                     default:
-                        logger.log(Level.WARNING, "Task does not start with T/D/E: " + line);
+                        logger.log(Level.WARNING, "nimbus.task.Task does not start with T/D/E: " + line);
                         break;
                     }
                 }
