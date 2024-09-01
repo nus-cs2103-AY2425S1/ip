@@ -91,4 +91,20 @@ public class TaskList {
         Ui ui = new Ui();
         ui.showDeleteTaskMessage(arrayLists, task);
     }
+
+    public void findTask(ArrayList<Task> arrayLists, String searchContent) {
+        ArrayList<Task> result = new ArrayList<>();
+
+        for (int i = 0; i < arrayLists.size(); i++) {
+            Task task = arrayLists.get(i);
+            String taskDescription = task.getDescription().toLowerCase();
+
+            if (taskDescription.contains(searchContent)) {
+                result.add(task);
+            }
+        }
+
+        Ui ui = new Ui();
+        ui.printList(result);
+    }
 }
