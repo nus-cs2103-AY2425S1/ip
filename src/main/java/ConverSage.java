@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -151,6 +154,24 @@ public class ConverSage {
 
                     saveTasks(taskList);
                     System.out.println(horizontalLine);
+                } else if (input.startsWith("tasks on ")) {
+                    try {
+                        
+                        LocalDateTime date = LocalDate.parse(input.substring(9).trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
+                        System.out.println("Here are the tasks on " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
+                        for (Task task : taskList) {
+                            if (task instanceof Deadline && ((Deadline) task).deadline.toLocalDate().equals(date.toLocalDate())) {
+                                System.out.println(task);
+                            } else if (task instanceof Event && ((Event) task).from.toLocalDate().equals(date.toLocalDate())) {
+                                System.out.println(task);
+                            }
+                        }
+
+                    } catch (Exception e) {
+                        System.out.println("ERR: Invalid date/time format! Please use this format: yyyy-MM-dd HHmm");
+                    }
+                    System.out.println(horizontalLine);
+
                 } else {
                     throw new ConverSageException("Invalid command, please try again");
                 }
