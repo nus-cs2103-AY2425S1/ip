@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,7 +22,7 @@ public class Storage {
         }
     }
 
-    public TaskList load() {
+    public ArrayList<Task> load() {
         ArrayList<Task> taskArrayList = new ArrayList<Task>();
         this.taskList = new TaskList(taskArrayList);
         while (scanner.hasNextLine()) {
@@ -41,7 +40,7 @@ public class Storage {
         }
         Task.count = taskArrayList.size() + 1;
         scanner.close();
-        return this.taskList;
+        return taskArrayList;
     }
 
     public void writeFile(Ui ui) {
