@@ -14,16 +14,15 @@ import morgana.task.Task;
 import morgana.task.TaskList;
 
 /**
- * Handles the storage and retrieval of tasks from a file.
- * The Storage class is responsible for reading tasks from a file and
- * saving tasks to a file.
+ * Handles the persistent storage of tasks, providing methods to read tasks
+ * from a file and write tasks to a file.
  */
 public class Storage {
     private final String filePath;
 
     /**
-     * Constructs a Storage object with the specified file path.
-     * If the file or its parent directories do not exist, they are created.
+     * Constructs a {@code Storage} object with the specified file path.
+     * If the file does not exist, it will be created along with any necessary directories.
      *
      * @param filePath The path to the file where tasks will be stored.
      * @throws MorganaException If an error occurs while initializing the storage.
@@ -65,8 +64,9 @@ public class Storage {
 
     /**
      * Saves the given list of tasks to the associated storage file.
+     * Each task is converted to a file-friendly format before being written to the file.
      *
-     * @param tasks The list of tasks to be saved.
+     * @param tasks The {@code TaskList} containing the tasks to be saved.
      * @throws MorganaException If an error occurs while saving the tasks.
      */
     public void save(TaskList tasks) throws MorganaException {

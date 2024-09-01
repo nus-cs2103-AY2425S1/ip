@@ -7,9 +7,17 @@ import morgana.task.Task;
 import morgana.task.TaskList;
 import morgana.ui.Ui;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private final String args;
 
+    /**
+     * Constructs a {@code MarkCommand} with the specified arguments.
+     *
+     * @param args The string containing the task index to be marked as done.
+     */
     public MarkCommand(String args) {
         this.args = args;
     }
