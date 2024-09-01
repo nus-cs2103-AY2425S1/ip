@@ -8,6 +8,10 @@ import mummy.ui.MummyException;
 import mummy.ui.Ui;
 import mummy.utility.Storage;
 
+/**
+ * Represents a command to add an event task.
+ * Inherits from the Command class.
+ */
 public class EventCommand extends Command {
 
     public EventCommand(HashMap<String, String> arguments) {

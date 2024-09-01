@@ -4,6 +4,11 @@ import mummy.task.TaskList;
 import mummy.ui.Ui;
 import mummy.utility.Storage;
 
+/**
+ * Represents a command to exit the program.
+ * When executed, it displays a farewell message to the user.
+ * This command is used to terminate the program.
+ */
 public class ByeCommand extends Command {
 
     @Override
