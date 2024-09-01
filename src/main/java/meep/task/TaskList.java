@@ -118,6 +118,17 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Searches for tasks in the task list that contain the specified keyword.
+     * <p>
+     * This method iterates through all tasks in the list and checks if the task description
+     * (converted to lowercase) contains the given keyword (also converted to lowercase).
+     * Tasks that match the criteria are added to a new {@code TaskList} object.
+     * </p>
+     *
+     * @param keyword The keyword to search for in the task descriptions. It is case-insensitive.
+     * @return A formatted string of tasks that contain the keyword. If no tasks match, an empty string is returned.
+     */
     public String findTasks(String keyword) {
         TaskList foundTasks = new TaskList();
         for (Task task : this.tasks) {

@@ -230,6 +230,14 @@ public class Ui {
                 """);
     }
 
+    /**
+     * Displays a list of tasks that match the search criteria.
+     * <p>
+     * This method prints the tasks that match the search criteria, formatted with a header and footer.
+     * </p>
+     *
+     * @param tasks The formatted string of tasks that match the search criteria.
+     */
     public void findTasks(String tasks) {
         System.out.println("""
                 -----------------------------------------
@@ -239,6 +247,9 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays an error message for an invalid find command.
+     */
     public void invalidFindCommand() {
         System.out.println("""
                 -----------------------------------------
@@ -247,4 +258,5 @@ public class Ui {
                 -----------------------------------------
                 """);
     }
+
 }
