@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
@@ -13,7 +14,7 @@ public class Event extends Task {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
 
-    Event(String inputLine) {
+    Event(String inputLine) throws JanetException {
         // inside the program this will be called
         super(createEventCommand(inputLine).getDescription(), createEventCommand(inputLine).getSymbol());
         this.startDate = createEventCommand(inputLine).startDate;
@@ -38,7 +39,7 @@ public class Event extends Task {
      * @param commandDetails a String[], where each element corresponds to a word of the user input.
      * @return a String[], where first elem = janet.Event.description, second elem = janet.Event.startDate, third elem = janet.Event.endDate.
      */
-    public static String[] findEventDetails(String[] commandDetails) {
+    public static String[] findEventDetails(String[] commandDetails) throws JanetException {
         int indexOfFrom = 0;
         int indexOfTo = 0;
         // first word in commandDetails must be event, so start from i=1 word
@@ -51,26 +52,33 @@ public class Event extends Task {
             }
         }
         // get the description
-        String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfFrom);
-        String description = String.join(" ", descriptionArray);
+        String description = null;
+        String startDateAndTime = null;
+        String endDateAndTime = null;
+        try {
+            String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfFrom);
+            description = String.join(" ", descriptionArray);
 
-        // get the start date (yyyy-mm-dd)
-        LocalDate startDate = LocalDate.parse(commandDetails[indexOfFrom + 1]);
-        String outputStartDate = startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            // get the start date (yyyy-mm-dd)
+            LocalDate startDate = LocalDate.parse(commandDetails[indexOfFrom + 1]);
+            String outputStartDate = startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
 
-        // get the start time (hh:mm, 24hr format)
-        LocalTime inputStartTime = LocalTime.parse(commandDetails[indexOfFrom + 2]);
-        String outputStartTime = inputStartTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
-        String startDateAndTime = outputStartDate + " " + outputStartTime;
+            // get the start time (hh:mm, 24hr format)
+            LocalTime inputStartTime = LocalTime.parse(commandDetails[indexOfFrom + 2]);
+            String outputStartTime = inputStartTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+            startDateAndTime = outputStartDate + " " + outputStartTime;
 
-        // get the end date (yyyy-mm-dd)
-        LocalDate endDate = LocalDate.parse(commandDetails[indexOfTo + 1]);
-        String outputEndDate = endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            // get the end date (yyyy-mm-dd)
+            LocalDate endDate = LocalDate.parse(commandDetails[indexOfTo + 1]);
+            String outputEndDate = endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
 
-        // get the end time
-        LocalTime inputEndTime = LocalTime.parse(commandDetails[indexOfTo + 2]);
-        String outputEndTime = inputEndTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
-        String endDateAndTime = outputEndDate + " " + outputEndTime;
+            // get the end time
+            LocalTime inputEndTime = LocalTime.parse(commandDetails[indexOfTo + 2]);
+            String outputEndTime = inputEndTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+            endDateAndTime = outputEndDate + " " + outputEndTime;
+        } catch (DateTimeParseException e) {
+            throw new JanetException("WHOOPS! Ensure that the start & end date are in the format: yyyy-MM-dd hh:mm (24hr)");
+        }
         return new String[]{description, startDateAndTime, endDateAndTime};
     }
 
@@ -82,10 +90,10 @@ public class Event extends Task {
      * @param inputLine User's command that was typed into the command line.
      * @return new Event object.
      */
-    public static Event createEventCommand(String inputLine) {
+    public static Event createEventCommand(String inputLine) throws JanetException {
         String[] commandDetails = inputLine.split(" ");
         String[] eventDetails = findEventDetails(commandDetails);
-        DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+        DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");    // format the date and time
         String startDateAndTimeString = eventDetails[1];
         LocalDateTime startDateAndTime = LocalDateTime.parse(startDateAndTimeString, stringToDateTime);
 

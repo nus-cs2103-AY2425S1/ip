@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Arrays;
 public class Deadline extends Task {
     private final LocalDateTime dueDate;
 
-    Deadline(String inputLine) {
+    Deadline(String inputLine) throws JanetException {
         // inside the program this will be called
         super(createDeadlineCommand(inputLine).getDescription(), createDeadlineCommand(inputLine).getSymbol());
         this.dueDate = createDeadlineCommand(inputLine).dueDate;
@@ -34,7 +35,7 @@ public class Deadline extends Task {
      * @param commandDetails a String[], where each element corresponds to a word of the user input.
      * @return a String[], where first elem = janet.Deadline.description, second elem = janet.Deadline.dueDate.
      */
-    public static String[] findDeadlineDetails(String[] commandDetails) {
+    public static String[] findDeadlineDetails(String[] commandDetails) throws JanetException {
         int indexOfBy = 0;
         // first word in commandDetails must be deadline, so start from the i=1 word
         for (int i = 1; i < commandDetails.length; i++) {
@@ -45,15 +46,20 @@ public class Deadline extends Task {
         // get description of janet.Deadline
         String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfBy);
         String description = String.join(" ", descriptionArray);
-        // get due date
-        String inputDate  = commandDetails[commandDetails.length - 2];    // yyyy-mm-dd
-        LocalDate date = LocalDate.parse(inputDate);
-        String outputDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        // get time
-        String inputTime = commandDetails[commandDetails.length - 1];
-        LocalTime time = LocalTime.parse(inputTime);
-        String outputTime = time.format(DateTimeFormatter.ofPattern("hh:mm a"));
-        String dueDate = outputDate + " " + outputTime;
+        String dueDate = null;
+        try {   // code will try to convert the input into a LocalDate/LocalTime
+            // get due date
+            String inputDate  = commandDetails[commandDetails.length - 2];    // yyyy-mm-dd
+            LocalDate date = LocalDate.parse(inputDate);
+            String outputDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            // get time
+            String inputTime = commandDetails[commandDetails.length - 1];
+            LocalTime time = LocalTime.parse(inputTime);
+            String outputTime = time.format(DateTimeFormatter.ofPattern("hh:mm a"));
+            dueDate = outputDate + " " + outputTime;
+        } catch (DateTimeParseException e) {
+            throw new JanetException("WHOOPS! Ensure that the due date is in the format: yyyy-MM-dd hh:mm (24hr)");
+        }
         return new String[]{description, dueDate};
     }
 
@@ -65,7 +71,7 @@ public class Deadline extends Task {
      * @param inputLine User's command that was typed into the command line.
      * @return new Deadline object.
      */
-    public static Deadline createDeadlineCommand(String inputLine) {
+    public static Deadline createDeadlineCommand(String inputLine) throws JanetException {
         String[] commandDetails = inputLine.split(" ");
         String[] deadlineDetails = findDeadlineDetails(commandDetails);     // (description, MMM dd yyyy hh:mm a)
         String dateAndTimeString = deadlineDetails[1];    // MMM dd yyyy hh:mm a
