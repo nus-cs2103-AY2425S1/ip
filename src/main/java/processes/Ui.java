@@ -2,7 +2,6 @@ package processes;
 
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import tasks.Task;
 
@@ -12,84 +11,120 @@ import tasks.Task;
  */
 public class Ui {
 
-    private Scanner scanner;
-
-    /**
-     * Constructor for Ui object.
-     * Creates new scanner to take in user input
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Prints a line onto the terminal to separate lines of output text from the programme.
-     */
-    public static void printLine() {
-        int length = 75;
-        for (int i = 0; i < length; i++) {
-            System.out.print('-');
-            if (i == length - 1) {
-                System.out.println();
-            }
-        }
-    }
-
     /**
      * Called when the programme just starts.
      * Prints the welcome message onto the terminal to greet the user.
+     *
+     * @param name Name of the chatbot
+     * @return The welcome message to print in the GUI
      */
-    public void showWelcomeMessage(String name) {
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you? \n");
-        printLine();
+    public String showWelcomeMessage(String name) {
+        return "Hello! I'm " + name + "\n";
     }
 
     /**
      * Called when the programme is terminated.
-     * Prints the goodbye message onto the terminal for the user.
-     */
-    public void showGoodbyeMessage() {
-        System.out.println("Bye. Hope to see you again soon! \n");
-        printLine();
-    }
-
-    /**
-     * Takes in the user's input as one whole line, the pass it to other objects.
+     * Returns the goodbye message onto the terminal for the user.
      *
-     * @return The string of the user input.
+     * @return The goodbye message
      */
-    public String readCommand() {
-        return scanner.nextLine();
+    public String showGoodbyeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
+
     /**
-     * Prints the list of tasks on the terminal for the user.
+     * Returns the list of tasks on the terminal for the user.
      *
      * @param taskList The current list of tasks
+     * @return The string containing the list of tasks
      */
-    public void showTaskList(ArrayList<Task> taskList) {
-        System.out.println("Your current tasks are: ");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i + 1 + "." + taskList.get(i).toString());
+    public String showTaskList(ArrayList<Task> taskList) {
+        if (taskList.size() > 0) {
+            StringBuilder res = new StringBuilder("Your current tasks are: \n");
+            for (int i = 0; i < taskList.size(); i++) {
+                res.append((i + 1) + "." + taskList.get(i).toString() + "\n");
+            }
+            return res.toString();
+        } else {
+            return "You currently have no tasks!";
         }
+
     }
 
     /**
      * Takes in a message and prints it onto the terminal, useful for showing exception messages.
      *
      * @param message The message that should be printed onto the terminal
+     * @return The message to print in the GUI
      */
-    public void showMessage(String message) {
-        System.out.println(message);
-        printLine();
+    public String showMessage(String message) {
+        return message;
     }
 
     /**
-     * Called when the programme terminates.
-     * No longer need to take in user input, can close the scanner
+     * Takes in the task that was marked and returns the feedback.
+     * Informs the user that the task is successfully marked
+     *
+     * @param markedTask The task that was just marked.
+     * @return The success message
      */
-    public void close() {
-        scanner.close();
+    public String showMarked(Task markedTask) {
+        return "task\n  " + markedTask.toString() + "\nis marked!";
+    }
+
+    /**
+     * Takes in the task that was unmarked and returns the feedback.
+     * Informs the user that the task is successfully unmarked
+     *
+     * @param unmarkedTask The task that was just unmarked.
+     * @return The success message
+     */
+    public String showUnmarked(Task unmarkedTask) {
+        return "task\n  " + unmarkedTask.toString() + "\nis unMarked!";
+    }
+
+    /**
+     * Takes in the task that was just added and the current size of taskList.
+     * Informs the user that the task is successfully added.
+     *
+     * @param added The task that was just added.
+     * @param taskListSize The current size of the taskList
+     * @return The success message
+     */
+    public String addedTask(Task added, int taskListSize) {
+        return "I have added the task " + added.toString() + "\nYou now have " + taskListSize + " task(s)";
+    }
+
+    /**
+     * Takes in the task that was just deleted and the current size of taskList.
+     * Informs the user that the task was successfully deleted.
+     *
+     * @param deleted The task that was just deleted.
+     * @param taskListSize The current size of the taskList
+     * @return The success message
+     */
+    public String deletedTask(Task deleted, int taskListSize) {
+        return "The task\n " + deleted.toString() + "\nhas been removed!\nYou now have "
+                + taskListSize + " tasks left.";
+    }
+
+    /**
+     * Takes in the list of tasks that matched the user's search.
+     * Returns the list of tasks to the user.
+     *
+     * @param matchList The list of tasks that matched the user's search
+     * @return The success message
+     */
+    public String showMatchedTasks(ArrayList<Task> matchList) {
+        if (matchList.isEmpty()) {
+            return "There are no tasks in your list that match " + "'prompt'";
+        } else {
+            StringBuilder res = new StringBuilder("Here are the matching task(s) in your list: ");
+            for (int i = 0; i < matchList.size(); i++) {
+                res.append((i + 1) + ". " + matchList.get(i).toString());
+            }
+            return res.toString();
+        }
     }
 }

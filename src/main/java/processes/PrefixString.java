@@ -13,7 +13,8 @@ public enum PrefixString {
     DEADLINE("deadline "),
     EVENT("event "),
     DELETE("delete "),
-    FIND("find ");
+    FIND("find "),
+    WELCOME("welcome");
 
     private final String prefix;
 
