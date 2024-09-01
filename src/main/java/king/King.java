@@ -33,6 +33,6 @@ public class King {
     }
 
     public static void main(String[] args) {
-        new King("data/tasks.txt").run();
+        new King("data/King.txt").run();
     }
 }
