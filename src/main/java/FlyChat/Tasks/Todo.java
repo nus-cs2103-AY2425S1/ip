@@ -1,4 +1,4 @@
-package Tasks;
+package FlyChat.Tasks;
 
 import java.util.InputMismatchException;
 

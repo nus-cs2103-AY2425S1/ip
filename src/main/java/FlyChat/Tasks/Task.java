@@ -1,4 +1,4 @@
-package Tasks;
+package FlyChat.Tasks;
 
 
 public class Task {
