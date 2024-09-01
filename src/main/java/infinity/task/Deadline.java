@@ -5,12 +5,13 @@ import java.time.LocalDateTime;
 
 import infinity.infinityexception.InfinityException;
 import infinity.parser.Parser;
+import infinity.ui.Ui;
 
 /**
  * This class is the deadline task that the bot will recognise and manage.
  */
 public class Deadline extends Task {
-    private LocalDateTime byDate;
+    private final LocalDateTime byDate;
 
     /**
      * Constructor for the Deadline class.
@@ -27,9 +28,13 @@ public class Deadline extends Task {
 
             this.setTypeOfTask("D");
         } catch (DateTimeException e) {
-            throw new InfinityException("""
+            throw new InfinityException(Ui.botSays("""
+                    Oops, I think your date format is a little wrong.
+                    I only understand dates in the format of DD-MM-YYYY HHMM or DD/MM/YYYY HHMM"""));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InfinityException(Ui.botSays("""
                     Oops, I think your format is a little wrong.
-                    I only understand dates in the format of DD-MM-YYYY HHMM or DD/MM/YYYY HHMM""");
+                    Did you forget the date, '/' or the task?"""));
         }
     }
 
@@ -57,7 +62,7 @@ public class Deadline extends Task {
     @Override
     public String saveFileFormat(String delimiter) {
         return String.format("%s%s%s%s%s%s%s",
-                Character.toString(this.typeOfTask), delimiter,
+                this.typeOfTask, delimiter,
                 this.isDone ? "1" : "0", delimiter,
                 Parser.parseDateTimeString(byDate), delimiter,
                 this.description);
@@ -66,7 +71,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("[%s][%s] %s (by: %s)",
-                Character.toString(this.typeOfTask),
+                this.typeOfTask,
                 this.isDone ? "X" : " ",
                 this.description,
                 Parser.parseDateTimeStringAlt(byDate));

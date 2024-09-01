@@ -1,13 +1,14 @@
 package infinity.task;
 
 import infinity.infinityexception.InfinityException;
+import infinity.ui.Ui;
 
 /**
  * This class is the event task that the bot will recognise and manage.
  */
 public class Event extends Task {
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
     /**
      * Constructor for the Event class.
@@ -22,7 +23,7 @@ public class Event extends Task {
             this.to = description.split(" /to ")[1];
             this.setTypeOfTask("E");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InfinityException("oops, I think your format is a little wrong");
+            throw new InfinityException(Ui.botSays("oops, I think your format is a little wrong"));
         }
     }
 

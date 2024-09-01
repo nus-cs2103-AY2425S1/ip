@@ -1,37 +1,76 @@
 package infinity.ui.components;
 
-import javafx.geometry.Insets;
+import java.io.IOException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+//import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * DialogBox component for each Dialogue in the bot.
+ */
 public class DialogBox extends HBox {
-
+    @FXML
     private Label text;
+    @FXML
     private ImageView displayPicture;
 
-    public DialogBox(String s, Image i, boolean reverse) {
-        this.text = new Label(s);
-        this.displayPicture = new ImageView(i);
+    /**
+     * Constructor of DialogBox.
+     *
+     * @param s Text for display.
+     * @param i Image of user.
+     * @param reverse To reverse the display order of Text and Image.
+     */
+    private DialogBox(String s, Image i, boolean reverse) {
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(GraphicsMainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        text.setText(s);
+        displayPicture.setImage(i);
 
         //Styling the dialog box
-        this.text.setWrapText(true);
-        this.text.setMinHeight(48.0);
-        this.text.setAlignment(reverse ? Pos.BOTTOM_LEFT : Pos.BOTTOM_RIGHT);
-        this.text.setTextAlignment(reverse ? TextAlignment.LEFT : TextAlignment.RIGHT);
-        this.text.setPadding(new Insets(0, 10, 5, 15));
-        this.displayPicture.setFitWidth(48.0);
-        this.displayPicture.setFitHeight(48.0);
-        this.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
-        this.setAlignment(reverse ? Pos.BOTTOM_LEFT : Pos.BOTTOM_RIGHT);
-
         if (reverse) {
-            this.getChildren().addAll(displayPicture, text);
+            this.flip();
+            this.text.setAlignment(Pos.BOTTOM_LEFT);
+            this.text.setTextAlignment(TextAlignment.LEFT);
         } else {
-            this.getChildren().addAll(text, displayPicture);
+            this.text.setAlignment(Pos.BOTTOM_RIGHT);
+            this.text.setTextAlignment(TextAlignment.RIGHT);
         }
+    }
+
+    public static DialogBox createUserDialog(String s, Image i) {
+        return new DialogBox(s, i, false);
+    }
+
+    public static DialogBox createBotDialog(String s, Image i) {
+        return new DialogBox(s, i, true);
+    }
+
+    /**
+     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     */
+    private void flip() {
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        FXCollections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.BOTTOM_LEFT);
     }
 }

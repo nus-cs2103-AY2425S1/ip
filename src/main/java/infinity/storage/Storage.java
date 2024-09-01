@@ -22,25 +22,14 @@ import infinity.ui.Ui;
  */
 public class Storage {
 
-    /** Filepath Directory for Savefile */
+    /** Filepath Directory for Save file */
     public static final String FILE_DIR_PATH = "../../../../data";
-    /** Filename for Savefile */
+    /** Filename for Save file */
     public static final String FILE_NAME = "save-file.txt";
-    /** Filepath for Savefile */
+    /** Filepath for Save file */
     public static final String FILE_PATH = FILE_DIR_PATH + "/" + FILE_NAME;
-    /** Delimiter for Savefile */
+    /** Delimiter for Save file */
     public static final String DELIMITER = "\0";
-
-    private final Ui botUI;
-
-    /**
-     * Constructor for the Storage class.
-     *
-     * @param botUI The Ui object to interact with the user.
-     */
-    public Storage(Ui botUI) {
-        this.botUI = botUI;
-    }
 
     /**
      * Combines the description of the remainder of the text, if the text includes the delimiter.
@@ -49,7 +38,7 @@ public class Storage {
      * @param startIndex The index to start combining the rest of the description, inclusive.
      * @return The combined description as a String.
      */
-    private String combineDescription(String[] description, int startIndex) {
+    private static String combineDescription(String[] description, int startIndex) {
         StringBuilder combinedDescription = new StringBuilder();
 
         for (int i = startIndex; i < description.length; i++) {
@@ -66,9 +55,9 @@ public class Storage {
      * Reads the file and returns the tasks in the file.
      *
      * @return The tasks in the file as an ArrayList of Task.
+     * @throws InfinityException If there are issues reading the file.
      */
-    public ArrayList<Task> readFile() {
-        @SuppressWarnings("unchecked")
+    public static ArrayList<Task> readFile() throws InfinityException {
         ArrayList<Task> tasks = new ArrayList<>(TaskList.MAX_SIZE);
 
         if (doesFileExist()) {
@@ -106,14 +95,10 @@ public class Storage {
 
                 }
                 file.close();
-            } catch (IOException e) {
-                botUI.botSays(
+            } catch (IOException | InfinityException e) {
+                throw new InfinityException(
                         "I'm sorry, I'm a noob at this, I can't read the file, can you help me debug? "
-                        + e.getMessage());
-            } catch (InfinityException e) {
-                botUI.botSays(
-                        "I'm sorry, I'm a noob at this, I can't read the file, can you help me debug? "
-                        + e.getMessage());
+                                + e.getMessage());
             } catch (NoSuchElementException e) {
                 // Do nothing, likely means end of file
             }
@@ -125,9 +110,10 @@ public class Storage {
      * Saves the tasks into the file.
      *
      * @param tasks The tasks to be saved in an ArrayList of Task.
+     * @return The bot output.
      * @throws InfinityException If there is an error writing to the file.
      */
-    public void saveFile(ArrayList<Task> tasks) throws InfinityException {
+    public static String saveFile(ArrayList<Task> tasks) throws InfinityException {
 
         try {
             createFileIfNotExists();
@@ -141,7 +127,7 @@ public class Storage {
 
             file.close();
 
-            botUI.botSays("Save Successful, Woohoo!");
+            return Ui.botSays("Save Successful, Woohoo!");
         } catch (IOException e) {
             throw new InfinityException(
                     "I'm sorry, I'm a noob at this, I can't save the file, can you help me debug? "
@@ -154,7 +140,7 @@ public class Storage {
      *
      * @return True if exists, false otherwise.
      */
-    private boolean doesFileExist() {
+    private static boolean doesFileExist() {
         File file = new File(FILE_PATH);
         return file.exists() && !file.isDirectory();
     }
@@ -162,16 +148,10 @@ public class Storage {
     /**
      * Creates the file and directory if they do not exist.
      */
-    private void createFileIfNotExists() {
-        try {
-            if (!doesFileExist()) {
-                Files.createDirectories(Paths.get(FILE_DIR_PATH));
-                Files.createFile(Paths.get(FILE_PATH));
-            }
-        } catch (IOException e) {
-            botUI.botSays(
-                    "I'm sorry, I'm a noob at this, I can't create the file, can you help me debug? "
-                    + e.getMessage());
+    private static void createFileIfNotExists() throws IOException {
+        if (!doesFileExist()) {
+            Files.createDirectories(Paths.get(FILE_DIR_PATH));
+            Files.createFile(Paths.get(FILE_PATH));
         }
     }
 }

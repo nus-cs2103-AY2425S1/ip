@@ -1,8 +1,5 @@
 package infinity.ui;
 
-import java.util.Scanner;
-
-import infinity.infinityexception.InfinityException;
 import infinity.task.Task;
 import infinity.tasklist.TaskList;
 
@@ -11,19 +8,32 @@ import infinity.tasklist.TaskList;
  */
 public class Ui {
 
-    private static final String BOT_NAME = "Infinity";
-    private static final String BREAKLINE =
-            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-    private Scanner userInputs = new Scanner(System.in);
+    public static final String BOT_NAME = "Infinity";
+    public static final String BOT_END_STATEMENT = "Well, if you are leaving, then I must be infinitely too dumb :(";
+    private static final String BREAKLINE = "\n";
+    private static final String COMMAND_STRING = """
+                    fields in <> are to be populated as appropriate
 
-    /**
-     * Constructor, Creates a new Ui object.
-     */
-    public Ui() {
-        System.out.println(BREAKLINE);
-        botSays(String.format(
-                "Hello, I'm a dummy bot called %s\n%s", BOT_NAME, "What can I not do for you?"));
-    }
+                    • bye
+                        -> Shutdown the bot
+                    • deadline <task> /by <date in "DD/MM/YYYY HHMM">
+                        -> Add a Deadline task
+                    • delete <index of task>
+                        -> Delete a task
+                    • event <task> /from <period> /to <period>
+                        -> Add an Event task
+                    • find <keyword>
+                        -> Finds all tasks and shows them with the keyword given
+                    • help
+                        -> Show all available commands
+                    • list
+                        ->  all tasks
+                    • mark <index of task>
+                        -> Marks a task as done
+                    • save
+                        -> Saves tasklist manually
+                    • todo <task>
+                        -> Add a Todo task""";
 
     /**
      * Prepends the bot name to the input.
@@ -31,18 +41,18 @@ public class Ui {
      * @param input The String input to prepend the bot name to.
      * @return The input with the bot name prepended.
      */
-    public String prependBotName(String input) {
-        return String.format("%s: %s", BOT_NAME, input);
+    public static String prependBotName(String input) {
+        return String.format("\n%s\n--------\n%s", BOT_NAME, input);
     }
 
     /**
      * Prints the bot's response.
      *
      * @param input The String input to print.
+     * @return The bot output with the bot name above.
      */
-    public void botSays(String input) {
-        System.out.println(prependBotName(input));
-        System.out.println(BREAKLINE);
+    public static String botSays(String input) {
+        return prependBotName(input) + BREAKLINE;
     }
 
     /**
@@ -50,32 +60,31 @@ public class Ui {
      *
      * @param input The String input to print.
      * @param isBreakLine Whether to print a break line after the input.
+     * @return The bot output with or without a breakline.
      */
-    public void botSays(String input, boolean isBreakLine) {
-        System.out.println(prependBotName(input));
-        if (isBreakLine) {
-            System.out.println(BREAKLINE);
-        }
+    public static String botSays(String input, boolean isBreakLine) {
+        return prependBotName(input) + (isBreakLine ? BREAKLINE : "");
     }
 
     /**
      * Lists the tasks in the task list.
      *
      * @param tasks The task list to list.
+     * @return The bot output for the tasks given.
      */
-    public void listTasks(TaskList tasks) {
+    public static String listTasks(TaskList tasks) {
+        StringBuilder finalOutput = new StringBuilder();
         if (tasks.isEmpty()) {
-            System.out.println(prependBotName("Task list is empty :("));
+            finalOutput.append(botSays("Task list is empty :(\n"));
         } else {
-            System.out.println(prependBotName(""));
-
+            finalOutput.append(botSays("Here's your Tasklist:"));
             int i = 1;
             for (Task task : tasks.getTasks()) {
-                System.out.println(String.format("    %d. %s", i, task.toString()));
+                finalOutput.append(String.format("    %d. %s\n", i, task.toString()));
                 i++;
             }
         }
-        System.out.println(BREAKLINE);
+        return finalOutput.toString();
     }
 
     /**
@@ -83,38 +92,36 @@ public class Ui {
      *
      * @param task The task list to list.
      * @param i The index of the task.
+     * @return The bot output for the task given.
      */
-    public void listTask(Task task, int i) {
-        System.out.println(String.format("    %d. %s", i, task.toString()));
+    public static String listTask(Task task, int i) {
+        return String.format("    %d. %s", i, task.toString());
     }
 
     /**
-     * Tries to echo the input back to the user but fails as input is not recognised.
+     * Invalid command received
      *
-     * @param input The input to attempt to echo back.
-     * @throws InfinityException Always thrown as the input is not recognised.
+     * @return The message saying that the command was not recognised
      */
-    public void echo(String input) throws InfinityException {
-        throw new InfinityException("Wait a minute, that's not something I recognise...");
+    public static String invalidCommand() {
+        return botSays("Wait a minute, that's not something I recognise...");
     }
 
     /**
-     * Gets the next input from the user.
+     * Gets the list of available commands.
      *
-     * @return The next input from the user.
+     * @return The list of commands.
      */
-    public String nextInput() {
-        String currentInput = userInputs.nextLine();
-        System.out.println(BREAKLINE);
-        return currentInput;
+    public static String getCommands() {
+        return botSays(COMMAND_STRING);
     }
 
     /**
      * Ends the bot and program.
+     *
+     * @return The bot saying it is the end.
      */
-    public void endBot() {
-        botSays("Well, if you are leaving, then I must be infinitely too dumb :(");
-        userInputs.close();
-        System.exit(0);
+    public static String endBot() {
+        return botSays(BOT_END_STATEMENT);
     }
 }
