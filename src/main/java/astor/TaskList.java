@@ -129,8 +129,19 @@ public class TaskList {
         return task.toString();
     }
 
+    public String matchesDescription(String description) {
+        StringBuilder s = new StringBuilder();
+        int i = 1;
+        for (Task task : taskList) {
+            if (task.isIncluded(description)) {
+                s.append("\n" + i + ". " + task.toString());
+                i++;
+            }
+        }
+        return s.toString();
+    }
+
     public int size() {
         return taskList.size();
     }
-
 }

@@ -91,4 +91,14 @@ public class Task {
     public String dataDescription() {
         return "";
     }
+
+    public boolean isIncluded(String input) {
+        String[] words = taskInfo.split("\\s+");
+        for (String word : words) {
+            if (word.equals(input)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

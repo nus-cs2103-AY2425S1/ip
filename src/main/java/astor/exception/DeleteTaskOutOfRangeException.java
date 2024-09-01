@@ -9,7 +9,7 @@ public class DeleteTaskOutOfRangeException extends AstorException {
     }
 
     public static DeleteTaskOutOfRangeException noTaskToDelete() {
-        return new DeleteTaskOutOfRangeException("No ask to delete!");
+        return new DeleteTaskOutOfRangeException("No task to delete!");
     }
 
     public static DeleteTaskOutOfRangeException outOfRangeTaskToDelete(int size) {
