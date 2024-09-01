@@ -1,7 +1,9 @@
-package lumina.task;
-
 import lumina.exception.LuminaException;
 import lumina.parser.Parser;
+import lumina.task.DeadlineTask;
+import lumina.task.EventTask;
+import lumina.task.Task;
+import lumina.task.TodoTask;
 import lumina.ui.Ui;
 
 import java.time.LocalDate;
@@ -52,7 +54,7 @@ public class TaskList {
         StringBuilder listedTaskMessage = new StringBuilder();
         listedTaskMessage.append("Here are the tasks in your list:\n");
         for (int i = 0; i < this.tasks.size(); i++) {
-            listedTaskMessage.append(Integer.toString(i + 1)).append(". ");
+            listedTaskMessage.append(Integer.toString(i + 1)).append(".");
             listedTaskMessage.append(this.tasks.get(i));
             if (i < this.tasks.size() - 1) {
                 listedTaskMessage.append("\n");
@@ -80,8 +82,7 @@ public class TaskList {
      */
     public void markTaskDone(int index) throws LuminaException {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new LuminaException("Oh no! Lumina.Main.Lumina detected index out of bounds! "
-                    + "Please try again");
+            throw new LuminaException("Oh no! Lumina.Main.Lumina detected index out of bounds! Please try again");
         }
         StringBuilder taskDoneMessage = new StringBuilder();
         taskDoneMessage.append("Nice! I've marked this task as done:\n");
@@ -202,6 +203,26 @@ public class TaskList {
         deleteTaskMessage.append(String.format("Now you have %d tasks in the list.",
                 tasks.size()));
         ui.printMessage(deleteTaskMessage.toString());
+    }
+    /**
+     * Searches for tasks in the list that contain the specified search string in their description.
+     * @param searchString the string to search for within task descriptions
+     */
+    public void findTasks(String searchString) {
+        StringBuilder findTasksMessage = new StringBuilder();
+        findTasksMessage.append("Here are the matching tasks in your list:\n");
+        int count = 1;
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if(this.tasks.get(i).findInDescription(searchString)) {
+                if (count > 1) {
+                    findTasksMessage.append("\n");
+                }
+                findTasksMessage.append(Integer.toString(count)).append(".");
+                findTasksMessage.append(this.tasks.get(i));
+                count++;
+            }
+        }
+        ui.printMessage(findTasksMessage.toString());
     }
 
     /**

@@ -83,6 +83,16 @@ public abstract class Task {
     }
 
     /**
+     * Checks whether task has searchStr in their description
+     *
+     * @param searchStr search string
+     * @return true if searchStr is found in desc; else false
+     */
+    public boolean findInDescription(String searchStr) {
+        return this.description.toLowerCase().contains(searchStr.toLowerCase());
+    }
+
+    /**
      * Checks for equality of two tasks
      *
      * @param obj object to be checked
