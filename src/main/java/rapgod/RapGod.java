@@ -1,3 +1,10 @@
+package rapgod;
+
+import rapgod.exceptions.NoInputException;
+import rapgod.exceptions.RudeInputException;
+import rapgod.ui.EchoBot;
+import rapgod.ui.ListBot;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;

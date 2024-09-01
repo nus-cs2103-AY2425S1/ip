@@ -1,3 +1,10 @@
+package rapgod.utils;
+
+import rapgod.tasks.Task;
+import rapgod.tasks.ToDo;
+import rapgod.tasks.Deadline;
+import rapgod.tasks.Event;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +21,7 @@ public class Parser {
      * @return A LocalDateTime object representing the parsed date and time.
      * @throws IllegalArgumentException If the input format is invalid.
      */
-    protected static LocalDateTime parseToDateTime(String input) {
+    public static LocalDateTime parseToDateTime(String input) {
         DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("MMM dd yyyy");
         DateTimeFormatter dateTimeFormatter3 = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");

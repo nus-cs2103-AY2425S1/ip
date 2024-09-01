@@ -1,5 +1,10 @@
-import java.util.Scanner;
+package rapgod.ui;
 
+import rapgod.RapGod;
+import rapgod.exceptions.RudeInputException;
+import rapgod.exceptions.NoInputException;
+
+import java.util.Scanner;
 public class EchoBot {
     public static void run() {
 
@@ -12,7 +17,7 @@ public class EchoBot {
         System.out.print(initialise);
 
         Scanner scanner = RapGod.scanner;
-        String input = "";
+        String input;
 
         while (true) {
             System.out.print("You:\n");

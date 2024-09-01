@@ -1,3 +1,10 @@
+package rapgod.storage;
+
+import rapgod.tasks.Task;
+import rapgod.tasks.ToDo;
+import rapgod.tasks.Deadline;
+import rapgod.tasks.Event;
+
 import java.util.List;
 
 public class TaskList {

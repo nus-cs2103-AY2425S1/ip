@@ -1,3 +1,8 @@
+package rapgod.storage;
+
+import rapgod.tasks.Task;
+import rapgod.utils.Parser;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,7 +19,7 @@ public class DataManager {
      * Path to the file where task data is stored.
      */
     private final Path DATA_FILE_PATH;
-    private TaskList taskList;
+    private final TaskList taskList;
 
     public DataManager(String path) {
         this.DATA_FILE_PATH = Path.of(path);
