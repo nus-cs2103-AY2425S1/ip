@@ -26,6 +26,9 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 try {
                     final String prompt = scanner.nextLine();
+                    if (prompt.equals("")) { // Only an empty line, skip...
+                        continue;
+                    }
                     final Processor inst = Parser.parse(prompt);
                     inst.process(prompt);
                 } catch (AhmadException e) {
