@@ -30,9 +30,13 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printString("Got it. I've added this task:");
-        ui.printString("  " + tasks.addTask(todoTask));
-        ui.printString("Now you have " + tasks.size() + " tasks in the list.");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String response = "Got it. I've added this task:\n  "
+                + tasks.addTask(todoTask)
+                + "\nNow you have "
+                + tasks.size()
+                + " tasks in the list.";
+        ui.printString(response);
+        return response;
     }
 }

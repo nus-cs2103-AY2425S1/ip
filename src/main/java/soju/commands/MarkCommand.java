@@ -13,8 +13,9 @@ public class MarkCommand extends Command {
         index = Integer.parseInt(input.split(" ")[1]) - 1;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printString("Nice! I've marked this task as done:");
-        ui.printString("  " + tasks.markTask(index));
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String response = "Nice! I've marked this task as done:\n  " + tasks.markTask(index);
+        ui.printString(response);
+        return response;
     }
 }

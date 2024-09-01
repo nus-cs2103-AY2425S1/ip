@@ -11,8 +11,9 @@ public class ListCommand extends Command {
     public ListCommand(String input) {
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printString("Here are the tasks in your list:");
-        ui.printString(tasks.toString());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String response = "Here are the tasks in your list:\n" + tasks.toString();
+        ui.printString(response);
+        return response;
     }
 }

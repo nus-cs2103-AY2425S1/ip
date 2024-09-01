@@ -14,8 +14,10 @@ public class FindCommand extends Command {
         keyword = input.split(" ", 2)[1];
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SojuException {
-        ui.printString("Here are the matching tasks in your list:");
-        ui.printString(tasks.findMatchingTasks(keyword));
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SojuException {
+        String response = "Here are the matching tasks in your list:\n";
+        response += tasks.findMatchingTasks(keyword);
+        ui.printString(response);
+        return response;
     }
 }

@@ -11,7 +11,8 @@ public class ByeCommand extends Command {
     public ByeCommand(String input) {
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ui.exit();
+        return "Bye Bye Bye - NSync";
     }
 }
