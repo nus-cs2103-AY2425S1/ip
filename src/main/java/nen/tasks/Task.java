@@ -1,8 +1,13 @@
-package Nen2;
+package nen.tasks;
 
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-import java.util.Date;
+
+import nen.exceptions.ArgumentMissingException;
+import nen.exceptions.DateTimeFormatIncorrectException;
+import nen.exceptions.EmptyDescriptionException;
+import nen.exceptions.FailToParseDataException;
+import nen.exceptions.InvalidInputException;
+
 
 /**
  * This class represents a Task, super class of Todo, Event and Deadline
@@ -18,7 +23,6 @@ public abstract class Task {
     }
 
     /**
-     *
      * @param text input by user
      * @return an instant of task which can be either Deadline, Todo or Event type depend on text
      * @throws InvalidInputException is thrown when user input is not recognised
@@ -32,16 +36,17 @@ public abstract class Task {
         String action = text.split(" ")[0];
         try {
             Task t = switch (action) {
-                case "todo" -> new Todo(Task.getDescription(text));
-                case "deadline" -> new Deadline(Task.getDescription(text), Task.findArgumentOf("by", text));
-                case "event" -> new Event(Task.getDescription(text),
-                        Task.findArgumentOf("from", text),
-                        Task.findArgumentOf("to", text));
-                default -> throw new InvalidInputException("Im not smart enough to understand that :(");
+            case "todo" -> new Todo(Task.getDescription(text));
+            case "deadline" -> new Deadline(Task.getDescription(text), Task.findArgumentOf("by", text));
+            case "event" -> new Event(Task.getDescription(text),
+                    Task.findArgumentOf("from", text),
+                    Task.findArgumentOf("to", text));
+            default -> throw new InvalidInputException("Im not smart enough to understand that :(");
             };
             return t;
-        } catch(DateTimeParseException e) {
-            throw new DateTimeFormatIncorrectException("I don't understand this format of date :(\npls use yyyy-mm-dd :)");
+        } catch (DateTimeParseException e) {
+            throw new DateTimeFormatIncorrectException("I don't understand this format of date :(\n"
+                    + "pls use yyyy-mm-dd :)");
         }
     }
 
@@ -70,6 +75,10 @@ public abstract class Task {
         return out.substring(1);
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     protected String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
@@ -94,13 +103,11 @@ public abstract class Task {
     }
 
     /**
-     *
      * @return a string which will be written into data file
      */
-    abstract public String toData();
+    public abstract String toData();
 
     /**
-     *
      * @param data read by scanner line by line from file
      * @return Task base on data
      * @throws FailToParseDataException when data read is in wrong format
@@ -109,17 +116,17 @@ public abstract class Task {
         String[] arr = data.split("/");
         Task t = null;
         switch (arr[0]) {
-            case "T":
-                t = new Todo(arr[2]);
-                break;
-            case "D":
-                t = new Deadline(arr[2], arr[3]);
-                break;
-            case "E":
-                t = new Event(arr[3], arr[4], arr[5]);
-                break;
-            default:
-                throw new FailToParseDataException("Fail to parse data");
+        case "T":
+            t = new Todo(arr[2]);
+            break;
+        case "D":
+            t = new Deadline(arr[2], arr[3]);
+            break;
+        case "E":
+            t = new Event(arr[3], arr[4], arr[5]);
+            break;
+        default:
+            throw new FailToParseDataException("Fail to parse data");
         };
         if (arr[1].equals("true")) {
             t.markAsDone();

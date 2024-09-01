@@ -1,4 +1,4 @@
-package Nen2;
+package nen.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +12,12 @@ public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
+    /**
+     * Constructs an event
+     * @param description of the event
+     * @param from start date
+     * @param to end date
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = LocalDate.parse(from);

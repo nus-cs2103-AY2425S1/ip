@@ -1,15 +1,16 @@
-package Nen2;
+package nen.utils;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
 
     @Test
     public void getIndexTest(){
         Parser parser = new Parser(new TaskList(new String[]{"D/false/blyat/2024-08-01"}), new Ui());
-        assertEquals(parser.continueParsing("delete 1"), true);
+        assertTrue(parser.continueParsing("delete 1"));
     }
 
 }

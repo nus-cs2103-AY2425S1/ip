@@ -1,11 +1,11 @@
-package Nen2;
+package nen.utils;
 
 /**
  * This class deal with user interaction and print out reaction to user input
  * @author Gan Ren Yick (A0276246X)
  */
 public class Ui {
-    private final static String LOGO = " _   _                 __\n"
+    private static final String LOGO = " _   _                 __\n"
             + "| \\ | |  ___  _ ___   |_  \\ \n"
             + "|  \\| | / _ \\| '__ |    ) |\n"
             + "| |\\  ||  __/| | | |   / /_ \n"

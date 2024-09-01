@@ -1,4 +1,4 @@
-package Nen2;
+package nen.exceptions;
 
 /**
  * This class represent an exception which is thrown when the data read from data file has wrong format

@@ -1,4 +1,4 @@
-package Nen2;
+package nen.exceptions;
 
 /**
  * This class represent an exception which is thrown when the description of a task is missing
