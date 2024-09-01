@@ -1,6 +1,9 @@
 package ahmad.processor.task;
 
-import ahmad.Parser;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
 import ahmad.exceptions.AhmadException;
 import ahmad.exceptions.deadline.DeadlineEmptyNameException;
 import ahmad.exceptions.deadline.DeadlineInvalidArgsException;
@@ -12,15 +15,8 @@ import ahmad.exceptions.mark.MarkIndexOutOfBoundsException;
 import ahmad.exceptions.mark.MarkInvalidArgsException;
 import ahmad.exceptions.mark.MarkInvalidNumberException;
 import ahmad.exceptions.todo.TodoEmptyNameException;
-
 import ahmad.response.Response;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MarkTest {
     @Test
@@ -45,6 +41,7 @@ class MarkTest {
     public void invalidNumberMarkTest() {
         assertThrows(MarkInvalidNumberException.class, () -> Mark.process("mark invalid"));
     }
+
     @Test
     public void invalidArgsMarkTest() {
         assertThrows(MarkInvalidArgsException.class, () -> Mark.process("mark 12 12 12 12 12"));

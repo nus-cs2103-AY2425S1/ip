@@ -4,5 +4,5 @@ import ahmad.exceptions.AhmadException;
 import ahmad.response.Response;
 
 public interface Processor {
-  Response process(String prompt) throws AhmadException;
+    Response process(String prompt) throws AhmadException;
 }

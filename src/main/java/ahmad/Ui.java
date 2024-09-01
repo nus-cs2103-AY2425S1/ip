@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Ui {
-  public static void print(String msg) {
-    List<String> msgList = Arrays.asList(msg.split("\n"));
+    public static void print(String msg) {
+        List<String> msgList = Arrays.asList(msg.split("\n"));
 
-    System.out.println("    ____________________________________________________________");
-    for (String s : msgList) {
-      System.out.println("      " + s);
+        System.out.println("    ____________________________________________________________");
+        for (String s : msgList) {
+            System.out.println("      " + s);
+        }
+        System.out.println("    ____________________________________________________________");
     }
-    System.out.println("    ____________________________________________________________");
-  }
 }
