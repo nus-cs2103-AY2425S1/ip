@@ -8,93 +8,20 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Vecrosen {
-
-    private enum TaskType {todo, deadline, event};
     private static ArrayList<Task> list;
     private static Ui ui;
-
-    /**
-     * Saves the task list to vecrosen.txt.
-     */
-    private static void save() {
-        try {
-            File f = new File("data/vecrosen.txt");
-            FileWriter fw = new FileWriter(f);
-            for (int i = 0; i < list.size(); ++i) {
-                Task t = list.get(i);
-                if (i != 0) {
-                    fw.write('\n');
-                }
-                fw.write(t.getDescription());
-                fw.write("\n" + t.isDone());
-                if (t.getClass() == Task.class) {
-                    fw.write(" " + TaskType.todo.ordinal());
-                } else if (t.getClass() == Deadline.class) {
-                    fw.write(" " + TaskType.deadline.ordinal() + '\n');
-                    Deadline d = (Deadline) t;
-                    fw.write(d.getBy());
-                } else if (t.getClass() == Event.class) {
-                    fw.write(" " + TaskType.event.ordinal() + '\n');
-                    Event e = (Event) t;
-                    fw.write(e.getBegin() + '\n');
-                    fw.write(e.getEnd());
-                } else {
-                    System.err.println("Unrecognized task type when saving!");
-                }
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.err.println("Savefile cannot be accessed!");
-        }
-    }
-
-    /**
-     * Loads the data from the file into the list.
-     * @param file
-     */
-    private static void load(File file) {
-        if (!file.exists()) {
-            return;
-        }
-        try {
-            Scanner s = new Scanner(file);
-            while (s.hasNextLine()) {
-                String description = s.nextLine();
-                boolean isDone = s.nextBoolean();
-                int tth = s.nextInt();
-                TaskType tt = TaskType.values()[tth];
-                s.nextLine();
-                switch (tt) {
-                case event:
-                    String begin = s.nextLine();
-                    String end = s.nextLine();
-                    list.add(new Event(description, begin, end));
-                    break;
-                case deadline:
-                    String by = s.nextLine();
-                    list.add(new Deadline(description, by));
-                    break;
-                case todo:
-                    list.add(new Task(description));
-                    break;
-                }
-                list.get(list.size() - 1).setDone(isDone);
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println("File exists but cannot be found...?");
-        } catch (NoSuchElementException | IndexOutOfBoundsException e) {
-            ui.speak("Savefile is corrupted!");
-            System.err.println(list.size());
-            list.clear();
-        }
-    }
 
     public static void main(String[] args) {
         ui = new Ui(System.in, System.out);
         list = new ArrayList<Task>();
         ui.speak("Hello, I'm Vecrosen.");
         ui.speak("What can I do for you?");
-        load(new File("data/vecrosen.txt"));
+        File data = new File("data/vecrosen.txt");
+        try {
+            Storage.load(data,list);
+        } catch (IndexOutOfBoundsException | NoSuchElementException e) {
+            ui.speak("Savefile is corrupted!");
+        }
         Scanner scanner = new Scanner(System.in);
         int itemNo;
         String desc;
@@ -153,7 +80,7 @@ public class Vecrosen {
                 ui.speak("Sorry, I don't understand.");
                 ui.speak("Commands: todo deadline event mark unmark delete list bye");
             }
-            save();
+            Storage.save(data, list);
         }
     }
 }
