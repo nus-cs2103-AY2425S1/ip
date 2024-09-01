@@ -1,6 +1,6 @@
 package mendel.metacognition;
 
-public class LeaveCommand extends Command{
+public class LeaveCommand extends Command {
     public String speak() {
         return this.toString();
     }

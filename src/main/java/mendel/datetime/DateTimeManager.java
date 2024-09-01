@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * The DateTimeManager class parses inputted of date-time strings to a consisten form.
+ * The DateTimeManager class parses inputted of date-time strings to a consistent form.
  */
 public class DateTimeManager {
     private String formattedDate;
@@ -23,12 +23,15 @@ public class DateTimeManager {
             this.formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         } catch (DateTimeParseException e) {
             boolean hasValidFormat = false;
-            String[] possibleFormatsTimed = new String[] {"dd-MMM-yyyy HH:mm", "dd/MMM/yyyy HH:mm", "dd MMM yyyy HH:mm",
+            String[] possibleFormatsTimed = new String[] {
+                    "dd-MMM-yyyy HH:mm", "dd/MMM/yyyy HH:mm", "dd MMM yyyy HH:mm",
                     "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "d-MMM-yyyy HH:mm", "d/MMM/yyyy HH:mm", "d MMM yyyy HH:mm",
                     "d-M-yyyy HH:mm", "d/M/yyyy HH:mm", "dd-MMM-yyyy HHmm", "dd/MMM/yyyy HHmm", "dd MMM yyyy HHmm",
                     "dd-MM-yyyy HHmm", "dd/MM/yyyy HHmm", "dd-MMM-yyyy HH mm", "dd/MMM/yyyy HH mm", "dd MMM yyyy HH mm",
-                    "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm", "d/MMM/yyyy HH mm", "d/MMM/yyyy HHmm",
-                    "d-M-yyyy HH mm", "d-M-yyyy HHmm", "d-MMM-yyyy HH mm", "d-MMM-yyyy HHmm", "d MMM yyyy HHmm"};
+                    "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm", "d/MMM/yyyy HH mm",
+                    "d/MMM/yyyy HHmm", "d-M-yyyy HH mm", "d-M-yyyy HHmm", "d-MMM-yyyy HH mm", "d-MMM-yyyy HHmm",
+                    "d MMM yyyy HHmm"
+            };
             for (int i = 0; i < possibleFormatsTimed.length; i++) {
                 if (this.isValidFormat(rawDate, DateTimeFormatter.ofPattern(possibleFormatsTimed[i]))) {
                     LocalDateTime date = LocalDateTime.parse(rawDate, DateTimeFormatter.ofPattern(possibleFormatsTimed[i]));
