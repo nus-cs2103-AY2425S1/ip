@@ -2,7 +2,6 @@ package yihuibot.ui;
 
 import yihuibot.exception.parse.ParseException;
 import yihuibot.executable.Executable;
-import yihuibot.executable.Greet;
 
 /**
  * Deals with interactions with the user. Can be used to parse the user's
@@ -13,9 +12,6 @@ import yihuibot.executable.Greet;
  * @author Toh Yi Hui A0259080A
  */
 public class Ui {
-    private static final String HORIZONTAL_LINE =
-            "--------------------------------------------------------------------------------";
-
     private Parser parser;
 
     /**
@@ -41,64 +37,20 @@ public class Ui {
     }
 
     /**
-     * Prints a greeting message.
-     *
-     * @param name the name of the bot.
-     */
-    public void greet(String name) {
-        Greet greet = new Greet(name);
-        greet.execute();
-        prettyPrint(greet.getOutput());
-    }
-
-    /**
-     * Print the Strings wrapped in horizontal lines.
+     * Return the array of Strings in a nice format.
      *
      * @param strings the array of Strings to print out.
+     * @return the nicely formatted String.
      */
-    public void prettyPrint(String... strings) {
+    public String prettyString(String... strings) {
         if (strings == null || strings.length == 0) {
-            return;
+            return "";
         }
 
-        System.out.println(HORIZONTAL_LINE);
-        for (String s : strings) {
-            System.out.println(s);
-        }
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    /**
-     * Print the warnings in a nice format.
-     *
-     * @param strings the array of Strings to print out.
-     */
-    public void warningPrint(String... strings) {
-        if (strings == null || strings.length == 0) {
-            return;
-        }
-
-        System.out.println("warning: " + strings[0]);
-        String space = "         ";
+        String result = strings[0];
         for (int i = 1; i < strings.length; i++) {
-            System.out.println(space + strings[i]);
+            result += "\n" + strings[i];
         }
-    }
-
-    /**
-     * Print the errors in a nice format.
-     *
-     * @param strings the array of Strings to print out.
-     */
-    public void errorPrint(String... strings) {
-        if (strings == null || strings.length == 0) {
-            return;
-        }
-
-        System.out.println("Error: " + strings[0]);
-        String space = "       ";
-        for (int i = 1; i < strings.length; i++) {
-            System.out.println(space + strings[i]);
-        }
+        return result;
     }
 }

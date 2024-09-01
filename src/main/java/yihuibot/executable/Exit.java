@@ -15,7 +15,7 @@ public class Exit implements Executable {
      */
     @Override
     public boolean execute() {
-        output = "Bye. Hope to see you again soon!";
+        output = "Bye. Hope to see you again soon!\nSaving tasks to file.";
         return true;
     }
 

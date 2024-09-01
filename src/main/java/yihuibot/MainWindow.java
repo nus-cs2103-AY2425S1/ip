@@ -1,5 +1,7 @@
 package yihuibot;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -40,21 +42,36 @@ public class MainWindow extends AnchorPane {
      */
     public void setBot(YihuiBot yihuiBot) {
         this.yihuiBot = yihuiBot;
+        greet();
     }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing the bot's
      * reply and then appends them to the dialog container. Clears the user input after
      * processing.
+     * 
+     * @throws IOException when an I/O error occurred.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws IOException {
         String input = userInput.getText();
+        if (input.equals("")) {
+            return;
+        }
+        
         String response = yihuiBot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getReplyDialog(response, botImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Greets the user at first launch.
+     */
+    private void greet() {
+        String message = yihuiBot.greet();
+        dialogContainer.getChildren().add(DialogBox.getReplyDialog(message, botImage));
     }
 }
