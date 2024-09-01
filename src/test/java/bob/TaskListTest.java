@@ -47,10 +47,10 @@ public class TaskListTest {
     @Test
     public void delTask_invalidTaskNum_exceptionThrown() {
         BobException e1 = assertThrows(BobException.class, () -> taskList.delTask(10));
-        assertEquals("Invalid task number provided!", e1.getMessage());
+        assertEquals("The task number provided is invalid.", e1.getMessage());
 
         BobException e2 = assertThrows(BobException.class, () -> taskList.delTask(-1));
-        assertEquals("Invalid task number provided!", e2.getMessage());
+        assertEquals("The task number provided is invalid.", e2.getMessage());
     }
 
     @Test
@@ -76,38 +76,38 @@ public class TaskListTest {
         String expected1 = "1. [D][ ] submit assignment (by: Dec 12 2024 11:59 pm)\n"
                 + "2. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)\n"
                 + "Total number of relevant tasks for Dec 12 2024: 2";
-        assertEquals(expected1, taskList.printRelevantTasks(validDate1));
+        assertEquals(expected1, taskList.printRelevantTasksByDate(validDate1));
 
         String validDate2 = "2024-12-09";
         String expected2 = "1. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)\n"
                 + "Total number of relevant tasks for Dec 09 2024: 1";
-        assertEquals(expected2, taskList.printRelevantTasks(validDate2));
+        assertEquals(expected2, taskList.printRelevantTasksByDate(validDate2));
 
         String validDate3 = "2024-12-10";
         String expected3 = "1. [E][ ] project meeting (from: Dec 10 2024 02:00 pm to: Dec 10 2024 04:00 pm)\n"
                 + "2. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)\n"
                 + "Total number of relevant tasks for Dec 10 2024: 2";
-        assertEquals(expected3, taskList.printRelevantTasks(validDate3));
+        assertEquals(expected3, taskList.printRelevantTasksByDate(validDate3));
     }
 
     @Test
     void testGetRelevantTasks_noRelevantTasks() throws BobException {
         String irrelevantDate = "2025-01-01";
         String expected = "Total number of relevant tasks for Jan 01 2025: 0";
-        assertEquals(expected, taskList.printRelevantTasks(irrelevantDate));
+        assertEquals(expected, taskList.printRelevantTasksByDate(irrelevantDate));
     }
 
     @Test
     void getRelevantTasks_invalidDateFormat_exceptionThrown() {
         String invalidDate = "01-01-2025";
-        BobException e = assertThrows(BobException.class, () -> taskList.printRelevantTasks(invalidDate));
+        BobException e = assertThrows(BobException.class, () -> taskList.printRelevantTasksByDate(invalidDate));
         assertEquals("Invalid date format. Required format: relevant yyyy-MM-dd", e.getMessage());
     }
 
     @Test
     void getRelevantTasks_emptyDate_exceptionThrown() {
         String emptyDateStr = "";
-        BobException e = assertThrows(BobException.class, () -> taskList.printRelevantTasks(emptyDateStr));
+        BobException e = assertThrows(BobException.class, () -> taskList.printRelevantTasksByDate(emptyDateStr));
         assertEquals("Invalid date format. Required format: relevant yyyy-MM-dd", e.getMessage());
     }
 }
