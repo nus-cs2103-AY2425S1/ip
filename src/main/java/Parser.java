@@ -1,2 +1,101 @@
-package PACKAGE_NAME;public class Parser {
+import java.time.LocalDate;
+import static java.lang.Integer.parseInt;
+
+public class Parser {
+
+    public static Command parse(String userInput) throws DrBrownException {
+        String[] inputSplit = userInput.split(" ", 2);
+        switch (inputSplit[0]) {
+
+            case "todo":
+                try {
+                    if (inputSplit[1].trim().isEmpty()) {
+                        throw new DrBrownException("Great Scott! You can't add a to-do without a description!\n\nUse the format: todo {description}");
+                    }
+                    Task todo = new Todo(false, inputSplit[1].trim());
+                    return new AddCommand(todo);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DrBrownException("Great Scott! You can't add a to-do without a description!\n\nUse the format: todo {description}");
+                }
+
+            case "deadline":
+                try {
+                    if (inputSplit.length == 1) {
+                        throw new DrBrownException("Great Scott! You can't add a deadline without a description and date!\nUse the format: deadline {description} /by {date}");
+                    }
+                    String[] deadlineSplit = inputSplit[1].split("/by");
+                    if (deadlineSplit[0].isEmpty()) {
+                        throw new DrBrownException("Hello? Hello? Anybody home? Looks like something's missing here!\nUse the format: deadline {description} /by {date}");
+                    }
+                    Task deadline = new Deadline(false, deadlineSplit[0].trim(), LocalDate.parse(deadlineSplit[1].trim()));
+                    return new AddCommand(deadline);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... and you missed the date! Let's fix that deadline!\nUse the format: deadline {description} /by {date}");
+                }
+
+            case "event":
+                try {
+                    if (inputSplit.length == 1) {
+                        throw new DrBrownException("Great Scott! You can't add a event without a description and from and to date!\nUse the format: event {description} /from {date} /to {date}");
+                    }
+                    if (!userInput.contains("/from") || !userInput.contains("/to") || userInput.indexOf("/from") > userInput.indexOf("/to")) {
+                        throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... and you missed the date! Let's fix that event!\nUse the format: event {description} /from {date} /to {date}");
+                    }
+                    String[] eventSplit = inputSplit[1].split("/from | /to");
+                    Task event = new Event(false, eventSplit[0].trim(), LocalDate.parse(eventSplit[1].trim()), LocalDate.parse(eventSplit[2].trim()));
+                    return new AddCommand(event);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... and you missed the date! Let's fix that event!\nUse the format: event {description} /from {date} /to {date}");
+                }
+
+            case "mark":
+                try {
+                    if (inputSplit.length == 1) {
+                        throw new DrBrownException("Great Scott! You can't complete a task without a count!\nUse the format: mark {count}");
+                    }
+                    int itemMarkIndex = parseInt(inputSplit[1]) - 1;
+                    return new MarkCommand(itemMarkIndex);
+                } catch (NumberFormatException e) {
+                    throw new DrBrownException("That's not a number! Without the right input, we're never going to get this DeLorean off the ground!");
+                }
+
+            case "unmark":
+                try {
+                    if (inputSplit.length == 1) {
+                        throw new DrBrownException("Great Scott! You can't go back in time without a count!\nUse the format: unmark {count}");
+                    }
+                    int itemUnmarkIndex = parseInt(inputSplit[1]) - 1;
+                    return new UnmarkCommand(itemUnmarkIndex);
+                } catch (NumberFormatException e) {
+                    throw new DrBrownException("That's not a number! Without the right input, we're never going to get this DeLorean off the ground!");
+                }
+
+            case "list":
+                if (inputSplit.length != 1) {
+                    throw new DrBrownException("Whoa, hold on! You've written more letters than necessary! It's like trying to fit a flux capacitor into a toaster – it just doesn't belong!");
+                }
+                return new ListCommand();
+
+            case "delete":
+                try {
+                    if (inputSplit.length == 1) {
+                        throw new DrBrownException("You can't erase something from history without a count!\nUse the format: delete {count}");
+                    }
+                    int itemDeleteIndex = parseInt(inputSplit[1]) - 1;
+                    return new DeleteCommand(itemDeleteIndex);
+                } catch (NumberFormatException e) {
+                    throw new DrBrownException("That's not a number! Without the right input, we're never going to get this DeLorean off the ground!");
+                }
+
+            case "bye":
+                if (inputSplit.length != 1) {
+                    throw new DrBrownException("Whoa, hold on! You've written more letters than necessary! It's like trying to fit a flux capacitor into a toaster – it just doesn't belong!");
+                }
+                return new ExitCommand();
+            default:
+                return new Command();
+        }
+
+    }
+
 }
