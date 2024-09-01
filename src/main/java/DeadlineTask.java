@@ -1,23 +1,25 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class DeadlineTask extends Task {
-    protected LocalDate by;
+    protected LocalDateTime by;
 
-    public DeadlineTask(String taskName, String by) {
-        super(taskName);
-        this.by = LocalDate.parse(by);
+    public DeadlineTask(String description, String by) {
+        super(description);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.by = LocalDateTime.parse(by, formatter);
     }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a").withLocale(Locale.US);
+        String formattedDate = by.format(outputFormatter);
+        return "[D]" + super.toString() + " (by: " + formattedDate.replace("am", "AM").replace("pm", "PM") + ")";
     }
+
     @Override
     public String toFileFormat() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getTaskName() + " | " + by.toString();
-    }
-    @Override
-    public String toFileFormat() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getTaskName() + " | " + by;
+        return "D | " + (isDone ? "1" : "0") + " | " + taskName + " | " + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }

@@ -1,28 +1,28 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class EventTask extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-    public EventTask(String taskName, String from, String to) {
-        super(taskName);
-        this.from = LocalDateTime.parse(from);
-        this.to = LocalDateTime.parse(to);
+    public EventTask(String description, String from, String to) {
+        super(description);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.from = LocalDateTime.parse(from, formatter);
+        this.to = LocalDateTime.parse(to, formatter);
     }
+
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
-        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a").withLocale(Locale.US);
+        String fromFormatted = from.format(outputFormatter).replace("am", "AM").replace("pm", "PM");
+        String toFormatted = to.format(outputFormatter).replace("am", "AM").replace("pm", "PM");
+        return "[E]" + super.toString() + " (from: " + fromFormatted + " to: " + toFormatted + ")";
     }
+
     @Override
     public String toFileFormat() {
-<<<<<<< HEAD
-        return "E | " + (isDone() ? "1" : "0") + " | " + getTaskName() + " | " + from + " | " + to;
+        return "E | " + (isDone ? "1" : "0") + " | " + taskName + " | " + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }
-=======
-        return "E | " + (isDone() ? "1" : "0") + " | " + getTaskName() + " | " + from.toString() + " | " + to.toString();
-    }
-}
->>>>>>> branch-Level-8
