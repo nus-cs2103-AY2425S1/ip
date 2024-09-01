@@ -1,20 +1,23 @@
-public class Deadline extends Task {
-    private String end;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(boolean status, String description, String end) {
+public class Deadline extends Task {
+    private LocalDate end;
+
+    public Deadline(boolean status, String description, LocalDate end) {
         super(status, description);
         this.end = end;
     }
 
     @Override
     public String toFileString() {
-        return "";
+        return "D | " + this.getStatus() + " | " + this.getDescription() + " | " + this.end;
     }
 
     @Override
     public String toString() {
         return "[D][" + (this.getStatus() ? "X" : " ") + "] " +
-                this.getDescription() + " (by: " + this.end + ")";
+                this.getDescription() + " (by: " + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
 }
