@@ -1,11 +1,15 @@
 package mummy.command;
 
+import java.util.HashMap;
+
 import mummy.task.TaskList;
 import mummy.ui.Ui;
 import mummy.utility.Storage;
 
-import java.util.HashMap;
-
+/**
+ * Represents a command to find tasks based on a keyword.
+ * Extends the Command class.
+ */
 public class FindCommand extends Command {
 
     public FindCommand(HashMap<String, String> arguments) {
