@@ -1,3 +1,14 @@
+package chatbuddy.command;
+
+import chatbuddy.exception.ChatBuddyException;
+import chatbuddy.storage.Storage;
+import chatbuddy.task.Deadline;
+import chatbuddy.task.Event;
+import chatbuddy.task.Task;
+import chatbuddy.task.TaskList;
+import chatbuddy.task.ToDo;
+import chatbuddy.ui.Ui;
+
 public class AddCommand extends Command {
 
     private String description;

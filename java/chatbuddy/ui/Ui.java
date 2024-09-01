@@ -1,3 +1,7 @@
+package chatbuddy.ui;
+
+import chatbuddy.task.TaskList;
+import chatbuddy.task.Task;
 import java.util.Scanner;
 
 public class Ui {

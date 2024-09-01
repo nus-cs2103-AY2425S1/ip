@@ -1,3 +1,9 @@
+package chatbuddy.command;
+
+import chatbuddy.storage.Storage;
+import chatbuddy.task.TaskList;
+import chatbuddy.ui.Ui;
+
 public class ExitCommand extends Command {
 
     @Override
