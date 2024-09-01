@@ -5,7 +5,7 @@ public class Deadline extends Task{
     protected LocalDateTime due;
     public Deadline(String description, String due) {
         super(description);
-        this.due = Task.dateTimeParser(due);
+        this.due = Task.parseDateTime(due);
     }
     @Override
     public String toString() {
