@@ -1,5 +1,8 @@
 package lumina.task;
 
+/**
+ * Abstract class representing a task
+ */
 public abstract class Task {
     private String description;
     private boolean isDone;
@@ -79,6 +82,12 @@ public abstract class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    /**
+     * Checks for equality of two tasks
+     *
+     * @param obj object to be checked
+     * @return true if objects are equal; else false
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

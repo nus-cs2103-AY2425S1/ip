@@ -6,19 +6,34 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Manages a list of tasks and handles various operations such as adding,
+ * listing, and marking tasks as done or not done.
+ */
 public class TaskList {
 
     // tasks
     private ArrayList<Task> tasks;
     private Ui ui;
     private Parser parser;
-    
+
+    /**
+     * Constructs a TaskList with the specified Ui and Parser.
+     *
+     * @param ui the Ui instance for displaying messages to the user
+     * @param parser the Parser instance for parsing inputs
+     */
     public TaskList(Ui ui, Parser parser) {
         this.ui = ui;
         this.parser = parser;
         this.tasks = new ArrayList<>();
     }
-    
+
+    /**
+     * Adds a task to the list and prints a confirmation message.
+     *
+     * @param task the Task to be added to the list
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
         StringBuilder addTaskMessage = new StringBuilder();
@@ -28,11 +43,14 @@ public class TaskList {
         ui.printMessage(addTaskMessage.toString());
     }
 
+    /**
+     * Lists all tasks in the list and prints them.
+     */
     public void listTasks() {
         StringBuilder listedTaskMessage = new StringBuilder();
         listedTaskMessage.append("Here are the tasks in your list:\n");
         for (int i = 0; i < this.tasks.size(); i++) {
-            listedTaskMessage.append(Integer.toString(i + 1)).append(".");
+            listedTaskMessage.append(Integer.toString(i + 1)).append(". ");
             listedTaskMessage.append(this.tasks.get(i));
             if (i < this.tasks.size() - 1) {
                 listedTaskMessage.append("\n");
@@ -41,13 +59,23 @@ public class TaskList {
         ui.printMessage(listedTaskMessage.toString());
     }
 
+    /**
+     * Converts all tasks in the list to a list of strings for saving purposes.
+     *
+     * @return an ArrayList of strings representing the save strings
+     */
     public ArrayList<String> toLines() {
         return tasks.stream()
                 .map(Task::saveString)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-
+    /**
+     * Marks the specified task as done and prints a confirmation message.
+     *
+     * @param index the index of the task to be marked as done
+     * @throws LuminaException if the index is out of bounds
+     */
     public void markTaskDone(int index) throws LuminaException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new LuminaException("Oh no! Lumina.Main.Lumina detected index out of bounds! Please try again");
@@ -59,6 +87,12 @@ public class TaskList {
         ui.printMessage(taskDoneMessage.toString());
     }
 
+    /**
+     * Marks the specified task as not done and prints a confirmation message.
+     *
+     * @param index the index of the task to be marked as not done
+     * @throws LuminaException if the index is out of bounds
+     */
     public void markTaskNotDone(int index) throws LuminaException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new LuminaException("Oh no! Lumina.Main.Lumina detected index out of bounds! Please try again");
@@ -70,6 +104,13 @@ public class TaskList {
         ui.printMessage(taskNotDoneMessage.toString());
     }
 
+    /**
+     * Handles the creation of a ToDo task based on the provided message.
+     * The message should be in the format: "todo <description>"
+     *
+     * @param msg the message containing the task description
+     * @throws LuminaException if the message format is invalid
+     */
     public void handleTodoTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
         if(msgSplit.length < 2) {
@@ -87,6 +128,14 @@ public class TaskList {
         this.addTask(task);
 
     }
+
+    /**
+     * Handles the creation of a Deadline task based on the provided message.
+     * The message should be in the format: "deadline <description> /by <dateTime>"
+     *
+     * @param msg the message containing the task description and deadline
+     * @throws LuminaException if the message format is invalid or missing required parts
+     */
 
     public void handleDeadlineTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
@@ -130,6 +179,12 @@ public class TaskList {
         this.addTask(task);
     }
 
+    /**
+     * Deletes a task from the list based on the specified index and prints a confirmation message.
+     *
+     * @param index the index of the task to be deleted
+     * @throws LuminaException if the index is out of bounds
+     */
     public void deleteTask(int index) throws LuminaException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new LuminaException("Oh no! Lumina.Main.Lumina detected index out of bounds! Please try again");
@@ -143,6 +198,13 @@ public class TaskList {
         ui.printMessage(deleteTaskMessage.toString());
     }
 
+    /**
+     * Handles the creation of an Event task based on the provided message.
+     * The message should be in the format: "event <description> /from <startDateTime> /to <endDateTime>"
+     *
+     * @param msg the message containing the task description, start date/time, and end date/time
+     * @throws LuminaException if the message format is invalid or missing required parts
+     */
     public void handleEventTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
         if(msgSplit.length < 6) { // need desc, startDateTime, endDateTime
@@ -234,6 +296,11 @@ public class TaskList {
         this.addTask(task);
     }
 
+    /**
+     * Sets the data for the task list.
+     *
+     * @param data an ArrayList of tasks to set
+     */
     public void setData(ArrayList<Task> data) {
         tasks = data;
     }
