@@ -3,6 +3,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.ChronoField;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -42,8 +43,16 @@ public class Parser {
                     throw new ParserError("I see the deadline but no task :(");
                 }
 
-                return new AddTaskCommand(new Deadline(command.substring(9, deadlineIndex - 1).trim(),
-                        command.substring(deadlineIndex + 4).trim()));
+                String taskTitle = command.substring(9, deadlineIndex - 1).trim();
+                String deadlineStr = command.substring(deadlineIndex + 4).trim();
+                TemporalAccessor deadline = parseDateTime(deadlineStr);
+
+                if (deadline != null) {
+                    return new AddTaskCommand(new Deadline(taskTitle, deadline));
+                } else {
+                    return new AddTaskCommand(new Deadline(taskTitle, deadlineStr));
+                }
+
             } catch (IndexOutOfBoundsException e) {
                 throw new ParserError("You've made a fatal error! Report it to the developer or face eternal DOOM!!");
             }
@@ -53,7 +62,16 @@ public class Parser {
                 int endIndex = input.indexOf("/TO ");
                 String parsedStart = command.substring(startIndex + 5, endIndex - 1).trim();
                 String parsedEnd = command.substring(endIndex + 4).trim();
-                return new AddTaskCommand(new Event(command.substring(6, startIndex - 1), parsedStart, parsedEnd));
+                String eventTitle = command.substring(6, startIndex - 1);
+
+                TemporalAccessor eventStart = parseDateTime(parsedStart);
+                TemporalAccessor eventEnd = parseDateTime(parsedEnd);
+
+                if (eventStart != null && eventEnd != null) {
+                    return new AddTaskCommand(new Event(eventTitle, eventStart, eventEnd));
+                } else {
+                    return new AddTaskCommand(new Event(eventTitle, eventStart, eventEnd));
+                }
             } catch (IndexOutOfBoundsException e) {
                 throw new ParserError("Event format incorrect. Format: \"Event [taskName] /from [start] /to [end]\". " +
                         "Try again please");
@@ -105,9 +123,14 @@ public class Parser {
         case ("Deadline"):
             isComplete = Boolean.parseBoolean(scanner.next().trim());
             title = scanner.next().trim();
-            String deadline = scanner.next().trim();
+            String deadlineStr = scanner.next().trim();
+            TemporalAccessor deadline = parseDateTime(deadlineStr);
             scanner.close();
-            return new Deadline(title, deadline, isComplete);
+            if (deadline != null) {
+                return new Deadline(title, deadline);
+            } else {
+                return new Deadline(title, deadlineStr);
+            }
         default:
             //should not ever reach here
             scanner.close();
@@ -115,7 +138,7 @@ public class Parser {
         }
     }
 
-    private static LocalDateTime dateTimeParser(String dateTime) {
+    private static TemporalAccessor parseDateTime(String dateTime) {
 
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendOptional(DateTimeFormatter.ISO_DATE_TIME)
@@ -137,24 +160,19 @@ public class Parser {
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
                 .toFormatter();
 
-        try{
-            return LocalDateTime.parse(dateTime, formatter);
-        } catch (DateTimeParseException e) {
-            return null;
-        }
-    }
-
-    private static LocalTime timeOnlyParser(String dateTime) {
-
-        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+        DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder()
                 .appendOptional(DateTimeFormatter.ofPattern("HH:mm"))
                 .appendOptional(DateTimeFormatter.ofPattern("HHmm"))
                 .toFormatter();
 
         try{
-            return LocalTime.parse(dateTime, formatter);
+            return LocalDateTime.parse(dateTime, formatter);
         } catch (DateTimeParseException e) {
-            return null;
+            try {
+                return LocalTime.parse(dateTime, timeFormatter);
+            } catch (DateTimeParseException e2) {
+                return null;
+            }
         }
     }
 }
