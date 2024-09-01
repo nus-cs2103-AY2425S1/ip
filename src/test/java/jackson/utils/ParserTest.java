@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import jackson.actions.Actions;
+import jackson.enums.Actions;
 import jackson.exceptions.SyntaxException;
 
 public class ParserTest {

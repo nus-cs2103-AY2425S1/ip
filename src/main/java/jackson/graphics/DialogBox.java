@@ -3,6 +3,7 @@ package jackson.graphics;
 import java.io.IOException;
 import java.util.Collections;
 
+import jackson.enums.Commands;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,8 +36,11 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        Circle clip = new Circle(75/2, 75/2, 75/2);
+        // use this circle dimension to clip the user/Jackson image
+        float ideal = (float) 75 / 2;
+        Circle clip = new Circle(ideal, ideal, ideal);
 
+        // display text and clip image
         dialog.setText(text);
         displayPicture.setImage(img);
         displayPicture.setFitHeight(75);
@@ -46,6 +50,7 @@ public class DialogBox extends HBox {
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Used only for Jackson responses.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -55,38 +60,58 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Returns DialogBox containing user input.
+     * @param text User input string.
+     * @param img {@code Image} User profile image.
+     * @return {@code DialogBox} to be shown on the GUI.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.changeDialogStyle("user");
+        db.changeDialogStyle(Commands.CommandType.USER);
         return db;
     }
 
-    public static DialogBox getJacksonDialog(String text, Image img, String commandType) {
+    /**
+     * Returns DialogBox containing Jackson response.
+     * @param text Jackson response string.
+     * @param img {@code Image} Jackson profile image.
+     * @return {@code DialogBox} to be shown on the GUI.
+     */
+    public static DialogBox getJacksonDialog(String text, Image img, Commands.CommandType commandType) {
         var db = new DialogBox(text, img);
         db.flip();
         db.changeDialogStyle(commandType);
         return db;
     }
 
-    private void changeDialogStyle(String commandType) {
+    /**
+     * Changes Jackson DialogBox Style.
+     * Only used for Jackson.
+     * @param commandType String containing what type of response Jackson returns.
+     */
+    private void changeDialogStyle(Commands.CommandType commandType) {
         switch(commandType) {
-        case "modify":
+        case MODIFY:
             dialog.getStyleClass().add("modify-label");
             break;
-        case "error":
+        case ERROR:
             dialog.getStyleClass().add("error-label");
             break;
-        case "intro", "exit":
+        case INTRO, EXIT:
             dialog.getStyleClass().add("intro-exit-label");
             break;
-        case "task":
+        case TASKS:
             dialog.getStyleClass().add("task-label");
             break;
-        case "secret":
+        case SECRET:
             dialog.getStyleClass().add("secret-label");
             break;
-        case "normal":
+        case NORMAL:
             dialog.getStyleClass().add("jackson-label");
+            break;
+        case USER:
+            // Do nothing
             break;
         default:
             // Do nothing

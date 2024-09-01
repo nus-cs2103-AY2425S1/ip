@@ -1,4 +1,4 @@
-package jackson.actions;
+package jackson.enums;
 
 /**
  * Enum class to hold Action types.

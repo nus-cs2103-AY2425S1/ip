@@ -7,7 +7,8 @@ import java.util.Base64;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-import jackson.actions.Actions;
+import jackson.enums.Actions;
+import jackson.enums.Commands;
 import jackson.exceptions.OutOfListException;
 import jackson.exceptions.SyntaxException;
 import jackson.exceptions.UnsupportedException;
@@ -36,7 +37,7 @@ public class Jackson {
     private static String secret = "";
 
     /* Stores previous command type for css style changing */
-    private String commandType;
+    private Commands.CommandType commandType;
 
     /* Instance variables for main loop */
     private TaskList taskList;
@@ -50,7 +51,7 @@ public class Jackson {
         this.taskList = new TaskList(EXPECTED_SIZE);
         this.ui = new Ui();
         this.storage = new Storage(PATH);
-        this.commandType = "intro";
+        this.commandType = Commands.CommandType.INTRO;
     }
 
     /**
@@ -114,56 +115,56 @@ public class Jackson {
             switch (action) {
             case LIST:
                 output = this.ui.printList(this.taskList.toString());
-                this.commandType = "normal";
+                this.commandType = Commands.CommandType.NORMAL;
                 break;
             case TODO:
                 task = new Todo(matcher.group(1));
                 this.taskList.addTask(task);
                 output = this.ui.printAddList(task, this.taskList);
-                this.commandType = "task";
+                this.commandType = Commands.CommandType.TASKS;
                 break;
             case DEADLINE:
                 task = new Deadline(matcher.group(1), matcher.group(2));
                 this.taskList.addTask(task);
                 output = this.ui.printAddList(task, this.taskList);
-                this.commandType = "task";
+                this.commandType = Commands.CommandType.TASKS;
                 break;
             case EVENT:
                 task = new Event(matcher.group(1), matcher.group(2), matcher.group(3));
                 this.taskList.addTask(task);
                 output = this.ui.printAddList(task, this.taskList);
-                this.commandType = "task";
+                this.commandType = Commands.CommandType.TASKS;
                 break;
             case MARK:
                 index = Integer.parseInt(matcher.group(1)) - 1;
                 task = this.taskList.mark(index);
                 output = this.ui.printMark(task);
-                this.commandType = "modify";
+                this.commandType = Commands.CommandType.MODIFY;
                 break;
             case UNMARK:
                 index = Integer.parseInt(matcher.group(1)) - 1;
                 task = this.taskList.unmark(index);
                 output = this.ui.printUnmark(task);
-                this.commandType = "modify";
+                this.commandType = Commands.CommandType.MODIFY;
                 break;
             case DELETE:
                 index = Integer.parseInt(matcher.group(1)) - 1;
                 task = this.taskList.deleteTask(index);
                 output = this.ui.printDeleteList(task, this.taskList);
-                this.commandType = "modify";
+                this.commandType = Commands.CommandType.MODIFY;
                 break;
             case FIND:
                 tasks = this.taskList.findTasks(matcher.group(1));
                 output = this.ui.printFindList(tasks, matcher.group(1));
-                this.commandType = "task";
+                this.commandType = Commands.CommandType.TASKS;
                 break;
             case BYE:
                 output = this.storage.save(this.taskList);
-                this.commandType = "exit";
+                this.commandType = Commands.CommandType.EXIT;
                 break;
             case SECRET:
                 output = this.readSecret();
-                this.commandType = "secret";
+                this.commandType = Commands.CommandType.SECRET;
                 break;
             case INVALID:
                 throw new UnsupportedException(input);
@@ -174,19 +175,19 @@ public class Jackson {
         } catch (UnsupportedException e) {
             // if user input not recognised, print command list
             output = this.ui.printCommands();
-            this.commandType = "error";
+            this.commandType = Commands.CommandType.ERROR;
         } catch (SyntaxException e) {
             // if the user input is in the wrong format for the command, print format guide
             output = this.ui.printFormatGuide(e.getMessage());
-            this.commandType = "error";
+            this.commandType = Commands.CommandType.ERROR;
         } catch (OutOfListException e) {
             // if user inputs an invalid index for mark/unmark/delete, print index guide
             output = this.ui.printIndexGuide(this.taskList);
-            this.commandType = "error";
+            this.commandType = Commands.CommandType.ERROR;
         } catch (Exception e) {
             // some other error unaccounted for, print generic warning
             output = this.ui.printUnknownError(e);
-            this.commandType = "error";
+            this.commandType = Commands.CommandType.ERROR;
         }
 
         // save task list to storage after every command
@@ -218,7 +219,7 @@ public class Jackson {
         return this.ui.printGoodbye();
     }
 
-    public String getCommandType() {
+    public Commands.CommandType getCommandType() {
         return this.commandType;
     }
 }

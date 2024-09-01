@@ -17,7 +17,7 @@ public class Ui {
 
     /**
      * Returns welcome message at the start of the chatbot program.
-     * @return String represenation of welcome.
+     * @return String representation of welcome.
      */
     public String printWelcome() {
         return "Oi! I'm Jackson!\nWhat you want me do today ah?\n";
@@ -25,7 +25,7 @@ public class Ui {
 
     /**
      * Returns goodbye message at the end of the chatbot program.
-     * @return String represenation of goodbye.
+     * @return String representation of goodbye.
      */
     public String printGoodbye() {
         return "K k bye lah!\n";
@@ -37,17 +37,17 @@ public class Ui {
      */
     public String printCommands() {
         return """
-        Harh? What you talking about?
-        Try entering a recognized command:
-        1. todo [task-name]
-        2. deadline [task-name] /by [due-date]
-        3. event [task-name] /from [start-date] /to [end-date]
-        4. mark [index]
-        5. unmark [index]
-        6. list
-        7. find
-        8. bye
-        """;
+            Harh? What you talking about?
+            Try entering a recognized command:
+            1. todo [task-name]
+            2. deadline [task-name] /by [due-date]
+            3. event [task-name] /from [start-date] /to [end-date]
+            4. mark [index]
+            5. unmark [index]
+            6. list
+            7. find
+            8. bye
+            """;
     }
 
     /**
@@ -57,9 +57,9 @@ public class Ui {
      */
     public String printFormatGuide(String category) {
         String output = """
-        Wrong format leh...
-        Try formatting your command as such:
-        """;
+            Wrong format leh...
+            Try formatting your command as such:
+            """;
 
         // category is the type of command that the user incorrectly enters the format of
         // print the correct command format based on the user input

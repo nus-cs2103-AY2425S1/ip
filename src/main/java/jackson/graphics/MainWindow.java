@@ -1,5 +1,7 @@
 package jackson.graphics;
 
+import jackson.Jackson;
+import jackson.enums.Commands;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -10,8 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import jackson.Jackson;
 import javafx.util.Duration;
 
 /**
@@ -32,18 +32,24 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User_Icon.jpg"));
     private Image jacksonImage = new Image(this.getClass().getResourceAsStream("/images/Jackson_Icon.png"));
 
+    /**
+     * Initializes Main Window, binds dialogContainer to scrollPane and sets
+     * prompt text.
+     */
     @FXML
     public void initialize() {
         this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
         this.userInput.setPromptText("Type here!");
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Jackson instance
+     */
     public void setJackson(Jackson j) {
         this.jackson = j;
         this.dialogContainer.getChildren().addAll(
-                DialogBox.getJacksonDialog(this.jackson.load(), this.jacksonImage, "intro"),
-                DialogBox.getJacksonDialog(this.jackson.start(), this.jacksonImage, "intro"));
+                DialogBox.getJacksonDialog(this.jackson.load(), this.jacksonImage, Commands.CommandType.INTRO),
+                DialogBox.getJacksonDialog(this.jackson.start(), this.jacksonImage, Commands.CommandType.INTRO));
     }
 
     /**
@@ -54,17 +60,18 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = this.userInput.getText();
         String response = this.jackson.getResponse(input);
-        String commandType = this.jackson.getCommandType();
+        Commands.CommandType commandType = this.jackson.getCommandType();
 
         this.dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, this.userImage),
                 DialogBox.getJacksonDialog(response, this.jacksonImage, commandType)
         );
 
-        if (commandType.equals("exit")) {
+        if (commandType == Commands.CommandType.EXIT) {
             this.dialogContainer.getChildren().addAll(
                     DialogBox.getJacksonDialog(jackson.sayGoodbye(), this.jacksonImage, commandType),
-                    DialogBox.getJacksonDialog("This window will close in 5 seconds hor...", this.jacksonImage, "error")
+                    DialogBox.getJacksonDialog("This window will close in 5 seconds hor...",
+                            this.jacksonImage, Commands.CommandType.ERROR)
             );
             this.userInput.setDisable(true);
             this.userInput.setPromptText("Exiting...");
