@@ -56,7 +56,7 @@ public class ReginaTest {
         regina.add("event project meeting /from 27/8/2024 1800 /to 27/8/2024 2000");
 
         // Call the method being tested
-        TaskList testList = regina.occurringOn("27/8/2024 1930");
+        String testList = regina.occurringOn("27/8/2024 1930");
 
         // Prepare the expected output based on the interaction you provided
         String expectedOutput = """

@@ -10,12 +10,19 @@ import javafx.stage.Stage;
 import regina.Regina;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI application for the Regina chatbot using FXML.
+ * This class initializes the JavaFX application and sets up the main user interface.
  */
 public class Main extends Application {
 
-    private Regina regina = new Regina();
+    private final Regina regina = new Regina();
 
+    /**
+     * The main entry point for the JavaFX application.
+     * This method is called when the application is launched.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {

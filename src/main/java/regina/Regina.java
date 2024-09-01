@@ -47,8 +47,8 @@ public class Regina {
     /**
      * Greets the user and provides instructions on how to interact with the chatbot.
      */
-    public void greet() {
-        ui.greet(NAME);
+    public String greet() {
+        return ui.greet(NAME);
     }
 
     /**
@@ -64,13 +64,13 @@ public class Regina {
     /**
      * Deletes all the tasks in the list
      */
-    public void clearTaskList() {
+    public String clearTaskList() {
         if (this.listOfTasks.isEmpty()) {
-            ui.printMessage("Nothing left to clear lah!");
+            return ui.printMessage("Nothing left to clear lah!");
         } else {
             this.listOfTasks.clear();
             saveFile();
-            ui.printMessage("Cleared all tasks!");
+            return ui.printMessage("Cleared all tasks!");
         }
     }
 
@@ -106,15 +106,11 @@ public class Regina {
      * @throws ReginaException If the dateAndTime format is invalid or if an error occurs while
      *                         retrieving tasks.
      */
-    public TaskList occurringOn(String dateAndTime) throws ReginaException {
+    public String occurringOn(String dateAndTime) throws ReginaException {
         ReginaDateAndTime occurringInstance = new ReginaDateAndTime(dateAndTime);
         TaskList tempList = this.listOfTasks.findTasksOccurringOn(occurringInstance);
-        ui.printMessage(tempList.toString());
-        return tempList;
-    }
-
-    public String getResponse(String input) {
-        return "IT WORKS!\n" + input;
+        return ui.printMessage(tempList.toString());
+        // return tempList;
     }
 
     /**
@@ -141,7 +137,7 @@ public class Regina {
      * @param input The user input string containing the task details.
      * @throws ReginaException If the input format is incorrect or invalid.
      */
-    public void add(String input) throws ReginaException {
+    public String add(String input) throws ReginaException {
         String[] parts = input.split(" "); // Split input by spaces
         String taskType = parts[0];
         if (parts.length < 2 && isValidTaskType(taskType)) {
@@ -195,7 +191,7 @@ public class Regina {
         listOfTasks.add(task);
         saveFile();
         int noOfTasks = listOfTasks.size();
-        ui.printMessage(String.format(
+        return ui.printMessage(String.format(
                 "Got it. I've added this task: \n  %s\nNow you have %d task%s in the list.\nJiayous!\n",
                 task,
                 noOfTasks,
@@ -208,7 +204,7 @@ public class Regina {
      * @param index The index of the task to be deleted.
      * @throws ReginaException If the index is out of bounds or if there are no tasks to delete.
      */
-    public void delete(int index) throws ReginaException {
+    public String delete(int index) throws ReginaException {
         if (listOfTasks.isEmpty()) {
             throw new ReginaException("No more tasks to delete alr lah!");
         }
@@ -227,7 +223,7 @@ public class Regina {
         listOfTasks.remove(index);
         saveFile();
         taskCount = listOfTasks.size(); // update the number of tasks
-        ui.printMessage(String.format("Wah shiok!\nCan forget about %s liao!\nList now has %d task%s!\n",
+        return ui.printMessage(String.format("Wah shiok!\nCan forget about %s liao!\nList now has %d task%s!\n",
                 task.toString(),
                 taskCount,
                 taskCount > 1 ? "s" : ""));
@@ -238,7 +234,7 @@ public class Regina {
      *
      * @throws ReginaException If there are no tasks to display.
      */
-    public void list() throws ReginaException {
+    public String list() throws ReginaException {
         int length = listOfTasks.size();
         if (length == 0) {
             throw new ReginaException("HEHE no tasks for now!");
@@ -250,7 +246,7 @@ public class Regina {
                     .append(listOfTasks.get(i).toString())
                     .append("\n"); // get task
         }
-        ui.printMessage(inputList.toString());
+        return ui.printMessage(inputList.toString());
     }
 
     /**
@@ -259,11 +255,11 @@ public class Regina {
      * @param index The index of the task to mark as done.
      * @throws ReginaException If the index is out of bounds.
      */
-    public void mark(int index) throws ReginaException {
+    public String mark(int index) throws ReginaException {
         this.marker.mark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();
-        ui.printMessage(String.format("YAY! This task finish liao!\n%s\n", task.toString()));
+        return ui.printMessage(String.format("YAY! This task finish liao!\n%s\n", task.toString()));
     }
 
     /**
@@ -272,11 +268,11 @@ public class Regina {
      * @param index The index of the task to unmark.
      * @throws ReginaException If the index is out of bounds.
      */
-    public void unmark(int index) throws ReginaException {
+    public String unmark(int index) throws ReginaException {
         this.marker.unmark(index);
         Task task = this.listOfTasks.get(index);
         saveFile();
-        ui.printMessage(String.format("Hais! Need to do this task again!:\n%s\n", task.toString()));
+        return ui.printMessage(String.format("Hais! Need to do this task again!:\n%s\n", task.toString()));
     }
 
     /**
@@ -291,6 +287,64 @@ public class Regina {
             ui.printMessage("******Error in syncing data******");
         }
     }
+
+    /**
+     * Processes user input and generates an appropriate response based on the command.
+     *
+     * <p>This method parses the input string for commands and executes the corresponding
+     * actions based on the command type detected. It interacts with the Regina model
+     * to update or retrieve information about tasks. If the command is one that requires
+     * a task number, it validates the input and executes the appropriate method.</p>
+     *
+     * @param input the command input from the user as a String.
+     * @return a String representing the response to the user, which may include error messages
+     *         or confirmation of actions performed, such as marking, unmarking, or adding tasks.
+     */
+    public String getResponse(String input) {
+        try {
+            Optional<CommandData> commandData = parser.parse(input);
+            if (commandData.isPresent()) {
+                CommandData data = commandData.get();
+                switch (data.getCommandType()) {
+                case "help":
+                    return this.ui.help(); // Create a method to build the help response
+                case "now":
+                    return ReginaDateAndTime.now(); // Return current date and time as a string
+                case "clear":
+                    return clearTaskList();
+                case "list":
+                    return list(); // Create a method that returns the list of tasks as a string
+                case "occurring":
+                    return occurringOn(data.getRawInput().substring(10)); // Convert to string if necessary
+                case "find":
+                    return find(data.getRawInput().substring(5)).toString(); // Convert to string if necessary
+                case "mark":
+                case "unmark":
+                case "delete":
+                    String[] parts = data.getRawInput().split(" "); // Split raw input to get parts
+                    if (haveNumber(parts)) { // Validate that there's a task number
+                        int index = Integer.parseInt(parts[1]) - 1; // Convert to zero-based index
+                        switch (data.getCommandType()) {
+                        case "mark":
+                            return mark(index);
+                        case "unmark":
+                            return unmark(index);
+                        case "delete":
+                            return delete(index);
+                        default:
+                            return this.ui.printMessage("Give a proper command lah!");
+                        }
+                    }
+                default:
+                    return add(input); // Add a new task
+                }
+            }
+        } catch (ReginaException e) {
+            return e.getMessage(); // Return the error messages
+        }
+        return "I'm not sure how to respond to that."; // Default response
+    }
+
 
     public static void main(String[] args) {
         Regina regina = new Regina(); // Create an instance of the regina.Regina chatbot
