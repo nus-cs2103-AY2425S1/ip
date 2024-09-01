@@ -3,6 +3,14 @@ package Gumball;
 import java.io.IOException;
 
 public class Parser {
+
+    /**
+     * Returns a Command which can be executed at a later stage.
+     * @param input The user input that determines what command is returned.
+     * @return The command based on input.
+     * @throws InputErrorException
+     * @throws IOException
+     */
     public static Command parse(String input) throws InputErrorException, IOException {
         if (input.equals("list")) {
             return new ListCommand();

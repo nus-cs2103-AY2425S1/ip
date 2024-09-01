@@ -10,6 +10,11 @@ public class FileManager {
     private File file;
     private String path;
 
+    /**
+     *
+     * @param path The location of the file which will store the information.
+     * @throws IOException
+     */
     FileManager(String path) throws IOException {
         this.path = path;
         file = new File(path);
@@ -18,6 +23,12 @@ public class FileManager {
         }
     }
 
+    /**
+     *
+     * @param taskList The taskList which holds the information which will be stored in the file.
+     * @throws IOException
+     * @throws InputErrorException
+     */
     public void updateFile(TaskList taskList) throws IOException, InputErrorException {
         FileWriter writer = new FileWriter(path);
         for (int i = 0; i < taskList.getN(); i++) {
@@ -34,6 +45,12 @@ public class FileManager {
         writer.close();
     }
 
+    /**
+     *
+     * @return The TaskList generated based on the information stored in the file.
+     * @throws FileNotFoundException
+     * @throws InputErrorException
+     */
     public TaskList loadFile() throws FileNotFoundException, InputErrorException {
         Scanner s = new Scanner(file);
         TaskList taskList = new TaskList();

@@ -5,6 +5,12 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
     private LocalDate deadlineTime;
+
+    /**
+     *
+     * @param desc The description of the deadline to be added including name and date.
+     * @throws TaskException
+     */
     public Deadline(String desc) throws TaskException {
         super("",desc);
         try {
