@@ -1,3 +1,5 @@
+import javax.xml.crypto.Data;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -30,7 +32,7 @@ public class ListBot {
 
         Scanner scanner = RapGod.scanner;
         String input = "";
-        java.util.List<Task> list = DataManager.readMemory();
+        DataManager dataManager = new DataManager("data/rapgod.txt");
 
         while (true) {
             System.out.print("Task:\n");
@@ -47,70 +49,39 @@ public class ListBot {
 
                 switch (command) {
                     case LIST:
-                        System.out.println("-----------------------------------------------");
-                        System.out.println("Displaying ListBot:");
-                        for (int i = 0; i < list.size(); i++) {
-                            System.out.printf("%d. %s\n", i + 1, list.get(i));
-                        }
-                        System.out.println("-----------------------------------------------");
+                        dataManager.getTaskList().showList();
                         break;
 
                     case MARK:
                         int markIndex = CommandType.extractIndex(input, command);
-                        list.get(markIndex - 1).setIsDone(true);
-                        System.out.println("-----------------------------------------------");
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(list.get(markIndex - 1));
-                        System.out.println("-----------------------------------------------");
+                        dataManager.getTaskList().markTaskByIndex(markIndex);
                         break;
 
                     case UNMARK:
                         int unmarkIndex = CommandType.extractIndex(input, command);
-                        list.get(unmarkIndex - 1).setIsDone(false);
-                        System.out.println("-----------------------------------------------");
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(list.get(unmarkIndex - 1));
-                        System.out.println("-----------------------------------------------");
+                        dataManager.getTaskList().unmarkTaskByIndex(unmarkIndex);
                         break;
 
                     case DELETE:
                         int deleteIndex = CommandType.extractIndex(input, command);
-                        System.out.println("-----------------------------------------------");
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println(list.get(deleteIndex - 1));
-                        list.remove(deleteIndex - 1);
-                        System.out.printf("Now you have %d tasks in the list\n", list.size());
-                        System.out.println("-----------------------------------------------");
+                        dataManager.getTaskList().deleteTaskByIndex(deleteIndex);
                         break;
 
                     case DEADLINE:
                         String deadlineDesc = input.substring(0, input.toLowerCase().indexOf("/by"));
                         String due = input.substring(input.toLowerCase().indexOf("/by") + 4);
-                        list.add(new Deadline(deadlineDesc, due));
-                        System.out.println("-----------------------------------------------");
-                        System.out.printf("Got it. I've added this task: \n%s\n", list.get(list.size() - 1));
-                        System.out.printf("Now you have %d tasks in the list\n", list.size());
-                        System.out.println("-----------------------------------------------");
+                        dataManager.getTaskList().addDeadlineTask(deadlineDesc, due);
                         break;
 
                     case EVENT:
                         String eventDesc = input.substring(0, input.toLowerCase().indexOf("/from"));
                         String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
                         String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
-                        list.add(new Event(eventDesc, from, to));
-                        System.out.println("-----------------------------------------------");
-                        System.out.printf("Got it. I've added this event: \n%s\n", list.get(list.size() - 1));
-                        System.out.printf("Now you have %d tasks in the list\n", list.size());
-                        System.out.println("-----------------------------------------------");
+                        dataManager.getTaskList().addEventTask(eventDesc, from, to);
                         break;
 
                     case TODO:
-                        String todoDesc = input;
-                        list.add(new ToDo(todoDesc));
-                        System.out.println("-----------------------------------------------");
-                        System.out.printf("Got it. I've added this task: \n%s\n", list.get(list.size() - 1));
-                        System.out.printf("Now you have %d tasks in the list\n", list.size());
-                        System.out.println("-----------------------------------------------");
+                        dataManager.getTaskList().addToDoTask(input);
                         break;
 
                     case BYE:
@@ -124,7 +95,7 @@ public class ListBot {
                         break;
                 }
 
-                DataManager.updateMemory(list);
+                dataManager.updateMemory();
 
             } catch (NumberFormatException exc) {
                 System.out.println("Enter a valid number after 'Mark ', 'Unmark ', or 'Delete '. Eg. Mark 4");

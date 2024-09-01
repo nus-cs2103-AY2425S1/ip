@@ -11,7 +11,8 @@ public class RapGod {
             "idiot", "moron", "stupid",
             "loser", "jerk", "creep"
     ));
-    public static void main(String[] args) {
+
+    private static void run() {
         String logo = """
                   ____              ____           _\s
                 |  _ \\ __ _ _ __  / ___| ___   __| |
@@ -75,6 +76,8 @@ public class RapGod {
             }
 
         }
-
+    }
+    public static void main(String[] args) {
+        RapGod.run();
     }
 }
