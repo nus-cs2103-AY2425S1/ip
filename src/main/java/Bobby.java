@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
  * Bobby is a chatbot that can manage a list of tasks, including ToDos, Deadlines, and Events.
- * It can mark tasks as done, unmark, delete and find tasks.
+ * It can mark tasks as done, unmark, delete and add tasks.
  */
 public class Bobby {
 
@@ -60,7 +60,7 @@ public class Bobby {
      * Enum representation of the action that Bobby can take.
      */
     public enum ActionType {
-        bye, list, delete, mark, unmark, todo, deadline, event, retry, find
+        bye, list, delete, mark, unmark, todo, deadline, event, retry
     }
 
     /**
@@ -158,18 +158,6 @@ public class Bobby {
     private static void handleDelete() throws Exception {
         int curr_task_index = scan.nextInt();
         taskList.delete_task(curr_task_index);
-        check_action(parser.getActionType(scan.next()));
-    }
-
-    /**
-     * Handles the "find" command by finding the task from the list that contains
-     * the keywords.
-     *
-     * @throws Exception if there is an issue processing the next action.
-     */
-    private static void handleFind() throws Exception {
-        String keyword = scan.nextLine();
-        taskList.findTask(keyword);
         check_action(parser.getActionType(scan.next()));
     }
 
@@ -339,9 +327,6 @@ public class Bobby {
                 break;
             case delete:
                 handleDelete();
-                break;
-            case find:
-                handleFind();
                 break;
             case mark:
                 handleMark();
