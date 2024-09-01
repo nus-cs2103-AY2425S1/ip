@@ -1,5 +1,6 @@
 ## Joe
 > “The same boiling water that softens the potato hardens the egg. It's about what you're made of, not the circumstances.” - Roald Dahl ([source](https://www.goodreads.com/quotes/11675966-the-same-boiling-water-that-softens-the-potato-hardens-the))
+
 Joe frees your mind of having to remember things you need to do. It's,
 - text-based
 - easy to learn
@@ -15,7 +16,7 @@ Features:
 [X] Managing tasks
 [ ] Managing deadlines (coming soon)
 [ ] Reminders (coming soon)
-
+___
 If you are a Java programmer, you can use it to practice Java too. Here's the <span style="color:#ff69b4;">main</span> method:
 ```java
 public class Main {
