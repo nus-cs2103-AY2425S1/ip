@@ -36,8 +36,7 @@ public class AddTaskCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            taskList.addTask(this.userInput);
-            return "Your task has been added";
+            return taskList.addTask(this.userInput);
         } catch (UnknownMessageException | InvalidTodoDescriptionException e) {
             // ui.showMessage(ui.formatOutputMessage("Please enter a valid task!"));
             return "Please enter a valid task!";

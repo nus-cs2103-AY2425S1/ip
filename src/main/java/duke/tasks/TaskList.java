@@ -108,7 +108,7 @@ public class TaskList {
      * @throws UnknownMessageException if the task type is unknown or unrecognized.
      * @throws InvalidTodoDescriptionException if the task is a ToDo but lacks a description.
      */
-    public void addTask(String userInput) throws UnknownMessageException, InvalidTodoDescriptionException {
+    public String addTask(String userInput) throws UnknownMessageException, InvalidTodoDescriptionException {
         TaskEnum taskType = determineTaskType(userInput);
 
         switch (taskType) {
@@ -127,8 +127,7 @@ public class TaskList {
             try {
                 tasks.add(new Deadline(deadlineDescription, deadlineDate));
             } catch (InvalidDeadlineException e) {
-                System.out.println(e.getMessage() + " Please enter a valid deadline");
-                return;
+                return e.getMessage() + " Please enter a valid deadline";
             }
             break;
         case EVENT:
@@ -140,15 +139,13 @@ public class TaskList {
             try {
                 tasks.add(new Event(eventDescription, start, end));
             } catch (InvalidEventException e) {
-                System.out.println(e.getMessage() + " Please enter a valid event");
-                return;
+                return e.getMessage() + " Please enter a valid event";
             }
             break;
         default:
             throw new UnknownMessageException("Unknown task type.");
         }
-        System.out.println(Ui.formatAddTask(this.getTasks().size(),
-                this.getLastTask()));
+        return Ui.formatAddTask(this.getTasks().size(), this.getLastTask());
     }
 
     /**
