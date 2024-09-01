@@ -1,11 +1,11 @@
 package tohru.command;
 
+import java.time.format.DateTimeFormatter;
+
 import tohru.exception.TohruException;
 import tohru.storage.FileStore;
 import tohru.task.TodoList;
 import tohru.ui.Ui;
-
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a specific operation that interacts with the to-do list, store and ui.
@@ -23,7 +23,7 @@ public abstract class Command {
      *
      * @param arguments The argument to be passed in for a command.
      */
-    public Command (String arguments) {
+    public Command(String arguments) {
         this.arguments = arguments;
     }
 

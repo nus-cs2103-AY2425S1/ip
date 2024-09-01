@@ -1,12 +1,12 @@
 package tohru.command;
 
+import java.util.ArrayList;
+
 import tohru.exception.TohruException;
 import tohru.storage.FileStore;
 import tohru.task.TodoItem;
 import tohru.task.TodoList;
 import tohru.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents the command to search entries for a keyword in the to-do list.

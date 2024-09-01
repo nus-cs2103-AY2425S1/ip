@@ -1,14 +1,18 @@
 package tohru.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
+
 import tohru.exception.TohruException;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
 
     @Test
-    public void parse_byeCommand_success(){
+    public void parse_byeCommand_success() {
         String prompt = ByeCommand.COMMAND_PREFIX;
 
         Command c = null;
@@ -22,7 +26,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_listCommand_success(){
+    public void parse_listCommand_success() {
         String prompt = ListCommand.COMMAND_PREFIX;
 
         Command c = null;
@@ -36,7 +40,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_markCommand_success(){
+    public void parse_markCommand_success() {
         String prompt = MarkCommand.COMMAND_PREFIX;
 
         Command c = null;
@@ -50,7 +54,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_unmarkCommand_success(){
+    public void parse_unmarkCommand_success() {
         String prompt = UnmarkCommand.COMMAND_PREFIX;
 
         Command c = null;
@@ -64,7 +68,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_deleteCommand_success(){
+    public void parse_deleteCommand_success() {
         String prompt = DeleteCommand.COMMAND_PREFIX;
 
         Command c = null;
@@ -78,7 +82,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_addTodoCommand_success(){
+    public void parse_addTodoCommand_success() {
         String prompt = AddTodoCommand.COMMAND_PREFIX;
 
         Command c = null;
@@ -92,7 +96,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_addDeadlineCommand_success(){
+    public void parse_addDeadlineCommand_success() {
         String prompt = AddDeadlineCommand.COMMAND_PREFIX;
 
         Command c = null;
@@ -106,7 +110,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_addEventCommand_success(){
+    public void parse_addEventCommand_success() {
         String prompt = AddEventCommand.COMMAND_PREFIX;
 
         Command c = null;
@@ -120,7 +124,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_unknownCommand_failure(){
+    public void parse_unknownCommand_failure() {
         String prompt = "unknown";
 
         TohruException e = assertThrowsExactly(TohruException.class, () -> {

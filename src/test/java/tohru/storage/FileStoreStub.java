@@ -1,8 +1,8 @@
 package tohru.storage;
 
-import tohru.task.TodoItem;
-
 import java.util.ArrayList;
+
+import tohru.task.TodoItem;
 
 /**
  * A stub class that represent hte FileStore class simulating loading
