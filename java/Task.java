@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -24,7 +24,5 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    public String toFileFormat() {
-        return " | " + (isDone ? "1" : "0") + " | " + description;
-    }
+    public abstract String toFileFormat();
 }
