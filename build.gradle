@@ -3,7 +3,6 @@ plugins {
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-
 }
 
 repositories {
@@ -34,7 +33,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "Papagu.jar"
+    archiveBaseName = "duke"
     archiveClassifier = null
 }
 
