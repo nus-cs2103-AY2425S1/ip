@@ -24,7 +24,11 @@ public class Gumball {
 
     }
 
-
+    /**
+     *
+     * @throws IOException
+     * @throws InputErrorException
+     */
     public Gumball() throws IOException, InputErrorException {
         ui = new UI();
         inputScanner = new Scanner(System.in);
@@ -32,6 +36,10 @@ public class Gumball {
         list = fileManager.loadFile();
     }
 
+    /**
+     * Will cause the chatbot to start running.
+     * @throws FileNotFoundException
+     */
     public void start() throws FileNotFoundException {
         ui.intro();
         while (true){
