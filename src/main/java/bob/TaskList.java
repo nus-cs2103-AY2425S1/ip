@@ -275,7 +275,7 @@ public class TaskList {
 
         // Display the found tasks or an error message
         if (found) {
-            return ui.showTasksFound(tasksWithKey);
+            return ui.showTasksFound(tasksWithKey.toArray(new Task[0]));
         } else {
             return ui.showError("No tasks found containing the keyword: " + key);
         }
