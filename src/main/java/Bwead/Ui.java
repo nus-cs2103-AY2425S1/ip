@@ -1,5 +1,6 @@
 package Bwead;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 
@@ -94,6 +95,21 @@ public class Ui {
                     history.updateFile(taskList.getCurrentList());
                     System.out.println("Noted. I've removed this task: " + toremove.toString());
                     System.out.println("Now you have " + taskList.getCurrentList().size() + " tasks in the list.");
+                } else if (input.startsWith("find")) {
+                    String keyword = parser.getKeyword();
+                    ArrayList<String> matches = new ArrayList<>();
+                    for (int i = 0; i < taskList.getCurrentList().size(); i++) {
+                        if (taskList.getCurrentList().get(i).getName().contains(keyword)) {
+                            matches.add(taskList.getCurrentList().get(i).toString());
+                        }
+                    }
+                    if (matches.size() == 0) {
+                        throw new BweadException("no matching tasks found");
+                    }
+                    System.out.println("Here are the matching tasks in your list:");
+                    for (int i = 0; i < matches.size(); i++) {
+                        System.out.println((i + 1) + "." + matches.get(i));
+                    }
                 }
             } catch (BweadException e) {
                 System.out.println(e.getMessage());

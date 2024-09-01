@@ -25,6 +25,10 @@ public class Event extends Task {
         this.done = toset;
     }
 
+    public String getName() {
+        return this.text;
+    }
+
     public String toString() {
         String str = "";
         if (done) {
