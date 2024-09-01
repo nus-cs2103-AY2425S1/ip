@@ -6,6 +6,7 @@ package guy.tasks;
 public abstract class Task {
     protected String name;
     protected boolean isDone;
+    protected TaskType taskType;
 
     /**
      * Constructs a Task with the given name.
@@ -13,9 +14,10 @@ public abstract class Task {
      *
      * @param name the name of the task
      */
-    public Task(String name) {
+    public Task(String name, TaskType taskType) {
         this.name = name;
         isDone = false;
+        this.taskType = taskType;
     }
 
     /**
