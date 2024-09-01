@@ -1,22 +1,23 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * These are tasks with specific start and end date time
  */
 public class EventTask extends Task {
 
-    private String startDateTime;
-    private String endDateTime;
+    private LocalDate startDateObject;
+    private LocalDate endDateTime;
     /**
      * Constructur for Event task
      *
      * @param description description of task
-     * @param startDateTime start date of task
+     * @param startDateObject start date of task
      * @param endDateTime end date of task
      */
-    public EventTask(String description, String startDateTime, String endDateTime) {
+    public EventTask(String description, LocalDate startDateObject, LocalDate endDateTime) {
         super(description);
-        startDateTime = startDateTime.trim();
-        endDateTime = endDateTime.trim();
-        this.startDateTime = startDateTime;
+        this.startDateObject = startDateObject;
         this.endDateTime = endDateTime;
     }
 
@@ -24,22 +25,21 @@ public class EventTask extends Task {
      * Constructur for Event task
      *
      * @param description description of task
-     * @param startDateTime start date of task
+     * @param startDateObject start date of task
      * @param endDateTime end date of task
      * @param isDone status of task
      */
-    public EventTask(String description, String startDateTime,
-                     String endDateTime, boolean isDone) {
+    public EventTask(String description, LocalDate startDateObject,
+                     LocalDate endDateTime, boolean isDone) {
         super(description, isDone);
-        startDateTime = startDateTime.trim();
-        endDateTime = endDateTime.trim();
-        this.startDateTime = startDateTime;
+        this.startDateObject = startDateObject;
         this.endDateTime = endDateTime;
     }
 
     @Override
     public String saveString() {
-        return "E | " + super.getStatusAndDescription() + " | " + startDateTime + " | " + endDateTime;
+        return "E | " + super.getStatusAndDescription() + " | " +
+                startDateObject.toString() + " | " + endDateTime.toString();
     }
 
     /**
@@ -49,8 +49,10 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startDateTime
-                + " to: " + this.endDateTime + ")";
+        return "[E]" + super.toString() + " (from: " +
+                this.startDateObject.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " +
+                this.endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
 }

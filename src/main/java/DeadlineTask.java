@@ -1,37 +1,38 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * This is task with a deadline
  */
 public class DeadlineTask extends Task{
-    private String byDateTime;
+    private LocalDate byDateObject;
 
     /**
      * Constructor for DeadlineTask
      *
      * @param description description of task
-     * @param byDateTime  deadline of task
+     * @param byDateObject  deadline of task
      */
-    public DeadlineTask(String description, String byDateTime) {
+    public DeadlineTask(String description, LocalDate byDateObject) {
         super(description);
-        byDateTime = byDateTime.trim();
-        this.byDateTime = byDateTime;
+        this.byDateObject = byDateObject;
     }
 
     /**
      * Constructor for DeadlineTask
      *
      * @param description description of task
-     * @param byDateTime  deadline of task
+     * @param byDateObject  deadline of task
      * @param isDone status of task
      */
-    public DeadlineTask(String description, String byDateTime, boolean isDone) {
+    public DeadlineTask(String description, LocalDate byDateObject, boolean isDone) {
         super(description, isDone);
-        byDateTime = byDateTime.trim();
-        this.byDateTime = byDateTime;
+        this.byDateObject = byDateObject;
     }
 
     @Override
     public String saveString() {
-        return "D | " + super.getStatusAndDescription() + " | " + byDateTime;
+        return "D | " + super.getStatusAndDescription() + " | " + byDateObject.toString();
     }
 
     /**
@@ -41,6 +42,7 @@ public class DeadlineTask extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + byDateTime + ")";
+        return "[D]" + super.toString() + " (by: " +
+                byDateObject.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
