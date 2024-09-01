@@ -132,12 +132,12 @@ public class TaskTracker {
         String output = "Here are some tasks matching your description:";
         for (Task t: this.taskList) {
             String taskDescription = t.toString();
-            String[] extractDesc = taskDescription.substring(4).split("//(");
+            String[] extractDesc = taskDescription.substring(4).split("\\(");
             String secondCompare = extractDesc[0];
-            if (secondCompare.toUpperCase().contains(compareTask.toUpperCase()) && !compareTask.equals("") && !compareTask.equals(" ")) {
+            if (secondCompare.toUpperCase().contains(compareTask.toUpperCase())) {
                 numMatch++;
-                output += (t.getIsDone()) ? "\n" + numMatch + ". [X] " + t.toString()
-                        : "\n" + numMatch + ". [ ] " + t.toString();
+                output += (t.getIsDone()) ? "\n" + numMatch + ". [X] " + t
+                        : "\n" + numMatch + ". [ ] " + t;
             }
         }
         if (numMatch > 0) {

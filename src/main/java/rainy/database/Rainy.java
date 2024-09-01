@@ -107,6 +107,7 @@ public class Rainy {
 
                 case FIND:
                     tm.findTask(ps.findTask(messages));
+                    break;
                 case INVALID:
                     ui.noCategoryDeclared();
                     break;
