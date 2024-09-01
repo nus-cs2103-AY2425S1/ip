@@ -160,4 +160,22 @@ public class Ui {
                 -----------------------------------------
                 """);
     }
+
+    public void findTasks(String tasks) {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Here are the matching tasks in your list:
+                """ + tasks +
+                "-----------------------------------------"
+        );
+    }
+
+    public void invalidFindCommand() {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Sorry, there is something wrong with your find command.
+                Find command should be in the format: find <keyword>
+                -----------------------------------------
+                """);
+    }
 }
