@@ -23,7 +23,7 @@ public class Ui {
 
     public void showTaskCreation(Task task) {
         System.out.println(task.toUIString());
-        System.out.println(task.toString());
+        System.out.println(task);
     }
 
     public void showMarkTask(Task markTask) {
@@ -53,9 +53,12 @@ public class Ui {
         System.out.println("I’m from the future, and even I don’t know what that means.");
     }
 
-    public Command readCommand() {
+    public String readCommand() {
         String input = scanner.nextLine();
+        return input;
+    }
+
+    public void closeCommand() {
         scanner.close();
-        return new Command(input);
     }
 }

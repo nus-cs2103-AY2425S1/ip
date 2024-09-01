@@ -1,14 +1,15 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import static java.lang.Boolean.parseBoolean;
 
 public class Storage {
     private final String filePath;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -29,10 +30,10 @@ public class Storage {
                         taskList.add(new Todo(parseBoolean(sentenceSplit[1]), sentenceSplit[2]));
                         break;
                     case "D":
-                        taskList.add(new Deadline(parseBoolean(sentenceSplit[1]), sentenceSplit[2], LocalDate.parse(sentenceSplit[3])));
+                        taskList.add(new Deadline(parseBoolean(sentenceSplit[1]), sentenceSplit[2], LocalDateTime.parse(sentenceSplit[3], DATE_TIME_FORMATTER)));
                         break;
                     case "E":
-                        taskList.add(new Event(parseBoolean(sentenceSplit[1]), sentenceSplit[2], LocalDate.parse(sentenceSplit[3]), LocalDate.parse(sentenceSplit[4])));
+                        taskList.add(new Event(parseBoolean(sentenceSplit[1]), sentenceSplit[2], LocalDateTime.parse(sentenceSplit[3], DATE_TIME_FORMATTER), LocalDateTime.parse(sentenceSplit[4], DATE_TIME_FORMATTER)));
                         break;
                     default:
                         throw new DrBrownException("The file provided might be corrupted since it does not follow the specified format.");
@@ -44,18 +45,20 @@ public class Storage {
         return taskList;
     }
 
-    public void update (Task task) throws DrBrownException {
+    public void update (TaskList tasks) {
         try {
             File f = new File(this.filePath);
             if (!f.exists()) {
                 f.getParentFile().mkdirs();
                 f.createNewFile();
             }
-            FileWriter fw = new FileWriter (this.filePath, true);
-            fw.write(task.toFileString());
+            FileWriter fw = new FileWriter (this.filePath);
+            for (Task task : tasks.getList()) {
+                fw.write(task.toFileString() + System.lineSeparator());
+            }
             fw.close();
         } catch (IOException e) {
-            throw new DrBrownException("Seems like you messed up the file path somehow!");
+            System.out.println("Seems like you messed up the file path somehow!");
         }
     }
 

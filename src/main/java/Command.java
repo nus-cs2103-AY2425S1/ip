@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class Command {
+public abstract class Command {
+
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException;
+    public abstract boolean isExit();
+
 }

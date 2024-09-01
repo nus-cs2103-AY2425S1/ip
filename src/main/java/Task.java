@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
 
     private boolean status;
     private String description;
@@ -22,8 +22,7 @@ public class Task {
         this.status = status;
     }
 
-    public String toFileString() {
-        return "";
-    }
+    public abstract String toFileString();
+    public abstract String toUIString();
 
 }
