@@ -1,8 +1,12 @@
-package Nen2;
+package nen.utils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+
+import nen.exceptions.FailToParseDataException;
+import nen.tasks.Task;
+import nen.tasks.Todo;
+
 
 /**
  * This class represents list of tasks
@@ -17,6 +21,10 @@ public class TaskList {
 
     }
 
+    /**
+     * Constructs a list of tasks
+     * @param arr of string read from saved data
+     */
     public TaskList(String[] arr) {
         try {
             for (String data : arr) {
@@ -36,10 +44,15 @@ public class TaskList {
         return listOfTasks.stream().map(Task::toData).toArray(String[]::new);
     }
 
+    /**
+     * Finds and returns array of tasks contain the given keyword
+     * @param keyword to find tasks
+     * @return array of tasks
+     */
     public Task[] findTaskWithKeyword(String keyword) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (Task t : listOfTasks) {
-            for (String word : t.description.split(" ")) {
+            for (String word : t.getDescription().split(" ")) {
                 if (word.equals(keyword)) {
                     tasks.add(t);
                 }

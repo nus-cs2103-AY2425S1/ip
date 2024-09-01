@@ -1,4 +1,4 @@
-package Nen2;
+package nen.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +11,11 @@ public class Deadline extends Task {
 
     protected LocalDate by;
 
+    /**
+     * Constructs a task with deadline
+     * @param description of the task
+     * @param by deadline of String format (yyyy-mm-dd hh:mm)
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = LocalDate.parse(by);

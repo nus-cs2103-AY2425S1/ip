@@ -1,6 +1,12 @@
-package Nen2;
+package nen.nen2;
 
 import java.util.Scanner;
+
+import nen.utils.Parser;
+import nen.utils.Storage;
+import nen.utils.TaskList;
+import nen.utils.Ui;
+
 
 /**
  * This class represents a chatbot, name Nen2
@@ -12,6 +18,10 @@ public class Nen2 {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructs Nen2 chatbot
+     * @param filePath of the saved data
+     */
     public Nen2(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -27,7 +37,7 @@ public class Nen2 {
 
         ui.greet();
         while (true) {
-            if(!parser.continueParsing(messageReader.nextLine())) {
+            if (!parser.continueParsing(messageReader.nextLine())) {
                 break;
             }
         }

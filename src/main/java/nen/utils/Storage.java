@@ -1,4 +1,4 @@
-package Nen2;
+package nen.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,10 +12,10 @@ import java.util.Scanner;
  * @author Gan Ren Yick (A0276246X)
  */
 public class Storage {
-    private final String DATA_ADDRESS;
+    private final String dataAddr;
 
     public Storage(String address) {
-        DATA_ADDRESS = address;
+        dataAddr = address;
     }
 
     /**
@@ -25,7 +25,7 @@ public class Storage {
     public String[] load() {
         ArrayList<String> out = new ArrayList<>();
         try {
-            File f = new File(DATA_ADDRESS);
+            File f = new File(dataAddr);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 out.add(s.nextLine());
@@ -43,7 +43,7 @@ public class Storage {
      */
     public void save(String[] arr) {
         try {
-            FileWriter fw = new FileWriter(DATA_ADDRESS);
+            FileWriter fw = new FileWriter(dataAddr);
 
             for (String s : arr) {
                 fw.write(s + "\n");

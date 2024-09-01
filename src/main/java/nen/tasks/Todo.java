@@ -1,12 +1,16 @@
-package Nen2;
+package nen.tasks;
 
 /**
  * This class represents a Todo Task
  * @author Gan Ren Yick (A0276246X)
  */
 
-public class Todo extends Task{
+public class Todo extends Task {
 
+    /**
+     * Constructs a Todo task
+     * @param description of the task
+     */
     public Todo(String description) {
         super(description);
     }
@@ -18,6 +22,6 @@ public class Todo extends Task{
 
     @Override
     public String toData() {
-        return "T/" + this.isDone + "/" + this.description ;
+        return "T/" + this.isDone + "/" + this.description;
     }
 }
