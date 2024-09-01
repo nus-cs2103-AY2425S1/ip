@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -92,6 +91,7 @@ public class Vecrosen {
             System.err.println("File exists but cannot be found...?");
         } catch (NoSuchElementException | IndexOutOfBoundsException e) {
             speak("Savefile is corrupted!");
+            System.err.println(list.size());
             list.clear();
         }
     }
