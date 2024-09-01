@@ -2,6 +2,7 @@ package mummy.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -11,29 +12,34 @@ import java.util.stream.Stream;
  * @see TaskListException
  */
 public class TaskList {
+
+    private static final String DEFAULT_LABEL = "Here are the tasks in your list:";
+
     private final String label;
 
     private final ArrayList<Task> tasks;
 
     /**
-     * Constructs a TaskList object with the specified label.
-     *
-     * @param label the label for the TaskList
+     * Constructs a TaskList object.
      */
-    public TaskList(String label) {
-        this.label = label;
+    public TaskList() {
+        this.label = DEFAULT_LABEL;
         this.tasks = new ArrayList<>();
     }
 
     /**
-     * Constructs a TaskList object with the specified label and file records.
+     * Constructs a TaskList object with the file records.
      *
-     * @param label the label of the task list
      * @param fileRecords the lines representing the tasks
      */
-    public TaskList(String label, List<String> fileRecords) {
-        this.label = label;
+    public TaskList(List<String> fileRecords) {
+        this.label = DEFAULT_LABEL;
         this.tasks = parseLines(fileRecords);
+    }
+
+    private TaskList(String label, ArrayList<Task> tasks) {
+        this.label = label;
+        this.tasks = tasks;
     }
 
     /**
@@ -133,15 +139,16 @@ public class TaskList {
     }
 
     /**
-     * Filters the task list based on a keyword.
-     * @param keyword The keyword to filter the tasks by.
-     * @return A new TaskList object containing the matching tasks.
+     * Filters the tasks in the task list based on the given predicate.
+     *
+     * @param predicate the predicate used to filter the tasks
+     * @return a new TaskList containing the matching tasks
      */
-    public TaskList filter(String keyword) {
-        List<String> filteredTasks = this.tasks.stream()
-                .filter(task -> task.getDescription().contains(keyword))
-                .map(Task::toFileRecord)
-                .toList();
+    public TaskList filter(Predicate<Task> predicate) {
+        ArrayList<Task> filteredTasks = this.tasks.stream()
+                .filter(predicate)
+                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+
         return new TaskList("Here are the matching tasks in your list:", filteredTasks);
     }
 

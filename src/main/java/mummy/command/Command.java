@@ -40,6 +40,49 @@ public abstract class Command {
     }
 
     /**
+     * Creates a Command object based on the given arguments.
+     *
+     * @param arguments a HashMap containing the command and its arguments
+     * @return a Command object based on the given command type
+     * @throws MummyException if the command type is unknown
+     */
+    public static Command of(HashMap<String, String> arguments) throws MummyException {
+        CommandType commandType;
+
+        try {
+            commandType = CommandType.valueOf(
+                    arguments.getOrDefault("command", "")
+                            .toUpperCase()
+            );
+        } catch (IllegalArgumentException exception) {
+            commandType = CommandType.UNKNOWN;
+        }
+
+        switch (commandType) {
+        case BYE:
+            return new ByeCommand();
+        case LIST:
+            return new ListCommand();
+        case MARK:
+            return new MarkCommand(arguments);
+        case UNMARK:
+            return new UnmarkCommand(arguments);
+        case TODO:
+            return new ToDoCommand(arguments);
+        case DEADLINE:
+            return new DeadlineCommand(arguments);
+        case EVENT:
+            return new EventCommand(arguments);
+        case DELETE:
+            return new DeleteCommand(arguments);
+        case FIND:
+            return new FindCommand(arguments);
+        default:
+            throw new MummyException("I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    /**
      * Executes the command.
      *
      * @param taskList the task list to be modified
@@ -109,48 +152,5 @@ public abstract class Command {
                 "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
                 task, taskList.getCount()
         ));
-    }
-
-    /**
-     * Creates a Command object based on the given arguments.
-     *
-     * @param arguments a HashMap containing the command and its arguments
-     * @return a Command object based on the given command type
-     * @throws MummyException if the command type is unknown
-     */
-    public static Command of(HashMap<String, String> arguments) throws MummyException {
-        CommandType commandType;
-
-        try {
-            commandType = CommandType.valueOf(
-                    arguments.getOrDefault("command", "")
-                            .toUpperCase()
-            );
-        } catch (IllegalArgumentException exception) {
-            commandType = CommandType.UNKNOWN;
-        }
-
-        switch (commandType) {
-        case BYE:
-            return new ByeCommand();
-        case LIST:
-            return new ListCommand();
-        case MARK:
-            return new MarkCommand(arguments);
-        case UNMARK:
-            return new UnmarkCommand(arguments);
-        case TODO:
-            return new ToDoCommand(arguments);
-        case DEADLINE:
-            return new DeadlineCommand(arguments);
-        case EVENT:
-            return new EventCommand(arguments);
-        case DELETE:
-            return new DeleteCommand(arguments);
-        case FIND:
-            return new FindCommand(arguments);
-        default:
-            throw new MummyException("I'm sorry, but I don't know what that means :-(");
-        }
     }
 }

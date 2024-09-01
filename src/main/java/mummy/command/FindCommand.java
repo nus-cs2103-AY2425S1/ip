@@ -25,7 +25,9 @@ public class FindCommand extends Command {
             return;
         }
 
-        ui.show(taskList.filter(keyword).toString());
+        ui.show(taskList
+                .filter(task -> task.getDescription().contains(keyword))
+                .toString());
     }
 
     @Override
