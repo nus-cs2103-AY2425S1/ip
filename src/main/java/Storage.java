@@ -11,6 +11,7 @@ public class Storage {
             Files.createDirectories(filePath.getParent());
 
             if (Files.exists(filePath)) {
+                this.store = DataParser.readTasksFromFile(filePath);
                 System.out.println("Data found and loaded from: " + filePath.toAbsolutePath());
                 System.out.println("*the first word will always be read as the command*");
                 Notgpt.lnDiv();

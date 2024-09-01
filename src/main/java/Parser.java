@@ -31,6 +31,7 @@ public class Parser {
                         break;
                     }
                     if(0 < i && i <= storage.size()) {
+                        storage.mark(i);
                         System.out.println(String.format("marked %s as completed\nuse \"list\" to see changes",i));
                     }else {
                         System.out.println("that number isn't a valid task dude...");
