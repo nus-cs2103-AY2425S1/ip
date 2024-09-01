@@ -47,11 +47,9 @@ public class Parser {
      * @param numOfTasksInList Total number of tasks inside the list.
      * @throws JanetException If user input is invalid.
      */
-    public static void checkUserInput(String[] commandDetails, int numOfTasksInList) throws JanetException {
+    public static void userInputChecker(String[] commandDetails, int numOfTasksInList) throws JanetException {
         validateCommand(commandDetails, numOfTasksInList);
         checkInaccurateCommand(commandDetails);
-        validateDeadline(commandDetails);
-        // validateEvent(commandDetails);
         validateByeAndList(commandDetails);
     }
 
@@ -110,39 +108,6 @@ public class Parser {
                 // when the command is either (todo, deadline, todo), BUT there is no task description
                 throw new JanetException("WHOOPS! You can't leave out the task's description!");
             }
-        }
-    }
-
-
-    /**
-     * Returns true if "/by" was NOT found, false otherwise.
-     *
-     * @param commandDetails A String[], where each element corresponds to a word of the user input.
-     * @return A boolean value indicating whether "/by" was found in user's input.
-     */
-    public static boolean byKeywordNotFound(String[] commandDetails) {
-        for (String word : commandDetails) {
-            if (word.equals("/by")) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    /**
-     * Throws a new JanetException if "/by" keyword not found in input.
-     * Example: 'deadline return book 2024-08-30 18:00'
-     *
-     * @param commandDetails A String[], where each element corresponds to a word of the user input.
-     * @throws JanetException If "/by" word missing from user's command line input.
-     */
-    public static void validateDeadline(String[] commandDetails) throws JanetException {
-        if (commandDetails[0].equals("deadline") &&
-                commandDetails.length > 1 &&
-                byKeywordNotFound(commandDetails)
-        ) {
-            throw new JanetException("WHOOPS! Missing/Wrong keywords for creating deadline...");
         }
     }
 
