@@ -1,6 +1,7 @@
 package jackson.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import jackson.exceptions.OutOfListException;
 import jackson.tasks.Task;
@@ -13,11 +14,21 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructs TaskList instance.
+     * Constructs empty TaskList instance.
+     * This is the main constructor.
      * @param expectedSize expected number of tasks to store.
      */
     public TaskList(int expectedSize) {
         this.tasks = new ArrayList<>(expectedSize);
+    }
+
+    /**
+     * Constructs TaskList instance from given Tasks.
+     * This is an overloaded constructor in case this functionality is needed.
+     * @param tasks varargs of tasks to add to new TaskList instance.
+     */
+    public TaskList(Task... tasks) {
+        this.tasks = new ArrayList<>(Arrays.asList(tasks));
     }
 
     /**
