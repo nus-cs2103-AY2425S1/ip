@@ -15,7 +15,7 @@ public class Ui {
             "|  | \\   |   (_|  |     |  |   |  |  | '--'  / ('  '-'(_.-' \\       / \n" +
             "`--'  `--'     `--'     `--'   `--'  `------'    `-----'     `-----'  \n";
 
-    private static final String horizontalLine = "\n-------------------------------------------------";
+    public static final String horizontalLine = "\n-------------------------------------------------";
     private static final String welcomeMessage = "Hello from \n" + logo + horizontalLine +
             " \nHow can I help you today~ UwU" + horizontalLine;;
     private static final String endingMessage = "BAIBAI! NIMBUS WEEEEEEEEE" + horizontalLine;

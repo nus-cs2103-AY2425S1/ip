@@ -7,9 +7,7 @@ public class Parser {
         this.taskList = taskList;
     }
 
-    public void handleInput(String userInput) throws IOException, WrongDateTimeFormatException,
-            MissingStartEndTimeException, MissingDeadlineException, MissingDescriptionException,
-            WrongInputException {
+    public void handleInput(String userInput) throws IOException, WrongDateTimeFormatException {
 
         if (userInput.equals("bye")) {
             Storage.updateFile(taskList.getTaskList());
@@ -17,18 +15,15 @@ public class Parser {
         } else if (userInput.equals("list")) {
             taskList.toString();
         } else if (userInput.startsWith("check ")) {
-            taskList.tasksOnDate(userInput.substring(6).trim());
+            new CheckCommand(userInput, taskList).execute();
         } else if (userInput.startsWith("mark ")) {
-            int x = Integer.parseInt(userInput.substring(5).trim());
-            taskList.completeTask(x - 1);
+            new MarkCommand(userInput, taskList).execute();
         } else if (userInput.startsWith("unmark ")) {
-            int x = Integer.parseInt(userInput.substring(7).trim());
-            taskList.incompleteTask(x - 1);
+            new UnmarkCommand(userInput, taskList).execute();
         } else if (userInput.startsWith("delete ")) {
-            int x = Integer.parseInt(userInput.substring(7).trim());
-            taskList.deleteTask(x - 1);
+            new DeleteCommand(userInput, taskList).execute();
         } else {
-            taskList.addTask(userInput);
+            new AddCommand(userInput, taskList).execute();
         }
     }
 }
