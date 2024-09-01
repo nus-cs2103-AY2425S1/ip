@@ -1,134 +1,112 @@
 package hana.ui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import hana.HanaException;
 import hana.task.Task;
 
 /**
- * Handles interactions with the user.
+ * Handles interactions with the user in a GUI environment.
  */
 public class Ui {
-    private static final String LINE = "___________________________________________";
     private static final String NAME = "Hana";
-    private Scanner scanner;
+    private StringBuilder responseBuilder;
 
     /**
      * Constructs a new Ui.
-     * Initializes the scanner.
+     * Initializes the response builder.
      */
     public Ui() {
-        scanner = new Scanner(System.in);
+        responseBuilder = new StringBuilder();
     }
 
     /**
-     * Return user input.
+     * Retrieves the accumulated response and clears the buffer.
      *
-     * @return User input
+     * @return The accumulated response.
      */
-    public String readCommand() {
-        return scanner.nextLine();
+    public String getResponse() {
+        String response = responseBuilder.toString();
+        responseBuilder.setLength(0); // Clear the response builder
+        return response;
     }
 
     /**
-     * Print line.
-     */
-    public void printLine() {
-        System.out.println(LINE);
-    }
-
-    /**
-     * Print greetings.
+     * Prints greetings.
      */
     public void printGreetings() {
-        printLine();
-        System.out.println(" Hello! I'm " + NAME);
-        System.out.println(" What can I do for you?");
-        printLine();
+        responseBuilder.append(" Hello! I'm ").append(NAME).append(".\n");
+        responseBuilder.append(" What can I do for you?\n");
     }
 
     /**
-     * Print bye.
+     * Prints bye message.
      */
     public void printBye() {
-        printLine();
-        System.out.println(" Bye. Hope to see you again soon!");
-        printLine();
+        responseBuilder.append("Bye. The application will close in 3 seconds.\n");
+        responseBuilder.append("Hope to see you again soon!\n");
     }
 
-
     /**
-     * Print error.
+     * Prints error message.
      */
     public void printError(String message) {
-        printLine();
-        System.out.println(message);
-        printLine();
+        responseBuilder.append("Error: ").append(message).append("\n");
     }
 
     /**
-     * Print after task successfully added.
+     * Prints message after task successfully added.
      */
     public void printAdd(Task task, int taskCount) {
-        printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("    " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        printLine();
+        responseBuilder.append("Got it. I've added this task:\n");
+        responseBuilder.append("    ").append(task).append("\n");
+        responseBuilder.append("Now you have ").append(taskCount).append(" tasks in the list.\n");
     }
 
     /**
-     * Print after task successfully marked.
+     * Prints message after task successfully marked.
      */
     public void printMarked(Task task, boolean isDone) {
-        printLine();
         if (isDone) {
-            System.out.println("Nice! I've marked this task as done:");
+            responseBuilder.append("Nice! I've marked this task as done:\n");
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
+            responseBuilder.append("OK, I've marked this task as not done yet:\n");
         }
-        System.out.println("  " + task);
-        printLine();
+        responseBuilder.append("  ").append(task).append("\n");
     }
 
     /**
-     * Print after task successfully deleted.
+     * Prints message after task successfully deleted.
      */
     public void printDeleted(Task task, int taskCount) {
-        printLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("    " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        printLine();
+        responseBuilder.append("Noted. I've removed this task:\n");
+        responseBuilder.append("    ").append(task).append("\n");
+        responseBuilder.append("Now you have ").append(taskCount).append(" tasks in the list.\n");
     }
 
     /**
-     * Print all tasks.
+     * Prints all tasks.
      */
     public void printTasks(ArrayList<Task> tasks) {
-        printLine();
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            responseBuilder.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
-        printLine();
     }
 
     /**
-     * Print any message.
+     * Prints any message.
      *
      * @param message Message to print.
      */
     public void printMessage(String message) {
-        System.out.println(message);
+        responseBuilder.append(message).append("\n");
     }
 
     /**
-     * Print all commands.
+     * Prints all commands.
      */
     public void printCommands() {
-        printLine();
-        System.out.println("""
+        responseBuilder.append("""
                             Here are some examples of what you can do:
                             1. List all tasks: list
                             2. Mark a task as done: mark [task number]
@@ -138,10 +116,9 @@ public class Ui {
                             6. Add an event: event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]
                             7. Delete a task: delete [task number]
                             8. Find By Date: findByDate [d/M/yyyy]
-                            9. Find By Keyword: findByKey [keyword]""");
-        printLine();
+                            9. Find By Keyword: findByKey [keyword]
+                            """);
     }
-
 
     /**
      * Prints the tasks that match the search criteria.
@@ -149,15 +126,13 @@ public class Ui {
      * @param tasks The list of tasks to print.
      */
     public void printTasksFound(ArrayList<Task> tasks) throws HanaException {
-        printLine();
         if (tasks.isEmpty()) {
-            System.out.println("No tasks found with the given keyword.");
+            responseBuilder.append("No tasks found with the given keyword.\n");
         } else {
-            System.out.println("Here are the tasks that match your search:");
+            responseBuilder.append("Here are the tasks that match your search:\n");
             for (Task task : tasks) {
-                System.out.println(task);
+                responseBuilder.append(task).append("\n");
             }
         }
-        printLine();
     }
 }

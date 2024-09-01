@@ -34,32 +34,19 @@ public class Hana {
     }
 
     /**
-     * Runs the main loop of the Hana application.
-     * Displays greetings, processes user commands, and handles termination.
-     */
-    public void run() {
-        ui.printGreetings();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                storage.save();
-                isExit = c.isExit();
-            } catch (HanaException e) {
-                ui.printError(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * The entry point of the Hana application.
-     * Creates a new Hana instance and runs the application.
+     * Processes user input and returns a response.
      *
-     * @param args Command-line arguments (not used).
+     * @param input The user input.
+     * @return The chatbot's response.
      */
-    public static void main(String[] args) {
-        new Hana().run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            storage.save();
+            return ui.getResponse();
+        } catch (HanaException e) {
+            return e.getMessage();
+        }
     }
 }

@@ -47,8 +47,6 @@ public class FindByDateCommand extends Command {
             }
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
             LocalDate date = LocalDate.parse(parts[1].trim(), formatter);
-
-            ui.printLine();
             ui.printMessage("Tasks occurring on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
             boolean found = false;
 
@@ -72,7 +70,6 @@ public class FindByDateCommand extends Command {
             if (!found) {
                 ui.printMessage("No tasks found for this date.");
             }
-            ui.printLine();
         } catch (DateTimeParseException e) {
             throw new HanaException("Please enter the date in the correct format: [d/M/yyyy]");
         }

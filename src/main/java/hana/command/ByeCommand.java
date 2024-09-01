@@ -4,6 +4,9 @@ import hana.HanaException;
 import hana.storage.Storage;
 import hana.tasklist.TaskList;
 import hana.ui.Ui;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  * Represents a command to exit the program.
@@ -22,6 +25,11 @@ public class ByeCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws HanaException {
         ui.printBye();
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event -> {
+            Platform.exit();
+        });
+        pause.play();
     }
 
     /**
