@@ -1,17 +1,12 @@
 package Papagu.Ui; 
 
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.time.LocalTime;
 
 
 public class Papagu {
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -47,6 +42,11 @@ public class Papagu {
     }
 
     public static void main(String[] args) {
+        // Print current working directory
+        //System.out.println("Working Directory = " + Paths.get("").toAbsolutePath().toString());
+
+        // Print classpath
+        //System.out.println("Classpath = " + System.getProperty("java.class.path"));
         new Papagu("data/tasks.txt").run();
     }
 }
