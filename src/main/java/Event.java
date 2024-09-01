@@ -1,28 +1,33 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    private String from;
-    private String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
 
     public Event(String taskDesc, String from, String to) throws ConverSageException {
         super(taskDesc);
 
-        if (taskDesc.isEmpty()) {
-            throw new ConverSageException("The event description cannot be empty...");
-        }
+        try {
+            this.from = LocalDateTime.parse(from, INPUT_FORMAT);
+            this.to = LocalDateTime.parse(to, INPUT_FORMAT);
 
-        if (from.isEmpty() || to.isEmpty()) {
-            throw new ConverSageException("The from and to timings obviously can't be empty...");
+        } catch (DateTimeParseException e) {
+            System.out.println("The provided datE/time format is invalid! Please use the following format: yyyy-MM-dd HH:mm.");
         }
-        this.from = from;
-        this.to = to;
     }
 
     @Override
     public String toFileFormat() {
-        return "Event | " + (isDone ? "Done" : "Not Done") + " | " + taskDesc + " | " + from + " | " + to;
+        return "Event | " + (isDone ? "Done" : "Not Done") + " | " + taskDesc + " | " + from.format(INPUT_FORMAT) + " | " + to.format(INPUT_FORMAT);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) + " to: " + to.format(OUTPUT_FORMAT) + ")";
     }
 }
