@@ -1,10 +1,4 @@
-import java.time.format.DateTimeFormatter;
-
 public class Parser {
-
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
-
 
     public Parser() {}
 
