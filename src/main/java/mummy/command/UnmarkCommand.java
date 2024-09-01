@@ -6,8 +6,8 @@ import mummy.task.TaskList;
 import mummy.task.TaskListException;
 import mummy.ui.MummyException;
 import mummy.ui.Ui;
-import mummy.utility.Storage;
 import mummy.utility.Parser;
+import mummy.utility.Storage;
 
 public class UnmarkCommand extends Command {
 

@@ -64,8 +64,7 @@ public class TaskList {
         return IntStream.range(0, this.tasks.size())
                 .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i))
                 .reduce(
-                        new StringBuilder(LABEL).append("\n"),
-                        (acc, x) -> acc.append(x).append("\n"),
+                        new StringBuilder(LABEL).append("\n"), (acc, x) -> acc.append(x).append("\n"),
                         StringBuilder::append
                 ).toString();
     }
