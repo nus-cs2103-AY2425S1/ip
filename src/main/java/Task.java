@@ -10,6 +10,14 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) throws IllegalInputPotongException {
+        if (description.isEmpty()) {
+            throw new IllegalInputPotongException();
+        }
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getStatusIcon() {
         return isDone ? "X" : " ";
     }
@@ -22,6 +30,26 @@ public class Task {
     public String unmark() {
         this.isDone = false;
         return String.format("OK, I've marked this task as not done yet:\n %s", this);
+    }
+
+    public String getType() {
+        return "";
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String getTime() {
+        return "";
+    }
+
+    public String getStatus() {
+        if (this.isDone) {
+            return "1";
+        } else {
+            return "0";
+        }
     }
     @Override
     public String toString() {

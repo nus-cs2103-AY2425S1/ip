@@ -1,12 +1,17 @@
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class InputData {
+public class TaskList {
 
     private ArrayList<Task> arr;
 
-
-    public InputData() {
+    public TaskList() {
         this.arr = new ArrayList<>(100);
+    }
+
+    public void initialise(ArrayList<Task> arr) {
+        this.arr = arr;
     }
 
     public String add(Task input) {
@@ -36,6 +41,24 @@ public class InputData {
         Task removed = this.arr.remove(index - 1);
         return String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list.",
                 removed, this.arr.size());
+    }
+
+    public void writeToStorage(Storage storage) throws IOException {
+        StringBuilder result = new StringBuilder();
+        for (Task curr : this.arr) {
+            String type = curr.getType();
+            String status = curr.getStatus();
+            String description = curr.getDescription();
+            String time = curr.getTime();
+            if (time.isEmpty()) {
+                String task = String.format("%s | %s | %s\n", type, status, description);
+                result.append(task);
+            } else {
+                String task = String.format("%s | %s | %s | %s\n", type, status, description, time);
+                result.append(task);
+            }
+        }
+        storage.writeToFile(result.toString());
     }
 
     @Override
