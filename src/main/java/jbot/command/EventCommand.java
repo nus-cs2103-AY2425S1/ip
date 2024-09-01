@@ -23,7 +23,7 @@ public class EventCommand extends AddCommand {
      * @return The singleton instance of {@link EventCommand}.
      */
     public static EventCommand getInstance() {
-        return EventCommand.instance;
+        return instance;
     }
 
     /**

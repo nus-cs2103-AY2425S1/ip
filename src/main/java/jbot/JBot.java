@@ -1,6 +1,5 @@
 package jbot;
 
-import jbot.command.ByeCommand;
 import jbot.command.JBotCommand;
 import jbot.util.Parser;
 import jbot.util.Storage;
@@ -29,9 +28,10 @@ public class JBot {
      * interface.
      */
     public static void close() {
-        JBot.isRunning = false;
+        isRunning = false;
         Ui.close();
     }
+
 
     /**
      * Starts the JBot application. Initializes the components, greets the user,
@@ -40,10 +40,12 @@ public class JBot {
      *
      * @param args Command line arguments (not used).
      */
+
+    @SuppressWarnings("FeatureEnvy")
     public static void main(String[] args) {
-        JBot.init();
+        init();
         Ui.greetUser();
-        while (JBot.isRunning) {
+        while (isRunning) {
             try {
                 String userInput = Ui.readInput();
                 JBotCommand command = Parser.parse(userInput);

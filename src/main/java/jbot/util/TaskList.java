@@ -4,9 +4,13 @@ import java.util.ArrayList;
 
 import jbot.task.Task;
 
+<<<<<<< HEAD
 /**
  * A utility class for managing a list of tasks. This class cannot be instantiated.
  */
+=======
+@SuppressWarnings({"StaticVariableMayNotBeInitialized", "StaticVariableUsedBeforeInitialization"})
+>>>>>>> branch-A-CodingStandard
 public class TaskList {
     private TaskList() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
@@ -29,7 +33,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public static Task get(int index) {
-        return TaskList.list.get(index);
+        return list.get(index);
     }
 
     /**
@@ -38,7 +42,7 @@ public class TaskList {
      * @return The number of tasks in the list.
      */
     public static int size() {
-        return TaskList.list.size();
+        return list.size();
     }
 
     /**
@@ -47,7 +51,7 @@ public class TaskList {
      * @param task The task to add to the list.
      */
     public static void add(Task task) {
-        TaskList.list.add(task);
+        list.add(task);
     }
 
     /**
@@ -57,6 +61,6 @@ public class TaskList {
      * @return The task that was removed from the list.
      */
     public static Task remove(int index) {
-        return TaskList.list.remove(index);
+        return list.remove(index);
     }
 }

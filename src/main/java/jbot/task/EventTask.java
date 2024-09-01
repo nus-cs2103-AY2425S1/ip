@@ -43,7 +43,7 @@ public class EventTask extends Task {
      * @return The start time of the event.
      */
     public String getFrom() {
-        return from;
+        return this.from;
     }
 
     /**
@@ -52,6 +52,6 @@ public class EventTask extends Task {
      * @return The end time of the event.
      */
     public String getTo() {
-        return to;
+        return this.to;
     }
 }

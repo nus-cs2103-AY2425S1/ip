@@ -19,10 +19,14 @@ import jbot.task.EventTask;
 import jbot.task.Task;
 import jbot.task.ToDoTask;
 
+
 /**
  * A utility class for managing the storage of tasks in a JSON file.
  * This class cannot be instantiated.
  */
+
+@SuppressWarnings({"FeatureEnvy", "StaticVariableMayNotBeInitialized", "StaticVariableUsedBeforeInitialization"})
+
 public class Storage {
     private Storage() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
@@ -35,7 +39,7 @@ public class Storage {
      * This method should be called before any operations on the storage.
      */
     public static void init() {
-        Storage.storageFile = getStorageFile();
+        storageFile = Storage.getStorageFile();
     }
 
     /**
@@ -75,7 +79,7 @@ public class Storage {
      * Converts tasks to JSON format and writes them to the file.
      */
     public static void updateData() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(storageFile))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Storage.storageFile))) {
             StringBuilder json = new StringBuilder();
             json.append("[");
 
@@ -84,7 +88,7 @@ public class Storage {
                 if (i > 0) {
                     json.append(",");
                 }
-                json.append(taskToJson(task));
+                json.append(Storage.taskToJson(task));
             }
 
             json.append("]");
@@ -125,9 +129,10 @@ public class Storage {
     public static void parseData() {
         ArrayList<Task> tasks = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(storageFile))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(Storage.storageFile))) {
             StringBuilder json = new StringBuilder();
             String line;
+            //noinspection NestedAssignment
             while ((line = reader.readLine()) != null) {
                 json.append(line);
             }

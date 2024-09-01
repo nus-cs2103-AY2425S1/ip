@@ -24,7 +24,7 @@ public class ToDoCommand extends AddCommand {
      * @return The singleton instance of {@link ToDoCommand}.
      */
     public static ToDoCommand getInstance() {
-        return ToDoCommand.instance;
+        return instance;
     }
 
     /**

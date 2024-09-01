@@ -14,9 +14,12 @@ import jbot.command.MarkCommand;
 import jbot.command.ToDoCommand;
 import jbot.command.UnmarkCommand;
 
+
 /**
  * A utility class for parsing user input into commands. This class cannot be instantiated.
  */
+@SuppressWarnings({"StaticVariableMayNotBeInitialized", "StaticVariableUsedBeforeInitialization"})
+
 public class Parser {
     private Parser() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
@@ -29,15 +32,15 @@ public class Parser {
      * This method should be called before attempting to parse user input.
      */
     public static void init() {
-        commandMap = new HashMap<>();
-        commandMap.put("list", ListCommand.getInstance());
-        commandMap.put("bye", ByeCommand.getInstance());
-        commandMap.put("mark", MarkCommand.getInstance());
-        commandMap.put("unmark", UnmarkCommand.getInstance());
-        commandMap.put("todo", ToDoCommand.getInstance());
-        commandMap.put("deadline", DeadlineCommand.getInstance());
-        commandMap.put("event", EventCommand.getInstance());
-        commandMap.put("delete", DeleteCommand.getInstance());
+        Parser.commandMap = new HashMap<>();
+        Parser.commandMap.put("list", ListCommand.getInstance());
+        Parser.commandMap.put("bye", ByeCommand.getInstance());
+        Parser.commandMap.put("mark", MarkCommand.getInstance());
+        Parser.commandMap.put("unmark", UnmarkCommand.getInstance());
+        Parser.commandMap.put("todo", ToDoCommand.getInstance());
+        Parser.commandMap.put("deadline", DeadlineCommand.getInstance());
+        Parser.commandMap.put("event", EventCommand.getInstance());
+        Parser.commandMap.put("delete", DeleteCommand.getInstance());
     }
 
     /**
@@ -49,7 +52,7 @@ public class Parser {
      */
     public static JBotCommand parse(String userInput) throws InvalidCommandException {
         String inputCommand = userInput.split(" ")[0];
-        JBotCommand command = commandMap.get(inputCommand);
+        JBotCommand command = Parser.commandMap.get(inputCommand);
         if (command == null) {
             throw new InvalidCommandException("Invalid command: " + inputCommand);
         }

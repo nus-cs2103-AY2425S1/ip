@@ -20,7 +20,7 @@ public class UnmarkCommand implements JBotCommand {
      * @return The singleton instance of {@link UnmarkCommand}.
      */
     public static UnmarkCommand getInstance() {
-        return UnmarkCommand.instance;
+        return instance;
     }
 
     /**

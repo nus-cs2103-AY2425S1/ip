@@ -21,7 +21,7 @@ public class DeadlineCommand extends AddCommand {
      * @return The singleton instance of {@link DeadlineCommand}.
      */
     public static DeadlineCommand getInstance() {
-        return DeadlineCommand.instance;
+        return instance;
     }
 
     /**

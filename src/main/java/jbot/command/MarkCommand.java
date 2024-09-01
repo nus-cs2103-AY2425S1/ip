@@ -20,7 +20,7 @@ public class MarkCommand implements JBotCommand {
      * @return The singleton instance of {@link MarkCommand}.
      */
     public static MarkCommand getInstance() {
-        return MarkCommand.instance;
+        return instance;
     }
 
     /**

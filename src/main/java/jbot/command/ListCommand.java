@@ -20,7 +20,7 @@ public class ListCommand implements JBotCommand {
      * @return The singleton instance of {@link ListCommand}.
      */
     public static ListCommand getInstance() {
-        return ListCommand.instance;
+        return instance;
     }
 
     /**

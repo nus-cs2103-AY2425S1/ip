@@ -17,7 +17,7 @@ public class Ui {
      * Closes the scanner used for reading user input.
      */
     public static void close() {
-        sc.close();
+        Ui.sc.close();
     }
 
     private static void hLine() {
@@ -28,10 +28,10 @@ public class Ui {
      * Displays a greeting message to the user.
      */
     public static void greetUser() {
-        hLine();
+        Ui.hLine();
         System.out.println("Hello! I'm JBot");
         System.out.println("What can I do for you?");
-        hLine();
+        Ui.hLine();
     }
 
     /**
@@ -41,9 +41,9 @@ public class Ui {
      * @param userInput The input provided by the user.
      */
     public static void display(JBotCommand command, String userInput) {
-        hLine();
+        Ui.hLine();
         command.run(userInput);
-        hLine();
+        Ui.hLine();
     }
 
     /**
@@ -52,7 +52,7 @@ public class Ui {
      * @return The line of input read from the user.
      */
     public static String readInput() {
-        return sc.nextLine();
+        return Ui.sc.nextLine();
     }
 
     /**
@@ -61,8 +61,8 @@ public class Ui {
      * @param e The exception containing the error message.
      */
     public static void handleError(Exception e) {
-        hLine();
+        Ui.hLine();
         System.out.println(e.getMessage());
-        hLine();
+        Ui.hLine();
     }
 }

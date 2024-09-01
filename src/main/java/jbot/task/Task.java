@@ -6,8 +6,10 @@ package jbot.task;
  */
 public abstract class Task {
 
+    @SuppressWarnings("InstanceVariableMayNotBeInitialized")
     String name;
     private boolean done = false;
+    @SuppressWarnings("InstanceVariableMayNotBeInitialized")
     String taskTypeSymbol;
 
     /**
@@ -41,7 +43,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        String doneString = done ? "X" : " ";
+        String doneString = this.done ? "X" : " ";
         return String.format("[%1$s] [%2$s]  %3$s", this.getTaskTypeSymbol(), doneString, this.getName());
     }
 
@@ -51,7 +53,7 @@ public abstract class Task {
      * @return The task type symbol.
      */
     public String getTaskTypeSymbol() {
-        return taskTypeSymbol;
+        return this.taskTypeSymbol;
     }
 
     /**
@@ -60,6 +62,6 @@ public abstract class Task {
      * @return The task name.
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 }

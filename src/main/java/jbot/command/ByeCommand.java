@@ -20,7 +20,7 @@ public class ByeCommand implements JBotCommand {
      * @return The singleton instance of {@link ByeCommand}.
      */
     public static ByeCommand getInstance() {
-        return ByeCommand.instance;
+        return instance;
     }
 
     /**

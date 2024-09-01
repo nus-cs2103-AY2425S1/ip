@@ -21,7 +21,7 @@ public class DeleteCommand extends AddCommand {
      * @return The singleton instance of {@link DeleteCommand}.
      */
     public static DeleteCommand getInstance() {
-        return DeleteCommand.instance;
+        return instance;
     }
 
     /**
