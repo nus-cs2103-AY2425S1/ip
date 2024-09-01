@@ -62,4 +62,17 @@ public class Task {
     public String toString() {
         return (this.isDone ? "[X] " : "[ ] ") + this.description;
     }
+
+    /**
+     * Returns a Task object if the keyword matches the description of the task.
+     * @param keyword
+     * @return
+     */
+    public Task isMatching(String keyword) {
+        if (this.description.contains(keyword)) {
+            return this;
+        } else {
+            return null;
+        }
+    }
 }
