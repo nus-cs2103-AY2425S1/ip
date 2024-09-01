@@ -1,9 +1,12 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a Task with the addition of a <code>deadlineTime</code>
  * that it should be finished by.
  */
 public class Deadline extends Task {
-    private String deadlineTime;
+    private LocalDate deadlineTime;
 
     /**
      * Create a <code>Deadline</code> object.
@@ -14,9 +17,9 @@ public class Deadline extends Task {
         this(deadlineDesc, deadlineTime, false);
     }
 
-    Deadline(String deadlineDesc, String deadlineTime, boolean isDone) {
+    Deadline(String deadlineDesc, String deadlineTime, boolean isDone) throws DateTimeParseException {
         super(deadlineDesc, isDone);
-        this.deadlineTime = deadlineTime;
+        this.deadlineTime = DateTimeParser.to_datetime(deadlineTime);
     }
 
     /**
@@ -25,7 +28,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + this.deadlineTime + ")";
+        return "[D]" + super.toString() + " (by: " + DateTimeParser.to_str(this.deadlineTime) + ")";
     }
 
     @Override
