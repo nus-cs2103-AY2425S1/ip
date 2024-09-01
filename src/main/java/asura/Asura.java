@@ -7,12 +7,19 @@ import asura.parser.Parser;
 import asura.storage.Storage;
 import asura.ui.Ui;
 
+/**
+ * Represents the main program.
+ */
 public class Asura {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates an Asura with the specified file path.
+     * @param filepath The file path that the user wants to save their task data at.
+     */
     public Asura(String filepath) {
         ui = new Ui();
         try {
@@ -24,6 +31,9 @@ public class Asura {
         }
     }
 
+    /**
+     * The main program loop
+     */
     public void run() {
         boolean isExit = false;
         ui.showIntroduction();
@@ -44,6 +54,10 @@ public class Asura {
     }
 
 
+    /**
+     * Executes the main loop
+     * @param args Optional arguments passed to the program
+     */
     public static void main(String[] args) {
         new Asura("data/asura.txt").run();
     }
