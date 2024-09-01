@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
  * Extends the Task class with event-specific properties and behavior.
  */
 public class Event extends Task {
+    private static final long serialVersionUID = 1L;
+
     /**
      * The start date of the event.
      */
@@ -15,8 +17,6 @@ public class Event extends Task {
      * The end date of the event.
      */
     protected LocalDateTime eventEndDate;
-
-    private static final long serialVersionUID = 1L;
 
     /**
      * Constructs a new event with the given description, start date, and end date.
@@ -41,11 +41,11 @@ public class Event extends Task {
         return "[E]"
             + super.toString()
             + " (from: "
-            + this.eventStartDate.format(defaultDateTimeFormatter)
+            + this.eventStartDate.format(DEFAULT_DATE_TIME_FORMATTER)
             + ")"
             + " (to"
             + ": "
-            + this.eventEndDate.format(defaultDateTimeFormatter)
+            + this.eventEndDate.format(DEFAULT_DATE_TIME_FORMATTER)
             + ")";
     }
 }

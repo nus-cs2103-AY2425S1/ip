@@ -15,18 +15,9 @@ public class Storage {
     /**
      * Final constant representing the name of the storage file.
      */
-    static final String fileName = "deez.txt";
+    static final String FILE_NAME = "deez.txt";
 
     private String filePath;
-
-    /**
-     * Checks if the file exists at the given path.
-     *
-     * @return True if the file exists, false otherwise
-     */
-    private boolean fileExists() {
-        return new File(filePath + File.separator + fileName).exists();
-    }
 
     /**
      * Initializes a Storage object with a specified file path.
@@ -35,6 +26,15 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+    }
+
+    /**
+     * Checks if the file exists at the given path.
+     *
+     * @return True if the file exists, false otherwise
+     */
+    private boolean fileExists() {
+        return new File(filePath + File.separator + FILE_NAME).exists();
     }
 
     /**
@@ -54,7 +54,7 @@ public class Storage {
      * @throws ClassNotFoundException If the serialized object cannot be read
      */
     public Deez load() throws IOException, ClassNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream(filePath + File.separator + fileName);
+        FileInputStream fileInputStream = new FileInputStream(filePath + File.separator + FILE_NAME);
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
         return (Deez) objectInputStream.readObject();
     }
@@ -71,7 +71,7 @@ public class Storage {
         }
         try {
             FileOutputStream fileOutputStream =
-                new FileOutputStream(filePath + File.separator + fileName);
+                new FileOutputStream(filePath + File.separator + FILE_NAME);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(deez);
         } catch (Exception e) {

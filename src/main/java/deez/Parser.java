@@ -1,8 +1,9 @@
 package deez;
 
+import java.util.Properties;
+
 import javafx.util.Pair;
 
-import java.util.Properties;
 
 /**
  * This class is used for parsing user input.
@@ -21,30 +22,28 @@ public class Parser {
         String propString = inputStringSplit.length == 2 ? inputStringSplit[1] : "";
 
         // Parse command
-        Command cmd =
-            switch (cmdString) {
-                case "bye" -> Command.EXIT;
-                case "list" -> Command.LIST;
-                case "mark" -> Command.MARK;
-                case "unmark" -> Command.UNMARK;
-                case "todo" -> Command.TODO;
-                case "deadline" -> Command.DEADLINE;
-                case "event" -> Command.EVENT;
-                case "delete" -> Command.DELETE;
-                case "save" -> Command.SAVE;
-                case "find" -> Command.FIND;
-                default -> Command.UNKNOWN;
-            };
+        Command cmd = switch (cmdString) {
+        case "bye" -> Command.EXIT;
+        case "list" -> Command.LIST;
+        case "mark" -> Command.MARK;
+        case "unmark" -> Command.UNMARK;
+        case "todo" -> Command.TODO;
+        case "deadline" -> Command.DEADLINE;
+        case "event" -> Command.EVENT;
+        case "delete" -> Command.DELETE;
+        case "save" -> Command.SAVE;
+        case "find" -> Command.FIND;
+        default -> Command.UNKNOWN;
+        };
 
-        Properties props =
-            switch (cmd) {
-                case TODO -> parseTodoProps(propString);
-                case EVENT -> parseEventProps(propString);
-                case DEADLINE -> parseDeadlineProps(propString);
-                case MARK, UNMARK, DELETE -> parseTaskIndexProp(propString);
-                case FIND -> parseTextInputProps(propString);
-                case EXIT, LIST, SAVE, UNKNOWN -> new Properties();
-            };
+        Properties props = switch (cmd) {
+        case TODO -> parseTodoProps(propString);
+        case EVENT -> parseEventProps(propString);
+        case DEADLINE -> parseDeadlineProps(propString);
+        case MARK, UNMARK, DELETE -> parseTaskIndexProp(propString);
+        case FIND -> parseTextInputProps(propString);
+        case EXIT, LIST, SAVE, UNKNOWN -> new Properties();
+        };
 
         return new Pair<>(cmd, props);
     }

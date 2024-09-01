@@ -190,6 +190,11 @@ public class Deez implements Serializable {
         Ui.say("Saved successfully!");
     }
 
+    /**
+     * Run the Deez
+     *
+     * @throws IOException if any issue occurs during reading input.
+     */
     public void run() throws IOException {
         Ui.say("Hello! I'm Deez!", "What can I do you for?");
 

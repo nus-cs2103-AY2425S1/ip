@@ -30,6 +30,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.byDate.format(defaultDateTimeFormatter) + ")";
+        return "[D]" + super.toString() + " (by: " + this.byDate.format(DEFAULT_DATE_TIME_FORMATTER) + ")";
     }
 }

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Abstract class representing a task.
  */
 public abstract class Task implements Serializable {
-    protected static final DateTimeFormatter defaultDateTimeFormatter =
+    protected static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER =
         DateTimeFormatter.ofPattern("MMM dd yyyy " + "hh:mma");
     protected boolean done;
     protected String description;
@@ -53,7 +53,7 @@ public abstract class Task implements Serializable {
     }
 
     @Override
-    /** Returns a string representation of the task, depending on its done status. */
+    /* Returns a string representation of the task, depending on its done status. */
     public String toString() {
         return (this.done ? "[X] " : "[ ] ") + this.description;
     }

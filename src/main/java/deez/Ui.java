@@ -29,7 +29,7 @@ public class Ui {
     /**
      * Print the elements of a given list to console.
      *
-     * @param arrayList The list to print. If it's empty, print "<No items in list>" instead.
+     * @param arrayList The list to print.
      */
     public static void printList(ArrayList<?> arrayList) {
         if (arrayList.isEmpty()) {
