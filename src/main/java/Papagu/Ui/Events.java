@@ -37,7 +37,8 @@ public class Events extends Task {
         String formattedDate = this.date.format(formatter);
 
         return "E | " + (super.isDone() ? "1" : "0") + " | " 
-                + super.getDescription() + " | " + formattedDate + " " + this.start + "-" + this.end;
+                + super.getDescription() + " | " + formattedDate + " "
+                        + this.start + "-" + this.end;
     }
 
     /**

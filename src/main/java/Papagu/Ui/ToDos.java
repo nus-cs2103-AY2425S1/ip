@@ -19,7 +19,8 @@ public class ToDos extends Task {
      */
     @Override
     public String toFile() {
-        return "T | " + (super.isDone() ? "1" : "0") + " | " + super.getDescription();
+        return "T | " + (super.isDone() ? "1" : "0")
+                + " | " + super.getDescription();
     }
 
     /**
