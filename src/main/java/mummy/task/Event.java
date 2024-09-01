@@ -10,12 +10,27 @@ public class Event extends Task {
 
     private final String to;
 
+    /**
+     * Creates a new Event with the given description, start time, and end time.
+     *
+     * @param description the description of the event
+     * @param from the start time of the event
+     * @param to the end time of the event
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Creates a new Event task with the given description, completion status, start time, and end time.
+     *
+     * @param description the description of the Event task
+     * @param isDone      the completion status of the Event task
+     * @param from        the start time of the Event task
+     * @param to          the end time of the Event task
+     */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
         this.from = from;
