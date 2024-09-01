@@ -79,6 +79,8 @@ public class Parser {
         } else if (action.equals("delete")) {
             c = new DeleteCommand(Integer.parseInt(desc));
             // this.deleteTask(Integer.parseInt(desc));
+        } else if (action.equals("bye")) {
+            c = new ExitCommand();
         } else {
             try {
                 throw new InvalidCommandException();
