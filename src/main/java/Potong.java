@@ -1,19 +1,23 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Potong {
 
     private static final String LINE = "_________________________";
-    public static void main(String[] args) throws PotongException {
+    public static void main(String[] args) throws PotongException, IOException {
         System.out.println("Hello! I'm Potong");
         System.out.println("What can I do for you?\n");
         System.out.println(Potong.LINE);
-
+        TaskList data = new TaskList();
+        Storage storage = new Storage(data);
         Scanner input = new Scanner(System.in);
-        InputData data = new InputData();
+
         while (true) {
             String userInput = input.nextLine();
             System.out.println(Potong.LINE);
             if (userInput.equals("bye")) {
+                data.writeToStorage(storage);
                 break;
             } else if (userInput.equals("list")) {
                 System.out.println(data);
