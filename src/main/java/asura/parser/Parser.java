@@ -74,6 +74,8 @@ public class Parser {
             return new DeleteCommand(selection);
         case "bye":
             return new ByeCommand();
+        case "find":
+            return new FindCommand(taskString);
         default:
             throw new AsuraException("Invalid input");
         }
