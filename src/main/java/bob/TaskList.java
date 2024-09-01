@@ -31,8 +31,12 @@ public class TaskList {
         return tasks.size();
     }
 
-    Task getTask(int taskNum) {
-        return tasks.get(taskNum - 1);
+    Task getTask(int taskNum) throws BobException {
+        try {
+            return tasks.get(taskNum - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new BobException("The task number provided is invalid.");
+        }
     }
 
     void addTask(Task task) {
@@ -43,7 +47,7 @@ public class TaskList {
         try {
             tasks.remove(taskNum - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new BobException("Invalid task number provided!");
+            throw new BobException("The task number provided is invalid.");
         }
     }
 
@@ -60,26 +64,50 @@ public class TaskList {
         return sb.toString();
     }
 
-    String printRelevantTasks(String dateStr) throws BobException {
+    String printRelevantTasksByDate(String dateStr) throws BobException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(dateStr, formatter);
 
             StringBuilder sb = new StringBuilder();
             int numRelevantTasks = 0;
+
             for (Task currTask : tasks) {
                 if (currTask.isRelevant(date)) {
                     numRelevantTasks++;
                     sb.append(numRelevantTasks).append(". ").append(currTask).append("\n");
                 }
             }
+
             DateTimeFormatter formatterWords = DateTimeFormatter.ofPattern("MMM dd yyyy");
             sb.append("Total number of relevant tasks for ").append(date.format(formatterWords))
                     .append(": ").append(numRelevantTasks);
             return sb.toString();
+
         } catch (DateTimeParseException e) {
             throw new BobException("Invalid date format. Required format: relevant yyyy-MM-dd");
         }
+    }
+
+    String printTasksByKeyword(String keyword) throws BobException {
+        if (keyword.isEmpty()) {
+            throw new BobException("Please provide a keyword or a phrase.");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        int numMatchingTasks = 0;
+
+        for (Task currTask : tasks) {
+            String description = currTask.getDescription();
+            if (description.contains(keyword.toLowerCase())) {
+                numMatchingTasks++;
+                sb.append(numMatchingTasks).append(". ").append(currTask).append("\n");
+            }
+        }
+
+        sb.append("Total number of tasks containing \"").append(keyword.toLowerCase())
+                .append("\": ").append(numMatchingTasks);
+        return sb.toString();
     }
 }
 

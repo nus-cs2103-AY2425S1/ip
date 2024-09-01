@@ -27,7 +27,7 @@ public class Bob {
     }
 
     public enum Command {
-        BYE, LIST, RELEVANT, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
+        BYE, LIST, RELEVANT, FIND, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
     }
 
     public static void main(String[] args) {
@@ -48,45 +48,50 @@ public class Bob {
                 String taskDetails = Parser.getTaskDetails(userInput);
 
                 switch (command) {
-                    case BYE:
-                        commandBye();
-                        return;
+                case BYE:
+                    commandBye();
+                    return;
 
-                    case LIST:
-                        commandList();
-                        break;
+                case LIST:
+                    commandList();
+                    break;
 
-                    case RELEVANT:
-                        commandRelevant(taskDetails);
-                        break;
+                case RELEVANT:
+                    commandRelevant(taskDetails);
+                    break;
 
-                    case MARK:
-                        commandMark(taskDetails);
-                        break;
+                case MARK:
+                    commandMark(taskDetails);
+                    break;
 
-                    case UNMARK:
-                        commandUnmark(taskDetails);
-                        break;
+                case UNMARK:
+                    commandUnmark(taskDetails);
+                    break;
 
-                    case TODO:
-                        commandTodo(taskDetails);
-                        break;
+                case TODO:
+                    commandTodo(taskDetails);
+                    break;
 
-                    case DEADLINE:
-                        commandDeadline(taskDetails);
-                        break;
+                case DEADLINE:
+                    commandDeadline(taskDetails);
+                    break;
 
-                    case EVENT:
-                        commandEvent(taskDetails);
-                        break;
+                case EVENT:
+                    commandEvent(taskDetails);
+                    break;
 
-                    case DELETE:
-                        commandDelete(taskDetails);
-                        break;
+                case DELETE:
+                    commandDelete(taskDetails);
+                    break;
 
-                    case UNKNOWN:
-                    default:
-                        throw new BobException("Sorry, I do not understand. Please try something else.");
+                case FIND:
+                    commandFind(taskDetails);
+                    break;
+
+                case UNKNOWN:
+
+                default:
+                    throw new BobException("Sorry, I do not understand. Please try something else.");
                 }
             } catch (BobException e) {
                 ui.showError(e);
@@ -108,7 +113,11 @@ public class Bob {
     }
 
     static void commandRelevant(String dateStr) throws BobException {
-        ui.showMessage(taskList.printRelevantTasks(dateStr));
+        ui.showMessage(taskList.printRelevantTasksByDate(dateStr));
+    }
+
+    static void commandFind(String taskDetails) throws BobException {
+        ui.showMessage(taskList.printTasksByKeyword(taskDetails));
     }
 
     static void commandMark(String taskDetails) throws BobException {
@@ -217,12 +226,15 @@ public class Bob {
         if (taskDetails.isEmpty()) {
             throw new BobException("Please provide a task number.");
         }
-
-        int taskNum = Integer.parseInt(taskDetails);
-        Task currTask = taskList.getTask(taskNum);
-        taskList.delTask(taskNum);
-        storage.saveTasks(taskList);
-        ui.showMessage("Noted, removing this task:\n " + currTask
-                + "\nTotal number of tasks in your list: " + taskList.getNumTasks());
+        try {
+            int taskNum = Integer.parseInt(taskDetails);
+            Task currTask = taskList.getTask(taskNum);
+            taskList.delTask(taskNum);
+            storage.saveTasks(taskList);
+            ui.showMessage("Noted, removing this task:\n " + currTask
+                    + "\nTotal number of tasks in your list: " + taskList.getNumTasks());
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new BobException("The task number provided is invalid.");
+        }
     }
 }
