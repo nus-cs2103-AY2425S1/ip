@@ -14,6 +14,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the saving and loading of tasks to and from a file.
+ * Manages the file and directory paths for storing task data.
+ */
 public class Storage {
     private final String directoryPath;
     private final String filePath;
@@ -31,10 +35,11 @@ public class Storage {
 
     /**
      * Saves the tasks to a file.
+     * Creates the directory if it does not exist.
      *
      * @param tasks The TaskList containing tasks to be saved.
      */
-    public void saveTasks(TaskList tasks) { //writes into a text file
+    public void saveTasks(TaskList tasks) {
         try {
             Files.createDirectories(Paths.get(this.directoryPath)); //ensure directory exists
             try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(this.filePath))) {
@@ -58,6 +63,7 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() throws DonnaException {
         ArrayList<Task> tasks = new ArrayList<>();
+
         try {
             Path filePath = Paths.get(this.filePath);
             if (!Files.exists(filePath)) { //ensure that the directory exists- if not, it will be created
@@ -93,7 +99,6 @@ public class Storage {
                     tasks.add(task);
                 }
             }
-
         } catch (IOException | ArrayIndexOutOfBoundsException |DonnaException e) {
             return new ArrayList<Task>(); //return empty arrayList to start afresh
         }
