@@ -1,22 +1,18 @@
 package pixel.command;
 
-import pixel.Storage;
 import pixel.PixelException;
+import pixel.Storage;
 import pixel.Ui;
 import pixel.task.Task;
 import pixel.task.TaskList;
 
 /**
  * Represents a command to mark a task as done in the task list, or mark a task
- * <<<<<<< HEAD
- * as not done in the task list.
- * =======
  * as not done in the
  * task list.
- * >>>>>>> origin/branch-Level-10
  */
 public class MarkCommand extends Command {
-    int taskListIndex;
+    private int taskListIndex;
 
     /**
      * Constructs a MarkCommand object with the specified task list index.
@@ -46,7 +42,8 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the mark command by marking the specified task as either done or not
-     * done in the task list.
+     * done in the
+     * task list.
      *
      * @param taskList The task list containing the tasks.
      * @param ui       The user interface for displaying messages.
@@ -56,18 +53,16 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws PixelException {
         if (this.taskListIndex < 0 || this.taskListIndex >= taskList.size()) {
-            throw new PixelException(String
-                    .format("%d is out of range of task list, index should be range between %d and %d inclusive",
-                            this.taskListIndex + 1, 1, taskList.size()));
+            throw new PixelException(String.format(
+                    "%d is out of range of task list, index should be range between %d and %d inclusive",
+                    this.taskListIndex + 1, 1, taskList.size()));
         }
         Task task = taskList.getTaskAtIndex(this.taskListIndex);
         boolean isDone = task.toggleIsDone();
         if (isDone) {
-            ui.PixelSays("Nice! I've marked this task as done:",
-                    " " + task);
+            ui.pixelSays("Nice! I've marked this task as done:", " " + task);
         } else {
-            ui.PixelSays("OK, I've marked this task as not done yet:",
-                    " " + task);
+            ui.pixelSays("OK, I've marked this task as not done yet:", " " + task);
         }
     }
 

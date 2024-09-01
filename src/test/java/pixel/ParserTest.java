@@ -2,8 +2,8 @@ package pixel;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import pixel.command.AddCommand;
 import pixel.command.Command;
@@ -19,7 +19,7 @@ public class ParserTest {
 
     /**
      * Tests the parsing of the "bye" command.
-     * 
+     *
      * @throws PixelException if an error occurs during parsing.
      */
     @Test
@@ -30,7 +30,7 @@ public class ParserTest {
 
     /**
      * Tests the parsing of the "list" command.
-     * 
+     *
      * @throws PixelException if an error occurs during parsing.
      */
     @Test
@@ -41,7 +41,7 @@ public class ParserTest {
 
     /**
      * Tests the parsing of the "mark" command.
-     * 
+     *
      * @throws PixelException if an error occurs during parsing.
      */
     @Test
@@ -53,7 +53,7 @@ public class ParserTest {
 
     /**
      * Tests the parsing of the "unmark" command.
-     * 
+     *
      * @throws PixelException if an error occurs during parsing.
      */
     @Test
@@ -65,7 +65,7 @@ public class ParserTest {
 
     /**
      * Tests the parsing of the "todo" command.
-     * 
+     *
      * @throws PixelException if an error occurs during parsing.
      */
     @Test
@@ -77,7 +77,7 @@ public class ParserTest {
 
     /**
      * Tests the parsing of the "deadline" command.
-     * 
+     *
      * @throws PixelException if an error occurs during parsing.
      */
     @Test
@@ -89,7 +89,7 @@ public class ParserTest {
 
     /**
      * Tests the parsing of the "event" command.
-     * 
+     *
      * @throws PixelException if an error occurs during parsing.
      */
     @Test
@@ -101,7 +101,7 @@ public class ParserTest {
 
     /**
      * Tests the parsing of the "delete" command.
-     * 
+     *
      * @throws PixelException if an error occurs during parsing.
      */
     @Test
@@ -120,7 +120,7 @@ public class ParserTest {
         PixelException thrown = assertThrows(PixelException.class, () -> {
             Parser.parser(input);
         });
-        assertEquals("OH NO!!! I don't understand this! Try Again!", thrown.getMessage());
+        assertEquals("OH NO!!! I don't understand 'UNKNOWN'! Try Again!", thrown.getMessage());
     }
 
     /**
@@ -132,6 +132,6 @@ public class ParserTest {
         PixelException thrown = assertThrows(PixelException.class, () -> {
             Parser.parser(input);
         });
-        assertEquals("OH NO!!! I don't understand this! Try Again!", thrown.getMessage());
+        assertEquals("OH NO!!! I don't understand ''! Try Again!", thrown.getMessage());
     }
 }

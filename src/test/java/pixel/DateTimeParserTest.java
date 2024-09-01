@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public class DateTimeParserTest {
     /**
-     * Tests the toString() method with the format "dd-MM-yyyy".
-     * It checks if the parsed date is correctly converted to the expected string
-     * format.
+     * Tests the toString() method with the format "dd-MM-yyyy". It checks if the
+     * parsed date is
+     * correctly converted to the expected string format.
      *
      * @throws Exception if an error occurs during the test.
      */
@@ -22,9 +22,9 @@ public class DateTimeParserTest {
     }
 
     /**
-     * Tests the toString() method with the format "yyyy-MM-dd".
-     * It checks if the parsed date is correctly converted to the expected string
-     * format.
+     * Tests the toString() method with the format "yyyy-MM-dd". It checks if the
+     * parsed date is
+     * correctly converted to the expected string format.
      *
      * @throws Exception if an error occurs during the test.
      */
@@ -35,21 +35,22 @@ public class DateTimeParserTest {
     }
 
     /**
-     * Tests the toString() method with the format "MM/dd/yyyy".
-     * It checks if the parsed date is correctly converted to the expected string
-     * format.
+     * Tests the toString() method with the format "MM/dd/yyyy". It checks if the
+     * parsed date is
+     * correctly converted to the expected string format.
      *
      * @throws Exception if an error occurs during the test.
      */
     @Test
-    public void toString_MMddyyyy() throws Exception {
+    public void toString_mmddyyyy() throws Exception {
         DateTimeParser parser = new DateTimeParser("05/05/2022");
         assertEquals("05 May 2022", parser.toString());
     }
 
     /**
-     * Tests the toString() method with an invalid date format.
-     * It checks if a PixelException is thrown when an invalid date is provided.
+     * Tests the toString() method with an invalid date format. It checks if a
+     * PixelException is
+     * thrown when an invalid date is provided.
      */
     @Test
     public void toString_invalidDate() {
@@ -59,8 +60,9 @@ public class DateTimeParserTest {
     }
 
     /**
-     * Tests the toString() method with an empty string.
-     * It checks if a PixelException is thrown when an empty string is provided.
+     * Tests the toString() method with an empty string. It checks if a
+     * PixelException is thrown
+     * when an empty string is provided.
      *
      * @throws Exception if an error occurs during the test.
      */
