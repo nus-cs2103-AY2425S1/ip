@@ -23,10 +23,13 @@ public class Storage {
     private Storage() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
     }
+
     private static File storageFile;
+
     public static void init() {
         Storage.storageFile = getStorageFile();
     }
+
     public static File getStorageFile() {
         Path dataFilePath = Paths.get("data", "JBotStorage.json");
         File file = dataFilePath.toFile();
@@ -102,8 +105,9 @@ public class Storage {
                 json.append(line);
             }
 
-            if (json.isEmpty()) {
+            if (json.length() == 0) {
                 TaskList.setList(tasks);
+                return; // Exit if file is empty
             }
 
             JSONArray jsonArray = new JSONArray(json.toString());
@@ -140,6 +144,9 @@ public class Storage {
             e.printStackTrace();
         } catch (EmptyToDoDescriptionException e) {
             System.out.println(e.getMessage());
+        } catch (org.json.JSONException e) {
+            System.out.println("An error occurred while parsing the JSON.");
+            e.printStackTrace();
         }
 
         TaskList.setList(tasks);
