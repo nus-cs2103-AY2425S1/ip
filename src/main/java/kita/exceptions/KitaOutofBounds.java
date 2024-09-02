@@ -1,5 +1,8 @@
-package Kita.Exceptions;
+package kita.exceptions;
 
+/**
+ * An error for when the selected index is out of bounds
+ */
 public class KitaOutofBounds extends KitaError {
     @Override
     public String toString() {

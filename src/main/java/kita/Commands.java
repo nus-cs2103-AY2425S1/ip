@@ -1,16 +1,24 @@
-package Kita;
-
-import Kita.Exceptions.KitaMissingIndex;
-import Kita.Exceptions.KitaOutofBounds;
+package kita;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 
+import kita.exceptions.KitaMissingIndex;
+
+/**
+ * Commands executor class
+ */
 public class Commands {
     private TaskList tasks;
     private Storage saveSystem;
 
+    /**
+     * Initialises a commands executor
+     *
+     * @param tasks The TaskList of tasks
+     * @param saveSystem The saveSystem for saving to the file system
+     * @returns void
+     */
     public Commands(TaskList tasks, Storage saveSystem) {
         this.tasks = tasks;
         this.saveSystem = saveSystem;
@@ -31,7 +39,7 @@ public class Commands {
      * @param newTask Task to add
      * @returns void
      */
-    public void addTask(Task newTask) throws IOException{
+    public void addTask(Task newTask) throws IOException {
         this.tasks.addTask(newTask);
         saveSystem.writeTasksToFile(this.tasks.getAllTasks());
         System.out.println("Got it. I've added this task: ");
@@ -85,7 +93,7 @@ public class Commands {
      * Marks a Task as "completed"
      * Also writes to Storage
      *
-     * @param command The String command that was entered in the form of "mark <task_id>"
+     * @param command The String command that was entered in the form of "mark `task_id`"
      * @returns void
      */
     public void mark(String command) throws IOException {
@@ -105,7 +113,7 @@ public class Commands {
      * Marks a Task as "uncompleted"
      * Also writes to Storage
      *
-     * @param command The String command that was entered in the form of "unmark <task_id>"
+     * @param command The String command that was entered in the form of "unmark `task_id`"
      * @returns void
      */
     public void unmark(String command) throws IOException {
@@ -125,7 +133,7 @@ public class Commands {
      * Deletes a Task given an ID
      * Also writes to Storage
      *
-     * @param command The String command that was entered in the form of "delete <task_id>"
+     * @param command The String command that was entered in the form of "delete `task_id`"
      * @returns void
      */
     public void delete(String command) throws IOException {
@@ -174,7 +182,12 @@ public class Commands {
         this.printLine();
     }
 
-
+    /**
+     * Prints the list of tasks that match the string query
+     *
+     * @param command The "find" command in the form of "find `query`"
+     * @returns void
+     */
     public void find(String command) {
         String[] splitCommand = command.split(" ");
 

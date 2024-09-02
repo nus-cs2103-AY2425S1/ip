@@ -1,5 +1,8 @@
-package Kita.Exceptions;
+package kita.exceptions;
 
+/**
+ * An error for when the "/from" attribute is missing
+ */
 public class KitaMissingFrom extends KitaError {
     @Override
     public String toString() {

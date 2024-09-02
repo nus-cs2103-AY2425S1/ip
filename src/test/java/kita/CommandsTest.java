@@ -1,10 +1,7 @@
-package Kita;
+package kita;
 
-import Kita.Exceptions.KitaNotFound;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,15 +10,19 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class CommandsTest {
 
+    private static final Pattern toDoPattern = Pattern.compile("^todo (.+)$");
     private Commands commandsExecutor;
     private TaskList tasks;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    private final static Pattern toDoPattern = Pattern.compile("^todo (.+)$");
+
 
     @BeforeEach
     public void setUp() {
@@ -29,8 +30,7 @@ public class CommandsTest {
         try {
             saveSys = new Storage();
             tasks = new TaskList(new ArrayList<>());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Oh no, Kita failed to create/read from the save file successfully :c");
             System.out.println(e);
             return;
@@ -58,19 +58,5 @@ public class CommandsTest {
         commandsExecutor.mark("mark 1");
         assertTrue(outContent.toString().contains("Nice! I've marked this task as done:"));
         assertTrue(this.tasks.getTask(0).getCompleted());
-
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-

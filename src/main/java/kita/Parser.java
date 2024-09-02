@@ -1,15 +1,26 @@
-package Kita;
-
-import Kita.Exceptions.*;
+package kita;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import kita.exceptions.KitaError;
+import kita.exceptions.KitaMissingBy;
+import kita.exceptions.KitaMissingDescription;
+import kita.exceptions.KitaMissingFrom;
+import kita.exceptions.KitaMissingTo;
+import kita.exceptions.KitaNotFound;
+
+
+
+/**
+ * Main Parser class for parsing of user input and calling the respective commands
+ */
 public class Parser {
-    private final static Pattern toDoPattern = Pattern.compile("^todo (.+)$");
-    private final static Pattern deadlinePattern = Pattern.compile("^deadline (.+) /by (.+)$");
-    private final static Pattern eventPattern = Pattern.compile("^event (?<name>.+) (?:(?:/from (?<from>.+) /to (?<to>.+))|(?:/to (?<to2>.+) /from (?<from2>.+)))$");
+    private static final Pattern toDoPattern = Pattern.compile("^todo (.+)$");
+    private static final Pattern deadlinePattern = Pattern.compile("^deadline (.+) /by (.+)$");
+    private static final Pattern eventPattern = Pattern.compile(
+            "^event (?<name>.+) (?:(?:/from (?<from>.+) /to (?<to>.+))|(?:/to (?<to2>.+) /from (?<from2>.+)))$");
 
     /**
      * Parses a given command and executes commands in the given Commands object based on the result
@@ -23,18 +34,16 @@ public class Parser {
             commandsExecutor.bye();
             return true;
         } else if (command.equals("list")) {
-           commandsExecutor.list();
+            commandsExecutor.list();
         } else if (command.startsWith("mark")) {
             commandsExecutor.mark(command);
         } else if (command.startsWith("unmark")) {
             commandsExecutor.unmark(command);
         } else if (command.startsWith("delete")) {
             commandsExecutor.delete(command);
-        }
-        else if (command.startsWith("find")) {
+        } else if (command.startsWith("find")) {
             commandsExecutor.find(command);
-        }
-        else {
+        } else {
             Matcher eventMatcher = eventPattern.matcher(command);
             Matcher deadlineMatcher = deadlinePattern.matcher(command);
             Matcher todoMatcher = toDoPattern.matcher(command);

@@ -1,5 +1,8 @@
-package Kita.Exceptions;
+package kita.exceptions;
 
+/**
+ * An error for when the "/by" attribute is missing
+ */
 public class KitaMissingBy extends KitaError {
     @Override
     public String toString() {

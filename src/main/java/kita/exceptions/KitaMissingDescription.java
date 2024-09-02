@@ -1,5 +1,8 @@
-package Kita.Exceptions;
+package kita.exceptions;
 
+/**
+ * An error for when the description field is missing
+ */
 public class KitaMissingDescription extends KitaError {
     @Override
     public String toString() {
