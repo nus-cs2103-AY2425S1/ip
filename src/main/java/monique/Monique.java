@@ -15,7 +15,7 @@ import monique.ui.Ui;
  * and manages the flow of the application.
  */
 public class Monique {
-    //Create array to store tasks
+    //This version uses and implements checkstyle
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
