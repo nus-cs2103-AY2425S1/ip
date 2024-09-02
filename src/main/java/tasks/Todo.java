@@ -5,6 +5,12 @@ package tasks;
  * Encapsulates the description of a task.
  */
 public class Todo extends Task {
+
+    /**
+     * Initialises a Todo object.
+     *
+     * @param description description of the task.
+     */
     public Todo(String description) {
         super(description);
     }

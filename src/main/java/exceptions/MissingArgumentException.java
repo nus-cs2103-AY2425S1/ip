@@ -8,6 +8,12 @@ public class MissingArgumentException extends AliceException {
     protected String taskType;
     protected String[] items;
 
+    /**
+     * Initialises a MissingArgumentException object.
+     *
+     * @param taskType type of task carried out.
+     * @param items required fields for that taskType.
+     */
     public MissingArgumentException(String taskType, String[] items) {
         super(taskType);
         this.taskType = taskType;

@@ -1,11 +1,11 @@
 package ui;
 
+import java.util.Scanner;
+
 import exceptions.AliceException;
 import parser.Parser;
 import storage.TaskList;
 import tasks.Task;
-
-import java.util.Scanner;
 
 /**
  * Responsible for printing output to the terminal, and reading input from the terminal.
@@ -13,12 +13,17 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String DIVIDER = "------------------------------------------";
-    private final Parser PARSER;
-    private final Scanner SCANNER;
+    private final Parser parser;
+    private final Scanner scanner;
 
+    /**
+     * Initialises a Ui object.
+     *
+     * @param list the list to start the parser.
+     */
     public Ui(TaskList list) {
-        PARSER = new Parser(list, this);
-        SCANNER = new Scanner(System.in);
+        parser = new Parser(list, this);
+        scanner = new Scanner(System.in);
     }
 
     /**
@@ -36,19 +41,19 @@ public class Ui {
     public void exitMessage() {
         showDivider();
         System.out.println("Bye. Hope to see you again soon!");
-        SCANNER.close();
+        scanner.close();
     }
 
     /**
      * Gets user inputs from the terminal.
      */
     public void getInput() {
-        while (!PARSER.isBye()) {
-            if (!SCANNER.hasNext()) {
+        while (!parser.isBye()) {
+            if (!scanner.hasNext()) {
                 continue;
             }
             try {
-                PARSER.parse(SCANNER.nextLine());
+                parser.parse(scanner.nextLine());
             } catch (AliceException e) {
                 System.out.println(e);
                 showDivider();
@@ -101,7 +106,7 @@ public class Ui {
 
     /**
      * Prints all the tasks in the list.
-     * 
+     *
      * @param tasks the string representation of all the tasks.
      * @param size number of tasks in the list.
      */

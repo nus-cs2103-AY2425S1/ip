@@ -7,6 +7,12 @@ package exceptions;
 public class InvalidTaskException extends AliceException {
     protected int taskNumber;
 
+    /**
+     * Initialises an InvalidTaskException.
+     *
+     * @param message the error message.
+     * @param taskNumber the taskNumber of the task that did not exist.
+     */
     public InvalidTaskException(String message, int taskNumber) {
         super(message);
         this.taskNumber = taskNumber;

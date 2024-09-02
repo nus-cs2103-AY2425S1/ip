@@ -8,20 +8,25 @@ import ui.Ui;
  * input data, and a Ui for handling user interaction.
  */
 public class Alice {
-    private final TaskList TASKS;
-    private final Storage STORAGE;
-    private final Ui UI;
+    private final TaskList tasks;
+    private final Storage storage;
+    private final Ui ui;
 
+    /**
+     * Initialises an instance of Alice chatbot.
+     *
+     * @param filePath the path of the file to save the tasks to.
+     */
     public Alice(String filePath) {
-        STORAGE = new Storage(filePath);
+        storage = new Storage(filePath);
         // load tasks
-        STORAGE.loadTasks();
-        TASKS = STORAGE.getTasks();
+        storage.loadTasks();
+        tasks = storage.getTasks();
 
         // initialise UI with the loaded tasks
-        UI = new Ui(TASKS);
+        ui = new Ui(tasks);
     }
-    
+
     public static void main(String[] args) {
         // create instance of Alice with loaded tasks
         new Alice("data.txt").run();
@@ -31,9 +36,9 @@ public class Alice {
      * Starts the program.
      */
     public void run() {
-        UI.showWelcome();
-        UI.getInput();
-        UI.exitMessage();
-        STORAGE.saveTasks(TASKS);
+        ui.showWelcome();
+        ui.getInput();
+        ui.exitMessage();
+        storage.saveTasks(tasks);
     }
 }
