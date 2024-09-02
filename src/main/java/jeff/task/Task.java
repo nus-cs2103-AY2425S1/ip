@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a task.
  */
 public class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
 
     /**
@@ -17,7 +17,7 @@ public class Task {
      *
      * @param description Description of the task. Marked as not done.
      */
-    public Task (String description) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -29,7 +29,7 @@ public class Task {
      * @param description Description of the task.
      * @param isDone Whether the task is completed or not.
      */
-    public Task (String description, boolean isDone) {
+    public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }

@@ -1,13 +1,21 @@
 package jeff.parser;
 
-import jeff.command.*;
-import jeff.exception.JeffException;
-import jeff.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+
+import jeff.command.AddCommand;
+import jeff.command.Command;
+import jeff.command.DateCommand;
+import jeff.command.DeleteCommand;
+import jeff.command.ExitCommand;
+import jeff.command.FindCommand;
+import jeff.command.ListCommand;
+import jeff.command.MarkCommand;
+import jeff.command.UnmarkCommand;
+import jeff.exception.JeffException;
+import jeff.task.Task;
 
 /**
  * Represents a filter to sort out the user's input.
@@ -58,6 +66,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the string reprsentation of the given list of tasks.
+     *
+     * @param list Given list of tasks.
+     * @return String representation of the given list.
+     */
     public static String listToString(List<Task> list) {
         // Initialise a StringBuilder
         StringBuilder listString = new StringBuilder();

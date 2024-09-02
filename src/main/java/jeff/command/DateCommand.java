@@ -1,15 +1,15 @@
 package jeff.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+
 import jeff.exception.JeffException;
 import jeff.parser.Parser;
 import jeff.storage.Storage;
 import jeff.task.Task;
 import jeff.task.TaskList;
 import jeff.ui.Ui;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.List;
 
 /**
  * Represents a "Check what task is on a certain date" command.
@@ -37,7 +37,7 @@ public class DateCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         if (this.getInput().matches("task .+")) {
             // Split the user input to get the date specified by the user
-            String[] taskParts  = this.getInput().split(" ", 2);
+            String[] taskParts = this.getInput().split(" ", 2);
             String taskPeriod = taskParts.length > 1 ? taskParts[1] : "";
 
             try {

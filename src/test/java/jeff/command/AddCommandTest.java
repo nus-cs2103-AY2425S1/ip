@@ -1,5 +1,16 @@
 package jeff.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import jeff.exception.JeffException;
 import jeff.storage.Storage;
 import jeff.task.DeadlineTask;
@@ -7,15 +18,6 @@ import jeff.task.EventTask;
 import jeff.task.TaskList;
 import jeff.task.ToDoTask;
 import jeff.ui.Ui;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class AddCommandTest {
     private TaskList tasks;

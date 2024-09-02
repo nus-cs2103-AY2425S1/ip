@@ -1,13 +1,13 @@
 package jeff.command;
 
+import java.util.List;
+
 import jeff.exception.JeffException;
 import jeff.parser.Parser;
 import jeff.storage.Storage;
 import jeff.task.Task;
 import jeff.task.TaskList;
 import jeff.ui.Ui;
-
-import java.util.List;
 
 /**
  * Represents a "Find task" command.
@@ -35,7 +35,7 @@ public class FindCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         if (this.getInput().matches("find .+")) {
             // Split the input to get the filter name
-            String[] taskParts  = this.getInput().split(" ", 2);
+            String[] taskParts = this.getInput().split(" ", 2);
 
             String filterName = taskParts.length > 1 ? taskParts[1] : "";
 

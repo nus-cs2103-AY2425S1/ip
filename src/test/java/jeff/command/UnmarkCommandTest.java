@@ -1,18 +1,19 @@
 package jeff.command;
 
-import jeff.exception.JeffException;
-import jeff.storage.Storage;
-import jeff.task.TaskList;
-import jeff.ui.Ui;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import jeff.exception.JeffException;
+import jeff.storage.Storage;
+import jeff.task.TaskList;
+import jeff.ui.Ui;
 
 public class UnmarkCommandTest {
     private TaskList tasks;
