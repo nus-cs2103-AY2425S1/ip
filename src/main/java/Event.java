@@ -9,6 +9,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String description, String start, String end, int status) {
+        super(description, status);
+        this.start = start;
+        this.end = end;
+    }
+
     public String getTaskInfo() {
         return(String.format("%s, (from: %s to: %s)", super.description, this.start, this.end));
     }
@@ -16,4 +22,8 @@ public class Event extends Task {
     public String getTaskType() {
         return(this.type);
     }
+
+    public String getStart() { return(this.start); }
+
+    public String getEnd() { return(this.end); }
 }
