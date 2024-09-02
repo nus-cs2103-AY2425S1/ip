@@ -13,8 +13,7 @@ import regina.Regina;
 
 /**
  * Controller for the main GUI of the Regina chatbot application.
- * This class handles user input, manages the dialog container,
- * and integrates with the Regina backend to retrieve responses to user commands.
+ * This class manages user input and handles the checkbox display for tasks.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -26,42 +25,33 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Regina regina = new Regina();
+    private Regina regina;
 
-    // Imaged for the user and Regina Chatbot
+    // Images for user and Regina Chatbot
     private final Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/User.jpg")));
     private final Image reginaImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/Regina.jpg")));
 
-    /**
-     * Initializes the main window.
-     * This method is called after the FXML file is loaded.
-     * It binds the scroll pane's vertical value to the dialog container's height
-     * and displays a greeting message from the Regina chatbot.
-     */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getReginaDialog(regina.greet(), reginaImage)
-        );
+        // Ensure regina is not null before executing functions that involve it
+        if (regina != null) {
+            scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+            dialogContainer.getChildren().addAll(DialogBox.getReginaDialog(regina.greet(), reginaImage));
+        } else {
+            System.out.println("Regina instance is not set.");
+        }
     }
 
-    /**
-     * Injects a new Regina instance into the main window controller.
-     *
-     * @param r The Regina instance to be set for handling tasks.
-     */
     public void setRegina(Regina r) {
-        regina = r;
+        regina = r; // Set the Regina instance
+        // Ensure to call initialize again if needed or properly manage calls
+        if (regina != null) {
+            dialogContainer.getChildren().addAll(DialogBox.getReginaDialog(regina.greet(), reginaImage));
+        }
     }
 
-    /**
-     * Handles user input when the send button is pressed or when the user presses Enter.
-     * Creates two dialog boxes: one for the user input and one for the Regina chatbot's response.
-     * Clears the input field after processing the input.
-     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -74,4 +64,3 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 }
-

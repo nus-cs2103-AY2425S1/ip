@@ -1,7 +1,6 @@
 package gui;
 
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +14,7 @@ import regina.Regina;
  */
 public class Main extends Application {
 
-    private final Regina regina = new Regina();
+    private final Regina regina = new Regina(); // Initialize the Regina instance
 
     /**
      * The main entry point for the JavaFX application.
@@ -27,11 +26,48 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CheckboxWindow.fxml"));
+
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setRegina(regina);
-            stage.show();
+            stage.setTitle("Regina Chatbot"); // Set a title for the window
+
+            // Get the controller for the main window
+            MainWindow mainWindowController = fxmlLoader.getController();
+            mainWindowController.setRegina(regina); // Set the Regina instance
+
+            stage.show(); // Show the main application window
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Main method to launch the application.
+     * @param args Command-line arguments.
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    /**
+     * Method to open the Checkbox window and populate it with the list of tasks.
+     */
+    public void openCheckboxWindow() {
+        try {
+            // Load the checkbox window FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CheckboxWindow.fxml"));
+            AnchorPane root = loader.load();
+
+            // Set up the checkbox controller
+            CheckboxController checkboxController = loader.getController();
+            checkboxController.setRegina(regina); // Pass the Regina instance
+
+            // Populate the checkboxes with tasks from Regina
+            checkboxController.createCheckboxesFromTaskList(regina.getListOfTasks());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
