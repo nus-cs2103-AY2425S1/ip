@@ -3,7 +3,7 @@ import storage.Storage;
 import storage.TaskList;
 import ui.UI;
 
-public class exitCommand implements Command {
+public class ExitCommand implements Command {
 
     @Override
     public boolean execute(Storage storage, TaskList master, UI ui) {

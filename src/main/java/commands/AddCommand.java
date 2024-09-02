@@ -3,11 +3,11 @@ import storage.Storage;
 import storage.TaskList;
 import ui.UI;
 
-public class addCommand implements Command {
+public class AddCommand implements Command {
 
     private final String desc;
 
-    public addCommand(String desc) {
+    public AddCommand(String desc) {
         this.desc = desc;
     }
 
