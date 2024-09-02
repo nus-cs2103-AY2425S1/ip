@@ -2,11 +2,11 @@ package justbot.command;
 
 import java.time.LocalDateTime;
 
+import justbot.storage.Storage;
 import justbot.task.Event;
 import justbot.task.Task;
 import justbot.task.TaskList;
 import justbot.ui.Ui;
-import justbot.storage.Storage;
 
 /**
  * Represents a command to add an Event task to the task list in the Justbot application.

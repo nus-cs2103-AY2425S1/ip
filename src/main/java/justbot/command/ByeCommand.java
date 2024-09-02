@@ -1,9 +1,9 @@
 package justbot.command;
 
+import justbot.storage.Storage;
 import justbot.task.Task;
 import justbot.task.TaskList;
 import justbot.ui.Ui;
-import justbot.storage.Storage;
 
 /**
  * Represents a command to exit the Justbot application.

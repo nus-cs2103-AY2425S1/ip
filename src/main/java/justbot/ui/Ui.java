@@ -1,10 +1,10 @@
 package justbot.ui;
 
+import java.util.Scanner;
+
 import justbot.exception.JustbotException;
 import justbot.task.Task;
 import justbot.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Represents the user interface of Justbot.
@@ -157,9 +157,13 @@ public class Ui {
     public void addTaskMessage(TaskList taskList, Task task) {
         System.out.println("------------------------------------------");
         int numberOfTasks = taskList.size();
-        System.out.println(
-                "Got it. I've added this task:\n" + task.toString() + "\n" + "Now you have " + numberOfTasks +
-                        " tasks in your list.");
+        System.out.println("Got it. I've added this task:\n"
+                    + task.toString()
+                    + "\n"
+                    + "Now you have "
+                    + numberOfTasks
+                    + " tasks in your list."
+        );
         System.out.println("------------------------------------------");
     }
 
@@ -174,9 +178,11 @@ public class Ui {
         int taskIndex = taskNumber - 1;
         Task currTask = taskList.get(taskIndex);
         int numberOfTasks = taskList.size() - 1;
-        System.out.println(
-                "Noted. I've removed this task:\n" + currTask.toString() + "\n" + "Now you have " + numberOfTasks +
-                        " tasks in your list.");
+        System.out.println("Noted. I've removed this task:\n"
+                    + currTask.toString() + "\n"
+                    + "Now you have "
+                    + numberOfTasks
+                    + " tasks in your list.");
         System.out.println("------------------------------------------");
     }
 

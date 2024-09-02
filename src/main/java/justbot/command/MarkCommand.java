@@ -1,10 +1,10 @@
 package justbot.command;
 
-import justbot.task.TaskList;
-import justbot.task.Task;
-import justbot.ui.Ui;
-import justbot.storage.Storage;
 import justbot.exception.JustbotException;
+import justbot.storage.Storage;
+import justbot.task.Task;
+import justbot.task.TaskList;
+import justbot.ui.Ui;
 
 /**
  * Represents a command to mark a task as done in the Justbot application.
@@ -24,7 +24,8 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the command to mark the task as done in the task list.
-     * The task is validated, marked as done, a confirmation message is displayed, and the updated task list is saved to storage.
+     * The task is validated, marked as done, a confirmation message is displayed,
+     * and the updated task list is saved to storage.
      * If the task number is invalid, an error message is displayed to the user.
      *
      * @param taskList The list of tasks in which the task is to be marked as done.
