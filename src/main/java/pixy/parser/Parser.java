@@ -3,6 +3,8 @@
  */
 package pixy.parser;
 
+import java.util.List;
+
 import pixy.PixyExceptions;
 import pixy.tasks.*;
 import pixy.ui.Ui;
@@ -12,9 +14,9 @@ public class Parser {
     /**
      * Parses user command and performs action corresponding to
      * the command type.
-     * @param command
-     * @param tasks
-     * @param ui
+     * @param command User inputted command
+     * @param tasks The task list
+     * @param ui The interaction of chatbot according to the command.
      * @return boolean If command is "bye"
      */
     public boolean parseCommand(String command, TaskList tasks, Ui ui) {
@@ -42,6 +44,14 @@ public class Parser {
                 Task task = tasks.get(taskNumber - 1);
                 tasks.remove(task);
                 ui.showTaskRemoved(task, tasks.size());
+            } else if (command.startsWith("find")) {
+                String description = command.substring(5);
+                if (description.isEmpty()) {
+                    throw new PixyExceptions("OOPS! Cannot complete find. " +
+                            "Incomplete command.");
+                }
+                List<Task> matchedTasks = tasks.find(description);
+                ui.showMatchedTasks(matchedTasks);
             } else if (command.startsWith("todo ")) {
                 String description = command.substring(5);
                 if (description.isEmpty()) {
