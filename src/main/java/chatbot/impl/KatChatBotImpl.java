@@ -1,10 +1,10 @@
 package chatbot.impl;
 
+import java.util.Scanner;
+
 import chatbot.ChatBot;
 import chatbot.MessageParser;
 import chatbot.exceptions.InvalidMessageException;
-
-import java.util.Scanner;
 
 public class KatChatBotImpl implements ChatBot {
 

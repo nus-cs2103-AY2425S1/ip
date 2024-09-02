@@ -1,8 +1,8 @@
 package chatbot.impl.tasks;
 
-import chatbot.Task;
-
 import java.time.format.DateTimeFormatter;
+
+import chatbot.Task;
 
 public abstract class AbstractTask implements Task {
 
