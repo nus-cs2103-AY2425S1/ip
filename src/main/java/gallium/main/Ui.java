@@ -15,6 +15,12 @@ public class Ui {
 
     public Ui() {
         this.userInput = new Scanner(System.in);
+        System.out.println("Hello from \n");
+        System.out.println("  ____       _ _ _                \r\n" + //
+                " / ___| __ _| | (_)_   _ _ __ ___  \r\n" + //
+                "| |  _ / _` | | | | | | | '_ ` _ \\ \r\n" + //
+                "| |_| | (_| | | | | |_| | | | | | |\r\n" + //
+                " \\____|\\__,_|_|_|_|\\__,_|_| |_| |_|");
         System.out.println("Hello! I am Gallium. What can I do for you?");
     }
 
