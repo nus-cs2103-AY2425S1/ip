@@ -28,14 +28,25 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("seedu.duck.Duck")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "duck"
     archiveClassifier = null
 }
 
 run{
     standardInput = System.in
+}
+
+task textUiTest(type: Exec) {
+    description = 'Runs the text UI tests'
+    group = 'verification'
+
+    if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+        commandLine 'cmd', '/c', 'text-ui-test/runtest.bat'
+    } else {
+        commandLine 'sh', 'text-ui-test/runtest.sh'
+    }
 }
