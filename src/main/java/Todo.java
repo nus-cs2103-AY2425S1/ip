@@ -6,4 +6,9 @@ class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    String toSaveAsString() {
+        return "T/" + super.toString();
+        }
+    }
 }

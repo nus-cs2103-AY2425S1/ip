@@ -22,4 +22,12 @@ class Task {
             return "[ ] " + this.task;
         }
     }
+
+    String toSaveAsString() {
+        if (this.isDone) {
+            return "1/" + this.task;
+        } else {
+            return "0/" + this.task;
+        }
+    }
 }

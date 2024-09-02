@@ -12,4 +12,9 @@ class Event extends Task {
         return "[E]" + super.toString() + 
             " (from: " + this.from + " to:" + this.to + ")";
     }
+
+    String toSaveAsString() {
+        return "E/" + super.toString() + "/" + this.from + "/" + this.to;
+        }
+    }
 }
