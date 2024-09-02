@@ -15,6 +15,7 @@ public class EventTask extends AbstractTask {
         super(description);
 
         try {
+            // Todo: Add date validation and support for time
             this.startTime = LocalDate.parse(startTime);
             this.endTime = LocalDate.parse(endTime);
         } catch (DateTimeParseException e) {
