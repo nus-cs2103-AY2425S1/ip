@@ -6,6 +6,8 @@ import mryapper.task.Deadline;
 import mryapper.task.Todo;
 import mryapper.task.Event;
 
+import java.util.ArrayList;
+
 public class CommandList {
 
     public static Command addTodo(String description) {
@@ -61,6 +63,29 @@ public class CommandList {
     public static Command listTasks() {
         return (tasks, ui, storage) -> {
             ui.send(tasks.toString());
+            return false;
+        };
+    }
+
+    /**
+     * Returns a command which searches all tasks matching the keywords in the input.
+     *
+     * @param searchInput The search input from the user.
+     * @return A command which displays all the task containing keywords in the search input.
+     */
+    public static Command findTask(String searchInput) {
+        return (tasks, ui, storage) -> {
+            ArrayList<Task> searchResult = tasks.searchTasks(searchInput);
+            if (searchResult.isEmpty()) {
+                ui.send(" None of the tasks match your search results!");
+                return false;
+            }
+
+            ui.send(" Here are the matching tasks in your list:");
+            for (int i = 0; i < searchResult.size(); i++ ) {
+                int taskNumber = i + 1;
+                ui.send(" " + taskNumber + "." + searchResult.get(i).toString());
+            }
             return false;
         };
     }

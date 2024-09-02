@@ -30,6 +30,13 @@ public class Parser {
                 throw new IllegalArgumentException(
                         " You have to give me a valid task number!\n e.g. delete 2");
             }
+            case "find":
+                if (processedInput.length <= 1) {
+                    throw new InvalidSyntaxException(" You need to enter a search input!\n"
+                            + " e.g. find do project");
+                } else {
+                    return CommandList.findTask(processedInput[1]);
+                }
         case "mark":
             try {
                 if (processedInput.length <= 1) {
