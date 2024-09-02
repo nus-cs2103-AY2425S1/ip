@@ -3,89 +3,18 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Devon {
 
     protected Scanner scanner = new Scanner(System.in);
-    protected TaskList tasks = new TaskList();
-    protected int taskCount = 0;
+    private TaskList tasks = new TaskList();
 
-    protected static final String DIRECTORY_PATH = "./data";
-    protected static final String DB_PATH = String.valueOf(Paths.get(Devon.DIRECTORY_PATH, "devon_tasks.txt"));
-    private static final String DB_DELIMITER = "\\|";
+    private Storage storage = new Storage();
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private static final DateTimeFormatter DATE_TIME_FORMATTER_FOR_DB = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
-    private void loadTasksFromDatabase() {
-        try {
-            Scanner fileReader = new Scanner(new File(Devon.DB_PATH));
-            while (fileReader.hasNextLine()) {
-                readTaskFromDatabase(fileReader.nextLine());
-            }
-            fileReader.close();
-        } catch (FileNotFoundException e) {
-            this.createTaskDatabase();
-        } catch (DevonException e) {
-            System.out.println("Error when reading database!");
-        }
-    }
-
-    private void saveTasksToDatabase() throws IOException {
-        FileWriter filewriter = new FileWriter(Devon.DB_PATH);
-        BufferedWriter bufferedWriter = new BufferedWriter(filewriter);
-        for (int i = 0; i < taskCount; i++) {
-            bufferedWriter.write(tasks.getTask(i).dbReadableFormat());
-            bufferedWriter.newLine();
-        }
-        bufferedWriter.close();
-        filewriter.close();
-    }
-
-    private void readTaskFromDatabase(String entry) throws DevonReadDatabaseException {
-        String[] fields = entry.split(DB_DELIMITER);
-        Task newTask;
-
-        switch (fields[0]) {
-            case "Deadline":
-                newTask = new Deadline(
-                        fields[2],
-                        LocalDateTime.parse(fields[3], Devon.DATE_TIME_FORMATTER_FOR_DB)
-                );
-                break;
-            case "Event":
-                newTask = new Event(
-                        fields[2],
-                        LocalDateTime.parse(fields[3], Devon.DATE_TIME_FORMATTER_FOR_DB),
-                        LocalDateTime.parse(fields[4], Devon.DATE_TIME_FORMATTER_FOR_DB)
-                );
-                break;
-            case "Todo":
-                newTask = new Todo(fields[2]);
-                break;
-            default:
-                throw new DevonReadDatabaseException();
-        }
-
-        boolean toBeMarkedAsDone = Integer.parseInt(fields[1]) == 1;
-        if (toBeMarkedAsDone) {
-            newTask.markAsDoneSilently();
-        }
-
-        this.tasks.addTask(newTask);
-        taskCount++;
-    }
-
-    private void createTaskDatabase() {
-        new File(Devon.DIRECTORY_PATH).mkdir();
-        try {
-            new File(Devon.DB_PATH).createNewFile();
-        } catch (IOException e) {
-            System.out.println("Error: Cannot create database!");
-        }
-    }
 
     private enum Command {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
@@ -100,11 +29,16 @@ public class Devon {
     }
 
     private void start() {
-        loadTasksFromDatabase();
+        ArrayList<String> stringListOfTasks = storage.loadTasksFromDatabase();
+        try {
+            tasks.initialiseLoadTasks(stringListOfTasks);
+        } catch (DevonReadDatabaseException e) {
+            System.out.println(e);
+        }
         introduction();
         receiveUserInput();
         try {
-            this.saveTasksToDatabase();
+            storage.saveTasksToDatabase(tasks);
         } catch (IOException e) {
             System.out.println("Error! Task(s) could not be saved.");
         }
@@ -190,7 +124,7 @@ public class Devon {
         } catch (NumberFormatException e) {
             throw new DevonInvalidTaskNumberException();
         }
-        if (taskIndex < 0 || taskIndex >= taskCount) {
+        if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
         markAsDone(tasks.getTask(taskIndex));
@@ -203,7 +137,7 @@ public class Devon {
         } catch (NumberFormatException e) {
             throw new DevonInvalidTaskNumberException();
         }
-        if (taskIndex < 0 || taskIndex >= taskCount) {
+        if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
         markAsUndone(tasks.getTask(taskIndex));
@@ -224,7 +158,7 @@ public class Devon {
         String by = parts[1].trim();
 
         try {
-            LocalDateTime byDateTime = LocalDateTime.parse(by, Devon.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
+            LocalDateTime byDateTime = LocalDateTime.parse(by, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
             addToList(new Deadline(description, byDateTime));
         } catch (DateTimeParseException e) {
             throw new DevonInvalidDateTimeException();
@@ -243,8 +177,8 @@ public class Devon {
         String to = partsTo[1].trim();
 
         try {
-            LocalDateTime fromDateTime = LocalDateTime.parse(from, Devon.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
-            LocalDateTime toDateTime = LocalDateTime.parse(to, Devon.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
+            LocalDateTime fromDateTime = LocalDateTime.parse(from, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
+            LocalDateTime toDateTime = LocalDateTime.parse(to, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
             addToList(new Event(description, fromDateTime, toDateTime));
         } catch (DateTimeParseException e) {
             throw new DevonInvalidDateTimeException();
@@ -253,7 +187,7 @@ public class Devon {
 
     private void deleteAction(String input) throws DevonInvalidTaskNumberException {
         int taskIndex = Integer.parseInt(detectContent(input)) - 1;
-        if (taskIndex < 0 || taskIndex >= taskCount) {
+        if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
         deleteTask(taskIndex);
@@ -265,7 +199,6 @@ public class Devon {
 
     private void addToList(Task task) {
         tasks.addTask(task);
-        taskCount++;
         this.printLongLine();
         System.out.println("\t" + "Got it. I've added this task:");
         System.out.println("\t\t" + task);
@@ -276,7 +209,7 @@ public class Devon {
     private void printList() {
         this.printLongLine();
         System.out.println("\t" + "Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < tasks.getNumberOfTasks(); i++) {
             Task current = tasks.getTask(i);
             String formattedEntry = String.format(
                     "\t" + "%d. %s",
@@ -289,7 +222,7 @@ public class Devon {
     }
 
     private void printNumberOfTasks() {
-        System.out.println("\t" + "Now you have " + taskCount + " tasks in the list.");
+        System.out.println("\t" + "Now you have " + tasks.getNumberOfTasks() + " tasks in the list.");
     }
 
     private void markAsDone(Task task) {
@@ -308,7 +241,6 @@ public class Devon {
         Task currentTask = tasks.getTask(taskIndex);
         currentTask.deleteTask();
         tasks.removeTask(taskIndex);
-        taskCount--;
         printLongLine();
         printNumberOfTasks();
         printLongLine();
