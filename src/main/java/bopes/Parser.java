@@ -29,24 +29,24 @@ public class Parser {
         String commandType = commandWords[0];
 
         switch (commandType) {
-            case "find":
-                handleFindCommand(commandWords[1], tasks, ui);
-                break;
-            case "list":
-                ui.showTasks(tasks);
-                break;
-            case "mark":
-                handleMarkCommand(commandWords[1], tasks, ui, storage);
-                break;
-            case "unmark":
-                handleUnmarkCommand(commandWords[1], tasks, ui, storage);
-                break;
-            case "delete":
-                handleDeleteCommand(commandWords[1], tasks, ui, storage);
-                break;
-            default:
-                handleAddTaskCommand(fullCommand, tasks, ui, storage);
-                break;
+        case "find":
+            handleFindCommand(commandWords[1], tasks, ui);
+            break;
+        case "list":
+            ui.showTasks(tasks);
+            break;
+        case "mark":
+            handleMarkCommand(commandWords[1], tasks, ui, storage);
+            break;
+        case "unmark":
+            handleUnmarkCommand(commandWords[1], tasks, ui, storage);
+            break;
+        case "delete":
+            handleDeleteCommand(commandWords[1], tasks, ui, storage);
+            break;
+        default:
+            handleAddTaskCommand(fullCommand, tasks, ui, storage);
+            break;
         }
     }
 
