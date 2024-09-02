@@ -1,7 +1,15 @@
 package mryapper.task;
 
+/**
+ * A task that is to be done.
+ */
 public class Todo extends Task {
 
+    /**
+     * Creates a task that is to be done.
+     *
+     * @param description The description of the task.
+     */
     public Todo(String description) {
         super(description);
     }
