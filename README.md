@@ -8,7 +8,7 @@ Sora stresses your mind by reminding things you need to do. It's,
 - ~~FAST~~ Negligibly Fast to use (Runs in O(N!) Runtime)
 
 All you need to do is,
-1. download it from [here]([https://nus-cs2103-ay2425s1.github.io/website/schedule/week4/project.html](https://github.com/S-K-Y-Light/ip)).
+1. download it from [here](https://github.com/S-K-Y-Light/ip).
 2. double-click it.
 3. add your tasks.
 4. let it manage your tasks for you 😉
