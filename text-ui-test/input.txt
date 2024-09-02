@@ -1,5 +1,5 @@
-todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+todo buy book
+deadline sell book /by 2024-10-09
+event project meeting /from 2024-12-01 12:30 /to 2024-12-01 18:30
 list
 bye
