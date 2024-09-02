@@ -79,6 +79,12 @@ public class Parser {
                     throw new BarcusException("please have an integer after 'delete'");
                 }
             }
+        } else if (words[0].equals("find")) {
+            if (words.length == 1) {
+                throw new BarcusException("please include what word(s) you want to find after 'find'");
+            } else {
+                return new FindCommand(String.join(" ", Arrays.copyOfRange(words, 1, words.length)));
+            }
         }
 
         return new UnknownCommand();

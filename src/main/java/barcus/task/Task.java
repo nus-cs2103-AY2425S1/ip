@@ -31,6 +31,15 @@ public class Task {
         return status + " | " + this.description;
     }
 
+    /**
+     * Returns whether the description contains the substring
+     * @param toFind string to find
+     * @return true if description contains the substring
+     */
+    public boolean containsSubstring(String toFind) {
+        return this.description.toLowerCase().contains(toFind.toLowerCase());
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
