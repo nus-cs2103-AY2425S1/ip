@@ -6,6 +6,12 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        this.type = "E";
+    }
+
+    @Override
+    public String toFile() {
+        return "E|" + getStatusIcon() + "|" + this.description + "|" + from + "|" + to;
     }
 
     @Override
