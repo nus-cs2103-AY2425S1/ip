@@ -16,12 +16,13 @@ public class MarkException extends MoniqueException {
     }
 
     /**
-     * Provides advice on how to handle this exception.
-     * This method prints a message informing the user that they have tried to mark an item that does not exist
-     * or unmark an item that is already unmarked.
+     * Provides advice on how to handle a mark-related exception.
+     *
+     * @return a string containing advice for handling the exception, indicating that the operation failed because the item either does not exist or is already in the desired marked/unmarked state.
      */
     @Override
-    public void advice() {
-        System.out.println("Mark-related Exception. You have tried to mark an item which does not exist, or unmark something that is already unmarked.");
+    public String advice() {
+        return "Mark-related Exception. You have tried to mark an item which does not exist, "
+               + "or unmark something that is already unmarked.";
     }
 }

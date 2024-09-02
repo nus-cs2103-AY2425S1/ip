@@ -27,4 +27,11 @@ public abstract class Command {
      * @return true if the bot remains active after the command, false otherwise
      */
     public abstract boolean isActive();
+
+    /**
+     * Returns a string response after the command is executed.
+     *
+     * @return the response string
+     */
+    public abstract String getResponse(Ui ui);
 }

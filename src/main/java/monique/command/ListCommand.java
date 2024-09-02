@@ -12,7 +12,7 @@ import monique.ui.Ui;
  * This command prints all tasks with their respective indices to the console.
  */
 public class ListCommand extends Command {
-
+    private String listResult = "";
     /**
      * Constructs a <code>ListCommand</code> instance.
      * This constructor initializes the command without any additional parameters.
@@ -32,12 +32,15 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder sb = new StringBuilder("Here are the tasks on your list:\n");
         IntStream.range(0, tasks.getNumItems())
                 .forEach(i -> {
-                    System.out.println((i + 1) + "." + tasks.getTask(i));
+                    sb.append((i + 1)).append(".").append(tasks.getTask(i)).append("\n");
                 });
         if (tasks.getNumItems() == 0) {
-            ui.emptyListMessage();
+            this.listResult = ui.emptyListMessage();
+        } else {
+            this.listResult = sb.toString();
         }
     }
 
@@ -48,5 +51,15 @@ public class ListCommand extends Command {
     @Override
     public boolean isActive() {
         return true;
+    }
+
+    /**
+     * Retrieves the response message from the execution of the ListCommand.
+     *
+     * @param ui the user interface instance used to format the list results (not used in this method)
+     * @return a string containing the result of the list command
+     */
+    public String getResponse(Ui ui) {
+        return this.listResult;
     }
 }

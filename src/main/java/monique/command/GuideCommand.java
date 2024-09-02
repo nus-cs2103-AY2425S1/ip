@@ -1,6 +1,5 @@
 package monique.command;
 
-import monique.GuideText;
 import monique.exception.MarkException;
 import monique.storage.Storage;
 import monique.tasklist.TaskList;
@@ -34,7 +33,6 @@ public class GuideCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MarkException {
         ui.printGuide();
     }
-
     /**
      * Returns whether this chatbot will be active after the command executes.
      * @return true since bot should remain active after the guide command
@@ -42,5 +40,16 @@ public class GuideCommand extends Command {
     @Override
     public boolean isActive() {
         return true;
+    }
+
+    /**
+     * Retrieves the response message from the execution of the GuideCommand.
+     *
+     * @param ui the user interface instance used to get the guide text
+     * @return a string containing the guide information provided by the UI
+     */
+    @Override
+    public String getResponse(Ui ui) {
+        return ui.printGuide();
     }
 }
