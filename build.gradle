@@ -34,6 +34,7 @@ application {
 shadowJar {
     archiveBaseName = "light"
     archiveClassifier = null
+    destinationDirectory = file("build/libs")
 }
 
 run{
