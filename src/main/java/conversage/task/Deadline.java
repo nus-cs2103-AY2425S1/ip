@@ -6,11 +6,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task{
     protected LocalDateTime deadline;
     protected static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     protected static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
 
+    /**
+     * Constructs a Deadline task with the specified description and deadline.
+     *
+     * @param taskDesc the description of the task.
+     * @param deadline the deadline of the task.
+     * @throws ConverSageException if the deadline format is invalid.
+     */
     public Deadline(String taskDesc, String deadline) throws ConverSageException {
         super(taskDesc);
 

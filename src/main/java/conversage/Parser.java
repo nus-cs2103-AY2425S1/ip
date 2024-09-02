@@ -6,7 +6,18 @@ import conversage.task.Deadline;
 import conversage.task.Event;
 import conversage.task.ToDo;
 
+/**
+ * Represents a parser for parsing user commands.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param fullCommand the user input to be parsed.
+     * @return the command corresponding to the user input.
+     * @throws ConverSageException if the user input is invalid.
+     */
     public static Command parse(String fullCommand) throws ConverSageException {
         String[] commandParts = fullCommand.split(" ", 2);
         String command = commandParts[0];

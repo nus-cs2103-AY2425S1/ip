@@ -6,11 +6,19 @@ import conversage.task.Task;
 import conversage.task.TaskList;
 import conversage.ui.Ui;
 
+/**
+ * Represents a command to delete a task.
+ */
 public class DeleteCommand extends Command {
 
     // conversage.command.DeleteCommand will have a task index to delete
     private int toDel;
 
+    /**
+     * Constructs a DeleteCommand with the specified task index to delete.
+     *
+     * @param toDel the index of the task to be deleted.
+     */
     public DeleteCommand(String toDel) {
         this.toDel = Integer.parseInt(toDel);
     }

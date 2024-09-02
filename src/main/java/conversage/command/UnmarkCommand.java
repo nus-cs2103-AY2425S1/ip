@@ -6,10 +6,18 @@ import conversage.task.Task;
 import conversage.task.TaskList;
 import conversage.ui.Ui;
 
+/**
+ * Represents a command to unmark a task as not done.
+ */
 public class UnmarkCommand extends Command {
     private int taskIndex;
 
     // Note that when user does "mark 1" => the 1 is a string
+    /**
+     * Constructs an UnmarkCommand with the specified task index.
+     *
+     * @param taskIndex the index of the task to be unmarked as not done.
+     */
     public UnmarkCommand(String taskIndex) {
         this.taskIndex = Integer.parseInt(taskIndex);
     }

@@ -11,9 +11,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the storage system for loading and saving tasks.
+ */
 public class Storage {
     private File file;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath the path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
 
         // filePath represents the path to the file where tasks are stored. 
@@ -26,7 +34,12 @@ public class Storage {
     }
 
 
-    // This method loads tasks from the file
+    /**
+     * Loads tasks from the file.
+     *
+     * @return a list of tasks loaded from the file.
+     * @throws ConverSageException if an error occurs while loading tasks.
+     */
     public List<Task> load() throws ConverSageException {
         List<Task> taskList = new ArrayList<>();
 
@@ -53,7 +66,12 @@ public class Storage {
         return taskList;
     }
 
-    // this method saves tasks to the file
+    /**
+     * Saves tasks to the file.
+     *
+     * @param taskList the list of tasks to save.
+     * @throws ConverSageException if an error occurs while saving tasks.
+     */
     public void save(List<Task> taskList) throws ConverSageException {
 
         // Now, we need to try to write to the file, create a FileWriter object using myTasksFile
