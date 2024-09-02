@@ -1,4 +1,11 @@
-// Parser.java
+package samson;
+
+import samson.command.*;
+import samson.task.Deadline;
+import samson.task.Event;
+import samson.task.ToDo;
+
+// Samson.Samson.Parser.java
 public class Parser {
 
     public static Command parse(String userInput) throws SamException {

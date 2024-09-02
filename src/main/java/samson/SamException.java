@@ -1,3 +1,5 @@
+package samson;
+
 public class SamException extends Exception{
 
     public SamException(String message) {
