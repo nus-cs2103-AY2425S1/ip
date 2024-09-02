@@ -109,15 +109,17 @@ public class TaskList {
     /**
      * Finds tasks that contain a keyword.
      *
-     * @param keyword Keyword to search for in tasks
+     * @param keywords Keyword to search for in tasks
      * @return TaskList object that contains tasks that match the keyword
      * @throws PikappiException If no tasks match the keyword
      */
-    public TaskList findTask(String keyword) throws PikappiException {
+    public TaskList findTask(String... keywords) {
         TaskList matches = new TaskList();
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                matches.getTasks().add(task);
+        for (String keyword : keywords) {
+            for (Task task : tasks) {
+                if (task.getDescription().contains(keyword)) {
+                    matches.getTasks().add(task);
+                }
             }
         }
         return matches;

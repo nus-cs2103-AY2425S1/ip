@@ -25,6 +25,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setPikappi(pikappi); // inject the Pikappi instance
             pikappi.loadTasks();
+            stage.setTitle("Pikappi");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

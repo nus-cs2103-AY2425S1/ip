@@ -52,48 +52,59 @@ public class Parser {
      * @throws PikappiException If the user input is invalid
      */
     public Command parse(String command) throws PikappiException {
+        Command c;
         switch (command.split(" ")[0].toUpperCase()) {
         case "BYE":
             isExit = true;
-            return new ExitCommand();
+            c = new ExitCommand();
+            break;
         case "LIST":
-            return new ListCommand();
+            c = new ListCommand();
+            break;
         case "MARK":
-            return new MarkCommand(Integer.parseInt(command.split(" ")[1]));
+            c = new MarkCommand(Integer.parseInt(command.split(" ")[1]));
+            break;
         case "UNMARK":
-            return new UnmarkCommand(Integer.parseInt(command.split(" ")[1]));
+            c = new UnmarkCommand(Integer.parseInt(command.split(" ")[1]));
+            break;
         case "TODO":
             try {
-                return new TodoCommand(command.split("todo ")[1]);
+                c = new TodoCommand(command.split("todo ")[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new PikappiException("Pika..? What is the task?");
             }
+            break;
         case "DEADLINE":
             try {
-                return new DeadlineCommand(command.split("deadline ")[1]);
+                c = new DeadlineCommand(command.split("deadline ")[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new PikappiException("Pika..? What is the task?");
             }
+            break;
         case "EVENT":
             try {
-                return new EventCommand(command.split("event ")[1]);
+                c = new EventCommand(command.split("event ")[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new PikappiException("Pika..? What is the task?");
             }
+            break;
         case "DELETE":
             try {
-                return new DeleteCommand(Integer.parseInt(command.split("delete ")[1]));
+                c = new DeleteCommand(Integer.parseInt(command.split("delete ")[1]));
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new PikappiException("Pika..? Which task do you want to delete?");
             }
+            break;
         case "FIND":
             try {
-                return new FindCommand(command.split("find ")[1]);
+                c = new FindCommand(command.split("find ")[1].split(", "));
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new PikappiException("Pika..? What do you want to find?");
             }
+            break;
         default:
             throw new PikappiException("Pika..?? I don't understand..");
         }
+        return c;
     }
 }
