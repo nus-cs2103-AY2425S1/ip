@@ -1,7 +1,10 @@
-package Kita;
+package kita;
 
 import java.util.Scanner;
 
+/**
+ * Main Kita chatbot class
+ */
 public class Kita {
 
     public static void main(String[] args) {
@@ -12,8 +15,7 @@ public class Kita {
         try {
             saveSystem = new Storage();
             tasks = new TaskList(saveSystem.readTasksFromFile());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Oh no, Kita failed to create/read from the save file successfully :c");
             System.out.println(e);
             return;
@@ -30,8 +32,7 @@ public class Kita {
                 if (shouldEnd) {
                     break;
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e);
             }
             commandsExecutor.printLine();

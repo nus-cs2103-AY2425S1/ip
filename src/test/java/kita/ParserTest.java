@@ -1,12 +1,15 @@
-package Kita;
+package kita;
 
-import Kita.Exceptions.KitaNotFound;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import kita.exceptions.KitaNotFound;
 
 public class ParserTest {
 
@@ -19,8 +22,7 @@ public class ParserTest {
         try {
             saveSys = new Storage();
             tasks = new TaskList(new ArrayList<>());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Oh no, Kita failed to create/read from the save file successfully :c");
             System.out.println(e);
             return;
@@ -31,11 +33,9 @@ public class ParserTest {
     @Test
     @DisplayName("Invalid command entered")
     public void notFoundCommand() {
-        assertThrows(
-                KitaNotFound.class,
-                () -> Parser.parse("moshi moshi", commandsExecutor),
-                "Expected to throw KitaNotFound when unknown command entered"
-        );
+        assertThrows(KitaNotFound.class, ()
+                        -> Parser.parse("moshi moshi", commandsExecutor),
+                "Expected to throw KitaNotFound when unknown command entered");
     }
 
     @Test
@@ -45,15 +45,3 @@ public class ParserTest {
                 "Expected to create an Event successfully even with re-ordered parameters");
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

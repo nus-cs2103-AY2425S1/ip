@@ -1,7 +1,9 @@
 plugins {
+    id 'checkstyle'
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id "com.diffplug.spotless" version "6.25.0"
 }
 
 repositories {
@@ -34,6 +36,16 @@ application {
 shadowJar {
     archiveBaseName = "kita"
     archiveClassifier = null
+}
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
+spotless {
+    java {
+        palantirJavaFormat()
+    }
 }
 
 run{
