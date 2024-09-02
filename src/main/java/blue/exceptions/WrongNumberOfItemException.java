@@ -1,4 +1,4 @@
-package blue.Exceptions;
+package blue.exceptions;
 
 /**
  * Thrown to indicate that a user has provided an invalid item number, such as a task number that is out of range.

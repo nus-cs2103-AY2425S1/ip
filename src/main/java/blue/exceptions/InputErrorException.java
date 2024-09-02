@@ -1,4 +1,4 @@
-package blue.Exceptions;
+package blue.exceptions;
 
 /**
  * Thrown to indicate that there is an error with the user's input, such as incorrect formatting or missing information.
