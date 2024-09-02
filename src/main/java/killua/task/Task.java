@@ -2,9 +2,9 @@ package killua.task;
 
 /**
  * Represents a generic task in the Killua application.
- * This class provides basic functionalities for any type of task, including description and completion status.
+ * This abstract class provides basic functionalities for any type of task, including description and completion status.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
