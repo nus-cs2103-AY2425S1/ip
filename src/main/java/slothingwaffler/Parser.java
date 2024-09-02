@@ -25,9 +25,9 @@ public class Parser {
         case "list":
             return tasks.displayTaskList();
         case "mark":
-            return tasks.markTask(Integer.parseInt(split[1]) - 1);
+            return tasks.markTask(Integer.parseInt(split[1]));
         case "delete":
-            return tasks.deleteTask(Integer.parseInt(split[1]) - 1);
+            return tasks.deleteTask(Integer.parseInt(split[1]));
         case "todo":
             return tasks.addTodoTask(split);
         case "deadline":
