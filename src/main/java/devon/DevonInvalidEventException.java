@@ -1,3 +1,5 @@
+package devon;
+
 public class DevonInvalidEventException extends DevonException {
     @Override
     public String toString() {

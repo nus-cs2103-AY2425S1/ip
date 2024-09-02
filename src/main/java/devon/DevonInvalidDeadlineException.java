@@ -1,3 +1,5 @@
+package devon;
+
 public class DevonInvalidDeadlineException extends DevonException {
     @Override
     public String toString() {

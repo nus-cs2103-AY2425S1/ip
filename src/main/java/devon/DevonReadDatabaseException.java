@@ -1,3 +1,5 @@
+package devon;
+
 public class DevonReadDatabaseException extends DevonException {
 
     @Override
