@@ -7,6 +7,10 @@ import rose.task.*;
 
 import java.io.IOException;
 
+/**
+ * Represents a command used by user to delete task from the list.
+ * <p>A <code>Delete</code> object is represented by the index of the task in the list.
+ */
 public class DeleteCommand extends Command {
     private int idx;
 

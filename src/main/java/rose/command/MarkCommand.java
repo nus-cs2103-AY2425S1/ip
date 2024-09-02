@@ -1,11 +1,16 @@
 package rose.command;
 
+import rose.RoseException;
 import rose.Storage;
 import rose.TaskList;
 import rose.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command used by user to mark one of task in the list as 'Done'.
+ * <p>A <code>MarkCommand</code> object is represented by the index of the task in the list.
+ */
 public class MarkCommand extends Command {
     private int idx;
 
@@ -13,7 +18,14 @@ public class MarkCommand extends Command {
         this.idx = idx;
     }
 
-    @Override
+    /**
+     * Marks the chosen task as 'done'.
+     *
+     * @param tasks current list of tasks.
+     * @param ui ui object to show message to user.
+     * @param storage storage object to store the data.
+     * @throws IndexOutOfBoundsException If the user gives non-existing index.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.getTask(idx - 1).mark();

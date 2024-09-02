@@ -3,6 +3,12 @@ package rose.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task that starts at a specific date/time and ends at a specific date/time.
+ *
+ * <p>An <code>Event</code> object is represented by the description of the task, the starting date, the ending date,
+ * and the status of completion. e.g., <code>[E][ ] attend career fair (from: Aug 01 2024 to: Aug 04 2024)</code>.
+ */
 public class Event extends Task {
     protected LocalDate fromDate;
     protected LocalDate toDate;
@@ -26,6 +32,15 @@ public class Event extends Task {
                 super.toString(), this.fromDate.format(formatter), this.toDate.format(formatter));
     }
 
+    /**
+     * Returns a string representation of the event task in a comma-separated format.
+     *
+     * <p>The format is: <code>"E,status,taskName,fromDate,toDate"</code>, where <code>status</code>
+     * is "X" if the task is done, and a space (" ") if the task is not done. The <code>fromDate</code>
+     * and <code>toDate</code> represent the start and end dates of the event, formatted as "yyyy-MM-dd".</p>
+     *
+     * @return A comma-separated string representing the event task's type, status, name, start date, and end date.
+     */
     @Override
     public String commaString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

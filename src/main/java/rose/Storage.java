@@ -16,6 +16,12 @@ import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The {@code Storage} class handles the loading and saving of tasks to and from a file.
+ *
+ * <p>If the specified file does not exist, the class will create it along with any necessary
+ * directories.</p>
+ */
 public class Storage {
     private String filePath;
 
@@ -23,6 +29,19 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the {@code filePath}.
+     *
+     * <p>This method reads the contents of the file and converts each line into a {@link rose.task.Task}
+     * object. The tasks are stored in an {@link java.util.ArrayList} and returned.
+     *
+     * <p>If the file does not exist, it is created along with any necessary directories. If the file contains
+     * dates in an incorrect format, those tasks will not be loaded.</p>
+     *
+     * @return An {@link java.util.ArrayList} of {@link rose.task.Task} objects representing the tasks
+     *         stored in the file.
+     * @throws IOException If an I/O error occurs during file reading or creation.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -62,6 +81,16 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the list of tasks to the file specified by the {@code filePath}.
+     *
+     * <p>This method writes each task in the provided {@link java.util.ArrayList} to the file in a
+     * comma-separated format.
+     *
+     * @param tasks An {@link java.util.ArrayList} of {@link rose.task.Task} objects representing
+     *              the tasks to be saved.
+     * @throws IOException If an I/O error occurs during file writing.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(filePath);
 

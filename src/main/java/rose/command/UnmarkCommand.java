@@ -6,6 +6,10 @@ import rose.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command used by user to unmark one of task in the list to become 'not done'.
+ * <p>An <code>UnmarkCommand</code> object is represented by the index of the task in the list.
+ */
 public class UnmarkCommand extends Command {
     private int idx;
 
@@ -13,7 +17,14 @@ public class UnmarkCommand extends Command {
         this.idx = idx;
     }
 
-    @Override
+    /**
+     * Unmarks the chosen task to become 'not done'.
+     *
+     * @param tasks current list of tasks.
+     * @param ui ui object to show message to user.
+     * @param storage storage object to store the data.
+     * @throws IndexOutOfBoundsException If the user gives non-existing index.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.getTask(idx - 1).unmark();
