@@ -2,31 +2,61 @@ package king.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents an abstract task with a description and completion status.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a Task with the given description.
+     *
+     * @param description A brief description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon of the task.
+     *
+     * @return A string representing the task's completion status, "X" if done, " " otherwise.
+     */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done king.task with X
+        return (isDone ? "X" : " ");
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as undone.
+     */
     public void markAsUndone() {
         this.isDone = false;
     }
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return A string representing the task's status and description.
+     */
     public String toString() {
         return "[" + this.getStatusIcon() + "]" + " " + this.description;
     }
 
+    /**
+     * Creates a Task from a string representation read from a file.
+     *
+     * @param line A string representing the task in a file format.
+     * @return A Task object if the format is valid, null otherwise.
+     */
     public static Task fromFileString(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
@@ -57,5 +87,10 @@ public abstract class Task {
         return null; // Invalid format
     }
 
+    /**
+     * Returns a string representation of the task suitable for saving to a file.
+     *
+     * @return A string representing the task in a file format.
+     */
     public abstract String toFileString();
 }
