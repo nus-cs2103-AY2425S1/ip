@@ -60,6 +60,14 @@ public class TaskList {
         this.tasks.remove(taskNumber);
     }
 
+    protected void markAsDone(int taskNumber) {
+        getTask(taskNumber).markAsDone();
+    }
+
+    protected void markAsUndone(int taskNumber) {
+        getTask(taskNumber).markAsUndone();
+    }
+
     protected void printList() {
         System.out.println("\t" + "Here are the tasks in your list:");
         for (int i = 0; i < this.getNumberOfTasks(); i++) {

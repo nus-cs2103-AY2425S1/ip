@@ -124,7 +124,7 @@ public class Devon {
         if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
-        markAsDone(tasks.getTask(taskIndex));
+        markAsDone(taskIndex);
     }
 
     private void unmarkAction(String input) throws DevonInvalidTaskNumberException {
@@ -137,7 +137,7 @@ public class Devon {
         if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
-        markAsUndone(tasks.getTask(taskIndex));
+        markAsUndone(taskIndex);
     }
 
     private void todoAction(String input) {
@@ -213,15 +213,15 @@ public class Devon {
         System.out.println("\t" + "Now you have " + tasks.getNumberOfTasks() + " tasks in the list.");
     }
 
-    private void markAsDone(Task task) {
+    private void markAsDone(int taskIndex) {
         printLongLine();
-        task.markAsDone();
+        tasks.markAsDone(taskIndex);
         printLongLine();
     }
 
-    private void markAsUndone(Task task) {
+    private void markAsUndone(int taskIndex) {
         printLongLine();
-        task.markAsUndone();
+        tasks.markAsUndone(taskIndex);
         printLongLine();
     }
 

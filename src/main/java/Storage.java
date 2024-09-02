@@ -13,9 +13,7 @@ public class Storage {
     protected static final DateTimeFormatter DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     protected static final DateTimeFormatter DATE_TIME_FORMATTER_FOR_DB = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
-    public Storage() {
-
-    }
+    public Storage() { }
 
     protected ArrayList<String> loadTasksFromDatabase() {
         ArrayList<String> tasks = new ArrayList<>();
