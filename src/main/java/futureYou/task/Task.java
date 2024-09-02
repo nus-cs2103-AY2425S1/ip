@@ -1,42 +1,87 @@
 package futureYou.task;
 
+/**
+ * Represents a task with a name and completion status.
+*/
 public class Task {
     private boolean completed = false;
     private String name;
 
+    /**
+     * Constructs a Task with the specified name.
+     *
+     * @param taskName The name of the task.
+     */
     public Task(String taskName) {
         this.name = taskName;
     }
 
+    /**
+     * Constructs a Task with the specified name and completion status.
+     *
+     * @param taskName  The name of the task.
+     * @param completed The completion status of the task.
+     */
     public Task(String taskName, boolean completed) {
         this.name = taskName;
         this.completed = completed;
     }
 
+    /**
+     * Marks the task as completed.
+     */
     public void markTask() {
         this.completed = true;
     }
 
-    public String taskName() {
+    /**
+     * Returns the name of the task.
+     *
+     * @return The task's name.
+     */
+    public String getTaskName() {
         return this.name;
     }
 
-    public boolean taskStatus() {
+    /**
+     * Returns the completion status of the task.
+     *
+     * @return task completion status (Boolean).
+     */
+    public boolean getTaskStatus() {
         return this.completed;
     }
 
+    /**
+     * Returns the type of the task.
+     *
+     * @return A string representing the type of the task, which is "T" for a basic
+     *         task.
+     */
     public String getType() {
         return "T";
     }
 
+    /**
+     * Returns a string representation of the task formatted for storage.
+     * The format is: "T|<done>|<taskName>", where <done> is 1 if completed, 0 otherwise.
+     *
+     * @return A formatted string representation of the task.
+     */
     @Override
-    public String toString(){
-        int done = (this.taskStatus() ? 1 : 0);
-        return this.getType() + "|" + done + "|" + this.taskName();
+    public String toString() {
+        int done = (this.getTaskStatus() ? 1 : 0);
+        return this.getType() + "|" + done + "|" + this.getTaskName();
     }
 
+    /**
+     * Returns a formatted string representation of the task for display.
+     * The format is: "[T] [X] <taskName>", where [X] is marked if completed.
+     *
+     * @return A formatted string for displaying the task.
+     */
     public String print() {
-        String cross = (this.taskStatus() ? "X" : " ");
-        return "[" + this.getType() + "] " + "[" + cross + "] " + this.taskName();
+        String cross = (this.getTaskStatus() ? "X" : " ");
+        return "[" + this.getType() + "] " + "[" + cross + "] " + this.getTaskName();
     }
 }
