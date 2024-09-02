@@ -6,7 +6,6 @@ public class Gallium {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    private Parser parser;
 
     public Gallium(String filePath) {
         ui = new Ui();
@@ -23,7 +22,7 @@ public class Gallium {
         boolean isExit = false;
         while (!isExit) {
             String Message = ui.readNextLine();
-            parser = new Parser(ui, taskList);
+            Parser parser = new Parser(ui);
             Command c = parser.parse(Message);
             try {
                 c.execute(taskList, ui, storage);

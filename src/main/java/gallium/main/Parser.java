@@ -21,11 +21,9 @@ public class Parser {
     private static final String DATE = "date";
 
     private Ui ui;
-    private TaskList taskList;
 
-    public Parser(Ui ui, TaskList taskList) {
+    public Parser(Ui ui) {
         this.ui = ui;
-        this.taskList = taskList;
     }
 
     public Command parse(String Message) {
