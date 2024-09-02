@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -21,6 +21,10 @@ public class Task {
         System.out.println("\t\t" + this);
     }
 
+    public void markAsDoneSilently() {
+        isDone = true;
+    }
+
     public void markAsUndone() {
         isDone = false;
         System.out.println("\t" + "OK, I've marked this task as not done yet:");
@@ -31,6 +35,8 @@ public class Task {
         System.out.println("\t" + "Noted. I've removed this task:");
         System.out.println("\t\t" + this);
     }
+
+    public abstract String dbReadableFormat();
 
     @Override
     public String toString() {
