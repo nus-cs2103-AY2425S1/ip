@@ -6,14 +6,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles loading and storing of tasks in a text file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs an instance of storage with the given file path.
+     *
+     * @param filePath
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         checkFileExists();
     }
 
+    /**
+     * Checks if the storage directory and file exists.
+     * Creates them if they don't exist.
+     */
     private void checkFileExists() {
         try {
             File f = new File(filePath);
@@ -34,6 +46,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks from the given TaskList into the storage file.
+     *
+     * @param taskList The TaskList of tasks to be saved.
+     * @throws IOException If an IO error occurs when writing to the file.
+     */
     public void saveTasks(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : taskList.getTasks()) {
@@ -42,6 +60,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads tasks from the storage file into the given TaskList.
+     *
+     * @param tasks The TaskList to add the tasks to.
+     * @throws FileNotFoundException If the storage file is not found.
+     */
     public void loadTasks(TaskList tasks) throws FileNotFoundException {
         File f = new File(filePath);
         if (!f.exists() || f.length() == 0) {
