@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class SlothingWaffler {
 
-    private static final Ui ui = new Ui();
+//    private static final Ui ui = new Ui();
     private final TaskList tasks;
     private final Storage storage;
 
