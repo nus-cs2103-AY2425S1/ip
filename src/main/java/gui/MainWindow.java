@@ -26,6 +26,7 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user-icon.png"));
     private Image friendlyBotImage = new Image(this.getClass().getResourceAsStream("/images/friendlybot-icon.png"));
 
+    /** Initializes the MainWindow instance */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -35,14 +36,14 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    /** Injects the Duke instance */
+    /** Injects the FriendlyBot instance */
     public void setFriendlyBot(FriendlyBot d) {
         friendlyBot = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing FriendlyBot's reply and then appends
+     * them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
