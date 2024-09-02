@@ -16,4 +16,8 @@ public class Event extends Task {
     public String getTaskType() {
         return(this.type);
     }
+
+    public String getStart() { return(this.start); }
+
+    public String getEnd() { return(this.end); }
 }

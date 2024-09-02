@@ -14,4 +14,8 @@ public class Deadline extends Task {
     public String getTaskType() {
         return(this.type);
     }
+
+    public String getDeadline() {
+        return this.deadline;
+    }
 }
