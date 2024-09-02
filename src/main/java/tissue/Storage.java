@@ -10,10 +10,21 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import tissue.task.Deadline;
+import tissue.task.Event;
+import tissue.task.Task;
+import tissue.task.ToDo;
+
+/**
+ * Storage class to handle all reading and writing of tasks to local disk.
+ */
 public class Storage {
     private final Path path;
     private final Path file;
 
+    /**
+     * Constructor to determine the name and file path to store and read from.
+     */
     public Storage(String path, String fileName) {
         this.path = Paths.get(path);
         this.file = Paths.get(path + fileName);

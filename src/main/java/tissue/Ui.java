@@ -3,20 +3,36 @@ package tissue;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import tissue.parse.Parser;
+import tissue.task.Deadline;
+import tissue.task.Event;
+import tissue.task.Task;
+import tissue.task.ToDo;
+
+
+/**
+ * The Ui wrapper class for the console.
+ */
 public class Ui {
     private static final String LINE =
             "--------------------------------------------------------------";
     private static final String INDENT = "       ";
-    private Parser parser;
-    private TaskList taskList;
-    private Storage storage;
+    private final Parser parser;
+    private final TaskList taskList;
+    private final Storage storage;
 
+    /**
+     * The Ui constructor.
+     */
     public Ui(Parser parser, TaskList taskList, Storage storage) {
         this.parser = parser;
         this.taskList = taskList;
         this.storage = storage;
     }
 
+    /**
+     * The main function to call to run the ui.
+     */
     public void run() {
         System.out.println(LINE);
         System.out.println("Hello! I'm Tissue");
@@ -80,7 +96,7 @@ public class Ui {
         if (in.equals("todo")) {
 
             String item = parser.retrieveNextString();
-            if (item.equals("")) {
+            if (item.isEmpty()) {
                 System.out.println("Description of TODO cannot be empty.");
             } else {
                 Task task = new ToDo(false, item);
