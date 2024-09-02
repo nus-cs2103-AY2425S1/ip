@@ -7,11 +7,22 @@ import java.util.List;
 import samson.SamException;
 import samson.Storage;
 
+/**
+ * The <code> TaskManager </code> class is responsible for managing tasks and interacting with storage.
+ * It provides methods to add, list, mark, unmark, and delete tasks, as well as to save tasks to a file.
+ */
 public class TaskManager {
     private int taskCount;
     private List<Task> tasks;
     private Storage storage;
     private boolean taskStatus;
+
+    /**
+     * Constructs a <code> TaskManager </code> with the specified storage.
+     * It attempts to load tasks from the storage file.
+     *
+     * @param storage The storage object used to save and load tasks.
+     */
     public TaskManager(Storage storage) {
         tasks = new ArrayList<>();
         this.storage = storage;
@@ -24,6 +35,12 @@ public class TaskManager {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Adds a task to the task list and saves the updated list to the storage file.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
         saveTasks();
@@ -34,6 +51,9 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays the list of tasks.
+     */
     public void listTask() {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list: ");
@@ -43,6 +63,11 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Marks a task as completed by its index.
+     *
+     * @param num The index of the task to be marked as done.
+     */
     public void markTask(int num) {
         tasks.get(num - 1).complete();
         System.out.println("____________________________________________________________");
@@ -51,6 +76,11 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Unmarks a task as incomplete by its index.
+     *
+     * @param num The index of the task to be marked as not done.
+     */
     public void unmarkTask(int num) {
         tasks.get(num - 1).notComplete();
         System.out.println("____________________________________________________________");
@@ -59,6 +89,11 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Deletes a task by its index and saves the updated list to the storage file.
+     *
+     * @param num The index of the task to be deleted.
+     */
     public void deleteTask(int num) {
         Task removedTask = tasks.remove(num - 1);
         System.out.println("____________________________________________________________");
@@ -68,10 +103,18 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Returns the size of the task list.
+     *
+     * @return The number of tasks in the list.
+     */
     public int checkSize() {
         return tasks.size();
     }
 
+    /**
+     * Saves the current list of tasks to the storage file.
+     */
     private void saveTasks() {
         try {
             storage.saveTasksToFile(tasks);
@@ -80,11 +123,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Checks the status of a task.
+     *
+     * @return "X" if the task is completed, otherwise {@code " "}.
+     */
     public String checkStatus() {
-        if (taskStatus) {
-            return "X";
-        } else {
-            return " ";
-        }
+        return taskStatus ? "X" : " ";
     }
 }

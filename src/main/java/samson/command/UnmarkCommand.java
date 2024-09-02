@@ -1,30 +1,53 @@
-package samson.command;// Samson.Samson.Command.UnmarkCommand.java
+package samson.command;
+
 import samson.Storage;
 import samson.Ui;
-import samson.task.*;
+import samson.task.TaskList;
 
 import java.io.IOException;
 
+/**
+ * The <code> UnmarkCommand </code> class represents a command that marks a task as not done in the task list.
+ */
 public class UnmarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructs an <code> UnmarkCommand </code> with the specified index of the task to be marked as not done.
+     *
+     * @param index The 1-based index of the task to be marked as not done. The index is adjusted to zero-based indexing internally.
+     */
     public UnmarkCommand(int index) {
-        this.index = index - 1; // Adjusting for zero-based indexing
+        this.index = index - 1;
     }
 
+    /**
+     * Executes the command by marking the task at the specified index as not done, showing a confirmation message,
+     * and saving the updated task list to the storage file.
+     *
+     * @param taskList The list of tasks in which the task will be marked as not done.
+     * @param ui       The UI object used to display messages to the user.
+     * @param storage  The storage object used to save tasks to the file.
+     * @throws IOException If an I/O error occurs while saving the tasks.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
         if (index < 0 || index >= taskList.size()) {
             ui.showTaskNumInvalid();
+            return;
         }
         taskList.unmarkTask(index);
         ui.showTaskUnmarked(taskList.get(index));
         storage.saveTasksToFile(taskList.getTasks());
     }
 
+    /**
+     * Indicates whether this command should cause the application to exit.
+     *
+     * @return false because the UnmarkCommand does not trigger an exit.
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 }
-
