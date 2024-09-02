@@ -5,16 +5,23 @@ import java.util.Scanner;
 public class Duke {
     private static List<Task> taskList = new ArrayList<>();
 
-    public static String addHorizontalLinesAndIndentation(String dialog) {
-        StringBuilder res = new StringBuilder("    ____________________________________________________________\n");
-        Scanner sc = new Scanner(dialog);
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            res.append("      ").append(line.trim()).append("\n");  // Ensure consistent indentation
+    private Storage storage;
+    private Ui ui;
+    private TaskList tasks;
+    private Parser parser;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
-        res.append("    ____________________________________________________________");
-        return res.toString();
     }
+
+    
 
     public static void addToList(String dialog) {
         Task task = Task.of(dialog);
@@ -74,29 +81,7 @@ public class Duke {
         System.out.println(addHorizontalLinesAndIndentation(hi));
         Scanner sc = new Scanner(System.in);
         while (true) {
-            try {
-                String line = sc.nextLine();
-                if (line.equals("bye")) {
-                    break;
-                } else if (line.equals("list")) {
-                    displayList();
-                } else if (line.startsWith("mark")) {
-                    int index = Integer.parseInt(line.substring(5));
-                    mark(index);
-                } else if (line.startsWith("unmark")) {
-                    int index = Integer.parseInt(line.substring(7));
-                    unmark(index);
-                } else if (line.startsWith("delete")) {
-                    int index = Integer.parseInt(line.substring(7));
-                    delete(index);
-                } else {
-                    addToList(line);
-                }
-            } catch (DukeException e) {
-                System.out.println(addHorizontalLinesAndIndentation("BRUH... " + e.getMessage()));
-            } catch (Exception e) {
-                System.out.println(addHorizontalLinesAndIndentation("An unexpected error occurred."));
-            }
+            
         }
         System.out.println(addHorizontalLinesAndIndentation("Bye. Hope to see you again soon!"));
     }
