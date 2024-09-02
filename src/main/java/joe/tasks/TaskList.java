@@ -1,9 +1,5 @@
 package joe.tasks;
 
-import joe.Main.Parser;
-import joe.exceptions.InvalidIndexException;
-import joe.utils.Formatter;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -11,6 +7,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import joe.Main.Parser;
+import joe.exceptions.InvalidIndexException;
+import joe.utils.Formatter;
+
+/**
+ * Represents the list of tasks.
+ */
 public class TaskList {
 
     private static final String line =

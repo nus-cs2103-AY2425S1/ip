@@ -1,20 +1,30 @@
 package joe.Main;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+/**
+ * Tests the Storage class.
+ */
 public class StorageTest {
+    /**
+     * Tests the Storage constructor.
+     */
     @Test
     public void testStorage_invalidFilePath_exceptionThrown() {
         try {
-            Storage storage = new Storage("src/data/test.txt");
+            new Storage("src/data/test.txt");
         } catch (Exception e) {
             assertEquals("java.io.FileNotFoundException: src/data/test.txt (No such file or directory)",
                     e.toString());
         }
     }
 
+    /**
+     * Tests the load method in Storage.
+     * @throws Exception if an error occurs during the loading process
+     */
     @Test
     public void storageLoad_validFilePath_success() throws Exception {
         Storage storage = new Storage("data/test.txt");

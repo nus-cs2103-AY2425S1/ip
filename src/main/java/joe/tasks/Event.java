@@ -1,10 +1,13 @@
 package joe.tasks;
 
-import joe.utils.Formatter;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import joe.utils.Formatter;
+
+/**
+ * Represents an Event task.
+ */
 public class Event extends Task {
     private final LocalDateTime start;
     private final LocalDateTime end;

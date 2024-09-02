@@ -1,5 +1,8 @@
 package joe.tasks;
 
+/**
+ * Represents a ToDo task.
+ */
 public class ToDo extends Task {
 
     /**

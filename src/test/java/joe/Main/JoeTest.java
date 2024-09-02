@@ -28,8 +28,8 @@ public class JoeTest {
         Exception exception = assertThrows(FileNotFoundException.class, () -> {
             new Joe("data/nonexistent.txt").initializeTasks();
         });
-        assertEquals("java.io.FileNotFoundException: data\\nonexistent.txt " +
-                "(The system cannot find the file specified)",
+        assertEquals("java.io.FileNotFoundException: data\\nonexistent.txt "
+                        + "(The system cannot find the file specified)",
                 exception.toString());
     }
 

@@ -1,5 +1,8 @@
 package joe.commands;
 
+/**
+ * Represents a command to exit the program.
+ */
 public class ByeCommand extends Command {
 
     /**

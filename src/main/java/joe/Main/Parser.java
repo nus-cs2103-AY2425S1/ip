@@ -1,11 +1,23 @@
 package joe.Main;
 
-import joe.commands.*;
-
+import joe.commands.AddTaskCommand;
+import joe.commands.Command;
+import joe.commands.DeleteCommand;
+import joe.commands.FindCommand;
+import joe.commands.MarkCommand;
+import joe.commands.QueryCommand;
+import joe.commands.UnmarkCommand;
 import joe.exceptions.CorruptedFileException;
 import joe.exceptions.InvalidCommandException;
-import joe.tasks.*;
+import joe.tasks.Deadline;
+import joe.tasks.Event;
+import joe.tasks.Task;
+import joe.tasks.TaskList;
+import joe.tasks.ToDo;
 
+/**
+ * Represents a parser to parse user input and file input.
+ */
 public class Parser {
 
     private static final String splitRegex = " \\| ";
