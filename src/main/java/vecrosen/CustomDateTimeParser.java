@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class containing static function to parse dates.
+ */
 public class CustomDateTimeParser {
     private static final String[] supportedDates = {
             "uuuu-MM-dd", "uu-MM-dd",
@@ -27,6 +30,7 @@ public class CustomDateTimeParser {
                         DateTimeFormatter.ofPattern(supportedDates[i]));
                 return dt;
             } catch (DateTimeParseException ignored) {
+                // no action
             }
         }
         throw new DateTimeParseException("No match found!", by, 0);

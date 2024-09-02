@@ -4,11 +4,23 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Task with 2 additional arguments: a begin and end time/date.
+ */
 public class Event extends Task {
-    private final String beginString, endString;
-    private boolean isDateBegin, isDateEnd;
-    private LocalDate beginDate, endDate;
+    private final String beginString;
+    private final String endString;
+    private boolean isDateBegin;
+    private boolean isDateEnd;
+    private LocalDate beginDate;
+    private LocalDate endDate;
 
+    /**
+     * Initializes a new Event object. Starts marked as incomplete.
+     * @param description The description of the event
+     * @param begin The start date/time of the event
+     * @param end The end date/time of the event
+     */
     public Event(String description, String begin, String end) {
         super(description);
         this.beginString = begin;
@@ -18,11 +30,13 @@ public class Event extends Task {
             beginDate = CustomDateTimeParser.parseDateTime(begin);
             isDateBegin = true;
         } catch (DateTimeParseException ignored) {
+            // no action
         }
         try {
             endDate = CustomDateTimeParser.parseDateTime(end);
             isDateEnd = true;
         } catch (DateTimeParseException ignored) {
+            // no action
         }
     }
 

@@ -1,13 +1,15 @@
 package vecrosen;
 
-import org.junit.jupiter.api.Test;
-
-import javax.management.ObjectName;
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 public class ParserTest {
+    /**
+     * Tests whether the code can mark and unmark tasks accurately.
+     */
     @Test
     public void markUnmarkTest() {
         ArrayList<Object> args = new ArrayList<Object>();
