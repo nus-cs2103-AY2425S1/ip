@@ -2,7 +2,7 @@ package yoda.commands;
 
 import yoda.TaskList;
 import yoda.exceptions.YodaException;
-import yoda.tasks.ToDo;
+import yoda.tasks.Todo;
 
 /**
  * Represents a command to add a to-do task to the task list.
@@ -33,7 +33,7 @@ public class TodoCommand extends Command {
         }
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];
-        ToDo newTask = new ToDo(task);
+        Todo newTask = new Todo(task);
         taskList.add(newTask);
         System.out.println("Added task:\n" + newTask + "\n"
                 + String.format("Now you have %d tasks in the list", taskList.getLength()));

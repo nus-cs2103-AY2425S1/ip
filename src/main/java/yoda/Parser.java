@@ -1,12 +1,29 @@
 package yoda;
 
-import yoda.commands.*;
-import yoda.exceptions.EmptyInputException;
+import yoda.commands.ByeCommand;
+import yoda.commands.Command;
+import yoda.commands.DeadlineCommand;
+import yoda.commands.DeleteCommand;
+import yoda.commands.EventCommand;
+import yoda.commands.FindCommand;
+import yoda.commands.ListCommand;
+import yoda.commands.MarkCommand;
+import yoda.commands.TodoCommand;
+import yoda.commands.UnmarkCommand;
 import yoda.exceptions.YodaException;
-import yoda.exceptions.NonsenseInputException;
 
+/**
+ * Parses user input and returns the appropriate command to be executed.
+ */
 public class Parser {
-
+    /**
+     * Processes the user's input and returns the corresponding command.
+     *
+     * @param input The user's input string.
+     * @param tasks The current list of tasks.
+     * @return The command to be executed based on the user's input.
+     * @throws YodaException If the input is invalid or cannot be processed.
+     */
     public Command handle(String input, TaskList tasks) throws YodaException {
         String[] splitInput = input.split(" ", 2);
         String commandString = splitInput[0];
@@ -14,7 +31,7 @@ public class Parser {
 
         switch (commandString) {
         case "":
-            throw new EmptyInputException();
+            throw new YodaException("Hmm... You must speak to be heard...");
         case "bye":
             command = new ByeCommand();
             break;
@@ -43,7 +60,7 @@ public class Parser {
             command = new FindCommand(tasks, input);
             break;
         default:
-            throw new NonsenseInputException();
+            throw new YodaException("What is the meaning of this...?");
         }
         return command;
     }

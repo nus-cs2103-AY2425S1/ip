@@ -1,26 +1,40 @@
 package yoda;
 
-import yoda.exceptions.YodaException;
-import yoda.tasks.Deadline;
-import yoda.tasks.Event;
-import yoda.tasks.Task;
-import yoda.tasks.ToDo;
-
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.io.FileWriter;
 import java.util.Scanner;
 
+import yoda.exceptions.YodaException;
+import yoda.tasks.Deadline;
+import yoda.tasks.Event;
+import yoda.tasks.Task;
+import yoda.tasks.Todo;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ */
 public class Storage {
-    private String filePath = "data/tasks.txt";
+    private String filePath;
 
+    /**
+     * Creates a Storage object with the specified file path.
+     *
+     * @param filePath The path of the file to save and load tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws YodaException If there is an error when writing to the file.
+     */
     public void saveTasks(ArrayList<Task> tasks) throws YodaException {
         File file = new File(filePath);
 
@@ -43,6 +57,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return An ArrayList containing the tasks loaded from the file.
+     * @throws YodaException If there is an error when reading the file or parsing the tasks.
+     */
     public ArrayList<Task> loadTasks() throws YodaException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -58,7 +78,7 @@ public class Storage {
                 Task newTask = null;
                 switch (type) {
                 case "T":
-                    newTask = new ToDo(description);
+                    newTask = new Todo(description);
                     break;
                 case "D":
                     LocalDate by = LocalDate.parse(splitInput[3]);
@@ -69,7 +89,10 @@ public class Storage {
                     LocalDateTime to = LocalDateTime.parse(splitInput[4]);
                     newTask = new Event(description, from, to);
                     break;
+                default:
+                    throw new YodaException("Encountered error: Could not parse saved tasks");
                 }
+
                 if (isDone && newTask != null) {
                     newTask.markDone();
                 }
@@ -77,7 +100,7 @@ public class Storage {
 
             }
         } catch (Exception e) {
-            throw new YodaException("Encountered error :" + e.getMessage());
+            throw new YodaException("Encountered error: " + e.getMessage());
         }
         return tasks;
     }

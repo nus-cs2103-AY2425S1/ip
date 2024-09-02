@@ -2,7 +2,7 @@ package yoda.commands;
 
 import org.junit.jupiter.api.Test;
 import yoda.TaskList;
-import yoda.tasks.ToDo;
+import yoda.tasks.Todo;
 import yoda.exceptions.YodaException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +11,7 @@ public class MarkCommandTest {
     @Test
     public void run_validInput_success() throws YodaException {
         TaskList taskList = new TaskList();
-        taskList.add(new ToDo("sleep"));
+        taskList.add(new Todo("sleep"));
         MarkCommand command = new MarkCommand(taskList, "mark 1");
 
         command.run();
@@ -22,7 +22,7 @@ public class MarkCommandTest {
     @Test
     public void run_invalidInput_exceptionThrown() {
         TaskList taskList = new TaskList();
-        taskList.add(new ToDo("sleep"));
+        taskList.add(new Todo("sleep"));
         MarkCommand command = new MarkCommand(taskList, "mark");
         try {
             command.run();
@@ -35,7 +35,7 @@ public class MarkCommandTest {
     @Test
     public void run_inputOutOfBounds_exceptionThrown() {
         TaskList taskList = new TaskList();
-        taskList.add(new ToDo("sleep"));
+        taskList.add(new Todo("sleep"));
         MarkCommand command = new MarkCommand(taskList, "mark 3");
         try {
             command.run();
@@ -48,7 +48,7 @@ public class MarkCommandTest {
     @Test
     public void run_nonsenseInput_exceptionThrown() {
         TaskList taskList = new TaskList();
-        taskList.add(new ToDo("sleep"));
+        taskList.add(new Todo("sleep"));
         MarkCommand command = new MarkCommand(taskList, "sleep");
         try {
             command.run();
@@ -61,13 +61,13 @@ public class MarkCommandTest {
     @Test
     public void checkForValidInt_validInput_returnTrue() {
         TaskList taskList = new TaskList();
-        taskList.add(new ToDo("sleep"));
+        taskList.add(new Todo("sleep"));
         assertTrue(new MarkCommand(taskList, "mark 1").hasValidFormat());
     }
     @Test
     public void checkValidToDo_invalidInput_returnFalse() {
         TaskList taskList = new TaskList();
-        taskList.add(new ToDo("sleep"));
+        taskList.add(new Todo("sleep"));
 
         assertFalse(new MarkCommand(taskList, "mark").hasValidFormat());
         assertFalse(new MarkCommand(taskList, "").hasValidFormat());

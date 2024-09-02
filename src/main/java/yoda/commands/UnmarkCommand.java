@@ -26,8 +26,7 @@ public class UnmarkCommand extends Command {
     /**
      * Executes the command to mark a task as not done.
      *
-     * @throws YodaException if input format is valid or task is out
-     * of bounds
+     * @throws YodaException if input format is valid or task is out of bounds
      */
     public void run() throws YodaException {
         if (!hasValidFormat(input)) {

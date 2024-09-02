@@ -1,11 +1,11 @@
 package yoda.commands;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import yoda.TaskList;
 import yoda.exceptions.YodaException;
 import yoda.tasks.Deadline;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a command that adds a deadline task to the task list.

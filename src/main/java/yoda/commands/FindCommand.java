@@ -1,10 +1,10 @@
 package yoda.commands;
 
+import java.util.ArrayList;
+
 import yoda.TaskList;
 import yoda.exceptions.YodaException;
 import yoda.tasks.Task;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to find tasks from task list that contain
