@@ -74,40 +74,41 @@ public class Fred {
         int taskNumber;
         Task task;
         switch (action[0]) {
-            case "sayFarewell":
-                ui.sayFarewell();
-                exit();
-                break;
-            case "printTaskList":
-                ArrayList<Task> taskList = tasks.getTaskList();
-                ui.printTaskList(taskList);
-                break;
-            case "markTaskAsDone":
-                taskNumber = Integer.parseInt(action[1]);
-                task = tasks.markTaskAsDone(taskNumber);
-                message = String.format("Nice! I've marked this task as done:\n   %s", task);
-                break;
-            case "markTaskAsNotDone":
-                taskNumber = Integer.parseInt(action[1]);
-                task = tasks.markTaskAsNotDone(taskNumber);
-                message = String.format("OK, I've marked this task as not done yet:\n   %s", task);
-                break;
-            case "deleteFromTaskList":
-                taskNumber = Integer.parseInt(action[1]);
-                task = tasks.deleteFromTaskList(taskNumber);
-                storage.deleteFromDataFile(taskNumber);
-                message = String.format("Noted. I've removed this task:\n   %s", task);
-                break;
-            case "addToTaskList":
-                task = tasks.createTask(action[1], action[2]);
-                tasks.addToTaskList(task);
-                storage.appendToDataFile(task);
-                message = String.format("Got it. I've added this task:\n   %s\nNow you have %d tasks in the list.", task, tasks.getTaskListSize());
-                break;
-            case "findTaskInTaskList":
-                ArrayList<Task> tasksWithKeyword = tasks.findTasksInTaskList(action[1]);
-                ui.printTasksWithKeyword(tasksWithKeyword);
-                break;
+        case "sayFarewell":
+            ui.sayFarewell();
+            exit();
+            break;
+        case "printTaskList":
+            ArrayList<Task> taskList = tasks.getTaskList();
+            ui.printTaskList(taskList);
+            break;
+        case "markTaskAsDone":
+            taskNumber = Integer.parseInt(action[1]);
+            task = tasks.markTaskAsDone(taskNumber);
+            message = String.format("Nice! I've marked this task as done:\n" +
+                    "   %s", task);
+            break;
+        case "markTaskAsNotDone":
+            taskNumber = Integer.parseInt(action[1]);
+            task = tasks.markTaskAsNotDone(taskNumber);
+            message = String.format("OK, I've marked this task as not done yet:\n" +
+                    "   %s", task);
+            break;
+        case "deleteFromTaskList":
+            taskNumber = Integer.parseInt(action[1]);
+            task = tasks.deleteFromTaskList(taskNumber);
+            storage.deleteFromDataFile(taskNumber);
+            message = String.format("Noted. I've removed this task:\n" +
+                    "   %s", task);
+            break;
+        case "addToTaskList":
+            task = tasks.createTask(action[1], action[2]);
+            tasks.addToTaskList(task);
+            storage.appendToDataFile(task);
+            message = String.format("Got it. I've added this task:\n" +
+                    "   %s\n" +
+                    "Now you have %d tasks in the list.", task, tasks.getTaskListSize());
+            break;
         }
         if (message != null) {
             ui.say(message);
