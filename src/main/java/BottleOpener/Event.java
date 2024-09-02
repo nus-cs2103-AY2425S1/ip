@@ -1,3 +1,5 @@
+package BottleOpener;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -7,7 +9,7 @@ import java.time.temporal.ChronoField;
 /**
  * Represents an event with a start and end time.
  * <p>
- * An Event task includes a description, a status indicating whether it is completed,
+ * An BottleOpener.Event task includes a description, a status indicating whether it is completed,
  * and a start and end time represented as {@link LocalDateTime}.
  * </p>
  */
@@ -39,14 +41,14 @@ public class Event extends Task {
     public LocalDateTime end;
 
     /**
-     * Constructs a new Event task with the specified description, start, and end times.
+     * Constructs a new BottleOpener.Event task with the specified description, start, and end times.
      * The task is initially marked as not done.
      * <p>
      * The start and end times are parsed from the given strings using the defined {@link #FORMATTER}.
      * If the times are not in a valid format, the current date and time will be used.
      * </p>
      *
-     * @param description The description of the Event task.
+     * @param description The description of the BottleOpener.Event task.
      * @param start       The start time of the event as a string.
      * @param end         The end time of the event as a string.
      */
@@ -63,13 +65,13 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs a new Event task with the specified description, status, start, and end times.
+     * Constructs a new BottleOpener.Event task with the specified description, status, start, and end times.
      * <p>
      * The start and end times are parsed from the given strings using the defined {@link #FORMATTER}.
      * If the times are not in a valid format, the current date and time will be used.
      * </p>
      *
-     * @param description The description of the Event task.
+     * @param description The description of the BottleOpener.Event task.
      * @param status      The completion status of the task; {@code true} if the task is done, {@code false} otherwise.
      * @param start       The start time of the event as a string.
      * @param end         The end time of the event as a string.
@@ -87,9 +89,9 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs a new Event task with the specified description, status, start, and end times.
+     * Constructs a new BottleOpener.Event task with the specified description, status, start, and end times.
      *
-     * @param description The description of the Event task.
+     * @param description The description of the BottleOpener.Event task.
      * @param status      The completion status of the task; {@code true} if the task is done, {@code false} otherwise.
      * @param start       The start time of the event as a {@link LocalDateTime} object.
      * @param end         The end time of the event as a {@link LocalDateTime} object.
@@ -111,7 +113,7 @@ public class Event extends Task {
     /**
      * Returns the type of the task.
      *
-     * @return "E", representing that this task is an Event.
+     * @return "E", representing that this task is an BottleOpener.Event.
      */
     public String getType() {
         return "E";
@@ -145,7 +147,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event task, including its type, status icon, description, start, and end times.
+     * Returns a string representation of the BottleOpener.Event task, including its type, status icon, description, start, and end times.
      *
      * @return A string in the format "[type] [status icon] description (from: start to: end)".
      */

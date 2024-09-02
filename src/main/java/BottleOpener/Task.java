@@ -1,3 +1,5 @@
+package BottleOpener;
+
 /**
  * Represents a task with a description and a status indicating whether it is completed.
  * <p>
@@ -11,7 +13,7 @@ abstract class Task {
     protected boolean status;
 
     /**
-     * Constructs a new Task with the specified description.
+     * Constructs a new BottleOpener.Task with the specified description.
      * The task is initially marked as not done.
      *
      * @param description The description of the task.
@@ -22,7 +24,7 @@ abstract class Task {
     }
 
     /**
-     * Constructs a new Task with the specified description and status.
+     * Constructs a new BottleOpener.Task with the specified description and status.
      *
      * @param description The description of the task.
      * @param status      The completion status of the task; {@code true} if the task is done, {@code false} otherwise.
@@ -33,16 +35,16 @@ abstract class Task {
     }
 
     /**
-     * Marks the task as done and returns an updated Task object.
+     * Marks the task as done and returns an updated BottleOpener.Task object.
      *
-     * @return A new Task object with status set to {@code true}.
+     * @return A new BottleOpener.Task object with status set to {@code true}.
      */
     abstract Task markAsDone();
 
     /**
-     * Marks the task as undone and returns an updated Task object.
+     * Marks the task as undone and returns an updated BottleOpener.Task object.
      *
-     * @return A new Task object with status set to {@code false}.
+     * @return A new BottleOpener.Task object with status set to {@code false}.
      */
     abstract Task markAsUndone();
 
