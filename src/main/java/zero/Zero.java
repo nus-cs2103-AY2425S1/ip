@@ -1,8 +1,10 @@
-import exception.ZeroException;
-import task.TaskList;
-import ui.Ui;
-import util.Parser;
-import util.Storage;
+package zero;
+
+import zero.exception.ZeroException;
+import zero.task.TaskList;
+import zero.ui.Ui;
+import zero.util.Parser;
+import zero.util.Storage;
 
 public class Zero {
 

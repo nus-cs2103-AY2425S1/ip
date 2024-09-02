@@ -1,14 +1,14 @@
-package util;
+package zero.util;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
-import task.TaskList;
+import zero.task.Deadline;
+import zero.task.Event;
+import zero.task.Task;
+import zero.task.Todo;
+import zero.task.TaskList;
 
-import exception.ZeroException;
+import zero.exception.ZeroException;
 
-import ui.Ui;
+import zero.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

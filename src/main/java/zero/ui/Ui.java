@@ -1,9 +1,9 @@
-package ui;
+package zero.ui;
 
-import task.Task;
-import task.TaskList;
+import zero.task.Task;
+import zero.task.TaskList;
 
-import exception.ZeroException;
+import zero.exception.ZeroException;
 
 import java.util.Scanner;
 
@@ -21,7 +21,7 @@ public class Ui {
 
     public void showWelcome() {
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Zero");
+        System.out.println(" Hello! I'm zero.Zero");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
     }
