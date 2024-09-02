@@ -38,11 +38,13 @@ public class AddCommand extends Command {
      * @param storage Storage object to save list after task added.
      * @throws DeltaException If list unable to be saved.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         tasks.addTask(task);
-        ui.showCommand("Got it. I've added this task:\n"
-                + "\t   " + task.toString() + "\n"
-                + "\t Now you have " + tasks.getSize() + " task" + (tasks.getSize() > 1 ? "s" : "") + " in the list.");
+        String message = "Got it. I've added this task:\n"
+                + "  " + task.toString() + "\n"
+                + "Now you have " + tasks.getSize() + " task" + (tasks.getSize() > 1 ? "s" : "") + " in the list.";
+        ui.showCommand(message);
         storage.save(tasks);
+        return message;
     }
 }

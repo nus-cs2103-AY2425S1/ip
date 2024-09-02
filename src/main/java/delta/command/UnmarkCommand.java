@@ -38,10 +38,12 @@ public class UnmarkCommand extends Command {
      * @param storage Storage object to save list after task unmarked.
      * @throws DeltaException If problem unmarking task from list or list unable to be saved.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         Task task = tasks.unmarkTask(index);
-        ui.showCommand("Nice! I've marked this task as not done yet:\n"
-                + "\t   " + task);
+        String message = "Nice! I've marked this task as not done yet:\n"
+                + "  " + task;
+        ui.showCommand(message);
         storage.save(tasks);
+        return message;
     }
 }

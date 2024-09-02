@@ -38,7 +38,7 @@ public class FindCommand extends Command {
      * @param storage Storage object to save list.
      * @throws DeltaException If list is empty or no matching tasks found in list.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         if (tasks.getSize() == 0) {
             throw new DeltaException("There are no tasks in your list.");
         }
@@ -46,13 +46,15 @@ public class FindCommand extends Command {
         int numTasks = 0;
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
-            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 numTasks++;
-                output += String.format("\n\t %d.%s", numTasks, task);
+                output += String.format("\n%d. %s", numTasks, task);
             }
         }
         if (numTasks > 0) {
-            ui.showCommand("Here are the matching tasks in your list:" + output);
+            String message = "Here are the matching tasks in your list:" + output;
+            ui.showCommand(message);
+            return message;
         } else {
             throw new DeltaException("OOPS!!! There are no matching tasks in your list!");
         }
