@@ -1,6 +1,8 @@
+package BottleOpener;
+
 /**
- * The {@code Parser} class is responsible for interpreting and executing user commands
- * in the BottleOpener chatbot. It processes the user's input, determines the appropriate
+ * The {@code BottleOpener.Parser} class is responsible for interpreting and executing user commands
+ * in the BottleOpener.BottleOpener chatbot. It processes the user's input, determines the appropriate
  * action, and interacts with the task list and user interface to provide feedback.
  */
 public class Parser {
@@ -11,7 +13,7 @@ public class Parser {
     public Ui ui;
 
     /**
-     * Constructs a {@code Parser} object with the given user input, task list, and user interface.
+     * Constructs a {@code BottleOpener.Parser} object with the given user input, task list, and user interface.
      *
      * @param inp The raw input provided by the user.
      * @param tasklist The current list of tasks.

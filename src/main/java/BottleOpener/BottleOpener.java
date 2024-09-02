@@ -1,16 +1,18 @@
+package BottleOpener;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
 /**
- * The {@code BottleOpener} class is the main entry point for the chatbot.
+ * The {@code BottleOpener.BottleOpener} class is the main entry point for the chatbot.
  * It initializes the necessary classes, loads the saved tasks, and processes user input
  * until the user decides to exit the application.
  */
 public class BottleOpener {
 
     /**
-     * The main method of the BottleOpener chatbot. It sets up the user interface, loads tasks from storage,
+     * The main method of the BottleOpener.BottleOpener chatbot. It sets up the user interface, loads tasks from storage,
      * and starts the command processing loop.
      *
      * @param args Command-line arguments (not used).

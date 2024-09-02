@@ -1,5 +1,7 @@
+package BottleOpener;
+
 /**
- * The {@code Ui} class handles the user interface for the BottleOpener chatbot.
+ * The {@code BottleOpener.Ui} class handles the user interface for the BottleOpener.BottleOpener chatbot.
  * It provides methods for displaying messages to the user with consistent formatting.
  */
 public class Ui {
@@ -7,7 +9,7 @@ public class Ui {
     public String botName;
 
     /**
-     * Constructs a new {@code Ui} object with the specified bot name.
+     * Constructs a new {@code BottleOpener.Ui} object with the specified bot name.
      *
      * @param botName The name of the chatbot.
      */
