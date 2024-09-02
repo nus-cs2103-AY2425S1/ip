@@ -1,11 +1,11 @@
 package friendlybot.command;
 
+import java.util.ArrayList;
+
 import friendlybot.Storage;
 import friendlybot.Ui;
 import friendlybot.task.Task;
 import friendlybot.task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * FindCommand is a Command that finds tasks with descriptions that corresponds to the keyword.

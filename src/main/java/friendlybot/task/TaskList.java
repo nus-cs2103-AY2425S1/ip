@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * TaskList contains the task list, and handles operations that involve the task list.
  */
 public class TaskList {
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * A constructor for the TaskList.

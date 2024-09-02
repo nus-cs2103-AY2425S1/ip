@@ -1,10 +1,11 @@
 package friendlybot.command;
 
-import friendlybot.FriendlyBotStub;
-import friendlybot.task.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import friendlybot.FriendlyBotStub;
+import friendlybot.task.ToDo;
 
 /**
  * A JUnit test for MarkCommand.
@@ -17,11 +18,11 @@ public class MarkCommandTest {
     public void testMarkCommand() {
         Command markCommand = new MarkCommand(true, 1);
         FriendlyBotStub friendlyBotStub = new FriendlyBotStub();
-        friendlyBotStub.tasks.addTask(new ToDo("test task"));
-        markCommand.execute(friendlyBotStub.tasks, friendlyBotStub.ui, friendlyBotStub.storage);
-        assertEquals("X", friendlyBotStub.tasks.getTask(1).getStatusIcon());
+        friendlyBotStub.getTasks().addTask(new ToDo("test task"));
+        markCommand.execute(friendlyBotStub.getTasks(), friendlyBotStub.getUi(), friendlyBotStub.getStorage());
+        assertEquals("X", friendlyBotStub.getTasks().getTask(1).getStatusIcon());
         Command unmarkCommand = new MarkCommand(false, 1);
-        unmarkCommand.execute(friendlyBotStub.tasks, friendlyBotStub.ui, friendlyBotStub.storage);
-        assertEquals(" ", friendlyBotStub.tasks.getTask(1).getStatusIcon());
+        unmarkCommand.execute(friendlyBotStub.getTasks(), friendlyBotStub.getUi(), friendlyBotStub.getStorage());
+        assertEquals(" ", friendlyBotStub.getTasks().getTask(1).getStatusIcon());
     }
 }

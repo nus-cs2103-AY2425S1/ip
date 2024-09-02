@@ -1,12 +1,12 @@
 package friendlybot.command;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import friendlybot.Storage;
 import friendlybot.Ui;
 import friendlybot.task.Task;
 import friendlybot.task.TaskList;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * DateCommand is a Command that prints a list of tasks that happen on a given date.
