@@ -7,7 +7,10 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EventTest {
 
@@ -22,7 +25,7 @@ class EventTest {
         formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         validFromTime = "30-08-2024 10:00";
         validToTime = "30-08-2024 12:00";
-        invalidTime = "30-08-2024 10:00:00"; // Invalid format
+        invalidTime = "30-08-2024 10:00:00";
         description = "Project meeting";
     }
 
@@ -36,9 +39,7 @@ class EventTest {
 
     @Test
     void testEventCreationInvalidTimeFormat() {
-        DarkpoolException exception = assertThrows(DarkpoolException.class, () -> {
-            new Event(description, invalidTime, validToTime, false);
-        });
+        DarkpoolException exception = assertThrows(DarkpoolException.class, () -> new Event(description, invalidTime, validToTime, false));
         assertTrue(exception.getMessage().contains("could not be parsed"));
     }
 

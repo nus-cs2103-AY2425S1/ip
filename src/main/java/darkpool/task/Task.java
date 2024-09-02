@@ -8,13 +8,13 @@ import java.time.format.DateTimeFormatter;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-    static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     /**
      * Constructs a Task with the specified description and completion status.
      *
      * @param description The description of the task.
-     * @param isDone The completion status of the task.
+     * @param isDone      The completion status of the task.
      */
     public Task(String description, boolean isDone) {
         this.description = description;

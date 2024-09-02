@@ -111,10 +111,13 @@ public class TaskList {
         if (taskList.isEmpty()) {
             return "\tbozo you got no tasks";
         }
+
         StringBuilder temp = new StringBuilder("\twhy am i here\n\t\t");
+
         for (int i = 0; i < this.taskList.size(); i++) {
             temp.append((i + 1)).append(". ").append(getTaskString(i)).append("\n\t\t");
         }
+
         temp.setLength(temp.length() - 3);
         return String.valueOf(temp);
     }
@@ -126,9 +129,11 @@ public class TaskList {
      */
     public String toFileString() {
         StringBuilder fileString = new StringBuilder();
+
         for (Task task : taskList) {
             fileString.append(task.toFileString());
         }
+
         return String.valueOf(fileString);
     }
 

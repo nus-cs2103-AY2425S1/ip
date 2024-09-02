@@ -25,6 +25,7 @@ public class Darkpool {
     public Darkpool(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+
         try {
             taskList = new TaskList(storage.loadData());
         } catch (DarkpoolException e) {
@@ -41,6 +42,7 @@ public class Darkpool {
     public void run() {
         ui.greeting();
         boolean isExit = false;
+
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
