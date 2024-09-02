@@ -1,3 +1,5 @@
+package rizzler.ui;
+
 public abstract class Speech {
     private static final String DEFAULT_LINEBREAK = "#################################################################";
     private String line;

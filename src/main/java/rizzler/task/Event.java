@@ -1,15 +1,19 @@
+package rizzler.task;
+
+import rizzler.ui.parser.DateTimeParser;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
-    private LocalDate eventStart;
-    private LocalDate eventEnd;
+    private final LocalDate eventStart;
+    private final LocalDate eventEnd;
 
-    Event(String eventDesc, String eventStart, String eventEnd) {
+    public Event(String eventDesc, String eventStart, String eventEnd) {
         this(eventDesc, eventStart, eventEnd, false);
     }
 
-    Event(String eventDesc, String eventStart, String eventEnd, boolean isDone) throws DateTimeParseException {
+    public Event(String eventDesc, String eventStart, String eventEnd, boolean isDone) throws DateTimeParseException {
         super(eventDesc, isDone);
         this.eventStart = DateTimeParser.to_datetime(eventStart);
         this.eventEnd = DateTimeParser.to_datetime(eventEnd);

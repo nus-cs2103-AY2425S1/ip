@@ -1,15 +1,21 @@
+package rizzler.command;
+
+import rizzler.Storage;
+import rizzler.task.TaskLog;
+import rizzler.ui.RizzlerSpeech;
+
 /**
  * Represents abstract commands within the Rizzler.
  * Enables further subclassing for specific commands.
  */
 public abstract class Command {
-    private String textInput;
+    private final String textInput;
     private boolean shouldEnd;
 
-    Command() {
+    protected Command() {
         this("");
     }
-    Command(String textInput) {
+    protected Command(String textInput) {
         this.textInput = textInput;
         this.shouldEnd = false;
     }

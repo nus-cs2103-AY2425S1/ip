@@ -1,7 +1,14 @@
+package rizzler.command;
+
+import rizzler.Storage;
+import rizzler.task.TaskLog;
+import rizzler.task.ToDo;
+import rizzler.ui.RizzlerSpeech;
+
 public class TodoCommand extends Command {
     private final ToDo newTodo;
 
-    TodoCommand(String todoDesc) {
+    public TodoCommand(String todoDesc) {
         super();
         this.newTodo = new ToDo(todoDesc);
     }

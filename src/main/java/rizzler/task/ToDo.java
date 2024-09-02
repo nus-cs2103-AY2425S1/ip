@@ -1,10 +1,12 @@
+package rizzler.task;
+
 public class ToDo extends Task {
 
-    ToDo(String todoDesc) {
+    public ToDo(String todoDesc) {
         super(todoDesc);
     }
 
-    ToDo(String todoDesc, boolean isDone) {
+    public ToDo(String todoDesc, boolean isDone) {
         super(todoDesc, isDone);
     }
 

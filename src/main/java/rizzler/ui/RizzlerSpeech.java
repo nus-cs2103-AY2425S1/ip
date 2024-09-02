@@ -1,3 +1,5 @@
+package rizzler.ui;
+
 import java.util.HashMap;
 
 /**
@@ -12,7 +14,7 @@ public class RizzlerSpeech extends Speech {
     /**
      * Initialises a <code>RizzlerSpeech</code> object with the default prefix, a tab.
      */
-    RizzlerSpeech() {
+    public RizzlerSpeech() {
         this(DEFAULT_PREFIX);
     }
 
@@ -20,7 +22,7 @@ public class RizzlerSpeech extends Speech {
      * Initialises a <code>RizzlerSpeech</code> object with the given prefix.
      * @param prefix The prefix that will be pre-ended to every message printed by this object.
      */
-    RizzlerSpeech(String prefix) {
+    public RizzlerSpeech(String prefix) {
         super();
         this.prefix = prefix;
         initResponses();

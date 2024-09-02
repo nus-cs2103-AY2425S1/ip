@@ -1,5 +1,12 @@
+package rizzler.command;
+
+import rizzler.Storage;
+import rizzler.task.TaskLog;
+import rizzler.ui.RizzlerSpeech;
+
 public class ByeCommand extends Command {
-    ByeCommand() {
+
+    public ByeCommand() {
         super();
     }
 
