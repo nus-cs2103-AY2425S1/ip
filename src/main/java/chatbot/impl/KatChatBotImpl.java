@@ -20,9 +20,9 @@ public class KatChatBotImpl implements ChatBot {
 
     private final MessageParser messageParser;
 
-    public KatChatBotImpl() {
-        scanner = new Scanner(System.in);
-        messageParser = new MessageParserImpl(new TaskStorageImpl());
+    public KatChatBotImpl(Scanner scanner, MessageParser messageParser) {
+        this.scanner = scanner;
+        this.messageParser = messageParser;
     }
 
     @Override
