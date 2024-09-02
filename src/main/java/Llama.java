@@ -1,6 +1,6 @@
 import java.io.IOException;
-import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 import commands.Command;
 import data.Storage;

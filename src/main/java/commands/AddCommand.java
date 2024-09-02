@@ -5,28 +5,30 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import exceptions.LlamaException;
-import data.TaskList;
-import data.Storage;
-import data.Task;
-import data.Todo;
 import data.Deadline;
 import data.Event;
+import data.Storage;
+import data.Task;
+import data.TaskList;
+import data.Todo;
+import exceptions.LlamaException;
 import ui.Ui;
 
 /**
  * Represents the command to add a Task
  */
 public class AddCommand implements Command {
-    public enum TaskType{
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    /**
+     * Enumerator representing type of task
+     */
+    public enum TaskType {
         TODO,
         DEADLINE,
         EVENT
     }
     private String remaining;
     private TaskType taskType;
-
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Constructor for AddCommand
@@ -60,8 +62,8 @@ public class AddCommand implements Command {
             try {
                 deadline = LocalDateTime.parse(substringArr[1].trim(), FORMATTER);
             } catch (DateTimeParseException e) {
-                throw new LlamaException("Invalid date given, please give in the format " +
-                        "`deadline <name>/by yyyy-mm-dd HH:mm'");
+                throw new LlamaException("Invalid date given, please give in the format "
+                        + "`deadline <name>/by yyyy-mm-dd HH:mm'");
             }
             Task newTask = new Deadline(substringArr[0], deadline, false);
             taskList.addTask(newTask, ui);
@@ -78,8 +80,8 @@ public class AddCommand implements Command {
                 startTime = LocalDateTime.parse(startTimeStr, FORMATTER);
                 endTime = LocalDateTime.parse(endTimeStr, FORMATTER);
             } catch (DateTimeParseException e) {
-                throw new LlamaException("Invalid date given, please give in the format " +
-                        "`event <name> /from yyyy-MM-dd HH:mm /to  yyyy-MM-dd HH:mm'");
+                throw new LlamaException("Invalid date given, please give in the format "
+                        + "`event <name> /from yyyy-MM-dd HH:mm /to  yyyy-MM-dd HH:mm'");
             }
 
             Task newTask = new Event(desc, startTime, endTime, false);

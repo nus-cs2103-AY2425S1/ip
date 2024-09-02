@@ -1,9 +1,9 @@
 package data;
 
+import java.util.ArrayList;
+
 import exceptions.InvalidTaskException;
 import ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents the list of tasks
