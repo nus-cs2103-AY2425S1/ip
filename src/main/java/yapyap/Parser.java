@@ -30,7 +30,7 @@ public class Parser {
             return Commands.EVENT;
         } else if (userInput.startsWith("delete")) {
             return Commands.DELETE;
-        } else if (userInput.startsWith("find")){
+        } else if (userInput.startsWith("find")) {
             return Commands.FIND;
         } else {
             return Commands.OTHERS;

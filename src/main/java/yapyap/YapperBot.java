@@ -5,11 +5,11 @@ package yapyap;
  * and runs the application, handling user input and executing commands.
  */
 public class YapperBot {
+    private static final String FILE_PATH = "./data/savedFile.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
-    private static final String FILE_PATH = "./data/savedFile.txt";
 
     /**
      * Creates a YapperBot instance, initializing the user interface, storage, parser,
