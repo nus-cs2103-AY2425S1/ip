@@ -11,14 +11,29 @@ public class Beechat {
         Task task;
         int j;
         while (!msg.equals("bye")) {
-            if (msg.equals("list")) {
+            String start = (msg.split(" "))[0];
+            if (start.equals("list")) {
                 for (int i = 0; i < list.size(); i++) {
                     System.out.println(String.format("%d. %s", i + 1, list.get(i)));
                 }
                 msg = sc.nextLine();
                 continue;
             }
-            if ((msg.split(" "))[0].equals("mark")) {
+            if (start.equals("delete")) {
+                try {
+                    j = Integer.valueOf((msg.split(" "))[1]) - 1;
+                    list.remove(j);
+                    System.out.println("OK, I've removed this task:\n" + list.get(j));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please delete in this form: \n" +
+                            "delete [integer]");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please enter a valid index" );
+                }
+                msg = sc.nextLine();
+                continue;
+            }
+            if (start.equals("mark")) {
                 try {
                     j = Integer.valueOf((msg.split(" "))[1]) - 1;
                     list.get(j).mark();
@@ -32,7 +47,7 @@ public class Beechat {
                 msg = sc.nextLine();
                 continue;
             }
-            if ((msg.split(" "))[0].equals("unmark")) {
+            if (start.equals("unmark")) {
                 try {
                     j = Integer.valueOf((msg.split(" "))[1]) - 1;
                     list.get(j).unmark();
@@ -46,7 +61,7 @@ public class Beechat {
                 msg = sc.nextLine();
                 continue;
             }
-            if ((msg.split(" "))[0].equals("todo")) {
+            if (start.equals("todo")) {
                 try {
                     String description = (msg.split("todo "))[1];
                     task = new TodoTask(description);
@@ -57,7 +72,7 @@ public class Beechat {
                             "todo [task name]");
                 }
             }
-            if ((msg.split(" "))[0].equals("deadline")) {
+            if (start.equals("deadline")) {
                 try {
                     String description = ((msg.split("deadline "))[1]).split("/by ")[0];
                     String by = (msg.split("/by "))[1];
@@ -69,7 +84,7 @@ public class Beechat {
                             "deadline [task name] /by [deadline]");
                 }
             }
-            if ((msg.split(" "))[0].equals("event")) {
+            if (start.equals("event")) {
                 try {
                     String description = ((msg.split("event "))[1]).split("/from ")[0];
                     String from = (msg.split("/from "))[1].split("/to ")[0];
