@@ -3,7 +3,7 @@ package Commands;
 import Main.Ui;
 
 public class FindCommand extends Command {
-    String userInput;
+    private String userInput;
 
     public FindCommand(String userInput) {
         this.userInput = userInput;
@@ -15,7 +15,10 @@ public class FindCommand extends Command {
     @Override
     public void execute() {
         System.out.println(Ui.LINE);
-        storeList.displayItemsWithWord(userInput.substring(4));
+       
+        String[] keywords = userInput.substring(4).trim().split("\\s+");
+
+        storeList.displayItemsWithWord(keywords);
         System.out.println(Ui.LINE);
     }
 

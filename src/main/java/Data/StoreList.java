@@ -106,7 +106,7 @@ public class StoreList {
      *
      * @param num Index of task to be deleted.
      */
-    public void deleteItem(int num) throws InvalidIndexException{
+    public void deleteItem(int num) throws InvalidIndexException {
         if (num >= items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
@@ -183,12 +183,21 @@ public class StoreList {
     /**
      * Displays items in list based on keyword
      *
-     * @param substring the keyword to search against.
+     * @param substrings the keywords to search against.
      */
-    public void displayItemsWithWord(String substring) {
-        System.out.println("    Here are the tasks in your list that match " + substring + ":");
+    public void displayItemsWithWord(String... substrings) {
+        System.out.println("    Here are the tasks in your list that match your search" + ":");
         for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getTaskDesc().contains(substring)) {
+            String taskDesc = items.get(i).getTaskDesc();
+            boolean contains = false;
+
+            for (String substring : substrings) {
+                if (taskDesc.contains(substring)) {
+                    contains = true;
+                    break;
+                }
+            }
+            if (contains) {
                 System.out.println("    " + (i + 1) + "." + items.get(i).print());
             }
         }
