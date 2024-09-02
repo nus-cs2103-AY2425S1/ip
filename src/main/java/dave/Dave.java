@@ -1,3 +1,5 @@
+package dave;
+
 import dave.command.Command;
 import dave.exceptions.InvalidCommandException;
 import dave.parser.Parser;
