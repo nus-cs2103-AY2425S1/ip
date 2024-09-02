@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.Ui;
+import qwerty.ui.Ui;
 
 /**
  * This class encapsulates an empty command, i.e. when the user does not enter anything.
@@ -29,7 +29,7 @@ public class EmptyCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("""
+        ui.showQwertyMessage("""
                 That's a blank. I can't help you if you don't say anything.""");
     }
 

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import qwerty.QwertyException;
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.Ui;
+import qwerty.ui.Ui;
 
 import static org.junit.jupiter.api.Assertions.*;
 

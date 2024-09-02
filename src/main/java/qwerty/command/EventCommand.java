@@ -8,7 +8,7 @@ import java.util.HashMap;
 import qwerty.QwertyException;
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.Ui;
+import qwerty.ui.Ui;
 import qwerty.task.Event;
 import qwerty.task.Task;
 
@@ -61,7 +61,7 @@ public class EventCommand extends Command {
             Task event = new Event(description, from, to);
             tasks.addTask(event);
 
-            ui.showMessage("\nAdded this task:\n" + event
+            ui.showQwertyMessage("\nAdded this task:\n" + event
                     + "\nNow you have " + tasks.getSize() + (tasks.getSize() == 1 ? " task " : " tasks ")
                     + "in the list.\nBetter get to it.");
         } catch (DateTimeParseException e) {

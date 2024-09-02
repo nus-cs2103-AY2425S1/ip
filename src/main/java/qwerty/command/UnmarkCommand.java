@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.Ui;
+import qwerty.ui.Ui;
 import qwerty.task.Task;
 
 /**
@@ -38,7 +38,7 @@ public class UnmarkCommand extends Command {
 
             // Mark the task as not done and print a message
             tasks.markTaskAsNotDone(index);
-            ui.showMessage("\nMarked task as not done:\n" + task
+            ui.showQwertyMessage("\nMarked task as not done:\n" + task
                     + "\nMore work for you, boohoo.");
         } catch (NumberFormatException e) {
             ui.showError("You did not give a number as the index.");

@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.Ui;
+import qwerty.ui.Ui;
 import qwerty.task.Task;
 
 /**
@@ -39,10 +39,10 @@ public class DeleteCommand extends Command {
             // Delete the task and print message
             tasks.deleteTask(index);
             if (task.getIsDone()) {
-                ui.showMessage("\nRemoved this completed task:\n" + task
+                ui.showQwertyMessage("\nRemoved this completed task:\n" + task
                         + "\nFinally, some progress.");
             } else {
-                ui.showMessage("\nRemoved this incomplete task:\n" + task
+                ui.showQwertyMessage("\nRemoved this incomplete task:\n" + task
                         + "\nYou aren't slacking off, are you?");
             }
         } catch (NumberFormatException e) {

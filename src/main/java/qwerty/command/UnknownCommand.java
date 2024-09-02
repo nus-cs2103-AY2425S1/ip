@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.Ui;
+import qwerty.ui.Ui;
 
 /**
  * This class encapsulates an unknown command.
@@ -30,6 +30,6 @@ public class UnknownCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("\nNo idea what that means. Try again.");
+        ui.showQwertyMessage("\nNo idea what that means. Try again.");
     }
 }

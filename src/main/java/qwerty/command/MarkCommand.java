@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.Ui;
+import qwerty.ui.Ui;
 import qwerty.task.Task;
 
 /**
@@ -37,7 +37,7 @@ public class MarkCommand extends Command {
 
             // Mark the task as done and print a message.
             tasks.markTaskAsDone(index);
-            ui.showMessage("\nMarked task as done:\n" + task
+            ui.showQwertyMessage("\nMarked task as done:\n" + task
                     + "\nYou actually did it, right?");
         } catch (NumberFormatException e) {
             ui.showError("You did not give a number as the index.");

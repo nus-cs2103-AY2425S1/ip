@@ -5,7 +5,7 @@ import java.util.HashMap;
 import qwerty.QwertyException;
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.Ui;
+import qwerty.ui.Ui;
 
 /**
  * This class encapsulates a command executable by the chatbot.

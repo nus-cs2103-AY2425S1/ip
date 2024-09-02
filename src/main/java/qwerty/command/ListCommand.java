@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.Ui;
+import qwerty.ui.Ui;
 
 /**
  * This class encapsulates a 'list' command.
@@ -29,7 +29,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("\nHere are the tasks in your list:"
+        ui.showQwertyMessage("\nHere are the tasks in your list:"
                 + tasks.listTasks());
     }
 }

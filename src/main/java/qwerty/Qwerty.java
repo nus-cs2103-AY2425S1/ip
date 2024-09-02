@@ -1,8 +1,7 @@
 package qwerty;
 
-import java.util.Scanner;
-
 import qwerty.command.Command;
+import qwerty.ui.Ui;
 
 /**
  * This class encapsulates a task helper chatbot.
@@ -26,19 +25,18 @@ public class Qwerty {
     }
 
     /**
-     * Starts the chatbot and runs the main chat loop.
+     * Starts the chatbot.
      */
     public void start() {
         // Initialise the chatbot
-        Scanner scanner = new Scanner(System.in);
         isChatting = true;
         storage.loadTasks(tasks);
         ui.showGreeting();
+    }
 
-        // Main chat loop
-        while (isChatting) {
-            System.out.println(); // blank line before user input
-            String rawInput = ui.readCommand();
+    public void handleUserInput(String rawInput) {
+        ui.showUserMessage(rawInput);
+        if (isChatting) {
             try {
                 Command command = Parser.parse(rawInput);
                 command.execute(tasks, ui, storage);
@@ -48,10 +46,5 @@ public class Qwerty {
                 ui.showError(e.getMessage());
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Qwerty chatBot = new Qwerty();
-        chatBot.start();
     }
 }

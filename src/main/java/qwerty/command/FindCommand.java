@@ -5,9 +5,7 @@ import java.util.HashMap;
 import qwerty.QwertyException;
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.Ui;
-import qwerty.task.Task;
-import qwerty.task.Todo;
+import qwerty.ui.Ui;
 
 /**
  * This class encapsulates the 'find' command.
@@ -38,7 +36,7 @@ public class FindCommand extends Command {
             throw new QwertyException("You need to provide a string to search for.");
         }
         String taskString = tasks.findAndListTasks(substring);
-        ui.showMessage("\nHere are the matching tasks in your list:"
+        ui.showQwertyMessage("\nHere are the matching tasks in your list:"
                 + taskString);
     }
 }

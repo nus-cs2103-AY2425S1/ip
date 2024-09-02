@@ -5,7 +5,7 @@ import java.util.HashMap;
 import qwerty.QwertyException;
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.Ui;
+import qwerty.ui.Ui;
 import qwerty.task.Task;
 import qwerty.task.Todo;
 
@@ -42,7 +42,7 @@ public class TodoCommand extends Command {
         Task todo = new Todo(getArgs().get("main"));
         tasks.addTask(todo);
 
-        ui.showMessage("\nAdded this task:\n" + todo
+        ui.showQwertyMessage("\nAdded this task:\n" + todo
                 + "\nNow you have " + tasks.getSize() + (tasks.getSize() == 1 ? " task " : " tasks ")
                 + "in the list.\nBetter get to it.");
     }
