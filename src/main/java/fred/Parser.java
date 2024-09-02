@@ -11,9 +11,9 @@ public class Parser {
                 return new String[]{"sayFarewell"};
             } else if (inputParts[0].equals("list")) {
                 return new String[]{"printTaskList"};
-            } else if (inputParts[0].equals("mark") || inputParts[0].equals("unmark")) {
+            } else if (inputParts[0].equals("mark") || inputParts[0].equals("unmark") || inputParts[0].equals("delete")) {
                 throw new InvalidTaskNumberException();
-            } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event")) {
+            } else if (inputParts[0].equals("todo") || inputParts[0].equals("deadline") || inputParts[0].equals("event") || inputParts[0].equals("find")) {
                 throw new EmptyTaskDescriptionException();
             } else {
                 throw new UnknownCommandException();
@@ -40,7 +40,13 @@ public class Parser {
                     throw new EmptyTaskDescriptionException();
                 }
                 return new String[]{"addToTaskList", inputParts[0], inputParts[1]};
-            } else {
+            } else if (inputParts[0].equals("find")) {
+                if (inputParts[1].isEmpty()) {
+                    throw new EmptyTaskDescriptionException();
+                }
+                return new String[]{"findTaskInTaskList", inputParts[1]};
+            }
+            else {
                 throw new UnknownCommandException();
             }
         }
