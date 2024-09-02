@@ -1,8 +1,9 @@
+import java.io.*;
 import java.util.Scanner;
 
 public class Maga {
     public static class TaskList {
-        private Task[] taskList;
+        private final Task[] taskList;
         private int taskCount = 0;
 
         public TaskList(int size) {
@@ -20,6 +21,10 @@ public class Maga {
 
         public Task getTask(int id) {
             return taskList[id];
+        }
+
+        public int getTaskCount() {
+            return taskCount;
         }
 
         public void deleteTask(int taskNumber) {
@@ -94,6 +99,65 @@ public class Maga {
                 System.out.println("Tasklist is full!");
             }
         }
+
+        public void addTask(Task task) {
+            try {
+                taskList[taskCount] = task;
+                taskCount++;
+                System.out.println("Another task for the American people added:\n" + task.getTaskType()
+                        + task.getStatusIcon() + task.getDescription() + "\nYou have " + taskCount + " task(s) now!");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Tasklist is full!");
+            }
+        }
+    }
+
+    public static class TaskManager {
+        private static final String FILE_PATH = "./data/maga.txt";
+
+        public static void saveTasks(TaskList taskList) {
+            //create parent directory if it doesn't exist
+            File file = new File(FILE_PATH);
+            File parentDir = file.getParentFile();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs();
+            }
+
+            //write to file
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+                for (int i = 0; i < taskList.getTaskCount(); i++) {
+                    writer.write(taskList.getTask(i).toString());
+                    writer.newLine();
+                    writer.flush();
+                }
+            } catch (IOException e) {
+                    System.out.println("Error while saving tasks!");
+            }
+        }
+
+        public static TaskList loadTasks() {
+            TaskList tasks = new TaskList(100);
+            File file = new File(FILE_PATH);
+
+            // check if file exists
+            if (!file.exists()) {
+                // handle file not existing scenario
+                System.out.println("No save detected: Creating fresh tasklist!");
+                return tasks;
+            }
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    tasks.addTask(Task.fromString(line));
+                }
+            } catch (IOException e) {
+                System.out.println("Error while loading tasks!");
+            }
+
+            return tasks;
+        }
     }
     public static abstract class Task {
         protected String description;
@@ -121,6 +185,31 @@ public class Maga {
         }
 
         public abstract String getTaskType();
+
+        public static Task fromString(String taskString) {
+            String[] parts = taskString.split(" \\| ");
+            if (parts.length == 3) {
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+                return new TodoTask(isDone, description);
+            } else if (parts.length == 4) {
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+                String dateTime = parts[3];
+                return new EventTask(isDone, description, dateTime);
+            } else if (parts.length == 5) {
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+                String from = parts[3];
+                String to = parts[4];
+                return new DeadlineTask(isDone, description, from, to);
+            }
+
+            return new TodoTask("");
+        }
     }
 
     public static class TodoTask extends Task {
@@ -128,8 +217,22 @@ public class Maga {
             super(description);
         }
 
+        public TodoTask(boolean isDone, String description) {
+            super(description);
+            this.isDone = isDone;
+        }
+
         public String getTaskType() {
             return "[T]";
+        }
+
+        @Override
+        public String toString() {
+            int isDoneNum = 0;
+            if (isDone) {
+                isDoneNum = 1;
+            }
+            return "T | " + isDoneNum + " | " + description;
         }
     }
 
@@ -141,8 +244,23 @@ public class Maga {
             this.time = time;
         }
 
+        public EventTask(boolean isDone, String description, String time) {
+            super(description);
+            this.isDone = isDone;
+            this.time = time;
+        }
+
         public String getTaskType() {
             return "[E]";
+        }
+
+        @Override
+        public String toString() {
+            int isDoneNum = 0;
+            if (isDone) {
+                isDoneNum = 1;
+            }
+            return "E | " + isDoneNum + " | " + description + " | " + time;
         }
     }
 
@@ -156,8 +274,24 @@ public class Maga {
             this.to = to;
         }
 
+        public DeadlineTask(boolean isDone, String description, String from, String to) {
+            super(description);
+            this.isDone = isDone;
+            this.from = from;
+            this.to = to;
+        }
+
         public String getTaskType() {
             return "[D]";
+        }
+
+        @Override
+        public String toString() {
+            int isDoneNum = 0;
+            if (isDone) {
+                isDoneNum = 1;
+            }
+            return "E | " + isDoneNum + " | " + description + " | " + from + " | " + to;
         }
     }
 
@@ -172,17 +306,20 @@ public class Maga {
                 " US of A trust me everyone says I'm the best. How can I help you serve the American people?" );
     }
 
-    public static void closeBot() {
+    public static TaskList initialiseBot() {
+        return TaskManager.loadTasks();
+    }
+
+    public static void closeBot(TaskList taskList) {
         System.out.println("Yeah I'ma see you in my next RALLY! A vote for me is a vote for America!");
+        TaskManager.saveTasks(taskList);
     }
 
     public static void main(String[] args) {
         printGreeting();
+        TaskList taskList = initialiseBot();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-
-        // initialise taskList to store tasks
-        TaskList taskList = new TaskList(100);
 
         while(!input.equalsIgnoreCase("bye")) {
             // display task list
@@ -243,7 +380,7 @@ public class Maga {
             input = scanner.nextLine();
         }
 
-        closeBot();
+        closeBot(taskList);
     }
 
 }
