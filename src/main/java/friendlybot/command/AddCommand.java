@@ -1,5 +1,7 @@
 package friendlybot.command;
 
+import java.time.LocalDate;
+
 import friendlybot.Storage;
 import friendlybot.Ui;
 import friendlybot.task.Deadline;
@@ -7,8 +9,6 @@ import friendlybot.task.Event;
 import friendlybot.task.Task;
 import friendlybot.task.TaskList;
 import friendlybot.task.ToDo;
-
-import java.time.LocalDate;
 
 /**
  * AddCommand is a Command for adding new Tasks (ToDo, Deadline, Event)

@@ -1,20 +1,19 @@
 package friendlybot;
 
-import friendlybot.task.TaskList;
+import java.util.Scanner;
 
 import friendlybot.command.Command;
-
-import java.util.Scanner;
+import friendlybot.task.TaskList;
 
 /**
  * FriendlyBot is a simple task management bot that can list, mark, and unmark tasks.
  */
 public class FriendlyBot {
+    private static final String TASK_LIST_FILE_PATH = "./data/task_list.txt";
+    private static final String TASK_LIST_FILE_PATH_WITHOUT_FILE = "./data";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static final String TASK_LIST_FILE_PATH = "./data/task_list.txt";
-    private static final String TASK_LIST_FILE_PATH_WITHOUT_FILE = "./data";
 
     /**
      * A constructor for FriendlyBot.

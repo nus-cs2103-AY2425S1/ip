@@ -1,12 +1,13 @@
 package friendlybot.task;
 
-import friendlybot.FriendlyBotStub;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import friendlybot.FriendlyBotStub;
 
 /**
  * A JUnit test for TaskList.
@@ -44,7 +45,7 @@ public class TaskListTest {
      */
     @Test
     public void testGetTasksOnDate() {
-        LocalDate date1 = LocalDate.of(2024,8,26);
+        LocalDate date1 = LocalDate.of(2024, 8, 26);
         LocalDate date2 = LocalDate.of(2024, 1, 1);
         TaskList taskList = new TaskList(new ArrayList<>());
         taskList.addTask(new ToDo("test 1"));
@@ -62,13 +63,13 @@ public class TaskListTest {
         LocalDate dummyDate1 = LocalDate.of(2024, 8, 1);
         LocalDate dummyDate2 = LocalDate.of(2024, 8, 26);
         FriendlyBotStub friendlyBotStub = new FriendlyBotStub();
-        friendlyBotStub.tasks.addTask(new Event("borrow book", dummyDate1, dummyDate1));
-        friendlyBotStub.tasks.addTask(new ToDo("test task 1"));
-        friendlyBotStub.tasks.addTask(new ToDo("read book"));
-        friendlyBotStub.tasks.addTask(new ToDo("test task 2"));
-        friendlyBotStub.tasks.addTask(new Deadline("return book", dummyDate2));
-        friendlyBotStub.tasks.addTask(new ToDo("test task 3"));
-        assertEquals(6, friendlyBotStub.tasks.getNumTasks());
-        assertEquals(3, friendlyBotStub.tasks.findTasks("book").size());
+        friendlyBotStub.getTasks().addTask(new Event("borrow book", dummyDate1, dummyDate1));
+        friendlyBotStub.getTasks().addTask(new ToDo("test task 1"));
+        friendlyBotStub.getTasks().addTask(new ToDo("read book"));
+        friendlyBotStub.getTasks().addTask(new ToDo("test task 2"));
+        friendlyBotStub.getTasks().addTask(new Deadline("return book", dummyDate2));
+        friendlyBotStub.getTasks().addTask(new ToDo("test task 3"));
+        assertEquals(6, friendlyBotStub.getTasks().getNumTasks());
+        assertEquals(3, friendlyBotStub.getTasks().findTasks("book").size());
     }
 }

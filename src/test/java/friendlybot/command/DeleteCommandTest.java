@@ -1,10 +1,11 @@
 package friendlybot.command;
 
-import friendlybot.FriendlyBotStub;
-import friendlybot.task.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import friendlybot.FriendlyBotStub;
+import friendlybot.task.ToDo;
 
 /**
  * A JUnit test for DeleteCommand.
@@ -17,9 +18,9 @@ public class DeleteCommandTest {
     public void testDeleteCommand() {
         Command deleteCommand = new DeleteCommand(1);
         FriendlyBotStub friendlyBotStub = new FriendlyBotStub();
-        friendlyBotStub.tasks.addTask(new ToDo("test task"));
-        assertEquals(1, friendlyBotStub.tasks.getNumTasks());
-        deleteCommand.execute(friendlyBotStub.tasks, friendlyBotStub.ui, friendlyBotStub.storage);
-        assertEquals(0, friendlyBotStub.tasks.getNumTasks());
+        friendlyBotStub.getTasks().addTask(new ToDo("test task"));
+        assertEquals(1, friendlyBotStub.getTasks().getNumTasks());
+        deleteCommand.execute(friendlyBotStub.getTasks(), friendlyBotStub.getUi(), friendlyBotStub.getStorage());
+        assertEquals(0, friendlyBotStub.getTasks().getNumTasks());
     }
 }

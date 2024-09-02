@@ -1,16 +1,16 @@
 package friendlybot;
 
-import friendlybot.task.Deadline;
-import friendlybot.task.Event;
-import friendlybot.task.Task;
-import friendlybot.task.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import friendlybot.task.Deadline;
+import friendlybot.task.Event;
+import friendlybot.task.Task;
+import friendlybot.task.ToDo;
 
 /**
  * Storage deals with loading tasks from the file and saving tasks in the file.
