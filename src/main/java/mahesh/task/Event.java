@@ -12,8 +12,8 @@ import mahesh.util.MaheshException;
  */
 public class Event extends Task {
 
-    private static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-    private static DateTimeFormatter DATE_STRING_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm:ss");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final DateTimeFormatter DATE_STRING_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm:ss");
     /**
      * The start time of the event.
      */
