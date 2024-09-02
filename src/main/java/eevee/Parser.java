@@ -5,7 +5,7 @@ public class Parser {
      * Enumerates the possible commands that can be executed by the eevee.Eevee program.
      */
     enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT;
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND;
     }
 
     public Command parseCommand(String input) throws EeveeException {
