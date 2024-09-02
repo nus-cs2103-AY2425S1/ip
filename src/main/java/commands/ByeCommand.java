@@ -16,6 +16,7 @@ public class ByeCommand extends Command {
 
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage, String... details) {
-        ui.printResponse(this.exitMsg);
+        ui.setResponse(this.exitMsg);
+        ui.printResponse();
     }
 }

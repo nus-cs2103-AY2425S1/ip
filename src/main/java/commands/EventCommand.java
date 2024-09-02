@@ -28,8 +28,9 @@ public class EventCommand extends Command {
             LocalDate toDate = LocalDate.parse(details[3]);
             Task newTask = new Event(details[1], fromDate, toDate);
             tl.addTask(newTask, storage);
-            ui.printResponse("Got it I've added this task:", Utility.INDENT + newTask.toString(),
+            ui.setResponse("Got it I've added this task:", Utility.INDENT + newTask.toString(),
                     String.format("You now have %d tasks in your list.", tl.size()));
+            ui.printResponse();
         } catch (DateTimeParseException e) {
             throw new InvalidDateException(e.getMessage());
         }

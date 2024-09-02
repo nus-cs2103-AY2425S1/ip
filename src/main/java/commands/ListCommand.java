@@ -25,6 +25,7 @@ public class ListCommand extends Command {
             taskStrings.add(no + ". " + t.toString());
             no++;
         }
-        ui.printResponse(taskStrings.toArray(new String[tasks.length]));
+        ui.setResponse(taskStrings.toArray(new String[0]));
+        ui.printResponse();
     }
 }

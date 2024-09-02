@@ -23,6 +23,7 @@ public class FindCommand extends Command {
         this.command = type;
     }
 
+    // TODO: filter out the by/ from/ to part.
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage, String... details)
             throws MizzException {
@@ -33,6 +34,7 @@ public class FindCommand extends Command {
                 matched.add(t.toString());
             }
         }
-        ui.printResponse(matched.toArray(new String[0]));
+        ui.setResponse(matched.toArray(new String[0]));
+        ui.printResponse();
     }
 }
