@@ -27,6 +27,12 @@ public class Parser {
                 }
                 yield new invalidCommand(parsed[0]);
             }
+            case "find" -> {
+                if (parsed.length > 1 && !parsed[1].trim().isEmpty()) {
+                    yield new FindCommand(parsed[1]);
+                }
+                yield new invalidCommand(parsed[0]);
+            }
             case "help" -> new helpCommand();
             default -> new invalidCommand(parsed[0]);
         };

@@ -22,6 +22,9 @@ public class invalidCommand implements Command {
             case "remove":
                 System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to remove the task");
                 break;
+            case "find":
+                System.out.println("Friday > Try doing find <keyword>");
+                break;
             default:
                 System.out.println("Friday > Hmm...you can't do that. Try add/remove <task> or \"help\" for more options");
                 break;

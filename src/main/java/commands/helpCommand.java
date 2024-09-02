@@ -17,6 +17,7 @@ public class helpCommand implements Command {
                         mark <index>    mark a task as completed
                         unmark <index>  mark a task as incomplete
                         remove <index>  remove task from list
+                        find <keyword>  find keyword in list
                         bye             exit program
                         """);
         UI.printLine();
