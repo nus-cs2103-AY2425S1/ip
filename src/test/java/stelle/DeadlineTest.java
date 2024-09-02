@@ -1,11 +1,12 @@
 package stelle;
 
-import org.junit.jupiter.api.Test;
-import stelle.exception.WrongDateFormatException;
-import stelle.task.Deadline;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import stelle.exception.WrongDateFormatException;
+import stelle.task.Deadline;
 
 /**
  * Represents a class used for testing Deadline.java.

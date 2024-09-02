@@ -1,15 +1,24 @@
 package stelle;
 
-import stelle.exception.*;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import stelle.exception.DeadlineNoDescriptionException;
+import stelle.exception.DeletionNotSpecifiedException;
+import stelle.exception.EventNoDescriptionException;
+import stelle.exception.MarkNotSpecifiedException;
+import stelle.exception.NoSuchTaskException;
+import stelle.exception.StelleException;
+import stelle.exception.TaskException;
+import stelle.exception.ToDoNoDescriptionException;
+import stelle.exception.WrongCommandException;
 import stelle.task.Deadline;
 import stelle.task.Event;
 import stelle.task.Task;
 import stelle.task.ToDo;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-/** This class encapsulates chatbot parsing and logic.
+/**
+ * This class encapsulates chatbot parsing and logic.
  * @author Lee Ze Hao (A0276123J)
  */
 
@@ -25,7 +34,7 @@ public class Parser {
     static final String DEADLINE_COMMAND = "deadline";
     static final String EVENT_COMMAND = "event";
 
-    enum TASK_TYPE {
+    enum TaskType {
         TODO,
         DEADLINE,
         EVENT
@@ -35,7 +44,8 @@ public class Parser {
     private final String filePath;
     private final TaskList taskList;
 
-    /** Constructor for a ChatLogic class. Also fetches data from the specified file path upon construction.
+    /**
+     * Constructor for a ChatLogic class. Also fetches data from the specified file path upon construction.
      * @param ui The stelle.Ui used by the chatbot.
      * @param filePath The file path used for data storage.
      */
@@ -45,7 +55,8 @@ public class Parser {
         this.taskList = new TaskList(this.filePath);
     }
 
-    /** Processes text strings inputted by the user, and calls other functions
+    /**
+     * Processes text strings inputted by the user, and calls other functions
      * when appropriate.
      * @param input The text string entered by the user.
      * @throws StelleException Throws certain exceptions related to the chatbot.
@@ -129,29 +140,29 @@ public class Parser {
             return;
         }
 
-        TASK_TYPE taskType;
+        TaskType taskType;
         if (input.contains(TODO_COMMAND)) {
-            taskType = TASK_TYPE.TODO;
+            taskType = TaskType.TODO;
         } else if (input.contains(DEADLINE_COMMAND)) {
-            taskType = TASK_TYPE.DEADLINE;
+            taskType = TaskType.DEADLINE;
         } else if (input.contains(EVENT_COMMAND)) {
-            taskType = TASK_TYPE.EVENT;
+            taskType = TaskType.EVENT;
         } else {
             return;
         }
 
         switch (taskType) {
-            case TODO:
-                addToDo(input);
-                break;
-            case DEADLINE:
-                addDeadline(input);
-                break;
-            case EVENT:
-                addEvent(input);
-                break;
-            default:
-                break;
+        case TODO:
+            addToDo(input);
+            break;
+        case DEADLINE:
+            addDeadline(input);
+            break;
+        case EVENT:
+            addEvent(input);
+            break;
+        default:
+            break;
         }
 
         System.out.println("Got it. I've added this task:");
@@ -196,7 +207,8 @@ public class Parser {
         this.taskList.writeToFile();
     }
 
-    /** Marks a certain task (makes it done).
+    /**
+     * Marks a certain task (makes it done).
      * @param taskNum The number of the task (ArrayList index + 1) to be marked as done.
      * @throws TaskException Throws exceptions related to tasks.
      */
@@ -214,7 +226,8 @@ public class Parser {
         System.out.println(task.toString());
     }
 
-    /** Unmarks a certain task (makes it not done).
+    /**
+     * Unmarks a certain task (makes it not done).
      * @param taskNum The number of the task (ArrayList index + 1) to be marked as not done.
      * @throws TaskException Throws exceptions related to tasks.
      */

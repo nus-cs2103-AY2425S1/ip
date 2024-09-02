@@ -1,5 +1,12 @@
 package stelle;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import stelle.exception.StorageWriteException;
 import stelle.exception.TaskException;
 import stelle.exception.TaskWithoutTypeException;
@@ -7,15 +14,6 @@ import stelle.task.Deadline;
 import stelle.task.Event;
 import stelle.task.Task;
 import stelle.task.ToDo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import java.io.IOException;
-
-import java.util.ArrayList;
 
 /**
  * Represents a stelle.Storage object that handles writing and reading tasks from a local file.
@@ -53,7 +51,7 @@ public class Storage {
 
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
-            Task.TASK_TYPE taskType = task.getTaskType();
+            Task.TaskType taskType = task.getTaskType();
             String isDoneMark = task.getIsDone() ? "1" : "0";
 
             switch (taskType) {
@@ -61,16 +59,18 @@ public class Storage {
                 textToWrite = textToWrite + "T | " + isDoneMark + " | " + task.getTaskName() + "\n";
                 break;
             case DEADLINE:
-                // Note: taskType only set to DEADLINE when stelle.task.Deadline class is created, and is final, so this is safe
+                // Note: taskType only set to DEADLINE when stelle.task.Deadline class is created,
+                // and is final, so this is safe
                 Deadline deadline = (Deadline) task;
-                textToWrite = textToWrite + "D | " + isDoneMark + " | " + deadline.getTaskName() +
-                        " | " + deadline.getByTime() + "\n";
+                textToWrite = textToWrite + "D | " + isDoneMark + " | " + deadline.getTaskName()
+                        + " | " + deadline.getByTime() + "\n";
                 break;
             case EVENT:
-                // Note: taskType only set to EVENT when stelle.task.Event class is created, and is final, so this is safe
+                // Note: taskType only set to EVENT when stelle.task.Event class is created,
+                // and is final, so this is safe
                 Event event = (Event) task;
-                textToWrite = textToWrite + "E | " + isDoneMark + " | " + event.getTaskName() +
-                        " | " + event.getFromTime() + "to" + event.getToTime() + "\n";
+                textToWrite = textToWrite + "E | " + isDoneMark + " | " + event.getTaskName()
+                        + " | " + event.getFromTime() + "to" + event.getToTime() + "\n";
                 break;
             default:
                 throw new TaskWithoutTypeException();
@@ -87,7 +87,7 @@ public class Storage {
 
     /**
      * Reads a list of tasks from a text file at the filePath given during object creation.
-     * @return ArrayList<stelle.task.Task> List of tasks stored in the text file.
+     * @return ArrayList[stelle.task.Task] List of tasks stored in the text file.
      */
     public ArrayList<Task> readTasksFromFile() throws FileNotFoundException, TaskWithoutTypeException {
         ArrayList<Task> taskList = new ArrayList<Task>();
@@ -100,16 +100,16 @@ public class Storage {
                 continue;
             }
 
-            Task.TASK_TYPE taskType;
+            Task.TaskType taskType;
             switch (taskString.split(" \\| ", 0)[0]) {
             case "T":
-                taskType = Task.TASK_TYPE.TODO;
+                taskType = Task.TaskType.TODO;
                 break;
             case "D":
-                taskType = Task.TASK_TYPE.DEADLINE;
+                taskType = Task.TaskType.DEADLINE;
                 break;
             case "E":
-                taskType = Task.TASK_TYPE.EVENT;
+                taskType = Task.TaskType.EVENT;
                 break;
             default:
                 throw new TaskWithoutTypeException();

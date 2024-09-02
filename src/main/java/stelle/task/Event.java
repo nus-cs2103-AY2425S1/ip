@@ -1,31 +1,33 @@
 package stelle.task;
 
-import stelle.exception.WrongDateFormatException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/** This class represents an stelle.task.Event. It is child of the stelle.task.Task class.
+import stelle.exception.WrongDateFormatException;
+
+/**
+ * This class represents an stelle.task.Event. It is child of the stelle.task.Task class.
  * @author Lee Ze Hao (A0276123J)
  */
 
-public class Event extends Task{
+public class Event extends Task {
     private static final String DATE_TIME_INPUT_FORMATTER_PATTERN = "yyyy-MM-dd HH:mm";
     private static final String DATE_TIME_OUTPUT_FORMATTER_PATTERN = "d LLLL yyyy HH:mm";
-    private static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.
-            ofPattern(DATE_TIME_INPUT_FORMATTER_PATTERN);
-    private static final DateTimeFormatter dateTimeOutputFormatter = DateTimeFormatter.
-            ofPattern(DATE_TIME_OUTPUT_FORMATTER_PATTERN);
+    private static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter
+            .ofPattern(DATE_TIME_INPUT_FORMATTER_PATTERN);
+    private static final DateTimeFormatter dateTimeOutputFormatter = DateTimeFormatter
+            .ofPattern(DATE_TIME_OUTPUT_FORMATTER_PATTERN);
     private LocalDateTime from;
     private LocalDateTime to;
 
-    /** Constructor for an stelle.task.Event object. Sets name upon creation.
+    /**
+     * Constructor for an stelle.task.Event object. Sets name upon creation.
      * @param name Name of stelle.task.Event object.
      * @param from A string indicating starting date and time of event.
      * @param to A string indicating end date and time of event.
      */
     public Event(String name, String from, String to) {
-        super(name, TASK_TYPE.EVENT);
+        super(name, TaskType.EVENT);
         try {
             this.from = LocalDateTime.parse(from.strip(), dateTimeInputFormatter);
             this.to = LocalDateTime.parse(to.strip(), dateTimeInputFormatter);
@@ -50,14 +52,16 @@ public class Event extends Task{
         return this.to.format(dateTimeInputFormatter);
     }
 
-    /** Returns string representation of the stelle.task.Event.
-     * @return String containing indication of stelle.task.Event class, and string representation of parent stelle.task.Task class.
+    /**
+     * Returns string representation of the stelle.task.Event.
+     * @return String containing indication of stelle.task.Event class,
+     *      and string representation of parent stelle.task.Task class.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " +
-                from.format(dateTimeOutputFormatter).replace(" GMT", "")
-                + " to: " +
-                to.format(dateTimeOutputFormatter).replace(" GMT", "") + ")";
+        return "[E]" + super.toString() + " (from: "
+                + from.format(dateTimeOutputFormatter).replace(" GMT", "")
+                + " to: "
+                + to.format(dateTimeOutputFormatter).replace(" GMT", "") + ")";
     }
 }

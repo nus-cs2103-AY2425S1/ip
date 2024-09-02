@@ -1,11 +1,16 @@
 package stelle.task;
 
-/** This class represents a stelle.task.Task. It is parent to the stelle.task.ToDo, stelle.task.Deadline and stelle.task.Event classes.
+/**
+ * This class represents a stelle.task.Task. It is parent to the stelle.task.ToDo,
+ * stelle.task.Deadline and stelle.task.Event classes.
  * @author Lee Ze Hao (A0276123J)
  */
 
 public class Task {
-    public enum TASK_TYPE {
+    /**
+     * Enum that holds the types of Tasks that exist.
+     */
+    public enum TaskType {
         TODO,
         DEADLINE,
         EVENT,
@@ -13,7 +18,7 @@ public class Task {
     }
 
     private final String name;
-    private final TASK_TYPE taskType;
+    private final TaskType taskType;
     private boolean isDone;
 
     /**
@@ -21,7 +26,7 @@ public class Task {
      * @param name Name of task object.
      * @param taskType Type of task object.
      */
-    public Task(String name, TASK_TYPE taskType) {
+    public Task(String name, TaskType taskType) {
         this.name = name;
         this.taskType = taskType;
     }
@@ -58,9 +63,9 @@ public class Task {
 
     /**
      * Returns the type of the task.
-     * @return TASK_TYPE Enum representing type of the task.
+     * @return TaskType Enum representing type of the task.
      */
-    public TASK_TYPE getTaskType() {
+    public TaskType getTaskType() {
         return this.taskType;
     }
 
