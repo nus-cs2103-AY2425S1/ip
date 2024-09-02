@@ -1,6 +1,7 @@
 package util;
 
 import command.AddCommand;
+import command.AddMultipleTodosCommand;
 import command.Command;
 import command.CommandType;
 import command.DeleteCommand;
@@ -75,6 +76,11 @@ public class Parser {
                 throw new InvalidCommandException();
             }
             return new FindCommand(splitWords[1]);
+        case ADDMULTIPLETODOS:
+            if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
+                throw new InvalidCommandException();
+            }
+            return new AddMultipleTodosCommand(splitWords[1].split(","));
         case BYE:
             return new ExitCommand();
         default:

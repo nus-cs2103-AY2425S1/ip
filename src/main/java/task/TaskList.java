@@ -38,6 +38,13 @@ public class TaskList {
         return  "Got it. I've added this task:\n" + task + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
+    public String addMultipleTodos(ArrayList<Task> todos) {
+        for (Task task: todos) {
+            taskList.add(task);
+        }
+        return  "Got it. I've added the todos";
+    }
+
     /**
      * Deletes a task from the TaskList at the specified index.
      * Displays a confirmation message after deleting the task.

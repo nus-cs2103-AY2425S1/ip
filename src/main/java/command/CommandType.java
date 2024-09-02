@@ -45,6 +45,11 @@ public enum CommandType {
      */
     FIND,
 
+    /**
+     * Represents the command to add multiple todo tasks at once.
+     */
+    ADDMULTIPLETODOS,
+
 
     /**
      * Represents the command to exit the application.

@@ -17,7 +17,6 @@ public abstract class Command {
      * Executes the command, performing the specific action associated with the command.
      *
      * @param tasks   The TaskList that the command will act upon.
-     * @param ui      The Ui instance used to interact with the user.
      * @param storage The Storage instance used to save or load data.
      * @throws ScheduloException If an application-specific error occurs during execution.
      * @throws IOException       If an I/O error occurs during execution.
