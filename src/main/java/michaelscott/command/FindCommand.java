@@ -49,4 +49,9 @@ public class FindCommand implements Command {
         }
         return sb.toString().trim();
     }
+
+    @Override
+    public String getSimpleName() {
+        return "FindCommand";
+    }
 }

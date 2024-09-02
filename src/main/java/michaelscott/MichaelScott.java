@@ -17,7 +17,7 @@ public class MichaelScott {
     private final TaskList tasks;
     private final Ui ui;
     private final CommandParser parser;
-
+    private String commandType;
     /**
      * Constructs a new MichaelScott chatbot instance.
      * Initializes the UI, command parser, task list, and storage components.
@@ -27,6 +27,29 @@ public class MichaelScott {
         parser = new CommandParser();
         tasks = new TaskList();
         storage = new Storage(tasks);
+    }
+
+    public String getResponse(String input) {
+        Boolean isRunning = true;
+        try {
+            CommandParser parser = new CommandParser();
+            Command c = parser.parse(input);
+            String result = c.execute(tasks);
+            this.commandType = c.getSimpleName();
+            storage.saveTasks(tasks.getTasks());
+            if (commandType.equals("ExitCommand")) {
+                isRunning = false;
+                return "Exit-Signal";
+            }
+            return result;
+        } catch (MichaelScottException e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 
     /**
@@ -41,7 +64,6 @@ public class MichaelScott {
                 String fullCommand = ui.readCommand();
                 Command cmd = parser.parse(fullCommand); //
                 String response = cmd.execute(tasks); //
-
                 ui.showResponse(response);
                 storage.saveTasks(tasks.getTasks()); //
                 isRunning = !cmd.isExit();
@@ -49,9 +71,5 @@ public class MichaelScott {
                 Ui.showError(e.getMessage());
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new MichaelScott().run();
     }
 }

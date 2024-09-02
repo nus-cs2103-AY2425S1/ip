@@ -7,6 +7,7 @@ public interface Command {
 
     String execute(TaskList tasks) throws MichaelScottException;
 
+    String getSimpleName();
     default boolean isExit() {
         return false;
     }

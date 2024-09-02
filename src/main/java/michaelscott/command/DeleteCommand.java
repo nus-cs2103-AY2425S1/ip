@@ -35,4 +35,9 @@ public class DeleteCommand implements Command {
         return "Noted. I've removed this task:\n" + deletedTask.toString()
                 + "\nNow you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
     }
+
+    @Override
+    public String getSimpleName() {
+        return "DeleteCommand";
+    }
 }

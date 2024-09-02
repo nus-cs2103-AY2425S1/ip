@@ -19,4 +19,9 @@ public class ListCommand implements Command {
         }
         return sb.toString().trim();
     }
+
+    @Override
+    public String getSimpleName() {
+        return "ListCommand";
+    }
 }
