@@ -1,6 +1,6 @@
 package alisa.task;
 
-import alisa.AlisaException;
+import alisa.exception.AlisaException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,6 +47,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toFileString() {
-        return "D | " + this.getFileStatus() + " | " + this.getTask() + " | " + dueDate + "\n";
+        return "D | " + this.getFileStatus() + " | "
+                + this.getTask() + " | " + dueDate + "\n";
     }
 }

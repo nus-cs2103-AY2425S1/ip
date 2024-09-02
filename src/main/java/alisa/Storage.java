@@ -1,6 +1,11 @@
 package alisa;
 
-import alisa.task.*;
+import alisa.exception.AlisaException;
+import alisa.task.Task;
+import alisa.task.TaskList;
+import alisa.task.Deadline;
+import alisa.task.Event;
+import alisa.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

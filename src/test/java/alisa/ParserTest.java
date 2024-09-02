@@ -6,6 +6,7 @@ import alisa.command.AddCommand;
 import alisa.command.DeleteCommand;
 import alisa.command.ListCommand;
 import alisa.command.ExitCommand;
+import alisa.exception.AlisaException;
 
 import org.junit.jupiter.api.Test;
 

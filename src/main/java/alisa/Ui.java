@@ -25,7 +25,7 @@ public class Ui {
      * Prints a line divider.
      */
     public void showDivider() {
-        System.out.println("------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------");
     }
 
     /**

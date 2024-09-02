@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
+import alisa.exception.AlisaException;
+
 public class StorageTest {
     @Test
     public void loadFile_nonexistingFile_fileNotFound() throws AlisaException {

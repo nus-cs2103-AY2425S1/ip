@@ -1,6 +1,6 @@
 package alisa.task;
 
-import alisa.AlisaException;
+import alisa.exception.AlisaException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,7 +40,8 @@ public class Event extends Task {
     public String toString() {
         String task = super.toString();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm");
-        return "[E] " + task + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
+        return "[E] " + task + " (from: " + from.format(formatter)
+                + " to: " + to.format(formatter) + ")";
     }
 
     /**
@@ -50,6 +51,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + this.getFileStatus() + " | " + this.getTask() + " | " + from + "-" + to + "\n";
+        return "E | " + this.getFileStatus() + " | "
+                + this.getTask() + " | " + from + "-" + to + "\n";
     }
 }

@@ -2,7 +2,7 @@ package alisa.task;
 
 import java.util.ArrayList;
 
-import alisa.AlisaException;
+import alisa.exception.AlisaException;
 import alisa.Parser;
 
 public class TaskList {
@@ -36,8 +36,9 @@ public class TaskList {
      */
     public String deleteTask(int index) throws AlisaException {
         try {
-            Task removedTask = taskList.remove(index-1);
-            return "Noted. I've removed this task:\n" + removedTask + "\nNow you have " + taskList.size() + " tasks in the list.";
+            Task removedTask = taskList.remove(index - 1);
+            return "Noted. I've removed this task:\n" + removedTask
+                    + "\nNow you have " + taskList.size() + " tasks in the list.";
         } catch (IndexOutOfBoundsException e) {
             throw new AlisaException("The task you want to delete doesn't exist!");
         }
@@ -83,7 +84,8 @@ public class TaskList {
      */
     public String addTask(Task task) {
         taskList.add(task);
-        return "Got it. I've added this task:\n" + task + "\nNow you have " + taskList.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n" + task + "\nNow you have "
+                + taskList.size() + " tasks in the list.";
     }
 
     /**

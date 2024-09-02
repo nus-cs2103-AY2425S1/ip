@@ -33,6 +33,7 @@ public class Todo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + this.getFileStatus() + " | " + this.getTask() + "\n";
+        return "T | " + this.getFileStatus()
+                + " | " + this.getTask() + "\n";
     }
 }
