@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("llama.Llama")
+    mainClass.set("llama.Launcher")
 }
 
 checkstyle {

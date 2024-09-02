@@ -61,6 +61,10 @@ public class Llama {
         sc.close();
     }
 
+    public String getResponse(String input) {
+        return "Llama sees: " + input;
+    }
+
     public static void main(String[] args) {
         new Llama().run();
     }
