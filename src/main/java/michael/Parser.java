@@ -86,9 +86,31 @@ public class Parser {
             tasks.delete(index - 1);
             return "Noted. I've removed this task:\n" + "  " + target + "\n" +
                     "Now you have " + tasks.size() + " tasks in the list.";
+        } else if (input.startsWith("find")) {
+            if (input.length() < 6) { // no string given to find
+                throw new MichaelException("Enter valid string to find matching tasks.");
+            }
+            
+            String keyword = input.substring(5);
+            TaskList matchingTasks = new TaskList();
+
+            // Iterate through tasks to check which tasks contain the keyword
+            for (int i = 0; i < tasks.size(); i++) {
+                Task t = tasks.get(i);
+                if (t.getTaskName().contains(keyword)) {
+                    matchingTasks.add(t);
+                }
+            }
+
+            String list = "Here are the matching tasks in your list:\n";
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                String elem = String.valueOf(i + 1) + ". " + matchingTasks.get(i) + "\n";
+                list = list.concat(elem);
+            }
+            return list.substring(0, list.length() - 1); // substring to remove last line break
         } else { // invalid command
             throw new MichaelException("Invalid command entered. Please enter one of the following valid commands: " +
-                    "todo, deadline, event, mark, unmark, list, delete, bye");
+                    "todo, deadline, event, mark, unmark, list, delete, bye, find");
         }
     }
 }
