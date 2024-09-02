@@ -3,8 +3,11 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 
 /**
@@ -170,6 +173,51 @@ public class Storage {
         }
         return out;
     }
+
+    /**
+     * Sorts the tasks in the inputList
+     * Sorts by Deadline, Event and ToDo
+     * Sorts Deadline by date
+     * Sorts Event and ToDo by lexicographical order
+     * @return String representation of the sorted tasks
+     */
+
+    public String sort() {
+        int j = 0;
+        StringBuilder sb = new StringBuilder("Here are the list of tasks "
+                + "that needs to be completed: \n");
+        List<Deadline> deadlines = inputs.stream()
+                .filter(input -> input instanceof Deadline)
+                .map(input -> (Deadline) input)
+                .sorted(Comparator.comparing(Deadline::getDeadline))
+                .collect(Collectors.toList());
+        List<ToDo> toDos = inputs.stream()
+                .filter(input -> input instanceof ToDo)
+                .map(input -> (ToDo) input)
+                .sorted(Comparator.comparing(ToDo::toString))
+                .collect(Collectors.toList());
+        List<Event> events = inputs.stream()
+                .filter(input -> input instanceof Event)
+                .map(input -> (Event) input)
+                .sorted(Comparator.comparing(Event::toString))
+                .collect(Collectors.toList());
+        for (int i = 0; i < deadlines.size(); i++) {
+            sb.append(j + 1).append(". ").append(deadlines.get(i)).append("\n");
+            j++;
+        }
+        for (int i = 0; i < events.size(); i++) {
+            sb.append(j + 1).append(". ").append(events.get(i)).append("\n");
+            j++;
+        }
+        for (int i = 0; i < toDos.size(); i++) {
+            sb.append(j + 1).append(". ").append(toDos.get(i)).append("\n");
+            j++;
+        }
+        return sb.toString();
+    }
+
+
+
 
 
 

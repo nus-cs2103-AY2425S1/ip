@@ -167,6 +167,8 @@ public class Parser {
                 return handleDelete(input);
             case FIND:
                 return handleFind(input);
+            case SORT:
+                return store.sort();
             case ERROR:
             default:
                 throw new InvalidInputException("Whoopsie! "
