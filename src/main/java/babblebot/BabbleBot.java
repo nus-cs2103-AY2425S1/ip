@@ -136,6 +136,16 @@ public class BabbleBot {
                     }
                     break;
 
+                case "find":
+                    try {
+                        String keyword = parser.parseKeyword(userInp);
+                        TaskList matchingTasks = new TaskList(storedTasks.getMatchingTasks(keyword));
+                        ui.showTaskList(matchingTasks);
+                    } catch (IndexOutOfBoundsException e) {
+                        ui.showIOError();
+                    }
+                    break;
+
                 default:
                     throw new BabbleBotException();
                 }
