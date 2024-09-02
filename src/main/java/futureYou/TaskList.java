@@ -154,4 +154,28 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds specified tasks using text input by the user.
+     *
+     * @param text The text to search.
+     * @throws Exception If the task number is invalid.
+     */
+    public static String findTask(String text) throws Exception {
+        try {
+
+            String message = " Here are the matching tasks in your list: \n";
+            int count = 1;
+            for (Task task : TaskList.getTaskList()) {
+                if (task.getTaskName().contains(text)) {
+                    message += "[" + count++ + "]" + task.print() + System.lineSeparator();
+                }
+            }
+            if (count == 1) {
+                return "No task mataching that text was found";
+            }
+            return message;
+        } catch (Exception e) {
+            return "Please enter a valid Task number";
+        }
+    }
 }
