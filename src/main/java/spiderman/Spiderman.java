@@ -17,7 +17,6 @@ public class Spiderman {
         Scanner scan = new Scanner(System.in);  // Create a Scanner object
 
         // Initialise arrays for tasks
-        //ArrayList<Task> taskList = new ArrayList<>();
         ArrayList<Task> taskList = loadTasksFromFile();
 
         // Greeting users
@@ -83,7 +82,8 @@ public class Spiderman {
                 }
 
                 try {
-                    LocalDate by = LocalDate.parse(splitInputByCommand[1].replaceFirst("by", "").trim(), formatter);
+                    LocalDate by = LocalDate.parse(splitInputByCommand[1]
+                            .replaceFirst("by", "").trim(), formatter);
                     taskList.add(new Deadline(description, by));
                 }
                 catch (DateTimeParseException e) {
@@ -96,8 +96,7 @@ public class Spiderman {
                 }
                 System.out.println("Cool! I'll add this to your task list!");
                 System.out.println("You now have " + taskList.size() + " tasks in your task list.");
-            }
-            else if (splitInput[0].equals("event")) {
+            } else if (splitInput[0].equals("event")) {
                 String description = splitInputByCommand[0].replaceFirst("event", "").trim();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -125,8 +124,7 @@ public class Spiderman {
                 }
                 System.out.println("Cool! I'll add this to your task list!");
                 System.out.println("You now have " + taskList.size() + " tasks in your task list.");
-            }
-            else if (splitInput[0].equals("todo")) {
+            } else if (splitInput[0].equals("todo")) {
                 String description = splitInputByCommand[0].replaceFirst("todo", "").trim();
                 if (description.isEmpty()) {
                     System.out.println("The description of a todo cannot be empty.");
@@ -136,9 +134,9 @@ public class Spiderman {
                 taskList.add(new Todo(description));
                 System.out.println("Cool! I'll add this to your task list!");
                 System.out.println("You now have " + taskList.size() + " tasks in your task list.");
-            }
-            else {
-                System.out.println("Sorry, I do not understand what you mean. Check the README file for the list of known actions!");
+            } else {
+                System.out.println("Sorry, I do not understand what you mean. " +
+                        "Check the README file for the list of known actions!");
             }
         }
 
@@ -194,7 +192,10 @@ public class Spiderman {
 
                 // If task is an event
                 if (savedTasks[0].equals("E")) {
-                    Event task = new Event(savedTasks[2], LocalDateTime.parse(savedTasks[3]), LocalDateTime.parse(savedTasks[4]));
+                    Event task = new Event(savedTasks[2],
+                            LocalDateTime.parse(savedTasks[3]),
+                            LocalDateTime.parse(savedTasks[4]));
+
                     if (savedTasks[1].equals("T")) {
                         task.markAsDone();
                     } else {
