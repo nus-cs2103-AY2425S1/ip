@@ -30,9 +30,6 @@ public class Parser {
     private String command;
     private String[] descriptions;
 
-    public Parser() {
-    }
-
     /** Identifies the Command from the user input and returns the identified command.
      * throws a JudeException if the command is not valid.
      *
@@ -92,7 +89,6 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException ae) {
             throw new JudeException("Poyo, the format of the command "
                     + command + " was not valid. The correct format: " + command);
-
         }
     }
 }
