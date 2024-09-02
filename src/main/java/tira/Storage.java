@@ -1,8 +1,11 @@
-import java.util.Scanner;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+package tira;
+
+import tira.task.Task;
+import tira.task.Deadline;
+import tira.task.ToDo;
+import tira.task.Event;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileReader;
@@ -10,7 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.io.BufferedReader;
 
 public class Storage {
@@ -78,7 +80,7 @@ public class Storage {
         String output = "";
         if (task instanceof ToDo) {
             output += "T | ";
-            if (task.isDone) {
+            if (task.getIsDone()) {
                 output += "1";
             } else {
                 output += "0";
@@ -88,7 +90,7 @@ public class Storage {
         if (task instanceof Deadline) {
             output += "D |";
             Deadline deadline = (Deadline) task;
-            if (deadline.isDone) {
+            if (deadline.getIsDone()) {
                 output += "1";
             } else {
                 output += "0";
@@ -99,7 +101,7 @@ public class Storage {
         if (task instanceof Event) {
             output += "D |";
             Event event = (Event) task;
-            if (event.isDone) {
+            if (event.getIsDone()) {
                 output += "1 ";
             } else {
                 output += "0 ";

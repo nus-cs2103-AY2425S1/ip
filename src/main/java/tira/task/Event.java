@@ -1,8 +1,10 @@
+package tira.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+public class Event extends Task {
     protected LocalDate start;
     protected LocalDate end;
     private final DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
