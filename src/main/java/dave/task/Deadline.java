@@ -1,7 +1,11 @@
+package dave.task;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import dave.exceptions.InvalidDateTimeFormatException;
+import dave.exceptions.InvalidDescriptionException;
 
 public class Deadline extends Task {
     public LocalDate dueDate;

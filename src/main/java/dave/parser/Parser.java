@@ -1,4 +1,12 @@
-import java.io.IOException;
+package dave.parser;
+
+import dave.command.*;
+import dave.exceptions.InvalidCommandException;
+import dave.exceptions.InvalidDateTimeFormatException;
+import dave.exceptions.InvalidDescriptionException;
+import dave.task.Deadline;
+import dave.task.Event;
+import dave.task.Todo;
 
 
 public class Parser {
@@ -6,7 +14,7 @@ public class Parser {
         bye, list, mark, unmark, todo, deadline, event, delete
     }
 
-    public static Command parse(String fullCommand) throws InvalidCommandException {
+    public static Command parse(String fullCommand) throws dave.exceptions.InvalidCommandException {
         String[] commandParts = fullCommand.split(" ", 2);
         String commandWord = commandParts[0];
         String commandArgs = commandParts.length > 1 ? commandParts[1] : "";
@@ -25,7 +33,7 @@ public class Parser {
                 case deadline:
                     try {
                         return new AddCommand(new Deadline(commandArgs));
-                    } catch (InvalidDateTimeFormatException e) {
+                    } catch (dave.exceptions.InvalidDateTimeFormatException e) {
                         System.out.println(e.getMessage());
                         return null;
                     }
@@ -49,7 +57,7 @@ public class Parser {
                 default:
                     return null;
             }
-        } catch (InvalidDescriptionException e) {
+        } catch (dave.exceptions.InvalidDescriptionException e) {
             System.out.println(e.getMessage());
             return null;
         } catch (Exception e) {

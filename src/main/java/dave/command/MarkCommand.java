@@ -1,22 +1,25 @@
-import java.io.IOException;
+package dave.command;
 
-public class UnmarkCommand extends Command {
+import dave.task.Task;
+import dave.task.TaskList;
+import dave.storage.Storage;
+import dave.ui.Ui;
+import java.io.IOException;
+public class MarkCommand extends Command {
     private final int taskIndex;
 
-    public UnmarkCommand(int taskIndex) {
-
+    public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
+    public void execute(TaskList tasks, Storage storage, Ui ui) {
         try {
-            Task task = tasks.getTask(taskIndex - 1);
-            task.markAsNotDone();
-            ui.showLine();
-            System.out.println("Ok, I've marked this task as not done yet:");
+            Task task = tasks.getTask(taskIndex -1 );
+            task.markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
             System.out.println(task);
-            storage.saveFile(tasks);
+            Storage.saveFile(tasks);
         } catch (IndexOutOfBoundsException e) {
             ui.showLine();
             System.out.println("Oh no! You have entered an invalid number. Please try again.");

@@ -1,18 +1,25 @@
-import java.io.IOException;
-public class MarkCommand extends Command {
-    private final int taskIndex;
+package dave.command;
 
-    public MarkCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+import dave.task.Task;
+import dave.task.TaskList;
+import dave.storage.Storage;
+import dave.ui.Ui;
+import java.io.IOException;
+public class DeleteCommand extends Command {
+    private int index;
+
+    public DeleteCommand(int index) {
+        this.index = index;
     }
 
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         try {
-            Task task = tasks.getTask(taskIndex -1 );
-            task.markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
+            Task task = tasks.getTask(index);
+            tasks.deleteTask(index);
+            System.out.println("Noted. I've removed this task: " + task);
             System.out.println(task);
+            System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
             storage.saveFile(tasks);
         } catch (IndexOutOfBoundsException e) {
             ui.showLine();

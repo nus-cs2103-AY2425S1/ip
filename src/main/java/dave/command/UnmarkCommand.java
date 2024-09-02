@@ -1,20 +1,27 @@
-import java.io.IOException;
-public class DeleteCommand extends Command {
-    private int index;
+package dave.command;
 
-    public DeleteCommand(int index) {
-        this.index = index;
+import dave.task.Task;
+import dave.task.TaskList;
+import dave.storage.Storage;
+import dave.ui.Ui;
+import java.io.IOException;
+
+public class UnmarkCommand extends Command {
+    private final int taskIndex;
+
+    public UnmarkCommand(int taskIndex) {
+
+        this.taskIndex = taskIndex;
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
+    public void execute(TaskList tasks, Storage storage, Ui ui) {
         try {
-            Task task = tasks.getTask(index);
-            tasks.deleteTask(index);
-            System.out.println("Noted. I've removed this task: " + task);
+            Task task = tasks.getTask(taskIndex - 1);
+            task.markAsNotDone();
+            System.out.println("Ok, I've marked this task as not done yet:");
             System.out.println(task);
-            System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-            storage.saveFile(tasks);
+            Storage.saveFile(tasks);
         } catch (IndexOutOfBoundsException e) {
             ui.showLine();
             System.out.println("Oh no! You have entered an invalid number. Please try again.");
