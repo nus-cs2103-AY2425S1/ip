@@ -1,3 +1,11 @@
+package spike.commands;
+
+import spike.exceptions.SpikeException;
+import spike.tasks.Task;
+import spike.storage.TaskList;
+import spike.storage.Storage;
+import spike.ui.Ui;
+
 public class AddTaskCommand extends Command {
     private final Task task;
 

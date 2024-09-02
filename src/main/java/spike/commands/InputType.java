@@ -1,4 +1,6 @@
-enum InputType {
+package spike.commands;
+
+public enum InputType {
     BYE,
     LIST,
     LISTBYDATE,

@@ -1,3 +1,7 @@
+package spike.ui;
+
+import spike.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
