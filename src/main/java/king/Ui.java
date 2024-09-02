@@ -1,6 +1,8 @@
 package king;
 
 import king.task.Task;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -100,6 +102,19 @@ public class Ui {
         showLine();
         System.out.println("Approved. I've added this to your list of duties:\n" + task.toString());
         System.out.println("Now you have " + size + " tasks in the list.");
+        showLine();
+    }
+
+    public void showNoTaskFound(String keyword) {
+        System.out.println("No tasks found containing the keyword: " + keyword);
+        showLine();
+    }
+
+    public void showTasksFound(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+        }
         showLine();
     }
 }

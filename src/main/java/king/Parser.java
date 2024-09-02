@@ -34,6 +34,8 @@ public class Parser {
                 return new EventCommand(parts[1]);
             case "bye":
                 return new ExitCommand();
+            case "find":
+                return new FindCommand(parts[1]);
             default:
                 return new InvalidCommand();
         }
