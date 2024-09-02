@@ -37,7 +37,7 @@ public class MarkCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws ScheduloException, IOException {
         String message;
         try {
-            message = tasks.mark(this.index - 1);;
+            message = tasks.mark(this.index - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new ScheduloException("The task index provided is invalid.");
         }
