@@ -19,39 +19,68 @@ public class Beechat {
                 continue;
             }
             if ((msg.split(" "))[0].equals("mark")) {
-                j = Integer.valueOf((msg.split(" "))[1]) - 1;
-                list.get(j).mark();
-                System.out.println("Nice! I've marked this task as done:\n" + list.get(j));
+                try {
+                    j = Integer.valueOf((msg.split(" "))[1]) - 1;
+                    list.get(j).mark();
+                    System.out.println("Nice! I've marked this task as done:\n" + list.get(j));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please mark in this form: \n" +
+                            "mark [index]");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please enter a valid index" );
+                }
                 msg = sc.nextLine();
                 continue;
             }
             if ((msg.split(" "))[0].equals("unmark")) {
-                j = Integer.valueOf((msg.split(" "))[1]) - 1;
-                list.get(j).unmark();
-                System.out.println("OK, I've marked this task as not done yet:\n" + list.get(j));
+                try {
+                    j = Integer.valueOf((msg.split(" "))[1]) - 1;
+                    list.get(j).unmark();
+                    System.out.println("OK, I've marked this task as not done yet:\n" + list.get(j));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please unmark in this form: \n" +
+                            "unmark [integer]");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please enter a valid index" );
+                }
                 msg = sc.nextLine();
                 continue;
             }
             if ((msg.split(" "))[0].equals("todo")) {
-                String description = (msg.split("todo "))[1];
-                task = new TodoTask(description);
-                list.add(task);
-                System.out.println("added: " + description);
+                try {
+                    String description = (msg.split("todo "))[1];
+                    task = new TodoTask(description);
+                    list.add(task);
+                    System.out.println("added: " + description);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please enter the todo task in this form: \n" +
+                            "todo [task name]");
+                }
             }
             if ((msg.split(" "))[0].equals("deadline")) {
-                String description = ((msg.split("deadline "))[1]).split("/by ")[0];
-                String by = (msg.split("/by "))[1];
-                task = new DeadlineTask(description, by);
-                list.add(task);
-                System.out.println("added: " + description);
+                try {
+                    String description = ((msg.split("deadline "))[1]).split("/by ")[0];
+                    String by = (msg.split("/by "))[1];
+                    task = new DeadlineTask(description, by);
+                    list.add(task);
+                    System.out.println("added: " + description);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please enter the deadline task in this form: \n" +
+                            "deadline [task name] /by [deadline]");
+                }
             }
             if ((msg.split(" "))[0].equals("event")) {
-                String description = ((msg.split("event "))[1]).split("/from ")[0];
-                String from = (msg.split("/from "))[1].split("/to ")[0];
-                String to = (msg.split("/to "))[1];
-                task = new EventTask(description, from, to);
-                list.add(task);
-                System.out.println("added: " + description);
+                try {
+                    String description = ((msg.split("event "))[1]).split("/from ")[0];
+                    String from = (msg.split("/from "))[1].split("/to ")[0];
+                    String to = (msg.split("/to "))[1];
+                    task = new EventTask(description, from, to);
+                    list.add(task);
+                    System.out.println("added: " + description);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please enter the event task in this form: \n" +
+                            "event [task name] /from [date and starttime] /by [endtime]");
+                }
             }
             msg = sc.nextLine();
         }
