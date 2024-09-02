@@ -1,4 +1,6 @@
-abstract class Task {
+package bottle.task;
+
+public abstract class Task {
 
     protected boolean isChecked;
     protected String taskDesc;

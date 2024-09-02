@@ -1,7 +1,9 @@
+package bottle.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-class Event extends Task {
+public class Event extends bottle.task.Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 

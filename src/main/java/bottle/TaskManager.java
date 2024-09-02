@@ -1,3 +1,10 @@
+package bottle;
+
+import bottle.task.Deadline;
+import bottle.task.Event;
+import bottle.task.Task;
+import bottle.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
