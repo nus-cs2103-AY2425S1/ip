@@ -1,7 +1,5 @@
 T | 0 | read book
-D | 0 | read book | 2024-12-30 1300
 T | 0 | read book
 T | 0 | read book
 T | 1 | write_task
-T | 0 | read book
-T | 0 | read book
+T | 0 | drink 1
