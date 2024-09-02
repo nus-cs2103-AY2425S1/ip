@@ -28,7 +28,6 @@ public class Ui {
     public void showIntroduction() {
         System.out.println("Hello! I'm potong.Potong");
         System.out.println("What can I do for you?\n");
-//        System.out.println(potong.Ui.LINE);
     }
 
     public void showLine() {
@@ -38,6 +37,10 @@ public class Ui {
     public void sayGoodbye() {
         System.out.println("Bye. Hope to see you again soon!\n");
         this.showLine();
+    }
+
+    public void print(String message) {
+        System.out.println(message);
     }
 
 }

@@ -13,9 +13,10 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
+    public String execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         tasks.writeToStorage(storage);
         ui.sayGoodbye();
+        return "";
     }
 
 }

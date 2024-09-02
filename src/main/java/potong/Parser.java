@@ -53,26 +53,17 @@ public class Parser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments").strip();
 
-        switch (commandWord) {
-            case "bye":
-                return new ExitCommand(arguments);
-            case "list":
-                return new ListCommand(arguments);
-            case "mark":
-                return new MarkCommand(arguments, true);
-            case "unmark":
-                return new MarkCommand(arguments, false);
-            case "delete":
-                return new DeleteCommand(arguments);
-            case "todo":
-                return new AddCommand(arguments, AddCommand.Type.TODO);
-            case "deadline":
-                return new AddCommand(arguments, AddCommand.Type.DEADLINE);
-            case "event":
-                return new AddCommand(arguments, AddCommand.Type.EVENT);
-            default:
-                return null;
-        }
+        return switch (commandWord) {
+            case "bye" -> new ExitCommand(arguments);
+            case "list" -> new ListCommand(arguments);
+            case "mark" -> new MarkCommand(arguments, true);
+            case "unmark" -> new MarkCommand(arguments, false);
+            case "delete" -> new DeleteCommand(arguments);
+            case "todo" -> new AddCommand(arguments, AddCommand.Type.TODO);
+            case "deadline" -> new AddCommand(arguments, AddCommand.Type.DEADLINE);
+            case "event" -> new AddCommand(arguments, AddCommand.Type.EVENT);
+            default -> null;
+        };
     }
 
 }

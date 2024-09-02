@@ -40,11 +40,50 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws IllegalInputPotongException {
+    public String execute(TaskList tasks, Storage storage, Ui ui) throws IllegalInputPotongException {
         switch (this.type) {
-            case TODO -> tasks.add(new ToDoTask(this.task));
-            case DEADLINE -> tasks.add(new DeadlineTask(this.task, this.deadline));
-            case EVENT -> tasks.add(new EventTask(this.task, this.eventStart, this.eventEnd));
+            case TODO -> {
+                return tasks.add(new ToDoTask(this.task));
+            }
+            case DEADLINE -> {
+                return tasks.add(new DeadlineTask(this.task, this.deadline));
+            }
+            case EVENT -> {
+                return tasks.add(new EventTask(this.task, this.eventStart, this.eventEnd));
+            }
+            default -> {
+                return "";
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        switch (this.type) {
+            case TODO -> {
+                try {
+                    return new ToDoTask(this.task).toString();
+                } catch (IllegalInputPotongException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case DEADLINE -> {
+                try {
+                    return new DeadlineTask(this.task, this.deadline).toString();
+                } catch (IllegalInputPotongException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case EVENT -> {
+                try {
+                    return new EventTask(this.task, this.eventStart, this.eventEnd).toString();
+                } catch (IllegalInputPotongException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            default -> {
+                return "";
+            }
         }
     }
 }
