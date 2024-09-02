@@ -1,5 +1,6 @@
 package ui;
 
+import commands.Command;
 import parser.Parser;
 
 import java.util.Scanner;
@@ -16,10 +17,10 @@ public class CliUi implements Ui {
     }
 
     @Override
-    public Message readMessage() {
+    public Command readMessage() {
         System.out.print("> ");
         String message = scanner.nextLine();
-        return Parser.parseMessage(message);
+        return Parser.parseCommand(message);
     }
 
     @Override
