@@ -50,21 +50,36 @@ public class Parser {
             return new PrintTaskListCommand();
         case MARK:
             try {
-                return new MarkCommand(String.valueOf(tokens.nextToken()), true);
+                String index = tokens.nextToken();
+                if (tokens.hasMoreTokens()) {
+                    throw new TheBotFatherException("Just one number please :/\n" +
+                            "\tTo mark a task as done enter \"mark <index>\"");
+                }
+                return new MarkCommand(String.valueOf(index), true);
             } catch (NoSuchElementException e) {
                 throw new TheBotFatherException("Skill issue: Atleast enter a number.\n" +
                         "\tTo mark a task as done enter \"mark <index>\"");
             }
         case UNMARK:
             try {
-                return new MarkCommand(String.valueOf(tokens.nextToken()), false);
+                String index = tokens.nextToken();
+                if (tokens.hasMoreTokens()) {
+                    throw new TheBotFatherException("Just one number please :/\n" +
+                            "\tTo mark a task as done enter \"mark <index>\"");
+                }
+                return new MarkCommand(String.valueOf(index), false);
             } catch (NoSuchElementException e) {
                 throw new TheBotFatherException("Skill issue: Atleast enter a number.\n" +
                         "\tTo unmark a task enter \"unmark <index>\"");
             }
         case DELETE:
             try {
-                return new DeleteCommand(String.valueOf(tokens.nextToken()));
+                String index = tokens.nextToken();
+                if (tokens.hasMoreTokens()) {
+                    throw new TheBotFatherException("Just one number please :/\n" +
+                            "\tTo mark a task as done enter \"mark <index>\"");
+                }
+                return new DeleteCommand(String.valueOf(index));
             } catch (NoSuchElementException e) {
                 throw new TheBotFatherException("Skill issue: Atleast enter a number.\n" +
                         "\tTo unmark a task enter \"unmark <index>\"");

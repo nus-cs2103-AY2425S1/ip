@@ -1,4 +1,3 @@
-D | 1 | finish assignment | 2005-10-10T12:30
 E | 0 | do yoga | 2005-10-10T12:30 | 2005-10-10T12:30
 D | 0 | relax | 2024-12-12T12:00
 D | 0 | test | 2005-10-10T12:30
@@ -9,3 +8,4 @@ T | 0 | return book
 D | 1 | submit report | 2024-09-01T12:00
 T | 0 | is this there in jar?
 T | 0 | read notes
+T | 0 | blance checking
