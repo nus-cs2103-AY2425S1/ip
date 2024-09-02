@@ -2,6 +2,7 @@ package delta;
 
 import delta.command.Command;
 import delta.exception.DeltaException;
+import delta.gui.Main;
 import delta.util.Parser;
 import delta.util.Storage;
 import delta.util.TaskList;

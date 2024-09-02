@@ -1,4 +1,4 @@
-package delta;
+package delta.gui;
 
 import java.io.IOException;
 import java.util.Collections;

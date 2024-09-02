@@ -1,5 +1,6 @@
-package delta;
+package delta.gui;
 
+import delta.Delta;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

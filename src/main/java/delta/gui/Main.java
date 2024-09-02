@@ -1,7 +1,8 @@
-package delta;
+package delta.gui;
 
 import java.io.IOException;
 
+import delta.Delta;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
