@@ -19,8 +19,8 @@ public class Main extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image humanImage = new Image(this.getClass().getResourceAsStream("images/bot.jpg"));
-    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/human.jpg"));
+    private Image humanImage = new Image(this.getClass().getResourceAsStream("images/human.jpg"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/bot.jpg"));
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -80,6 +80,9 @@ public class Main extends Application {
     }
 
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), botImage));
+        String input = userInput.getText();
+        dialogContainer.getChildren().addAll(DialogBox.getHumanDialog(input, humanImage));
+        dialogContainer.getChildren().addAll(DialogBox.getBotDialog(snowy.getResponse(input), botImage));
+        userInput.clear();
     }
 }

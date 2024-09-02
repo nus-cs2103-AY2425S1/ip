@@ -76,13 +76,14 @@ public class TaskList {
      * @param description the description of the task.
      * @throws SnowyException if the description given is empty.
      */
-    public void addToDo(String description) throws SnowyException {
+    public Task addToDo(String description) throws SnowyException {
         if (description.isEmpty()) {
             throw new SnowyException("Invalid input for Todo");
         }
         Task newTask = new ToDo(description);
         tasks.add(newTask);
-        System.out.println("New todo task added:\n" + newTask);
+        return newTask;
+
     }
 
 
@@ -91,7 +92,7 @@ public class TaskList {
      * @param description the description of the deadline task.
      * @throws SnowyException if the description is empty or invalid.
      */
-    public void addDeadline(String description) throws SnowyException {
+    public Task addDeadline(String description) throws SnowyException {
         if (description.isEmpty()) {
             throw new SnowyException("Invalid input for Deadline");
         }
@@ -113,7 +114,8 @@ public class TaskList {
         }
         Task newTask = new Deadline(deadlineName, date);
         tasks.add(newTask);
-        System.out.println("New Deadline task added:\n" + newTask);
+
+        return newTask;
     }
 
 
@@ -122,7 +124,7 @@ public class TaskList {
      * @param description the description of the event.
      * @throws SnowyException if the description is empty or invalid.
      */
-    public void addEvent(String description) throws SnowyException {
+    public Task addEvent(String description) throws SnowyException {
         if (description.isEmpty()) {
             throw new SnowyException("Invalid input for Event");
         }
@@ -147,7 +149,7 @@ public class TaskList {
         }
         Task newTask = new Event(eventName, fromDate, toDate);
         tasks.add(newTask);
-        System.out.println("New Event task added:\n " + newTask);
+        return newTask;
     }
 
     /**
