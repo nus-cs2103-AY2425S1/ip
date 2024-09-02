@@ -1,17 +1,20 @@
 package sentinel.utils;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import sentinel.Sentinel;
 import sentinel.exception.DeadlineException;
 import sentinel.exception.EventException;
 import sentinel.exception.SentinelException;
 import sentinel.task.Task;
 import sentinel.task.ToDo;
 import sentinel.ui.Ui;
-import sentinel.Sentinel;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
+
 
 public class ParserTest {
     private Ui uiMock;
@@ -43,18 +46,22 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseTaskNameInvalidDeadline() throws SentinelException {
+    public void testParseTaskNameInvalidDeadline()
+            throws SentinelException {
         String input = "deadline Test Deadline";
         Sentinel.CommandType commandType = Sentinel.CommandType.deadline;
-        Exception exception = assertThrows(DeadlineException.class, () -> Parser.parseTaskName(commandType, input, uiMock));
+        Exception exception = assertThrows(DeadlineException.class, ()
+                -> Parser.parseTaskName(commandType, input, uiMock));
         assertEquals("Deadline task command requires a '/by' date.", exception.getMessage());
     }
 
     @Test
-    public void testParseTaskNameInvalidEvent() throws SentinelException {
+    public void testParseTaskNameInvalidEvent()
+            throws SentinelException {
         String input = "event Test Event";
         Sentinel.CommandType commandType = Sentinel.CommandType.event;
-        Exception exception = assertThrows(EventException.class, () -> Parser.parseTaskName(commandType, input, uiMock));
+        Exception exception = assertThrows(EventException.class, ()
+                -> Parser.parseTaskName(commandType, input, uiMock));
         assertEquals("Event task command requires a '/from' time.", exception.getMessage());
     }
 

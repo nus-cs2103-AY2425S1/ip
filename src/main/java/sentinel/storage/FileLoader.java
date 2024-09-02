@@ -9,15 +9,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Properties;
-import sentinel.utils.SentinelList;
+
+import sentinel.task.Deadline;
+import sentinel.task.Event;
 import sentinel.task.Task;
 import sentinel.task.ToDo;
-import sentinel.task.Event;
-import sentinel.task.Deadline;
+import sentinel.utils.SentinelList;
 
 /**
  * The FileLoader class is responsible for loading tasks from a properties file into a SentinelList.
- * It reads tasks from a file named "tasks.properties" in the "sentinel-saves" directory, parses the properties for each task, and creates corresponding Task objects.
+ * It reads tasks from a file named "tasks.properties" in the "sentinel-saves" directory,
+ * parses the properties for each task, and creates corresponding Task objects.
  */
 public class FileLoader {
 
@@ -47,7 +49,7 @@ public class FileLoader {
         // Check if the file exists before attempting to read
         if (!Files.exists(FILE_PATH)) {
             System.out.println("No tasks file found. Starting with an empty list.");
-            return tasks;  // Return an empty list if the file doesn't exist
+            return tasks; // Return an empty list if the file doesn't exist
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH.toFile()))) {
@@ -71,12 +73,17 @@ public class FileLoader {
 
             String taskType = properties.getProperty("taskType");
             Task task = switch (taskType) {
-                case "T" -> new ToDo(properties.getProperty("description"));
-                case "D" -> new Deadline(properties.getProperty("description"), LocalDateTime.parse(properties.getProperty("endDate")));
-                case "E" -> new Event(properties.getProperty("description"), LocalDateTime.parse(properties.getProperty("endDate")), LocalDateTime.parse(properties.getProperty("startDate")));
-                default -> throw new IllegalArgumentException("Unknown task type: " + taskType);
+            case "T" -> new ToDo(properties.getProperty("description"));
+            case "D" -> new Deadline(properties.getProperty("description"),
+                    LocalDateTime.parse(properties.getProperty("endDate")));
+            case "E" -> new Event(properties.getProperty("description"),
+                    LocalDateTime.parse(properties.getProperty("endDate")),
+                    LocalDateTime.parse(properties.getProperty("startDate")));
+            default -> throw new IllegalArgumentException("Unknown task type: " + taskType);
             };
-            if (properties.getProperty("isDone").equals("T")) task.setDone();
+            if (properties.getProperty("isDone").equals("T")) {
+                task.setDone();
+            }
             tasks.add(task);
             index++;
         }

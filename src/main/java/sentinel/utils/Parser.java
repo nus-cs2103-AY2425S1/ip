@@ -1,6 +1,6 @@
 package sentinel.utils;
 
-import sentinel.api.GeminiAPI;
+import sentinel.api.GeminiApi;
 import sentinel.exception.DeadlineException;
 import sentinel.exception.EventException;
 import sentinel.exception.SentinelException;
@@ -52,7 +52,7 @@ public class Parser {
             }
             case deadline -> {
                 String deadlineTime = parseTime(input, "/by");
-                LocalDateTime deadlineDateTime = GeminiAPI.formatDateTime(deadlineTime);
+                LocalDateTime deadlineDateTime = GeminiApi.formatDateTime(deadlineTime);
                 if (deadlineDateTime != null) {
                     return new Deadline(taskName, deadlineDateTime);
                 } else {
@@ -62,8 +62,8 @@ public class Parser {
             case event -> {
                 String fromTime = parseTime(input, "/from");
                 String toTime = parseTime(input, "/to");
-                LocalDateTime fromDateTime = GeminiAPI.formatDateTime(fromTime);
-                LocalDateTime toDateTime = GeminiAPI.formatDateTime(toTime);
+                LocalDateTime fromDateTime = GeminiApi.formatDateTime(fromTime);
+                LocalDateTime toDateTime = GeminiApi.formatDateTime(toTime);
                 if (fromDateTime == null || toDateTime == null) {
                     ui.showEventCommandGuidelines();
                 } else if (fromDateTime.isAfter(toDateTime)){
