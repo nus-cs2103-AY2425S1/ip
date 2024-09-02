@@ -1,3 +1,11 @@
+package Alex.Command;
+
+import Alex.Exceptions.AlexException;
+import Alex.Storage.Storage;
+import Alex.Task.Task;
+import Alex.Task.TaskList;
+import Alex.Ui.Ui;
+
 public class AddCommand extends CommandBase {
     private Task task;
 

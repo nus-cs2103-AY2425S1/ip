@@ -1,3 +1,4 @@
+package Alex.Task;
 //Used Enums
 public enum TaskType {
     TODO, DEADLINE, EVENT, DEFAULT

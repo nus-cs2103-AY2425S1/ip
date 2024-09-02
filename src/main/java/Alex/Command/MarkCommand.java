@@ -1,3 +1,10 @@
+package Alex.Command;
+import Alex.Exceptions.AlexException;
+import Alex.Storage.Storage;
+import Alex.Task.Task;
+import Alex.Task.TaskList;
+import Alex.Ui.Ui;
+
 public class MarkCommand extends CommandBase {
     private int index;
     private boolean markAsDone;
