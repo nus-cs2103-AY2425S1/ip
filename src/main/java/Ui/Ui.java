@@ -14,7 +14,7 @@ public class Ui {
     }
 
     public void displayInitialResponse() {
-       System.out.println("Hello! I'm Brock\n"
+        displayResponse("Hello! I'm Brock\n"
                 + "What can I do for you?");
     }
 
