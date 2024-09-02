@@ -1,9 +1,10 @@
 package beeboo.components;
 
+import java.util.Scanner;
+
 import beeboo.exception.BeeBooExceptions;
 import beeboo.task.Tasks;
 
-import java.util.Scanner;
 
 /**
  * The Ui class handles interactions with the user by displaying messages and processing user input.
@@ -120,7 +121,7 @@ public class Ui {
      * @return the user input as a trimmed and lowercase string
      */
     public String handleCommand() {
-        if (input == null) {  // Ensure Scanner is initialized
+        if (input == null) { // Ensure Scanner is initialized
             input = new Scanner(System.in);
         }
         return input.nextLine().trim().toLowerCase();

@@ -2,13 +2,22 @@ package beeboo.command;
 
 import beeboo.components.Storage;
 import beeboo.components.TaskList;
-import beeboo.task.Tasks;
 import beeboo.components.Ui;
 import beeboo.exception.InvalidIndexException;
+import beeboo.task.Tasks;
 
-public class MarkCommand extends Command{
+/**
+ * Represents a command to mark a task as done or not done in the chatbot's task list.
+ */
+public class MarkCommand extends Command {
     private String type;
     private String command;
+    /**
+     * Constructs an AddCommand.
+     *
+     * @param type    The type of task to add (e.g., "m" for mark done, "u" for mark undone).
+     * @param command The command string that contains the task description and details.
+     */
     public MarkCommand(String type, String command) {
         super(command);
         this.command = command;
@@ -16,7 +25,6 @@ public class MarkCommand extends Command{
     }
 
     /**
-     *
      * @param tasks tasklist of chatbot
      * @param ui ui of the chatbot
      * @param storage storage function of the chatbot
@@ -39,12 +47,13 @@ public class MarkCommand extends Command{
             ui.unmarkDoneMessage(undone);
             storage.saveItem(tasks);
             break;
+        default:
+            break;
         }
 
     }
 
     /**
-     *
      * @return true if is exit command false if not exit command
      */
     @Override

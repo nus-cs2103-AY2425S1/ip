@@ -1,12 +1,13 @@
 package beeboo.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import beeboo.components.TimeConverter;
 import beeboo.exception.InvalidDateException;
 import beeboo.exception.NoDescriptionException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Deadlines class represents a task with a specific deadline. It extends the
@@ -14,8 +15,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadlines extends Tasks {
 
-    private LocalDateTime date;
     static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy 'at' hh:mm a");
+    private LocalDateTime date;
 
     /**
      * Constructs a Deadlines instance with the specified description and deadline date.
@@ -40,7 +41,7 @@ public class Deadlines extends Tasks {
 
     /**
      * Creates a Deadlines instance from the given text input. The input should include
-     * a description and a deadline date in the format "by <date>". The method parses the input,
+     * a description and a deadline date in the format "by date". The method parses the input,
      * validates the description and date, and returns a new Deadlines object.
      *
      * @param text the input text containing description and deadline date
