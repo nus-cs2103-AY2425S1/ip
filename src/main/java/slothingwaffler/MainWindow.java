@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = userInput.getText().trim();
         String response = slothingWaffler.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
@@ -57,6 +57,14 @@ public class MainWindow extends AnchorPane {
             pause.setOnFinished(event -> Platform.exit());
             pause.play();
         }
+    }
+
+    public void greet() {
+        String greeting = slothingWaffler.getResponse("Hello! I'm the Slothing Waffler!\n" +
+                                "Let's stop slothing and get cracking!");
+        dialogContainer.getChildren().add(
+                DialogBox.getSlothingWafflerDialog(greeting, slothImage)
+        );
     }
 }
 
