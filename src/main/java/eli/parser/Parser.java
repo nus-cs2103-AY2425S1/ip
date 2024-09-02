@@ -1,3 +1,9 @@
+package eli.parser;
+
+import eli.command.*;
+import eli.exception.*;
+import eli.task.*;
+
 /**
  * Deals with making sense of the user command.
  */

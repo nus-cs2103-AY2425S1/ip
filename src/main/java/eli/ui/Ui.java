@@ -1,3 +1,5 @@
+package eli.ui;
+
 import java.util.Scanner;
 
 /**

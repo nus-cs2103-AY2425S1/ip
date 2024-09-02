@@ -1,4 +1,7 @@
+package eli.task;
+
 import java.util.ArrayList;
+import eli.exception.*;
 
 /**
  * Contains the task list and provides methods to manipulate tasks within the list.

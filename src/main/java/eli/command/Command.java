@@ -1,3 +1,11 @@
+package eli.command;
+
+import eli.exception.EliException;
+import eli.storage.Storage;
+import eli.task.Task;
+import eli.task.TaskList;
+import eli.ui.Ui;
+
 /**
  * Abstract class representing a Command that can be executed.
  * Concrete command classes should extend this class and implement the execute method.

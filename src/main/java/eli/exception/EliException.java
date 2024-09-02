@@ -1,3 +1,4 @@
+package eli.exception;
 /**
  * Represents a generic exception specific to the Eli application.
  */

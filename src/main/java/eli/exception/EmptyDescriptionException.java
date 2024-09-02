@@ -1,3 +1,4 @@
+package eli.exception;
 /**
  * Represents an exception thrown when a task description is empty.
  */

@@ -1,3 +1,13 @@
+package eli;
+
+import eli.storage.Storage;
+import eli.command.Command;
+import eli.exception.EliException;
+import eli.parser.Parser;
+import eli.storage.Storage;
+import eli.task.TaskList;
+import eli.ui.Ui;
+
 /**
  * The main class of the Eli application.
  * Coordinates the interaction between the user, storage, task list, and commands.

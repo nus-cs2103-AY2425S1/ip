@@ -1,3 +1,4 @@
+package eli.exception;
 /**
  * Represents an exception thrown when an unknown command is entered by the user.
  */
