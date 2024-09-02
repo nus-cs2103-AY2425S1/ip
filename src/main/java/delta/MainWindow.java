@@ -1,5 +1,6 @@
 package delta;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -26,6 +28,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window with size setting and welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -45,12 +50,18 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
         String input = userInput.getText();
         String response = delta.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDeltaDialog(response, dukeImage)
-        );
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
+        pause.setOnFinished(event -> dialogContainer.getChildren().addAll(
+                DialogBox.getDeltaDialog(response, dukeImage)));
+        pause.play();
         userInput.clear();
+        if (response.equals("Bye. Hope to see you again soon!")) {
+            pause = new PauseTransition(Duration.seconds(1.5));
+            pause.setOnFinished(event -> System.exit(0));
+            pause.play();
+        }
     }
 }
