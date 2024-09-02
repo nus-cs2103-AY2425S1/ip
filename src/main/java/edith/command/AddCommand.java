@@ -12,13 +12,40 @@ import edith.task.TaskList;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add a task to the task list.
+ * The AddCommand class parses a user instruction to create and add a new task
+ * to the task list. It supports adding ToDo, Deadline, and Event tasks.
+ */
 public class AddCommand extends Command {
     private String instruction;
 
+    /**
+     * Constructs an AddCommand with the specified instruction.
+     *
+     * @param instruction The instruction provided by the user for adding a task.
+     */
     public AddCommand(String instruction) {
         this.instruction = instruction;
     }
 
+    /**
+     * Executes the AddCommand by creating a task based on the user instruction,
+     * adding it to the task list, and saving the updated task list.
+     *
+     * <p>This method will:
+     * <ul>
+     *     <li>Create a ToDo, Deadline, or Event task based on
+     *     the instruction provided.</li>
+     *     <li>Throw an EdithException if the instruction is invalid or incomplete.</li>
+     *     <li>Update the task list and save the changes using the provided Storage.</li>
+     * </ul>
+     *
+     * @param tasks The TaskList to which the task should be added.
+     * @param ui The Ui used to display messages to the user.
+     * @param storage The Storage used to save the updated task list.
+     * @throws EdithException If the user instruction is invalid or if there is an issue with the date/time format.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
         Task task = null;
