@@ -1,5 +1,7 @@
 package chatBot.bot;
 
+import chatBot.command.Command;
+
 /** Bword is a chatbot that helps with planning tasks
  *
  */

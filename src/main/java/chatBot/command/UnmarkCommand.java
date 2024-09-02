@@ -1,3 +1,10 @@
+package chatBot.command;
+
+import chatBot.bot.Storage;
+import chatBot.bot.TaskList;
+import chatBot.bot.Ui;
+import chatBot.task.Task;
+
 public class UnmarkCommand extends Command {
     private final int index;
 
@@ -5,7 +12,7 @@ public class UnmarkCommand extends Command {
         this.index = i;
     }
 
-    void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (this.index > taskList.size()) {
             System.out.println("index out of range");
             return;

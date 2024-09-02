@@ -1,5 +1,9 @@
+package chatBot.task;
+
+import chatBot.exception.EmptyDescException;
+
 public class ToDoTask extends Task{
-    ToDoTask(String desc) throws EmptyDescException {
+    public ToDoTask(String desc) throws EmptyDescException {
         super(desc);
     }
 

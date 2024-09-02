@@ -1,10 +1,17 @@
+package chatBot.command;
+
+import chatBot.bot.Storage;
+import chatBot.bot.TaskList;
+import chatBot.bot.Ui;
+import chatBot.task.Task;
+
 public class MarkCommand extends Command {
     private final int index;
     public MarkCommand(int i) {
         this.index = i;
     }
 
-    void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (this.index > taskList.size()) {
             System.out.println("index out of range");
             return;

@@ -1,9 +1,15 @@
-abstract class Command {
+package chatBot.command;
+
+import chatBot.bot.Storage;
+import chatBot.bot.TaskList;
+import chatBot.bot.Ui;
+
+public abstract class Command {
     Command() {}
 
-    abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
 
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }

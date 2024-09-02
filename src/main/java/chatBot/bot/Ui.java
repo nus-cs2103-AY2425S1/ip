@@ -1,3 +1,5 @@
+package chatBot.bot;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -15,7 +17,7 @@ public class Ui {
                 HLINE);
     }
 
-    void showGoodbye() {
+    public void showGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 

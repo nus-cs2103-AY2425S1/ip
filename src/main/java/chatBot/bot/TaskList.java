@@ -1,4 +1,6 @@
-import com.sun.source.util.TaskListener;
+package chatBot.bot;
+
+import chatBot.task.Task;
 
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
-    void addTask(Task task) {
+    public void addTask(Task task) {
         this.tasks.add(task);
     }
 
@@ -29,15 +31,15 @@ public class TaskList {
         return s;
     }
 
-    int size() {
+    public int size() {
         return this.tasks.size();
     }
 
-    Task getTask(int index) {
+    public Task getTask(int index) {
         return this.tasks.get(index);
     }
 
-    void listTasks() {
+    public void listTasks() {
         String s = "";
         for (int i = 0; i < this.tasks.size(); i++) {
             s += String.format("%d.", i + 1) +  this.tasks.get(i) + "\n";
@@ -45,11 +47,11 @@ public class TaskList {
         System.out.println(s.stripTrailing());
     }
 
-    String getTaskToString(int index) {
+    public String getTaskToString(int index) {
         return this.tasks.get(index).toString();
     }
 
-    void remove(int index) {
+    public void removeTask(int index) {
         this.tasks.remove(index);
     }
 }

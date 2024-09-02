@@ -1,3 +1,14 @@
+package chatBot.command;
+
+import chatBot.bot.Storage;
+import chatBot.bot.TaskList;
+import chatBot.bot.Ui;
+import chatBot.exception.EmptyDescException;
+import chatBot.task.Deadline;
+import chatBot.task.Event;
+import chatBot.task.Task;
+import chatBot.task.ToDoTask;
+
 import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {

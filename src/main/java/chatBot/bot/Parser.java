@@ -1,3 +1,13 @@
+package chatBot.bot;
+
+import chatBot.command.*;
+import chatBot.exception.EmptyDescException;
+import chatBot.exception.InvalidCommandException;
+import chatBot.task.Deadline;
+import chatBot.task.Event;
+import chatBot.task.Task;
+import chatBot.task.ToDoTask;
+
 import java.time.format.DateTimeParseException;
 
 public class Parser {
