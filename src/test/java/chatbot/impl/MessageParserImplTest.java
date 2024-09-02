@@ -18,6 +18,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class MessageParserImplTest {
 
     private MessageParserImpl messageParser;
@@ -173,6 +176,33 @@ public class MessageParserImplTest {
     void testHandleMessageDeleteOutOfRange() {
         doThrow(IndexOutOfBoundsException.class).when(mockStorage).getTask(anyInt());
         assertThrows(InvalidMessageException.class, () -> messageParser.handleMessage("delete 100"));
+    }
+
+    @Test
+    void testHandleMessageFindWithMatches() throws InvalidMessageException {
+        Task mockTask1 = mock(Task.class);
+        Task mockTask2 = mock(Task.class);
+        when(mockTask1.toString()).thenReturn("[T][ ] read BOOK");
+        when(mockTask2.toString()).thenReturn("[D][X] return book (by: 02 Dec 2024)");
+        when(mockStorage.findTasks("book")).thenReturn(Arrays.asList(mockTask1, mockTask2));
+
+        String result = messageParser.handleMessage("find book");
+        assertEquals(
+                "Here are the matching tasks:\n1. [T][ ] read BOOK\n2. [D][X] return book (by: 02 Dec 2024)",
+                result);
+    }
+
+    @Test
+    void testHandleMessageFindNoMatches() throws InvalidMessageException {
+        when(mockStorage.findTasks("nonexistent")).thenReturn(Collections.emptyList());
+
+        String result = messageParser.handleMessage("find nonexistent");
+        assertEquals("No matching tasks found.", result);
+    }
+
+    @Test
+    void testHandleMessageFindEmptyKeyword() {
+        assertThrows(InvalidMessageException.class, () -> messageParser.handleMessage("find"));
     }
 
 }
