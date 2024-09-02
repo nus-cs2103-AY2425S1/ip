@@ -1,6 +1,12 @@
 import java.util.Scanner;
 
 public class Nebula {
+    /**
+     * Entry point of the application. Initializes the UI, task list, and parser,
+     * then processes user commands in a loop until "bye" is entered
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         Ui ui = new Ui();
         TaskList taskList = new TaskList();
@@ -107,6 +113,13 @@ public class Nebula {
 
     }
 
+    /**
+     * Validates the user's input for the correct format and content
+     *
+     * @param command  the user input command
+     * @param taskList the current list of tasks
+     * @throws NebulaException if the command is invalid or improperly formatted
+     */
     public static void validateCommand(String command, TaskList taskList) throws NebulaException {
         Parser parser = new Parser();
         Ui ui = new Ui();
@@ -151,6 +164,12 @@ public class Nebula {
         }
     }
 
+    /**
+     * Determines the TaskType based on the command prefix
+     *
+     * @param command the input command string
+     * @return the corresponding TaskType, or unknown TaskType if unrecognized
+     */
     public static TaskType parseTaskType(String command) {
         if (command.startsWith("todo")) {
             return TaskType.TODO;
