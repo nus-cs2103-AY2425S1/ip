@@ -29,12 +29,22 @@ public class DateCommand extends Command {
      * @param tasks An instance of TaskList where the new task is added to.
      * @param ui An instance of Ui (User Interface) that handles the interactions between FriendlyBot and user.
      * @param storage An instance of Storage that loads tasks and saves tasks in a file.
+     *
+     * @return Returns a response String from FriendlyBot to the User.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder sb = new StringBuilder();
         ArrayList<Task> taskList = tasks.getTasksOnDate(date);
-        for (Task task : taskList) {
-            Ui.print(task.toString());
+        int numTasks = taskList.size();
+        for (int i = 0; i < numTasks; i++) {
+            Task task = taskList.get(i);
+            sb.append(task.toString());
+            if (i != numTasks - 1) {
+                sb.append("\n");
+            }
         }
+        Ui.print(sb.toString());
+        return sb.toString();
     }
 }

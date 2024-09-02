@@ -52,4 +52,12 @@ public class FriendlyBot {
         }
         reader.close();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        Command cmd = Parser.parse(input);
+        return cmd.execute(this.tasks, this.ui, this.storage);
+    }
 }

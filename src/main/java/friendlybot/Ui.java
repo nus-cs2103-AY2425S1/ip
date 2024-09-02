@@ -26,8 +26,10 @@ public class Ui {
     /**
      * Prints an exit message for the user, when the user wishes to exit FriendlyBot.
      */
-    public void exitMessage() {
-        Ui.print("Bye. Hope to see you again soon!");
+    public String exitMessage() {
+        String exitMessage = "Bye. Hope to see you again soon!";
+        Ui.print(exitMessage);
+        return exitMessage;
     }
 
     /**
