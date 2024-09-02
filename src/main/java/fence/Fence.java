@@ -65,12 +65,14 @@ public class Fence {
                     ui.count(tasks.size());
                     storage.saveRewrite(tasks);
                 } else {
-                    ui.unknownInput();
+                    ui.unknownCommand();
                 }
             } catch (NoSuchElementException e) {
-                ui.todoWrongFormat();
+                ui.missingFieldError();
             } catch (DateTimeParseException e) {
-                ui.unknownDate();
+                ui.invalidDateError();
+            } catch (NumberFormatException e) {
+                ui.invalidNumberError();
             }
         }
     }

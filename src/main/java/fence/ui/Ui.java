@@ -24,17 +24,21 @@ public class Ui {
                 ((size == 1) ? " item " : " items ") + "in the list.");
     }
 
-    public void unknownInput() {
+    public void unknownCommand() {
         System.out.println("fence is programmed to track your tasks and has long lost all ability " +
                 "to do other things ");
     }
 
-    public void todoWrongFormat() {
-        System.out.println("doing nothing");
+    public void missingFieldError() {
+        System.out.println("doing nothing (field missing/invalid format)");
     }
 
-    public void unknownDate() {
+    public void invalidDateError() {
         System.out.println("fence only understands yyyy-mm-dd");
+    }
+
+    public void invalidNumberError() {
+        System.out.println("fence has only learnt numerical integers");
     }
 
     public void loadingError() {
