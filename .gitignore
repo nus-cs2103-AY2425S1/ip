@@ -19,3 +19,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 .vscode/
 
 src/main/java/save.txt
+
+src/main/java/FlyChat/save.txt
