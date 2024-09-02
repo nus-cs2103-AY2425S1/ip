@@ -11,6 +11,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command used by user to add task to the list.
+ * <p>An <code>AddCommand</code> object is represented by its task type and description of the task.
+ */
 public class AddCommand extends Command {
     private final TaskType taskType;
     private final String taskName;
@@ -20,6 +24,14 @@ public class AddCommand extends Command {
         this.taskName = taskName;
     }
 
+    /**
+     * Adds a new task to the list.
+     *
+     * @param tasks current list of tasks.
+     * @param ui ui object to show message to user.
+     * @param storage storage object to store the data.
+     * @throws RoseException If input is incomplete or tasktype is unknown.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask;
         DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
