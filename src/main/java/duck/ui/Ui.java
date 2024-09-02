@@ -6,12 +6,15 @@ import duck.task.TaskList;
 import java.util.Scanner;
 
 /**
- * duck.ui.Ui class deals with interactions with the user.
+ * The Ui class deals with interactions with the user.
  */
 public class Ui {
     private static final String LINE = "____________________________________________________________";
     private Scanner scanner;
 
+    /**
+     * Constructs a Ui instance and initializes the scanner for user input.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
@@ -48,6 +51,11 @@ public class Ui {
         System.out.println("OK, I've marked this task as not done yet: " + task);
     }
 
+    /**
+     * Displays all tasks in the current task list.
+     *
+     * @param list the current task list
+     */
     public void showTasks(TaskList list) {
         System.out.println(LINE + "\nHere are the tasks in your list:");
         for (int i = 0; i < list.getSize(); i++) {
@@ -57,6 +65,9 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Closes the scanner used for reading user input.
+     */
     public void closeScanner() {
         scanner.close();
     }

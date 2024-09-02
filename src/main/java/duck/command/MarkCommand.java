@@ -4,9 +4,17 @@ import duck.task.TaskList;
 import duck.ui.Ui;
 import duck.storage.Storage;
 
+/**
+ * Represents a command to mark a task from the task list.
+ */
 public class MarkCommand implements Command {
     private final String fullCommand;
 
+    /**
+     * Constructs a MarkCommand instance with the command input.
+     *
+     * @param fullCommand the full command string input
+     */
     public MarkCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }

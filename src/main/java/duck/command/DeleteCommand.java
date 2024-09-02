@@ -4,9 +4,18 @@ import duck.task.TaskList;
 import duck.ui.Ui;
 import duck.storage.Storage;
 
+
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand implements Command {
     private final String fullCommand;
 
+    /**
+     * Constructs a DeleteCommand instance with the command input.
+     *
+     * @param fullCommand the full command string input
+     */
     public DeleteCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }

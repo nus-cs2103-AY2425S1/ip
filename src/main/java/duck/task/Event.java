@@ -1,7 +1,7 @@
 package duck.task;
 
 /**
- * Represents an event task with a description, start time, and end time.
+ * Represents an Event task with a description, start time, and end time.
  */
 public class Event extends Task {
 
@@ -31,6 +31,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
+    /**
+     * Returns a string representation of this event task to be saved in duck.txt.
+     *
+     * @return A string representation of this event task.
+     */
     public String toFileString() {
         return "E | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + this.from + " | " + this.to;
     }

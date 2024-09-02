@@ -4,9 +4,17 @@ import duck.task.TaskList;
 import duck.ui.Ui;
 import duck.storage.Storage;
 
+/**
+ * Represents a command to list tasks from the task list.
+ */
 public class ListCommand implements Command {
     private final String fullCommand;
 
+    /**
+     * Constructs a ListCommand instance with the command input.
+     *
+     * @param fullCommand the full command string input
+     */
     public ListCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
