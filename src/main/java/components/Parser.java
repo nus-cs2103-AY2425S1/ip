@@ -27,79 +27,81 @@ public class Parser {
         String[] splitedBySlash;
         String[] splitedBySpace = fullCommand.split("\\s+", 2);
         switch (splitedBySpace[0]) {
-            case "bye":
-                return new ExitCommand();
-            case "mark":
+        case "bye":
+            return new ExitCommand();
+        case "mark":
+            try {
+                int itemNumber = Integer.parseInt(splitedBySpace[1]) - 1;
+                return new MarkCommand(itemNumber, true);
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+            }
+            break;
+        case "unmark":
+            try {
+                int itemNumber = Integer.parseInt(splitedBySpace[1]) - 1;
+                return new MarkCommand(itemNumber, false);
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+            }
+            break;
+        case "list":
+            return new ListCommand();
+        case "delete":
+            try {
+                int taskNumber = Integer.parseInt(splitedBySpace[1]) - 1;
+                return new DeleteCommand(taskNumber);
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+            }
+            break;
+        case "find":
+            return new FindCommand(splitedBySpace[1]);
+        default:
+            switch (splitedBySpace[0]) {
+            case "todo":
                 try {
-                    int itemNumber = Integer.parseInt(splitedBySpace[1]) - 1;
-                    return new MarkCommand(itemNumber, true);
-                } catch (NumberFormatException e) {
+                    task = new Todo(splitedBySpace[1]);
+                } catch (LightException e) {
                     System.out.println(e);
                 }
                 break;
-            case "unmark":
+            case "deadline":
                 try {
-                    int itemNumber = Integer.parseInt(splitedBySpace[1]) - 1;
-                    return new MarkCommand(itemNumber, false);
-                } catch (NumberFormatException e) {
+                    splitedBySlash = splitedBySpace[1].split("/by ");
+                    task = new Deadline(splitedBySlash[0], splitedBySlash[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Not enough arguments");
+                } catch (LightException e) {
                     System.out.println(e);
                 }
+
                 break;
-            case "list":
-                return new ListCommand();
-            case "delete":
+            case "event":
                 try {
-                    int taskNumber = Integer.parseInt(splitedBySpace[1]) - 1;
-                    return new DeleteCommand(taskNumber);
-                } catch (NumberFormatException e) {
+                    splitedBySlash = splitedBySpace[1].split("/from ");
+                    String[] splitedBySlashTo = splitedBySpace[1].split("/to ");
+                    task = new Event(splitedBySlash[0], splitedBySlash[1].substring(0, splitedBySlash[1].indexOf("/to ")).stripTrailing(), splitedBySlashTo[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Not enough arguments");
+                } catch (LightException e) {
                     System.out.println(e);
                 }
+
                 break;
-            default:
-                switch (splitedBySpace[0]) {
-                    case "todo":
-                        try {
-                            task = new Todo(splitedBySpace[1]);
-                        } catch (LightException e) {
-                            System.out.println(e);
-                        }
-
-                        break;
-                    case "deadline":
-                        try {
-                            splitedBySlash = splitedBySpace[1].split("/by ");
-                            task = new Deadline(splitedBySlash[0], splitedBySlash[1]);
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("Not enough arguments");
-                        } catch (LightException e) {
-                            System.out.println(e);
-                        }
-
-                        break;
-                    case "event":
-                        try {
-                            splitedBySlash = splitedBySpace[1].split("/from ");
-                            String[] splitedBySlashTo = splitedBySpace[1].split("/to ");
-                            task = new Event(splitedBySlash[0], splitedBySlash[1].substring(0,splitedBySlash[1].indexOf("/to ")).stripTrailing(), splitedBySlashTo[1]);
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("Not enough arguments");
-                        } catch (LightException e) {
-                            System.out.println(e);
-                        }
-
-                        break;
-                }
-                if (task!=null) {
-                    return new AddCommand(task);
-                }
+            }
+            if (task != null) {
+                return new AddCommand(task);
+            }
 
         }
         throw new LightException("Please key in a valid input");
     }
+
     /**
      * Parses the input string to a LocalDateTime object.
      *
-     * @param input The input string to be parsed.
+     * @param input  The input string to be parsed.
      * @param format The format of the input string.
      * @return The LocalDateTime object parsed from the input string.
      */
