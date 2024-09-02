@@ -1,14 +1,23 @@
 package optimus;
 
 import java.util.ArrayList;
+import javafx.application.Platform;
 
 // Let ChatGPT check and suggest comments and JavaDocs according to CS2103T style guide
 /**
  * Handles interactions with the user including displaying messages and reading input.
  */
 public class Ui {
+    private MainWindow mainWindow;
 
-    public Ui() {
+    public Ui(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+    }
+
+    // Method to show messages to the user in the chatbox
+    // Suggested by ChatGPT to show System.out.println messages on the GUI instead
+    public void showToUser(String message) {
+        Platform.runLater(() -> mainWindow.showMessage(message));
     }
 
     /**
@@ -16,33 +25,32 @@ public class Ui {
      */
     public void greetUser() {
         String greeting = "Hello! I'm Optimus.\n" +
-                "What can I do for you?\n";
-        System.out.println(greeting);
-        System.out.println("You need to start your input with either todo, deadline, or event.\n" +
+                "What can I do for you?\n" + "You need to start your input with either todo, deadline, or event.\n" +
                 "For example:\n" +
                 "todo borrow book\n" +
                 "deadline return book /by 2019-12-02\n" +
-                "event project meeting /from 2019-12-02 /to 2019-12-03\n");
-        System.out.println("You can also do e.g.\n" + "mark 2\n" + "delete 1\n" + "list");
+                "event project meeting /from 2019-12-02 /to 2019-12-03\n" +
+                "You can also do e.g.\n" + "mark 2\n" + "delete 1\n" + "list";
+        showToUser(greeting);
     }
 
     /**
      * Displays example commands for the user.
      */
     public void showExampleCommand() {
-        System.out.println("You need to start your input with either todo, deadline, or event.\n" +
+        showToUser("You need to start your input with either todo, deadline, or event.\n" +
                 "For example:\n" +
                 "todo borrow book\n" +
                 "deadline return book /by 2019-12-02\n" +
-                "event project meeting /from 2019-12-02 /to 2019-12-03");
-        System.out.println("You can also do e.g.\n" + "mark 2\n" + "delete 1\n" + "list");
+                "event project meeting /from 2019-12-02 /to 2019-12-03\n" +
+                "You can also do e.g.\n" + "mark 2\n" + "delete 1\n" + "list");
     }
 
     /**
      * Displays a goodbye message to the user.
      */
     public void sayBye() {
-        System.out.println("Bye. Hope to see you again soon!\n");
+        showToUser("Bye. Hope to see you again soon!\n");
     }
 
     /**
@@ -52,9 +60,11 @@ public class Ui {
      */
     public void listTasks(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
+        String listOfTasks = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
+            listOfTasks = listOfTasks + "\n" + (i + 1) + "." + tasks.get(i).toString();
         }
+        showToUser(listOfTasks);
     }
 
     /**
@@ -67,11 +77,12 @@ public class Ui {
         ArrayList<Task> tasks = taskList.getTasks();
         String[] command = Parser.parseCommand(userInput);
         String keyword = command[1];
-        System.out.println("Here are the matching tasks in your list:");
+        String result = "";
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getDescription().contains(keyword)) {
-                System.out.println((i + 1) + "." + tasks.get(i).toString());
+                result = result + "\n" + (i + 1) + "." + tasks.get(i).toString();
             }
         }
+        showToUser("Here are the matching tasks in your list:\n" + result);
     }
 }

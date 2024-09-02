@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> taskList; // Stores the list of tasks
+    private Ui ui;
 
     /**
      * Constructs a new empty TaskList.
@@ -21,8 +22,9 @@ public class TaskList {
      *
      * @param taskList The list of tasks to initialize with.
      */
-    public TaskList(ArrayList<Task> taskList) {
+    public TaskList(ArrayList<Task> taskList, Ui ui) {
         this.taskList = taskList;
+        this.ui = ui;
     }
 
     /**
@@ -50,7 +52,7 @@ public class TaskList {
         // Mark the task as done
         Task task = taskList.get(index);
         task.isDone = true;
-        System.out.println("Nice! I've marked this task as done:\n" + task);
+        ui.showToUser("Nice! I've marked this task as done:\n" + task);
     }
 
     /**
@@ -67,10 +69,9 @@ public class TaskList {
             throw new OptimusException("Sorry, you only have up to task number " + taskList.size() + ".");
         }
         // Remove the task from the list
-        System.out.println("Noted, I've removed this task:");
-        System.out.println(taskList.get(taskIndex));
+        ui.showToUser("Noted, I've removed this task:\n" + taskList.get(taskIndex));
         taskList.remove(taskIndex);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list");
+        ui.showToUser("Now you have " + taskList.size() + " tasks in the list");
     }
 
     /**
@@ -122,8 +123,7 @@ public class TaskList {
         }
         // Add the created task to the task list
         taskList.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        ui.showToUser("Got it. I've added this task:\n" + task + "\n" +
+                "Now you have " + taskList.size() + " tasks in the list.");
     }
 }

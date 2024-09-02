@@ -12,21 +12,23 @@ import java.util.Scanner;
  */
 public class Storage {
     private String filePath; // File path for storing the task data
+    private Ui ui;
 
     /**
      * Constructs a Storage object with the specified file path.
      *
      * @param filePath The file path where tasks are stored.
      */
-    public Storage(String filePath) {
+    public Storage(String filePath, Ui ui) {
         this.filePath = filePath;
+        this.ui = ui;
     }
 
     /**
      * Loads tasks from the file if it exists.
      * If the file or directory does not exist, create them.
      * This method was partially inspired by code examples provided by ChatGPT and W3Schools.
-     * Reference: https://www.w3schools.com/java/java_files_create.asp
+     * Solution below inspired by https://www.w3schools.com/java/java_files_create.asp
      * ChatGPT suggested to catch IOException
      *
      * @return The list of tasks loaded from the file.
@@ -46,7 +48,7 @@ public class Storage {
             if (!file.exists()) {
                 //remove after testing
                 file.createNewFile();
-                System.out.println("Created new data file optimus.txt");
+                ui.showToUser("Created new data file optimus.txt");
             } else {
                 // Read tasks from the file
                 Scanner scanner = new Scanner(file);
@@ -65,7 +67,7 @@ public class Storage {
                         try {
                             task = new Deadline(description, by);
                         } catch (OptimusException e) {
-                            System.out.println("Error loading deadline task: " + e.getMessage());
+                            ui.showToUser("Error loading deadline task: " + e.getMessage());
                             continue;
                         }
                     } else {
@@ -75,7 +77,7 @@ public class Storage {
                         try {
                             task = new Event(description, from, to);
                         } catch (OptimusException e) {
-                            System.out.println("Error loading event task: " + e.getMessage());
+                            ui.showToUser("Error loading event task: " + e.getMessage());
                             continue;
                         }
                     }
@@ -84,15 +86,15 @@ public class Storage {
                     taskList.add(task);
                 }
                 scanner.close();
-                System.out.println("Loaded tasks from file optimus.txt");
+                ui.showToUser("Loaded tasks from file optimus.txt");
             }
         } catch (IOException e) {
             // Handle file I/O exceptions
-            System.out.println("Error loading tasks from file: " + e.getMessage());
+            ui.showToUser("Error loading tasks from file: " + e.getMessage());
         } catch (ArrayIndexOutOfBoundsException e) {
             // Handle invalid file formatting
             // Suggested by ChatGPT
-            System.out.println("Invalid task format in file.");
+            ui.showToUser("Invalid task format in file.");
         }
         return taskList;
     }
@@ -102,7 +104,7 @@ public class Storage {
      * Overwrites the file with the current state of the taskList.
      * This method was partially inspired by code examples provided by W3Schools.
      * Asked ChatGPT for advice on how to incorporate polymorphism. It suggested toFileFormat method.
-     * Reference: https://www.w3schools.com/java/java_files_create.asp
+     * Solution below inspired by https://www.w3schools.com/java/java_files_create.asp
      * @param taskList The TaskList object containing the tasks to be saved.
      */
     public void saveTasks(TaskList taskList) {
@@ -114,9 +116,9 @@ public class Storage {
                 myWriter.write(taskList.getTasks().get(i).toFileFormat());
             }
             myWriter.close();
-            System.out.println("Tasks saved successfully!");
+            ui.showToUser("Tasks saved successfully!");
         } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
+            ui.showToUser("Error saving tasks to file: " + e.getMessage());
         }
     }
 }
