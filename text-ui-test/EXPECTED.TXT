@@ -1,12 +1,12 @@
 What's up, it's ToMo here!
 How can I help you?
-A new task is added
+A task is added
 [T][ ] borrow book
 How can I help you?
-A new task is added
+A task is added
 [D][ ] return book (by: Sunday)
 How can I help you?
-A new task is added
+A task is added
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 How can I help you?
 The tasks list as follow:
