@@ -31,14 +31,14 @@ public class Storage {
                 tasks.add(task);
             } else if (args[1].equals("D")) {
                 args = line.split("\\[|\\]\\[|\\] | \\(by: |\\)");
-                Task task = new Deadline(args[3], args[4]);
+                Task task = new Deadline(args[3], Converter.OutputToDateTime(args[4]));
                 if (args[2].equals("X")) {
                     task.mark();
                 }
                 tasks.add(task);
             } else {
                 args = line.split("\\[|\\]\\[|\\] | \\(from: | to: |\\)");
-                Task task = new Event(args[3], args[4], args[5]);
+                Task task = new Event(args[3], Converter.OutputToDateTime(args[4]), Converter.OutputToDateTime(args[5]));
                 if (args[2].equals("X")) {
                     task.mark();
                 }
