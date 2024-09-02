@@ -4,6 +4,10 @@ import chatBot.exception.EmptyDescException;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task can be a ToDoTask, Deadline or an Event.
+ * All tasks have a description and a marker isDone to indicate whether the task has been completed.
+ */
 public abstract class Task {
     protected static final DateTimeFormatter ORIGINALFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     protected static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
@@ -23,11 +27,13 @@ public abstract class Task {
         return description;
     }
 
+    /** Marks the tasks as completed */
     public Task markAsDone() {
         this.isDone = true;
         return this;
     }
 
+    /** Marks the tasks as not completed */
     public Task markAsNotDone() {
         this.isDone = false;
         return this;
@@ -37,10 +43,12 @@ public abstract class Task {
         return this.isDone ? "X" : " ";
     }
 
+    /** Returns the original command that created this task */
     public String getOriginalCommand() {
         return this.description;
     }
 
+    @Override
     public String toString() {
         String s = "[" + this.getStatusIcon() + "] ";
         s += this.getDescription();
