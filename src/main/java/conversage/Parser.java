@@ -23,26 +23,26 @@ public class Parser {
         String command = commandParts[0];
 
         switch (command.toLowerCase()) {
-            case "list":
-                return new ListCommand();
-            case "bye":
-                return new ByeCommand();
-            case "mark":
-                return new MarkCommand(commandParts[1]);
-            case "unmark":
-                return new UnmarkCommand(commandParts[1]);
-            case "todo":
-                return new AddCommand(new ToDo(commandParts[1]));
-            case "deadline":
-                return new AddCommand(Parser.parseDeadline(commandParts[1]));
-            case "event":
-                return new AddCommand(Parser.parseEvent(commandParts[1]));
-            case "delete":
-                return new DeleteCommand(commandParts[1]);
-            case "find":
-                return new FindCommand(commandParts[1]);
-            default:
-                throw new ConverSageException("Invalid command, please try again");
+        case "list":
+            return new ListCommand();
+        case "bye":
+            return new ByeCommand();
+        case "mark":
+            return new MarkCommand(commandParts[1]);
+        case "unmark":
+            return new UnmarkCommand(commandParts[1]);
+        case "todo":
+            return new AddCommand(new ToDo(commandParts[1]));
+        case "deadline":
+            return new AddCommand(Parser.parseDeadline(commandParts[1]));
+        case "event":
+            return new AddCommand(Parser.parseEvent(commandParts[1]));
+        case "delete":
+            return new DeleteCommand(commandParts[1]);
+        case "find":
+            return new FindCommand(commandParts[1]);
+        default:
+            throw new ConverSageException("Invalid command, please try again");
         }
     }
 
