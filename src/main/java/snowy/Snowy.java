@@ -16,7 +16,7 @@ public class Snowy {
 
     private Ui ui;
 
-    private Snowy(String filePath) {
+    public Snowy(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
