@@ -1,11 +1,11 @@
 package joe.command;
 
+import java.io.IOException;
+
 import joe.JoeException;
 import joe.Storage;
 import joe.Ui;
 import joe.task.TaskList;
-
-import java.io.IOException;
 
 /**
  * Represents the command when the user exits the app with 'bye'.
@@ -21,6 +21,7 @@ public class ExitCommand extends Command {
             throw new JoeException("Failed to save");
         }
     }
+
     @Override
     public boolean isExit() {
         return true;

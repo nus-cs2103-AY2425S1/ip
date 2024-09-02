@@ -12,13 +12,6 @@ public class Event extends Task {
         this.to = to;
     }
 
-//    public Event(String description, String from, String to, boolean isDone) {
-//        super(description);
-//        this.from = from;
-//        this.to = to;
-//        this.isDone = isDone;
-//    }
-
     @Override
     public String serialize() {
         return String.format("E|%b|%s|%s|%s", this.isDone, this.description, this.from, this.to);

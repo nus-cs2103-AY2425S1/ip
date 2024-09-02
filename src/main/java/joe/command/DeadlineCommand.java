@@ -1,14 +1,14 @@
 package joe.command;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 import joe.JoeException;
 import joe.Storage;
 import joe.Ui;
 import joe.task.Deadline;
 import joe.task.Task;
 import joe.task.TaskList;
-
-import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * This class represents the 'deadline' command.

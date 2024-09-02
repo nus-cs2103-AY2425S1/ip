@@ -1,11 +1,22 @@
 package joe;
 
-import joe.command.*;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import joe.command.Command;
+import joe.command.DeadlineCommand;
+import joe.command.DeleteCommand;
+import joe.command.EventCommand;
+import joe.command.ExitCommand;
+import joe.command.FindCommand;
+import joe.command.ListCommand;
+import joe.command.TodoCommand;
+import joe.command.ToggleCommand;
 
 class ParserTest {
 

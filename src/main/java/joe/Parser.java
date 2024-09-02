@@ -1,10 +1,19 @@
 package joe;
 
-import joe.command.*;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+
+import joe.command.Command;
+import joe.command.DeadlineCommand;
+import joe.command.DeleteCommand;
+import joe.command.EventCommand;
+import joe.command.ExitCommand;
+import joe.command.FindCommand;
+import joe.command.ListCommand;
+import joe.command.TodoCommand;
+import joe.command.ToggleCommand;
+import joe.command.UnknownCommand;
 
 /**
  * This class is used to parse raw input from the user and return a common
@@ -31,79 +40,79 @@ public class Parser {
             throw new JoeException("Unknown command");
         }
         switch (command) {
-            case BYE -> {
-                return new ExitCommand();
+        case BYE -> {
+            return new ExitCommand();
+        }
+        case LIST -> {
+            return new ListCommand();
+        }
+        case TODO -> {
+            if (inputArr.length == 1) {
+                throw new JoeException("OOPS!!! The description of a todo cannot be empty.");
             }
-            case LIST -> {
-                return new ListCommand();
+            String desc = String.join(" ", Arrays.copyOfRange(inputArr, 1, inputArr.length));
+            return new TodoCommand(desc);
+        }
+        case DEADLINE -> {
+            int byIdx = Arrays.asList(inputArr).indexOf("/by");
+            if (byIdx == -1) {
+                throw new JoeException("Oops! Try adding it like this: deadline {task description} /by {duedate}");
             }
-            case TODO -> {
-                if (inputArr.length == 1) {
-                    throw new JoeException("OOPS!!! The description of a todo cannot be empty.");
-                }
-                String desc = String.join(" ", Arrays.copyOfRange(inputArr, 1, inputArr.length));
-                return new TodoCommand(desc);
+            String taskDesc = String.join(" ", Arrays.copyOfRange(inputArr, 1, byIdx));
+            String taskBy = String.join("", Arrays.copyOfRange(inputArr, byIdx + 1, inputArr.length));
+            try {
+                LocalDate taskByDate = LocalDate.parse(taskBy);
+                return new DeadlineCommand(taskDesc, taskByDate);
+            } catch (DateTimeParseException e) {
+                throw new JoeException("Please enter a date with the format yyyy-mm-dd");
             }
-            case DEADLINE -> {
-                int byIdx = Arrays.asList(inputArr).indexOf("/by");
-                if (byIdx == -1) {
-                    throw new JoeException("Oops! Try adding it like this: deadline {task description} /by {duedate}");
-                }
-                String taskDesc = String.join(" ", Arrays.copyOfRange(inputArr, 1, byIdx));
-                String taskBy = String.join("", Arrays.copyOfRange(inputArr, byIdx + 1, inputArr.length));
+        }
+        case EVENT -> {
+            int fromIdx = Arrays.asList(inputArr).indexOf("/from");
+            int toIdx = Arrays.asList(inputArr).indexOf("/to");
+            if (fromIdx == -1) {
+                throw new JoeException("Oops! Let's try again with this format: event {task description} /from {start date} /to {end date}");
+            }
+            String eventDesc = String.join(" ", Arrays.copyOfRange(inputArr, 1, fromIdx));
+            if (toIdx != -1) {
+                // to date exists
+                String eventFrom = String.join(" ", Arrays.copyOfRange(inputArr, fromIdx + 1, toIdx));
+                String eventTo = String.join(" ", Arrays.copyOfRange(inputArr, toIdx + 1, inputArr.length));
                 try {
-                    LocalDate taskByDate = LocalDate.parse(taskBy);
-                    return new DeadlineCommand(taskDesc, taskByDate);
+                    LocalDate fromDate = LocalDate.parse(eventFrom);
+                    LocalDate toDate = LocalDate.parse(eventTo);
+                    return new EventCommand(eventDesc, fromDate, toDate);
+                } catch (DateTimeParseException e) {
+                    throw new JoeException("Please enter a date with the format yyyy-mm-dd");
+                }
+            } else {
+                try {
+                    String eventFrom = String.join(" ", Arrays.copyOfRange(inputArr, fromIdx + 1, inputArr.length));
+                    LocalDate fromDate = LocalDate.parse(eventFrom);
+                    LocalDate maxDate = LocalDate.MAX;
+                    return new EventCommand(eventDesc, fromDate, maxDate);
+
                 } catch (DateTimeParseException e) {
                     throw new JoeException("Please enter a date with the format yyyy-mm-dd");
                 }
             }
-            case EVENT -> {
-                int fromIdx = Arrays.asList(inputArr).indexOf("/from");
-                int toIdx = Arrays.asList(inputArr).indexOf("/to");
-                if (fromIdx == -1) {
-                    throw new JoeException("Oops! Let's try again with this format: event {task description} /from {start date} /to {end date}");
-                }
-                String eventDesc = String.join(" ", Arrays.copyOfRange(inputArr, 1, fromIdx));
-                if (toIdx != -1) {
-                    // to date exists
-                    String eventFrom = String.join(" ", Arrays.copyOfRange(inputArr, fromIdx + 1, toIdx));
-                    String eventTo = String.join(" ", Arrays.copyOfRange(inputArr, toIdx + 1, inputArr.length));
-                    try {
-                        LocalDate fromDate = LocalDate.parse(eventFrom);
-                        LocalDate toDate = LocalDate.parse(eventTo);
-                        return new EventCommand(eventDesc, fromDate, toDate);
-                    } catch (DateTimeParseException e) {
-                        throw new JoeException("Please enter a date with the format yyyy-mm-dd");
-                    }
-                } else {
-                    try {
-                        String eventFrom = String.join(" ", Arrays.copyOfRange(inputArr, fromIdx + 1, inputArr.length));
-                        LocalDate fromDate = LocalDate.parse(eventFrom);
-                        LocalDate maxDate = LocalDate.MAX;
-                        return new EventCommand(eventDesc, fromDate, maxDate);
-
-                    } catch (DateTimeParseException e) {
-                        throw new JoeException("Please enter a date with the format yyyy-mm-dd");
-                    }
-                }
+        }
+        case DELETE -> {
+            return new DeleteCommand(inputArr);
+        }
+        case MARK,UNMARK -> {
+            return new ToggleCommand(command, inputArr);
+        }
+        case FIND -> {
+            if (inputArr.length != 2) {
+                throw new JoeException("Find currently only supports a single word query");
             }
-            case DELETE -> {
-                return new DeleteCommand(inputArr);
-            }
-            case MARK,UNMARK -> {
-                return new ToggleCommand(command, inputArr);
-            }
-            case FIND -> {
-                if (inputArr.length != 2) {
-                    throw new JoeException("Find currently only supports a single word query");
-                }
-                String query = inputArr[1];
-                return new FindCommand(query);
-            }
-            default -> {
-                return new UnknownCommand();
-            }
+            String query = inputArr[1];
+            return new FindCommand(query);
+        }
+        default -> {
+            return new UnknownCommand();
+        }
         }
     }
 }

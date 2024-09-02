@@ -8,14 +8,14 @@ public class Joe {
     private TaskList tasks;
     private Ui ui;
     public Joe(String filePath) {
-       this.ui = new Ui();
-       this.storage = new Storage(filePath);
-       try {
-           this.tasks = new TaskList(this.storage.loadData());
-       } catch (JoeException e) {
-           this.ui.printLoadingError();
-           this.tasks = new TaskList();
-       }
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        try {
+            this.tasks = new TaskList(this.storage.loadData());
+        } catch (JoeException e) {
+            this.ui.printLoadingError();
+            this.tasks = new TaskList();
+        }
     }
     private void run() {
         ui.printWelcome();

@@ -35,6 +35,7 @@ public abstract class Task {
     public boolean contains(String query) {
         return this.description.contains(query);
     }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);

@@ -1,7 +1,5 @@
 package joe.task;
 
-import joe.task.Task;
-
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

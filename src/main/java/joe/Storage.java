@@ -1,17 +1,26 @@
 package joe;
 
-import joe.task.*;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import joe.task.Deadline;
+import joe.task.Event;
+import joe.task.Task;
+import joe.task.TaskList;
+import joe.task.Todo;
 
 public class Storage {
     //deals with loading tasks from the file and saving tasks in the file
     private final String filePath;
 
     public Storage(String filePath) {
-       this.filePath = filePath;
+        this.filePath = filePath;
 
     }
 
@@ -24,15 +33,15 @@ public class Storage {
         File file = new File(this.filePath);
         try {
 
-        BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
-        ArrayList<Task> tasks = new ArrayList<>();
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-            String[] lineArr = line.split("\\|");
-            String taskType = lineArr[0];
-            boolean isDone = Boolean.parseBoolean(lineArr[1]);
-            String taskDesc = lineArr[2];
-            switch (taskType) {
+            BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
+            ArrayList<Task> tasks = new ArrayList<>();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                String[] lineArr = line.split("\\|");
+                String taskType = lineArr[0];
+                boolean isDone = Boolean.parseBoolean(lineArr[1]);
+                String taskDesc = lineArr[2];
+                switch (taskType) {
                 case "T" -> {
                     tasks.add(new Todo(taskDesc, isDone));
                 }
@@ -45,9 +54,9 @@ public class Storage {
                     LocalDate eventTo = LocalDate.parse(lineArr[4]);
                     tasks.add(new Event(taskDesc, eventFrom, eventTo).setIsDone(isDone));
                 }
+                }
             }
-        }
-        return tasks;
+            return tasks;
         } catch (IOException e) {
             throw new JoeException(e.getMessage());
         }

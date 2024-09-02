@@ -1,14 +1,13 @@
 package joe;
 
-import joe.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import joe.task.Task;
 
 public class Ui {
     //deals with interactions with the user
     public Ui() {
-
     }
 
     public void printWelcome() {
@@ -39,10 +38,6 @@ public class Ui {
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
-    }
-
-    public void printUnknownCommand() {
-        System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     /**
