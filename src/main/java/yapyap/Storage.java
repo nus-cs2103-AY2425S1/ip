@@ -58,6 +58,8 @@ public class Storage {
                         String to = taskInfo[4];
                         tasks.add(new Event(description, from, to, isDone));
                         break;
+                    default:
+                        throw new YapperBotException("Unrecognized task type '" + type + "'. Task cannot be added.");
                     }
                 }
                 reader.close();

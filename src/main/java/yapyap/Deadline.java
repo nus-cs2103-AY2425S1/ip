@@ -25,7 +25,7 @@ public class Deadline extends Task {
      * @param by Due date of the deadline in either "d/M/yyyy HHmm" or "yyyy-MM-dd" format.
      * @throws YapperBotException If the date format is invalid.
      */
-    public Deadline (String description, String by) throws YapperBotException {
+    public Deadline(String description, String by) throws YapperBotException {
         super(description);
         this.byDate = null;
         this.byDateTime = null;
@@ -54,7 +54,7 @@ public class Deadline extends Task {
      * @param isDone Completion status of the deadline.
      * @throws YapperBotException If the date format is invalid.
      */
-    public Deadline (String description, String by, boolean isDone) throws YapperBotException {
+    public Deadline(String description, String by, boolean isDone) throws YapperBotException {
         super(description);
         this.byDate = null;
         this.byDateTime = null;
