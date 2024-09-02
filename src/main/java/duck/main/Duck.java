@@ -45,7 +45,6 @@ public class Duck {
                 ui.showInvalidCommand();
             }
         }
-
         ui.showGoodbyeMessage();
         ui.closeScanner();
     }
