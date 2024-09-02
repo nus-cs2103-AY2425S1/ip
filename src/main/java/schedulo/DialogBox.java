@@ -70,7 +70,7 @@ public class DialogBox extends HBox {
         }
     }
 
-    public static DialogBox getDukeDialog(String text, Image img, Command commandType) {
+    public static DialogBox getScheduloDialog(String text, Image img, Command commandType) {
         var db = new DialogBox(text, img);
         db.changeDialogStyle(commandType);
         db.flip();

@@ -24,14 +24,14 @@ public class MainWindow extends AnchorPane {
     private Schedulo schedulo;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image scheduloImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Schedulo instance */
     public void setSchedulo(Schedulo d) {
         schedulo = d;
     }
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
         Command command = schedulo.getCommand();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage, command)
+                DialogBox.getScheduloDialog(response, scheduloImage, command)
         );
         userInput.clear();
     }

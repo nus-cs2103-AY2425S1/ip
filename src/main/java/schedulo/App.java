@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Schedulo using FXML.
  */
 public class App extends Application {
 
@@ -24,7 +24,7 @@ public class App extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setSchedulo(schedulo);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setSchedulo(schedulo);  // inject the schedulo instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
