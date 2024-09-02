@@ -64,6 +64,9 @@ public class Storage {
                     LocalDate eventTo = LocalDate.parse(lineArr[4]);
                     tasks.add(new Event(taskDesc, eventFrom, eventTo).setIsDone(isDone));
                 }
+                default -> {
+                    throw new JoeException("File is not in correct format");
+                }
                 }
             }
             return tasks;

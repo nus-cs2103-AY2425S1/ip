@@ -11,11 +11,17 @@ import joe.task.TaskList;
  */
 public class ToggleCommand extends Command {
     private String[] inputArr;
-    private Commands c;
+    private Commands command;
 
-    public ToggleCommand(Commands c, String[] inputArr) {
+    /**
+     * Constructs a {@code ToggleCommand} with the specified command and input array.
+     *
+     * @param command the command to be toggled
+     * @param inputArr the array of input strings associated with the command
+     */
+    public ToggleCommand(Commands command, String[] inputArr) {
         this.inputArr = inputArr;
-        this.c = c;
+        this.command = command;
     }
 
     @Override
@@ -24,9 +30,10 @@ public class ToggleCommand extends Command {
         if (idx > taskList.getSize() || idx < 1) { // check that task index is valid
             throw new JoeException("Please input a valid task index");
         }
-        switch (c) {
-        case MARK -> taskList.markTask(idx);
-        case UNMARK -> taskList.unmarkTask(idx);
+        if (command.equals(Commands.MARK)) {
+            taskList.markTask(idx);
+        } else {
+            taskList.unmarkTask(idx);
         }
     }
 }

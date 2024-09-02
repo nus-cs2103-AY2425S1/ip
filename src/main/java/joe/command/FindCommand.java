@@ -14,13 +14,14 @@ import joe.task.TaskList;
 public class FindCommand extends Command {
 
     private String query;
+
     public FindCommand(String query) {
         this.query = query;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws JoeException {
-        ArrayList<Task> matchingArr =  taskList.find(this.query);
+        ArrayList<Task> matchingArr = taskList.find(this.query);
         String msg = "Here are the matching tasks in your list:";
         ui.printResponse(msg, matchingArr);
     }

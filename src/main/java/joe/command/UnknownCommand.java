@@ -6,7 +6,7 @@ import joe.Ui;
 import joe.task.TaskList;
 
 /**
- * This class is used to present unknown commands
+ * This class is used to present unknown commands.
  */
 public class UnknownCommand extends Command {
     @Override

@@ -9,10 +9,12 @@ import joe.task.TaskList;
  * This class represents the delete command.
  */
 public class DeleteCommand extends Command {
-    String[] inputArr;
+    private String[] inputArr;
+
     public DeleteCommand(String[] inputArr) {
         this.inputArr = inputArr;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws JoeException {
         int idx = Integer.parseInt(inputArr[1]);

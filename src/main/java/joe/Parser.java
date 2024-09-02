@@ -58,7 +58,7 @@ public class Parser {
         case DEADLINE -> {
             int byIdx = Arrays.asList(inputArr).indexOf("/by");
             if (byIdx == -1) {
-                throw new JoeException("Oops! Try adding it like this: deadline {task description} /by {duedate}");
+                throw new JoeException("Oops! Try: deadline {desc} /by {duedate}");
             }
             String taskDesc = String.join(" ", Arrays.copyOfRange(inputArr, 1, byIdx));
             String taskBy = String.join("", Arrays.copyOfRange(inputArr, byIdx + 1, inputArr.length));
@@ -73,11 +73,10 @@ public class Parser {
             int fromIdx = Arrays.asList(inputArr).indexOf("/from");
             int toIdx = Arrays.asList(inputArr).indexOf("/to");
             if (fromIdx == -1) {
-                throw new JoeException("Oops! Let's try again with this format: event {task description} /from {start date} /to {end date}");
+                throw new JoeException("Oops! Try: event {desc} /from {start} /to {end}");
             }
             String eventDesc = String.join(" ", Arrays.copyOfRange(inputArr, 1, fromIdx));
             if (toIdx != -1) {
-                // to date exists
                 String eventFrom = String.join(" ", Arrays.copyOfRange(inputArr, fromIdx + 1, toIdx));
                 String eventTo = String.join(" ", Arrays.copyOfRange(inputArr, toIdx + 1, inputArr.length));
                 try {

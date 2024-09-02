@@ -25,7 +25,7 @@ public abstract class Command {
 
     /**
      * Indicates whether the command is an exit command that terminates the application.
-     * By default, this returns {@code false}. Subclasses representing exit commands should override this method.
+     * By default, this returns {@code false}.
      *
      * @return {@code true} if the command is an exit command, {@code false} otherwise.
      */
