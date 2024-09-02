@@ -11,9 +11,9 @@ import jeff.ui.Ui;
  * Represents a chatbot.
  */
 public class Jeff {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructor for the Jeff Class.

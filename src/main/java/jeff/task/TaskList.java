@@ -1,8 +1,5 @@
 package jeff.task;
 
-import jeff.exception.FileCorruptException;
-import jeff.exception.JeffException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +7,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import jeff.exception.FileCorruptException;
+import jeff.exception.JeffException;
 
 /**
  * Represents a list of tasks.

@@ -4,7 +4,7 @@ package jeff.exception;
  * Represents an exception for any file corruption.
  */
 public class FileCorruptException extends Exception {
-    private String message;
+    private final String message;
 
     /**
      * Constructor that creates a FileCorruptException object.

@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
  * Represents an event.
  */
 public class EventTask extends Task {
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
 
     /**
      * Constructor to create a EventTask object.

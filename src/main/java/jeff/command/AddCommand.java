@@ -1,12 +1,16 @@
 package jeff.command;
 
+import java.time.format.DateTimeParseException;
+
 import jeff.exception.JeffException;
 import jeff.parser.Parser;
 import jeff.storage.Storage;
-import jeff.task.*;
+import jeff.task.DeadlineTask;
+import jeff.task.EventTask;
+import jeff.task.Task;
+import jeff.task.TaskList;
+import jeff.task.ToDoTask;
 import jeff.ui.Ui;
-
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents an "Add task" command.
@@ -34,9 +38,9 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         // Check if the input is in the correct format
-        if (this.getInput().matches("todo .+") ||
-                this.getInput().matches("deadline .+") ||
-                this.getInput().matches("event .+")) {
+        if (this.getInput().matches("todo .+")
+                || this.getInput().matches("deadline .+")
+                || this.getInput().matches("event .+")) {
 
             // Split the string to obtain the task type and task description
             String[] taskParts = this.getInput().split(" ", 2);

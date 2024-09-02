@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Ui {
     private static final String HORIZONTAL =
             "_____________________________________________________________________________________";
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Constructor for the Ui Class.
