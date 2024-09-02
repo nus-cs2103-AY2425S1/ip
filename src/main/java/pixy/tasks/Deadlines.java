@@ -39,7 +39,9 @@ public class Deadlines extends Task {
      * @return A formatted string representation of the deadline.
      */
     public String getDueDateTime() {
-        return dueDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
+        return dueDateTime
+                .format(DateTimeFormatter
+                        .ofPattern("MMM d yyyy, h:mm a"));
     }
 
     /**
@@ -47,6 +49,7 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + getDueDateTime() + ")";
+        return "[D]" + super.toString()
+                + " (by: " + getDueDateTime() + ")";
     }
 }

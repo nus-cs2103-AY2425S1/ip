@@ -35,7 +35,8 @@ public class Event extends Task {
                 this.from = LocalDateTime.parse(from.trim(), displayFormatter);
                 this.to = LocalDateTime.parse(to.trim(), displayFormatter);
             } catch (DateTimeParseException ex) {
-                throw new IllegalArgumentException("Invalid date format: " + from + " or " + to);
+                throw new IllegalArgumentException("Invalid date format: "
+                        + from + " or " + to);
             }
         }
     }
@@ -46,7 +47,8 @@ public class Event extends Task {
      * @return A formatted string representation of the from time.
      */
     public String getFrom() {
-        return from.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
+        return from.format(DateTimeFormatter
+                      .ofPattern("MMM d yyyy, h:mm a"));
     }
 
     /**
@@ -55,7 +57,8 @@ public class Event extends Task {
      * @return A formatted string representation of the to time.
      */
     public String getTo() {
-        return to.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
+        return to.format(DateTimeFormatter
+                    .ofPattern("MMM d yyyy, h:mm a"));
     }
 
     /**
@@ -63,6 +66,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + getFrom() + " to: " + getTo() + ")";
+        return "[E]" + super.toString()
+                + "(from: " + getFrom() + " to: " + getTo() + ")";
     }
 }

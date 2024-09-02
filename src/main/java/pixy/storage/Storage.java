@@ -96,7 +96,8 @@ public class Storage {
         file.getParentFile().mkdirs();
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasks) {
-            fw.write(taskToFileFormat(task) + System.lineSeparator());
+            fw.write(taskToFileFormat(task)
+                    + System.lineSeparator());
         }
         fw.close();
     }
@@ -109,13 +110,16 @@ public class Storage {
      */
     public String taskToFileFormat(Task task) {
         if (task instanceof ToDos) {
-            return "T | " + task.getStatusIcon() + " | " + task.getDescription();
+            return "T | " + task.getStatusIcon() + " | "
+                    + task.getDescription();
         } else if (task instanceof Deadlines) {
             Deadlines deadline = (Deadlines) task;
-            return "D | " + deadline.getStatusIcon() + " | " + deadline.getDescription() + " | " + deadline.getDueDateTime();
+            return "D | " + deadline.getStatusIcon() + " | " + deadline.getDescription()
+                    + " | " + deadline.getDueDateTime();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + event.getStatusIcon() + " | " + event.getDescription() + " | " + event.getFrom() + " | " + event.getTo();
+            return "E | " + event.getStatusIcon() + " | " + event.getDescription()
+                    + " | " + event.getFrom() + " | " + event.getTo();
         }
         return "";
     }
