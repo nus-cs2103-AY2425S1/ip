@@ -3,7 +3,7 @@ package vecrosen;
 import java.util.ArrayList;
 
 public class Parser {
-    public enum ActionType {undefined, formatting, todo, deadline, event, mark, unmark, delete, list, bye};
+    public enum ActionType {undefined, formatting, todo, deadline, event, mark, unmark, delete, list, bye, find};
     
     public static ActionType parse(String input, ArrayList<Object> returnArgs) {
         if (input.equals("bye")) {
@@ -49,6 +49,10 @@ public class Parser {
             returnArgs.add(begin);
             returnArgs.add(end);
             return ActionType.event;
+        } else if (input.matches("find .+")) {
+            String keyword = input.substring(5);
+            returnArgs.add(keyword);
+            return ActionType.find;
         } else if (input.matches("delete \\d+")) {
             int itemNo = Integer.parseInt(input.substring(7));
             returnArgs.add(itemNo);

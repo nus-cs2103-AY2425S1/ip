@@ -79,6 +79,11 @@ public class Vecrosen {
                 ui.speak("Removing task: " + target);
                 ui.speak("You now have " + taskList.getListSize() + " tasks left in record.");
                 break;
+            case find:
+                ArrayList<Integer> indices = new ArrayList<Integer>();
+                ArrayList<Task> res = taskList.find((String) parseArgs.get(0), indices);
+                ui.printList(res, indices, "Here are the matching tasks:", "No matches!");
+                break;
             case formatting:
                 ui.invalidFormat((String) parseArgs.get(0));
                 break;

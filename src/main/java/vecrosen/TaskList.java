@@ -63,12 +63,28 @@ public class TaskList {
      * @param ui The UI object to print to.
      */
     public void printList(Ui ui) {
+        ArrayList<Integer> indices = new ArrayList<Integer>();
+        for (int i = 1; i <= list.size(); ++i) {
+            indices.add(i);
+        }
+        ui.printList(list, indices, "Here are the tasks you have:", "You have no tasks!");
+    }
+
+    /**
+     * Finds all tasks that contain the string given in the description. Case-sensitive.
+     * @param s The keyword to search by
+     * @param indices Array to hold the indices of the found tasks
+     * @return The tasks matching the query
+     */
+    public ArrayList<Task> find(String s, ArrayList<Integer> indices) {
+        ArrayList<Task> res = new ArrayList<Task>();
         for (int i = 0; i < list.size(); ++i) {
-            ui.speak((i+1) + "." + list.get(i).toString());
+            if (list.get(i).getDescription().contains(s)) {
+                res.add(list.get(i));
+                indices.add(i + 1);
+            }
         }
-        if (list.size() == 0) {
-            ui.speak("You have no tasks!");
-        }
+        return res;
     }
 
     /**
