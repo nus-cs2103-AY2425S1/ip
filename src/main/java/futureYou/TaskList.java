@@ -45,6 +45,15 @@ public class TaskList {
     }
 
     /**
+     * Adds a new task to the list.
+     *
+     * @param task The new task to add to the list.
+     */
+    public void add(Task newTask) {
+        taskList.add(newTask);
+    }
+
+    /**
      * Adds a new task to the list and returns the formatted output to print.
      *
      * @param taskName The name of the new task to add.

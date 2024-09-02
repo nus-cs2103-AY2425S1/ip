@@ -11,6 +11,12 @@ public class Events extends Task {
         this.endDateTime = endDate;
     }
 
+    public Events(String name, Boolean taskStatus, String startDate, String endDate) {
+        super(name, taskStatus);
+        this.startDateTime = startDate;
+        this.endDateTime = endDate;
+    }
+
     public String getstartDate() {
         return this.startDateTime;
     }
@@ -22,6 +28,11 @@ public class Events extends Task {
     @Override
     public String getType() {
         return "E";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "|" + this.getstartDate() + "|" + this.getendDate();
     }
 
     @Override
