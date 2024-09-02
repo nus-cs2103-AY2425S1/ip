@@ -38,11 +38,13 @@ public class DeleteCommand extends Command {
      * @param storage Storage object to save list after task deleted.
      * @throws DeltaException If problem deleting task from list or list unable to be saved.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         Task task = tasks.deleteTask(index);
-        ui.showCommand("Noted. I've removed this task:\n"
-                + "\t   " + task + "\n"
-                + "\t Now you have " + tasks.getSize() + " task" + (tasks.getSize() > 1 ? "s" : "") + " in the list.");
+        String message = "Noted. I've removed this task:\n"
+                + "  " + task + "\n"
+                + "Now you have " + tasks.getSize() + " task" + (tasks.getSize() > 1 ? "s" : "") + " in the list.";
+        ui.showCommand(message);
         storage.save(tasks);
+        return message;
     }
 }

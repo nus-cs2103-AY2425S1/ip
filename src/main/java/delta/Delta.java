@@ -6,6 +6,7 @@ import delta.util.Parser;
 import delta.util.Storage;
 import delta.util.TaskList;
 import delta.util.Ui;
+import javafx.application.Application;
 
 /**
  * Delta is a chatbot to assist in task management.
@@ -43,7 +44,7 @@ public class Delta {
     }
 
     /**
-     * Runs main logic of Delta ChatBot.
+     * Runs main logic of Delta ChatBot for CLI.
      */
     public void run() {
         ui.showWelcome();
@@ -64,9 +65,30 @@ public class Delta {
     }
 
     /**
-     * Serves as main entry point of Delta ChatBot.
+     * Serves as main entry point of Delta ChatBot for CLI.
      */
     public static void main(String[] args) {
-        new Delta("data/tasks.txt").run();
+        // Command Line Interface
+        // new Delta("data/tasks.txt").run();
+
+        // JavaFX Interface
+        Application.launch(Main.class, args);
+    }
+
+    /**
+     * Returns Delta ChatBot response for a user input given by JavaFX UI.
+     *
+     * @param input User input string.
+     * @return Delta ChatBot response.
+     */
+    public String getResponse(String input) {
+        String response;
+        try {
+            Command c = Parser.parse(input);
+            response = c.execute(tasks, ui, storage);
+        } catch (DeltaException e) {
+            response = e.getMessage();
+        }
+        return response;
     }
 }

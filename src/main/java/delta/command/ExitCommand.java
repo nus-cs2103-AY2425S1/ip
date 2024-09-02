@@ -30,7 +30,9 @@ public class ExitCommand extends Command {
      * @param ui User Interfacing object to print exit message.
      * @param storage Storage object to save list.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showCommand("Bye. Hope to see you again soon!");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String message = "Bye. Hope to see you again soon!";
+        ui.showCommand(message);
+        return message;
     }
 }

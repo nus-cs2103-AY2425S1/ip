@@ -9,6 +9,15 @@ public class Ui {
     private Scanner scanner = new Scanner(System.in);
 
     /**
+     * Prints output string onto user interface.
+     *
+     * @param output String to be printed.
+     */
+    private void printOutput(String output) {
+        System.out.println(output);
+    }
+
+    /**
      * Reads in user input using scanner object.
      *
      * @return Next line of user input.
@@ -21,7 +30,7 @@ public class Ui {
      * Prints a single horizontal separating line.
      */
     public void showLine() {
-        System.out.println("\t____________________________________________________________");
+        printOutput("\t____________________________________________________________");
     }
 
     /**
@@ -29,7 +38,7 @@ public class Ui {
      */
     public void showWelcome() {
         showLine();
-        System.out.println("""
+        printOutput("""
                 \t Hello! I'm Delta, your favourite Task Management Chatbot!
                 \t What can I do for you?""");
         showLine();
@@ -41,7 +50,10 @@ public class Ui {
      * @param command Message containing information about command.
      */
     public void showCommand(String command) {
-        System.out.println("\t " + command);
+        String[] lines = command.split("\n");
+        for (String line : lines) {
+            printOutput("\t " + line);
+        }
     }
 
     /**
@@ -50,6 +62,6 @@ public class Ui {
      * @param message Error message to be printed.
      */
     public void showError(String message) {
-        System.out.println("\t " + message);
+        printOutput("\t " + message);
     }
 }
