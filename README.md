@@ -60,8 +60,7 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
     ```
 
 - **<u>Style Format</u>**
-    - Style files are in `config/checkstyle`
-    - We use `Spotless` for auto-formatting
+    - We use `Spotless` for auto-formatting, though it does not follow the CS2103T style exactly
     - ```
       .\gradlew applySpotless
       ```
