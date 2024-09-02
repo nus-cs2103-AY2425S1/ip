@@ -4,10 +4,12 @@ import beeboo.components.Storage;
 import beeboo.components.TaskList;
 import beeboo.components.Ui;
 
-public class ListCommand extends Command{
+/**
+ * Represents a command to list the chatbot's task list.
+ */
+public class ListCommand extends Command {
 
     /**
-     *
      * @param tasks tasklist of chatbot
      * @param ui ui of the chatbot
      * @param storage storage function of the chatbot
@@ -18,7 +20,6 @@ public class ListCommand extends Command{
     }
 
     /**
-     *
      * @return true if is exit command false if not exit command
      */
     @Override
