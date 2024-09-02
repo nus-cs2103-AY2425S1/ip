@@ -1,9 +1,35 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
+
+    public abstract String toFileString();
+
+    public static Task fromFileString(String s) {
+        String[] parts = s.split("\\|");
+        String type = parts[0];
+        String isDone = parts[1];
+        String description = parts[2];
+
+        Task task;
+        switch (type) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                task = new Deadline(description, parts[3]);
+                break;
+            case "E":
+                task = new Event(description, parts[3], parts[4]);
+                break;
+            default:
+                throw new FormatException("Unknown task type: " + type);
+        }
+        task.setIsDone(isDone.equals("1"));
+        return task;
+    }
 
     public Task(String description) {
         this.description = description;
@@ -73,6 +99,11 @@ public class Task {
         }
 
         @Override
+        public String toFileString() {
+            return String.format("T|%d|%s", isDone ? 1 : 0, description);
+        }
+
+        @Override
         public String toString() {
             return String.format("[T][%s] %s",
                     super.getStatusIcon(), super.description);
@@ -84,6 +115,11 @@ public class Task {
         public Deadline(String description, String by) {
             super(description);
             this.by = by;
+        }
+
+        @Override
+        public String toFileString() {
+            return String.format("D|%d|%s|%s", isDone ? 1 : 0, description, by);
         }
 
         @Override
@@ -100,6 +136,11 @@ public class Task {
             super(description);
             this.from = from;
             this.to = to;
+        }
+
+        @Override
+        public String toFileString() {
+            return String.format("E|%d|%s|%s|%s", isDone ? 1 : 0, description, from, to);
         }
 
         @Override
