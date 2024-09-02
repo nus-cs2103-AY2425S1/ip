@@ -1,17 +1,17 @@
 package ui;
 
-import storage.TaskList;
-import task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import storage.TaskList;
+import task.Task;
 
 /**
  * Represents the user interface of the application.
  */
 public class Ui {
-    private final Scanner scanner;
     private static final String LINE = "____________________________________________________________";
+    private final Scanner scanner;
 
     /**
      * Creates a user interface.

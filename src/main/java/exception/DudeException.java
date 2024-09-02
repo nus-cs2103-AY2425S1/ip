@@ -6,7 +6,7 @@ package exception;
 public class DudeException extends Exception {
     /**
      * The constructor creates a new exception.DudeException object.
-     * 
+     *
      * @param message The error message to be displayed.
      */
     public DudeException(String message) {

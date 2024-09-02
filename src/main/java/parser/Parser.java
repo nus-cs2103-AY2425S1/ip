@@ -1,14 +1,23 @@
 package parser;
 
-import command.*;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import command.AddCommand;
+import command.Command;
+import command.CommandType;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.InvalidCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
 import exception.DudeException;
 import task.Deadline;
 import task.Event;
 import task.Todo;
-
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a parser that parses the user input.
@@ -28,7 +37,7 @@ public class Parser {
         String[] tokens = input.split(" ", 2);
         try {
             CommandType commandType = CommandType.valueOf(tokens[0].toUpperCase());
-            switch (commandType) {
+            switch(commandType) {
             case BYE:
                 return new ExitCommand();
             case LIST:
@@ -46,7 +55,7 @@ public class Parser {
                 return new AddCommand(new Todo(tokens[1]));
             case DEADLINE:
                 String[] deadlineArgs = tokens[1].split(" /by ", 2);
-                if (deadlineArgs[0].isEmpty() ) {
+                if (deadlineArgs[0].isEmpty()) {
                     throw new DudeException("The description of a deadline cannot be empty!");
                 } else if (deadlineArgs.length < 2) {
                     throw new DudeException("The deadline of a deadline cannot be empty!");
@@ -61,7 +70,7 @@ public class Parser {
                 String[] eventArgs = tokens[1].split(" /from | /to ", 3);
                 if (eventArgs[0].isEmpty()) {
                     throw new DudeException("The description of an event cannot be empty!");
-                } else if (eventArgs.length < 3 ) {
+                } else if (eventArgs.length < 3) {
                     throw new DudeException("The format of timings of the event is wrong!");
                 }
                 try {

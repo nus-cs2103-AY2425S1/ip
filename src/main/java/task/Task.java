@@ -54,7 +54,7 @@ public abstract class Task {
      * @return The string representation of the task.
      */
     @Override
-    public String toString () {
+    public String toString() {
         return (isDone ? "[X]" : "[ ]") + " " + description;
     }
 

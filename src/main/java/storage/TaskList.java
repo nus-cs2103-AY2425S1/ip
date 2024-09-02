@@ -1,9 +1,9 @@
 package storage;
 
+import java.util.ArrayList;
+
 import exception.DudeException;
 import task.Task;
-
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.

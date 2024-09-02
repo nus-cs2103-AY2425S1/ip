@@ -1,13 +1,13 @@
 package dude;
 
+import java.io.IOException;
+
 import command.Command;
 import exception.DudeException;
 import parser.Parser;
 import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
-
-import java.io.IOException;
 
 /**
  * The Dude class is a chatbot, whose name is Dude, that can help you manage your tasks.

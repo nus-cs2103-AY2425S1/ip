@@ -1,9 +1,10 @@
 package storage;
 
-import exception.DudeException;
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
+import exception.DudeException;
 
 public class StorageTest {
 
@@ -13,7 +14,8 @@ public class StorageTest {
         TaskList tasks = new TaskList();
         tasks.addTask(new task.Todo("read book"));
         storage.saveTasks(tasks);
-        assert(storage.initTasks().getSize() == 1 && storage.initTasks().getTask(0).toString().equals("[T][ ] read book"));
+        assert(storage.initTasks().getSize() == 1
+                    && storage.initTasks().getTask(0).toString().equals("[T][ ] read book"));
     }
 
     @Test

@@ -1,12 +1,12 @@
 package command;
 
+import java.util.ArrayList;
+
 import exception.DudeException;
 import storage.Storage;
 import storage.TaskList;
 import task.Task;
 import ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to find tasks that contain a keyword.
