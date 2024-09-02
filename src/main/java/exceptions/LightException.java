@@ -1,9 +1,10 @@
 package exceptions;
 
+
 /**
  * Represents an exception specific to the Light application.
  */
-public class LightException extends Exception{
+public class LightException extends Exception {
     private String message;
 
     /**

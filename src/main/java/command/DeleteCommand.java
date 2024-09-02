@@ -16,9 +16,11 @@ public class DeleteCommand extends Command{
      *
      * @param taskNumber The number of the task to be deleted.
      */
+
     public DeleteCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
+
 
     /**
      * Deletes the task from the task list and updates the storage file.
@@ -30,8 +32,8 @@ public class DeleteCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
-            ui.showMessage("Noted. I've removed this task:\n" + tasks.get(taskNumber) + "\nNow you have " + (tasks.size() - 1)  + " tasks in the list.");
-            tasks.remove(taskNumber);
-            storage.write(TaskList.arrayToNumberedString(tasks));
+        ui.showMessage("Noted. I've removed this task:\n" + tasks.get(taskNumber) + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
+        tasks.remove(taskNumber);
+        storage.write(TaskList.arrayToNumberedString(tasks));
     }
 }

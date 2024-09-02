@@ -27,6 +27,16 @@ public class Light {
     }
 
     /**
+     * The main method of the Light program.
+     *
+     * @param args The command line arguments.
+     */
+    public static void main(String[] args) {
+        Light program = new Light("./data/saved.txt");
+        program.run();
+    }
+
+    /**
      * Runs the Light program.
      */
     public void run() {
@@ -46,16 +56,5 @@ public class Light {
             }
         }
     }
-
-    /**
-     * The main method of the Light program.
-     *
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
-        Light program = new Light("./data/saved.txt");
-        program.run();
-    }
-
 }
 

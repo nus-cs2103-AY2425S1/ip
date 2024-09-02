@@ -18,6 +18,14 @@ public class Ui {
     }
 
     /**
+     * Displays a line break.
+     */
+    private static void lineBreak() {
+        String lineBreak = "____________________________________________________________\n";
+        System.out.println(lineBreak);
+    }
+
+    /**
      * Displays a welcome message.
      */
     public void welcome() {
@@ -26,15 +34,8 @@ public class Ui {
     }
 
     /**
-     * Displays a goodbye message.
-     */
-    private static void lineBreak(){
-        String lineBreak = "____________________________________________________________\n";
-        System.out.println(lineBreak);
-    }
-
-    /**
      * Displays an error message.
+     *
      * @param e The exception containing the error message to be displayed.
      */
     public void showError(LightException e) {
@@ -43,6 +44,7 @@ public class Ui {
 
     /**
      * Displays a message.
+     *
      * @param message The message to be displayed.
      */
     public void showMessage(String message) {
@@ -53,6 +55,7 @@ public class Ui {
 
     /**
      * Reads the command entered by the user.
+     *
      * @return The command entered by the user.
      */
     public String readCommand() {

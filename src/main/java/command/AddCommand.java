@@ -8,7 +8,7 @@ import task.TaskList;
 /**
  * Represents a command to add a task to the task list.
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private Task task;
 
     /**
@@ -24,8 +24,8 @@ public class AddCommand extends Command{
     /**
      * Adds the task to the task list and updates the storage file.
      *
-     * @param tasks The task list.
-     * @param ui The user interface.
+     * @param tasks   The task list.
+     * @param ui      The user interface.
      * @param storage The storage.
      */
     @Override
