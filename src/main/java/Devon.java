@@ -1,12 +1,79 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.*;
+import java.nio.file.Paths;
 
 public class Devon {
 
     protected Scanner scanner = new Scanner(System.in);
     protected ArrayList<Task> tasks = new ArrayList<>();
     protected int taskCount = 0;
+
+    protected static final String DIRECTORY_PATH = "./data";
+    protected static final String DB_PATH = String.valueOf(Paths.get(Devon.DIRECTORY_PATH, "devon_tasks.txt"));
+    private static final String DB_DELIMITER = "\\|";
+
+    private void loadTasksFromDatabase() {
+        try {
+            Scanner fileReader = new Scanner(new File(Devon.DB_PATH));
+            while (fileReader.hasNextLine()) {
+                readTaskFromDatabase(fileReader.nextLine());
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            this.createTaskDatabase();
+        } catch (DevonException e) {
+            System.out.println("Error when reading database!");
+        }
+    }
+
+    private void saveTasksToDatabase() throws IOException {
+        FileWriter filewriter = new FileWriter(Devon.DB_PATH);
+        BufferedWriter bufferedWriter = new BufferedWriter(filewriter);
+        for (Task task : tasks) {
+            bufferedWriter.write(task.dbReadableFormat());
+            bufferedWriter.newLine();
+        }
+        bufferedWriter.close();
+        filewriter.close();
+    }
+
+    private void readTaskFromDatabase(String entry) throws DevonReadDatabaseException {
+        String[] fields = entry.split(DB_DELIMITER);
+        Task newTask;
+
+        switch (fields[0]) {
+            case "Deadline":
+                newTask = new Deadline(fields[2], fields[3]);
+                break;
+            case "Event":
+                newTask = new Event(fields[2], fields[3], fields[4]);
+                break;
+            case "Todo":
+                newTask = new Todo(fields[2]);
+                break;
+            default:
+                throw new DevonReadDatabaseException();
+        }
+
+        boolean toBeMarkedAsDone = Integer.parseInt(fields[1]) == 1;
+        if (toBeMarkedAsDone) {
+            newTask.markAsDoneSilently();
+        }
+
+        this.tasks.add(newTask);
+        taskCount++;
+    }
+
+    private void createTaskDatabase() {
+        new File(Devon.DIRECTORY_PATH).mkdir();
+        try {
+            new File(Devon.DB_PATH).createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error: Cannot create database!");
+        }
+    }
 
     private enum Command {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
@@ -21,8 +88,14 @@ public class Devon {
     }
 
     private void start() {
+        loadTasksFromDatabase();
         introduction();
         receiveUserInput();
+        try {
+            this.saveTasksToDatabase();
+        } catch (IOException e) {
+            System.out.println("Error! Task(s) could not be saved.");
+        }
         goodbye();
     }
 
