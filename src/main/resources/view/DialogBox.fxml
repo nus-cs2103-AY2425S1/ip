@@ -22,7 +22,7 @@
                 <Insets left="9.0" right="9.0" />
             </HBox.margin>
             <clip>
-                <Circle centerX="35.5" centerY="35.5" radius="35.5" /> <!-- Adjust the radius to half of the ImageView’s size -->
+                <Circle centerX="35.5" centerY="35.5" radius="35.5" />
             </clip>
         </ImageView>
     </children>

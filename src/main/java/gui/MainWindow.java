@@ -2,66 +2,101 @@ package gui;
 
 import java.util.Objects;
 
+import errorhandling.ReginaException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import regina.Regina;
+import tasks.TaskList;
 
 /**
  * Controller for the main GUI of the Regina chatbot application.
- * This class handles user input, manages the dialog container,
- * and integrates with the Regina backend to retrieve responses to user commands.
+ * This class manages user input and displays the dialog container for chat messages and task checkboxes.
  */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
     @FXML
-    private VBox dialogContainer;
+    private VBox dialogContainer; // To handle user messages
     @FXML
-    private TextField userInput;
+    private TextField userInput; // Input field for user messages
     @FXML
-    private Button sendButton;
+    private Button sendButton; // Button to send messages
+    @FXML
+    private VBox checkboxContainer; // This VBox will hold dynamically created checkboxes
 
-    private Regina regina = new Regina();
+    private Regina regina; // Reference to the Regina instance
 
-    // Imaged for the user and Regina Chatbot
+    // Images for user and Regina Chatbot
     private final Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/User.jpg")));
     private final Image reginaImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/Regina.jpg")));
 
-    /**
-     * Initializes the main window.
-     * This method is called after the FXML file is loaded.
-     * It binds the scroll pane's vertical value to the dialog container's height
-     * and displays a greeting message from the Regina chatbot.
-     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getReginaDialog(regina.greet(), reginaImage)
-        );
+        if (regina != null) {
+            dialogContainer.getChildren().addAll(DialogBox.getReginaDialog(regina.greet(), reginaImage));
+            loadCheckboxes(); // Load task checkboxes when the main window is initialized
+        }
     }
 
-    /**
-     * Injects a new Regina instance into the main window controller.
-     *
-     * @param r The Regina instance to be set for handling tasks.
-     */
     public void setRegina(Regina r) {
-        regina = r;
+        regina = r; // Set the Regina instance
+        if (regina != null) {
+            loadCheckboxes(); // Load checkboxes whenever Regina is set
+        }
     }
 
-    /**
-     * Handles user input when the send button is pressed or when the user presses Enter.
-     * Creates two dialog boxes: one for the user input and one for the Regina chatbot's response.
-     * Clears the input field after processing the input.
-     */
+    public void loadCheckboxes() {
+        TaskList tasks = regina.getListOfTasks(); // Fetch the task list
+        checkboxContainer.getChildren().clear(); // Clear existing checkboxes
+
+        for (int i = 0; i < tasks.size(); i++) { // Iterate through tasks
+            String taskDescription = tasks.get(i).toString().substring(7); // Get string representation of the task
+            boolean isDone = tasks.get(i).isDone();
+            CheckBox taskCheckBox = getCheckBox(taskDescription, isDone, i);
+            taskCheckBox.setWrapText(true);
+
+            checkboxContainer.getChildren().add(taskCheckBox); // Add to the checkbox container
+        }
+    }
+
+    private CheckBox getCheckBox(String taskDescription, boolean isDone, int i) {
+        CheckBox taskCheckBox = new CheckBox(taskDescription);
+        taskCheckBox.setSelected(isDone);
+
+        int finalI = i;
+        taskCheckBox.setOnAction(e -> {
+            if (taskCheckBox.isSelected()) {
+                try {
+                    String response = regina.mark(finalI); // Mark the task based on its index
+                    dialogContainer.getChildren().addAll(
+                            DialogBox.getReginaDialog(response, reginaImage)
+                    );
+                } catch (ReginaException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            } else {
+                try {
+                    String response = regina.unmark(finalI); // Unmark the task based on its index
+                    dialogContainer.getChildren().addAll(
+                            DialogBox.getReginaDialog(response, reginaImage)
+                    );
+                } catch (ReginaException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+        return taskCheckBox;
+    }
+
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -70,8 +105,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getReginaDialog(response, reginaImage)
         );
-        // Clear the input field
+        loadCheckboxes();
+        // Clear the input field after handler
         userInput.clear();
     }
 }
-

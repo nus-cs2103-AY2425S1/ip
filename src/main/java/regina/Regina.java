@@ -7,6 +7,7 @@ import java.util.Optional;
 import dateandtime.ReginaDateAndTime;
 import errorhandling.ReginaException;
 import file.Storage;
+import gui.MainWindow;
 import tasks.DeadlinesTask;
 import tasks.EventsTask;
 import tasks.Task;
@@ -25,6 +26,7 @@ public class Regina {
     private final Marker marker;
     private final Ui ui;
     private TaskList listOfTasks;
+    private MainWindow mainWindow;
 
     /**
      * Constructs a regina.Regina instance containing an empty task list and initializes the marker.
@@ -42,6 +44,10 @@ public class Regina {
 
     public TaskList getListOfTasks() {
         return this.listOfTasks;
+    }
+
+    public void setMainWindow(MainWindow checkboxController) {
+        this.mainWindow = checkboxController;
     }
 
     /**
