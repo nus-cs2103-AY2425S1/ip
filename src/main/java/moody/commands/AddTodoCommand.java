@@ -24,7 +24,7 @@ public class AddTodoCommand extends Command {
      * @param userInput The user input containing the command keyword and task description.
      */
     public AddTodoCommand(String userInput) {
-        this.description = userInput.substring(5).trim();
+        this.description = userInput.trim();
     }
 
     /**

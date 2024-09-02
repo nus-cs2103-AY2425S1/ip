@@ -2,7 +2,6 @@ package moody.parser;
 
 import moody.exceptions.InvalidCommandException;
 import moody.exceptions.TaskInputException;
-import moody.exceptions.TaskOutOfBoundsException;
 import moody.commands.*;
 
 import java.time.format.DateTimeFormatter;
@@ -21,14 +20,13 @@ public class Parser {
      * The method splits the command string into the command keyword and arguments,
      * then creates and returns the appropriate Command based on the keyword.
      *
-     * @param commandString The command string to parse.
+     * @param input The command string to parse.
      * @return The Command object corresponding to the parsed command.
      * @throws InvalidCommandException If the command is not recognized.
      * @throws TaskInputException If there is an issue with the task input.
-     * @throws TaskOutOfBoundsException If the task index is out of bounds.
      */
-    public static Command parse(String commandString) throws InvalidCommandException, TaskInputException, TaskOutOfBoundsException {
-        String[] parts = commandString.split(" ", 2); // Split into command and arguments
+    public static Command parse(String input) throws InvalidCommandException, TaskInputException {
+        String[] parts = input.split(" ", 2); // Split into command and arguments
 
         String command = parts[0].toLowerCase(); // Get the command keyword
         String arguments = parts.length > 1 ? parts[1] : ""; // Get the arguments
@@ -38,7 +36,7 @@ public class Parser {
             return new ExitCommand();
 
         case "list":
-            return new ListCommand(); // No arguments needed
+            return new ListCommand();
 
         case "mark":
             return parseMarkCommand(arguments);
@@ -64,7 +62,7 @@ public class Parser {
         default:
             throw new InvalidCommandException("""
             Error: Command not found
-            
+               
             Please input a valid command
             """);
         }
@@ -77,14 +75,13 @@ public class Parser {
      * @param arguments The arguments of the "mark" command, expected to be the task index.
      * @return A MarkCommand object with the specified task index.
      * @throws TaskInputException If the task index is not a valid number.
-     * @throws TaskOutOfBoundsException If the task index is out of bounds.
      */
-    private static Command parseMarkCommand(String arguments) throws TaskInputException, TaskOutOfBoundsException {
+    private static Command parseMarkCommand(String arguments) throws TaskInputException {
         try {
             int taskIndex = Integer.parseInt(arguments.trim()) - 1;
             return new MarkCommand(taskIndex);
         } catch (NumberFormatException e) {
-            throw new TaskInputException("Error: Invalid task number for mark command.\n");
+            throw new TaskInputException("Error: Invalid task number for mark command.");
         }
     }
 
@@ -95,14 +92,13 @@ public class Parser {
      * @param arguments The arguments of the "unmark" command, expected to be the task index.
      * @return An UnmarkCommand object with the specified task index.
      * @throws TaskInputException If the task index is not a valid number.
-     * @throws TaskOutOfBoundsException If the task index is out of bounds.
      */
-    private static Command parseUnmarkCommand(String arguments) throws TaskInputException, TaskOutOfBoundsException {
+    private static Command parseUnmarkCommand(String arguments) throws TaskInputException {
         try {
             int taskIndex = Integer.parseInt(arguments.trim()) - 1;
             return new UnmarkCommand(taskIndex);
         } catch (NumberFormatException e) {
-            throw new TaskInputException("Error: Invalid task number for unmark command.\n");
+            throw new TaskInputException("Error: Invalid task number for unmark command.");
         }
     }
 
@@ -115,10 +111,10 @@ public class Parser {
      * @throws TaskInputException If the description is empty.
      */
     private static Command parseTodoCommand(String arguments) throws TaskInputException {
-        if (arguments.trim().isEmpty()) {
-            throw new TaskInputException("Error: The description of a todo cannot be empty.\n");
+        if (arguments.isEmpty()) {
+            throw new TaskInputException("Error: The description of a todo cannot be empty.");
         }
-        return new AddTodoCommand(arguments.trim());
+        return new AddTodoCommand(arguments);
     }
 
     /**
@@ -145,7 +141,7 @@ public class Parser {
         try {
             return new AddDeadlineCommand(description, dateTimeString);
         } catch (DateTimeParseException e) {
-            throw new TaskInputException("Error: Invalid date format. Please use yyyy-MM-dd HHmm.\n");
+            throw new TaskInputException("Error: Invalid date format. Please use yyyy-MM-dd HHmm.");
         }
     }
 
@@ -187,13 +183,13 @@ public class Parser {
             int taskIndex = Integer.parseInt(arguments.trim()) - 1;
             return new DeleteCommand(taskIndex);
         } catch (NumberFormatException e) {
-            throw new TaskInputException("Error: Invalid task number for delete command.\n");
+            throw new TaskInputException("Error: Invalid task number for delete command.");
         }
     }
 
     private static Command parseFindCommand(String arguments) throws TaskInputException {
         if (arguments.trim().isEmpty()) {
-            throw new TaskInputException("Error: The search keyword cannot be empty.\n");
+            throw new TaskInputException("Error: The search keyword cannot be empty.");
         }
         return new FindCommand(arguments.trim());
     }

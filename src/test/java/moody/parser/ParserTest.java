@@ -4,8 +4,6 @@ import moody.commands.AddDeadlineCommand;
 import moody.commands.Command;
 import moody.exceptions.InvalidCommandException;
 import moody.exceptions.TaskInputException;
-import moody.exceptions.TaskOutOfBoundsException;
-import moody.parser.Parser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

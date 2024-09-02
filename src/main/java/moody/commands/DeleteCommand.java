@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
      * Executes the delete command by removing the task at the specified index
      * from the task list, saving the updated list to storage, and showing
      * a confirmation message to the user.
-     *
+     *l
      * @param tasks The task list to operate on.
      * @param ui The user interface for showing messages.
      * @param storage The storage for saving changes to the task list.
@@ -36,9 +36,13 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        Task removedTask = tasks.remove(taskIndex);
-        storage.save(tasks.toArrayList());
-        ui.showTaskRemoved(removedTask, tasks.size());
+        try {
+            Task removedTask = tasks.remove(taskIndex);
+            storage.save(tasks.toArrayList());
+            ui.showTaskRemoved(removedTask, tasks.size());
+        } catch (IndexOutOfBoundsException e) {
+            ui.showError("Error: Cannot delete a task that does not exist");
+        }
     }
 
     @Override

@@ -3,7 +3,6 @@ package moody;
 import moody.commands.Command;
 import moody.exceptions.InvalidCommandException;
 import moody.exceptions.TaskInputException;
-import moody.exceptions.TaskOutOfBoundsException;
 import moody.parser.Parser;
 import moody.storage.Storage;
 import moody.tasks.TaskList;
@@ -54,18 +53,17 @@ public class Moody {
         boolean isExit = false;
 
         while (!isExit) {
+            String fullCommand = ui.readCommand();
+
             try {
-                String fullCommand = ui.readCommand();
                 Command command = Parser.parse(fullCommand);
-                System.out.println("Parsed command: " + command);
                 command.execute(tasks, ui, storage);
                 isExit = command.isExit();
-            } catch (InvalidCommandException | IOException | TaskInputException | TaskOutOfBoundsException e) {
+            } catch (InvalidCommandException | IOException | TaskInputException e) {
                 ui.showError(e.getMessage());
             }
         }
     }
-
 
     public static void main(String[] args) {
         new Moody("./data/moody.txt").run();

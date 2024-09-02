@@ -1,5 +1,6 @@
 package moody.commands;
 
+import moody.exceptions.TaskInputException;
 import moody.storage.Storage;
 import moody.tasks.Task;
 import moody.tasks.TaskList;
@@ -32,11 +33,15 @@ public class UnmarkCommand extends Command {
      * @throws IOException If an I/O error occurs while saving the updated task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        Task task = tasks.get(taskIndex);
-        task.markAsNotDone();
-        storage.save(tasks.toArrayList());
-        ui.showUnmarkedTask(task);
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, TaskInputException {
+        try {
+            Task task = tasks.get(taskIndex);
+            task.markAsNotDone();
+            storage.save(tasks.toArrayList());
+            ui.showUnmarkedTask(task);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskInputException("Error: Cannot mark a task that does not exist");
+        }
     }
 
     @Override
