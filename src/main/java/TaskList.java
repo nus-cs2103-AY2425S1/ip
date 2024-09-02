@@ -61,7 +61,11 @@ class TaskList {
         return list;
     }
 
-    String toString() {
-        // each Task will be converted to e.g. T0|task description|deadline or from date]|[to date]
+    String toSaveAsString() {
+        String output = ""
+        for (Task t : this.todoList) {
+            output = output + t.toSaveAsString() + "\n";
+        }
+        return output;
     }
 }
