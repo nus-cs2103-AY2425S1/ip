@@ -61,4 +61,8 @@ public class Schedulo {
     public String getResponse(String input) {
         return this.run(input);
     }
+
+    public Command getCommand() {
+        return this.c;
+    }
 }
