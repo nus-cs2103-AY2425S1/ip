@@ -68,4 +68,28 @@ public class Xizi {
             }
         }
     }
+
+    public Ui getUi() {
+        return ui;
+    }
+
+    public Parser getParser() {
+        return parser;
+    }
+
+    public TaskList getActions() {
+        return actions;
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Xizi heard: " + input;
+    }
+
 }
