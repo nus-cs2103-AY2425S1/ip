@@ -10,11 +10,12 @@ import task.TaskList;
  */
 abstract public class Command {
     protected boolean isExit = false;
+
     /**
      * Executes the command.
      *
-     * @param tasks the list of tasks
-     * @param ui the user interface
+     * @param tasks   the list of tasks
+     * @param ui      the user interface
      * @param storage the storage
      * @throws LightException if an error occurs during execution
      */

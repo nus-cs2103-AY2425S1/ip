@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 public class Storage {
     private String filePath;
+
     public Storage(String filePath) {
         this.filePath = filePath;
 
@@ -38,40 +39,40 @@ public class Storage {
                 String data = scanner.nextLine();
                 Boolean marked = data.charAt(7) == 'X';
                 switch (data.charAt(4)) {
-                    case 'T':
-                        try {
-                            task = new Todo(data.substring(10));
-                        } catch (LightException e) {
-                            System.out.println(e);
-                        }
+                case 'T':
+                    try {
+                        task = new Todo(data.substring(10));
+                    } catch (LightException e) {
+                        System.out.println(e);
+                    }
 
-                        break;
-                    case 'D':
-                        try {
-                            String betweenBrackets = data.substring(data.lastIndexOf("(")+1, data.lastIndexOf(")"));
-                            String byDate = betweenBrackets.replace("by: ", "");
-                            task = new Deadline(data.substring(10, data.indexOf("(by:")), byDate);
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("Not enough arguments");
-                        } catch (LightException e) {
-                            System.out.println(e);
-                        }
+                    break;
+                case 'D':
+                    try {
+                        String betweenBrackets = data.substring(data.lastIndexOf("(") + 1, data.lastIndexOf(")"));
+                        String byDate = betweenBrackets.replace("by: ", "");
+                        task = new Deadline(data.substring(10, data.indexOf("(by:")), byDate);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Not enough arguments");
+                    } catch (LightException e) {
+                        System.out.println(e);
+                    }
 
-                        break;
-                    case 'E':
-                        try {
+                    break;
+                case 'E':
+                    try {
 
-                            String betweenBrackets = data.substring(data.lastIndexOf("(")+1, data.lastIndexOf(")"));
-                            String fromDate = betweenBrackets.substring(betweenBrackets.indexOf("from: ")+6, betweenBrackets.indexOf("to: ")).stripTrailing();
-                            String toDate = betweenBrackets.substring(betweenBrackets.indexOf("to: ")+4);
-                            task = new Event(data.substring(10, data.indexOf("(from:")), fromDate, toDate);
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("Not enough arguments");
-                        } catch (LightException e) {
-                            System.out.println(e);
-                        }
+                        String betweenBrackets = data.substring(data.lastIndexOf("(") + 1, data.lastIndexOf(")"));
+                        String fromDate = betweenBrackets.substring(betweenBrackets.indexOf("from: ") + 6, betweenBrackets.indexOf("to: ")).stripTrailing();
+                        String toDate = betweenBrackets.substring(betweenBrackets.indexOf("to: ") + 4);
+                        task = new Event(data.substring(10, data.indexOf("(from:")), fromDate, toDate);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Not enough arguments");
+                    } catch (LightException e) {
+                        System.out.println(e);
+                    }
 
-                        break;
+                    break;
                 }
                 if (task != null && list.add(task)) {
                     if (marked) {
@@ -85,6 +86,7 @@ public class Storage {
         //System.out.println(TaskList.arrayToNumberedString(list));
         return list;
     }
+
     public void write(String textToAdd) {
         try {
             File fileObj = new File(filePath);

@@ -8,13 +8,14 @@ import task.TaskList;
 /**
  * Represents a command to add a task to the task list.
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private Task task;
 
     public AddCommand(Task task) {
         super();
         this.task = task;
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);

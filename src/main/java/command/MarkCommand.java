@@ -5,7 +5,7 @@ import components.Ui;
 import exceptions.LightException;
 import task.TaskList;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
 
     private int taskNumber;
     private boolean isMark;
@@ -15,6 +15,7 @@ public class MarkCommand extends Command{
         this.taskNumber = taskNumber;
         this.isMark = isMark;
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
 

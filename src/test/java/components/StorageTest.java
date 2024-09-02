@@ -1,19 +1,22 @@
 package components;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import task.Task;
 import task.Todo;
 
 public class StorageTest {
-    private Storage storage;
     private final String testFilePath = "./data/test_storage.txt";
+    private Storage storage;
 
     @BeforeEach
     public void setUp() {

@@ -5,10 +5,11 @@ import components.Ui;
 import exceptions.LightException;
 import task.TaskList;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     public ListCommand() {
-
+        super();
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
         ui.showMessage(TaskList.arrayToNumberedString(tasks));

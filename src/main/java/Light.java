@@ -18,6 +18,11 @@ public class Light {
         this.tasks = new TaskList(storage.load());
     }
 
+    public static void main(String[] args) {
+        Light program = new Light("./data/saved.txt");
+        program.run();
+    }
+
     public void run() {
         ui.welcome();
         boolean isExit = false;
@@ -34,11 +39,6 @@ public class Light {
                 return;
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Light program = new Light("./data/saved.txt");
-        program.run();
     }
 
 }
