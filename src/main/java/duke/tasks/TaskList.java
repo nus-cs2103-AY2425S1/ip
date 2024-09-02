@@ -101,51 +101,55 @@ public class TaskList {
     }
 
     /**
-     * Adds a new task to the task list based on the user's input.
-     * The input is parsed to determine the type of task (ToDo, Deadline, or Event).
+     * Adds new tasks to the task list based on the user's inputs.
+     * Each input is parsed to determine the type of task (ToDo, Deadline, or Event).
      *
-     * @param userInput the raw input string from the user.
+     * @param userInputs the raw input strings from the user.
      * @throws UnknownMessageException if the task type is unknown or unrecognized.
      * @throws InvalidTodoDescriptionException if the task is a ToDo but lacks a description.
      */
-    public String addTask(String userInput) throws UnknownMessageException, InvalidTodoDescriptionException {
-        TaskEnum taskType = determineTaskType(userInput);
+    public String addTask(String... userInputs) throws UnknownMessageException, InvalidTodoDescriptionException {
+        StringBuilder result = new StringBuilder();
+        for (String userInput : userInputs) {
+            TaskEnum taskType = determineTaskType(userInput);
 
-        switch (taskType) {
-        case TODOS:
-            try {
-                String todoDescription = userInput.split(" ", 2)[1];
-                tasks.add(new ToDos(todoDescription));
+            switch (taskType) {
+            case TODOS:
+                try {
+                    String todoDescription = userInput.split(" ", 2)[1];
+                    tasks.add(new ToDos(todoDescription));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new InvalidTodoDescriptionException("Please include a description of your todo task!");
+                }
                 break;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidTodoDescriptionException("Please include a description of your todo task!");
+            case DEADLINE:
+                String[] deadlineInfo = userInput.split("/by");
+                String deadlineDescription = deadlineInfo[0].replace("deadline", "").trim();
+                String deadlineDate = deadlineInfo[1].trim();
+                try {
+                    tasks.add(new Deadline(deadlineDescription, deadlineDate));
+                } catch (InvalidDeadlineException e) {
+                    result.append(e.getMessage()).append(" Please enter a valid deadline\n");
+                }
+                break;
+            case EVENT:
+                String[] eventInfo = userInput.split("/from");
+                String eventDescription = eventInfo[0].replace("event", "").trim();
+                String[] eventTime = eventInfo[1].split("/to");
+                String start = eventTime[0].trim();
+                String end = eventTime[1].trim();
+                try {
+                    tasks.add(new Event(eventDescription, start, end));
+                } catch (InvalidEventException e) {
+                    result.append(e.getMessage()).append(" Please enter a valid event\n");
+                }
+                break;
+            default:
+                throw new UnknownMessageException("Unknown task type.");
             }
-        case DEADLINE:
-            String[] deadlineInfo = userInput.split("/by");
-            String deadlineDescription = deadlineInfo[0].replace("deadline", "").trim();
-            String deadlineDate = deadlineInfo[1].trim();
-            try {
-                tasks.add(new Deadline(deadlineDescription, deadlineDate));
-            } catch (InvalidDeadlineException e) {
-                return e.getMessage() + " Please enter a valid deadline";
-            }
-            break;
-        case EVENT:
-            String[] eventInfo = userInput.split("/from");
-            String eventDescription = eventInfo[0].replace("event", "").trim();
-            String[] eventTime = eventInfo[1].split("/to");
-            String start = eventTime[0].trim();
-            String end = eventTime[1].trim();
-            try {
-                tasks.add(new Event(eventDescription, start, end));
-            } catch (InvalidEventException e) {
-                return e.getMessage() + " Please enter a valid event";
-            }
-            break;
-        default:
-            throw new UnknownMessageException("Unknown task type.");
+            result.append(Ui.formatAddTask(this.getTasks().size(), this.getLastTask())).append("\n");
         }
-        return Ui.formatAddTask(this.getTasks().size(), this.getLastTask());
+        return result.toString().trim();
     }
 
     /**
