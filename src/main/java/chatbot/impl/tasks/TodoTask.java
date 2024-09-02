@@ -1,11 +1,26 @@
 package chatbot.impl.tasks;
 
+/**
+ * Represents a simple todo task without a specific time or date.
+ */
 public class TodoTask extends AbstractTask {
 
+    /**
+     * Constructs a new TodoTask with the given description.
+     *
+     * @param description The description of the task.
+     */
     public TodoTask(String description) {
         super(description);
     }
 
+    /**
+     * Deserializes a TodoTask from a string representation.
+     *
+     * @param line The string representation of the TodoTask.
+     * @return The deserialized TodoTask object.
+     * @throws IllegalArgumentException if the task format is invalid.
+     */
     public static TodoTask deserialize(String line) {
         String[] parts = line.split(" \\| ");
 

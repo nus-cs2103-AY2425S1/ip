@@ -11,12 +11,19 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implements the TaskStorage interface to manage tasks in a custom file-based storage system.
+ */
 public class TaskStorageImpl implements TaskStorage {
 
     private static final Path FILE_PATH = Paths.get("./data/tasks.txt");
 
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs a new TaskStorageImpl.
+     * Initializes the task list and loads existing tasks from the file.
+     */
     public TaskStorageImpl() {
         tasks = new ArrayList<>();
 
@@ -36,6 +43,11 @@ public class TaskStorageImpl implements TaskStorage {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This implementation adds the task to the in-memory list and saves it to the file.
+     */
     @Override
     public void addTask(Task task) {
         tasks.add(task);
@@ -52,24 +64,44 @@ public class TaskStorageImpl implements TaskStorage {
         return tasks.size();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This implementation marks the task as done in the in-memory list and saves the changes.
+     */
     @Override
     public void setTaskAsDone(int taskIdx) {
         tasks.get(taskIdx).setDone(true);
         saveTasks();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This implementation marks the task as not done in the in-memory list and saves the changes.
+     */
     @Override
     public void setTaskAsNotDone(int taskIdx) {
         tasks.get(taskIdx).setDone(false);
         saveTasks();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This implementation removes the task from the in-memory list and saves the changes.
+     */
     @Override
     public void deleteTask(int taskIdx) {
         tasks.remove(taskIdx);
         saveTasks();
     }
 
+    /**
+     * Returns a string representation of all tasks in the storage.
+     *
+     * @return A formatted string containing all tasks.
+     */
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -81,8 +113,12 @@ public class TaskStorageImpl implements TaskStorage {
         return stringBuilder.toString().trim();
     }
 
-    // Todo: Optimization
+    /**
+     * Saves all tasks to the file.
+     * This method serializes each task and writes it to the file.
+     */
     private void saveTasks() {
+        // Todo: Optimization
         try {
             List<String> serializedTasks = tasks
                     .stream()

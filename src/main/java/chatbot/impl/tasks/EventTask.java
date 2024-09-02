@@ -5,12 +5,23 @@ import chatbot.exceptions.InvalidMessageException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a start and end time.
+ */
 public class EventTask extends AbstractTask {
 
     private final LocalDate startTime;
 
     private final LocalDate endTime;
 
+    /**
+     * Constructs a new EventTask with the given description, start time, and end time.
+     *
+     * @param description The description of the task.
+     * @param startTime   The start time of the event in yyyy-mm-dd format.
+     * @param endTime     The end time of the event in yyyy-mm-dd format.
+     * @throws InvalidMessageException if the date format is invalid.
+     */
     public EventTask(String description, String startTime, String endTime) throws InvalidMessageException {
         super(description);
 
@@ -23,6 +34,13 @@ public class EventTask extends AbstractTask {
         }
     }
 
+    /**
+     * Deserializes an EventTask from a string representation.
+     *
+     * @param line The string representation of the EventTask.
+     * @return The deserialized EventTask object.
+     * @throws IllegalArgumentException if the task format is invalid.
+     */
     public static EventTask deserialize(String line) {
         String[] parts = line.split(" \\| ");
 
