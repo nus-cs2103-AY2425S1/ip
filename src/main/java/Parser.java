@@ -1,3 +1,5 @@
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     static Task parseTask(String s) {
         String command = s.split(" ")[0];
@@ -20,6 +22,8 @@ public class Parser {
                     t = new Deadline(arr[0].strip(), arr[1].strip());
                 } catch (ArrayIndexOutOfBoundsException e) {
                     Ui.printAnything("missing /by");
+                } catch (DateTimeParseException ex) {
+                    Ui.printAnything("Incorrect date format stored: " + arr[1].strip());
                 }
             } catch (EmptyDescException e) {
                 Ui.printAnything(e.getMessage());
@@ -38,6 +42,8 @@ public class Parser {
                     t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
                 } catch (ArrayIndexOutOfBoundsException ex) {
                     System.out.println("missing /to");
+                } catch (DateTimeParseException ex) {
+                    System.out.println("Incorrect date format stored: " + arr[1].strip());
                 }
             } catch (Exception e) {
                 Ui.printAnything(e.getMessage());

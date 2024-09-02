@@ -1,3 +1,5 @@
+import java.time.format.DateTimeParseException;
+
 public class AddCommand extends Command {
     private final String action;
     private final String desc;
@@ -34,6 +36,9 @@ public class AddCommand extends Command {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("missing /by");
                     return;
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date: please follow this format yyyy-MM-dd, eg. 2019-12-01");
+                    return;
                 }
                 taskList.addTask(t);
                 System.out.println("added:\n" + t);
@@ -56,6 +61,9 @@ public class AddCommand extends Command {
                     t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
                 } catch (ArrayIndexOutOfBoundsException ex) {
                     System.out.println("missing /to");
+                    return;
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date: please follow this format yyyy-MM-dd, eg. 2019-12-01");
                     return;
                 }
                 taskList.addTask(t);
