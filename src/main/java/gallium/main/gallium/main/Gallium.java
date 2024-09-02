@@ -1,3 +1,7 @@
+package gallium.main;
+
+import gallium.command.Command;
+
 public class Gallium {
     private Storage storage;
     private TaskList taskList;
@@ -8,7 +12,7 @@ public class Gallium {
         ui = new Ui();
         storage = new Storage(filePath);
         // try {
-        taskList = new TaskList(storage.load());
+        taskList = new TaskList(storage.load(ui));
         // } catch (GalliumException e) {
         // ui.showLoadingError();
         // taskList = new TaskList();

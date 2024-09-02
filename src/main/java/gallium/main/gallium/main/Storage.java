@@ -1,6 +1,14 @@
+package gallium.main;
+
+import gallium.task.Deadline;
+import gallium.task.Event;
+import gallium.task.Task;
+import gallium.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,21 +30,25 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load(Ui ui) {
         ArrayList<Task> taskArrayList = new ArrayList<Task>();
         this.taskList = new TaskList(taskArrayList);
-        while (scanner.hasNextLine()) {
-            String taskDesc = scanner.nextLine();
-            if (taskDesc.startsWith("[T]")) {
-                Todo todo = new Todo(taskDesc);
-                taskArrayList.add(todo);
-            } else if (taskDesc.startsWith("[D]")) {
-                Deadline deadline = new Deadline(taskDesc);
-                taskArrayList.add(deadline);
-            } else if (taskDesc.startsWith("[E]")) {
-                Event event = new Event(taskDesc);
-                taskArrayList.add(event);
+        try {
+            while (scanner.hasNextLine()) {
+                String taskDesc = scanner.nextLine();
+                if (taskDesc.startsWith("[T]")) {
+                    Todo todo = new Todo(taskDesc);
+                    taskArrayList.add(todo);
+                } else if (taskDesc.startsWith("[D]")) {
+                    Deadline deadline = new Deadline(taskDesc);
+                    taskArrayList.add(deadline);
+                } else if (taskDesc.startsWith("[E]")) {
+                    Event event = new Event(taskDesc);
+                    taskArrayList.add(event);
+                }
             }
+        } catch (ParseException e) {
+            ui.showWrongDateTimeFormat();
         }
         Task.count = taskArrayList.size() + 1;
         scanner.close();

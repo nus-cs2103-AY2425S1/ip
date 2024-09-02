@@ -1,3 +1,10 @@
+package gallium.main;
+
+import gallium.task.Deadline;
+import gallium.task.Event;
+import gallium.task.Task;
+import gallium.task.Todo;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -81,16 +88,15 @@ public class Ui {
     }
 
     public void showCreateFileError(IOException e) {
-        System.out.println("Error creating file:" + e.getMessage());
+        printAnyMessage("Error creating file:" + e.getMessage());
     }
 
     public void showLoadingError() {
-        String message = "Oh no! Error loading task list :(";
-        System.out.println("    " + DIVIDER + "\n    " + message + "\n    " + DIVIDER);
+        printAnyMessage("Oh no! Error loading task list :(");
     }
 
     public void showGalliumException(GalliumException e) {
-        System.out.println("    " + DIVIDER + "\n    " + e.getMessage() + "\n    " + DIVIDER + "\n");
+        printAnyMessage(e.getMessage());
     }
 
     public void showIncompleteDeadline() {
@@ -108,11 +114,14 @@ public class Ui {
     }
 
     public void showIOException(IOException e) {
-        System.out.println("Something went wrong: " + e.getMessage());
+        printAnyMessage("Something went wrong: " + e.getMessage());
+    }
+
+    public void showWrongDateTimeFormat() {
+        printAnyMessage("Invalid date/time format! Please put in YYYY-MM-DD and 24 hours (HHMM) format!");
     }
 
     public void printByeMessage() {
-        String message = "Bye. Hope to see you again soon!";
-        System.out.println("    " + DIVIDER + "\n    " + message + "\n    " + DIVIDER);
+        printAnyMessage("Bye. Hope to see you again soon!");
     }
 }

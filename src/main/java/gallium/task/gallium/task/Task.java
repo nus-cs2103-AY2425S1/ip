@@ -1,3 +1,5 @@
+package gallium.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -30,5 +32,9 @@ public class Task {
         return Task.count == 2
                 ? "task"
                 : "tasks";
+    }
+
+    public String getDesc() {
+        return this.description;
     }
 }

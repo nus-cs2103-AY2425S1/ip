@@ -1,3 +1,5 @@
+package gallium.task;
+
 public class Todo extends Task {
 
     protected String desc;

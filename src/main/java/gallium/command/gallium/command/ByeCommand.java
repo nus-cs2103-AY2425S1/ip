@@ -1,3 +1,10 @@
+package gallium.command;
+
+import gallium.main.GalliumException;
+import gallium.main.Storage;
+import gallium.main.TaskList;
+import gallium.main.Ui;
+
 public class ByeCommand extends Command {
 
     @Override
