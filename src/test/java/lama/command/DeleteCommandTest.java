@@ -1,14 +1,6 @@
 package lama.command;
 
-import lama.LamaException;
-import lama.Storage;
-import lama.TaskList;
-import lama.Ui;
-import lama.task.Task;
-import lama.task.Todo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -16,7 +8,19 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import lama.LamaException;
+import lama.Storage;
+import lama.TaskList;
+import lama.Ui;
+import lama.task.Task;
+import lama.task.Todo;
+
+
+
 
 /**
  * Test class for DeleteCommand

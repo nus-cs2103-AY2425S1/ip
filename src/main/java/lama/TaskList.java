@@ -1,8 +1,8 @@
 package lama;
 
-import lama.task.Task;
-
 import java.util.ArrayList;
+
+import lama.task.Task;
 
 /**
  * Represents a list of tasks.

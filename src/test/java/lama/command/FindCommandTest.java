@@ -1,17 +1,20 @@
 package lama.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.Test;
+
 import lama.LamaException;
 import lama.Storage;
 import lama.TaskList;
 import lama.Ui;
 import lama.task.Task;
 import lama.task.Todo;
-import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test cases for find command.
@@ -43,7 +46,7 @@ public class FindCommandTest {
         findCommand.run(taskList, storage, ui);
         assertEquals(2, taskList.size());
 
-        String output = BAR +"\r\nHere are the matching tasks in your list:\r\n"
+        String output = BAR + "\r\nHere are the matching tasks in your list:\r\n"
                 + "1.[T][ ] Read Book\r\n" + BAR + "\n\r\n";
 
         assertEquals(output, outputStream.toString());
@@ -69,7 +72,7 @@ public class FindCommandTest {
         findCommand.run(taskList, storage, ui);
         assertEquals(2, taskList.size());
 
-        String output = BAR +"\r\nNo matching tasks found!\r\n" + BAR + "\n\r\n";
+        String output = BAR + "\r\nNo matching tasks found!\r\n" + BAR + "\n\r\n";
 
         assertEquals(output, outputStream.toString());
     }

@@ -1,10 +1,10 @@
 package lama.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for Event class.
@@ -18,7 +18,7 @@ public class EventTest {
      * its toString method returns the expected format.
      */
     @Test
-    public void ConstructorTest() {
+    public void constructorTest() {
         String description = "Return Book";
         LocalDateTime from = LocalDateTime.of(2025, 12, 12, 20, 10);
         LocalDateTime to = LocalDateTime.of(2026, 12, 12, 20, 10);

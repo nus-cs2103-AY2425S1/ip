@@ -1,10 +1,12 @@
 package lama.command;
 
-import lama.task.Task;
-import lama.task.Todo;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import lama.task.Task;
+import lama.task.Todo;
+
 
 /**
  * Test class for Command
