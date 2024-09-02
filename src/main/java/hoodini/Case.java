@@ -14,7 +14,6 @@ public enum Case {
     EVENT,
     FIND,
     UNMARK,
-    SORT,
     ERROR;
 
     /**

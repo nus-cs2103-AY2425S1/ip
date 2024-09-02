@@ -35,10 +35,6 @@ public class Deadline extends Input {
         this.deadline = LocalDate.parse(deadline, formatter);
     }
 
-    public LocalDate getDeadline() {
-        return this.deadline;
-    }
-
     /**
      * Returns the string representation of the Deadline task.
      * @return String representation of the Deadline task.
