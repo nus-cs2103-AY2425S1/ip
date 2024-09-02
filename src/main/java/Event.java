@@ -1,14 +1,21 @@
- public class Event extends Task {
-    private String start;
-    private String end;
-    Event(String description, String start, String end) {
+import java.time.LocalDateTime;
+
+public class Event extends Task {
+    private LocalDateTime start;
+    private LocalDateTime end;
+
+    Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
     }
 
+    Event(String description, String start, String end) {
+        this(description, Converter.InputToDateTime(start), Converter.InputToDateTime(end));
+    }
+
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString() + " (from: " + Converter.DateTimeToOutput(start) + " to: " + Converter.DateTimeToOutput(end) + ")";
     }
 }

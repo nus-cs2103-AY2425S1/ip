@@ -14,6 +14,7 @@ public class ToMo {
         } catch (ToMoException e) {
             ui.println(e);
             tasks = new TaskList();
+            ui.println("Successfully loaded 0 task");
         }
     }
 
