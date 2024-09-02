@@ -55,6 +55,8 @@ public class Parser {
                 System.out.println(e);
             }
             break;
+        case "find":
+            return new FindCommand(splitedBySpace[1]);
         default:
             switch (splitedBySpace[0]) {
             case "todo":
