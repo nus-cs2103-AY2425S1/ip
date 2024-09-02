@@ -3,44 +3,34 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Paths;
 
 public class Main {
 
     public static void main(String[] args) {
-        // save data feature
-        String filename = "Ynch.txt";
-        File file = new File(filename);
-        String userInput;
-        Ynch chatbot = new Ynch();
+        // Storage will load and save tasks
+        // TaskList will store tasks
+        // Parser will tell Main what operations to call for TaskList
+        // YnchUi will print statements
 
-        // check if file exists
-        try {
-            if (file.exists()) {
-                //  read file contents
-                Scanner scannerHistory = new Scanner(file);
-                
-                // add each task to chatbot history
-                while (scannerHistory.hasNextLine()) {
-                    String task = scannerHistory.nextLine();
-                    chatbot.processInput(task);
-                }
-                scannerHistory.close();
-            } else {
-                file.createNewFile();
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+        // initialize
+        String filePath = Paths.get("").toAbsolutePath().toString();
+        String filename = "Ynch.txt";
+        Storage storage = new Storage(filePath, filename);
+        TaskList taskList = storage.load();
+        Parser parser = new Parser();
+        YnchUi ui = new YnchUi();
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(chatbot.greet());
+        ui.greet();
+
         while (true) {
-            userInput = scanner.nextLine();
+            String userInput = scanner.nextLine();
             
             if (userInput.equals("bye")) {
-                System.out.println(chatbot.exit());
+                storage.save(taskList);
+                ui.exit();
                 break;
             } 
 
@@ -54,16 +44,41 @@ public class Main {
                 System.out.println(e.getMessage());
                 continue;
             }
-
-            chatbot.processInput(userInput);
-
-            // save chat history
-            try (FileWriter writer = new FileWriter(filename, true)) {
-                writer.write(userInput + System.lineSeparator());
-                // System.out.println("Appended: " + userInput);
-            } catch (IOException e) {
-                System.out.println("An error occurred while writing to the file.");
-                e.printStackTrace();
+            
+            switch (parser.processInput(userInput)) {
+            case ValidCommand.list: {
+                System.out.println(taskList.list());
+            }
+            case ValidCommand.mark: {
+                int i = Integer.valueOf(userInput.split(" ")[1]);
+                ui.printMark(taskList.mark(i));
+            }
+            case ValidCommand.unmark: {
+                int i = Integer.valueOf(userInput.split(" ")[1]);
+                ui.printUnmark(taskList.unmark(i));
+            }
+            case ValidCommand.todo: {
+                String task = userInput.split(" ", 2)[1];
+                ui.printAdd(taskList.add(task), taskList.size());
+            }
+            case ValidCommand.deadline: {
+                userInput = userInput.split(" ", 2)[1];
+                String task = userInput.split("/by")[0];
+                String deadline = userInput.split("/by")[1];
+                ui.printAdd(taskList.add(task, deadline), taskList.size());
+            }
+            case ValidCommand.event: {
+                userInput = userInput.split(" ", 2)[1];
+                String task = userInput.split("/from")[0];
+                String fromAndTo = userInput.split("/from")[1];
+                String from = fromAndTo.split("/to")[0];
+                String to = fromAndTo.split("/to")[1];
+                ui.printAdd(taskList.add(task, from, to), taskList.size());
+            }
+            case ValidCommand.delete: {
+                int i = Integer.valueOf(userInput.split(" ")[1]);
+                ui.printDelete(taskList.delete(i), taskList.size());
+            }
             }
 
         }
@@ -91,4 +106,6 @@ public class Main {
             return false; // invalid enum
         }
     }
+
+    
 }
