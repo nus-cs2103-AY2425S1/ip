@@ -1,3 +1,5 @@
+package tomo;
+
 import java.util.Scanner;
 
 public class Ui {

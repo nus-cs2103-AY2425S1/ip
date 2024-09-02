@@ -1,3 +1,9 @@
+package tomo;
+
+import task.Converter;
+import exception.ParserException;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     public String[] parse(String cmd) throws ParserException {
         if (cmd.split(" ").length == 0) return new String[]{};
@@ -64,6 +70,11 @@ public class Parser {
             if (args2.length >= 3) {
                 throw new ParserException("Missing arguments for deadline command");
             }
+            try {
+                Converter.InputToDateTime(args2[1]);
+            } catch (DateTimeParseException e) {
+                throw new ParserException("Invalid format for argument deadline");
+            }
             return new String[]{args[0], args2[0], args2[1]};
         } else if (type.equals("event")) {
             String[] args = cmd.split(" ", 2);
@@ -78,6 +89,19 @@ public class Parser {
             if (args2.length >= 4) {
                 throw new ParserException("Too much arguments for event command");
             }
+            
+            try {
+                Converter.InputToDateTime(args2[1]);
+            } catch (DateTimeParseException e) {
+                throw new ParserException("Invalid format for argument start");
+            }
+
+            try {
+                Converter.InputToDateTime(args2[2]);
+            } catch (DateTimeParseException e) {
+                throw new ParserException("Invalid format for argument end");
+            }
+            
             return new String[]{args[0], args2[0], args2[1], args2[2]};
         } else {
             throw new ParserException("Unknown command");
