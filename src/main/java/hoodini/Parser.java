@@ -150,6 +150,7 @@ public class Parser {
      * into the task list
      */
     public String handleInput(String input) {
+        assert input != null : "Input should not be null";
         try {
             String command = input.split(" ")[0];
             Case cases = Case.getCase(command);
@@ -190,6 +191,7 @@ public class Parser {
      * @throws HandleException Handles invalid tasks
      */
     private String handleToDo(String str) throws HandleException {
+        assert str != null : "Input should not be null";
         if (str.trim().equalsIgnoreCase("todo")) {
             throw new HandleException(TASK_ERROR);
         } else {
@@ -204,6 +206,7 @@ public class Parser {
      * @throws HandleException Handles invalid tasks
      */
     private String handleDeadline(String str) throws HandleException {
+        assert str != null : "Input should not be null";
         if (str.trim().equalsIgnoreCase("deadline")) {
             throw new HandleException(TASK_ERROR);
         } else {
@@ -226,6 +229,7 @@ public class Parser {
      * @throws HandleException Handles invalid tasks
      */
     private String handleEvent(String str) throws HandleException {
+        assert str != null : "Input should not be null";
         if (str.trim().equalsIgnoreCase("event")) {
             throw new HandleException(TASK_ERROR);
         } else {
@@ -235,6 +239,7 @@ public class Parser {
     }
 
     private String handleDelete(String str) throws HandleException {
+        assert str != null : "Input should not be null";
         if (str.trim().equalsIgnoreCase("delete")) {
             throw new HandleException(TASK_ERROR);
         } else {
@@ -243,6 +248,7 @@ public class Parser {
     }
 
     private String handleMark(String str) throws HandleException {
+        assert str != null : "Input should not be null";
         if (str.trim().equalsIgnoreCase("mark")) {
             throw new HandleException(NUMBER_ERROR);
         } else {
@@ -251,6 +257,7 @@ public class Parser {
     }
 
     private String handleUnmark(String str) throws HandleException {
+        assert str != null : "Input should not be null";
         if (str.trim().equalsIgnoreCase("unmark")) {
             throw new HandleException(NUMBER_ERROR);
         } else {
@@ -259,6 +266,7 @@ public class Parser {
     }
 
     private String handleFind(String str) throws HandleException {
+        assert str != null : "Input should not be null";
         if (str.trim().equalsIgnoreCase("find")) {
             throw new HandleException("Whoopsie! Please enter something to find");
         } else {
