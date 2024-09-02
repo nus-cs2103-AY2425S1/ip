@@ -21,7 +21,8 @@ public class MarkException extends MoniqueException {
      * or unmark an item that is already unmarked.
      */
     @Override
-    public void advice() {
-        System.out.println("Mark-related Exception. You have tried to mark an item which does not exist, or unmark something that is already unmarked.");
+    public String advice() {
+        return "Mark-related Exception. You have tried to mark an item which does not exist, "
+               + "or unmark something that is already unmarked.";
     }
 }

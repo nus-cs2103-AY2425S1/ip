@@ -20,5 +20,5 @@ public abstract class MoniqueException extends Exception {
      * Subclasses are expected to implement this method to give specific instructions
      * or tips to the user on how to resolve the exception.
      */
-    public abstract void advice();
+    public abstract String advice();
 }

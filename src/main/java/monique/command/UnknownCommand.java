@@ -57,4 +57,8 @@ public class UnknownCommand extends Command {
         // If obj is not an instance of UnknownCommand, return false
         return false;
     }
+
+    public String getResponse(Ui ui) {
+        return "Uknown command, please try again";
+    }
 }

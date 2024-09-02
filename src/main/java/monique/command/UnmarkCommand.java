@@ -11,7 +11,7 @@ import monique.ui.Ui;
  */
 public class UnmarkCommand extends Command {
     private final int taskNum;
-
+    private String unmarkMessage = "";
     /**
      * Constructs an <code>UnmarkCommand</code> with the specified task number.
      *
@@ -37,7 +37,7 @@ public class UnmarkCommand extends Command {
             throw new MarkException();
         }
         tasks.unmarkTask(this.taskNum);
-        ui.unmarkMessage(tasks.getTask(this.taskNum));
+        this.unmarkMessage = ui.unmarkMessage(tasks.getTask(this.taskNum));
     }
 
     /**
@@ -47,5 +47,9 @@ public class UnmarkCommand extends Command {
     @Override
     public boolean isActive() {
         return true;
+    }
+
+    public String getResponse(Ui ui) {
+        return this.unmarkMessage;
     }
 }

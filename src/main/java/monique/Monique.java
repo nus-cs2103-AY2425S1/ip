@@ -1,13 +1,9 @@
 package monique;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import monique.command.Command;
-import monique.exception.MarkException;
 import monique.exception.MoniqueException;
-import monique.exception.ParseException;
-import monique.exception.UnknownCommandException;
 import monique.parser.Parser;
 import monique.storage.Storage;
 import monique.tasklist.TaskList;
@@ -62,19 +58,27 @@ public class Monique {
         }
     }
 
-    /**
-     * The entry point of the Monique application.
-     * Initializes and runs the Monique application with the specified file path for task storage.
-     *
-     * @param args Command-line arguments passed to the program (not used).
-     * @throws IOException If an input or output exception occurs during file handling.
-     * @throws MarkException If there is an issue with marking tasks.
-     * @throws ParseException If there is an error in parsing the user commands.
-     * @throws UnknownCommandException If an unknown command is encountered.
-     * @throws FileNotFoundException If the specified file path for tasks is not found.
-     */
-    public static void main(String[] args) throws IOException, MarkException, ParseException,
-            UnknownCommandException, FileNotFoundException {
-        new Monique("data/tasks.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(taskList, ui, storage);
+            if (!c.isActive()) {
+                return ui.showGoodbye();
+            }
+            return c.getResponse(ui);
+        } catch (MoniqueException e) {
+            return e.advice();
+        }
     }
+
+
+    public String getWelcomeMessage() {
+        return ui.showWelcome();
+    }
+
+    public Ui getUi() {
+        return this.ui;
+    }
+
+
 }

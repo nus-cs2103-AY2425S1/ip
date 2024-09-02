@@ -19,9 +19,9 @@ public class IllegalDateFormatException extends MoniqueException {
      * and advises them to try again with the correct input format.
      */
     @Override
-    public void advice() {
-        System.out.println("You have tried to create an Event without using proper "
-                + "date-time formats. Please try again, with the correct input format");
+    public String advice() {
+        return "You have tried to create an Event without using proper "
+                + "date-time formats. Please try again, with the correct input format";
 
     }
 }

@@ -27,7 +27,14 @@ public class ByeCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         storage.save(tasks.getTaskList());
-        ui.showGoodbye();
+    }
+
+    /**
+     * Uses UI to return the goodbye string
+     * @return goodbye string
+     */
+    public String getResponse(Ui ui) {
+        return ui.showGoodbye();
     }
 
     /**

@@ -53,4 +53,8 @@ public class AddCommand extends Command {
     public Task getTask() {
         return this.task;
     }
+
+    public String getResponse(Ui ui) {
+        return ui.addMessage(this.task);
+    }
 }

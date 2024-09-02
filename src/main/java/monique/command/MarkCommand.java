@@ -11,7 +11,7 @@ import monique.ui.Ui;
  */
 public class MarkCommand extends Command {
     private final int taskNum;
-
+    private String markMessage = "";
 
     /**
      * Constructs a <code>MarkCommand</code> instance with the specified task number.
@@ -42,7 +42,7 @@ public class MarkCommand extends Command {
             throw new MarkException();
         }
         tasks.markTask(this.taskNum);
-        ui.markMessage(tasks.getTask(this.taskNum));
+        this.markMessage = ui.markMessage(tasks.getTask(this.taskNum));
     }
 
     /**
@@ -52,5 +52,9 @@ public class MarkCommand extends Command {
     @Override
     public boolean isActive() {
         return true;
+    }
+
+    public String getResponse(Ui ui) {
+        return this.markMessage;
     }
 }

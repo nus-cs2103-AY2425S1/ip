@@ -1,15 +1,17 @@
 package monique.command;
 
+import java.util.ArrayList;
+
 import monique.storage.Storage;
 import monique.task.Task;
 import monique.tasklist.TaskList;
 import monique.ui.Ui;
 
-import java.util.ArrayList;
 
 public class FindCommand extends Command {
 
     private final String searchKey;
+    private String findResults = "";
 
     public FindCommand(String searchKey) {
         super();
@@ -25,11 +27,16 @@ public class FindCommand extends Command {
                 resultList.add(task);
             }
         }
-        ui.showFindResults(resultList);
+        this.findResults = ui.showFindResults(resultList);
     }
 
     @Override
     public boolean isActive() {
         return true;
+    }
+
+    @Override
+    public String getResponse(Ui ui) {
+        return this.findResults;
     }
 }

@@ -11,8 +11,8 @@ import monique.ui.Ui;
  * The command identifies a task by its index and removes it from the task list.
  */
 public class DeleteCommand extends Command {
-
     private final int taskNum;
+    private String deleteMessage = "";
 
     /**
      * Constructs a <code>DeleteCommand</code> with the specified task index.
@@ -38,9 +38,11 @@ public class DeleteCommand extends Command {
         if (this.taskNum > tasks.getNumItems() - 1 || this.taskNum < 0) {
             throw new DeleteException();
         }
+        StringBuilder sb = new StringBuilder();
         Task deletedTask = tasks.getTask(this.taskNum);
+        sb.append(ui.deleteMessage(deletedTask, tasks));
         tasks.deleteTask(this.taskNum);
-        ui.deleteMessage(deletedTask, tasks);
+        this.deleteMessage = sb.toString();
     }
 
     /**
@@ -75,6 +77,10 @@ public class DeleteCommand extends Command {
 
         // If obj is not an instance of DeleteCommand, return false
         return false;
+    }
+
+    public String getResponse(Ui ui) {
+        return this.deleteMessage;
     }
 
 

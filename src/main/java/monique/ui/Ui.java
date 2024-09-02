@@ -33,8 +33,8 @@ public class Ui {
      *
      * @param task The task that was added.
      */
-    public void addMessage(Task task) {
-        System.out.println("added: " + task);
+    public String addMessage(Task task) {
+        return "added: " + task;
     }
 
     /**
@@ -43,9 +43,8 @@ public class Ui {
      * @param task The task that was deleted.
      * @param tasks The current list of tasks.
      */
-    public void deleteMessage(Task task, TaskList tasks) {
-        System.out.println("deleted: " + task);
-        System.out.println("You now have " + tasks.getNumItems() + " tasks in the list");
+    public String deleteMessage(Task task, TaskList tasks) {
+        return "deleted: " + task + ".\nYou now have " + (tasks.getNumItems() - 1) + " tasks in the list";
     }
 
     /**
@@ -53,8 +52,8 @@ public class Ui {
      *
      * @param task The task that was marked as completed.
      */
-    public void markMessage(Task task) {
-        System.out.println("Nice lah.. Great job on doing work! I've marked it: " + task);
+    public String markMessage(Task task) {
+        return "Nice lah.. Great job on doing work! I've marked it: " + task;
     }
 
     /**
@@ -62,8 +61,8 @@ public class Ui {
      *
      * @param task The task that was unmarked as incomplete.
      */
-    public void unmarkMessage(Task task) {
-        System.out.println("ok... I've unmarked:" + task);
+    public String unmarkMessage(Task task) {
+        return "ok... I've unmarked:" + task;
     }
 
     /**
@@ -76,15 +75,15 @@ public class Ui {
     /**
      * Displays a welcome message when the Monique application starts.
      */
-    public void showWelcome() {
-        System.out.println("Hello, I am Monique,\nI am your personal assistant :)\n ");
+    public String showWelcome() {
+        return "Hello, I am Monique,\nI am your personal assistant :)";
     }
 
     /**
      * Displays a goodbye message when the Monique application exits.
      */
-    public void showGoodbye() {
-        System.out.println("Monique: Goodbye! Have a great day!");
+    public String showGoodbye() {
+        return "Goodbye! Have a great day! This window will close in 5 seconds";
     }
 
     /**
@@ -105,8 +104,8 @@ public class Ui {
     /**
      * Displays a message indicating that the task list is empty.
      */
-    public void emptyListMessage() {
-        System.out.println("There are no tasks in your List :)");
+    public String emptyListMessage() {
+        return "There are no tasks in your List :)";
     }
 
     /**
@@ -116,17 +115,20 @@ public class Ui {
      *
      * @param resultList the list of tasks that match the search query
      */
-    public void showFindResults(ArrayList<Task> resultList) {
+    public String showFindResults(ArrayList<Task> resultList) {
+        StringBuilder sb = new StringBuilder();
         if (resultList.isEmpty()) {
-            System.out.println("There are no tasks matching your search");
+            return "There are no tasks matching your search";
         } else {
-            System.out.println("Here are the matching tasks on your list:");
+            sb.append("Here are the matching tasks on your list:\n");
             for (int i = 0; i < resultList.size(); i++) {
-                System.out.println(String.valueOf(i + 1) + ". " + resultList.get(i));
+                sb.append(String.valueOf(i + 1)).append(". ").append(resultList.get(i)).append("\n");
             }
         }
+        return sb.toString();
     }
-    public void printGuide() {
-        System.out.println(GuideText.GUIDE);
+
+    public String printGuide() {
+        return GuideText.GUIDE;
     }
 }
