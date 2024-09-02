@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
+    /**
+     * Tests whether the code can mark and unmark tasks accurately.
+     */
     @Test
     public void markUnmarkTest() {
         ArrayList<Object> args = new ArrayList<Object>();

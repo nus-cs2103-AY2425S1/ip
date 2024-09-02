@@ -7,15 +7,13 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
-    /*@Test
-    public void deadlineTest(){
-        TaskList taskList = new TaskList(new ArrayList<Task>());
-        taskList.addTask(new Deadline("This is a deadline", "2019-12-15"));
-        assertEquals("[D][ ] This is a deadline (by: 15 Dec 2019)", taskList.);
-    }//*/
+    /**
+     * Tests whether TaskList can handle add and delete tasks accurately.
+     */
     @Test
     public void addDeleteTaskTest() {
-        TaskList taskList = new TaskList(new ArrayList<Task>());
+        ArrayList<Task> a = new ArrayList<Task>();
+        TaskList taskList = new TaskList(a);
         taskList.addTask(new Task("Hello world"));
         taskList.addTask(new Task("Hello world again"));
         taskList.addTask(new Task("Hello world thrice"));
@@ -25,5 +23,6 @@ public class TaskListTest {
         } catch (IndexOutOfBoundsException ignored) {
         }
         assertEquals(2, taskList.getListSize());
+        assertEquals("Hello world thrice", a.get(1).getDescription());
     }
 }

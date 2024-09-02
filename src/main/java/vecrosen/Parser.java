@@ -4,7 +4,14 @@ import java.util.ArrayList;
 
 public class Parser {
     public enum ActionType {undefined, formatting, todo, deadline, event, mark, unmark, delete, list, bye};
-    
+
+    /**
+     * Parses the string to detect the action the user is attempting
+     * and any arguments supplied by the user.
+     * @param input The string the user entered
+     * @param returnArgs An arraylist to hold the parsed arguments, if any
+     * @return The task type the input corresponds to
+     */
     public static ActionType parse(String input, ArrayList<Object> returnArgs) {
         if (input.equals("bye")) {
             return ActionType.bye;

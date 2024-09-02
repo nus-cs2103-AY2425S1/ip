@@ -31,6 +31,10 @@ public class Ui {
         speak("Usage: " + usage);
     }
 
+    /**
+     * Obtains the next line that the user had entered
+     * @return The line the user entered
+     */
     public String readline() {
         return input.nextLine();
     }
