@@ -118,4 +118,22 @@ public class TaskList {
         return fileText;
     }
 
+    /**
+     * Lists all the tasks that contains the keyword in their task descriptions.
+     *
+     * @param keyword Keyword to search for in each task description.
+     * @return String listing all the tasks that contains the keyword in their descriptions.
+     */
+    public String findTasks(String keyword) {
+        String tasks = "Here are the matching tasks in your list:\n";
+        int counter = 1;
+        for (Task task : taskList) {
+            if (task.containsWord(keyword)) {
+                tasks += counter + ". " + task + "\n";
+                counter += 1;
+            }
+        }
+        return tasks;
+    }
+
 }

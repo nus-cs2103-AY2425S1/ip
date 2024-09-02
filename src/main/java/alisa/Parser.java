@@ -36,6 +36,8 @@ public class Parser {
                 return new ListCommand();
             case "bye":
                 return new ExitCommand();
+            case "find":
+                return new FindCommand(commandArray[1]);
             default:
                 throw new AlisaException("Sorry, I didn't quite catch that. Put in a command that I understand");
         }
