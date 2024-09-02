@@ -8,6 +8,8 @@ import sigmabot.util.ListMapWriter;
 import sigmabot.util.ListReader;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -20,7 +22,7 @@ import java.util.Scanner;
 public class ListOperation extends Command {
     private ListReader reader = new ListReader();
     private ListMapWriter writer = new ListMapWriter();
-    private String filePath = "./src/main/data/tasks.txt";
+    private String filePath = System.getProperty("user.home") + "/tasks.txt";
     private Map<String, Task> taskList = new HashMap<>();
 
     /**
@@ -32,8 +34,27 @@ public class ListOperation extends Command {
     @Override
     public void execute(Scanner sc) {
         File file = new File(filePath);
+
+        // Check if the file exists. If not, attempt to copy it from the JAR.
         if (!file.exists()) {
-            System.out.println("No tasks file found. A new one will be created upon saving tasks.");
+            System.out.println("No tasks file found. Creating a new one...");
+            try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("tasks.txt")) {
+                if (inputStream != null) {
+                    // Copy the file from the JAR to the user's home directory
+                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
+                        byte[] buffer = new byte[1024];
+                        int bytesRead;
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, bytesRead);
+                        }
+                    }
+                    System.out.println("Default tasks file created at: " + filePath);
+                } else {
+                    System.out.println("No default tasks file found in JAR. A new one will be created upon saving tasks.");
+                }
+            } catch (Exception e) {
+                System.out.println("An error occurred while creating the tasks file: " + e.getMessage());
+            }
         } else if (file.length() == 0) {
             System.out.println("Tasks file is empty. You can create a new task.");
         } else {
@@ -49,6 +70,7 @@ public class ListOperation extends Command {
             }
         }
 
+        // Main command loop remains unchanged...
         while (true) {
             System.out.println("Enter operation command (create, query, find, add, mark, unmark, delete, exit): ");
             if (!sc.hasNextLine()) {
@@ -93,6 +115,7 @@ public class ListOperation extends Command {
      * @param sc The {@code Scanner} object for reading user input.
      */
     public void createNewTask(Scanner sc) {
+        System.out.println("Current working directory: " + System.getProperty("user.dir"));
         while (true) {
             System.out.println("Enter task type (todo, deadline, event) or '/exit' to finish: ");
             String input = sc.nextLine().trim();
