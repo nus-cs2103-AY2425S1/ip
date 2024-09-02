@@ -1,3 +1,5 @@
+package spiderman;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -6,9 +8,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
-import java.util.Scanner;  // Import the Scanner class
-import java.util.ArrayList; // import the ArrayList class
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Spiderman {
     public static void main(String[] args) {
@@ -111,7 +112,6 @@ public class Spiderman {
                 try {
                     LocalDateTime from = LocalDateTime.parse(fromString, formatter);
                     LocalDateTime to = LocalDateTime.parse(toString, formatter);
-                    System.out.println(from);
                     taskList.add(new Event(description, from, to));
                 }
                 catch (DateTimeParseException e) {
@@ -205,7 +205,7 @@ public class Spiderman {
             }
             scan.close();
         } catch (FileNotFoundException e) {
-            System.out.println("There is no existing tasks.txt. Hence, an empty task list will be created!");
+            System.out.print("");
         }
         return taskList;
     }
