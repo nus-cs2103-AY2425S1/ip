@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class FileReaderWriter {
     java.nio.file.Path path;
@@ -38,47 +39,38 @@ public class FileReaderWriter {
 
     public String readFile() {
         String output = "";
-        String data = "";
-        try(BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-
-            while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-                line = br.readLine();
+        File file = new File(path.toString());
+        try {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String taskInput = sc.nextLine();
+                String[] taskParts = taskInput.split("\\|");
+                switch(taskParts[0]) {
+                case "T":
+                    Todo newTodo = new Todo(taskParts[2]);
+                    if (Objects.equals(taskParts[1], "1")) {
+                        newTodo.updateStatus(true);
+                    }
+                    taskList.addTask(newTodo);
+                    break;
+                case "D":
+                    Deadline newDeadline = new Deadline(taskParts[2], taskParts[3]);
+                    if (Objects.equals(taskParts[1], "1")) {
+                        newDeadline.updateStatus(true);
+                    }
+                    taskList.addTask(newDeadline);
+                    break;
+                case "E":
+                    Event newEvent = new Event(taskParts[2], taskParts[3], taskParts[4]);
+                    if (Objects.equals(taskParts[1], "1")) {
+                        newEvent.updateStatus(true);
+                    }
+                    taskList.addTask(newEvent);
+                    break;
+                }
             }
-            data = sb.toString();
-        } catch (IOException e) {
-            output = "Aww something went wrong :(\n";
-        }
-        String[] tasksInput = data.split("\r\n");
-        for (String taskInput: tasksInput) {
-            String[] taskParts = taskInput.split("\\|");
-            switch(taskParts[0]) {
-            case "T":
-                Todo newTodo = new Todo(taskParts[2]);
-                if (Objects.equals(taskParts[1], "1")) {
-                    newTodo.updateStatus(true);
-                }
-                taskList.addTask(newTodo);
-                break;
-            case "D":
-                Deadline newDeadline = new Deadline(taskParts[2], taskParts[3]);
-                if (Objects.equals(taskParts[1], "1")) {
-                    newDeadline.updateStatus(true);
-                }
-                taskList.addTask(newDeadline);
-                break;
-            case "E":
-                Event newEvent = new Event(taskParts[2], taskParts[3], taskParts[4]);
-                if (Objects.equals(taskParts[1], "1")) {
-                    newEvent.updateStatus(true);
-                }
-                taskList.addTask(newEvent);
-                break;
-            }
-        }
+            output = "I loaded your past data! Aren't I amazing? Come on praise me!";
+        } catch (FileNotFoundException ignored) {}
         return output;
     }
 }

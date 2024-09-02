@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class InputOutputHandler {
     TaskList taskList;
     FileReaderWriter fileReaderWriter;
@@ -5,13 +9,16 @@ public class InputOutputHandler {
     public InputOutputHandler() {
         taskList = new TaskList();
         fileReaderWriter = new FileReaderWriter(taskList);
-        fileReaderWriter.readFile();
+        String msg = fileReaderWriter.readFile();
+        if (!msg.isEmpty()) {
+            Message.print(msg);
+        }
     }
 
     public boolean parseInput(String input) throws ElysiaException, StringIndexOutOfBoundsException {
         String output = "";
         if (input.equals("bye")) {
-            output += fileReaderWriter.createFile();
+            output += fileReaderWriter.createFile() + "\n";
             output += fileReaderWriter.writeFile();
             Message.print(output);
             return false;
@@ -50,10 +57,20 @@ public class InputOutputHandler {
                 output = "Hmph! You don't expect me to read your mind for this deadline, do you?";
             } else {
                 int index = input.indexOf("/");
-                Deadline newDeadline = new Deadline(input.substring(9,index),
-                        input.substring(index + 4));
+                String rawDate = input.substring(index + 4);
+                String date;
+                try {
+                    LocalDate parsedDate = LocalDate.parse(rawDate);
+                    date = parsedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                } catch (DateTimeParseException e) {
+                    output = "This doesn't look like a date... I won't be able to do anything with it but as long" +
+                            "as you understand it :)";
+                    date = rawDate;
+                }
+
+                Deadline newDeadline = new Deadline(input.substring(9,index), date);
                 taskList.addTask(newDeadline);
-                output = "Added the task below to your list~\n" + newDeadline.toString();
+                output += "Added the task below to your list~\n" + newDeadline.toString();
                 output += "Wow! You now have " + taskList.size() + " tasks in your list!";
             }
         } else if (input.startsWith("event")) {
@@ -74,10 +91,14 @@ public class InputOutputHandler {
                 output = "Hmph! What do you even want me to delete?";
             }   else {
                 int index = Integer.parseInt(input.substring(7));
-                Task deletedTask = taskList.deleteTask(index);
-                output = "You don't need this task below anymore? Ok deleting it~\n";
-                output += deletedTask.toString();
-                output += "Wow! You now have " + taskList.size() + " tasks in your list!";
+                try {
+                    Task deletedTask = taskList.deleteTask(index);
+                    output = "You don't need this task below anymore? Ok deleting it~\n";
+                    output += deletedTask.toString();
+                    output += "Wow! You now have " + taskList.size() + " tasks in your list!";
+                } catch (IndexOutOfBoundsException e) {
+                    output = "Uh oh, this task number does not exist...";
+                }
             }
         }
         else {
