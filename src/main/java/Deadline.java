@@ -4,40 +4,37 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-    public String statement;
     public LocalDate dueDate;
     public LocalTime dueTime;
 
-    public Deadline(String description, String by) {
-        super(description);
-        String[] due = by.split(" ");
+    public Deadline(String description) throws InvalidDescriptionException, InvalidDateTimeFormatException {
+        super(description.split("/by ")[0].trim());
+        String[] arguments = description.split("/by ");
+
+        if (arguments.length < 2 || arguments[1].trim().isEmpty()) {
+            throw new InvalidDescriptionException("Oh No! Please provide a deadline task in the format: <task> /by <date>");
+        }
+
+        String[] due = arguments[1].trim().split(" ");
         this.dueDate = parseDate(due[0]);
-        this.dueTime = due.length > 1 ? parseTime(due[1]) : null; // Handle optional time
+        this.dueTime = due.length > 1 ? parseTime(due[1]) : null;
     }
 
-    private LocalDate parseDate(String date) {
+    private LocalDate parseDate(String date) throws InvalidDateTimeFormatException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             return LocalDate.parse(date, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use yyyy-MM-dd");
-            return null;
-        } catch (Exception e) {
-            System.out.println("Unexpected error while parsing the date");
-            return null;
+            throw new InvalidDateTimeFormatException("Invalid date format. Please use yyyy-MM-dd");
         }
     }
 
-    private LocalTime parseTime(String time) {
+    private LocalTime parseTime(String time) throws InvalidDateTimeFormatException {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
         try {
             return LocalTime.parse(time, timeFormatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid time format. Please use HHmm (e.g., 1800 for 6:00 PM)");
-            return null;
-        } catch (Exception e) {
-            System.out.println("Unexpected error while parsing the time");
-            return null;
+            throw new InvalidDateTimeFormatException("Invalid time format. Please use HHmm (e.g., 1800 for 6:00 PM)");
         }
     }
 
@@ -47,8 +44,7 @@ public class Deadline extends Task {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
         String formattedDate = dueDate != null ? dueDate.format(dateFormatter) : "unknown date";
         String formattedTime = dueTime != null ? dueTime.format(timeFormatter) : "no specific time";
-        statement = String.format("D | %d | %s | %s %s\n", this.isDone ? 1 : 0, this.description, formattedDate, formattedTime);
-        return statement;
+        return String.format("D | %d | %s | %s %s\n", this.isDone ? 1 : 0, this.description, formattedDate, formattedTime);
     }
 
     @Override
