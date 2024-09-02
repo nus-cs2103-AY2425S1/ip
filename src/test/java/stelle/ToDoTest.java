@@ -1,11 +1,10 @@
 package stelle;
 
-import org.junit.jupiter.api.Test;
-import stelle.exception.WrongDateFormatException;
-import stelle.task.ToDo;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import stelle.task.ToDo;
 
 /**
  * Represents a class used for testing ToDo.java.

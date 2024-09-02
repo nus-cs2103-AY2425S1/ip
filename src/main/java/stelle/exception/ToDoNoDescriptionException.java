@@ -1,6 +1,8 @@
 package stelle.exception;
 
-/** Exception thrown when there is no description given during creation of a stelle.task.ToDo. Child of stelle.exception.TaskException.
+/**
+ * Exception thrown when there is no description given during creation of a stelle.task.ToDo.
+ * Child of stelle.exception.TaskException.
  * @author Lee Ze Hao (A0276123J)
  */
 
