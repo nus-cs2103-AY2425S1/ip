@@ -13,6 +13,14 @@ public class Parser {
 
     private static final Map<String, Command> commands = new HashMap<>();
 
+    // Implement a new command "many"
+    // input command looks something like =>
+    /*
+    many deadline <> /by <>
+
+     */
+    // Get an array of Tasks split by "\n" and then call a method named addMultipleTasks(Tasks... tasks)
+    // And then process accordingly
     static {
         // Initialize command mappings
         commands.put("list", new ListCommand());

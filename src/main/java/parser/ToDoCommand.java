@@ -8,9 +8,8 @@ import java.util.Scanner;
 
 public class ToDoCommand implements Command {
     @Override
-    public String execute(String input,List<Task> items, Scanner scanner) {
+    public String execute(String input, List<Task> items, Scanner scanner) {
         try {
-            //String taskDescription = scanner.nextLine().substring(4).trim();
             String taskDescription = input.substring(4).trim();
             return TaskList.addingToDo(taskDescription, items, scanner);
         } catch (TheOrangeRatchetCatException e) {
