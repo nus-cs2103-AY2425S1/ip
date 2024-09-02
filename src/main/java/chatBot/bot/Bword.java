@@ -2,8 +2,15 @@ package chatBot.bot;
 
 import chatBot.command.Command;
 
-/** Bword is a chatbot that helps with planning tasks
+/**
+ * Bword is a chatbot that helps with planning tasks
  *
+ * The constructor method takes in the location of the file to read and write data
+ * as a String, and has respective attributes of storage, tasklist and ui
+ *
+ * The run method loops continuously until a command to exit is detected.
+ *
+ * The main method initialises the program
  */
 
 public class Bword {
@@ -14,7 +21,7 @@ public class Bword {
     private TaskList taskList;
     private Ui ui;
 
-    Bword(String s) {
+    private Bword(String s) {
         this.ui = new Ui();
         this.storage = new Storage(s);
         try {
@@ -25,7 +32,7 @@ public class Bword {
         }
     }
 
-    void run() {
+    private void run() {
         this.ui.showWelcome();
         boolean isExit = false;
 
@@ -47,49 +54,5 @@ public class Bword {
     public static void main(String[] args) {
         Bword bot = new Bword(FILELOCATION);
         bot.run();
-
-        /*
-        TaskHandler th = new TaskHandler();
-        File file;
-        try {
-            file = new File(FILELOCATION);
-            Scanner sc = new Scanner(file);
-            while (sc.hasNextLine()) {
-                String s = sc.nextLine();
-                // System.out.println(s);
-                th.addPastTask(s);
-            }
-            sc.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            e.printStackTrace();
-            return;
-        }
-        */
-        // Scanner sc = new Scanner(System.in);
-
-        /*
-        enum States {to_loop, to_exit, to_list}
-        States currentState = States.to_loop;
-
-        while (currentState != States.to_exit) {
-            String command = sc.next();
-            String s = sc.nextLine();
-            System.out.print(HLINE);
-            String tmp = s.strip();
-            if (command.equals("bye")) {
-                break;
-            }
-            th.handleCommand(command, s);
-            System.out.print(HLINE);
-        }
-
-        file.delete();
-        th.writeToFile(FILELOCATION);
-
-        System.out.println(
-                " Bye. Hope to see you again soon!\n" +
-                HLINE);
-         */
     }
 }

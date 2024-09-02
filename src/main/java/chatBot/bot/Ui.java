@@ -2,6 +2,7 @@ package chatBot.bot;
 
 import java.util.Scanner;
 
+/** Ui deals with all the interactions with the user */
 public class Ui {
     private Scanner scanner;
     public static final String HLINE = "____________________________________________________________\n";
@@ -17,6 +18,7 @@ public class Ui {
                 HLINE);
     }
 
+    /** Prints the exiting message */
     public void showGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
     }

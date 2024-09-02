@@ -11,6 +11,7 @@ import chatBot.task.ToDoTask;
 
 import java.time.format.DateTimeParseException;
 
+/** AddCommand is a subclass of Command to add tasks */
 public class AddCommand extends Command {
     private final String action;
     private final String desc;
@@ -20,6 +21,7 @@ public class AddCommand extends Command {
         this.desc = desc.stripLeading();
     }
 
+    /** Adds Tasks to taskList, if fails catch exceptions and print them */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (this.desc == "") {
             try {

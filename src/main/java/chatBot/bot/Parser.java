@@ -10,6 +10,16 @@ import chatBot.task.ToDoTask;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser is a class to parse input Strings. It has 2 methods
+ *
+ * parseTask method is used exclusively for parsing tasks from a storage file,
+ * returns a Task to the caller.
+ *
+ * parse method is used to determine the command to go to next.
+ * returns a Command to the caller.
+ */
+
 public class Parser {
     static Task parseTask(String s) {
         String command = s.split(" ")[0];
