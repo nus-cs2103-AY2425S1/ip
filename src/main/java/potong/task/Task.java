@@ -103,6 +103,16 @@ public class Task {
     }
 
     /**
+     * Check if the task contains the keyword.
+     *
+     * @param keyword Keyword.
+     * @return True if the task contains the keyword, False if not.
+     */
+    public boolean findKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
+    /**
      * String representation of the task.
      *
      * @return String representation of the task.

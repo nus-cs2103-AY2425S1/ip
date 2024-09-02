@@ -112,6 +112,26 @@ public class TaskList {
     }
 
     /**
+     * Find all tasks with the keyword in the list of tasks.
+     *
+     * @param keyword Keyword.
+     * @return String representation of the list of tasks with the keyword.
+     */
+    public String find(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task curr : this.arr) {
+            if (curr.findKeyword(keyword)) {
+                result.add(curr);
+            }
+        }
+        StringBuilder stringResult = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < result.size(); i++) {
+            stringResult.append(String.format("%d. %s\n", i + 1, result.get(i)));
+        }
+        return stringResult.toString();
+    }
+
+    /**
      * String representation of the list of tasks.
      *
      * @return String representation of this list.

@@ -6,6 +6,7 @@ import potong.command.DeleteCommand;
 import potong.command.ExitCommand;
 import potong.command.ListCommand;
 import potong.command.MarkCommand;
+import potong.command.FindCommand;
 
 import potong.exceptions.IllegalInputPotongException;
 
@@ -85,6 +86,7 @@ public class Parser {
             case "todo" -> new AddCommand(arguments, AddCommand.Type.TODO);
             case "deadline" -> new AddCommand(arguments, AddCommand.Type.DEADLINE);
             case "event" -> new AddCommand(arguments, AddCommand.Type.EVENT);
+            case "find" -> new FindCommand(arguments);
             default -> null;
         };
     }
