@@ -24,17 +24,17 @@ public class Ui {
      * Displays the welcome message when the chatbot starts.
      */
     public void welcomeMessage() {
-        System.out.println("____________________________________________________________");
+        showLine();
         System.out.println(" Hello! I'm Samson");
         System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+        showLine();
     }
 
     /**
      * Displays the goodbye message when the chatbot ends.
      */
     public void goodbyeMessage() {
-        System.out.println("____________________________________________________________");
+        showLine();
         System.out.println(" Bye. Hope to see you again soon!");
         // System.out.println("____________________________________________________________");
     }

@@ -15,7 +15,8 @@ public class UnmarkCommand extends Command {
     /**
      * Constructs an <code> UnmarkCommand </code> with the specified index of the task to be marked as not done.
      *
-     * @param index The 1-based index of the task to be marked as not done. The index is adjusted to zero-based indexing internally.
+     * @param index The index of the task to be marked as not done.
+     *              The index is adjusted to zero-based indexing internally.
      */
     public UnmarkCommand(int index) {
         this.index = index - 1;
