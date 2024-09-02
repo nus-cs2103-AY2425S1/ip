@@ -1,6 +1,7 @@
 package optimus;
 
 import java.io.IOException;
+
 import javafx.application.Platform;
 
 // Let ChatGPT check and suggest comments and JavaDocs according to CS2103T style guide
@@ -56,7 +57,8 @@ public class Optimus {
                 }
                 taskList.delete(Integer.parseInt(command[1]) - 1);
                 storage.saveTasks(taskList);
-            } else if (command[0].equals("todo") || command[0].equals("deadline") || command[0].equals("event")) { // Add a task
+            } else if (command[0].equals("todo") || command[0].equals("deadline") || command[0].equals("event")) {
+                // Add a task
                 taskList.addTask(userInput);
                 storage.saveTasks(taskList);
             } else if (command[0].equals("find")) { // Find tasks which contain keyword and print them out

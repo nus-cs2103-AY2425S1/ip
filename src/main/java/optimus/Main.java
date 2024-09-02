@@ -19,7 +19,7 @@ public class Main extends Application {
      * @author Javier / Incognido
      * Also asked ChatGPT how to do this method
      *
-     * @param primaryStage the primary stage for the application
+     * @param primaryStage The primary stage for the application
      */
     @Override
     public void start(Stage primaryStage) {

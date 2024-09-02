@@ -1,6 +1,7 @@
 package optimus;
 
 import java.util.ArrayList;
+
 import javafx.application.Platform;
 
 // Let ChatGPT check and suggest comments and JavaDocs according to CS2103T style guide
@@ -24,13 +25,17 @@ public class Ui {
      * Greets the user and provides instructions for using Optimus.
      */
     public void greetUser() {
-        String greeting = "Hello! I'm Optimus.\n" +
-                "What can I do for you?\n" + "You need to start your input with either todo, deadline, or event.\n" +
-                "For example:\n" +
-                "todo borrow book\n" +
-                "deadline return book /by 2019-12-02\n" +
-                "event project meeting /from 2019-12-02 /to 2019-12-03\n" +
-                "You can also do e.g.\n" + "mark 2\n" + "delete 1\n" + "list";
+        String greeting = "Hello! I'm Optimus.\n"
+                + "What can I do for you?\n"
+                + "You need to start your input with either todo, deadline, or event.\n"
+                + "For example:\n"
+                + "todo borrow book\n"
+                + "deadline return book /by 2019-12-02\n"
+                + "event project meeting /from 2019-12-02 /to 2019-12-03\n"
+                + "You can also do e.g.\n"
+                + "mark 2\n"
+                + "delete 1\n"
+                + "list";
         showToUser(greeting);
     }
 
@@ -38,12 +43,15 @@ public class Ui {
      * Displays example commands for the user.
      */
     public void showExampleCommand() {
-        showToUser("You need to start your input with either todo, deadline, or event.\n" +
-                "For example:\n" +
-                "todo borrow book\n" +
-                "deadline return book /by 2019-12-02\n" +
-                "event project meeting /from 2019-12-02 /to 2019-12-03\n" +
-                "You can also do e.g.\n" + "mark 2\n" + "delete 1\n" + "list");
+        showToUser("You need to start your input with either todo, deadline, or event.\n"
+                + "For example:\n"
+                + "todo borrow book\n"
+                + "deadline return book /by 2019-12-02\n"
+                + "event project meeting /from 2019-12-02 /to 2019-12-03\n"
+                + "You can also do e.g.\n"
+                + "mark 2\n"
+                + "delete 1\n"
+                + "list");
     }
 
     /**

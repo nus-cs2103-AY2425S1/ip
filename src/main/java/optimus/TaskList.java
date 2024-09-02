@@ -43,7 +43,7 @@ public class TaskList {
      * @param index The index of the task to mark as done.
      * @throws OptimusException If the index is out of bounds.
      */
-    public void markTaskAsDone(int index) throws OptimusException{
+    public void markTaskAsDone(int index) throws OptimusException {
         // Check if index is within the valid range
         // Asked ChatGPT to advise on error checking
         if (index < 0 || index >= taskList.size()) {
@@ -62,7 +62,7 @@ public class TaskList {
      * @param taskIndex The index of the task to delete.
      * @throws OptimusException If the index is out of bounds.
      */
-    public void delete(int taskIndex) throws OptimusException{
+    public void delete(int taskIndex) throws OptimusException {
         // Check if taskIndex is within the valid range
         // Asked ChatGPT to advise on error checking
         if (taskIndex < 0 || taskIndex >= taskList.size()) {
@@ -106,24 +106,25 @@ public class TaskList {
             if (userInput.length() <= 6) { // Check if description is provided
                 throw new OptimusException("The description of an event cannot be empty >:(");
             }
-            String[] parts = userInput.substring(6).split ("/from|/to");
+            String[] parts = userInput.substring(6).split("/from|/to");
             if (parts.length < 3) { // Ensure input is valid
-                throw new OptimusException("Invalid input. Use this format: event project meeting /from 2019-12-02 /to 2019-12-03");
+                throw new OptimusException("Invalid input. "
+                        + "Use this format: event project meeting /from 2019-12-02 /to 2019-12-03");
             }
             String description = parts[0].trim();
             String from = parts[1].trim();
             String to = parts[2].trim();
             task = new Event(description, from, to);
         } else {
-            throw new OptimusException("Sorry, you need to start your input with either todo, deadline, or event.\n" +
-                    "For example:\n" +
-                    "todo borrow book\n" +
-                    "deadline return book /by 2019-12-02\n" +
-                    "event project meeting /from 2019-12-02 /to 2019-12-03");
+            throw new OptimusException("Sorry, you need to start your input with either todo, deadline, or event.\n"
+                    + "For example:\n"
+                    + "todo borrow book\n"
+                    + "deadline return book /by 2019-12-02\n"
+                    + "event project meeting /from 2019-12-02 /to 2019-12-03");
         }
         // Add the created task to the task list
         taskList.add(task);
-        ui.showToUser("Got it. I've added this task:\n" + task + "\n" +
-                "Now you have " + taskList.size() + " tasks in the list.");
+        ui.showToUser("Got it. I've added this task:\n" + task + "\n"
+                + "Now you have " + taskList.size() + " tasks in the list.");
     }
 }

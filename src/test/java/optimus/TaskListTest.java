@@ -1,7 +1,9 @@
 package optimus;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 // Asked ChatGPT to suggest kind of tests to do
 // Let ChatGPT check and suggest comments and JavaDocs according to CS2103T style guide
