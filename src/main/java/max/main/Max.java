@@ -15,18 +15,9 @@ public class Max {
     private TaskList tasks;
     private Ui ui;
 
+    private boolean isExit = false;
     private static final String FILE_PATH = "./data/max.txt";
 
-
-    /**
-     * The main method that serves as the entry point of the application.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        Max max = new Max();
-        max.runMax();
-    }
 
     /**
      * Constructor for the Max class. Initializes the UI, storage, and task list.
@@ -39,21 +30,29 @@ public class Max {
     }
 
     /**
-     * Runs the main loop of the application. It handles user input, processes commands
-     * through the Parser, and outputs the results via the UI.
+     * Processes user input by parsing commands and interacting with the task list and storage.
+     * It manages the application's main loop, handles commands, and returns the output to be displayed
+     * through the user interface.
+     *
+     * @param text The user input text containing commands and data to be processed.
+     * @return The response message generated after processing the input. If the "bye" command is issued,
+     *         the method returns an empty string, indicating the termination of the application.
      */
-    public void runMax() {
-        Scanner scanner = new Scanner(System.in);
-        ui.printHello();
+    public String runMax(String text) {
+        if (isExit) {
+            return "";
+        }
 
         Parser parser = new Parser(tasks, ui, storage);
         try {
-            parser.parseText(scanner);
+            ui.resetOutput();
+            isExit = parser.parseText(text);
         } catch (MaxException e) {
-            ui.printMessage(e.getMessage());
+            return e.getMessage();
         }
 
-        ui.printBye();
+        return ui.getOutput();
+
     }
 
 

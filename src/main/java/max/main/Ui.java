@@ -10,6 +10,30 @@ import java.util.ArrayList;
  * greetings and farewells.
  */
 public class Ui {
+    private StringBuilder output;
+
+    /**
+     * Constructs a new Ui object and initializes the output StringBuilder.
+     */
+    public Ui() {
+        output = new StringBuilder();
+    }
+
+    /**
+     * Resets the output by clearing the current content of the StringBuilder.
+     */
+    public void resetOutput() {
+        output.setLength(0);
+    }
+
+    /**
+     * Retrieves the current content of the output.
+     *
+     * @return A string representing the current content of the output.
+     */
+    public String getOutput() {
+        return output.toString();
+    }
 
     /**
      * Prints a message indicating that a task has been added, along with the current number
@@ -20,9 +44,9 @@ public class Ui {
      */
     public void printTaskTypeAdded(Task task, int size) {
         printLine();
-        System.out.println("\t Got it. I've added this task:");
-        System.out.println("\t   " + task.toString());
-        System.out.println("\t Now you have " + size + " tasks in the list.");
+        printToMax("\t Got it. I've added this task:");
+        printToMax("\t   " + task.toString());
+        printToMax("\t Now you have " + size + " tasks in the list.");
         printLine();
     }
 
@@ -32,7 +56,7 @@ public class Ui {
      * @param message The message to be printed.
      */
     public void printMessage(String message) {
-        System.out.println("\t " + message);
+        printToMax("\t " + message);
         printLine();
     }
 
@@ -56,7 +80,7 @@ public class Ui {
      * Prints a horizontal line to separate different sections of output.
      */
     public void printLine() {
-        System.out.println("\t____________________________________________________________");
+        printToMax("\t_______________________________________");
     }
 
     /**
@@ -67,7 +91,7 @@ public class Ui {
     public void list(ArrayList<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
             int count = i + 1;
-            System.out.println("\t " + count + "." + tasks.get(i).toString());
+            printToMax("\t " + count + "." + tasks.get(i).toString());
         }
         printLine();
     }
@@ -87,9 +111,9 @@ public class Ui {
     public void printList(boolean isFilter) {
         printLine();
         if (isFilter) {
-            System.out.println("\t Here are the matching tasks in your list:");
+            printToMax("\t Here are the matching tasks in your list:");
         } else {
-            System.out.println("\t Here are the tasks in your list:");
+            printToMax("\t Here are the tasks in your list:");
         }
     }
 
@@ -102,9 +126,9 @@ public class Ui {
      */
     public void printDeleteTask(Task removedTask, int size) {
         printLine();
-        System.out.println("\t Noted. I've removed this task:");
-        System.out.println("\t   " + removedTask.toString());
-        System.out.println("\t Now you have " + size + " tasks in the list.");
+        printToMax("\t Noted. I've removed this task:");
+        printToMax("\t   " + removedTask.toString());
+        printToMax("\t Now you have " + size + " tasks in the list.");
         printLine();
     }
 
@@ -115,8 +139,8 @@ public class Ui {
      */
     public void printMarkDone(Task task) {
         printLine();
-        System.out.println("\t Nice! I've marked this task as done:");
-        System.out.println("\t   " + task.toString());
+        printToMax("\t Nice! I've marked this task as done:");
+        printToMax("\t   " + task.toString());
         printLine();
     }
 
@@ -127,8 +151,17 @@ public class Ui {
      */
     public void printMarkNotDone(Task task) {
         printLine();
-        System.out.println("\t OK, I've marked this task as not done yet:");
-        System.out.println("\t   " + task.toString());
+        printToMax("\t OK, I've marked this task as not done yet:");
+        printToMax("\t   " + task.toString());
         printLine();
+    }
+
+    /**
+     * Appends the specified string to the output.
+     *
+     * @param str The string to be appended to the output.
+     */
+    public void printToMax(String str) {
+        output.append(str + "\n");
     }
 }
