@@ -2,12 +2,17 @@
  * Manages an ArrayList<Task> and executes operations to be performed on the list.
  *
  */
+import java.util.ArrayList;
 
 class TaskList {
     ArrayList<Task> todoList;
 
     TaskList() {
         this.todoList = new ArrayList<Task>();
+    }
+
+    TaskList(ArrayList<Task> todoList) {
+        this.todoList = todoList;
     }
     
     Task add(String task) {
@@ -62,7 +67,7 @@ class TaskList {
     }
 
     String toSaveAsString() {
-        String output = ""
+        String output = "";
         for (Task t : this.todoList) {
             output = output + t.toSaveAsString() + "\n";
         }
