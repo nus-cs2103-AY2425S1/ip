@@ -98,24 +98,23 @@ public class Storage {
      * @return The Task object with data from the input line
      * @throws ZaibotException if the line is not formatted as expected.
      */
-    @SuppressWarnings("checkstyle:Indentation")
     public Task parseLine(String input) throws ZaibotException {
         String[] tokens = input.split(" \\| ");
-
-        Task task;
 
         Status status = Status.valueOf(tokens[1].toUpperCase());
         String name = tokens[2];
 
-        task = switch (tokens[0].trim()) {
+        // CHECKSTYLE.OFF: Indentation
+        Task task = switch (tokens[0].trim()) {
             case "T" -> new ToDoTask(name);
             case "D" -> new DeadlineTask(name, LocalDateTime.parse(tokens[3]));
-            case "E" -> new EventTask(name, LocalDateTime.parse(tokens[3]), LocalDateTime.parse(tokens[4]));
-            default -> throw new ZaibotException("Saved file data not in expected format.");
+            case "E" ->
+                    new EventTask(name, LocalDateTime.parse(tokens[3]), LocalDateTime.parse(tokens[4]));
+            default ->
+                    throw new ZaibotException("Saved file data not in expected format.");
         };
-
+        // CHECKSTYLE.ON: Indentation
         task.setDone(status.checkComplete());
-
         return task;
     }
 
