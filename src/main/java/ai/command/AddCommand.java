@@ -15,11 +15,10 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         tasks.add(task);
-        System.out.println("Task added!!");
-        System.out.println(task);
-        System.out.println(String.format("You better finish your %d tasks!! ehe :3\n", tasks.size()));
+
+        return "Task added!!\n" + task + String.format("You better finish your %d tasks!! ehe :3\n", tasks.size());
     }
 
     @Override

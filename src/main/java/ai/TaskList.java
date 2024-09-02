@@ -54,26 +54,30 @@ public class TaskList {
      *
      * @param date Date to be matched.
      */
-    public void isDue(LocalDate date) {
+    public String isDue(LocalDate date) {
+        String list = "";
         for (int i = 0; i < tasks.size(); i++) {
             Task temp = tasks.get(i);
             if (temp instanceof Deadline) {
                 Deadline tempDeadline = (Deadline) temp;
 
                 if (tempDeadline.isEqual(date)) {
-                    System.out.println(temp);
+                    list += temp;
                 }
             }
         }
+        return list;
     }
 
     /**
      * Prints all the tasks stored.
      */
-    public void list() {
+    public String list() {
+        String list = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i) + "\n");
+            list += (i + 1) + ". " + tasks.get(i) + "\n";
         }
+        return list;
     }
 
     public void add(Task task) {

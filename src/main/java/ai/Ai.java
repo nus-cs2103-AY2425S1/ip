@@ -14,6 +14,7 @@ public class Ai {
     private Storage storage;
     private Ui ui;
     private String filePath;
+    private boolean isExit = false;
 
     /**
      * Initialises Ai, including Ui, Storage, and TaskList.
@@ -36,8 +37,7 @@ public class Ai {
      * Obtains user reply using a scanner. Repeat the process until "bye" command is issued.
      */
     public void run() {
-        ui.showGreetings();
-        boolean isExit = false;
+        System.out.println(ui.showGreetings());
 
         Scanner scanner = new Scanner(System.in); //Create a Scanner object
         String reply;
@@ -45,18 +45,30 @@ public class Ai {
         while (!isExit) {
             try {
                 reply = scanner.nextLine();
-                ui.showLine();
+
                 Command c = Parser.parse(reply);
-                c.execute(tasks, ui);
+                System.out.println(c.execute(tasks, ui));
                 isExit = c.isExit();
                 tasks.save(filePath);
             } catch (AiException e) {
-                ui.showError(e.getMessage());
-                ui.showLine();
+                System.out.println(e.getMessage());
             } finally {
-                ui.showLine();
                 tasks.save(filePath);
             }
+        }
+    }
+
+    public String getResponse(String input) {
+        String aiReply = "";
+        try {
+            Command c = Parser.parse(input);
+            aiReply += c.execute(tasks, ui);
+            isExit = c.isExit();
+            tasks.save(filePath);
+
+            return aiReply;
+        } catch (AiException e) {
+            return e.getMessage();
         }
     }
 

@@ -16,7 +16,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws AiException {
+    public String execute(TaskList tasks, Ui ui) throws AiException {
         if (i < 0 || i >= tasks.size()) {
             throw new AiException("Hey hey!! The task doesn't exist...\n"
                     + "You might wanna try a valid number between 0 to " + tasks.size() + "\n");
@@ -24,8 +24,8 @@ public class MarkCommand extends Command {
 
         Task temp = tasks.get(i);
         temp.mark();
-        System.out.println("Marked as done... since you have time, how about a drink ;)");
-        System.out.println(temp + "\n");
+        return "Marked as done... since you have time, how about a drink ;)"
+                + temp + "\n";
     }
 
     @Override

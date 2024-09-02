@@ -15,13 +15,15 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
+        String list = "";
         for (int i = 0; i < tasks.size(); i++) {
             Task temp = tasks.get(i);
             if (temp.contains(argument)) {
-                System.out.println(temp);
+                list += temp;
             }
         }
+        return list;
     }
 
     @Override

@@ -19,7 +19,6 @@ import ai.task.ToDo;
 public class Storage {
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private String filePath;
-    private Ui ui = new Ui();
 
     public Storage(String filePath) {
         this.filePath = filePath;

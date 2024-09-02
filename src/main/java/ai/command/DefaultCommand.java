@@ -9,9 +9,9 @@ import ai.exception.AiException;
  */
 public class DefaultCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui) throws AiException {
-        System.out.println("Sorry, I don't quite understand what you mean..."
-                + "wanna try typing smth else??\n");
+    public String execute(TaskList tasks, Ui ui) throws AiException {
+        return "Sorry, I don't quite understand what you mean..."
+                + "wanna try typing smth else??\n";
     }
 
     @Override
