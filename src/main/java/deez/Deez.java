@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.function.Consumer;
 
+import deez.tasks.Deadline;
+import deez.tasks.Event;
+import deez.tasks.Task;
+import deez.tasks.Todo;
 import javafx.util.Pair;
 
 
@@ -71,7 +75,7 @@ public class Deez {
      * Handle the exit command
      */
     private void handleExit() {
-        isActive = false;
+        // TODO: handle exit
     }
 
     /**
@@ -86,7 +90,7 @@ public class Deez {
      *
      * @throws DeezException
      */
-    private void invalidCommand() throws DeezException {
+    private void handleInvalidCommand() throws DeezException {
         throw new DeezException("Please enter a valid command.");
     }
 
@@ -215,8 +219,8 @@ public class Deez {
         case DELETE -> handleDeleteTask(props);
         case SAVE -> handleSave();
         case FIND -> handleFind(props);
-        case UNKNOWN -> invalidCommand();
-        default -> invalidCommand();
+        case UNKNOWN -> handleInvalidCommand();
+        default -> handleInvalidCommand();
         }
     }
 

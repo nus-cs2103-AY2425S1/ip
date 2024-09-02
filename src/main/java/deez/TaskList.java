@@ -3,6 +3,8 @@ package deez;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import deez.tasks.Task;
+
 /**
  * Represents a list of tasks.
  */

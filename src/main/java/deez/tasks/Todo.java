@@ -1,4 +1,4 @@
-package deez;
+package deez.tasks;
 
 /**
  * A class representing a Todo task.
