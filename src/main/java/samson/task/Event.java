@@ -75,6 +75,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (from: " + this.getMeaningfulTime(from) + " to: " + this.getMeaningfulTime(to) + ")";
+        return super.toString() + " (from: " + this.getMeaningfulTime(from) + " to: "
+                + this.getMeaningfulTime(to) + ")";
     }
 }
