@@ -83,6 +83,8 @@ public class Storage {
                         }
                         tasks.add(event);
                         break;
+                    default:
+                        break;
                 }
             }
             fileReader.close();

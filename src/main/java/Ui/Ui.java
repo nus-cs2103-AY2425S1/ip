@@ -1,9 +1,9 @@
 package Ui;
 
+import java.util.Scanner;
+
 import Task.Task;
 import Task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Represents the UI that the user will interact with when using the chatbot.

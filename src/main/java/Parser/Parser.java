@@ -1,17 +1,15 @@
 package Parser;
 
-import Command.Command;
 import Command.AddCommand;
-import Command.PrintListCommand;
+import Command.Command;
+import Command.DeleteCommand;
 import Command.ExitCommand;
+import Command.FindCommand;
 import Command.InvalidCommand;
 import Command.MarkCommand;
+import Command.PrintListCommand;
 import Command.UnmarkCommand;
-import Command.DeleteCommand;
-import Command.FindCommand;
-
 import Storage.Storage;
-
 import Task.InvalidTaskException;
 import Task.RasputinException;
 import Task.TaskList;
