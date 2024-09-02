@@ -2,9 +2,10 @@ package blue;
 
 import java.util.List;
 import java.util.Scanner;
-import blue.Exceptions.EmptyDescriptionException;
-import blue.Exceptions.InputErrorException;
-import blue.Exceptions.WrongNumberOfItemException;
+
+import blue.exceptions.EmptyDescriptionException;
+import blue.exceptions.InputErrorException;
+import blue.exceptions.WrongNumberOfItemException;
 import blue.task.Task;
 import blue.task.TaskList;
 

@@ -5,9 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import blue.Exceptions.EmptyDescriptionException;
-import blue.Exceptions.InputErrorException;
-import blue.Exceptions.WrongNumberOfItemException;
+
+import blue.exceptions.EmptyDescriptionException;
+import blue.exceptions.InputErrorException;
+import blue.exceptions.WrongNumberOfItemException;
 import blue.Storage;
 import blue.UI;
 
@@ -67,7 +68,8 @@ public class TaskList {
         } else if (taskType.equalsIgnoreCase("deadline")) {
             String[] descParts = inputParts[1].split(" /by ", 2);
             if (descParts.length < 2) {
-                throw new InputErrorException("The deadline must be specified in the format: 'deadline <description> /by <date>'");
+                throw new InputErrorException("The deadline must be specified in the format: "
+                        + "'deadline <description> /by <date>'");
             }
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -79,7 +81,8 @@ public class TaskList {
         } else if (taskType.equalsIgnoreCase("event")) {
             String[] descParts = inputParts[1].split(" /from ", 2);
             if (descParts.length < 2 || !descParts[1].contains(" /to ")) {
-                throw new InputErrorException("The event must be specified in the format: 'event <description> /from <start_time> /to <end_time>'");
+                throw new InputErrorException("The event must be specified in the format: "
+                        + "'event <description> /from <start_time> /to <end_time>'");
             }
             String[] timeParts = descParts[1].split(" /to ", 2);
             try {

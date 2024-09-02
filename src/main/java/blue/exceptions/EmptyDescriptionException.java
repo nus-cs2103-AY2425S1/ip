@@ -1,4 +1,4 @@
-package blue.Exceptions;
+package blue.exceptions;
 
 /**
  * Thrown to indicate that a task description is empty when it is required.
