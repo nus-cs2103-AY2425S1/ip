@@ -34,6 +34,7 @@ public class UnmarkCommand extends Command {
         if (index < 0 || index >= taskList.getSize()) {
             throw new DarkpoolException("\tdo you know how to count? the task number is out of range");
         }
+
         ui.unmark(taskList.unmarkTask(index));
     }
 

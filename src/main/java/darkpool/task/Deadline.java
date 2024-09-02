@@ -22,8 +22,9 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String byTime, boolean isDone) throws DarkpoolException {
         super(description, isDone);
+
         try {
-            this.byTime = LocalDateTime.parse(byTime, formatter);
+            this.byTime = LocalDateTime.parse(byTime, FORMATTER);
         } catch (DateTimeParseException e) {
             throw new DarkpoolException("know what a date is?");
         }
@@ -36,7 +37,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + (isDone ? "[X] " : "[ ] ") + this.description + " (by:" + this.byTime.format(formatter) + ")";
+        return "[D]" + (isDone ? "[X] " : "[ ] ") + this.description + " (by:" + this.byTime.format(FORMATTER) + ")";
     }
 
     /**
@@ -46,7 +47,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return ("D | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.byTime.format(formatter) + "\n");
+        return ("D | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.byTime.format(FORMATTER) + "\n");
     }
 
 }

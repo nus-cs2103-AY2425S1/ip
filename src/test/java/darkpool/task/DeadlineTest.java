@@ -22,7 +22,7 @@ class DeadlineTest {
     void setUp() {
         formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         validByTime = "30-08-2024 18:00";
-        invalidTime = "30-08-2024 18:00:00"; // Invalid format
+        invalidTime = "30-08-2024 18:00:00";
         description = "Submit assignment";
     }
 

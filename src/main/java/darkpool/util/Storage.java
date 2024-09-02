@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private String filePath;
+    private final String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -35,6 +35,7 @@ public class Storage {
      */
     private File fileAndDirCheck() throws DarkpoolException {
         File dataFile = new File(filePath);
+
         if (!dataFile.exists()) {
             dataFile.getParentFile().mkdirs();
             try {
@@ -43,6 +44,7 @@ public class Storage {
                 throw new DarkpoolException(e.getMessage());
             }
         }
+
         return dataFile;
     }
 
@@ -57,15 +59,18 @@ public class Storage {
         String curTask;
         File dataFile = fileAndDirCheck();
         Scanner scanner;
+
         try {
             scanner = new Scanner(dataFile);
         } catch (FileNotFoundException e) {
             throw new DarkpoolException(e.getMessage());
         }
+
         while (scanner.hasNext()) {
             curTask = scanner.nextLine();
             taskList.add(parseTask(curTask));
         }
+
         scanner.close();
         return taskList;
     }
