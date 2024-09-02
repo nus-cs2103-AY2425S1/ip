@@ -34,19 +34,20 @@ public class MarkCommand extends Command {
      * </p>
      *
      * @param taskList The list of tasks where the task will be marked as done.
-     * @param ui The user interface that handles the display of messages to the user.
-     * @param storage The storage that handles saving the updated task list.
+     * @param ui       The user interface that handles the display of messages to the user.
+     * @param storage  The storage that handles saving the updated task list.
+     * @return
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.getTask(this.index).markAsDone();
-            ui.mark(taskList.getTask(this.index));
             storage.saveTasks(taskList);
+            return ui.mark(taskList.getTask(this.index));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("You only have " + taskList.size() + " tasks!\n");
+            return "You only have " + taskList.size() + " tasks!\n";
         } catch (TaskonException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 }

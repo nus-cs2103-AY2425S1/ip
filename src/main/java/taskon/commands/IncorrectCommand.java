@@ -31,11 +31,12 @@ public class IncorrectCommand extends Command {
      * </p>
      *
      * @param taskList The list of tasks (not used in this command).
-     * @param ui The user interface that handles the display of the error message.
-     * @param storage The storage (not used in this command).
+     * @param ui       The user interface that handles the display of the error message.
+     * @param storage  The storage (not used in this command).
+     * @return
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showError(result);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showError(result);
     }
 }

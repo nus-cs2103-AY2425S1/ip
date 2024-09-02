@@ -72,15 +72,15 @@ public class Ui {
     /**
      * Displays a greeting message to the user.
      */
-    public void greet() {
-        out.println(MESSAGE_GREETING);
+    public String greet() {
+        return MESSAGE_GREETING;
     }
 
     /**
      * Displays an exit message to the user.
      */
-    public void exit() {
-        out.println(MESSAGE_EXIT);
+    public String exit() {
+        return MESSAGE_EXIT;
     }
 
     /**
@@ -88,12 +88,13 @@ public class Ui {
      *
      * @param tasks The list of tasks to display.
      */
-    public void listItems(TaskList tasks) {
-        out.println("Here's what we've got on your to-do list:");
+    public String listItems(TaskList tasks) {
+        String s = "Here's what we've got on your to-do list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.getTask(i);
-            System.out.println(i + 1 + "." + t.toString());
+            s = s + (i + 1) + ". " + t.toString() + "\n";
         }
+        return s;
     }
 
     /**
@@ -101,8 +102,8 @@ public class Ui {
      *
      * @param task The task that has been marked as done.
      */
-    public void mark(Task task) {
-        out.println(MESSAGE_MARK + task + LS);
+    public String mark(Task task) {
+        return MESSAGE_MARK + task;
     }
 
     /**
@@ -110,8 +111,8 @@ public class Ui {
      *
      * @param task The task that has been unmarked.
      */
-    public void unmark(Task task) {
-        out.println(MESSAGE_UNMARK + task + LS);
+    public String unmark(Task task) {
+        return MESSAGE_UNMARK + task;
     }
 
     /**
@@ -120,20 +121,21 @@ public class Ui {
      * @param date The date to search for tasks.
      * @param tasks The list of tasks to search through.
      */
-    public void showTasksOnDate(String date, TaskList tasks) {
+    public String showTasksOnDate(String date, TaskList tasks) {
         LocalDate localDate = LocalDate.parse(date);
         boolean isFound = false;
-        out.println("Tasks on " + localDate + " :");
+        String s = "Tasks on " + localDate + " :\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.getTask(i);
             if (task.occursOn(localDate)) {
-                out.println(task);
+                s = s + task + "\n";
                 isFound = true;
             }
         }
         if (!isFound) {
-            out.println(MESSAGE_NO_TASKS);
+            return MESSAGE_NO_TASKS;
         }
+        return s;
     }
 
     /**
@@ -142,8 +144,8 @@ public class Ui {
      * @param task The task that has been deleted.
      * @param size The updated size of the task list.
      */
-    public void showDeleted(Task task, int size) {
-        out.println("Alright, I've removed this task:\n    " + task + "\nNow you have " + size + " tasks.\n");
+    public String showDeleted(Task task, int size) {
+        return "Alright, I've removed this task:\n    " + task + "\nNow you have " + size + " tasks.\n";
     }
 
     /**
@@ -152,9 +154,9 @@ public class Ui {
      * @param task The task that has been added.
      * @param size The updated size of the task list.
      */
-    public void showTaskAdded(Task task, int size) {
-        out.println("Got it! I've added this task:\n    " + task + "\nNow you have "
-                + size + " tasks in your list.\n");
+    public String showTaskAdded(Task task, int size) {
+        return "Got it! I've added this task:\n    " + task + "\nNow you have "
+                + size + " tasks in your list.\n";
     }
 
     /**
@@ -162,8 +164,8 @@ public class Ui {
      *
      * @param message The error message to display.
      */
-    public void showError(String message) {
-        out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
@@ -176,7 +178,7 @@ public class Ui {
     /**
      * Displays a message indicating that no tasks were found for the search criteria.
      */
-    public void showEmptyFind() {
-        out.println(MESSAGE_EMPTY_FIND);
+    public String showEmptyFind() {
+        return MESSAGE_EMPTY_FIND;
     }
 }

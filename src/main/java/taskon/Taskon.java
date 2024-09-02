@@ -7,6 +7,8 @@ import taskon.storage.Storage;
 import taskon.task.TaskList;
 import taskon.ui.Ui;
 
+import static taskon.common.Messages.MESSAGE_EXIT;
+
 /**
  * The main class for the Taskon application.
  * This class handles the initialization of the application, the main loop, and the interaction between the components.
@@ -41,8 +43,8 @@ public class Taskon {
      * Runs the Taskon application. This method handles the main loop where commands are read, parsed, and executed.
      */
     public void run() {
-        ui.greet();
-        ui.showLine();
+//        ui.greet();
+//        ui.showLine();
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -58,14 +60,17 @@ public class Taskon {
         }
     }
 
-    public String getReponse(String input) {
+    public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            c.execute(tasks, ui, storage);
+            String response = c.execute(tasks, ui, storage);
+            if (response == MESSAGE_EXIT) {
+                System.exit(0);
+            }
+            return response;
         } catch (TaskonException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
-        return "";
     }
 
     /**

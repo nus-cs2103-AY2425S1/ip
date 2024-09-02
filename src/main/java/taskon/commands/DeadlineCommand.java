@@ -44,13 +44,14 @@ public class DeadlineCommand extends Command {
      * </p>
      *
      * @param taskList The list of tasks managed by the application.
-     * @param ui The user interface that handles output and user interactions.
-     * @param storage The storage that handles data persistence.
+     * @param ui       The user interface that handles output and user interactions.
+     * @param storage  The storage that handles data persistence.
+     * @return
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(task);
-        ui.showTaskAdded(task, taskList.size());
         storage.saveTasks(taskList);
+        return ui.showTaskAdded(task, taskList.size());
     }
 }
