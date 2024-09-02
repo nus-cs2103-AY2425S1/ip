@@ -29,10 +29,11 @@ test {
 }
 
 application {
-    mainClass.set("BottleOpener")
+    mainClass.set("BottleOpener.Main")
 }
 
 shadowJar {
+    archiveFileName = 'bottleopener.jar'
     archiveBaseName = "BottleOpener"
     archiveClassifier = null
 }

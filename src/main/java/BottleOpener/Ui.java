@@ -105,4 +105,8 @@ public class Ui {
         return wrapSpacer("You have missing information! Please try again!\n");
     }
 
+    public String showFoundTasks() {
+        return "Here are all the tasks I could find!\n";
+    }
+
 }

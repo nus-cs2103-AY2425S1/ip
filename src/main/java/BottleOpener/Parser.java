@@ -83,6 +83,24 @@ public class Parser {
                 System.out.println(ui.showAppropriateNumberError());
             }
             break;
+        case "find":
+            try {
+                String keyword = this.userInput[1].trim().toLowerCase();
+                String findOutput = "";
+                int count = 1;
+                for (int i = 0; i < tasklist.getSize(); i++) {
+                    Task curr = tasklist.getTask(i);
+                    String taskDescription = curr.getDescription().trim().toLowerCase();
+                    if (taskDescription.contains(keyword)) {
+                        findOutput = findOutput + String.format("%d. %s%n", count, curr);
+                        count++;
+                    }
+                }
+                System.out.println(ui.wrapSpacer(ui.showFoundTasks() + findOutput));
+            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                System.out.println(ui.showMissingInfoError());
+            }
+            break;
         default:
             try {
                 String des = this.userInput[1];
