@@ -1,6 +1,10 @@
+import exception.DukeException;
+import task.TaskList;
+import utilities.Storage;
+import utilities.Ui;
 
 public class Duke {
-    private Storage storage = new Storage("data/duke.txt");
+    private Storage storage = new Storage("./data/duke.txt");
     private TaskList tasks;
     private Ui ui;
 

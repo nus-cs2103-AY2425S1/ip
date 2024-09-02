@@ -1,3 +1,9 @@
+package command;
+
+import task.Task;
+import task.TaskList;
+import utilities.Parser;
+
 public class DeleteCommand extends Command {
     private int index;
     private TaskList taskList;
