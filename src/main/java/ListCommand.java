@@ -1,4 +1,3 @@
-
 public class ListCommand extends Command {
     private TaskList taskList;
 
@@ -7,7 +6,7 @@ public class ListCommand extends Command {
         String lString = "";
         int index = 1;
         for (Task task : taskList) {
-            lString += String.valueOf(index) + "."  + task.toString();
+            lString += String.valueOf(index) + "."  + task;
             if (index == taskList.size()) {
                 break;
             }
@@ -16,4 +15,5 @@ public class ListCommand extends Command {
         }
         lString = Parser.addHorizontalLinesAndIndentation(lString);
         System.out.println(lString);
+}
 }
