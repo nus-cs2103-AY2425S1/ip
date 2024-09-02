@@ -1,8 +1,9 @@
 package jeff.command;
 
+import jeff.exception.JeffException;
+import jeff.parser.Parser;
 import jeff.storage.Storage;
 import jeff.task.TaskList;
-import jeff.ui.Ui;
 
 /**
  * Represents an "Exit the program" command.
@@ -19,15 +20,18 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Prints out a statement to tell the user the program is exiting.
+     * Returns the string representation of the response by the chatbot Jeff when the user is exiting the program.
      *
      * @param tasks Task list.
-     * @param ui UI to print statements.
      * @param storage Place to get and write the task list to the tasks text file.
+     * @return String representation of the response.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printFarewell();
+    public String execute(TaskList tasks, Storage storage) throws JeffException {
+        // Store the tasks to the data folder
+        storage.writeTaskList(tasks);
+
+        return Parser.prettyText("Bye. Hope to see you again soon!");
     }
 
     /**

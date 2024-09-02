@@ -10,7 +10,6 @@ import jeff.task.EventTask;
 import jeff.task.Task;
 import jeff.task.TaskList;
 import jeff.task.ToDoTask;
-import jeff.ui.Ui;
 
 /**
  * Represents an "Add task" command.
@@ -27,16 +26,16 @@ public class AddCommand extends Command {
     }
 
     /**
+     * Returns the string representation of the response by the chatbot Jeff when a task is added.
      * Categorises the task based on the user's input and adds it to the task list.
-     * Also prints out a statement to tell the user the task has been added.
      *
      * @param tasks Task list.
-     * @param ui UI to print statements.
      * @param storage Place to get and write the task list to the tasks text file.
+     * @return String representation of the response.
      * @throws JeffException if the user's input is in the wrong format or if the task number does not exist.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
+    public String execute(TaskList tasks, Storage storage) throws JeffException {
         // Check if the input is in the correct format
         if (this.getInput().matches("todo .+")
                 || this.getInput().matches("deadline .+")
@@ -99,9 +98,9 @@ public class AddCommand extends Command {
                 tasks.add(targetTask);
                 storage.writeTaskList(tasks);
 
-                // Print out the statement
-                ui.printText("Got it. I've added this task:\n   " + targetTask.toString()
-                        + "\n Now you have " + tasks.size() + " tasks in the list.");
+                // Return the response
+                return Parser.prettyText("Got it. I've added this task:\n   " + targetTask.toString()
+                        + "\nNow you have " + tasks.size() + " tasks in the list.");
 
             } else {
                 throw new JeffException();

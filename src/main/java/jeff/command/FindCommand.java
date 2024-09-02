@@ -7,7 +7,6 @@ import jeff.parser.Parser;
 import jeff.storage.Storage;
 import jeff.task.Task;
 import jeff.task.TaskList;
-import jeff.ui.Ui;
 
 /**
  * Represents a "Find task" command.
@@ -24,15 +23,16 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Finds the tasks specified by the user from the task list and prints it out.
+     * Returns the string representation of the response by the chatbot Jeff when the user searches for tasks by
+     * search text by filtering the search text in the task list.
      *
      * @param tasks Task list.
-     * @param ui UI to print statements.
      * @param storage Place to get and write the task list to the tasks text file.
+     * @return String representation of the response.
      * @throws JeffException if the user's input is in the wrong format or if no task match the user's input.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
+    public String execute(TaskList tasks, Storage storage) throws JeffException {
         if (this.getInput().matches("find .+")) {
             // Split the input to get the filter name
             String[] taskParts = this.getInput().split(" ", 2);
@@ -55,8 +55,8 @@ public class FindCommand extends Command {
             // Convert the list of tasks to a string
             String taskListString = Parser.listToString(filteredTasks);
 
-            // Print the filtered list
-            ui.printText("Here are the matching tasks in your list:\n " + taskListString);
+            // Return the filtered list string representation
+            return Parser.prettyText("Here are the matching tasks in your list:\n" + taskListString);
         } else {
             throw new JeffException("The format is wrong! It should be \"find xx\"!");
         }

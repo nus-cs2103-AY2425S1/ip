@@ -67,7 +67,7 @@ public class Parser {
     }
 
     /**
-     * Returns the string reprsentation of the given list of tasks.
+     * Returns the string representation of the given list of tasks.
      *
      * @param list Given list of tasks.
      * @return String representation of the given list.
@@ -82,11 +82,33 @@ public class Parser {
 
             // Only add a new line when it is not the last task in the list
             if (i != list.size() - 1) {
-                listString.append("\n ");
+                listString.append("\n");
             }
 
         }
 
         return listString.toString();
+    }
+
+    /**
+     * Adds a space in front of each line in the text.
+     *
+     * @param text Given text.
+     * @return Same text but with a space in front of each line.
+     */
+    public static String prettyText(String text) {
+        // Split the text into lines
+        String[] lines = text.split("\n");
+
+        // Initialise a StringBuilder
+        StringBuilder resultText = new StringBuilder();
+
+        // Add a space in front each line
+        for (String line : lines) {
+            resultText.append(" ").append(line).append("\n");
+        }
+
+        // Convert the StringBuilder back to a String
+        return resultText.toString();
     }
 }
