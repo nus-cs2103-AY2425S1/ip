@@ -2,6 +2,7 @@ package eevee;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Represents a task management program.
@@ -45,7 +46,7 @@ public class Eevee {
                     int taskNumber = parser.parseTaskNumber(input);
                     Task t = tasks.getTask(taskNumber);
                     if (t.isDone) {
-                        throw new EeveeException("eevee.Task has already been marked as done.");
+                        throw new EeveeException("Task has already been marked as done.");
                     }
                     t.markAsDone();
                     storage.saveTasks(tasks);
@@ -56,12 +57,12 @@ public class Eevee {
                     int taskNumber = parser.parseTaskNumber(input);
                     Task t = tasks.getTask(taskNumber);
                     if (!t.isDone) {
-                        throw new EeveeException("eevee.Task is not marked as done. "
+                        throw new EeveeException("Task is not marked as done. "
                                 + "Needs to be marked done in order to unmark it.");
                     }
                     t.unmarkAsDone();
                     storage.saveTasks(tasks);
-                    ui.printMessage("Ok! eevee.Task no longer marked as done:\n  " + t);
+                    ui.printMessage("Ok! Task no longer marked as done:\n  " + t);
                     break;
                 }
                 case DELETE: {
@@ -113,10 +114,27 @@ public class Eevee {
                     ui.printMessage("Added the following task to your list:\n" + e);
                     break;
                 }
+                case FIND: {
+                    String keyword = input.substring(5).trim();
+                    if (keyword.isEmpty()) {
+                        throw new EeveeException("No keyword found :( "
+                                + "Please input the keyword to find matching tasks");
+                    }
+                    ArrayList<Task> results = tasks.findTasks(keyword);
+                    if (results.isEmpty()) {
+                        ui.printMessage("No tasks found matching keyword: " + keyword);
+                    } else {
+                        ui.printMessage("Here are the tasks containing keyword " + keyword + " :");
+                        for (Task t : results) {
+                            ui.printMessage(t.toString());
+                        }
+                    }
+                    break;
+                }
                 default:
                     throw new EeveeException("You seemed to have typed wrong. This is not a valid command.");
                 }
-                System.out.println("You now have " + tasks.getSize() + " task(s).");
+                System.out.println("You have " + tasks.getSize() + " task(s).");
             } catch (EeveeException | IOException e) {
                 ui.printMessage(e.getMessage());
             }
