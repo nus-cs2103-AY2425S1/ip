@@ -30,27 +30,27 @@ public class Storage {
                 String response = s.nextLine();
                 String[] splited = response.split(" ", 3);
                 if (splited[1].equals("todo") || splited[1].equals("event") || splited[1].equals("deadline")) {
-                    Task current = null;
+                    Task currentTask = null;
                     String[] taskDetails;
                     try {
                         switch (splited[1]) {
                             case "todo":
-                                current = new Todo(splited[2]);
+                                currentTask = new Todo(splited[2]);
                                 break;
                             case "event":
                                 taskDetails = splited[2].split(" /from ");
                                 String[] taskTimings = taskDetails[1].split(" /to ");
-                                current = new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
+                                currentTask = new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
                                 break;
                             case "deadline":
                                 taskDetails = splited[2].split(" /by ");
-                                current = new Deadline(taskDetails[0],taskDetails[1]);
+                                currentTask = new Deadline(taskDetails[0],taskDetails[1]);
                                 break;
                         }
                         if ("1".equals(splited[0])) {
-                            current.mark();
+                            currentTask.mark();
                         }
-                        taskList.add(current);
+                        taskList.add(currentTask);
                     } catch (DukeException e) {
                         System.out.println("________________________________");
                         System.out.println(e.getMessage() + "________________________________");

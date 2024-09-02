@@ -22,7 +22,7 @@ public class Bean {
     }
 
     public void run() {
-        ui.greetingMessage();
+        ui.displayGreetingMessage();
         Scanner scanner = new Scanner(System.in);
         Boolean status = true;
         while (status) {
