@@ -2,6 +2,11 @@ package tissue;
 
 import java.util.ArrayList;
 
+import tissue.task.Task;
+
+/**
+ * Wrapper class to store all the tasks added and related functions.
+ */
 public class TaskList {
     private final String INDENT = "       ";
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -56,5 +61,21 @@ public class TaskList {
      */
     public Task deleteTask(int number) {
         return tasks.remove(number - 1);
+    }
+
+    /**
+     * Searches for tasks that matches the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of matching tasks.
+     */
+    public ArrayList<Task> searchKeyword(String keyword) {
+        ArrayList<Task> matches = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getTask().contains(keyword)) {
+                matches.add(task);
+            }
+        }
+        return matches;
     }
 }

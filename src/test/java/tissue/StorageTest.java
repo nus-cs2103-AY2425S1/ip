@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import tissue.task.Deadline;
+import tissue.task.Event;
+import tissue.task.Task;
+import tissue.task.ToDo;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;

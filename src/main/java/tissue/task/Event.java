@@ -1,17 +1,26 @@
-package tissue;
+package tissue.task;
 
+/**
+ * Wrapper for an event task.
+ */
 public class Event extends Task {
     private String from;
     private String to;
 
-    public Event(boolean done, String task, String from, String to) {
-        super(done, task);
+    /**
+     * Constructor for accepting boolean isDone value.
+     */
+    public Event(boolean isDone, String task, String from, String to) {
+        super(isDone, task);
         this.from = from;
         this.to = to;
     }
 
-    public Event(int done, String task, String from, String to) {
-        super(done == 1, task);
+    /**
+     * Constructor for accepting int isDone value.
+     */
+    public Event(int isDone, String task, String from, String to) {
+        super(isDone == 1, task);
         this.from = from;
         this.to = to;
     }

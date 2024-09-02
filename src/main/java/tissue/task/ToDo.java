@@ -1,5 +1,8 @@
-package tissue;
+package tissue.task;
 
+/**
+ * Wrapper class for a ToDo event.
+ */
 public class ToDo extends Task {
 
     public ToDo(boolean isDone, String task) {

@@ -1,16 +1,19 @@
-package tissue;
+package tissue.parse;
 
 import java.util.Scanner;
 
+/**
+ * Parser class to help scan through the text input.
+ */
 public class Parser {
-    Scanner scanner;
+    private Scanner scanner;
 
-    public Parser() {
-        this.scanner = new Scanner(System.in);
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     /**
-     * Returns the string of the next input
+     * Returns the string of the next input.
      *
      * @return Next input string.
      */
