@@ -1,6 +1,5 @@
 package commands;
 
-import parser.MissingArgumentException;
 import parser.Parser;
 import models.Task;
 
@@ -14,11 +13,8 @@ public class FindCommand implements Command {
     public FindCommand(List<Task> tasks, String message) {
         this.tasks = tasks;
 
-        // Remove the keyword from the message
-        this.query = Parser.parseMessage(message).args();
-        if (this.query.isEmpty()) {
-            throw new MissingArgumentException(1, 0);
-        }
+        String messageArgs = Parser.parseMessage(message).args();
+        this.query = Parser.extractArgs(messageArgs, new String[]{})[0];
     }
 
     @Override

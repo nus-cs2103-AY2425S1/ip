@@ -39,6 +39,10 @@ public class Parser {
             throw new MissingArgumentException(argNames.length, index);
         }
 
+        if (values[0].isEmpty() && values.length == 1) {
+            throw new MissingArgumentException(1, 0);
+        }
+
         return values;
     }
 
