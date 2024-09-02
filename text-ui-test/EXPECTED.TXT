@@ -91,6 +91,12 @@
 		[D][ ] get out of bed (by: 13 November, 2012)
 	#################################################################
 	#################################################################
+	honey, events require a description, start, and end.
+	#################################################################
+	#################################################################
+	Text 'a' could not be parsed at index 0
+	#################################################################
+	#################################################################
 	these are the things we gotta do:
 	1. [T][X] wake up
 	2. [D][ ] get out of bed (by: 13 November, 2012)
@@ -151,6 +157,19 @@
 		[D][ ] get out of bed (by: 13 November, 2012)
 	#################################################################
 	#################################################################
+	you have to let me know what task you have to do, dearie
+	#################################################################
+	#################################################################
+	certainly, i'll keep track of this todo for you ;)
+		[T][ ] 57 /from
+	now we have 9 tasks to work on.
+	#################################################################
+	#################################################################
+	certainly, i'll keep track of this todo for you ;)
+		[T][ ] eat up
+	now we have 10 tasks to work on.
+	#################################################################
+	#################################################################
 	these are the things we gotta do:
 	1. [T][X] wake up
 	2. [D][ ] get out of bed (by: 13 November, 2012)
@@ -160,6 +179,36 @@
 	6. [T][ ] head out of the house
 	7. [D][ ] call the lift to head downstairs (by: 01 September, 2023)
 	8. [E][ ] order food (from: 03 September, 2024 to: 03 September, 2024)
+	9. [T][ ] 57 /from
+	10. [T][ ] eat up
+	#################################################################
+	#################################################################
+	aight, i'll note that you've completed this.
+		[T][X] decide what to eat for breakfast
+	#################################################################
+	#################################################################
+	aight, i'll note that you've completed this.
+		[T][X] decide what to eat for breakfast
+	#################################################################
+	#################################################################
+	aight, i'll note that you've completed this.
+		[T][X] decide what to eat for breakfast
+	#################################################################
+	#################################################################
+	no worries, we'll circle back around to this.
+		[T][ ] head out of the house
+	#################################################################
+	#################################################################
+	aight, i'll note that you've completed this.
+		[T][X] decide what to eat for breakfast
+	#################################################################
+	#################################################################
+	no worries, we'll circle back around to this.
+		[T][ ] decide what to eat for breakfast
+	#################################################################
+	#################################################################
+	no worries, we'll circle back around to this.
+		[T][ ] decide what to eat for breakfast
 	#################################################################
 	#################################################################
 	sincerest apologies darlin', i don't recognise that command.
@@ -170,7 +219,7 @@
 	#################################################################
 	certainly, i'll keep track of this todo for you ;)
 		[T][ ] read book
-	now we have 9 tasks to work on.
+	now we have 11 tasks to work on.
 	#################################################################
 	#################################################################
 	honey, deadlines require a description and a date/time.
@@ -185,6 +234,22 @@
 	deadlines require both a description and a date/time dear.
 	#################################################################
 	#################################################################
+	sure hon, i'll remove this task from the list.
+		[D][ ] get out of bed (by: 13 November, 2012)
+	now we have 10 tasks left to work on.
+	#################################################################
+	#################################################################
+	could ya' specify the number of the task to delete?
+	#################################################################
+	#################################################################
+	there ain't no task 1002 darlin'
+	#################################################################
+	#################################################################
+	sure hon, i'll remove this task from the list.
+		[T][X] wake up
+	now we have 9 tasks left to work on.
+	#################################################################
+	#################################################################
 	deadlines require both a description and a date/time dear.
 	#################################################################
 	#################################################################
@@ -193,9 +258,12 @@
 	#################################################################
 	Text 'err' could not be parsed at index 0
 	#################################################################
+	#################################################################
 	Text 'errea' could not be parsed at index 0
 	#################################################################
+	#################################################################
 	Text 'errear' could not be parsed at index 0
+	#################################################################
 	#################################################################
 	honey, events require a description, start, and end.
 	#################################################################
@@ -213,19 +281,19 @@
 	#################################################################
 	#################################################################
 	these are the things we gotta do:
-	1. [T][X] wake up
-	2. [D][ ] get out of bed (by: 13 November, 2012)
-	3. [T][X] get to the bathroom
-	4. [E][ ] brush teeth (from: 01 September, 2023 to: 01 September, 2023)
-	5. [T][ ] decide what to eat for breakfast
-	6. [T][ ] head out of the house
-	7. [D][ ] call the lift to head downstairs (by: 01 September, 2023)
-	8. [E][ ] order food (from: 03 September, 2024 to: 03 September, 2024)
+	1. [T][X] get to the bathroom
+	2. [E][ ] brush teeth (from: 01 September, 2023 to: 01 September, 2023)
+	3. [T][ ] decide what to eat for breakfast
+	4. [T][ ] head out of the house
+	5. [D][ ] call the lift to head downstairs (by: 01 September, 2023)
+	6. [E][ ] order food (from: 03 September, 2024 to: 03 September, 2024)
+	7. [T][ ] 57 /from
+	8. [T][ ] eat up
 	9. [T][ ] read book
 	#################################################################
 	#################################################################
 	aight, i'll note that you've completed this.
-		[D][X] get out of bed (by: 13 November, 2012)
+		[E][X] brush teeth (from: 01 September, 2023 to: 01 September, 2023)
 	#################################################################
 	#################################################################
 	pumpkin, why you tryna give me problems?
@@ -235,11 +303,11 @@
 	#################################################################
 	#################################################################
 	aight, i'll note that you've completed this.
-		[E][X] order food (from: 03 September, 2024 to: 03 September, 2024)
+		[T][X] eat up
 	#################################################################
 	#################################################################
 	no worries, we'll circle back around to this.
-		[T][ ] get to the bathroom
+		[T][ ] decide what to eat for breakfast
 	#################################################################
 	#################################################################
 	no worries, we'll circle back around to this.
@@ -247,7 +315,7 @@
 	#################################################################
 	#################################################################
 	sure hon, i'll remove this task from the list.
-		[E][ ] brush teeth (from: 01 September, 2023 to: 01 September, 2023)
+		[T][ ] head out of the house
 	now we have 8 tasks left to work on.
 	#################################################################
 	#################################################################
@@ -258,13 +326,13 @@
 	#################################################################
 	#################################################################
 	these are the things we gotta do:
-	1. [T][X] wake up
-	2. [D][X] get out of bed (by: 13 November, 2012)
-	3. [T][ ] get to the bathroom
-	4. [T][ ] decide what to eat for breakfast
-	5. [T][ ] head out of the house
-	6. [D][ ] call the lift to head downstairs (by: 01 September, 2023)
-	7. [E][X] order food (from: 03 September, 2024 to: 03 September, 2024)
+	1. [T][X] get to the bathroom
+	2. [E][X] brush teeth (from: 01 September, 2023 to: 01 September, 2023)
+	3. [T][ ] decide what to eat for breakfast
+	4. [D][ ] call the lift to head downstairs (by: 01 September, 2023)
+	5. [E][ ] order food (from: 03 September, 2024 to: 03 September, 2024)
+	6. [T][ ] 57 /from
+	7. [T][X] eat up
 	8. [T][ ] read book
 	#################################################################
 	#################################################################

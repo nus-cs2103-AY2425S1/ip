@@ -48,29 +48,28 @@ public class TaskLog {
     }
 
     protected Task doTask(int taskNum) throws RizzlerException {
-        Task doneTask = this.getTask(taskNum - 1);
+        Task doneTask = getTask(taskNum - 1);
         doneTask.done();
         return doneTask;
     }
 
     protected Task undoTask(int taskNum) throws RizzlerException {
-        Task undoneTask = this.getTask(taskNum - 1);
+        Task undoneTask = getTask(taskNum - 1);
         undoneTask.undone();
         return undoneTask;
     }
 
     public int getNumTasks() {
-        return this.numTasks;
+        return numTasks;
     }
 
     public Task deleteTask(int taskNum) throws RizzlerException {
-        Task[] newTaskLog = new Task[this.log.length];
-
-        Task taskToDelete = this.getTask(taskNum - 1);
-        System.arraycopy(this.log, 0, newTaskLog, 0, taskNum - 1);
-        System.arraycopy(this.log, taskNum, newTaskLog, taskNum - 1, this.numTasks - taskNum + 1);
-        this.log = newTaskLog;
-        this.numTasks--;
+        Task[] newTaskLog = new Task[log.length];
+        Task taskToDelete = getTask(taskNum - 1);
+        System.arraycopy(log, 0, newTaskLog, 0, taskNum - 1);
+        System.arraycopy(log, taskNum, newTaskLog, taskNum - 1, numTasks - taskNum + 1);
+        log = newTaskLog;
+        numTasks--;
         return taskToDelete;
     }
 

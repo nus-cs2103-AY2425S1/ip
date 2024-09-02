@@ -73,35 +73,4 @@ public class RizzlerSpeech extends Speech {
         System.out.print(this.prefix);
         super.lineBreak();
     }
-
-    /**
-     * Prints out every task in the given <code>log</code> with proper prefixing and formatting.
-     * @param log An array of <code>Task</code> objects to be printed as output to the user.
-     */
-    public void list(Task[] log) {
-        this.say();
-        this.say(RESPONSES.get("list"));
-        for (int i = 0; i < log.length; i++) {
-            this.say((i + 1) + ". " + log[i]);
-        }
-        this.say();
-    }
-
-    /**
-     * Prints out the pre-determined greeting with proper prefixing and formatting.
-     */
-    public void greet() {
-        this.say();
-        this.say(RESPONSES.get("greet"));
-        this.say();
-    }
-
-    /**
-     * Prints out the pre-determined farewell message with proper prefixing and formatting.
-     */
-    public void bidFarewell() {
-        this.say();
-        this.say(RESPONSES.get("farewell"));
-        this.say();
-    }
 }
