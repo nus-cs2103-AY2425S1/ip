@@ -164,4 +164,6 @@ public class Ui {
     public void printToMax(String str) {
         output.append(str + "\n");
     }
+
+    
 }
