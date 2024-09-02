@@ -63,6 +63,15 @@ abstract class Task {
     abstract String getTime();
 
     /**
+     * Returns the completion status of the task.
+     *
+     * @return {@code true} if the task is marked as done, {@code false} otherwise.
+     */
+    public boolean isDone() {
+        return this.status;
+    }
+
+    /**
      * Returns the status icon of the task.
      *
      * @return "X" if the task is done, otherwise a space (" ").
