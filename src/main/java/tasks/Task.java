@@ -65,4 +65,8 @@ public abstract class Task {
      */
     public String getName() { return this.name;
     }
+
+    public boolean containsWord(String word) {
+        return this.name.contains(word);
+    }
 }
