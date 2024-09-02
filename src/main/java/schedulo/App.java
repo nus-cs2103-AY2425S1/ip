@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-    private Schedulo duke = new Schedulo();
+    private Schedulo schedulo = new Schedulo("data/data.txt");
 
     @Override
     public void start(Stage stage) {
@@ -21,8 +21,10 @@ public class App extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setSchedulo(schedulo);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

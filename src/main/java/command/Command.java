@@ -5,7 +5,6 @@ import java.io.IOException;
 import task.TaskList;
 import exception.ScheduloException;
 import util.Storage;
-import util.Ui;
 
 
 /**
@@ -23,7 +22,7 @@ public abstract class Command {
      * @throws ScheduloException If an application-specific error occurs during execution.
      * @throws IOException       If an I/O error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws ScheduloException, IOException;
+    public abstract String execute(TaskList tasks, Storage storage) throws ScheduloException, IOException;
 
     /**
      * Indicates whether the command is an exit command, which terminates the application.

@@ -32,11 +32,9 @@ public class TaskList {
      *
      * @param task The Task to be added.
      */
-    public void add(Task task) {
+    public String add(Task task) {
         taskList.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        return  "Got it. I've added this task:\n" + task + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     /**
@@ -45,12 +43,31 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      */
-    public void delete(int index) {
+    public String delete(int index) {
         Task task = taskList.get(index);
         taskList.remove(index);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        return "Noted. I've removed this task:\n" + task + "\nNow you have " + taskList.size() + " tasks in the list.";
+    }
+
+    public String find(String word) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task task = this.taskList.get(i);
+            if (task.getName().contains(word)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            return "No matching tasks found.";
+        } else {
+            String message = "Here are the matching tasks in your list:";
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                message += "\n" + (i + 1) + "." + matchingTasks.get(i).toString();
+            }
+            return message;
+        }
     }
 
     /**
@@ -59,11 +76,10 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      */
-    public void mark(int index) {
+    public String mark(int index) {
         Task task = taskList.get(index);
         task.mark();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -72,11 +88,10 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as not done.
      */
-    public void unmark(int index) {
+    public String unmark(int index) {
         Task task = taskList.get(index);
         task.unmark();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**

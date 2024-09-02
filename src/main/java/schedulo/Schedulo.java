@@ -4,7 +4,6 @@ import exception.ScheduloException;
 import task.TaskList;
 import util.Parser;
 import util.Storage;
-import util.Ui;
 import javafx.application.Application;
 
 import java.io.IOException;
@@ -17,7 +16,7 @@ import java.io.IOException;
 public class Schedulo {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private Command c;
 
     /**
      * Constructs a Schedulo instance and initializes its components.
@@ -25,38 +24,28 @@ public class Schedulo {
      *
      * @param filePath The file path where tasks are stored.
      */
-    // public Schedulo(String filePath) {
-    //     ui = new Ui();
-    //     storage = new Storage(filePath);
-    //     try {
-    //         tasks = new TaskList(storage.load());
-    //     } catch (Exception e) {
-    //         ui.showLoadingError();
-    //         tasks = new TaskList();
-    //     }
-    // }
+    public Schedulo(String filePath) {
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (Exception e) {
+            tasks = new TaskList();
+        }
+    }
 
     /**
      * Starts the main application loop.
      * This method reads user commands, processes them, and interacts with the user interface.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (ScheduloException | IOException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    public String run(String fullCommand) {
+        // boolean isExit = false;
+        try {
+            this.c = Parser.parse(fullCommand);
+            return  this.c.execute(tasks, storage);
+            // isExit = c.isExit();
+        } catch (ScheduloException | IOException e) {
+            return e.getMessage();
         }
-        ui.close();
     }
 
     /**
@@ -70,6 +59,6 @@ public class Schedulo {
     }
 
     public String getResponse(String input) {
-        return "Schedulo heard: " + input;
+        return this.run(input);
     }
 }
