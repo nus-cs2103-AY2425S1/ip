@@ -39,7 +39,7 @@ public class ParserTest {
     public void testParseCommand_mark() throws InvalidCommandException {
         tasks.addTask(new ToDo("read book"));
         parser.parseCommand("mark 1");
-        assertTrue(tasks.get(0).isDone());
+        assertTrue(tasks.get(0).checkDone());
     }
 
     /**
@@ -52,7 +52,7 @@ public class ParserTest {
         todo.setDone(true);
         tasks.addTask(todo);
         parser.parseCommand("unmark 1");
-        assertFalse(tasks.get(0).isDone());
+        assertFalse(tasks.get(0).checkDone());
     }
 
     /**

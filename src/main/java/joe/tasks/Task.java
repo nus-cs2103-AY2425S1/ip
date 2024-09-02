@@ -5,7 +5,7 @@ package joe.tasks;
  */
 public abstract class Task {
     private final String description;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructor for Task.
@@ -19,7 +19,7 @@ public abstract class Task {
         }
 
         this.description = description;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -28,7 +28,7 @@ public abstract class Task {
      * @return a String representing the description of the task
      */
     public String saveRepr() {
-        return String.format("%d | %s", done ? 1 : 0, description);
+        return String.format("%d | %s", isDone ? 1 : 0, description);
     }
 
 
@@ -38,7 +38,7 @@ public abstract class Task {
      * @param done a boolean that determines whether a task is done
      */
     public void setDone(boolean done) {
-        this.done = done;
+        this.isDone = done;
     }
 
 
@@ -49,7 +49,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        char mark = done ? 'X' : ' ';
+        char mark = isDone ? 'X' : ' ';
         return String.format("[%c] %s", mark, description);
     }
 
@@ -67,7 +67,7 @@ public abstract class Task {
      *
      * @return a boolean representing the status of the task
      */
-    public boolean isDone() {
-        return done;
+    public boolean checkDone() {
+        return isDone;
     }
 }
