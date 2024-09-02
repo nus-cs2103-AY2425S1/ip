@@ -17,7 +17,7 @@ public class CommandList {
      * @param description The description of the task.
      * @return A command which creates the task to do when executed.
      */
-    public static Command addTodo(String description) {
+    public static Command addTodoTask(String description) {
         return (tasks, ui, storage) -> {
             Task newTask = new Todo(description);
             tasks.add(newTask);
@@ -35,7 +35,7 @@ public class CommandList {
      * @param deadline The deadline of the task.
      * @return A command which creates the deadline task when executed.
      */
-    public static Command addDeadline(String description, String deadline) {
+    public static Command addDeadlineTask(String description, String deadline) {
         return (tasks, ui, storage) -> {
             Task newTask = new Deadline(description, DateTimeParser.parseDateTime(deadline));
             tasks.add(newTask);
@@ -54,7 +54,7 @@ public class CommandList {
      * @param end The ending time or/and date of the event.
      * @return A command which creates the event task when executed.
      */
-    public static Command addEvent(String description, String start, String end) {
+    public static Command addEventTask(String description, String start, String end) {
         return (tasks, ui, storage) -> {
             Task newTask = new Event(description,
                     DateTimeParser.parseDateTime(start),
