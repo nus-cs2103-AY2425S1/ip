@@ -1,3 +1,5 @@
+package rizzler.command;
+
 /**
  * Represents abstract commands within the Rizzler.
  * Enables further subclassing for specific commands.

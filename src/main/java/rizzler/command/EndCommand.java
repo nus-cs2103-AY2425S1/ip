@@ -1,3 +1,5 @@
+package rizzler.command;
+
 public class EndCommand extends Command {
     EndCommand() {
         super();

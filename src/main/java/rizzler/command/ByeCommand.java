@@ -1,3 +1,5 @@
+package rizzler.command;
+
 public class ByeCommand extends Command {
     ByeCommand() {
         super();

@@ -1,3 +1,5 @@
+package rizzler.ui;
+
 import java.util.HashMap;
 
 /**

@@ -1,3 +1,5 @@
+package rizzler.command;
+
 public class ListCommand extends Command {
     ListCommand() {
         super();

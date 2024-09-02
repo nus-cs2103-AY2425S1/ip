@@ -1,3 +1,5 @@
+package rizzler.command;
+
 public class NullCommand extends Command {
 
     NullCommand(String string) {

@@ -1,7 +1,17 @@
+package rizzler.command;
+
+import rizzler.Storage;
+import rizzler.TaskLog;
+
+import rizzler.task.Task;
+
+import rizzler.ui.RizzlerException;
+import rizzler.ui.RizzlerSpeech;
+
 public class UnmarkCommand extends Command {
     private final int taskToUnmark;
 
-    UnmarkCommand(int taskToUnmark) {
+    public UnmarkCommand(int taskToUnmark) {
         super();
         this.taskToUnmark = taskToUnmark;
     }

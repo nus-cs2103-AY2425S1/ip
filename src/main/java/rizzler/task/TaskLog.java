@@ -1,3 +1,5 @@
+package rizzler.task;
+
 public class TaskLog {
     private Task[] log;
     private int numTasks;

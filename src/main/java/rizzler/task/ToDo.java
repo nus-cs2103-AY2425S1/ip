@@ -1,3 +1,5 @@
+package rizzler.task;
+
 public class ToDo extends Task {
 
     ToDo(String todoDesc) {

@@ -1,3 +1,5 @@
+package rizzler.command;
+
 public class DeleteCommand extends Command {
     private final int taskToDelete;
 

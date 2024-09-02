@@ -1,3 +1,5 @@
+package rizzler.command;
+
 public class GreetCommand extends Command {
     public GreetCommand() {
         super();

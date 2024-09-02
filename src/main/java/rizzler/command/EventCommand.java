@@ -1,3 +1,5 @@
+package rizzler.command;
+
 public class EventCommand extends Command {
     private final Event event;
 

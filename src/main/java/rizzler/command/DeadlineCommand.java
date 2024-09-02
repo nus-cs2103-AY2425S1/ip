@@ -1,3 +1,5 @@
+package rizzler.command;
+
 public class DeadlineCommand extends Command {
     private final Deadline deadline;
 

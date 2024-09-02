@@ -1,7 +1,13 @@
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-import java.util.Scanner;
+package rizzler;
 
+import rizzler.command.ByeCommand;
+import rizzler.command.Command;
+import rizzler.command.GreetCommand;
+
+import rizzler.task.TaskLog;
+
+import rizzler.ui.RizzlerSpeech;
+import rizzler.ui.parser.Parser;
 
 public class Rizzler {
 

@@ -1,3 +1,5 @@
+package rizzler.command;
+
 public class HelpCommand extends Command {
     HelpCommand() {
         super();

@@ -1,3 +1,5 @@
+package rizzler.command;
+
 public class TodoCommand extends Command {
     private final ToDo newTodo;
 
