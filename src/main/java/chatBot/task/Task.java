@@ -1,6 +1,10 @@
+package chatBot.task;
+
+import chatBot.exception.EmptyDescException;
+
 import java.time.format.DateTimeFormatter;
 
-abstract class Task {
+public abstract class Task {
     protected static final DateTimeFormatter ORIGINALFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     protected static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
 
@@ -19,12 +23,12 @@ abstract class Task {
         return description;
     }
 
-    Task markAsDone() {
+    public Task markAsDone() {
         this.isDone = true;
         return this;
     }
 
-    Task markAsNotDone() {
+    public Task markAsNotDone() {
         this.isDone = false;
         return this;
     }

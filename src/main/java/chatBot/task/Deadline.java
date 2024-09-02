@@ -1,3 +1,7 @@
+package chatBot.task;
+
+import chatBot.exception.EmptyDescException;
+
 import java.time.LocalDate;
 
 public class Deadline extends Task {
@@ -5,7 +9,7 @@ public class Deadline extends Task {
 
     // can consider Optional for time in the future
 
-    Deadline(String desc, String deadline) throws EmptyDescException {
+    public Deadline(String desc, String deadline) throws EmptyDescException {
         super(desc);
         this.deadline = LocalDate.parse(deadline);
     }

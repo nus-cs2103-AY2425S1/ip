@@ -1,3 +1,7 @@
+package chatBot.task;
+
+import chatBot.exception.EmptyDescException;
+
 import java.time.LocalDate;
 
 public class Event extends Task {

@@ -1,13 +1,19 @@
+package chatBot.command;
+
+import chatBot.bot.Storage;
+import chatBot.bot.TaskList;
+import chatBot.bot.Ui;
+
 public class ExitCommand extends Command {
     public ExitCommand() {}
 
-    void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         storage.writeToFile(taskList.getTaskCommands());
         ui.showGoodbye();
     }
 
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return true;
     }
 }
