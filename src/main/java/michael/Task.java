@@ -2,23 +2,23 @@ package michael;
 
 public class Task {
     private final String taskName;
-    private boolean done;
+    private boolean isDone;
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.done = false;
+        this.isDone = false;
     }
 
     public void doTask() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void undoTask() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
 
     public String getTaskName() {
@@ -27,7 +27,7 @@ public class Task {
 
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[X] " + taskName;
         }
         return "[ ] " + taskName;

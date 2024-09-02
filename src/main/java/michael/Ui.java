@@ -1,7 +1,7 @@
 package michael;
 
 public class Ui {
-    private static final String BORDER = "--------------------------------------";
+    private final String BORDER = "--------------------------------------";
 
     public Ui() {
         // Greet user first
@@ -12,7 +12,7 @@ public class Ui {
         System.out.println(error);
     }
 
-    public void feedback(String feedback) {
+    public void giveFeedback(String feedback) {
         printer(feedback);
     }
 

@@ -3,6 +3,7 @@ package michael;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,7 +47,6 @@ public class Storage {
 
     // Method loads in tasks from save file
     public ArrayList<Task> load() throws IOException {
-
         File f = new File(this.filePath);
         File parent = f.getParentFile();
 
@@ -68,7 +68,7 @@ public class Storage {
     }
 
     // Method converts task into text format required for save file
-    public String convert(Task task) {
+    public String convertTaskToString(Task task) {
         StringBuilder s = new StringBuilder();
 
         // Add status of task
@@ -77,6 +77,7 @@ public class Storage {
         } else {
             s.append("0 | ");
         }
+
         // Add name of task
         s.append(task.getTaskName());
 
@@ -101,7 +102,7 @@ public class Storage {
         FileWriter writer = new FileWriter(this.filePath);
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
-            String save = convert(t);
+            String save = convertTaskToString(t);
             writer.write(save);
         }
         writer.close();
