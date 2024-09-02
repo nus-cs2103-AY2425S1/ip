@@ -13,10 +13,10 @@ public class Parser {
 
     // Return true: loop continue, return false: loop break
     public Command handleCommand(String command) throws BrockException {
-        if (command.equalsIgnoreCase("bye")) {
+        if (identifyCommand(command, "bye")) {
             return new ByeCommand(command);
         }
-        if (command.equalsIgnoreCase("list")) {
+        if (identifyCommand(command, "list")) {
             return new ListCommand(command);
 
         } else if (identifyCommand(command, "mark")) {
