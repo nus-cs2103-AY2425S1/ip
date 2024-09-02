@@ -17,7 +17,7 @@ public class Task {
         this.completed = true;
     }
 
-    public String taskName() {
+    public String getTaskName() {
         return this.name;
     }
 
@@ -32,11 +32,11 @@ public class Task {
     @Override
     public String toString(){
         int done = (this.taskStatus() ? 1 : 0);
-        return this.getType() + "|" + done + "|" + this.taskName();
+        return this.getType() + "|" + done + "|" + this.getTaskName();
     }
 
     public String print() {
         String cross = (this.taskStatus() ? "X" : " ");
-        return "[" + this.getType() + "] " + "[" + cross + "] " + this.taskName();
+        return "[" + this.getType() + "] " + "[" + cross + "] " + this.getTaskName();
     }
 }
