@@ -13,9 +13,10 @@ import dook.ui.Ui;
 public class ExitCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
         storage.write(tasks);
         ui.exit();
         super.isExit = true;
+        return "Bye. Hope to see you again soon!\n";
     }
 }

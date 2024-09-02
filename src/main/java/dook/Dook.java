@@ -44,4 +44,28 @@ public class Dook {
             ui.errorMessage("IO Error");
         }
     }
+
+    public void initialize() {
+        try {
+            storage.setup();
+            tasks = new TaskList(storage.load());
+            ui.greet();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public String getResponse(String input) {
+        try {
+            return parser.parse(input).execute(tasks, ui, storage);
+        } catch (DookException e) {
+            return e.getMessage();
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String greet() {
+        return ui.greet();
+    }
 }

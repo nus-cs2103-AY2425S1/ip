@@ -21,7 +21,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DookException, IOException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DookException, IOException {
         if (this.keyword.isEmpty()) {
             throw new DookException("Provide a keyword");
         }
@@ -35,14 +35,17 @@ public class FindCommand extends Command {
             }
         }
         ui.separate();
+        String message = "Here are the matching tasks in your list: ";
         if (matches.isEmpty()) {
             throw new DookException("No tasks have the following keyword: \"" + this.keyword + "\"");
         } else {
-            ui.showMessage("Here are the matching tasks in your list: ");
+            ui.showMessage(message);
             for (int i = 0; i < matches.numOfTasks(); i++) {
                 ui.showMessage((i + 1) + ". " + matches.getTask(i));
+                message = message.concat("\n" + (i + 1) + ". " + matches.getTask(i));
             }
         }
         ui.separate();
+        return message;
     }
 }

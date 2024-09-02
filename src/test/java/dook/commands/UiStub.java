@@ -14,14 +14,16 @@ public class UiStub extends Ui {
         System.out.println(SEPARATOR);
     }
 
-    public void greet() {
+    public String greet() {
         System.out.println(SEPARATOR);
         System.out.println(GREETING);
+        return GREETING;
     }
 
-    public void exit() {
+    public String exit() {
         System.out.println(SEPARATOR);
         System.out.println(EXIT);
+        return EXIT;
     }
 
     public void showMessage(String message) {

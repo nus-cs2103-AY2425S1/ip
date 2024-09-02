@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class Ui {
 
     private static final String SEPARATOR = "____________________________________________________________";
-    private static final String GREETING = "Hello! I'm Dook\nWhat can I do for you?\n" + SEPARATOR;
-    private static final String EXIT = "Bye. Hope to see you again soon!\n" + SEPARATOR;
+    private static final String GREETING = "Hello! I'm Dook\nWhat can I do for you?\n";
+    private static final String EXIT = "Bye. Hope to see you again soon!\n";
 
     private final Scanner scanner = new Scanner(System.in);
 
@@ -26,17 +26,21 @@ public class Ui {
     /**
      * Prints the chatbot's greeting message.
      */
-    public void greet() {
+    public String greet() {
         System.out.println(SEPARATOR);
         System.out.println(GREETING);
+        System.out.println(SEPARATOR);
+        return GREETING;
     }
 
     /**
      * Prints the message when the user exits the chatbot.
      */
-    public void exit() {
+    public String exit() {
         System.out.println(SEPARATOR);
         System.out.println(EXIT);
+        System.out.println(SEPARATOR);
+        return EXIT;
     }
 
     /**
