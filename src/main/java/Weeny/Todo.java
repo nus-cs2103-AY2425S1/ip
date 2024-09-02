@@ -24,12 +24,12 @@ public class Todo extends Task {
         return "T | " + checkMark + " | " + this.description;
     }
 
-    @Override
     /**
      * Returns a string representation of the to-do task.
      *
      * @return A string in the format "[T][statusIcon] description".
      */
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
