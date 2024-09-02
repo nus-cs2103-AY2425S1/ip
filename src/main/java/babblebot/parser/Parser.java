@@ -6,6 +6,16 @@ public class Parser {
         return userInput.split(" ")[0];
     }
 
+    /**
+     * Parses the user input the extract the keyword
+     *
+     * @param userInput The full string of user input.
+     * @return The keyowrd as a string.
+     */
+    public static String parseKeyword(String userInput) {
+        return userInput.split("find ")[1];
+    }
+    
     public static String parseTodoContent(String userInput) {
         return userInput.split("todo ")[1];
     }

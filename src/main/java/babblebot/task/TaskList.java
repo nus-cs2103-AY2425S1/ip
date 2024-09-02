@@ -37,4 +37,20 @@ public class TaskList {
     public ArrayList<Task> getAllTasks() {
         return tasks;
     }
+
+    /**
+     * Returns the list of tasks which matches the keyword, in the TaskList.
+     *
+     * @param keyword The supplied keyword string.
+     * @return An ArrayList of keyword-matching tasks in the TaskList
+     */
+    public ArrayList<Task> getMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.hasKeyword(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }
