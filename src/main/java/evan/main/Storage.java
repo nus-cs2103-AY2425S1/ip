@@ -1,5 +1,11 @@
 package evan.main;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
 import evan.exception.FileCreationException;
 import evan.exception.LoadingException;
 import evan.exception.SavingException;
@@ -8,11 +14,6 @@ import evan.task.Event;
 import evan.task.Task;
 import evan.task.Todo;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents the storage that the chatbot saves data to.
@@ -88,7 +89,8 @@ public class Storage {
             return task;
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new LoadingException("Invalid number of arguments for task type.\nLine that caused the error: '" + s + "'");
+            throw new LoadingException("Invalid number of arguments for task type.\nLine that caused the error: '"
+                    + s + "'");
         }
     }
 

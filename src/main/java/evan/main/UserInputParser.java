@@ -1,12 +1,21 @@
 package evan.main;
 
-import evan.command.*;
-import evan.exception.InvalidUserInputException;
+import static java.lang.Integer.parseInt;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.lang.Integer.parseInt;
+import evan.command.Command;
+import evan.command.DeadlineCommand;
+import evan.command.DeleteCommand;
+import evan.command.EventCommand;
+import evan.command.ExitCommand;
+import evan.command.FindCommand;
+import evan.command.ListCommand;
+import evan.command.MarkCommand;
+import evan.command.TodoCommand;
+import evan.command.UnmarkCommand;
+import evan.exception.InvalidUserInputException;
 
 /**
  * Represents a parser that validates the user's input and converts it into commands that the chatbot can interpret and
