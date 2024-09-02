@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
-    String filePath;
+    private final String filePath;
 
     /**
      * Constructs a {@link Storage} object with the specified file path.
@@ -61,7 +61,8 @@ public class Storage {
 
         // If the directory doesn't exist, create it
         if (!directory.exists()) {
-            boolean mkdirs = directory.mkdirs(); // This will create the directory and any necessary but nonexistent parent directories
+            // This will create the directory and any necessary but nonexistent parent directories
+            boolean mkdirs = directory.mkdirs();
             if (!mkdirs) {
                 System.out.println("Failed to make directory!");
             }

@@ -1,8 +1,8 @@
 package wenjigglybot;
 
 public class EventTask extends Task {
-    String from;
-    String to;
+    private String from;
+    private String to;
 
     public EventTask(String description, String from, String to) {
         super(description);

@@ -1,12 +1,11 @@
 package wenjigglybot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
 
-    static List<Task> tasks = new ArrayList<>(100);
+    private static List<Task> tasks = new ArrayList<>(100);
 
     TaskList() {
     }

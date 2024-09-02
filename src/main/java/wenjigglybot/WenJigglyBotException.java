@@ -1,7 +1,7 @@
 package wenjigglybot;
 
 public class WenJigglyBotException extends Exception {
-    String s;
+    private String s;
 
     public WenJigglyBotException(String s) {
         this.s = s;

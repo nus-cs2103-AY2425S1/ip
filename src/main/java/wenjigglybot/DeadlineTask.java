@@ -6,8 +6,8 @@ import java.time.format.FormatStyle;
 
 // wenjigglybot.Task with a deadline
 public class DeadlineTask extends Task {
-    String deadlineString;
-    LocalDate deadline;
+    private String deadlineString;
+    private LocalDate deadline;
 
     public DeadlineTask(String description, LocalDate deadline) {
         super(description);
@@ -26,7 +26,8 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        String formattedDeadline = String.format("(by: %s)", deadline == null ? deadlineString : deadline.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+        String formattedDeadline = String.format("(by: %s)", deadline == null ? deadlineString
+                : deadline.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
         return "[D]" + super.toString() + " " + formattedDeadline;
     }
 }
