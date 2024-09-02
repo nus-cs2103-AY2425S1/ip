@@ -34,13 +34,13 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the SlothingWaffler instance */
     public void setSlothingWaffler(SlothingWaffler s) {
         slothingWaffler = s;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Slothing Waffler's reply and
+     * Creates two dialog boxes, one echoing user input and the other containing SlothingWaffler's reply and
      * then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
