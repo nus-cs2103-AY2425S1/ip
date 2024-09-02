@@ -33,7 +33,7 @@ public class IncorrectCommand extends Command {
      * @param taskList The list of tasks (not used in this command).
      * @param ui       The user interface that handles the display of the error message.
      * @param storage  The storage (not used in this command).
-     * @return
+     * @return A string message that describes the error.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {

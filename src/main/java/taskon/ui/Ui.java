@@ -20,8 +20,6 @@ import taskon.task.TaskList;
  * It is responsible for reading user inputs and displaying messages to the user.
  */
 public class Ui {
-    private static final String LS = System.lineSeparator();
-    private static final String DIVIDER = "_________________________________________";
 
     private final Scanner in;
     private final PrintStream out;
@@ -44,47 +42,23 @@ public class Ui {
         this.out = out;
     }
 
-    /**
-     * Returns true if the user input line should be ignored.
-     * Input should be ignored if it is only whitespace, or is empty.
-     *
-     * @param input full raw user input line.
-     * @return true if the entire user input line should be ignored.
-     */
-    private boolean toIgnore(String input) {
-        return input.trim().isEmpty();
-    }
 
     /**
-     * Reads a line of user input, ignoring any empty or whitespace-only input.
-     *
-     * @return The user input line as a String.
-     */
-    public String readCommand() {
-        String inputString = in.nextLine();
-        while (toIgnore(inputString)) {
-            inputString = in.nextLine();
-        }
-
-        return inputString;
-    }
-
-    /**
-     * Displays a greeting message to the user.
+     * Returns a greeting message to the user.
      */
     public String greet() {
         return MESSAGE_GREETING;
     }
 
     /**
-     * Displays an exit message to the user.
+     * Returns an exit message to the user.
      */
     public String exit() {
         return MESSAGE_EXIT;
     }
 
     /**
-     * Displays the list of tasks to the user.
+     * Returns the list of tasks to the user.
      *
      * @param tasks The list of tasks to display.
      */
@@ -98,7 +72,7 @@ public class Ui {
     }
 
     /**
-     * Displays a message indicating that a task has been marked as done.
+     * Returns a message indicating that a task has been marked as done.
      *
      * @param task The task that has been marked as done.
      */
@@ -107,7 +81,7 @@ public class Ui {
     }
 
     /**
-     * Displays a message indicating that a task has been unmarked.
+     * Returns a message indicating that a task has been unmarked.
      *
      * @param task The task that has been unmarked.
      */
@@ -116,7 +90,7 @@ public class Ui {
     }
 
     /**
-     * Displays tasks that occur on a specified date.
+     * Returns tasks that occur on a specified date.
      *
      * @param date The date to search for tasks.
      * @param tasks The list of tasks to search through.
@@ -139,7 +113,7 @@ public class Ui {
     }
 
     /**
-     * Displays a message indicating that a task has been deleted.
+     * Returns a message indicating that a task has been deleted.
      *
      * @param task The task that has been deleted.
      * @param size The updated size of the task list.
@@ -149,7 +123,7 @@ public class Ui {
     }
 
     /**
-     * Displays a message indicating that a new task has been added.
+     * Returns a message indicating that a new task has been added.
      *
      * @param task The task that has been added.
      * @param size The updated size of the task list.
@@ -160,7 +134,7 @@ public class Ui {
     }
 
     /**
-     * Displays an error message to the user.
+     * Returns an error message to the user.
      *
      * @param message The error message to display.
      */
@@ -169,14 +143,7 @@ public class Ui {
     }
 
     /**
-     * Displays a divider line to separate sections in the output.
-     */
-    public void showLine() {
-        out.println(DIVIDER);
-    }
-
-    /**
-     * Displays a message indicating that no tasks were found for the search criteria.
+     * Returns a message indicating that no tasks were found for the search criteria.
      */
     public String showEmptyFind() {
         return MESSAGE_EMPTY_FIND;

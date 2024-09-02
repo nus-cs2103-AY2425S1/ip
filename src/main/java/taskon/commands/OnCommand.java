@@ -35,7 +35,7 @@ public class OnCommand extends Command {
      * @param taskList The list of tasks to be filtered by date.
      * @param ui       The user interface that handles the display of the filtered tasks.
      * @param storage  The storage (not used in this command).
-     * @return
+     * @return A string message that displays a list of task that occurs on a specified date.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {

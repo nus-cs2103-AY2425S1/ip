@@ -46,7 +46,8 @@ public class DeadlineCommand extends Command {
      * @param taskList The list of tasks managed by the application.
      * @param ui       The user interface that handles output and user interactions.
      * @param storage  The storage that handles data persistence.
-     * @return
+     * @return A string message that confirms the addition of the task to the task list, including
+     *     the total number of tasks in the list after the addition.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {

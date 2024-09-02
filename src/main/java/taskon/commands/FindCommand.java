@@ -32,7 +32,7 @@ public class FindCommand extends Command {
      * @param taskList The list of tasks to search through.
      * @param ui       The UI instance to handle user interactions.
      * @param storage  The storage instance for managing task data (not used in this method).
-     * @return
+     * @return A string message that shows the list of tasks with the specified description.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {

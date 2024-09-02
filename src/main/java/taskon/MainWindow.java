@@ -1,5 +1,7 @@
 package taskon;
 
+import static taskon.common.Messages.MESSAGE_GREETING;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,8 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import static taskon.common.Messages.MESSAGE_GREETING;
 
 /**
  * Controller for the main GUI.
@@ -28,13 +28,17 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the MainWindow by setting up the user interface components.
+     * <p>
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(MESSAGE_GREETING, dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getTaskonDialog(MESSAGE_GREETING, dukeImage));
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Taskon instance */
     public void setTaskon(Taskon t) {
         taskon = t;
     }
@@ -49,7 +53,7 @@ public class MainWindow extends AnchorPane {
         String response = taskon.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getTaskonDialog(response, dukeImage)
         );
         userInput.clear();
     }
