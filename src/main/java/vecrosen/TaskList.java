@@ -29,10 +29,11 @@ public class TaskList {
 
     /**
      * Removes a task from the list of tasks.
-     * @param index The index of the task to be removed
+     * @param index The index of the task to be removed, 1-indexed
      * @return The description of the removed task
      */
     public String deleteTask(int index) {
+        index = index - 1;
         String rdesc = list.get(index).getDescription();
         list.remove(index);
         return rdesc;
@@ -40,11 +41,12 @@ public class TaskList {
 
     /**
      * Marks a task as complete or incomplete.
-     * @param index The index of the task to be modified
+     * @param index The index of the task to be modified, 1-indexed
      * @param isDone The new state of the task
      * @return The description of the removed task
      */
     public String setDone(int index, boolean isDone) {
+        index = index - 1;
         Task t = list.get(index);
         t.setDone(isDone);
         return t.getDescription();

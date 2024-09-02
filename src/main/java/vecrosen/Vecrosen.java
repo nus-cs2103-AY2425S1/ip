@@ -25,12 +25,11 @@ public class Vecrosen {
         ui = new Ui(System.in, System.out);
         ui.speak("Hello, I'm Vecrosen.");
         ui.speak("What can I do for you?");
-        Scanner scanner = new Scanner(System.in);
         int itemNo;
         String desc;
         while (true) {
             String input;
-            input = scanner.nextLine();
+            input = ui.readline();
             ArrayList<Object> parseArgs = new ArrayList<Object>();
             Parser.ActionType actionType = Parser.parse(input, parseArgs);
             switch (actionType) {
@@ -40,7 +39,7 @@ public class Vecrosen {
             case mark:
                 itemNo = (Integer) parseArgs.get(0);
                 try {
-                    String target = taskList.setDone(itemNo-1, true);
+                    String target = taskList.setDone(itemNo, true);
                     ui.speak("Task marked as complete: " + target);
                 } catch (IndexOutOfBoundsException e) {
                     ui.speak("Invalid task number!");
@@ -49,7 +48,7 @@ public class Vecrosen {
             case unmark:
                 itemNo = (Integer) parseArgs.get(0);
                 try {
-                    String target = taskList.setDone(itemNo-1, false);
+                    String target = taskList.setDone(itemNo, false);
                     ui.speak("Task marked as incomplete: " + target);
                 } catch (IndexOutOfBoundsException e) {
                     ui.speak("Invalid task number!");
@@ -75,7 +74,7 @@ public class Vecrosen {
                 break;
             case delete:
                 itemNo = (Integer) parseArgs.get(0);
-                String target = taskList.deleteTask(itemNo - 1);
+                String target = taskList.deleteTask(itemNo);
                 ui.speak("Removing task: " + target);
                 ui.speak("You now have " + taskList.getListSize() + " tasks left in record.");
                 break;
