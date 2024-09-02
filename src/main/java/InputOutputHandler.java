@@ -1,13 +1,19 @@
 public class InputOutputHandler {
     TaskList taskList;
+    FileReaderWriter fileReaderWriter;
 
-    public InputOutputHandler(String input) {
+    public InputOutputHandler() {
         taskList = new TaskList();
+        fileReaderWriter = new FileReaderWriter(taskList);
+        fileReaderWriter.readFile();
     }
 
     public boolean parseInput(String input) throws ElysiaException, StringIndexOutOfBoundsException {
         String output = "";
         if (input.equals("bye")) {
+            output += fileReaderWriter.createFile();
+            output += fileReaderWriter.writeFile();
+            Message.print(output);
             return false;
         } else if (input.equals("list")) {
             output = "Here's your list! \n";

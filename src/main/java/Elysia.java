@@ -1,10 +1,10 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Elysia {
 
 
     public static void main(String[] args) {
+
         Message.print("Hi~! I'm Elysia! As you can see, I'm a girl as beautiful as as flower!\n" +
                 "How can I help you today? I'm all ears!");
 
@@ -12,7 +12,7 @@ public class Elysia {
         String input = "";
         String output = "";
         boolean repeat = true;
-        InputOutputHandler handler = new InputOutputHandler(input);
+        InputOutputHandler handler = new InputOutputHandler();
 
         while (repeat) {
             input = command.nextLine();

@@ -10,6 +10,10 @@ public class Task {
         isDone = status;
     }
 
+    public String toFile() {
+        return "|" + (isDone ? "1" : "0") + "|" + description;
+    }
+
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
