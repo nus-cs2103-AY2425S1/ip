@@ -1,9 +1,6 @@
 package gale;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {

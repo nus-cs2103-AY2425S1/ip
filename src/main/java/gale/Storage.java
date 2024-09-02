@@ -1,15 +1,36 @@
 package gale;
-import java.io.*;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.File;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Represents the storage that handles the loading and saving of tasks to a file.
+ *
+ * @author kaikquah
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a storage object with the specified file path.
+     *
+     * @param filePath the file path to store the tasks
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the file specified by the file path.
+     *
+     * @return the list of tasks loaded from the file as an ArrayList
+     * @throws IOException if an I/O error occurs
+     */
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
@@ -29,6 +50,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the tasks to the file specified by the file path.
+     *
+     * @param taskList the ArrayList of tasks to be saved
+     * @throws IOException if an I/O error occurs
+     */
     public void saveTasks(ArrayList<Task> taskList) throws IOException {
         FileWriter writer = new FileWriter(this.filePath);
         for (Task task : taskList) {
@@ -38,6 +65,11 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Converts a line from the file to a Task object.
+     * @param line the line from the file
+     * @return the Task object created from the line in the file
+     */
     public Task fileStringToTask(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
