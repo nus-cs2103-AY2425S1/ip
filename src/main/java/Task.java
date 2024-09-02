@@ -15,25 +15,22 @@ public abstract class Task {
         return description;
     }
 
-    public void markAsDone() {
+    public String markAsDone() {
         isDone = true;
-        System.out.println("\t" + "Nice! I've marked this task as done:");
-        System.out.println("\t\t" + this);
+        return "\tNice! I've marked this task as done:\n\t\t" + this;
     }
 
     public void markAsDoneSilently() {
         isDone = true;
     }
 
-    public void markAsUndone() {
+    public String markAsUndone() {
         isDone = false;
-        System.out.println("\t" + "OK, I've marked this task as not done yet:");
-        System.out.println("\t\t" + this);
+        return "\tOK, I've marked this task as not done yet:\n\t\t" + this;
     }
 
-    public void deleteTask() {
-        System.out.println("\t" + "Noted. I've removed this task:");
-        System.out.println("\t\t" + this);
+    public String announceDeletion() {
+        return "\tNoted. I've removed this task:\n\t\t" + this;
     }
 
     public abstract String dbReadableFormat();
