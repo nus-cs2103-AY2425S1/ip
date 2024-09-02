@@ -13,6 +13,7 @@ public class Devon {
     private TaskList tasks = new TaskList();
     private Storage storage = new Storage();
     private Parser parser = new Parser();
+    private Ui ui = new Ui();
 
     private enum Command {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
@@ -31,34 +32,24 @@ public class Devon {
         try {
             tasks.initialiseLoadTasks(stringListOfTasks);
         } catch (DevonReadDatabaseException e) {
-            System.out.println(e);
+            ui.displayException(e);
         }
         introduction();
         receiveUserInput();
         try {
             storage.saveTasksToDatabase(tasks);
         } catch (IOException e) {
-            System.out.println("Error! Task(s) could not be saved.");
+            ui.displayText("Error! Task(s) could not be saved.");
         }
         goodbye();
     }
 
-    private void printLongLine() {
-        String LINE_SEPARATOR = "____________________";
-        System.out.println("\t" + LINE_SEPARATOR);
-    }
-
     private void introduction() {
-        printLongLine();
-        System.out.println("\t" + "Hello! I'm Devon.");
-        System.out.println("\t" + "What can I do for you?");
-        printLongLine();
+        ui.displayText("\t" + "Hello! I'm Devon.\n" + "\t" + "What can I do for you?");
     }
 
     private void goodbye() {
-        printLongLine();
-        System.out.println("\t" + "Bye. Hope to see you again soon!");
-        printLongLine();
+        ui.displayText("\t" + "Bye. Hope to see you again soon!");
     }
 
     private void receiveUserInput() {
@@ -96,9 +87,7 @@ public class Devon {
                         break;
                 }
             } catch (DevonException e) {
-                printLongLine();
-                System.out.println("\t" + e);
-                printLongLine();
+                ui.displayException(e);
             }
         }
     }
@@ -179,40 +168,31 @@ public class Devon {
 
     private void addToList(Task task) {
         tasks.addTask(task);
-        this.printLongLine();
-        System.out.println("\t" + "Got it. I've added this task:");
-        System.out.println("\t\t" + task);
-        printNumberOfTasks();
-        this.printLongLine();
+        ui.displayText(
+                "\t" + "Got it. I've added this task:\n\t\t"
+                        + task + "\n\tNow you have "
+                        + tasks.getNumberOfTasks()
+                        + " tasks in the list."
+        );
     }
 
     private void printList() {
-        this.printLongLine();
-        tasks.printList();
-        this.printLongLine();
-    }
-
-    private void printNumberOfTasks() {
-        System.out.println("\t" + "Now you have " + tasks.getNumberOfTasks() + " tasks in the list.");
+        ui.displayText(tasks.getListAsString());
     }
 
     private void markAsDone(int taskIndex) {
-        printLongLine();
-        tasks.markAsDone(taskIndex);
-        printLongLine();
+        String textResponse = tasks.markAsDone(taskIndex);
+        ui.displayText(textResponse);
     }
 
     private void markAsUndone(int taskIndex) {
-        printLongLine();
-        tasks.markAsUndone(taskIndex);
-        printLongLine();
+        String textResponse = tasks.markAsUndone(taskIndex);
+        ui.displayText(textResponse);
     }
 
     private void deleteTask(int taskIndex) {
-        tasks.removeTask(taskIndex);
-        printLongLine();
-        printNumberOfTasks();
-        printLongLine();
+        String textResponse = tasks.removeTask(taskIndex);
+        ui.displayText(textResponse + "\n\tNow you have " + tasks.getNumberOfTasks() + " tasks in the list.");
     }
 
     public static void main(String[] args) {

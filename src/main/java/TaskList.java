@@ -55,29 +55,29 @@ public class TaskList {
         return this.tasks.get(taskNumber);
     }
 
-    protected void removeTask(int taskNumber) {
-        getTask(taskNumber).announceDeletion();
+    protected String removeTask(int taskNumber) {
+        String textResponse = getTask(taskNumber).announceDeletion();
         this.tasks.remove(taskNumber);
+        return textResponse;
     }
 
-    protected void markAsDone(int taskNumber) {
-        getTask(taskNumber).markAsDone();
+    protected String markAsDone(int taskNumber) {
+        return getTask(taskNumber).markAsDone();
     }
 
-    protected void markAsUndone(int taskNumber) {
-        getTask(taskNumber).markAsUndone();
+    protected String markAsUndone(int taskNumber) {
+        return getTask(taskNumber).markAsUndone();
     }
 
-    protected void printList() {
-        System.out.println("\t" + "Here are the tasks in your list:");
+    protected String getListAsString() {
+        StringBuilder s =  new StringBuilder("\t" + "Here are the tasks in your list:");
+
         for (int i = 0; i < this.getNumberOfTasks(); i++) {
             Task current = this.getTask(i);
-            String formattedEntry = String.format(
-                    "\t" + "%d. %s",
-                    i + 1,
-                    current
-            );
-            System.out.println(formattedEntry);
+            String formattedEntry = String.format("\n\t" + "%d. %s", i + 1, current);
+            s.append(formattedEntry);
         }
+
+        return s.toString();
     }
 }
