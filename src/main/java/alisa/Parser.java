@@ -1,6 +1,7 @@
 package alisa;
 
 import alisa.command.*;
+import alisa.exception.AlisaException;
 import alisa.task.Deadline;
 import alisa.task.Event;
 import alisa.task.Todo;

@@ -15,7 +15,8 @@ public class TaskList {
 
     public String deleteTask(int index) {
         Task removedTask = taskList.remove(index-1);
-        return "Noted. I've removed this task:\n" + removedTask + "\nNow you have " + taskList.size() + " tasks in the list.";
+        return "Noted. I've removed this task:\n" + removedTask + "\nNow you have "
+                + taskList.size() + " tasks in the list.";
     }
 
     public String markTask(int index) {
@@ -30,7 +31,8 @@ public class TaskList {
 
     public String addTask(Task task) {
         taskList.add(task);
-        return "Got it. I've added this task:\n" + task + "\nNow you have " + taskList.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n" + task + "\nNow you have "
+                + taskList.size() + " tasks in the list.";
     }
 
     public String getList() {

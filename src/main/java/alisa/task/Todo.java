@@ -13,6 +13,7 @@ public class Todo extends Task {
     }
     @Override
     public String toFileString() {
-        return "D | " + this.getFileStatus() + " | " + this.getTask() + "\n";
+        return "D | " + this.getFileStatus()
+                + " | " + this.getTask() + "\n";
     }
 }

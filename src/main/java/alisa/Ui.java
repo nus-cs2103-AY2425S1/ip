@@ -14,7 +14,7 @@ public class Ui {
     }
 
     public void showDivider() {
-        System.out.println("------------------------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------");
     }
 
     public void showErrorMessage(String errorMessage) {

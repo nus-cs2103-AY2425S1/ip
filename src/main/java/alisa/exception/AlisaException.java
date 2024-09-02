@@ -1,4 +1,4 @@
-package alisa;
+package alisa.exception;
 
 public class AlisaException extends Exception {
     public AlisaException(String message) {

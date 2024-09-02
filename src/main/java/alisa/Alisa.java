@@ -1,6 +1,7 @@
 package alisa;
 
 import alisa.command.Command;
+import alisa.exception.AlisaException;
 import alisa.task.TaskList;
 
 public class Alisa {
