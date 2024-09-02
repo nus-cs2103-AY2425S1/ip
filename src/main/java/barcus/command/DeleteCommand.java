@@ -4,12 +4,21 @@ import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
 import barcus.storage.Storage;
 import barcus.task.*;
+
+/**
+ * Command to delete item at pos
+ */
 public class DeleteCommand extends Command {
     private int pos;
 
+    /**
+     * Constructor
+     * @param pos index of item to delete
+     */
     public DeleteCommand(int pos) {
         this.pos = pos;
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (pos > 0 && pos <= tasks.getLength()) {

@@ -5,7 +5,14 @@ import barcus.ui.Ui;
 import barcus.storage.Storage;
 import barcus.task.*;
 
+/**
+ * Command to add in a todo task
+ */
 public class AddTodoCommand extends AddCommand {
+    /**
+     * Constructor
+     * @param description String
+     */
     public AddTodoCommand(String description) {
         super(description);
     }

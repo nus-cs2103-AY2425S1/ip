@@ -6,10 +6,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class to parse the user input
+ */
 public class Parser {
     private final static DateTimeFormatter FROM_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private final static DateTimeFormatter TO_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    /**
+     * Returns the correct command with the correct arguments
+     * @param reply String of user input
+     * @return Command that user needs
+     * @throws BarcusException if there is an error parsing input
+     */
     public static Command parse(String reply) throws BarcusException {
         String[] words = reply.split(" ");
         if (words.length < 1) {

@@ -7,9 +7,17 @@ import barcus.exception.BarcusException;
 import barcus.task.*;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Command to ass new deadline task
+ */
 public class AddDeadlineCommand extends AddCommand {
     protected String by;
 
+    /**
+     * Constructor
+     * @param description String
+     * @param by Date
+     */
     public AddDeadlineCommand(String description, String by) {
         super(description);
         this.by = by;

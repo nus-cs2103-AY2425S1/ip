@@ -7,13 +7,25 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Storage class to handle loading to and from save file
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for storage
+     * @param filePath path to save file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the information from the save file into a tasklist
+     * @return Tasklist with loaded info
+     * @throws BarcusException if error in finding the file
+     */
     public TaskList load() throws BarcusException {
         File file = new File(this.filePath);
         String[] temp = this.filePath.split("/");
@@ -64,6 +76,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Uploads Task list into the save file
+     * @param tasks task list
+     * @throws BarcusException if file is noe saved successfully
+     */
     public void upload(TaskList tasks) throws BarcusException {
         try (FileWriter writer = new FileWriter(this.filePath);
              BufferedWriter bfWriter = new BufferedWriter(writer)) {

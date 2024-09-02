@@ -7,10 +7,19 @@ import barcus.exception.BarcusException;
 import barcus.task.*;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Command to add event task
+ */
 public class AddEventCommand extends AddCommand {
     protected String from;
     protected String to;
 
+    /**
+     * Constructor
+     * @param description String
+     * @param from Date
+     * @param to Date
+     */
     public AddEventCommand(String description, String from, String to) {
         super(description);
         this.from = from;
