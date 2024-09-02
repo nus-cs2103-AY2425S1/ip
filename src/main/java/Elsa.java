@@ -142,6 +142,12 @@ public class Elsa {
             } else if (userInput.startsWith("unmark")) {
                 unmarkTask(tasks, userInput);
             } else if (userInput.startsWith("todo")) {
+                if (userInput.trim().substring(4).isEmpty()) {
+                    addLine();
+                    System.out.println("Oh, it appears that the description of your ToDo item is empty...");
+                    addLine();
+                    continue;
+                }
                 addTodo(tasks, userInput.substring(5));
             } else if (userInput.startsWith("deadline")) {
                 String[] parts = userInput.split(" /by ", 2);
