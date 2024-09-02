@@ -100,4 +100,20 @@ public class TaskList {
         this.length--;
         return this.tasks.remove(i);
     }
+
+    /**
+     * Returns a new TaskList with tasks w the string inside
+     * @param toFind String to find
+     * @return new TaskList
+     */
+    public TaskList findTask(String toFind) {
+        TaskList tasksSubset = new TaskList();
+        for (int i = 0; i < this.length; i++) {
+            Task t = tasks.get(i);
+            if (t.containsSubstring(toFind)) {
+                tasksSubset.addTask(t);
+            }
+        }
+        return tasksSubset;
+    }
 }

@@ -58,6 +58,15 @@ public class Task {
     }
 
     /**
+     * Returns whether the description contains the substring
+     * @param toFind string to find
+     * @return true if description contains the substring
+     */
+    public boolean containsSubstring(String toFind) {
+        return this.description.toLowerCase().contains(toFind.toLowerCase());
+    }
+
+    /**
      * Return string representation
      * @return string representation
      */
