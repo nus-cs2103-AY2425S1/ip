@@ -1,7 +1,5 @@
 package juno.task;
 
-import juno.manager.exception.TaskManagerException;
-
 /**
  * Represents an Todo task type with a description.
  * Subclass of Task class.

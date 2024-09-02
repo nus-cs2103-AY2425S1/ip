@@ -1,12 +1,12 @@
 package juno.task;
 
-import com.google.gson.annotations.Expose;
-
-import juno.manager.exception.TaskManagerException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import com.google.gson.annotations.Expose;
+
+import juno.manager.exception.TaskManagerException;
 
 /**
  * Represents an event task type with a description, start time, and end time.
@@ -45,9 +45,9 @@ public class Event extends Task {
                     DateTimeFormatter.ofPattern("yyyy MM dd hh.mma"));
             this.endTime = LocalDateTime.parse(endTimeString.trim(), DateTimeFormatter.ofPattern("yyyy MM dd hh.mma"));
         } catch (DateTimeParseException e) {
-            throw new TaskManagerException("Your format for date is wrong! Please use this format: " +
-                    "add event {description} " +
-                    "/yyyy MM dd hh.mma /yyyy MM dd hh.mma .",
+            throw new TaskManagerException("Your format for date is wrong! Please use this format: "
+                    + "add event {description} "
+                    + "/yyyy MM dd hh.mma /yyyy MM dd hh.mma .",
                     TaskManagerException.ErrorType.INVALID_DATETIME_ARGUMENT);
         }
         this.startTimeString = startTimeString.trim();
@@ -62,9 +62,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[📅 Event] " + super.toString() + " - Mark your calendar! 🗓️ " +
-                "(from: " + this.startTime.format(DateTimeFormatter.ofPattern("dd MMM uuuu, hh:mma")) +
-                " to: " + this.endTime.format(DateTimeFormatter.ofPattern("dd MMM uuuu, hh:mma")) + ")";
+        return "[📅 Event] " + super.toString() + " - Mark your calendar! 🗓️ "
+                + "(from: " + this.startTime.format(DateTimeFormatter.ofPattern("dd MMM uuuu, hh:mma"))
+                + " to: " + this.endTime.format(DateTimeFormatter.ofPattern("dd MMM uuuu, hh:mma")) + ")";
     }
 
     /**

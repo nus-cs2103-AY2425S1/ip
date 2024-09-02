@@ -34,8 +34,7 @@ public class AddTodoCommand extends AddCommand {
      * <p>Handle cases such as missing task description and duplicate tasks by throwing TaskManagerException.
      * Writes the updated task list to the file after addition.</p>
      *
-     * @throws TaskManagerException If an error occurs during task addition, such as missing task description
-     * or a duplicate task.
+     * @throws TaskManagerException If an error occurs during task addition, such as missing task description.
      */
     @Override
     public void runCommand() throws TaskManagerException {
@@ -43,16 +42,16 @@ public class AddTodoCommand extends AddCommand {
         try {
             taskInfo = userInput.split("\\s+", 3)[2];
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
-            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
-                    "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
-                    "/ {Input task description here}\" to add a task)",
+            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? "
+                    + "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} "
+                    + "/ {Input task description here}\" to add a task)",
                     TaskManagerException.ErrorType.INVALID_ADD_TASK_NUMBER);
         }
 
         // Check if the task already exists
-        if (this.taskManager.isDuplicateTask(taskInfo)) {
-            throw new TaskManagerException("This task is already in your list! " +
-                    "Maybe you can try renaming it and input again?",
+        if (super.taskManager.isDuplicateTask(taskInfo)) {
+            throw new TaskManagerException("This task is already in your list! "
+                    + "Maybe you can try renaming it and input again?",
                     TaskManagerException.ErrorType.DUPLICATE_TASK);
         }
         Task t = new Todo(taskInfo, this.TASK_TYPE);

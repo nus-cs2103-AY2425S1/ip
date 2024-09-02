@@ -1,8 +1,8 @@
 package juno.manager;
 
-import juno.task.Task;
-
 import java.util.ArrayList;
+
+import juno.task.Task;
 
 /**
  * Class to manage tasks and providing access to the task list.

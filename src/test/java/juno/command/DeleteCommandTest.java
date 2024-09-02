@@ -1,16 +1,19 @@
 package juno.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import juno.manager.FileManager;
 import juno.manager.TaskManager;
 import juno.manager.exception.TaskManagerException;
 import juno.task.Task;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class DeleteCommandTest {
     private TaskManager mockTaskManager;
@@ -46,8 +49,8 @@ public class DeleteCommandTest {
         TaskManagerException exception = assertThrows(TaskManagerException.class, deleteCommand::runCommand);
 
         assertEquals(TaskManagerException.ErrorType.TASK_OUT_OF_RANGE, exception.getErrorType());
-        assertEquals("\uD83D\uDEAB Oops! That task number is out of range. " +
-                        "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
+        assertEquals("\uD83D\uDEAB Oops! That task number is out of range. "
+                        + "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
                 exception.getMessage());
     }
 
@@ -58,8 +61,8 @@ public class DeleteCommandTest {
 
         // Verify that the exception message matches
         assertEquals(TaskManagerException.ErrorType.INVALID_DELETE_TASK_NUMBER, exception.getErrorType());
-        assertEquals("\uD83D\uDE15 Hmm, something went wrong. " +
-                "Please enter a task number after mark/unmark/delete command. " +
-                "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)", exception.getMessage());
+        assertEquals("\uD83D\uDE15 Hmm, something went wrong. "
+                + "Please enter a task number after mark/unmark/delete command. "
+                + "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)", exception.getMessage());
     }
 }

@@ -15,7 +15,6 @@ public class JunoUi {
      */
     public JunoUi() {
         this.logo = """
-                
             .----------------.  .----------------.  .-----------------. .----------------.\s
             | .--------------. || .--------------. || .--------------. || .--------------. |
             | |     _____    | || | _____  _____ | || | ____  _____  | || |     ____     | |
@@ -28,8 +27,8 @@ public class JunoUi {
             | '--------------' || '--------------' || '--------------' || '--------------' |
              '----------------'  '----------------'  '----------------'  '----------------'\s
             """;
-        this.greeting = "🌟 Welcome to the Future! I'm Juno, your digital assistant.\n" +
-                "How can I assist you on your journey today?";
+        this.greeting = "🌟 Welcome to the Future! I'm Juno, your digital assistant.\n"
+                + "How can I assist you on your journey today?";
         this.farewell = "👋 Farewell for now! Looking forward to our next interaction.";
     }
 
@@ -69,7 +68,7 @@ public class JunoUi {
      */
     // Could implement a help function to see all possible commands in the future
     public String invalidFunctionInput() {
-        return "The input you provided is invalid! " +
-                "(\uD83D\uDCA1 Tip: You can use the following commands \"add\", \"list\",\"mark\", \"unmark\".)";
+        return "The input you provided is invalid! "
+                + "(\uD83D\uDCA1 Tip: You can use the following commands \"add\", \"list\",\"mark\", \"unmark\".)";
     }
 }

@@ -1,5 +1,8 @@
 package juno;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import juno.command.Command;
 import juno.manager.FileManager;
 import juno.manager.TaskManager;
@@ -7,9 +10,6 @@ import juno.manager.exception.TaskManagerException;
 import juno.parser.CommandParser;
 import juno.task.Task;
 import juno.ui.JunoUi;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The {@code Juno} class serves as the main entry point for Juno chat bot.

@@ -1,14 +1,23 @@
 package juno.parser;
 
-import juno.command.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import juno.command.AddDeadlineCommand;
+import juno.command.AddEventCommand;
+import juno.command.AddTodoCommand;
+import juno.command.Command;
+import juno.command.ExitCommand;
+import juno.command.ListCommand;
+import juno.command.MarkCommand;
 import juno.manager.FileManager;
 import juno.manager.TaskManager;
 import juno.manager.exception.TaskManagerException;
 import juno.ui.JunoUi;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class CommandParserTest {
 
@@ -78,8 +87,8 @@ public class CommandParserTest {
 
     @Test
     public void parse_validAddEventCommand_success() throws TaskManagerException {
-        Command command = commandParser.parse("add event Team meeting / 2024 11 17 10.10AM / " +
-                "2024 11 17 18.10PM", this.junoUi, this.fileManager, this.taskManager);
+        Command command = commandParser.parse("add event Team meeting / 2024 11 17 10.10AM / "
+                + "2024 11 17 18.10PM", this.junoUi, this.fileManager, this.taskManager);
         assertInstanceOf(AddEventCommand.class, command);
     }
 
@@ -98,7 +107,7 @@ public class CommandParserTest {
             commandParser.parse("ifsa", this.junoUi, this.fileManager, this.taskManager);
         });
         assertEquals(TaskManagerException.ErrorType.INVALID_FUNCTION, exception.getErrorType());
-        assertEquals("The input you provided is invalid! (\uD83D\uDCA1 Tip: You can use the following commands " +
-                "\"add\", \"list\",\"mark\", \"unmark\".)", exception.getMessage());
+        assertEquals("The input you provided is invalid! (\uD83D\uDCA1 Tip: You can use the following commands"
+                + " \"add\", \"list\",\"mark\", \"unmark\".)", exception.getMessage());
     }
 }

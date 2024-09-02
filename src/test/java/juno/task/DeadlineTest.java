@@ -1,9 +1,11 @@
 package juno.task;
 
-import juno.manager.exception.TaskManagerException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import juno.manager.exception.TaskManagerException;
 
 public class DeadlineTest {
     @Test
@@ -17,7 +19,8 @@ public class DeadlineTest {
 
         assertEquals(description, deadline.getDescription());
         assertEquals(endTimeString, deadline.getEndTimeString());
-        assertEquals("[⏰ Deadline] [ ] Finish project - Don't miss it! ⏳ (due: 17 Nov 2024, 10:00AM)", deadline.toString());
+        assertEquals("[⏰ Deadline] [ ] Finish project - Don't miss it! ⏳ (due: 17 Nov 2024, 10:00AM)",
+                deadline.toString());
     }
 
     @Test
@@ -31,7 +34,7 @@ public class DeadlineTest {
         });
 
         assertEquals(TaskManagerException.ErrorType.INVALID_DATETIME_ARGUMENT, e.getErrorType());
-        assertEquals("Your format for date is wrong! Please use this format: add deadline {description}" +
-                "/yyyy MM dd hh.mma (e.g. add deadline homework /2024 11 17 10.00AM)", e.getMessage());
+        assertEquals("Your format for date is wrong! Please use this format: add deadline {description}"
+                + "/yyyy MM dd hh.mma (e.g. add deadline homework /2024 11 17 10.00AM)", e.getMessage());
     }
 }

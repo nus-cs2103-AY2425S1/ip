@@ -1,20 +1,24 @@
 package juno.command;
 
-import juno.task.Deadline;
-import juno.task.Todo;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import juno.manager.TaskManager;
-import juno.manager.exception.TaskManagerException;
-import juno.task.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import juno.manager.TaskManager;
+import juno.manager.exception.TaskManagerException;
+import juno.task.Deadline;
+import juno.task.Task;
+import juno.task.Todo;
 
 public class ListCommandTest {
     private TaskManager mockTaskManager;

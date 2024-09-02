@@ -1,5 +1,7 @@
 package juno.manager;
 
+import java.io.IOException;
+
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
@@ -9,8 +11,6 @@ import juno.task.Deadline;
 import juno.task.Event;
 import juno.task.Task;
 import juno.task.Todo;
-
-import java.io.IOException;
 
 /**
  * A class to customise the Gson TypeAdapter for serialising and deserialising Task objects.
@@ -64,9 +64,6 @@ public class TaskAdapter extends TypeAdapter<Task> {
 
         Task task = null;
         switch (taskType) {
-        case "todo":
-            task = new Todo(description, taskType);
-            break;
         case "deadline":
             try {
                 task = new Deadline(description, endTimeString, taskType);
@@ -80,6 +77,9 @@ public class TaskAdapter extends TypeAdapter<Task> {
             } catch (TaskManagerException e) {
                 throw new RuntimeException(e);
             }
+            break;
+        default:
+            task = new Todo(description, taskType);
             break;
         }
 

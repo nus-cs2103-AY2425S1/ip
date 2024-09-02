@@ -35,8 +35,7 @@ public class AddEventCommand extends AddCommand {
      * <p>Handle cases such as missing task description and duplicate tasks by throwing TaskManagerException.
      * Writes the updated task list to the file after addition.</p>
      *
-     * @throws TaskManagerException If an error occurs during task addition, such as missing task description
-     * or a duplicate task.
+     * @throws TaskManagerException If an error occurs during task addition, such as missing task description.
      */
     @Override
     public void runCommand() throws TaskManagerException {
@@ -44,9 +43,9 @@ public class AddEventCommand extends AddCommand {
         try {
             taskInfo = userInput.split("\\s+", 3)[2];
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
-            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
-                    "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
-                    "/ {Input task description here}\" to add a task)",
+            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? "
+                    + "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} "
+                    + "/ {Input task description here}\" to add a task)",
                     TaskManagerException.ErrorType.INVALID_ADD_TASK_NUMBER);
         }
 
@@ -56,17 +55,17 @@ public class AddEventCommand extends AddCommand {
             String[] taskInfoArray = taskInfo.split("/", 3);
             taskDescription = taskInfoArray[0];
             // Check if the task already exists
-            if (this.taskManager.isDuplicateTask(taskDescription)) {
-                throw new TaskManagerException("This task is already in your list! " +
-                        "Maybe you can try renaming it and input again?",
+            if (super.taskManager.isDuplicateTask(taskDescription)) {
+                throw new TaskManagerException("This task is already in your list! "
+                        + "Maybe you can try renaming it and input again?",
                         TaskManagerException.ErrorType.DUPLICATE_TASK);
             }
             t = new Event(taskDescription, taskInfoArray[1], taskInfoArray[2], this.TASK_TYPE);
 
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
-            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? " +
-                    "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} " +
-                    "/ {Input task description here}\" to add a task)",
+            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? "
+                    + "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} "
+                    + "/ {Input task description here}\" to add a task)",
                     TaskManagerException.ErrorType.INVALID_ADD_TASK_NUMBER);
         }
         this.tasks.add(t);

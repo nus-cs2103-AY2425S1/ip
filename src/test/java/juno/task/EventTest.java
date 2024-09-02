@@ -1,9 +1,11 @@
 package juno.task;
 
-import juno.manager.exception.TaskManagerException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import juno.manager.exception.TaskManagerException;
 
 public class EventTest {
 
@@ -20,8 +22,8 @@ public class EventTest {
         assertEquals(description, event.getDescription());
         assertEquals(endTimeString, event.getEndTimeString());
         assertEquals(startTimeString, event.getStartTimeString());
-        assertEquals("[\uD83D\uDCC5 Event] [ ] Finish project - Mark your calendar! \uD83D\uDDD3\uFE0F " +
-                        "(from: 17 Nov 2024, 08:00AM to: 17 Nov 2024, 10:00AM)", event.toString());
+        assertEquals("[\uD83D\uDCC5 Event] [ ] Finish project - Mark your calendar! \uD83D\uDDD3\uFE0F "
+                + "(from: 17 Nov 2024, 08:00AM to: 17 Nov 2024, 10:00AM)", event.toString());
     }
 
     @Test
@@ -36,8 +38,8 @@ public class EventTest {
         });
 
         assertEquals(TaskManagerException.ErrorType.INVALID_DATETIME_ARGUMENT, e.getErrorType());
-        assertEquals("Your format for date is wrong! Please use this format: add event {description} " +
-                "/yyyy MM dd hh.mma /yyyy MM dd hh.mma .", e.getMessage());
+        assertEquals("Your format for date is wrong! Please use this format: add event {description} "
+                + "/yyyy MM dd hh.mma /yyyy MM dd hh.mma .", e.getMessage());
     }
 
 }

@@ -1,11 +1,12 @@
 package juno.command;
 
+import java.util.ArrayList;
+
 import juno.manager.FileManager;
 import juno.manager.TaskManager;
 import juno.manager.exception.TaskManagerException;
 import juno.task.Task;
 
-import java.util.ArrayList;
 
 /**
  * A class to mark or unmark a task as done or not done (with a X).
@@ -14,11 +15,11 @@ import java.util.ArrayList;
  */
 
 public class MarkCommand extends Command {
-    TaskManager taskManager;
-    FileManager fileManager;
-    String userInput;
-    ArrayList<Task> tasks;
-    boolean markAsDone;
+    private TaskManager taskManager;
+    private FileManager fileManager;
+    private String userInput;
+    private ArrayList<Task> tasks;
+    private boolean markAsDone;
 
     /**
      * Constructs a MarkCommand instance which takes in a specified user input, TaskManager instance , FileManager
@@ -42,12 +43,10 @@ public class MarkCommand extends Command {
      * The user input should specify the task number to be updated. (e.g. mark 1 marks the first task on list as done).
      * If the task is already marked and user wants to mark the task, it will tell user that it cannot be done.
      * Similarly, if the task is already unmarked and user wants to unmark the task.
-     * <p>
      * Handles errors such as out-of-range task numbers and incorrect input format. (e.g. mark abc)
      * Writes the updated task list to the file using the fileManager instance after the operation.
      *
-     * @throws TaskManagerException If an error occurs during mark or unmark, such as an invalid task number or
-     * formatting issue.
+     * @throws TaskManagerException If an error occurs during mark or unmark, such as an invalid task number.
      */
     @Override
     public void runCommand() throws TaskManagerException {
@@ -57,34 +56,34 @@ public class MarkCommand extends Command {
                 Task taskToMark = this.tasks.get(taskNumber);
                 if (this.markAsDone) {
                     if (taskToMark.getIsDone()) {
-                        System.out.println("You have completed the task \"" +
-                                taskToMark.getDescription() +
-                                "\" already!");
+                        System.out.println("You have completed the task \""
+                                + taskToMark.getDescription()
+                                + "\" already!");
                     } else {
                         taskToMark.markAsDone();
                         System.out.println("Great work! Knew you would have completed it.");
                     }
                 } else {
                     if (!taskToMark.getIsDone()) {
-                        System.out.println("Task \"" +
-                                taskToMark.getDescription() +
-                                "\" is still not done! You can't unmark an undone task!");
+                        System.out.println("Task \""
+                                + taskToMark.getDescription()
+                                + "\" is still not done! You can't unmark an undone task!");
                     } else {
                         this.tasks.get(taskNumber).markAsNotDone();
-                        System.out.println("Hey, I have unmarked this task for you. " +
-                                "Maybe you should start working on it soon?");
+                        System.out.println("Hey, I have unmarked this task for you. "
+                                + "Maybe you should start working on it soon?");
                     }
                 }
                 System.out.println("  " + this.tasks.get(taskNumber).toString());
             } else {
-                throw new TaskManagerException("\uD83D\uDEAB Oops! That task number is out of range. " +
-                        "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
+                throw new TaskManagerException("\uD83D\uDEAB Oops! That task number is out of range. "
+                        + "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
                         TaskManagerException.ErrorType.TASK_OUT_OF_RANGE);
             }
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
-            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. " +
-                    "Please enter a task number after mark/unmark/delete command. " +
-                    "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
+            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. "
+                    + "Please enter a task number after mark/unmark/delete command. "
+                    + "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
                     TaskManagerException.ErrorType.INVALID_MARK_TASK_NUMBER);
         } finally {
             this.fileManager.writeTasksToFile(this.tasks);

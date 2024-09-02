@@ -7,7 +7,7 @@ import juno.ui.JunoUi;
  * Subclass of Command class.
  */
 public class ExitCommand extends Command {
-    JunoUi junoUi;
+    private JunoUi junoUi;
 
     /**
      * Constructs an ExitCommand instance that takes in a JunoUi instance, subsequently using it

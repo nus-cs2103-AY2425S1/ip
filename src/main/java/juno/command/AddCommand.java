@@ -1,10 +1,10 @@
 package juno.command;
 
+import java.util.ArrayList;
+
 import juno.manager.FileManager;
 import juno.manager.TaskManager;
 import juno.task.Task;
-
-import java.util.ArrayList;
 
 
 /**
@@ -14,10 +14,10 @@ import java.util.ArrayList;
  * Provides the functionality of managing interactions with TaskManager and FileManager.
  */
 public abstract class AddCommand extends Command {
-    TaskManager taskManager;
-    FileManager fileManager;
-    String userInput;
-    ArrayList<Task> tasks;
+    protected TaskManager taskManager;
+    protected FileManager fileManager;
+    protected String userInput;
+    protected ArrayList<Task> tasks;
 
     /**
      * Constructs an AddCommand with the specified user input, TaskManager, and FileManager.
