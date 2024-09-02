@@ -9,7 +9,34 @@ import edith.command.MarkCommand;
 import edith.command.UnmarkCommand;
 import edith.command.DeleteCommand;
 
+/**
+ * Parses user input and converts it into executable commands for the Edith chatbot.
+ * The Parser class interprets user commands and creates instances of appropriate
+ * Command subclasses based on the input.
+ */
 public class Parser {
+    /**
+     * Parses the provided user input and returns the corresponding Command.
+     * This method interprets the user's command and creates the appropriate command
+     * instance to be executed.
+     *
+     * <p>Possible commands include:
+     * <ul>
+     *     <li>"bye" - Returns an ExitCommand.</li>
+     *     <li>"list" - Returns a ListCommand.</li>
+     *     <li>"list [date]" - Returns a ListOnDateCommand with the specified date.</li>
+     *     <li>"mark [index]" - Returns a MarkCommand with the specified task index.</li>
+     *     <li>"unmark [index]" - Returns a UnmarkCommand with the specified task index.</li>
+     *     <li>"delete [index]" - Returns a DeleteCommand with the specified task index.</li>
+     *     <li>"todo [task]" - Returns an AddCommand to add a ToDo task.</li>
+     *     <li>"deadline [task] /by [dueDate]" - Returns an AddCommand to add a Deadline task.</li>
+     *     <li>"event [task] /from [startTime] /to [endTime]" - Returns an AddCommand to add an Event task.</li>
+     * </ul>
+     *
+     * @param userInput The raw input string from the user.
+     * @return The corresponding Command based on the user input.
+     * @throws EdithException If the user input does not match any recognized command format.
+     */
     public Command parse(String userInput) {
         if (userInput.equalsIgnoreCase("bye")) {
             return new ExitCommand();

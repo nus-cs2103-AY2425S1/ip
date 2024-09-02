@@ -12,13 +12,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles the reading and writing of tasks to and from a file.
+ * It provides methods to save a list of tasks to a file and load tasks from a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path of the file where tasks are saved and loaded.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the list of tasks to the specified file.
+     *
+     * @param listOfTasks The ArrayList of Task objects to be saved.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void save(ArrayList<Task> listOfTasks) throws IOException {
         File file = new File(this.filePath);
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -34,6 +49,13 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Loads the list of tasks from the specified file.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws IOException If an I/O error occurs while reading from the file.
+     * @throws EdithException If the file contains corrupted data or the data format is invalid.
+     */
     public ArrayList<Task> load() throws IOException, EdithException {
         ArrayList<Task> listOfTasks = new ArrayList<>();
         File file = new File(this.filePath);
