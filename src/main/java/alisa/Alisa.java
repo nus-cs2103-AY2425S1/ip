@@ -9,6 +9,11 @@ public class Alisa {
     private Ui ui;
     private TaskList tasks;
 
+    /**
+     * Creates an instance of Alisa.
+     *
+     * @param filePath Directory path of the storage file.
+     */
     public Alisa(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -20,6 +25,10 @@ public class Alisa {
         }
     }
 
+    /**
+     * Runs the main program.
+     *
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;

@@ -7,6 +7,13 @@ import alisa.task.Todo;
 
 public class Parser {
 
+    /**
+     * Parses the input and returns a command based on the input.
+     *
+     * @param command Input given by user.
+     * @return Command to execute based on the input.
+     * @throws AlisaException If the input gives an unknown command.
+     */
     public static Command parse(String command) throws AlisaException {
         String[] commandArray = command.split(" ", 2);
         switch (commandArray[0]) {
