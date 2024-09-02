@@ -82,15 +82,12 @@ public class Storage {
     /**
      * Saves tasks from the input list of tasks into a file
      *
-     * @param allTasks the {@code List} of {@code Tasks}
+     * @param taskList a {@code TaskList} instance
      */
-    public void put(List<Task> allTasks) {
+    public void put(TaskList taskList) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(this.file));
-            for (Task curr : allTasks) {
-                bw.append(curr.getInitDesc());
-                bw.append("\n");
-            }
+            bw.append(taskList.toMemoryString());
             bw.close();
         } catch (IOException e) {
             System.out.println("An error occurred when saving");

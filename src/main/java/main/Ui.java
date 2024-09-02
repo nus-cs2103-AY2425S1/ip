@@ -16,20 +16,8 @@ public class Ui {
         message.append("Welcome to main.Hyperion!");
         System.out.println(this.message.toString());
     }
-    public void displayError(String message) {
+    public void display(String message) {
         System.out.println(message);
-    }
-
-    /**
-     * Prints the contents of the {@code List} of {@code Tasks}
-     *
-     * @param allTasks the {@code List} of {@code Tasks} that stores all the
-     *                 undeleted Tasks
-     * @throws CommandFoundButInvalidException if the description is not empty
-     */
-    public void showList(List<Task> allTasks) throws CommandFoundButInvalidException {
-        String initialValues = new ListAll("", allTasks).message();
-        System.out.println(initialValues);
     }
 
     /**
@@ -78,6 +66,10 @@ public class Ui {
      */
     public String unmarkedMessage(Task t) {
         return "OK, I've marked this task as not done yet:\n" + t.toString();
+    }
+
+    public String findMessage() {
+        return "Ok, these are your search results";
     }
 
     public String bye() {
