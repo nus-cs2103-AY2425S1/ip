@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -26,16 +25,21 @@ public class Storage {
         this.file = file;
     }
 
-    public TaskLog getTasks() throws FileNotFoundException {
-        Scanner scanner = new Scanner(file);
+    public TaskLog getTasks() {
+        Scanner scanner;
         TaskLog taskLog = new TaskLog();
+        try {
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            return taskLog;
+        }
         while (scanner.hasNextLine()) {
             String taskTsv = scanner.nextLine();
             try {
                 Task newTask = tsvToTask(taskTsv);
                 taskLog.addTask(newTask);
             } catch (DateTimeParseException e) {
-                continue;
+                // continue on to the next loop
             }
         }
         scanner.close();
