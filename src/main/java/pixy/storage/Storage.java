@@ -1,10 +1,12 @@
+/**
+ * Stores the tasks from the TaskList to the hard disk.
+ */
 package pixy.storage;
 
 import pixy.tasks.ToDos;
 import pixy.tasks.Deadlines;
 import pixy.tasks.Event;
 import pixy.tasks.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,12 +17,24 @@ import java.util.Scanner;
 
 public class Storage {
 
+    /** variable to store file path of the file in the hard disk */
     private final String filePath;
 
+    /**
+     * Initialises the global variable filepath with specified file path.
+     *
+     * @param filePath The file path to store or load the tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file whenever the chatbot is started.
+     *
+     * @return List of tasks loaded from the file.
+     * @throws FileNotFoundException if file is not found in the specified filePath.
+     */
     public List<Task> load() throws FileNotFoundException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -40,6 +54,14 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Converts the text from file into Task objects based on Task type.
+     *
+     * @param parts The components of the task data split from the file line.
+     * @param taskType The type of task.
+     * @param isDone Whether the task is marked as done.
+     * @return The corresponding Task object.
+     */
     private Task getTask(String[] parts, String taskType, boolean isDone) {
         String description = parts[2];
         Task task = null;
@@ -63,6 +85,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Saves the current list of tasks into the file.
+     *
+     * @param tasks the list of tasks to be saved to the file
+     * @throws IOException if there is an I/O error.
+     */
     public void save(List<Task> tasks) throws IOException {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
@@ -73,6 +101,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Converts the Task object into a string matching the format of the File.
+     *
+     * @param task The Task object to be converted into String.
+     * @return A string representation of the task in the desired file format.
+     */
     public String taskToFileFormat(Task task) {
         if (task instanceof ToDos) {
             return "T | " + task.getStatusIcon() + " | " + task.getDescription();

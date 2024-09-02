@@ -1,3 +1,6 @@
+/**
+ * Parses the user commands and executes respective actions.
+ */
 package pixy.parser;
 
 import pixy.PixyExceptions;
@@ -6,6 +9,13 @@ import pixy.ui.Ui;
 
 public class Parser {
 
+    /**
+     * Parses user command and performs action corresponding to the command type.
+     * @param command
+     * @param tasks
+     * @param ui
+     * @return boolean If command is "bye"
+     */
     public boolean parseCommand(String command, TaskList tasks, Ui ui) {
         try {
             if (command.equalsIgnoreCase("list")) {
@@ -25,7 +35,7 @@ public class Parser {
                 int taskNumber = Integer.parseInt(command.split(" ")[1]);
                 Task task = tasks.get(taskNumber - 1);
                 task.markAsDone(false);
-                ui.showTaskMarked(task);
+                ui.showTaskUnmarked(task);
             } else if (command.startsWith("delete")) {
                 int taskNumber = Integer.parseInt(command.split(" ")[1]);
                 Task task = tasks.get(taskNumber - 1);
