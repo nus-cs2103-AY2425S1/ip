@@ -14,13 +14,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages saving and loading data between the Chatbot and data file.
+ */
 public class StorageManager {
     private final String filePath;
 
+    /**
+     * Initializes the storage manager with the given file path.
+     *
+     * @param filePath The relative file path of the data txt file.
+     */
     public StorageManager(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Retrieves and reads the data file under the file path.
+     * If there is no data file in the file path, this method then creates a new data file.
+     *
+     * @return The list of tasks stored in the data file.
+     * @throws IOException If an error occurred while creating a new data file.
+     */
     public TaskList retrieveData() throws IOException {
         File taskData = new File(filePath);
         try {
@@ -46,6 +61,12 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Saves the ArrayList of tasks into the data file in the file path.
+     *
+     * @param tasks The list of tasks to be saved into data file.
+     * @throws IOException If an error occurred while saving the data.
+     */
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task: tasks) {

@@ -5,42 +5,86 @@ import mryapper.storagemanager.StorageManager;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Contains an ArrayList of tasks and all the necessary functions for the task list.
+ */
 public class TaskList {
 
     private final ArrayList<Task> taskList;
 
+    /**
+     * Creates an empty task list with the capacity of 100 tasks.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>(100);
     }
 
+    /**
+     * Creates an empty task list containing the tasks in the given ArrayList.
+     *
+     * @param taskList An ArrayList of Task to be contained by the TaskList.
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task The task to be added to the list.
+     */
     public void add(Task task) {
         this.taskList.add(task);
     }
 
+    /**
+     * Remove the task from the list with the given index.
+     *
+     * @param taskNumber The index of the task to remove starting from 1.
+     * @return The task that has been removed.
+     */
     public Task remove(int taskNumber) {
         return taskList.remove(taskNumber - 1);
     }
 
+    /**
+     * Counts the number of task in the list.
+     *
+     * @return The number of task in the list.
+     */
     public int count() {
         return this.taskList.size();
     }
 
+    /**
+     * Marks the task with the given index as done.
+     *
+     * @param taskNumber The index of the task starting from 1.
+     * @return The task that has been marked as done.
+     */
     public Task mark(int taskNumber) {
         Task task = taskList.get(taskNumber - 1);
         task.markAsDone();
         return task;
     }
 
+    /**
+     * Marks the task with the given index as not done.
+     *
+     * @param taskNumber The index of the task starting from 1.
+     * @return The task that has been marked as not done.
+     */
     public Task unmark(int taskNumber) {
         Task task = taskList.get(taskNumber - 1);
         task.markAsNotDone();
         return task;
     }
 
+    /**
+     * Saves the current list of tasks into the given storage.
+     *
+     * @param storage The storage to save the list of tasks to.
+     */
     public void saveToStorage(StorageManager storage) {
         try {
             storage.saveTasks(this.taskList);

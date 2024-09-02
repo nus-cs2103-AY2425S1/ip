@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Responsible for parsing the user input into a common date and time format.
+ */
 public class DateTimeParser {
 
     private static final DateTimeFormatter[] DATE_FORMATTERS = new DateTimeFormatter[]{
@@ -39,9 +42,12 @@ public class DateTimeParser {
             DateTimeFormatter.ofPattern("[HHmm ]d MMM yyyy"),
     };
 
-    /*
-     * Attempts to parse a date and time from the given string and change to HHmm dd MMM yyyy
-     * Returns the string itself if parsing fails
+    /**
+     * Attempts to parse a date and time and change it to a common format.
+     * Returns the input string if the parsing fails.
+     *
+     * @param dateTimeString The string to be parsed.
+     * @return The date and time in "HHmm dd MMM yyyy" format or the input string if parsing fails.
      */
     public static String parseDateTime(String dateTimeString) {
         for (DateTimeFormatter formatter : DATE_FORMATTERS) {

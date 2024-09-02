@@ -6,8 +6,17 @@ import mryapper.task.Deadline;
 import mryapper.task.Todo;
 import mryapper.task.Event;
 
+/**
+ * Contains class methods to create all the commands of the Chatbot.
+ */
 public class CommandList {
 
+    /**
+     * Returns a command which creates a "to do" task.
+     *
+     * @param description The description of the task.
+     * @return A command which creates the task to do when executed.
+     */
     public static Command addTodo(String description) {
         return (tasks, ui, storage) -> {
             Task newTask = new Todo(description);
@@ -19,6 +28,13 @@ public class CommandList {
         };
     }
 
+    /**
+     * Returns a command which creates a task with deadline.
+     *
+     * @param description The description of the task.
+     * @param deadline The deadline of the task.
+     * @return A command which creates the deadline task when executed.
+     */
     public static Command addDeadline(String description, String deadline) {
         return (tasks, ui, storage) -> {
             Task newTask = new Deadline(description, DateTimeParser.parseDateTime(deadline));
@@ -30,6 +46,14 @@ public class CommandList {
         };
     }
 
+    /**
+     * Returns a command which creates an event task.
+     *
+     * @param description The description of the event.
+     * @param start The starting time or/and date of the event.
+     * @param end The ending time or/and date of the event.
+     * @return A command which creates the event task when executed.
+     */
     public static Command addEvent(String description, String start, String end) {
         return (tasks, ui, storage) -> {
             Task newTask = new Event(description,
@@ -43,6 +67,12 @@ public class CommandList {
         };
     }
 
+    /**
+     * Returns a command which deletes the task from the task list.
+     *
+     * @param taskNumber The index of the task to remove, counting from 1.
+     * @return A command which deletes a task from the given task list.
+     */
     public static Command deleteTask(int taskNumber) {
         return (tasks, ui, storage) -> {
             try {
@@ -58,6 +88,11 @@ public class CommandList {
         };
     }
 
+    /**
+     * Returns the command which displays all the task.
+     *
+     * @return A command which displays the tasks in the given TaskList when executed.
+     */
     public static Command listTasks() {
         return (tasks, ui, storage) -> {
             ui.send(tasks.toString());
@@ -65,6 +100,12 @@ public class CommandList {
         };
     }
 
+    /**
+     * Returns the command which marks the task as done.
+     *
+     * @param taskNumber The index of the task in the TaskList counting from 1.
+     * @return A command which marks the task under the given index of the given TaskList.
+     */
     public static Command markTask(int taskNumber) {
         return (tasks, ui, storage) -> {
             try {
@@ -79,6 +120,12 @@ public class CommandList {
         };
     }
 
+    /**
+     * Returns the command which marks the task as not done.
+     *
+     * @param taskNumber The index of the task in the TaskList counting from 1.
+     * @return A command which unmarks the task under the given index of the given TaskList.
+     */
     public static Command unmarkTask(int taskNumber) {
         return (tasks, ui, storage) -> {
             try {
@@ -93,6 +140,10 @@ public class CommandList {
         };
     }
 
+    /**
+     * Returns a command which makes the Chatbot say the goodbye message/
+     * @return A command which displays the goodbye message and tells the Chatbot to exit.
+     */
     public static Command bye() {
         return (tasks, ui, storage) -> {
             ui.showGoodbye();

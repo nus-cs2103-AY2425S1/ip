@@ -10,6 +10,10 @@ import mryapper.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Contains the main program of the ChatBot. Running the main program initializes
+ * the ChatBot and runs the ChatBot.
+ */
 public class MrYapper {
 
     private static final String TASK_DATA_PATH = "src/data/tasks.txt";
@@ -17,6 +21,13 @@ public class MrYapper {
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Initializes the ChatBot with the given data file path.
+     * The file path is relative and if no data file exists, a new
+     * data .txt file will be created automatically.
+     *
+     * @param filePath The relative file path of data file.
+     */
     public MrYapper(String filePath) {
         this.ui = new Ui();
         this.storageManager = new StorageManager(filePath);
@@ -27,6 +38,9 @@ public class MrYapper {
         }
     }
 
+    /**
+     * Runs the ChatBot until the "bye" command is executed.
+     */
     public void run() {
         boolean conversationIsOngoing = false;
         if (tasks != null && storageManager != null) {

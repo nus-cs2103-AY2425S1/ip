@@ -1,9 +1,19 @@
 package mryapper.task;
 
+/**
+ * An event task that occurs within the specified time.
+ */
 public class Event extends Task {
     private final String eventStart;
     private final String eventEnd;
 
+    /**
+     * Creates an event task.
+     *
+     * @param description The description of the event.
+     * @param start The starting time or date of the event in string.
+     * @param end The ending time or date of the event in string.
+     */
     public Event(String description, String start, String end) {
         super(description);
         this.eventStart = start;

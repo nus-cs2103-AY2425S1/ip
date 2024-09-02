@@ -5,8 +5,19 @@ import mryapper.command.CommandList;
 import mryapper.exception.IllegalTaskException;
 import mryapper.exception.InvalidSyntaxException;
 
+/**
+ * Responsible for parsing the inputs sent from the user to the Chatbot.
+ */
 public class Parser {
 
+    /**
+     * Parses the string user input into a command.
+     *
+     * @param userInput The user input to be parsed.
+     * @return The command to be executed based on the user input.
+     * @throws IllegalTaskException If the user attempts to create a task without valid parameters.
+     * @throws InvalidSyntaxException If the input's syntax does not match any commands correctly.
+     */
     public static Command parse(String userInput) throws IllegalTaskException, InvalidSyntaxException {
         String[] processedInput = userInput.trim().split("\\s+", 2);
         String command = processedInput[0];
