@@ -1,4 +1,5 @@
 package gale;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 
@@ -59,6 +60,8 @@ public class Gale {
                     handleTaskMarking(input);
                 } else if (input.startsWith("delete")) {
                     deleteTask(input);
+                } else if (input.startsWith("find")) {
+                    findTasks(input);
                 } else {
                     Task task = Parser.parseTask(input);
                     taskList.addTask(task);
@@ -98,5 +101,20 @@ public class Gale {
         } else {
             throw new GaleException("Oops! That task number is lost in the wind. Try again?");
         }
+    }
+
+    /**
+     * Finds tasks that contain the keyword in their description.
+     * @param input the user input in the form of 'find (keyword)'
+     * @throws GaleException if the keyword is missing
+     */
+    public void findTasks(String input) throws GaleException {
+        String[] strA = input.split(" ", 2);
+        if (strA.length < 2 || strA[1].trim().isEmpty()) {
+            throw new GaleException("Oops! Your keyword is lost in the wind. Please use 'find [keyword]'.");
+        }
+        String keyword = strA[1].trim();
+        ArrayList<Task> foundTasks = taskList.findTasks(keyword);
+        ui.showFoundTasks(foundTasks, keyword);
     }
 }
