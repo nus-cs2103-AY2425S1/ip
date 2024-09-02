@@ -72,7 +72,7 @@ public class Task {
     }
 
     /**
-     * Returns summary of task
+     * Returns summary of the task
      *
      * @return task summary
      */
