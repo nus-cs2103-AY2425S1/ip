@@ -7,6 +7,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the storing of the Tasks added to the list and retrieves information of Tasks when reopened
+ *
+ * @author csk
+ * @version 1
+ */
 public class Storage {
     protected static File f;
 

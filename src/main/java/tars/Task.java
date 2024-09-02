@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 /**
  * Class represents a generic class with a Description and isDone status
- * Serves as a base class for other Task types like (ToDos, Deadline, Event)
+ * Serves as a base class for other Task types like ToDos, Deadline, Event
  *
  * @author csk
  * @version 1
@@ -57,6 +57,11 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Returns string format of Task to be stored in the text file to retrieved later
+     *
+     * @return String Representation of task
+     */
     public String toFileFormat() {
         return "";
     }
@@ -87,6 +92,12 @@ class ToDos extends Task {
         return "[T] " + super.toString();
     }
 
+    /**
+     * Returns string format of Task to be stored in the text file to retrieved later
+     * 1 is added to string to indicate the task is done, 0 is added to indicate unmarked tasks
+     *
+     * @return String Representation of task
+     */
     @Override
     public String toFileFormat() {
         if (isDone) {

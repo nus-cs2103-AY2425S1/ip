@@ -4,6 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Class represents a taskList which handles the list of the tasks being added by the User
+ * Handles operations of adding tasks to list based on input of Task type
+ *
+ * @author csk
+ * @version 1
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
     static String line = "    _____________________________________________";
@@ -19,6 +26,13 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Adds task to list based on input given or marks/unmarks task based on action required
+     * Calls respective method to add Task based on type identified of task stated in input
+     *
+     * @param task
+     * @param entry
+     */
     public void addTask(String[] task, String entry) {
         if (task[0].equals("mark")) {
             Integer index = Integer.parseInt(task[task.length - 1]); //to convert string format of number to Integer
@@ -58,6 +72,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds todos task to list and prints out statement on confirmation of addition task
+     *
+     * @param task
+     * @param entry
+     */
     public void addToDos(String[] task, String entry){
         StringBuilder strBuild = new StringBuilder();
 
@@ -75,6 +95,13 @@ public class TaskList {
         System.out.println(line);
     }
 
+    /**
+     * Adds deadline task to list and prints out statement on confirmation of addition
+     * Handles format of deadline task input required, like specific format of deadline to be stated
+     *
+     * @param task
+     * @param entry
+     */
     public void addDeadline(String[] task, String entry){
         StringBuilder strBuild = new StringBuilder();
         StringBuilder dateStr = new StringBuilder();
@@ -110,6 +137,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds event task to list and prints out statement on confirmation of addition
+     * Handles format of event task input required, like specific format of from and to date/time to be stated
+     *
+     * @param task
+     * @param entry
+     */
     public void addEvent(String[] task, String entry){
         StringBuilder strBuild = new StringBuilder();
         StringBuilder toStr = new StringBuilder();
