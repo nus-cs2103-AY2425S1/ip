@@ -1,3 +1,5 @@
+package samson;
+
 public class Greeting {
     private String chatbotName;
 

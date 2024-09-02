@@ -1,3 +1,8 @@
+package samson;
+
+import samson.task.Task;
+import samson.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -9,7 +14,7 @@ public class Ui {
 
     public void welcomeMessage() {
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Samson");
+        System.out.println(" Hello! I'm Samson.Samson");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
     }

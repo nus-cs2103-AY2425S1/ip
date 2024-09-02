@@ -1,6 +1,8 @@
-// Samson.java
-import java.io.IOException;
+package samson;// Samson.Samson.java
+import samson.command.Command;
+import samson.task.TaskList;
 
+import java.io.IOException;
 public class Samson {
 
     private Storage storage;

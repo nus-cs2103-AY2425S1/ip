@@ -1,5 +1,8 @@
-// ExitCommand.java
-import java.io.IOException;
+package samson.command;// Samson.Samson.Command.ExitCommand.java
+
+import samson.Storage;
+import samson.Ui;
+import samson.task.*;
 
 public class ExitCommand extends Command {
     @Override

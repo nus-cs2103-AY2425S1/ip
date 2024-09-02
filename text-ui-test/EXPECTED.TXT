@@ -1,5 +1,5 @@
 ____________________________________________________________
- Hello! I'm Samson
+ Hello! I'm samson.samson
  What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
@@ -46,10 +46,10 @@ ____________________________________________________________
  Kindly provide the tasks starting with 'todo', 'event', 'deadline'!!
 ____________________________________________________________
 ____________________________________________________________
- OOPS!!! Please provide valid Task Number
+ OOPS!!! Please provide valid samson.samson.task.Task Number
 ____________________________________________________________
 ____________________________________________________________
- OOPS!!! Please provide valid Task Number
+ OOPS!!! Please provide valid samson.samson.task.Task Number
 ____________________________________________________________
 ____________________________________________________________
  OOPS!!! Please provide your description!!!!!!!!!
@@ -68,10 +68,10 @@ Here are the tasks in your list:
  4. [D][ ] do homework (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
- OOPS!!! Please provide valid Task Number
+ OOPS!!! Please provide valid samson.samson.task.Task Number
 ____________________________________________________________
 ____________________________________________________________
- OOPS!!! Please provide valid Task Number
+ OOPS!!! Please provide valid samson.samson.task.Task Number
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:

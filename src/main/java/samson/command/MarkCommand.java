@@ -1,10 +1,14 @@
-// DeleteCommand.java
+package samson.command;// Samson.Samson.Command.MarkCommand.java
+
 import java.io.IOException;
 
-public class DeleteCommand extends Command {
+import samson.Storage;
+import samson.Ui;
+import samson.task.*;
+public class MarkCommand extends Command {
     private int index;
 
-    public DeleteCommand(int index) {
+    public MarkCommand(int index) {
         this.index = index - 1; // Adjusting for zero-based indexing
     }
 
@@ -13,8 +17,8 @@ public class DeleteCommand extends Command {
         if (index < 0 || index >= taskList.size()) {
             ui.showTaskNumInvalid();
         }
-        Task removedTask = taskList.deleteTask(index);
-        ui.showTaskDeleted(removedTask, taskList);
+        taskList.markTask(index);
+        ui.showTaskMarked(taskList.get(index));
         storage.saveTasksToFile(taskList.getTasks());
     }
 

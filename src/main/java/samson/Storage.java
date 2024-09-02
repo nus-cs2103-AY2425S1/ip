@@ -1,3 +1,10 @@
+package samson;
+
+import samson.task.Deadline;
+import samson.task.Event;
+import samson.task.Task;
+import samson.task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -5,8 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private String filePath;
