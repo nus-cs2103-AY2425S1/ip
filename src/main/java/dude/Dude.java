@@ -37,6 +37,13 @@ public class Dude {
     }
 
     /**
+     * Creates a Dude object with the default file path.
+     */
+    public Dude() {
+        this("data.txt");
+    }
+
+    /**
      * Runs the chatbot.
      */
     public void run() {
@@ -52,6 +59,16 @@ public class Dude {
                 this.ui.showError(e.getMessage());
             }
         }
+    }
+
+    /**
+     * Returns the response of the chatbot to the user input.
+     *
+     * @param input The user input.
+     * @return The response of the chatbot to the user input.
+     */
+    public String getResponse(String input) {
+        return "Dude: " + input;
     }
 
     public static void main(String[] args) {
