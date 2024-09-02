@@ -6,9 +6,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Contains operations related to reading and writing of the save file.
+ */
 public class Storage {
     private File saveFile;
 
+    /**
+     * Finds the save file specified in the input filePath. If no save file is found, creates a
+     * new save file.
+     */
     public void findSaveFile(String filePath) {
         try {
             saveFile = new File(filePath);
@@ -18,6 +25,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the save file and saves all tasks present in the save file to the task list.
+     */
     public void loadSaveFile(TaskList loadTarget) {
         try {
             Scanner saveReader = new Scanner(saveFile);
@@ -36,6 +46,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Overwrites the current save file with all tasks from the current task list.
+     *
+     * @param source String to be written into the save file.
+     */
     public void writeToSave(String source) {
         //Replaces old file with a new file with updated contents
         try {
