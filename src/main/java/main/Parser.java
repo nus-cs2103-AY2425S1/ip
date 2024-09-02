@@ -26,6 +26,8 @@ public class Parser {
             handleUnmark(splited[1]);
         } else if (splited[0].equals("delete")) {
             handleDelete(splited[1]);
+        } else if (splited[0].equals("find")) {
+            handleSearch(splited[1]);
         } else if (splited[0].equals("bye")) {
             return handleBye();
         } else {
@@ -60,7 +62,9 @@ public class Parser {
             System.out.println(e.getMessage() + "________________________________");
         }
     }
-
+    public void handleSearch(String word) {
+        taskList.searchTask(word);
+    }
     public void handleMark(String description) {
         int index = Integer.parseInt(description) - 1;
         Task marked = taskList.mark(index);
