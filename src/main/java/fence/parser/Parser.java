@@ -5,6 +5,7 @@ import fence.task.Event;
 import fence.task.Task;
 import fence.task.Todo;
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 public class Parser {
@@ -91,6 +92,9 @@ public class Parser {
             return "task";
         } else if (firstWord.equals("deadline")) {
             String desc = st.nextToken();
+            if (desc.equals("/by")) {
+                throw new NoSuchElementException();
+            }
             String by = "";
             boolean descDone = false;
             while (st.hasMoreTokens()) {
@@ -106,10 +110,16 @@ public class Parser {
                     desc = desc + " " + nextWord;
                 }
             }
+            if (!descDone) {
+                throw new NoSuchElementException();
+            }
             taskResult = new Deadline(desc, LocalDate.parse(by));
             return "task";
         } else if (firstWord.equals("event")) {
             String desc = st.nextToken();
+            if (desc.equals("/to") || desc.equals("/from")) {
+                throw new NoSuchElementException();
+            }
             String from = "";
             String to = "";
             boolean descDone = false;
@@ -122,6 +132,9 @@ public class Parser {
                     continue;
                 }
                 if (nextWord.equals("/to")) {
+                    if (!descDone) {
+                        throw new NoSuchElementException();
+                    }
                     fromDone = true;
                     to = st.nextToken();
                     continue;
@@ -133,6 +146,9 @@ public class Parser {
                 } else {
                     desc = desc + " " + nextWord;
                 }
+            }
+            if (!(descDone && fromDone)) {
+                throw new NoSuchElementException();
             }
             taskResult = new Event(desc, from, to);
             return "task";
@@ -146,7 +162,7 @@ public class Parser {
             intResult = Integer.parseInt(st.nextToken());
             return "delete";
         } else {
-            return "unknown input";
+            return "unknown command";
         }
     }
 
