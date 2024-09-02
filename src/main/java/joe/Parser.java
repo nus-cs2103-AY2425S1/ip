@@ -16,16 +16,18 @@ import joe.command.ToggleCommand;
 import joe.command.UnknownCommand;
 
 /**
- * This class is used to parse raw input from the user and return a common
- * Command object to be executed by the driver.
+ * The {@code Parser} class is used to parse raw input from the user and
+ * return a {@code Command} object to be executed by the driver.
  */
 public class Parser {
-    //parse the user commands
-
     /**
-     * Parses the raw input by the user and returns a Command object to be executed.
+     * Parses the raw input by the user and returns a {@code Command} object to be executed.
+     * The method determines the type of command based on the input and constructs the appropriate
+     * {@code Command} object.
+     *
      * @param rawInput The raw string input by the user.
-     * @return A Command object that will be executed.
+     * @return A {@code Command} object that will be executed.
+     * @throws JoeException if the command is unknown or if the input is invalid.
      */
     public static Command parse(String rawInput) {
         if (rawInput.isEmpty()) {
@@ -91,7 +93,6 @@ public class Parser {
                     LocalDate fromDate = LocalDate.parse(eventFrom);
                     LocalDate maxDate = LocalDate.MAX;
                     return new EventCommand(eventDesc, fromDate, maxDate);
-
                 } catch (DateTimeParseException e) {
                     throw new JoeException("Please enter a date with the format yyyy-mm-dd");
                 }
@@ -100,7 +101,7 @@ public class Parser {
         case DELETE -> {
             return new DeleteCommand(inputArr);
         }
-        case MARK,UNMARK -> {
+        case MARK, UNMARK -> {
             return new ToggleCommand(command, inputArr);
         }
         case FIND -> {

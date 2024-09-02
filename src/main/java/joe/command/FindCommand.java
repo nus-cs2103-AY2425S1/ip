@@ -8,6 +8,9 @@ import joe.Ui;
 import joe.task.Task;
 import joe.task.TaskList;
 
+/**
+ * This class represents the 'find' command.
+ */
 public class FindCommand extends Command {
 
     private String query;

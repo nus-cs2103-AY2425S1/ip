@@ -4,6 +4,10 @@ import joe.JoeException;
 import joe.Storage;
 import joe.Ui;
 import joe.task.TaskList;
+
+/**
+ * This class represents the delete command.
+ */
 public class DeleteCommand extends Command {
     String[] inputArr;
     public DeleteCommand(String[] inputArr) {

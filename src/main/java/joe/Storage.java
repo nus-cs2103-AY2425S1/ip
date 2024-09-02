@@ -15,24 +15,34 @@ import joe.task.Task;
 import joe.task.TaskList;
 import joe.task.Todo;
 
+/**
+ * The {@code Storage} class handles the reading and writing of task data
+ * to and from a file. It supports loading tasks from a file and saving tasks
+ * to a file.
+ */
 public class Storage {
-    //deals with loading tasks from the file and saving tasks in the file
+    /** The file path where tasks are stored. */
     private final String filePath;
 
+    /**
+     * Constructs a {@code Storage} object with the specified file path.
+     *
+     * @param filePath The file path where task data is stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
-
     }
 
     /**
-     * Reads the file given by the filepath and parses each line into its corresponding task.
-     * @return An ArrayList containing the list of processed tasks.
-     * @throws IOException When file is not found or file cannot be read
+     * Loads tasks from the file specified by the file path and parses each line
+     * into its corresponding task type.
+     *
+     * @return An {@code ArrayList} containing the list of processed tasks.
+     * @throws JoeException When the file is not found or cannot be read.
      */
     public ArrayList<Task> loadData() throws JoeException {
         File file = new File(this.filePath);
         try {
-
             BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
             ArrayList<Task> tasks = new ArrayList<>();
             String line = null;
@@ -63,9 +73,10 @@ public class Storage {
     }
 
     /**
-     * Saves the given task list into hard disk.
-     * @param taskList The task list to be saved.
-     * @throws IOException If an I/O error occurs.
+     * Saves the given task list to the hard disk at the specified file path.
+     *
+     * @param taskList The {@code TaskList} to be saved.
+     * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void saveData(TaskList taskList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));

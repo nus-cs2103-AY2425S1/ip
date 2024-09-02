@@ -10,7 +10,7 @@ import joe.task.Todo;
 import java.util.Objects;
 
 /**
- * This class represents the todo command.
+ * This class represents the 'todo' command.
  */
 public class TodoCommand extends Command {
     private final String description;

@@ -5,13 +5,19 @@ import joe.JoeException;
 import joe.Storage;
 import joe.Ui;
 import joe.task.TaskList;
+
+/**
+ * This class is used to mark and unmark task statuses.
+ */
 public class ToggleCommand extends Command {
-    String[] inputArr;
-    Commands c;
+    private String[] inputArr;
+    private Commands c;
+
     public ToggleCommand(Commands c, String[] inputArr) {
         this.inputArr = inputArr;
         this.c = c;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws JoeException {
         int idx = Integer.parseInt(this.inputArr[1]); // gets the task index to mark or unmark
