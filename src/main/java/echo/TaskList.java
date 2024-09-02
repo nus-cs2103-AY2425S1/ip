@@ -26,7 +26,15 @@ public class TaskList {
         return listString.toString();
     }
 
+    public  String listToString() {
+        StringBuilder listString = new StringBuilder();
+        int count = 1;
+        for (Task task : tasks) {
+            listString.append(task.getTypeLetter()).append("|").append(task.getIsDone()).append("|").append(task.getTaskDes()).append("|").append(task.getAdd()).append("\n");
 
+        }
+        return listString.toString();
+    }
 
 
     public Task deleteTask( int num) throws EchoException {
@@ -98,5 +106,9 @@ public class TaskList {
         Todo todo = new Todo(taskDescription);
         this.tasks.add(todo);
         return todo;
+    }
+
+    public int size() {
+        return tasks.size();
     }
 }

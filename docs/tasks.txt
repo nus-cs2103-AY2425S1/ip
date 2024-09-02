@@ -1,3 +1,1 @@
-D|0|homework| /by 2024-09-30
-E|0|cca| /from 2024-09-01 /to 2024-09-08
-T|0|work| 
+T|0|Sample task| 
