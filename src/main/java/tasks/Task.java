@@ -15,12 +15,10 @@ public abstract class Task {
      *
      * @param name the name of the task
      */
-    public Task (String name) {
+    public Task(String name) {
         this.name = name;
         this.done = false;
     }
-
-
     /**
      * Returns a string representation of the task, including its completion status.
      * The format is "[x] taskName" if the task is done, and "[ ] taskName" if not.
@@ -63,7 +61,8 @@ public abstract class Task {
      *
      * @return the name of the task
      */
-    public String getName() { return this.name;
+    public String getName() {
+        return this.name;
     }
 
     public boolean containsWord(String word) {

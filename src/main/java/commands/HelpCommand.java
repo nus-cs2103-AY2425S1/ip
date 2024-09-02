@@ -1,10 +1,24 @@
 package commands;
+
 import storage.Storage;
 import storage.TaskList;
 import ui.UI;
 
+/**
+ * Represents a command that displays a help message with a list of available commands.
+ * The HelpCommand class provides users with instructions on how to interact with the application.
+ */
 public class HelpCommand implements Command {
 
+    /**
+     * Executes the help command, displaying a list of available commands and usage instructions.
+     * The method prints a help message to the user and returns false, indicating that the app should not terminate.
+     *
+     * @param storage the Storage object for handling task persistence
+     * @param master the TaskList object containing the list of tasks
+     * @param ui the UI object for interacting with the user
+     * @return false, indicating that the application should not terminate
+     */
     @Override
     public boolean execute(Storage storage, TaskList master, UI ui) {
         System.out.println("""

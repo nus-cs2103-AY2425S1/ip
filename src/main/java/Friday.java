@@ -4,18 +4,35 @@ import storage.Storage;
 import storage.TaskList;
 import ui.UI;
 
+/**
+ * The main class that runs the Friday application, a to-do list chatbot.
+ * The Friday class initializes the necessary components (Storage, TaskList, and UI)
+ * and manages the application's main loop, handling user input and executing commands.
+ */
 public class Friday {
 
-    private Storage storage;
-    private TaskList master;
-    private UI ui;
+    private final Storage storage;
+    private final TaskList master;
+    private final UI ui;
 
+    /**
+     * Constructs a Friday object with the specified file path for storage.
+     * Initializes the Storage, TaskList, and UI components.
+     *
+     * @param filePath the path to the file where tasks are stored
+     */
     public Friday(String filePath) {
         this.storage = new Storage(filePath);
         this.master = new TaskList(this.storage.initList());
         this.ui = new UI();
     }
 
+    /**
+     * Runs the main loop of the Friday application.
+     * This method initializes the UI, processes user input, and executes commands
+     * until the user issues a command to exit the application.
+     * Upon termination, it saves the task list to the storage file.
+     */
     public void run() {
         this.ui.init();
         boolean bye = false;
@@ -32,9 +49,14 @@ public class Friday {
 
         this.ui.terminate();
         this.storage.saveList(this.master.getParent());
-
     }
 
+    /**
+     * The main entry point of the Friday application.
+     * Creates a new Friday instance with the specified file path and runs it.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         new Friday("./data/friday.txt").run();
     }
