@@ -50,12 +50,21 @@ public class DialogBox extends HBox {
     }
 
     /** Dialogbox of user */
-    public static DialogBox getUserDialog(String s, Image i) {
+    public static DialogBox getUserDialog(Image i, String... strs) {
+        String s = "";
+        for (String str : strs) {
+            s += str;
+        }
         return new DialogBox(s, i);
     }
 
     /** Dialog box of chatbot */
-    public static DialogBox getChatbotDialog(String s, Image i) {
+    public static DialogBox getChatbotDialog(Image i, String... strs) {
+        String s = "";
+        for (String str : strs) {
+            s += str;
+        }
+
         var db = new DialogBox(s, i);
         db.flip();
         return db;
