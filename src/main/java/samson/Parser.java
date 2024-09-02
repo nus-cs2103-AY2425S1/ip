@@ -89,6 +89,12 @@ public class Parser {
                 String from = eventParts[1].trim();
                 String to = eventParts[2].trim();
                 return new AddCommand(new Event(eventDescription, from, to));
+            case "find":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    throw new SamException("Please provide a keyword to search for. \n" +
+                            "Example call: find your_task ");
+                }
+                return new FindCommand(words[1].trim());
             default:
                 throw new SamException("I'm sorry, but I don't know what that means :-( \n " +
                         "Kindly provide the tasks starting with 'todo', 'event', 'deadline'!!");
