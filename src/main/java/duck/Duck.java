@@ -2,8 +2,6 @@ package duck;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.concurrent.Callable;
-import java.util.function.Function;
 
 import duck.commands.Command;
 import duck.data.TaskList;
