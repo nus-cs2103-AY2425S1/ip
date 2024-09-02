@@ -11,7 +11,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a parser that parses the user input and returns the corresponding command.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param fullCommand The user input to be parsed.
+     * @return The corresponding command.
+     * @throws LightException If the user input is invalid.
+     */
     public static Command parse(String fullCommand) throws LightException {
         Task task = null;
         String[] splitedBySlash;
@@ -86,6 +96,13 @@ public class Parser {
         }
         throw new LightException("Please key in a valid input");
     }
+    /**
+     * Parses the input string to a LocalDateTime object.
+     *
+     * @param input The input string to be parsed.
+     * @param format The format of the input string.
+     * @return The LocalDateTime object parsed from the input string.
+     */
     public static LocalDateTime dateTimeParser(String input, DateTimeFormatter format) {
         //Define the input format
         try {
