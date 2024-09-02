@@ -20,6 +20,7 @@ public class Event extends Task {
     public Event(String description, String from, String to) {
         super(description.trim());
 
+        // Handle date given in format yyyy-mm-dd
         String startDate = from.trim();
         String endDate = to.trim();
         try {

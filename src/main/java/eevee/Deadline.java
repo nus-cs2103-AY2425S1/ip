@@ -19,6 +19,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description.trim());
 
+        // Handle date given in format yyyy-mm-dd
         String dueDate = by.trim();
         try {
             LocalDate date = LocalDate.parse(dueDate);
