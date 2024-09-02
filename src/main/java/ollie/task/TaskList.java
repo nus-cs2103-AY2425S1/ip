@@ -1,13 +1,11 @@
 package ollie.task;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import ollie.Storage;
 import ollie.exception.OllieException;
-
 import ollie.ui.Ui;
-
-import java.util.ArrayList;
-
-import java.util.stream.Collectors;
 
 /**
  * The TaskList manages a list of tasks.

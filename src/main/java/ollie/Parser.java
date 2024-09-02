@@ -1,13 +1,11 @@
 package ollie;
 
-import ollie.task.TaskList;
-import ollie.ui.Ui;
-
 import ollie.exception.OllieException;
-
 import ollie.task.Deadline;
 import ollie.task.Event;
+import ollie.task.TaskList;
 import ollie.task.Todo;
+import ollie.ui.Ui;
 
 /**
  * The Parser class deals with making sense of the user command.

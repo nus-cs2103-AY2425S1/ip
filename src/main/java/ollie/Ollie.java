@@ -6,11 +6,14 @@ import ollie.exception.OllieException;
 import ollie.task.TaskList;
 import ollie.ui.Ui;
 
+/**
+ * The Ollie class runs the Ollie chatbot.
+ */
 public class Ollie {
+    private static final String DATA_FILE_PATH = "./data/ollie.txt";
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
-    private static final String DATA_FILE_PATH = "./data/ollie.txt";
 
     /**
      * Constructs an Ollie instance with an existing or new TaskList.

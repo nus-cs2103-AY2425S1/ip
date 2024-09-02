@@ -1,8 +1,8 @@
 package ollie.exception;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for the {@link UnknownTaskTypeException} class.
@@ -16,6 +16,7 @@ public class UnknownTaskTypeExceptionTest {
     @Test
     public void unknownTaskTypeExceptionTest() {
         UnknownTaskTypeException exception = new UnknownTaskTypeException();
-        assertEquals("Oops! I don't recognize this task type. Please use 'todo', 'deadline', or 'event'. ☺", exception.getMessage());
+        assertEquals("Oops! I don't recognize this task type. Please use 'todo', 'deadline', or 'event'. ☺",
+                exception.getMessage());
     }
 }

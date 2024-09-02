@@ -1,7 +1,6 @@
 package ollie.ui;
 
 import javafx.application.Application;
-import ollie.ui.Main;
 
 /**
  * A launcher class to workaround classpath issues.
