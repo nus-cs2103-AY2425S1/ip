@@ -64,6 +64,7 @@ class Ui {
                 break;
             }
         }
+        sc.close();
     }
 
 }

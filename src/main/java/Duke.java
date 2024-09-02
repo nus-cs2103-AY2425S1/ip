@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class Duke {
     private Storage storage = new Storage("data/duke.txt");
@@ -18,7 +17,6 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
         Storage storage = new Storage("data/duke.txt");
         TaskList tasks = storage.load();
         Ui ui = new Ui(tasks);
