@@ -8,7 +8,7 @@ public class StorageTest {
     public void Test1() {
         Storage s = new Storage("./data/save.txt");
         Event e = new Event("Test", "Mon 2pm", "4pm");
-        assertEquals("E | 0 | Test | Mon 2pm | 4pm\n", s.convert(e));
+        assertEquals("E | 0 | Test | Mon 2pm | 4pm\n", s.convertTaskToString(e));
     }
 
     @Test

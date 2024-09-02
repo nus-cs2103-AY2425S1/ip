@@ -1,6 +1,7 @@
 package michael;
 
 import java.util.Scanner;
+
 import java.io.IOException;
 
 public class Michael {
@@ -17,6 +18,7 @@ public class Michael {
     public Michael() {
         ui = new Ui();
         storage = new Storage(PATH);
+
         try {
             tasks = new TaskList(storage.load());
             parser = new Parser(tasks);
@@ -40,13 +42,14 @@ public class Michael {
         // Read user's input
         while (true) {
             String input = user.nextLine().strip();
+
             if (input.equals("bye")) { // special bye command to exit
                 break;
             }
 
             try {
                 String feedback = parser.parse(input);
-                ui.feedback(feedback);
+                ui.giveFeedback(feedback);
             } catch (MichaelException e) {
                 ui.showLoadingError(e.getMessage());
             }
@@ -55,10 +58,10 @@ public class Michael {
         try {
             storage.save();
         } catch (IOException e) {
-            ui.feedback("Couldn't save tasks!");
+            ui.giveFeedback("Couldn't save tasks!");
         } finally {
             // Exit
-            ui.feedback("Bye. Hope to see you again soon!");
+            ui.giveFeedback("Bye. Hope to see you again soon!");
         }
     }
 }

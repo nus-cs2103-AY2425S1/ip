@@ -2,11 +2,11 @@ package michael;
 
 public class Task {
     private final String taskName;
-    private boolean done;
+    private boolean isDone;
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -14,7 +14,7 @@ public class Task {
      *
      */
     public void doTask() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
@@ -22,7 +22,7 @@ public class Task {
      *
      */
     public void undoTask() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -31,7 +31,7 @@ public class Task {
      * @return Boolean value corresponding to status of task.
      */
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
 
     public String getTaskName() {
@@ -40,7 +40,7 @@ public class Task {
 
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[X] " + taskName;
         }
         return "[ ] " + taskName;

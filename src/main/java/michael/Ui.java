@@ -1,7 +1,7 @@
 package michael;
 
 public class Ui {
-    private static final String BORDER = "--------------------------------------";
+    private final String BORDER = "--------------------------------------";
 
     public Ui() {
         // Greet user first
@@ -17,7 +17,7 @@ public class Ui {
      *
      * @param feedback Feedback to user about the operations carried out.
      */
-    public void feedback(String feedback) {
+    public void giveFeedback(String feedback) {
         printer(feedback);
     }
 
