@@ -31,6 +31,7 @@ public class MainWindow extends Stage {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    private Image icon = new Image(this.getClass().getResourceAsStream("/images/Icon.png"));
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
     private Image moiMoiImage = new Image(this.getClass().getResourceAsStream("/images/MoiMoi.jpg"));
     private MoiMoi moiMoi;
@@ -50,6 +51,7 @@ public class MainWindow extends Stage {
             e.printStackTrace();
         }
 
+        this.getIcons().add(this.icon);
         this.moiMoi = moiMoi;
         this.dialogContainer.getChildren().add(
                 DialogBox.getMoiMoiDialog(this.moiMoi.getInitialMessage(), this.moiMoiImage));
