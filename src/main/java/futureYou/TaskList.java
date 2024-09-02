@@ -1,17 +1,21 @@
 package futureYou;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import futureYou.task.Deadline;
 import futureYou.task.Events;
 import futureYou.task.Task;
 
+import futureYou.Storage;
+
 /**
  * The TaskList manages a list of tasks.
  */
 public class TaskList {
 
-    static ArrayList<Task> taskList;
+    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static Storage storage;
 
     /**
      * Constructs a new TaskList instance.
@@ -21,11 +25,21 @@ public class TaskList {
     }
 
     /**
+     * Constructs a new TaskList instance using data from file.
+     * 
+     * @throws IOException
+     */
+    public TaskList(String filePath) throws IOException {
+        storage = new Storage(filePath);
+        storage.loadTasks();
+    }
+
+    /**
      * Returns the task list.
      *
      * @return The task list.
      */
-    public ArrayList<Task> getTaskList() {
+    public static ArrayList<Task> getTaskList() {
         return taskList;
     }
 
@@ -49,7 +63,7 @@ public class TaskList {
      *
      * @param task The new task to add to the list.
      */
-    public void add(Task newTask) {
+    public static void add(Task newTask) {
         taskList.add(newTask);
     }
 
@@ -62,6 +76,7 @@ public class TaskList {
     public static String addTask(String taskName) {
         Task newTask = new Task(taskName);
         taskList.add(newTask);
+        storage.saveTasks();
         String message = "Added this task: \n" + newTask.print() +
                 System.lineSeparator() + taskList.size() + " tasks in the list";
         return message;
@@ -77,6 +92,7 @@ public class TaskList {
     public static String addTask(String taskName, String deadline) {
         Deadline newDeadline = new Deadline(taskName, deadline);
         taskList.add(newDeadline);
+        storage.saveTasks();
         String message = "Added this task: \n" + newDeadline.print() +
                 System.lineSeparator() + taskList.size() + " tasks in the list";
         return message;
@@ -93,6 +109,7 @@ public class TaskList {
     public static String addTask(String taskName, String startDateTime, String endDateTime) {
         Events newEvent = new Events(taskName, startDateTime, endDateTime);
         taskList.add(newEvent);
+        storage.saveTasks();
         String message = "Added this task: \n" + newEvent.print() +
                 System.lineSeparator() + taskList.size() + " tasks in the list";
         return message;
@@ -107,7 +124,8 @@ public class TaskList {
     public static String markTask(int taskNumber) throws Exception {
         try {
             taskList.get(taskNumber).markTask();
-            String message = "Marked as Done: + \n" + taskList.get(taskNumber).print();
+            storage.saveTasks();
+            String message = "Marked as Done: \n" + taskList.get(taskNumber).print();
             return message;
         } catch (Exception e) {
             return "Please enter a valid Task number";
@@ -123,6 +141,7 @@ public class TaskList {
     public static String deleteTask(int taskNumber) throws Exception {
         try {
             Task removedTask = taskList.remove(taskNumber);
+            storage.saveTasks();
             String message = "Task Deleted: \n" + removedTask.print() + System.lineSeparator() + taskList.size()
                     + " tasks left in the list";
             return message;

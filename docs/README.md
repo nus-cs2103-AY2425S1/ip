@@ -33,3 +33,4 @@ expected output
 
 1. ASCII Art - https://www.asciiart.eu/text-to-ascii-art
 2. Java Input - https://www.w3schools.com/java/java_user_input.asp 
+3. Split by | - https://stackoverflow.com/questions/16311651/java-string-split-by
