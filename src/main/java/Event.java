@@ -1,10 +1,10 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Event extends Task {
-    protected LocalDate from;
-    protected LocalDate to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String description, LocalDate from, LocalDate to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;

@@ -1,3 +1,2 @@
-T,1,read book
-D,0,return book,6 June
-E,0,book festival,9 June,12 June
+D,0,return book,2002-12-30T00:00
+E,0,exam,2002-12-30T00:00,2002-12-31T00:00

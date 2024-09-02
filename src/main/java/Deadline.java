@@ -1,9 +1,9 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Deadline extends Task {
-    protected LocalDate by;
+    protected LocalDateTime by;
 
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
