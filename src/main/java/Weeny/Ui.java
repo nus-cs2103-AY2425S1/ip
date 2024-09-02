@@ -31,7 +31,11 @@ public class Ui {
         printLine();
     }
 
-
+    /**
+     * Diplays the list of tasks after search
+     *
+     * @param tasks A list of tasks that contains the keyword
+     */
     public void showSearchResult(List<Task> tasks) {
         printLine();
         System.out.println("Here are the matching tasks in your list:");

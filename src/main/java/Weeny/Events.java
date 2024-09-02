@@ -38,11 +38,11 @@ public class Events extends Task {
      */
     public String toOutput() {
         int checkMark = this.isDone ? 1 : 0;
-        return "E | " + checkMark + " | " + this.description + " | " +
-                this.startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " " +
-                this.startTime.format(DateTimeFormatter.ofPattern("HHmm")) + "-" +
-                this.endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " " +
-                this.endTime.format(DateTimeFormatter.ofPattern("HHmm"));
+        return "E | " + checkMark + " | " + this.description + " | "
+                + this.startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " "
+                + this.startTime.format(DateTimeFormatter.ofPattern("HHmm")) + "-"
+                + this.endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " "
+                + this.endTime.format(DateTimeFormatter.ofPattern("HHmm"));
     }
 
     /**
@@ -52,10 +52,10 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + "[" + getStatusIcon() + "] " + getDescription() +
-                " (from: " + this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " +
-                this.startTime.format(DateTimeFormatter.ofPattern("h:mm a")) +
-                " to: " + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " +
-                this.endTime.format(DateTimeFormatter.ofPattern("h:mm a")) + ")";
+        return "[E]" + "[" + getStatusIcon() + "] " + getDescription()
+                + " (from: " + this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " "
+                + this.startTime.format(DateTimeFormatter.ofPattern("h:mm a"))
+                + " to: " + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " "
+                + this.endTime.format(DateTimeFormatter.ofPattern("h:mm a")) + ")";
     }
 }

@@ -77,12 +77,12 @@ public class Task {
         return " ";
     }
 
-    @Override
     /**
      * Returns a string representation of the task.
      *
      * @return A string in the format "[statusIcon] description".
      */
+    @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
