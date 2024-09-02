@@ -6,7 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class Sammy {
     private static final String FILE_PATH = "./data/Sammy.txt";
 
@@ -180,43 +182,47 @@ public class Sammy {
             taskDetails = task.description;
         } else if (task instanceof Deadline) {
             taskType = "D";
-            taskDetails = task.description + " | " + ((Deadline) task).deadline;
+            taskDetails = task.description + " | " +
+                    ((Deadline) task).deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } else if (task instanceof Event) {
             taskType = "E";
-            taskDetails = task.description + " | " + ((Event) task).startTime + " | " + ((Event) task).endTime;
+            taskDetails = task.description + " | "
+                    + ((Event) task).startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | "
+                    + ((Event) task).endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
 
         return taskType + " | " + (task.isDone ? "1" : "0") + " | " + taskDetails;
     }
 
     private static Task stringToTask(String line) {
+
         String[] parts = line.split(" \\| ");
-        String taskType = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
 
-        Task task = null;
+            String taskType = parts[0];
+            boolean isDone = parts[1].trim().equals("1");
+            String description = parts[2].trim();
 
-        switch (taskType) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                String deadline = parts[3];
-                task = new Deadline(description, deadline);
-                break;
-            case "E":
-                String startTime = parts[3];
-                String endTime = parts[4];
-                task = new Event(description, startTime, endTime);
-                break;
-        }
+            Task task = null;
 
-        if (task != null && isDone) {
-            task.markAsDone();
-        }
+            switch (taskType) {
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    task = new Deadline(description, parts[3].trim());
+                    break;
+                case "E":
+                    task = new Event(description, parts[3].trim(), parts[4].trim());
+                    break;
+                default:
+                    System.out.println("Unknown task type: " + taskType);
+                    return null;
+            }
 
-        return task;
+            if (task != null && isDone) {
+                task.markAsDone();
+            }
+            return task;
     }
 }
 
@@ -283,32 +289,63 @@ class Todo extends Task {
 }
 
 class Deadline extends Task {
-    public String deadline;
+    public LocalDateTime deadline;
 
+//    public Deadline(String description, String deadline) {
+//        super(description);
+//        //DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
+//        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+//        this.deadline = LocalDateTime.parse(deadline, inputFormat);
+//    }
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadline = parseDate(deadline);
     }
+    private LocalDateTime parseDate(String date) {
+        DateTimeFormatter[] formatters = {
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),        // 2019-12-02 1800
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),          // 2/12/2019 1800
+                DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"),        // 02-12-2019 1800
+                DateTimeFormatter.ofPattern("MMM d yyyy HHmm"),        // Dec 2 2019 1800
+                DateTimeFormatter.ofPattern("d MMM yyyy HHmm"),        // 2 Dec 2019 1800
+                DateTimeFormatter.ofPattern("MMMM d, yyyy HHmm"),      // December 2, 2019 1800
+                DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"),        // 2019/12/02 1800
+                DateTimeFormatter.ofPattern("M/d/yyyy HHmm"),          // 12/2/2019 1800
+                DateTimeFormatter.ofPattern("MM-dd-yyyy HHmm"),        // 12-02-2019 1800
+        };
 
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDateTime.parse(date, formatter);
+            } catch (DateTimeParseException e) {
+              // let the loop continue
+            }
+        }
+
+        throw new DateTimeParseException("Unrecognized date format: " + date, date, 0);
+    }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: "
+                + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
     }
 }
 
 class Event extends Task {
-    public String startTime;
-    public String endTime;
+    public LocalDateTime startTime;
+    public LocalDateTime endTime;
 
     public Event(String description, String startTime, String endTime) {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.startTime = LocalDateTime.parse(startTime, inputFormat);
+        this.endTime = LocalDateTime.parse(endTime, inputFormat);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + startTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"))
+                + " to: " + endTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
     }
 }
 
