@@ -9,4 +9,9 @@ public class Todo extends Tasks{
     public String getTypeIcon() {
         return "[T]";
     }
+
+    @Override 
+    public String toFileString() {
+        return "T | " + (this.isDone ? "1" : "0") + " | " + this.description;
+    }
 }

@@ -17,4 +17,9 @@ public class Deadline extends Tasks {
     public String getTypeIcon() {
         return "[D]";
     }
+
+    @Override 
+    public String toFileString() {
+        return "D | " + (this.isDone ? "1" : "0") + " | " + this.description;
+    }
 }
