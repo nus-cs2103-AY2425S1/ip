@@ -6,7 +6,6 @@ import darkpool.util.TaskList;
 import darkpool.util.Ui;
 
 public class AddCommand extends Command {
-
     Task task;
 
     public AddCommand(Task task) {
