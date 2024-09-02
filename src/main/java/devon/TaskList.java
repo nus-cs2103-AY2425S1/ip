@@ -3,17 +3,35 @@ package devon;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks in the Devon application.
+ * Provides methods to manage and manipulate the list of tasks, including adding, removing, and marking tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty task list.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return The number of tasks in the list.
+     */
     public int getNumberOfTasks() {
         return tasks.size();
     }
 
+    /**
+     * Initializes the task list with tasks loaded from a database.
+     *
+     * @param stringListOfTasks A list of strings representing tasks in a database format.
+     * @throws DevonReadDatabaseException If there is an error reading or parsing the task data from the database.
+     */
     public void initialiseLoadTasks(ArrayList<String> stringListOfTasks) throws DevonReadDatabaseException {
         for (String line : stringListOfTasks) {
             String[] fields = line.split(Storage.DB_DELIMITER);
@@ -49,28 +67,62 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     protected void addTask(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Retrieves a task from the task list based on the task number.
+     *
+     * @param taskNumber The index of the task to retrieve (0-based index).
+     * @return The task at the specified index.
+     */
     protected Task getTask(int taskNumber) {
         return this.tasks.get(taskNumber);
     }
 
+    /**
+     * Removes a task from the task list based on the task number.
+     *
+     * @param taskNumber The index of the task to be removed (0-based index).
+     * @return A message indicating the task that was removed.
+     */
     protected String removeTask(int taskNumber) {
         String textResponse = getTask(taskNumber).announceDeletion();
         this.tasks.remove(taskNumber);
         return textResponse;
     }
 
+    /**
+     * Marks a task as done based on the task number.
+     *
+     * @param taskNumber The index of the task to be marked as done (0-based index).
+     * @return A message indicating the task that was marked as done.
+     */
     protected String markAsDone(int taskNumber) {
         return getTask(taskNumber).markAsDone();
     }
 
+    /**
+     * Marks a task as undone based on the task number.
+     *
+     * @param taskNumber The index of the task to be marked as undone (0-based index).
+     * @return A message indicating the task that was marked as not done.
+     */
     protected String markAsUndone(int taskNumber) {
         return getTask(taskNumber).markAsUndone();
     }
 
+    /**
+     * Returns a string representation of all tasks in the list.
+     *
+     * @return A string listing all tasks with their indices and details.
+     */
     protected String getListAsString() {
         StringBuilder s =  new StringBuilder("\t" + "Here are the tasks in your list:");
 
