@@ -18,7 +18,7 @@ public class Parser {
      * @return a Command object corresponding to the parsed input
      * @throws Exception if the input string is invalid or cannot be parsed into a command
      */
-    public static Command parse(String input) throws Exception{
+    public static Command parse(String input) throws Exception {
         if (input.isEmpty()) {
             return null;
         } else if (input.equals("list")) {

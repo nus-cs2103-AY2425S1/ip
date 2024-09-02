@@ -3,11 +3,11 @@ package simon;
  * Represents a command to list all tasks in the task list.
  * Implements the Command interface to define the execution behavior for displaying the task list.
  */
-public class ListCommand implements Command{
+public class ListCommand implements Command {
     /**
      * Constructs a ListCommand. This command does not require any additional parameters.
      */
-    int index;
+    private int index;
     public ListCommand() {
     }
     /**

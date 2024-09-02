@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
  * Implements the Command interface to define the execution behavior for adding Deadline tasks.
  */
 public class DeadlineCommand implements Command {
-    String name;
-    String deadLineString;
-    LocalDateTime deadline;
+    private String name;
+    private String deadLineString;
+    private LocalDateTime deadline;
     /**
      * Constructs a DeadlineCommand with the specified task name and deadline.
      *
@@ -18,6 +18,12 @@ public class DeadlineCommand implements Command {
     public DeadlineCommand(String name, LocalDateTime deadline) {
         this.name = name;
         this.deadline = deadline;
+    }
+    public String getName() {
+        return this.name;
+    }
+    public LocalDateTime getDeadline() {
+        return this.deadline;
     }
     /**
      * Executes the command to add a Deadline task to the task list.

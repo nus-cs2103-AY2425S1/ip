@@ -4,21 +4,36 @@ package simon;
  * This class provides methods to manipulate and retrieve task details.
  */
 public class Task {
-    public String name;
+    private String name;
     //public Integer number;
-    public Boolean completed;
-    public Integer number;
-    public Task (String name, int number) {
+    private Boolean completed;
+    private Integer number;
+
+    public Task(String name, int number) {
         this.name = name;
         this.completed = false;
         this.number = number;
     }
+    public String getName1() {
+        return this.name;
+    }
+
+    public Boolean getCompleted() {
+        return this.completed;
+    }
+
+    private int getNumber1() {
+        return this.number;
+    }
+
+
     /**
      * Returns the unique identifier of the task.
      *
      * @return the task number
      */
-    public int getNumber(){
+    public int getNumber() {
+
         return this.number;
     }
     /**
@@ -59,8 +74,7 @@ public class Task {
     public String toString() {
         if (this.completed) {
             return "[X] " + this.name;
-        }
-        else {
+        } else {
             return "[ ] " + this.name;
         }
     }

@@ -16,13 +16,13 @@ import java.util.Scanner;
 public class Storage {
     private static final DateTimeFormatter SAVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    public String filepath;
+    private String filepath;
     /**
      * Constructs a Storage object with the specified file path.
      *
      * @param filepath the path to the file where tasks will be saved and loaded
      */
-    public Storage (String filepath) {
+    public Storage(String filepath) {
         this.filepath = filepath;
     }
     /**
@@ -66,21 +66,25 @@ public class Storage {
                     Task task = null;
 
                     switch (parts[0]) {
-                        case "T":
-                            task = new ToDo(parts[2], taskCount);
-                            break;
-                        case "D":
-                            // Parse the deadline string into LocalDateTime
-                            LocalDateTime deadline = LocalDateTime.parse(parts[3], SAVE_FORMATTER);
-                            task = new Deadline(parts[2], taskCount, deadline);
-                            break;
-                        case "E":
-                            task = new Events(parts[2], taskCount, parts[3], parts[4]);
-                            break;
+                    case "T":
+                        task = new ToDo(parts[2], taskCount);
+                        break;
+                    case "D":
+                        // Parse the deadline string into LocalDateTime
+                        LocalDateTime deadline = LocalDateTime.parse(parts[3], SAVE_FORMATTER);
+                        task = new Deadline(parts[2], taskCount, deadline);
+                        break;
+                    case "E":
+                        task = new Events(parts[2], taskCount, parts[3], parts[4]);
+                        break;
+                    default:
+                        break;
                     }
 
                     if (task != null) {
-                        if (parts[1].equals("1")) task.markAsDone();
+                        if (parts[1].equals("1")) {
+                            task.markAsDone();
+                        }
                         taskList.add(task);
                         taskCount++;
                     }

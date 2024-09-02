@@ -17,7 +17,7 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public Task pop (int index) {
+    public Task pop(int index) {
         return this.tasks.remove(index);
     }
 
@@ -25,14 +25,13 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public Task get (int index) {
+    public Task get(int index) {
         return this.tasks.get(index);
     }
-    public void markTask (boolean mark, int index) {
+    public void markTask(boolean mark, int index) {
         if (mark) {
             this.tasks.get(index).markAsDone();
-        }
-        else{
+        } else {
             this.tasks.get(index).markAsNotDone();
         }
 
@@ -43,7 +42,7 @@ public class TaskList {
         String output = "";
         int count = 1;
         for (Task task: tasks) {
-            output +=("\t")+(count)+(". ")+(task.toString()) +"/n";
+            output += ("\t") + (count) + (". ") + (task.toString()) + "/n";
         }
         return output;
     }

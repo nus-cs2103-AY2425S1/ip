@@ -8,9 +8,10 @@ import java.time.format.DateTimeFormatter;
  */
 
 public class Deadline extends Task {
-    private LocalDateTime deadline;
     private static final DateTimeFormatter SAVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private LocalDateTime deadline;
+
     /**
      * Constructs a Deadline task with the specified name, number, and deadline.
      *
@@ -29,8 +30,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() +
-                " (by: " + deadline.format(DISPLAY_FORMATTER) + ")";
+        return "[D]" + super.toString()
+                + " (by: " + deadline.format(DISPLAY_FORMATTER) + ")";
     }
 
     /**
@@ -40,8 +41,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toSaveFormat() {
-        return "D | " + (completed ? 1 : 0) + " | " + name + " | " +
-                deadline.format(SAVE_FORMATTER);
+        return "D | " + (super.getCompleted() ? 1 : 0) + " | " + super.getName1() + " | "
+                + deadline.format(SAVE_FORMATTER);
     }
     /**
      * Parses a Deadline object from a string representation in the save format.

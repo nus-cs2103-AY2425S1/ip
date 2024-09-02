@@ -3,7 +3,7 @@ package simon;
  * Represents a to-do task with a name and completion status.
  * Inherits from the {@link Task} class and provides specific formatting for display and saving.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     /**
      * Constructs a ToDo task with the specified name and number.
      *
@@ -11,7 +11,9 @@ public class ToDo extends Task{
      * @param number a unique identifier for the to-do task
      */
     public ToDo(String name, int number) {
+
         super(name, number);
+
     }
     /**
      * Returns a string representation of the to-do task for display to the user.
@@ -21,7 +23,9 @@ public class ToDo extends Task{
      */
     @Override
     public String toString() {
+
         return "[T]" + super.toString();
+
     }
     /**
      * Returns a string representation of the to-do task in a format suitable for saving to a file.
@@ -31,6 +35,7 @@ public class ToDo extends Task{
      */
     @Override
     public String toSaveFormat() {
-        return "T | " + (completed ? 1 : 0) + " | " + name;
+        return "T | " + (super.getCompleted() ? 1 : 0) + " | " + super.getName1();
+
     }
 }

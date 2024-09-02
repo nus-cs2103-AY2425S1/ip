@@ -3,8 +3,9 @@ package simon;
  * Represents a command to create and add a new to-do task to the task list.
  * Implements the {@link Command} interface and handles the execution of the to-do command.
  */
-public class ToDoCommand implements Command{
-    String name;
+public class ToDoCommand implements Command {
+    private String name;
+
     /**
      * Constructs a ToDoCommand with the specified task name.
      *
@@ -13,6 +14,10 @@ public class ToDoCommand implements Command{
     public ToDoCommand(String name) {
         this.name = name;
     }
+    public String getName() {
+        return this.name;
+    }
+
     /**
      * Executes the to-do command by creating a new {@link ToDo} task, adding it to the task list,
      * updating the user interface to show the newly added task, and saving the updated task list to the file.

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    final String HOR_LINE = "\t____________________________________________________________\n";
-    final String WLC_MSG = " Hello! I'm simon.Simon \n" +
-            " What can I do for you?\n";
-    final String EXT_MSG = " Bye. Hope to see you again soon!";
-    public void showWelcome () {
+    static final String HOR_LINE = "\t____________________________________________________________\n";
+    static final String WLC_MSG = " Hello! I'm simon.Simon \n"
+            + " What can I do for you?\n";
+    static final String EXT_MSG = " Bye. Hope to see you again soon!";
+    public void showWelcome() {
 
         System.out.println(WLC_MSG);
     }

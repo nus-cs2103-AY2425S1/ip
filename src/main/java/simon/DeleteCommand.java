@@ -3,8 +3,9 @@ package simon;
  * Represents a command to delete a task from the task list.
  * Implements the Command interface to define the execution behavior for deleting tasks.
  */
-public class DeleteCommand implements Command{
-    int index;
+public class DeleteCommand implements Command {
+    private int index;
+
     /**
      * Constructs a DeleteCommand with the specified index of the task to be deleted.
      *
@@ -13,9 +14,14 @@ public class DeleteCommand implements Command{
     public DeleteCommand(int index) {
         this.index = index;
     }
+    public int getIndex() {
+        return this.index;
+    }
+
     /**
      * Executes the command to delete a task from the task list.
-     * The task is removed from the task list, the change is shown to the user, and the updated task list is saved to storage.
+     * The task is removed from the task list, the change is shown to the user,
+     * and the updated task list is saved to storage.
      *
      * @param taskList the list of tasks from which the task will be deleted
      * @param ui the user interface used to show feedback to the user

@@ -2,10 +2,9 @@
 package simon;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class FindCommand implements Command{
-    String name;
+public class FindCommand implements Command {
+    private String name;
 
     public FindCommand(String name) {
         this.name = name;

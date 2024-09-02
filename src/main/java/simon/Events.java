@@ -3,12 +3,13 @@ package simon;
  * Represents an event task in the Simon application.
  * Inherits from the Task class and adds properties for the event's start and end times.
  */
-public class Events extends Task{
+public class Events extends Task {
 
-    String from;
-    String to;
+    private String from;
+    private String to;
     /**
-     * Constructs an Events task with the specified name, task number, start time, and end time.
+     * Constructs an Events task with the specified name,
+     * task number, start time, and end time.
      *
      * @param name the name of the event task
      * @param number the number of the task
@@ -23,13 +24,13 @@ public class Events extends Task{
     /**
      * Returns a string representation of the Events task for display purposes.
      *
-     * @return a string representation of the Events task in the format "[E][task details] (from: start time to: end time)"
+     * @return a representation of the Events task in the format "[E][task details] (from: start time to: end time)"
      */
     @Override
     public String toString() {
-        return "[E]" +
-                super.toString() +
-                " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]"
+                + super.toString()
+                + " (from: " + this.from + " to: " + this.to + ")";
     }
     /**
      * Returns a string representation of the Events task in the format used for saving to storage.
@@ -38,8 +39,8 @@ public class Events extends Task{
      */
     @Override
     public String toSaveFormat() {
-        return "E | " +
-                (completed ? 1 : 0) + " | " + name +
-                " | " + from + " | " + to;
+        return "E | "
+                + (super.getCompleted() ? 1 : 0) + " | " + super.getName1()
+                + " | " + from + " | " + to;
     }
 }

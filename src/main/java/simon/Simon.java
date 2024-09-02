@@ -45,8 +45,7 @@ public class Simon {
             try {
                 if (input.isEmpty()) {
                     continue;
-                }
-                else {
+                } else {
                     Command command = parser.parse(input);
                     assert command != null;
                     command.execute(tasks, ui, storage);

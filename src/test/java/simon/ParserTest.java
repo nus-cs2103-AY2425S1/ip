@@ -1,64 +1,71 @@
 package simon;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
 
     @Test
     public void testParseListCommand() throws Exception {
         Command command = Parser.parse("list");
-        assertTrue(command instanceof ListCommand);
-    }
-
-    @Test
-    public void testParseMarkCommand() throws Exception {
-        Command command = Parser.parse("mark 1");
-        assertTrue(command instanceof MarkCommand);
+        assertInstanceOf(ListCommand.class, command);
     }
 
     @Test
     public void testParseUnmarkCommand() throws Exception {
         Command command = Parser.parse("unmark 2");
-        assertTrue(command instanceof MarkCommand);
+        assertInstanceOf(MarkCommand.class, command);
     }
+    @Test
+    public void testParseMarkCommand() throws Exception {
+        Command command = Parser.parse("mark 1");
+        assertInstanceOf(MarkCommand.class, command);
+    }
+
 
     @Test
     public void testParseDeadlineCommand() throws Exception {
-        Command command = Parser.parse("deadline Homework /by 26/08/2024 1530");
-        assertTrue(command instanceof DeadlineCommand);
+        Command command = Parser.parse(
+                "deadline Homework /by 26/08/2024 1530");
+        assertInstanceOf(DeadlineCommand.class, command);
         DeadlineCommand deadlineCommand = (DeadlineCommand) command;
-        assertEquals("Homework", deadlineCommand.name);
-        LocalDateTime expectedDeadline = LocalDateTime.of(2024, 8, 26, 15, 30);
-        assertEquals(expectedDeadline, deadlineCommand.deadline);
+        assertEquals("Homework", deadlineCommand.getName());
+        LocalDateTime expectedDeadline = LocalDateTime.of(2024, 8,
+                26, 15, 30);
+        assertEquals(expectedDeadline, deadlineCommand.getDeadline());
     }
 
     @Test
     public void testParseEventCommand() throws Exception {
-        Command command = Parser.parse("event Meeting /from 26/08/2024 0900 /to 26/08/2024 1100");
-        assertTrue(command instanceof EventCommand);
+        Command command = Parser.parse(
+                "event Meeting /from 26/08/2024 0900 /to 26/08/2024 1100");
+        assertInstanceOf(EventCommand.class, command);
         EventCommand eventCommand = (EventCommand) command;
-        assertEquals("Meeting", eventCommand.name);
-        assertEquals("26/08/2024 0900", eventCommand.from);
-        assertEquals("26/08/2024 1100", eventCommand.to);
+        assertEquals("Meeting", eventCommand.getName());
+        assertEquals("26/08/2024 0900", eventCommand.getFrom());
+        assertEquals("26/08/2024 1100", eventCommand.getTo());
     }
 
     @Test
     public void testParseToDoCommand() throws Exception {
         Command command = Parser.parse("todo Buy groceries");
-        assertTrue(command instanceof ToDoCommand);
+        assertInstanceOf(ToDoCommand.class, command);
         ToDoCommand toDoCommand = (ToDoCommand) command;
-        assertEquals("Buy groceries", toDoCommand.name);
+        assertEquals("Buy groceries", toDoCommand.getName());
     }
 
     @Test
     public void testParseDeleteCommand() throws Exception {
         Command command = Parser.parse("delete 3");
-        assertTrue(command instanceof DeleteCommand);
+        assertInstanceOf(DeleteCommand.class, command);
         DeleteCommand deleteCommand = (DeleteCommand) command;
-        assertEquals(2, deleteCommand.index);
+        assertEquals(2, deleteCommand.getIndex());
     }
 
     @Test

@@ -3,9 +3,9 @@ package simon;
  * Represents a command to mark or unmark a task in the task list.
  * Implements the Command interface to define the execution behavior for updating task status.
  */
-public class MarkCommand implements Command{
-    int index;
-    boolean mark;
+public class MarkCommand implements Command {
+    private int index;
+    private boolean mark;
     /**
      * Constructs a MarkCommand with the specified index and mark status.
      *
@@ -28,13 +28,11 @@ public class MarkCommand implements Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.markTask(mark, index);
-        if(mark) {
+        if (mark) {
             ui.showTaskMarked(taskList.get(index));
-        }
-        else{
+        } else {
             ui.showTaskUnmarked(taskList.get(index));
         }
         storage.saveToFile(taskList.toArr());
-
     }
 }
