@@ -12,8 +12,8 @@ public class TaskManager {
     private final ArrayList<Task> taskList;
     private final DbManager db;
 
-    public TaskManager() {
-        this.db = new DbManager();
+    public TaskManager(String path) {
+        this.db = new DbManager(path);
         this.taskList = db.getTasks();
     }
 

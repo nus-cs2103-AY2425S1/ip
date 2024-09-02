@@ -9,10 +9,14 @@ import darwin.ui.Ui;
 public class Darwin {
 
     static final String NAME = "darwin";
-    private final TaskManager taskManager = new TaskManager();
+    private final TaskManager taskManager;
 
     private final Ui ui = new Ui();
     private final InputParser parser = new InputParser();
+
+    public Darwin(String path) {
+        this.taskManager = new TaskManager(path);
+    }
 
     /**
      * Initialises a chat with the user and chat bot Darwin through standard input and output
@@ -38,7 +42,7 @@ public class Darwin {
     }
 
     public static void main(String[] args) {
-        Darwin darwin = new Darwin();
+        Darwin darwin = new Darwin("./tasks.txt");
         darwin.run();
     }
 }
