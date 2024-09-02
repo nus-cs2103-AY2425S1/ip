@@ -1,3 +1,4 @@
+package exception;
 import java.util.InputMismatchException;
 
 public class DukeException extends InputMismatchException  {
