@@ -2,7 +2,17 @@ package king;
 
 import king.commands.*;
 
+/**
+ * The Parser class interprets the user's input command and returns the corresponding Command object.
+ */
 public class Parser {
+
+    /**
+     * Parses the user's input command and returns the appropriate Command object.
+     *
+     * @param fullCommand The full command input by the user.
+     * @return A Command object corresponding to the user's input.
+     */
     public static Command parse(String fullCommand) {
         String[] parts = fullCommand.split(" ", 2);
         String command = parts[0];
