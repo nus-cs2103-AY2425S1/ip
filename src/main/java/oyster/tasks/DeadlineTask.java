@@ -22,6 +22,9 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, LocalDateTime deadline) {
         super(description);
+
+        assert deadline != null;
+
         this.deadline = deadline;
     }
 
@@ -32,6 +35,8 @@ public class DeadlineTask extends Task {
      * @return DeadlineTask object.
      */
     public static DeadlineTask fromInput(String input) {
+        assert input != null;
+
         String name = "";
         String deadline = "";
         boolean isDeadlineNext = false;

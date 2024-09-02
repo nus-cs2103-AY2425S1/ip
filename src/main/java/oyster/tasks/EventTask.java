@@ -25,6 +25,10 @@ public class EventTask extends Task {
      */
     public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
+
+        assert from != null;
+        assert to != null;
+
         this.from = from;
         this.to = to;
     }
@@ -36,6 +40,8 @@ public class EventTask extends Task {
      * @return EventTask object.
      */
     public static EventTask fromInput(String input) {
+        assert input != null;
+
         String name = "";
         String from = "";
         String to = "";

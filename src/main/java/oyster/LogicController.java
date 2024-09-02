@@ -8,40 +8,25 @@ import oyster.utils.Parser;
 import oyster.utils.Storage;
 
 /**
- * The main class that controls all components of the chatbot.
+ * Handles logic of the chatbot.
  */
 public class LogicController {
-    private static final Ui display = new Ui();
     private static boolean isRunning = false;
-    private static boolean isAwaitingInput = false;
-
-    private static Scanner inputScanner = new Scanner(System.in);
 
     private static TaskList taskList;
 
     /**
-     * Begins the chatbot.
+     * Begins the logic.
      */
     public static void begin() {
         try {
             taskList = Storage.loadTaskList();
         } catch (Exception e) {
-            display.output(new String[]{
-                e.getMessage(),
-                "Save file deleted..."
-            });
             taskList = new TaskList();
             Storage.saveTaskList(taskList);
         }
 
-        display.output(new String[]{
-            "Hello! I'm " + Oyster.CHATBOT_NAME,
-            "What can I do for you?"
-        });
-
         isRunning = true;
-
-        awaitInput();
     }
 
     /**
@@ -51,29 +36,31 @@ public class LogicController {
         isRunning = false;
     }
 
-    private static void awaitInput() {
+    /**
+     * Computes a given input String and runs it.
+     *
+     * @param rawInput The input to supply.
+     * @return Array of String response message.
+     */
+    public static String[] readInput(String rawInput) {
         if (!isRunning) {
-            return;
+            return null;
         }
 
-        isAwaitingInput = true;
+        Scanner inputScanner = new Scanner(rawInput);
 
-        if (!inputScanner.hasNext()) {
-            display.output("Oops, please type something!");
-            isAwaitingInput = false;
-        } else {
+        if (inputScanner.hasNext()) {
             String input = inputScanner.nextLine();
-            isAwaitingInput = false;
 
             if (!input.trim().isEmpty()) {
                 Command command = Parser.parseCommand(input);
                 command.execute();
                 Storage.saveTaskList(taskList);
-                display.output(command.getMessage());
+                return command.getMessage();
             }
         }
 
-        awaitInput();
+        return new String[] {"Oops, please type something!"};
     }
 
     public static TaskList getTaskList() {

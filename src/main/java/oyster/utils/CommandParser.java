@@ -27,6 +27,8 @@ public class CommandParser {
      * @return Command.
      */
     public static Command parse(String line) {
+        assert !line.isBlank();
+
         Scanner scanner = new Scanner(line);
         String input = scanner.next().toLowerCase();
 

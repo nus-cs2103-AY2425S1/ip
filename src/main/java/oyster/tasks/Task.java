@@ -13,6 +13,8 @@ public abstract class Task {
      * @param description Create a Task given a description.
      */
     public Task(String description) {
+        assert description != null;
+
         this.description = description;
     }
 

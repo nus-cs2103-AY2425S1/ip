@@ -24,6 +24,8 @@ public class ToDoTask extends Task {
      * @return ToDoTask object.
      */
     public static ToDoTask fromInput(String input) {
+        assert input != null;
+
         input = input.trim();
 
         if (input.isEmpty()) {
