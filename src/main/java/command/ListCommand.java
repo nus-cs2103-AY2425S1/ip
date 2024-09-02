@@ -6,6 +6,10 @@ import utilities.Parser;
 public class ListCommand extends Command {
     private TaskList taskList;
 
+    public ListCommand(TaskList taskList) {
+        this.taskList = taskList;
+    }
+
     @Override
     public void execute() {
         String lString = "";
@@ -20,5 +24,5 @@ public class ListCommand extends Command {
         }
         lString = Parser.addHorizontalLinesAndIndentation(lString);
         System.out.println(lString);
-}
+    }
 }

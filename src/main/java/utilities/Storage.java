@@ -33,6 +33,9 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        if (tasks.isEmpty()) {
+            return new TaskList();
+        }
         return new TaskList(tasks);
     }
 

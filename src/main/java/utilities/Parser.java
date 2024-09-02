@@ -7,6 +7,7 @@ import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
 import command.DeleteCommand;
+import command.TaskCommand;
 import exception.FormatException;
 import exception.NoInputException;
 import task.TaskList;
@@ -31,7 +32,7 @@ public class Parser {
         if (dialog.equals("bye")) {
             return new ExitCommand();
         } else if (dialog.equals("list")) {
-            return new ListCommand();
+            return new ListCommand(taskList);
         } else if (dialog.startsWith("mark")) {
             try {
                 int index = Integer.parseInt(dialog.substring(5));
@@ -54,7 +55,7 @@ public class Parser {
                 throw new FormatException("delete");
             }
         } else {
-            throw new NoInputException();
+            return new TaskCommand(dialog, taskList);
         }
     }
 

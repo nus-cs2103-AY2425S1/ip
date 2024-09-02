@@ -24,7 +24,6 @@ public class Duke {
         Storage storage = new Storage("data/duke.txt");
         TaskList tasks = storage.load();
         Ui ui = new Ui(tasks);
-        ui.printWelcomeMessage();
         ui.startInteraction();
 
     }
