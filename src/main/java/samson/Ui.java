@@ -26,7 +26,8 @@ public class Ui {
     }
 
     public String readCommand() {
-        return scanner.nextLine();
+        Scanner userInput = new Scanner(System.in);
+        return userInput.nextLine();
     }
 
     public void showLine() {
