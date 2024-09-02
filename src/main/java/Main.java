@@ -23,7 +23,7 @@ public class Main extends Application {
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
-            fxmlLoader.<MainWindow>getController().setDuke(luna);  // inject the Luna instance
+            fxmlLoader.<MainWindow>getController().setLuna(luna);  // inject the Luna instance
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);

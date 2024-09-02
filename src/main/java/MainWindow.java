@@ -34,8 +34,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Luna luna) {
+    /** Injects the Luna instance */
+    public void setLuna(Luna luna) {
         this.luna = luna;
     }
 
@@ -48,10 +48,17 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = luna.run(input);
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getLunaDialog(response, lunaImage)
-        );
+        if (input.isEmpty()) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getLunaDialog(response, lunaImage)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getLunaDialog(response, lunaImage)
+            );
+        }
+
         userInput.clear();
     }
 }

@@ -11,6 +11,7 @@
 .reply-label {
     -fx-background-radius: 1em 1em 1em 1em;
     -fx-border-radius: 1em 1em 1em 1em;
+    -fx-line-spacing: 5px;
 }
 
 #displayPicture {

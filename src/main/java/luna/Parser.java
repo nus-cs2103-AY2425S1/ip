@@ -46,9 +46,13 @@ public class Parser {
         if (input.isEmpty()) {
             throw new LunaException("""
                     Please enter one of the following commands:
-                    "todo", "deadline", "event"
-                    "mark", "unmark", "delete"
-                    "list", "bye", "find"
+                    "todo", "deadline", "event" - add task of specified type to list
+                    "mark" - mark a task as completed
+                    "unmark" - unmark a task as not completed
+                    "delete" - remove task from current tasks
+                    "list" - show all tasks
+                    "find" - search for task given description
+                    "bye" - close chatbot
                     """);
         }
 
@@ -62,9 +66,13 @@ public class Parser {
             throw new LunaException("""
                     Invalid Command!
                     Please enter one of the following commands:
-                    "todo", "deadline", "event"
-                    "mark", "unmark", "delete"
-                    "list", "bye", "find"
+                    "todo", "deadline", "event" - add task of specified type to list
+                    "mark" - mark a task as completed
+                    "unmark" - unmark a task as not completed
+                    "delete" - remove task from current tasks
+                    "list" - show all tasks
+                    "find" - search for task given description
+                    "bye" - close chatbot
                     """);
         }
 
@@ -77,7 +85,8 @@ public class Parser {
 
         case MARK:
             if (commands.length == 1) {
-                throw new LunaException("Indicate the task number to mark as done e.g. mark 2");
+                throw new LunaException("Indicate the task number to mark as done\n" +
+                        "e.g. mark 2");
             }
 
             int taskToMark;
@@ -92,7 +101,8 @@ public class Parser {
 
         case UNMARK:
             if (commands.length == 1) {
-                throw new LunaException("Indicate the task number to unmark e.g. unmark 2");
+                throw new LunaException("Indicate the task number to unmark\n" +
+                        "e.g. unmark 2");
             }
 
             int taskToUnmark;
@@ -107,7 +117,8 @@ public class Parser {
 
         case DELETE:
             if (commands.length == 1) {
-                throw new LunaException("Indicate the task number to delete e.g. delete 2");
+                throw new LunaException("Indicate the task number to delete\n" +
+                        "e.g. delete 2");
             }
 
             int taskToDelete;
@@ -122,13 +133,15 @@ public class Parser {
 
         case FIND:
             if (commands.length == 1 || commands[1].trim().isEmpty()) {
-                throw new LunaException("Enter task description to search e.g. find book");
+                throw new LunaException("Enter task description to search\n" +
+                        "e.g. find book");
             }
             return new FindCommand(commands[1].trim());
 
         case TODO:
             if (commands.length == 1 || commands[1].trim().isEmpty()) {
-                throw new LunaException("Enter description for todo e.g. todo [description]");
+                throw new LunaException("Enter description for todo\n" +
+                        "e.g. todo [description]");
             }
 
             Todo todo = new Todo(commands[1].trim());
@@ -136,18 +149,19 @@ public class Parser {
 
         case DEADLINE:
             if (commands.length == 1 || commands[1].trim().isEmpty() || commands[1].trim().indexOf("/") == 0) {
-                throw new LunaException("Enter description for deadline e.g. "
-                        + "deadline return book /by Sunday");
+                throw new LunaException("Enter description for deadline\n" +
+                        "e.g. deadline return book /by 12/12/2024 12:00");
             }
 
             String[] deadline = commands[1].split(" /");
 
             if (deadline.length == 1) {
-                throw new LunaException("Enter deadline for task e.g. deadline [task] /by [deadline]");
+                throw new LunaException("Enter deadline for task\n" +
+                        "e.g. deadline [task] /by [deadline]");
             }
 
             if (!deadline[1].contains("by ") || deadline[1].trim().length() <= 2) {
-                throw new LunaException("Enter deadline for task "
+                throw new LunaException("Enter deadline for task\n"
                         + "e.g. deadline [task] /by [dd/MM/yyyy HH:mm]");
             }
 
@@ -161,8 +175,8 @@ public class Parser {
                     throw new LunaException("Invalid task: Deadline is before current time");
                 }
             } catch (DateTimeParseException e) {
-                throw new LunaException("Enter deadline using format: dd/MM/yyyy HH:mm. "
-                        + "eg. 14/02/2024 14:30");
+                throw new LunaException("Enter deadline using format: [dd/MM/yyyy HH:mm]\n"
+                        + "e.g. 14/02/2024 14:30");
             }
 
             Deadline deadlineTask = new Deadline(deadline[0].trim(), deadlineDateTime);
@@ -170,12 +184,12 @@ public class Parser {
 
         case EVENT:
             if (commands.length == 1 || commands[1].trim().isEmpty() || commands[1].trim().indexOf("/") == 0) {
-                throw new LunaException("Enter description for event e.g. "
-                        + "event project meeting /from Mon 2pm /to 4pm");
+                throw new LunaException("Enter description for event\n" +
+                        "e.g. event project meeting /from 12/12/2024 12:00 /to 12/12/2024 16:00");
             }
 
             if (!commands[1].contains("/from ") || !commands[1].contains("/to ")) {
-                throw new LunaException("Enter start and end time for event "
+                throw new LunaException("Enter start and end time for event\n"
                         + "e.g. event [task] /from [startTime] /to [endTime]");
             }
 
@@ -183,7 +197,7 @@ public class Parser {
 
             if (!(event[1].contains("from ") && event[1].trim().length() > 5)
                     || !(event[2].contains("to ") && event[2].trim().length() > 3)) {
-                throw new LunaException("Enter start and end time for event using the format: "
+                throw new LunaException("Enter start and end time for event using the format:\n"
                         + "event [task] /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
             }
 
@@ -203,7 +217,7 @@ public class Parser {
                     throw new LunaException("Invalid Event: Start is before current time");
                 }
             } catch (DateTimeParseException e) {
-                throw new LunaException("Enter start and end time using format: dd/MM/yyyy HH:mm. "
+                throw new LunaException("Enter start and end time using format: [dd/MM/yyyy HH:mm]\n"
                         + "eg. 14/02/2024 14:30");
             }
 
@@ -212,11 +226,14 @@ public class Parser {
 
         default:
             throw new LunaException("""
-                    Invalid Command!
                     Please enter one of the following commands:
-                    "todo", "deadline", "event"
-                    "mark", "unmark", "delete"
-                    "list", "bye", "find"
+                    "todo", "deadline", "event" - add task of specified type to list
+                    "mark" - mark a task as completed
+                    "unmark" - unmark a task as not completed
+                    "delete" - remove task from current tasks
+                    "list" - show all tasks
+                    "find" - search for task given description
+                    "bye" - close chatbot
                     """);
         }
     }
