@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Trackie {
     private ArrayList<Task> tasks;
 
@@ -21,8 +25,20 @@ public class Trackie {
         String desc = sb.substring(0, sb.length() - 1);
         Task instance = new Todo(desc);
         tasks.add(instance);
-        System.out.println(String.format("Added: [%s][%s] %s",
-                instance.getTaskType(), instance.getStatusIcon(), instance.getTaskInfo()));
+
+
+        String res = String.format("[T][%s] %s", instance.getStatusIcon(), desc);
+        try {
+            File f = new File("./src/data.txt");
+            FileWriter writer = new FileWriter(f, true);
+            writer.write(res);
+            writer.write(System.lineSeparator());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.printf("Added: %s\n", res);
         System.out.printf("You now have %d task(s) in total.\n", tasks.size());
     }
 
@@ -65,10 +81,22 @@ public class Trackie {
             deadline = sb2.substring(0, sb2.length() - 1);
         }
 
+
         Task instance = new Deadline(desc, deadline);
         tasks.add(instance);
-        System.out.println(String.format("Added: [%s][%s] %s",
-                instance.getTaskType(), instance.getStatusIcon(), instance.getTaskInfo()));
+
+        String res = String.format("[D][%s] %s", instance.getStatusIcon(), instance.getTaskInfo());
+        try {
+            File f = new File("./src/data.txt");
+            FileWriter writer = new FileWriter(f, true);
+            writer.write(res);
+            writer.write(System.lineSeparator());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.printf("Added: %s\n", res);
         System.out.printf("You now have %d task(s) in total.\n", tasks.size());
     }
 
@@ -131,8 +159,18 @@ public class Trackie {
 
         Task instance = new Event(desc, start, end);
         tasks.add(instance);
-        System.out.println(String.format("Added: [%s][%s] %s",
-                instance.getTaskType(), instance.getStatusIcon(), instance.getTaskInfo()));
+        String res = String.format("[E][%s] %s", instance.getStatusIcon(), instance.getTaskInfo());
+        try {
+            File f = new File("./src/data.txt");
+            FileWriter writer = new FileWriter(f, true);
+            writer.write(res);
+            writer.write(System.lineSeparator());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.printf("Added: %s\n", res);
         System.out.printf("You now have %d task(s) in total.\n", tasks.size());
     }
 
@@ -196,6 +234,15 @@ public class Trackie {
     public static void main(String[] args) {
 
         Trackie bot = new Trackie();
+        File file = new File("./src/data.txt");
+
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error creating a file");
+        }
+
+
         bot.greet();
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -262,6 +309,7 @@ public class Trackie {
             } else {
                 System.out.println("Invalid command.");
             }
+
         }
 
     }
