@@ -19,14 +19,19 @@ public class Parser {
         switch (splitResponse[0]) {
         case "todo", "event", "deadline":
             handleAdd(splitResponse);
+            break;
         case "list" :
             taskList.list();
+            break;
         case "mark" :
             handleMark(splitResponse[1]);
+            break;
         case "unmark" :
             handleUnmark(splitResponse[1]);
+            break;
         case "delete" :
             handleDelete(splitResponse[1]);
+            break;
         case "bye" :
             return handleBye();
         default : {
