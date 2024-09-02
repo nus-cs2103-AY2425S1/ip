@@ -31,7 +31,7 @@ public abstract class Task {
         System.out.println("\t\t" + this);
     }
 
-    public void deleteTask() {
+    public void announceDeletion() {
         System.out.println("\t" + "Noted. I've removed this task:");
         System.out.println("\t\t" + this);
     }

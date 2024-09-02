@@ -226,8 +226,6 @@ public class Devon {
     }
 
     private void deleteTask(int taskIndex) {
-        Task currentTask = tasks.getTask(taskIndex);
-        currentTask.deleteTask();
         tasks.removeTask(taskIndex);
         printLongLine();
         printNumberOfTasks();

@@ -56,6 +56,7 @@ public class TaskList {
     }
 
     protected void removeTask(int taskNumber) {
+        getTask(taskNumber).announceDeletion();
         this.tasks.remove(taskNumber);
     }
 
