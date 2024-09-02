@@ -1,28 +1,28 @@
 ____________________________________________________________
- Hello! I'm Bottle
+ Hello! I'm bottle.Bottle
  What can I do for you?
 ____________________________________________________________
 
 ____________________________________________________________
- Got it. I've added this task:
+ Got it. I've added this bottle.task:
    [T][ ] read book
  Now you have 1 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
- Got it. I've added this task:
+ Got it. I've added this bottle.task:
    [D][ ] submit assignment (by: Sunday)
  Now you have 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
- Got it. I've added this task:
+ Got it. I've added this bottle.task:
    [E][ ] team meeting (from: Monday 2pm to: 4pm)
  Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
- Got it. I've added this task:
+ Got it. I've added this bottle.task:
    [T][ ] buy groceries
  Now you have 4 tasks in the list.
 ____________________________________________________________
@@ -35,17 +35,17 @@ ____________________________________________________________
 ____________________________________________________________
 
 ____________________________________________________________
-Nice! I've marked this task as done:
+Nice! I've marked this bottle.task as done:
 [D][X] submit assignment (by: Sunday)
 ____________________________________________________________
 
 ____________________________________________________________
-Nice! I've marked this task as done:
+Nice! I've marked this bottle.task as done:
 [T][X] buy groceries
 ____________________________________________________________
 
 ____________________________________________________________
-OK, I've marked this task as not done yet:
+OK, I've marked this bottle.task as not done yet:
 [T][ ] buy groceries
 ____________________________________________________________
 
