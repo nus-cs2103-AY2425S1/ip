@@ -10,17 +10,27 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
- * duck.storage.Storage class deals with loading tasks from the file and saving tasks in the file.
+/**
+ * The Storage class handles the loading and saving of tasks to and from a file.
  */
 public class Storage {
 
     private final String FILE_PATH;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath the path to the file for loading and saving tasks
+     */
     public Storage(String filePath) {
         this.FILE_PATH = filePath;
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return an ArrayList of tasks loaded from the file
+     */
     public ArrayList<Task> load() {
         File file = new File(FILE_PATH);
         ArrayList<Task> taskList = new ArrayList<>();
@@ -50,6 +60,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param list the TaskList containing tasks to be saved
+     */
     public void saveTasks(TaskList list) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             for (Task task : list.getList()) {

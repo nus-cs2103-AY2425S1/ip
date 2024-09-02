@@ -31,6 +31,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    /**
+     * Returns a string representation of this deadline task to be saved in duck.txt.
+     *
+     * @return A string representation of this deadline task.
+     */
     public String toFileString() {
         return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + this.by;
     }

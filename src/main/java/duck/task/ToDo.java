@@ -1,7 +1,7 @@
 package duck.task;
 
 /**
- * Represents a duke.task.ToDo task with a description.
+ * Represents a ToDo task with a description.
  */
 public class ToDo extends Task {
 
@@ -15,15 +15,20 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns a string representation of this duke.task.ToDo task.
+     * Returns a string representation of this todo task.
      *
-     * @return A string representation of this duke.task.ToDo task.
+     * @return A string representation of this todo task.
      */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Returns a string representation of this todo task to be saved in duck.txt.
+     *
+     * @return A string representation of this todo task.
+     */
     public String toFileString() {
         return "T | " + (this.isDone ? "1" : "0") + " | " + this.description;
     }
