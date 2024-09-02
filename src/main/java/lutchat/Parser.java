@@ -16,8 +16,6 @@ public class Parser {
             case "mark":
                 if (userInputArr.length < 2) {
                     ui.showError("Please indicate which task you would like to mark.");
-                } else if (!taskList.isValidTaskIndex(userInputArr[1])) {
-                    ui.showError("lutchat.Task does not exist, please try again!");
                 } else {
                     int taskIndex = Integer.parseInt(userInputArr[1]) - 1;
                     taskList.markTaskAsDone(taskIndex, ui);
@@ -27,8 +25,6 @@ public class Parser {
             case "unmark":
                 if (userInputArr.length < 2) {
                     ui.showError("Please indicate which task you would like to unmark.");
-                } else if (!taskList.isValidTaskIndex(userInputArr[1])) {
-                    ui.showError("lutchat.Task does not exist, please try again!");
                 } else {
                     int taskIndex = Integer.parseInt(userInputArr[1]) - 1;
                     taskList.markTaskAsUndone(taskIndex, ui);
@@ -38,8 +34,6 @@ public class Parser {
             case "delete":
                 if (userInputArr.length < 2) {
                     ui.showError("Please indicate which task you would like to delete.");
-                } else if (!taskList.isValidTaskIndex(userInputArr[1])) {
-                    ui.showError("lutchat.Task does not exist, please try again!");
                 } else {
                     int taskIndex = Integer.parseInt(userInputArr[1]) - 1;
                     taskList.deleteTask(taskIndex, ui);
@@ -49,7 +43,7 @@ public class Parser {
             case "todo":
                 String todoDesc = String.join(" ", userInputArr).substring(5).trim();
                 if (todoDesc.isEmpty()) {
-                    ui.showError("lutchat.Todo 'description' is missing...");
+                    ui.showError("Todo 'description' is missing...");
                 } else {
                     Task todo = new Todo(todoDesc);
                     taskList.addTask(todo, ui);
@@ -59,7 +53,7 @@ public class Parser {
             case "deadline":
                 String[] deadlineParts = userInput.split("/by");
                 if (deadlineParts.length < 2) {
-                    ui.showError("lutchat.Deadline 'description' or 'by' input(s) is/are missing...");
+                    ui.showError("Deadline 'description' or 'by' input(s) is/are missing...");
                 } else {
                     String deadlineDesc = deadlineParts[0].substring(9).trim();
                     String by = deadlineParts[1].trim();
@@ -75,12 +69,12 @@ public class Parser {
             case "event":
                 String[] eventParts = userInput.split("/from");
                 if (eventParts.length < 2) {
-                    ui.showError("lutchat.Event 'description', 'from', or 'to' input(s) is/are missing...");
+                    ui.showError("Event 'description', 'from', or 'to' input(s) is/are missing...");
                 } else {
                     String eventDesc = eventParts[0].substring(6).trim();
                     String[] fromTo = eventParts[1].split("/to");
                     if (fromTo.length < 2) {
-                        ui.showError("lutchat.Event 'from' or 'to' input(s) is/are missing...");
+                        ui.showError("Event 'from' or 'to' input(s) is/are missing...");
                     } else {
                         String from = fromTo[0].trim();
                         String to = fromTo[1].trim();
