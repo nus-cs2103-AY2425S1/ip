@@ -4,7 +4,7 @@ public abstract class Task {
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
