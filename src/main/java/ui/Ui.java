@@ -1,7 +1,5 @@
 package ui;
 
-import data.Task;
-
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -11,8 +9,7 @@ import java.util.Scanner;
 public class Ui {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final String logo = "";
-    private static final String hr = "____________________________________________________________" ;
-
+    private static final String hr = "____________________________________________________________";
     /**
      * Displays welcome message to user
      */

@@ -1,20 +1,26 @@
 package data;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  * Handles saving of tasks into file
  */
+@SuppressWarnings("checkstyle:Regexp")
 public class Storage {
 
-    private final String FILE_PATH = "./data/taskFile.txt";
-    private File taskFile;
-
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    // CHECKSTYLE.OFF: AbbreviationAsWordInName
+    private final String FILE_PATH = "./data/taskFile.txt";
+    // CHECKSTYLE.ON: AbbreviationAsWordInName
+    private File taskFile;
 
     /**
      * Loads all tasks from previously saved file. If saved file not found, creates a new file to save to.

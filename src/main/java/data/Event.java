@@ -7,10 +7,9 @@ import java.time.format.DateTimeFormatter;
  * Represents a Task with a start and end time
  */
 public class Event extends Task {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Constructor for Event

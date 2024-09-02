@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Represents a invalid task input exception
+ * Represents an invalid task input exception
  */
 public class InvalidTaskException extends Exception {
     public InvalidTaskException(String message) {
