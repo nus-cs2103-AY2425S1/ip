@@ -1,15 +1,22 @@
-public class DeleteTaskCommand extends Command {
+package spike.commands;
+
+import spike.storage.TaskList;
+import spike.storage.Storage;
+import spike.ui.Ui;
+import spike.exceptions.SpikeException;
+
+public class MarkCommand extends Command {
     private final int taskIndex;
 
-    public DeleteTaskCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+    public MarkCommand(int taskNumber) {
+        this.taskIndex = taskNumber;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpikeException {
         try {
-            Task task = tasks.deleteTask(taskIndex);
-            ui.showTaskDeleted(task, tasks.getSize());
+            tasks.markTaskDone(taskIndex);
+            ui.showTaskMarked(tasks.getTaskString(taskIndex));
             storage.writeToFile(tasks);
         } catch (IndexOutOfBoundsException e) {
             throw new SpikeException("Please enter a valid task number");

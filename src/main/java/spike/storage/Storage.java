@@ -1,10 +1,17 @@
+package spike.storage;
+
+import spike.exceptions.SpikeException;
+import spike.tasks.Deadline;
+import spike.tasks.Event;
+import spike.tasks.Task;
+import spike.tasks.ToDo;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 
 public class Storage {
     private String filePath;

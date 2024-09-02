@@ -1,3 +1,12 @@
+package spike;
+
+import spike.commands.Command;
+import spike.exceptions.SpikeException;
+import spike.parser.Parser;
+import spike.storage.Storage;
+import spike.storage.TaskList;
+import spike.ui.Ui;
+
 public class Spike {
 
     private Storage storage;
