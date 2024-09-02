@@ -12,6 +12,11 @@ public class Eevee {
     private TaskList tasks;
     private Parser parser;
 
+    /**
+     * Constructs an instance of Eevee with a specified storage file path.
+     *
+     * @param filePath The storage file path.
+     */
     public Eevee(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -25,6 +30,9 @@ public class Eevee {
         }
     }
 
+    /**
+     * Starts the Eevee program, takes in user input and executes commands.
+     */
     public void run() {
         ui.printGreeting();
 
@@ -125,9 +133,9 @@ public class Eevee {
     }
 
     /** 
-     * Serves as the entry point for the eevee.Eevee program.
+     * Serves as the entry point for the Eevee program.
      *
-     * @param args Command-line arguments.
+     * @param args Command-line arguments are not used in this program.
      */
     public static void main(String[] args) {
         new Eevee("data/tasks.txt").run();

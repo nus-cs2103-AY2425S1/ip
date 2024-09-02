@@ -2,17 +2,35 @@ package eevee;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a TaskList object that stores the user's tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Returns the TaskList.
+     *
+     * @return The TaskList object.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Returns a specific task given its task number.
+     *
+     * @param taskNumber The index of the desired task.
+     * @return The requested Task object.
+     * @throws EeveeException If the given task number is invalid.
+     */
     public Task getTask(int taskNumber) throws EeveeException {
         if (taskNumber > tasks.size() || taskNumber < 1) {
             throw new EeveeException("No task under the given task number. "
@@ -20,10 +38,22 @@ public class TaskList {
         }
         return tasks.get(taskNumber - 1);
     }
+
+    /**
+     * Adds a Task object to the TaskList given the Task.
+     *
+     * @param t The Task object to be added.
+     */
     public void addTask(Task t) {
         tasks.add(t);
     }
 
+    /**
+     * Removes a Task from the TaskList given its task number.
+     *
+     * @param taskNumber The task number of the Task to be removed.
+     * @throws EeveeException If the given task number is invalid.
+     */
     public void removeTask(int taskNumber) throws EeveeException {
         if (taskNumber > tasks.size() || taskNumber < 1) {
             throw new EeveeException("No task under the given task number. "
@@ -32,14 +62,16 @@ public class TaskList {
         tasks.remove(taskNumber - 1);
     }
 
+    /**
+     * Returns the size (number of elements) of the TaskList.
+     */
     public int getSize() {
         return tasks.size();
     }
 
-    public boolean isEmpty() {
-        return tasks.isEmpty();
-    }
-
+    /**
+     * Prints out the tasks in the TaskList.
+     */
     public void printTasks() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks yet! Start adding tasks :)");
