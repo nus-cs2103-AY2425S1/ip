@@ -15,6 +15,7 @@ public class Parser {
      */
     public static String parseCommand(String userCommand) {
         String[] userInputs = userCommand.split(" ");
+
         return userInputs[0].toLowerCase().trim();
     }
 
@@ -40,7 +41,7 @@ public class Parser {
     public static String parseDeadlineTask(String userCommand) {
         String[] userInputs = userCommand.split("/");
 
-        String taskName = userInputs[0].substring(9, userInputs[0].length()-1);
+        String taskName = userInputs[0].substring(9, userInputs[0].length() - 1);
         String deadlineString = userInputs[1].substring(3, userInputs[1].length());
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -60,8 +61,8 @@ public class Parser {
     public static String parseEventTask(String userCommand) {
         String[] userInputs = userCommand.split("/");
 
-        String taskName = userInputs[0].substring(6, userInputs[0].length()-1);
-        String startDateTimeString = userInputs[1].substring(5, userInputs[1].length()-1);
+        String taskName = userInputs[0].substring(6, userInputs[0].length() - 1);
+        String startDateTimeString = userInputs[1].substring(5, userInputs[1].length() - 1);
         String endDateTimeString = userInputs[2].substring(3, userInputs[2].length());
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
