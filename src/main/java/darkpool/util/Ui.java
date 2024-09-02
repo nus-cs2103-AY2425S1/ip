@@ -9,8 +9,8 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    final String greeting = "\tit’s darkpool. what twisted reason dragged me into your misery?";
-    final String bye = "\tcontact me again and you'll regret it.";
+    final String GREETING = "\tit’s darkpool. what twisted reason dragged me into your misery?";
+    final String BYE = "\tcontact me again and you'll regret it.";
 
     /**
      * Reads a command from the user.
@@ -27,7 +27,7 @@ public class Ui {
      */
     public void greeting() {
         upperLine();
-        output(greeting);
+        output(GREETING);
         lowerLine();
     }
 
@@ -36,7 +36,7 @@ public class Ui {
      */
     public void goodbye() {
         upperLine();
-        output(bye);
+        output(BYE);
         lowerLine();
     }
 
