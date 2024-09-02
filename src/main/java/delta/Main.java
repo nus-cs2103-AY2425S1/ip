@@ -15,6 +15,11 @@ public class Main extends Application {
 
     private Delta delta = new Delta("data/tasks.txt");
 
+    /**
+     * Sets the stage and scene for the Delta ChatBot application.
+     *
+     * @param stage Stage to run Delta ChatBot.
+     */
     @Override
     public void start(Stage stage) {
         try {
