@@ -1,14 +1,9 @@
 package ontos;
 
-import java.util.Scanner;
-
-import ontos.commands.Command;
-
-import java.io.IOException;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import ontos.commands.Command;
 import ontos.parser.Parser;
 import ontos.storage.SaveManager;
 import ontos.task.TaskList;

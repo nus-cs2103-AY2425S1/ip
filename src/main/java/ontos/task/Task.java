@@ -34,7 +34,7 @@ public abstract class Task {
     }
 
     /**
-     * Returns a ToDo task. 
+     * Returns a ToDo task.
      * Is a factory method.
      *
      * @param description The description of the task.
@@ -153,14 +153,16 @@ public abstract class Task {
 
     public boolean containsString(String searchCriteria) {
         return this.description.indexOf(searchCriteria) != -1;
-    } 
+    }
 
     /**
      * Converts the task into a string representation suitable for storing in a file.
      *
      * @return A string representing the task data for storage.
      */
-    abstract public String storeData();
+    public String storeData() {
+        return "";
+    };
 
     /**
      * Represents a ToDo task, a simple task without any time component.

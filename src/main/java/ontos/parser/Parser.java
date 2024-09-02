@@ -19,7 +19,7 @@ public class Parser {
      * @throws IllegalArgumentException if the input is invalid or unrecognized.
      * @throws OntosException if there is an issue with the input specific to task creation or manipulation.
      */
-    public static Command parse(String input) throws IllegalArgumentException, OntosException{
+    public static Command parse(String input) throws IllegalArgumentException, OntosException {
         if (input.equalsIgnoreCase("bye")) {
             return new Command.ByeCommand();
         } else if (input.equalsIgnoreCase("list")) {
@@ -112,7 +112,6 @@ public class Parser {
                         + " find n, where n is the keyword you want to search.");
             }
             return new Command.FindCommand(searchCriteria);
-        
         } else {
             throw new IllegalArgumentException();
         }

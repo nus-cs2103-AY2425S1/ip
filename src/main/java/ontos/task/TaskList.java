@@ -121,7 +121,11 @@ public class TaskList {
         return output;
     }
 
-
+    /**
+     * Returns the string representation the tasks that fulfil the search criteria.
+     *
+     * @return A String representing the tasks that have been searched for.
+     */
     public String containsString(String searchCriteria) {
         int index = 1;
         String output = "";
@@ -138,4 +142,4 @@ public class TaskList {
         }
         return output;
     }
-}   
+}
