@@ -1,12 +1,5 @@
 package jude;
 
-import java.lang.reflect.Array;
-
-<<<<<<< HEAD
-=======
-import javax.naming.directory.SearchControls;
-
->>>>>>> branch-Level-9
 import jude.command.AddCommand;
 import jude.command.Command;
 import jude.command.DeleteCommand;
@@ -17,7 +10,6 @@ import jude.command.MarkCommand;
 import jude.command.UnmarkCommand;
 import jude.task.Deadline;
 import jude.task.Event;
-import jude.task.Task;
 import jude.task.Todo;
 
 /**
