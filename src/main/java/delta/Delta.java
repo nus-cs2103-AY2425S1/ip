@@ -63,6 +63,10 @@ public class Delta {
         }
     }
 
+    public String getResponse(String input) {
+        return "";
+    }
+
     /**
      * Serves as main entry point of Delta ChatBot.
      */

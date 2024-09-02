@@ -30,7 +30,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("delta.Delta")
+    mainClass.set("delta.Launcher")
 }
 
 test {
