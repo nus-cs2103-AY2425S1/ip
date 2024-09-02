@@ -59,13 +59,42 @@ public class MainWindow extends AnchorPane {
         checkboxContainer.getChildren().clear(); // Clear existing checkboxes
 
         for (int i = 0; i < tasks.size(); i++) { // Iterate through tasks
-            String taskDescription = tasks.get(i).toString(); // Get string representation of the task
-            CheckBox taskCheckBox = new CheckBox(taskDescription);
-            taskCheckBox.setOnAction(e -> {
-                System.out.println(taskCheckBox.isSelected() ? taskDescription + " selected" : taskDescription + " deselected");
-            });
+            String taskDescription = tasks.get(i).toString().substring(7); // Get string representation of the task
+            boolean isDone = tasks.get(i).isDone();
+            CheckBox taskCheckBox = getCheckBox(taskDescription, isDone, i);
+            taskCheckBox.setWrapText(true);
+
             checkboxContainer.getChildren().add(taskCheckBox); // Add to the checkbox container
         }
+    }
+
+    private CheckBox getCheckBox(String taskDescription, boolean isDone, int i) {
+        CheckBox taskCheckBox = new CheckBox(taskDescription);
+        taskCheckBox.setSelected(isDone);
+
+        int finalI = i;
+        taskCheckBox.setOnAction(e -> {
+            if (taskCheckBox.isSelected()) {
+                try {
+                    String response = regina.mark(finalI); // Mark the task based on its index
+                    dialogContainer.getChildren().addAll(
+                            DialogBox.getReginaDialog(response, reginaImage)
+                    );
+                } catch (ReginaException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            } else {
+                try {
+                    String response = regina.unmark(finalI); // Unmark the task based on its index
+                    dialogContainer.getChildren().addAll(
+                            DialogBox.getReginaDialog(response, reginaImage)
+                    );
+                } catch (ReginaException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+        return taskCheckBox;
     }
 
     @FXML

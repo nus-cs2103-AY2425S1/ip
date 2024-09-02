@@ -28,11 +28,11 @@ public class Main extends Application {
 
             // Get the controller for the main window
             MainWindow mainWindowController = fxmlLoader.getController();
-            regina.setMainWindow(mainWindowController);
             mainWindowController.setRegina(regina); // Set the Regina instance
+            regina.setMainWindow(mainWindowController);
+            mainWindowController.initialize();
 
             stage.show(); // Show the main application window
-
         } catch (IOException e) {
             e.printStackTrace();
         }

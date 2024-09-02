@@ -56,6 +56,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     /**
      * Returns the status icon representing the task's completion status.
      *

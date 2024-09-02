@@ -17,10 +17,10 @@
                     <VBox fx:id="dialogContainer" prefHeight="544.0" prefWidth="390.0" />
                 </content>
             </ScrollPane>
-    </VBox>
+        </VBox>
 
-         <VBox fx:id="checkboxContainer" prefHeight="600.0" prefWidth="383.0" spacing="5" style="-fx-background-color: #CBC3E3;">
+        <VBox fx:id="checkboxContainer" prefHeight="600.0" prefWidth="383.0" spacing="5" style="-fx-background-color: #CBC3E3;">
             <!-- Checkboxes will be added dynamically here -->
         </VBox>
-</children>
-        </AnchorPane>
+    </children>
+</AnchorPane>
