@@ -2,6 +2,7 @@ package commands;
 
 import models.Task;
 import models.ToDo;
+import ui.Ui;
 
 import java.util.List;
 
@@ -18,8 +19,9 @@ public class CreateToDoCommand implements Command {
         Task task = new ToDo(name);
         tasks.add(task);
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+        Ui ui = context.ui();
+        ui.showMessage("Got it. I've added this task:");
+        ui.showMessage(task.toString());
+        ui.showMessageF("Now you have %d tasks in the list.", tasks.size());
     }
 }

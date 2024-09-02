@@ -1,7 +1,7 @@
 package commands;
 
-import parser.Parser;
 import models.Task;
+import ui.Ui;
 
 import java.util.List;
 
@@ -22,8 +22,9 @@ public class DeleteCommand implements Command {
             throw new InvalidIndexException(tasks.size(), this.taskIndex);
         }
 
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+        Ui ui = context.ui();
+        ui.showMessage("Noted. I've removed this task:");
+        ui.showMessage(task.toString());
+        ui.showMessageF("Now you have %d tasks in the list.", tasks.size());
     }
 }

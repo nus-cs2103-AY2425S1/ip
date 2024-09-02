@@ -20,6 +20,6 @@ public class UnmarkCommand implements Command {
 
         Task task = tasks.get(taskIndex);
         task.unmarkDone();
-        System.out.printf("Marked this task as not yet done:\n%s\n", task);
+        context.ui().showMessageF("Marked this task as not yet done:\n%s", task);
     }
 }

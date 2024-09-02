@@ -1,8 +1,8 @@
 package commands;
 
-import parser.Parser;
 import models.Deadline;
 import models.Task;
+import ui.Ui;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,8 +22,9 @@ public class CreateDeadlineCommand implements Command {
         Task task = new Deadline(this.name, this.by);
         tasks.add(task);
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+        Ui ui = context.ui();
+        ui.showMessage("Got it. I've added this task:");
+        ui.showMessage(task.toString());
+        ui.showMessageF("Now you have %d tasks in the list.", tasks.size());
     }
 }

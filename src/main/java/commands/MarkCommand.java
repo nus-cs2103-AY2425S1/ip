@@ -21,6 +21,6 @@ public class MarkCommand implements Command {
         Task task = tasks.get(taskIndex);
         task.markDone();
 
-        System.out.printf("Marked this task as done:\n%s\n", task);
+        context.ui().showMessageF("Marked this task as done:\n%s", task);
     }
 }

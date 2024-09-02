@@ -26,14 +26,14 @@ public class FindCommand implements Command {
 
         // Print results
         if (matched.isEmpty()) {
-            System.out.println("No results found.");
+            context.ui().showMessage("No results found.");
             return;
         }
 
-        System.out.println("Here's what I found:");
+        context.ui().showMessage("Here's what I found:");
         for (int i = 0; i < matched.size(); i++) {
             Task task = matched.get(i);
-            System.out.printf("%d. %s\n", i + 1, task);
+            context.ui().showMessageF("%d. %s", i + 1, task);
         }
     }
 }

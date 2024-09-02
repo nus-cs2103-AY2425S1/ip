@@ -10,7 +10,7 @@ public class ListCommand implements Command {
         List<Task> tasks = context.tasks();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.printf("%d. %s\n", i + 1, task);
+            context.ui().showMessageF("%d. %s", i + 1, task);
         }
     }
 }

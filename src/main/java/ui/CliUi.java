@@ -24,6 +24,16 @@ public class CliUi implements Ui {
     }
 
     @Override
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
+
+    @Override
+    public void showMessageF(String message, Object... args) {
+        System.out.printf(message + "\n", args);
+    }
+
+    @Override
     public void showError(String message) {
         System.out.println("Oh no! Something went wrong:");
         System.out.println(message);
