@@ -1,4 +1,5 @@
 package mizz;
+
 import static util.Utility.INDENT;
 import static util.Utility.prettyPrint;
 
@@ -79,7 +80,19 @@ public class Mizz {
      *
      * @return true if cmd == "bye" else false
      */
-    private boolean isExited() {
+    public boolean isExited() {
         return this.cmd.equals("bye");
+    }
+
+    public String getResponse(String input) {
+        try {
+            String[] parsedInput = Parser.parseStringInput(input);
+            this.cmd = parsedInput[0];
+            Command c = Command.of(this.cmd);
+            c.execute(usrTasks, ui, storage, parsedInput);
+        } catch (MizzException e) {
+            this.ui.setResponse("Error occured: " + e.toString());
+        }
+        return this.ui.getResponse();
     }
 }

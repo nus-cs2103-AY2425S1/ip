@@ -27,8 +27,9 @@ public class DeadlineCommand extends Command {
             LocalDate date = LocalDate.parse(details[2]);
             Task newTask = new Deadline(details[1], date);
             tl.addTask(newTask, storage);
-            ui.printResponse("Got it I've added this task:", Utility.INDENT + newTask.toString(),
+            ui.setResponse("Got it I've added this task:", Utility.INDENT + newTask.toString(),
                     String.format("You now have %d tasks in your list.", tl.size()));
+            ui.printResponse();
         } catch (DateTimeParseException e) {
             throw new InvalidDateException(e.getMessage());
         }

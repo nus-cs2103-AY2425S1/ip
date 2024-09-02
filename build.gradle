@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("mizz.Mizz")
+    mainClass.set("gui.Launcher")
 }
 
 checkstyle {

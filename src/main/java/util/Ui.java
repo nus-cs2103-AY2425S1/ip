@@ -7,12 +7,14 @@ import java.util.Scanner;
  */
 public class Ui {
     private final Scanner sc;
+    private String response;
 
     /**
      * Constructor for a new Ui object.
      */
     public Ui() {
         this.sc = new Scanner(System.in);
+        this.response = "";
     };
 
     /**
@@ -35,11 +37,46 @@ public class Ui {
     }
 
     /**
+     * Print the stored response.
+     */
+    public void printResponse() {
+        Utility.prettyPrint(this.response);
+    }
+
+    /**
      * Utility method to get input from std::in.
      *
      * @return Input from std::in.
      */
     public String getNextLine() {
         return this.sc.nextLine();
+    }
+
+    /**
+     * Setter for the stored reponse.
+     *
+     * @param strArr An array of strings to set as the response.
+     * @return The new response.
+     */
+    public String setResponse(String... strArr) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < strArr.length - 1; i++) {
+            sb.append(Utility.INDENT + strArr[i] + Utility.NEW_LINE);
+        }
+        if (strArr.length >= 1) {
+            sb.append(Utility.INDENT + strArr[strArr.length - 1]);
+        }
+        this.response = sb.toString();
+        return this.response;
+    }
+
+    /**
+     * Getter for the stored response.
+     *
+     * @return The stored response.
+     */
+    public String getResponse() {
+        return this.response;
     }
 }
