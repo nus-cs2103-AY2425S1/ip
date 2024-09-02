@@ -13,6 +13,16 @@ public class Alexer {
 
     private final List<Task> tasks = new ArrayList<>();
 
+    /**
+     * Prints the chatbot response with break lines
+     * @param response The message to be printed
+     */
+    private void printResponse(String response) {
+        System.out.println(BREAK);
+        System.out.println(response);
+        System.out.println(BREAK);
+    }
+
     public void printGoodbye() {
         System.out.println(BREAK);
         System.out.println(GOODBYE);
