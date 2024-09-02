@@ -55,8 +55,12 @@ public class TaskList {
      */
     public String remove(int index) throws IndexOutOfBoundsException, IOException {
         if (index < 1 || index > tasks.size()) {
-            throw new IndexOutOfBoundsException(
-                    "Invalid task index. Expected index between 1 and " + tasks.size());
+            if (tasks.size() == 0) {
+                throw new IndexOutOfBoundsException("No tasks to delete.");
+            } else {
+                throw new IndexOutOfBoundsException(
+                        "Invalid task index. Expected index between 1 and " + tasks.size());
+            }
         }
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);

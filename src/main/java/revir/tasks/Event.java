@@ -1,4 +1,5 @@
 package revir.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,11 +16,12 @@ public class Event extends Task {
     public static String format = "event <description> /from <start date> /to <end date>";
 
     /**
-     * Constructs a new Event object with the given description, start time, and end time.
+     * Constructs a new Event object with the given description, start time, and end
+     * time.
      *
      * @param description the description of the event
-     * @param from the start time of the event
-     * @param to the end time of the event
+     * @param from        the start time of the event
+     * @param to          the end time of the event
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
