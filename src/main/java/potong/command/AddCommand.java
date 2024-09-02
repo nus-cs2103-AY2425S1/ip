@@ -1,7 +1,11 @@
 package potong.command;
 
-import potong.*;
+import potong.Ui;
+import potong.Storage;
+import potong.TaskList;
+
 import potong.exceptions.IllegalInputPotongException;
+
 import potong.task.DeadlineTask;
 import potong.task.EventTask;
 import potong.task.ToDoTask;
@@ -63,17 +67,17 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) throws IllegalInputPotongException {
         switch (this.type) {
-            case TODO -> {
-                return tasks.add(new ToDoTask(this.task));
+        case TODO -> {
+            return tasks.add(new ToDoTask(this.task));
             }
-            case DEADLINE -> {
-                return tasks.add(new DeadlineTask(this.task, this.deadline));
+        case DEADLINE -> {
+            return tasks.add(new DeadlineTask(this.task, this.deadline));
             }
-            case EVENT -> {
-                return tasks.add(new EventTask(this.task, this.eventStart, this.eventEnd));
+        case EVENT -> {
+            return tasks.add(new EventTask(this.task, this.eventStart, this.eventEnd));
             }
-            default -> {
-                return "";
+        default -> {
+            return "";
             }
         }
     }

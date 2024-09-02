@@ -1,14 +1,16 @@
 package potong;
 
 import potong.exceptions.IllegalInputPotongException;
+
 import potong.task.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Class to save and load data.

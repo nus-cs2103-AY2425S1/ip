@@ -2,6 +2,7 @@ package potong;
 
 import potong.command.Command;
 import potong.command.ExitCommand;
+
 import potong.exceptions.IllegalInputPotongException;
 import potong.exceptions.PotongException;
 
@@ -14,7 +15,6 @@ import java.io.IOException;
 public class Potong {
 
     private static final String LINE = "_________________________";
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
