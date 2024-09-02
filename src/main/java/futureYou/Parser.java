@@ -1,5 +1,8 @@
 package futureYou;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Parser class deals with making sense of the user command.
  */
@@ -37,8 +40,13 @@ public class Parser {
     public static String parseDeadlineTask(String userCommand) {
         String[] userInputs = userCommand.split("/");
 
+
         String taskName = userInputs[0].substring(9, userInputs[0].length());
-        String deadline = userInputs[1].substring(3, userInputs[1].length());
+        String deadlineString = userInputs[1].substring(3, userInputs[1].length());
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime deadline = LocalDateTime.parse(deadlineString,format);
+
         String message = TaskList.addTask(taskName, deadline);
         return message;
     }

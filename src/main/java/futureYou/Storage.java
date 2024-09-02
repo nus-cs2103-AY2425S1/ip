@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import futureYou.TaskList;
 import futureYou.task.Deadline;
 import futureYou.task.Events;
@@ -16,6 +19,7 @@ import futureYou.task.Task;
  * The Storage class handles loading tasks from a file and saving tasks to a
  * file.
  * The file format is: <Task type>|<Done?>|<Task Name>|<Deadline>|<End Date>
+ * Dates are saved in the format: yyyy-MM-dd HH:mm
  */
 public class Storage {
     private String filePath;
@@ -69,7 +73,7 @@ public class Storage {
             case "T":
                 return new Task(taskName, taskStatus);
             case "D":
-                String deadline = stringParts[3].trim();
+                LocalDateTime deadline = LocalDateTime.parse(stringParts[3].trim());
                 return new Deadline(taskName, taskStatus, deadline);
             case "E":
                 String startDateTime = stringParts[3].trim();

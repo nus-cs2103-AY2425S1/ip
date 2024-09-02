@@ -9,6 +9,9 @@ import futureYou.task.Task;
 
 import futureYou.Storage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The TaskList manages a list of tasks.
  */
@@ -89,7 +92,7 @@ public class TaskList {
      * @param deadline The deadline of the new deadline task to add.
      * @return message The message to be printed
      */
-    public static String addTask(String taskName, String deadline) {
+    public static String addTask(String taskName, LocalDateTime deadline) {
         Deadline newDeadline = new Deadline(taskName, deadline);
         taskList.add(newDeadline);
         storage.saveTasks();
