@@ -18,8 +18,12 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
+
+    @Override
     public String getString() {
-        return "[E]" + super.getString() + " (from: " + formattedFrom.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: " + formattedTo.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + super.getString() + " (from: " +
+                formattedFrom.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
+                    + formattedTo.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override

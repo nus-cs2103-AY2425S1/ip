@@ -24,10 +24,10 @@ public class Bean {
     public void run() {
         ui.displayGreetingMessage();
         Scanner scanner = new Scanner(System.in);
-        Boolean status = true;
-        while (status) {
+        Boolean isRunning = true;
+        while (isRunning) {
             String response = scanner.nextLine();
-            status = parser.parse(response);
+            isRunning = parser.parse(response);
         }
     }
 

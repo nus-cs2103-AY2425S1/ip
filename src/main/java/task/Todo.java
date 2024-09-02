@@ -10,6 +10,7 @@ public class Todo extends Task {
         }
     }
 
+    @Override
     public String getString() {
         return "[T]" + super.getString();
     }

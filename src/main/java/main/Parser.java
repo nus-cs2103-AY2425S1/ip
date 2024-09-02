@@ -45,22 +45,22 @@ public class Parser {
         }
         return true;
     }
-    public void handleAdd(String[] splits) {
-        Task current = null;
+    public void handleAdd(String[] splitResponse) {
+        Task currentTask = null;
         try {
-            switch (splits[0]) {
-                case "todo":
-                    current = taskList.addTodo(splits[1]);
-                    ui.displayAddMessage(current,taskList.size());
-                    break;
-                case "event":
-                    current = taskList.addEvent(splits[1]);
-                    ui.displayAddMessage(current,taskList.size());
-                    break;
-                case "deadline":
-                    current = taskList.addDeadline(splits[1]);
-                    ui.displayAddMessage(current,taskList.size());
-                    break;
+            switch (splitResponse[0]) {
+            case "todo":
+                currentTask = taskList.addTodo(splitResponse[1]);
+                ui.displayAddMessage(currentTask, taskList.size());
+                break;
+            case "event":
+                currentTask = taskList.addEvent(splitResponse[1]);
+                ui.displayAddMessage(currentTask, taskList.size());
+                break;
+            case "deadline":
+                currentTask = taskList.addDeadline(splitResponse[1]);
+                ui.displayAddMessage(currentTask, taskList.size());
+                break;
             }
         } catch (DukeException e) {
             System.out.println("________________________________");

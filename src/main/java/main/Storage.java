@@ -28,26 +28,27 @@ public class Storage {
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             while (s.hasNext()) {
                 String response = s.nextLine();
-                String[] splited = response.split(" ", 3);
-                if (splited[1].equals("todo") || splited[1].equals("event") || splited[1].equals("deadline")) {
+                String[] splitResponse = response.split(" ", 3);
+                if (splitResponse[1].equals("todo") || splitResponse[1].equals("event")
+                        || splitResponse[1].equals("deadline")) {
                     Task currentTask = null;
                     String[] taskDetails;
                     try {
-                        switch (splited[1]) {
-                            case "todo":
-                                currentTask = new Todo(splited[2]);
-                                break;
-                            case "event":
-                                taskDetails = splited[2].split(" /from ");
-                                String[] taskTimings = taskDetails[1].split(" /to ");
-                                currentTask = new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
-                                break;
-                            case "deadline":
-                                taskDetails = splited[2].split(" /by ");
-                                currentTask = new Deadline(taskDetails[0],taskDetails[1]);
-                                break;
+                        switch (splitResponse[0]) {
+                        case "todo":
+                            currentTask = new Todo(splitResponse[2]);
+                            break;
+                        case "event":
+                            taskDetails = splitResponse[2].split(" /from ");
+                            String[] taskTimings = taskDetails[1].split(" /to ");
+                            currentTask = new Event(taskDetails[0], taskTimings[0], taskTimings[1]);
+                            break;
+                        case "deadline":
+                            taskDetails = splitResponse[2].split(" /by ");
+                            currentTask = new Deadline(taskDetails[0],taskDetails[1]);
+                            break;
                         }
-                        if ("1".equals(splited[0])) {
+                        if ("1".equals(splitResponse[0])) {
                             currentTask.mark();
                         }
                         taskList.add(currentTask);

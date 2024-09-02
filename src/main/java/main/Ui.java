@@ -42,6 +42,8 @@ public class Ui {
         System.out.println("________________________________");
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.getString());
-        System.out.println( "Now you have " + String.valueOf(size) + " tasks in the list.\n" + "________________________________");
+        System.out.println( "Now you have " + String.valueOf(size)
+                + " tasks in the list.\n"
+                    + "________________________________");
     }
 }
