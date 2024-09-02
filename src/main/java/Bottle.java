@@ -2,68 +2,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Bottle {
     final static String lineBreak = "\n____________________________________________________________\n";
-    static class Task {
-        static class Todo extends Task {
-            public Todo(String desc) {
-                super(desc);
-            }
-            @Override
-            public String toString() {
-                return "[T]" + super.toString();
-            }
-        }
-        static class Deadline extends Task {
-            protected String by;
-
-            public Deadline(String description, String by) {
-                super(description);
-                this.by = by;
-            }
-
-            @Override
-            public String toString() {
-                return "[D]" + super.toString() + " (by: " + by + ")";
-            }
-        }
-        static class Event extends Task {
-            protected String from;
-            protected String to;
-            public Event(String desc, String from, String to) {
-                super(desc);
-                this.from = from;
-                this.to = to;
-            }
-            @Override
-            public String toString() {
-                return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
-            }
-        }
-        private boolean isChecked;
-        private String taskDesc;
-
-        public Task(String taskDesc) {
-            this.taskDesc = taskDesc;
-            this.isChecked = false;
-        }
-        public void mark() {
-            this.isChecked = true;
-        }
-
-        public void unMark() {
-            this.isChecked = false;
-        }
-
-        @Override
-        public String toString() {
-            String box = isChecked ? "[X] " : "[ ] ";
-            return box + taskDesc;
-        }
-    }
     public static void printwithBreak(String str) {
         System.out.println(lineBreak + str + lineBreak);
     }
     public static void main(String[] args) {
-        ArrayList<Task> taskList = new ArrayList<>();
+
+        TaskManager taskManager = new TaskManager();
+        ArrayList<Task> taskList = taskManager.loadTasks();
         String welcomeMsg =
                 " Hello! I'm Bottle\n" +
                 " What can I do for you?";
@@ -109,7 +54,7 @@ public class Bottle {
                     if (description.isEmpty()) {
                         throw new IllegalArgumentException("Description cannot be empty");
                     }
-                    taskList.add(new Task.Todo(description));
+                    taskList.add(new Todo(description));
                     System.out.print(lineBreak);
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + taskList.get(taskList.size() - 1).toString());
@@ -122,12 +67,10 @@ public class Bottle {
                     }
                     String description = parts[0];
                     String by = parts[1];
-                    taskList.add(new Task.Deadline(description, by));
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Got it. I've added this task:");
+                    taskList.add(new Deadline(description, by));
+                    System.out.println(lineBreak + " Got it. I've added this task: ");
                     System.out.println("   " + taskList.get(taskList.size() - 1).toString());
-                    System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    System.out.println(" Now you have " + taskList.size() + " tasks in the list." + lineBreak);
                 } else if (input.startsWith("event ")) {
                     String[] parts = input.substring(6).split(" /from | /to ");
                     if (parts.length != 3) {
@@ -136,17 +79,16 @@ public class Bottle {
                     String description = parts[0];
                     String from = parts[1];
                     String to = parts[2];
-                    taskList.add(new Task.Event(description, from, to));
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + taskList.get(taskList.size() - 1).toString());
-                    System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    taskList.add(new Event(description, from, to));
+                    System.out.println(lineBreak + " Got it. I've added this task: " + taskList.get(taskList.size() - 1).toString());
+                    System.out.println(" Now you have " + taskList.size() + " tasks in the list." + lineBreak);
                 } else {
                     throw new RuntimeException("OOPS!!! Something went wrong.");
                 }
             } catch (RuntimeException e) {
                 printwithBreak(e.getMessage());
+            } finally {
+                taskManager.saveTasks(taskList);
             }
         }
     }
