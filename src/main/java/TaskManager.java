@@ -20,6 +20,10 @@ public class TaskManager {
         return taskList.remove(index);
     }
 
+    public void addTask(Task task) {
+        taskList.add(task);
+    }
+
     public Task createTodo(String description) {
         Task todo = new Todo(description);
         taskList.add(todo);

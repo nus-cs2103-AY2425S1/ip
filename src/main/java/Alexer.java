@@ -11,7 +11,7 @@ public class Alexer {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    private final List<Task> tasks = new ArrayList<>();
+    private final TaskManager tasks = new TaskManager();
 
     /**
      * Prints the chatbot response with break lines
@@ -33,8 +33,8 @@ public class Alexer {
         System.out.println(BREAK);
         System.out.println("Sure thing! Here is your task list:\n");
 
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.format("\t%d: %s\n", i + 1, tasks.get(i));
+        for (int i = 0; i < tasks.getTaskCount(); i++) {
+            System.out.format("\t%d: %s\n", i + 1, tasks.getTask(i));
         }
 
         System.out.println(BREAK);
@@ -49,23 +49,22 @@ public class Alexer {
     public void addTask(String taskDescription) {
         // create new task
         Task task = new Task(taskDescription);
-        tasks.add(task);
+        tasks.addTask(task);
 
         System.out.println(BREAK);
         System.out.format("Got it! I’ve added the task to your list:\n\n\t%s\n", task);
-        System.out.format("\nYou have %d tasks now.\n", tasks.size());
+        System.out.format("\nYou have %d tasks now.\n", tasks.getTaskCount());
         System.out.println(BREAK);
     }
 
     public void deleteTask(List<String> arguments) {
         int index = Integer.parseInt(arguments.get(0)) - 1;
-        Task task = tasks.get(index);
-        tasks.remove(index);
+        Task task = tasks.removeTask(index);
 
         System.out.println(BREAK);
         System.out.println("Don't want to see that task anymore? I got you!");
         System.out.format("\t%s\n", task);
-        System.out.format("\nYou have %d tasks remaining.\n", tasks.size());
+        System.out.format("\nYou have %d tasks remaining.\n", tasks.getTaskCount());
         System.out.println(BREAK);
     }
 
@@ -79,11 +78,11 @@ public class Alexer {
         }
 
         Todo todo = new Todo(description);
-        tasks.add(todo);
+        tasks.addTask(todo);
 
         System.out.println(BREAK);
         System.out.format("Sure! I’ve added the todo to your list:\n\n\t%s\n", todo);
-        System.out.format("\nYou have %d tasks now.\n", tasks.size());
+        System.out.format("\nYou have %d tasks now.\n", tasks.getTaskCount());
         System.out.println(BREAK);
     }
 
@@ -98,11 +97,11 @@ public class Alexer {
         String by = arguments.stream().skip(keywordIndex + 1).collect(Collectors.joining(" "));
 
         Deadline deadline = new Deadline(description, by);
-        tasks.add(deadline);
+        tasks.addTask(deadline);
 
         System.out.println(BREAK);
         System.out.format("No problems! I’ve added the task to your list:\n\n\t%s\n", deadline);
-        System.out.format("\nYou have %d tasks now.\n", tasks.size());
+        System.out.format("\nYou have %d tasks now.\n", tasks.getTaskCount());
         System.out.println(BREAK);
     }
 
@@ -121,32 +120,32 @@ public class Alexer {
         String to = arguments.stream().skip(toIndex + 1).collect(Collectors.joining(" "));
 
         Event event = new Event(description, from, to);
-        tasks.add(event);
+        tasks.addTask(event);
 
         System.out.println(BREAK);
         System.out.format("Noted! I’ve added a new event to your tasks:\n\n\t%s\n", event);
-        System.out.format("\nYou have %d tasks now.\n", tasks.size());
+        System.out.format("\nYou have %d tasks now.\n", tasks.getTaskCount());
         System.out.println(BREAK);
     }
 
     public void markTaskDone(int index) {
         // assume input here is valid, we will handle exceptions later
-        tasks.get(index - 1).markAsDone();
+        tasks.getTask(index - 1).markAsDone();
 
         System.out.println(BREAK);
         System.out.println("Great job completing the task! Keep up the great work!");
-        System.out.format("\t%s\n", tasks.get(index - 1));
+        System.out.format("\t%s\n", tasks.getTask(index - 1));
         System.out.println(BREAK);
     }
 
     public void unmarkTaskDone(int index) {
         // assume input here is valid, we will handle exceptions later
-        tasks.get(index - 1).unmarkDone();
+        tasks.getTask(index - 1).unmarkDone();
 
         System.out.println(BREAK);
         System.out.println("Alright, it seems you are not done with that yet.");
         System.out.println("I have unmarked it for you.");
-        System.out.format("\t%s\n", tasks.get(index - 1));
+        System.out.format("\t%s\n", tasks.getTask(index - 1));
         System.out.println(BREAK);
     }
 
