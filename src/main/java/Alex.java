@@ -1,3 +1,10 @@
+import Alex.Command.Command;
+import Alex.Exceptions.AlexException;
+import Alex.Parser.Parser;
+import Alex.Storage.Storage;
+import Alex.Task.TaskList;
+import Alex.Ui.Ui;
+
 public class Alex {
 
     private Storage storage;

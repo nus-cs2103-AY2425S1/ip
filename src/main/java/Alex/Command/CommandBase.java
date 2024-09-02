@@ -1,3 +1,4 @@
+package Alex.Command;
 public abstract class CommandBase implements Command {
     protected boolean isExit = false;
 

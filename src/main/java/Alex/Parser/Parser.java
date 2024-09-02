@@ -1,3 +1,18 @@
+package Alex.Parser;
+import Alex.Command.AddCommand;
+import Alex.Command.AddDefaultCommand;
+import Alex.Command.Command;
+import Alex.Command.DeleteCommand;
+import Alex.Command.ExitCommand;
+import Alex.Command.JokeCommand;
+import Alex.Command.ListCommand;
+import Alex.Command.MarkCommand;
+import Alex.Exceptions.AlexException;
+import Alex.Task.Deadline;
+import Alex.Task.DefaultTask;
+import Alex.Task.Event;
+import Alex.Task.Todo;
+
 public class Parser {
 
     public static Command parse(String userInput) throws AlexException {
