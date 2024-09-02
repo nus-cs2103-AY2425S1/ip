@@ -1,31 +1,29 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
-    protected TaskType taskType;
 
-    // Constructor
-    public Task(String description, TaskType taskType) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.taskType = taskType;
     }
+
+    public abstract TaskType getTaskType();
 
     public String getDescription() {
         return description;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void markAsNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
-    @Override
-    public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + description;
-    }
 }
-
 
