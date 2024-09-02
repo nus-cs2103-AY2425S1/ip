@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 
 class Event extends Task {
     protected LocalDateTime from;
-    private LocalDateTime to;
+    protected LocalDateTime to;
 
     public Event(String description, String from, String to) {
         super(description);
