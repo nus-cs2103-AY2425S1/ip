@@ -1,10 +1,12 @@
 package ollie.task;
 
-import ollie.exception.EmptyDescriptionException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import ollie.exception.EmptyDescriptionException;
 
 /**
  * Tests for the {@link Todo} class.
@@ -35,7 +37,8 @@ public class TodoTest {
     @Test
     public void createTask_missingDescription_exceptionThrown() {
         String command = "todo ";
-        EmptyDescriptionException exception = assertThrows(EmptyDescriptionException.class, () -> Todo.createTask(command));
+        EmptyDescriptionException exception = assertThrows(
+                EmptyDescriptionException.class, () -> Todo.createTask(command));
         assertEquals("Please add a name for a todo task!", exception.getMessage());
     }
 

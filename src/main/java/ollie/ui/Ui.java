@@ -1,10 +1,9 @@
 package ollie.ui;
 
-import ollie.exception.OllieException;
-
-import ollie.task.Task;
-
 import java.util.ArrayList;
+
+import ollie.exception.OllieException;
+import ollie.task.Task;
 
 /**
  * The Ui class handles all interactions with the user.
@@ -67,8 +66,8 @@ public class Ui {
      * @param taskNumber The number of tasks in the list.
      */
     public static String addTask(Task task, int taskNumber) {
-        return "Got it. I've added this task ☺:\n  " + task.toString() + "\nNow you have " + taskNumber +
-                " tasks in the list. ☺";
+        return "Got it. I've added this task ☺:\n  " + task.toString() + "\nNow you have " + taskNumber
+                + " tasks in the list. ☺";
     }
 
     /**
@@ -110,7 +109,7 @@ public class Ui {
      * @param task The task to mark as not done.
      */
     public static String unmarkTaskAsDone(Task task) {
-        return "OK, I've marked this task as not done yet:\n  " + task.toString();
+        return "OK, I've marked this task as not done yet:\n" + task.toString();
     }
 
     /**

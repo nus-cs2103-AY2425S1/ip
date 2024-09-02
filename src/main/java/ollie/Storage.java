@@ -1,14 +1,18 @@
 package ollie;
 
-import ollie.exception.OllieException;
-import ollie.task.*;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDateTime;
+
+import ollie.exception.OllieException;
+import ollie.task.Deadline;
+import ollie.task.Event;
+import ollie.task.Task;
+import ollie.task.TaskList;
+import ollie.task.Todo;
 
 /**
  * The Storage class represents a storage which stores all the tasks.

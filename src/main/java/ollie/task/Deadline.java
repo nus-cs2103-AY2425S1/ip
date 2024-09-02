@@ -1,10 +1,10 @@
 package ollie.task;
 
-import ollie.exception.EmptyDescriptionException;
-import ollie.exception.OllieException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import ollie.exception.EmptyDescriptionException;
+import ollie.exception.OllieException;
 
 /**
  * Deadline is a type of Task.
@@ -55,9 +55,10 @@ public class Deadline extends Task {
         String[] parts = command.substring(8).split(" /by:");
 
         if (parts.length != 2) {
-            throw new OllieException("Please enter in the format:\n" +
-                    "deadline task_name /by: due_date" +
-                    "\nExample: deadline assignment /by: 2021-09-30 23:59");
+            throw new OllieException("""
+                    Please enter in the format:
+                    deadline task_name /by: due_date
+                    Example: deadline assignment /by: 2021-09-30 23:59""");
         }
 
         DateTimeFormatter inputDate = Task.getInputDate();

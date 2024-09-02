@@ -1,18 +1,18 @@
 package ollie.task;
 
-import ollie.exception.OllieException;
-
 import java.time.format.DateTimeFormatter;
+
+import ollie.exception.OllieException;
 
 /**
  * The Task class represents a generic task with a description and completion status.
  */
 public abstract class Task {
+    private static final DateTimeFormatter INPUT_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     private String description;
     private boolean isDone;
     private TaskType taskType;
-    private static final DateTimeFormatter INPUT_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
      * Constructs a Task with the specified description and type.

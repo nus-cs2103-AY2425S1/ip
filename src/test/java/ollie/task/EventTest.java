@@ -1,14 +1,19 @@
 package ollie.task;
 
-import ollie.exception.EmptyDescriptionException;
-import ollie.exception.OllieException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+// Static Imports
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+// Standard Java Packages
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+// Third-Party Libraries (JUnit in this case)
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+// Project-Specific Imports
+import ollie.exception.OllieException;
 
 /**
  * Tests for the {@link Event} class.
@@ -44,25 +49,28 @@ public class EventTest {
     public void createTask_missingDescription_exceptionThrown() {
         String command = "event ";
         OllieException exception = assertThrows(OllieException.class, () -> Event.createTask(command));
-        assertEquals("Please enter in the format:\n" +
-                "event event_name /from: start_time /to: end_time" +
-                "\nExample: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00", exception.getMessage());
+        assertEquals("Please enter in the format:\n"
+                + "event event_name /from: start_time /to: end_time"
+                + "\nExample: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00",
+                exception.getMessage());
     }
 
     @Test
     public void createTask_missingStartTime_exceptionThrown() {
         String command = "event Project meeting /from: ";
         OllieException exception = assertThrows(OllieException.class, () -> Event.createTask(command));
-        assertEquals("Please enter in the format:\n" +
-                "event event_name /from: start_time /to: end_time" +
-                "\nExample: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00", exception.getMessage());
+        assertEquals("Please enter in the format:\n"
+                + "event event_name /from: start_time /to: end_time"
+                + "\nExample: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00",
+                exception.getMessage());
     }
 
     @Test
     public void createTask_invalidDateFormat_exceptionThrown() {
         String command = "event Project meeting /from: 2023/09/30 14:00 /to: 2023-09-30 16:00";
         OllieException exception = assertThrows(OllieException.class, () -> Event.createTask(command));
-        assertEquals("Please enter the date in the format: yyyy-MM-dd HH:mm", exception.getMessage());
+        assertEquals(
+                "Please enter the date in the format: yyyy-MM-dd HH:mm", exception.getMessage());
     }
 
     @Test

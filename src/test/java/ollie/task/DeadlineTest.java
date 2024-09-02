@@ -1,15 +1,14 @@
 package ollie.task;
 
-import ollie.exception.EmptyDescriptionException;
-import ollie.exception.OllieException;
-import ollie.exception.UnknownTaskTypeException;
-import ollie.exception.UnknownTaskTypeExceptionTest;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import ollie.exception.OllieException;
 
 /**
  * Tests for the {@link Deadline} class.
@@ -44,9 +43,9 @@ public class DeadlineTest {
         String command = "deadline";
         OllieException exception = assertThrows(OllieException.class, () -> Deadline.createTask(command));
         assertEquals(
-                "Please enter in the format:\n" +
-                        "deadline task_name /by: due_date\n" +
-                        "Example: deadline assignment /by: 2021-09-30 23:59",
+                "Please enter in the format:\n"
+                        + "deadline task_name /by: due_date\n"
+                        + "Example: deadline assignment /by: 2021-09-30 23:59",
                 exception.getMessage()
         );
     }
