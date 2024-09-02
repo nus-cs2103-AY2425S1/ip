@@ -4,11 +4,10 @@ import hana.Hana;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Hana using FXML.
  */
 public class Main extends Application {
 
@@ -19,13 +18,20 @@ public class Main extends Application {
         try {
             stage.setTitle("Hana ChatBot");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            MainWindow mainWindow = new MainWindow();
+            fxmlLoader.setRoot(mainWindow);
+            fxmlLoader.load();
+            Scene scene = new Scene(mainWindow);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setHana(hana);
+            mainWindow.setStage(stage);
+            mainWindow.setHana(hana);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
