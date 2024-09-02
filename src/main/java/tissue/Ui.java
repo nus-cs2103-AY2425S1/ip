@@ -7,9 +7,9 @@ public class Ui {
     private static final String LINE =
             "--------------------------------------------------------------";
     private static final String INDENT = "       ";
-    Parser parser;
-    TaskList taskList;
-    Storage storage;
+    private Parser parser;
+    private TaskList taskList;
+    private Storage storage;
 
     public Ui(Parser parser, TaskList taskList, Storage storage) {
         this.parser = parser;
