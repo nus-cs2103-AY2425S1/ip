@@ -1,4 +1,4 @@
-package parser;
+package ipman.parser;
 
 public class MissingArgumentException extends RuntimeException {
     public MissingArgumentException(int expectedNoArgs, int actualNoArgs) {

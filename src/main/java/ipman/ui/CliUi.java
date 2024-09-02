@@ -1,7 +1,7 @@
-package ui;
+package ipman.ui;
 
-import commands.Command;
-import parser.Parser;
+import ipman.commands.Command;
+import ipman.parser.Parser;
 
 import java.util.Scanner;
 

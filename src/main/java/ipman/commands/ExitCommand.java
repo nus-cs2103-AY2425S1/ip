@@ -1,4 +1,4 @@
-package commands;
+package ipman.commands;
 
 public class ExitCommand implements Command {
     @Override

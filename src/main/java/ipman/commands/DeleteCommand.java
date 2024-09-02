@@ -1,8 +1,8 @@
-package commands;
+package ipman.commands;
 
-import models.Task;
-import models.TaskList;
-import ui.Ui;
+import ipman.models.Task;
+import ipman.models.TaskList;
+import ipman.ui.Ui;
 
 public class DeleteCommand implements Command {
     private final int taskIndex;

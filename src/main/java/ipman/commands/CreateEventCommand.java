@@ -1,25 +1,27 @@
-package commands;
+package ipman.commands;
 
-import models.Deadline;
-import models.Task;
-import models.TaskList;
-import ui.Ui;
+import ipman.models.Event;
+import ipman.models.Task;
+import ipman.models.TaskList;
+import ipman.ui.Ui;
 
 import java.time.LocalDate;
 
-public class CreateDeadlineCommand implements Command {
+public class CreateEventCommand implements Command {
     private final String name;
-    private final LocalDate by;
+    private final LocalDate from;
+    private final LocalDate to;
 
-    public CreateDeadlineCommand(String name, LocalDate by) {
+    public CreateEventCommand(String name, LocalDate from, LocalDate to) {
         this.name = name;
-        this.by = by;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
     public void execute(Context context) {
         TaskList tasks = context.tasks();
-        Task task = new Deadline(this.name, this.by);
+        Task task = new Event(this.name, this.from, this.to);
         tasks.add(task);
 
         Ui ui = context.ui();

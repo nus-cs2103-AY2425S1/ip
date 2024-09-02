@@ -1,6 +1,6 @@
-package ui;
+package ipman.ui;
 
-import commands.Command;
+import ipman.commands.Command;
 
 public interface Ui {
     // Inspired by https://nus-cs2103-ay2425s1.github.io/website/schedule/week3/project.html

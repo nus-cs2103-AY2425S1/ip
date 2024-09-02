@@ -1,9 +1,9 @@
-package commands;
+package ipman.commands;
 
-import models.Task;
-import models.TaskList;
-import models.ToDo;
-import ui.Ui;
+import ipman.models.Task;
+import ipman.models.TaskList;
+import ipman.models.ToDo;
+import ipman.ui.Ui;
 
 public class CreateToDoCommand implements Command {
     private final String name;

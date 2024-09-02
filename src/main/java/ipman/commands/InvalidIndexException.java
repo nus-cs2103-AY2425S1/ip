@@ -1,4 +1,4 @@
-package commands;
+package ipman.commands;
 
 public class InvalidIndexException extends RuntimeException {
     public InvalidIndexException(int capacity, int actual) {

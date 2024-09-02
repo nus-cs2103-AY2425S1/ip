@@ -1,4 +1,4 @@
-package models;
+package ipman.models;
 
 public class ToDo extends Task {
     public static final char TASK_TYPE = 'T';

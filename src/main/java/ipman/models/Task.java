@@ -1,4 +1,4 @@
-package models;
+package ipman.models;
 
 public abstract class Task {
     protected boolean isDone = false;

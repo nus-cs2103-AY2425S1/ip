@@ -1,15 +1,15 @@
-package parser;
+package ipman.parser;
 
-import commands.Command;
-import commands.CreateDeadlineCommand;
-import commands.CreateEventCommand;
-import commands.CreateToDoCommand;
-import commands.DeleteCommand;
-import commands.ExitCommand;
-import commands.FindCommand;
-import commands.ListCommand;
-import commands.MarkCommand;
-import commands.UnmarkCommand;
+import ipman.commands.Command;
+import ipman.commands.CreateDeadlineCommand;
+import ipman.commands.CreateEventCommand;
+import ipman.commands.CreateToDoCommand;
+import ipman.commands.DeleteCommand;
+import ipman.commands.ExitCommand;
+import ipman.commands.FindCommand;
+import ipman.commands.ListCommand;
+import ipman.commands.MarkCommand;
+import ipman.commands.UnmarkCommand;
 
 import java.time.LocalDate;
 import java.util.StringJoiner;

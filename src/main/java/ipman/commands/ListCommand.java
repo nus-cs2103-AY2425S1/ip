@@ -1,7 +1,7 @@
-package commands;
+package ipman.commands;
 
-import models.Task;
-import models.TaskList;
+import ipman.models.Task;
+import ipman.models.TaskList;
 
 public class ListCommand implements Command {
     @Override

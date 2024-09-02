@@ -1,4 +1,4 @@
-package parser;
+package ipman.parser;
 
 public class KeywordNotRecognisedException extends RuntimeException {
     public KeywordNotRecognisedException(String keyword) {

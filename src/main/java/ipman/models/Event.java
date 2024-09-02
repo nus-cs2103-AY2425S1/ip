@@ -1,4 +1,4 @@
-package models;
+package ipman.models;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

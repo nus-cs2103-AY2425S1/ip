@@ -33,7 +33,7 @@ test {
 }
 
 application {
-    mainClass.set("IpMan")
+    mainClass.set("ipman.IpMan")
 }
 
 shadowJar {

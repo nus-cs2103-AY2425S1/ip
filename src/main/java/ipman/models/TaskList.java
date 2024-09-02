@@ -1,4 +1,4 @@
-package models;
+package ipman.models;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,8 +1,10 @@
-import commands.*;
-import models.TaskList;
-import models.TasksFileManager;
-import ui.CliUi;
-import ui.Ui;
+package ipman;
+
+import ipman.commands.*;
+import ipman.models.TaskList;
+import ipman.models.TasksFileManager;
+import ipman.ui.CliUi;
+import ipman.ui.Ui;
 
 
 public class IpMan {
