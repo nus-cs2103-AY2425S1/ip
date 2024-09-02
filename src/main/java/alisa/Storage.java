@@ -12,10 +12,21 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs an instance of Storage.
+     *
+     * @param filePath Directory path of the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns the list of tasks from the storage file.
+     *
+     * @return ArrayList of tasks.
+     * @throws AlisaException If file is not found.
+     */
     public ArrayList<Task> loadFile() throws AlisaException {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -59,6 +70,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Updates the storage file when there are changes in list of tasks.
+     *
+     * @param taskList List of tasks to overwrite the file with.
+     * @throws AlisaException If the file can't be updated.
+     */
     public void syncFile(TaskList taskList) throws AlisaException {
         try {
             FileWriter fw = new FileWriter(this.filePath);

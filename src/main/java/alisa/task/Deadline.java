@@ -9,6 +9,13 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task{
     private LocalDateTime dueDate;
 
+    /**
+     * Constructs an instance of Deadline.
+     *
+     * @param taskDescription Description of the deadline task.
+     * @param dueDate Deadline date.
+     * @throws AlisaException If the dueDate input is not in the right format.
+     */
     public Deadline(String taskDescription, String dueDate) throws AlisaException {
         super(taskDescription);
         try {
@@ -19,12 +26,25 @@ public class Deadline extends Task{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Returns type of task (deadline task).
+     *
+     * @return String indicating it is a deadline task and its deadline.
+     */
     @Override
     public String toString() {
         String task = super.toString();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm");
         return "[D] " + task + "(by: " + dueDate.format(formatter) + ")";
     }
+
+    /**
+     * Returns details of the deadline task.
+     *
+     * @return String of task type, task status, task description, and due date.
+     */
     @Override
     public String toFileString() {
         return "D | " + this.getFileStatus() + " | " + this.getTask() + " | " + dueDate + "\n";
