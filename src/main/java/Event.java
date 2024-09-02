@@ -1,8 +1,18 @@
+/**
+ * Represents an event task that starts and ends at specific times.
+ */
 public class Event extends Task {
 
-  // event project meeting /from Mon 2pm /to 4pm
   private String from;
   private String to;
+
+  /**
+   * Constructor for Event.
+   *
+   * @param task The description of the event task.
+   * @param from        The start time of the event.
+   * @param to          The end time of the event.
+   */
   public Event(String task, String from, String to) {
     super(task);
     this.from = from;

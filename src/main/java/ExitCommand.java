@@ -1,4 +1,11 @@
+/**
+ * Command to exit the application.
+ */
 public class ExitCommand extends Command {
+
+  /**
+   * Constructor for ExitCommand.
+   */
   public ExitCommand() {
     this.isExit = true;
   }

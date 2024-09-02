@@ -1,8 +1,17 @@
+/**
+ * The main class of the Eli application.
+ * Coordinates the interaction between the user, storage, task list, and commands.
+ */
 public class Eli {
   private Storage storage;
   private TaskList tasks;
   private Ui ui;
 
+  /**
+   * Constructor for Eli.
+   *
+   * @param filePath The file path where tasks are stored.
+   */
   public Eli(String filePath) {
     // this.tasks = new TaskList();
     // this.scanner = new Scanner(System.in);
@@ -16,7 +25,9 @@ public class Eli {
     }
   }
 
-
+  /**
+   * Runs the main application loop.
+   */
   public void run() {
     ui.showWelcome();
     boolean isExit = false;
@@ -34,6 +45,11 @@ public class Eli {
     ui.close();
   }
 
+  /**
+   * The main entry point of the application.
+   *
+   * @param args Command-line arguments.
+   */
   public static void main(String[] args) {
     Eli eli = new Eli("data/tasks.txt");
     eli.run();

@@ -1,6 +1,14 @@
+/**
+ * Command to add a new task to the task list.
+ */
 public class AddCommand extends Command {
   private Task task;
 
+  /**
+   * Constructor for AddCommand.
+   *
+   * @param task The task to be added.
+   */
   public AddCommand(Task task) {
     this.task = task;
   }

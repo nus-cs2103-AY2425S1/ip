@@ -1,6 +1,13 @@
+/**
+ * Represents a ToDo task without any specific date.
+ */
 public class ToDo extends Task {
 
-  // todo borrow book
+  /**
+   * Constructor for ToDo.
+   *
+   * @param task The description of the ToDo task.
+   */
   public ToDo (String task) {
     super(task);
   }

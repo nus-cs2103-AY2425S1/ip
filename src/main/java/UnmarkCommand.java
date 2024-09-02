@@ -1,6 +1,12 @@
+/**
+ * Command to Unmark the task.
+ */
 public class UnmarkCommand extends Command {
   private int index;
 
+  /**
+   * Constructor for Unmark Command.
+   */
   public UnmarkCommand(int index) {
     this.index = index;
   }

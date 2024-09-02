@@ -1,4 +1,15 @@
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parser {
+
+  /**
+   * Parses user input into a Command object.
+   *
+   * @param fullCommand The full input command string.
+   * @return The Command object representing the user's command.
+   * @throws EliException If the command is invalid or malformed.
+   */
   public static Command parse(String fullCommand) throws EliException {
     String[] parts = fullCommand.split(" ", 2);
     String commandWord = parts[0];
@@ -38,6 +49,12 @@ public class Parser {
     }
   }
 
+  /**
+   * Parses a line from the file into a Task object.
+   *
+   * @param line The line from the file representing a task.
+   * @return The Task object represented by the line.
+   */
   public static Task parseTaskFromFile(String line) {
     String[] parts = line.split(" \\| ");
     String type = parts[0];
