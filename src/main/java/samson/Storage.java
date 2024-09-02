@@ -13,11 +13,23 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The <code> Storage </code> class is responsible for reading from and writing tasks to a file.
+ * It manages the persistence of tasks by saving them to a specified file path and loading
+ * them back into the application when needed.
+ */
 public class Storage {
     private String filePath;
     private final File file;
 
-    public Storage(String filePath) throws  IOException {
+    /**
+     * Constructs a <code> Storage </code> object and initializes the file at the specified file path.
+     * If the file or its parent directories do not exist, they are created.
+     *
+     * @param filePath The file path where tasks will be stored.
+     * @throws IOException If an I/O error occurs during file creation.
+     */
+    public Storage(String filePath) throws IOException {
         this.filePath = filePath;
         file = new File(filePath);
 
@@ -27,6 +39,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file specified by the file path into a list of <code> Task </code> objects.
+     * Each line in the file represents a task, which is parsed and converted into a specific
+     * <code> Task </code> subclass (e.g., <code> ToDo </code>, <code> Deadline </code>, <code> Event </code>).
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     * @throws SamException If the file contains invalid data.
+     */
     public List<Task> loadTaskFromFile() throws IOException, SamException {
         List<Task> tasks = new ArrayList<>();
         List<String> lines = Files.readAllLines(Paths.get(filePath));
@@ -40,7 +61,7 @@ public class Storage {
             switch (type) {
                 case "T":
                     Task todo = new ToDo(description);
-                    if (todo.isDone()) {
+                    if (isDone) {
                         todo.complete();
                     }
                     tasks.add(todo);
@@ -48,7 +69,7 @@ public class Storage {
                 case "D":
                     String by = parts[3];
                     Task deadline = new Deadline(description, by);
-                    if (deadline.isDone()) {
+                    if (isDone) {
                         deadline.complete();
                     }
                     tasks.add(deadline);
@@ -57,25 +78,37 @@ public class Storage {
                     String from = parts[3];
                     String to = parts[4];
                     Task event = new Event(description, from, to);
-                    if (event.isDone()) {
+                    if (isDone) {
                         event.complete();
                     }
                     tasks.add(event);
                     break;
                 default:
-                    System.out.println("Invalid data detected: " + line );
+                    System.out.println("Invalid data detected: " + line);
                     break;
             }
         }
         return tasks;
     }
 
+    /**
+     * Appends a new task to the file.
+     *
+     * @param task The task to be added to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void addTaskToFile(Task task) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, true);
         fileWriter.write(task.toStorageString() + System.lineSeparator());
         fileWriter.close();
     }
 
+    /**
+     * Saves the entire list of tasks to the file, overwriting any existing content.
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void saveTasksToFile(List<Task> tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         for (Task task : tasks) {
@@ -84,4 +117,3 @@ public class Storage {
         fileWriter.close();
     }
 }
-

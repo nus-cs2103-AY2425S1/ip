@@ -1,14 +1,28 @@
-package samson;// Samson.Samson.java
+package samson;
+
 import samson.command.Command;
 import samson.task.TaskList;
 
 import java.io.IOException;
+
+/**
+ * The <code> Samson </code> class is the main entry point for the Samson application.
+ * It initializes the application, handles user input, and controls the flow
+ * of the application by executing commands.
+ */
 public class Samson {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new <code> Samson </code> instance, initializing the user interface,
+     * loading tasks from the storage file, and handling any potential errors that occur
+     * during initialization.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Samson(String filePath) {
         ui = new Ui();
         try {
@@ -23,6 +37,10 @@ public class Samson {
         }
     }
 
+    /**
+     * Starts the main loop of the Samson chatbot, continuously reading user input,
+     * parsing it into commands, and executing those commands until the user decides to exit.
+     */
     public void run() {
         ui.welcomeMessage();
         boolean isExit = false;
@@ -44,6 +62,12 @@ public class Samson {
         }
     }
 
+    /**
+     * The main method is the entry point of the Samson application.
+     * It creates a new <code> Samson </code> instance and starts the application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Samson("data/samson.txt").run();
     }

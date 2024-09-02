@@ -5,9 +5,20 @@ import samson.task.Deadline;
 import samson.task.Event;
 import samson.task.ToDo;
 
-// Samson.Samson.Parser.java
+/**
+ * The  class is responsible for interpreting user input and converting
+ * it into executable commands. It parses the input string and returns the corresponding
+ * <code> Command </code> object, which can be executed to perform the desired action.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding <code> Command </code> object.
+     *
+     * @param userInput The input string entered by the user.
+     * @return The Command object that corresponds to the user's input.
+     * @throws SamException If the input is invalid or incomplete.
+     */
     public static Command parse(String userInput) throws SamException {
         String[] words = userInput.split(" ", 2);
         String commandWord = words[0];
