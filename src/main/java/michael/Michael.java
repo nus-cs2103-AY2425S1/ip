@@ -10,6 +10,10 @@ public class Michael {
     private Parser parser; // Processes user commands
     private final String PATH = "./data/save.txt"; // File path for save file of tasks
 
+    /**
+     * Initialises the chatbot.
+     *
+     */
     public Michael() {
         ui = new Ui();
         storage = new Storage(PATH);
@@ -26,6 +30,10 @@ public class Michael {
         new Michael().run();
     }
 
+    /**
+     * Runs main logic of program.
+     *
+     */
     public void run() {
         Scanner user = new Scanner(System.in); // scanner for user input
 

@@ -9,14 +9,27 @@ public class Task {
         this.done = false;
     }
 
+    /**
+     * Represents task as done.
+     *
+     */
     public void doTask() {
         this.done = true;
     }
 
+    /**
+     * Represents task as not done yet.
+     *
+     */
     public void undoTask() {
         this.done = false;
     }
 
+    /**
+     * Returns true if task is done, and false otherwise.
+     *
+     * @return Boolean value corresponding to status of task.
+     */
     public boolean isDone() {
         return this.done;
     }

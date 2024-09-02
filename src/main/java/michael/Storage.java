@@ -15,7 +15,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    // Method creates corresponding task from text
+    /**
+     * Creates the corresponding task given a line of text that represents that task.
+     *
+     * @param line Line of text formatted in a way that represents a task.
+     * @return The task corresponding to the text given.
+     */
     public Task load(String line) {
         String[] parts = line.split("\\|");
         for (int i = 0; i < parts.length; i++) {
@@ -44,7 +49,12 @@ public class Storage {
         }
     }
 
-    // Method loads in tasks from save file
+    /**
+     * Loads in tasks saved locally to be stored by the ArrayList in the tasks field.
+     *
+     * @return The ArrayList of tasks saved in the text file at the specified path.
+     * @throws IOException If an error occurs with opening the file at the specified path.
+     */
     public ArrayList<Task> load() throws IOException {
 
         File f = new File(this.filePath);
@@ -67,7 +77,12 @@ public class Storage {
         return tasks;
     }
 
-    // Method converts task into text format required for save file
+    /**
+     * Converts a task into a formatted String to be saved in the external save file.
+     *
+     * @param task Task to be converted.
+     * @return String representing the task.
+     */
     public String convert(Task task) {
         StringBuilder s = new StringBuilder();
 
@@ -96,7 +111,11 @@ public class Storage {
         }
     }
 
-    // Method writes tasks to external save file
+    /**
+     * Saves tasks stored in the tasks field externally by writing to the specified file.
+     *
+     * @throws IOException If file at the specified path cannot be written to.
+     */
     public void save() throws IOException {
         FileWriter writer = new FileWriter(this.filePath);
         for (int i = 0; i < tasks.size(); i++) {
