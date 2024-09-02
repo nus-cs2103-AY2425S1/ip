@@ -65,6 +65,21 @@ public class TaskList {
         storage.writeToFile(result.toString());
     }
 
+
+    public String find(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task curr : this.arr) {
+            if (curr.findKeyword(keyword)) {
+                result.add(curr);
+            }
+        }
+        StringBuilder stringResult = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < result.size(); i++) {
+            stringResult.append(String.format("%d. %s\n", i + 1, result.get(i)));
+        }
+        return stringResult.toString();
+    }
+
     public String print() {
         return this.toString();
     }

@@ -62,6 +62,7 @@ public class Parser {
             case "todo" -> new AddCommand(arguments, AddCommand.Type.TODO);
             case "deadline" -> new AddCommand(arguments, AddCommand.Type.DEADLINE);
             case "event" -> new AddCommand(arguments, AddCommand.Type.EVENT);
+            case "find" -> new FindCommand(arguments);
             default -> null;
         };
     }
