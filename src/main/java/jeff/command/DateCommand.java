@@ -9,7 +9,6 @@ import jeff.parser.Parser;
 import jeff.storage.Storage;
 import jeff.task.Task;
 import jeff.task.TaskList;
-import jeff.ui.Ui;
 
 /**
  * Represents a "Check what task is on a certain date" command.
@@ -26,15 +25,16 @@ public class DateCommand extends Command {
     }
 
     /**
-     * Filters the task list based on a date input, then prints out the tasks on that date.
+     * Returns the string representation of the response by the chatbot Jeff when the user searches for tasks on a
+     * specific date by filtering the task list based on the date input.
      *
      * @param tasks Task list.
-     * @param ui UI to print statements.
      * @param storage Place to get and write the task list to the tasks text file.
+     * @return String representation of the response.
      * @throws JeffException if the user's input is in the wrong format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
+    public String execute(TaskList tasks, Storage storage) throws JeffException {
         if (this.getInput().matches("task .+")) {
             // Split the user input to get the date specified by the user
             String[] taskParts = this.getInput().split(" ", 2);
@@ -54,8 +54,8 @@ public class DateCommand extends Command {
                 // Convert the list of tasks to a string
                 String taskListString = Parser.listToString(filteredTasks);
 
-                // Print out the filtered task list
-                ui.printText("Here are the tasks for " + taskPeriod + ":\n " + taskListString);
+                // Return the response
+                return Parser.prettyText("Here are the tasks for " + taskPeriod + ":\n" + taskListString);
             } catch (DateTimeParseException e) {
                 throw new JeffException("The format is wrong! It should be \"task yyyy-mm-dd\"!");
             }

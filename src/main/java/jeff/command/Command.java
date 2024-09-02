@@ -3,7 +3,6 @@ package jeff.command;
 import jeff.exception.JeffException;
 import jeff.storage.Storage;
 import jeff.task.TaskList;
-import jeff.ui.Ui;
 
 /**
  * An abstract class to put all command types under one class
@@ -40,12 +39,12 @@ public abstract class Command {
     }
 
     /**
-     * Executes an action based on the command type.
+     * Returns the string representation of the response by the chatbot Jeff based on a certain command.
      *
      * @param tasks Task list.
-     * @param ui UI to print statements.
      * @param storage Place to get and write the task list to the tasks text file.
+     * @return String representation of the response.
      * @throws JeffException if the user's input is in the wrong format.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException;
+    public abstract String execute(TaskList tasks, Storage storage) throws JeffException;
 }

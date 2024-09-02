@@ -1,9 +1,9 @@
 package jeff.command;
 
 import jeff.exception.JeffException;
+import jeff.parser.Parser;
 import jeff.storage.Storage;
 import jeff.task.TaskList;
-import jeff.ui.Ui;
 
 /**
  * Represents a "Show task list" command.
@@ -20,15 +20,15 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Prints out the task list.
+     * Returns the string representation of the task list by the chatbot Jeff when the user wants to see the task list.
      *
      * @param tasks Task list.
-     * @param ui UI to print statements.
      * @param storage Place to get and write the task list to the tasks text file.
+     * @return String representation of the task list.
      * @throws JeffException if the task list is empty.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
+    public String execute(TaskList tasks, Storage storage) throws JeffException {
         // Check if the list is empty
         if (tasks.isEmpty()) {
             throw new JeffException("List is empty!");
@@ -43,12 +43,12 @@ public class ListCommand extends Command {
 
             // Only add a new line when it is not the last task in the list
             if (i != tasks.size() - 1) {
-                listString.append("\n ");
+                listString.append("\n");
             }
 
         }
 
-        // Print out the statement
-        ui.printText(listString.toString());
+        // Return the task list string representation
+        return Parser.prettyText(listString.toString());
     }
 }

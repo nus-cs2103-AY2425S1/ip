@@ -40,7 +40,7 @@ public class Task {
      * @return The string representation of the task status.
      */
     private String getStatusIcon() {
-        return (this.isDone ? "[X]" : "[ ]");
+        return (this.isDone ? "[X]" : "[  ]");
     }
 
     /**
