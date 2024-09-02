@@ -1,8 +1,11 @@
+import java.io.*;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.*;
-import java.nio.file.Paths;
 
 public class Devon {
 
@@ -13,6 +16,9 @@ public class Devon {
     protected static final String DIRECTORY_PATH = "./data";
     protected static final String DB_PATH = String.valueOf(Paths.get(Devon.DIRECTORY_PATH, "devon_tasks.txt"));
     private static final String DB_DELIMITER = "\\|";
+
+    private static final DateTimeFormatter DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER_FOR_DB = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     private void loadTasksFromDatabase() {
         try {
@@ -45,10 +51,17 @@ public class Devon {
 
         switch (fields[0]) {
             case "Deadline":
-                newTask = new Deadline(fields[2], fields[3]);
+                newTask = new Deadline(
+                        fields[2],
+                        LocalDateTime.parse(fields[3], Devon.DATE_TIME_FORMATTER_FOR_DB)
+                );
                 break;
             case "Event":
-                newTask = new Event(fields[2], fields[3], fields[4]);
+                newTask = new Event(
+                        fields[2],
+                        LocalDateTime.parse(fields[3], Devon.DATE_TIME_FORMATTER_FOR_DB),
+                        LocalDateTime.parse(fields[4], Devon.DATE_TIME_FORMATTER_FOR_DB)
+                );
                 break;
             case "Todo":
                 newTask = new Todo(fields[2]);
@@ -202,7 +215,7 @@ public class Devon {
         addToList(new Todo(description));
     }
 
-    private void deadlineAction(String input) throws DevonInvalidDeadlineException {
+    private void deadlineAction(String input) throws DevonInvalidDeadlineException, DevonInvalidDateTimeException {
         String content = detectContent(input);
         if (!content.contains("/by")) {
             throw new DevonInvalidDeadlineException();
@@ -210,10 +223,16 @@ public class Devon {
         String[] parts = content.split("/by", 2);
         String description = parts[0].trim();
         String by = parts[1].trim();
-        addToList(new Deadline(description, by));
+
+        try {
+            LocalDateTime byDateTime = LocalDateTime.parse(by, Devon.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
+            addToList(new Deadline(description, byDateTime));
+        } catch (DateTimeParseException e) {
+            throw new DevonInvalidDateTimeException();
+        }
     }
 
-    private void eventAction(String input) throws DevonInvalidEventException {
+    private void eventAction(String input) throws DevonInvalidEventException, DevonInvalidDateTimeException {
         String content = detectContent(input);
         if (!(content.contains("/from") && content.contains("/to"))) {
             throw new DevonInvalidEventException();
@@ -223,7 +242,14 @@ public class Devon {
         String description = partsFrom[0].trim();
         String from = partsTo[0].trim();
         String to = partsTo[1].trim();
-        addToList(new Event(description, from, to));
+
+        try {
+            LocalDateTime fromDateTime = LocalDateTime.parse(from, Devon.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
+            LocalDateTime toDateTime = LocalDateTime.parse(to, Devon.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
+            addToList(new Event(description, fromDateTime, toDateTime));
+        } catch (DateTimeParseException e) {
+            throw new DevonInvalidDateTimeException();
+        }
     }
 
     private void deleteAction(String input) throws DevonInvalidTaskNumberException {
