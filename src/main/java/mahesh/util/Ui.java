@@ -9,7 +9,7 @@ public class Ui {
     /**
      * The logo to be displayed when the application starts.
      */
-    private static String LOGO = 
+    private static final String LOGO = 
       "#     #                                       ######                               ###### \n"
     + "##   ##   ##   #    # ######  ####  #    #    #     #   ##   #      #              #      \n"
     + "# # # #  #  #  #    # #      #      #    #    #     #  #  #  #      #              #      \n"
@@ -21,7 +21,7 @@ public class Ui {
     /**
      * Divider line used for separating sections in the console output.
      */
-    private static String DIVIDER = "-------------------------------------------------------";
+    private static final String DIVIDER = "-------------------------------------------------------";
     
     /**
      * Prints the startup message, including the logo, greeting, and divider.
