@@ -1,7 +1,7 @@
 package commands;
 
-import commands.parser.MissingArgumentException;
-import commands.parser.Parser;
+import parser.MissingArgumentException;
+import parser.Parser;
 import models.Task;
 
 import java.util.ArrayList;

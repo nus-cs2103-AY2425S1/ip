@@ -1,6 +1,6 @@
 package commands;
 
-import commands.parser.Parser;
+import parser.Parser;
 import models.Task;
 
 import java.util.List;

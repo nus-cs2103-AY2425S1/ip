@@ -1,4 +1,4 @@
-package commands.parser;
+package parser;
 
 import java.util.StringJoiner;
 
