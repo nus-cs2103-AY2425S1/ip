@@ -1,3 +1,7 @@
+package conversage.task;
+
+import conversage.exception.ConverSageException;
+
 public abstract class Task {
     protected String taskDesc;
     protected boolean isDone;
@@ -38,21 +42,21 @@ public abstract class Task {
         String taskDesc = parts[2];
 
         switch (taskType) {
-            case "ToDo":
+            case "conversage.task.ToDo":
                 Task newTodo = new ToDo(taskDesc);
                 if (isDone) {
                     newTodo.markAsDone();
                 }
                 return newTodo;
 
-            case "Event":
+            case "conversage.task.Event":
                 Task newEvent = new Event(taskDesc, parts[3], parts[4]);
                 if (isDone) {
                     newEvent.markAsDone();
                 }
                 return newEvent;
 
-            case "Deadline":
+            case "conversage.task.Deadline":
                 Task newDeadline = new Deadline(taskDesc, parts[3]);
                 if (isDone) {
                     newDeadline.markAsDone();
@@ -60,7 +64,7 @@ public abstract class Task {
                 return newDeadline;
 
             default:
-                throw new ConverSageException("Unknown Task Type: " + taskType);
+                throw new ConverSageException("Unknown conversage.task.Task Type: " + taskType);
         }
     }
 

@@ -1,3 +1,7 @@
+package conversage.task;
+
+import conversage.exception.ConverSageException;
+
 import java.util.ArrayList;
 import java.util.List;
 

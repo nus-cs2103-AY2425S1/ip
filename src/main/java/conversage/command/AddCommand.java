@@ -1,6 +1,14 @@
+package conversage.command;
+
+import conversage.exception.ConverSageException;
+import conversage.storage.Storage;
+import conversage.task.Task;
+import conversage.task.TaskList;
+import conversage.ui.Ui;
+
 public class AddCommand extends Command {
 
-    // AddCommand will have a task to add
+    // conversage.command.AddCommand will have a task to add
     private Task toAdd;
 
     public AddCommand(Task toAdd) {

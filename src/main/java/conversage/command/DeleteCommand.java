@@ -1,6 +1,14 @@
+package conversage.command;
+
+import conversage.exception.ConverSageException;
+import conversage.storage.Storage;
+import conversage.task.Task;
+import conversage.task.TaskList;
+import conversage.ui.Ui;
+
 public class DeleteCommand extends Command {
 
-    // DeleteCommand will have a task index to delete
+    // conversage.command.DeleteCommand will have a task index to delete
     private int toDel;
 
     public DeleteCommand(String toDel) {
@@ -10,11 +18,12 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
         Task toDelTask = tasks.getTask(this.toDel - 1);
-        tasks.deleteTask(toDel);
+        tasks.deleteTask(toDel - 1);
         ui.showLine();
         ui.showMessage("Noted, I've removed this task:");
         ui.showMessage("  " + toDelTask.toString());
         ui.showMessage("You have " + tasks.size() + " tasks in your list.");
+        ui.showLine();
         storage.save(tasks.getTasks());
     }
 }
