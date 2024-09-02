@@ -103,7 +103,6 @@ public class SecondMind {
                 } else {
                     try {
                         storage.appendToFile(curr.getStorageRepresentation(), taskList.getTaskCount());
-                        System.out.println("here");
                         String message = "Got it. I have added the following task:\n\t" + curr + "\n"
                                 + "You have a grand total of " + this.taskList.getTaskCount() + " task(s)";
                         this.ui.output(message);
