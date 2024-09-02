@@ -5,16 +5,33 @@ import components.Ui;
 import exceptions.LightException;
 import task.TaskList;
 
+/**
+ * Represents a command to mark a task as done or undone.
+ */
 public class MarkCommand extends Command{
-
     private int taskNumber;
     private boolean isMark;
 
+    /**
+     * Creates a MarkCommand object.
+     *
+     * @param taskNumber The number of the task to be marked.
+     * @param isMark True if the task is to be marked as done, false if it is to be marked as undone.
+     */
     public MarkCommand(int taskNumber, boolean isMark) {
         super();
         this.taskNumber = taskNumber;
         this.isMark = isMark;
     }
+
+    /**
+     * Marks the task as done or undone and updates the storage file.
+     *
+     * @param tasks The task list.
+     * @param ui The user interface.
+     * @param storage The storage.
+     * @throws LightException if an error occurs during execution
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
 

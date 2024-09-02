@@ -1,13 +1,26 @@
 package exceptions;
 
+/**
+ * Represents an exception specific to the Light application.
+ */
 public class LightException extends Exception{
-    String message;
+    private String message;
+
+    /**
+     * Creates a LightException object.
+     *
+     * @param message The error message.
+     */
     public LightException(String message) {
         super(message);
         this.message = message;
     }
 
-
+    /**
+     * Returns the error message.
+     *
+     * @return The error message.
+     */
     @Override
     public String toString() {
         return this.message;

@@ -12,13 +12,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage that stores and loads tasks from a file.
+ */
 public class Storage {
     private String filePath;
+
+    /**
+     * Creates a Storage object.
+     *
+     * @param filePath The file path of the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
 
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return The list of tasks loaded from the storage file.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
         Task task = null;
@@ -85,6 +99,12 @@ public class Storage {
         //System.out.println(TaskList.arrayToNumberedString(list));
         return list;
     }
+
+    /**
+     * Writes text to the storage file.
+     *
+     * @param textToAdd The text to be written to the storage file.
+     */
     public void write(String textToAdd) {
         try {
             File fileObj = new File(filePath);

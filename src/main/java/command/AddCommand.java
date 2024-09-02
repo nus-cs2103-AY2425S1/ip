@@ -11,10 +11,23 @@ import task.TaskList;
 public class AddCommand extends Command{
     private Task task;
 
+    /**
+     * Creates an AddCommand object.
+     *
+     * @param task The task to be added.
+     */
     public AddCommand(Task task) {
         super();
         this.task = task;
     }
+
+    /**
+     * Adds the task to the task list and updates the storage file.
+     *
+     * @param tasks The task list.
+     * @param ui The user interface.
+     * @param storage The storage.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
