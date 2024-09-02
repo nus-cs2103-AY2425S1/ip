@@ -1,14 +1,17 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class EventTask extends Task {
-    protected String start;
-    protected String end;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
 
     public EventTask(String desc, String start, String end) {
         super(desc);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        this.end = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
-    public EventTask(String desc, String start, String end, boolean isDone) {
+    public EventTask(String desc, LocalDateTime start, LocalDateTime end, boolean isDone) {
         super(desc, isDone);
         this.start = start;
         this.end = end;
@@ -16,12 +19,13 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s", super.toString(),
-                start, end);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
+        return "[E]" + super.toString() + " (from: " + start.format(formatter) + " to: " + end.format(formatter) + ")";
     }
 
     @Override
     public String toFileFormat() {
-        return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + start + " | " + end;
+        return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description,
+                start, end);
     }
 }

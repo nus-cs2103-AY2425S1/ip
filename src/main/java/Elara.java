@@ -2,6 +2,8 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,19 +61,21 @@ public class Elara {
         boolean isDone = taskDetails[1].trim().equals("1");
         String description = taskDetails[2].trim();
 
+        DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; // yyyy-MM-dd'T'HH:mm format
+
         switch (taskType) {
             case "T":
                 return new ToDoTask(description, isDone);
             case "D":
                 if (taskDetails.length == 4) {
-                    String deadline = taskDetails[3];
+                    LocalDateTime deadline = LocalDateTime.parse(taskDetails[3].trim(), isoFormatter);
                     return new DeadlineTask(description, deadline, isDone);
                 }
                 throw new IllegalArgumentException("Invalid deadline task format");
             case "E":
                 if (taskDetails.length == 5) {
-                    String startTime = taskDetails[3];
-                    String endTime = taskDetails[4];
+                    LocalDateTime startTime = LocalDateTime.parse(taskDetails[3].trim(),isoFormatter);
+                    LocalDateTime endTime = LocalDateTime.parse(taskDetails[4].trim(), isoFormatter);
                     return new EventTask(description, startTime, endTime, isDone);
                 }
                 throw new IllegalArgumentException("Invalid event task format");
@@ -191,14 +195,14 @@ public class Elara {
                 case "deadline":
                     String[] deadlineArgs = arg.split("/by ");
                     if (deadlineArgs.length == 2) {
-                        newTask = new DeadlineTask(deadlineArgs[0], deadlineArgs[1]);
+                        newTask = new DeadlineTask(deadlineArgs[0].trim(), deadlineArgs[1].trim());
                         break;
                     }
                     throw new DeadlineException();
                 case "event":
                     String[] eventArgs = arg.split("/from |/to ");
                     if (eventArgs.length == 3) {
-                        newTask = new EventTask(eventArgs[0], eventArgs[1], eventArgs[2]);
+                        newTask = new EventTask(eventArgs[0].trim() , eventArgs[1].trim(), eventArgs[2].trim());
                         break;
                     }
                     throw new EventException();
