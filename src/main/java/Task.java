@@ -1,4 +1,9 @@
+import java.time.format.DateTimeFormatter;
+
 abstract class Task {
+    protected static final DateTimeFormatter ORIGINALFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    protected static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
+
     private final String description;
     private boolean isDone;
 
