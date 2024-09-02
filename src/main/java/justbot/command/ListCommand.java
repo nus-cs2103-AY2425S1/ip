@@ -1,10 +1,10 @@
 package justbot.command;
 
+import justbot.exception.JustbotException;
+import justbot.storage.Storage;
 import justbot.task.Task;
 import justbot.task.TaskList;
 import justbot.ui.Ui;
-import justbot.storage.Storage;
-import justbot.exception.JustbotException;
 
 /**
  * Represents a command to list all tasks in the task list in the Justbot application.

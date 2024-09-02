@@ -1,10 +1,10 @@
 package justbot.command;
 
+import justbot.exception.JustbotException;
+import justbot.storage.Storage;
 import justbot.task.Task;
 import justbot.task.TaskList;
 import justbot.ui.Ui;
-import justbot.storage.Storage;
-import justbot.exception.JustbotException;
 
 /**
  * Represents a command to delete a task from the task list in the Justbot application.
@@ -24,7 +24,8 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the command to delete the task from the task list.
-     * The task is validated, deleted from the task list, a confirmation message is displayed, and the updated task list is saved to storage.
+     * The task is validated, deleted from the task list, a confirmation message is displayed,
+     * and the updated task list is saved to storage.
      * If the task number is invalid, an error message is displayed to the user.
      *
      * @param taskList The list of tasks from which the task is to be deleted.

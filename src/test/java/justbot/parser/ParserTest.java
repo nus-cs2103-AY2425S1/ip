@@ -1,18 +1,19 @@
 package justbot.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import justbot.command.Command;
 import justbot.command.DeadlineCommand;
 import justbot.command.EventCommand;
 import justbot.command.TodoCommand;
 import justbot.exception.JustbotException;
-
-import java.time.LocalDateTime;
-
-import justbot.task.Todo;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ParserTest {

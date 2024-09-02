@@ -2,7 +2,8 @@ package justbot.exception;
 
 /**
  * Represents an exception specific to the Justbot application.
- * This exception is thrown when an error occurs within Justbot, typically due to invalid user input or other application-specific issues.
+ * This exception is thrown when an error occurs within Justbot,
+ * typically due to invalid user input or other application-specific issues.
  */
 public class JustbotException extends Exception {
 

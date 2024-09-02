@@ -1,22 +1,22 @@
 package justbot.storage;
 
-import justbot.exception.JustbotException;
-import justbot.command.CommandType;
-import justbot.task.Task;
-import justbot.task.TaskList;
-import justbot.task.Todo;
-import justbot.task.Event;
-import justbot.task.Deadline;
-
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import justbot.command.CommandType;
+import justbot.exception.JustbotException;
+import justbot.task.Deadline;
+import justbot.task.Event;
+import justbot.task.Task;
+import justbot.task.TaskList;
+import justbot.task.Todo;
 
 /**
  * Handles the loading and saving of tasks to and from a file.
@@ -96,8 +96,10 @@ public class Storage {
                             + "from " + event.getStart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
                             + " to " + event.getEnd().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
                 } else {
-                    taskString = "Todo | " + task.getIsDoneString() + " | " + task.getTaskDescription() +
-                            " | No time constraint";
+                    taskString = "Todo | "
+                            + task.getIsDoneString()
+                            + " | " + task.getTaskDescription()
+                            + " | No time constraint";
                 }
                 writeToFile(filePath, taskString + "\n", true);
             }
