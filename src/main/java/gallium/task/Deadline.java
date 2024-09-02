@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 public class Deadline extends Task {
@@ -42,7 +43,7 @@ public class Deadline extends Task {
                 this.date = by.split(", ")[0];
                 this.time = by.split(", ")[1];
             }
-        } catch (ParseException e) {
+        } catch (ParseException | DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             throw e;
         }
     }

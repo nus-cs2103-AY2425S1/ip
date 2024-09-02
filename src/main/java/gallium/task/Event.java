@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 public class Event extends Task {
@@ -29,6 +30,10 @@ public class Event extends Task {
                 SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
                 Date time24 = inputTime.parse(from.split(" ")[1]);
                 this.fromTime = outputTime.format(time24);
+                String toDateString = to.split(" ")[0];
+                this.toDate = LocalDate.parse(toDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                time24 = inputTime.parse(to.split(" ")[1]);
+                this.toTime = outputTime.format(time24);
             } else if (description.startsWith("[E][ ] ")) {
                 String[] parts = description.split("\\[E\\]\\[ \\] ");
                 this.desc = parts[1].split(" \\(from:")[0];
@@ -54,7 +59,7 @@ public class Event extends Task {
                 this.toDate = to.split(", ")[0];
                 this.toTime = to.split(", ")[1];
             }
-        } catch (ParseException e) {
+        } catch (ParseException | DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             throw e;
         }
 
