@@ -39,3 +39,9 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+mainClassName = 'samson.Samson'
+
+shadowJar {
+    archiveFileName = 'samson.jar'
+}
