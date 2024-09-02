@@ -40,7 +40,7 @@ public class Duck {
     }
 
     public static void main(String[] args) {
-        String filePath = "../data/duck.txt";
+        String filePath = "data/duck.txt";
         new Duck(filePath).run();
     }
 }
