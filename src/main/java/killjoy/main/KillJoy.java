@@ -118,6 +118,8 @@ public class KillJoy {
             } else if (inputAsList[0].equals("mark") || inputAsList[0].equals("unmark")
                     || inputAsList[0].equals("delete")) {
                 processTasks.markOrDelete(input);
+            } else if (inputAsList[0].equals("find")) {
+                processTasks.findTask(input, this.taskList);
             } else {
                 processTasks.processUserInput(input);
             }
