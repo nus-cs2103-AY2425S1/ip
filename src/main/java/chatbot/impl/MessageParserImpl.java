@@ -1,5 +1,7 @@
 package chatbot.impl;
 
+import java.util.List;
+
 import chatbot.MessageParser;
 import chatbot.Task;
 import chatbot.TaskStorage;
@@ -48,6 +50,7 @@ public class MessageParserImpl implements MessageParser {
             case "deadline" -> handleDeadline(inputParts);
             case "event" -> handleEvent(inputParts);
             case "delete" -> handleDelete(inputParts);
+            case "find" -> handleFind(inputParts);
             default -> throw new InvalidMessageException("Sorry, I don't recognize that command. :(");
         };
     }
@@ -178,6 +181,34 @@ public class MessageParserImpl implements MessageParser {
             return String.format("Sure. Task deleted:\n%s\n%d tasks in the list.", task, storage.getSize());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidMessageException("Sorry, delete needs a numerical task index. :(");
+        }
+    }
+
+    /**
+     * Handles the 'find' command to remove a task.
+     *
+     * @param inputParts The split input containing the command and command body.
+     * @return A string representation of all the tasks that include the keywords.
+     * @throws InvalidMessageException If keyword(s) is/are missing.
+     */
+    private String handleFind(String[] inputParts) throws InvalidMessageException {
+        try {
+            String keyword = inputParts[1];
+            List<Task> matchingTasks = storage.findTasks(keyword);
+
+            if (matchingTasks.isEmpty()) {
+                return "No matching tasks found.";
+            }
+
+            StringBuilder stringBuilder = new StringBuilder("Here are the matching tasks:\n");
+            int index = 1;
+            for (Task matchingTask : matchingTasks) {
+                stringBuilder.append(index).append(". ").append(matchingTask.toString()).append("\n");
+                index++;
+            }
+            return stringBuilder.toString().trim();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidMessageException("Sorry, please give keyword(s) to search for. :(");
         }
     }
 

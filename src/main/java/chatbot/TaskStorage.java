@@ -1,5 +1,7 @@
 package chatbot;
 
+import java.util.List;
+
 /**
  * Represents storage system for managing tasks.
  */
@@ -47,5 +49,13 @@ public interface TaskStorage {
      * @param taskIdx The index of the task to delete.
      */
     void deleteTask(int taskIdx);
+
+    /**
+     * Finds tasks containing the given keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A list of tasks that match the keyword.
+     */
+    List<Task> findTasks(String keyword);
 
 }
