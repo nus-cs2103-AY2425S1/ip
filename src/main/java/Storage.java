@@ -40,7 +40,7 @@ public class Storage {
                 switch (type) {
                     case "T":
 
-                        Todo todo = new Todo(info);
+                        Todo todo = new Todo(des);
                         if (Objects.equals(marked, "1")) {
                             todo.setDone();
                         }
@@ -75,51 +75,6 @@ public class Storage {
                         break;
                 }
 
-//        if (file.exists()) {
-//            Scanner saveScanner = new Scanner(file);
-//            while (saveScanner.hasNextLine()) {
-//                String input = saveScanner.nextLine();
-//                String[] parts = input.split("\\|");
-//
-//                String type = parts[0];
-//                String marked = parts[1];
-//                String info = parts[2];
-//
-//                switch (type) {
-//                    case "T":
-//                        Todo todo = new Todo(info);
-//                        if (marked.equals("1")) {
-//                            todo.setDone();
-//                        }
-//                        tasks.add(todo);
-//                        break;
-//                    case "D":
-//                        String[] deadlineDetails = info.split(" /by ", 2);
-//                        if (deadlineDetails.length == 2) {
-//                            Deadline deadlineTask = new Deadline(deadlineDetails[0], deadlineDetails[1]);
-//                            if (marked.equals("1")) {
-//                                deadlineTask.setDone();
-//                            }
-//                            tasks.add(deadlineTask);
-//                        }
-//                        break;
-//                    case "E":
-//                        String[] eventDetails = info.split(" /from ", 2);
-//                        if (eventDetails.length == 2) {
-//                            String[] times = eventDetails[1].split(" /to ", 2);
-//                            if (times.length == 2) {
-//                                Events eventTask = new Events(eventDetails[0], times[0], times[1]);
-//                                if (marked.equals("1")) {
-//                                    eventTask.setDone();
-//                                }
-//                                tasks.add(eventTask);
-//                            }
-//                        }
-//                        break;
-//                }
-//            }
-//        }
-//        return tasks;
             }
         }
         return tasks;

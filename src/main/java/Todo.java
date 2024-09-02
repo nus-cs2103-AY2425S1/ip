@@ -15,6 +15,6 @@ public class Todo extends Task{
 
     @Override
     public String getAdd() {
-        return "";
+        return " ";
     }
 }
