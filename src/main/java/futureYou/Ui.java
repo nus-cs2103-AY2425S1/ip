@@ -1,18 +1,16 @@
 package futureYou;
 
-import java.util.ArrayList;
-
 import java.util.Scanner;
 
-import futureYou.task.Task;
+import futureYou.TaskList;
+import futureYou.Parser;
 
 /**
  * The Ui class handles all interactions with the user.
  */
 public class Ui {
 
-    private final Scanner scannerInput;
-    static ArrayList<Task> taskList = new ArrayList<Task>();
+    private Scanner scannerInput;
 
     private final static String LOGO = " _____      _                   __   __          \n"
             + "|  ___|   _| |_ _   _ _ __ ___  \\ \\ / /__  _   _ \n"
