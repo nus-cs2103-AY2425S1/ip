@@ -3,6 +3,10 @@ class Todo extends Task {
         super(task);
     }
 
+    Todo(int status, String task) {
+        super(status, task);
+    }
+
     public String toString() {
         return "[T]" + super.toString();
     }

@@ -6,6 +6,11 @@ class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    Deadline(int status, String task, String deadline) {
+        super(status, task);
+        this.deadline = deadline;
+    }
+
     public String toString() {
         return "[D]" + super.toString() + " (by:" + this.deadline + ")";
     }
