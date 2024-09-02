@@ -1,3 +1,5 @@
+package bigdog;
+
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;

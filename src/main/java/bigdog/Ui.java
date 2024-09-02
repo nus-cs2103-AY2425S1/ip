@@ -1,3 +1,5 @@
+package bigdog;
+
 import java.util.Scanner;
 
 public class Ui {

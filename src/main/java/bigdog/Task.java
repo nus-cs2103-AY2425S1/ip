@@ -1,3 +1,5 @@
+package bigdog;
+
 public abstract class Task {
 
     private boolean marked;

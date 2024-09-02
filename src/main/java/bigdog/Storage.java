@@ -1,3 +1,5 @@
+package bigdog;
+
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.BufferedWriter;

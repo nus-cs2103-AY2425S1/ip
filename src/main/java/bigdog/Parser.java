@@ -1,3 +1,5 @@
+package bigdog;
+
 public class Parser {
 
     // [command, description, start date, end date]
