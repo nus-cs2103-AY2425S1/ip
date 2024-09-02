@@ -54,6 +54,15 @@ public class TaskList {
         tasks.remove(task);
     }
 
+    public List<Task> find(String description) {
+        List<Task> matchedTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(description)) {
+                matchedTasks.add(task);
+            }
+        }
+        return matchedTasks;
+    }
     /**
      * Returns the task at the specified index of the TaskList.
      *

@@ -25,6 +25,7 @@ public class Ui {
      * @param size The size of the task list.
      */
     public void showTaskAdded(Task task, int size) {
+        System.out.println("____________________________________________________________\n");
         System.out.println("Got it. I've added this task:\n " + task);
         System.out.println("Now you have " + size + " tasks in the list." +
                 "\n____________________________________________________________\n");
@@ -34,7 +35,9 @@ public class Ui {
      * Displays message when task list is empty.
      */
     public void showListEmpty() {
-        System.out.println("List is Empty! Add tasks to list.");
+        System.out.println("____________________________________________________________\n"
+                + "List is Empty! Add tasks to list.\n"
+                + "\n____________________________________________________________\n");
     }
 
     /**
@@ -43,11 +46,13 @@ public class Ui {
      * @param list The Task list.
      */
     public void showTasks(List<Task> list) {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("____________________________________________________________\n"
+                + "Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
             System.out.println((i + 1) + ". " + task.toString());
         }
+        System.out.println("____________________________________________________________\n");
     }
 
     /**
@@ -55,6 +60,7 @@ public class Ui {
      * @param task The task to mark.
      */
     public void showTaskMarked(Task task) {
+        System.out.println("____________________________________________________________\n");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString() +
                 "\n____________________________________________________________\n");
@@ -65,6 +71,7 @@ public class Ui {
      * @param task The task to unmark.
      */
     public void showTaskUnmarked(Task task) {
+        System.out.println("____________________________________________________________\n");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task.toString() +
                 "\n____________________________________________________________\n");
@@ -77,12 +84,26 @@ public class Ui {
      * @param size The size of the task list.
      */
     public void showTaskRemoved(Task task, int size) {
+        System.out.println("____________________________________________________________\n");
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + size + " tasks in the list." +
                 "\n____________________________________________________________\n");
     }
 
+    public void showMatchedTasks(List<Task> matchedTasks) {
+        System.out.println("____________________________________________________________\n");
+        if(matchedTasks.isEmpty()) {
+            System.out.println("No tasks found with matching description.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchedTasks.size(); i++) {
+                Task task = matchedTasks.get(i);
+                System.out.println((i + 1) + ". " + task.toString());
+            }
+        }
+        System.out.println("____________________________________________________________\n");
+    }
     /**
      * Displays the goodbye message.
      */
