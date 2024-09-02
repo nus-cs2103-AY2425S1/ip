@@ -33,6 +33,6 @@ public class Deadline extends Task {
 
     @Override
     public String print() {
-        return super.print() + "(by: " + this.getDeadline() + ")";
+        return super.print() + " (by: " + this.getDeadline() + ")";
     }
 }
