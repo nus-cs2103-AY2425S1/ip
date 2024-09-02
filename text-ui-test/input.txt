@@ -3,6 +3,7 @@ check
 uncheck
 list
 date
+find
 delete
 add
 idk
@@ -59,6 +60,5 @@ delete
 delete
 5
 1
-list
 delete
 bye

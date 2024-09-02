@@ -11,7 +11,7 @@ public class UnknownCommandException extends Exception {
                 add: add a new item to your list of tasks.
                 check: check off an item to your list of tasks.
                 uncheck: uncheck an item to your list of tasks.
-                delete: delete an item from your list of tasks
+                delete: delete an item from your list of tasks.
                 list: print out your list of tasks.
                 date: print out deadlines and events that occur on a specified date.
                 find: print out tasks that contain a specified keyword.

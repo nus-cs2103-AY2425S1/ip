@@ -34,7 +34,8 @@ public final class Ui {
     private static final String PROMPT_TASK_DESCRIPTION = "Enter the description of the task.";
     private static final String PROMPT_TASK_NUMBER = "Enter the task number.";
     private static final String PROMPT_TASK_TYPE = "Enter the type of task you wish to add to your list.";
-    private static final String SPACER = "____________________________________________________________________\n";
+    private static final String SPACER =
+            "________________________________________________________________________________\n";
     private final Parser PARSER;
     private boolean hasCalledExitCommand;
 
@@ -230,6 +231,7 @@ public final class Ui {
                     print(PROMPT_TASK_NUMBER);
                     result = PARSER.getTaskNumber();
                     if (taskList.isOutOfBounds(result)) {
+                        result = -1;
                         print(MESSAGE_NOT_A_VALID_NUMBER_ERROR);
                     }
                 } catch (NumberFormatException e) {
