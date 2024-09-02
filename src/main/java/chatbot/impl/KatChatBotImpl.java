@@ -1,10 +1,10 @@
 package chatbot.impl;
 
+import java.util.Scanner;
+
 import chatbot.ChatBot;
 import chatbot.MessageParser;
 import chatbot.exceptions.InvalidMessageException;
-
-import java.util.Scanner;
 
 /**
  * Implements the ChatBot interface representing a chatbot named Kat.

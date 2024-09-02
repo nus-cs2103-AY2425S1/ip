@@ -1,14 +1,5 @@
 package chatbot.impl;
 
-import chatbot.Task;
-import chatbot.TaskStorage;
-import chatbot.exceptions.InvalidMessageException;
-import chatbot.impl.tasks.DeadlineTask;
-import chatbot.impl.tasks.EventTask;
-import chatbot.impl.tasks.TodoTask;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.any;
@@ -17,6 +8,16 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import chatbot.Task;
+import chatbot.TaskStorage;
+import chatbot.exceptions.InvalidMessageException;
+import chatbot.impl.tasks.DeadlineTask;
+import chatbot.impl.tasks.EventTask;
+import chatbot.impl.tasks.TodoTask;
 
 public class MessageParserImplTest {
 

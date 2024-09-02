@@ -1,10 +1,11 @@
 package chatbot.impl.tasks;
 
-import chatbot.Task;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import chatbot.Task;
 
 public class AbstractTaskTest {
 

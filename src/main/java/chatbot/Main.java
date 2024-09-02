@@ -1,10 +1,10 @@
 package chatbot;
 
+import java.util.Scanner;
+
 import chatbot.impl.KatChatBotImpl;
 import chatbot.impl.MessageParserImpl;
 import chatbot.impl.TaskStorageImpl;
-
-import java.util.Scanner;
 
 public class Main {
 

@@ -1,9 +1,9 @@
 package chatbot.impl.tasks;
 
-import chatbot.exceptions.InvalidMessageException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import chatbot.exceptions.InvalidMessageException;
 
 /**
  * Represents a task with a deadline.
