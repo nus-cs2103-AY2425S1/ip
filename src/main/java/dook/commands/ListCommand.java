@@ -12,15 +12,18 @@ import dook.ui.Ui;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
         ui.separate();
+        String message = "";
         if (tasks.isEmpty()) {
             throw new DookException("No tasks");
         } else {
             for (int i = 0; i < tasks.numOfTasks(); i++) {
                 ui.showMessage((i + 1) + ". " + tasks.getTask(i));
+                message = message.concat((i + 1) + ". " + tasks.getTask(i) + "\n");
             }
         }
         ui.separate();
+        return message;
     }
 }

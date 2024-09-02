@@ -64,7 +64,7 @@ public class CreateCommand extends Command {
         this.type = type;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
         if (this.description.isEmpty()) {
             throw new DookException("Need a description for your task");
         } else if (type == TaskType.DEADLINE && this.by.isEmpty()) {
@@ -102,6 +102,9 @@ public class CreateCommand extends Command {
             ui.showMessage(task.toString());
             ui.showMessage("Now you have " + tasks.numOfTasks() + " tasks in the list");
             ui.separate();
+
+            return "Got it. I've added this task:\n" + task.toString() + "\nNow you have"
+                    + tasks.numOfTasks() + " tasks in the list";
         } catch (DateTimeParseException e) {
             throw new DookException("Invalid date format. Enter your date in dd/MM/yyyy HH:mm format");
         }

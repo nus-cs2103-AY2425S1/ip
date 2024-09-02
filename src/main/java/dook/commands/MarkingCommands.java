@@ -22,18 +22,23 @@ public class MarkingCommands extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DookException, IOException {
         Task task = tasks.getTask(taskNumber - 1);
         ui.separate();
+        String message;
         if (this.isMarked) {
             task.markAsDone();
-            ui.showMessage("Nice! I've marked this task as done:");
+            message = "Nice! I've marked this task as done:";
+            ui.showMessage(message);
         } else {
             task.unmark();
-            ui.showMessage("Ok, I've marked this task as not done yet:");
+            message = "Ok, I've marked this task as not done yet:";
+            ui.showMessage(message);
         }
         storage.write(tasks);
+        message = message.concat("\n" + task.toString());
         ui.showMessage(task.toString());
         ui.separate();
+        return message;
     }
 }
