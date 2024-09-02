@@ -12,9 +12,9 @@ import java.util.Scanner;
 import Commands.Command;
 
 public class Brock {
-    private final Ui UI = new Ui();
-    private final Storage STORAGE = new Storage();
-    private final Parser PARSER = new Parser();
+    private static final Ui UI = new Ui();
+    private static final Storage STORAGE = new Storage();
+    private static final Parser PARSER = new Parser();
 
     public void run() {
         // Create a scanner object
