@@ -5,8 +5,14 @@ public class Parser {
         this.tasks = tasks;
     }
 
-
-    // Process user's input accordingly and return feedback to user
+    /**
+     * Parses user's input and carries out actions corresponding to their command.
+     * If the command is invalid or used incorrectly, a  MichaelException is thrown.
+     *
+     * @param input User input to chatbot that needs to be processed.
+     * @return Feedback to user on operation carried out.
+     * @throws MichaelException If an invalid command is entered or an existing command is used incorrectly.
+     */
     public String parse(String input) throws MichaelException {
         if (input.length() >= 4 && input.substring(0, 4).equals("mark")) { // mark a task as done
             if (input.length() < 6) { // no number given to mark

@@ -12,11 +12,16 @@ public class Ui {
         System.out.println(error);
     }
 
+    /**
+     * Prints feedback to user in formatted manner.
+     *
+     * @param feedback Feedback to user about the operations carried out.
+     */
     public void feedback(String feedback) {
         printer(feedback);
     }
 
-    private void printer(String text) { // Function to help print each interaction
+    private void printer(String text) {
         System.out.println(BORDER);
         System.out.println(text);
         System.out.println(BORDER);
