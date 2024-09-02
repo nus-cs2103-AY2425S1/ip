@@ -1,5 +1,7 @@
+package exception;
+
 public class StorageException extends ToMoException {
-    StorageException(String message) {
+    public StorageException(String message) {
         super(message);
     }
 

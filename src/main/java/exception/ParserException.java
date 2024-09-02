@@ -1,3 +1,5 @@
+package exception;
+
 public class ParserException extends ToMoException {
     public ParserException(String message) {
         super(message);

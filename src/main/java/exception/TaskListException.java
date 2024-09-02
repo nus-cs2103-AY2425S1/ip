@@ -1,5 +1,7 @@
+package exception;
+
 public class TaskListException extends ToMoException {
-    TaskListException(String message) {
+    public TaskListException(String message) {
         super(message);
     }
 

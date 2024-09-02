@@ -1,16 +1,18 @@
+package task;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
-    Event(String description, LocalDateTime start, LocalDateTime end) {
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
     }
 
-    Event(String description, String start, String end) {
+    public Event(String description, String start, String end) {
         this(description, Converter.InputToDateTime(start), Converter.InputToDateTime(end));
     }
 
