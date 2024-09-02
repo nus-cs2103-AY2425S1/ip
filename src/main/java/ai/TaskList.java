@@ -62,7 +62,7 @@ public class TaskList {
                 Deadline tempDeadline = (Deadline) temp;
 
                 if (tempDeadline.isEqual(date)) {
-                    list += temp;
+                    list += temp + "\n";
                 }
             }
         }
