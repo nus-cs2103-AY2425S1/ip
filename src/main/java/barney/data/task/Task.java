@@ -28,7 +28,7 @@ public class Task {
      * Returns the status icon of the task.
      *
      * @return The status icon of the task. Returns "X" if the task is marked as
-     * done, otherwise returns a space character.
+     *         done, otherwise returns a space character.
      */
     public String getStatusIcon() {
         return (isMarked ? "X" : " "); // mark done task with X

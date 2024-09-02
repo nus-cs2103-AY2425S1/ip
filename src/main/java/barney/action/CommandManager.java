@@ -33,8 +33,7 @@ public class CommandManager {
      *
      * @param commandType The type of command to be parsed.
      * @param line        The input line to be parsed.
-     * @return A HashMap containing the parsed command and its corresponding
-     * arguments.
+     * @return A HashMap containing the parsed command and its corresponding arguments.
      */
     private HashMap<String, String> parseArgument(CommandType commandType, String line) {
         HashMap<String, String> commandMap = new HashMap<String, String>();
@@ -106,7 +105,7 @@ public class CommandManager {
         TODO("todo", "^todo\\s+.+\\s*", TodoCommand.class, "description"),
         DEADLINE("deadline", "^deadline\\s+.+\\s+/by\\s+.+\\s*$", DeadlineCommand.class, "description", "by"),
         EVENT("event", "^event\\s+.+\\s+/from\\s+.+\\s+/to\\s+.+\\s*$", EventCommand.class, "description", "from",
-            "to"),
+                "to"),
         DELETE("delete", "^delete\\s+\\d+\\s*$", DeleteCommand.class, "index"),
         FIND("find", "^find\\s+.+\\s*$", FindCommand.class, "keyword"), BYE("bye", "^bye\\s*$", EndCommand.class);
 

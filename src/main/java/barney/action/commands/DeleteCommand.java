@@ -30,8 +30,7 @@ public class DeleteCommand extends Command {
      * @param tasks The task list from which the task will be deleted.
      * @param ui    The user interface to display the result of the delete
      *              operation.
-     * @return {@code true} if the delete command is executed successfully,
-     * {@code false} otherwise.
+     * @return {@code true} if the delete command is executed successfully, {@code false} otherwise.
      * @throws InvalidArgumentException If the index of the task to delete is out of
      *                                  range.
      */

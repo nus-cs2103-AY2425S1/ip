@@ -30,8 +30,7 @@ public abstract class Command {
      *
      * @param tasks The task list to be modified by the command.
      * @param ui    The user interface to interact with the user.
-     * @return {@code true} if the command is executed successfully, {@code false}
-     * otherwise.
+     * @return {@code true} if the command is executed successfully, {@code false} otherwise.
      * @throws InvalidArgumentException if there is an invalid argument passed to
      *                                  the command.
      */
