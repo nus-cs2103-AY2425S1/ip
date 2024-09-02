@@ -1,5 +1,17 @@
 package rizzler.ui.parser;
 
+import rizzler.command.Command;
+import rizzler.command.DeadlineCommand;
+import rizzler.command.DeleteCommand;
+import rizzler.command.EndCommand;
+import rizzler.command.EventCommand;
+import rizzler.command.HelpCommand;
+import rizzler.command.ListCommand;
+import rizzler.command.MarkCommand;
+import rizzler.command.NullCommand;
+import rizzler.command.TodoCommand;
+import rizzler.command.UnmarkCommand;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +25,7 @@ public class Parser {
     private final Scanner scanner;
 
 
-    Parser() {
+    public Parser() {
         inputLog = new ArrayList<>();
         scanner = new Scanner(System.in);
     }

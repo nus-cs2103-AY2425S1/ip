@@ -1,7 +1,13 @@
 package rizzler.command;
 
+import rizzler.Storage;
+import rizzler.task.Task;
+import rizzler.task.TaskLog;
+import rizzler.ui.RizzlerSpeech;
+
 public class ListCommand extends Command {
-    ListCommand() {
+
+    public ListCommand() {
         super();
     }
 

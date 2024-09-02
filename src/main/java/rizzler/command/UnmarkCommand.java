@@ -1,7 +1,7 @@
 package rizzler.command;
 
 import rizzler.Storage;
-import rizzler.TaskLog;
+import rizzler.task.TaskLog;
 
 import rizzler.task.Task;
 

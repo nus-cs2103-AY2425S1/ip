@@ -1,14 +1,17 @@
 package rizzler;
 
-import rizzler.task.Task;
+import rizzler.task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.time.format.DateTimeParseException;
+
 import java.util.Scanner;
 
 /**
@@ -18,7 +21,7 @@ public class Storage {
     private static final Path STORAGE_PATH = Paths.get( "taskStorage", "taskLog.tsv");
     private File file;
 
-    Storage() {
+    protected Storage() {
         File file = new File(STORAGE_PATH.toString());
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
@@ -102,6 +105,4 @@ public class Storage {
         }
         return newTask;
     }
-
-
 }

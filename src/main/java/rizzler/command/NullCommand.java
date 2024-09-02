@@ -1,8 +1,12 @@
 package rizzler.command;
 
+import rizzler.Storage;
+import rizzler.task.TaskLog;
+import rizzler.ui.RizzlerSpeech;
+
 public class NullCommand extends Command {
 
-    NullCommand(String string) {
+    public NullCommand(String string) {
         super(string);
     }
 

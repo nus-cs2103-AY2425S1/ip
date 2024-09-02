@@ -1,9 +1,14 @@
 package rizzler.command;
 
+import rizzler.Storage;
+import rizzler.task.Deadline;
+import rizzler.task.TaskLog;
+import rizzler.ui.RizzlerSpeech;
+
 public class DeadlineCommand extends Command {
     private final Deadline deadline;
 
-    DeadlineCommand(String deadlineDesc, String deadlineTime) {
+    public DeadlineCommand(String deadlineDesc, String deadlineTime) {
         super();
         this.deadline = new Deadline(deadlineDesc, deadlineTime);
     }

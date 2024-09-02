@@ -1,5 +1,7 @@
 package rizzler.task;
 
+import rizzler.ui.parser.DateTimeParser;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -8,18 +10,18 @@ import java.time.format.DateTimeParseException;
  * that it should be finished by.
  */
 public class Deadline extends Task {
-    private LocalDate deadlineTime;
+    private final LocalDate deadlineTime;
 
     /**
      * Create a <code>Deadline</code> object.
      * @param deadlineDesc <code>String</code> describing the deadline task.
      * @param deadlineTime <code>String</code> describing the time/date of the deadline.
      */
-    Deadline(String deadlineDesc, String deadlineTime) {
+    public Deadline(String deadlineDesc, String deadlineTime) {
         this(deadlineDesc, deadlineTime, false);
     }
 
-    Deadline(String deadlineDesc, String deadlineTime, boolean isDone) throws DateTimeParseException {
+    public Deadline(String deadlineDesc, String deadlineTime, boolean isDone) throws DateTimeParseException {
         super(deadlineDesc, isDone);
         this.deadlineTime = DateTimeParser.to_datetime(deadlineTime);
     }

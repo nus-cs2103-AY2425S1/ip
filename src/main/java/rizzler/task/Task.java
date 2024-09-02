@@ -4,11 +4,11 @@ public abstract class Task {
     private String description;
     private boolean isDone;
 
-    Task(String description) {
+    protected Task(String description) {
         this(description, false);
     }
 
-    Task(String description, boolean isDone) {
+    protected Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }

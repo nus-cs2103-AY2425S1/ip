@@ -1,9 +1,14 @@
 package rizzler.command;
 
+import rizzler.Storage;
+import rizzler.task.Event;
+import rizzler.task.TaskLog;
+import rizzler.ui.RizzlerSpeech;
+
 public class EventCommand extends Command {
     private final Event event;
 
-    EventCommand(String eventDesc, String eventStart, String eventEnd) {
+    public EventCommand(String eventDesc, String eventStart, String eventEnd) {
         super();
         this.event = new Event(eventDesc, eventStart, eventEnd);
     }

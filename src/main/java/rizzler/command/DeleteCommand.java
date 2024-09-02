@@ -1,9 +1,15 @@
 package rizzler.command;
 
+import rizzler.Storage;
+import rizzler.task.Task;
+import rizzler.task.TaskLog;
+import rizzler.ui.RizzlerException;
+import rizzler.ui.RizzlerSpeech;
+
 public class DeleteCommand extends Command {
     private final int taskToDelete;
 
-    DeleteCommand(int commandToDelete) {
+    public DeleteCommand(int commandToDelete) {
         super();
         this.taskToDelete = commandToDelete;
     }
