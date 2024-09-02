@@ -30,11 +30,12 @@ public class FindCommand extends Command {
      * containing the specified description and displays the results.
      *
      * @param taskList The list of tasks to search through.
-     * @param ui The UI instance to handle user interactions.
-     * @param storage The storage instance for managing task data (not used in this method).
+     * @param ui       The UI instance to handle user interactions.
+     * @param storage  The storage instance for managing task data (not used in this method).
+     * @return A string message that shows the list of tasks with the specified description.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         TaskList list = new TaskList();
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.getTask(i);
@@ -43,9 +44,9 @@ public class FindCommand extends Command {
             }
         }
         if (list.size() == 0) {
-            ui.showEmptyFind();
+            return ui.showEmptyFind();
         } else {
-            ui.listItems(list);
+            return ui.listItems(list);
         }
     }
 }

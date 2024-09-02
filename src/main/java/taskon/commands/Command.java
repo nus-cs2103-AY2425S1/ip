@@ -24,7 +24,7 @@ public abstract class Command {
      * @param ui The user interface that handles output and user interactions.
      * @param storage The storage that handles data persistence.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 
     /**
      * Determines if the command signifies an exit operation.

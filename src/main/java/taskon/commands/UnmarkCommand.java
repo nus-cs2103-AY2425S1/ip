@@ -33,19 +33,20 @@ public class UnmarkCommand extends Command {
      * </p>
      *
      * @param taskList The list of tasks where the task will be unmarked as not done.
-     * @param ui The user interface that handles the display of messages to the user.
-     * @param storage The storage that handles saving the updated task list.
+     * @param ui       The user interface that handles the display of messages to the user.
+     * @param storage  The storage that handles saving the updated task list.
+     * @return A string message that confirms the unmarking of a task.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.getTask(this.index).markAsUndone();
-            ui.unmark(taskList.getTask(this.index));
             storage.saveTasks(taskList);
+            return ui.unmark(taskList.getTask(this.index));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("You only have " + taskList.size() + " tasks!\n");
+            return "You only have " + taskList.size() + " tasks!\n";
         } catch (TaskonException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 }

@@ -33,11 +33,12 @@ public class OnCommand extends Command {
      * </p>
      *
      * @param taskList The list of tasks to be filtered by date.
-     * @param ui The user interface that handles the display of the filtered tasks.
-     * @param storage The storage (not used in this command).
+     * @param ui       The user interface that handles the display of the filtered tasks.
+     * @param storage  The storage (not used in this command).
+     * @return A string message that displays a list of task that occurs on a specified date.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showTasksOnDate(date, taskList);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showTasksOnDate(date, taskList);
     }
 }

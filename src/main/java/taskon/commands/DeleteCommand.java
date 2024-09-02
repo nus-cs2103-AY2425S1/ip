@@ -42,20 +42,21 @@ public class DeleteCommand extends Command {
      * </p>
      *
      * @param taskList The list of tasks from which the task will be deleted.
-     * @param ui The user interface that handles the display of messages to the user.
-     * @param storage The storage that handles saving the updated task list.
+     * @param ui       The user interface that handles the display of messages to the user.
+     * @param storage  The storage that handles saving the updated task list.
+     * @return A string message that confirms the deletion of the task.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             Task task = taskList.getTask(index);
             taskList.deleteTask(index);
-            ui.showDeleted(task, taskList.size());
             storage.saveTasks(taskList);
+            return ui.showDeleted(task, taskList.size());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("You only have " + taskList.size() + " tasks!\n");
+            return "You only have " + taskList.size() + " tasks!\n";
         } catch (NumberFormatException e) {
-            System.out.println("Invalid Integer Input!\n");
+            return "Invalid Integer Input!\n";
         }
     }
 }

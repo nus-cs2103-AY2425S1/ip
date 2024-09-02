@@ -20,8 +20,6 @@ import taskon.task.TaskList;
  * It is responsible for reading user inputs and displaying messages to the user.
  */
 public class Ui {
-    private static final String LS = System.lineSeparator();
-    private static final String DIVIDER = "_________________________________________";
 
     private final Scanner in;
     private final PrintStream out;
@@ -44,139 +42,110 @@ public class Ui {
         this.out = out;
     }
 
+
     /**
-     * Returns true if the user input line should be ignored.
-     * Input should be ignored if it is only whitespace, or is empty.
-     *
-     * @param input full raw user input line.
-     * @return true if the entire user input line should be ignored.
+     * Returns a greeting message to the user.
      */
-    private boolean toIgnore(String input) {
-        return input.trim().isEmpty();
+    public String greet() {
+        return MESSAGE_GREETING;
     }
 
     /**
-     * Reads a line of user input, ignoring any empty or whitespace-only input.
-     *
-     * @return The user input line as a String.
+     * Returns an exit message to the user.
      */
-    public String readCommand() {
-        String inputString = in.nextLine();
-        while (toIgnore(inputString)) {
-            inputString = in.nextLine();
-        }
-
-        return inputString;
+    public String exit() {
+        return MESSAGE_EXIT;
     }
 
     /**
-     * Displays a greeting message to the user.
-     */
-    public void greet() {
-        out.println(MESSAGE_GREETING);
-    }
-
-    /**
-     * Displays an exit message to the user.
-     */
-    public void exit() {
-        out.println(MESSAGE_EXIT);
-    }
-
-    /**
-     * Displays the list of tasks to the user.
+     * Returns the list of tasks to the user.
      *
      * @param tasks The list of tasks to display.
      */
-    public void listItems(TaskList tasks) {
-        out.println("Here's what we've got on your to-do list:");
+    public String listItems(TaskList tasks) {
+        String s = "Here's what we've got on your to-do list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.getTask(i);
-            System.out.println(i + 1 + "." + t.toString());
+            s = s + (i + 1) + ". " + t.toString() + "\n";
         }
+        return s;
     }
 
     /**
-     * Displays a message indicating that a task has been marked as done.
+     * Returns a message indicating that a task has been marked as done.
      *
      * @param task The task that has been marked as done.
      */
-    public void mark(Task task) {
-        out.println(MESSAGE_MARK + task + LS);
+    public String mark(Task task) {
+        return MESSAGE_MARK + task;
     }
 
     /**
-     * Displays a message indicating that a task has been unmarked.
+     * Returns a message indicating that a task has been unmarked.
      *
      * @param task The task that has been unmarked.
      */
-    public void unmark(Task task) {
-        out.println(MESSAGE_UNMARK + task + LS);
+    public String unmark(Task task) {
+        return MESSAGE_UNMARK + task;
     }
 
     /**
-     * Displays tasks that occur on a specified date.
+     * Returns tasks that occur on a specified date.
      *
      * @param date The date to search for tasks.
      * @param tasks The list of tasks to search through.
      */
-    public void showTasksOnDate(String date, TaskList tasks) {
+    public String showTasksOnDate(String date, TaskList tasks) {
         LocalDate localDate = LocalDate.parse(date);
         boolean isFound = false;
-        out.println("Tasks on " + localDate + " :");
+        String s = "Tasks on " + localDate + " :\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.getTask(i);
             if (task.occursOn(localDate)) {
-                out.println(task);
+                s = s + task + "\n";
                 isFound = true;
             }
         }
         if (!isFound) {
-            out.println(MESSAGE_NO_TASKS);
+            return MESSAGE_NO_TASKS;
         }
+        return s;
     }
 
     /**
-     * Displays a message indicating that a task has been deleted.
+     * Returns a message indicating that a task has been deleted.
      *
      * @param task The task that has been deleted.
      * @param size The updated size of the task list.
      */
-    public void showDeleted(Task task, int size) {
-        out.println("Alright, I've removed this task:\n    " + task + "\nNow you have " + size + " tasks.\n");
+    public String showDeleted(Task task, int size) {
+        return "Alright, I've removed this task:\n    " + task + "\nNow you have " + size + " tasks.\n";
     }
 
     /**
-     * Displays a message indicating that a new task has been added.
+     * Returns a message indicating that a new task has been added.
      *
      * @param task The task that has been added.
      * @param size The updated size of the task list.
      */
-    public void showTaskAdded(Task task, int size) {
-        out.println("Got it! I've added this task:\n    " + task + "\nNow you have "
-                + size + " tasks in your list.\n");
+    public String showTaskAdded(Task task, int size) {
+        return "Got it! I've added this task:\n    " + task + "\nNow you have "
+                + size + " tasks in your list.\n";
     }
 
     /**
-     * Displays an error message to the user.
+     * Returns an error message to the user.
      *
      * @param message The error message to display.
      */
-    public void showError(String message) {
-        out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
-     * Displays a divider line to separate sections in the output.
+     * Returns a message indicating that no tasks were found for the search criteria.
      */
-    public void showLine() {
-        out.println(DIVIDER);
-    }
-
-    /**
-     * Displays a message indicating that no tasks were found for the search criteria.
-     */
-    public void showEmptyFind() {
-        out.println(MESSAGE_EMPTY_FIND);
+    public String showEmptyFind() {
+        return MESSAGE_EMPTY_FIND;
     }
 }

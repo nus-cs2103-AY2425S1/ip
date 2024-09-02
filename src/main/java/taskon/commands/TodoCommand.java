@@ -44,13 +44,15 @@ public class TodoCommand extends Command {
      * </p>
      *
      * @param taskList The list of tasks where the todo will be added.
-     * @param ui The user interface that handles the display of messages to the user.
-     * @param storage The storage that handles saving the updated task list.
+     * @param ui       The user interface that handles the display of messages to the user.
+     * @param storage  The storage that handles saving the updated task list.
+     * @return A string message that confirms the addition of the task to the task list, including
+     *     the total number of tasks in the list after the addition.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(task);
-        ui.showTaskAdded(task, taskList.size());
         storage.saveTasks(taskList);
+        return ui.showTaskAdded(task, taskList.size());
     }
 }
