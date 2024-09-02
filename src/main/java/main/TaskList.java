@@ -10,12 +10,12 @@ import java.util.ArrayList;
  * such as adding or deleting
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
 
     /**
      * Creates TaskList object with the given taskList by the Storage class
      * @param taskList ArrayList of type Task to be be used
      */
+    private final ArrayList<Task> taskList;
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
@@ -40,6 +40,10 @@ public class TaskList {
         System.out.println("________________________________");
     }
 
+    /**
+     * Displays the list of task where description contains the word
+     * @param word String to be found that exists in description of task
+     */
     public void searchTask(String word) {
         ArrayList<Task> foundTask = new ArrayList<>();
         for (Task i: taskList) {

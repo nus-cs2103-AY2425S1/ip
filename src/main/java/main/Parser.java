@@ -24,23 +24,30 @@ public class Parser {
      * @param response user input
      * @return whether the program continues to run
      */
-    public boolean parse(String response) {
-        String[] splited = response.split(" ",2);
-        if (splited[0].equals("todo") || splited[0].equals("event") || splited[0].equals("deadline")) {
-            handleAdd(splited);
-        } else if (splited[0].equals("list")) {
+    public boolean parse(String response) throws DukeException{
+        String[] splitResponse = response.split(" ",2);
+        switch (splitResponse[0]) {
+        case "todo", "event", "deadline":
+            handleAdd(splitResponse);
+            break;
+        case "list" :
             taskList.list();
-        } else if (splited[0].equals("mark")) {
-            handleMark(splited[1]);
-        } else if (splited[0].equals("unmark")) {
-            handleUnmark(splited[1]);
-        } else if (splited[0].equals("delete")) {
-            handleDelete(splited[1]);
-        } else if (splited[0].equals("find")) {
-            handleSearch(splited[1]);
-        } else if (splited[0].equals("bye")) {
+            break;
+        case "mark" :
+            handleMark(splitResponse[1]);
+            break;
+        case "unmark" :
+            handleUnmark(splitResponse[1]);
+            break;
+        case "delete" :
+            handleDelete(splitResponse[1]);
+            break;
+        case "find" :
+            handleSearch(splitResponse[1]);
+            break;
+        case "bye" :
             return handleBye();
-        } else {
+        default : {
             try {
                 throw new DukeException("I dont understand what you are trying to say :(");
             } catch (DukeException e) {
@@ -48,29 +55,29 @@ public class Parser {
                 System.out.println(e.getMessage() + "\n________________________________");
             }
         }
+        }
         return true;
     }
-
     /**
      * Handles addition of task into tasklist depending on the input
-     * @param splits details of the task
+     * @param splitResponse details of the task
      */
-    public void handleAdd(String[] splits) {
-        Task current = null;
+    public void handleAdd(String[] splitResponse) {
+        Task currentTask = null;
         try {
-            switch (splits[0]) {
-                case "todo":
-                    current = taskList.addTodo(splits[1]);
-                    ui.addMessage(current,taskList.size());
-                    break;
-                case "event":
-                    current = taskList.addEvent(splits[1]);
-                    ui.addMessage(current,taskList.size());
-                    break;
-                case "deadline":
-                    current = taskList.addDeadline(splits[1]);
-                    ui.addMessage(current,taskList.size());
-                    break;
+            switch (splitResponse[0]) {
+            case "todo":
+                currentTask = taskList.addTodo(splitResponse[1]);
+                ui.displayAddMessage(currentTask, taskList.size());
+                break;
+            case "event":
+                currentTask = taskList.addEvent(splitResponse[1]);
+                ui.displayAddMessage(currentTask, taskList.size());
+                break;
+            case "deadline":
+                currentTask = taskList.addDeadline(splitResponse[1]);
+                ui.displayAddMessage(currentTask, taskList.size());
+                break;
             }
         } catch (DukeException e) {
             System.out.println("________________________________");
@@ -78,6 +85,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the searching of word
+     * @param word String to be found
+     */
     public void handleSearch(String word) {
         taskList.searchTask(word);
     }
@@ -91,7 +102,7 @@ public class Parser {
         int index = Integer.parseInt(description) - 1;
         Task marked = taskList.mark(index);
         if (marked != null) {
-            ui.markedMessage(marked);
+            ui.displayMarkedMessage(marked);
         }
     }
 
@@ -103,7 +114,7 @@ public class Parser {
         int index = Integer.parseInt(description) - 1;
         Task unmarked = taskList.unmark(index);
         if (unmarked != null) {
-            ui.unmarkedMessage(unmarked);
+            ui.displayUnmarkedMessage(unmarked);
         }
     }
     /**
@@ -114,7 +125,7 @@ public class Parser {
         int index = Integer.parseInt(description) - 1;
         Task deleted = taskList.delete(index);
         if (deleted != null) {
-            ui.deletedMessage(deleted, taskList.size());
+            ui.displayDeletedMessage(deleted, taskList.size());
         }
     }
 
@@ -124,7 +135,7 @@ public class Parser {
      */
     public boolean handleBye() {
         this.storage.writeStorage(taskList.getTaskList());
-        ui.byeMessage();
+        ui.displayByeMessage();
         return false;
     }
 }
