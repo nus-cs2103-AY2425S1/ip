@@ -18,7 +18,6 @@ public class Beechat {
                 msg = sc.nextLine();
                 continue;
             }
-            task = new Task(msg);
             if ((msg.split(" "))[0].equals("mark")) {
                 j = Integer.valueOf((msg.split(" "))[1]) - 1;
                 list.get(j).mark();
@@ -33,8 +32,27 @@ public class Beechat {
                 msg = sc.nextLine();
                 continue;
             }
-            list.add(task);
-            System.out.println("added: " + msg);
+            if ((msg.split(" "))[0].equals("todo")) {
+                String description = (msg.split("todo "))[1];
+                task = new TodoTask(description);
+                list.add(task);
+                System.out.println("added: " + description);
+            }
+            if ((msg.split(" "))[0].equals("deadline")) {
+                String description = ((msg.split("deadline "))[1]).split("/by ")[0];
+                String by = (msg.split("/by "))[1];
+                task = new DeadlineTask(description, by);
+                list.add(task);
+                System.out.println("added: " + description);
+            }
+            if ((msg.split(" "))[0].equals("event")) {
+                String description = ((msg.split("event "))[1]).split("/from ")[0];
+                String from = (msg.split("/from "))[1].split("/to ")[0];
+                String to = (msg.split("/to "))[1];
+                task = new EventTask(description, from, to);
+                list.add(task);
+                System.out.println("added: " + description);
+            }
             msg = sc.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");

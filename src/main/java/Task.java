@@ -1,10 +1,9 @@
-public class Task {
+class Task {
     protected String description;
-    protected boolean isDone;
+    protected boolean isDone = false;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
     }
 
     public String getStatusIcon() {
@@ -13,12 +12,13 @@ public class Task {
 
     public void mark() {
         this.isDone = true;
-    }
+    } // mark task as done
 
     public void unmark() {
         this.isDone = false;
-    }
+    } // mark task as undone
 
+    @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
