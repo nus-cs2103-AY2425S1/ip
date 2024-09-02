@@ -1,17 +1,18 @@
 package applemazer;
 
-import commands.Command;
 import java.util.Scanner;
 
+import commands.Command;
 
 /**
  * Main class that runs the Applemazer chatbot.
  */
 public class Applemazer {
-    private final Ui ui;
+    protected static TaskList tasks;
+    protected static Scanner sc = new java.util.Scanner(System.in);
     private static Storage storage;
-    public static TaskList tasks;
-    public static Scanner sc = new Scanner(System.in);
+    private final Parser parser;
+    private final Ui ui;
 
     /**
      * Constructor for the Applemazer chatbot.
@@ -21,6 +22,7 @@ public class Applemazer {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
+        parser = new Parser(sc);
     }
 
     /**
@@ -30,14 +32,16 @@ public class Applemazer {
      */
     private void process() {
         ui.greeting();
-        boolean processing = true;
-        while (processing) {
-            if (!sc.hasNext()) { break; } // For automated testing of text UIs.
+        boolean isProcessing = true;
+        while (isProcessing) {
+            if (!sc.hasNext()) {
+                break;
+            } // For automated testing of text UIs.
             String command = sc.next();
             try {
-                Command c = Parser.parse(command);
+                Command c = parser.parse(command);
                 c.execute(tasks, storage);
-                processing = c.continueProcessing();
+                isProcessing = c.continueProcessing();
             } catch (Exception e) {
                 System.err.println(e.getMessage() + "\n"); // Catches parsing errors.
             }

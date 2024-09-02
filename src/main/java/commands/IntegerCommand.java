@@ -33,21 +33,23 @@ public class IntegerCommand extends Command {
         try {
             Task task = tasks.get(taskNumber);
             switch (command) {
-                case Mark :
-                    task.setDone();
-                    task.printTaskSetDoneMessage();
-                    storage.save();
-                    break;
-                case Unmark :
-                    task.setUndone();
-                    task.printTaskSetUndoneMessage();
-                    storage.save();
-                    break;
-                case Delete :
-                    tasks.remove(task);
-                    task.printTaskDeletedMessage();
-                    storage.save();
-                    break;
+            case Mark:
+                task.setDone();
+                task.printTaskSetDoneMessage();
+                storage.save();
+                break;
+            case Unmark:
+                task.setUndone();
+                task.printTaskSetUndoneMessage();
+                storage.save();
+                break;
+            case Delete:
+                tasks.remove(task);
+                task.printTaskDeletedMessage(tasks.size());
+                storage.save();
+                break;
+            default:
+                throw new IllegalStateException(); // This should never happen.
             }
         } catch (IndexOutOfBoundsException e) {
             if (tasks.isEmpty()) {
@@ -61,6 +63,8 @@ public class IntegerCommand extends Command {
                                                """, size, size);
                 System.err.println(message);
             }
+        } catch (IllegalStateException e) {
+            System.err.println(e.getMessage());
         }
     }
 

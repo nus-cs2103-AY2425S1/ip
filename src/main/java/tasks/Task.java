@@ -1,6 +1,5 @@
 package tasks;
 
-import applemazer.Applemazer;
 import java.io.Serializable;
 
 /**
@@ -74,18 +73,18 @@ public class Task implements Serializable {
     /**
      * Message printed when task is added to the task list.
      */
-    public void printTaskAddedMessage() {
+    public void printTaskAddedMessage(int size) {
         System.out.println("Got it. I've added this task: ");
         System.out.println("    " + this.getStatusIcon() + this);
-        System.out.println("Now you have " + Applemazer.tasks.size() + " tasks in the list. \n");
+        System.out.println("Now you have " + size + " tasks in the list. \n");
     }
 
     /**
      * Message printed when task is deleted from the task list.
      */
-    public void printTaskDeletedMessage() {
+    public void printTaskDeletedMessage(int size) {
         System.out.println("Noted. I've removed this task: ");
         System.out.println("    " + this.getStatusIcon() + this);
-        System.out.println("Now you have " + Applemazer.tasks.size() + " tasks in the list. \n");
+        System.out.println("Now you have " + size + " tasks in the list. \n");
     }
 }

@@ -1,7 +1,8 @@
 package applemazer;
 
-import tasks.Task;
 import java.util.ArrayList;
+
+import tasks.Task;
 
 /**
  * Class that abstracts a list of tasks.

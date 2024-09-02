@@ -1,7 +1,7 @@
 package commands;
 
-import applemazer.TaskList;
 import applemazer.Storage;
+import applemazer.TaskList;
 
 /**
  * Abstract class that represents a user command.
@@ -22,6 +22,9 @@ public abstract class Command {
      */
     public abstract boolean continueProcessing();
 
+    /**
+     * Represents commands that handle integer input.
+     */
     public enum IntegerCommands {
         Mark,
         Unmark,

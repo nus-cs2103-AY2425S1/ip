@@ -1,9 +1,9 @@
 package tasks;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.DateTimeException;
 
 /**
  * Class that parses an input string into a {@code LocalDateTime} or {@code LocalDate}.
@@ -11,15 +11,15 @@ import java.time.DateTimeException;
  * This can be used by classes which require an input date and time.
  */
 public class DateHandler {
+    protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
+    protected static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mma");
+
     private static final DateTimeFormatter[] formatters = {
         DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
         DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
         DateTimeFormatter.ofPattern("dd/MM/yyyy"),
         DateTimeFormatter.ofPattern("yyyy-MM-dd")
     };
-
-    public static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mma");
-    public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     /**
      * Parses an input string into a c if possible.
@@ -35,7 +35,9 @@ public class DateHandler {
             try {
                 localDateTime = LocalDateTime.parse(date, formatter);
                 break;
-            } catch (DateTimeException ignored) {}
+            } catch (DateTimeException ignored) {
+                // We want to try the next formatter if an exception occurs.
+            }
         }
         return localDateTime;
     }
@@ -54,7 +56,9 @@ public class DateHandler {
             try {
                 localDate = LocalDate.parse(date, formatter);
                 break;
-            } catch (DateTimeException ignored) {}
+            } catch (DateTimeException ignored) {
+                // We want to try the next formatter if an exception occurs.
+            }
         }
         return localDate;
     }

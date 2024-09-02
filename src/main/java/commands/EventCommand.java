@@ -1,16 +1,19 @@
 package commands;
 
+import java.time.DateTimeException;
+
 import applemazer.Storage;
 import applemazer.TaskList;
-import tasks.Task;
 import tasks.Event;
-import java.time.DateTimeException;
+import tasks.Task;
 
 /**
  * Class that represents the "event" command.
  */
 public class EventCommand extends Command {
-    private final String desc, from, to;
+    private final String desc;
+    private final String from;
+    private final String to;
 
     /**
      * Constructor for an {@code EventCommand} object.
@@ -36,7 +39,7 @@ public class EventCommand extends Command {
         try {
             Task task = new Event(desc, from, to);
             tasks.add(task);
-            task.printTaskAddedMessage();
+            task.printTaskAddedMessage(tasks.size());
             storage.save();
         } catch (DateTimeException e) {
             System.out.println("""

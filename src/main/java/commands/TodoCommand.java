@@ -28,7 +28,7 @@ public class TodoCommand extends Command {
     public void execute(TaskList tasks, Storage storage) {
         Task task = new Todo(desc);
         tasks.add(task);
-        task.printTaskAddedMessage();
+        task.printTaskAddedMessage(tasks.size());
         storage.save();
     }
 

@@ -1,8 +1,8 @@
 package tasks;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.DateTimeException;
 
 /**
  * Class that represents an {@code Event} with a start and end date.
@@ -52,7 +52,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String from, to;
+        String from;
+        String to;
 
         if (localDateTimeFrom != null) {
             from = localDateTimeFrom.format(DateHandler.dateTimeFormat);

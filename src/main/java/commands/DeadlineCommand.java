@@ -1,16 +1,18 @@
 package commands;
 
+import java.time.DateTimeException;
+
 import applemazer.Storage;
 import applemazer.TaskList;
-import tasks.Task;
 import tasks.Deadline;
-import java.time.DateTimeException;
+import tasks.Task;
 
 /**
  * Class that represents the "deadline" command.
  */
 public class DeadlineCommand extends Command {
-    private final String desc, deadline;
+    private final String desc;
+    private final String deadline;
 
     /**
      * Constructor for a {@code DeadLineCommand} object.
@@ -32,7 +34,7 @@ public class DeadlineCommand extends Command {
         try {
             Task task = new Deadline(desc, deadline);
             tasks.add(task);
-            task.printTaskAddedMessage();
+            task.printTaskAddedMessage(tasks.size());
             storage.save();
         } catch (DateTimeException e) {
             System.err.println("""
