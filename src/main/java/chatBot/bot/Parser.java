@@ -104,7 +104,7 @@ public class Parser {
             try {
                 throw new InvalidCommandException();
             } catch (InvalidCommandException e) {
-                System.out.println(e);
+                System.out.println(e.getMessage());
             }
             //System.out.println("Unknown command: " + command);
         }
