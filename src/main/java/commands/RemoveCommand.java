@@ -3,12 +3,10 @@ import storage.Storage;
 import storage.TaskList;
 import ui.UI;
 
-public class markCommand implements Command {
-    private final String action;
+public class RemoveCommand implements Command {
     private final String desc;
 
-    public markCommand(String action, String desc) {
-        this.action = action;
+    public RemoveCommand(String desc) {
         this.desc = desc;
     }
 
@@ -17,10 +15,10 @@ public class markCommand implements Command {
         try {
             int index = Integer.parseInt(this.desc);
 
-            master.doneTask(this.action, index-1);
+            master.removeTask(index - 1);
             storage.saveList(master.getParent());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to mark/unmark the task");
+            System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to remove the task");
         }
         UI.printLine();
         return false;

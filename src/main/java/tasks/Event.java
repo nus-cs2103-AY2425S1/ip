@@ -15,7 +15,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s | Event from %s to %s", super.toString(), outputFormatter.format(this.startDate), outputFormatter.format(this.endDate));
+        return String.format("%s | Event from %s to %s", super.toString(),
+                outputFormatter.format(this.startDate), outputFormatter.format(this.endDate));
     }
 
     public LocalDate getStart() {

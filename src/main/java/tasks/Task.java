@@ -4,7 +4,7 @@ public abstract class Task {
     private final String name;
     private boolean done;
 
-    public Task (String name) {
+    public Task(String name) {
         this.name = name;
         this.done = false;
     }
@@ -29,6 +29,7 @@ public abstract class Task {
         this.done = false;
     }
 
-    public String getName() { return this.name;
+    public String getName() {
+        return this.name;
     }
 }

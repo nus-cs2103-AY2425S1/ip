@@ -3,7 +3,7 @@ import storage.Storage;
 import storage.TaskList;
 import ui.UI;
 
-public class listCommand implements Command {
+public class ListCommand implements Command {
 
     @Override
     public boolean execute(Storage storage, TaskList master, UI ui) {
