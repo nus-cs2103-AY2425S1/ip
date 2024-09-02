@@ -1,6 +1,7 @@
 package sentinel.ui;
 
 import java.util.Scanner;
+
 import sentinel.Sentinel;
 import sentinel.task.Task;
 import sentinel.utils.SentinelList;
@@ -11,8 +12,7 @@ import sentinel.utils.SentinelList;
  * reading user input, and providing guidance on how to use the application's features.
  */
 public class Ui {
-    private final Scanner sc;
-    private final static String logo =
+    private static final String logo =
             """
                    _____                                                                                      _____\s
                   ( ___ )                                                                                    ( ___ )
@@ -30,10 +30,12 @@ public class Ui {
                    |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___|\s
                   (_____)                                                                                    (_____)""";
 
-    private final static String helpText = """
+    private static final String helpText = """
                     1. todo <task>                                Adds tasks without any date/time attached to list.
-                    2. deadline <task> /by <date>                 Adds tasks that need to be done before a specific date/time to list.
-                    3. event <event> /from <date> /to <date>      Adds tasks that start at a specific date/time and ends at a specific date/time to list.
+                    2. deadline <task> /by <date>                 Adds tasks that need to be done before a specific
+                                                                  date/time to list.
+                    3. event <event> /from <date> /to <date>      Adds tasks that start at a specific date/time and
+                                                                  ends at a specific date/time to list.
                     4. list                                       List all tasks.
                     5. mark <index>                               Mark task as done.
                     6. unmark <index>                             Mark task as undone.
@@ -41,7 +43,9 @@ public class Ui {
                     8. bye                                        Ends the chatbot.
                     """;
 
-    private final static String line = "____________________________________________________________\n";
+    private static final String line = "____________________________________________________________\n";
+
+    private final Scanner sc;
 
     /**
      * Constructs a new Ui instance with a Scanner for reading user input.

@@ -1,9 +1,9 @@
 package sentinel.command;
 
+import sentinel.Sentinel;
 import sentinel.ui.Ui;
 import sentinel.utils.Parser;
 import sentinel.utils.SentinelList;
-import sentinel.Sentinel;
 
 /**
  * The ModifyCommand class is responsible for modifying tasks in the list.
@@ -47,9 +47,10 @@ public class ModifyCommand extends Command {
             return;
         }
         switch (commandType) {
-            case delete -> ui.showRemovedAndRemaining(list, list.remove(num - 1));
-            case mark -> toggleTaskMark(num - 1, true);
-            case unmark -> toggleTaskMark(num - 1, false);
+        case delete -> ui.showRemovedAndRemaining(list, list.remove(num - 1));
+        case mark -> toggleTaskMark(num - 1, true);
+        case unmark -> toggleTaskMark(num - 1, false);
+        default -> throw new IllegalArgumentException("Unknown command");
         }
     }
 

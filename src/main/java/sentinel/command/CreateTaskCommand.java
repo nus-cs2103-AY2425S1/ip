@@ -1,11 +1,11 @@
 package sentinel.command;
 
+import sentinel.Sentinel;
 import sentinel.exception.SentinelException;
 import sentinel.task.Task;
 import sentinel.ui.Ui;
 import sentinel.utils.Parser;
 import sentinel.utils.SentinelList;
-import sentinel.Sentinel;
 
 /**
  * The CreateTaskCommand class is responsible for creating a new task based on the user's input.

@@ -30,8 +30,8 @@ public class Event extends Task {
      */
     @Override
     public String listedString() {
-        return super.listedString() + " [from: " + super.localDateTimeToString(this.startDate) +
-                " | to: " + super.localDateTimeToString(this.endDate) + "]";
+        return super.listedString() + " [from: " + super.localDateTimeToString(this.startDate)
+                + " | to: " + super.localDateTimeToString(this.endDate) + "]";
     }
 
     /**

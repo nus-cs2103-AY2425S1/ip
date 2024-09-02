@@ -4,11 +4,27 @@ import sentinel.ui.Ui;
 import sentinel.utils.Parser;
 import sentinel.utils.SentinelList;
 
-public class FindCommand extends Command{
-    public FindCommand(Ui ui, SentinelList list){
+/**
+ * The FindCommand class is responsible for displaying the filtered list of tasks to the user.
+ * This command retrieves the current filtered list of tasks and displays them using the user interface.
+ */
+public class FindCommand extends Command {
+
+    /**
+     * Constructs a FindCommand with the specified user interface and task list.
+     *
+     * @param ui   The user interface object for displaying messages.
+     * @param list The list of tasks managed by the application.
+     */
+    public FindCommand(Ui ui, SentinelList list) {
         super(ui, list);
     }
 
+    /**
+     * Executes the find command, which displays the filtered list of tasks to the user.
+     *
+     * @param input The user's input keyword string
+     */
     @Override
     public void execute(String input) {
         String keyword = Parser.parseKeyword(input);

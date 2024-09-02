@@ -112,12 +112,14 @@ public abstract class Task {
      * @return A string representing the LocalDateTime in a formatted manner.
      */
     protected String localDateTimeToString(LocalDateTime localDateTime) {
-        return localDateTime.getDayOfMonth() + " " + localDateTime.getMonth() + " " + localDateTime.getYear() + " " +
-                padTimeLeft(localDateTime.getHour()) + padTimeRight(localDateTime.getMinute()) + " Hours (" +
-                localDateTime.getDayOfWeek() + " " +
-                (localDateTime.getHour() > 12 ? padTimeLeft(localDateTime.getHour() - 12) : localDateTime.getHour()) + ":" +
-                padTimeRight(localDateTime.getMinute()) +
-                (localDateTime.getHour() > 12 ? "pm)" : "am)");
+        return localDateTime.getDayOfMonth() + " " + localDateTime.getMonth() + " " + localDateTime.getYear() + " "
+                + padTimeLeft(localDateTime.getHour()) + padTimeRight(localDateTime.getMinute()) + " Hours ("
+                + localDateTime.getDayOfWeek() + " "
+                + (localDateTime.getHour() > 12
+                ? padTimeLeft(localDateTime.getHour() - 12)
+                : localDateTime.getHour()) + ":"
+                + padTimeRight(localDateTime.getMinute())
+                + (localDateTime.getHour() > 12 ? "pm)" : "am)");
     }
 
     /**
