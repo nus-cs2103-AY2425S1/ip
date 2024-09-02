@@ -4,10 +4,8 @@ import killjoy.main.KillJoy;
 import killjoy.task.Task;
 import killjoy.main.UserInterface;
 
-
 import java.time.LocalDateTime;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
 
 public class ProcessTasks {
     private KillJoy kj;
@@ -147,6 +145,35 @@ public class ProcessTasks {
             break;
         }
         }
+    }
+
+    public void findTask(String input, ArrayList<Task> taskList) {
+        String[] inputAsList = input.split(" ");
+        if (inputAsList.length == 1) {
+            ui.displayNoStringMessage();
+            return;
+        }
+        String keyword = inputAsList[1];
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        ui.printLine();
+        int count = 0;
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = kj.getTask(i);
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+                count++;
+            }
+        }
+        if (count == 0) {
+            System.out.println("    No matching tasks found lahhh!! Siaaaa");
+        } else {
+            System.out.println("    Here you go mate! These are the matching tasks:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                Task task = matchingTasks.get(i);
+                System.out.println("    " + (i + 1) + ". " + task);
+            }
+        }
+        ui.printLine();
     }
 
     private void changeStatusOfTask(Task task, int i) {

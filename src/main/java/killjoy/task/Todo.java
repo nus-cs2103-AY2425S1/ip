@@ -1,7 +1,5 @@
 package killjoy.task;
 
-import killjoy.task.Task;
-
 public class Todo extends Task {
 
     public Todo(String description) {
