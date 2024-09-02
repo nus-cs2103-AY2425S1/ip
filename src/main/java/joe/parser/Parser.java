@@ -5,6 +5,9 @@ import java.util.Scanner;
 import joe.controller.Controller;
 import joe.ui.Ui;
 
+/**
+ * Parses the input from the user and calls the appropriate controller method.
+ */
 public class Parser<C extends Controller> {
     private final C controller;
     private final Scanner scanner;

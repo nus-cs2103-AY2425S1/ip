@@ -11,6 +11,9 @@ import joe.task.TaskTodo;
 import joe.task.TaskEvent;
 import joe.task.TaskDeadline;
 
+/**
+ * Handles the saving and loading of tasks to and from a file.
+ */
 public class Storage {
     private static final String FILE_NAME = "./data/store.txt";
 

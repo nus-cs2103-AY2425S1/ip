@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import joe.task.Task;
 
+/**
+ * Handles the user interface of the program.
+ */
 public class Ui {
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
     public static final String ADD_TASK_MESSAGE = "Got it. I've added this task:\n";

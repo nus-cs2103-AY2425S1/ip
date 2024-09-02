@@ -9,6 +9,10 @@ import joe.task.TaskEvent;
 import joe.task.TaskTodo;
 import joe.ui.Ui;
 
+/**
+ * Provides the main logic of the program. Handles user commands and updates the
+ * task store.
+ */
 public class Controller {
     private final Ui ui;
     private final Storage storage;
