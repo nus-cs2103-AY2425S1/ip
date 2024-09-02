@@ -3,12 +3,38 @@ package miku.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event object.
+ */
 public class Event extends Task {
     private String dateTime1 = "";
     private String dateTime2 = "";
-    LocalDateTime startDateTime;
-    LocalDateTime endDateTime;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
 
+    /**
+     * Overloads the even constructor with an extra isDone field.
+     *
+     * @param desc a
+     * @param dateTime1 a
+     * @param dateTime2 a
+     * @param isDone a.
+     */
+    public Event(String desc, String dateTime1, String dateTime2, boolean isDone) {
+        super(desc, isDone);
+        this.dateTime1 = dateTime1.trim();
+        this.dateTime2 = dateTime2.trim();
+        startDateTime = LocalDateTime.parse(this.dateTime1);
+        endDateTime = LocalDateTime.parse(this.dateTime2);
+    }
+
+    /**
+     * Instantiates an even object
+     *
+     * @param desc      Descriptions of the event.
+     * @param dateTime1 String value of the first date.
+     * @param dateTime2 String value of the second date.
+     */
     public Event(String desc, String dateTime1, String dateTime2) {
         super(desc);
         this.dateTime1 = dateTime1.trim();
@@ -26,21 +52,23 @@ public class Event extends Task {
         return startDateTime.getDayOfYear();
     }
 
-    public Event(String desc, String dateTime1, String dateTime2, boolean isDone) {
-        super(desc, isDone);
-        this.dateTime1 = dateTime1.trim();
-        this.dateTime2 = dateTime2.trim();
-        startDateTime = LocalDateTime.parse(this.dateTime1);
-        endDateTime = LocalDateTime.parse(this.dateTime2);
-    }
+
 
     @Override
     public String stringValue() {
-        return "[E]" + super.stringValue() + "(from: " + startDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " to: " + endDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + ")";
+        return "[E]" + super.stringValue()
+                + "(from: " + startDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"))
+                + " to: " + endDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + ")";
     }
 
+    /**
+     * Returns the string value to be stored in txt file
+     *
+     * @return Returns the string value to be stored.
+     */
     public String storeValue() {
-        return this.stringValue().substring(1, 2) + " | " + this.isTaskDone() + " | " + this.getDesc() + " | " + dateTime1 + " | " + dateTime2 + "\n";
+        return this.stringValue().substring(1, 2)
+                + " | " + this.isTaskDone() + " | " + this.getDesc() + " | " + dateTime1 + " | " + dateTime2 + "\n";
     }
 
 }

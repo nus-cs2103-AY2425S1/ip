@@ -3,30 +3,37 @@ package miku.parser;
 import miku.command.AddCommand;
 import miku.command.Command;
 import miku.command.ExitCommand;
+import miku.command.FindCommand;
 import miku.command.MarkCommand;
 import miku.command.RemoveCommand;
 import miku.command.ShowListCommand;
 import miku.command.UnmarkCommand;
-import miku.command.FindCommand;
-
 import miku.exception.InvalidCommandException;
-
 import miku.task.Deadline;
 import miku.task.Event;
 import miku.task.Todo;
 
+/**
+ * Parses the input command strings
+ */
 public class CommandMikuParser extends MikuParser {
-    public static String regexMark = "mark \\d+";
-    public static String regexUnmark = "unmark \\d+";
-    public static String regexToDo = "todo .*";
-    public static String regexDeadline = "deadline .* /by .*";
-    public static String regexEvent = "event .* /.* /.*";
-    public static String regexRemove = "delete \\d+";
-    public static String regexFind = "find .*";
+    private static String regexMark = "mark \\d+";
+    private static String regexUnmark = "unmark \\d+";
+    private static String regexToDo = "todo .*";
+    private static String regexDeadline = "deadline .* /by .*";
+    private static String regexEvent = "event .* /.* /.*";
+    private static String regexRemove = "delete \\d+";
+    private static String regexFind = "find .*";
 
     public CommandMikuParser() {
     }
 
+    /**
+     * Parses the string input.
+     *
+     * @param input The string which could be a command prompt.
+     * @return returns a Command to execute the prompted command.
+     */
     public Command parse(String input) {
         try {
             if (input.equals("bye")) {

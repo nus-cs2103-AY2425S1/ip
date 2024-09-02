@@ -1,5 +1,8 @@
 package miku.task;
 
+/**
+ * Represents the Todo task which has only descriptions.
+ */
 public class Todo extends Task {
     public Todo(String desc) {
         super(desc, false);

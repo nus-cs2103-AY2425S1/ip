@@ -1,13 +1,15 @@
 package miku.command;
 
-import miku.task.Task;
 import miku.utility.Storage;
 import miku.utility.TaskList;
 import miku.utility.UI;
 
+/**
+ * Finds and prints the matched results
+ */
 public class FindCommand extends Command {
-    TaskList results = new TaskList();
-    String string = "";
+    private TaskList results = new TaskList();
+    private String string = "";
 
     public FindCommand(String string) {
         this.string = string;

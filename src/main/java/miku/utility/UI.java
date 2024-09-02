@@ -2,10 +2,13 @@ package miku.utility;
 
 import java.util.Scanner;
 
+/**
+ * The UI class that in charge of printing out the UI.
+ */
 public class UI {
-    public String sectionBreak = "\n_______________________________________________";
-    Scanner scanner;
-    String mikuFace = "⠀⠀⠀⠀⠀⠀⢀⡤⣢⠟⢁⣴⣾⡿⠋⢉⠱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠑⠒⠦⢄⣀⣴⠟⢡⣠⣼⣿⡿⢳⣄⡀⠀⠀\n"
+    private String sectionBreak = "\n_______________________________________________";
+    private Scanner scanner;
+    private String mikuFace = "⠀⠀⠀⠀⠀⠀⢀⡤⣢⠟⢁⣴⣾⡿⠋⢉⠱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠑⠒⠦⢄⣀⣴⠟⢡⣠⣼⣿⡿⢳⣄⡀⠀⠀\n"
             + "⠀⠀⠀⠀⠀⢀⣾⡿⠃⣠⣿⣿⠿⠂⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢲⡿⠋⢰⣾⣿⣿⡟⠀⠀⠈⠙⢆⠀\n"
             + "⠀⠀⠀⠀⠀⡜⠻⣷⣾⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣁⣰⢸⣿⢻⠟⢀⠀⠀⠀⠀⠀⠁\n"
             + "⠀⠀⠀⠀⠰⠀⠀⢙⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣯⡀⠀⢃⠀⠀⠀⠀⠀\n"
@@ -30,7 +33,7 @@ public class UI {
             + "⠀⠀⠀⠀⠀⠀⢸⡟⠀⢀⡴⠁⠀⠀⠀⠀⠀⢠⡟⠀⠀⣰⢿⡘⣾⡅⠀⠀⠀⠀⢀⠄⠀⢠⠏⢀⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
             + "⠀⠀⠀⠀⠀⠀⢸⠀⣰⣿⠀⠀⠀⠀⠀⠀⢠⣿⠃⢀⡾⡇⠘⠻⡿⢷⡀⠀⠀⠒⠁⠀⢠⠏⢀⠏⣸⠃⢻⠏⠀⠀⠀⠀⠀⠀⠀⠀\n"
             + "⠀⠀⠀⠀⠀⠀⣧⣾⣹⣿⠀⠀⠀⠀⠀⢠⠏⢉⠀⡞⣰⡇⠀⣴⣥⠞⢷⠀⠀⠀⠀⣠⠎⠀⠸⣶⠋⣠⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀";
-    String logo = " __  __   __   _   _   _    _\n"
+    private String logo = " __  __   __   _   _   _    _\n"
             + "|  \\/  | |  | | | / / | |  | |\n"
             + "| |\\/| | |  | | |/ /  | |  | |\n"
             + "| |  | | |  | | |\\ \\  | |__| |\n"
@@ -52,6 +55,9 @@ public class UI {
         System.out.println();
     }
 
+    /**
+     * Prints the greeting message.
+     */
     public void greet() {
         String greeting = "Hello! I'm Miku\n"
                 + "What song do you want to listen to today?";
@@ -59,6 +65,9 @@ public class UI {
         System.out.println(sectionBreak);
     }
 
+    /**
+     * Prints the farewell message.
+     */
     public void farewell() {
         String farewell = "Bye. Hope to see you again soon!";
         System.out.println(farewell);
