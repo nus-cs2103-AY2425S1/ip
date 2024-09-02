@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    public Path path;
-    public Path file;
+    private final Path path;
+    private final Path file;
 
     public Storage(String path, String fileName) {
         this.path = Paths.get(path);
@@ -40,6 +40,7 @@ public class Storage {
      *
      * @return The tasks stored in an array.
      */
+    @SuppressWarnings("checkstyle:Indentation")
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file.toString()))) {
@@ -48,28 +49,28 @@ public class Storage {
                 String[] values = line.split(",");
                 String taskType = values[0].strip();
                 switch (taskType) {
-                    case "T":
-                        taskList.add(new ToDo(Integer.parseInt(values[1]), values[2]));
-                        break;
-                    case "E":
-                        taskList.add(
-                                new Event(
-                                        Integer.parseInt(values[1]),
-                                        values[2].strip(),
-                                        values[3].strip(),
-                                        values[4].strip()));
-                        break;
+                case "T":
+                    taskList.add(new ToDo(Integer.parseInt(values[1]), values[2]));
+                    break;
+                case "E":
+                    taskList.add(
+                            new Event(
+                                    Integer.parseInt(values[1]),
+                                    values[2].strip(),
+                                    values[3].strip(),
+                                    values[4].strip()));
+                    break;
 
-                    case "D":
-                        taskList.add(
-                                new Deadline(
-                                        Integer.parseInt(values[1]),
-                                        values[2].strip(),
-                                        values[3].strip()));
-                        break;
+                case "D":
+                    taskList.add(
+                            new Deadline(
+                                    Integer.parseInt(values[1]),
+                                    values[2].strip(),
+                                    values[3].strip()));
+                    break;
 
-                    default:
-                        break;
+                default:
+                    break;
                 }
             }
         } catch (IOException e) {
