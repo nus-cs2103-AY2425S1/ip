@@ -12,12 +12,14 @@ import duke.task.Task;
  */
 public class Ui {
     private Scanner scanner;
+    private String lastResponse; // Field to store the last response
 
     /**
      * Constructs a Ui object that handles user input and output.
      */
     public Ui() {
         scanner = new Scanner(System.in);
+        lastResponse = ""; // Initialize last response
     }
 
     /**
@@ -33,9 +35,9 @@ public class Ui {
      * Displays the welcome message to the user.
      */
     public void showWelcome() {
+        lastResponse = " Hello! I'm Duke\n What can I do for you?";
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Duke");
-        System.out.println(" What can I do for you?");
+        System.out.println(lastResponse);
         System.out.println("____________________________________________________________");
     }
 
@@ -43,8 +45,9 @@ public class Ui {
      * Displays the goodbye message when the user exits the application.
      */
     public void showGoodbye() {
+        lastResponse = " Bye. Hope to see you again soon!";
         System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println(lastResponse);
         System.out.println("____________________________________________________________");
     }
 
@@ -54,8 +57,9 @@ public class Ui {
      * @param message The error message to display.
      */
     public void showError(String message) {
+        lastResponse = message;
         System.out.println("____________________________________________________________");
-        System.out.println(message);
+        System.out.println(lastResponse);
         System.out.println("____________________________________________________________");
     }
 
@@ -66,10 +70,9 @@ public class Ui {
      * @param size The total number of tasks in the list after adding.
      */
     public void showTaskAdded(Task task, int size) {
+        lastResponse = " Got it. I've added this task:\n   " + task + "\n Now you have " + size + " tasks in the list.";
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + size + " tasks in the list.");
+        System.out.println(lastResponse);
         System.out.println("____________________________________________________________");
     }
 
@@ -80,10 +83,9 @@ public class Ui {
      * @param size The total number of tasks in the list after removal.
      */
     public void showTaskRemoved(Task task, int size) {
+        lastResponse = " Noted. I've removed this task:\n   " + task + "\n Now you have " + size + " tasks in the list.";
         System.out.println("____________________________________________________________");
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + size + " tasks in the list.");
+        System.out.println(lastResponse);
         System.out.println("____________________________________________________________");
     }
 
@@ -93,9 +95,9 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public void showTaskMarked(Task task) {
+        lastResponse = " Nice! I've marked this task as done:\n   " + task;
         System.out.println("____________________________________________________________");
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + task);
+        System.out.println(lastResponse);
         System.out.println("____________________________________________________________");
     }
 
@@ -105,9 +107,9 @@ public class Ui {
      * @param task The task that was marked as not done.
      */
     public void showTaskUnmarked(Task task) {
+        lastResponse = " OK, I've marked this task as not done yet:\n   " + task;
         System.out.println("____________________________________________________________");
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + task);
+        System.out.println(lastResponse);
         System.out.println("____________________________________________________________");
     }
 
@@ -117,11 +119,13 @@ public class Ui {
      * @param tasks The list of matching tasks.
      */
     public void showMatchingTasks(List<Task> tasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the matching tasks in your list:");
+        StringBuilder response = new StringBuilder(" Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + tasks.get(i));
+            response.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
+        lastResponse = response.toString();
+        System.out.println("____________________________________________________________");
+        System.out.println(lastResponse);
         System.out.println("____________________________________________________________");
     }
 
@@ -131,11 +135,13 @@ public class Ui {
      * @param tasks The list of tasks to display.
      */
     public void showTasks(List<Task> tasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks in your list:");
+        StringBuilder response = new StringBuilder(" Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + tasks.get(i));
+            response.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
+        lastResponse = response.toString();
+        System.out.println("____________________________________________________________");
+        System.out.println(lastResponse);
         System.out.println("____________________________________________________________");
     }
 
@@ -146,15 +152,26 @@ public class Ui {
      * @param date The date for which tasks are displayed.
      */
     public void showTasksOnDate(List<Task> tasks, LocalDate date) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks occurring on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        StringBuilder response = new StringBuilder(" Here are the tasks occurring on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":\n");
         if (tasks.isEmpty()) {
-            System.out.println(" No tasks found on this date.");
+            response.append(" No tasks found on this date.");
         } else {
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + tasks.get(i));
+                response.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
             }
         }
+        lastResponse = response.toString();
         System.out.println("____________________________________________________________");
+        System.out.println(lastResponse);
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Returns the last response displayed to the user.
+     *
+     * @return The last response string.
+     */
+    public String getLastResponse() {
+        return lastResponse;
     }
 }

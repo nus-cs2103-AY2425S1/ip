@@ -57,6 +57,29 @@ public class Duke {
         }
     }
 
+    public String getResponse(String input) {
+        try {
+            // Parse and execute the command
+            Command command = Parser.parse(input);
+            command.execute(tasks, ui, storage);
+            return ui.getLastResponse(); // Assuming `Ui` captures the last response
+        } catch (EmptyDescriptionException | UnknownCommandException e) {
+            return e.getMessage(); // Return error messages if command is invalid
+        } catch (IOException e) {
+            return "An error occurred while processing your input.";
+        }
+    }
+
+    // Add this method to return a greeting message
+    public String getGreeting() {
+        return "Hello! I am Duke. How can I assist you today?";
+    }
+
+    // Add this method to check if Duke is running, adjust logic as necessary
+    public boolean isRunning() {
+        // Example logic, adjust as needed based on your application's requirements
+        return true;  // Assume Duke is always running for now
+    }
     /**
      * The main method that launches the Duke application.
      *
