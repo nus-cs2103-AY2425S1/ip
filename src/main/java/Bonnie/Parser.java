@@ -1,5 +1,7 @@
 package Bonnie;
 
+import java.util.ArrayList;
+
 public class Parser {
 
     public Parser() {
@@ -38,7 +40,18 @@ public class Parser {
             String[] arr = input.split(" ", 2);
             Integer taskNum = Integer.valueOf(arr[1]);
             TaskList.removeTask(taskNum);
-        } else {
+        } else if (check_find_command(input)) {
+            String[] arr = input.split(" ", 2);
+            String stringToFindBy = arr[1];
+            ArrayList<Task> foundTasks = TaskList.findTasks(stringToFindBy);
+            // Does not use the TaskList, we are manipulating a new ArrayList of tasks here
+            String list = "Bonnie has found the matching tasks!\n";
+            for (int i = 0; i < foundTasks.size(); i++) {
+                list += String.format("%d. %s\n", i+1, foundTasks.get(i));
+            }
+            System.out.println(list);
+        }
+        else {
             // Want to parse and add task into task list
             parseTaskAddition(input);
         }
@@ -81,6 +94,15 @@ public class Parser {
             } catch (NumberFormatException e) {
                 return false;
             }
+        } else {
+            return false;
+        }
+    }
+
+    private static boolean check_find_command(String targetString) {
+        String[] arr = targetString.split(" ", 2);
+        if (arr[0].equals("find")) {
+            return true;
         } else {
             return false;
         }

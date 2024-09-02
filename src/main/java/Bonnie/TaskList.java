@@ -66,4 +66,14 @@ public class TaskList {
             throw new IndexOutOfBoundsException("You cannot delete a task that does not exist!");
         }
     }
+
+    protected static ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasklist) {
+            if (task.toString().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
 }
