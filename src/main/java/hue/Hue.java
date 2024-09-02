@@ -37,6 +37,10 @@ public class Hue {
             tasks = new TaskList();
         }
     }
+
+    public Hue() {
+        this.ui = new UI();
+    }
     /**
      * Runs the main loop of the application. Reads user commands, parses them, and executes them.
      * Continues until an exit command is issued.
@@ -59,6 +63,11 @@ public class Hue {
             }
         }
     }
+
+    public String getResponse(String input){
+        return "Hue heard: " + input;
+    }
+
 
     public static void main (String[] args) {
         new Hue("data/Hue.txt").run();
