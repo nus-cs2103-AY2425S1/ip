@@ -50,7 +50,10 @@ public class Ui {
      * @param command Message containing information about command.
      */
     public void showCommand(String command) {
-        printOutput("\t " + command);
+        String[] lines = command.split("\n");
+        for (String line : lines) {
+            printOutput("\t " + line);
+        }
     }
 
     /**

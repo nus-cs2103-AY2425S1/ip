@@ -232,13 +232,13 @@ public class Parser {
         } else {
             throw new DeltaException("""
                     OOPS!!! I'm sorry, but I don't know what that means :-(
-                    \t Please follow the proper formats:
-                    \t * todo [description]
-                    \t * deadline [description] /by [date/time]
-                    \t * event [description] /from [start] /to [end]
-                    \t * mark [index of task]
-                    \t * unmark [index of task]
-                    \t * delete [index of task]""");
+                       Please follow the proper formats:
+                       * todo [description]
+                       * deadline [description] /by [date/time]
+                       * event [description] /from [start] /to [end]
+                       * mark [index of task]
+                       * unmark [index of task]
+                       * delete [index of task]""");
         }
     }
 }

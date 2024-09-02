@@ -43,7 +43,7 @@ public class Delta {
     }
 
     /**
-     * Runs main logic of Delta ChatBot.
+     * Runs main logic of Delta ChatBot for CLI.
      */
     public void run() {
         ui.showWelcome();
@@ -63,14 +63,27 @@ public class Delta {
         }
     }
 
-    public String getResponse(String input) {
-        return "";
-    }
-
     /**
-     * Serves as main entry point of Delta ChatBot.
+     * Serves as main entry point of Delta ChatBot for CLI.
      */
     public static void main(String[] args) {
         new Delta("data/tasks.txt").run();
+    }
+
+    /**
+     * Returns Delta ChatBot response for a user input given by JavaFX UI.
+     *
+     * @param input User input string.
+     * @return Delta ChatBot response.
+     */
+    public String getResponse(String input) {
+        String response;
+        try {
+            Command c = Parser.parse(input);
+            response = c.execute(tasks, ui, storage);
+        } catch (DeltaException e) {
+            response = e.getMessage();
+        }
+        return response;
     }
 }

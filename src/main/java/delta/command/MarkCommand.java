@@ -38,10 +38,12 @@ public class MarkCommand extends Command {
      * @param storage Storage object to save list after task marked.
      * @throws DeltaException If problem marking task from list or list unable to be saved.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DeltaException {
         Task task = tasks.markTask(index);
-        ui.showCommand("Nice! I've marked this task as done:\n"
-                + "\t   " + task);
+        String message = "Nice! I've marked this task as done:\n"
+                + "  " + task;
+        ui.showCommand(message);
         storage.save(tasks);
+        return message;
     }
 }

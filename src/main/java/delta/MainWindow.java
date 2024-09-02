@@ -29,6 +29,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(DialogBox.getDeltaDialog("""
+                Hello! I'm Delta, your favourite Task Management Chatbot!
+                What can I do for you?""", dukeImage));
     }
 
     /** Injects the Delta instance */
