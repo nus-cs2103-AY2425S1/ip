@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Maga {
@@ -14,8 +17,7 @@ public class Maga {
             System.out.println("Take a look, all the tasks you have here, so many, yuuuuuuge\n");
             for (int i = 0; i < taskCount; i++) {
                 int temp = i + 1;
-                System.out.println(temp + ". " + taskList[i].getTaskType() + taskList[i].getStatusIcon()
-                        + taskList[i].getDescription());
+                System.out.println(temp + ". " + taskList[i].printTask());
             }
         }
 
@@ -186,6 +188,8 @@ public class Maga {
 
         public abstract String getTaskType();
 
+        public abstract String printTask();
+
         public static Task fromString(String taskString) {
             String[] parts = taskString.split(" \\| ");
             if (parts.length == 3) {
@@ -234,20 +238,35 @@ public class Maga {
             }
             return "T | " + isDoneNum + " | " + description;
         }
+
+        @Override
+        public String printTask() {
+            return this.getTaskType() + this.getStatusIcon() + this.getDescription();
+        }
     }
 
     public static class EventTask extends Task {
-        protected String time;
+        protected LocalDate localDate;
 
-        public EventTask(String description, String time) {
+        public EventTask(String description, String localDate) throws DateTimeParseException {
             super(description);
-            this.time = time;
+            try {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                this.localDate = LocalDate.parse(localDate, dateFormatter);
+            } catch (DateTimeParseException e) {
+                throw e;
+            }
         }
 
-        public EventTask(boolean isDone, String description, String time) {
+        public EventTask(boolean isDone, String description, String localDate) throws DateTimeParseException {
             super(description);
             this.isDone = isDone;
-            this.time = time;
+            try {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                this.localDate = LocalDate.parse(localDate, dateFormatter);
+            } catch (DateTimeParseException e) {
+                throw e;
+            }
         }
 
         public String getTaskType() {
@@ -260,25 +279,42 @@ public class Maga {
             if (isDone) {
                 isDoneNum = 1;
             }
-            return "E | " + isDoneNum + " | " + description + " | " + time;
+            return "E | " + isDoneNum + " | " + description + " | " + localDate.toString();
+        }
+
+        @Override
+        public String printTask() {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMM dd");
+            String formattedLocalDate = localDate.format(formatter);
+            return this.getTaskType() + this.getStatusIcon() + this.getDescription() + " due on " + formattedLocalDate;
         }
     }
 
     public static class DeadlineTask extends Task{
-        protected String from;
-        protected String to;
+        protected LocalDate from;
+        protected LocalDate to;
 
-        public DeadlineTask(String description, String from, String to) {
+        public DeadlineTask(String description, String from, String to) throws DateTimeParseException {
             super(description);
-            this.from = from;
-            this.to = to;
+            try {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                this.from = LocalDate.parse(from, dateFormatter);
+                this.to = LocalDate.parse(to, dateFormatter);
+            } catch (DateTimeParseException e) {
+                throw e;
+            }
         }
 
-        public DeadlineTask(boolean isDone, String description, String from, String to) {
+        public DeadlineTask(boolean isDone, String description, String from, String to) throws DateTimeParseException {
             super(description);
             this.isDone = isDone;
-            this.from = from;
-            this.to = to;
+            try {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                this.from = LocalDate.parse(from, dateFormatter);
+                this.to = LocalDate.parse(to, dateFormatter);
+            } catch (DateTimeParseException e) {
+                throw e;
+            }
         }
 
         public String getTaskType() {
@@ -292,6 +328,15 @@ public class Maga {
                 isDoneNum = 1;
             }
             return "E | " + isDoneNum + " | " + description + " | " + from + " | " + to;
+        }
+
+        @Override
+        public String printTask() {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMM dd");
+            String formattedFrom = from.format(formatter);
+            String formattedTo = to.format(formatter);
+            return this.getTaskType() + this.getStatusIcon() + this.getDescription() + " from " + formattedFrom +
+                    " to " + formattedTo;
         }
     }
 
@@ -369,9 +414,14 @@ public class Maga {
 
             // add tasks to tasklist
             if(input.startsWith("todo ") || input.startsWith("event ") || input.startsWith("deadline ")) {
-                taskList.addTask(input);
-                input = scanner.nextLine();
-                continue;
+                try {
+                    taskList.addTask(input);
+                    input = scanner.nextLine();
+                    continue;
+                } catch (DateTimeParseException e) {
+                    System.out.println("Error while parsing date - format in yyyy-MM-dd");
+                    continue;
+                }
             }
 
             // should never reach here unless command is invalid
