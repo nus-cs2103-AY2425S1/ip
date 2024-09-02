@@ -2,4 +2,8 @@ T | 0 | sleep
 E | 0 | splashdown | 2024-08-29 1800 | 2024-08-29 2100
 T | 0 | play
 D | 0 | cs2101 | 2024-08-28 1600
-T | 0 | wtf
+T | 0 | get over it
+T | 0 | think
+T | 0 | forget
+D | 0 | keeping sane | 2024-09-03 1800
+T | 0 | dowhat

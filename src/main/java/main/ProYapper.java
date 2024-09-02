@@ -1,10 +1,9 @@
 package main;
 
-import commands.Command;
-import commands.ExitCommand;
+import javafx.scene.layout.VBox;
 import storage.Storage;
-import ui.Ui;
 import tasks.Task;
+import ui.Ui;
 
 import java.util.List;
 
@@ -31,28 +30,7 @@ public class ProYapper {
         this.taskList = new TaskList(tasks);
     }
 
-    /**
-     * The main method to start the ProYapper application.
-     *
-     * @param args command line arguments (not used)
-     */
-    public static void main(String[] args) {
-        ProYapper proYapper = new ProYapper("./data/ProYapper.txt");
-        proYapper.run();
-    }
-
-    /**
-     * Runs the main application loop, processing user commands until the exit command is given.
-     */
-    public void run() {
-        ui.showWelcome();  // Display welcome message
-        boolean isExit = false;
-        while (!isExit) {
-            String userInput = ui.readCommand();  // Read user input
-            Command command = this.parser.parseCommand(userInput);  // Parse input to get command
-            command.execute(taskList, ui, storage);  // Execute the command
-            isExit = (command instanceof ExitCommand);  // Check if the command is to exit
-        }
-        ui.showGoodbye();
+    public void setDialogContainer(VBox dialogContainer) {
+        ui.setDialogContainer(dialogContainer);
     }
 }
