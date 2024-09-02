@@ -30,6 +30,20 @@ public class EventTest {
     }
 
     @Test
+    public void testEventCreation_missingFromKeyword() {
+        assertThrows(InvalidDescriptionException.class, () -> {
+            new Event("Meeting 2024-09-02 1800 /to 1900"); // Missing '/from'
+        });
+    }
+
+    @Test
+    public void testEventCreation_missingToKeyword() {
+        assertThrows(InvalidDescriptionException.class, () -> {
+            new Event("Meeting /from 2024-09-02 1800 1900"); // Missing '/to'
+        });
+    }
+
+    @Test
     public void testParseTime_invalidTime() {
         assertThrows(InvalidDateTimeFormatException.class, () -> {
             new Event("Meeting /from 2024-09-02 18:00 /to 1900");
