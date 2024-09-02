@@ -2,27 +2,31 @@ package futureYou;
 
 import java.util.Scanner;
 
-import futureYou.TaskList;
-import futureYou.Parser;
-
 /**
  * The Ui class handles all interactions with the user.
  */
 public class Ui {
-
-    private Scanner scannerInput;
 
     private final static String LOGO = " _____      _                   __   __          \n"
             + "|  ___|   _| |_ _   _ _ __ ___  \\ \\ / /__  _   _ \n"
             + "| |_ | | | | __| | | | '__/ _ \\  \\ V / _ \\| | | |\n"
             + "|  _|| |_| | |_| |_| | | |  __/   | | (_) | |_| |\n"
             + "|_|   \\__,_|\\__|\\__,_|_|  \\___|   |_|\\___/ \\__,_|\n";
+    private final Scanner scannerInput;
 
     /**
      * Constructs a Ui instance with a new Scanner.
      */
     public Ui() {
         this.scannerInput = new Scanner(System.in);
+    }
+
+    /**
+     * Bids the user farewell with a message.
+     */
+    public static void bye() {
+        System.out.println("Bye. Hope to see you again soon!\n" +
+                "____________________________________________________________\n");
     }
 
     /**
@@ -43,14 +47,6 @@ public class Ui {
                 "What can I do for you?\n" +
                 "____________________________________________________________\n");
 
-    }
-
-    /**
-     * Bids the user farewell with a message.
-     */
-    public static void bye() {
-        System.out.println("Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n");
     }
 
     /**
@@ -78,38 +74,38 @@ public class Ui {
         try {
             String command = Parser.parseCommand(userCommand);
             switch (command) {
-                case "todo": {
-                    displayMessage(Parser.parseToDoTask(userCommand));
-                    break;
-                }
-                case "list":
-                    displayMessage(TaskList.listTasks());
-                    break;
-                case "mark": {
-                    int taskNum = Parser.parseTaskNumber(userCommand);
-                    displayMessage(TaskList.markTask(taskNum));
-                    break;
-                }
-                case "delete": {
-                    int taskNum = Parser.parseTaskNumber(userCommand);
-                    displayMessage(TaskList.deleteTask(taskNum));
-                    break;
-                }
-                case "bye":
-                    bye();
-                    close();
-                    break;
-                case "deadline": {
-                    displayMessage(Parser.parseDeadlineTask(userCommand));
-                    break;
-                }
-                case "event": {
-                    displayMessage(Parser.parseEventTask(userCommand));
-                    break;
-                }
-                default: // User enters invalid command
-                    displayMessage("Please enter a valid command!");
-                    break;
+            case "todo": {
+                displayMessage(Parser.parseToDoTask(userCommand));
+                break;
+            }
+            case "list":
+                displayMessage(TaskList.listTasks());
+                break;
+            case "mark": {
+                int taskNum = Parser.parseTaskNumber(userCommand);
+                displayMessage(TaskList.markTask(taskNum));
+                break;
+            }
+            case "delete": {
+                int taskNum = Parser.parseTaskNumber(userCommand);
+                displayMessage(TaskList.deleteTask(taskNum));
+                break;
+            }
+            case "bye":
+                bye();
+                close();
+                break;
+            case "deadline": {
+                displayMessage(Parser.parseDeadlineTask(userCommand));
+                break;
+            }
+            case "event": {
+                displayMessage(Parser.parseEventTask(userCommand));
+                break;
+            }
+            default: // User enters invalid command
+                displayMessage("Please enter a valid command!");
+                break;
             }
         } catch (Exception e) {
             displayMessage("Please enter a valid command");

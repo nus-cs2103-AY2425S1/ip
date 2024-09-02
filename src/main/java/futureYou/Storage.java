@@ -1,19 +1,17 @@
 package futureYou;
 
+import futureYou.task.Deadline;
+import futureYou.task.Events;
+import futureYou.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import futureYou.TaskList;
-import futureYou.task.Deadline;
-import futureYou.task.Events;
-import futureYou.task.Task;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * The Storage class handles loading tasks from a file and saving tasks to a
@@ -22,7 +20,7 @@ import futureYou.task.Task;
  * Dates are saved in the format: yyyy-MM-dd HH:mm
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     /**
      * Constructs a Storage object with a specified file path.
@@ -71,17 +69,17 @@ public class Storage {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("d MMM yyyy - HH:mm");
 
         switch (typeOfTask) {
-            case "T":
-                return new Task(taskName, taskStatus);
-            case "D":
-                LocalDateTime deadline = LocalDateTime.parse(stringParts[3].trim(),format);
-                return new Deadline(taskName, taskStatus, deadline);
-            case "E":
-                LocalDateTime startDateTime = LocalDateTime.parse(stringParts[3].trim(),format);
-                LocalDateTime endDateTime = LocalDateTime.parse(stringParts[4].trim(),format);
-                return new Events(taskName, taskStatus, startDateTime, endDateTime);
-            default:
-                return null;
+        case "T":
+            return new Task(taskName, taskStatus);
+        case "D":
+            LocalDateTime deadline = LocalDateTime.parse(stringParts[3].trim(), format);
+            return new Deadline(taskName, taskStatus, deadline);
+        case "E":
+            LocalDateTime startDateTime = LocalDateTime.parse(stringParts[3].trim(), format);
+            LocalDateTime endDateTime = LocalDateTime.parse(stringParts[4].trim(), format);
+            return new Events(taskName, taskStatus, startDateTime, endDateTime);
+        default:
+            return null;
         }
     }
 
@@ -90,7 +88,7 @@ public class Storage {
      * a new file.
      *
      * @return The list of tasks read from the file, if file is empty return emtpy
-     *         ArrayList<Task>.
+     * ArrayList<Task>.
      * @throws IOException If there is an error reading from the file.
      */
     public ArrayList<Task> loadTasks() throws IOException {
