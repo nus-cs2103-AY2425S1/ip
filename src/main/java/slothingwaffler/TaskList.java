@@ -149,7 +149,7 @@ public class TaskList {
         }
         StringBuilder msg = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            msg.append(i + 1).append(". ").append(tasks.get(i).toString()).append("\n");
+            msg.append(i + 1).append(". ").append(matchingTasks.get(i).toString()).append("\n");
         }
         return msg.toString();
     }
