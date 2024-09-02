@@ -1,16 +1,28 @@
-import java.util.Scanner;
 public class ToMo {
     private Parser parser;
+    private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public ToMo() {
+    public ToMo(String fileName) {
         parser = new Parser();
-        tasks = new TaskList();
         ui = new Ui();
+        storage = new Storage(fileName);
+        try {
+            tasks = storage.load();
+            ui.println("Successfully loaded " + tasks.size() + " tasks");
+        } catch (ToMoException e) {
+            ui.println(e);
+            tasks = new TaskList();
+        }
     }
 
     void close() {
+        try {
+            storage.store(tasks);
+        } catch (ToMoException e) {
+            ui.println(e);
+        }
         ui.close();
     }
 
@@ -72,10 +84,11 @@ public class ToMo {
                 ui.println(e);
             }
         }
-        ui.close();
+
+        close();
     }
 
     public static void main(String[] args) {
-        new ToMo().run();
+        new ToMo("../../../data/ToMo.txt").run();
     }
 }
