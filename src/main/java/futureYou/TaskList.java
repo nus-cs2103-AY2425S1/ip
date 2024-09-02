@@ -109,7 +109,7 @@ public class TaskList {
      * @param endDateTime   The start date time of the new Event task to add.
      * @return message The message to be printed
      */
-    public static String addTask(String taskName, String startDateTime, String endDateTime) {
+    public static String addTask(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         Events newEvent = new Events(taskName, startDateTime, endDateTime);
         taskList.add(newEvent);
         storage.saveTasks();
