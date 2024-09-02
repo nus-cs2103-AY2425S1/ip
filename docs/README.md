@@ -4,7 +4,7 @@
 
 ## Introduction
 
-**Schedulo** is a simple yet powerful task management application that helps you keep track of your to-dos, deadlines, and events. It offers an intuitive command-line interface where you can manage your tasks efficiently. Schedulo allows you to add, delete, find, and list tasks, making it easier to stay organized and focused.
+**Schedulo** is a simple yet powerful task management application that helps you keep track of your to-dos, deadlines, and events. It offers an intuitive gui interface where you can manage your tasks efficiently. Schedulo allows you to add, delete, find, and list tasks, making it easier to stay organized and focused.
 
 ## Features
 
@@ -173,13 +173,6 @@ find book
 ```
 Here are the matching tasks in your list:
 1. [T][ ] read book
-```
-
-### 7. Exiting the Program
-To exit the program:
-
-```bash
-bye
 ```
 
 **Expected Outcome:**
