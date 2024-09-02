@@ -9,6 +9,10 @@ public abstract class Task {
         done = false;
     }
 
+    public boolean isDone() {
+        return done;
+    }
+
     public void markAsDone() {
         this.done = true;
     }
