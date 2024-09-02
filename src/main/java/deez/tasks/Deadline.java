@@ -1,4 +1,4 @@
-package deez;
+package deez.tasks;
 
 import java.io.Serial;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package deez;
+package deez.tasks;
 
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;

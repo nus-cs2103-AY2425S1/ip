@@ -7,18 +7,29 @@ import java.util.function.Consumer;
  * The Ui class contains utility methods for user interface.
  */
 public class Ui {
-    private Consumer<String> messageConsumer = (String message) -> {
-    };
+    // TODO: We should probably abstract the payload of this consumer to support
+    //       a more diverse range of actions
+    private Consumer<String> messageConsumer;
 
+    /**
+     * Initialise Ui in a headless manner
+     */
     public Ui() {
+        messageConsumer = (String message) -> {
+            System.out.println("WARN: Ui is in headless mode");
+            System.out.println(message);
+        };
     }
 
+    /**
+     * Initialise Ui with a message consumer
+     */
     public Ui(Consumer<String> messageConsumer) {
         this.messageConsumer = messageConsumer;
     }
 
     /**
-     * Say messages with a separator before and after the messages.
+     * Send messages to the user
      *
      * @param msgs The messages to say. It can be an empty array.
      */
@@ -29,7 +40,7 @@ public class Ui {
     }
 
     /**
-     * Print the elements of a given list to console.
+     * Renders a numbered list of items to the user.
      *
      * @param arrayList The list to print.
      */

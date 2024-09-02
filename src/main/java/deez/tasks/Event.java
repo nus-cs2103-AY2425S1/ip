@@ -1,4 +1,4 @@
-package deez;
+package deez.tasks;
 
 import java.time.LocalDateTime;
 
@@ -38,14 +38,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]"
-            + super.toString()
-            + " (from: "
-            + this.eventStartDate.format(DEFAULT_DATE_TIME_FORMATTER)
-            + ")"
-            + " (to"
-            + ": "
-            + this.eventEndDate.format(DEFAULT_DATE_TIME_FORMATTER)
-            + ")";
+        return "[E]" + super.toString()
+            + " (from: " + this.eventStartDate.format(DEFAULT_DATE_TIME_FORMATTER) + ")"
+            + " (to: " + this.eventEndDate.format(DEFAULT_DATE_TIME_FORMATTER) + ")";
     }
 }
