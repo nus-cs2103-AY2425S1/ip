@@ -1,10 +1,8 @@
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+
 
 public class TaskList {
     List<Task> tasks;
@@ -28,9 +26,7 @@ public class TaskList {
     }
 
 
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
+
 
     public Task deleteTask( int num) throws EchoException {
         try {
@@ -80,7 +76,6 @@ public class TaskList {
             String[] des = details[0].split(" ", 2);
             Deadline deadlineTask = new Deadline(details[0], details[1]);
             this.tasks.add(deadlineTask);
-            //System.out.println("added: " + deadlineTask);
             return deadlineTask;
         } else {
             throw new EchoException("Please specify the task description and deadline.");
@@ -90,7 +85,6 @@ public class TaskList {
 
     public Events addEvent( String input) throws EchoException, DateTimeParseException {
         String eventDes = Parser.parseEventDes(input);
-
         String[] times = Parser.parseEventTime(input);
         Events eventTask = new Events(eventDes, times[0], times[1]);
         this.tasks.add(eventTask);
@@ -102,7 +96,6 @@ public class TaskList {
     public Todo addTodo(String taskDescription) {
         Todo todo = new Todo(taskDescription);
         this.tasks.add(todo);
-        System.out.println("Got it. I've added this task:\n" + todo.toString() + "Now you have " + tasks.size() + " tasks in the list");
         return todo;
     }
 }
