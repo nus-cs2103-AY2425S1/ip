@@ -1,7 +1,6 @@
 package megamind.main;
 
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 import megamind.exception.InvalidCommandException;
 import megamind.exception.MissingParameterException;
@@ -25,72 +24,37 @@ public class Megamind {
     private static final Storage storage = new Storage();
     private static List taskList;
 
-    public static void main(String[] args) {
+    public Megamind() {
         taskList = new List(storage.loadTasks());
-        ui.greet();
-        run();
     }
 
-    /**
-     * Runs the program.
-     */
-    public static void run() {
-        Scanner scanner = new Scanner(System.in);
+    public static String handleCommand(String command) {
+        try {
+            String action = parser.parseCommand(command);
 
-        // Start a loop to read commands from the user
-        while (true) {
-            ui.showLine();
-            System.out.print("> ");
-            String command = scanner.nextLine().trim();
-
-            try {
-                String action = parser.parseCommand(command);
-
-                switch (action) {
-                case "bye":
-                    exit();
-                    return;
-                case "list":
-                    ui.showMessage(taskList.toString());
-                    break;
-                case "help":
-                    ui.showHelp();
-                    break;
-                case "unmark":
-                    unmark(command);
-                    break;
-                case "mark":
-                    mark(command);
-                    break;
-                case "todo":
-                    addTodo(command);
-                    break;
-                case "deadline":
-                    addDeadline(command);
-                    break;
-                case "event":
-                    addEvent(command);
-                    break;
-                case "delete":
-                    deleteTask(command);
-                    break;
-                case "find":
-                    findTask(command);
-                    break;
-                default:
-                    throw new InvalidCommandException("Unknown command. Use "
-                                                      + "'help' for a list of "
-                                                      + "commands.");
-                }
-            } catch (InvalidCommandException | TaskNotFoundException
-                     | MissingParameterException
-                     | DateTimeParseException e) {
-                if (e instanceof DateTimeParseException) {
-                    ui.showError("Invalid date/time format. Please use the "
-                                 + "format: dd/MM/yyyy HHmm");
-                } else {
-                    ui.showError(e.getMessage());
-                }
+            return switch (action) {
+                case "bye" -> exit();
+                case "list" -> taskList.toString();
+                case "help" -> ui.showHelp();
+                case "unmark" -> unmark(command);
+                case "mark" -> mark(command);
+                case "todo" -> addTodo(command);
+                case "deadline" -> addDeadline(command);
+                case "event" -> addEvent(command);
+                case "delete" -> deleteTask(command);
+                case "find" -> findTask(command);
+                default -> throw new InvalidCommandException("Unknown command. Use "
+                                                             + "'help' for a list of "
+                                                             + "commands.");
+            };
+        } catch (InvalidCommandException | TaskNotFoundException
+                 | MissingParameterException
+                 | DateTimeParseException e) {
+            if (e instanceof DateTimeParseException) {
+                return "Invalid date/time format. Please use the "
+                             + "format: dd/MM/yyyy HHmm";
+            } else {
+                return e.getMessage();
             }
         }
     }
@@ -101,22 +65,23 @@ public class Megamind {
      * @param command Command entered by the user.
      * @throws InvalidCommandException If the command is invalid.
      */
-    public static void findTask(String command) throws InvalidCommandException {
+    public static String findTask(String command) throws InvalidCommandException {
         String keyword = parser.parseDescription(command, "find");
-        ui.showMessage(taskList.findTasks(keyword));
+        return taskList.findTasks(keyword);
     }
 
     /**
      * Exits the program.
      */
-    public static void exit() {
+    public static String exit() {
         try {
             storage.saveTasks(taskList.getTasks());
         } catch (Exception e) {
-            ui.showError("Error saving tasks.");
-        } finally {
-            ui.showExit();
+            return "Error saving tasks.";
         }
+
+        return ui.showExit();
+
     }
 
     /**
@@ -127,14 +92,14 @@ public class Megamind {
      * @throws InvalidCommandException If the command is invalid.
      * @throws TaskNotFoundException   If the task is not found.
      */
-    public static void unmark(String command) throws InvalidCommandException,
+    public static String unmark(String command) throws InvalidCommandException,
             TaskNotFoundException {
         int index = parser.parseTaskIndex(command);
         boolean success = taskList.markTaskAsNotDone(index);
         if (!success) {
             throw new TaskNotFoundException("Task number does not exist.");
         }
-        ui.showMarkTask(taskList.get(index), false);
+        return ui.showMarkTask(taskList.get(index), false);
     }
 
 
@@ -146,14 +111,14 @@ public class Megamind {
      * @throws InvalidCommandException If the command is invalid.
      * @throws TaskNotFoundException   If the task is not found.
      */
-    public static void mark(String command) throws InvalidCommandException,
+    public static String mark(String command) throws InvalidCommandException,
             TaskNotFoundException {
         int index = parser.parseTaskIndex(command);
         boolean success = taskList.markTaskAsDone(index);
         if (!success) {
             throw new TaskNotFoundException("Task number does not exist.");
         }
-        ui.showMarkTask(taskList.get(index), true);
+        return ui.showMarkTask(taskList.get(index), true);
     }
 
     /**
@@ -163,10 +128,10 @@ public class Megamind {
      * @throws InvalidCommandException If the command is invalid (description
      *                                 is empty).
      */
-    public static void addTodo(String command) throws InvalidCommandException {
+    public static String addTodo(String command) throws InvalidCommandException {
         String description = parser.parseDescription(command, "todo");
         taskList.add(new Todo(description));
-        ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
+        return ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
     }
 
     /**
@@ -178,10 +143,10 @@ public class Megamind {
      * @throws InvalidCommandException   If the command is invalid
      *                                   (description and/or deadline is empty).
      */
-    public static void addDeadline(String command) throws MissingParameterException, InvalidCommandException {
+    public static String addDeadline(String command) throws MissingParameterException, InvalidCommandException {
         String[] words = parser.parseDeadline(command);
         taskList.add(new Deadline(words[0], words[1]));
-        ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
+        return ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
     }
 
     /**
@@ -190,10 +155,10 @@ public class Megamind {
      *
      * @param command Command entered by the user.
      */
-    public static void addEvent(String command) throws MissingParameterException, InvalidCommandException {
+    public static String addEvent(String command) throws MissingParameterException, InvalidCommandException {
         String[] words = parser.parseEvent(command);
         taskList.add(new Event(words[0], words[1], words[2]));
-        ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
+        return ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
     }
 
     /**
@@ -205,12 +170,16 @@ public class Megamind {
      *                                 is missing).
      * @throws TaskNotFoundException   If the task is not found.
      */
-    public static void deleteTask(String command) throws InvalidCommandException, TaskNotFoundException {
+    public static String deleteTask(String command) throws InvalidCommandException, TaskNotFoundException {
         int index = parser.parseTaskIndex(command);
         boolean success = taskList.delete(index);
         if (!success) {
             throw new TaskNotFoundException("Task number does not exist.");
         }
-        ui.showTaskDeleted(taskList.get(index));
+        return ui.showTaskDeleted(taskList.get(index));
+    }
+
+    public String greet() {
+        return ui.greet();
     }
 }
