@@ -40,12 +40,11 @@ public class Parser {
     public static String parseDeadlineTask(String userCommand) {
         String[] userInputs = userCommand.split("/");
 
-
         String taskName = userInputs[0].substring(9, userInputs[0].length());
         String deadlineString = userInputs[1].substring(3, userInputs[1].length());
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime deadline = LocalDateTime.parse(deadlineString,format);
+        LocalDateTime deadline = LocalDateTime.parse(deadlineString, format);
 
         String message = TaskList.addTask(taskName, deadline);
         return message;
@@ -62,8 +61,12 @@ public class Parser {
         String[] userInputs = userCommand.split("/");
 
         String taskName = userInputs[0].substring(6, userInputs[0].length());
-        String startDateTime = userInputs[1].substring(5, userInputs[1].length());
-        String endDateTime = userInputs[2].substring(3, userInputs[2].length());
+        String startDateTimeString = userInputs[1].substring(5, userInputs[1].length());
+        String endDateTimeString = userInputs[2].substring(3, userInputs[2].length());
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeString, format);
+        LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeString, format);
 
         String message = TaskList.addTask(taskName, startDateTime, endDateTime);
         return message;

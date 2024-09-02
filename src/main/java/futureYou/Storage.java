@@ -68,16 +68,17 @@ public class Storage {
         String typeOfTask = stringParts[0].trim();
         boolean taskStatus = stringParts[1].trim().equals("1");
         String taskName = stringParts[2].trim();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("d MMM yyyy - HH:mm");
 
         switch (typeOfTask) {
             case "T":
                 return new Task(taskName, taskStatus);
             case "D":
-                LocalDateTime deadline = LocalDateTime.parse(stringParts[3].trim());
+                LocalDateTime deadline = LocalDateTime.parse(stringParts[3].trim(),format);
                 return new Deadline(taskName, taskStatus, deadline);
             case "E":
-                String startDateTime = stringParts[3].trim();
-                String endDateTime = stringParts[4].trim();
+                LocalDateTime startDateTime = LocalDateTime.parse(stringParts[3].trim(),format);
+                LocalDateTime endDateTime = LocalDateTime.parse(stringParts[4].trim(),format);
                 return new Events(taskName, taskStatus, startDateTime, endDateTime);
             default:
                 return null;
