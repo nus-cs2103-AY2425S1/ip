@@ -1,7 +1,14 @@
 package potong;
 
-import potong.command.*;
+import potong.command.AddCommand;
+import potong.command.Command;
+import potong.command.DeleteCommand;
+import potong.command.ExitCommand;
+import potong.command.ListCommand;
+import potong.command.MarkCommand;
+
 import potong.exceptions.IllegalInputPotongException;
+
 import potong.task.DeadlineTask;
 import potong.task.EventTask;
 import potong.task.Task;
@@ -27,20 +34,20 @@ public class Parser {
         String description = arr[2];
         String time = "";
         switch (arr[0]) {
-            case "T":
-                result = new ToDoTask(description, isDone);
-                break;
-            case "D":
-                time = arr[3];
-                result = new DeadlineTask(description, time, isDone);
-                break;
-            case "E":
-                time = arr[3];
-                String[] startAndEnd = time.split("-");
-                result = new EventTask(description, startAndEnd[0], startAndEnd[1], isDone);
-                break;
-            default:
-                result = new Task(description, isDone);
+        case "T":
+            result = new ToDoTask(description, isDone);
+            break;
+        case "D":
+            time = arr[3];
+            result = new DeadlineTask(description, time, isDone);
+            break;
+        case "E":
+            time = arr[3];
+            String[] startAndEnd = time.split("-");
+            result = new EventTask(description, startAndEnd[0], startAndEnd[1], isDone);
+            break;
+        default:
+            result = new Task(description, isDone);
         }
         return result;
     }

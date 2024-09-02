@@ -2,12 +2,12 @@ package potong;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+
 import java.util.Scanner;
 
 public class Ui {
 
     private static final String LINE = "_________________________";
-
     private final Scanner in;
     private final PrintStream out;
 
