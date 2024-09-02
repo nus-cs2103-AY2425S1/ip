@@ -90,6 +90,27 @@ public class TaskList {
         }
     }
 
+    public void searchTask(String word) {
+        ArrayList<Task> foundTask = new ArrayList<>();
+        for (Task i: taskList) {
+            if (i.getString().contains(word)) {
+                foundTask.add(i);
+            }
+        }
+        System.out.println("________________________________");
+        if (foundTask.isEmpty()) {
+            System.out.println("No such task found!");
+        } else {
+            int counter = 1;
+            for (Task i : foundTask) {
+                String output = String.valueOf(counter) + ". " + i.getString();
+                System.out.println(output);
+                counter += 1;
+            }
+        }
+        System.out.println("________________________________");
+    }
+
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
