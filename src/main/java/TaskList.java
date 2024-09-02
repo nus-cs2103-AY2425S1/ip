@@ -47,15 +47,28 @@ public class TaskList {
         }
     }
 
-    public void addTask(Task task) {
+    protected void addTask(Task task) {
         this.tasks.add(task);
     }
 
-    public Task getTask(int taskNumber) {
+    protected Task getTask(int taskNumber) {
         return this.tasks.get(taskNumber);
     }
 
-    public void removeTask(int taskNumber) {
+    protected void removeTask(int taskNumber) {
         this.tasks.remove(taskNumber);
+    }
+
+    protected void printList() {
+        System.out.println("\t" + "Here are the tasks in your list:");
+        for (int i = 0; i < this.getNumberOfTasks(); i++) {
+            Task current = this.getTask(i);
+            String formattedEntry = String.format(
+                    "\t" + "%d. %s",
+                    i + 1,
+                    current
+            );
+            System.out.println(formattedEntry);
+        }
     }
 }

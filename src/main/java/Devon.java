@@ -11,10 +11,7 @@ public class Devon {
 
     protected Scanner scanner = new Scanner(System.in);
     private TaskList tasks = new TaskList();
-
     private Storage storage = new Storage();
-
-
 
     private enum Command {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
@@ -208,16 +205,7 @@ public class Devon {
 
     private void printList() {
         this.printLongLine();
-        System.out.println("\t" + "Here are the tasks in your list:");
-        for (int i = 0; i < tasks.getNumberOfTasks(); i++) {
-            Task current = tasks.getTask(i);
-            String formattedEntry = String.format(
-                    "\t" + "%d. %s",
-                    i + 1,
-                    current
-            );
-            System.out.println(formattedEntry);
-        }
+        tasks.printList();
         this.printLongLine();
     }
 
