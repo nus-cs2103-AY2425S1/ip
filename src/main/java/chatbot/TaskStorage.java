@@ -1,5 +1,7 @@
 package chatbot;
 
+import java.util.List;
+
 public interface TaskStorage {
 
     void addTask(Task task);
@@ -13,5 +15,13 @@ public interface TaskStorage {
     void setTaskAsNotDone(int taskIdx);
 
     void deleteTask(int taskIdx);
+
+    /**
+     * Finds tasks containing the given keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A list of tasks that match the keyword.
+     */
+    List<Task> findTasks(String keyword);
 
 }

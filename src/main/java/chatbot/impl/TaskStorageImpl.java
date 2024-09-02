@@ -71,6 +71,14 @@ public class TaskStorageImpl implements TaskStorage {
     }
 
     @Override
+    public List<Task> findTasks(String keyword) {
+        return tasks
+                .stream()
+                .filter(task -> task.toString().toLowerCase().contains(keyword.toLowerCase()))
+                .toList();
+    }
+
+    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         int index = 1;
