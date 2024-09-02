@@ -115,7 +115,6 @@ public class ListOperation extends Command {
      * @param sc The {@code Scanner} object for reading user input.
      */
     public void createNewTask(Scanner sc) {
-        System.out.println("Current working directory: " + System.getProperty("user.dir"));
         while (true) {
             System.out.println("Enter task type (todo, deadline, event) or '/exit' to finish: ");
             String input = sc.nextLine().trim();
@@ -163,7 +162,6 @@ public class ListOperation extends Command {
         if (taskList.isEmpty()) {
             System.out.println("No tasks available. You can create a new task.");
         } else {
-            printTaskListDebug();
             System.out.println("Current tasks:");
             for (Task task : taskList.values()) {
                 System.out.println(task.toString());
