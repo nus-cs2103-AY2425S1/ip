@@ -2,10 +2,10 @@ package commands;
 
 import models.Event;
 import models.Task;
+import models.TaskList;
 import ui.Ui;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class CreateEventCommand implements Command {
     private final String name;
@@ -20,7 +20,7 @@ public class CreateEventCommand implements Command {
 
     @Override
     public void execute(Context context) {
-        List<Task> tasks = context.tasks();
+        TaskList tasks = context.tasks();
         Task task = new Event(this.name, this.from, this.to);
         tasks.add(task);
 

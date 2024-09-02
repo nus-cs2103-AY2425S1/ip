@@ -1,9 +1,8 @@
 package commands;
 
 import models.Task;
+import models.TaskList;
 import ui.Ui;
-
-import java.util.List;
 
 public class DeleteCommand implements Command {
     private final int taskIndex;
@@ -14,7 +13,7 @@ public class DeleteCommand implements Command {
 
     @Override
     public void execute(Context context) {
-        List<Task> tasks = context.tasks();
+        TaskList tasks = context.tasks();
         Task task = tasks.get(this.taskIndex);
         tasks.remove(this.taskIndex);
 

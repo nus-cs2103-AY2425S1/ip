@@ -1,10 +1,9 @@
 package commands;
 
 import models.Task;
+import models.TaskList;
 import models.ToDo;
 import ui.Ui;
-
-import java.util.List;
 
 public class CreateToDoCommand implements Command {
     private final String name;
@@ -15,7 +14,7 @@ public class CreateToDoCommand implements Command {
 
     @Override
     public void execute(Context context) {
-        List<Task> tasks = context.tasks();
+        TaskList tasks = context.tasks();
         Task task = new ToDo(name);
         tasks.add(task);
 

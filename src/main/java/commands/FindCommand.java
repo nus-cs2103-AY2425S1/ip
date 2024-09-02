@@ -1,6 +1,7 @@
 package commands;
 
 import models.Task;
+import models.TaskList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class FindCommand implements Command {
 
     @Override
     public void execute(Context context) {
-        List<Task> tasks = context.tasks();
+        TaskList tasks = context.tasks();
         List<Task> matched = new ArrayList<>();
 
         // Search through

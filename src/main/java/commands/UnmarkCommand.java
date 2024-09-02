@@ -1,8 +1,7 @@
 package commands;
 
 import models.Task;
-
-import java.util.List;
+import models.TaskList;
 
 public class UnmarkCommand implements Command {
     private final int taskIndex;
@@ -13,7 +12,7 @@ public class UnmarkCommand implements Command {
 
     @Override
     public void execute(Context context) {
-        List<Task> tasks = context.tasks();
+        TaskList tasks = context.tasks();
         if (this.taskIndex < 0 || this.taskIndex >= tasks.size()) {
             throw new InvalidIndexException(tasks.size(), this.taskIndex);
         }
