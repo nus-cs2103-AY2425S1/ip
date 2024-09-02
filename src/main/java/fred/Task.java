@@ -1,5 +1,7 @@
 package fred;
 
+import java.util.ArrayList;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -32,5 +34,15 @@ public abstract class Task {
         } else {
             return " | 0 | " + description;
         }
+    }
+
+    public boolean checkForKeyword(String keyword) {
+        String[] descriptionParts = description.split(" ");
+        for (String descriptionPart : descriptionParts) {
+            if (descriptionPart.equals(keyword)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
