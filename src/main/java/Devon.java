@@ -12,11 +12,12 @@ public class Devon {
     protected Scanner scanner = new Scanner(System.in);
     private TaskList tasks = new TaskList();
     private Storage storage = new Storage();
+    private Parser parser = new Parser();
 
     private enum Command {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
 
-        public static Command fromString(String command) {
+        public static Command fromStringToEnum(String command) {
             try {
                 return Command.valueOf(command.toUpperCase());
             } catch (IllegalArgumentException e) {
@@ -60,22 +61,10 @@ public class Devon {
         printLongLine();
     }
 
-    private String detectCommand(String msg) {
-        String[] parts = msg.split(" ");
-        return parts[0];
-    }
-
-    private String detectContent(String msg) {
-        String[] parts = msg.split(" ");
-        return parts.length > 1
-                ? String.join(" ", Arrays.copyOfRange(parts, 1, parts.length))
-                : "Error";
-    }
-
     private void receiveUserInput() {
         while (true) {
             String input = scanner.nextLine();
-            Command command = Command.fromString(detectCommand(input));
+            Command command = Command.fromStringToEnum(parser.extractCommand(input));
 
             try {
                 switch (command) {
@@ -117,7 +106,7 @@ public class Devon {
     private void markAction(String input) throws DevonInvalidTaskNumberException {
         int taskIndex;
         try {
-            taskIndex = Integer.parseInt(detectContent(input)) - 1;
+            taskIndex = parser.extractTaskIndex(input) - 1;
         } catch (NumberFormatException e) {
             throw new DevonInvalidTaskNumberException();
         }
@@ -130,7 +119,7 @@ public class Devon {
     private void unmarkAction(String input) throws DevonInvalidTaskNumberException {
         int taskIndex;
         try {
-            taskIndex = Integer.parseInt(detectContent(input)) - 1;
+            taskIndex = parser.extractTaskIndex(input) - 1;
         } catch (NumberFormatException e) {
             throw new DevonInvalidTaskNumberException();
         }
@@ -141,19 +130,14 @@ public class Devon {
     }
 
     private void todoAction(String input) {
-        String description = detectContent(input).trim();
+        String description = parser.extractTodo(input);
         addToList(new Todo(description));
     }
 
     private void deadlineAction(String input) throws DevonInvalidDeadlineException, DevonInvalidDateTimeException {
-        String content = detectContent(input);
-        if (!content.contains("/by")) {
-            throw new DevonInvalidDeadlineException();
-        }
-        String[] parts = content.split("/by", 2);
-        String description = parts[0].trim();
-        String by = parts[1].trim();
-
+        String[] contents = parser.extractDeadline(input);
+        String description = contents[0];
+        String by = contents[1];
         try {
             LocalDateTime byDateTime = LocalDateTime.parse(by, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
             addToList(new Deadline(description, byDateTime));
@@ -163,16 +147,10 @@ public class Devon {
     }
 
     private void eventAction(String input) throws DevonInvalidEventException, DevonInvalidDateTimeException {
-        String content = detectContent(input);
-        if (!(content.contains("/from") && content.contains("/to"))) {
-            throw new DevonInvalidEventException();
-        }
-        String[] partsFrom = content.split("/from", 2);
-        String[] partsTo = partsFrom[1].split("/to", 2);
-        String description = partsFrom[0].trim();
-        String from = partsTo[0].trim();
-        String to = partsTo[1].trim();
-
+        String[] contents = parser.extractEvent(input);
+        String description = contents[0];
+        String from = contents[1];
+        String to = contents[2];
         try {
             LocalDateTime fromDateTime = LocalDateTime.parse(from, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
             LocalDateTime toDateTime = LocalDateTime.parse(to, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
@@ -183,7 +161,12 @@ public class Devon {
     }
 
     private void deleteAction(String input) throws DevonInvalidTaskNumberException {
-        int taskIndex = Integer.parseInt(detectContent(input)) - 1;
+        int taskIndex;
+        try {
+            taskIndex = parser.extractTaskIndex(input) - 1;
+        } catch (NumberFormatException e) {
+            throw new DevonInvalidTaskNumberException();
+        }
         if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
