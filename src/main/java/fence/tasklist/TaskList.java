@@ -11,11 +11,11 @@ public class TaskList {
         this.items = items;
     }
 
-    public Task get(int i) {
+    public Task getTask(int i) {
         return items.get(i);
     }
 
-    public int size() {
+    public int getSize() {
         return items.size();
     }
 

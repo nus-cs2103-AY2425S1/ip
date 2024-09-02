@@ -30,8 +30,8 @@ public class Storage {
             taskFile.delete();
             taskFile.createNewFile();
             fw = new FileWriter(taskFile, true);
-            for (int i = 0; i < taskList.size(); i++) {
-                fw.write(taskList.get(i).toTxt() + System.lineSeparator());
+            for (int i = 0; i < taskList.getSize(); i++) {
+                fw.write(taskList.getTask(i).toTxt() + System.lineSeparator());
             }
             fw.close();
         } catch (IOException e) {

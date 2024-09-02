@@ -12,10 +12,10 @@ public class Ui {
         System.out.println("have good day :)");
     }
 
-    public void list(TaskList taskList) {
+    public void list(TaskList tasks) {
         System.out.println("!plans:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i + 1 + ". " + taskList.get(i));
+        for (int i = 0; i < tasks.getSize(); i++) {
+            System.out.println(i + 1 + ". " + tasks.getTask(i));
         }
     }
 
@@ -24,24 +24,24 @@ public class Ui {
                 ((size == 1) ? " item " : " items ") + "in the list.");
     }
 
-    public void unknownCommand() {
+    public void printUnknownCommand() {
         System.out.println("fence is programmed to track your tasks and has long lost all ability " +
                 "to do other things ");
     }
 
-    public void missingFieldError() {
+    public void printMissingFieldError() {
         System.out.println("doing nothing (field missing/invalid format)");
     }
 
-    public void invalidDateError() {
+    public void printInvalidDateError() {
         System.out.println("fence only understands yyyy-mm-dd");
     }
 
-    public void invalidNumberError() {
+    public void printInvalidNumberError() {
         System.out.println("fence has only learnt numerical integers");
     }
 
-    public void loadingError() {
+    public void printLoadingError() {
         System.out.println("Data file corrupted");
     }
 
