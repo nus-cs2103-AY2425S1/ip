@@ -8,8 +8,13 @@ import java.io.IOException;
  */
 public class Parser {
 
+    private static final String TASK_ERROR = "Whoopsie! Please enter a task";
+    private static final String NUMBER_ERROR = "Whoopsie! Please enter a number";
+
     private Storage store;
     private Ui ui;
+
+
 
     /**
      * Stores storage and ui objects
@@ -186,7 +191,7 @@ public class Parser {
      */
     private String handleToDo(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("todo")) {
-            throw new HandleException("Whoopsie! Please enter a task");
+            throw new HandleException(TASK_ERROR);
         } else {
             ToDo toDo = new ToDo(str);
             return store.store(toDo);
@@ -200,7 +205,7 @@ public class Parser {
      */
     private String handleDeadline(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("deadline")) {
-            throw new HandleException("Whoopsie! Please enter a task");
+            throw new HandleException(TASK_ERROR);
         } else {
             try {
                 Deadline deadline = new Deadline(str);
@@ -222,7 +227,7 @@ public class Parser {
      */
     private String handleEvent(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("event")) {
-            throw new HandleException("Whoopsie! Please enter a task");
+            throw new HandleException(TASK_ERROR);
         } else {
             Event event = new Event(str);
             return store.store(event);
@@ -231,7 +236,7 @@ public class Parser {
 
     private String handleDelete(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("delete")) {
-            throw new HandleException("Whoopsie! Please enter a task");
+            throw new HandleException(TASK_ERROR);
         } else {
             return store.delete(str);
         }
@@ -239,7 +244,7 @@ public class Parser {
 
     private String handleMark(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("mark")) {
-            throw new HandleException("Whoopsie! Please enter a number");
+            throw new HandleException(NUMBER_ERROR);
         } else {
             return store.mark(str);
         }
@@ -247,7 +252,7 @@ public class Parser {
 
     private String handleUnmark(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("unmark")) {
-            throw new HandleException("Whoopsie! Please enter a number");
+            throw new HandleException(NUMBER_ERROR);
         } else {
             return store.unmark(str);
         }

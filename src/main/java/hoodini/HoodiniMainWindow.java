@@ -21,7 +21,6 @@ public class HoodiniMainWindow extends Stage {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    private Stage stage = new Stage();
 
     private Hoodini hoodini;
 
