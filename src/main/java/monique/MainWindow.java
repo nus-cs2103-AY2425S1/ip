@@ -16,7 +16,9 @@ import javafx.util.Duration;
 
 
 /**
- * Controller for the main GUI.
+ * Controller class for the main GUI of the application.
+ * This class is responsible for managing the interactions between the user interface components,
+ * handling user input, and updating the display with responses from the Monique chatbot.
  */
 public class MainWindow extends AnchorPane {
     static final String FILE_PATH = "data/tasks.txt";
@@ -35,6 +37,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/gigachad.jpg"));
     private Stage stage;
 
+    /**
+     * Constructs a MainWindow instance with the given stage.
+     * Initializes the FXML components and sets up the Monique instance.
+     *
+     * @param stage the primary stage for this application
+     */
     public MainWindow(Stage stage) {
         this.stage = stage;
         try {
@@ -50,27 +58,36 @@ public class MainWindow extends AnchorPane {
 
     }
 
+    /**
+     * Initializes the ScrollPane to automatically scroll to the bottom as new messages are added.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Displays a welcome message from the Monique instance in the dialog container.
+     */
     public void showWelcomeMessage() {
         String welcomeMessage = monique.getWelcomeMessage();
         dialogContainer.getChildren().add(DialogBox.getMoniqueDialog(welcomeMessage, moniqueImage));
     }
-
-    /** Injects the Monique instance */
+    /**
+     * Injects the Monique instance into this controller.
+     *
+     * @param monique the Monique instance to be used by this controller
+     */
     public void setMonique(Monique monique) {
         this.monique = monique;
     }
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Monique's reply
-     * and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
 
+    /**
+     * Handles user input by creating dialog boxes for user and Monique's replies,
+     * appends them to the dialog container, and clears the user input field.
+     * If the response is a goodbye message, the application will close after a short delay.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -81,7 +98,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         if (response.equalsIgnoreCase(monique.getUi().showGoodbye())) {
-            PauseTransition pause = new PauseTransition(Duration.seconds(5));
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
             pause.setOnFinished(event -> stage.close());
             pause.play();
         }

@@ -50,15 +50,17 @@ public class UnknownCommand extends Command {
         }
 
         // Check if the object is an instance of UnknownCommand
-        if (obj instanceof UnknownCommand) {
-            return true; // All UnknownCommand instances are considered equal
-        }
-
-        // If obj is not an instance of UnknownCommand, return false
-        return false;
+        return obj instanceof UnknownCommand; // All UnknownCommand instances are considered equal
     }
 
+    /**
+     * Retrieves the response message for an unknown command.
+     *
+     * @param ui the user interface instance used to format the response (not used in this method)
+     * @return a string containing the advice message for an unknown command from the {@link UnknownCommandException}
+     */
+    @Override
     public String getResponse(Ui ui) {
-        return "Uknown command, please try again";
+        return new UnknownCommandException().advice();
     }
 }

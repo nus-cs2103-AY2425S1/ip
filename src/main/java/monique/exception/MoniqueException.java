@@ -19,6 +19,8 @@ public abstract class MoniqueException extends Exception {
      * Provides advice on how to handle this exception.
      * Subclasses are expected to implement this method to give specific instructions
      * or tips to the user on how to resolve the exception.
+     *
+     * @return a string containing advice on handling the exception.
      */
     public abstract String advice();
 }

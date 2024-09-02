@@ -16,8 +16,12 @@ public class UnknownCommandException extends MoniqueException {
 
     /**
      * Provides advice on how to handle the exception.
-     * In this case, it advises the user to check the available commands.
+     * In this case, it advises the user that an unknown command was entered
+     * and suggests using '/commands' to find out the available commands.
+     *
+     * @return a string containing advice on handling the unknown command exception.
      */
+    @Override
     public String advice() {
         return "You have entered an unknown command. Please find out available commands by using '/commands'";
     }

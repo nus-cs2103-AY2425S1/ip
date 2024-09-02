@@ -69,8 +69,7 @@ public class DeleteCommand extends Command {
         }
 
         // Check if the object is an instance of DeleteCommand
-        if (obj instanceof DeleteCommand) {
-            DeleteCommand other = (DeleteCommand) obj;
+        if (obj instanceof DeleteCommand other) {
             // Compare taskNum of both objects
             return this.taskNum == other.taskNum;
         }
@@ -79,6 +78,14 @@ public class DeleteCommand extends Command {
         return false;
     }
 
+    /**
+     * Retrieves the response message for a delete operation.
+     * This method returns the message associated with the deletion of a task, which
+     * was previously set in the command execution.
+     *
+     * @param ui the user interface instance (not used in this method)
+     * @return a string response containing the message related to the delete operation
+     */
     public String getResponse(Ui ui) {
         return this.deleteMessage;
     }

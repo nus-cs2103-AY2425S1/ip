@@ -33,26 +33,6 @@ public class Storage {
         this.filePath = filePath;
         this.dbFile = this.getDbFile();
     }
-
-    /**
-     * Returns the current working directory path of the application.
-     *
-     * @return The absolute path of the current working directory.
-     */
-    public static String getCurrentPath() {
-        String s = Paths.get("").toAbsolutePath().toString();
-        return s;
-    }
-
-    /**
-     * Returns the path to the default data file for tasks.
-     *
-     * @return The path of the data file as a string.
-     */
-    public static String getDataPath() {
-        return String.valueOf(Paths.get("data/tasks.txt"));
-    }
-
     /**
      * Returns the <code>File</code> object representing the storage file.
      * Creates the file and its parent directories if they do not exist.

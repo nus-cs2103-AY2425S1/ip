@@ -1,6 +1,5 @@
 package monique.command;
 
-import monique.GuideText;
 import monique.exception.MarkException;
 import monique.storage.Storage;
 import monique.tasklist.TaskList;
@@ -43,6 +42,13 @@ public class GuideCommand extends Command {
         return true;
     }
 
+    /**
+     * Retrieves the response message from the execution of the GuideCommand.
+     *
+     * @param ui the user interface instance used to get the guide text
+     * @return a string containing the guide information provided by the UI
+     */
+    @Override
     public String getResponse(Ui ui) {
         return ui.printGuide();
     }

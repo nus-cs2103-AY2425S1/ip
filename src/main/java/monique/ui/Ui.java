@@ -1,7 +1,6 @@
 package monique.ui;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -32,6 +31,7 @@ public class Ui {
      * Displays a message confirming the addition of a task.
      *
      * @param task The task that was added.
+     * @return A confirmation message including the added task.
      */
     public String addMessage(Task task) {
         return "added: " + task;
@@ -42,6 +42,7 @@ public class Ui {
      *
      * @param task The task that was deleted.
      * @param tasks The current list of tasks.
+     * @return A confirmation message including the deleted task and the updated task count.
      */
     public String deleteMessage(Task task, TaskList tasks) {
         return "deleted: " + task + ".\nYou now have " + (tasks.getNumItems() - 1) + " tasks in the list";
@@ -51,6 +52,7 @@ public class Ui {
      * Displays a message confirming that a task has been marked as completed.
      *
      * @param task The task that was marked as completed.
+     * @return A confirmation message including the marked task.
      */
     public String markMessage(Task task) {
         return "Nice lah.. Great job on doing work! I've marked it: " + task;
@@ -60,20 +62,17 @@ public class Ui {
      * Displays a message confirming that a task has been unmarked as incomplete.
      *
      * @param task The task that was unmarked as incomplete.
+     * @return A confirmation message including the unmarked task.
      */
     public String unmarkMessage(Task task) {
         return "ok... I've unmarked:" + task;
     }
 
-    /**
-     * Displays a horizontal line to separate different sections of output.
-     */
-    public void showLine() {
-        System.out.println(HORIZONTAL_LINE);
-    }
 
     /**
      * Displays a welcome message when the Monique application starts.
+     *
+     * @return A welcome message.
      */
     public String showWelcome() {
         return "Hello, I am Monique,\nI am your personal assistant :)";
@@ -81,28 +80,17 @@ public class Ui {
 
     /**
      * Displays a goodbye message when the Monique application exits.
+     *
+     * @return A goodbye message.
      */
     public String showGoodbye() {
-        return "Goodbye! Have a great day! This window will close in 5 seconds";
-    }
-
-    /**
-     * Reads a command input by the user from the console.
-     *
-     * @return The command entered by the user.
-     */
-    public String readCommand() {
-        String line = "";
-        try {
-            line = this.br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return line;
+        return "Goodbye! Have a great day! This window will close in 3 seconds";
     }
 
     /**
      * Displays a message indicating that the task list is empty.
+     *
+     * @return A message indicating that the task list is empty.
      */
     public String emptyListMessage() {
         return "There are no tasks in your List :)";
@@ -110,10 +98,11 @@ public class Ui {
 
     /**
      * Displays the search results for tasks that match a given search query.
-     * If the provided list of tasks is empty, a message indicating no matches is printed.
-     * Otherwise, it prints each matching task in the list, numbered sequentially.
+     * If the provided list of tasks is empty, a message indicating no matches is returned.
+     * Otherwise, it returns a string with each matching task in the list, numbered sequentially.
      *
      * @param resultList the list of tasks that match the search query
+     * @return A message listing the matching tasks or indicating no matches.
      */
     public String showFindResults(ArrayList<Task> resultList) {
         StringBuilder sb = new StringBuilder();
@@ -127,7 +116,11 @@ public class Ui {
         }
         return sb.toString();
     }
-
+    /**
+     * Retrieves the guide text for the application.
+     *
+     * @return The guide text from <code>GuideText.GUIDE</code>.
+     */
     public String printGuide() {
         return GuideText.GUIDE;
     }

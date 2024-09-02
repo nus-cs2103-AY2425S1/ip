@@ -19,8 +19,10 @@ public class ParseException extends MoniqueException {
 
     /**
      * Provides advice on how to handle this exception.
-     * This method prints a message informing the user to re-enter commands using the correct template
+     * This method returns a message informing the user to re-enter commands using the correct template
      * and suggests entering '/commands' to find out command templates.
+     *
+     * @return a string containing advice on how to handle the parsing exception.
      */
     @Override
     public String advice() {

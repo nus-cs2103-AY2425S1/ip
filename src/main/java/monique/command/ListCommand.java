@@ -53,6 +53,12 @@ public class ListCommand extends Command {
         return true;
     }
 
+    /**
+     * Retrieves the response message from the execution of the ListCommand.
+     *
+     * @param ui the user interface instance used to format the list results (not used in this method)
+     * @return a string containing the result of the list command
+     */
     public String getResponse(Ui ui) {
         return this.listResult;
     }

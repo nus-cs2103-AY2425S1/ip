@@ -49,6 +49,13 @@ public class UnmarkCommand extends Command {
         return true;
     }
 
+    /**
+     * Retrieves the response message for an unmark command.
+     *
+     * @param ui the user interface instance used to format the response (not used in this method)
+     * @return a string containing the unmark message associated with this command
+     */
+    @Override
     public String getResponse(Ui ui) {
         return this.unmarkMessage;
     }

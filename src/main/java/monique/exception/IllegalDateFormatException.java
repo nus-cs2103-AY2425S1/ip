@@ -14,9 +14,9 @@ public class IllegalDateFormatException extends MoniqueException {
     }
 
     /**
-     * Provides advice on how to handle this exception.
-     * This method prints a message informing the user that they have used an incorrect date-time format
-     * and advises them to try again with the correct input format.
+     * Provides advice on how to handle an illegal date format exception.
+     *
+     * @return a string containing advice for handling the exception, indicating that the date-time format used is incorrect and providing guidance to use the correct format.
      */
     @Override
     public String advice() {

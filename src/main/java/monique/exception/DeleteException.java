@@ -15,8 +15,9 @@ public class DeleteException extends MoniqueException {
     }
 
     /**
-     * Provides advice on how to handle this exception.
-     * This method prints a message indicating that an attempt was made to delete an item that does not exist.
+     * Provides advice on how to handle a delete-related exception.
+     *
+     * @return a string containing advice for handling the delete exception, indicating that the item to be deleted does not exist.
      */
     @Override
     public String advice() {
