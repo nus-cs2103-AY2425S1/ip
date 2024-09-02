@@ -134,7 +134,7 @@ public class Eevee {
                 default:
                     throw new EeveeException("You seemed to have typed wrong. This is not a valid command.");
                 }
-                System.out.println("You now have " + tasks.getSize() + " task(s).");
+                System.out.println("You have " + tasks.getSize() + " task(s).");
             } catch (EeveeException | IOException e) {
                 ui.printMessage(e.getMessage());
             }
