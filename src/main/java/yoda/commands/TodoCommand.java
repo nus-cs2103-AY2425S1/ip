@@ -1,7 +1,7 @@
 package yoda.commands;
 
 import yoda.TaskList;
-import yoda.exceptions.InvalidInputException;
+import yoda.exceptions.YodaException;
 import yoda.tasks.ToDo;
 
 /**
@@ -25,11 +25,11 @@ public class TodoCommand extends Command {
     /**
      * Executes a TodoCommand and adds a new to-do task to the list.
      *
-     * @throws InvalidInputException if input format is invalid.
+     * @throws YodaException if input format is invalid.
      */
-    public void run() throws InvalidInputException {
+    public void run() throws YodaException {
         if (!hasValidFormat()) {
-            throw new InvalidInputException("A todo must have a description, no...?");
+            throw new YodaException("A todo must have a description, no...?");
         }
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];

@@ -1,7 +1,7 @@
 package yoda.commands;
 
 import yoda.TaskList;
-import yoda.exceptions.InvalidInputException;
+import yoda.exceptions.YodaException;
 import yoda.tasks.Task;
 
 import java.util.ArrayList;
@@ -28,11 +28,11 @@ public class FindCommand extends Command {
     /**
      * Executes the FindCommand and displays a list of matching tasks.
      *
-     * @throws InvalidInputException if input format is invalid.
+     * @throws YodaException if input format is invalid.
      */
-    public void run() throws InvalidInputException {
+    public void run() throws YodaException {
         if (!checkValidInput()) {
-            throw new InvalidInputException("Find... what?");
+            throw new YodaException("Find... what?");
         }
         String[] splitInput = input.split(" ", 2);
         String keyword = splitInput[1];

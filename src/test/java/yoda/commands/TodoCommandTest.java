@@ -2,7 +2,7 @@ package yoda.commands;
 
 import org.junit.jupiter.api.Test;
 import yoda.TaskList;
-import yoda.exceptions.InvalidInputException;
+import yoda.exceptions.YodaException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TodoCommandTest {
     @Test
-    public void run_validInput_success() throws InvalidInputException {
+    public void run_validInput_success() throws YodaException {
         TaskList taskList = new TaskList();
         TodoCommand command = new TodoCommand(taskList, "todo sleep");
 

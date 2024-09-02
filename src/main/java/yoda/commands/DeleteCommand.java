@@ -1,7 +1,7 @@
 package yoda.commands;
 
 import yoda.TaskList;
-import yoda.exceptions.InvalidInputException;
+import yoda.exceptions.YodaException;
 import yoda.tasks.Task;
 
 /**
@@ -26,11 +26,11 @@ public class DeleteCommand extends Command {
      * Executes a delete command and deletes the task at the specified
      * index from the task list.
      *
-     * @throws InvalidInputException if input formatting is invalid.
+     * @throws YodaException if input formatting is invalid.
      */
-    public void run() throws InvalidInputException {
+    public void run() throws YodaException {
         if (!hasValidFormat(input)) {
-            throw new InvalidInputException("Delete... which one?");
+            throw new YodaException("Delete... which one?");
         }
         String[] splitInput = input.split(" ", 2);
         int index = Integer.parseInt(splitInput[1]);

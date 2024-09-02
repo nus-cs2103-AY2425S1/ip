@@ -1,5 +1,6 @@
 package yoda;
 
+import yoda.exceptions.YodaException;
 import yoda.tasks.Deadline;
 import yoda.tasks.Event;
 import yoda.tasks.Task;
@@ -15,10 +16,13 @@ import java.util.Scanner;
 
 
 public class Storage {
-    final static String FILE_PATH = "data/tasks.txt";
+    private String filePath = "data/tasks.txt";
 
-    public static void saveTasks(ArrayList<Task> tasks) {
-        File file = new File(FILE_PATH);
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+    public void saveTasks(ArrayList<Task> tasks) throws YodaException {
+        File file = new File(filePath);
 
         try {
             if (file.getParentFile() != null && !file.getParentFile().exists()) {
@@ -28,21 +32,21 @@ public class Storage {
                 file.createNewFile();
             }
 
-            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            FileWriter fileWriter = new FileWriter(filePath);
             for (Task task : tasks) {
                 fileWriter.write(task.getData() + "\n");
             }
             fileWriter.close();
 
         } catch (IOException e) {
-            System.out.println("Error when writing file: " + e.getMessage());
+            throw new YodaException("Error when writing file :" + e.getMessage());
         }
     }
 
-    public static ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() throws YodaException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
@@ -73,7 +77,7 @@ public class Storage {
 
             }
         } catch (Exception e) {
-            System.out.println("Encountered error :" + e.getMessage());
+            throw new YodaException("Encountered error :" + e.getMessage());
         }
         return tasks;
     }

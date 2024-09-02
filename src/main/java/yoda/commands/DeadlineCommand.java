@@ -1,7 +1,7 @@
 package yoda.commands;
 
 import yoda.TaskList;
-import yoda.exceptions.InvalidInputException;
+import yoda.exceptions.YodaException;
 import yoda.tasks.Deadline;
 
 import java.time.LocalDate;
@@ -28,11 +28,11 @@ public class DeadlineCommand extends Command {
     /**
      * Executes the command to add a new deadline task to the tasklist.
      *
-     * @throws InvalidInputException if input format was invalid.
+     * @throws YodaException if input format was invalid.
      */
-    public void run() throws InvalidInputException {
+    public void run() throws YodaException {
         if (!hasValidFormat(input)) {
-            throw new InvalidInputException("A deadline must have a description and due by time, no...?");
+            throw new YodaException("A deadline must have a description and due by time, no...?");
         }
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];
@@ -45,7 +45,7 @@ public class DeadlineCommand extends Command {
             System.out.println("Added task:\n" + newTask + "\n"
                     + String.format("Now you have %d tasks in the list", taskList.getLength()));
         } catch (DateTimeParseException e) {
-            throw new InvalidInputException("Deadline must be in format yyyy-mm-dd");
+            throw new YodaException("Deadline must be in format yyyy-mm-dd");
         }
     }
 

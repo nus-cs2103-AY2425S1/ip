@@ -2,12 +2,12 @@ package yoda;
 
 import yoda.commands.*;
 import yoda.exceptions.EmptyInputException;
-import yoda.exceptions.InvalidInputException;
+import yoda.exceptions.YodaException;
 import yoda.exceptions.NonsenseInputException;
 
 public class Parser {
 
-    public Command handle(String input, TaskList tasks) throws InvalidInputException {
+    public Command handle(String input, TaskList tasks) throws YodaException {
         String[] splitInput = input.split(" ", 2);
         String commandString = splitInput[0];
         Command command = null;

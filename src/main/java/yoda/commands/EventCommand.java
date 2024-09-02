@@ -1,7 +1,7 @@
 package yoda.commands;
 
 import yoda.TaskList;
-import yoda.exceptions.InvalidInputException;
+import yoda.exceptions.YodaException;
 import yoda.tasks.Event;
 
 import java.time.LocalDateTime;
@@ -29,11 +29,11 @@ public class EventCommand extends Command {
     /**
      * Executes the command to add a new event task to the task list.
      *
-     * @throws InvalidInputException if the input or date format is invalid.
+     * @throws YodaException if the input or date format is invalid.
      */
-    public void run() throws InvalidInputException {
+    public void run() throws YodaException {
         if (!hasValidFormat(input)) {
-            throw new InvalidInputException("An event must have a description, start time and end time, no...?");
+            throw new YodaException("An event must have a description, start time and end time, no...?");
         }
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];

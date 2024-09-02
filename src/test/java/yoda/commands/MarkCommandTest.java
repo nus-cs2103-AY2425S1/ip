@@ -3,13 +3,13 @@ package yoda.commands;
 import org.junit.jupiter.api.Test;
 import yoda.TaskList;
 import yoda.tasks.ToDo;
-import yoda.exceptions.InvalidInputException;
+import yoda.exceptions.YodaException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MarkCommandTest {
     @Test
-    public void run_validInput_success() throws InvalidInputException {
+    public void run_validInput_success() throws YodaException {
         TaskList taskList = new TaskList();
         taskList.add(new ToDo("sleep"));
         MarkCommand command = new MarkCommand(taskList, "mark 1");

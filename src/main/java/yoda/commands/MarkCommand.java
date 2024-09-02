@@ -1,7 +1,7 @@
 package yoda.commands;
 
 import yoda.TaskList;
-import yoda.exceptions.InvalidInputException;
+import yoda.exceptions.YodaException;
 import yoda.tasks.Task;
 
 /**
@@ -26,12 +26,12 @@ public class MarkCommand extends Command {
     /**
      * Executes the command to mark a task as done.
      *
-     * @throws InvalidInputException if input format is valid or task is out
+     * @throws YodaException if input format is valid or task is out
      * of bounds
      */
-    public void run() throws InvalidInputException {
+    public void run() throws YodaException {
         if (!hasValidFormat()) {
-            throw new InvalidInputException("Mark... which one?");
+            throw new YodaException("Mark... which one?");
         }
         String[] splitInput = input.split(" ", 2);
         int index = Integer.parseInt(splitInput[1]);

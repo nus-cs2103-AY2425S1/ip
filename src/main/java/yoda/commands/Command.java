@@ -1,6 +1,6 @@
 package yoda.commands;
 
-import yoda.exceptions.InvalidInputException;
+import yoda.exceptions.YodaException;
 
 /**
  * An abstract class that represents a chatbot command.
@@ -9,7 +9,7 @@ public abstract class Command {
 
     /**
      * Executes the command. Specific implementation provided by subclasses.
-     * @throws InvalidInputException if input was invalid.
+     * @throws YodaException if input was invalid.
      */
-    public abstract void run() throws InvalidInputException;
+    public abstract void run() throws YodaException;
 }
