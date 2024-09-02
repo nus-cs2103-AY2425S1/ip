@@ -1,9 +1,23 @@
 package fred;
 
+/**
+ * The Parser class handles the parsing of user input. It converts raw input strings
+ * into structured commands that can be executed by the application. The parser
+ * identifies and processes various commands, throwing exceptions for invalid inputs.
+ */
 public class Parser {
+
+    /**
+     * Parses the user's input string and returns an array representing the command and its arguments.
+     *
+     * @param input The raw input string entered by the user.
+     * @return A String array where the first element is the command, and subsequent elements are arguments.
+     * @throws FredException If the input is invalid or contains an unknown command.
+     */
     String[] parseInput(String input) throws FredException {
         input = input.strip();
         String[] inputParts = input.split(" ", 2);
+
         if (inputParts.length == 1) {
             if (inputParts[0].isEmpty()) {
                 throw new EmptyInputException();
@@ -19,7 +33,6 @@ public class Parser {
                 throw new UnknownCommandException();
             }
         } else if (inputParts.length == 2) {
-            String message;
             inputParts[1] = inputParts[1].strip();
             if (inputParts[0].equals("mark") || inputParts[0].equals("unmark") || inputParts[0].equals("delete")) {
                 int taskNumber;
