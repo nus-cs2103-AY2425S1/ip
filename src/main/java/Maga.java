@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Maga {
     public static class TaskList {
         private Task[] taskList;
-        private int taskCount;
+        private int taskCount = 0;
 
         public TaskList(int size) {
             taskList = new Task[size];
@@ -11,7 +11,7 @@ public class Maga {
 
         public void printTasks() {
             System.out.println("Take a look, all the tasks you have here, so many, yuuuuuuge\n");
-            for (int i = 0; i < taskList.length; i++) {
+            for (int i = 0; i < taskCount; i++) {
                 int temp = i + 1;
                 System.out.println(temp + ". " + taskList[i].getTaskType() + taskList[i].getStatusIcon()
                         + taskList[i].getDescription());
@@ -23,12 +23,17 @@ public class Maga {
         }
 
         public void deleteTask(int taskNumber) {
-            taskCount--;
-            Task tempTask = taskList[taskNumber - 1];
-            System.out.print("I've deleted this task:\n" + tempTask.getTaskType() + tempTask.getStatusIcon() +
-                    tempTask.getDescription() + "\nYou have " + taskCount + " task(s) now!");
-            for (int i = taskCount; i < taskList.length; i++) {
-                taskList[i + 1] = taskList[i - 1];
+            Task tempTask = taskList[taskNumber];
+            try {
+                taskCount--;
+                System.out.print("I've deleted this task:\n" + tempTask.getTaskType() + tempTask.getStatusIcon() +
+                        tempTask.getDescription() + "\nYou have " + taskCount + " task(s) now!\n");
+                for (int i = taskCount; i < taskList.length - 2; i++) {
+                    taskList[i] = taskList[i + 1];
+                }
+            } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                System.out.println("Invalid task specified!");
+                taskCount++;
             }
         }
 
@@ -56,10 +61,32 @@ public class Maga {
             }
         }
 
-        public void addTask(Task task) {
-            taskCount++;
+        public void addTask(String input) {
+            Task task = new TodoTask("");
+            if(input.startsWith("todo ")) {
+                String descrip = input.substring(5).trim();
+                task = new TodoTask(descrip);
+            } else if(input.startsWith("event ")) {
+                String descrip = input.substring(6).trim();
+                String[] descripArray = descrip.split("/");
+                if (descripArray.length != 2) {
+                    System.out.println("An event needs a date!! Don't be Crooked Kamala!!");
+                    return;
+                }
+                task = new EventTask(descripArray[0], descripArray[1]);
+            } else if(input.startsWith("deadline ")) {
+                String descrip = input.substring(9).trim();
+                String[] descripArray = descrip.split("/");
+                if (descripArray.length != 3) {
+                    System.out.println("A deadline needs a start and end!! Filibusters are a threat to the " +
+                            "American people!!");
+                    return;
+                }
+                task = new DeadlineTask(descripArray[0], descripArray[1], descripArray[2]);
+            }
+
             try {
-                taskList[taskCount + 1] = task;
+                taskList[taskCount] = task;
                 taskCount++;
                 System.out.println("Another task for the American people added:\n" + task.getTaskType()
                         + task.getStatusIcon() + task.getDescription() + "\nYou have " + taskCount + " task(s) now!");
@@ -151,7 +178,6 @@ public class Maga {
 
     public static void main(String[] args) {
         printGreeting();
-
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
@@ -159,7 +185,7 @@ public class Maga {
         TaskList taskList = new TaskList(100);
 
         while(!input.equalsIgnoreCase("bye")) {
-            // using list command
+            // display task list
             input = input.toLowerCase();
             if(input.equals("list")) {
                 taskList.printTasks();
@@ -167,7 +193,7 @@ public class Maga {
                 continue;
             }
 
-            // marking things as done and undone
+            // mark tasks as done
             if (input.startsWith("mark ")) {
                 char[] charArray = input.toCharArray();
                 int taskNumber = Character.getNumericValue(charArray[charArray.length - 1]) - 1;
@@ -176,6 +202,7 @@ public class Maga {
                 continue;
             }
 
+            //marks tasks as undone
             if (input.toLowerCase().startsWith("unmark ")) {
                 char[] charArray = input.toCharArray();
                 int taskNumber = Character.getNumericValue(charArray[charArray.length - 1]) - 1;
@@ -184,8 +211,8 @@ public class Maga {
                 continue;
             }
 
-            // deleting things
-            if(input.startsWith("delete")) {
+            // delete tasks
+            if(input.startsWith("delete ")) {
                 String descrip = input.substring(7).trim();
                 int tempInt;
                 try {
@@ -195,39 +222,19 @@ public class Maga {
                     input = scanner.nextLine();
                     continue;
                 }
-;
+
+                System.out.println(tempInt);
                 taskList.deleteTask(tempInt - 1);
                 input = scanner.nextLine();
                 continue;
 
             }
 
-            // adding things as per normal
-            if(input.startsWith("todo")) {
-                String descrip = input.substring(5).trim();
-                Task tempTask = new TodoTask(descrip);
-                taskList.addTask(tempTask);
-            } else if(input.startsWith("event")) {
-                String descrip = input.substring(6).trim();
-                String[] descripArray = descrip.split("/");
-                if (descripArray.length != 2) {
-                    System.out.println("An event needs a date!! Don't be Crooked Kamala!!");
-                    input = scanner.nextLine();
-                    continue;
-                }
-                Task tempTask = new EventTask(descripArray[0], descripArray[1]);
-                taskList.addTask(tempTask);
-            } else if(input.startsWith("deadline")) {
-                String descrip = input.substring(9).trim();
-                String[] descripArray = descrip.split("/");
-                if (descripArray.length != 3) {
-                    System.out.println("A deadline needs a start and end!! Filibusters are a threat to the " +
-                            "American people!!");
-                    input = scanner.nextLine();
-                    continue;
-                }
-                Task tempTask = new DeadlineTask(descripArray[0], descripArray[1], descripArray[2]);
-                taskList.addTask(tempTask);
+            // add tasks to tasklist
+            if(input.startsWith("todo ") || input.startsWith("event ") || input.startsWith("deadline ")) {
+                taskList.addTask(input);
+                input = scanner.nextLine();
+                continue;
             }
 
             // should never reach here unless command is invalid
