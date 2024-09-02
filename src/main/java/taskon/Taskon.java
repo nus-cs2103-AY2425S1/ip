@@ -17,6 +17,10 @@ public class Taskon {
     private TaskList tasks;
     private Ui ui;
 
+    public Taskon() {
+        this("./data/taskon.txt");
+    }
+
     /**
      * Constructs a Taskon object and initializes the application with the specified storage file path.
      *
@@ -52,6 +56,16 @@ public class Taskon {
                 ui.showLine();
             }
         }
+    }
+
+    public String getReponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (TaskonException e) {
+            ui.showError(e.getMessage());
+        }
+        return "";
     }
 
     /**
