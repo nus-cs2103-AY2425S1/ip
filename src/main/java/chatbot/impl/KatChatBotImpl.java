@@ -6,6 +6,10 @@ import chatbot.exceptions.InvalidMessageException;
 
 import java.util.Scanner;
 
+/**
+ * Implements the ChatBot interface representing a chatbot named Kat.
+ * This class handles user interactions, processes input, and generates responses.
+ */
 public class KatChatBotImpl implements ChatBot {
 
     private static final String LOGO = """
@@ -20,6 +24,12 @@ public class KatChatBotImpl implements ChatBot {
 
     private final MessageParser messageParser;
 
+    /**
+     * Constructs a new KatChatBotImpl with the specified scanner and message parser.
+     *
+     * @param scanner       The Scanner object for reading user input
+     * @param messageParser The MessageParser object for processing user messages
+     */
     public KatChatBotImpl(Scanner scanner, MessageParser messageParser) {
         this.scanner = scanner;
         this.messageParser = messageParser;
@@ -49,6 +59,11 @@ public class KatChatBotImpl implements ChatBot {
         respond("See you!");
     }
 
+    /**
+     * Displays the chatbot's response with formatting.
+     *
+     * @param responseMsg The message to be displayed as the chatbot's response.
+     */
     private void respond(String responseMsg) {
         System.out.println("~".repeat(50));
         System.out.println("> Kat");

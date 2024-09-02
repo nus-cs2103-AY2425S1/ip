@@ -8,14 +8,29 @@ import chatbot.impl.tasks.DeadlineTask;
 import chatbot.impl.tasks.EventTask;
 import chatbot.impl.tasks.TodoTask;
 
+/**
+ * Implements the MessageParser interface to handle various types of user messages.
+ */
 public class MessageParserImpl implements MessageParser {
 
     private final TaskStorage storage;
 
+    /**
+     * Constructs a MessageParserImpl with the specified task storage.
+     *
+     * @param storage The TaskStorage object for managing tasks.
+     */
     public MessageParserImpl(TaskStorage storage) {
         this.storage = storage;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This implementation processes various commands including list, mark, unmark,
+     * todo, deadline, event, and delete. It throws an InvalidMessageException for
+     * unrecognized commands or invalid inputs.
+     */
     @Override
     public String handleMessage(String input) throws InvalidMessageException {
         if (input.isEmpty()) {
@@ -37,12 +52,24 @@ public class MessageParserImpl implements MessageParser {
         };
     }
 
+    /**
+     * Handles the 'list' command.
+     *
+     * @return A string representation of all tasks in the storage.
+     */
     private String handleList() {
         return String.format("Here are your tasks:\n%s", storage);
     }
 
-    // Todo: Potential combine these 2 methods?
+    /**
+     * Handles the 'mark' command to mark a task as done.
+     *
+     * @param inputParts The split input containing the command and task index.
+     * @return A confirmation message with the marked task details.
+     * @throws InvalidMessageException If the task index is invalid.
+     */
     private String handleMark(String[] inputParts) throws InvalidMessageException {
+        // Todo: Potential combine these 2 methods?
         try {
             int taskIdx = Integer.parseInt(inputParts[1]) - 1;
             storage.setTaskAsDone(taskIdx);
@@ -53,6 +80,13 @@ public class MessageParserImpl implements MessageParser {
         }
     }
 
+    /**
+     * Handles the 'unmark' command to mark a task as not done.
+     *
+     * @param inputParts The split input containing the command and task index.
+     * @return A confirmation message with the unmarked task details.
+     * @throws InvalidMessageException If the task index is invalid.
+     */
     private String handleUnmark(String[] inputParts) throws InvalidMessageException {
         try {
             int taskIdx = Integer.parseInt(inputParts[1]) - 1;
@@ -64,6 +98,13 @@ public class MessageParserImpl implements MessageParser {
         }
     }
 
+    /**
+     * Handles the 'todo' command to add a new todo task.
+     *
+     * @param inputParts The split input containing the command and task description.
+     * @return A confirmation message with the added task details.
+     * @throws InvalidMessageException If the task description is missing.
+     */
     private String handleTodo(String[] inputParts) throws InvalidMessageException {
         try {
             Task task = new TodoTask(inputParts[1]);
@@ -73,6 +114,13 @@ public class MessageParserImpl implements MessageParser {
         }
     }
 
+    /**
+     * Handles the 'deadline' command to add a new deadline task.
+     *
+     * @param inputParts The split input containing the command and command body.
+     * @return A confirmation message with the added task details.
+     * @throws InvalidMessageException If the task description or deadline is missing.
+     */
     private String handleDeadline(String[] inputParts) throws InvalidMessageException {
         try {
             String[] deadlineParts = inputParts[1].split("/by");
@@ -84,6 +132,13 @@ public class MessageParserImpl implements MessageParser {
         }
     }
 
+    /**
+     * Handles the 'event' command to add a new event task.
+     *
+     * @param inputParts The split input containing the command and command body.
+     * @return A confirmation message with the added task details.
+     * @throws InvalidMessageException If the task description, start time, or end time is missing.
+     */
     private String handleEvent(String[] inputParts) throws InvalidMessageException {
         try {
             String[] eventParts = inputParts[1].split("/from|/to");
@@ -95,11 +150,25 @@ public class MessageParserImpl implements MessageParser {
         }
     }
 
+    /**
+     * Adds a task to the storage.
+     *
+     * @param task The task to be added.
+     * @return A confirmation message with the added task details and current task count.
+     */
     private String addTask(Task task) {
         storage.addTask(task);
         return String.format("Got it. Task saved:\n%s\n%d tasks in the list.", task, storage.getSize());
     }
 
+
+    /**
+     * Handles the 'delete' command to remove a task.
+     *
+     * @param inputParts The split input containing the command and task index.
+     * @return A confirmation message with the deleted task details and current task count.
+     * @throws InvalidMessageException If the task index is invalid.
+     */
     private String handleDelete(String[] inputParts) throws InvalidMessageException {
         try {
             int taskIdx = Integer.parseInt(inputParts[1]) - 1;

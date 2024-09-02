@@ -5,10 +5,20 @@ import chatbot.exceptions.InvalidMessageException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class DeadlineTask extends AbstractTask {
 
     private final LocalDate deadline;
 
+    /**
+     * Constructs a new DeadlineTask with the given description and deadline.
+     *
+     * @param description The description of the task.
+     * @param deadline    The deadline of the task in yyyy-mm-dd format.
+     * @throws InvalidMessageException if the date format is invalid.
+     */
     public DeadlineTask(String description, String deadline) throws InvalidMessageException {
         super(description);
 
@@ -19,6 +29,13 @@ public class DeadlineTask extends AbstractTask {
         }
     }
 
+    /**
+     * Deserializes a DeadlineTask from a string representation.
+     *
+     * @param line The string representation of the DeadlineTask.
+     * @return The deserialized DeadlineTask object.
+     * @throws IllegalArgumentException if the task format is invalid.
+     */
     public static DeadlineTask deserialize(String line) {
         String[] parts = line.split(" \\| ");
 

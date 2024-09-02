@@ -4,6 +4,9 @@ import chatbot.Task;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Provides a base implementation of the Task interface.
+ */
 public abstract class AbstractTask implements Task {
 
     protected static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy");
@@ -12,11 +15,23 @@ public abstract class AbstractTask implements Task {
 
     protected boolean isDone;
 
-    public AbstractTask(String description) {
+    /**
+     * Constructs a new AbstractTask with the given description.
+     *
+     * @param description The description of the task.
+     */
+    protected AbstractTask(String description) {
         this.description = description;
         isDone = false;
     }
 
+    /**
+     * Deserializes a task from a string representation.
+     *
+     * @param line The string representation of the task.
+     * @return The deserialized Task object.
+     * @throws IllegalArgumentException if the task format is invalid.
+     */
     public static Task deserialize(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
@@ -38,6 +53,11 @@ public abstract class AbstractTask implements Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return A string representation of the task.
+     */
     @Override
     public String toString() {
         return String.format("[%s] %s", isDone ? "X" : " ", description);

@@ -22,3 +22,9 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    |   < (_| | |_
    |_|\_\____|\__|
    ```
+
+## Use of AI
+
+1. The JavaDoc comments were partially done with Claude Sonnet 3.5.<br>
+   Sample self-written JavaDoc comments and JavaDoc guidelines from the [Java coding standard](https://se-education.org/guides/conventions/java/index.html) was provided to the AI to generate more comments.
+   Comments created by the AI are vetted and edited.
