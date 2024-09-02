@@ -107,6 +107,11 @@ public class Ui {
                     displayMessage(Parser.parseEventTask(userCommand));
                     break;
                 }
+                case "find": {
+                    String text = userCommand.substring(5);
+                    displayMessage(TaskList.findTask(text));
+                    break;
+                }
                 default: // User enters invalid command
                     displayMessage("Please enter a valid command!");
                     break;
