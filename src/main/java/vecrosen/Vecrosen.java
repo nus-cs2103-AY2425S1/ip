@@ -1,11 +1,12 @@
 package vecrosen;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
+/**
+ * The main application. Essentially a memo app.
+ */
 public class Vecrosen {
     private static Ui ui;
 
@@ -84,6 +85,9 @@ public class Vecrosen {
             case undefined:
                 ui.speak("Sorry, I don't understand.");
                 ui.speak("Commands: todo deadline event mark unmark delete list bye");
+                break;
+            default:
+                System.err.println("Action type not recognized!");
             }
             taskList.save(data);
         }

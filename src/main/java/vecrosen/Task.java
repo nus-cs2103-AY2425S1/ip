@@ -1,9 +1,17 @@
 package vecrosen;
 
+/**
+ * The basic task type, known as a todo if used as-is.
+ * Has of a description and tracks whether it has been marked as complete by the user.
+ */
 public class Task {
     private final String description;
     private boolean isDone;
 
+    /**
+     * Initializes a Task object. Starts marked as incomplete.
+     * @param description The description the task will have.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -36,7 +44,9 @@ public class Task {
     @Override
     public String toString() {
         char charDone = ' ';
-        if (isDone) charDone = 'X';
+        if (isDone) {
+            charDone = 'X';
+        }
         return "[T][" + charDone + "] " + description;
     }
 }

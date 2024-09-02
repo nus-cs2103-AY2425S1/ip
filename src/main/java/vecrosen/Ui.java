@@ -4,9 +4,18 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Handles receiving input and displaying output to/from the user.
+ */
 public class Ui {
     private Scanner input;
     private PrintStream output;
+
+    /**
+     * Initializes the UI
+     * @param inputStream Where the text the user inputs will be received
+     * @param outputStream Where the text Vecrosen will respond with is sent
+     */
     public Ui(InputStream inputStream, PrintStream outputStream) {
         input = new Scanner(inputStream);
         output = outputStream;

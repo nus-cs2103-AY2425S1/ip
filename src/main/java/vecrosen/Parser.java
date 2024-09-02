@@ -2,8 +2,12 @@ package vecrosen;
 
 import java.util.ArrayList;
 
+/**
+ * Class containing a static method to parse user inputs into the requested action and arguments
+ */
 public class Parser {
-    public enum ActionType {undefined, formatting, todo, deadline, event, mark, unmark, delete, list, bye};
+    /** Action types recognized by Vecrosen */
+    public enum ActionType { undefined, formatting, todo, deadline, event, mark, unmark, delete, list, bye };
 
     /**
      * Parses the string to detect the action the user is attempting
@@ -60,8 +64,7 @@ public class Parser {
             int itemNo = Integer.parseInt(input.substring(7));
             returnArgs.add(itemNo);
             return ActionType.delete;
-        } // TODO: make helper function
-        else if (input.startsWith("todo")) {
+        } else if (input.startsWith("todo")) { // TODO: make helper function
             returnArgs.add("todo [description]");
             return ActionType.formatting;
         } else if (input.startsWith("deadline")) {

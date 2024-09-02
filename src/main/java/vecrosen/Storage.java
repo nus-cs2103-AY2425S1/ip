@@ -8,8 +8,12 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Handles tasks regarding saving and loading from the savefile.
+ */
 public class Storage {
-    private enum TaskType {todo, deadline, event};
+    /** Task types currently supported by Vecrosen */
+    private enum TaskType { todo, deadline, event };
 
     /**
      * Saves the task list to the specified file.
@@ -75,6 +79,8 @@ public class Storage {
                 case todo:
                     list.add(new Task(description));
                     break;
+                default:
+                    System.err.println("TaskType not recognized when loading");
                 }
                 list.get(list.size() - 1).setDone(isDone);
             }

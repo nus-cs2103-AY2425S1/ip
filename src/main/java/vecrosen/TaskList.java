@@ -3,17 +3,33 @@ package vecrosen;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Handles manipulating the current session's list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> list;
 
+    /**
+     * Initializes an empty list of tasks.
+     */
     public TaskList() {
         this(new ArrayList<Task>());
     }
 
+    /**
+     * Initializes the task list with the supplied list of tasks.
+     * The same ArrayList will be used to store updates to the list and can be modified directly.
+     * (How did you expect me to test the ArrayList if this thing deepcopied?)
+     * @param list The ArrayList containing the initial list of tasks and to be used for storing the current state.
+     */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
     }
 
+    /**
+     * Initializes the
+     * @param file
+     */
     public TaskList(File file) {
         list = new ArrayList<Task>();
         Storage.load(file, list);
@@ -66,7 +82,7 @@ public class TaskList {
      */
     public void printList(Ui ui) {
         for (int i = 0; i < list.size(); ++i) {
-            ui.speak((i+1) + "." + list.get(i).toString());
+            ui.speak((i + 1) + "." + list.get(i).toString());
         }
         if (list.size() == 0) {
             ui.speak("You have no tasks!");

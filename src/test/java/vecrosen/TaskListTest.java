@@ -1,10 +1,10 @@
 package vecrosen;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     /**
@@ -21,6 +21,7 @@ public class TaskListTest {
         try {
             taskList.deleteTask(3);
         } catch (IndexOutOfBoundsException ignored) {
+            // no action
         }
         assertEquals(2, taskList.getListSize());
         assertEquals("Hello world thrice", a.get(1).getDescription());

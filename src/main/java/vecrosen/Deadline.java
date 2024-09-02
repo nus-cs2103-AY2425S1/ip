@@ -4,11 +4,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Task containing 1 additional argument: a due date (not necessarily a date).
+ */
 public class Deadline extends Task {
     private String byString;
     private LocalDate byDate;
     private boolean isDate;
 
+    /**
+     * Initializes a Deadline object. Starts marked as incomplete.
+     * @param description The description of the task
+     * @param by The due date of the task
+     */
     public Deadline(String description, String by) {
         super(description);
         this.byString = by;
@@ -17,6 +25,7 @@ public class Deadline extends Task {
             byDate = CustomDateTimeParser.parseDateTime(by);
             isDate = true;
         } catch (DateTimeParseException ignored) {
+            // no action
         }
     }
 
