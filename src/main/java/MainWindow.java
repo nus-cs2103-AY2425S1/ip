@@ -7,6 +7,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import luna.Luna;
 
+import java.util.Objects;
+
 /**
  * Controller for the main GUI.
  */
@@ -22,8 +24,10 @@ public class MainWindow extends AnchorPane {
 
     private Luna luna;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/User.jpg")));
+    private final Image lunaImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/Luna.jpg")));
 
     @FXML
     public void initialize() {
@@ -43,9 +47,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = luna.run(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getLunaDialog(response, lunaImage)
         );
         userInput.clear();
     }
