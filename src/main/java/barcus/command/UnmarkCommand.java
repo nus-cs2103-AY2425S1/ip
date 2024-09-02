@@ -4,12 +4,20 @@ import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
 import barcus.storage.Storage;
 
+/**
+ * Command to unmark item at the position
+ */
 public class UnmarkCommand extends Command {
     private int pos;
 
+    /**
+     * Constructor
+     * @param pos index of item to unmark
+     */
     public UnmarkCommand(int pos) {
         this.pos = pos;
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (pos > 0 && pos <= tasks.getLength()) {

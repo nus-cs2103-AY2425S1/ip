@@ -4,12 +4,20 @@ import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
 import barcus.storage.Storage;
 
+/**
+ * Command to mark item at pos
+ */
 public class MarkCommand extends Command {
     private int pos;
 
+    /**
+     * Constructor
+     * @param pos index of item to mark
+     */
     public MarkCommand(int pos) {
         this.pos = pos;
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (pos > 0 && pos <= tasks.getLength()) {

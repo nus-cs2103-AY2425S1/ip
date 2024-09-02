@@ -4,6 +4,9 @@ import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
 import barcus.storage.Storage;
 
+/**
+ * Command for unknown input
+ */
 public class UnknownCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
