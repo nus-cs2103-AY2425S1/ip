@@ -1,6 +1,7 @@
 package vecrosen;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -10,6 +11,10 @@ public class Vecrosen {
 
     public static void main(String[] args) {
         File data = new File("data/vecrosen.txt");
+        File datafolder = new File("data");
+        if (!datafolder.exists()) {
+            datafolder.mkdir();
+        }
         TaskList taskList;
         try {
             taskList = new TaskList(data);
