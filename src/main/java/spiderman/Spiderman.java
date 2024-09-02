@@ -53,6 +53,17 @@ public class Spiderman {
                 continue;
             }
 
+            // User types find; find tasks by keyword
+            if (splitInput[0].equals("find")) {
+                String keyword = input.replaceFirst("find", "").trim();
+                if (keyword.isEmpty()) {
+                    System.out.println("The keyword for find cannot be empty!");
+                } else {
+                    findTasks(taskList, keyword);
+                }
+                continue;
+            }
+
             // User types mark; mark as done
             if (splitInput[0].equals("mark")) {
                 int number = Integer.parseInt(splitInput[1]) - 1;
@@ -208,5 +219,19 @@ public class Spiderman {
             System.out.print("");
         }
         return taskList;
+    }
+
+    private static void findTasks(ArrayList<Task> taskList, String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        int numOfMatches = 0;
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(keyword)) {
+                numOfMatches++;
+                System.out.println((i + 1) + ". " + taskList.get(i).toString());
+            }
+        }
+        if (numOfMatches == 0) {
+            System.out.println("No tasks found with the keyword: " + keyword);
+        }
     }
 }
