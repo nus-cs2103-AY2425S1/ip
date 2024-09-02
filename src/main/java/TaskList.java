@@ -31,6 +31,14 @@ public class TaskList {
         return "" + list.size();
     }
 
+    public String toFile() {
+        String output = "";
+        for (int i = 0; i < list.size(); i++) {
+            output += list.get(i).toFile() + "\n";
+        }
+        return output;
+    }
+
     @Override
     public String toString() {
         String output = "";
