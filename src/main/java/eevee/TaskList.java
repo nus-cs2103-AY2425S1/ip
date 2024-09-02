@@ -40,6 +40,22 @@ public class TaskList {
         return tasks.isEmpty();
     }
 
+    /**
+     * Finds tasks that have descriptions matching the given keyword.
+     *
+     * @param keyword The String that is to be found in task descriptions.
+     * @return The ArrayList of tasks that have matching descriptions.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t : tasks) {
+            if (t.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
+
     public void printTasks() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks yet! Start adding tasks :)");
