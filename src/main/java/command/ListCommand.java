@@ -2,7 +2,6 @@ package command;
 
 import task.TaskList;
 import util.Storage;
-import util.Ui;
 
 /**
  * The ListCommand class represents a command to list all tasks in the task list.
@@ -19,7 +18,7 @@ public class ListCommand extends Command {
      * @param storage The Storage instance, which remains unchanged by this command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println(tasks.toString());
+    public String execute(TaskList tasks, Storage storage) {
+        return tasks.toString();
     }
 }

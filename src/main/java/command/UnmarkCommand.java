@@ -5,7 +5,6 @@ import java.io.IOException;
 import task.TaskList;
 import exception.ScheduloException;
 import util.Storage;
-import util.Ui;
 
 
 /**
@@ -34,8 +33,14 @@ public class UnmarkCommand extends Command {
      * @throws IOException       If an I/O error occurs while saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ScheduloException, IOException {
-        tasks.unmark(index - 1);
+    public String execute(TaskList tasks, Storage storage) throws ScheduloException, IOException {
+        String message;
+        try {
+            message = tasks.unmark(this.index - 1);;
+        } catch (IndexOutOfBoundsException e) {
+            throw new ScheduloException("The task index provided is invalid.");
+        }
         storage.save(tasks);
+        return message;
     }
 }

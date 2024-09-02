@@ -3,6 +3,11 @@ package schedulo;
 import java.io.IOException;
 import java.util.Collections;
 
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,14 +51,28 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    private void changeDialogStyle(Command commandType) {
+        if (commandType instanceof AddCommand){
+            dialog.getStyleClass().add("add-label");
+        } else if (commandType instanceof MarkCommand || commandType instanceof UnmarkCommand) {
+            dialog.getStyleClass().add("marked-label");
+        } else if (commandType instanceof DeleteCommand) {
+            dialog.getStyleClass().add("delete-label");
+        } else {
+            // do nothing
+        }
+    }
+
+    public static DialogBox getDukeDialog(String text, Image img, Command commandType) {
         var db = new DialogBox(text, img);
+        db.changeDialogStyle(commandType);
         db.flip();
         return db;
     }

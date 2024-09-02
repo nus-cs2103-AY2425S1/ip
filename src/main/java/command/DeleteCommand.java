@@ -5,7 +5,6 @@ import java.io.IOException;
 import exception.ScheduloException;
 import task.TaskList;
 import util.Storage;
-import util.Ui;
 
 
 
@@ -35,8 +34,14 @@ public class DeleteCommand extends Command {
      * @throws IOException       If an I/O error occurs while saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ScheduloException, IOException {
-        tasks.delete(index - 1);
+    public String execute(TaskList tasks, Storage storage) throws ScheduloException, IOException {
+        String message;
+        try {
+            message = tasks.delete(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ScheduloException("Invalid item number given");
+        }
         storage.save(tasks);
+        return message;
     }
 }

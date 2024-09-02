@@ -2,7 +2,6 @@ package command;
 
 import task.TaskList;
 import util.Storage;
-import util.Ui;
 
 /**
  * The ExitCommand class represents a command to exit the Schedulo application.
@@ -19,8 +18,8 @@ public class ExitCommand extends Command {
      * @param storage The Storage instance, which remains unchanged by this command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String execute(TaskList tasks, Storage storage) {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

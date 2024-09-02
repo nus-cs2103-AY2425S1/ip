@@ -6,7 +6,6 @@ import task.TaskList;
 import task.Task;
 import exception.ScheduloException;
 import util.Storage;
-import util.Ui;
 
 /**
  * The AddCommand class represents a command to add a new task to the task list.
@@ -34,8 +33,9 @@ public class AddCommand extends Command {
      * @throws IOException       If an I/O error occurs while saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ScheduloException, IOException {
-        tasks.add(task);
+    public String execute(TaskList tasks, Storage storage) throws ScheduloException, IOException {
+        String message = tasks.add(task);
         storage.save(tasks);
+        return message;
     }
 }

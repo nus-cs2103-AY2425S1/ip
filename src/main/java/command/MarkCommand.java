@@ -5,7 +5,6 @@ import java.io.IOException;
 import task.TaskList;
 import exception.ScheduloException;
 import util.Storage;
-import util.Ui;
 
 
 
@@ -35,12 +34,14 @@ public class MarkCommand extends Command {
      * @throws IOException       If an I/O error occurs while saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ScheduloException, IOException {
+    public String execute(TaskList tasks, Storage storage) throws ScheduloException, IOException {
+        String message;
         try {
-            tasks.mark(this.index - 1);;
+            message = tasks.mark(this.index - 1);;
         } catch (IndexOutOfBoundsException e) {
             throw new ScheduloException("The task index provided is invalid.");
         }
         storage.save(tasks);
+        return message;
     }
 }

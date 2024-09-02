@@ -1,5 +1,6 @@
 package schedulo;
 
+import command.Command;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -31,7 +32,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Schedulo d) {
+    public void setSchedulo(Schedulo d) {
         schedulo = d;
     }
 
@@ -43,9 +44,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = schedulo.getResponse(input);
+        Command command = schedulo.getCommand();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, dukeImage, command)
         );
         userInput.clear();
     }
