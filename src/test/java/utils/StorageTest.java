@@ -1,10 +1,10 @@
-package Utils;
+package utils;
 
-import ChatterBoxErrors.ChatterBoxError;
-import ChatterBoxErrors.ChatterBoxMarkError;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.ToDo;
+import chatterboxerrors.ChatterBoxError;
+import chatterboxerrors.ChatterBoxMarkError;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

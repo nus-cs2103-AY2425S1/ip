@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,8 +30,7 @@ public class Deadline extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         if (this.getCompleted()) {
             saveTaskInfo.append("done, ");
-        }
-        else {
+        } else {
             saveTaskInfo.append("undone, ");
         }
         saveTaskInfo.append("deadline ");

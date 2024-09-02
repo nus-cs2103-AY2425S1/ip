@@ -1,4 +1,4 @@
-package ChatterBoxErrors;
+package chatterboxerrors;
 
 /**
  * Represents an error where a save file cannot be found.
@@ -10,7 +10,7 @@ public class ChatterBoxDataFileError extends ChatterBoxError {
      */
     public ChatterBoxDataFileError(String fileName) {
         super("____________________________________________________________\n"
-                + "The file " + fileName +" is not found\n"
+                + "The file " + fileName + " is not found\n"
                 + "____________________________________________________________");
     }
 

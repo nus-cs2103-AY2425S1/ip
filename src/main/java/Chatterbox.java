@@ -1,9 +1,15 @@
-import ChatterBoxErrors.ChatterBoxError;
-import ChatterBoxErrors.ChatterBoxNullTaskError;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.ToDo;
-import Utils.*;
+import chatterboxerrors.ChatterBoxDataFileError;
+import chatterboxerrors.ChatterBoxError;
+import chatterboxerrors.ChatterBoxNullTaskError;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+import utils.Commands;
+import utils.Parser;
+import utils.Storage;
+import utils.StoredList;
+import utils.Ui;
+
 
 /**
  * Represents a Chatbot.
@@ -19,9 +25,13 @@ public class Chatterbox {
      */
     public Chatterbox(String saveFilePath) {
         storage = new Storage(saveFilePath);
-        storage.readFromSave();
-        taskList = storage.getSaveList();
         ui = new Ui();
+        try {
+            storage.readFromSave();
+        } catch (ChatterBoxDataFileError e) {
+            ui.printMessage(e.getMessage());
+        }
+        taskList = storage.getSaveList();
         ui.printWelcome();
         ui.printTasks(taskList);
     }
@@ -78,6 +88,7 @@ public class Chatterbox {
             case DELETE:
                 message = taskList.removeItem(Integer.parseInt(command[1]));
                 ui.printMessage(message);
+                break;
             case TODO:
                 message = taskList.addItem(new ToDo(command[1]));
                 ui.printMessage(message);
@@ -99,6 +110,8 @@ public class Chatterbox {
                 message = taskList.findItem(command[1]);
                 ui.printMessage(message);
                 break;
+            default:
+                throw new ChatterBoxError();
             }
         } catch (ChatterBoxError e) {
             throw e;

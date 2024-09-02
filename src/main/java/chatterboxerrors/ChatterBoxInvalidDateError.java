@@ -1,4 +1,4 @@
-package ChatterBoxErrors;
+package chatterboxerrors;
 
 /**
  * Represents an error for invalid Date format.

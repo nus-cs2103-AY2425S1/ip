@@ -1,12 +1,18 @@
-package Utils;
+package utils;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Representation of a text UI for ChatterBox.
+ */
 public class Ui {
     private final Scanner in;
     private final PrintStream out;
 
+    /**
+     * Initialisation of a ChatterBox Ui
+     */
     public Ui() {
         this.in = new Scanner(System.in);
         this.out = System.out;
@@ -17,6 +23,9 @@ public class Ui {
         return in.nextLine();
     }
 
+    /**
+     * Simple UI message for end of ChatterBox.
+     */
     public void printBye() {
         out.print("""
                 ____________________________________________________________
@@ -25,6 +34,9 @@ public class Ui {
                 """);
     }
 
+    /**
+     * Simple UI message for start of ChatterBox.
+     */
     public void printWelcome() {
         out.print("""
                 ____________________________________________________________

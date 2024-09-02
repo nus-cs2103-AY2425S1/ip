@@ -1,4 +1,4 @@
-package ChatterBoxErrors;
+package chatterboxerrors;
 
 /**
  * Represents a generic ChatterBox error.

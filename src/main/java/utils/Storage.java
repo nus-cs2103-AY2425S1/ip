@@ -1,9 +1,4 @@
-package Utils;
-
-import ChatterBoxErrors.ChatterBoxError;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.ToDo;
+package utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +8,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
+import chatterboxerrors.ChatterBoxDataFileError;
+import chatterboxerrors.ChatterBoxError;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+
+
 
 /**
  * Representation of a Storage for Chatterbox.
@@ -36,7 +39,7 @@ public class Storage {
     /**
      * Reads from a save file and processes it into the StoredList.
      */
-    public void readFromSave() {
+    public void readFromSave() throws ChatterBoxDataFileError {
         try {
             Files.createDirectories(saveDirectoryPath);
         } catch (IOException e) {
@@ -63,10 +66,10 @@ public class Storage {
         } catch (FileNotFoundException e) {
             try {
                 saveFile.createNewFile();
-                ui.printMessage("Save file " + saveFilePath + " cannot be found.");
             } catch (IOException e1) {
                 ui.printMessage("Error Reading Chatterbox save file");
             }
+            throw new ChatterBoxDataFileError();
         }
     }
 
@@ -96,35 +99,32 @@ public class Storage {
      * @throws ChatterBoxError For any ChatterBox related errors.
      */
     public void doCommand(String input) throws ChatterBoxError {
-        String message;
-        try {
-            String[] command = Parser.processInput(input);
-            switch (Commands.valueOf(command[0].toUpperCase())) {
-            case LIST:
-                break;
-            case MARK:
-                message = saveList.getItem(Integer.parseInt(command[1])).setCompleted(true);
-                break;
-            case UNMARK:
-                message = saveList.getItem(Integer.parseInt(command[1])).setCompleted(false);
-                break;
-            case TODO:
-                message = saveList.addItem(new ToDo(command[1]));
-                break;
-            case DEADLINE:
-                message = saveList.addItem(
-                        new Deadline(command[1], Parser.processDateTime(command[2]))
-                );
-                break;
-            case EVENT:
-                message = saveList.addItem(
-                        new Event(command[1], Parser.processDateTime(command[2]),
-                                Parser.processDateTime(command[3]))
-                );
-                break;
-            }
-        } catch (ChatterBoxError e) {
-            throw e;
+        String[] command = Parser.processInput(input);
+        switch (Commands.valueOf(command[0].toUpperCase())) {
+        case LIST:
+            break;
+        case MARK:
+            saveList.getItem(Integer.parseInt(command[1])).setCompleted(true);
+            break;
+        case UNMARK:
+            saveList.getItem(Integer.parseInt(command[1])).setCompleted(false);
+            break;
+        case TODO:
+            saveList.addItem(new ToDo(command[1]));
+            break;
+        case DEADLINE:
+            saveList.addItem(
+                    new Deadline(command[1], Parser.processDateTime(command[2]))
+            );
+            break;
+        case EVENT:
+            saveList.addItem(
+                    new Event(command[1], Parser.processDateTime(command[2]),
+                            Parser.processDateTime(command[3]))
+            );
+            break;
+        default:
+            throw new ChatterBoxError();
         }
     }
 }

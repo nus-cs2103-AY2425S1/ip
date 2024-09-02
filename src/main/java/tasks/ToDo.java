@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 /**
  * Represents an Event task.
@@ -21,8 +21,7 @@ public class ToDo extends Task {
         StringBuilder saveTaskInfo = new StringBuilder();
         if (this.getCompleted()) {
             saveTaskInfo.append("done, ");
-        }
-        else {
+        } else {
             saveTaskInfo.append("undone, ");
         }
         saveTaskInfo.append("todo ");

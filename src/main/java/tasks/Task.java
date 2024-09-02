@@ -1,6 +1,4 @@
-package Tasks;
-
-import ChatterBoxErrors.ChatterBoxMarkError;
+package tasks;
 
 /**
  * Represents a general Task in Chatterbox.
@@ -13,7 +11,7 @@ public class Task {
      * Initialisation of a general Task in Chatterbox
      * @param name Name of a Task.
      */
-    public Task (String name) {
+    public Task(String name) {
         this.name = name;
         this.isCompleted = false;
     }
@@ -67,8 +65,7 @@ public class Task {
         StringBuilder saveTaskInfo = new StringBuilder();
         if (this.getCompleted()) {
             saveTaskInfo.append("done, ");
-        }
-        else {
+        } else {
             saveTaskInfo.append("undone, ");
         }
         saveTaskInfo.append("task ");

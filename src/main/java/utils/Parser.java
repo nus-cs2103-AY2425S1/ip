@@ -1,6 +1,4 @@
-package Utils;
-
-import ChatterBoxErrors.*;
+package utils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,6 +6,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import chatterboxerrors.ChatterBoxDeadlineError;
+import chatterboxerrors.ChatterBoxDeleteError;
+import chatterboxerrors.ChatterBoxError;
+import chatterboxerrors.ChatterBoxEventError;
+import chatterboxerrors.ChatterBoxFindError;
+import chatterboxerrors.ChatterBoxInvalidDateError;
+import chatterboxerrors.ChatterBoxInvalidDateTimeError;
+import chatterboxerrors.ChatterBoxMarkError;
+import chatterboxerrors.ChatterBoxToDoError;
+
 
 /**
  * Represents a static Parser that handles all commands and user inputs.
@@ -97,7 +106,7 @@ public class Parser {
      * @throws ChatterBoxError Handles different errors from ChatterBox.
      */
     public static String[] processSaveInput(String input) throws ChatterBoxError {
-        String[] userCommand  = new String[2];
+        String[] userCommand = new String[2];
         try {
             String[] command = input.split(", ", 2);
             userCommand[0] = command[1];
@@ -158,7 +167,8 @@ public class Parser {
      * @throws ChatterBoxInvalidDateTimeError An error to specify the format for Date and Time.
      * @throws ChatterBoxInvalidDateError An error to specify the format for Date.
      */
-    public static LocalDateTime processDateTime(String dateString) throws ChatterBoxInvalidDateTimeError, ChatterBoxInvalidDateError {
+    public static LocalDateTime processDateTime(
+            String dateString) throws ChatterBoxInvalidDateTimeError, ChatterBoxInvalidDateError {
         DateTimeFormatter dateTimeFormatter;
         boolean containsTime;
         if (dateString.trim().contains(" ")) { // Contains time

@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,12 +11,12 @@ public class Event extends Task {
     private final LocalDateTime endTime;
 
     /**
-     * Initialisation of a Event task with the required attributes.
+     * Initialisation of an Event task with the required attributes.
      * @param name Name of the task.
      * @param start Start date/ time of the task.
      * @param end End date/ time of the task
      */
-    public Event (String name, LocalDateTime start, LocalDateTime end) {
+    public Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.startTime = start;
         this.endTime = end;
@@ -34,8 +34,7 @@ public class Event extends Task {
         String endDate = this.endTime.format(formatter);
         if (this.getCompleted()) {
             saveTaskInfo.append("done, ");
-        }
-        else {
+        } else {
             saveTaskInfo.append("undone, ");
         }
         saveTaskInfo.append("event ");

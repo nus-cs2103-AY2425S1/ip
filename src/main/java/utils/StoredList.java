@@ -1,20 +1,20 @@
-package Utils;
-
-import Tasks.Task;
+package utils;
 
 import java.util.ArrayList;
+
+import tasks.Task;
 
 /**
  * A representation of a task list for Chatterbox.
  */
 public class StoredList {
-    private ArrayList<Task> data;
+    private final ArrayList<Task> data;
 
     /**
      * Initialisation of a list for storing task in Chatterbox.
      */
     public StoredList() {
-        this.data = new ArrayList<Task>();
+        this.data = new ArrayList<>();
     }
 
     /**
@@ -47,11 +47,11 @@ public class StoredList {
      * @return The message if successful in removing a Task.
      */
     public String removeItem(int index) {
-        String message = "____________________________________________________________\n" +
-                "Noted. I've removed this task:\n" +
-                this.getItem(index) + "\n" +
-                "Now you have " + this.getSize() + " task in the list.\n" +
-                "____________________________________________________________\n";
+        String message = "____________________________________________________________\n"
+                + "Noted. I've removed this task:\n"
+                + this.getItem(index) + "\n"
+                + "Now you have " + this.getSize() + " task in the list.\n"
+                + "____________________________________________________________\n";
         this.data.remove(index);
         return message;
     }
@@ -82,7 +82,7 @@ public class StoredList {
     public String toString() {
         StringBuilder message = new StringBuilder("____________________________________________________________\n");
         for (int i = 0; i < this.getSize(); i++) {
-            message.append(i+1).append(". ").append(this.getItem(i).toString()).append("\n");
+            message.append(i + 1).append(". ").append(this.getItem(i).toString()).append("\n");
         }
         message.append("____________________________________________________________\n");
         return message.toString();

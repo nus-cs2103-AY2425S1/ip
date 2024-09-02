@@ -1,6 +1,6 @@
-package Utils;
+package utils;
 
-import ChatterBoxErrors.*;
+import chatterboxerrors.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
