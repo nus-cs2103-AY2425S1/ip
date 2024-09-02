@@ -1,4 +1,4 @@
-package data;
+package llama.data;
 
 /**
  * Represents a task to be done

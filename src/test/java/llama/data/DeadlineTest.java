@@ -1,4 +1,4 @@
-package data;
+package llama.data;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

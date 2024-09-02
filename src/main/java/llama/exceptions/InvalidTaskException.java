@@ -1,4 +1,4 @@
-package exceptions;
+package llama.exceptions;
 
 /**
  * Represents an invalid task input exception

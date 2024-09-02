@@ -1,9 +1,9 @@
-package data;
+package llama.data;
 
 import java.util.ArrayList;
 
-import exceptions.InvalidTaskException;
-import ui.Ui;
+import llama.exceptions.InvalidTaskException;
+import llama.ui.Ui;
 
 /**
  * Represents the list of tasks

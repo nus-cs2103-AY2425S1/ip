@@ -1,4 +1,4 @@
-package exceptions;
+package llama.exceptions;
 
 /**
  * Represents runtime exceptions that the program might run into

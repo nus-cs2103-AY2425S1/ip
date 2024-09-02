@@ -1,13 +1,15 @@
+package llama;
+
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import commands.Command;
-import data.Storage;
-import data.TaskList;
-import exceptions.LlamaException;
-import parser.Parser;
-import ui.Ui;
+import llama.commands.Command;
+import llama.data.Storage;
+import llama.data.TaskList;
+import llama.exceptions.LlamaException;
+import llama.parser.Parser;
+import llama.ui.Ui;
 
 /**
  * Main class for program. Responsible for starting and ending the program

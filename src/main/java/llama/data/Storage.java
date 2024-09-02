@@ -1,4 +1,4 @@
-package data;
+package llama.data;
 
 import java.io.BufferedWriter;
 import java.io.File;

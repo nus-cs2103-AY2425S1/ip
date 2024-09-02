@@ -1,12 +1,12 @@
-package parser;
+package llama.parser;
 
-import commands.AddCommand;
-import commands.Command;
-import commands.DeleteCommand;
-import commands.EditCommand;
-import commands.ExitCommand;
-import commands.ListCommand;
-import exceptions.LlamaException;
+import llama.commands.AddCommand;
+import llama.commands.Command;
+import llama.commands.DeleteCommand;
+import llama.commands.EditCommand;
+import llama.commands.ExitCommand;
+import llama.commands.ListCommand;
+import llama.exceptions.LlamaException;
 
 /**
  * Deals with making sense of the user command

@@ -1,11 +1,11 @@
-package commands;
+package llama.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import exceptions.LlamaException;
+import llama.exceptions.LlamaException;
 
 public class AddCommandTest {
 

@@ -1,10 +1,10 @@
-package commands;
+package llama.commands;
 
 import java.io.IOException;
 
-import data.Storage;
-import data.TaskList;
-import ui.Ui;
+import llama.data.Storage;
+import llama.data.TaskList;
+import llama.ui.Ui;
 
 /**
  * Represents to command to exit the program

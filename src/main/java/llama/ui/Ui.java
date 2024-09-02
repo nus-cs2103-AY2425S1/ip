@@ -1,4 +1,4 @@
-package ui;
+package llama.ui;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package data;
+package llama.data;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

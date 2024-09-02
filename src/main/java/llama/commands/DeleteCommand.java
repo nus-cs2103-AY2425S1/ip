@@ -1,11 +1,11 @@
-package commands;
+package llama.commands;
 
 import java.io.IOException;
 
-import data.Storage;
-import data.TaskList;
-import exceptions.InvalidTaskException;
-import ui.Ui;
+import llama.data.Storage;
+import llama.data.TaskList;
+import llama.exceptions.InvalidTaskException;
+import llama.ui.Ui;
 
 /**
  * Represents the command to delete a Task
