@@ -90,7 +90,7 @@ public class Main extends Application {
 
         // Greetings
         dialogContainer.getChildren().add(
-            DialogBox.getChatbotDialog(chatbot.greet(), chatbotImage)
+            DialogBox.getChatbotDialog(chatbotImage, chatbot.greet())
         );
     }
 
@@ -104,13 +104,13 @@ public class Main extends Application {
 
         // Display user's input
         dialogContainer.getChildren().add(
-                DialogBox.getUserDialog(userText, userImage)
+                DialogBox.getUserDialog(userImage, userText)
         );
 
         // Display chatbot's response
         if (chatbotText != null && chatbotText.length() > 0) {
             dialogContainer.getChildren().add(
-                    DialogBox.getChatbotDialog(chatbotText, chatbotImage)
+                    DialogBox.getChatbotDialog(chatbotImage, chatbotText)
             );
         }
 
@@ -121,8 +121,8 @@ public class Main extends Application {
             // Farewell
             dialogContainer.getChildren().add(
                     DialogBox.getChatbotDialog(
-                            chatbot.farewell() + "\n(This window will close in 3s)",
-                            chatbotImage));
+                            chatbotImage,
+                            chatbot.farewell() + "\n(This window will close in 3s)"));
 
             PauseTransition pause = new PauseTransition(Duration.seconds(3));
             pause.setOnFinished(e -> Platform.exit());
