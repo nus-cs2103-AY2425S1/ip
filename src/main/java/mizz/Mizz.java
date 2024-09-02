@@ -80,7 +80,7 @@ public class Mizz {
      *
      * @return true if cmd == "bye" else false
      */
-    private boolean isExited() {
+    public boolean isExited() {
         return this.cmd.equals("bye");
     }
 
