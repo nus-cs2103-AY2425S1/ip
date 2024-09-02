@@ -21,6 +21,5 @@ class Event extends Task {
 
     String toSaveAsString() {
         return "E/" + super.toString() + "/" + this.from + "/" + this.to;
-        }
     }
 }
