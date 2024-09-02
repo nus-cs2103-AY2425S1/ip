@@ -1,3 +1,7 @@
+package conversage.task;
+
+import conversage.exception.ConverSageException;
+
 public class ToDo extends Task {
 
     public ToDo(String taskDesc) throws ConverSageException {
@@ -7,7 +11,7 @@ public class ToDo extends Task {
 
     @Override
     public String toFileFormat() {
-        return "ToDo | " + (isDone ? "Done" : "Not Done") + " | " + taskDesc;
+        return "conversage.task.ToDo | " + (isDone ? "Done" : "Not Done") + " | " + taskDesc;
     }
 
     @Override

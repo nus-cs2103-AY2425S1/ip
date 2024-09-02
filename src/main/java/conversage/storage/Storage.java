@@ -1,4 +1,7 @@
-// This class deals with loading tasks from the file, and saving tasks to the file
+package conversage.storage;// This class deals with loading tasks from the file, and saving tasks to the file
+
+import conversage.exception.ConverSageException;
+import conversage.task.Task;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,7 +22,7 @@ public class Storage {
 
 
     // This method loads tasks from the file
-    public List<Task> load() throws ConverSageException{
+    public List<Task> load() throws ConverSageException {
         List<Task> taskList = new ArrayList<>();
 
         // if file doesn't exist, means no task, so just return empty tasklist

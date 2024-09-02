@@ -1,6 +1,8 @@
+package conversage.exception;
+
 public class ConverSageException extends Exception {
 
-    ConverSageException(String message) {
+    public ConverSageException(String message) {
         super(message);
     }
 }

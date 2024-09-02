@@ -1,3 +1,11 @@
+package conversage;
+
+import conversage.command.*;
+import conversage.exception.ConverSageException;
+import conversage.task.Deadline;
+import conversage.task.Event;
+import conversage.task.ToDo;
+
 public class Parser {
     public static Command parse(String fullCommand) throws ConverSageException {
         String[] commandParts = fullCommand.split(" ", 2);

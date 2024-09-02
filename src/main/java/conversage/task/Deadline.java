@@ -1,5 +1,7 @@
-import java.time.DateTimeException;
-import java.time.LocalDate;
+package conversage.task;
+
+import conversage.exception.ConverSageException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -22,7 +24,7 @@ public class Deadline extends Task{
 
     @Override
     public String toFileFormat() {
-        return "Deadline | " + (isDone ? "Done" : "Not Done") + " | " + taskDesc + " | " + deadline.format(INPUT_FORMAT);
+        return "conversage.task.Deadline | " + (isDone ? "Done" : "Not Done") + " | " + taskDesc + " | " + deadline.format(INPUT_FORMAT);
     }
 
     @Override

@@ -1,3 +1,5 @@
+package conversage.ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -16,7 +18,7 @@ public class Ui {
                       "                                            |___/      ";
         
         System.out.println(logo);
-        System.out.println("Greetings, I'm your ConverSage.");
+        System.out.println("Greetings, I'm your conversage.ConverSage.");
         System.out.println("What can I do for you?");
         showLine();
     }
