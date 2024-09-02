@@ -24,34 +24,43 @@ public class SlothingWaffler {
         this.tasks = new TaskList(storage);
     }
 
-    /**
-     * Entry point for the application.
-     * <p>
-     * Creates an instance of SlothingWaffler and starts the application.
-     * </p>
-     *
-     * @param args command-line arguments
-     */
-    public static void main(String[] args) {
-        new SlothingWaffler("data.txt").run();
-    }
+//    stored for legacy purposes
+//    /**
+//     * Entry point for the application.
+//     * <p>
+//     * Creates an instance of SlothingWaffler and starts the application.
+//     * </p>
+//     *
+//     * @param args command-line arguments
+//     */
+//    public static void main(String[] args) {
+//        new SlothingWaffler("data.txt").run();
+//    }
+//
+//    private void run() {
+//        ui.greet();
+//        Scanner scanner = new Scanner(System.in);
+//        boolean isTerminate = false;
+//
+//        while (!isTerminate) {
+//            try {
+//                String input = scanner.nextLine();
+//                isTerminate = Parser.parse(input, tasks, ui, storage);
+//            } catch (SlothingWafflerException e) {
+//                System.out.println(e.getMessage());
+//            } finally {
+//                System.out.println("YUM. The Waffler is ready for your next command!");
+//            }
+//        }
+//        scanner.close();
+//    }
 
-    private void run() {
-        ui.greet();
-        Scanner scanner = new Scanner(System.in);
-        boolean isTerminate = false;
-
-        while (!isTerminate) {
-            try {
-                String input = scanner.nextLine();
-                isTerminate = Parser.parse(input, tasks, ui, storage);
-            } catch (SlothingWafflerException e) {
-                System.out.println(e.getMessage());
-            } finally {
-                System.out.println("YUM. The Waffler is ready for your next command!");
-            }
+    public String getResponse(String userInput) {
+        try {
+            return Parser.parse(userInput, tasks, storage);
+        } catch (SlothingWafflerException e) {
+            return e.getMessage();
         }
-        scanner.close();
     }
 
 }

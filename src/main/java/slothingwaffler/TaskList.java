@@ -40,13 +40,14 @@ public class TaskList {
      * @return the added Todo task
      * @throws SlothingWafflerException if the task description is empty
      */
-    public Task addTodoTask(String[] split) throws SlothingWafflerException {
+    public String addTodoTask(String[] split) throws SlothingWafflerException {
         if (split.length < 2 || split[1].isBlank()) {
             throw new SlothingWafflerException("HEY!! The description of a Todo Task cannot be empty!");
         }
         Task task = new Todo(split[1]);
         tasks.add(task);
-        return task;
+        String count = "\nYou now have " + tasks.size() + " task(s) to do.";
+        return "Keep it up! I've added this new task:\n" + task + count;
     }
 
     /**
@@ -56,7 +57,7 @@ public class TaskList {
      * @return the added Event task
      * @throws SlothingWafflerException if the task description, start time, or end time is missing
      */
-    public Task addEventTask(String[] split) throws SlothingWafflerException {
+    public String addEventTask(String[] split) throws SlothingWafflerException {
         if (split.length < 2 || split[1].isBlank()) {
             throw new SlothingWafflerException("HEY!! The description of an Event Task cannot be empty.");
         }
@@ -66,7 +67,8 @@ public class TaskList {
         }
         Task task = new Event(desc[0], desc[1], desc[2]);
         tasks.add(task);
-        return task;
+        String count = "\nYou now have " + tasks.size() + " task(s) to do.";
+        return "Keep it up! I've added this new task:\n" + task + count;
     }
 
     /**
@@ -76,7 +78,7 @@ public class TaskList {
      * @return the added Deadline task
      * @throws SlothingWafflerException if the task description or due date is missing
      */
-    public Task addDeadlineTask(String[] split) throws SlothingWafflerException {
+    public String addDeadlineTask(String[] split) throws SlothingWafflerException {
         if (split.length < 2 || split[1].isBlank()) {
             throw new SlothingWafflerException("HEY!! The description of a Deadline Task cannot be empty.");
         }
@@ -86,25 +88,43 @@ public class TaskList {
         }
         Task task = new Deadline(desc[0], desc[1]);
         tasks.add(task);
-        return task;
+        String count = "\nYou now have " + tasks.size() + " task(s) to do.";
+        return "Keep it up! I've added this new task:\n" + task + count;
     }
 
     /**
      * Displays the list of tasks to the console.
      */
-    public void displayTaskList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
+    public String displayTaskList() {
+        if (tasks.isEmpty()) {
+            return "Great job!! You are on track with everything! You have no tasks on your list currently.";
         }
+        StringBuilder msg = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            msg.append(i + 1).append(". ").append(tasks.get(i).toString()).append("\n");
+        }
+        return msg.toString();
+        }
+
+
+
+    public String markTask(int taskNum) throws SlothingWafflerException {
+        if (taskNum > tasks.size() || taskNum <= 0) {
+            throw new SlothingWafflerException("You either have no tasks or don't have that many tasks!");
+        }
+        Task task = tasks.get(taskNum - 1);
+        task.markAsDone();
+        return "Great job!. I've marked this task as done:\n" + task;
     }
 
-    public void markTask(int taskNum) {
-        tasks.get(taskNum).markAsDone();
-    }
-
-    public void deleteTask(int taskNum) {
-        tasks.remove(taskNum);
+    public String deleteTask(int taskNum) throws SlothingWafflerException {
+        if (taskNum > tasks.size() || taskNum <= 0) {
+            throw new SlothingWafflerException("You either have no tasks or don't have that many tasks!");
+        }
+        Task task = tasks.get(taskNum - 1);
+        tasks.remove(taskNum - 1);
+        String count = "\nYou now have " + tasks.size() + " task(s) to do.";
+        return "Just clearing up I see. I got you, I've removed this task:\n" + task.toString() + count;
     }
 
     public int size() {
@@ -120,17 +140,18 @@ public class TaskList {
      *
      * @param split an array containing the search term
      */
-    public void findMatchingTasks(String[] split) {
+    public String findMatchingTasks(String[] split) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.toString().contains(split[1])) {
                 matchingTasks.add(task);
             }
         }
-        System.out.println("Here are the matching tasks in your list:");
+        StringBuilder msg = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + "." + matchingTasks.get(i).toString());
+            msg.append(i + 1).append(". ").append(tasks.get(i).toString()).append("\n");
         }
+        return msg.toString();
     }
 
 }

@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("slothingwaffler.SlothingWaffler")
+    mainClass.set("slothingwaffler.Launcher")
 }
 
 shadowJar {
