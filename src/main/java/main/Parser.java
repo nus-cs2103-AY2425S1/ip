@@ -80,7 +80,7 @@ public class Parser {
         int index = Integer.parseInt(description) - 1;
         Task unmarked = taskList.unmark(index);
         if (unmarked != null) {
-            ui.displayMarkedMessage(unmarked);
+            ui.displayUnmarkedMessage(unmarked);
         }
     }
 

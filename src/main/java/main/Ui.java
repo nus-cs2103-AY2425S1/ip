@@ -38,6 +38,13 @@ public class Ui {
         System.out.println("________________________________");
     }
 
+    public void displayUnmarkedMessage(Task task) {
+        System.out.println("________________________________");
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task.getString());
+        System.out.println("________________________________");
+    }
+
     public void displayDeletedMessage(Task task, int size) {
         System.out.println("________________________________");
         System.out.println("Noted. I've removed this task:");
