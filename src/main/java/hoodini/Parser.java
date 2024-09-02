@@ -173,6 +173,8 @@ public class Parser {
                 return handleDelete(input);
             case FIND:
                 return handleFind(input);
+            case SORT:
+                return handleSort();
             case ERROR:
             default:
                 throw new InvalidInputException("Whoopsie! "
@@ -183,6 +185,10 @@ public class Parser {
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
+    }
+
+    private String handleSort() {
+        return store.sort();
     }
 
     /**
