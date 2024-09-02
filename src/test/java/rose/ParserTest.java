@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import rose.command.AddCommand;
 import rose.command.Command;
 import rose.command.ExitCommand;
-import rose.command.AddCommand;
-import rose.RoseException;
 import rose.task.TaskType;
 
 public class ParserTest {

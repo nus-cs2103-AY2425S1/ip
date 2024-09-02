@@ -30,8 +30,6 @@ public class MarkCommand extends Command {
         try {
             tasks.getTask(idx - 1).mark();
             ui.showMark(tasks.getTask(idx - 1));
-            //ui.display("Marked as done : ");
-            //ui.display(tasks.getTask(idx - 1).toString());
         } catch (IndexOutOfBoundsException e) {
             ui.showError("OOPS!!! Task index is out of bounds.");
         }

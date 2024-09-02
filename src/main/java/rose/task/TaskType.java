@@ -14,5 +14,5 @@ package rose.task;
  * @see rose.task.Task
  */
 public enum TaskType {
-    TODO, EVENT, DEADLINE
+    TODO, EVENT, DEADLINE;
 }

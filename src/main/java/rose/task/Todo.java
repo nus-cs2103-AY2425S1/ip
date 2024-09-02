@@ -8,11 +8,11 @@ package rose.task;
  */
 public class Todo extends Task {
 
-    public Todo (String taskName) {
+    public Todo(String taskName) {
         super(taskName);
     }
 
-    public Todo (String taskName, boolean isDone) {
+    public Todo(String taskName, boolean isDone) {
         super(taskName, isDone);
     }
 

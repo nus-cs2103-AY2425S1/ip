@@ -13,13 +13,13 @@ public class Event extends Task {
     protected LocalDate fromDate;
     protected LocalDate toDate;
 
-    public Event (String taskName, LocalDate fromDate, LocalDate toDate) {
+    public Event(String taskName, LocalDate fromDate, LocalDate toDate) {
         super(taskName);
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
 
-    public Event (String taskName, LocalDate fromDate, LocalDate toDate, boolean isDone) {
+    public Event(String taskName, LocalDate fromDate, LocalDate toDate, boolean isDone) {
         super(taskName, isDone);
         this.fromDate = fromDate;
         this.toDate = toDate;
