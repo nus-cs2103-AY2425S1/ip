@@ -2,6 +2,7 @@ package vecrosen;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -38,6 +39,23 @@ public class Ui {
     public void invalidFormat(String usage) {
         speak("Invalid format.");
         speak("Usage: " + usage);
+    }
+
+    /**
+     * Prints the intro, followed by the tasks in the list
+     * @param list The list of tasks to print
+     * @param intro Sentence to print before the list of tasks
+     * @param noTasks Sentence to print if the list is empty
+     */
+    public void printList(ArrayList<Task> list, ArrayList<Integer> indices, String intro, String noTasks) {
+        if (list.isEmpty()) {
+            speak(noTasks);
+            return;
+        }
+        speak(intro);
+        for (int i = 0; i < list.size(); ++i) {
+            speak(indices.get(i) + "." + list.get(i).toString());
+        }
     }
 
     /**
