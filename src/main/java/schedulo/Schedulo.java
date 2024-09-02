@@ -1,11 +1,11 @@
 package schedulo;
+
 import command.Command;
 import exception.ScheduloException;
 import task.TaskList;
 import util.Parser;
 import util.Storage;
 import javafx.application.Application;
-
 import java.io.IOException;
 
 /**
