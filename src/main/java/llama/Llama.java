@@ -34,9 +34,9 @@ public class Llama {
         }
     }
 
-    /**
+    /*
      * Method to start running the program
-     */
+
     public void run() {
         Scanner sc = new Scanner(System.in);
 
@@ -60,12 +60,24 @@ public class Llama {
 
         sc.close();
     }
-
-    public String getResponse(String input) {
-        return "Llama sees: " + input;
+    */
+    public String greet() {
+        return ui.displayWelcome();
     }
 
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            // Command returns false if program should stop running
+            return command.execute(this.taskList, this.ui, this.storage);
+        } catch (IOException | LlamaException e) {
+            return e.getMessage();
+        }
+    }
+
+    /*
     public static void main(String[] args) {
         new Llama().run();
     }
+    */
 }

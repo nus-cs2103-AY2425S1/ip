@@ -34,19 +34,20 @@ public class EditCommand implements Command {
     }
 
     @Override
-    public boolean execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+        String response = "";
         int index = Integer.parseInt(remaining);
         try {
             if (instruction == Instruction.MARK) {
-                taskList.markTask(index, ui);
+                response = taskList.markTask(index, ui);
             } else if (instruction == Instruction.UNMARK) {
-                taskList.unmarkTask(index, ui);
+                response = taskList.unmarkTask(index, ui);
             }
             storage.save(taskList);
         } catch (InvalidTaskException | IOException e) {
-            ui.displayString(e.getMessage());
+            response = ui.displayString(e.getMessage());
         }
 
-        return true;
+        return response;
     }
 }

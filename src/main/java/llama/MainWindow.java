@@ -25,8 +25,11 @@ public class MainWindow extends AnchorPane {
     private Llama llama;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Llama.png"));
+    private Image llamaImage = new Image(this.getClass().getResourceAsStream("/images/Llama.png"));
 
+    /**
+     * Starts up GUI MainWindow
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -35,11 +38,15 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setLlama(Llama l) {
         llama = l;
+        // Greet User once Llama is set up
+        String response = llama.greet();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(response, llamaImage)
+        );
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one for user to reflect input, another for llama to reflect response
      */
     @FXML
     private void handleUserInput() {
@@ -47,7 +54,7 @@ public class MainWindow extends AnchorPane {
         String response = llama.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, llamaImage)
         );
         userInput.clear();
     }

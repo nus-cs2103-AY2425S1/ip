@@ -23,14 +23,15 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public boolean execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+        String response = "";
         int index = Integer.parseInt(remaining);
         try {
-            taskList.deleteTask(index, ui);
+            response = taskList.deleteTask(index, ui);
             storage.save(taskList);
         } catch (InvalidTaskException | IOException e) {
             ui.displayString(e.getMessage());
         }
-        return true;
+        return response;
     }
 }

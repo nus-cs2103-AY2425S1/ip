@@ -27,13 +27,13 @@ public class Event extends Task {
 
     @Override
     public String getSaveTaskString() {
-        return "E" + super.getSaveTaskString() + "|" +
-                this.startTime.format(FORMATTER) + "|" + this.endTime.format(FORMATTER);
+        return "E" + super.getSaveTaskString() + "|"
+                + this.startTime.format(FORMATTER) + "|" + this.endTime.format(FORMATTER);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                "(from: " + this.startTime.format(FORMATTER) + "|to: " + this.endTime.format(FORMATTER) + ")";
+        return "[E]" + super.toString()
+                + "(from: " + this.startTime.format(FORMATTER) + "|to: " + this.endTime.format(FORMATTER) + ")";
     }
 }

@@ -26,13 +26,14 @@ public class ListCommand implements Command {
     }
 
     @Override
-    public boolean execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+        String response = "";
         if (searchStr.isBlank()) {
-            taskList.listAllTasks(ui); // list all tasks if no keyword
+            response = taskList.listAllTasks(ui); // list all tasks if no keyword
         } else {
-            taskList.searchTasks(searchStr, ui); // list tasks based on given keyword
+            response = taskList.searchTasks(searchStr, ui); // list tasks based on given keyword
         }
 
-        return true;
+        return response;
     }
 }

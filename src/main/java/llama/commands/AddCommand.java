@@ -51,10 +51,11 @@ public class AddCommand implements Command {
     }
 
     @Override
-    public boolean execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+        String response = "";
         if (taskType == TaskType.TODO) {
             Task newTask = new Todo(remaining, false);
-            taskList.addTask(newTask , ui);
+            response = taskList.addTask(newTask , ui);
             storage.save(taskList);
         } else if (taskType == TaskType.DEADLINE) {
             String[] substringArr = remaining.split("/by ");
@@ -66,7 +67,7 @@ public class AddCommand implements Command {
                         + "`deadline <name>/by yyyy-mm-dd HH:mm'");
             }
             Task newTask = new Deadline(substringArr[0], deadline, false);
-            taskList.addTask(newTask, ui);
+            response = taskList.addTask(newTask, ui);
             storage.save(taskList);
         } else if (taskType == TaskType.EVENT) {
             String[] substringArr = remaining.split("/");
@@ -85,10 +86,10 @@ public class AddCommand implements Command {
             }
 
             Task newTask = new Event(desc, startTime, endTime, false);
-            taskList.addTask(newTask, ui);
+            response = taskList.addTask(newTask, ui);
             storage.save(taskList);
         }
 
-        return true;
+        return response;
     }
 }

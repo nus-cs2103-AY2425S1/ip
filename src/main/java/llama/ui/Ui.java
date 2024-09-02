@@ -13,18 +13,20 @@ public class Ui {
     /**
      * Displays welcome message to user
      */
-    public void displayWelcome() {
+    public String displayWelcome() {
+        String response = "";
         this.displayLine();
-        this.displayString("Hello! I'm Llama!");
+        response += this.displayString("Hello! I'm Llama!");
         this.displayString(logo);
-        this.displayString("What can I do for you?");
+        response += this.displayString("What can I do for you?");
+        return response;
     }
 
     /**
      * Displays end program message to user
      */
-    public void displayBye() {
-        displayString("Baaaaaa byeeee. Come baaaaack soon!");
+    public String displayBye() {
+        return displayString("Baaaaaa byeeee. Come baaaaack soon!");
     }
 
     /**
@@ -32,8 +34,9 @@ public class Ui {
      *
      * @param str string to be displayed to user
      */
-    public void displayString(String str) {
+    public String displayString(String str) {
         System.out.println("\t" + str);
+        return "\n" + str;
     }
 
     /**

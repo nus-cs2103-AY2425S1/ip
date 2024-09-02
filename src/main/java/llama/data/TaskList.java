@@ -33,10 +33,12 @@ public class TaskList {
      * @param task a new Task to be added in
      * @param ui user interface to give user information
      */
-    public void addTask(Task task, Ui ui) {
+    public String addTask(Task task, Ui ui) {
+        String response = "";
         this.taskList.add(task);
-        ui.displayString("Added: " + task);
-        ui.displayString("You now have " + taskList.size() + " tasks.");
+        response += ui.displayString("Added: " + task);
+        response += ui.displayString("You now have " + taskList.size() + " tasks.");
+        return response;
     }
 
     /**
@@ -46,7 +48,8 @@ public class TaskList {
      * @param ui user interface to give user information
      * @throws InvalidTaskException if i < 0  or i > taskList.getSize()
      */
-    public void deleteTask(int i, Ui ui) throws InvalidTaskException {
+    public String deleteTask(int i, Ui ui) throws InvalidTaskException {
+        String response = "";
         int numberOfTasks = this.taskList.size();
         if (i <= 0 || i > numberOfTasks) {
             throw new InvalidTaskException("Task does not exist!");
@@ -55,8 +58,9 @@ public class TaskList {
         this.taskList.remove(i - 1);
         numberOfTasks--;
 
-        ui.displayString("Deleted: " + task);
-        ui.displayString("You now have " + numberOfTasks + " tasks.");
+        response += ui.displayString("Deleted: " + task);
+        response += ui.displayString("You now have " + numberOfTasks + " tasks.");
+        return response;
     }
 
     /**
@@ -66,7 +70,8 @@ public class TaskList {
      * @param ui user interface to give user information
      * @throws InvalidTaskException if i < 0  or i > taskList.getSize()
      */
-    public void markTask(int i, Ui ui) throws InvalidTaskException {
+    public String markTask(int i, Ui ui) throws InvalidTaskException {
+        String response = "";
         int numberOfTasks = this.taskList.size();
         if (i <= 0 || i > numberOfTasks) {
             throw new InvalidTaskException("Task does not exist!");
@@ -74,8 +79,9 @@ public class TaskList {
         Task task = this.taskList.get(i - 1);
         task.markDone();
 
-        ui.displayString("Good Job! The task is now marked as done: ");
-        ui.displayString("Marked task: " + task);
+        response += ui.displayString("Good Job! The task is now marked as done: ");
+        response += ui.displayString("Marked task: " + task);
+        return response;
     }
 
     /**
@@ -85,7 +91,8 @@ public class TaskList {
      * @param ui user interface to give user information
      * @throws InvalidTaskException if i < 0  or i > taskList.getSize()
      */
-    public void unmarkTask(int i, Ui ui) throws InvalidTaskException {
+    public String unmarkTask(int i, Ui ui) throws InvalidTaskException {
+        String response = "";
         int numberOfTasks = this.taskList.size();
         if (i <= 0 || i > numberOfTasks) {
             throw new InvalidTaskException("Task does not exist!");
@@ -93,8 +100,9 @@ public class TaskList {
         Task task = this.taskList.get(i - 1);
         task.markNotDone();
 
-        ui.displayString("Alright, the task is marked as not done: ");
-        ui.displayString("Unmarked task: " + task);
+        response += ui.displayString("Alright, the task is marked as not done: ");
+        response += ui.displayString("Unmarked task: " + task);
+        return response;
     }
 
     /**
@@ -102,14 +110,16 @@ public class TaskList {
      *
      * @param ui user interface to show user information
      */
-    public void listAllTasks(Ui ui) {
+    public String listAllTasks(Ui ui) {
+        String response = "";
         int numberOfTasks = taskList.size();
-        ui.displayString("You currently have " + numberOfTasks + " tasks.");
+        response += ui.displayString("You currently have " + numberOfTasks + " tasks.");
         for (int i = 0; i < numberOfTasks; i++) {
             int num = i + 1;
             Task task = taskList.get(i);
-            ui.displayString(num + ". " + task);
+            response += ui.displayString(num + ". " + task);
         }
+        return response;
     }
 
     /**
@@ -118,17 +128,19 @@ public class TaskList {
      * @param searchStr keyword to search tasks with
      * @param ui user interface to give user information
      */
-    public void searchTasks(String searchStr, Ui ui) {
+    public String searchTasks(String searchStr, Ui ui) {
+        String response = "";
         int numberOfTasks = taskList.size();
         int num = 1;
-        ui.displayString("Here are the tasks with keyword '" + searchStr +"':");
+        response += ui.displayString("Here are the tasks with keyword '" + searchStr + "':");
         for (int i = 0; i < numberOfTasks; i++) {
             Task task = taskList.get(i);
             if (task.contains(searchStr)) {
-                ui.displayString(num + ". " + task);
+                response += ui.displayString(num + ". " + task);
                 num++;
             }
         }
+        return response;
     }
 
     /**
