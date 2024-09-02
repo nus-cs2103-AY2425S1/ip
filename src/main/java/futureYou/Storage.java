@@ -59,10 +59,11 @@ public class Storage {
      * @return The task object parsed from the string.
      */
     private Task parseTask(String taskString) {
-        String[] stringParts = taskString.trim().split(" \\| ");
+        String[] stringParts = taskString.trim().split("\\|");
+
         String typeOfTask = stringParts[0].trim();
-        String taskName = stringParts[1].trim();
-        boolean taskStatus = stringParts[2].trim().equals("1");
+        boolean taskStatus = stringParts[1].trim().equals("1");
+        String taskName = stringParts[2].trim();
 
         switch (typeOfTask) {
             case "T":
@@ -83,20 +84,26 @@ public class Storage {
      * Loads tasks from the file into a list. If the file does not exist, it creates
      * a new file.
      *
-     * @return The list of tasks read from the file, if file is empty return emtpy ArrayList<Task>.
+     * @return The list of tasks read from the file, if file is empty return emtpy
+     *         ArrayList<Task>.
      * @throws IOException If there is an error reading from the file.
      */
     public ArrayList<Task> loadTasks() throws IOException {
         File file = new File(filePath);
 
-        try (Scanner fileScanner = new Scanner(file)) {
+        try {
+            Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String taskData = fileScanner.nextLine();
+                if (taskData == "") {
+                    break;
+                }
                 Task task = parseTask(taskData);
                 if (task != null) {
                     TaskList.add(task);
                 }
             }
+            fileScanner.close();
         } catch (FileNotFoundException e) {
             throw new IOException("File not found when reading tasks: " + e.getMessage(), e);
         }
