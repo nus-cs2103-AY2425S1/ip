@@ -1,10 +1,10 @@
 package stelle;
 
-import stelle.exception.NoSuchTaskException;
-import stelle.task.Task;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
+import stelle.exception.NoSuchTaskException;
+import stelle.task.Task;
 
 /**
  * Represents a list of Tasks.
@@ -104,7 +104,7 @@ public class TaskList {
     /**
      * Returns an ArrayList containing all list numbers of tasks with names that contain the query.
      * @param query The string being searched for.
-     * @return ArrayList<Integer> ArrayList containing all list numbers of tasks with names that contain the query.
+     * @return ArrayList[Integer] ArrayList containing all list numbers of tasks with names that contain the query.
      */
     public ArrayList<Integer> find(String query) {
         ArrayList<Integer> resultIndexes = new ArrayList<Integer>();

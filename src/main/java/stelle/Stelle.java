@@ -1,6 +1,7 @@
 package stelle;
 
-/** Represents the main chatbot class.
+/**
+ * Represents the main chatbot class.
  * @author Lee Ze Hao (A0276123J)
  */
 

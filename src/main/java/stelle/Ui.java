@@ -2,7 +2,8 @@ package stelle;
 
 import java.util.Scanner;
 
-/** Represents the UI handler of the chatbot.
+/**
+ * Represents the UI handler of the chatbot.
  * @author Lee Ze Hao (A0276123J)
  */
 
@@ -54,6 +55,9 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Prints a goodbye/ending message.
+     */
     public void printBye() {
         System.out.println("Bye.");
         showLine();
