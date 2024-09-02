@@ -53,6 +53,12 @@ public class TaskList {
         tasks.get(index).setAsNotDone();
     }
 
+    /**
+     * Find tasks that contains keyword
+     *
+     * @param keyWord String that we are looking for in a task
+     * @return ArrayList of tasks that contains keyWord
+     */
     public ArrayList<Task> findTask(String keyWord) {
         Iterator<Task> itr = tasks.iterator();
         ArrayList<Task> searchResult = new ArrayList<>();

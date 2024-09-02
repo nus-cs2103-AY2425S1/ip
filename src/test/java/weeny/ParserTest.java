@@ -1,7 +1,7 @@
 package weeny;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
 
@@ -10,7 +10,7 @@ public class ParserTest {
         Parser parser = new Parser();
         String input = "todo read book";
         String command = parser.extractFirstWord(input);
-        assertEquals("todo", command);
+        Assertions.assertEquals("todo", command);
     }
 
     @Test
@@ -18,7 +18,7 @@ public class ParserTest {
         Parser parser = new Parser();
         String input = "event meeting /from 2024/08/30 1400 /to 2024/08/31 1800";
         String command = parser.extractFirstWord(input);
-        assertEquals("event", command);
+        Assertions.assertEquals("event", command);
     }
 
     @Test
@@ -26,7 +26,6 @@ public class ParserTest {
         Parser parser = new Parser();
         String input = "";
         String command = parser.extractFirstWord(input);
-        assertEquals("", command);
+        Assertions.assertEquals("", command);
     }
 }
-

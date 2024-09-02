@@ -1,8 +1,8 @@
 package weeny;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Parses and converts date and time information from strings.

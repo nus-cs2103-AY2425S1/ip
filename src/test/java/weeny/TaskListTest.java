@@ -1,8 +1,9 @@
 package weeny;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.List;
-import java.util.ArrayList;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
 
@@ -14,9 +15,9 @@ public class TaskListTest {
         taskList.addTask(task);
         List<Task> tasks = taskList.getTasks();
 
-        assertEquals(1, tasks.size());
-        assertEquals("Sample Task", tasks.get(0).getDescription());
-        assertFalse(tasks.get(0).isDone);
+        Assertions.assertEquals(1, tasks.size());
+        Assertions.assertEquals("Sample Task", tasks.get(0).getDescription());
+        Assertions.assertFalse(tasks.get(0).isDone);
     }
 
     @Test
@@ -29,8 +30,8 @@ public class TaskListTest {
         taskList.addTask(task2);
         List<Task> tasks = taskList.getTasks();
 
-        assertEquals(2, tasks.size());
-        assertEquals("Task 1", tasks.get(0).getDescription());
-        assertEquals("Task 2", tasks.get(1).getDescription());
+        Assertions.assertEquals(2, tasks.size());
+        Assertions.assertEquals("Task 1", tasks.get(0).getDescription());
+        Assertions.assertEquals("Task 2", tasks.get(1).getDescription());
     }
 }
