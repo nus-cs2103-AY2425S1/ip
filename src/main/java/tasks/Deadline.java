@@ -10,6 +10,12 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     protected LocalDate deadline;
 
+    /**
+     * Initialises a Deadline object.
+     *
+     * @param description description of the task.
+     * @param deadline due date of the task.
+     */
     public Deadline(String description, String deadline) {
         super(description);
         this.deadline = LocalDate.parse(deadline);

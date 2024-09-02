@@ -13,13 +13,19 @@ import ui.Ui;
  */
 public class Parser {
     private boolean isBye;
-    private final TaskList LIST;
-    private final Ui UI;
+    private final TaskList list;
+    private final Ui ui;
 
+    /**
+     * Initialises a Parser object with a TaskList and Ui.
+     *
+     * @param list the list for storing the tasks.
+     * @param ui the ui for printing output to the terminal.
+     */
     public Parser(TaskList list, Ui ui) {
         isBye = false;
-        this.LIST = list;
-        this.UI = ui;
+        this.list = list;
+        this.ui = ui;
     }
 
     /**
@@ -38,7 +44,7 @@ public class Parser {
             isBye = true;
             break;
         case LIST:
-            UI.printListedTasks(LIST.listTasks(), LIST.getSize());
+            ui.printListedTasks(list.listTasks(), list.getSize());
             break;
         case MARK:
             int taskNumber;
@@ -49,8 +55,8 @@ public class Parser {
                 System.out.println("------------------------------------------");
                 break;
             }
-            Task markTask = LIST.markTask(taskNumber);
-            UI.printHandleTaskMessage(markTask, "mark");
+            Task markTask = list.markTask(taskNumber);
+            ui.printHandleTaskMessage(markTask, "mark");
             break;
         case UNMARK:
             int taskNum;
@@ -61,8 +67,8 @@ public class Parser {
                 System.out.println("------------------------------------------");
                 break;
             }
-            Task unmarkTask = LIST.unmarkTask(taskNum);
-            UI.printHandleTaskMessage(unmarkTask, "unmark");
+            Task unmarkTask = list.unmarkTask(taskNum);
+            ui.printHandleTaskMessage(unmarkTask, "unmark");
             break;
         case DELETE:
             int taskNo;
@@ -73,15 +79,15 @@ public class Parser {
                 System.out.println("------------------------------------------");
                 break;
             }
-            Task task = LIST.deleteTask(taskNo);
-            UI.printHandleTaskMessage(task, "delete", LIST.getSize());
+            Task task = list.deleteTask(taskNo);
+            ui.printHandleTaskMessage(task, "delete", list.getSize());
             break;
         case TODO:
             // result[1] contains description
             if (result.length != 2) {
                 throw new MissingArgumentException("Todo", new String[]{"description"});
             }
-            addedTask = LIST.addTask(Command.TODO, result);
+            addedTask = list.addTask(Command.TODO, result);
             break;
         case DEADLINE:
             // result[1] contains description /by deadline
@@ -92,7 +98,7 @@ public class Parser {
             if (deadlineInfo.length != 2) {
                 throw new MissingArgumentException("Deadline", new String[]{"description, by"});
             }
-            addedTask = LIST.addTask(Command.DEADLINE, deadlineInfo);
+            addedTask = list.addTask(Command.DEADLINE, deadlineInfo);
             break;
         case EVENT:
             // result[1] contains description /from from /to to
@@ -107,16 +113,16 @@ public class Parser {
             if (times.length != 2) {
                 throw new MissingArgumentException("Event", new String[]{"description, from, to"});
             }
-            addedTask = LIST.addTask(Command.EVENT, eventInfo);
+            addedTask = list.addTask(Command.EVENT, eventInfo);
             break;
         case FIND:
-            UI.printFilteredTasks(LIST.findTasks(result[1]));
+            ui.printFilteredTasks(list.findTasks(result[1]));
             break;
         default:
             throw new AliceException(input);
         }
         if (command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT) {
-            UI.printHandleTaskMessage(addedTask, "add", LIST.getSize());
+            ui.printHandleTaskMessage(addedTask, "add", list.getSize());
         }
     }
 

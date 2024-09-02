@@ -1,15 +1,13 @@
 package storage;
 
-import commands.Command;
+import java.util.ArrayList;
 
+import commands.Command;
+import exceptions.InvalidTaskException;
+import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
-import tasks.Event;
-import tasks.Deadline;
-
-import exceptions.InvalidTaskException;
-
-import java.util.ArrayList;
 
 /**
  * Stores the list of tasks.
@@ -17,10 +15,10 @@ import java.util.ArrayList;
  * Responsible for printing out all the tasks in the list.
  */
 public class TaskList {
-    private final ArrayList<Task> TASKS;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
-        this.TASKS = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -47,7 +45,7 @@ public class TaskList {
         default:
             break;
         }
-        TASKS.add(task);
+        tasks.add(task);
         return task;
     }
 
@@ -57,7 +55,7 @@ public class TaskList {
      * @param task the task to be added.
      */
     public void addTask(Task task) {
-        TASKS.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -68,10 +66,10 @@ public class TaskList {
      * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
      */
     public Task markTask(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > TASKS.size() || taskNumber == 0) {
+        if (taskNumber > tasks.size() || taskNumber == 0) {
             throw new InvalidTaskException("", taskNumber);
         }
-        Task markTask = TASKS.get(taskNumber - 1);
+        Task markTask = tasks.get(taskNumber - 1);
         markTask.markAsDone();
         return markTask;
     }
@@ -84,10 +82,10 @@ public class TaskList {
      * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
      */
     public Task unmarkTask(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > TASKS.size() || taskNumber == 0) {
+        if (taskNumber > tasks.size() || taskNumber == 0) {
             throw new InvalidTaskException("", taskNumber);
         }
-        Task unmarkTask = TASKS.get(taskNumber - 1);
+        Task unmarkTask = tasks.get(taskNumber - 1);
         unmarkTask.markAsUndone();
         return unmarkTask;
     }
@@ -100,10 +98,10 @@ public class TaskList {
      * @throws InvalidTaskException if taskNumber > TASKS.size() or taskNumber == 0.
      */
     public Task deleteTask(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > TASKS.size() || taskNumber == 0) {
+        if (taskNumber > tasks.size() || taskNumber == 0) {
             throw new InvalidTaskException("", taskNumber);
         }
-        return TASKS.remove(taskNumber - 1);
+        return tasks.remove(taskNumber - 1);
     }
 
     /**
@@ -112,7 +110,7 @@ public class TaskList {
      * @return number of tasks in the list.
      */
     public int getSize() {
-        return this.TASKS.size();
+        return this.tasks.size();
     }
 
     /**
@@ -122,8 +120,8 @@ public class TaskList {
      */
     public String listTasks() {
         StringBuilder s = new StringBuilder();
-        for (int i = 0; i < TASKS.size(); i++) {
-            String taskInfo = String.format("%d. %s", i + 1, TASKS.get(i).toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            String taskInfo = String.format("%d. %s", i + 1, tasks.get(i).toString());
             s.append(taskInfo).append("\n");
         }
         return s.toString();
@@ -136,7 +134,7 @@ public class TaskList {
      * @return task at the given index.
      */
     public Task getTask(int index) {
-        return TASKS.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -146,7 +144,7 @@ public class TaskList {
      */
     public String findTasks(String keyword) {
         TaskList filteredTasks = new TaskList();
-        for (Task task : TASKS) {
+        for (Task task : tasks) {
             String[] keywords = task.getDescription().split(" ");
             for (String word : keywords) {
                 if (word.equals(keyword)) {

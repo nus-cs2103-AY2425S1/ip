@@ -8,6 +8,11 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Initialises a Task object.
+     *
+     * @param description description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

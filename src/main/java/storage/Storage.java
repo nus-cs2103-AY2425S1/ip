@@ -1,14 +1,14 @@
 package storage;
 
-import tasks.Task;
-import tasks.Todo;
-import tasks.Event;
-import tasks.Deadline;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 /**
  * Responsible for saving the input data into a file after execution.
@@ -18,6 +18,11 @@ public class Storage {
     protected String filePath;
     protected TaskList tasks;
 
+    /**
+     * Initialises a Storage object with the file path.
+     *
+     * @param filePath the path of the file for storing the data.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.tasks = new TaskList();
