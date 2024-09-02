@@ -40,4 +40,3 @@ public class RemoveCommand extends Command {
         return true;
     }
 }
-

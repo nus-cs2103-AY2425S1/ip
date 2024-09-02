@@ -29,10 +29,9 @@ public abstract class Command {
             throws EmptyDescriptionException, TooManyParametersException;
 
     /**
-     * Exits the Winde Chatbot
-     * Saves the data stored in the Reminder to the
+     * Exits the chatbot
      *
-     * @param history The History object that manages the txt file.
+     * @param history The History object that stores the txt save file.
      * @param reminder The Reminder object that manages the task list.
      * @param ui The Ui object used to interact with the user.
      */
