@@ -14,13 +14,29 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Handles the reading and writing of tasks to and from a file on the disk.
+ * The Storage class is responsible for persisting the state of the task list
+ * and restoring it upon initialization.
+ */
 public class Storage {
     private final String path;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param path the file path where tasks will be stored
+     */
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Initializes the task list by reading from the file.
+     * If the file does not exist, a new task list is created.
+     *
+     * @return an ArrayList of tasks read from the file
+     */
     public ArrayList<Task> initList() {
         File file = new File(path);
         if (!file.exists()) {
@@ -31,6 +47,12 @@ public class Storage {
         return parseList();
     }
 
+    /**
+     * Parses the task list from the file.
+     * This method reads each line from the file and parses it into a Task object.
+     *
+     * @return an ArrayList of tasks parsed from the file
+     */
     public ArrayList<Task> parseList() {
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -48,7 +70,14 @@ public class Storage {
         return list;
     }
 
-    // type, name, completed, date1, date2
+    /**
+     * Parses a single line from the file into a Task object.
+     * The format of the line determines the type of Task created.
+     *
+     * @param line the line from the file representing a task
+     * @return the Task object created from the line
+     * @throws IOException if the line format is incorrect
+     */
     public Task parseTask(String line) throws IOException {
         String[] values = line.split(",");
         Task task;
@@ -85,8 +114,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the task list to the file.
+     * This method writes each task in the list to the file in a specific format.
+     *
+     * @param list the list of tasks to be saved to the file
+     */
     public void saveList(ArrayList<Task> list) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.path))){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.path))) {
             for (Task task : list) {
                 String str = "";
                 if (task instanceof Todo) {
