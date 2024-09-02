@@ -4,7 +4,7 @@ package miku.exception;
  * Thrown to indicate the command entered is invalid.
  */
 public class InvalidCommandException extends Exception {
-    String desc = "";
+    private String desc = "";
 
     /**
      * Initialises an InvalidCommandException.

@@ -2,21 +2,22 @@ package miku;
 
 import java.util.Scanner;
 
-import miku.utility.UI;
-import miku.utility.TaskList;
-import miku.utility.Storage;
-
-import miku.parser.CommandMikuParser;
-
 import miku.command.Command;
 import miku.command.ExitCommand;
+import miku.parser.CommandMikuParser;
+import miku.utility.Storage;
+import miku.utility.TaskList;
+import miku.utility.UI;
 
+/**
+ * Executes the program.
+ */
 public class Run {
-    public static Scanner scanner = new Scanner(System.in);
-    public static CommandMikuParser commandParser = new CommandMikuParser();
-    public static UI ui = new UI();
-    public static Storage storage = new Storage();
-    public static TaskList taskList = new TaskList();
+    private static Scanner scanner = new Scanner(System.in);
+    private static CommandMikuParser commandParser = new CommandMikuParser();
+    private static UI ui = new UI();
+    private static Storage storage = new Storage();
+    private static TaskList taskList = new TaskList();
 
     public static void main(String[] args) {
         //Initialization of tasklist

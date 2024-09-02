@@ -1,8 +1,8 @@
 package miku.command;
 
-import miku.utility.UI;
-import miku.utility.TaskList;
 import miku.utility.Storage;
+import miku.utility.TaskList;
+import miku.utility.UI;
 
 /**
  * Displays all the tasks in the list.
@@ -13,9 +13,7 @@ public class ShowListCommand extends Command {
      * Initialises a ShowListCommand
      */
     public ShowListCommand() {
-    }
-
-    ;
+    };
 
     /**
      * Execute the command to print the task in the task list.

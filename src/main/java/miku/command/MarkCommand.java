@@ -1,15 +1,16 @@
 package miku.command;
 
-
-import miku.utility.UI;
-import miku.utility.TaskList;
 import miku.utility.Storage;
+import miku.utility.TaskList;
+import miku.utility.UI;
+
+
 
 /**
  * Marks a specified task as completed
  */
 public class MarkCommand extends Command {
-    int index;
+    private int index;
 
     /**
      * Initialises a mark command.

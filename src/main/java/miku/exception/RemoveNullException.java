@@ -6,7 +6,7 @@ package miku.exception;
  */
 public class RemoveNullException extends Exception {
 
-    String desc;
+    private String desc;
 
     /**
      * Initialises a RemoveNullException.

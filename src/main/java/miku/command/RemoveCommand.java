@@ -1,16 +1,16 @@
 package miku.command;
 
 import miku.exception.RemoveNullException;
-
-import miku.utility.UI;
-import miku.utility.TaskList;
 import miku.utility.Storage;
+import miku.utility.TaskList;
+import miku.utility.UI;
+
 
 /**
  * Removes a task from the task list.
  */
 public class RemoveCommand extends Command {
-    int index;
+    private int index;
 
     /**
      * Initialises a remove command.

@@ -1,17 +1,16 @@
 package miku.command;
 
-import miku.utility.UI;
-import miku.utility.TaskList;
-import miku.utility.Storage;
-
 import miku.task.Task;
+import miku.utility.Storage;
+import miku.utility.TaskList;
+import miku.utility.UI;
 
 
 /**
  * Adds a task to the task list
  */
 public class AddCommand extends Command {
-    Task task;
+    private Task task;
 
     /**
      * Initialise an add command.

@@ -1,8 +1,8 @@
 package miku.command;
 
-import miku.utility.UI;
-import miku.utility.TaskList;
 import miku.utility.Storage;
+import miku.utility.TaskList;
+import miku.utility.UI;
 
 /**
  * Prints the farewell message and serves as an exit indicator.
