@@ -8,15 +8,24 @@ import darkpool.task.Todo;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+/**
+ * Parses user input and returns the corresponding command.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param input The user input string.
+     * @return The command corresponding to the user input.
+     * @throws DarkpoolException If the user input is invalid.
+     */
     public static Command parse(String input) throws DarkpoolException {
         String[] userInput = input.split(" ", 2);
 
         if (userInput.length == 2) {
             userInput[1] = userInput[1].trim();
         }
-
 
         switch (userInput[0]) {
             case "bye" -> {
@@ -48,7 +57,6 @@ public class Parser {
                 }
                 String desc = userInput[1];
                 return new AddCommand(new Todo(desc, false));
-//                    output("i have dumped this nonsense on the list\n\t\t" + taskList.get(size - 1).toString() + "\n\tnow you are stuck with " + size + " goddamn tasks");
             }
 
             case "deadline" -> {
@@ -60,14 +68,13 @@ public class Parser {
                     throw new DarkpoolException("bruh might as well use todo");
                 }
                 String[] array = getStrings(text);
-                String desc = array[0].trim();  // Darkpool.Darkpool.Darkpool.Task.Darkpool.Darkpool.Darkpool.Task description
-                String by = array[1].trim();    // Darkpool.Task.Deadline date
+                String desc = array[0].trim();
+                String by = array[1].trim();
                 if (desc.isEmpty()) {
                     throw new DarkpoolException("whats the task of the deadline??");
                 }
                 return new AddCommand(new Deadline(desc, by, false));
             }
-
 
             case "event" -> {
                 if (userInput.length < 2 || Objects.equals(userInput[1], "")) {
@@ -88,11 +95,16 @@ public class Parser {
             }
 
             default -> throw new DarkpoolException("what???");
-
         }
-
     }
 
+    /**
+     * Splits the input string into parts based on the "/to" keyword.
+     *
+     * @param fromParts The input string split by "/from".
+     * @return An array containing the parts split by "/to".
+     * @throws DarkpoolException If the input is invalid.
+     */
     private static String[] getToParts(String[] fromParts) throws DarkpoolException {
         String[] toParts = fromParts[1].split("/to ");
         if (toParts.length > 3) {
@@ -107,6 +119,13 @@ public class Parser {
         return toParts;
     }
 
+    /**
+     * Splits the user input into parts based on the "/from" keyword.
+     *
+     * @param userInput The user input string.
+     * @return An array containing the parts split by "/from".
+     * @throws DarkpoolException If the input is invalid.
+     */
     private static String[] getParts(String[] userInput) throws DarkpoolException {
         String[] fromParts = userInput[1].split("/from");
         if (fromParts.length > 2) {
@@ -121,6 +140,13 @@ public class Parser {
         return fromParts;
     }
 
+    /**
+     * Splits the input string into parts based on the "/by" keyword.
+     *
+     * @param input The input string.
+     * @return An array containing the parts split by "/by".
+     * @throws DarkpoolException If the input is invalid.
+     */
     private static String[] getStrings(String input) throws DarkpoolException {
         if ((input.length() - input.replace("/by", "").length()) / "/by".length() > 1) {
             throw new DarkpoolException("everything good? there cant be multiple deadlines");
@@ -136,6 +162,13 @@ public class Parser {
         return array;
     }
 
+    /**
+     * Parses the task number from the user input.
+     *
+     * @param userInput The user input string.
+     * @return The task number.
+     * @throws DarkpoolException If the task number is invalid.
+     */
     private static int taskAction(String[] userInput) throws DarkpoolException {
         if (userInput.length < 2 || Objects.equals(userInput[1], "")) {
             throw new DarkpoolException("you missed the task number bruh");
@@ -148,6 +181,4 @@ public class Parser {
         }
         return num;
     }
-
-
 }

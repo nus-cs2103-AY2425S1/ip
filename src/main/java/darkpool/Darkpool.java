@@ -7,24 +7,37 @@ import darkpool.util.TaskList;
 import darkpool.util.Ui;
 import darkpool.util.Parser;
 
+/**
+ * The main class for the Darkpool application.
+ * It initializes the necessary components and handles the main program loop.
+ */
 public class Darkpool {
 
     private final Storage storage;
     private TaskList taskList;
     private final Ui ui;
 
+    /**
+     * Constructs a Darkpool object.
+     *
+     * @param filePath The file path to load and store task data.
+     */
     public Darkpool(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             taskList = new TaskList(storage.loadData());
         } catch (DarkpoolException e) {
-//            ui.showLoadingError();
+            // Show error message if loading data fails
             ui.showError(e.getMessage());
             taskList = new TaskList();
         }
     }
 
+    /**
+     * Runs the main loop of the Darkpool application.
+     * It reads user commands and executes them until the exit command is given.
+     */
     public void run() {
         ui.greeting();
         boolean isExit = false;
@@ -43,6 +56,11 @@ public class Darkpool {
         }
     }
 
+    /**
+     * The main method to start the Darkpool application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Darkpool("data/Darkpool.txt").run();
     }
