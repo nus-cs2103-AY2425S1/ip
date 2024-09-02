@@ -3,6 +3,7 @@ package murphy.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import murphy.MurphyException;
 
 public class Event extends Task {
@@ -26,7 +27,7 @@ public class Event extends Task {
         }
     }
 
-    public Event(String description, boolean isDone, String from, String to) throws MurphyException{
+    public Event(String description, boolean isDone, String from, String to) throws MurphyException {
         super(description, isDone);
         String fromTrimmed = from.trim();
         String toTrimmed = to.trim();

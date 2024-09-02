@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
 import murphy.MurphyException;
-import murphy.task.Task;
 import murphy.task.TaskList;
 
 /**

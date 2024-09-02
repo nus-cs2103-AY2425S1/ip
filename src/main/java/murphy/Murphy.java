@@ -44,7 +44,7 @@ public class Murphy {
             System.out.println("Hello from\n" + logo);
         */
         boolean isClosed = false;
-        while(!isClosed) {
+        while (!isClosed) {
             String input = ui.getInput();
             if (input.equals("bye")) {
                 isClosed = true;
@@ -111,14 +111,14 @@ public class Murphy {
                 } catch (MurphyException e) {
                     ui.showError(String.format("Error deleting task: %s", e.getMessage()));
                 }
-            } else if(input.startsWith("todo ")) {
+            } else if (input.startsWith("todo ")) {
                 try {
                     Task todo = new Todo(input.substring(5));
                     ui.showText(tasks.addItem(todo));
                 } catch (MurphyException e) {
                     ui.showError(String.format("Error adding todo: %s", e.getMessage()));
                 }
-            } else if(input.startsWith("deadline ")) {
+            } else if (input.startsWith("deadline ")) {
                 if (!input.contains("/by ")) {
                     ui.showError("deadline usage: \"deadline [description] /by [date]\"");
                     continue;
@@ -155,7 +155,7 @@ public class Murphy {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Murphy("./data/murphy.txt").run();
     }
 }

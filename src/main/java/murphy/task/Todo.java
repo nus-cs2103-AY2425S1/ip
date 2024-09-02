@@ -3,11 +3,11 @@ package murphy.task;
 import murphy.MurphyException;
 
 public class Todo extends Task {
-    public Todo(String description) throws MurphyException{
+    public Todo(String description) throws MurphyException {
         super(description);
     }
 
-    public Todo(String description, boolean isDone) throws MurphyException{
+    public Todo(String description, boolean isDone) throws MurphyException {
         super(description, isDone);
     }
 
