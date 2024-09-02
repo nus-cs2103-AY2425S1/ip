@@ -62,7 +62,7 @@ public class Parser {
             if (processedInput.length < 2) {
                 throw new IllegalTaskException(command, " You need to provide the task details!");
             }
-            return CommandList.addTodo(processedInput[1]);
+            return CommandList.addTodoTask(processedInput[1]);
         case "deadline":
             if (processedInput.length < 2) {
                 throw new IllegalTaskException(command, " You need to provide the task details!");
@@ -81,7 +81,7 @@ public class Parser {
                 throw new IllegalTaskException("deadline", " Your deadline cannot be empty!");
             }
 
-            return CommandList.addDeadline(deadlineDescription, deadlineTime);
+            return CommandList.addDeadlineTask(deadlineDescription, deadlineTime);
         case "event":
             if (processedInput.length < 2) {
                 throw new IllegalTaskException(command, " You need to provide the task details!");
@@ -112,7 +112,7 @@ public class Parser {
                         " Your end time cannot be empty!");
             }
 
-            return CommandList.addEvent(eventDescription, eventStart, eventEnd);
+            return CommandList.addEventTask(eventDescription, eventStart, eventEnd);
         default:
             throw new InvalidSyntaxException(" Hmm... I'm not sure what you're trying to do :(");
         }

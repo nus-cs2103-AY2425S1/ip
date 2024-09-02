@@ -8,7 +8,7 @@ import mryapper.task.Event;
 
 public class CommandList {
 
-    public static Command addTodo(String description) {
+    public static Command addTodoTask(String description) {
         return (tasks, ui, storage) -> {
             Task newTask = new Todo(description);
             tasks.add(newTask);
@@ -19,7 +19,7 @@ public class CommandList {
         };
     }
 
-    public static Command addDeadline(String description, String deadline) {
+    public static Command addDeadlineTask(String description, String deadline) {
         return (tasks, ui, storage) -> {
             Task newTask = new Deadline(description, DateTimeParser.parseDateTime(deadline));
             tasks.add(newTask);
@@ -30,7 +30,7 @@ public class CommandList {
         };
     }
 
-    public static Command addEvent(String description, String start, String end) {
+    public static Command addEventTask(String description, String start, String end) {
         return (tasks, ui, storage) -> {
             Task newTask = new Event(description,
                     DateTimeParser.parseDateTime(start),

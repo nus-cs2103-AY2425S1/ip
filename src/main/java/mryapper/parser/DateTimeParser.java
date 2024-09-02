@@ -6,6 +6,8 @@ import java.time.format.DateTimeParseException;
 
 public class DateTimeParser {
 
+    private static final DateTimeFormatter STANDARD_FORMAT =
+            DateTimeFormatter.ofPattern("HH:mm dd MMM yyyy");
     private static final DateTimeFormatter[] DATE_FORMATTERS = new DateTimeFormatter[]{
             DateTimeFormatter.ofPattern("[HH:mm ]yyyy-MM-dd"),
             DateTimeFormatter.ofPattern("[HHmm ]yyyy-MM-d"),
@@ -47,8 +49,7 @@ public class DateTimeParser {
         for (DateTimeFormatter formatter : DATE_FORMATTERS) {
             try {
                 LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
-                DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("HH:mm dd MMM yyyy");
-                String newString = dateTime.format(newFormatter);
+                String newString = dateTime.format(STANDARD_FORMAT);
                 System.out.println(newString);
                 return newString;
             } catch (DateTimeParseException e) {
