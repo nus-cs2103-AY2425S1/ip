@@ -18,7 +18,7 @@ public class Ui {
                       "                                            |___/      ";
         
         System.out.println(logo);
-        System.out.println("Greetings, I'm your conversage.ConverSage.");
+        System.out.println("Greetings, I'm your Conversage.");
         System.out.println("What can I do for you?");
         showLine();
     }

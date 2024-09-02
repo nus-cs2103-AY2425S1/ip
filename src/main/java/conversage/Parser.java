@@ -28,6 +28,8 @@ public class Parser {
                 return new AddCommand(Parser.parseEvent(commandParts[1]));
             case "delete":
                 return new DeleteCommand(commandParts[1]);
+            case "find":
+                return new FindCommand(commandParts[1]);
             default:
                 throw new ConverSageException("Invalid command, please try again");
         }
