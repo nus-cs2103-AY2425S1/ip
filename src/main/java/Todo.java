@@ -5,6 +5,10 @@ public class Todo extends Task {
         super(description);
     }
 
+    public Todo(String description, int status) {
+        super(description, status);
+    }
+
     @Override
     public String getTaskInfo() {
         return(super.description);

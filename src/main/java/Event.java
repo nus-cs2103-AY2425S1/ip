@@ -9,6 +9,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String description, String start, String end, int status) {
+        super(description, status);
+        this.start = start;
+        this.end = end;
+    }
+
     public String getTaskInfo() {
         return(String.format("%s, (from: %s to: %s)", super.description, this.start, this.end));
     }

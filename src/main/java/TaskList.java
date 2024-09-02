@@ -19,11 +19,11 @@ public class TaskList {
 
                 // add tasks according to their types
                 if (arguments[0].equals("T")) {
-                    tasks.add(new Todo(arguments[2]));
+                    tasks.add(new Todo(arguments[2], Integer.parseInt(arguments[1])));
                 } else if (arguments[0].equals("D")) {
-                    tasks.add(new Deadline(arguments[2], arguments[3]));
+                    tasks.add(new Deadline(arguments[2], arguments[3], Integer.parseInt(arguments[1])));
                 } else if (arguments[0].equals("E")) {
-                    tasks.add(new Event(arguments[2], arguments[3], arguments[4]));
+                    tasks.add(new Event(arguments[2], arguments[3], arguments[4], Integer.parseInt(arguments[1])));
                 }
             }
             this.listTasks();

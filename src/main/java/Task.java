@@ -7,6 +7,15 @@ public abstract class Task {
         this.completed = false;
     }
 
+    public Task(String description, int status) {
+        this.description = description;
+        if (status == 1) {
+            this.completed = true;
+        } else {
+            this.completed = false;
+        }
+    }
+
     public String getStatusIcon() {
         return completed ? "X" : " ";
     }
