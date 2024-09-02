@@ -2,6 +2,9 @@ package main;
 
 import java.util.Scanner;
 
+/**
+ * This class is used to control the main logical flow of the Bean program
+ */
 public class Bean {
     private TaskList taskList;
 
@@ -14,6 +17,10 @@ public class Bean {
         bean.run();
     }
 
+    /**
+     * Creates the program with the given storage path
+     * @param path location of the text file storage
+     */
     public Bean(String path) {
         storage = new Storage(path);
         taskList = new TaskList(storage.readStorage());
@@ -21,6 +28,9 @@ public class Bean {
         parser = new Parser(taskList, ui, storage);
     }
 
+    /**
+     * Runs the logic of the program
+     */
     public void run() {
         ui.greetingMessage();
         Scanner scanner = new Scanner(System.in);

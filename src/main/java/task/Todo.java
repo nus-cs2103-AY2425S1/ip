@@ -2,7 +2,15 @@ package task;
 
 import exception.DukeException;
 
+/**
+ * A type of task that an be marked
+ */
 public class Todo extends Task {
+    /**
+     * Constructor of task type todo
+     * @param description Description of task
+     * @throws DukeException An exception that happens due to invalid input
+     */
     public Todo(String description) throws DukeException {
         super(description);
         if (description.isEmpty() || description.equals("todo")) {
@@ -10,6 +18,7 @@ public class Todo extends Task {
         }
     }
 
+    @Override
     public String getString() {
         return "[T]" + super.getString();
     }

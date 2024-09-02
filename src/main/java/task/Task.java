@@ -22,10 +22,19 @@ public class Task {
         return this.isDone;
     }
 
+    /**
+     * Gets string representation of the task
+     * @return string representation of the task
+     */
     public String getString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Gets the string that represents task that can be read by Storage class to read and write
+     * from
+     * @return string presentation of task in storage format
+     */
     public String getStorageFormat() {
         return "";
     }
