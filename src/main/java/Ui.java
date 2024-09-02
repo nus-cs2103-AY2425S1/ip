@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class Ui {
     private TaskList taskList;
 
@@ -13,7 +15,8 @@ class Ui {
 
     public void printGoodbyeMessage() {
         System.out.println(Parser
-            .addHorizontalLinesAndIndentation("Bye. Hope to see you again soon!"));
+            .addHorizontalLinesAndIndentation(
+                "Bye. Hope to see you again soon!"));
     }
 
     public void displayList() {
@@ -31,5 +34,36 @@ class Ui {
         System.out.println(lString);
     }
 
+    public void showLoadingError() {
+        System.out.println(
+            Parser.addHorizontalLinesAndIndentation(
+                "Error loading data from file."));
+    }
+
+    public Command interactWithUser(String dialog) {
+        Parser parser = new Parser();
+        Command command = parser.parseUserInput(dialog, taskList);
+        try {
+            command.execute();
+        } catch (FormatException e) {
+            System.out.println(e.getMessage());
+        } catch (NoInputException e) {
+            System.out.println(e.getMessage());
+        }
+        return command;
+    }
+
+    public void startInteraction() {
+        Scanner sc = new Scanner(System.in);
+        printWelcomeMessage();
+
+        while (true) {
+            String dialog = sc.nextLine();
+            Command command = interactWithUser(dialog);
+            if (command instanceof ExitCommand) {
+                break;
+            }
+        }
+    }
 
 }

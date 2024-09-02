@@ -9,10 +9,11 @@ public class Parser {
             res.append("      ").append(line.trim()).append("\n"); // Ensure consistent indentation
         }
         res.append("    ____________________________________________________________");
+        sc.close();
         return res.toString();
     }
 
-    private Command parseUserInput(String dialog, TaskList taskList) throws FormatException, NoInputException {
+    public Command parseUserInput(String dialog, TaskList taskList) throws FormatException, NoInputException {
         if (dialog.isEmpty()) {
             throw new NoInputException();
         }

@@ -9,7 +9,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public List<Task> load() throws DukeException {
+    public TaskList load() throws DukeException {
         List<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -19,7 +19,7 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("Error loading data from " + filePath);
         }
-        return tasks;
+        return new TaskList(tasks);
     }
 
     public void save(TaskList taskList) {
