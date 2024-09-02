@@ -5,7 +5,7 @@ public class Event extends Task {
     private final String startDate;
     private final String endDate;
 
-    private Event(String name, String startDate, String endDate) {
+    public Event(String name, String startDate, String endDate) {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -34,6 +34,11 @@ public class Event extends Task {
             //Shouldn't reach if all error cases handled
             throw new WrongInputException("Something's wrong!");
         }
+    }
+
+    @Override
+    public String toFileFormat() {
+        return super.toFileFormat() + "," + startDate + "," + endDate + System.lineSeparator();
     }
 
     @Override

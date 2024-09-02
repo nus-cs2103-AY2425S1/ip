@@ -12,7 +12,7 @@ abstract public class Task {
             return false;
         } else {
             done = true;
-            return done;
+            return true;
         }
     }
 
@@ -26,9 +26,13 @@ abstract public class Task {
     }
 
     public String toString() {
-        String checked = this.done
+        String checked = done
                 ? "[X] "
                 : "[] ";
-        return checked + this.name;
+        return checked + name;
+    }
+
+    public String toFileFormat() {
+        return name;
     }
 }

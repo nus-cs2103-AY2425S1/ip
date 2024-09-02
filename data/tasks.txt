@@ -1,0 +1,6 @@
+now
+yes
+filetest deadline,tomorrow
+now
+filetest event,now,later
+no

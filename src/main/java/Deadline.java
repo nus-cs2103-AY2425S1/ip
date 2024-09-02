@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 public class Deadline extends Task{
     private final String endDate;
 
-    private Deadline(String name, String endDate) {
+    public Deadline(String name, String endDate) {
         super(name);
         this.endDate = endDate;
     }
@@ -29,6 +29,11 @@ public class Deadline extends Task{
             //Shouldn't reach if all error cases handled
             throw new WrongInputException("Something's wrong!");
         }
+    }
+
+    @Override
+    public String toFileFormat() {
+        return super.toFileFormat() + "," + endDate + System.lineSeparator();
     }
 
     @Override
