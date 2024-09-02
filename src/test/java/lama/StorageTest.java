@@ -1,11 +1,7 @@
 package lama;
 
-import lama.task.Deadline;
-import lama.task.Task;
-import lama.task.Todo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,8 +9,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import lama.task.Deadline;
+import lama.task.Task;
+import lama.task.Todo;
+
+
 
 /**
  * Test class for Storage.
@@ -56,7 +59,8 @@ public class StorageTest {
         assertEquals(3, taskList.size());
         assertEquals("[T][ ] Read Book", taskList.get(0).toString());
         assertEquals("[D][X] Return Book (by: Aug 31 2024)", taskList.get(1).toString());
-        assertEquals("[E][ ] Project Meeting (from: Aug 31 2024 14:00 to: Aug 31 2024 16:00)", taskList.get(2).toString());
+        assertEquals("[E][ ] Project Meeting (from: Aug 31 2024 14:00 to: Aug 31 2024 16:00)",
+                taskList.get(2).toString());
 
     }
 

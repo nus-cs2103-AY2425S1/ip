@@ -1,10 +1,8 @@
 package lama.task;
 
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for to-do class.
@@ -18,7 +16,7 @@ public class TodoTest {
      * its toString method returns the expected format.
      */
     @Test
-    public void ConstructorTest() {
+    public void constructorTest() {
         String description = "Return Book";
         Task todo = new Todo(description);
 

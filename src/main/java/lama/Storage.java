@@ -1,10 +1,5 @@
 package lama;
 
-import lama.task.Deadline;
-import lama.task.Event;
-import lama.task.Task;
-import lama.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,13 +10,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import lama.task.Deadline;
+import lama.task.Event;
+import lama.task.Task;
+import lama.task.Todo;
+
+
 /**
  * Represent the storage where the data being saved.
  * Handles loading and saving tasks to and from a file.
  */
 public class Storage {
 
-    private final String PATH;
+    private final String path;
 
     /**
      * Construct a Storage object with the specified file path given.
@@ -29,7 +30,7 @@ public class Storage {
      * @param path String of file path where tasks will be saved and loaded from.
      */
     public Storage(String path) {
-        this.PATH = path;
+        this.path = path;
     }
 
     /**
@@ -44,7 +45,7 @@ public class Storage {
         try {
 
             ArrayList<Task> list = new ArrayList<>();
-            File file = new File(PATH);
+            File file = new File(path);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -113,7 +114,7 @@ public class Storage {
     public void saveTasks(TaskList taskList) throws LamaException {
 
         try {
-            FileWriter fileWriter = new FileWriter(PATH);
+            FileWriter fileWriter = new FileWriter(path);
 
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
@@ -134,7 +135,7 @@ public class Storage {
      */
     public void addTask(Task task) throws LamaException {
         try {
-            FileWriter fileWriter = new FileWriter(PATH, true);
+            FileWriter fileWriter = new FileWriter(path, true);
             fileWriter.write(task.toFile() + "\n");
             fileWriter.close();
         } catch (IOException e) {

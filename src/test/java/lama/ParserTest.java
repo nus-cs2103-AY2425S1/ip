@@ -1,9 +1,20 @@
 package lama;
 
-import lama.command.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import lama.command.AddCommand;
+import lama.command.Command;
+import lama.command.DeleteCommand;
+import lama.command.ExitCommand;
+import lama.command.FindCommand;
+import lama.command.ListCommand;
+import lama.command.MarkCommand;
+import lama.command.UnmarkCommand;
+
 
 /**
  * Test class for Parser
@@ -130,16 +141,16 @@ public class ParserTest {
             Parser.parse("?");
         });
 
-        String output = "Sorry, I don't know what you want to do!\n" +
-                "You can either choose to use:\n" +
-                "1. todo [Your TODO]\n" +
-                "2. deadline [Your TODO] /by [date of deadline]\n" +
-                "3. event [Your event] /from [start time] /to [end time]\n" +
-                "4. list\n" +
-                "5. mark [number of todo in the list]\n" +
-                "6. unmark [number of todo in the list]\n" +
-                "7. find [keywords]" +
-                "8. bye";
+        String output = "Sorry, I don't know what you want to do!\n"
+                + "You can either choose to use:\n"
+                + "1. todo [Your TODO]\n"
+                + "2. deadline [Your TODO] /by [date of deadline]\n"
+                + "3. event [Your event] /from [start time] /to [end time]\n"
+                + "4. list\n"
+                + "5. mark [number of todo in the list]\n"
+                + "6. unmark [number of todo in the list]\n"
+                + "7. find [keywords]"
+                + "8. bye";
 
         assertEquals(output, lamaException.getMessage());
     }

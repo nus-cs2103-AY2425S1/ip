@@ -1,10 +1,11 @@
 package lama.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for Task class.
@@ -17,7 +18,7 @@ public class TaskTest {
      * Verifies that a task object isDone is false by default.
      */
     @Test
-    public void InitialStatusTest() {
+    public void initialStatusTest() {
         Task task = new Todo("Test Task");
         assertFalse(task.isDone);
     }

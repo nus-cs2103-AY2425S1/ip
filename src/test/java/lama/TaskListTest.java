@@ -1,13 +1,16 @@
 package lama;
 
-import lama.task.Task;
-import lama.task.Todo;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import lama.task.Task;
+import lama.task.Todo;
+
+
+
 
 /**
  * Test class for TaskList.

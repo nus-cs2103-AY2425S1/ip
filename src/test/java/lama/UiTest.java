@@ -1,15 +1,16 @@
 package lama;
 
-import lama.task.Todo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import lama.task.Todo;
 
 /**
  * Test class for Ui class.
@@ -168,7 +169,7 @@ public class UiTest {
     @Test
     public void showFindCommandTest() {
         ui.showFindCommand(taskList);
-        String output = BAR +"\r\nHere are the matching tasks in your list:\r\n"
+        String output = BAR + "\r\nHere are the matching tasks in your list:\r\n"
                 + "1.[T][ ] Read Book\r\n" + BAR + "\n\r\n";
 
         assertEquals(output, outputStream.toString());
@@ -180,7 +181,7 @@ public class UiTest {
     @Test
     public void showFindCommandNoneTest() {
         ui.showFindCommand(new TaskList());
-        String output = BAR +"\r\nNo matching tasks found!\r\n" + BAR + "\n\r\n";
+        String output = BAR + "\r\nNo matching tasks found!\r\n" + BAR + "\n\r\n";
 
         assertEquals(output, outputStream.toString());
     }

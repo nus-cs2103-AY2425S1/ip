@@ -1,10 +1,12 @@
 package lama.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+
 
 /**
  * Test class for Deadline class.
@@ -18,7 +20,7 @@ public class DeadlineTest {
      * its toString method returns the expected format.
      */
     @Test
-    public void ConstructorTest() {
+    public void constructorTest() {
         String description = "Return Book";
         LocalDate by = LocalDate.of(2025, 12, 12);
         Task deadline = new Deadline(description, by);

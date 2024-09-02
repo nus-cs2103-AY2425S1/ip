@@ -1,8 +1,9 @@
 package lama;
 
+import java.util.Scanner;
+
 import lama.task.Task;
 
-import java.util.Scanner;
 
 /**
  * Handles interactions with the user.
