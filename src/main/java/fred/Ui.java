@@ -38,4 +38,14 @@ public class Ui {
     String getInput() {
         return scanner.nextLine();
     }
+
+    void printTasksWithKeyword(ArrayList<Task> tasksWithKeyword) {
+        int index = 1;
+        System.out.println(line);
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : tasksWithKeyword) {
+            System.out.println(String.format("%s.%s", index++, task));
+        }
+        System.out.println(line);
+    }
 }

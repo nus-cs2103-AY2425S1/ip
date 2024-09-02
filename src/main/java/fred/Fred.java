@@ -79,6 +79,10 @@ public class Fred {
                         "   %s\n" +
                         "Now you have %d tasks in the list.", task, tasks.getTaskListSize());
                 break;
+            case "findTaskInTaskList":
+                ArrayList<Task> tasksWithKeyword = tasks.findTasksInTaskList(action[1]);
+                ui.printTasksWithKeyword(tasksWithKeyword);
+                break;
         }
         if (message != null) {
             ui.say(message);

@@ -74,4 +74,14 @@ public class TaskList {
     ArrayList<Task> getTaskList() {
         return taskList;
     }
+
+    ArrayList<Task> findTasksInTaskList(String keyword) {
+        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.checkForKeyword(keyword)) {
+                tasksWithKeyword.add(task);
+            }
+        }
+        return tasksWithKeyword;
+    }
 }
