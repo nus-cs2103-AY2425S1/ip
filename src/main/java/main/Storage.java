@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Storage class is used to load tasks from text file and write task from TaskList to
+ * text file as storage
+ */
 public class Storage {
     private final String path;
     FileWriter fw;
@@ -22,6 +26,10 @@ public class Storage {
         f = new File(this.path);
     }
 
+    /**
+     * Reads text file from path
+     * @return ArrayList of type Task to be passed to class TaskList
+     */
     public ArrayList<Task> readStorage() {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -63,6 +71,10 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Takes in an ArrayList of task and writes data into a text file for storage
+     * @param taskList The ArrayList of task to be read from to store
+     */
     public void writeStorage(ArrayList<Task> taskList) {
         try {
             FileWriter fw = new FileWriter(this.path,false);
