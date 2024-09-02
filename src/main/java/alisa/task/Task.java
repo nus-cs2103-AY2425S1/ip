@@ -32,4 +32,14 @@ public abstract class Task {
     }
 
     public abstract String toFileString();
+
+    /**
+     * Indicates if the task description contains the keyword.
+     *
+     * @param keyword Keyword to search for in task description.
+     * @return true if task description contains keyword, false otherwise.
+     */
+    public boolean containsWord(String keyword) {
+        return taskDescription.contains(keyword);
+    }
 }
