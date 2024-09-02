@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Delta delta;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image deltaImage = new Image(this.getClass().getResourceAsStream("/images/Delta.png"));
 
     /**
      * Initializes the main window with size setting and welcome message.
@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(DialogBox.getDeltaDialog("""
                 Hello! I'm Delta, your favourite Task Management Chatbot!
-                What can I do for you?""", dukeImage));
+                What can I do for you?""", deltaImage));
     }
 
     /** Injects the Delta instance */
@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
         String response = delta.getResponse(input);
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
         pause.setOnFinished(event -> dialogContainer.getChildren().addAll(
-                DialogBox.getDeltaDialog(response, dukeImage)));
+                DialogBox.getDeltaDialog(response, deltaImage)));
         pause.play();
         userInput.clear();
         if (response.equals("Bye. Hope to see you again soon!")) {
