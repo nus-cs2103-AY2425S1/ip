@@ -27,7 +27,8 @@ public class Event extends Task {
      */
     @Override
     public String toTextFormat() {
-        return "E|" + (super.isTaskDone() ? "T" : "F") + "|" + super.getDescription() + "|" + this.from + "|" + this.to;
+        return "E|" + (super.isTaskDone() ? "T" : "F") + "|" +
+                super.getDescription() + "|" + this.from + "|" + this.to;
     }
 
     /**
@@ -37,6 +38,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)) + " to: " + to.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)) + ")";
+        return "[E]" + super.toString() + " (from: " +
+                from.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)) +
+                " to: " +
+                to.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)) + ")";
     }
 }
