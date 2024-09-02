@@ -1,4 +1,4 @@
-package commands.parser;
+package parser;
 
 public class MissingArgumentException extends RuntimeException {
     public MissingArgumentException(int expectedNoArgs, int actualNoArgs) {

@@ -1,33 +1,29 @@
 package commands;
 
-import commands.parser.Parser;
 import models.Task;
-
-import java.util.List;
+import models.TaskList;
+import ui.Ui;
 
 public class DeleteCommand implements Command {
     private final int taskIndex;
-    private final List<Task> tasks;
 
-    public DeleteCommand(List<Task> tasks, String message) {
-        String messageArgs = Parser.parseMessage(message).args();
-        int index = Parser.parseInt(messageArgs) - 1;
-
-        if (index < 0 || index >= tasks.size()) {
-            throw new InvalidIndexException(tasks.size(), index);
-        }
-
-        this.tasks = tasks;
-        this.taskIndex = index;
+    public DeleteCommand(int taskIndex) {
+        this.taskIndex = taskIndex;
     }
 
     @Override
-    public void execute() {
-        Task task = tasks.get(taskIndex);
-        tasks.remove(taskIndex);
+    public void execute(Context context) {
+        TaskList tasks = context.tasks();
+        Task task = tasks.get(this.taskIndex);
+        tasks.remove(this.taskIndex);
 
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", this.tasks.size());
+        if (this.taskIndex < 0 || this.taskIndex >= tasks.size()) {
+            throw new InvalidIndexException(tasks.size(), this.taskIndex);
+        }
+
+        Ui ui = context.ui();
+        ui.showMessage("Noted. I've removed this task:");
+        ui.showMessage(task.toString());
+        ui.showMessageF("Now you have %d tasks in the list.", tasks.size());
     }
 }

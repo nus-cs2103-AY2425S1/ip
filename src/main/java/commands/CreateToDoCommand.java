@@ -1,33 +1,26 @@
 package commands;
 
-import commands.parser.MissingArgumentException;
-import commands.parser.Parser;
 import models.Task;
+import models.TaskList;
 import models.ToDo;
-
-import java.util.List;
+import ui.Ui;
 
 public class CreateToDoCommand implements Command {
-    private final List<Task> tasks;
     private final String name;
 
-    public CreateToDoCommand(List<Task> tasks, String message) {
-        this.tasks = tasks;
-
-        // Remove the keyword from the message
-        this.name = Parser.parseMessage(message).args();
-        if (this.name.isEmpty()) {
-            throw new MissingArgumentException(1, 0);
-        }
+    public CreateToDoCommand(String name) {
+        this.name = name;
     }
 
     @Override
-    public void execute() {
+    public void execute(Context context) {
+        TaskList tasks = context.tasks();
         Task task = new ToDo(name);
         tasks.add(task);
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", this.tasks.size());
+        Ui ui = context.ui();
+        ui.showMessage("Got it. I've added this task:");
+        ui.showMessage(task.toString());
+        ui.showMessageF("Now you have %d tasks in the list.", tasks.size());
     }
 }

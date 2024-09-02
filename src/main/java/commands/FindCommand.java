@@ -1,32 +1,25 @@
 package commands;
 
-import commands.parser.MissingArgumentException;
-import commands.parser.Parser;
 import models.Task;
+import models.TaskList;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FindCommand implements Command {
-    private final List<Task> tasks;
     private final String query;
 
-    public FindCommand(List<Task> tasks, String message) {
-        this.tasks = tasks;
-
-        // Remove the keyword from the message
-        this.query = Parser.parseMessage(message).args();
-        if (this.query.isEmpty()) {
-            throw new MissingArgumentException(1, 0);
-        }
+    public FindCommand(String query) {
+        this.query = query;
     }
 
     @Override
-    public void execute() {
+    public void execute(Context context) {
+        TaskList tasks = context.tasks();
         List<Task> matched = new ArrayList<>();
 
         // Search through
-        for (Task task : this.tasks) {
+        for (Task task : tasks) {
             if (task.getName().contains(this.query)) {
                 matched.add(task);
             }
@@ -34,14 +27,14 @@ public class FindCommand implements Command {
 
         // Print results
         if (matched.isEmpty()) {
-            System.out.println("No results found.");
+            context.ui().showMessage("No results found.");
             return;
         }
 
-        System.out.println("Here's what I found:");
+        context.ui().showMessage("Here's what I found:");
         for (int i = 0; i < matched.size(); i++) {
             Task task = matched.get(i);
-            System.out.printf("%d. %s\n", i + 1, task);
+            context.ui().showMessageF("%d. %s", i + 1, task);
         }
     }
 }

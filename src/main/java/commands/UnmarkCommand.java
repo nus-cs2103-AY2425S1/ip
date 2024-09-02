@@ -1,30 +1,24 @@
 package commands;
 
-import commands.parser.Parser;
 import models.Task;
-
-import java.util.List;
+import models.TaskList;
 
 public class UnmarkCommand implements Command {
     private final int taskIndex;
-    private final List<Task> tasks;
 
-    public UnmarkCommand(List<Task> tasks, String message) {
-        String messageArgs = Parser.parseMessage(message).args();
-        int index = Parser.parseInt(messageArgs) - 1;
-
-        if (index < 0 || index >= tasks.size()) {
-            throw new InvalidIndexException(tasks.size(), index);
-        }
-
-        this.tasks = tasks;
-        this.taskIndex = index;
+    public UnmarkCommand(int taskIndex) {
+        this.taskIndex = taskIndex;
     }
 
     @Override
-    public void execute() {
+    public void execute(Context context) {
+        TaskList tasks = context.tasks();
+        if (this.taskIndex < 0 || this.taskIndex >= tasks.size()) {
+            throw new InvalidIndexException(tasks.size(), this.taskIndex);
+        }
+
         Task task = tasks.get(taskIndex);
         task.unmarkDone();
-        System.out.printf("Marked this task as not yet done:\n%s\n", task);
+        context.ui().showMessageF("Marked this task as not yet done:\n%s", task);
     }
 }

@@ -1,21 +1,15 @@
 package commands;
 
 import models.Task;
-
-import java.util.List;
+import models.TaskList;
 
 public class ListCommand implements Command {
-    private final List<Task> tasks;
-
-    public ListCommand(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
     @Override
-    public void execute() {
+    public void execute(Context context) {
+        TaskList tasks = context.tasks();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.printf("%d. %s\n", i + 1, task);
+            context.ui().showMessageF("%d. %s", i + 1, task);
         }
     }
 }
