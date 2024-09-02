@@ -1,6 +1,9 @@
 package patrick.parser;
 
-import patrick.tasklist.*;
+import patrick.tasklist.Deadline;
+import patrick.tasklist.Event;
+import patrick.tasklist.TaskList;
+import patrick.tasklist.ToDo;
 import patrick.ui.Ui;
 
 /**
@@ -9,7 +12,7 @@ import patrick.ui.Ui;
  * to classify different types of commands and executes the corresponding tasks.
  */
 public class Parser {
-    Type inputType;
+    private Type inputType;
 
     /**
      * Enum representing the different types of commands that can be parsed.
@@ -28,82 +31,83 @@ public class Parser {
         checkType(userInput);
 
         switch (inputType) {
-            case LIST:
-                Ui.printFileContents();
+        case LIST:
+            Ui.printFileContents();
+            break;
+
+        case BYE:
+            return Type.BYE;
+
+        case MARK:
+            try {
+                TaskList.mark(userInput);
                 break;
-
-            case BYE:
-                return Type.BYE;
-
-            case MARK:
-                try {
-                    TaskList.mark(userInput);
-                    break;
-                } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.getMessage());
-                    break;
-                }
-
-            case UNMARK:
-                try {
-                    TaskList.unmark(userInput);
-                    break;
-                } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.getMessage());
-                    break;
-                }
-
-            case TODO:
-                try {
-                    ToDo.toDoTask(userInput);
-                    break;
-                } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.getMessage());
-                    break;
-                }
-
-            case DEADLINE:
-                try {
-                    Deadline.deadlineTask(userInput);
-                    break;
-                } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.getMessage());
-                    break;
-                }
-
-            case EVENT:
-                try {
-                    Event.eventTask(userInput);
-                    break;
-                } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.getMessage());
-                    break;
-                }
-
-            case DELETE:
-                try {
-                    TaskList.delete(userInput);
-                    break;
-                } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.toString());
-                    break;
-                }
-
-            case FORMATS:
-                Ui.formats();
+            } catch (PatrickException e) {
+                Ui.showErrorMsg(e.getMessage());
                 break;
+            }
 
-            case FIND:
-                try {
-                    TaskList.findTask(userInput);
-                    break;
-                } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.getMessage());
-                }
-
-            default:
-                Ui.showErrorMsg("What are you trying to say man. Re-enter your command \n");
+        case UNMARK:
+            try {
+                TaskList.unmark(userInput);
                 break;
+            } catch (PatrickException e) {
+                Ui.showErrorMsg(e.getMessage());
+                break;
+            }
+
+        case TODO:
+            try {
+                ToDo.toDoTask(userInput);
+                break;
+            } catch (PatrickException e) {
+                Ui.showErrorMsg(e.getMessage());
+                break;
+            }
+
+        case DEADLINE:
+            try {
+                Deadline.deadlineTask(userInput);
+                break;
+            } catch (PatrickException e) {
+                Ui.showErrorMsg(e.getMessage());
+                break;
+            }
+
+        case EVENT:
+            try {
+                Event.eventTask(userInput);
+                break;
+            } catch (PatrickException e) {
+                Ui.showErrorMsg(e.getMessage());
+                break;
+            }
+
+        case DELETE:
+            try {
+                TaskList.delete(userInput);
+                break;
+            } catch (PatrickException e) {
+                Ui.showErrorMsg(e.toString());
+                break;
+            }
+
+        case FORMATS:
+            Ui.formats();
+            break;
+
+        case FIND:
+            try {
+                TaskList.findTask(userInput);
+                break;
+            } catch (PatrickException e) {
+                Ui.showErrorMsg(e.getMessage());
+                break;
+            }
+
+        default:
+            Ui.showErrorMsg("What are you trying to say man. Re-enter your command \n");
+            break;
         }
         return inputType;
     }
@@ -114,28 +118,29 @@ public class Parser {
      * @param input the input provided by the user.
      */
     public void checkType(String input) {
-        if (input.startsWith("list"))
+        if (input.startsWith("list")) {
             inputType = Type.LIST;
-        else if (input.startsWith("bye"))
+        } else if (input.startsWith("bye")) {
             inputType = Type.BYE;
-        else if (input.startsWith("mark"))
+        } else if (input.startsWith("mark")) {
             inputType = Type.MARK;
-        else if (input.startsWith("unmark"))
+        } else if (input.startsWith("unmark")) {
             inputType = Type.UNMARK;
-        else if (input.startsWith("todo"))
+        } else if (input.startsWith("todo")) {
             inputType = Type.TODO;
-        else if (input.startsWith("deadline"))
+        } else if (input.startsWith("deadline")) {
             inputType = Type.DEADLINE;
-        else if (input.startsWith("event"))
+        } else if (input.startsWith("event")) {
             inputType = Type.EVENT;
-        else if (input.startsWith("delete"))
+        } else if (input.startsWith("delete")) {
             inputType = Type.DELETE;
-        else if (input.startsWith("formats"))
+        } else if (input.startsWith("formats")) {
             inputType = Type.FORMATS;
-        else if (input.startsWith("find"))
+        } else if (input.startsWith("find")) {
             inputType = Type.FIND;
-        else
+        } else {
             inputType = Type.ERROR;
+        }
     }
 
     /**

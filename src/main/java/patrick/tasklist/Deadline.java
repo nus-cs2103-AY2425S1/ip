@@ -1,13 +1,13 @@
 package patrick.tasklist;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import patrick.DateFormatChecker;
 import patrick.parser.Parser;
 import patrick.storage.Storage;
 import patrick.ui.Ui;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The {@code Deadline} class represents a task with a specific deadline.
@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
-    String format;
 
     /**
      * Constructs a {@code Deadline} task with the specified description and deadline.
@@ -25,12 +24,13 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        format = DateFormatChecker.getDateFormat(by);
+        String format = DateFormatChecker.getDateFormat(by);
         this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern(format));
     }
 
     /**
-     * Returns a string representation of the {@code Deadline} task, including its type, status, description, and deadline.
+     * Returns a string representation of the {@code Deadline} task, including its type,
+     *  status, description, and deadline.
      *
      * @return a formatted string representing the {@code Deadline} task.
      */
@@ -61,13 +61,14 @@ public class Deadline extends Task {
                 if (deadline.isEmpty()) {
                     throw new Parser.PatrickException("Deadline Task deadline cannot be empty!!");
                 } else if (DateFormatChecker.getDateFormat(deadline).equals("Unknown Format")) {
-                    throw new Parser.PatrickException("Your deadline format is incorrect.\nType 'formats' for the formats.");
+                    throw new Parser.PatrickException("Your deadline format is incorrect.\n"
+                                                        + "Type 'formats' for the formats.");
                 } else {
                     Task task = new Deadline(taskDescription, deadline);
                     Storage.addList(task);
                     Ui.showUserMsg(task.toString());
                     try {
-                        Storage.appendToFile("\n" + task.toString());
+                        Storage.appendToFile("\n" + task);
                     } catch (IOException e) {
                         System.out.println("There is an error: " + e.getMessage());
                     }

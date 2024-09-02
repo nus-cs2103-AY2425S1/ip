@@ -1,7 +1,5 @@
 package patrick.storage;
 
-import patrick.tasklist.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,13 +7,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import patrick.tasklist.Deadline;
+import patrick.tasklist.Event;
+import patrick.tasklist.Task;
+import patrick.tasklist.ToDo;
+
 /**
  * The {@code Storage} class handles the reading and writing of task data to and from a file.
  * It supports loading tasks from a file, adding, deleting, and saving tasks.
  */
 public class Storage {
-    static ArrayList<Task> list = new ArrayList<>();
-    static String filePath;
+    private static ArrayList<Task> list = new ArrayList<>();
+    private static String filePath;
 
     /**
      * Constructs a {@code Storage} object with the specified file path.

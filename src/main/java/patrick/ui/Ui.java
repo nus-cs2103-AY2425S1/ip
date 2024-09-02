@@ -1,10 +1,11 @@
 package patrick.ui;
 
-import patrick.tasklist.Task;
-import patrick.storage.Storage;
-
-import java.io.*;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
+
+import patrick.storage.Storage;
+import patrick.tasklist.Task;
 
 /**
  * The {@code Ui} class handles all user interactions.
@@ -12,17 +13,16 @@ import java.util.Scanner;
  */
 public class Ui {
     // Constants for displaying UI elements and messages
-    static String HORIZONTAL_LINE = "____________________________________________________________\n";
-    static String GREETING_MSG = HORIZONTAL_LINE + "Hello! I'm Patrick, Spongebob's bestie\nHow can I help you?\n" + HORIZONTAL_LINE;
-    static String EXIT_MSG = HORIZONTAL_LINE + "Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE;
-    static String TASK_MSG = "Got it. I've added this task:\n";
-    static String NUM_TASK_MSG_1 = "Now you have ";
-    static String NUM_TASK_MSG_2 = " tasks in the list.\n";
+    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
+    private static final String GREETING_MSG = HORIZONTAL_LINE + "Hello! I'm Patrick, Spongebob's bestie\n"
+                                                + "How can I help you?\n" + HORIZONTAL_LINE;
+    private static final String EXIT_MSG = HORIZONTAL_LINE + "Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE;
+    private static final String TASK_MSG = "Got it. I've added this task:\n";
+    private static final String NUM_TASK_MSG_1 = "Now you have ";
+    private static final String NUM_TASK_MSG_2 = " tasks in the list.\n";
 
-    private final Scanner in;  // Scanner for user input
-    private final PrintStream out;  // PrintStream for output
-    private static ByteArrayOutputStream capturedOutput;  // For capturing output (optional)
-    private static PrintStream originalOut;  // Original output stream
+    private final Scanner in; // Scanner for user input
+    private final PrintStream out; // PrintStream for output
 
     /**
      * Default constructor initializing {@code Ui} with standard input and output.
@@ -102,7 +102,8 @@ public class Ui {
      */
     public static void showDeleteItemMsg(int num) {
         System.out.println(HORIZONTAL_LINE + "Noted. I've removed this task:\n"
-                + Storage.getList().get(num - 1).toString() + "\n" + Ui.NUM_TASK_MSG_1 + (Storage.getList().size() - 1) + Ui.NUM_TASK_MSG_2);
+                + Storage.getList().get(num - 1).toString() + "\n" + Ui.NUM_TASK_MSG_1 + (Storage.getList().size() - 1)
+                + Ui.NUM_TASK_MSG_2);
     }
 
     /**

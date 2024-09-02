@@ -1,10 +1,10 @@
 package patrick.tasklist;
 
+import java.io.IOException;
+
 import patrick.parser.Parser;
 import patrick.storage.Storage;
 import patrick.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a todo task in the task list.
@@ -47,8 +47,9 @@ public class ToDo extends Task {
             Storage.addList(task);
             Ui.showUserMsg(task.toString());
             try {
-                if (!Storage.getList().isEmpty())
+                if (!Storage.getList().isEmpty()) {
                     Storage.appendToFile("\n");
+                }
                 Storage.appendToFile(task.toString());
             } catch (IOException e) {
                 Ui.showErrorMsg("There is an error: " + e.getMessage());

@@ -1,18 +1,18 @@
 package patrick.tasklist;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import patrick.parser.Parser;
 import patrick.storage.Storage;
 import patrick.ui.Ui;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * The {@code TaskList} class manages a list of tasks, allowing operations such as adding, deleting,
  * marking as done or undone, and retrieving tasks from storage.
  */
 public class TaskList {
-    ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     /**
      * Constructs a {@code TaskList} with the specified list of tasks.
@@ -68,7 +68,8 @@ public class TaskList {
      * Marks a task as done based on the user input.
      *
      * @param input the user input containing the index of the task to be marked as done.
-     * @throws Parser.PatrickException if the input is invalid, the index is out of bounds, or the task is already marked as done.
+     * @throws Parser.PatrickException if the input is invalid, the index is out of bounds,
+     *     or the task is already marked as done.
      */
     public static void mark(String input) throws Parser.PatrickException {
         String taskNo = input.replace("mark", "").trim();
@@ -104,7 +105,8 @@ public class TaskList {
      * Marks a task as not done based on the user input.
      *
      * @param input the user input containing the index of the task to be marked as not done.
-     * @throws Parser.PatrickException if the input is invalid, the index is out of bounds, or the task is already marked as not done.
+     * @throws Parser.PatrickException if the input is invalid, the index is out of bounds,
+     *     or the task is already marked as not done.
      */
     public static void unmark(String input) throws Parser.PatrickException {
         String taskNo = input.replace("unmark", "").trim();
@@ -137,6 +139,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds and displays tasks in the list that match the given keyword.
+     *
+     * @param input The user input containing the keyword to search for.
+     * @throws Parser.PatrickException if the keyword is empty.
+     */
     public static void findTask(String input) throws Parser.PatrickException {
         int count = 0;
         String keyword = input.replace("find", "").trim();
@@ -158,4 +166,5 @@ public class TaskList {
             }
         }
     }
+
 }

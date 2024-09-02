@@ -1,22 +1,23 @@
 package patrick.tasklist;
 
-import patrick.DateFormatChecker;
-import patrick.storage.Storage;
-import patrick.parser.Parser;
-import patrick.ui.Ui;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import patrick.DateFormatChecker;
+import patrick.parser.Parser;
+import patrick.storage.Storage;
+import patrick.ui.Ui;
+
 /**
  * The {@code Event} class represents a task that occurs at a specific time range.
- * It extends the {@code Task} class and includes {@code LocalDateTime} and {@code LocalTime} fields to store the event's start and end times.
+ * It extends the {@code Task} class and includes {@code LocalDateTime} and
+ * {@code LocalTime} fields to store the event's start and end times.
  */
 public class Event extends Task {
-    LocalDateTime from;
-    LocalTime to;
+    private final LocalDateTime from;
+    private final LocalTime to;
 
     /**
      * Constructs an {@code Event} task with the specified description, start time, and end time.
@@ -33,13 +34,15 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the {@code Event} task, including its type, status, description, start time, and end time.
+     * Returns a string representation of the {@code Event} task, including its type,
+     * status, description, start time, and end time.
      *
      * @return a formatted string representing the {@code Event} task.
      */
     @Override
     public String toString() {
-        return "E | " + super.toString() + " | " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + "-" + this.to.format(DateTimeFormatter.ofPattern("HHmm"));
+        return "E | " + super.toString() + " | " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
+                + "-" + this.to.format(DateTimeFormatter.ofPattern("HHmm"));
     }
 
     /**
@@ -63,14 +66,16 @@ public class Event extends Task {
             if (taskDescription.isEmpty()) {
                 throw new Parser.PatrickException("Event Task Description cannot be empty!!");
             } else {
-                String from = newInput.substring(newInput.indexOf("/from"), newInput.indexOf("/to") - 1).replace("/from ", "");
+                String from = newInput.substring(newInput.indexOf("/from"),
+                        newInput.indexOf("/to") - 1).replace("/from ", "");
                 String to = newInput.substring(newInput.indexOf("/to")).replace("/to ", "");
                 if (from.isEmpty()) {
                     throw new Parser.PatrickException("You are missing 'from' information from your details!!");
                 } else if (to.isEmpty()) {
                     throw new Parser.PatrickException("You are missing 'to' information from your details!!");
                 } else if (DateFormatChecker.getDateFormat(from).equals("Unknown Format")) {
-                    throw new Parser.PatrickException("Your 'from' format is incorrect.\nType 'formats' for the formats.\n");
+                    throw new Parser.PatrickException("Your 'from' format is incorrect.\n"
+                                                        + "Type 'formats' for the formats.\n");
                 } else if (DateFormatChecker.getTimeFormat(to).equals("Unknown Format")) {
                     throw new Parser.PatrickException("Your 'to' format is incorrect.\nFormat of 'to' is HHmm.");
                 } else {
