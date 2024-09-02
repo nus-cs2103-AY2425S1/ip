@@ -1,9 +1,51 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 public class Zero {
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0;
+
+        // read data file
+        try {
+            File fileObj = new File("./data/zero.txt");
+            Scanner myReader = new Scanner(fileObj);
+            while (myReader.hasNextLine()){
+                String data = myReader.nextLine();
+                String[] items = data.split(",");
+                switch (items[0]) {
+                    case "T":
+                        Todo newTodo = new Todo(items[2]);
+                        if (items[1].equals("1")) {
+                            newTodo.markAsDone();
+                        };
+                        tasks.add(newTodo);
+                        break;
+                    case "D":
+                        Deadline newDeadline = new Deadline(items[2], items[3]);
+                        if (items[1].equals("1")) {
+                            newDeadline.markAsDone();
+                        };
+                        tasks.add(newDeadline);
+                        break;
+                    case "E":
+                        Event newEvent = new Event(items[2], items[3], items[4]);
+                        if (items[1].equals("1")) {
+                            newEvent.markAsDone();
+                        };
+                        tasks.add(newEvent);
+                        break;
+                }
+                taskCount++;
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
 
         //intro message.
         System.out.println("____________________________________________________________");
@@ -42,6 +84,8 @@ public class Zero {
                 } else {
                     throw new ZeroException("分かりません");
                 }
+                // save the task after every command
+                handleSave(tasks);
             } catch (ZeroException e) {
                 System.out.println("____________________________________________________________");
                 System.out.println(" oopsie, " + e.getMessage());
@@ -60,7 +104,18 @@ public class Zero {
         }
         System.out.println("____________________________________________________________");
     }
-
+    private static void handleSave(ArrayList<Task> tasks) {
+        try {
+            FileWriter myWriter = new FileWriter("./data/zero.txt");
+            for (Task task : tasks) {
+                myWriter.write(task.toFormatted());
+            }
+            myWriter.close();
+        } catch (IOException e){
+                System.out.println("An error occurred: ");
+                e.printStackTrace();
+        }
+    }
     private static void handleDelete(ArrayList<Task> tasks, String input) throws ZeroException {
         try {
             String[] strArr = input.split(" ", 2);
