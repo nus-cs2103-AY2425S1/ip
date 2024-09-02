@@ -1,12 +1,14 @@
 package blitz;
 
-/* My import */
 import exception.BlitzException;
-
 import task.Task;
 
+/**
+ * Handles UI operations related to printing messages to the console.
+ */
 public class Ui {
-    private String divider, tab;
+    private String divider;
+    private String tab;
 
     /**
      * Constructs a new Ui object with specified divider and tab.
@@ -41,9 +43,11 @@ public class Ui {
      * @param task Task object to be printed.
      */
     public void printTaskAddedWithDivider(String type, int size, Task task) {
-        String[] toPrint = {"Got it. I've added this task:",
-                "  [" + type + "][ ] " + task,
-                "Now you have " + size + " tasks in the list."};
+        String[] toPrint = {
+            "Got it. I've added this task:",
+            "  [" + type + "][ ] " + task,
+            "Now you have " + size + " tasks in the list."
+        };
 
         printInDivider(toPrint);
     }

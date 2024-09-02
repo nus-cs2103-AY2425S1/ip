@@ -1,11 +1,12 @@
 package blitz;
 
-/* My import */
-import task.Task;
-
-/* System import */
 import java.util.ArrayList;
 
+import task.Task;
+
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> list;
 

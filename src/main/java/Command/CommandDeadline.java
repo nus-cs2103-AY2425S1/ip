@@ -1,15 +1,15 @@
 package command;
 
-/* My import */
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
-
 import exception.BlitzException;
-
 import task.Deadline;
 import task.Task;
 
+/**
+ * Represents a "deadline" command in the Blitz application.
+ */
 public class CommandDeadline extends Command {
     private String[] params;
 

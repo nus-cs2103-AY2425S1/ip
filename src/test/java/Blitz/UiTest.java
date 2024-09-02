@@ -1,19 +1,16 @@
 package blitz;
 
-/* My import */
-import exception.BlitzNoParameterException;
-
-import task.Todo;
-
-/* System import */
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import exception.BlitzNoParameterException;
+import task.Todo;
 
 public class UiTest {
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -36,9 +33,9 @@ public class UiTest {
         new Ui("    -----------------------------------------------\n", "    ").printInDivider(strings);
 
         String output = outputStreamCaptor.toString();
-        String expected = "    -----------------------------------------------\n" +
-                "    abc\n" + "    123\n" +
-                "    -----------------------------------------------\n";
+        String expected = "    -----------------------------------------------\n"
+                + "    abc\n" + "    123\n"
+                + "    -----------------------------------------------\n";
 
         assertEquals(expected, output);
     }
@@ -53,10 +50,10 @@ public class UiTest {
                 "    ").printTaskAddedWithDivider(type, size, task);
 
         String output = outputStreamCaptor.toString();
-        String expected = "    -----------------------------------------------\n" +
-                "    Got it. I've added this task:\n" + "      [T][ ] 123\n" +
-                "    Now you have 1 tasks in the list.\n" +
-                "    -----------------------------------------------\n";
+        String expected = "    -----------------------------------------------\n"
+                + "    Got it. I've added this task:\n" + "      [T][ ] 123\n"
+                + "    Now you have 1 tasks in the list.\n"
+                + "    -----------------------------------------------\n";
 
         assertEquals(expected, output);
     }
@@ -67,9 +64,9 @@ public class UiTest {
                 "    ").printError(new BlitzNoParameterException());
 
         String output = outputStreamCaptor.toString();
-        String expected = "    -----------------------------------------------\n" +
-                "    Missing parameter(s) for command!\n" +
-                "    -----------------------------------------------\n";
+        String expected = "    -----------------------------------------------\n"
+                + "    Missing parameter(s) for command!\n"
+                + "    -----------------------------------------------\n";
         assertEquals(expected, output);
     }
 }

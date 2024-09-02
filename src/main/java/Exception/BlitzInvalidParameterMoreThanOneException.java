@@ -1,5 +1,8 @@
 package exception;
 
+/**
+ * Represents an invalid parameter exception where more than one parameter was provided.
+ */
 public class BlitzInvalidParameterMoreThanOneException extends BlitzInvalidParameterFormatException {
     /**
      * Constructs a new BlitzInvalidParameterMoreThanOneException object with specified description.

@@ -1,6 +1,10 @@
 package blitz;
 
-/* My import */
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import command.CommandBye;
 import command.CommandDeadline;
 import command.CommandDelete;
@@ -10,11 +14,6 @@ import command.CommandList;
 import command.CommandMark;
 import command.CommandTodo;
 import command.CommandUnmark;
-
-/* System import */
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     @Test
@@ -168,7 +167,8 @@ public class ParserTest {
     @Test
     public void commandValidation_commandDeadlineString_returnCommandDeadlineObject() {
         try {
-            assertEquals(new CommandDeadline("deadline abc /by 2024-01-25 1900", new String[]{"abc", "2024-01-25 1900"}),
+            assertEquals(
+                    new CommandDeadline("deadline abc /by 2024-01-25 1900", new String[]{"abc", "2024-01-25 1900"}),
                     Parser.parse("deadline abc /by 2024-01-25 1900"));
         } catch (Exception e) {
             fail();
@@ -201,7 +201,8 @@ public class ParserTest {
                     Parser.parse("deadline /by /by /by"));
             fail();
         } catch (Exception e) {
-            assertEquals("Wrong parameter format! Please use this format \"deadline [Task name] /by [yyyy-mm-dd hhmm]\"!",
+            assertEquals(
+                    "Wrong parameter format! Please use this format \"deadline [Task name] /by [yyyy-mm-dd hhmm]\"!",
                     e.toString());
         }
     }
@@ -235,7 +236,8 @@ public class ParserTest {
             fail();
         } catch (Exception e) {
             assertEquals(
-                    "Wrong parameter format! Please use this format \"event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]\"!",
+                    "Wrong parameter format! Please use this format "
+                            + "\"event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]\"!",
                     e.toString());
         }
     }

@@ -1,15 +1,15 @@
 package command;
 
-/* My import */
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
-
 import exception.BlitzException;
-
 import task.Task;
 import task.Todo;
 
+/**
+ * Represents a "todo" command in the Blitz application.
+ */
 public class CommandTodo extends Command {
     private String param;
 

@@ -1,12 +1,15 @@
 package task;
 
-/* System import */
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task with a specific start date and time, and end date and time.
+ */
 public class Event extends Task {
     private String type;
-    private LocalDateTime startDateTime, endDateTime;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
 
     /**
      * Constructs a new Event object with specified description, type, start date time, end date time, and isDone.
@@ -65,16 +68,17 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (" +
-                "from: " + convertDatetimeToString("dd MMM yyyy HH:mm", this.startDateTime) +
-                " to: " + convertDatetimeToString("dd MMM yyyy HH:mm", this.endDateTime) + ")";
+        return super.toString() + " ("
+                + "from: " + convertDatetimeToString("dd MMM yyyy HH:mm", this.startDateTime)
+                + " to: " + convertDatetimeToString("dd MMM yyyy HH:mm", this.endDateTime) + ")";
     }
 
     /**
      * Compares two Event objects and determines if they are equal.
      *
      * @param o Object to be compared.
-     * @return True if both objects are of same reference or all attributes in both objects are the same, false otherwise.
+     * @return True if both objects are of same reference or all attributes
+     *     in both objects are the same, false otherwise.
      */
     @Override
     public boolean equals(Object o) {
@@ -87,8 +91,10 @@ public class Event extends Task {
         }
 
         Event t = (Event) o;
-        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) &&
-                this.startDateTime.equals(t.startDateTime)&& this.endDateTime.equals(t.endDateTime) &&
-                (super.isDone() == t.isDone());
+        return this.type.equals(t.type)
+                && super.getDesc().equals(t.getDesc())
+                && this.startDateTime.equals(t.startDateTime)
+                && this.endDateTime.equals(t.endDateTime)
+                && (super.isDone() == t.isDone());
     }
 }

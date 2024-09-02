@@ -1,12 +1,13 @@
 package command;
 
-/* My import */
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
-
 import exception.BlitzException;
 
+/**
+ * Represents a "bye" command in the Blitz application.
+ */
 public class CommandBye extends Command {
     /**
      * Constructs a new CommandBye object with specified command String.

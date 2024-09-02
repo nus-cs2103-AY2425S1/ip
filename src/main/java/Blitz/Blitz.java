@@ -1,13 +1,13 @@
 package blitz;
 
-/* My import */
-import command.Command;
-
-import exception.BlitzException;
-
-/* System import */
 import java.util.Scanner;
 
+import command.Command;
+import exception.BlitzException;
+
+/**
+ * Represents the main class for the Blitz application, responsible for initializing and running the application.
+ */
 public class Blitz {
     private Ui ui;
     private Storage storage;
@@ -32,8 +32,10 @@ public class Blitz {
      * @throws BlitzException If there is file operation or command execution error.
      */
     public void run() {
-        String[] greet = {"Hello! I'm Blitz.",
-                "What can I do for you?"};
+        String[] greet = {
+            "Hello! I'm Blitz.",
+            "What can I do for you?"
+        };
         String[] end = {"Bye. Hope to see you again soon!"};
 
         ui.printInDivider(greet);

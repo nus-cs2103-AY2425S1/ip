@@ -1,17 +1,17 @@
 package command;
 
-/* My import */
+import java.util.ArrayList;
+
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
-
 import exception.BlitzEmptyTaskListException;
 import exception.BlitzException;
-
 import task.Task;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a "find" command in the Blitz application.
+ */
 public class CommandFind extends Command {
     private String param;
 
@@ -54,7 +54,8 @@ public class CommandFind extends Command {
 
         for (int i = 0; i < found.getSize(); i++) {
             Task curr = found.getTask(i);
-            toPrint[i + 1] = "    " + (i + 1) + ".[" + curr.getType() + "]" + "[" + (curr.getStatus() ? "X" : " ") + "] " + curr;
+            toPrint[i + 1] = "    " + (i + 1) + ".[" + curr.getType() + "]"
+                    + "[" + (curr.getStatus() ? "X" : " ") + "] " + curr;
         }
 
         ui.printInDivider(toPrint);

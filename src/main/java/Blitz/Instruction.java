@@ -1,5 +1,8 @@
 package blitz;
 
+/**
+ * Represents the various commands that the Blitz application can process.
+ */
 public enum Instruction {
     LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND;
 

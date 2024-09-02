@@ -1,12 +1,13 @@
 package task;
 
-/* My import */
-import exception.BlitzException;
-import exception.BlitzIOException;
-
-/* System import */
 import java.time.LocalDateTime;
 
+import exception.BlitzException;
+import exception.BlitzIoException;
+
+/**
+ * Represents an abstract task with a description and completion status in the Blitz application.
+ */
 public abstract class Task {
     private String desc;
     private boolean isDone;
@@ -36,25 +37,28 @@ public abstract class Task {
         switch (type) {
         case "T":
             if (params.length != 3) {
-                throw new BlitzIOException("Failed to read from database");
+                throw new BlitzIoException("Failed to read from database");
             }
 
             return new Todo(params[2], "T", Boolean.parseBoolean(params[1]));
         case "D":
             if (params.length != 4) {
-                throw new BlitzIOException("Failed to read from database");
+                throw new BlitzIoException("Failed to read from database");
             }
 
-            return new Deadline(params[2], "D", convertStringToLocalDateTime(params[3]), Boolean.parseBoolean(params[1]));
+            return new Deadline(params[2],
+                    "D",
+                    convertStringToLocalDateTime(params[3]),
+                    Boolean.parseBoolean(params[1]));
         case "E":
             if (params.length != 5) {
-                throw new BlitzIOException("Failed to read from database");
+                throw new BlitzIoException("Failed to read from database");
             }
 
             return new Event(params[2], "E", convertStringToLocalDateTime(params[3]),
                     convertStringToLocalDateTime(params[4]), Boolean.parseBoolean(params[1]));
         default:
-            throw new BlitzIOException("Failed to read from database");
+            throw new BlitzIoException("Failed to read from database");
         }
     }
 

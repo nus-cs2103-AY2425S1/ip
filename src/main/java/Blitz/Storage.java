@@ -1,12 +1,5 @@
 package blitz;
 
-/* My import */
-import exception.BlitzException;
-import exception.BlitzIOException;
-
-import task.Task;
-
-/* System import */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exception.BlitzException;
+import exception.BlitzIoException;
+import task.Task;
+
+/**
+ * Handles the reading and writing of tasks to and from a file.
+ */
 public class Storage {
     private String path;
 
@@ -38,7 +38,7 @@ public class Storage {
             fw.write(task.getType().equals("Empty") ? "" : task.convertTaskToString());
             fw.close();
         } catch (IOException e) {
-            throw new BlitzIOException("Failed to write to database");
+            throw new BlitzIoException("Failed to write to database");
         }
     }
 
@@ -54,7 +54,7 @@ public class Storage {
             fw.write("");
             fw.close();
         } catch (IOException e) {
-            throw new BlitzIOException("Failed to write to database");
+            throw new BlitzIoException("Failed to write to database");
         }
 
         if (!list.isEmpty()) {

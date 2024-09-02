@@ -1,5 +1,8 @@
 package exception;
 
+/**
+ * Represents an invalid parameter exception where the parameters do not matched the provided regular expression.
+ */
 public class BlitzInvalidParameterRegexException extends BlitzInvalidParameterFormatException {
     /**
      * Constructs a new BlitzInvalidParameterRegexException object with specified description.

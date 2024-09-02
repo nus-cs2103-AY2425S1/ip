@@ -1,14 +1,14 @@
 package blitz;
 
-/* My import */
-import task.Todo;
-
-/* System import */
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import task.Todo;
 
 public class StorageTest {
     @Test

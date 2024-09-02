@@ -1,9 +1,11 @@
 package task;
 
-/* System import */
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task with a specific due date and time.
+ */
 public class Deadline extends Task {
     private String type;
     private LocalDateTime dateTime;
@@ -68,7 +70,8 @@ public class Deadline extends Task {
      * Compares two Deadline objects and determines if they are equal.
      *
      * @param o Object to be compared.
-     * @return True if both objects are of same reference or all attributes in both objects are the same, false otherwise.
+     * @return True if both objects are of same reference or all attributes
+     *     in both objects are the same, false otherwise.
      */
     @Override
     public boolean equals(Object o) {
@@ -81,8 +84,8 @@ public class Deadline extends Task {
         }
 
         Deadline t = (Deadline) o;
-        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc()) &&
-                this.dateTime.equals(t.dateTime) && (super.isDone() == t.isDone());
+        return this.type.equals(t.type) && super.getDesc().equals(t.getDesc())
+                && this.dateTime.equals(t.dateTime) && (super.isDone() == t.isDone());
     }
 }
 

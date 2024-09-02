@@ -1,12 +1,13 @@
 package command;
 
-/* My import */
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
-
 import exception.BlitzException;
 
+/**
+ * Represents an abstract command in the Blitz application.
+ */
 public abstract class Command {
     private String command;
 

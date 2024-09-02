@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * Represents a to-do task.
+ */
 public class Todo extends Task {
     private String type;
 
@@ -39,7 +42,8 @@ public class Todo extends Task {
      * Compares two Todo objects and determines if they are equal.
      *
      * @param o Object to be compared.
-     * @return True if both objects are of same reference or all attributes in both objects are the same, false otherwise.
+     * @return True if both objects are of same reference or all attributes
+     *     in both objects are the same, false otherwise.
      */
     @Override
     public boolean equals(Object o) {

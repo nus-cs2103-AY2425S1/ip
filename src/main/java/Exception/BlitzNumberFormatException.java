@@ -1,5 +1,8 @@
 package exception;
 
+/**
+ * Represents an exception where non-integer value is provided when integer value is expected.
+ */
 public class BlitzNumberFormatException extends BlitzException {
     /**
      * Returns a String representation of this object.

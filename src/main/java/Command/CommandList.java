@@ -1,15 +1,15 @@
 package command;
 
-/* My import */
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
-
 import exception.BlitzEmptyTaskListException;
 import exception.BlitzException;
-
 import task.Task;
 
+/**
+ * Represents a "list" command in the Blitz application.
+ */
 public class CommandList extends Command {
     /**
      * Constructs a new CommandList object with specified command String.
@@ -40,7 +40,8 @@ public class CommandList extends Command {
 
         for (int i = 0; i < list.getSize(); i++) {
             Task curr = list.getTask(i);
-            toPrint[i + 1] = "    " + (i + 1) + ".[" + curr.getType() + "]" + "[" + (curr.isDone() ? "X" : " ") + "] " + curr;
+            toPrint[i + 1] = "    " + (i + 1) + ".[" + curr.getType() + "]"
+                    + "[" + (curr.isDone() ? "X" : " ") + "] " + curr;
         }
 
         ui.printInDivider(toPrint);

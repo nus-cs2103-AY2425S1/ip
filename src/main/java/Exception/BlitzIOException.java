@@ -1,6 +1,9 @@
 package exception;
 
-public class BlitzIOException extends BlitzException {
+/**
+ * Represents a generic IO exception in the Blitz application.
+ */
+public class BlitzIoException extends BlitzException {
     private String desc;
 
     /**
@@ -8,7 +11,7 @@ public class BlitzIOException extends BlitzException {
      *
      * @param desc String description of the error.
      */
-    public BlitzIOException(String desc) {
+    public BlitzIoException(String desc) {
         this.desc = desc;
     }
 

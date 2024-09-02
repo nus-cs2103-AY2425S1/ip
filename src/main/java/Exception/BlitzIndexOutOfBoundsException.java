@@ -1,5 +1,8 @@
 package exception;
 
+/**
+ * Represents an exception where the index for the operation exceeds the bounds of the TaskList.
+ */
 public class BlitzIndexOutOfBoundsException extends BlitzException {
     /**
      * Returns a String representation of this object.

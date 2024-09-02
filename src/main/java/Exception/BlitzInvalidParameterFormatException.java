@@ -1,5 +1,8 @@
 package exception;
 
+/**
+ * Represents a generic invalid parameter exception in the Blitz application.
+ */
 public class BlitzInvalidParameterFormatException extends BlitzException {
     private String format;
 
@@ -19,6 +22,6 @@ public class BlitzInvalidParameterFormatException extends BlitzException {
      */
     @Override
     public String toString() {
-        return  "Please use this format \"" + format + "\"!";
+        return "Please use this format \"" + format + "\"!";
     }
 }

@@ -1,15 +1,15 @@
 package command;
 
-/* My import */
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
-
 import exception.BlitzException;
-
 import task.Event;
 import task.Task;
 
+/**
+ * Represents a "event" command in the Blitz application.
+ */
 public class CommandEvent extends Command {
     private String[] params;
 

@@ -1,27 +1,27 @@
 package blitz;
 
-/* My import */
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import command.Command;
 import command.CommandBye;
-import command.CommandFind;
 import command.CommandDeadline;
 import command.CommandDelete;
 import command.CommandEvent;
+import command.CommandFind;
 import command.CommandList;
 import command.CommandMark;
 import command.CommandTodo;
 import command.CommandUnmark;
-
 import exception.BlitzCommandDoesNotExistException;
 import exception.BlitzException;
 import exception.BlitzInvalidParameterMoreThanOneException;
 import exception.BlitzInvalidParameterRegexException;
 import exception.BlitzNoParameterException;
 
-/* System import */
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+/**
+ * Responsibles for parsing command String and converting it into corresponding Command Object.
+ */
 public class Parser {
     /**
      * Parses command in String and return a Command object.
@@ -68,7 +68,10 @@ public class Parser {
                 return new CommandTodo(command, cont[1]);
             case "deadline":
                 if (!isRegexMatched(
-                        "^.+ \\/by (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$", command)) {
+                        "^.+ \\/by (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])"
+                                + " (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$",
+                        command
+                )) {
                     throw new BlitzInvalidParameterRegexException("deadline [Task name] /by [yyyy-mm-dd hhmm]");
                 }
 
@@ -77,9 +80,15 @@ public class Parser {
                 return new CommandDeadline(command, deadlineParams);
             case "event":
                 if (!isRegexMatched(
-                        "^.+ \\/from (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]" +
-                                " \\/to (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) (0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$", command)) {
-                    throw new BlitzInvalidParameterRegexException("event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
+                        "^.+ \\/from (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) "
+                                + "(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]"
+                                + " \\/to (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) "
+                                + "(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$",
+                        command
+                )) {
+                    throw new BlitzInvalidParameterRegexException(
+                            "event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]"
+                    );
                 }
 
                 String[] param1 = cont[1].split(" /from ");
