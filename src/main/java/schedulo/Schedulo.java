@@ -5,6 +5,7 @@ import task.TaskList;
 import util.Parser;
 import util.Storage;
 import util.Ui;
+import javafx.application.Application;
 
 import java.io.IOException;
 
@@ -24,16 +25,16 @@ public class Schedulo {
      *
      * @param filePath The file path where tasks are stored.
      */
-    public Schedulo(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (Exception e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
-    }
+    // public Schedulo(String filePath) {
+    //     ui = new Ui();
+    //     storage = new Storage(filePath);
+    //     try {
+    //         tasks = new TaskList(storage.load());
+    //     } catch (Exception e) {
+    //         ui.showLoadingError();
+    //         tasks = new TaskList();
+    //     }
+    // }
 
     /**
      * Starts the main application loop.
@@ -64,6 +65,11 @@ public class Schedulo {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Schedulo("data/data.txt").run();
+        // new Schedulo("data/data.txt").run();
+        Application.launch(App.class, args);
+    }
+
+    public String getResponse(String input) {
+        return "Schedulo heard: " + input;
     }
 }
