@@ -93,6 +93,23 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches and returns an ArrayList of task containing all the keywords in the string.
+     *
+     * @param str Search input for task descriptions.
+     * @return An ArrayList containing task with all the keywords in their description.
+     */
+    public ArrayList<Task> searchTasks(String str) {
+        ArrayList<Task> result = new ArrayList<>(100);
+        for (int i = 0; i < this.count(); i++ ) {
+            Task task = this.taskList.get(i);
+            if (task.hasKeywords(str)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         int listSize = this.count();
