@@ -1,8 +1,11 @@
+import java.io.File;
 import java.util.Scanner;
 import controllers.InputParser;
 import controllers.commands.Command;
 import controllers.errors.InvalidCommandError;
 import controllers.errors.InvalidInputError;
+import lib.DbDriverInterface;
+import lib.FileDbDriver;
 import models.*;
 
 public class Wojak {
@@ -17,7 +20,8 @@ public class Wojak {
         Scanner sc = new Scanner(System.in);
 
         InputParser parser = new InputParser();
-        TaskList taskList = new TaskList();
+        DbDriverInterface dbDriver = new FileDbDriver();
+        TaskList taskList = new TaskList(dbDriver);
 
         while (sc.hasNextLine()) {
             String nextLine = sc.nextLine();

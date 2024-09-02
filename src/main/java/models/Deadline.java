@@ -16,6 +16,10 @@ public class Deadline extends Task {
     private String getBy() {
         return this.by;
     }
+    public String serialize() {
+        return String.format("D|%s|%s|%s", this.getIsDone() ? "1" : "0", this.getDescription(),
+                this.getBy());
+    }
 
     @Override
     public String toString() {

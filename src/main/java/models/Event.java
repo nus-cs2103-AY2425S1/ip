@@ -19,6 +19,11 @@ public class Event extends Task {
     private String getFrom() {return this.from;}
     private String getTo() {return this.to;}
 
+    public String serialize() {
+        return String.format("E|%s|%s|%s|%s", this.getIsDone() ? "1" : "0", this.getDescription(),
+        this.getFrom(), this.getTo()  );
+    }
+
     @Override
     public String toString() {
         return String.format("[E][%s] %s(from: %sto: %s)", this.getStatusIcon(), this.getDescription(),
