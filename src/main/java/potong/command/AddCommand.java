@@ -6,8 +6,14 @@ import potong.task.DeadlineTask;
 import potong.task.EventTask;
 import potong.task.ToDoTask;
 
+/**
+ * Represents the add command for adding tasks into the list of tasks.
+ */
 public class AddCommand extends Command {
 
+    /**
+     * Represents the different types of add commands present. (3 types: To do tasks, Deadline tasks, Event tasks)
+     */
     public enum Type {
         TODO,
         DEADLINE,
@@ -20,6 +26,12 @@ public class AddCommand extends Command {
     private String eventStart;
     private String eventEnd;
 
+    /**
+     * Initialises an add command, to be executed later.
+     *
+     * @param command Details of the command. (Task description, deadlines, and durations)
+     * @param type Type of the command. (To do, deadline, event)
+     */
     public AddCommand(String command, Type type) {
         super(command);
         this.type = type;
@@ -39,6 +51,15 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Executes the add command based on the type of add.
+     *
+     * @param tasks List of tasks in the program.
+     * @param storage Storage class for loading and saving data.
+     * @param ui Ui class for printing outputs.
+     * @return String output.
+     * @throws IllegalInputPotongException If the input for the task is wrong.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) throws IllegalInputPotongException {
         switch (this.type) {
@@ -57,6 +78,10 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * String representation of the task to be added.
+     * @return String.
+     */
     @Override
     public String toString() {
         switch (this.type) {

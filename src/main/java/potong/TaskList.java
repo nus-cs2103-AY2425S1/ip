@@ -6,24 +6,48 @@ import potong.task.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represent the list of tasks present.
+ */
 public class TaskList {
 
     private ArrayList<Task> arr;
 
+    /**
+     * Initialise the task list with a size of 100.
+     */
     public TaskList() {
         this.arr = new ArrayList<>(100);
     }
 
+    /**
+     * Load the task list with the saved data.
+     *
+     * @param arr ArrayList of saved tasks.
+     */
     public void initialise(ArrayList<Task> arr) {
         this.arr = arr;
     }
 
+    /**
+     * Add a task into the list.
+     *
+     * @param input Task.
+     * @return String representation of the action.
+     */
     public String add(Task input) {
         this.arr.add(input);
         return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
                 input, this.arr.size());
     }
 
+    /**
+     * Mark a task as done in the list.
+     *
+     * @param index Index of the task.
+     * @return String representation of the action.
+     * @throws PotongException If the index is out of bounds.
+     */
     public String mark(int index) throws PotongException {
         if (index - 1 >= this.arr.size()) {
             throw new PotongException("We cannot mark a task thats not there!");
@@ -31,6 +55,13 @@ public class TaskList {
         return this.arr.get(index - 1).mark();
     }
 
+    /**
+     * Mark a task as not done in the list.
+     *
+     * @param index Index of the task.
+     * @return String representation of the action.
+     * @throws PotongException If the index is out of bounds.
+     */
     public String unmark(int index) throws PotongException {
         if (index - 1 >= this.arr.size()) {
             throw new PotongException("We cannot unmark a task thats not there!");
@@ -38,6 +69,13 @@ public class TaskList {
         return this.arr.get(index - 1).unmark();
     }
 
+    /**
+     * Delete a task in the list.
+     *
+     * @param index Index of the task.
+     * @return String representation of the action.
+     * @throws PotongException If the index is out of bounds.
+     */
     public String delete(int index) throws PotongException {
         if (index - 1 >= this.arr.size()) {
             throw new PotongException("We cannot delete a task thats not there!");
@@ -47,6 +85,12 @@ public class TaskList {
                 removed, this.arr.size());
     }
 
+    /**
+     * Save the list of tasks.
+     *
+     * @param storage Storage class to save the list.
+     * @throws IOException If the input is wrong.
+     */
     public void writeToStorage(Storage storage) throws IOException {
         StringBuilder result = new StringBuilder();
         for (Task curr : this.arr) {
@@ -65,10 +109,11 @@ public class TaskList {
         storage.writeToFile(result.toString());
     }
 
-    public String print() {
-        return this.toString();
-    }
-
+    /**
+     * String representation of the list of tasks.
+     *
+     * @return String representation of this list.
+     */
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");

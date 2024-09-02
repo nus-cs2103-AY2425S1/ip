@@ -10,12 +10,22 @@ import potong.task.ToDoTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class with static methods to parse the user inputs.
+ */
 public class Parser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern DEADLINE_FORMAT = Pattern.compile(" (?<desc>.*)");
 
+    /**
+     * Create task from the saved tasks.
+     *
+     * @param taskDescription Task Description.
+     * @return Task.
+     * @throws IllegalInputPotongException If the task input is wrong.
+     */
     public static Task createTask(String taskDescription) throws IllegalInputPotongException {
         String[] arr = taskDescription.split("\\|");
         for (int i = 0; i < arr.length; i++) {
@@ -45,6 +55,12 @@ public class Parser {
         return result;
     }
 
+    /**
+     * Parse the String input command of the user.
+     *
+     * @param input Input command.
+     * @return Command object.
+     */
     public static Command parse(String input) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {
