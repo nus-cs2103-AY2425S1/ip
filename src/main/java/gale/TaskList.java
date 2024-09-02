@@ -91,4 +91,19 @@ public class TaskList {
             task.markAsNotDone();
         }
     }
+
+    /**
+     * Finds tasks that contain the keyword in their description.
+     * @param keyword the keyword the user is searching for
+     * @return an ArrayList of tasks that contain the keyword
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : this.taskList) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
 }

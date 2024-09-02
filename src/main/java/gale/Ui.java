@@ -1,4 +1,5 @@
 package gale;
+import java.util.ArrayList;
 
 /**
  * Represents the user interface of the application. A Ui object is responsible for
@@ -106,6 +107,24 @@ public class Ui {
     public void showLoadingError() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Oops! The wind blew away your tasks. Starting with a clean slate.");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    /**
+     * Shows the tasks that contain the keyword in their description.
+     * @param foundTasks the ArrayList of tasks that contain the keyword
+     * @param keyword the keyword the user is searching for
+     */
+    public void showFoundTasks(ArrayList<Task> foundTasks, String keyword) {
+        System.out.println(HORIZONTAL_LINE);
+        if (foundTasks.isEmpty()) {
+            System.out.println("Oops. I combed through the clouds, but there were no tasks found with that keyword.");
+        } else {
+            System.out.println("Whoosh! Here are your matching tasks!");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                System.out.println(" " + (i + 1) + ". " + foundTasks.get(i));
+            }
+        }
         System.out.println(HORIZONTAL_LINE);
     }
 }
