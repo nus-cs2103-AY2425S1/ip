@@ -24,13 +24,13 @@ public class Ui {
     private static String listPrompt = " Here are the tasks in your list:\n";
 
     /** Message shown when a task is marked as completed. */
-    private static String completeTaskPrompt = " Nice! I've marked this task as done:";
+    private static String completeTaskPrompt = " Nice! I've marked this task as done:\n";
 
     /** Message shown when a task is marked as not completed. */
-    private static String uncompleteTaskPrompt = " OK, I've marked this task as not done yet:";
+    private static String uncompleteTaskPrompt = " OK, I've marked this task as not done yet:\n";
 
     /** Message shown when a task is added to the list. */
-    private static String taskAdded = " Got it. I've added this task:";
+    private static String taskAdded = " Got it. I've added this task:\n";
 
     /** Scanner object to handle user input. */
     private Scanner inputs;

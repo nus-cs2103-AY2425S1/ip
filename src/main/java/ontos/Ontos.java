@@ -59,4 +59,30 @@ public class Ontos {
             }
         }
     }
+
+    /**
+     * Returns the response from the chatbot based on the user input.
+     *
+     * @param input The user input to be processed.
+     * @return The response from the chatbot.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, saveManager);
+        } catch (IllegalArgumentException e) {
+            return ui.badInput();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Returns the greeting message from the chatbot.
+     *
+     * @return The greeting message.
+     */
+    public String getGreeting() {
+        return ui.greet();
+    }
 }

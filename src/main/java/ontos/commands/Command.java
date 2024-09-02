@@ -38,7 +38,7 @@ public abstract class Command {
      * @param ui          The {@code Ui} used for interacting with the user.
      * @param saveManager The {@code SaveManager} responsible for saving and loading tasks.
      */
-    public abstract void execute(TaskList tasks, Ui ui, SaveManager saveManager);
+    public abstract String execute(TaskList tasks, Ui ui, SaveManager saveManager);
 
     /**
      * Represents a command that ends the program.
@@ -60,13 +60,13 @@ public abstract class Command {
          * @param saveManager The SaveManager responsible for saving tasks.
          */
         @Override
-        public void execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+        public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
             try {
                 saveManager.writeToSave(tasks);
             } catch (IOException e) {
                 System.out.println("Failed to save: " + e.getMessage());
             }
-            ui.goodbye();
+            return ui.goodbye();
         }
 
         /**
@@ -108,8 +108,8 @@ public abstract class Command {
          * @param saveManager The SaveManager used to save tasks, is not used here.
          */
         @Override
-        public void execute(TaskList tasks, Ui ui, SaveManager saveManager) {
-            ui.list(tasks);
+        public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+            return ui.list(tasks);
         }
 
         /**
@@ -160,17 +160,17 @@ public abstract class Command {
          * @param ui          The Ui used for displaying the result.
          * @param saveManager The SaveManager used to save tasks, is not used here.
          */
-        public void execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+        public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
             try {
                 if (isMarkCorrect) {
                     tasks.completeTaskAt(index);
-                    ui.mark(tasks, index);
+                    return ui.mark(tasks, index);
                 } else {
                     tasks.uncompleteTaskAt(index);
-                    ui.unmark(tasks, index);
+                    return ui.unmark(tasks, index);
                 }
             } catch (IndexOutOfBoundsException e) {
-                ui.taskDoesNotExist();
+                return ui.taskDoesNotExist();
             }
         }
     }
@@ -199,12 +199,12 @@ public abstract class Command {
          * @param ui          The Ui used for displaying the result.
          * @param saveManager The SaveManager used to save tasks, is not used here.
          */
-        public void execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+        public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
             try {
                 Task task = tasks.removeTaskAt(index);
-                ui.delete(task);
+                return ui.delete(task);
             } catch (IndexOutOfBoundsException e) {
-                ui.taskDoesNotExist();
+                return ui.taskDoesNotExist();
             }
         }
     }
@@ -233,9 +233,9 @@ public abstract class Command {
          * @param ui          The Ui used for displaying the result.
          * @param saveManager The SaveManager used to save tasks, is not used here.
          */
-        public void execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+        public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
             tasks.addTask(task);
-            ui.taskAdded(task, tasks);
+            return ui.taskAdded(task, tasks);
         }
     }
 
@@ -262,9 +262,9 @@ public abstract class Command {
          * @param ui          The Ui used for displaying the result.
          * @param saveManager The SaveManager used to save tasks, is not used here.
          */
-        public void execute(TaskList tasks, Ui ui, SaveManager saveManager) {
+        public String execute(TaskList tasks, Ui ui, SaveManager saveManager) {
             String filteredList = tasks.containsString(searchCriteria);
-            ui.findOutput(filteredList);
+            return ui.findOutput(filteredList);
         }
     }
 }
