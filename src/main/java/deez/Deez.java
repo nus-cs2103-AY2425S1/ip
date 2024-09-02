@@ -36,6 +36,9 @@ public class Deez {
 
     /**
      * Constructor for testing purposes
+     *
+     * @param isTesting flag to tell the constructor to not initialise taskList with storage.
+     *                  This is important to preserve the correctness of DeezTest.
      */
     public Deez(Boolean isTesting) {
     }
