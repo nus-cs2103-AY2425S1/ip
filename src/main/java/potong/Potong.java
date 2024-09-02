@@ -30,7 +30,8 @@ public class Potong {
             Command c = Parser.parse(userInput);
             assert c != null;
             try {
-                c.execute(tasks, storage, ui);
+                String message = c.execute(tasks, storage, ui);
+                ui.print(message);
             } catch (PotongException | IOException e) {
                 throw new RuntimeException(e);
             }

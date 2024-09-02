@@ -16,11 +16,11 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws PotongException {
+    public String execute(TaskList tasks, Storage storage, Ui ui) throws PotongException {
         if (toMark) {
-            tasks.mark(this.index);
+            return tasks.mark(this.index);
         } else {
-            tasks.unmark(this.index);
+            return tasks.unmark(this.index);
         }
     }
 }

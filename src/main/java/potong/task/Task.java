@@ -26,14 +26,14 @@ public class Task {
         return isDone ? "X" : " ";
     }
 
-    public void mark() {
+    public String mark() {
         this.isDone = true;
-        System.out.println(String.format("Nice! I've marked this task as done:\n %s", this));
+        return String.format("Nice! I've marked this task as done:\n %s", this);
     }
 
-    public void unmark() {
+    public String unmark() {
         this.isDone = false;
-        System.out.println(String.format("OK, I've marked this task as not done yet:\n %s", this));
+        return String.format("OK, I've marked this task as not done yet:\n %s", this);
     }
 
     public String getType() {

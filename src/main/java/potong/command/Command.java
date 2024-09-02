@@ -14,6 +14,6 @@ public abstract class Command {
     public Command(String command) {
         this.command = command;
     }
-    public abstract void execute(TaskList tasks, Storage storage, Ui ui) throws PotongException, IOException;
+    public abstract String execute(TaskList tasks, Storage storage, Ui ui) throws PotongException, IOException;
 
 }

@@ -13,7 +13,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws PotongException {
-        tasks.delete(this.index);
+    public String execute(TaskList tasks, Storage storage, Ui ui) throws PotongException {
+        return tasks.delete(this.index);
     }
 }
