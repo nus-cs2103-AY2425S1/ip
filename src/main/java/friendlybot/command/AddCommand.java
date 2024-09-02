@@ -65,9 +65,12 @@ public class AddCommand extends Command {
      * @param tasks An instance of TaskList where the new task is added to.
      * @param ui An instance of Ui (User Interface) that handles the interactions between FriendlyBot and user.
      * @param storage An instance of Storage that loads tasks and saves tasks in a file.
+     *
+     * @return Returns a response String from FriendlyBot to the User.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder sb = new StringBuilder();
         Task newTask;
         if (eventType.equals("todo")) {
             newTask = new ToDo(taskDescription);
@@ -75,19 +78,24 @@ public class AddCommand extends Command {
             newTask = new Deadline(taskDescription, by);
         } else {
             if (to.isBefore(from)) {
-                Ui.print("Uh oh, I can't create an event that is due before it even started!");
-                return;
+                return "Uh oh, I can't create an event that is due before it even started!";
             }
             newTask = new Event(taskDescription, from, to);
         }
         tasks.addTask(newTask);
         Ui.print("Got it. I've added this task:");
+        sb.append("Got it. I've added this task:\n");
         Ui.print("  " + newTask.toString());
+        sb.append("  ").append(newTask.toString()).append("\n");
         int numTasks = tasks.getNumTasks();
         if (numTasks == 1) {
             Ui.print("Now you have " + numTasks + " task in the list.");
+            sb.append("Now you have ").append(numTasks).append(" task in the list.");
         } else {
             Ui.print("Now you have " + numTasks + " tasks in the list.");
+            sb.append("Now you have ").append(numTasks).append(" tasks in the list.");
         }
+        storage.writeToFile(tasks.formatTasksToSave());
+        return sb.toString();
     }
 }

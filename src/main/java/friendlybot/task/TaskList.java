@@ -116,9 +116,12 @@ public class TaskList {
      */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> res = new ArrayList<>();
+        System.out.println(keyword);
         for (Task task : this.tasks) {
             String taskDescription = task.description;
+            System.out.println(taskDescription);
             if (taskDescription.contains(keyword)) {
+                System.out.println("yes");
                 res.add(task);
             }
         }

@@ -109,7 +109,7 @@ public class Parser {
             }
         } else if (fullCommand.startsWith("find")) {
             try {
-                String keyword = fullCommand.split("find", 2)[1];
+                String keyword = fullCommand.split("find ", 2)[1];
                 return new FindCommand(keyword);
             } catch (ArrayIndexOutOfBoundsException e) {
                 Ui.print("Please enter a keyword!");

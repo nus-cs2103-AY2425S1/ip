@@ -58,7 +58,6 @@ public class FriendlyBot {
      */
     public String getResponse(String input) {
         Command cmd = Parser.parse(input);
-        cmd.execute(this.tasks, this.ui, this.storage);
-
+        return cmd.execute(this.tasks, this.ui, this.storage);
     }
 }
