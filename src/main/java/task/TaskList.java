@@ -31,6 +31,7 @@ public class TaskList {
      * Displays a confirmation message after adding the task.
      *
      * @param task The Task to be added.
+     * @return A confirmation message after adding the task.
      */
     public String add(Task task) {
         taskList.add(task);
