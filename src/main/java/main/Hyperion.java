@@ -18,7 +18,7 @@ public class Hyperion {
             this.ui.showWelcome();
             this.storage = new Storage(filePath);
             this.allTasks = new TaskList(storage.load());
-            this.ui.showList(this.allTasks.getAllTasks());
+            ui.display(this.allTasks.list());
         } catch (CommandFoundButInvalidException e ) {
             System.out.print("There is an error" + e.getMessage());
         }
@@ -36,7 +36,7 @@ public class Hyperion {
             } catch (EmptyStringException |
                      CommandFoundButInvalidException |
                      CommandNotFoundException e) {
-                ui.displayError(e.getMessage());
+                ui.display(e.getMessage());
             }
         }
 
