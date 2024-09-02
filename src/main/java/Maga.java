@@ -1,6 +1,73 @@
 import java.util.Scanner;
 
 public class Maga {
+    public static class TaskList {
+        private Task[] taskList;
+        private int taskCount;
+
+        public TaskList(int size) {
+            taskList = new Task[size];
+        }
+
+        public void printTasks() {
+            System.out.println("Take a look, all the tasks you have here, so many, yuuuuuuge\n");
+            for (int i = 0; i < taskList.length; i++) {
+                int temp = i + 1;
+                System.out.println(temp + ". " + taskList[i].getTaskType() + taskList[i].getStatusIcon()
+                        + taskList[i].getDescription());
+            }
+        }
+
+        public Task getTask(int id) {
+            return taskList[id];
+        }
+
+        public void deleteTask(int taskNumber) {
+            taskCount--;
+            Task tempTask = taskList[taskNumber - 1];
+            System.out.print("I've deleted this task:\n" + tempTask.getTaskType() + tempTask.getStatusIcon() +
+                    tempTask.getDescription() + "\nYou have " + taskCount + " task(s) now!");
+            for (int i = taskCount; i < taskList.length; i++) {
+                taskList[i + 1] = taskList[i - 1];
+            }
+        }
+
+        public void markTask(int taskNumber) {
+            Task temp = taskList[taskNumber];
+            if (temp == null) {
+                System.out.println("You're trying to mark a task that DOESN'T EXIST, like bad people on JAN 6. " +
+                        "Some of the kindest and most lovely souls I've met");
+            } else {
+                temp.markAsDone();
+                System.out.println(temp.getTaskType() + temp.getStatusIcon() + temp.getDescription());
+                System.out.println("Ya boi Donald took the LIBERTY to mark this done:\n");
+            }
+        }
+
+        public void unmarkTask(int taskNumber) {
+            Task temp = taskList[taskNumber];
+            if (temp == null) {
+                System.out.println("Stop trying to unmark tasks like ILLEGAL ALIENS after" +
+                        " I'm president: NOT HERE!");
+            } else {
+                temp.markAsUndone();
+                System.out.println("Here's the task promised but not completed, just like the DEMS\n");
+                System.out.println(temp.getStatusIcon() + temp.getDescription());
+            }
+        }
+
+        public void addTask(Task task) {
+            taskCount++;
+            try {
+                taskList[taskCount + 1] = task;
+                taskCount++;
+                System.out.println("Another task for the American people added:\n" + task.getTaskType()
+                        + task.getStatusIcon() + task.getDescription() + "\nYou have " + taskCount + " task(s) now!");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Tasklist is full!");
+            }
+        }
+    }
     public static abstract class Task {
         protected String description;
         protected boolean isDone;
@@ -38,6 +105,7 @@ public class Maga {
             return "[T]";
         }
     }
+
     public static class EventTask extends Task {
         protected String time;
 
@@ -50,6 +118,7 @@ public class Maga {
             return "[E]";
         }
     }
+
     public static class DeadlineTask extends Task{
         protected String from;
         protected String to;
@@ -64,7 +133,8 @@ public class Maga {
             return "[D]";
         }
     }
-    public static void main(String[] args) {
+
+    public static void printGreeting() {
         String logo = "  __  __                    \n"
                 + " |  \\/  |  __ _   __ _   __ _  \n"
                 + " | |\\/| | / _` | / _` | / _` | \n"
@@ -73,55 +143,43 @@ public class Maga {
                 + "                  |___/                           \n";
         System.out.println("Hello from\n" + logo +"\nI am THE best chatbot from the one and only" +
                 " US of A trust me everyone says I'm the best. How can I help you serve the American people?" );
+    }
+
+    public static void closeBot() {
+        System.out.println("Yeah I'ma see you in my next RALLY! A vote for me is a vote for America!");
+    }
+
+    public static void main(String[] args) {
+        printGreeting();
+
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        // task array
-        Task[] arr = new Task[100];
-        int count = 0;
+
+        // initialise taskList to store tasks
+        TaskList taskList = new TaskList(100);
+
         while(!input.equalsIgnoreCase("bye")) {
             // using list command
             input = input.toLowerCase();
             if(input.equals("list")) {
-                System.out.println("Take a look, all the tasks you have here, so many, yuuuuuuge\n");
-                for (int i = 0; i < count; i++) {
-                    int temp = i + 1;
-                    System.out.println(temp + ". " + arr[i].getTaskType() + arr[i].getStatusIcon()
-                            + arr[i].getDescription());
-                }
-
+                taskList.printTasks();
                 input = scanner.nextLine();
                 continue;
             }
 
             // marking things as done and undone
             if (input.startsWith("mark ")) {
-                System.out.println("Ya boi Donald took the LIBERTY to mark this done:\n");
                 char[] charArray = input.toCharArray();
-                Task temp = arr[Character.getNumericValue(charArray[charArray.length - 1]) - 1];
-                if (temp == null) {
-                    System.out.println("You're trying to mark a task that DOESN'T EXIST, like bad people on JAN 6. " +
-                            "Some of the kindest and most lovely souls I've met");
-                    input = scanner.nextLine();
-                    continue;
-                }
-                temp.markAsDone();
-                System.out.println(temp.getTaskType() + temp.getStatusIcon() + temp.getDescription());
+                int taskNumber = Character.getNumericValue(charArray[charArray.length - 1]) - 1;
+                taskList.markTask(taskNumber);
                 input = scanner.nextLine();
                 continue;
             }
 
             if (input.toLowerCase().startsWith("unmark ")) {
-                System.out.println("Here's the task promised but not completed, just like the DEMS\n");
                 char[] charArray = input.toCharArray();
-                Task temp = arr[Character.getNumericValue(charArray[charArray.length - 1]) - 1];
-                if (temp == null) {
-                    System.out.println("Stop trying to unmark tasks like ILLEGAL ALIENS after" +
-                            " I'm president: NOT HERE!");
-                    input = scanner.nextLine();
-                    continue;
-                }
-                temp.markAsUndone();
-                System.out.println(temp.getStatusIcon() + temp.getDescription());
+                int taskNumber = Character.getNumericValue(charArray[charArray.length - 1]) - 1;
+                taskList.unmarkTask(taskNumber);
                 input = scanner.nextLine();
                 continue;
             }
@@ -137,24 +195,18 @@ public class Maga {
                     input = scanner.nextLine();
                     continue;
                 }
-
-                Task tempTask = arr[tempInt - 1];
-                count--;
-                System.out.print("I've deleted this task:\n" + tempTask.getTaskType() + tempTask.getStatusIcon() +
-                        tempTask.getDescription() + "\nYou have " + count + " task(s) now!");
-                for (int i = count; i < 99; i++) {
-                    arr[i + 1] = arr[i - 1];
-                }
+;
+                taskList.deleteTask(tempInt - 1);
                 input = scanner.nextLine();
                 continue;
 
             }
 
             // adding things as per normal
-            Task tempTask = new TodoTask("");
             if(input.startsWith("todo")) {
                 String descrip = input.substring(5).trim();
-                tempTask = new TodoTask(descrip);
+                Task tempTask = new TodoTask(descrip);
+                taskList.addTask(tempTask);
             } else if(input.startsWith("event")) {
                 String descrip = input.substring(6).trim();
                 String[] descripArray = descrip.split("/");
@@ -163,7 +215,8 @@ public class Maga {
                     input = scanner.nextLine();
                     continue;
                 }
-                tempTask = new EventTask(descripArray[0], descripArray[1]);
+                Task tempTask = new EventTask(descripArray[0], descripArray[1]);
+                taskList.addTask(tempTask);
             } else if(input.startsWith("deadline")) {
                 String descrip = input.substring(9).trim();
                 String[] descripArray = descrip.split("/");
@@ -173,23 +226,17 @@ public class Maga {
                     input = scanner.nextLine();
                     continue;
                 }
-                tempTask = new DeadlineTask(descripArray[0], descripArray[1], descripArray[2]);
-            } else { // if it's not mark, list, delete or creating a task
-                System.out.println("HEY! SLEEPY JOE and CROOKED KAMALA " +
-                        "might be demented but you're not! Specify a command!");
-                input = scanner.nextLine();
-                continue;
+                Task tempTask = new DeadlineTask(descripArray[0], descripArray[1], descripArray[2]);
+                taskList.addTask(tempTask);
             }
 
-
-            arr[count] = tempTask;
-            count++;
-            System.out.println("Another task for the American people added:\n" + tempTask.getTaskType()
-            + tempTask.getStatusIcon() + tempTask.getDescription() + "\nYou have " + count + " task(s) now!");
+            // should never reach here unless command is invalid
+            System.out.println("HEY! SLEEPY JOE and CROOKED KAMALA " +
+                    "might be demented but you're not! Specify a command!");
             input = scanner.nextLine();
         }
 
-        System.out.println("Yeah I'ma see you in my next RALLY! A vote for me is a vote for America!");
+        closeBot();
     }
 
 }
