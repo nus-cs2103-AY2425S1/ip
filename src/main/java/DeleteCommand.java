@@ -10,7 +10,11 @@ public class DeleteCommand extends Command {
     @Override
     public void execute() {
         Task task = taskList.remove(index - 1);
-        System.out.println(Parser.addHorizontalLinesAndIndentation(String.format("Noted. I've removed this task:\n" + task + " Now you have %d tasks in the list.", taskList.size())));
+        System.out.println(Parser
+                .addHorizontalLinesAndIndentation(
+                        String.format("Noted. I've removed this task:\n"
+                                + task + " Now you have %d tasks in the list.",
+                                taskList.size())));
     }
-    
+
 }

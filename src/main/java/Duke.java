@@ -31,58 +31,13 @@ public class Duke {
         System.out.println(res);
     }
 
-    public static void displayList() {
-        String lString = "";
-        int index = 1;
-        for (Task task : taskList) {
-            lString += String.valueOf(index) + "."  + task.toString();
-            if (index == taskList.size()) {
-                break;
-            }
-            lString += "\n";
-            index++;
-        }
-        lString = Parser.addHorizontalLinesAndIndentation(lString);
-        System.out.println(lString);
-    }
-
-    public static void mark(int index) {
-        taskList.get(index - 1).setIsDone(true);
-        System.out.println(addHorizontalLinesAndIndentation(
-                        "Nice! I've marked this task as done:\n" +
-                                taskList.get(index - 1) + "\n"
-                ));
-    }
-
-    public static void unmark(int index) {
-        taskList.get(index - 1).setIsDone(false);
-        System.out.println(
-                Parser.addHorizontalLinesAndIndentation(
-                        "Nice! I've marked this task as undone:\n" +
-                                taskList.get(index - 1) + "\n"
-                )
-        );
-    }
-
-    public static void delete(int index) {
-        Task task = taskList.remove(index - 1);
-        System.out.println(
-                Parser.addHorizontalLinesAndIndentation(
-                        String.format("Noted. I've removed this task:\n"
-                                + task
-                                + " Now you have %d tasks in the list.", taskList.size())
-                )
-        );
-    }
 
     public static void main(String[] args) {
-        String hi = "Hello! I'm Foo\n" +
-                "What can I do for you?";
-        System.out.println(Parser.addHorizontalLinesAndIndentation(hi));
+        
         Scanner sc = new Scanner(System.in);
         while (true) {
             
         }
-        System.out.println(Parser.addHorizontalLinesAndIndentation("Bye. Hope to see you again soon!"));
+        
     }
 }
