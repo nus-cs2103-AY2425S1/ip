@@ -239,13 +239,29 @@ public abstract class Command {
         }
     }
 
+    /**
+     * Represents a command used to find a task.
+     */
     public static class FindCommand extends Command {
+        /** Search term used to find the task */
         private String searchCriteria;
 
+        /**
+         * Constructs an FindCommand with the specified searchCriteria.
+         *
+         * @param task The task to add.
+         */
         public FindCommand(String searchCriteria) {
             this.searchCriteria = searchCriteria;
         }
 
+        /**
+         * Searches for the tasks with the specified String.
+         *
+         * @param tasks       The TaskList to add the task to.
+         * @param ui          The Ui used for displaying the result.
+         * @param saveManager The SaveManager used to save tasks, is not used here.
+         */
         public void execute(TaskList tasks, Ui ui, SaveManager saveManager) {
             String filteredList = tasks.containsString(searchCriteria);
             ui.findOutput(filteredList);

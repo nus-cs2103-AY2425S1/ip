@@ -1,36 +1,33 @@
 package ontos.storage;
 
-import java.util.Scanner;
-import java.util.HashMap;
-
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+import java.util.Scanner;
 
-import ontos.task.TaskList;
 import ontos.task.Task;
+import ontos.task.TaskList;
 
 /**
- * Reads and writes the task list from and to storage. 
+ * Reads and writes the task list from and to storage.
  */
 public class SaveManager {
+    protected static HashMap<Character, Boolean> isDoneHashMap = new HashMap<>() {{
+            put('0', false);
+            put('1', true);
+        }};
+
     /** Path to the folder that the file will be saved */
     protected Path savePath;
     /** Path to the file that will be saved */
     protected Path saveFilePath;
     /** String representation of the name of the file that will be saved */
     protected String saveFileName;
-    
-    protected static HashMap<Character, Boolean> IS_DONE = new HashMap<>() {{
-        put('0', false);
-        put('1', true);
-    }};
 
     /**
      * Constructs a Save Manager with the specified root path and save file name.
@@ -81,7 +78,7 @@ public class SaveManager {
 
     /**
      * Converts a string from the save file into a Task object.
-     * 
+     *
      * @param input The stored string representation of the task.
      * @return The Task object created from the input string.
      * @throws StringIndexOutOfBoundsException If the input string is malformed.
@@ -89,10 +86,10 @@ public class SaveManager {
      * @throws IllegalArgumentException If the task type or completion status is invalid.
      * @throws DateTimeParseException If a date in the input string cannot be parsed.
      */
-    private Task stringToTask(String input) throws StringIndexOutOfBoundsException, 
+    private Task stringToTask(String input) throws StringIndexOutOfBoundsException,
             NumberFormatException, IllegalArgumentException, DateTimeParseException {
 
-        Boolean isDone = IS_DONE.get(input.charAt(2));
+        Boolean isDone = isDoneHashMap.get(input.charAt(2));
         if (isDone == null) {
             throw new IllegalArgumentException();
         }
