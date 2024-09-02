@@ -1,6 +1,7 @@
 package duck.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * duck.task.TaskList class contains the task list.
@@ -35,6 +36,19 @@ public class TaskList {
 
     public void unmarkTask(int taskIndex) {
         this.getTask(taskIndex).unmark();
+    }
+
+    /**
+     * Finds tasks that contain the given keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A new TaskList containing tasks with the keyword.
+     */
+    public TaskList findTasks(String keyword) {
+        ArrayList<Task> tasksWithKeyword = this.list.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return new TaskList(tasksWithKeyword);
     }
 
     public ArrayList<Task> getList() {

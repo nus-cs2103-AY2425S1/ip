@@ -4,15 +4,17 @@ import duck.task.TaskList;
 import duck.ui.Ui;
 import duck.storage.Storage;
 
-public class ListCommand implements Command {
+public class FindCommand implements Command {
     private final String fullCommand;
 
-    public ListCommand(String fullCommand) {
+    public FindCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
-        ui.showTasks(list);
+        String keyword = fullCommand.split(" ")[1];
+        TaskList tasksWithKeyword = list.findTasks(keyword);
+        ui.showTasks(tasksWithKeyword);
     }
 }

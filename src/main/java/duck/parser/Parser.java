@@ -14,6 +14,7 @@ public class Parser {
             case "unmark" -> new UnmarkCommand(fullCommand);
             case "delete" -> new DeleteCommand(fullCommand);
             case "list" -> new ListCommand(fullCommand);
+            case "find" -> new FindCommand(fullCommand);
             default -> throw new InvalidCommandException("Invalid command: " + commandType);
         };
     }
