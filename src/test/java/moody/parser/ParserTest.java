@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParserTest {
 
     @Test
-    void testParseDeadlineCommandValid() throws InvalidCommandException, TaskInputException, TaskOutOfBoundsException {
+    void testParseDeadlineCommandValid() throws InvalidCommandException, TaskInputException {
         Command command = Parser.parse("deadline Submit assignment /by 2024-09-30 1800");
         assertTrue(command instanceof AddDeadlineCommand);
         AddDeadlineCommand deadlineCommand = (AddDeadlineCommand) command;
