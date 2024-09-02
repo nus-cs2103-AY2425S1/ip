@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
 
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description, TaskType.EVENT);
@@ -26,7 +26,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (from: " + this.from.format(formatter) + " to: "
-                + this.to.format(formatter) + ")";
+        return "[D] " + super.toString() + " (from: " + this.from.format(FORMATTER) + " to: "
+                + this.to.format(FORMATTER) + ")";
     }
 }

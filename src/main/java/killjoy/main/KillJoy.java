@@ -19,13 +19,14 @@ public class KillJoy {
     private ProcessTasks processTasks;
     private Storage saveAndLoad;
     private UserInterface ui;
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private ArrayList<Task> taskList;
     private int taskCount = 0;
 
     public KillJoy() {
         this.ui = new UserInterface(this);
         this.processTasks = new ProcessTasks(this, ui);
         this.saveAndLoad = new Storage(this, processTasks);
+        this.taskList = new ArrayList<>();
     }
 
     public int getTaskCount() {
@@ -86,6 +87,7 @@ public class KillJoy {
      */
     public void removeTask(int taskIndex) {
         this.taskList.remove(taskIndex);
+        this.decreaseTaskCount();
     }
 
     /**
@@ -120,6 +122,7 @@ public class KillJoy {
                 processTasks.processUserInput(input);
             }
         }
+        user.close();
     }
 
     public static void main(String[] args) {

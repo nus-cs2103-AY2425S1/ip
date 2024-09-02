@@ -4,7 +4,6 @@ import killjoy.main.KillJoy;
 import killjoy.task.Task;
 import killjoy.main.UserInterface;
 
-
 import java.time.LocalDateTime;
 
 /**
@@ -119,7 +118,6 @@ public class ProcessTasks {
             ui.printLine();
         } else if (inputCommand.equals("delete")) {
             kj.removeTask(taskIndex);
-            kj.decreaseTaskCount();
             ui.printLine();
             System.out.println("    " + ui.getDeleteString() + "\n        " + task );
             if (kj.getTaskCount() == 1) {

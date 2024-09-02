@@ -7,7 +7,7 @@ package killjoy.task;
 public class Task {
     protected String description;
     protected boolean isDone;
-    TaskType taskType = null;
+    protected TaskType taskType = null;
 
     /**
      * Represents the type of task.
