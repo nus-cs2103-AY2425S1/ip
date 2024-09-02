@@ -26,7 +26,7 @@ public class Duke {
     public static void addToList(String dialog) {
         Task task = Task.of(dialog);
         taskList.add(task);
-        String res = addHorizontalLinesAndIndentation("Got it. I've added this task: \n"
+        String res = Parser.addHorizontalLinesAndIndentation("Got it. I've added this task: \n"
                 + String.format("  %s", task) + "\n" + String.format("Now you have %d tasks in the list.", taskList.size()));
         System.out.println(res);
     }
@@ -42,7 +42,7 @@ public class Duke {
             lString += "\n";
             index++;
         }
-        lString = addHorizontalLinesAndIndentation(lString);
+        lString = Parser.addHorizontalLinesAndIndentation(lString);
         System.out.println(lString);
     }
 
@@ -57,7 +57,7 @@ public class Duke {
     public static void unmark(int index) {
         taskList.get(index - 1).setIsDone(false);
         System.out.println(
-                addHorizontalLinesAndIndentation(
+                Parser.addHorizontalLinesAndIndentation(
                         "Nice! I've marked this task as undone:\n" +
                                 taskList.get(index - 1) + "\n"
                 )
@@ -67,7 +67,7 @@ public class Duke {
     public static void delete(int index) {
         Task task = taskList.remove(index - 1);
         System.out.println(
-                addHorizontalLinesAndIndentation(
+                Parser.addHorizontalLinesAndIndentation(
                         String.format("Noted. I've removed this task:\n"
                                 + task
                                 + " Now you have %d tasks in the list.", taskList.size())
@@ -78,11 +78,11 @@ public class Duke {
     public static void main(String[] args) {
         String hi = "Hello! I'm Foo\n" +
                 "What can I do for you?";
-        System.out.println(addHorizontalLinesAndIndentation(hi));
+        System.out.println(Parser.addHorizontalLinesAndIndentation(hi));
         Scanner sc = new Scanner(System.in);
         while (true) {
             
         }
-        System.out.println(addHorizontalLinesAndIndentation("Bye. Hope to see you again soon!"));
+        System.out.println(Parser.addHorizontalLinesAndIndentation("Bye. Hope to see you again soon!"));
     }
 }

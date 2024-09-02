@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
-    public String addHorizontalLinesAndIndentation(String dialog) {
+    public static String addHorizontalLinesAndIndentation(String dialog) {
             StringBuilder res = new StringBuilder("    ____________________________________________________________\n");
             Scanner sc = new Scanner(dialog);
             while (sc.hasNextLine()) {
@@ -62,7 +62,4 @@ public class Parser {
                 return null;
             }
         }
-    public static void main(String[] args) {
-        
-    }
 }
