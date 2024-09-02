@@ -1,11 +1,10 @@
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
     protected String by;
-    protected LocalDate dateTime;
+    protected LocalDate date;
     /**
      * Constructor to initialise a task.
      *
@@ -33,9 +32,9 @@ public class Deadline extends Task {
      *
      * @param description Input based on user.
      */
-    public Deadline(String description, LocalDate dateTime) {
+    public Deadline(String description, LocalDate date) {
         super(description);
-        this.dateTime = dateTime;
+        this.date = date;
         this.marker = "/by";
     }
 
@@ -53,7 +52,7 @@ public class Deadline extends Task {
         String part1 = super.fileFormat();
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-        String dateTimeOutput = (dateTime != null) ? dateTime.format(outputFormatter) : by;
+        String dateTimeOutput = (date != null) ? date.format(outputFormatter) : by;
         return part1 + " | " + dateTimeOutput;
     }
 }

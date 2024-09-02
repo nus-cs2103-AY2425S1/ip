@@ -9,11 +9,11 @@ public class Event extends Task {
      *
      * @param description Input based on user.
      */
-    public Event(String description, String startDay, String startTime, String endDateTime) {
+    public Event(String description, String startDay, String startTime, String endTime) {
         super(description);
         this.startDay = startDay;
         this.startTime = startTime;
-        this.endTime = endDateTime;
+        this.endTime = endTime;
         this.marker = "/from";
     }
 
@@ -22,11 +22,11 @@ public class Event extends Task {
      *
      * @param description Input based on user.
      */
-    public Event(String description, String startDay, String startTime, String endDateTime, boolean isDone) {
+    public Event(String description, String startDay, String startTime, String endTime, boolean isDone) {
         super(description, isDone);
         this.startDay = startDay;
         this.startTime = startTime;
-        this.endTime = endDateTime;
+        this.endTime = endTime;
         this.marker = "/from";
     }
 

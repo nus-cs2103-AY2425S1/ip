@@ -40,7 +40,7 @@ public class Task {
      * @param value Whether the task is completed.
      * @return String representation based on whether the task is marked as completed or not completed.
      */
-    public void markTask(Boolean value) {
+    public void markTask(boolean value) {
         if (value) {
             this.isDone = true;
             String finishedMarking = "OK, I've marked this task as done:\n\t"
@@ -69,7 +69,7 @@ public class Task {
     /**
      * Returns a string representation of the file format in which we store the task.
      */
-    public String fileFormat () {
+    public String fileFormat() {
         String done = isDone ? "1" : "0";
         return this.taskLetter() + " | " + done + " | " + this.description;
     }

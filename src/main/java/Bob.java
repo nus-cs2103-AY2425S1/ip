@@ -78,7 +78,7 @@ public class Bob {
      * @param inputWords String array of the words given as input.
      * @param isCompleted Whether the task is marked as completed or incompleted.
      */
-    public void updateMark(String input, String[] inputWords, Boolean isCompleted) {
+    public void updateMark(String input, String[] inputWords, boolean isCompleted) {
         if (inputWords.length == 1) {
             System.out.println("Please input which item number you want to mark.");
         } else if (this.records.size() < Integer.valueOf(inputWords[1]) || Integer.valueOf(inputWords[1]) <= 0) {
@@ -98,7 +98,7 @@ public class Bob {
      * Adds a task to records.
      * @param input Input given by a user.
      */
-    public void addTask(String input, String[] inputWords )  {
+    public void addTask(String input, String[] inputWords)  {
         try {
             String keyword = inputWords[0];
             Task newTask = getTask(keyword, input); //initialise the exact Task class
@@ -305,13 +305,6 @@ public class Bob {
                 + "\n"
                 + "\t____________________________________________________________\n";
         System.out.println(textToPrint);
-    }
-
-    /**
-     * Returns the index of the next available slot in the arraylist of records.
-     */
-    public int getCounter() {
-        return this.counter;
     }
 
     /**
