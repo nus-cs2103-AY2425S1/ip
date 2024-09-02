@@ -16,19 +16,19 @@ public class ParserTest {
 
     private Parser parser;
     private TaskList tasks;
-    private Ui ui; // Note: You need to adapt these tests if you are not using mocks
+    private Ui ui;
 
     @BeforeEach
     public void setUp() {
         parser = new Parser();
         tasks = new TaskList();
-        ui = new Ui(); // Change to your actual Ui implementation if necessary
+        ui = new Ui();
     }
 
     @Test
     public void testListCommandWithTasks() {
         tasks.add(new ToDos("Test todo"));
-        // You will need to manually verify the results since Ui is not mocked
+
         parser.parseCommand("list", tasks, ui);
         assertFalse(tasks.getList().isEmpty()); // Check if task list is not empty
     }
