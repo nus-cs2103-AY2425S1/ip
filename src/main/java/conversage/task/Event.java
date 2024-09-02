@@ -6,12 +6,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event task with a start and end time.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
 
+    /**
+     * Constructs an Event task with the specified description, start time, and end time.
+     *
+     * @param taskDesc the description of the task.
+     * @param from     the start time of the event.
+     * @param to       the end time of the event.
+     * @throws ConverSageException if the date/time format is invalid.
+     */
     public Event(String taskDesc, String from, String to) throws ConverSageException {
         super(taskDesc);
 

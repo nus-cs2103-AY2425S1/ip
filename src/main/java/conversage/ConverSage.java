@@ -6,11 +6,20 @@ import conversage.storage.Storage;
 import conversage.task.TaskList;
 import conversage.ui.Ui;
 
+/**
+ * The main class of the ConverSage application.
+ */
 public class ConverSage {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Constructs a ConverSage object with the specified file path for storage.
+     *
+     * @param filePath the path to the file where tasks are stored.
+     */
 
     public ConverSage(String filePath) {
         this.ui = new Ui();
@@ -23,6 +32,9 @@ public class ConverSage {
         }
     }
 
+    /**
+     * Runs the ConverSage application.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -39,6 +51,12 @@ public class ConverSage {
                     
         }
     }
+
+    /**
+     * The main method of the ConverSage application.
+     *
+     * @param args the command-line arguments.
+     */
     public static void main(String[] args) {
         new ConverSage("data/tasks.txt").run();
     }
