@@ -1,8 +1,11 @@
-class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String desc, String from, String to) {
+class Event extends Task {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    public Event(String desc, LocalDateTime from, LocalDateTime to) {
         super(desc);
         this.from = from;
         this.to = to;
@@ -15,6 +18,7 @@ class Event extends Task {
 
     @Override
     public String toSaveFormat() {
-        return "E | " + (isChecked ? "1 | " : "0 | ") + this.taskDesc + " | " + this.from + " | " + this.to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
+        return "E | " + (isChecked ? "1 | " : "0 | ") + this.taskDesc + " | " + this.from.format(formatter) + " | " + this.to.format(formatter);
     }
 }
