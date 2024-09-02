@@ -1,14 +1,14 @@
 package vuewee.command;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.parser.IllegalCommandException;
 import vuewee.task.TaskList;
 import vuewee.task.TodoTask;
+import vuewee.TaskListUI;
 
 public class MarkCommandTest {
     @Test
