@@ -5,6 +5,7 @@ import Talky.SaveData;
 import Talky.TalkyException;
 import Talky.TaskList;
 import Talky.Ui;
+
 /**
  * Talky Chatbot that acts as a Task Manager.
  */
@@ -14,7 +15,7 @@ public class Talky {
     private TaskList userTasks;
     private SaveData saveData;
 
-    private Talky() {
+    public Talky() {
         ui = new Ui();
         saveData = new SaveData(SAVE_PATH);
         try {
@@ -79,11 +80,55 @@ public class Talky {
         new Talky().run();
     }
 
-    private void mark(String[] commandArgs) throws TalkyException {
+    public String returnResponse(String input) {
+        String command = input;
+        String response = "";
+        try {
+            String commandType = Parser.commandType(command);
+            String[] commandArgs = Parser.commandArgs(command, commandType);
+            switch (commandType) {
+            case "bye":
+                response = "Bye!!! Do let me know if there's anything else!";
+                break;
+            case "list":
+                response = userTasks.toListFormat();
+                break;
+            case "mark":
+                response = mark(commandArgs);
+                break;
+            case "unmark":
+                response = unmark(commandArgs);
+                break;
+            case "todo":
+                response = addTodo(commandArgs);
+                break;
+            case "deadline":
+                response = addDeadline(commandArgs);
+                break;
+            case "event":
+                response = addEvent(commandArgs);
+                break;
+            case "delete":
+                response = delete(commandArgs);
+                break;
+            case "find":
+                response = find(commandArgs);
+                break;
+            default:
+                throw new TalkyException("Invalid Command");
+            }
+            saveData.saveData(userTasks);
+        } catch (TalkyException err) {
+            response = err.getMessage();
+        }
+        return response;
+    }
+
+    private String mark(String[] commandArgs) throws TalkyException {
         try {
             int indexToChange = Integer.parseInt(commandArgs[0]) - 1;
             String changedTask = userTasks.markTask(indexToChange, true);
-            ui.printSeperator("Talky.Task Marked Done: " + changedTask);
+            return "Task Marked Done: " + changedTask;
         } catch (IndexOutOfBoundsException err) {
             throw new TalkyException("Given index out of bounds");
         } catch (NumberFormatException err) {
@@ -91,11 +136,11 @@ public class Talky {
         }
     }
 
-    private void unmark(String[] commandArgs) throws TalkyException {
+    private String unmark(String[] commandArgs) throws TalkyException {
         try {
             int indexToChange = Integer.parseInt(commandArgs[0]) - 1;
             String changedTask = userTasks.markTask(indexToChange, false);
-            ui.printSeperator("Talky.Task Marked Done: " + changedTask);
+            return "Task Marked Done: " + changedTask;
         } catch (IndexOutOfBoundsException err) {
             throw new TalkyException("Given index out of bounds");
         } catch (NumberFormatException err) {
@@ -103,35 +148,35 @@ public class Talky {
         }
     }
 
-    private void addTodo(String[] commandArgs) throws TalkyException {
+    private String addTodo(String[] commandArgs) throws TalkyException {
         String name = commandArgs[0];
         userTasks.addToDo(name);
-        ui.printSeperator("Added Talky.ToDo: " + name);
+        return "Added ToDo: " + name;
     }
 
-    private void addDeadline(String[] commandArgs) throws TalkyException {
+    private String addDeadline(String[] commandArgs) throws TalkyException {
         String name = commandArgs[0];
         String by = commandArgs[1];
         LocalDateTime formattedBy = Parser.parseDate(by).get(0);
         userTasks.addDeadline(name, formattedBy);
-        ui.printSeperator("Added Talky.Deadline: " + name);
+        return "Added Deadline: " + name;
     }
 
-    private void addEvent(String[] commandArgs) throws TalkyException {
+    private String addEvent(String[] commandArgs) throws TalkyException {
         String name = commandArgs[0];
         String from = commandArgs[1];
         String to = commandArgs[2];
         LocalDateTime formattedFrom = Parser.parseDate(from).get(0);
         LocalDateTime formattedTo = Parser.parseDate(to).get(0);
         userTasks.addEvent(name, formattedFrom, formattedTo);
-        ui.printSeperator("Added Talky.Event: " + name);
+        return "Added Event: " + name;
     }
 
-    private void delete(String[] commandArgs) throws TalkyException {
+    private String delete(String[] commandArgs) throws TalkyException {
         try {
             int indexToChange = Integer.parseInt(commandArgs[0]) - 1;
             String changedTask = userTasks.deleteTask(indexToChange);
-            ui.printSeperator("Deleted Talky.Task: " + changedTask);
+            return "Deleted Task: " + changedTask;
         } catch (IndexOutOfBoundsException err) {
             throw new TalkyException("Given index out of bounds");
         } catch (NumberFormatException err) {
@@ -139,11 +184,11 @@ public class Talky {
         }
     }
 
-    private void find(String[] commandArgs) throws TalkyException {
+    private String find(String[] commandArgs) throws TalkyException {
         String keyword = commandArgs[0];
         TaskList foundTasks = userTasks.find(keyword);
         String header = String.format("Tasks that contains the keyword (%s):\n", keyword);
-        ui.printSeperator(header + foundTasks.toListFormat());
+        return header + foundTasks.toListFormat();
     }
 }
 
