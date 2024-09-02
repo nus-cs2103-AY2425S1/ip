@@ -14,6 +14,10 @@ class TaskList {
     TaskList(ArrayList<Task> todoList) {
         this.todoList = todoList;
     }
+
+    int size() {
+        return this.todoList.size();
+    }
     
     Task add(String task) {
         Todo newTask = new Todo(task);
