@@ -26,7 +26,7 @@ public class Event extends Task{
             if (s.charAt(j) == '/' && dashCounter == 3) {
                 for (int i = 0; i < s.length(); i++) {
                     if (s.charAt(i) == '/') {
-                        return new Event(s.substring(6, i - 1), stringToDate(s.substring(i + 6, j - 1)),
+                        return new Event(s.substring(0, i - 1), stringToDate(s.substring(i + 6, j - 1)),
                                 stringToDate(s.substring(j + 4)), false);
                     }
                 }
@@ -61,7 +61,7 @@ public class Event extends Task{
     private static LocalDateTime stringToDate(String str) throws BigdogException {
         long dashes = str.chars().filter(x -> x == '/').count();
         if (dashes != 2) {
-            throw new BigdogException("Invalid date format :" + str);
+            throw new BigdogException("Invalid date format: " + str);
         } else {
             String[] getTime = str.split(" ");
             String[] getDate = getTime[0].split("/");
@@ -76,14 +76,15 @@ public class Event extends Task{
                     return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, getTime[1]));
                 } else if (getTime.length == 1) {
                     withTime = false;
-                    return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, "00:00"));
+                    return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, "23:59"));
                 } else {
-                    throw new BigdogException("Invalid date format :" + str +
-                            "\nExample correct format: event meeting with John /from 02/07/2019 18:00 /to 02/07/2019 20:00");
+                    throw new BigdogException("Invalid date format: " + str +
+                            "\nExample correct format: event meeting with John " +
+                            "/from 02/07/2019 18:00 /to 02/07/2019 20:00");
                 }
             } catch (DateTimeParseException e) {
-            throw new BigdogException("Invalid date format :" + str +
-                    "\nExample correct format: deadline return book /by 02/07/2019 18:00");
+            throw new BigdogException("Invalid date format: " + str +
+                    "\nExample correct format: event meeting with John /from 02/07/2019 18:00 /to 02/07/2019 20:00");
             }
         }
     }

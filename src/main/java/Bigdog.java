@@ -1,83 +1,74 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Bigdog {
 
     // Array to store tasks
-    private static ArrayList<Task> toDoList = new ArrayList<>();
-    private static FileSaver fileSaver = new FileSaver("./src/main/Bigdog.txt");
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-    private static void editList(String str) throws BigdogException {
-        if (str.isEmpty()) {
-            throw new BigdogException("Please give me something to add!");
+    public Bigdog(String file) {
+        this.storage = new Storage(file);
+        this.tasks = new TaskList(this.storage.load());
+        this.ui = new Ui();
+    }
+
+    public void run() {
+
+        ui.greet();
+        boolean toContinue = true;
+
+
+        while (toContinue) {
+            try {
+
+                    String userInput = ui.readInput();
+                    String[] commands = Parser.parse(userInput);
+                    switch (commands[0]) {
+                        case "bye":
+                            toContinue = false;
+                            ui.bye();
+                            break;
+                        case "list":
+                            this.tasks.show();
+                            break;
+                        case "mark":
+                            ui.print(this.tasks.mark(Integer.parseInt(commands[1])));
+                            break;
+                        case "unmark":
+                            ui.print(this.tasks.unmark(Integer.parseInt(commands[1])));
+                            break;
+                        case "delete":
+                            ui.print(this.tasks.delete(Integer.parseInt(commands[1])));
+                            break;
+                        case "todo":
+                            ui.print(this.tasks.add(Todo.of(commands[1])));
+                            break;
+                        case "deadline":
+                            ui.print(this.tasks.add(Deadline.of(commands[1])));
+                            break;
+                        case "event":
+                            ui.print(this.tasks.add(Event.of(commands[1])));
+                            break;
+
+                }
+            } catch (BigdogException |
+                     DateTimeParseException |
+                     NumberFormatException |
+                     IndexOutOfBoundsException e) {
+                ui.print(e.getMessage());
+            } finally {
+                storage.save(this.tasks.get());
+            }
         }
-        if (str.startsWith("mark")) {
-            if (Integer.parseInt(str.substring(5)) <= 0 || Integer.parseInt(str.substring(5)) > toDoList.size()) {
-                throw new BigdogException("That's out of your list!");
-            }
-            int ind = Integer.parseInt(str.substring(5)) - 1;
-            toDoList.get(ind).mark();
-            System.out.print("Nice! I've marked this task as done:\n" + toDoList.get(ind) + "\n");
-        } else if (str.startsWith("unmark")) {
-            if (Integer.parseInt(str.substring(7)) <= 0 || Integer.parseInt(str.substring(7)) > toDoList.size()) {
-                throw new BigdogException("That's out of your list!");
-            }
-            int ind = Integer.parseInt(str.substring(7)) - 1;
-            toDoList.get(ind).unmark();
-            System.out.print("OK, I've marked this task as not done yet:\n" + toDoList.get(ind) + "\n");
-        } else if (str.startsWith("delete")) {
-            if (Integer.parseInt(str.substring(7)) <= 0 || Integer.parseInt(str.substring(7)) > toDoList.size()) {
-                throw new BigdogException("That's out of your list!");
-            }
-            Task temp = toDoList.get(Integer.parseInt(str.substring(7)) - 1);
-            toDoList.remove(Integer.parseInt(str.substring(7)) - 1);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(temp);
-            System.out.printf("Now you have %s tasks in the list.\n", toDoList.size());
-        } else {
-            // Add and Echo user input
-            toDoList.add(Task.of(str));
-            System.out.println("Got it. I've added this task:\n" + toDoList.get(toDoList.size() - 1));
-            System.out.printf("Now you have %s tasks in the list.\n", toDoList.size());
-        }
-        fileSaver.saveToFile(toDoList);
     }
 
     public static void main(String[] args) {
 
-        // Scanner object to read user input
-        Scanner scanner = new Scanner(System.in);
+        new Bigdog("./src/main/Bigdog.txt").run();
 
-        // Welcome message
-        System.out.println("Hello! I'm Bigdog!");
-        System.out.println("What can I do for you?\n");
-
-        fileSaver.loadFromFile(toDoList);
-
-        while (true) {
-
-            // Take in user input
-            String userInput = scanner.nextLine();
-
-            // Terminating condition
-            if (userInput.equalsIgnoreCase("bye")) {
-                System.out.print("Bye. Hope to see you again soon!");
-                break;
-            } else if (userInput.equalsIgnoreCase("list")) {
-
-                // Print the list
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < toDoList.size(); i++) {
-                    System.out.println((i + 1) + "." + toDoList.get(i));
-                }
-            } else {
-                try {
-                    editList(userInput);
-                } catch (BigdogException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-        scanner.close();
     }
+
 }

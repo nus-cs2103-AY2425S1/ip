@@ -1,9 +1,9 @@
-public class Task {
+public abstract class Task {
 
     private boolean marked;
     private String taskRep;
 
-    protected Task(String taskRep, boolean marked) {
+    public Task(String taskRep, boolean marked) {
         this.marked = marked;
         this.taskRep = taskRep;
     }

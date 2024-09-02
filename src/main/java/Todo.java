@@ -5,10 +5,10 @@ public class Todo extends Task{
     }
 
     public static Todo of(String s) throws BigdogException {
-        if (s.length() <= 5) {
+        if (s.isEmpty()) {
             throw new BigdogException("todo can't be empty! How can you do nothing!");
         }
-        return new Todo(s.substring(5), false);
+        return new Todo(s, false);
     }
 
     public static Todo of(String s, boolean marked) throws BigdogException {
