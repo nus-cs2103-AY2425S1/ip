@@ -1,3 +1,5 @@
+package tira.task;
+
 public class Task {// used Task class from the Week 2 IP Page
     protected String description;
     protected boolean isDone;
@@ -5,6 +7,10 @@ public class Task {// used Task class from the Week 2 IP Page
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 
     public String getDescription() {

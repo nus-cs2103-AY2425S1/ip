@@ -1,9 +1,15 @@
+package tira.task;
+
+import tira.Ui;
+import tira.TiraException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.PrintWriter;
 import java.io.IOException;
+
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -104,8 +110,9 @@ public class TaskList {
         try {
             LocalDate startDate = LocalDate.parse(dateCommands[1].substring(5).trim(), IN_FORMATTER);
             LocalDate endDate = LocalDate.parse(dateCommands[2].substring(3).trim(), IN_FORMATTER);
-            Task eventTask = new Event(dateCommands[0], startDate, endDate);
+            Task eventTask = new Event(dateCommands[0].substring(6).trim(), startDate, endDate);
             tasks.add(eventTask);
+            System.out.println("TESTING ADDDEADLINE, DESCRIPTION IS " + eventTask.getDescription());
             ui.showAddTask(eventTask, tasks.size());
         } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
