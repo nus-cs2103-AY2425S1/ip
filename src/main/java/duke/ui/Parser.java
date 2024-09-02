@@ -51,7 +51,7 @@ public class Parser {
                 if(0 < i && i <= storage.size()) {
                     storage.unmark(i);
                     System.out.println(String.format("marked %s as uncompleted\nuse \"list\" to see changes",i));
-                }else {
+                } else {
                     System.out.println("that number isn't a valid task dude...");
                     System.out.println("it has to be from 1 to " + storage.size());
                 }
