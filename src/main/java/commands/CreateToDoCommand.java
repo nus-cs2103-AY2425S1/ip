@@ -1,29 +1,25 @@
 package commands;
 
-import parser.Parser;
 import models.Task;
 import models.ToDo;
 
 import java.util.List;
 
 public class CreateToDoCommand implements Command {
-    private final List<Task> tasks;
     private final String name;
 
-    public CreateToDoCommand(List<Task> tasks, String message) {
-        this.tasks = tasks;
-
-        String messageArgs = Parser.parseMessage(message).args();
-        this.name = Parser.extractArgs(messageArgs, new String[]{})[0];
+    public CreateToDoCommand(String name) {
+        this.name = name;
     }
 
     @Override
-    public void execute() {
+    public void execute(Context context) {
+        List<Task> tasks = context.tasks();
         Task task = new ToDo(name);
         tasks.add(task);
 
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", this.tasks.size());
+        System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
     }
 }

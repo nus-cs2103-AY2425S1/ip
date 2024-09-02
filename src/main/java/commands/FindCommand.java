@@ -1,28 +1,24 @@
 package commands;
 
-import parser.Parser;
 import models.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FindCommand implements Command {
-    private final List<Task> tasks;
     private final String query;
 
-    public FindCommand(List<Task> tasks, String message) {
-        this.tasks = tasks;
-
-        String messageArgs = Parser.parseMessage(message).args();
-        this.query = Parser.extractArgs(messageArgs, new String[]{})[0];
+    public FindCommand(String query) {
+        this.query = query;
     }
 
     @Override
-    public void execute() {
+    public void execute(Context context) {
+        List<Task> tasks = context.tasks();
         List<Task> matched = new ArrayList<>();
 
         // Search through
-        for (Task task : this.tasks) {
+        for (Task task : tasks) {
             if (task.getName().contains(this.query)) {
                 matched.add(task);
             }
