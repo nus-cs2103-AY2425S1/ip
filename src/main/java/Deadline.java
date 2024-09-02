@@ -13,13 +13,13 @@ public class Deadline extends Task {
     }
 
     public static Deadline of(String s) throws BigdogException {
-        if (s.length() <= 9) {
+        if (s.isEmpty()) {
             throw new BigdogException("deadline can't be empty! Theres nothing to do!");
         }
 
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '/') {
-                return new Deadline(s.substring(9, i - 1), stringToDate(s.substring(i + 4)), false);
+                return new Deadline(s.substring(0, i - 1), stringToDate(s.substring(i + 4)), false);
             }
         }
         throw new BigdogException("Come on! Set a due by date and get to work!");
@@ -57,7 +57,7 @@ public class Deadline extends Task {
                     withTime = false;
                     return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, "00:00"));
                 } else {
-                    throw new BigdogException("Invalid date format :" + str +
+                    throw new BigdogException("Invalid date format: " + str +
                             "\nExample correct format: deadline return book /by 02/07/2019 18:00");
                 }
             } catch (DateTimeParseException e) {
