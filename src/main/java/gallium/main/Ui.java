@@ -93,6 +93,16 @@ public class Ui {
         System.out.println("\n    " + DIVIDER);
     }
 
+    public void printMatchingFind(String tasks) {
+        if (tasks.equals("")) {
+            printAnyMessage("Aw man no matching tasks :(");
+        } else {
+            System.out.println("    " + DIVIDER + "\n    Matching tasks in your list: ");
+            System.out.println(tasks);
+            System.out.println("\n    " + DIVIDER);
+        }
+    }
+
     public void showCreateFileError(IOException e) {
         printAnyMessage("Error creating file:" + e.getMessage());
     }
