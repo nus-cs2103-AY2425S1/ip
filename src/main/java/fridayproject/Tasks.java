@@ -23,6 +23,8 @@ public abstract class Tasks {
 
     public abstract String getTypeIcon();
 
+    public abstract String toFileString();
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
