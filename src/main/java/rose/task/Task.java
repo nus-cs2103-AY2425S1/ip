@@ -54,4 +54,8 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
+
+    public boolean hasWord(String keyword) {
+        return this.taskName.toLowerCase().contains(keyword.toLowerCase());
+    }
 }
