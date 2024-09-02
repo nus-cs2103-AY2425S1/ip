@@ -1,8 +1,9 @@
 package beeboo.components;
 
+import java.util.ArrayList;
+
 import beeboo.task.Tasks;
 
-import java.util.ArrayList;
 
 /**
  * The TaskList class manages a list of tasks. It provides methods to add, remove, and modify tasks in the list.
@@ -12,7 +13,7 @@ public class TaskList {
     /**
      * The list of tasks.
      */
-    ArrayList<Tasks> list;
+    private ArrayList<Tasks> list;
 
     /**
      * Constructs a TaskList with the specified list of tasks.

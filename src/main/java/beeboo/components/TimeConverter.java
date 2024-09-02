@@ -6,7 +6,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * The TimeConverter class provides functionality to convert a string representation of date and time into a LocalDateTime object.
+ * The TimeConverter class provides functionality to convert a string
+ * representation of date and time into a LocalDateTime object.
  */
 public class TimeConverter {
 

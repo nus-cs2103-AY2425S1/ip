@@ -1,12 +1,13 @@
 package beeboo.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import beeboo.components.TimeConverter;
 import beeboo.exception.InvalidDateException;
 import beeboo.exception.NoDescriptionException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Events class represents an event task with a start date and an end date. It extends the
@@ -14,9 +15,9 @@ import java.time.format.DateTimeParseException;
  */
 public class Events extends Tasks {
 
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
     static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy 'at' hh:mm a");
+    private LocalDateTime endDate;
+    private LocalDateTime startDate;
 
     /**
      * Constructs an Events instance with the specified description, start date, and end date.
@@ -49,12 +50,13 @@ public class Events extends Tasks {
      */
     @Override
     public String toString() {
-        return typeIcon() + super.toString() + "(from: " + FORMATTER.format(startDate) + " to: " + FORMATTER.format(endDate) + ")";
+        return typeIcon() + super.toString()
+                + "(from: " + FORMATTER.format(startDate) + " to: " + FORMATTER.format(endDate) + ")";
     }
 
     /**
      * Creates an Events instance from the given text input. The input should include a description and
-     * start and end dates in the format "from <startDate> to <endDate>". The method parses the input, validates
+     * start and end dates in the format "from startDate to endDate". The method parses the input, validates
      * the description and dates, and returns a new Events object.
      *
      * @param text the input text containing the description and event dates
