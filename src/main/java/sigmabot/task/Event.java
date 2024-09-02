@@ -95,6 +95,33 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the location of the event.
+     *
+     * @return The location of the event.
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * Returns the start time of the event.
+     *
+     * @return The start time of the event.
+     */
+    public LocalDate getStartTime() {
+        return startTime;
+    }
+
+    /**
+     * Returns the end time of the event.
+     *
+     * @return The end time of the event.
+     */
+    public LocalDate getEndTime() {
+        return endTime;
+    }
+
+    /**
      * Returns a string representation of the {@code Event} task.
      * The format includes the type of task (Event) and the information about its completion status, name, description, start time, end time, and location.
      *
