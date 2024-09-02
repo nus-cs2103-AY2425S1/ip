@@ -1,4 +1,4 @@
-
+package chatBot.bot;
 
 /** Bword is a chatbot that helps with planning tasks
  *
