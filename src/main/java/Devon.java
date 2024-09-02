@@ -3,14 +3,13 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Devon {
 
     protected Scanner scanner = new Scanner(System.in);
-    protected ArrayList<Task> tasks = new ArrayList<>();
+    protected TaskList tasks = new TaskList();
     protected int taskCount = 0;
 
     protected static final String DIRECTORY_PATH = "./data";
@@ -37,8 +36,8 @@ public class Devon {
     private void saveTasksToDatabase() throws IOException {
         FileWriter filewriter = new FileWriter(Devon.DB_PATH);
         BufferedWriter bufferedWriter = new BufferedWriter(filewriter);
-        for (Task task : tasks) {
-            bufferedWriter.write(task.dbReadableFormat());
+        for (int i = 0; i < taskCount; i++) {
+            bufferedWriter.write(tasks.getTask(i).dbReadableFormat());
             bufferedWriter.newLine();
         }
         bufferedWriter.close();
@@ -75,7 +74,7 @@ public class Devon {
             newTask.markAsDoneSilently();
         }
 
-        this.tasks.add(newTask);
+        this.tasks.addTask(newTask);
         taskCount++;
     }
 
@@ -194,7 +193,7 @@ public class Devon {
         if (taskIndex < 0 || taskIndex >= taskCount) {
             throw new DevonInvalidTaskNumberException();
         }
-        markAsDone(tasks.get(taskIndex));
+        markAsDone(tasks.getTask(taskIndex));
     }
 
     private void unmarkAction(String input) throws DevonInvalidTaskNumberException {
@@ -207,7 +206,7 @@ public class Devon {
         if (taskIndex < 0 || taskIndex >= taskCount) {
             throw new DevonInvalidTaskNumberException();
         }
-        markAsUndone(tasks.get(taskIndex));
+        markAsUndone(tasks.getTask(taskIndex));
     }
 
     private void todoAction(String input) {
@@ -265,7 +264,7 @@ public class Devon {
     }
 
     private void addToList(Task task) {
-        tasks.add(task);
+        tasks.addTask(task);
         taskCount++;
         this.printLongLine();
         System.out.println("\t" + "Got it. I've added this task:");
@@ -278,7 +277,7 @@ public class Devon {
         this.printLongLine();
         System.out.println("\t" + "Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
-            Task current = tasks.get(i);
+            Task current = tasks.getTask(i);
             String formattedEntry = String.format(
                     "\t" + "%d. %s",
                     i + 1,
@@ -306,9 +305,9 @@ public class Devon {
     }
 
     private void deleteTask(int taskIndex) {
-        Task currentTask = tasks.get(taskIndex);
+        Task currentTask = tasks.getTask(taskIndex);
         currentTask.deleteTask();
-        tasks.remove(taskIndex);
+        tasks.removeTask(taskIndex);
         taskCount--;
         printLongLine();
         printNumberOfTasks();
