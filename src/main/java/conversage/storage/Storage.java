@@ -18,6 +18,11 @@ public class Storage {
 
         // filePath represents the path to the file where tasks are stored. 
         this.file = new File(filePath);
+        // if dir doesn't exist, we need to create it
+        File directory = file.getParentFile();
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
     }
 
 
