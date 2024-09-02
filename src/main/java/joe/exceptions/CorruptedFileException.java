@@ -1,5 +1,8 @@
 package joe.exceptions;
 
+/**
+ * Represents an exception thrown when the file is corrupted.
+ */
 public class CorruptedFileException extends RuntimeException {
 
     /**

@@ -1,5 +1,8 @@
 package joe.commands;
 
+/**
+ * Represents a command that prints a list of available commands.
+ */
 public class HelpCommand extends Command {
 
     /**
@@ -14,8 +17,8 @@ public class HelpCommand extends Command {
         System.out.println("find <queryString>: Finds task with descriptions matching your query regex");
         System.out.println("list: Displays your current tasks");
         System.out.println("mark <idx>: Marks the task at your chosen index");
-        System.out.println("save : Saves all tasks in your current list to the database that will be automatically " +
-                "loaded during your next session");
+        System.out.println("save : Saves all tasks in your current list to the database that will be automatically "
+                + "loaded during your next session");
         System.out.println("todo <description>: Creates a ToDo task");
         System.out.println("unmark <idx>: Unmarks the task at your chosen index");
     }

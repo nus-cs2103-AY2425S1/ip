@@ -1,10 +1,13 @@
 package joe.Main;
 
+import java.io.FileNotFoundException;
+
 import joe.exceptions.CorruptedFileException;
 import joe.tasks.TaskList;
 
-import java.io.FileNotFoundException;
-
+/**
+ * Represents the main class of the programme.
+ */
 public class Joe {
 
     private final Storage storage;

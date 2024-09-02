@@ -1,12 +1,19 @@
 package joe.Main;
 
-import joe.commands.*;
+import java.util.Scanner;
+
+import joe.commands.ByeCommand;
+import joe.commands.Command;
+import joe.commands.HelpCommand;
+import joe.commands.ListCommand;
+import joe.commands.SaveCommand;
 import joe.exceptions.InvalidCommandException;
 import joe.exceptions.InvalidIndexException;
 import joe.tasks.TaskList;
 
-import java.util.Scanner;
-
+/**
+ * Represents the user interface of the programme.
+ */
 public class Ui {
     private static final String line =
             "____________________________________________________________";

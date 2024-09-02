@@ -1,10 +1,13 @@
 package joe.tasks;
 
-import joe.utils.Formatter;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import joe.utils.Formatter;
+
+/**
+ * Represents a Deadline task.
+ */
 public class Deadline extends Task {
     private final LocalDateTime due;
 

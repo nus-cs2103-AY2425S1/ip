@@ -1,13 +1,25 @@
 package joe.Main;
 
-import joe.exceptions.CorruptedFileException;
-import joe.exceptions.InvalidCommandException;
-import joe.tasks.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import joe.exceptions.CorruptedFileException;
+import joe.exceptions.InvalidCommandException;
+import joe.tasks.Deadline;
+import joe.tasks.Event;
+import joe.tasks.Task;
+import joe.tasks.TaskList;
+import joe.tasks.ToDo;
 
+/**
+ * Tests the Parser class.
+ */
 public class ParserTest {
 
     private TaskList tasks;
@@ -19,6 +31,10 @@ public class ParserTest {
         parser = new Parser(tasks);
     }
 
+    /**
+     * Tests the parseCommand method in Parser.
+     * @throws InvalidCommandException if the command is invalid
+     */
     @Test
     public void testParseCommand_mark() throws InvalidCommandException {
         tasks.addTask(new ToDo("read book"));
@@ -26,6 +42,10 @@ public class ParserTest {
         assertTrue(tasks.get(0).isDone());
     }
 
+    /**
+     * Tests the parseCommand method in Parser.
+     * @throws InvalidCommandException if the command is invalid
+     */
     @Test
     public void testParseCommand_unmark() throws InvalidCommandException {
         ToDo todo = new ToDo("read book");
@@ -35,6 +55,10 @@ public class ParserTest {
         assertFalse(tasks.get(0).isDone());
     }
 
+    /**
+     * Tests the parseCommand method in Parser.
+     * @throws InvalidCommandException if the command is invalid
+     */
     @Test
     public void testParseCommand_delete() throws InvalidCommandException {
         tasks.addTask(new ToDo("read book"));
@@ -42,6 +66,10 @@ public class ParserTest {
         assertEquals(0, tasks.size());
     }
 
+    /**
+     * Tests the parseCommand method in Parser.
+     * @throws InvalidCommandException if the command is invalid
+     */
     @Test
     public void testParseCommand_todo() throws InvalidCommandException {
         parser.parseCommand("todo read book");
@@ -50,6 +78,10 @@ public class ParserTest {
         assertEquals("read book", tasks.get(0).getDescription());
     }
 
+    /**
+     * Tests the parseCommand method in Parser.
+     * @throws InvalidCommandException if the command is invalid
+     */
     @Test
     public void testParseCommand_deadline() throws InvalidCommandException {
         parser.parseCommand("deadline return book | by 12/12/2019 1800");
@@ -58,6 +90,10 @@ public class ParserTest {
         assertEquals("return book", tasks.get(0).getDescription());
     }
 
+    /**
+     * Tests the parseCommand method in Parser.
+     * @throws InvalidCommandException if the command is invalid
+     */
     @Test
     public void testParseCommand_event() throws InvalidCommandException {
         parser.parseCommand("event project meeting | from 12/12/2019 1800 | to 12/12/2019 2100");
@@ -66,6 +102,11 @@ public class ParserTest {
         assertEquals("project meeting", tasks.get(0).getDescription());
     }
 
+    /**
+     * Tests the parseCommand method in Parser.
+     * @throws IllegalArgumentException if the date is invalid
+     * @throws InvalidCommandException if the command is invalid
+     */
     @Test
     public void testParseCommand_query() throws IllegalArgumentException, InvalidCommandException {
         parser.parseCommand("query 12/12/2019");
@@ -73,6 +114,9 @@ public class ParserTest {
         // This test ensures no exceptions are thrown.
     }
 
+    /**
+     * Tests the parseCommand method in Parser.
+     */
     @Test
     public void testParseCommand_invalid() {
         assertThrows(InvalidCommandException.class, () -> {
@@ -80,6 +124,10 @@ public class ParserTest {
         });
     }
 
+    /**
+     * Tests the parseTask method in Parser.
+     * @throws CorruptedFileException if the file is corrupted
+     */
     @Test
     public void testParseTask_todo() throws CorruptedFileException {
         Task task = Parser.parseTask("T | 0 | read book");
@@ -87,6 +135,10 @@ public class ParserTest {
         assertEquals("read book", task.getDescription());
     }
 
+    /**
+     * Tests the parseTask method in Parser.
+     * @throws CorruptedFileException if the file is corrupted
+     */
     @Test
     public void testParseTask_deadline() throws CorruptedFileException {
         Task task = Parser.parseTask("D | 0 | return book | by 12/12/2019 1800");
@@ -94,6 +146,10 @@ public class ParserTest {
         assertEquals("return book", task.getDescription());
     }
 
+    /**
+     * Tests the parseTask method in Parser.
+     * @throws CorruptedFileException if the file is corrupted
+     */
     @Test
     public void testParseTask_event() throws CorruptedFileException {
         Task task = Parser.parseTask("E | 0 | project meeting | from 12/12/2019 1800 | to 12/12/2019 2100");
@@ -101,6 +157,9 @@ public class ParserTest {
         assertEquals("project meeting", task.getDescription());
     }
 
+    /**
+     * Tests the parseTask method in Parser.
+     */
     @Test
     public void testParseTask_corrupted() {
         assertThrows(CorruptedFileException.class, () -> {

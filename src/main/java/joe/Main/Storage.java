@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Represents the storage of the tasks.
+ */
 public class Storage {
 
     private static final String line =

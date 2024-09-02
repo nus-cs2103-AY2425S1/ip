@@ -1,5 +1,8 @@
 package joe.tasks;
 
+/**
+ * Represents a task in the task list.
+ */
 public abstract class Task {
     private final String description;
     private boolean done;

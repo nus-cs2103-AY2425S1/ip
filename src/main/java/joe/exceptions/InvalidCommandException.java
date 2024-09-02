@@ -1,5 +1,8 @@
 package joe.exceptions;
 
+/**
+ * Represents an exception thrown when the user inputs an invalid command.
+ */
 public class InvalidCommandException extends RuntimeException {
     private final String userCmd;
 
@@ -20,7 +23,7 @@ public class InvalidCommandException extends RuntimeException {
      */
     @Override
     public String getMessage() {
-        return String.format("\"%s\" is not a valid command.\n" +
-                "Type /help to see the list of available commands.", userCmd);
+        return String.format("\"%s\" is not a valid command.\n"
+                + "Type /help to see the list of available commands.", userCmd);
     }
 }
