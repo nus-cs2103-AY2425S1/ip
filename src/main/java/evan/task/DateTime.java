@@ -10,10 +10,10 @@ import java.time.format.DateTimeParseException;
  * This class uses the factory method design pattern.
  */
 public class DateTime {
+    final InputType type;
     private final String textValue;
     private final LocalDate dateValue;
     private final LocalDateTime dateTimeValue;
-    final InputType type;
 
     /**
      * Instantiates a DateTime object.
@@ -163,11 +163,15 @@ public class DateTime {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
 
-        return switch (type) {
-            case STRING -> textValue;
-            case DATE -> dateValue.format(dateFormatter);
-            case DATETIME -> dateTimeValue.format(dateTimeFormatter);
-        };
+        String result;
+        switch (type) {
+        case STRING -> result = textValue;
+        case DATE -> result = dateValue.format(dateFormatter);
+        case DATETIME -> result = dateTimeValue.format(dateTimeFormatter);
+        default -> result = "";
+        }
+
+        return result;
     }
 
     /**
