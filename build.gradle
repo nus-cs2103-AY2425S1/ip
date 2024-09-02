@@ -48,7 +48,7 @@ application {
 shadowJar {
     archiveBaseName = "gallium"
     archiveClassifier = null
-    archiveFileName = 'Gallium.jar'
+    archiveFileName = 'gallium.jar'
 }
 
 run{
