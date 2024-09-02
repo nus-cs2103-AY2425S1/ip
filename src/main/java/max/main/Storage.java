@@ -52,7 +52,7 @@ public class Storage {
                         task = new Todo(parts[2]);
                         break;
                     case "D":
-                        Parser tempParser = new Parser(); //check if this is okay
+                        Parser tempParser = new Parser();
                         LocalDateTime LDT = tempParser.parseDate(parts[3]);
                         if (LDT != null) {
                             task = new Deadline(parts[2], LDT);

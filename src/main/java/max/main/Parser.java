@@ -42,56 +42,61 @@ public class Parser {
     }
 
     /**
-     * Reads user input and processes commands in a loop until the "bye" command is issued.
+     * Parses user input and processes commands.
+     * It executes commands like "bye", "hi", "hello", "list", "mark", "unmark", "deadline",
+     * "todo", "event", "delete", and "find", handling each accordingly.
+     * If the command is invalid, it throws a MaxException.
      *
-     * @param scanner The Scanner object used to read user input.
+     * @param text The user input text to be parsed.
+     * @return A boolean indicating whether the application should exit (true if "bye" command is issued).
      * @throws MaxException If an invalid command is given or an error occurs during execution.
      */
-    public void parseText(Scanner scanner) throws MaxException {
-        boolean isRunning = true;
+    public boolean parseText(String text) throws MaxException {
 
-        while (isRunning) {
-            String text = scanner.nextLine().trim();
-            try {
-                if (text.equals("bye")) {
-                    isRunning = false;
-                } else if (text.equals("list")) {
-                    ui.printList(false);
-                    ui.list(taskList.getTasks());
-                } else if (text.startsWith("mark")) {
-                    int index = Integer.parseInt(text.replace("mark ", "")) - 1;
-                    Task task = taskList.getTask(index);
-                    task.markDone();
-                    ui.printMarkDone(task);
-                } else if (text.startsWith("unmark")) {
-                    int index = Integer.parseInt(text.replace("unmark ", "")) - 1;
-                    Task task = taskList.getTask(index);
-                    task.markNotDone();
-                    ui.printMarkNotDone(task);
-                } else if (text.startsWith("deadline")) {
-                    handleDeadline(text);
-                } else if (text.startsWith("todo")) {
-                    handleTodo(text);
-                } else if (text.startsWith("event")) {
-                    handleEvent(text);
-                } else if (text.startsWith("delete")) {
-                    int index = Integer.parseInt(text.replace("delete ", "")) - 1;
-                    Task task = taskList.getTask(index);
-                    taskList.deleteTask(index);
-                    ui.printDeleteTask(task, taskList.getSize());
-                } else if (text.startsWith("find")) {
-                    String toFind = text.replaceFirst("find", "").trim();
-                    handleFind(toFind);
-                } else {
-                    throw new MaxException("What does that mean?:( Begin with todo, event, or deadline.");
-                }
-                this.storage.saveTasks(taskList.getTasks());
-            } catch (MaxException e) {
-                ui.printLine();
-                ui.printMessage(e.getMessage());
+            //String text = scanner.nextLine().trim();
+        try {
+            if (text.equals("bye")) {
+                ui.printBye();
+                return true;
+            } else if (text.equals("hi") || text.equals("hello")) {
+                ui.printHello();
+            } else if (text.equals("list")) {
+                ui.printList(false);
+                ui.list(taskList.getTasks());
+            } else if (text.startsWith("mark")) {
+                int index = Integer.parseInt(text.replace("mark ", "")) - 1;
+                Task task = taskList.getTask(index);
+                task.markDone();
+                ui.printMarkDone(task);
+            } else if (text.startsWith("unmark")) {
+                int index = Integer.parseInt(text.replace("unmark ", "")) - 1;
+                Task task = taskList.getTask(index);
+                task.markNotDone();
+                ui.printMarkNotDone(task);
+            } else if (text.startsWith("deadline")) {
+                handleDeadline(text);
+            } else if (text.startsWith("todo")) {
+                handleTodo(text);
+            } else if (text.startsWith("event")) {
+                handleEvent(text);
+            } else if (text.startsWith("delete")) {
+                int index = Integer.parseInt(text.replace("delete ", "")) - 1;
+                Task task = taskList.getTask(index);
+                taskList.deleteTask(index);
+                ui.printDeleteTask(task, taskList.getSize());
+            } else if (text.startsWith("find")) {
+                String toFind = text.replaceFirst("find", "").trim();
+                handleFind(toFind);
+            } else {
+                throw new MaxException("What does that mean?:( Begin with todo, event, or deadline.");
             }
+            this.storage.saveTasks(taskList.getTasks());
+        } catch (MaxException e) {
+            ui.printLine();
+            ui.printMessage(e.getMessage());
         }
 
+        return false;
 
     }
 
