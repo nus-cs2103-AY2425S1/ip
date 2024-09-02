@@ -41,7 +41,7 @@ public class Ui {
      */
     public void hello() {
         System.out.println("____________________________________________________________\n" +
-                "Yo! It's \n" + LOGO + "\n" +
+                "Yo! It's \n" + LOGO + System.lineSeparator() +
                 "What can I do for you?\n" +
                 "____________________________________________________________\n");
 

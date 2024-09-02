@@ -39,7 +39,7 @@ public class TaskList {
         int count = 1;
         System.out.println("Items in List:");
         for (Task item : taskList) {
-            message += (count++ + ". " + item.print() + "\n");
+            message += (count++ + ". " + item.print() + System.lineSeparator());
         }
         return message;
     }
@@ -63,7 +63,7 @@ public class TaskList {
         Task newTask = new Task(taskName);
         taskList.add(newTask);
         String message = "Added this task: \n" + newTask.print() +
-                "\n" + taskList.size() + " tasks in the list";
+                System.lineSeparator() + taskList.size() + " tasks in the list";
         return message;
     }
 
@@ -78,7 +78,7 @@ public class TaskList {
         Deadline newDeadline = new Deadline(taskName, deadline);
         taskList.add(newDeadline);
         String message = "Added this task: \n" + newDeadline.print() +
-                "\n" + taskList.size() + " tasks in the list";
+                System.lineSeparator() + taskList.size() + " tasks in the list";
         return message;
     }
 
@@ -94,7 +94,7 @@ public class TaskList {
         Events newEvent = new Events(taskName, startDateTime, endDateTime);
         taskList.add(newEvent);
         String message = "Added this task: \n" + newEvent.print() +
-                "\n" + taskList.size() + " tasks in the list";
+                System.lineSeparator() + taskList.size() + " tasks in the list";
         return message;
     }
 
@@ -123,7 +123,7 @@ public class TaskList {
     public static String deleteTask(int taskNumber) throws Exception {
         try {
             Task removedTask = taskList.remove(taskNumber);
-            String message = "Task Deleted: \n" + removedTask.print() + "\n" + taskList.size()
+            String message = "Task Deleted: \n" + removedTask.print() + System.lineSeparator() + taskList.size()
                     + " tasks left in the list";
             return message;
 
