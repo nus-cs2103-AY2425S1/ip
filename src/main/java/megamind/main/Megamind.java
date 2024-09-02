@@ -24,26 +24,35 @@ public class Megamind {
     private static final Storage storage = new Storage();
     private static List taskList;
 
+    /**
+     * Constructs a new `Megamind` instance and initializes the task list.
+     */
     public Megamind() {
         taskList = new List(storage.loadTasks());
     }
 
+    /**
+     * Handles the user command and returns the result as a string
+     *
+     * @param command Command entered by the user
+     * @return String Returns the string that corresponds to the result
+     */
     public static String handleCommand(String command) {
         try {
             String action = parser.parseCommand(command);
 
             return switch (action) {
-                case "bye" -> exit();
-                case "list" -> taskList.toString();
-                case "help" -> ui.showHelp();
-                case "unmark" -> unmark(command);
-                case "mark" -> mark(command);
-                case "todo" -> addTodo(command);
-                case "deadline" -> addDeadline(command);
-                case "event" -> addEvent(command);
-                case "delete" -> deleteTask(command);
-                case "find" -> findTask(command);
-                default -> throw new InvalidCommandException("Unknown command. Use "
+            case "bye" -> exit();
+            case "list" -> taskList.toString();
+            case "help" -> ui.showHelp();
+            case "unmark" -> unmark(command);
+            case "mark" -> mark(command);
+            case "todo" -> addTodo(command);
+            case "deadline" -> addDeadline(command);
+            case "event" -> addEvent(command);
+            case "delete" -> deleteTask(command);
+            case "find" -> findTask(command);
+            default -> throw new InvalidCommandException("Unknown command. Use "
                                                              + "'help' for a list of "
                                                              + "commands.");
             };

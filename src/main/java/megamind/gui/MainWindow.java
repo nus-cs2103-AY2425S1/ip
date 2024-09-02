@@ -1,6 +1,7 @@
 package megamind.gui;
 
-import megamind.main.Megamind;
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -10,9 +11,15 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import megamind.main.Megamind;
 
-import java.util.Objects;
-
+/**
+ * The `MainWindow` class represents the main window of the Megamind GUI application.
+ * It extends `AnchorPane` and includes various UI components such as a scroll pane,
+ * dialog container, user input field, and send button.
+ * The class provides methods to initialize the UI, set the Megamind instance,
+ * display greeting messages, and handle user input.
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -25,33 +32,53 @@ public class MainWindow extends AnchorPane {
 
     private Megamind megamind;
 
-    private final Image MegamindImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images" +
-                                                                                                      "/Megamind.png")));
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/User.png")));
+    private final Image megamindImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/Megamind.png")));
+    private final Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/User.png")));
 
+    /**
+     * Initializes the main window by binding the scroll pane's vertical value property
+     * to the height property of the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Megamind instance for this main window and displays the greeting message.
+     *
+     * @param m The Megamind instance to be set.
+     */
     public void setMegamind(Megamind m) {
         megamind = m;
         displayGreetingMessage();
     }
 
+    /**
+     * Displays the greeting message in the dialog container.
+     */
     private void displayGreetingMessage() {
         String greetingMessage = megamind.greet();
         dialogContainer.getChildren().addAll(
-                DialogBox.getCookieDialog(greetingMessage, MegamindImage)
+                DialogBox.getCookieDialog(greetingMessage, megamindImage)
         );
     }
+
+    /**
+     * Handles the user input by getting the text from the user input field,
+     * processing it with the Megamind instance, and displaying the response
+     * in the dialog container. If the response is "See you around!", it shows
+     * a goodbye alert and closes the application.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         String response = megamind.handleCommand(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getCookieDialog(response, MegamindImage)
+                DialogBox.getCookieDialog(response, megamindImage)
         );
         userInput.clear();
 
