@@ -10,6 +10,7 @@ import task.TaskList;
  */
 abstract public class Command {
     protected boolean isExit = false;
+
     /**
      * Executes the command.
      *
