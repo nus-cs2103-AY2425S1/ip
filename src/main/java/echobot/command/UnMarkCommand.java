@@ -6,6 +6,7 @@ import echobot.task.Task;
 public class UnMarkCommand extends Command {
     public final static String COMMAND = "unmark";
     private final int index;
+    private final CommandType commandType = CommandType.MARK;
 
     public UnMarkCommand(int index) {
         this.index = index - 1;
@@ -16,6 +17,6 @@ public class UnMarkCommand extends Command {
         Task task = taskList.unmarkTaskByIndex(this.index);
         String response = "Nice! I've marked this task as not done yet:\n\t\t\t\t" + task;
         fileManagement.save();
-        return new CommandResponse(response);
+        return new CommandResponse(this.commandType, response);
     }
 }

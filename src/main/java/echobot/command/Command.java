@@ -7,6 +7,15 @@ import echobot.task.TaskList;
 public class Command {
     protected FileManagement fileManagement;
     protected TaskList taskList;
+    public enum CommandType {
+        ADD,
+        LIST,
+        DELETE,
+        MARK,
+        EXIT,
+        FIND,
+        GREETING
+    }
 
     public void setTaskList(TaskList taskList) {
         this.taskList = taskList;

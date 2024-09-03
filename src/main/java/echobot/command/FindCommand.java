@@ -10,6 +10,8 @@ import java.util.List;
 public class FindCommand extends Command {
     public final static String COMMAND = "find";
     private final String keyword;
+    private final CommandType commandType = CommandType.FIND;
+
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
@@ -25,7 +27,7 @@ public class FindCommand extends Command {
         }
         List<Task> tasks = this.taskList.findTasksByKeyword(keyword);
         if (tasks.isEmpty()) {
-            return new CommandResponse("No tasks matching the keyword '" + this.keyword + "'!");
+            return new CommandResponse(CommandType.FIND, "No tasks matching the keyword '" + this.keyword + "'!");
         }
         StringBuilder output = new StringBuilder();
         output.append("Here are the tasks in your list:\n\t\t\t");
@@ -40,6 +42,6 @@ public class FindCommand extends Command {
         if (!output.isEmpty()) {
             output.delete(output.length() - 4, output.length());
         }
-        return new CommandResponse(output.toString());
+        return new CommandResponse(this.commandType, output.toString());
     }
 }

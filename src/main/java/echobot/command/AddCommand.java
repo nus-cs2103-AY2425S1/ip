@@ -15,6 +15,7 @@ public class AddCommand extends Command {
     public final static String TODO_COMMAND = "todo";
     public final static String DEADLINE_COMMAND = "deadline";
     public final static String EVENT_COMMAND = "event";
+    private final CommandType commandType = CommandType.ADD;
 
     private final Task taskToAdd;
 
@@ -35,6 +36,6 @@ public class AddCommand extends Command {
         taskList.addTask(this.taskToAdd);
         String response = "Got it. I've added this task:\n\t\t\t\t" + this.taskToAdd + "\n\t\t\tNow you have " + this.taskList.size() + " task(s) in the list.";
         fileManagement.save();
-        return new CommandResponse(response);
+        return new CommandResponse(this.commandType, response);
     }
 }

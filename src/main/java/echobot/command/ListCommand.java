@@ -7,6 +7,8 @@ import java.util.List;
 
 public abstract class ListCommand extends Command {
     public final static String COMMAND = "list";
+    private final CommandType commandType = CommandType.LIST;
+
 
     @Override
     public abstract CommandResponse execute() throws EchoBotException;
@@ -25,6 +27,6 @@ public abstract class ListCommand extends Command {
         if (!output.isEmpty()) {
             output.delete(output.length() - 4, output.length());
         }
-        return new CommandResponse(output.toString());
+        return new CommandResponse(this.commandType, output.toString());
     }
 }
