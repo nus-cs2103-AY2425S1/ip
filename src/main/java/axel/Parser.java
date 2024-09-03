@@ -30,6 +30,7 @@ public class Parser {
             throw new UnrecognisedCommandException();
         }
     }
+
     private static int parseTaskIndex(String command) throws AxelException {
         try {
             return Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;

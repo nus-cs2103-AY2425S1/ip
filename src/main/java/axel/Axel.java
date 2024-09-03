@@ -3,9 +3,13 @@ package axel;
 import java.io.IOException;
 public class Axel {
     private static final String FILE_PATH = "./data/axel.txt";
+
     protected Storage storage;
+
     private TaskList tasks;
+
     protected Ui ui;
+
     public Axel(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -16,6 +20,7 @@ public class Axel {
             tasks = new TaskList();
         }
     }
+
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -31,6 +36,7 @@ public class Axel {
         }
         ui.showGoodbye();
     }
+
     public static void main(String[] args) {
         new Axel(FILE_PATH).run();
     }

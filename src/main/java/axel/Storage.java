@@ -6,9 +6,11 @@ import java.util.List;
 
 public class Storage {
     protected String filePath;
+
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
     public List<Task> load() throws IOException, CorruptedFileException {
         List<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
@@ -62,6 +64,7 @@ public class Storage {
         }
         return taskList;
     }
+
     public void save(List<Task> tasks) throws IOException {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {

@@ -16,6 +16,7 @@ abstract class CommandBase implements Command {
 
 class AddCommand extends CommandBase {
     protected Task task;
+
     public AddCommand(Task task) {
         this.task = task;
     }
@@ -34,6 +35,7 @@ class AddCommand extends CommandBase {
 
 class MarkCommand extends CommandBase {
     protected int taskIndex;
+
     public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
@@ -53,9 +55,11 @@ class MarkCommand extends CommandBase {
 
 class UnmarkCommand extends CommandBase {
     protected int taskIndex;
+
     public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
         Task task = taskList.getTask(taskIndex);
@@ -71,10 +75,11 @@ class UnmarkCommand extends CommandBase {
 
 class DeleteCommand extends CommandBase {
     protected int taskIndex;
-    public DeleteCommand(int taskIndex) {
 
+    public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
         Task task = taskList.getTask(taskIndex);
@@ -100,6 +105,7 @@ class ExitCommand extends CommandBase {
     public boolean isExit() {
         return true;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         // No action needed for exit command

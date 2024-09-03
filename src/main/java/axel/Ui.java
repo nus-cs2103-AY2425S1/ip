@@ -5,28 +5,34 @@ import java.util.List;
 
 public class Ui {
     protected Scanner scanner;
+
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
     public void showWelcome() {
         System.out.println("____________________________________________________________");
         System.out.println("YO! YO! It's axel.Axel, at your service.");
         System.out.println("Hit me up with anything that I can help with!");
         System.out.println("____________________________________________________________");
     }
+
     public void showGoodbye() {
         System.out.println("____________________________________________________________");
         System.out.println("Sad to see you go... goodbye!!");
         System.out.println("____________________________________________________________");
     }
+
     public void showError(String message) {
         System.out.println("____________________________________________________________");
         System.out.println("HOLD YOUR HORSES!! " + message);
         System.out.println("____________________________________________________________");
     }
+
     public String readCommand() {
         return scanner.nextLine();
     }
+
     public void printTaskAdded(Task task, int taskCount) {
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
@@ -34,6 +40,7 @@ public class Ui {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
+
     public void printTaskRemoved(Task task, int taskCount) {
         System.out.println("____________________________________________________________");
         System.out.println("Noted. I've removed this task:");
@@ -41,18 +48,21 @@ public class Ui {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
+
     public void printTaskDone(Task task) {
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
         System.out.println("____________________________________________________________");
     }
+
     public void printTaskNotDone(Task task) {
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
         System.out.println("____________________________________________________________");
     }
+
     public void printTaskList(List<Task> tasks) {
         System.out.println("____________________________________________________________");
         if (tasks.isEmpty()) {
