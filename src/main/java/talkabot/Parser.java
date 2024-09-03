@@ -16,8 +16,7 @@ public class Parser {
      * Converts date from String to LocalDate.
      *
      * @return LocalDate representation of date.
-     * @throws DateTimeException If input does not contain valid date
-     * or if date is given in the wrong format.
+     * @throws DateTimeException If input does not contain valid date or if date is given in the wrong format.
      */
     public static LocalDate stringToDate(String s) {
         return LocalDate.parse(s);

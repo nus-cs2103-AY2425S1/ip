@@ -1,9 +1,7 @@
 package talkabot.task;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.time.format.TextStyle;
 import java.util.Locale;
 
 import talkabot.Parser;
@@ -11,7 +9,7 @@ import talkabot.Parser;
 /**
  * Deadline class contains task info and deadline of task.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDate deadline;
 
     /**

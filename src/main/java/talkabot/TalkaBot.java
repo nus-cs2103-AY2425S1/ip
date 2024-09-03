@@ -6,8 +6,8 @@ import java.time.DateTimeException;
 import talkabot.exceptions.InvalidEditException;
 import talkabot.exceptions.InvalidScheduleException;
 import talkabot.exceptions.NoInputException;
-import talkabot.exceptions.UnknownInputException;
 import talkabot.exceptions.TalkaBotException;
+import talkabot.exceptions.UnknownInputException;
 import talkabot.task.Deadline;
 import talkabot.task.Event;
 import talkabot.task.Task;
@@ -118,7 +118,7 @@ public class TalkaBot {
             return str.length() > len
                     && Integer.parseInt(str.substring(len)) <= this.taskList.size()
                     && Integer.parseInt(str.substring(len)) >= 1;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }
