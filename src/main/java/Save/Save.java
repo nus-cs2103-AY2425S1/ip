@@ -4,10 +4,10 @@ import Task.Task;
 
 public class Save {
     private File saveFile;
-    private final String savePath = "C:\\Users\\chian\\Desktop\\ip\\saves\\save.txt";
+    private final String savePath = "/Users/qinkangchiang/Desktop/ip/saves/save.txt";
 
     public Save(){
-        this.saveFile = new File("C:\\Users\\chian\\Desktop\\ip\\saves\\save.txt");
+        this.saveFile = new File("/Users/qinkangchiang/Desktop/ip/saves/save.txt");
     }
 
     /**

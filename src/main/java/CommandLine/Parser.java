@@ -16,75 +16,68 @@ public class Parser {
      * @param  taskList the current taskList
      * @param  s the string that was parsed
      */
-    public static void parse(TaskList taskList, String s) {
+    public static String parse(TaskList taskList, String s) {
         Line line = new Line();
         String[] parts = s.split(" ", 2);
         String command = parts[0].toLowerCase();
         switch(command) {
         case "bye":
             NotAGPTExit();
-            break;
+            return "Goodbye";
         case "list":
-            taskList.list();
-            break;
+            return taskList.list();
         case "mark":
             if (parts.length > 1) {
                 String idx = parts[1];
-                taskList.markAsDone(idx);
+                return taskList.markAsDone(idx);
             } else {
-                responseHelper("Enter a task number");
+                return "Enter a task number";
             }
-            break;
         case "unmark":
             if (parts.length > 1) {
                 String idx = parts[1];
-                taskList.markAsUndone(idx);
+                return taskList.markAsUndone(idx);
             } else {
-                responseHelper("Enter a task number");
+                return "Enter a task number";
             }
-            break;
         case "todo":
             if (parts.length > 1) {
-                taskList.add(parts[1], Task.TaskType.T);
+                return taskList.add(parts[1], Task.TaskType.T);
             } else {
-                responseHelper("Enter a name for the To Do Task");
+                return "Enter a name for the To Do Task";
             }
-            break;
         case "deadline":
             if (parts.length > 1) {
-                taskList.add(parts[1], Task.TaskType.D);
+                return taskList.add(parts[1], Task.TaskType.D);
             } else {
-                responseHelper("Incomplete command. Enter a deadline");
+                return "Incomplete command. Enter a deadline";
             }
-            break;
         case "event":
             if (parts.length > 1) {
-                taskList.add(parts[1], Task.TaskType.E);
+                return taskList.add(parts[1], Task.TaskType.E);
             } else {
-                responseHelper("Incomplete command. Enter a start and end time");
+                return "Incomplete command. Enter a start and end time";
             }
-            break;
         case "delete":
             if (parts.length == 2) {
                 try {
                     int idx = parseInt(parts[1]);
-                    taskList.delete(idx);
+                    return taskList.delete(idx);
                 } catch (NumberFormatException e) {
-                    responseHelper("Enter a valid index to delete");
+                    return "Enter a valid index to delete";
                 }
             } else {
-                responseHelper("Enter a valid argument");
+                return "Enter a valid argument";
             }
-            break;
         case "find":
             if (parts.length == 2) {
                 String word = parts[1];
-                taskList.find(word);
+                return taskList.find(word);
             } else {
-                responseHelper("Enter a word");
+                return "Enter a word";
             }
         default:
-            responseHelper("Unknown command, type help for a list of available commands");
+            return "Unknown command, type help for a list of available commands";
 
         }
     }
@@ -100,7 +93,9 @@ public class Parser {
         line.drawLine();
     }
 
-
+    /**
+     * Exits the program
+     */
     public static void NotAGPTExit() {
         Line line = new Line();
         line.drawLine();
