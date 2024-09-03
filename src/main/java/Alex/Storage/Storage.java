@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import Alex.Exceptions.AlexException;
@@ -16,7 +15,7 @@ import Alex.Task.Task;
 import Alex.Task.TaskType;
 import Alex.Task.Todo;
 
-
+import java.time.format.DateTimeFormatter;
 
 /**
  * Manages the loading and saving of tasks from/to a file.
