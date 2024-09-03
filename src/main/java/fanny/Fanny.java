@@ -22,6 +22,11 @@ public class Fanny {
     /** Handles the storing and loading of tasks */
     private Storage storage;
 
+    private static final String FILEPATH = "data/fanny.txt";
+
+    public Fanny() {
+        this(FILEPATH);
+    }
     /**
      * Constructs a new Fanny object with the specified file path for storage.
      *
@@ -61,5 +66,12 @@ public class Fanny {
      */
     public static void main(String[] args) {
         new Fanny("./data/fanny.txt").run();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Fanny heard: " + input;
     }
 }
