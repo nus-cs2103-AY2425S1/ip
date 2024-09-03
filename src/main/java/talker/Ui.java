@@ -1,10 +1,9 @@
 package talker;
 
-import talker.task.Task;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import talker.task.Task;
 
 /**
  * Represents an object to deal with printing output and scanning user input

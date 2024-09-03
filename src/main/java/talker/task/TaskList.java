@@ -1,15 +1,14 @@
 package talker.task;
 
-import talker.TalkerException;
-import talker.Ui;
-
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import talker.TalkerException;
+import talker.Ui;
 
 /**
  * Represents a list of tasks
@@ -227,8 +226,8 @@ public class TaskList {
             ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException(
-                    "Event format wrong. Try again with: event <description> " +
-                            "/from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>");
+                    "Event format wrong. Try again with: event <description> "
+                            + "/from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>");
         }
     }
 

@@ -28,7 +28,7 @@ public class Storage {
      * @param directoryPath directory path file to read/write into is located
      * @param filePath file path of file to read/write into is located
      */
-    public Storage(String directoryPath, String filePath){
+    public Storage(String directoryPath, String filePath) {
         this.directoryPath = Paths.get(directoryPath);
         this.filePath = Paths.get(filePath);
     }
@@ -65,10 +65,10 @@ public class Storage {
     public TaskList readFile() throws TalkerException {
         ArrayList<Task> tempList = new ArrayList<>();
         try {
-            if (Files.exists(directoryPath) &&
-                    Files.isDirectory(directoryPath) &&
-                    Files.exists(filePath) &&
-                    Files.isRegularFile(filePath)) {
+            if (Files.exists(directoryPath)
+                    && Files.isDirectory(directoryPath)
+                    && Files.exists(filePath)
+                    && Files.isRegularFile(filePath)) {
                 Scanner scanner = new Scanner(filePath);
                 while (scanner.hasNext()) {
                     String taskString = scanner.nextLine();

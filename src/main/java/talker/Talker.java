@@ -9,7 +9,7 @@ import talker.task.TaskList;
 public class Talker {
     private static final String NAME = "Talker";
     private static final String DIRECTORY_PATH = "./data";
-    private static final String FILE_PATH ="./data/talker.txt";
+    private static final String FILE_PATH = "./data/talker.txt";
 
     private Ui ui;
     private Storage storage;

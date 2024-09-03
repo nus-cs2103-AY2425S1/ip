@@ -1,12 +1,12 @@
 package talker.task;
 
-import org.junit.jupiter.api.Test;
-import talker.Parser;
-import talker.TalkerException;
-import talker.Ui;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import talker.TalkerException;
+import talker.Ui;
 
 public class TaskListTest {
 
