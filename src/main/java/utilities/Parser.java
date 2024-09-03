@@ -8,6 +8,7 @@ import command.MarkCommand;
 import command.UnmarkCommand;
 import command.DeleteCommand;
 import command.TaskCommand;
+import command.FindCommand;
 import exception.FormatException;
 import exception.NoInputException;
 import task.TaskList;
@@ -54,6 +55,9 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new FormatException("delete");
             }
+        } else if (dialog.startsWith("find")) {
+            String keyword = dialog.substring(5);
+            return new FindCommand(keyword, taskList);
         } else {
             return new TaskCommand(dialog, taskList);
         }

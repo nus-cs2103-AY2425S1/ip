@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Iterator;
 
 public class TaskList implements Iterable<Task> {
-    private ArrayList<Task> tasks;
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     @Override
     public Iterator<Task> iterator() {
@@ -41,5 +41,15 @@ public class TaskList implements Iterable<Task> {
 
     public int size() {
         return tasks.size();
+    }
+
+    public TaskList findTasks(String s) {
+        TaskList filteredTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.description.contains(s)) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks;
     }
 }
