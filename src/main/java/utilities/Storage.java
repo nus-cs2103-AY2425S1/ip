@@ -8,7 +8,7 @@ import task.Task;
 import task.TaskList;
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -44,7 +44,6 @@ public class Storage {
                 writer.write(task.toFileString());
                 writer.newLine();
             }
-            writer.close();
         } catch (IOException e) {
             System.out.println("Error saving data to " + filePath);
         }
