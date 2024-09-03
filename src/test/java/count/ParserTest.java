@@ -16,26 +16,26 @@ public class ParserTest {
             "Type 'help' to see correct formatting examples";
 
     @Test
-    public void singleWordParser_invalidCommandExceptionThrown() {
+    public void singleWordParser_parse() {
         Parser p = new Parser(new TaskList(), rootFilePath);
         assertThrows(InvalidCommandException.class, () -> p.parse("BLAAH"));
     }
 
     @Test
-    public void multiWordParser_invalidCommandExceptionThrown() {
+    public void multiWordParser_parse() {
         Parser p = new Parser(new TaskList(), rootFilePath);
         assertThrows(InvalidCommandException.class, () -> p.parse("BLAAH RAAAA"));
     }
 
     @Test
-    public void multiWordParser_mark_incorrectFormatExceptionThrown() {
+    public void multiWordParser_markFormat() {
         Parser p = new Parser(new TaskList(), rootFilePath);
         Exception exception = assertThrows(IncorrectFormatException.class, () -> p.parse("mark cheese"));
         assertEquals(markIncorrectFormatString, exception.getMessage());
     }
 
     @Test
-    public void multiWordParser_deadline_incorrectFormatExceptionThrown() {
+    public void multiWordParser_deadlineFormat() {
         Parser p = new Parser(new TaskList(), rootFilePath);
         Exception exception = assertThrows(IncorrectFormatException.class, () -> p.parse("deadline homework /by 300/10/2000"));
         assertEquals(deadlineIncorrectFormatString, exception.getMessage());
