@@ -1,13 +1,12 @@
 package Dawn;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     @Test
-    public void Parser_invalidCommand_ExceptionThrown(){
+    public void Parser_invalidCommand_ExceptionThrown() {
         try {
             new Parser("hello", "world");
             fail();
@@ -17,7 +16,7 @@ public class ParserTest {
     }
 
     @Test
-    public void mark_missingIndex_ExceptionThrown(){
+    public void mark_missingIndex_ExceptionThrown() {
         try {
             ParserStub p = new ParserStub("mark");
             p.mark("mark", "");
@@ -28,7 +27,7 @@ public class ParserTest {
     }
 
     @Test
-    public void mark_indexOutOfRange_exceptionThrown(){
+    public void mark_indexOutOfRange_exceptionThrown() {
         try {
             ParserStub p = new ParserStub("mark");
             p.mark("mark", "-1");
