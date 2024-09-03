@@ -16,12 +16,19 @@ import yapper.storage.Storage;
 
 import java.io.IOException;
 
+    /**
+     * The Yapper class serves as the main entry point for the application.
+     * It manages user input, processes commands, and interacts with the task list,
+     * user interface, and storage components to provide the full functionality
+     * of the Yapper task management application.
+     */
 public class Yapper {
 
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    
     public Yapper(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -33,6 +40,11 @@ public class Yapper {
         }
     }
 
+    /**
+     * Runs the main loop of the Yapper application. This method continuously
+     * reads commands from the user, processes them, and interacts with the
+     * task list and UI. The loop continues until the user issues the 'bye' command.
+     */
     public void run() {
         ui.printWelcome();
         boolean isExit = false;
