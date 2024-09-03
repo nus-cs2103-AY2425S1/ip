@@ -1,10 +1,5 @@
 package waterfall;
 
-import waterfall.task.Deadline;
-import waterfall.task.Event;
-import waterfall.task.Task;
-import waterfall.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+
+import waterfall.task.Deadline;
+import waterfall.task.Event;
+import waterfall.task.Task;
+import waterfall.task.ToDo;
 
 /**
  * Manages data storage of users' tasks. A <code>Storage</code> object corresponds to
@@ -30,7 +30,7 @@ public class Storage {
      * Creates a new <code>Storage</code> instance for managing tasks in the specified file.
      * Auto creates the file if the file or its parent directory does not exist.
      *
-     * @param filePath The path to the file wheres tasks are stored.
+     * @param filePath The path to the file where tasks are stored.
      * @throws IOException If I/O exception occurs when creating the file or directory.
      */
     public Storage(String filePath) throws IOException {

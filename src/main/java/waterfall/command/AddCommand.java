@@ -4,7 +4,11 @@ import java.io.IOException;
 
 import waterfall.Storage;
 import waterfall.Ui;
-import waterfall.task.*;
+import waterfall.task.Deadline;
+import waterfall.task.Event;
+import waterfall.task.Task;
+import waterfall.task.TaskList;
+import waterfall.task.ToDo;
 
 /**
  * Represents the <code>Command</code> object to add a new <code>Task</code>

@@ -1,9 +1,9 @@
 package waterfall;
 
+import java.util.Scanner;
+
 import waterfall.task.Task;
 import waterfall.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Handles interactions with the user through command line. The <code>Ui</code> class

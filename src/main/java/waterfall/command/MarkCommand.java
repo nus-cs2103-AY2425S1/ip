@@ -5,7 +5,7 @@ import java.io.IOException;
 import waterfall.Storage;
 import waterfall.Ui;
 import waterfall.WaterfallException;
-import waterfall.task.*;
+import waterfall.task.TaskList;
 
 /**
  * Represents the <code>Command</code> object to mark a <code>Task</code>
@@ -19,7 +19,7 @@ public class MarkCommand extends Command {
 
     /**
      * Constructs a command object to mark task at specified index.
-     * @param index
+     * @param index index of the task to be marked.
      */
     public MarkCommand(int index) {
         this.index = index;
