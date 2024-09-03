@@ -23,6 +23,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
 
             // set title and icon
             stage.setTitle("EKuD");
