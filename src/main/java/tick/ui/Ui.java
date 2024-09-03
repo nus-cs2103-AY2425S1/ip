@@ -12,6 +12,7 @@ import tick.tasks.Task;
 public class Ui {
     private static final String separator = "____________________________________________________________";
     private final Scanner scanner;
+    private String response;
 
     /**
      * Constructs a new Ui instance and initializes the scanner for user input.
@@ -40,10 +41,11 @@ public class Ui {
      * Shows the welcome message.
      */
     public void showWelcome() {
+        this.response = "System starting up...\n"
+                + "Brrt brrt! I'm Tick!\n"
+                + "What can I do for you?";
         System.out.println(Ui.separator);
-        System.out.println("System starting up...");
-        System.out.println("Brrt brrt! I'm Tick!");
-        System.out.println("What can I do for you?");
+        System.out.println(this.response);
         System.out.println(Ui.separator);
     }
 
@@ -51,15 +53,17 @@ public class Ui {
      * Shows the goodbye message.
      */
     public void showGoodbye() {
-        System.out.println("System shutting down...");
-        System.out.println("Bye bye, see you next time!");
+        this.response = "System shutting down...\n"
+                + "Bye bye, see you next time!";
+        System.out.println(this.response);
     }
 
     /**
      * Shows the loading error message.
      */
     public void showLoadingError() {
-        System.out.println("An error occurred while loading data from file.");
+        this.response = "An error occurred while loading data from file.";
+        System.out.println(this.response);
     }
 
     /**
@@ -69,9 +73,10 @@ public class Ui {
      * @param taskCount The current number of tasks in the list.
      */
     public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        this.response = "Got it. I've added this task:\n"
+                + task + "\n"
+                + "Now you have " + taskCount + " tasks in the list.";
+        System.out.println(this.response);
     }
 
     /**
@@ -81,9 +86,10 @@ public class Ui {
      * @param taskCount The current number of tasks in the list.
      */
     public void showTaskDeleted(Task task, int taskCount) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        this.response = "Noted. I've removed this task:\n"
+                + task + "\n"
+                + "Now you have " + taskCount + " tasks in the list.";
+        System.out.println(this.response);
     }
 
     /**
@@ -92,8 +98,9 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public void showTaskMarked(Task task) {
-        System.out.println("Ding ding! I've marked this task as done:");
-        System.out.println(task);
+        this.response = "Ding ding! I've marked this task as done:\n"
+                + task;
+        System.out.println(this.response);
     }
 
     /**
@@ -102,8 +109,9 @@ public class Ui {
      * @param task The task that was marked as undone.
      */
     public void showTaskUnmarked(Task task) {
-        System.out.println("OK, I've marked this task as undone:");
-        System.out.println(task);
+        this.response = "OK, I've marked this task as undone:\n"
+                + task;
+        System.out.println(this.response);
     }
 
     /**
@@ -113,12 +121,15 @@ public class Ui {
      */
     public void showList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("You have no tasks in your list.");
+            this.response = "You have no tasks in your list.";
+            System.out.println(this.response);
         } else {
-            System.out.println("Here are the tasks in your list:");
+            StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                System.out.printf("%d.%s\n", i + 1, tasks.getTask(i));
+                sb.append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
             }
+            this.response = sb.toString();
+            System.out.print(this.response);
         }
     }
 
@@ -129,12 +140,15 @@ public class Ui {
      */
     public void showMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            this.response = "No matching tasks found.";
+            System.out.println(this.response);
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.printf("%d.%s\n", i + 1, tasks.get(i));
+                sb.append(i + 1).append(".").append(tasks.get(i)).append("\n");
             }
+            this.response = sb.toString();
+            System.out.print(this.response);
         }
     }
 
@@ -144,6 +158,16 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public void showError(String message) {
-        System.out.println("ERROR ERROR! " + message);
+        this.response = "ERROR ERROR! " + message;
+        System.out.println(this.response);
+    }
+
+    /**
+     * Returns the response message.
+     *
+     * @return The response message.
+     */
+    public String getResponse() {
+        return this.response;
     }
 }

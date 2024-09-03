@@ -11,6 +11,7 @@ import tick.ui.Ui;
  */
 public class AddCommand extends Command {
     private Task toAdd;
+    private CommandType type = CommandType.ADD;
 
     /**
      * Constructs an AddCommand with a given task.
