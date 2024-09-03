@@ -1,6 +1,4 @@
-package optimus;
-
-import optimus.Task;
+package Optimus;
 
 public class ToDos extends Task {
 

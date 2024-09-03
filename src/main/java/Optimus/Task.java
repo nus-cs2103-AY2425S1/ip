@@ -1,4 +1,4 @@
-package optimus;
+package Optimus;
 
 public abstract class Task {
     protected String description;

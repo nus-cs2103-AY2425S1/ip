@@ -1,4 +1,4 @@
-package optimus;
+package Optimus;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,11 +13,14 @@ public class Deadlines extends Task {
     public Deadlines(String description, String by) throws OptimusException {
         super(description);
         this.by = by;
-        this.dateTime = parseString(by);
+        this.dateTime = parseStringDeadline(by);
     }
 
     // check format for D/MM/YYYY TIME or YYYY-MM-DD
-    private LocalDateTime parseString(String dateTime) throws OptimusException {
+    LocalDateTime parseStringDeadline(String dateTime) throws OptimusException {
+        if (dateTime == null || dateTime.trim().isEmpty()) {
+            throw new OptimusException("Date-time string cannot be null or empty.");
+        }
         DateTimeFormatter[] formats = {
                 DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
