@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import dave.task.Deadline;
+import java.time.format.DateTimeFormatter;
 import dave.exceptions.InvalidDateTimeFormatException;
 import dave.exceptions.InvalidDescriptionException;
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,21 +22,21 @@ public class DeadlineTest {
     @Test
     public void testDeadlineCreation_invalidDate() {
         assertThrows(InvalidDateTimeFormatException.class, () -> {
-            new Deadline("Submit report /by 02-09-2024 1800");
+            new Deadline("Submit report /by 02-08-2024 1800");
         });
     }
 
     @Test
     public void testDeadlineCreation_invalidTime() {
         assertThrows(InvalidDateTimeFormatException.class, () -> {
-            new Deadline("Submit report /by 2024-09-02 18:00");
+            new Deadline("Submit report /by 2024-08-02 18:00");
         });
     }
 
     @Test
     public void testDeadlineCreation_missingByKeyword() {
         assertThrows(InvalidDescriptionException.class, () -> {
-            new Deadline("Submit report 2024-09-02 1800"); // Missing '/by'
+            new Deadline("Submit report 2024-08-02 1800"); // Missing '/by'
         });
     }
 

@@ -16,8 +16,8 @@ public class Dave {
 
     public Dave(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
         tasks = new TaskList();
+        storage = new Storage(filePath, tasks);
     }
 
     public void run() {

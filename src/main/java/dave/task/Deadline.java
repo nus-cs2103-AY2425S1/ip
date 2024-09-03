@@ -29,7 +29,7 @@ public class Deadline extends Task {
         try {
             return LocalDate.parse(date, formatter);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeFormatException("Invalid date format. Please use yyyy-MM-dd");
+            throw new InvalidDateTimeFormatException("Invalid date format. Please use yyyy-mm-dd");
         }
     }
 
