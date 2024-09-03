@@ -40,6 +40,8 @@ public class Storage {
                 case "E":
                     tasks.add(new Event(splits[2], splits[3].strip(), splits[4].strip()));
                     break;
+                default:
+                    break;
                 }
                 if (splits[1].strip().equals("0")) {
                     tasks.get(tasks.size() - 1).markAsNotDone();
