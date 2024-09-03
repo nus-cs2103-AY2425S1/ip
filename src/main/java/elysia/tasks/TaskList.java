@@ -1,3 +1,7 @@
+package elysia.tasks;
+
+import elysia.tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

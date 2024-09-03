@@ -1,3 +1,5 @@
+package elysia.ui;
+
 public class Message {
     static String DIVIDER = "________________________________________________________________________________________\n";
     public static void print(String string) {
