@@ -33,4 +33,18 @@ public class TaskList {
     public List<Task> getTasks() {
         return record;
     }
+
+    public void findTasks(String keyword, Ui ui) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : record) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            ui.printError("No matching tasks found. Try again");
+        } else {
+            ui.listFoundTasks(matchingTasks);
+        }
+    }
 }
