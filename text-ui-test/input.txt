@@ -1,0 +1,14 @@
+todo read book
+deadline finish assignment /by Sunday
+event cs2103T lesson /from Thursday 3pm /to 4pm
+list
+todo
+mark
+mark 1
+unmark 1
+mark 2
+mark 3
+list
+delete 2
+list
+bye
