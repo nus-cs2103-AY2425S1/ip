@@ -1,20 +1,14 @@
 package cloud.util;
 
-import cloud.task.Task;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import cloud.task.Task;
+
 public class TaskListTest {
-    private static class TaskStub extends Task {
-        private TaskStub(String description) {
-            super(description);
-        }
-
-    }
-
     private TaskList taskList;
     private TaskStub task;
 
@@ -49,6 +43,13 @@ public class TaskListTest {
         taskList.add(task);
         String expected = "1: [ ] Test task\n";
         assertEquals(expected, taskList.toString());
+    }
+
+    private static class TaskStub extends Task {
+        private TaskStub(String description) {
+            super(description);
+        }
+
     }
 
 }

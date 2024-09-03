@@ -154,7 +154,9 @@ public class Cloud {
                 deleteTask(query);
                 break;
             case "find":
-                ui.showMatching(tasks.find(query.getDetails()).toString());default:
+                ui.showMatching(tasks.find(query.getDetails()).toString());
+                break;
+            default:
                 break;
             }
         }

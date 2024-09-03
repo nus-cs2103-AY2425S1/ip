@@ -1,13 +1,13 @@
 package cloud.util;
 
-import cloud.exception.CloudException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import cloud.exception.CloudException;
 
 public class DateTimeTest {
 
@@ -39,6 +39,7 @@ public class DateTimeTest {
             fail("Unexpected exception: " + e.getMessage());
         }
     }
+
     @Test
     public void toString_validDateTimeString_returnCorrectFormat() {
         String validInput = "25/12/2024 15:30";
