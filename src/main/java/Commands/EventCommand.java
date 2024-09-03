@@ -8,11 +8,26 @@ import Tasks.TaskList;
 import Ui.Ui;
 import Utility.Utility;
 
+/**
+ * Represents an event command entered by the user.
+ */
 public class EventCommand extends Command {
+    /**
+     * Stores the command string associated with event command.
+     *
+     * @param command Command string.
+     */
     public EventCommand(String command) {
         super(command);
     }
 
+    /**
+     * Creates an {@code Event} object encapsulating details about the event task.
+     *
+     * @return {@code Event} object.
+     * @throws BrockException If event missing description, start date or end date.
+     * Or, if start and end dates are invalid.
+     */
     private Task createEvent() throws BrockException {
         String command = super.getCommand();
         String[] commandWords = command.split(" ");
@@ -85,6 +100,18 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * Chatbot checks if event command is valid.
+     * If so, it creates a {@code Event} object.
+     * Adds it to {@code tasks}, writes it to save file.
+     * Displays a response indicating it has added the event task.
+     * </p>
+     *
+     * @throws BrockException If event command is invalid
+     */
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
         Task eventTask = createEvent();
@@ -102,6 +129,9 @@ public class EventCommand extends Command {
                 , true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;

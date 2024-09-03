@@ -12,26 +12,56 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class to create, and interact with save file.
+ */
 public class Storage {
     private static final String FILE_PATH = "./src/main/java/saveFile.txt";
     private static final File SAVE_FILE = new File(FILE_PATH);
 
+    /**
+     * Removes closing bracket from the body string of each task.
+     * So that the correct date or time can be extracted for deadline and event tasks.
+     *
+     * @param target String fragment with closing bracket to be removed.
+     * @return String without the closing bracket.
+     */
     private String removeCloseBracket(String target) {
         int length = target.length();
         // Substring from start to the second last index
         return target.substring(0, length - 1);
     }
 
+    /**
+     * Parses date from "MMM dd yyyy format" into "yyyy-mm-dd" format.
+     *
+     * @param targetDate Date string to be parsed.
+     * @return Parsed date string.
+     */
     private String parseDate(String targetDate) {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         return LocalDate.parse(targetDate, dateFormatter)
                 .toString();
     }
 
+    /**
+     * Creates a {@code ToDo} object corresponding to a todo task.
+     *
+     * @param taskBody String storing task description.
+     * @return {@code ToDo} object created.
+     */
     private Task handleToDo(String taskBody) {
         return new ToDos(taskBody);
     }
 
+    /**
+     * Creates a {code Deadline} object corresponding to a deadline task.
+     *
+     * @param taskBody String storing task description and due date, time.
+     * @return {@code Deadline} object created.
+     * @throws BrockException If date and time are invalid when constructing object.
+     * (They should already be validated)
+     */
     private Task handleDeadline(String taskBody) throws BrockException {
         String[] parts = taskBody.split("\\(by : ", 2);
         String description = parts[0];
@@ -54,6 +84,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a {code Event} object corresponding to an event task.
+     *
+     * @param taskBody String storing task description, as well as start and end datetime.
+     * @return {@code Event} object created.
+     * @throws BrockException If date and time are invalid when constructing object.
+     * (They should already be validated)
+     */
     private Task handleEvent(String taskBody) throws BrockException {
         String[] parts = taskBody.split(" \\(from: ", 2);
         String description = parts[0];

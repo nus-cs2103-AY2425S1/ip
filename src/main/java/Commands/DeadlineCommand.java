@@ -8,11 +8,25 @@ import Tasks.TaskList;
 import Ui.Ui;
 import Utility.Utility;
 
+/**
+ * Represents a deadline command entered by the user.
+ */
 public class DeadlineCommand extends Command {
+    /**
+     * Stores the command string associated with deadline command.
+     *
+     * @param command Command string.
+     */
     public DeadlineCommand(String command) {
         super(command);
     }
 
+    /**
+     * Creates a {@code Deadline} object encapsulating details about the deadline task.
+     *
+     * @return {@code Deadline} object.
+     * @throws BrockException If deadline missing description or due date.
+     */
     private Task createDeadline() throws BrockException {
         String command = super.getCommand();
         String[] commandWords = command.split(" ");
@@ -60,6 +74,18 @@ public class DeadlineCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * Chatbot checks if deadline command is valid.
+     * If so, it creates a {@code Deadlines} object.
+     * Adds it to {@code tasks}, writes it to save file.
+     * Displays a response indicating it has added the deadline task.
+     * </p>
+     *
+     * @throws BrockException If deadline command is invalid.
+     */
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
         Task deadlineTask = createDeadline();
@@ -77,6 +103,9 @@ public class DeadlineCommand extends Command {
                 , true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;

@@ -3,7 +3,17 @@ package Parser;
 import Commands.*;
 import Exceptions.BrockException;
 
+/**
+ * Class to identify user commands, and create associated command objects.
+ */
 public class Parser {
+    /**
+     * Identifies the type of command given.
+     *
+     * @param command User command.
+     * @param target Command type.
+     * @return True if command matches the specified type. False otherwise.
+     */
     private boolean identifyCommand(String command, String target) {
         String[] parts = command.toLowerCase()
                 .split(" ");
@@ -11,7 +21,13 @@ public class Parser {
         return firstWord.equalsIgnoreCase(target);
     }
 
-    // Return true: loop continue, return false: loop break
+    /**
+     * Creates an associated command object, based on the identified command type.
+     *
+     * @param command User command.
+     * @return Associated command object.
+     * @throws BrockException If user command is invalid.
+     */
     public Command handleCommand(String command) throws BrockException {
         if (identifyCommand(command, "bye")) {
             return new ByeCommand(command);
