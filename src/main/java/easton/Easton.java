@@ -19,7 +19,7 @@ public class Easton {
     private Ui<Task> ui;
 
     /**
-     * Instantiates an instance of the chatbot.
+     * Constructs an instance of the chatbot.
      *
      * @param fileName Name of the file storing the records.
      */
