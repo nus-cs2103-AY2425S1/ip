@@ -6,6 +6,12 @@ public class Deadline extends Task {
     String deadline;
     LocalDate date;
 
+    /**
+     * Creates a new instance of a deadline task with the task description and deadline
+     *
+     * @param desc
+     * @param deadline
+     */
     public Deadline(String desc, String deadline) {
         super(desc);
         this.deadline = deadline;
@@ -25,9 +31,16 @@ public class Deadline extends Task {
         return String.format("  [D][%s] %s (by: %s)", super.getStatusIcon(), super.toString(), d);
     }
 
+    /**
+     * Returns the deadline of the task as a String
+     */
     public String getDeadline() {
         return this.deadline;
     }
+
+    /**
+     * Returns the deadline of the task in LocalDate format
+     */
     public LocalDate getDate() {
         return this.date;
     }

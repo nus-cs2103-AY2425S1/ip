@@ -18,6 +18,13 @@ public class Parser {
         TODAY
     }
 
+    /**
+     * Creates a new instance of a Parser which processes the user input and responds accordingly
+     *
+     * @param command Instruction command
+     * @param input Details of the instruction e.g. date, time, index etc
+     * @throws DawnException
+     */
     public Parser(String command, String input) throws DawnException {
         this.command = command;
         this.input = input;
@@ -30,7 +37,7 @@ public class Parser {
         }
     }
 
-    private void respond(Command cmd) { //provide responses to the user input
+    protected void respond(Command cmd) { //provide responses to the user input
         try {
             switch (cmd) {
             case BYE:

@@ -12,6 +12,11 @@ public class Storage {
     private ArrayList<Task> savedTasks;
     String filePath;
 
+    /**
+     * Creates a new instance of a storage which will load previously saved tasks and store current tasks
+     *
+     * @param filePath File in which the current tasks will be saved and previously saved tasks loaded from
+     */
     public Storage(String filePath) {
         // Handles folder-does-not-exist-yet case to save tasks
         String currentDir = System.getProperty("user.dir");
@@ -58,7 +63,7 @@ public class Storage {
         E
     }
 
-    private Task generateSavedTask(String[] taskContent, TaskType type) throws DawnException {
+    protected Task generateSavedTask(String[] taskContent, TaskType type) throws DawnException {
         boolean isDone = taskContent[1].equals("1"); // checks if the status of the task is 0 or 1
         Task task;
         switch (type) {
@@ -82,16 +87,16 @@ public class Storage {
         return task;
     }
 
-    private void clearSavedTask(String filePath) throws IOException {
+    protected void clearSavedTask(String filePath) throws IOException {
         FileWriter writer = new FileWriter(filePath, false);
         writer.write(""); // to clear the content of the files
         writer.close();
     }
 
     /**
-     * Saves the current task lists
+     * Saves the current task list
      *
-     * @param filePath
+     * @param filePath File in which the current tasks will be saved to
      * @throws DawnException
      */
     public static void saveTasks(String filePath) throws DawnException {
@@ -104,7 +109,7 @@ public class Storage {
         }
     }
 
-    private static void writeToFile(String filePath, Task task) throws IOException {
+    protected static void writeToFile(String filePath, Task task) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         String separator = " | ";
         String isDone = task.isDone() ? "1" : "0";

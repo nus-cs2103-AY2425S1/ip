@@ -5,10 +5,18 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Creates a new instance of Ui which interacts with the user
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Prints a greeting and begins interaction with the user
+     *
+     * @throws DawnException
+     */
     public void greet() throws DawnException {
         String divider = "--".repeat(30);
 
@@ -17,6 +25,11 @@ public class Ui {
         interact();
     }
 
+    /**
+     * Handles user input
+     *
+     * @throws DawnException
+     */
     public void interact() throws DawnException {
         while (scanner.hasNextLine()) {
             String command = scanner.next();
@@ -26,6 +39,12 @@ public class Ui {
             }
         }
     }
+
+    /**
+     * Prints the error message if the chatbot is unable to load previously saved tasks
+     *
+     * @param ex
+     */
     public void showLoadingError(DawnException ex) {
         System.out.println(ex);
     }
