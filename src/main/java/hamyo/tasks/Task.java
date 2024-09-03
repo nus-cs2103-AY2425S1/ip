@@ -20,7 +20,7 @@ public class Task {
      * @param task Description for the task, stored in String array.
      *             [Description].
      */
-    public Task(String[] task) {
+    public Task(String... task) {
         this.task = task[0];
     }
 

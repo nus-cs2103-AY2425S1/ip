@@ -26,7 +26,7 @@ public class Event extends Task {
      *             [Description, Event Start, Event End].
      * @throws HamyoException If user inputs an invalid Date/ Time.
      */
-    public Event(String[] task) throws HamyoException {
+    public Event(String... task) throws HamyoException {
         super(task);
         try {
             LocalDateTime fromDateTimeTemp;

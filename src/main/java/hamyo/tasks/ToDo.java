@@ -13,7 +13,7 @@ public class ToDo extends Task {
      * @param task Description for the task, stored in String array.
      *             [Description].
      */
-    public ToDo(String[] task) {
+    public ToDo(String... task) {
         super(task);
     }
 

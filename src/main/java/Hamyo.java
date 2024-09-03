@@ -46,7 +46,7 @@ public class Hamyo {
 
             while (this.isActive) {
                 try {
-                    this.isActive = Parser.parse(scanner.nextLine(), this.tasks);
+                    this.isActive = Parser.parse(this.tasks, scanner.nextLine());
                     storage.saveData(this.tasks);
                 } catch (HamyoException e) {
                     Ui.printException(e);
@@ -76,7 +76,7 @@ public class Hamyo {
 
         try {
             storage.loadData(this.tasks);
-            this.isActive = Parser.parse(input, this.tasks);
+            this.isActive = Parser.parse(this.tasks, input);
             storage.saveData(this.tasks);
             if (!this.isActive) {
                 ui.terminate();
