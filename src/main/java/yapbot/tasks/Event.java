@@ -43,24 +43,24 @@ public class Event extends Task {
 
         if (fromStr.contains("AM") | fromStr.contains("PM")) {
             if (fromStr.contains("/")) {
-                from = LocalDateTime.parse(fromStr, DateTimeFormatter.ofPattern("ha yyyy/MM/dd"));
+                from = LocalDateTime.parse(fromStr, DATETIME_FORMATTER);
             } else {
-                from = LocalTime.parse(fromStr, DateTimeFormatter.ofPattern("ha")).atDate(LocalDate.now());
+                from = LocalTime.parse(fromStr, TIME_FORMATTER).atDate(LocalDate.now());
             }
 
         } else {
-            from = LocalDate.parse(fromStr, DateTimeFormatter.ofPattern("yyyy/MM/dd")).atTime(8,0);
+            from = LocalDate.parse(fromStr, DATE_FORMATTER).atTime(8,0);
         }
 
         if (toStr.contains("AM") | toStr.contains("PM")) {
             if (toStr.contains("/")) {
-                to = LocalDateTime.parse(toStr, DateTimeFormatter.ofPattern("ha yyyy/MM/dd"));
+                to = LocalDateTime.parse(toStr, DATETIME_FORMATTER);
             } else {
-                to= LocalTime.parse(toStr, DateTimeFormatter.ofPattern("ha")).atDate(LocalDate.now());
+                to= LocalTime.parse(toStr, TIME_FORMATTER).atDate(LocalDate.now());
             }
 
         } else {
-            to = LocalDate.parse(toStr, DateTimeFormatter.ofPattern("yyyy/MM/dd")).atTime(8, 0);
+            to = LocalDate.parse(toStr, DATE_FORMATTER).atTime(8, 0);
         }
 
         this.from = from;

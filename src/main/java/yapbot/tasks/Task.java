@@ -2,12 +2,20 @@ package yapbot.tasks;
 
 import yapbot.exceptions.YapBotException;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 /**
  * Parent class of all tasks that can be created for YapBot.
  */
 public class Task {
     private String description;
     private boolean isDone;
+
+    private static final Locale LOCALE = new Locale("en_sg");
+    protected static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("ha yyyy/MM/dd", LOCALE);
+    protected static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd", LOCALE);
+    protected static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("ha", LOCALE);
 
     /**
      * Returns a Task instance.

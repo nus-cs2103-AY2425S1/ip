@@ -28,16 +28,16 @@ public class Deadline extends Task {
         }
 
         LocalDateTime deadline;
-
+        System.out.println(DateTimeFormatter.ofPattern("ha yyyy/MM/dd").getLocale());
         if (deadlineStr.contains("AM") | deadlineStr.contains("PM")) {
             if (deadlineStr.contains("/")) {
-                deadline = LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern("ha yyyy/MM/dd"));
+                deadline = LocalDateTime.parse(deadlineStr, DATETIME_FORMATTER);
             } else {
-                deadline = LocalTime.parse(deadlineStr, DateTimeFormatter.ofPattern("ha")).atDate(LocalDate.now());
+                deadline = LocalTime.parse(deadlineStr, TIME_FORMATTER).atDate(LocalDate.now());
             }
 
         } else {
-            deadline = LocalDate.parse(deadlineStr, DateTimeFormatter.ofPattern("yyyy/MM/dd")).atTime(8, 0);
+            deadline = LocalDate.parse(deadlineStr, DATE_FORMATTER).atTime(8, 0);
         }
 
         this.deadline = deadline;
