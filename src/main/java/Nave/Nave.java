@@ -1,3 +1,5 @@
+package Nave;
+
 import java.util.Scanner;
 
 public class Nave {

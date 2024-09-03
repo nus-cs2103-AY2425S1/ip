@@ -1,6 +1,8 @@
+package Nave;
+
 public class Ui {
     public void greet() {
-        System.out.println(formatResponse("Hello! :) I'm Nave, your personal task management assistant.\n" +
+        System.out.println(formatResponse("Hello! :) I'm Nave.Nave, your personal task management assistant.\n" +
                 "What can I do for you today?"));
     }
 
@@ -16,7 +18,7 @@ public class Ui {
             deadline [name] /by [date]: adds a deadline with associated name and date
             event [name] /from [date] /to [date]: adds an event with associated name,
                 start date and end date
-            bye: ends the Nave chatbot"""));
+            bye: ends the Nave.Nave chatbot"""));
     }
 
     public void unsureMessage() {
