@@ -25,4 +25,8 @@ public class Task {
     public String toTxt() {
         return "(" + (isDone ? "DONE" : "UNDONE") + ") " + this.description;
     }
+
+    public boolean containsKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
