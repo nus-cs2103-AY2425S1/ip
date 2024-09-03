@@ -28,6 +28,14 @@ public class TaskList {
         return task.isDone;
     }
 
+    public int getSize() {
+        return taskList.size();
+    }
+
+    public Task getTask(int index) {
+        return taskList.get(index);
+    }
+
     public void toggleTask(int i) throws SnowyException {
         if (i >= 0 && i < taskList.size()) {
             Task task = taskList.get(i);

@@ -7,7 +7,7 @@ public class CommandResult extends Command {
         this.feedbackToUser = feedbackToUser;
     }
 
-    public String getFeedbackToUser() {
+    public String getFeedback() {
         return feedbackToUser;
     }
 }

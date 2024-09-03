@@ -58,7 +58,7 @@ public class Snowy {
                 if (command != null) {
                     command.setData(taskList);
                     CommandResult result = command.execute();
-                    ui.showTaskAddedMessage(result.getFeedbackToUser());
+                    ui.showTaskAddedMessage(result.getFeedback());
                     isExit = command.isExit();
                 }
 
