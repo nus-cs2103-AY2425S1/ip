@@ -6,3 +6,5 @@ T| |borrow book|NIL| NIL
 T|X|buy bread|NIL| NIL
 T| |borrow book|NIL| NIL
 E|X|deadline|Aug 29 2024|Aug 29 2024
+T| |go for break|NIL| NIL
+D| |complete homework|tomorrow|NIL

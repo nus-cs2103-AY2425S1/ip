@@ -321,4 +321,58 @@ public class TaskHandling {
             System.out.println("          ____________________________________");
         }
     }
+    /**
+     * Checks if the string is a string or whether it is an integer wrapped in a string.
+     *
+     * @param str the input string
+     * @return true if it is a string and false if it is an integer wrapped in a string.
+     */
+    private static boolean isAString (String str) {
+        try {
+            Integer.parseInt(str);
+            return false;
+        } catch (NumberFormatException e) {
+            return true;
+        }
+    }
+
+    /**
+     * Checks and throws exception if the length does not confirm to the standards required.
+     *
+     * @param partsOfInput the String[] of the split input
+     * @param arrayList the list of tasks
+     * @return an in of the numberPart so that it can use it in subsequent calculations.
+     * @throws BitBotException when the user does not key in any text after "delete" / "mark" / "unmark"
+     */
+    public static int checkAndThrowException(String[] partsOfInput, ArrayList<Task> arrayList) throws BitBotException{
+        // to get the integer number for mark / unmark / delete / find
+        int numberPart = -1;
+
+        if (partsOfInput.length < 2) {
+            throw new BitBotException("OOPS!! Add the task number to mark/ unmark / delete the event.\n"
+                    + "          Please do not leave it blank.");
+        }
+        if (isAString(partsOfInput[partsOfInput.length - 1])) {
+            throw new BitBotException("OOPS!!! The second character should be a number.\n"
+                    + "          For example: delete 1");
+        }
+        if (arrayList.isEmpty()) {
+            throw new BitBotException("You cannot mark / unmark / delete anything yet "
+                    + "since the list is empty.\n" +
+                    "          Add something into the list first!");
+        }
+
+        String lastNumber = partsOfInput[partsOfInput.length - 1];
+        numberPart = Integer.parseInt(lastNumber);
+
+        if (numberPart - 1 >= arrayList.size()) {
+            throw new BitBotException("OOPS!!! You cannot mark / unmark / delete something "
+                    + "that is outside the length of the list.\n"
+                    + "          There are only " + arrayList.size() + " item(s) in your list so far.");
+        }
+
+        return numberPart;
+    }
+
 }
+
