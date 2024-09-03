@@ -5,12 +5,21 @@ import Alex.Storage.Storage;
 import Alex.Task.TaskList;
 import Alex.Ui.Ui;
 
+/**
+ * Represents the main application class that runs the Alex chatbot.
+ * Handles initialization, user interactions, and command processing.
+ */
 public class Alex {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes the Alex chatbot with the specified file path for storage.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Alex(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +31,9 @@ public class Alex {
         }
     }
 
+    /**
+     * Runs the main loop of the chatbot, processing user commands until exit.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -40,6 +52,11 @@ public class Alex {
         }
     }
 
+    /**
+     * Entry point of the application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Alex("data/tasks.txt").run();
     }

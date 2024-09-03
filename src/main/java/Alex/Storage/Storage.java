@@ -1,4 +1,5 @@
 package Alex.Storage;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,15 +17,27 @@ import Alex.Task.Todo;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Manages the loading and saving of tasks from/to a file.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the given file path.
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         createDataDirectory();
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws AlexException If there is an error loading tasks from the file.
+     */
     public ArrayList<Task> load() throws AlexException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -74,6 +87,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given tasks to the file specified by the file path.
+     * @param tasks The ArrayList of tasks to save to the file.
+     * @throws AlexException If there is an error saving tasks to the file.
+     */
     public void save(ArrayList<Task> tasks) throws AlexException {
         File file = new File(filePath);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
@@ -92,6 +110,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates the data directory if it does not exist.
+     */
     private void createDataDirectory() {
         File dataDir = new File("./data");
         if (!dataDir.exists()) {
@@ -99,3 +120,4 @@ public class Storage {
         }
     }
 }
+

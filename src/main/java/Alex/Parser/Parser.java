@@ -15,11 +15,21 @@ import Alex.Task.DefaultTask;
 import Alex.Task.Event;
 import Alex.Task.Todo;
 
+/**
+ * Parses user input into appropriate Command objects for execution.
+ */
 public class Parser {
 
+    /**
+     * Parses a user input string into a Command object.
+     *
+     * @param userInput The input string from the user.
+     * @return The corresponding Command object based on the input.
+     * @throws AlexException If the input format is invalid or unrecognized.
+     */
     public static Command parse(String userInput) throws AlexException {
         userInput = userInput.trim().toLowerCase(); // Normalize the input
-        
+
         if (userInput.startsWith("todo ")) {
             return new AddCommand(new Todo(userInput.substring(5)));
         } else if (userInput.startsWith("deadline ")) {
@@ -65,6 +75,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the task index from the user input.
+     *
+     * @param userInput The input string from the user.
+     * @return The zero-based index of the task, or -1 if parsing fails.
+     */
     private static int parseTaskIndex(String userInput) {
         try {
             return Integer.parseInt(userInput.split(" ")[1]) - 1; // Convert to zero-based index
@@ -73,7 +89,6 @@ public class Parser {
         }
     }
 }
-
 
 
 
