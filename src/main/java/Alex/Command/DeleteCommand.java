@@ -17,7 +17,6 @@ public class DeleteCommand extends CommandBase {
         try {
             Task task = tasks.getTask(index);
             tasks.deleteTask(index);
-            ui.printTaskDeleted(task);
             storage.save(tasks.getAllTasks());
         } catch (IndexOutOfBoundsException e) {
             throw new AlexException("Task not found.");
