@@ -1,5 +1,8 @@
 package ipman.parser;
 
+import java.time.LocalDate;
+import java.util.StringJoiner;
+
 import ipman.commands.Command;
 import ipman.commands.CreateDeadlineCommand;
 import ipman.commands.CreateEventCommand;
@@ -11,56 +14,67 @@ import ipman.commands.ListCommand;
 import ipman.commands.MarkCommand;
 import ipman.commands.UnmarkCommand;
 
-import java.time.LocalDate;
-import java.util.StringJoiner;
-
+/**
+ * Parses user inputs received from the Ui.
+ */
 public class Parser {
     private record Message(String keyword, String args) {}
 
+    /**
+     * Parses user inputs received from the Ui and returns a <code>Command</code>.
+     * Parses the keyword and the arguments from the user input and decides which
+     * <code>Command</code> object to construct and return.
+     *
+     * @param message user's input, should include keyword and arguments (if any)
+     * @return parsed command from user's input
+     * @throws KeywordNotRecognisedException when the parsed keyword cannot be
+     *     matched to any known command
+     * @see Command
+     */
     public static Command parseCommand(String message) {
         Message messageRecord = parseMessage(message);
         String keyword = messageRecord.keyword;
         switch (keyword) {
-            case "bye": {
-                return new ExitCommand();
-            }
-            case "list": {
-                return new ListCommand();
-            }
-            case "mark": {
-                String[] args = parseArgs(messageRecord.args, new String[]{});
-                int index = parseInt(args[0]) - 1;
-                return new MarkCommand(index);
-            }
-            case "unmark": {
-                String[] args = parseArgs(messageRecord.args, new String[]{});
-                int index = parseInt(args[0]) - 1;
-                return new UnmarkCommand(index);
-            }
-            case "todo": {
-                String[] args = parseArgs(messageRecord.args, new String[]{});
-                return new CreateToDoCommand(args[0]);
-            }
-            case "deadline": {
-                String[] args = parseArgs(messageRecord.args, new String[] { "/by" });
-                return new CreateDeadlineCommand(args[0], parseDate(args[1]));
-            }
-            case "event": {
-                String[] args = parseArgs(messageRecord.args, new String[] { "/from", "/to" });
-                return new CreateEventCommand(args[0], parseDate(args[1]), parseDate(args[2]));
-            }
-            case "delete": {
-                String[] args = parseArgs(messageRecord.args, new String[]{});
-                int index = parseInt(args[0]);
-                return new DeleteCommand(index);
-            }
-            case "find": {
-                String[] args = parseArgs(messageRecord.args, new String[]{});
-                return new FindCommand(args[0]);
-            }
-            default: {
-                throw new KeywordNotRecognisedException(messageRecord.keyword);
-            }
+        case "bye": {
+            return new ExitCommand();
+        }
+        case "list": {
+            return new ListCommand();
+        }
+        case "mark": {
+            String[] args = parseArgs(messageRecord.args, new String[]{});
+            int index = parseInt(args[0]) - 1;
+            return new MarkCommand(index);
+        }
+        case "unmark": {
+            String[] args = parseArgs(messageRecord.args, new String[]{});
+            int index = parseInt(args[0]) - 1;
+            return new UnmarkCommand(index);
+        }
+        case "todo": {
+            String[] args = parseArgs(messageRecord.args, new String[]{});
+            return new CreateToDoCommand(args[0]);
+        }
+        case "deadline": {
+            String[] args = parseArgs(messageRecord.args, new String[] { "/by" });
+            return new CreateDeadlineCommand(args[0], parseDate(args[1]));
+        }
+        case "event": {
+            String[] args = parseArgs(messageRecord.args, new String[] { "/from", "/to" });
+            return new CreateEventCommand(args[0], parseDate(args[1]), parseDate(args[2]));
+        }
+        case "delete": {
+            String[] args = parseArgs(messageRecord.args, new String[]{});
+            int index = parseInt(args[0]);
+            return new DeleteCommand(index);
+        }
+        case "find": {
+            String[] args = parseArgs(messageRecord.args, new String[]{});
+            return new FindCommand(args[0]);
+        }
+        default: {
+            throw new KeywordNotRecognisedException(messageRecord.keyword);
+        }
         }
     }
 
