@@ -11,12 +11,18 @@ public class Deadline extends Task {
         this(description, false, deadline);
     }
 
+    /**
+     * Create new deadline object
+     * @param description Description of the deadline
+     * @param isDone set the task to be done
+     * @param deadline Deadline in string format
+     */
     public Deadline(String description, boolean isDone, String deadline) {
         super(description, isDone);
         try {
             LocalDate date = LocalDate.parse(deadline);
             this.deadline = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             this.deadline = deadline;
         }
     }
@@ -28,8 +34,8 @@ public class Deadline extends Task {
     @Override
     public String toFileFormat() {
         String isDoneString = this.isDone ? "1" : "0";
-        return getTypeIcon().charAt(1) + "|" + isDoneString + "|" +
-                this.getDescription() + "|" + this.getDeadline();
+        return getTypeIcon().charAt(1) + "|" + isDoneString + "|"
+                + this.getDescription() + "|" + this.getDeadline();
     }
 
     @Override
