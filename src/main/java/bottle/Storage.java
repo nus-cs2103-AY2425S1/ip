@@ -1,6 +1,5 @@
 package bottle;
 
-import bottle.task.Task;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import bottle.task.Task;
+
 /**
  * The type Storage.
  */
@@ -17,11 +18,11 @@ public class Storage {
     /**
      * The File path.
      */
-    private String filePath;
+    private final String filePath;
     /**
      * The Parser.
      */
-    private Parser parser;
+    private final Parser parser;
 
     /**
      * Instantiates a new Storage.
@@ -41,7 +42,7 @@ public class Storage {
         try {
             Files.createDirectories(path.getParent());
             Files.createFile(path);
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error occurred creating file");
         }
     }
@@ -83,7 +84,7 @@ public class Storage {
             handleMissingFile();
         }
         try {
-            FileWriter fileWriter =  new FileWriter(file);
+            FileWriter fileWriter = new FileWriter(file);
             for (Task task : taskList) {
                 fileWriter.write(task.toSaveFormat() + System.lineSeparator());
             }

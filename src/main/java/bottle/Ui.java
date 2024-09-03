@@ -1,10 +1,10 @@
 package bottle;
 
-import bottle.task.Task;
-import bottle.task.TaskList;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import bottle.task.Task;
+import bottle.task.TaskList;
 
 /**
  * The type Ui.
@@ -15,20 +15,19 @@ public class Ui {
      */
     final static String lineBreak = "\n____________________________________________________________\n";
     /**
-     * The Scanner.
-     */
-    Scanner scanner = new Scanner(System.in);
-    /**
      * The Welcome msg.
      */
     private final String welcomeMsg =
             " Hello! I'm bottle.Bottle\n" +
                     " What can I do for you?";
-
     /**
      * The Bye msg.
      */
-    private final String byeMsg =" Bye. Hope to see you again soon!";
+    private final String byeMsg = " Bye. Hope to see you again soon!";
+    /**
+     * The Scanner.
+     */
+    Scanner scanner = new Scanner(System.in);
 
     /**
      * Print with break.
