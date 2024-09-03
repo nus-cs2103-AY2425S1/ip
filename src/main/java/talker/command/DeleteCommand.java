@@ -23,11 +23,12 @@ public class DeleteCommand extends Command {
      * @param list list task is to be deleted from
      * @param ui ui object to print output
      * @param storage storage object to read/write file
+     * @return String representing outcome of this event
      * @throws TalkerException if unable to delete task
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
-        list.deleteTask(parsed, ui);
+    public String execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
+        return list.deleteTask(parsed, ui);
     }
 
 }

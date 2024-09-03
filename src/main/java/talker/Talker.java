@@ -14,6 +14,7 @@ public class Talker {
     private Ui ui;
     private Storage storage;
     private TaskList list;
+    private String commandType;
 
     /**
      * Constructor for new Talker object
@@ -48,6 +49,31 @@ public class Talker {
                 ui.printLine();
             }
         }
+    }
+
+    /**
+     * Generates response for user's chat messages
+     * @param input user input into chat bot
+     * @return String reponse depending on user's input
+     */
+    public String getResponse(String input) {
+        String output;
+        try {
+            Command c = Parser.parseInput(input);
+            output = c.execute(list, ui, storage);
+            commandType = c.getClass().getSimpleName();
+            return output;
+        } catch (TalkerException e) {
+            return ui.printError(e);
+        }
+    }
+
+    /**
+     * Returns the command type
+     * @return String prepresenting command type
+     */
+    public String getCommandType() {
+        return commandType;
     }
 
     public static void main(String[] args) {

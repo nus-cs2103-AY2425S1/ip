@@ -16,12 +16,13 @@ public class ExitCommand extends Command {
      * @param list list of tasks to write into file
      * @param ui ui object to print output
      * @param storage storage object to write list into
+     * @return String representing outcome of this event
      * @throws TalkerException if unable to write into file
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
         storage.writeFile(list);
-        ui.printGoodBye();
+        return ui.printGoodBye();
     }
 
     @Override

@@ -34,27 +34,27 @@ public class Ui {
     }
 
     /**
-     * Prints the welcome message
+     * Returns the welcome message
+     * @return String representing welcome message
      */
-    public void printWelcome() {
-        System.out.println(LINE);
-        System.out.printf("Hello! I'm %s\n", name);
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
+    public String printWelcome() {
+        return String.format("Hello! I'm %s\n", name);
     }
 
     /**
-     * Prints the goodbye message
+     * Returns the goodbye message
+     * @return String representing goodbye message
      */
-    public void printGoodBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String printGoodBye() {
+        return String.format("Bye. Hope to see you again soon!");
     }
 
     /**
-     * Prints a divider line
+     * Returns a divider line
+     * @return String representing divider line
      */
-    public void printLine() {
-        System.out.println(LINE);
+    public String printLine() {
+        return LINE;
     }
 
     /**
@@ -62,95 +62,111 @@ public class Ui {
      *
      * @param e exception to be handled
      */
-    public void printError(Exception e) {
-        System.out.println("Error: " + e.getMessage());
+    public String printError(Exception e) {
+        return String.format("Error: " + e.getMessage() + "\n");
     }
 
     /**
-     * Prints list of tasks
+     * Returns list of tasks
      *
      * @param list list of tasks to be printed
+     * @return string representing list of tasks
      */
-    public void printTaskList(ArrayList<Task> list) {
-        System.out.println("Here are the tasks in your list:");
+    public String printTaskList(ArrayList<Task> list) {
+        StringBuilder output = new StringBuilder();
+        output.append("Here are the tasks in your list:\n");
         for (int i = 0; i < list.size(); i++) {
-            System.out.printf("%d.%s\n", i + 1, list.get(i));
+            output.append(String.format("%d.%s\n", i + 1, list.get(i)));
         }
+        return output.toString();
     }
 
     /**
-     * Prints String representation of task
+     * Returns String representation of task
      *
      * @param task task object to be printed
+     * @return String representation of task
      */
-    public void printTask(Task task) {
-        System.out.println(task);
+    public String printTask(Task task) {
+        return task.toString();
     }
 
     /**
-     * Prints String representation of deletion of task
+     * Returns representation of deletion of task
      *
      * @param task task to be deleted
      * @param size new size of task list
+     * @return response when task has been deleted
      */
-    public void printTaskDelete(Task task, int size) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", size);
+    public String printTaskDelete(Task task, int size) {
+        StringBuilder output = new StringBuilder();
+        output.append("Noted. I've removed this task:\n");
+        output.append(task.toString() + "\n");
+        output.append(String.format("Now you have %d tasks in the list.\n", size));
+        return output.toString();
     }
 
     /**
-     * Prints String representation of adding of task
+     * Returns representation of adding of task
      *
      * @param task task to be added
      * @param size new size of task list
+     * @return String response when task has been added
      */
-    public void printTaskAdd(Task task, int size) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", size);
+    public String printTaskAdd(Task task, int size) {
+        StringBuilder output = new StringBuilder();
+        output.append("Got it. I've added this task:\n");
+        output.append(task.toString() + "\n");
+        output.append(String.format("Now you have %d tasks in the list.\n", size));
+        return output.toString();
     }
 
     /**
-     * Prints a String representation of searching of tasks on target date
+     * Returns representation of searching of tasks on target date
      *
      * @param date target date
+     * @return String response before list of tasks shown
      */
-    public void printTasksOn(String date) {
-        System.out.println("These are your tasks on " + date + ":");
+    public String printTasksOn(String date) {
+        return "These are your tasks on " + date + ":\n";
     }
 
     /**
-     * Prints String representation of marking of task as complete
+     * Returns representation of marking of task as complete
      *
      * @param mark String representation of marking event
+     * @return String response when marked as complete
      */
-    public void printTaskMarked(String mark) {
-        System.out.println(mark);
+    public String printTaskMarked(String mark) {
+        return mark.toString();
     }
 
     /**
-     * Prints String representation of marking of task as incomplete
+     * Prints representation of marking of task as incomplete
      *
      * @param unmark String representation of unmarking event
+     * @return String response when marked as incomplete
      */
-    public void printTaskUnmarked(String unmark) {
-        System.out.println(unmark);
+    public String printTaskUnmarked(String unmark) {
+        return unmark.toString();
     }
 
     /**
-     * Prints list of tasks that have matching keyword
+     * Returns list of tasks that have matching keyword
      *
      * @param outputList list of tasks to be printed
+     * @return String list of matching tasks
      */
-    public void printMatchingTasks(ArrayList<Task> outputList) throws TalkerException {
-        if (outputList.size() == 0) {
+    public String printMatchingTasks(ArrayList<Task> outputList) throws TalkerException {
+        if (outputList.isEmpty()) {
             throw new TalkerException("No matching tasks found!");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder output = new StringBuilder();
+            output.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < outputList.size(); i++) {
-                System.out.printf("%d.%s\n", i + 1, outputList.get(i));
+                output.append(String.format("%d.%s\n", i + 1, outputList.get(i)));
             }
+            return output.toString();
         }
     }
 }
