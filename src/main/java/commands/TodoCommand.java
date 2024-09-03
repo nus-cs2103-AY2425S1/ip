@@ -2,6 +2,7 @@ package commands;
 
 import applemazer.Storage;
 import applemazer.TaskList;
+import applemazer.Ui;
 import tasks.Task;
 import tasks.Todo;
 
@@ -21,15 +22,18 @@ public class TodoCommand extends Command {
 
     /**
      * Executes the "to-do" command which adds a To-do task to the task list.
+     *
      * @param tasks   The task list to use.
      * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
+     * @param ui The Ui object used to generate the string to print.
+     * @return The string to print.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         Task task = new Todo(desc);
         tasks.add(task);
-        task.printTaskAddedMessage(tasks.size());
         storage.save();
+        return ui.getTaskAddedMessage(task, tasks.size());
     }
 
     /**

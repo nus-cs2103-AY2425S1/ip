@@ -53,38 +53,4 @@ public class Task implements Serializable {
     public String getDescription() {
         return description;
     }
-
-    /**
-     * Message printed when task is marked as done.
-     */
-    public void printTaskSetDoneMessage() {
-        System.out.println("Nice! I've marked this task as done: ");
-        System.out.println("    " + this.getStatusIcon() + this + "\n");
-    }
-
-    /**
-     * Message printed when task is marked as undone.
-     */
-    public void printTaskSetUndoneMessage() {
-        System.out.println("OK, I've marked this task as not done yet: ");
-        System.out.println("    " + this.getStatusIcon() + this + "\n");
-    }
-
-    /**
-     * Message printed when task is added to the task list.
-     */
-    public void printTaskAddedMessage(int size) {
-        System.out.println("Got it. I've added this task: ");
-        System.out.println("    " + this.getStatusIcon() + this);
-        System.out.println("Now you have " + size + " tasks in the list. \n");
-    }
-
-    /**
-     * Message printed when task is deleted from the task list.
-     */
-    public void printTaskDeletedMessage(int size) {
-        System.out.println("Noted. I've removed this task: ");
-        System.out.println("    " + this.getStatusIcon() + this);
-        System.out.println("Now you have " + size + " tasks in the list. \n");
-    }
 }

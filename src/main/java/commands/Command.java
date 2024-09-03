@@ -2,6 +2,7 @@ package commands;
 
 import applemazer.Storage;
 import applemazer.TaskList;
+import applemazer.Ui;
 
 /**
  * Abstract class that represents a user command.
@@ -11,10 +12,13 @@ public abstract class Command {
      * Method to execute a parsed user command.
      * <p>
      * Subclasses should provide their own implementation.
-     * @param tasks The task list to use if necessary.
+     *
+     * @param tasks   The task list to use if necessary.
      * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
+     * @param ui The Ui object used to generate the string to print.
+     * @return The string to print.
      */
-    public abstract void execute(TaskList tasks, Storage storage);
+    public abstract String execute(TaskList tasks, Storage storage, Ui ui);
 
     /**
      * Returns {@code true} if the chatbot should continue running after executing the command.

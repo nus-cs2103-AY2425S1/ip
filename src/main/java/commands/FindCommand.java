@@ -2,6 +2,7 @@ package commands;
 
 import applemazer.Storage;
 import applemazer.TaskList;
+import applemazer.Ui;
 import tasks.Task;
 
 /**
@@ -21,20 +22,15 @@ public class FindCommand extends Command {
 
     /**
      * Executes the "find" command which finds a task by searching for a keyword in the task description.
+     *
      * @param tasks   The task list to use.
      * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
+     * @param ui The Ui object used to generate the string to print.
+     * @return The string to print.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
-        int taskNumber = 1;
-        System.out.println("Here are the matching tasks in your list:");
-        for (Task task : tasks.getList()) {
-            if (task.getDescription().contains(desc)) {
-                System.out.println(taskNumber + "." + task.getStatusIcon() + task);
-            }
-            taskNumber++;
-        }
-        System.out.println(); // Leave an empty line.
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
+        return ui.getMatchingTaskListString(tasks, desc);
     }
 
     @Override

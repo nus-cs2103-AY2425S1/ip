@@ -2,6 +2,7 @@ package commands;
 
 import applemazer.Storage;
 import applemazer.TaskList;
+import applemazer.Ui;
 import tasks.Task;
 
 /**
@@ -25,46 +26,44 @@ public class IntegerCommand extends Command {
 
     /**
      * Executes the specified integer command.
+     *
      * @param tasks   The task list to use if necessary.
      * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
+     * @param ui The Ui object used to generate the string to print.
+     * @return The string to print.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         try {
             Task task = tasks.get(taskNumber);
             switch (command) {
             case Mark:
                 task.setDone();
-                task.printTaskSetDoneMessage();
                 storage.save();
-                break;
+                return ui.getTaskSetDoneMessage(task);
             case Unmark:
                 task.setUndone();
-                task.printTaskSetUndoneMessage();
                 storage.save();
-                break;
+                return ui.getTaskSetUndoneMessage(task);
             case Delete:
                 tasks.remove(task);
-                task.printTaskDeletedMessage(tasks.size());
                 storage.save();
-                break;
+                return ui.getTaskDeletedMessage(task, tasks.size());
             default:
                 throw new IllegalStateException(); // This should never happen.
             }
         } catch (IndexOutOfBoundsException e) {
             if (tasks.isEmpty()) {
-                String emptyMessage = String.format("You have no tasks to %s.\n", command.toString().toLowerCase());
-                System.err.println(emptyMessage);
+                return String.format("You have no tasks to %s.\n", command.toString().toLowerCase());
             } else {
                 int size = tasks.size();
-                String message = String.format("""
-                                               You currently have %d tasks.
-                                               Please enter a number between 1 and %d.
-                                               """, size, size);
-                System.err.println(message);
+                return String.format("""
+                                     You currently have %d tasks.
+                                     Please enter a number between 1 and %d.\n
+                                     """, size, size);
             }
         } catch (IllegalStateException e) {
-            System.err.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
