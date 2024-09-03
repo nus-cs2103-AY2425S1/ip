@@ -1,10 +1,11 @@
 package edith;
 
+import edith.exception.MissingKeywordException;
 import edith.exception.InvalidCommandException;
 import edith.exception.InvalidTaskNumberException;
-import edith.exception.MissingTaskNameException;
 import edith.exception.MissingDeadlineException;
 import edith.exception.MissingEventDurationException;
+import edith.exception.MissingTaskNameException;
 import edith.exception.MissingTaskNumberException;
 import edith.task.DeadlineTask;
 import edith.task.EventTask;
@@ -16,7 +17,8 @@ import java.util.Objects;
  * This class handles all user inputs.
  */
 public class Ui {
-    private static final String HORIZONTAL = "____________________________________________________________";
+    private static final String HORIZONTAL = "______________________________________________________" +
+            "_________________________________________________";
     private static final String GREETING = " heyyy im edith!\n what can I do for you?";
     private static final String FAREWELL = " bye!! see you soon love <3";
     private static final String LINEBREAK = "\n";
@@ -40,6 +42,8 @@ public class Ui {
             addTask(userInput, toDoList);
         } else if (Objects.equals(command, "delete")) {
             delete(userInput, toDoList);
+        } else if (Objects.equals(command, "find")) {
+            find(userInput, toDoList);
         } else {
             try {
                 otherCommand();
@@ -195,6 +199,27 @@ public class Ui {
         }
     }
 
+
+    /**
+     * Finds tasks that match keyword(s) provided by user. Prints error if user does not input any keywords.
+     * @param userInput User input.
+     * @param toDoList List of user's current tasks.
+     */
+    public static void find(String userInput, ToDoList toDoList) {
+        try {
+            String keyword = Parser.getKeyword(userInput);
+            ToDoList tasksMatchingKeyword = toDoList.getListOfTasksMatchingKeyword(keyword);
+            if (tasksMatchingKeyword.getNumberOfTasks() == 0) {
+                System.out.println(" there are no tasks matching the description you gave: " + keyword + " :(\n");
+            } else {
+                System.out.println(" here is a list of tasks matching the description you gave: " + keyword + LINEBREAK +
+                        tasksMatchingKeyword + LINEBREAK);
+            }
+        } catch (MissingKeywordException e) {
+            showError(e.getMessage());
+        }
+    }
+
     /**
      * Prints a horizontal line with a linebreak at the end.
      */
@@ -207,6 +232,6 @@ public class Ui {
      * @param errorMessage Error message from exception thrown.
      */
     public static void showError(String errorMessage) {
-        System.out.println(errorMessage);
+        System.out.println(errorMessage + "\n");
     }
 }

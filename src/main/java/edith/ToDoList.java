@@ -84,6 +84,21 @@ public class ToDoList {
         Storage.saveTasks(toDoList);
     }
 
+    /**
+     * Returns a list of Tasks matching description provided by user input.
+     * @param keyword User input to be checked against task name.
+     * @return List of tasks.
+     */
+    public ToDoList getListOfTasksMatchingKeyword(String keyword) {
+        ToDoList tasksMatchingDescription = new ToDoList();
+        for (Task task : toDoList) {
+            if (task.containsKeyword(keyword)) {
+                tasksMatchingDescription.add(task);
+            }
+        }
+        return tasksMatchingDescription;
+    }
+
     @Override
     public String toString() {
         String str = "";

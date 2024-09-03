@@ -1,9 +1,6 @@
 package edith;
 
-import edith.exception.MissingDeadlineException;
-import edith.exception.MissingEventDurationException;
-import edith.exception.MissingTaskNameException;
-import edith.exception.MissingTaskNumberException;
+import edith.exception.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -131,4 +128,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the keyword user is trying to search.
+     * @param userInput User input.
+     * @return keyword.
+     * @throws MissingKeywordException When keyword is missing from user input.
+     */
+    public static String getKeyword(String userInput) throws MissingKeywordException {
+        try {
+            List<String> userInputs = Arrays.asList(userInput.split("find "));
+            return userInputs.get(1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new MissingKeywordException();
+        }
+    }
 }

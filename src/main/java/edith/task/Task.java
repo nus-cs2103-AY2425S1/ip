@@ -43,6 +43,15 @@ public abstract class Task {
         return this.isCompleted;
     }
 
+    /**
+     * Returns a boolean for if the task name contains keyword provided in user input.
+     * @param keyword User input to be checked against task name.
+     * @return True if task name contains keyword, false otherwise.
+     */
+    public boolean containsKeyword(String keyword) {
+        return taskName.contains(keyword);
+    }
+
     @Override
     public String toString() {
         if (this.isCompleted) {
