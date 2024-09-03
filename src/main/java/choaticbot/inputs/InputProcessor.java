@@ -1,20 +1,19 @@
 package choaticbot.inputs;
 
+import choaticbot.exceptions.NoInputException;
+
 public class InputProcessor {
 
     public InputProcessor() {};
 
-    public ProcessedInput processInput(String input) {
+    public ProcessedInput processInput(String input) throws NoInputException {
+        if (input.isBlank()) {
+            throw new NoInputException("Please enter an input!!!");
+        }
         String[] inputArray = input.split(" ", 2);
         String action = inputArray[0];
         String details = inputArray.length > 1 ? inputArray[1].trim() : "";
-/*        for (int i = 1; i < inputArray.length; i++) {
-            details = details.concat(inputArray[i] + " ");
-        }
-
-        details = details.trim();*/
 
         return new ProcessedInput(action, details);
-
     }
 }
