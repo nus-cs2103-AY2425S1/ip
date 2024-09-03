@@ -65,6 +65,11 @@ public class Lama {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Lama heard: " + input;
+        try {
+            Command command = Parser.parse(input);
+            return command.run(taskList, storage, ui);
+        } catch (LamaException e) {
+            return e.getMessage();
+        }
     }
 }

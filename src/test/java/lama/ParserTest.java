@@ -149,7 +149,7 @@ public class ParserTest {
                 + "4. list\n"
                 + "5. mark [number of todo in the list]\n"
                 + "6. unmark [number of todo in the list]\n"
-                + "7. find [keywords]"
+                + "7. find [keywords]\n"
                 + "8. bye";
 
         assertEquals(output, lamaException.getMessage());

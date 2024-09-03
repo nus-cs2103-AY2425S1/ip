@@ -35,9 +35,13 @@ public class AddCommand extends Command {
      * @throws LamaException Thrown if an error occurs during the execution of the command.
      */
     @Override
-    public void run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
+    public String run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
         taskList.add(task);
         ui.showAddCommand(taskList);
         storage.addTask(task);
+        String output = "Got it. I've added this task:\n"
+                + "  " + taskList.get(taskList.size() - 1) + "\n"
+                + "Now you have " + taskList.size() + " tasks in the list.";
+        return output;
     }
 }

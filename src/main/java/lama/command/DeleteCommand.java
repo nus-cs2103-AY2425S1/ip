@@ -32,13 +32,18 @@ public class DeleteCommand extends Command {
      * @throws LamaException Thrown if an error occurs during execution of command.
      */
     @Override
-    public void run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
+    public String run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
         try {
             Task task = taskList.remove(indexOfDeleteCommand);
             ui.showDeleteCommandHeader();
             System.out.println("  " + task);
             ui.showDeleteCommandFooter(taskList);
             storage.saveTasks(taskList);
+            String output = "Noted. I've removed this task:\n"
+                    + "  " + task + "\n"
+                    + "Now you have " + taskList.size() + " tasks in the list.";
+            return output;
+
         } catch (IndexOutOfBoundsException e) {
             throw new LamaException("Sorry, the number given exceed the bound of list");
         }

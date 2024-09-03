@@ -18,7 +18,7 @@ public abstract class Command {
      * @param ui User interface that interacts with user.
      * @throws LamaException Throw exception if there is error occurs during the execution of the command.
      */
-    public abstract void run(TaskList taskList, Storage storage, Ui ui) throws LamaException;
+    public abstract String run(TaskList taskList, Storage storage, Ui ui) throws LamaException;
 
     /**
      * Indicates whether the command should exit.

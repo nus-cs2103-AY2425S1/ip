@@ -1,7 +1,6 @@
 package lama.gui;
 
 import javafx.application.Application;
-import lama.gui.Main;
 
 /**
  * A launcher class to launch the application

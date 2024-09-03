@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lama.Lama;
-import lama.gui.DialogBox;
+
 
 /**
  * The MainWindow class serves as the controller for the main GUI of the application.
@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
     private Lama lama;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/lama.png"));
+    private Image lamaImage = new Image(this.getClass().getResourceAsStream("/images/lama.png"));
 
     /**
      * Initializes the MainWindow by binding the vertical scroll value of the scroll pane
@@ -37,6 +37,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        DialogBox dialogBox = DialogBox.getLamaDialog("Hello! I'm Lama\nWhat can I do for you?", lamaImage);
+        dialogContainer.getChildren().addAll(dialogBox);
     }
 
     /**
@@ -61,7 +63,7 @@ public class MainWindow extends AnchorPane {
         String response = lama.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getLamaDialog(response, dukeImage)
+                DialogBox.getLamaDialog(response, lamaImage)
         );
         userInput.clear();
     }
