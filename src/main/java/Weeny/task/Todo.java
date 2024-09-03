@@ -1,4 +1,4 @@
-package weeny;
+package weeny.task;
 
 /**
  * Represents a to-do task with no specific date or time.

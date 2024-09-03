@@ -1,4 +1,4 @@
-package weeny;
+package weeny.task;
 
 import java.util.ArrayList;
 import java.util.Iterator;

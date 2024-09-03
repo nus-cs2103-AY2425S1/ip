@@ -1,4 +1,4 @@
-package weeny;
+package weeny.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,6 +9,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import weeny.task.Task;
+import weeny.task.Todo;
+import weeny.task.Events;
+import weeny.task.Deadlines;
 
 /**
  * Handles reading from and writing to files, as well as creating necessary files and directories.
