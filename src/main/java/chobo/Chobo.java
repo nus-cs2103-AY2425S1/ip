@@ -20,7 +20,6 @@ public class Chobo {
         taskList = new TaskList(storage.loadTasks());
     }
 
-
     /**
      * Run.
      */
