@@ -29,8 +29,8 @@ public class FindCommand extends Command {
      * @param storage  The storage system to save any changes (not used in this command).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.findMessage(taskList, keyword);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.findMessage(taskList, keyword);
     }
 
     /**

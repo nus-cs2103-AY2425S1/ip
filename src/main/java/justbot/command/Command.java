@@ -20,7 +20,7 @@ public abstract class Command {
      * @param storage The Storage instance used to save or load tasks.
      * @throws JustbotException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws JustbotException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws JustbotException;
 
 
     /**

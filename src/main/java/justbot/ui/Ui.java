@@ -35,49 +35,44 @@ public class Ui {
      *
      * @param e The JustbotException to display the message for.
      */
-    public void getJustBotExceptionMessage(JustbotException e) {
-        System.out.println("------------------------------------------");
-        System.out.println(e.getMessage());
-        System.out.println("------------------------------------------");
+    public String getJustBotExceptionMessage(JustbotException e) {
+        return e.getMessage();
     }
 
     /**
      * Displays a message when the user provides an invalid command.
      * Lists the valid commands for the user to input.
      */
-    public void invalidCommandMessage() {
-        System.out.println("------------------------------------------");
-        System.out.println("Hey man you provided me with an invalid command. Here is a list of my commands:");
-        System.out.println("1. list");
-        System.out.println("2. mark [task number]");
-        System.out.println("3. unmark [task number]");
-        System.out.println("4. delete [task number]");
-        System.out.println("5. todo [task description]");
-        System.out.println("6. deadline [task description] /by [dd/MM/yyyy HH:mm]");
-        System.out.println("7. event [task description] /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
-        System.out.println("8. find [task description]");
-        System.out.println("What can I do for you?");
-        System.out.println("------------------------------------------");
+    public String invalidCommandMessage() {
+        String result = "Hey man you provided me with an invalid command. Here is a list of my commands:\n"
+                + "1. list\n"
+                + "2. mark [task number]\n"
+                + "3. unmark [task number]\n"
+                + "4. delete [task number]\n"
+                + "5. todo [task description]\n"
+                + "6. deadline [task description] /by [dd/MM/yyyy HH:mm]\n"
+                + "7. event [task description] /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]\n"
+                + "8. find [task description]\n"
+                + "What can I do for you?\n";
+        return result;
     }
 
     /**
      * Displays an introduction message when the bot starts.
      * Lists the valid commands for the user to input.
      */
-    public void botIntro() {
-        System.out.println("------------------------------------------");
-        System.out.println("Hello I'm Justbot!");
-        System.out.println("Here is a list of my commands:");
-        System.out.println("1. list");
-        System.out.println("2. mark [task number]");
-        System.out.println("3. unmark [task number]");
-        System.out.println("4. delete [task number]");
-        System.out.println("5. todo [task description]");
-        System.out.println("6. deadline [task description] /by [dd/MM/yyyy HH:mm]");
-        System.out.println("7. event [task description] /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
-        System.out.println("8. find [task description]");
-        System.out.println("What can I do for you?");
-        System.out.println("------------------------------------------");
+    public String botIntro() {
+        String result = "Hey man here is a list of my commands!\n"
+                + "1. list\n"
+                + "2. mark [task number]\n"
+                + "3. unmark [task number]\n"
+                + "4. delete [task number]\n"
+                + "5. todo [task description]\n"
+                + "6. deadline [task description] /by [dd/MM/yyyy HH:mm]\n"
+                + "7. event [task description] /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]\n"
+                + "8. find [task description]\n"
+                + "What can I do for you?\n";
+        return result;
     }
 
     /**
@@ -85,15 +80,14 @@ public class Ui {
      *
      * @param taskList The TaskList containing the tasks to be displayed.
      */
-    public void listMessage(TaskList taskList) {
-        System.out.println("------------------------------------------");
-        System.out.println("Here are the tasks in your list:\n");
+    public String listMessage(TaskList taskList) {
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             int taskListCount = i + 1;
             Task currTask = taskList.get(i);
-            System.out.print(taskListCount + ". " + currTask.toString() + "\n");
+            result.append(taskListCount).append(". ").append(currTask.toString()).append("\n");
         }
-        System.out.println("------------------------------------------");
+        return result.toString();
     }
 
     /**
@@ -102,22 +96,25 @@ public class Ui {
      * @param taskList The TaskList containing the tasks.
      * @param keyword The string to check for in task description.
      */
-    public void findMessage(TaskList taskList, String keyword) {
-        System.out.println("------------------------------------------");
-        System.out.println("Hey man here are the matching tasks in your list:\n");
+    public String findMessage(TaskList taskList, String keyword) {
+        StringBuilder result = new StringBuilder();
+
+        result.append("Hey man, here are the matching tasks in your list:\n\n");
+
         int count = 1;
         for (int i = 0; i < taskList.size(); i++) {
             Task currTask = taskList.get(i);
             if (currTask.getTaskDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                System.out.println(count + ". " + taskList.get(i));
+                result.append(count).append(". ").append(currTask.toString()).append("\n");
                 count++;
             }
         }
 
         if (count == 1) {
-            System.out.println("No matching tasks found.");
+            result.append("No matching tasks found.\n");
         }
-        System.out.println("------------------------------------------");
+
+        return result.toString();
     }
 
     /**
@@ -126,12 +123,11 @@ public class Ui {
      * @param taskList The TaskList containing the tasks.
      * @param taskNumber The 1-based index of the task that was marked.
      */
-    public void markMessage(TaskList taskList, int taskNumber) {
+    public String markMessage(TaskList taskList, int taskNumber) {
         int taskIndex = taskNumber - 1;
         Task currTask = taskList.get(taskIndex);
-        System.out.println("------------------------------------------");
-        System.out.println("Nice! I have marked this task as done:\n" + currTask.toString());
-        System.out.println("------------------------------------------");
+        String result = "Nice! I have marked this task as done:\n" + currTask.toString();
+        return result;
     }
 
     /**
@@ -140,12 +136,11 @@ public class Ui {
      * @param taskList The TaskList containing the tasks.
      * @param taskNumber The 1-based index of the task that was unmarked.
      */
-    public void unmarkMessage(TaskList taskList, int taskNumber) {
+    public String unmarkMessage(TaskList taskList, int taskNumber) {
         int taskIndex = taskNumber - 1;
         Task currTask = taskList.get(taskIndex);
-        System.out.println("------------------------------------------");
-        System.out.println("OK, I've marked this task as not done yet:\n" + currTask.toString());
-        System.out.println("------------------------------------------");
+        String result = "OK, I've marked this task as not done yet:\n" + currTask.toString();
+        return result;
     }
 
     /**
@@ -154,17 +149,15 @@ public class Ui {
      * @param taskList The TaskList containing the tasks.
      * @param task The task that was added.
      */
-    public void addTaskMessage(TaskList taskList, Task task) {
-        System.out.println("------------------------------------------");
+    public String addTaskMessage(TaskList taskList, Task task) {
         int numberOfTasks = taskList.size();
-        System.out.println("Got it. I've added this task:\n"
-                    + task.toString()
-                    + "\n"
-                    + "Now you have "
-                    + numberOfTasks
-                    + " tasks in your list."
-        );
-        System.out.println("------------------------------------------");
+        String result = "Got it. I've added this task:\n"
+                + task.toString()
+                + "\n"
+                + "Now you have "
+                + numberOfTasks
+                + " tasks in your list.";
+        return result;
     }
 
     /**
@@ -173,25 +166,22 @@ public class Ui {
      * @param taskList The TaskList containing the tasks.
      * @param taskNumber The 1-based index of the task that was deleted.
      */
-    public void deleteTaskMessage(TaskList taskList, int taskNumber) {
-        System.out.println("------------------------------------------");
+    public String deleteTaskMessage(TaskList taskList, int taskNumber) {
         int taskIndex = taskNumber - 1;
         Task currTask = taskList.get(taskIndex);
         int numberOfTasks = taskList.size() - 1;
-        System.out.println("Noted. I've removed this task:\n"
-                    + currTask.toString() + "\n"
-                    + "Now you have "
-                    + numberOfTasks
-                    + " tasks in your list.");
-        System.out.println("------------------------------------------");
+        String result = "Noted. I've removed this task:\n"
+                + currTask.toString() + "\n"
+                + "Now you have "
+                + numberOfTasks
+                + " tasks in your list.";
+        return result;
     }
 
     /**
      * Displays a bye message when the bot is about to exit.
      */
-    public void byeMessage() {
-        System.out.println("------------------------------------------");
-        System.out.println("Hey man, I'll miss you. See you soon!");
-        System.out.println("------------------------------------------");
+    public String byeMessage() {
+        return "Hey man, I'll miss you. See you soon!";
     }
 }

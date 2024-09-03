@@ -53,6 +53,16 @@ public class Justbot {
         }
     }
 
+    public String getResponse(String input) {
+        try {
+            Command command = parser.parseCommand(input);
+            String response = command.execute(this.taskList, this.ui, this.storage);
+            return response;
+        } catch (JustbotException e) {
+            return ui.getJustBotExceptionMessage(e);
+        }
+    }
+
     /**
      * The main method that starts the Justbot application.
      *

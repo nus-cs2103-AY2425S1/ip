@@ -33,15 +33,15 @@ public class MarkCommand extends Command {
      * @param storage The Storage instance used to save the updated task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.validateMarkTaskNumber(this.markNumber);
             Task currTask = taskList.get(this.markNumber - 1);
             currTask.setIsDone(true);
-            ui.markMessage(taskList, markNumber);
             storage.saveTasks(taskList);
+            return ui.markMessage(taskList, markNumber);
         } catch (JustbotException e) {
-            ui.getJustBotExceptionMessage(e);
+            return ui.getJustBotExceptionMessage(e);
         }
     }
 
