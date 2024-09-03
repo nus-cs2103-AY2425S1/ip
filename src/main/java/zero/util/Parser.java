@@ -11,7 +11,20 @@ import zero.task.TaskList;
 import zero.task.Todo;
 import zero.ui.Ui;
 
+/**
+ * The {@code Parser} class is responsible for parsing user commands and executing the corresponding operations
+ * on the task list. It interprets commands like adding tasks, marking tasks as done, deleting tasks, and more.
+ */
 public class Parser {
+
+    /**
+     * Parses the full command entered by the user and executes the corresponding operation.
+     *
+     * @param fullCommand The complete command entered by the user.
+     * @param tasks The task list to operate on.
+     * @param ui The UI component used to display messages to the user.
+     * @throws ZeroException if the command is not recognised
+     */
     public static void parseCommand(String fullCommand, TaskList tasks, Ui ui) {
         try {
             if (fullCommand.equals("bye")) {
@@ -38,6 +51,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the deletion of a task based on the user's input.
+     *
+     * @param tasks The task list to operate on.
+     * @param input The full command entered by the user.
+     * @param ui The UI component used to display messages to the user.
+     * @throws ZeroException If the task number is invalid.
+     */
     private static void handleDelete(TaskList tasks, String input, Ui ui) throws ZeroException {
         try {
             String[] strArr = input.split(" ", 2);
@@ -49,7 +70,14 @@ public class Parser {
         }
     }
 
-    // its getting abit too long so gonna shift it here
+    /**
+     * Handles marking a task as done based on the user's input.
+     *
+     * @param tasks The task list to operate on.
+     * @param input The full command entered by the user.
+     * @param ui The UI component used to display messages to the user.
+     * @throws ZeroException If the task number is invalid.
+     */
     private static void handleMark(TaskList tasks, String input, Ui ui) throws ZeroException {
         try {
             String[] strArr = input.split(" ", 2);
@@ -61,6 +89,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles unmarking a task based on the user's input.
+     *
+     * @param tasks The task list to operate on.
+     * @param input The full command entered by the user.
+     * @param ui The UI component used to display messages to the user.
+     * @throws ZeroException If the task number is invalid.
+     */
     private static void handleUnmark(TaskList tasks, String input, Ui ui) throws ZeroException {
         try {
             String[] strArr = input.split(" ", 2);
@@ -72,6 +108,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles adding a Todo task based on the user's input.
+     *
+     * @param tasks The task list to operate on.
+     * @param input The full command entered by the user.
+     * @param ui The UI component used to display messages to the user.
+     * @throws ZeroException If the description of the todo is empty.
+     */
     private static void handleTodo(TaskList tasks, String input, Ui ui) throws ZeroException {
         if (input.trim().equals("todo")) {
             throw new ZeroException("The description of a todo cannot be empty.");
@@ -82,6 +126,14 @@ public class Parser {
         ui.showTaskAdded(newTodo, tasks.getSize());
     }
 
+    /**
+     * Handles adding a Deadline task based on the user's input.
+     *
+     * @param tasks The task list to operate on.
+     * @param input The full command entered by the user.
+     * @param ui The UI component used to display messages to the user.
+     * @throws ZeroException If the description of the deadline or the date/time is empty or invalid.
+     */
     private static void handleDeadline(TaskList tasks, String input, Ui ui) throws ZeroException {
         String[] parts = input.split("/by ", 2);
         if (parts.length < 2 || parts[0].trim().equals("deadline")) {
@@ -95,6 +147,14 @@ public class Parser {
         ui.showTaskAdded(newDeadline, tasks.getSize());
     }
 
+    /**
+     * Handles adding an Event task based on the user's input.
+     *
+     * @param tasks The task list to operate on.
+     * @param input The full command entered by the user.
+     * @param ui The UI component used to display messages to the user.
+     * @throws ZeroException If the description of the event or the date/time is empty or invalid.
+     */
     private static void handleEvent(TaskList tasks, String input, Ui ui) throws ZeroException {
         String[] parts = input.split("/from | /to ");
         if (parts.length < 3 || parts[0].trim().equals("event")) {
@@ -110,6 +170,15 @@ public class Parser {
         ui.showTaskAdded(newEvent, tasks.getSize());
     }
 
+    /**
+     * Converts a string input into a {@code LocalDateTime} object.
+     * If the input contains only a date, the time is set to 00:00.
+     * If the input contains both date and time, it is parsed accordingly.
+     *
+     * @param input The date/time string input to parse.
+     * @return The parsed {@code LocalDateTime} object.
+     * @throws ZeroException If the date/time format is invalid.
+     */
     public static LocalDateTime handleDate(String input) throws ZeroException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 

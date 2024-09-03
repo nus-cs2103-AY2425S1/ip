@@ -14,6 +14,10 @@ import zero.task.Task;
 import zero.task.TaskList;
 import zero.task.Todo;
 
+/**
+ * The {@code Storage} class handles the loading and saving of tasks to a file.
+ * It reads tasks from a specified file during initialisation and writes tasks back to the file when required.
+ */
 public class Storage {
     private String filePath;
 
@@ -21,6 +25,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file and returns them as an {@code ArrayList<Task>}.
+     * If the file does not exist, it creates the file and any necessary directories.
+     *
+     * @return An {@code ArrayList<Task>} containing the loaded tasks.
+     * @throws ZeroException If an error occurs while loading tasks.
+     */
     public ArrayList<Task> load() throws ZeroException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {

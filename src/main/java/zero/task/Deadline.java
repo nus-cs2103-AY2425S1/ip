@@ -2,6 +2,10 @@ package zero.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * The {@code Deadline} class represents a task that needs to be completed by a specific date and time.
+ * It is a subclass of {@code Task} and adds a {@code LocalDateTime} field to store the deadline.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 

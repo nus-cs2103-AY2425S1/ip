@@ -1,25 +1,47 @@
 package zero.task;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import zero.exception.ZeroException;
 
+/**
+ * The {@code TaskList} class represents a list of tasks.
+ * It provides methods to add, delete, and retrieve tasks, as well as to validate task indices.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty {@code TaskList}.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a {@code TaskList} with the specified list of tasks.
+     *
+     * @param tasks The initial list of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Deletes the task at the specified index from the task list.
+     *
+     * @param index The index of the task to be deleted, the offset has been factored in.
+     * @return The task that was deleted.
+     * @throws ZeroException If the index is out of range.
+     */
     public Task deleteTask(int index) throws ZeroException {
         validateIndex(index);
         Task item = tasks.get(index);
@@ -27,25 +49,23 @@ public class TaskList {
         return item;
     }
 
-    public void markTask(int index) throws ZeroException {
-        validateIndex(index);
-        tasks.get(index).markAsDone();
-    }
-
-    public void unmarkTask(int index) throws ZeroException {
-        validateIndex(index);
-        tasks.get(index).markAsNotDone();
-    }
-
+    /**
+     * Retrieves the task at the specified index from the task list.
+     *
+     * @param index The index of the task to be retrieved, the offset has been factored in.
+     * @return The task at the specified index.
+     * @throws ZeroException If the index is out of range.
+     */
     public Task getTask(int index) throws ZeroException {
         validateIndex(index);
         return tasks.get(index);
     }
 
-    public List<Task> getTaskList() {
-        return Collections.unmodifiableList(tasks);
-    }
-
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return The size of the task list.
+     */
     public int getSize() {
         return tasks.size();
     }
