@@ -1,6 +1,7 @@
 package axel;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Represents a command that can be executed by the application.
@@ -176,5 +177,19 @@ class ExitCommand extends CommandBase {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         // No action needed for exit command
+    }
+}
+
+class FindCommand extends CommandBase {
+    protected String keyword;
+
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
+    }
+
+    @Override
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        List<Task> matchingTasks = taskList.findTasksWithKeyword(keyword);
+        ui.printMatchingTasks(matchingTasks);
     }
 }

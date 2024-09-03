@@ -37,6 +37,8 @@ public class Parser {
             return new ListCommand();
         } else if (command.equalsIgnoreCase("bye")) {
             return new ExitCommand();
+        } else if (command.startsWith("find")) {
+            return new FindCommand(command.substring(5).trim());
         } else {
             throw new UnrecognisedCommandException();
         }

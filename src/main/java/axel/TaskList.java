@@ -2,6 +2,7 @@ package axel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -96,4 +97,11 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
+
+    public List<Task> findTasksWithKeyword(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.getTaskName().contains(keyword))
+                .collect(Collectors.toList());
+    }
+
 }
