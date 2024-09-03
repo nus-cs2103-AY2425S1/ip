@@ -3,21 +3,23 @@ package drbrown.task;
 public abstract class Task {
 
     private boolean status;
-    private String description;
+    private final String description;
 
     public Task(boolean status, String description) {
-        this.description = description;
         this.status = status;
+        this.description = description;
     }
 
-    public Task() {}
+    public Task() {
+        this.description = "";
+    }
 
     public boolean getStatus() {
-        return this.status;
+        return status;
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setStatus(boolean status) {
@@ -25,6 +27,6 @@ public abstract class Task {
     }
 
     public abstract String toFileString();
-    public abstract String toUIString();
 
+    public abstract String toUIString();
 }

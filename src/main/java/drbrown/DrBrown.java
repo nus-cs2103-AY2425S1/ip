@@ -1,7 +1,11 @@
 package drbrown;
 
 import drbrown.command.Command;
-import drbrown.utils.*;
+import drbrown.utils.Parser;
+import drbrown.utils.Storage;
+import drbrown.utils.TaskList;
+import drbrown.utils.Ui;
+import drbrown.utils.DrBrownException;
 
 public class DrBrown {
 
@@ -42,5 +46,4 @@ public class DrBrown {
     public static void main(String[] args) {
         new DrBrown("data/DrBrown.txt").run();
     }
-
 }

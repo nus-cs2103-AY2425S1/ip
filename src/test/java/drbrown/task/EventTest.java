@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class EventTest {
+
     private String description;
     private String validStartTime;
     private String validEndTime;
@@ -28,34 +29,35 @@ public class EventTest {
 
     @Test
     public void testSuccessfulCreationEvent() {
-        Event event = new Event(false, this.description, LocalDateTime.parse(this.validStartTime, formatter), LocalDateTime.parse(this.validEndTime, formatter));
+        Event event = new Event(false, description, LocalDateTime.parse(validStartTime, formatter), LocalDateTime.parse(validEndTime, formatter));
         assertEquals("[E][ ] Meeting (from: Sep 03 2024 end: Sep 03 2024 10:00)", event.toString());
     }
 
     @Test
     public void testInvalidDateTimeEvent() {
         try {
-            Event event = new Event(false, this.description, LocalDateTime.parse(this.invalidTime, formatter), LocalDateTime.parse(this.validEndTime, formatter));
+            new Event(false, description, LocalDateTime.parse(invalidTime, formatter), LocalDateTime.parse(validEndTime, formatter));
             fail("Expected DateTimeParseException to be thrown");
         } catch (DateTimeParseException ignored) {
+            // Exception is expected, so the test passes.
         }
     }
 
     @Test
     void testToFileStringEvent() {
-        Event event = new Event(false, this.description, LocalDateTime.parse(this.validStartTime, formatter), LocalDateTime.parse(this.validEndTime, formatter));
+        Event event = new Event(false, description, LocalDateTime.parse(validStartTime, formatter), LocalDateTime.parse(validEndTime, formatter));
         assertEquals("E | false | Meeting | 2024-09-03 0900 | 2024-09-03 1000", event.toFileString());
     }
 
     @Test
     void testToUIStringEvent() {
-        Event event = new Event(false, this.description, LocalDateTime.parse(this.validStartTime, formatter), LocalDateTime.parse(this.validEndTime, formatter));
+        Event event = new Event(false, description, LocalDateTime.parse(validStartTime, formatter), LocalDateTime.parse(validEndTime, formatter));
         assertEquals("The appropriate question is: ‘When the hell are they?’ Your event is now set in time!\n", event.toUIString());
     }
 
     @Test
     public void testSuccessfulCreationMarkDoneEvent() {
-        Event event = new Event(true, this.description, LocalDateTime.parse(this.validStartTime, formatter), LocalDateTime.parse(this.validEndTime, formatter));
+        Event event = new Event(true, description, LocalDateTime.parse(validStartTime, formatter), LocalDateTime.parse(validEndTime, formatter));
         assertEquals("[E][X] Meeting (from: Sep 03 2024 end: Sep 03 2024 10:00)", event.toString());
     }
 }

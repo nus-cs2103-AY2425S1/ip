@@ -6,11 +6,10 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private ArrayList<Task> tasks;
-    private int count = 0;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        tasks = new ArrayList<>();
     }
 
     public TaskList(ArrayList<Task> tasks) {
@@ -18,20 +17,18 @@ public class TaskList {
     }
 
     public void add(Task item) {
-        this.tasks.add(item);
-        this.count++;
+        tasks.add(item);
     }
 
     public ArrayList<Task> getList() {
-        return this.tasks;
+        return tasks;
     }
 
     public int getCount() {
-        return this.count;
+        return tasks.size();
     }
 
-    public void removeItem(int count) {
-        this.tasks.remove(count);
+    public void removeItem(int index) {
+        tasks.remove(index);
     }
-
 }

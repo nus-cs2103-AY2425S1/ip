@@ -3,10 +3,12 @@ package drbrown.utils;
 import drbrown.task.Task;
 
 import java.util.Scanner;
+
 public class Ui {
 
-    Scanner scanner = new Scanner(System.in);
-    public Ui(){}
+    private final Scanner scanner = new Scanner(System.in);
+
+    public Ui() {}
 
     public void showGreeting() {
         System.out.println("\nRoads? Where We're Going, We Don't Need Roads?! So, what can I help you with today?");
@@ -30,13 +32,13 @@ public class Ui {
     }
 
     public void showMarkTask(Task markTask) {
-        System.out.println("drbrown.task.Task complete! If my calculations are correct, when this baby hits 88 miles per hour... you're gonna see some serious progress!\n");
-        System.out.println(markTask.toString());
+        System.out.println("Task complete! If my calculations are correct, when this baby hits 88 miles per hour... you're gonna see some serious progress!\n");
+        System.out.println(markTask);
     }
 
     public void showUnmarkTask(Task unmarkTask) {
         System.out.println("Looks like we're going back to the future—task unmarked! Time to revisit this one.\n");
-        System.out.println(unmarkTask.toString());
+        System.out.println(unmarkTask);
     }
 
     public void showList() {
@@ -45,7 +47,7 @@ public class Ui {
 
     public void showDeleteTask(Task deleteTask) {
         System.out.println("That task's history has been erased! Just like Marty’s fading photo—it's gone, like it never existed!\n");
-        System.out.println(deleteTask.toString());
+        System.out.println(deleteTask);
     }
 
     public void showCount(TaskList tasks) {
@@ -57,8 +59,7 @@ public class Ui {
     }
 
     public String readCommand() {
-        String input = scanner.nextLine();
-        return input;
+        return scanner.nextLine();
     }
 
     public void closeCommand() {

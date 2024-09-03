@@ -8,21 +8,20 @@ import drbrown.utils.Ui;
 
 import java.util.ArrayList;
 
-import static java.lang.Integer.parseInt;
-
 public class DeleteCommand extends Command {
 
-    private int itemIndex;
+    private final int itemIndex;
 
     public DeleteCommand(int itemIndex) {
         this.itemIndex = itemIndex;
     }
 
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         try {
             ArrayList<Task> list = tasks.getList();
-            Task deleteTask = list.get(this.itemIndex);
-            tasks.removeItem(this.itemIndex);
+            Task deleteTask = list.get(itemIndex);
+            tasks.removeItem(itemIndex);
             ui.showDeleteTask(deleteTask);
             ui.showEnd();
             ui.showCount(tasks);
@@ -31,8 +30,8 @@ public class DeleteCommand extends Command {
         }
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }
-
 }

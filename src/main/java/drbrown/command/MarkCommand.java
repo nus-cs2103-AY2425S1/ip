@@ -9,15 +9,18 @@ import drbrown.utils.Ui;
 import java.util.ArrayList;
 
 public class MarkCommand extends Command {
-    private int itemIndex;
+
+    private final int itemIndex;
+
     public MarkCommand(int itemIndex) {
         this.itemIndex = itemIndex;
     }
 
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         try {
             ArrayList<Task> list = tasks.getList();
-            Task markTask = list.get(this.itemIndex);
+            Task markTask = list.get(itemIndex);
             markTask.setStatus(true);
             ui.showMarkTask(markTask);
         } catch (IndexOutOfBoundsException e) {
@@ -25,8 +28,8 @@ public class MarkCommand extends Command {
         }
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }
-
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
+
     private String description;
 
     @BeforeEach
@@ -15,25 +16,25 @@ public class TodoTest {
 
     @Test
     public void testSuccessfulCreationTodo() {
-        Todo todo = new Todo(false, this.description);
+        Todo todo = new Todo(false, description);
         assertEquals("[T][ ] Buy groceries", todo.toString());
     }
 
     @Test
     void testToFileStringTodo() {
-        Todo todo = new Todo(false, this.description);
+        Todo todo = new Todo(false, description);
         assertEquals("T | false | Buy groceries", todo.toFileString());
     }
 
     @Test
     void testToUIStringTodo() {
-        Todo todo = new Todo(false, this.description);
+        Todo todo = new Todo(false, description);
         assertEquals("Doc, you don't just walk into a store and buy plutonium! But you sure can add this task to your list!\n", todo.toUIString());
     }
 
     @Test
     public void testSuccessfulCreationMarkDoneTodo() {
-        Todo todo = new Todo(true, this.description);
+        Todo todo = new Todo(true, description);
         assertEquals("[T][X] Buy groceries", todo.toString());
     }
 }
