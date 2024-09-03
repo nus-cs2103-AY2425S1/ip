@@ -1,7 +1,15 @@
-public class ToDo extends Task{
+public class Todo extends Task{
 
-    public ToDo(String description) {
+    public Todo(String description) {
         super(description);
+    }
+
+    public Todo(String description, boolean isComplete) {
+        super(description, isComplete);
+    }
+
+    public String toSaveFormat() {
+        return String.format("T | %s", super.toSaveFormat());
     }
 
     @Override
