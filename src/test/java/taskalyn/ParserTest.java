@@ -7,7 +7,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 public class ParserTest {
-
     @Test
     public void testParseByeCommand() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -19,14 +18,13 @@ public class ParserTest {
         TaskManager taskManager = new TaskManager(database, ui);
         Parser parser = new Parser(ui, taskManager);
         parser.parse(taskManager);
-
         String output = out.toString();
-
-        String expectedOutput =
-                "    ____________________________________________________________\n" +
+        // Solution inspired by: https://stackoverflow.com/questions/41674408/java-test-system-output-including-new-lines-with-assertequals
+        String expectedOutput = ("    ____________________________________________________________\n" +
                 "    Bye. Hope to see you again soon!\n" +
-                "    ____________________________________________________________\n";
-        assertEquals(expectedOutput, out.toString());
+                "    ____________________________________________________________")
+                .replaceAll("\\n|\\r\\n", System.getProperty("line.separator"));
+        assertEquals(expectedOutput.trim(), out.toString().trim());
         System.setOut(null);
         System.setIn(null);
     }
