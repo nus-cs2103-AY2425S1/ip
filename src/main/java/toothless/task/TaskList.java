@@ -1,10 +1,15 @@
+package toothless.task;
+
+import toothless.exceptions.ToothlessExceptions;
+import toothless.task.Task;
+
 import java.util.ArrayList;
 
 /**
  * TaskList represents a list of tasks that is stored in the chat application.
  */
 public class TaskList {
-    ArrayList<Task> list;
+    private ArrayList<Task> list;
     private final static String DIVIDER = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
 
     /**
@@ -12,6 +17,14 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
+    }
+
+    /**
+     * Returns the list of tasks.
+     * @return The list of tasks.
+     */
+    public ArrayList<Task> getList() {
+        return list;
     }
 
     public void addTask(Task task) {

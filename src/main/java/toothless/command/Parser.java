@@ -1,3 +1,5 @@
+package toothless.command;
+
 public class Parser {
     private enum CommandType {
         TODO,

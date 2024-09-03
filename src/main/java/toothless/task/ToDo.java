@@ -1,13 +1,15 @@
+package toothless.task;
+
 /**
  * Represents a ToDos task.
  */
-public class ToDos extends Task {
+public class ToDo extends Task {
 
     /**
      * Constructor for ToDos.
      * @param description the description of the task
      */
-    public ToDos(String description) {
+    public ToDo(String description) {
         super(description);
     }
 
@@ -16,7 +18,7 @@ public class ToDos extends Task {
      * @param description the description of the task
      * @param isDone the status of the task
      */
-    public ToDos(String description, boolean isDone) {
+    public ToDo(String description, boolean isDone) {
         super(description, isDone);
     }
     @Override

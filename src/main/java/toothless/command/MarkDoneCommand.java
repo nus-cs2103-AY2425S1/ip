@@ -1,4 +1,12 @@
-public class MarkDoneCommand extends Command{
+package toothless.command;
+
+import toothless.storage.Storage;
+import toothless.task.TaskList;
+import toothless.exceptions.MissingIndexExceptions;
+import toothless.exceptions.ToothlessExceptions;
+import toothless.ui.Ui;
+
+public class MarkDoneCommand extends Command {
 
     private String description;
     private final static String DIVIDER = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
@@ -10,10 +18,10 @@ public class MarkDoneCommand extends Command{
     @Override
     public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
         if(description.isEmpty()) {
-            throw new MissingIndex("mark", "mark <index>");
+            throw new MissingIndexExceptions("mark", "mark <index>");
         }
         int markIndex = Integer.parseInt(description);
         taskList.markDone(markIndex);
-        storage.saveTask(taskList.list);
+        storage.saveTask(taskList.getList());
     }
 }

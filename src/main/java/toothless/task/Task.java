@@ -1,3 +1,5 @@
+package toothless.task;
+
 /**
  * Represents a task.
  */
@@ -39,11 +41,34 @@ public class Task {
     }
 
     /**
+     * Returns the description of the task.
+     * @return the description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Return the state of the task.
+     * @return the state of the task.
+     */
+    public boolean getIsDone() {
+        return isDone;
+    }
+    /**
      * Returns the status icon of the task.
      * @return the status icon of the task.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    /**
+     * Returns the string representation of the task.
+     * @return the string representation of the task.
+     */
+    public String toFileString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     /**

@@ -1,3 +1,10 @@
+package toothless.storage;
+
+import toothless.task.Deadline;
+import toothless.task.Event;
+import toothless.task.Task;
+import toothless.task.ToDo;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,18 +35,12 @@ public class Storage {
      * @return The data of the task to be saved in the text file.
      */
     private String getTaskData(Task task) {
-        String taskType = task instanceof ToDos ? "T" :
-                task instanceof Deadline ? "D" :
-                        task instanceof Events ? "E" : "";
-        String baseInfo = taskType + " | " + (task.isDone ? "1" : "0") + " | " + task.description;
-
         if (task instanceof Deadline) {
-            return baseInfo + " | " + ((Deadline) task).deadline;
-        } else if (task instanceof Events) {
-            Events event = (Events) task;
-            return baseInfo + " | " + event.eventStart + " | " + event.eventEnd;
+            return task.toFileString();
+        } else if (task instanceof Event) {
+            return task.toFileString();
         }
-        return baseInfo;
+        return task.toFileString();
     }
 
     /**
@@ -77,14 +78,14 @@ public class Storage {
 
         switch(taskType) {
             case "T":
-                return new ToDos(description, isDone);
+                return new ToDo(description, isDone);
             case "D":
                 String deadline = splitData[3];
                 return new Deadline(description, LocalDateTime.parse(deadline), isDone);
             case "E":
                 String eventStart = splitData[3];
                 String eventEnd = splitData[4];
-                return new Events(description, LocalDateTime.parse(eventStart), LocalDateTime.parse(eventEnd), isDone);
+                return new Event(description, LocalDateTime.parse(eventStart), LocalDateTime.parse(eventEnd), isDone);
             default:
                 return null;
         }

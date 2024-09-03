@@ -1,10 +1,14 @@
+package toothless.task;
+
+import toothless.exceptions.ToothlessExceptions;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an event task.
  */
-public class Events extends Task {
+public class Event extends Task {
 
     protected LocalDateTime eventStart;
     protected LocalDateTime eventEnd;
@@ -18,7 +22,7 @@ public class Events extends Task {
      * @param eventEnd the end date and time of the event
      * @throws ToothlessExceptions if the date and time format is invalid
      */
-    public Events(String description, String eventStart, String eventEnd) throws ToothlessExceptions{
+    public Event(String description, String eventStart, String eventEnd) throws ToothlessExceptions{
         super(description);
         try {
             this.eventStart = LocalDateTime.parse(eventStart.trim().replace("-","/"), INPUT_FORMATTER);
@@ -37,10 +41,19 @@ public class Events extends Task {
      * @param eventEnd the end date and time of the event
      * @param isDone the status of the event
      */
-    public Events(String description, LocalDateTime eventStart, LocalDateTime eventEnd, boolean isDone) {
+    public Event(String description, LocalDateTime eventStart, LocalDateTime eventEnd, boolean isDone) {
         super(description, isDone);
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
+    }
+
+    /**
+     * Returns the string representation of the event task.
+     * @return the string representation of the event task.
+     */
+    @Override
+    public String toFileString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + eventStart.format(INPUT_FORMATTER) + " | " + eventEnd.format(INPUT_FORMATTER);
     }
 
     @Override

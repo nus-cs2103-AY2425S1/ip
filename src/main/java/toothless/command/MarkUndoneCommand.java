@@ -1,4 +1,12 @@
-public class MarkUndoneCommand extends Command{
+package toothless.command;
+
+import toothless.storage.Storage;
+import toothless.task.TaskList;
+import toothless.exceptions.MissingIndexExceptions;
+import toothless.exceptions.ToothlessExceptions;
+import toothless.ui.Ui;
+
+public class MarkUndoneCommand extends Command {
 
         private String description;
 
@@ -9,10 +17,10 @@ public class MarkUndoneCommand extends Command{
         @Override
         public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
             if(description.isEmpty()) {
-                throw new MissingIndex("mark", "mark <index>");
+                throw new MissingIndexExceptions("mark", "mark <index>");
             }
             int markIndex = Integer.parseInt(description);
             taskList.markUndone(markIndex);
-            storage.saveTask(taskList.list);
+            storage.saveTask(taskList.getList());
         }
 }

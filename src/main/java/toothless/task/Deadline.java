@@ -1,3 +1,7 @@
+package toothless.task;
+
+import toothless.exceptions.ToothlessExceptions;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -37,6 +41,15 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDateTime deadline, boolean isDone){
         super(description, isDone);
         this.deadline = deadline;
+    }
+
+    /**
+     * Returns the string representation of the deadline task.
+     * @return the string representation of the deadline task.
+     */
+    @Override
+    public String toFileString() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(INPUT_FORMATTER);
     }
 
     @Override

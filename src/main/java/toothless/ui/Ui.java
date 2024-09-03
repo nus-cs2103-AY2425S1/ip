@@ -1,3 +1,7 @@
+package toothless.ui;
+
+import toothless.task.Task;
+
 import java.util.Scanner;
 public class Ui {
     private final static String TOOTHLESS_LOGO =

@@ -1,3 +1,5 @@
+package toothless.exceptions;
+
 /**
  * ToothlessExceptions class is a custom exception class that extends the Exception class.
  */
