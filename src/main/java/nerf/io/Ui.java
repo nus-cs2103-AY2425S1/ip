@@ -21,20 +21,22 @@ public class Ui {
 
     /**
      * Prints out initial welcome banner.
+     * 
+     * @return welcome banner.
      */
-    public void greetings() {
-        printDivider();
-        System.out.println("Hello there! I am Nerf, your personal chatbot assistant.\n");
-        printLogo();
-        System.out.println("How may I help you today?");
-        printDivider();
+    public String greetings() {
+       
+        String res = "Hello there! I am Nerf, your personal chatbot assistant.\n" 
+                + "How may I help you today?";
+
+        return res;
     }
 
     /**
      * Prints out the nerf logo.
      */
-    public void printLogo() {
-        System.out.println(this.LOGO);
+    public String printLogo() {
+        return this.LOGO;
     }
 
     /**

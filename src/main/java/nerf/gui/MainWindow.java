@@ -36,6 +36,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setNerf(Nerf bot) {
         nerf = bot;
+        dialogContainer.getChildren().add(DialogBox.getNerfDialog(nerf.getGreeting(), nerfImage));
     }
 
     /**

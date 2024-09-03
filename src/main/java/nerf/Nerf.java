@@ -55,6 +55,15 @@ public class Nerf {
     }
 
     /**
+     * Returns greeting.
+     * 
+     * @return greeting message.
+     */
+    public String getGreeting() {
+        return this.ui.greetings();
+    }
+
+    /**
      * Handles user input and return the resulting response string.
      * 
      * @param input user command.
