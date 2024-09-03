@@ -1,8 +1,11 @@
 package bimo.tasks;
 
-import bimo.BimoException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import bimo.BimoException;
+
 
 public class ToDoTest {
     @Test

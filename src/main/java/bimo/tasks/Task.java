@@ -37,7 +37,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String status = this.status ? "X": " ";
+        String status = this.status ? "X" : " ";
         return String.format("[%s] %s", status, this.details);
     }
 

@@ -27,8 +27,7 @@ public class Event extends Task {
     /**
      * Formats start and end date as texts to write into file.
      *
-     * @return Start and end time as text separated
-     * by |.
+     * @return Start and end time as text separated by |.
      */
     public String getDatesAsText() {
         return "|" + this.startDate.toString() + "/" + this.endDate.toString();

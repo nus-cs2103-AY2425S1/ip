@@ -6,16 +6,16 @@ import java.util.Scanner;
  * Deals with interactions with the user.
  */
 public class Ui {
-    private static String LINE = "    " + "___________________________________";
+    private static final String LINE = "    " + "___________________________________";
 
     /**
      * Displays introduction to users.
      *
-     * @param NAME Name of the chatbot.
+     * @param name Name of the chatbot.
      */
-    public void greetUser(String NAME) {
+    public void greetUser(String name) {
         System.out.println(LINE);
-        System.out.println("    " + String.format("Hello! I'm %s", NAME));
+        System.out.println("    " + String.format("Hello! I'm %s", name));
         System.out.println("    " + "What can I do for you?");
         System.out.println(LINE);
     }
@@ -51,5 +51,4 @@ public class Ui {
     public void showErrorMessage() {
         System.out.println("    Something went wrong! Please try again");
     }
-
 }

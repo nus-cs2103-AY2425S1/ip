@@ -1,19 +1,18 @@
 package bimo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import bimo.tasks.Deadline;
 import bimo.tasks.Event;
 import bimo.tasks.Task;
 import bimo.tasks.ToDo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.time.LocalDate;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Deals with writing and loading files.
@@ -26,12 +25,10 @@ public class Storage {
         this.dataFile = new File(filePath);
     }
     /**
-     * Converts the type of task, status, description and dates
-     * into text.
+     * Converts the type of task, status, description and dates into text.
      *
      * @param task Task object inside Tasklists.
-     * @return Formatted text that can be written into data file in the
-     * form type|1|description|yyyy-mm-dd/yyyy-mm-dd.
+     * @return Formatted text in the form type|1|description|yyyy-mm-dd/yyyy-mm-dd.
      */
     public String convertTaskToText(Task task) {
         String text = "";
@@ -57,7 +54,7 @@ public class Storage {
     private Task convertTextToTask(String text) {
         String[] details = text.split("\\|");
         String type = details[0];
-        Task task= null;
+        Task task = null;
 
         boolean status = details[1].equals("0") ? false : true;
         if (type.equals("T")) {

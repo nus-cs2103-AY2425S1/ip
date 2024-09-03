@@ -5,7 +5,7 @@ import bimo.command.Command;
  * Represents a chatbot class.
  */
 public class Bimo {
-    public static String NAME = "bimo";
+    public static final String NAME = "bimo";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -50,4 +50,3 @@ public class Bimo {
         new Bimo("data/Bimo.txt").run();
     }
 }
-
