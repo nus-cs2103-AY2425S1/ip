@@ -1,6 +1,37 @@
-# Duke project template
+## Gumball
+Gumball frees your mind of having to remember things you need to do. It's,
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+-text-based
+-easy to learn
+-FAST to use
+
+All you need to do is,
+
+1.download it from here.
+2.double-click it.
+3.add your tasks.
+4.let it manage your tasks for you 😉
+
+Features:
+[x] Managing tasks
+[x] Managing deadlines
+[ ] Reminders (coming soon)
+
+Here is a look at the main method:
+'''
+public static void main(String[] args) {
+        try {
+            Gumball chat = new Gumball();
+            chat.start();
+        } catch (IOException e) {
+            UI.print(e.getMessage());
+        } catch (InputErrorException e) {
+            UI.print("Error in file please start over.");
+        }
+
+    }
+'''
+
 
 ## Setting up in Intellij
 
