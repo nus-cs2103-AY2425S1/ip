@@ -213,7 +213,7 @@ public class Sentinel {
     }
 
     /**
-     * Makes Sentinel listen for tasks.
+     * Makes Sentinel respond to an input.
      */
     public String getResponse(String input) {
         String userInput = input;
@@ -232,7 +232,7 @@ public class Sentinel {
                 }
             }
         } else {
-            return "It was a pleasure conversing with you. Goodbye!";
+            goodbye();
         }
 
         return ui.currentMessage;
