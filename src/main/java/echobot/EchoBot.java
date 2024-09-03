@@ -1,5 +1,5 @@
 package echobot;
-import echobot.task.*;
+import echobot.task.TaskList;
 
 /**
  * Main class for the EchoBot application.

@@ -11,8 +11,8 @@ import java.util.List;
  * Inherits from the Task class and includes the start and end dates for the event.
  */
 public class Event extends Task {
-    public LocalDate from;
-    public LocalDate to;
+    private final LocalDate from;
+    private final LocalDate to;
 
     /**
      * Constructs an Event task with a description, start date, and end date.
@@ -26,6 +26,15 @@ public class Event extends Task {
         this.from = parseDate(from); // Parse the string into a LocalDate
         this.to = parseDate(to);
     }
+
+    public LocalDate getFrom() {
+        return this.from;
+    }
+
+    public LocalDate getTo() {
+        return this.to;
+    }
+
 
     /**
      * Parses a date string into a LocalDate object.
