@@ -6,80 +6,98 @@ import lbot.task.Task;
  * This class handles all the printed message for user.
  */
 public class Ui {
+    //=================================================================================================================
+    // JavaFX related methods
+    //=================================================================================================================
+
     /**
-     * Prints out successfully added {@link Task}.
+     * Generic say method that takes in any String.
      *
-     * @param task added.
+     * @param output to be printed.
+     * @return String to be printed.
      */
-    public void printTaskAddedMessage(Task task) {
-        System.out.println("Added: " + task);
+    public String say(String output) {
+        return output;
     }
 
     /**
-     * Prints out if {@link Task} has been successfully marked or unmarked.
+     * Returns greeting message.
      *
-     * @param task that has been marked/unmarked.
+     * @return formatted greeting String.
      */
-    public void printTaskMarkedMessage(Task task) {
+    public String sayHello() {
+        return "Henlo, this is LBot :)\nHow can I help?";
+    }
+
+    /**
+     * Returns farewell message.
+     *
+     * @return formatted farewell String.
+     */
+    public String sayBye() {
+        return "Bye-bi!!";
+    }
+
+    /**
+     * Formats and returns newly added {@link Task}.
+     *
+     * @param task that was created.
+     * @return formatted String containing task that was added.
+     */
+    public String sayAdded(Task task) {
+        return "Added: " + task;
+    }
+
+    /**
+     * Formats and returns {@link Task} that was just marked.
+     *
+     * @param task that was marked.
+     * @return formatted String containing task that was marked.
+     */
+    public String sayMarked(Task task) {
         if (task.getStatus()) {
-            System.out.println("Marked: " + task);
+            return "Marked: " + task;
         } else {
-            System.out.println("Unmarked: " + task);
+            return "Unmarked: " + task;
         }
     }
 
     /**
-     * Prints out {@link Task} has been successfully deleted.
+     * Formats and returns {@link Task} that was just deleted.
      *
-     * @param task that has been deleted.
+     * @param task that was deleted.
+     * @return formatted String containing task that was deleted.
      */
-    public void printTaskDeletedMessage(Task task) {
-        System.out.println("Deleted: " + task);
+    public String sayDeleted(Task task) {
+        return "Deleted: " + task;
     }
 
     /**
-     * Prints out {@link TaskList}.
+     * Formats and returns {@link TaskList}, containing all the tasks currently in the system.
      *
-     * @param taskList contains all tasks added to LBot.
+     * @param taskList that contains all {@link Task}s.
+     * @return formatted String containing all tasks.
      */
-    public void printTaskList(TaskList taskList) {
-        System.out.println("Here are your tasks:");
-        System.out.println(taskList);
+    public String sayList(TaskList taskList) {
+        return "Here are your tasks:\n" + taskList;
     }
 
     /**
-     * Prints initial greeting.
+     * Returns a load failed message.
+     *
+     * @return failure String when loading previous tasks from memory fails.
      */
-    public void printGreeting() {
-        System.out.println("Heyo, I'm LBot!");
-        System.out.println("How can I help? :)");
-    }
-
-    /**
-     * Prints farewell message.
-     */
-    public void printBye() {
-        System.out.println("Bye-bi!!");
-    }
-
-    /**
-     * Prints failure message if previous tasks could not be loaded.
-     * Informs user that their tasks have been lost.
-     */
-    public void printDataLoadFailed() {
-        System.out.println("Seems like there was an issue loading your tasks... Guess we gotta start from scratch :(");
+    public String sayLoadFailed() {
+        return "Seems like there was an issue loading your tasks... Guess we gotta start from scratch :(";
     }
 
     /**
      * Formatted Exception message.
      *
      * @param output The exception message to be printed.
+     * @return formatted String containing exception message.
      */
-    public void printException(String output) {
-        System.out.println("Oopssie: " + output);
-    }
-
-    public void print(String output) {
-        System.out.println(output);
+    public String sayException(String output) {
+        return "Oopsie:\n" + output;
     }
 }
