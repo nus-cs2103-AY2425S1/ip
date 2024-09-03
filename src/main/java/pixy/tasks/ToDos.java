@@ -1,8 +1,8 @@
+package pixy.tasks;
+
 /**
  * Represents the Tasks which are ToDo items.
  */
-package pixy.tasks;
-
 public class ToDos extends Task {
 
     /**

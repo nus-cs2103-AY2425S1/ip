@@ -1,12 +1,5 @@
-/**
- * Stores the tasks from the TaskList to the hard disk.
- */
 package pixy.storage;
 
-import pixy.tasks.ToDos;
-import pixy.tasks.Deadlines;
-import pixy.tasks.Event;
-import pixy.tasks.Task;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,6 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import pixy.tasks.Deadlines;
+import pixy.tasks.Event;
+import pixy.tasks.Task;
+import pixy.tasks.ToDos;
+
+/**
+ * Stores the tasks from the TaskList to the hard disk.
+ */
 public class Storage {
 
     /** variable to store file path of the file in the hard disk */
@@ -66,18 +67,20 @@ public class Storage {
         String description = parts[2];
         Task task = null;
         switch (taskType) {
-            case "T":
-                task = new ToDos(description);
-                break;
-            case "D":
-                String by = parts[3];
-                task = new Deadlines(description, by);
-                break;
-            case "E":
-                String from = parts[3];
-                String to = parts[4];
-                task = new Event(description, from, to);
-                break;
+        case "T":
+            task = new ToDos(description);
+            break;
+        case "D":
+            String by = parts[3];
+            task = new Deadlines(description, by);
+            break;
+        case "E":
+            String from = parts[3];
+            String to = parts[4];
+            task = new Event(description, from, to);
+            break;
+        default:
+            break;
         }
         if (task != null && isDone) {
             task.markAsDone(true);

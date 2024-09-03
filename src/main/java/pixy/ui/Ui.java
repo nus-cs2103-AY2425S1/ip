@@ -1,21 +1,21 @@
+package pixy.ui;
+
+import java.util.List;
+
+import pixy.tasks.Task;
+
 /**
  * Handles the user interaction with the chatbot.
  */
-package pixy.ui;
-
-import pixy.tasks.Task;
-import java.util.List;
-
 public class Ui {
 
     /**
      * Shows the welcome message from chatbot at the beginning.
      */
     public void showWelcomeMessage() {
-        System.out.println("____________________________________________________________\n" +
-                " Hello! I'm Pixy.\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n");
+        System.out.println("____________________________________________________________\n"
+                + " Hello! I'm Pixy.\n" + " What can I do for you?\n"
+                + "____________________________________________________________\n");
     }
 
     /**
@@ -27,8 +27,8 @@ public class Ui {
     public void showTaskAdded(Task task, int size) {
         System.out.println("____________________________________________________________\n");
         System.out.println("Got it. I've added this task:\n " + task);
-        System.out.println("Now you have " + size + " tasks in the list." +
-                "\n____________________________________________________________\n");
+        System.out.println("Now you have " + size + " tasks in the list."
+                + "\n____________________________________________________________\n");
     }
 
     /**
@@ -62,8 +62,8 @@ public class Ui {
     public void showTaskMarked(Task task) {
         System.out.println("____________________________________________________________\n");
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString() +
-                "\n____________________________________________________________\n");
+        System.out.println(task.toString()
+                + "\n____________________________________________________________\n");
     }
 
     /**
@@ -73,8 +73,8 @@ public class Ui {
     public void showTaskUnmarked(Task task) {
         System.out.println("____________________________________________________________\n");
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString() +
-                "\n____________________________________________________________\n");
+        System.out.println(task.toString()
+                + "\n____________________________________________________________\n");
     }
 
     /**
@@ -87,13 +87,18 @@ public class Ui {
         System.out.println("____________________________________________________________\n");
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
-        System.out.println("Now you have " + size + " tasks in the list." +
-                "\n____________________________________________________________\n");
+        System.out.println("Now you have " + size + " tasks in the list."
+                + "\n____________________________________________________________\n");
     }
 
+    /**
+     * Displays the tasks which match the keyword inputted by user.
+     *
+     * @param matchedTasks List of matched Tasks.
+     */
     public void showMatchedTasks(List<Task> matchedTasks) {
         System.out.println("____________________________________________________________\n");
-        if(matchedTasks.isEmpty()) {
+        if (matchedTasks.isEmpty()) {
             System.out.println("No tasks found with matching description.");
         } else {
             System.out.println("Here are the matching tasks in your list:");
@@ -109,8 +114,8 @@ public class Ui {
      */
     public void showGoodbyeMessage() {
         System.out.println("____________________________________________________________\n");
-        System.out.println("Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n");
+        System.out.println("Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________\n");
     }
 
     /**

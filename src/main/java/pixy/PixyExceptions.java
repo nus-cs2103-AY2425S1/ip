@@ -1,8 +1,8 @@
+package pixy;
+
 /**
  * Represents the exception class of Pixy.
  */
-package pixy;
-
 public class PixyExceptions extends Exception {
 
     /**

@@ -1,9 +1,10 @@
 package pixy;
 
-import org.junit.jupiter.api.Test;
-import pixy.tasks.ToDos;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import pixy.tasks.ToDos;
 
 public class ToDosTest {
 

@@ -1,8 +1,9 @@
+package pixy.tasks;
+
 /**
  * Represents the abstract class Task.
  */
-package pixy.tasks;
-abstract public class Task {
+public abstract class Task {
 
     /** Description of the task.*/
     protected final String description;

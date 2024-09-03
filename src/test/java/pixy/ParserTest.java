@@ -1,7 +1,13 @@
 package pixy;
 
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import pixy.parser.Parser;
 import pixy.tasks.Deadlines;
 import pixy.tasks.Event;
@@ -10,7 +16,7 @@ import pixy.tasks.TaskList;
 import pixy.tasks.ToDos;
 import pixy.ui.Ui;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class ParserTest {
 
