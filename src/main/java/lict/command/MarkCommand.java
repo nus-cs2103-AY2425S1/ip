@@ -1,9 +1,9 @@
 package lict.command;
 
+import lict.LictException;
 import lict.Storage;
 import lict.TaskList;
 import lict.Ui;
-import lict.LictException;
 import lict.task.Task;
 
 /**
@@ -22,6 +22,15 @@ public class MarkCommand extends Command {
         this.taskNum = taskNum;
     }
 
+    /**
+     * Executes the command to mark a task as done.
+     * Validates the task number, marks the corresponding task as done, and updates the UI and storage.
+     *
+     * @param tasks    The task list containing the tasks.
+     * @param ui       The UI component responsible for displaying the updated task status.
+     * @param storage  The storage to save the updated task list to.
+     * @throws LictException If the task number is invalid or not a valid integer.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LictException {
         try {
             int index = Integer.parseInt(taskNum) - 1;

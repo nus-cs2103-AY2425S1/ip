@@ -1,12 +1,12 @@
 package lict;
 
-import lict.task.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import lict.task.Task;
 
 
 /**
@@ -39,7 +39,7 @@ public class Storage {
                 Scanner sc = new Scanner(file);
                 while (sc.hasNextLine()) {
                     String dataEntry = sc.nextLine();
-                    Task task = Task.convertData(dataEntry);  // lict.task.Task class handles parsing
+                    Task task = Task.convertData(dataEntry); // lict.task.Task class handles parsing
                     if (task != null) {
                         tasks.add(task);
                     }
@@ -54,7 +54,9 @@ public class Storage {
             }
             return tasks;
         } catch (IOException e) {
-            throw new LictException("An error occurred while creating the data directory or the LictData.txt file: " + e.getMessage());
+            throw new LictException(
+                    "An error occurred while creating the data directory or the LictData.txt file: "
+                            + e.getMessage());
         }
     }
 

@@ -1,17 +1,32 @@
 package lict;
 
-import lict.command.*;
 import java.util.Arrays;
 
+import lict.command.ByeCommand;
+import lict.command.Command;
+import lict.command.DeadlineCommand;
+import lict.command.DeleteCommand;
+import lict.command.EventCommand;
+import lict.command.FindCommand;
+import lict.command.ListCommand;
+import lict.command.MarkCommand;
+import lict.command.TodoCommand;
+import lict.command.UnmarkCommand;
+
+
 /**
- * The {@code Parser} class is responsible for interpreting and converting user input strings into specific {@code Command} objects.
- * It recognizes various command types and ensures that the input is parsed correctly before creating the corresponding command.
+ * The {@code Parser} class is responsible for interpreting and converting user input strings into
+ * specific {@code Command} objects.
+ * It recognizes various command types and ensures that the input is parsed correctly before
+ * creating the corresponding command.
  */
 public class Parser {
 
     /**
-     * The {@code Parser} class is responsible for interpreting and converting user input strings into specific {@code Command} objects.
-     * It recognizes various command types and ensures that the input is parsed correctly before creating the corresponding command.
+     * The {@code Parser} class is responsible for interpreting and converting user input strings into
+     * specific {@code Command} objects.
+     * It recognizes various command types and ensures that the input is parsed correctly before
+     * creating the corresponding command.
      */
     enum CommandType {
         TODO,
@@ -85,7 +100,11 @@ public class Parser {
                 //Fallthrough
             }
         } catch (IllegalArgumentException e) {
-            throw new LictException("OOPS!!! I'm sorry, but I don't know what that means. Please only input tasks which start with these words: " + Arrays.toString(CommandType.values()).toLowerCase());
+            throw new LictException(
+                    """
+                        OOPS!!! I'm sorry, but I don't know what that means.
+                        Please only input tasks which start with these words: """
+                            + Arrays.toString(CommandType.values()).toLowerCase());
         }
         return c;
     }

@@ -1,7 +1,8 @@
 package lict;
 
-import lict.task.Task;
 import java.util.ArrayList;
+
+import lict.task.Task;
 
 /**
  * The {@code TaskList} class manages a list of {@code Task} objects.

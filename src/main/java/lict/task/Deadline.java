@@ -1,14 +1,14 @@
 package lict.task;
 
-import lict.DateTime;
-
-import lict.LictException;
-
 import java.time.DateTimeException;
+
+import lict.DateTime;
+import lict.LictException;
 
 /**
  * The {@code lict.task.Deadline} class represents a task that has a deadline.
- * It extends the {@code lict.task.Task} class and provides specific implementations for the {@code toString} and {@code toData} methods.
+ * It extends the {@code lict.task.Task} class and provides specific implementations for
+ * the {@code toString} and {@code toData} methods.
  */
 public class Deadline extends Task {
     protected DateTime by;
@@ -25,7 +25,11 @@ public class Deadline extends Task {
         try {
             this.by = new DateTime(by);
         } catch (DateTimeException e) {
-            throw new LictException("Invalid format for deadline. Please ensure that deadline is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.");
+            throw new LictException(
+                    """
+                    Invalid format for deadline.
+                    Please ensure that deadline is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'."""
+            );
         }
     }
 

@@ -3,8 +3,10 @@ package lict.task;
 import lict.LictException;
 
 /**
- * The abstract {@code lict.task.Task} class represents a task with a description and a status indicating whether it is done.
- * It provides methods to manage the task's completion status and to convert it to a string representation or data representation for saving and loading.
+ * The abstract {@code lict.task.Task} class represents a task with a description and a status
+ * indicating whether it is done.
+ * It provides methods to manage the task's completion status and to convert it to a string representation
+ * or data representation for saving and loading.
  */
 
 public abstract class Task {

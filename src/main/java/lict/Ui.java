@@ -1,7 +1,8 @@
 package lict;
 
-import lict.task.Task;
 import java.util.Scanner;
+
+import lict.task.Task;
 
 /**
  * The {@code Ui} class handles all interactions with the user. It provides methods for reading user input,
@@ -76,7 +77,8 @@ public class Ui {
      * </p>
      *
      * @param tasks  The list of tasks to be searched and filtered.
-     * @param filter The keyword to filter the tasks by. If the filter is empty, all tasks will be considered as non-matching.
+     * @param filter The keyword to filter the tasks by. If the filter is empty, all tasks will be
+     *     considered as non-matching.
      */
     public void showFilteredTasks(TaskList tasks, String filter) {
         TaskList filteredTasks = new TaskList();
