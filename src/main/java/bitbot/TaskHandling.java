@@ -279,24 +279,25 @@ public class TaskHandling {
     /**
      * Finds the related tasks and returns a list of tasks for the user to see.
      *
-     * @param partsOfInput the String[] of the split input
      * @param arrayList the list of tasks
+     * @param wordsToSearch this is a variable argument of Strings that the user can input.
      * @throws BitBotException when the user does not key in any text after "find"
      */
-    public static void handleFind (String[] partsOfInput, ArrayList<Task> arrayList) throws BitBotException {
-        if (partsOfInput.length < 2) {
+    public static void handleFind (ArrayList<Task> arrayList, String... wordsToSearch) throws BitBotException {
+        if (wordsToSearch == null ||wordsToSearch.length == 0) {
             throw new BitBotException("OOPS!! Add a string of words you want to find.\n" +
                     "          Please do not leave it blank.");
         }
+
         String textToBeFound;
         StringBuilder sb1 = new StringBuilder();
         ArrayList<Task> similarWordList = new ArrayList<>();
 
-        for (int i = 1; i < partsOfInput.length; i++) {
+        for (String eachWord : wordsToSearch) {
             if (!sb1.isEmpty()) {
                 sb1.append(" ");
             }
-            sb1.append(partsOfInput[i]);
+            sb1.append(eachWord);
         }
 
         textToBeFound = sb1.toString();
