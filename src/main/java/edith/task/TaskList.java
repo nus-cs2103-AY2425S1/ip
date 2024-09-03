@@ -101,4 +101,31 @@ public class TaskList {
             ui.showLineBreak();
         }
     }
+
+    /**
+     * Finds and lists tasks that contain the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @param ui The Ui object used to display the tasks.
+     */
+    public void findTasksByKeyword(String keyword, Ui ui) {
+        int index = 1;
+        boolean hasKeyword = false;
+
+        ui.showIndentedMessage("Here are the matching tasks in your list:");
+        for (Task task : listOfTasks) {
+            if (task.containsKeyword(keyword)) {
+                ui.showIndentedMessage(index + ") " + task);
+                index++;
+                hasKeyword = true;
+            }
+        }
+
+        if (!hasKeyword) {
+            ui.showIndentedMessage("NOTHING");
+            ui.showLineBreak();
+        } else {
+            ui.showLineBreak();
+        }
+    }
 }
