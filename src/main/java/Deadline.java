@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,7 +17,13 @@ public class Deadline extends Task {
             return null;
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-        LocalDateTime dateTime = LocalDateTime.parse(parts[3], formatter);
+        LocalDateTime dateTime;
+        try {
+             dateTime = LocalDateTime.parse(parts[3], formatter);
+        } catch (DateTimeException e) {
+            System.out.println("Error loading date & time for deadline task, skipping");
+            return null;
+        }
         Deadline deadline = new Deadline(parts[2], dateTime);
         if (parts[1].equals("1"))
             deadline.markAsDone();
