@@ -17,7 +17,7 @@ public class Waterfall {
             storage = new Storage(filePath);
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
-            return ;
+            return;
         }
         try {
             tasks = new TaskList(storage.load());
