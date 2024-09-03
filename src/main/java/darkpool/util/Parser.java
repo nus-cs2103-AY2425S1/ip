@@ -1,12 +1,6 @@
 package darkpool.util;
 
-import darkpool.command.Command;
-import darkpool.command.AddCommand;
-import darkpool.command.ExitCommand;
-import darkpool.command.DeleteCommand;
-import darkpool.command.ListCommand;
-import darkpool.command.MarkCommand;
-import darkpool.command.UnmarkCommand;
+import darkpool.command.*;
 import darkpool.task.Deadline;
 import darkpool.task.Event;
 import darkpool.task.Todo;
@@ -55,6 +49,13 @@ public class Parser {
         case "delete" -> {
             int num = taskAction(userInput);
             return new DeleteCommand(num);
+        }
+
+        case "find" -> {
+            if (userInput.length < 2 || Objects.equals(userInput[1], "")) {
+                throw new DarkpoolException("you missed the keyword bruh");
+            }
+            return new FindCommand(userInput[1]);
         }
 
         case "todo" -> {

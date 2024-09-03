@@ -35,9 +35,7 @@ public class Ui {
      * Displays the goodbye message.
      */
     public void goodbye() {
-        upperLine();
         output(BYE);
-        lowerLine();
     }
 
     /**
@@ -91,7 +89,7 @@ public class Ui {
      *
      * @param input the message to be output
      */
-    protected void output(String input) {
+    public void output(String input) {
         System.out.println("\u001B[31m" + input + "\u001B[0m");
     }
 

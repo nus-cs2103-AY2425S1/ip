@@ -90,6 +90,28 @@ public class TaskList {
         return getTaskString(index);
     }
 
+    public String search(String searchQuery) throws DarkpoolException {
+        if (taskList.isEmpty()) {
+            throw new DarkpoolException("\tbozo you got no tasks");
+        } else if (searchQuery.isEmpty()) {
+            throw new DarkpoolException("\tbozo you gotta tell me what to search for");
+        }
+
+        StringBuilder temp = new StringBuilder("\tfine! here are the matching tasks\n\t\t");
+
+        for (int i = 0; i < this.taskList.size(); i++) {
+            if (getTask(i).getDescription().contains(searchQuery)) {
+                temp.append((i + 1)).append(". ").append(getTaskString(i)).append("\n\t\t");
+            }
+        }
+
+        temp.setLength(temp.length() - 3);
+        if (temp.toString().equals("\tfine! here are the matching tasks")) {
+            throw new DarkpoolException("bozo there are no matching tasks");
+        }
+        return String.valueOf(temp);
+    }
+
     /**
      * Unmarks the task at the specified index and returns its string representation.
      *
@@ -101,13 +123,14 @@ public class TaskList {
         return getTaskString(index);
     }
 
+    public
+
     /**
      * Returns the string representation of the task list.
      *
      * @return the string representation of the task list
      */
-    @Override
-    public String toString() {
+    @Override String toString() {
         if (taskList.isEmpty()) {
             return "\tbozo you got no tasks";
         }
