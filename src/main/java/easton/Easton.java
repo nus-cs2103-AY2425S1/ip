@@ -1,20 +1,20 @@
 package easton;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import easton.model.Deadline;
 import easton.model.Event;
 import easton.model.Task;
 import easton.model.ToDo;
 import easton.view.Ui;
 
-import java.io.*;
-import java.util.ArrayList;
-
 /**
  * Represents the chatbot, easton.
  */
 public class Easton {
 
-    private ArrayList<Task> tasks = new ArrayList<>();;
+    private ArrayList<Task> tasks = new ArrayList<>();
     private Storage storage;
     private Ui<Task> ui;
 
@@ -98,6 +98,8 @@ public class Easton {
             case DELETE:
                 deleteTask(userInput);
                 saveTasks();
+                break;
+            default:
                 break;
             }
 
@@ -309,9 +311,9 @@ public class Easton {
                 try {
                     task = new Deadline(data[2], data[3]);
                 } catch (DateTimeFormatException e) {
-                    Ui.displayText("easton.model.Deadline (" +
-                            data[2] +
-                            ") is using the wrong DateTime Format, the record is voided.");
+                    Ui.displayText("easton.model.Deadline ("
+                            + data[2]
+                            + ") is using the wrong DateTime Format, the record is voided.");
                     continue;
                 }
                 break;
@@ -319,9 +321,9 @@ public class Easton {
                 try {
                     task = new Event(data[2], data[3], data[4]);
                 } catch (DateTimeFormatException e) {
-                    Ui.displayText("easton.model.Event ("+
-                            data[2] +
-                            ") is using the wrong DateTime Format, the record is voided.");
+                    Ui.displayText("easton.model.Event ("
+                            + data[2]
+                            + ") is using the wrong DateTime Format, the record is voided.");
                     continue;
                 }
                 break;

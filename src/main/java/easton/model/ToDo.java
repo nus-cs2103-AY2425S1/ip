@@ -3,7 +3,8 @@ package easton.model;
 /**
  * Represents a todo task.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
+
 
     /**
      * Constructs a new todo task with the specified description.
@@ -16,7 +17,7 @@ public class ToDo extends Task{
 
     @Override
     public String getCsvFormat() {
-        return "T,"+ super.getCsvFormat();
+        return "T," + super.getCsvFormat();
     }
 
     @Override

@@ -1,15 +1,15 @@
 package easton.model;
 
-import easton.DateTimeFormatException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import easton.DateTimeFormatException;
 /**
  * Represents a deadline task.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
+
     private LocalDateTime by;
 
     /**
@@ -31,7 +31,7 @@ public class Deadline extends Task{
 
     @Override
     public String getCsvFormat() {
-        return "D,"+ super.getCsvFormat() + "," + by.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
+        return "D," + super.getCsvFormat() + "," + by.format(DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
     }
 
 
