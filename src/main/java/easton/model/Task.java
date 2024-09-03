@@ -39,6 +39,23 @@ public abstract class Task {
         return (isDone ? "1" : "0") + "," + description;
     }
 
+    /**
+     * Checks if the keyword is in the description.
+     *
+     * @param keyword Keyword to search.
+     * @return If the keyword is in the description.
+     */
+    public boolean hasKeyword(String keyword) {
+        String[] splitString = description.split(" ");
+        for (String word : splitString) {
+            if (word.matches(keyword)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
