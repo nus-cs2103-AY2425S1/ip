@@ -11,17 +11,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DeleteCommand extends Command {
-    private String Message;
+    private String message;
 
-    public DeleteCommand(String Message) {
-        this.Message = Message;
+    public DeleteCommand(String message) {
+        this.message = message;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws GalliumException {
         try {
             Pattern pattern = Pattern.compile(("delete") + " (\\d+)");
-            Matcher matcher = pattern.matcher(Message);
+            Matcher matcher = pattern.matcher(message);
             if (matcher.matches()) {
                 int index = Integer.parseInt(matcher.group(1));
                 Task task = taskList.get(index - 1);

@@ -26,10 +26,10 @@ public class Parser {
         this.ui = ui;
     }
 
-    public Command parse(String Message) {
-        while (!Message.equals(BYE)) {
+    public Command parse(String message) {
+        while (!message.equals(BYE)) {
             try {
-                switch (Message) {
+                switch (message) {
                     case LIST:
                         return runList();
 
@@ -39,18 +39,18 @@ public class Parser {
                     case "deadline ":
                     case "event":
                     case "event ":
-                        throw new GalliumException("OOPS!!! The description of a " + Message + " cannot be empty.");
+                        throw new GalliumException("OOPS!!! The description of a " + message + " cannot be empty.");
 
                     default:
-                        if (Message.matches(MARK + " \\d+") || Message.matches(UNMARK + " \\d+")) {
-                            return runMark(Message);
-                        } else if (Message.startsWith(TODO) || Message.startsWith(DEADLINE)
-                                || Message.startsWith(EVENT)) {
-                            return runAdd(Message);
-                        } else if (Message.startsWith(DELETE)) {
-                            return runDelete(Message);
-                        } else if (Message.startsWith(DATE)) {
-                            return runDate(Message);
+                        if (message.matches(MARK + " \\d+") || message.matches(UNMARK + " \\d+")) {
+                            return runMark(message);
+                        } else if (message.startsWith(TODO) || message.startsWith(DEADLINE)
+                                || message.startsWith(EVENT)) {
+                            return runAdd(message);
+                        } else if (message.startsWith(DELETE)) {
+                            return runDelete(message);
+                        } else if (message.startsWith(DATE)) {
+                            return runDate(message);
                         } else {
                             throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
                         }
@@ -59,17 +59,17 @@ public class Parser {
             } catch (GalliumException e) {
                 ui.showGalliumException(e);
             } catch (ArrayIndexOutOfBoundsException e) {
-                if (Message.startsWith(DEADLINE)) {
+                if (message.startsWith(DEADLINE)) {
                     ui.showIncompleteDeadline();
-                } else if (Message.startsWith(EVENT)) {
+                } else if (message.startsWith(EVENT)) {
                     ui.showIncompleteEvent();
                 }
             } catch (IndexOutOfBoundsException e) {
-                if (Message.startsWith(MARK) || Message.startsWith(UNMARK) || Message.startsWith(DELETE)) {
+                if (message.startsWith(MARK) || message.startsWith(UNMARK) || message.startsWith(DELETE)) {
                     ui.showWrongIndex();
                 }
             }
-            Message = ui.readNextLine();
+            message = ui.readNextLine();
         }
         return new ByeCommand();
     }
@@ -78,20 +78,20 @@ public class Parser {
         return new ListCommand();
     }
 
-    public MarkCommand runMark(String Message) {
-        return new MarkCommand(Message);
+    public MarkCommand runMark(String message) {
+        return new MarkCommand(message);
     }
 
-    public AddCommand runAdd(String Message) {
-        return new AddCommand(Message);
+    public AddCommand runAdd(String message) {
+        return new AddCommand(message);
     }
 
-    public DeleteCommand runDelete(String Message) {
-        return new DeleteCommand(Message);
+    public DeleteCommand runDelete(String message) {
+        return new DeleteCommand(message);
     }
 
-    public DateCommand runDate(String Message) {
-        return new DateCommand(Message);
+    public DateCommand runDate(String message) {
+        return new DateCommand(message);
     }
 
 }

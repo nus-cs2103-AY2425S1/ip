@@ -21,9 +21,9 @@ public class Gallium {
     public void run() {
         boolean isExit = false;
         while (!isExit) {
-            String Message = ui.readNextLine();
+            String message = ui.readNextLine();
             Parser parser = new Parser(ui);
-            Command c = parser.parse(Message);
+            Command c = parser.parse(message);
             try {
                 c.execute(taskList, ui, storage);
                 isExit = c.isExit();

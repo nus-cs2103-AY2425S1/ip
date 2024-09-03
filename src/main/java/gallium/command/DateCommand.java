@@ -14,16 +14,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DateCommand extends Command {
-    private String Message;
+    private String message;
 
-    public DateCommand(String Message) {
-        this.Message = Message;
+    public DateCommand(String message) {
+        this.message = message;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws GalliumException {
         try {
-            LocalDate date = LocalDate.parse(Message.split("date ")[1]);
+            LocalDate date = LocalDate.parse(message.split("date ")[1]);
             StringBuilder tasksStringBuilder = new StringBuilder();
             for (int i = 1; i < Task.count; i++) {
                 Task task = taskList.get(i - 1);

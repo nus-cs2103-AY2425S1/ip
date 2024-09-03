@@ -11,20 +11,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MarkCommand extends Command {
-    private String Message;
+    private String message;
     private static final String MARK = "mark";
     private static final String UNMARK = "unmark";
 
-    public MarkCommand(String Message) {
-        this.Message = Message;
+    public MarkCommand(String message) {
+        this.message = message;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws GalliumException {
         try {
-            boolean isMark = Message.startsWith(MARK);
+            boolean isMark = message.startsWith(MARK);
             Pattern pattern = Pattern.compile((isMark ? MARK : UNMARK) + " (\\d+)");
-            Matcher matcher = pattern.matcher(Message);
+            Matcher matcher = pattern.matcher(message);
             if (matcher.matches()) {
                 int index = Integer.parseInt(matcher.group(1));
                 Task task = taskList.getTask(index - 1);
