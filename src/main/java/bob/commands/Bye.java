@@ -21,13 +21,13 @@ public class Bye extends Command {
      * @throws RuntimeException if there is an error saving the tasks to the file.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public String execute(TaskList list, Ui ui, Storage storage) {
         try {
             FileWriting.saveTasks(list);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 
     @Override

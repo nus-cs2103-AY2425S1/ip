@@ -14,8 +14,8 @@ public class Unmark extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        unmarkTask(list);
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        return unmarkTask(list);
     }
 
     @Override
@@ -23,8 +23,8 @@ public class Unmark extends Command {
         return false;
     }
 
-    private void unmarkTask(TaskList list) {
+    private String unmarkTask(TaskList list) {
         list.get(index).markAsNotDone();
-        System.out.println("OK, I've marked this task as not done yet:\n" + list.get(index));
+        return "OK, I've marked this task as not done yet:\n" + list.get(index);
     }
 }

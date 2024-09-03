@@ -17,7 +17,7 @@ public class On extends Command {
         this.date = date;
     }
 
-    private void listTasksOnDate(TaskList list) {
+    private String listTasksOnDate(TaskList list) {
         int count = 0;
         String dateFormatted = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         StringBuilder taskOnDate = new StringBuilder("Here are the tasks on " + dateFormatted + ":");
@@ -30,15 +30,14 @@ public class On extends Command {
         }
 
         if (count == 0) {
-            System.out.println("There are no tasks on " + dateFormatted + ".");
-            return;
+            return "There are no tasks on " + dateFormatted + ".";
         }
-        System.out.println(taskOnDate);
+        return taskOnDate.toString();
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        listTasksOnDate(list);
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        return listTasksOnDate(list);
     }
 
     @Override

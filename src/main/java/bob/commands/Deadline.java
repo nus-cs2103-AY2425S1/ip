@@ -26,17 +26,18 @@ public class Deadline extends Command {
         this.by = by;
     }
 
-    private static void taskAdded(TaskList list, Task t) {
-        System.out.println("Got it. I've added this task:\n" + t);
-        System.out.println("Now you have " + list.size() + (list.size() == 1 ? " task in the list."
-                : " tasks in the list."));
+    private static String addTask(TaskList list, Task t) {
+        String response = "Got it. I've added this task:\n" + t
+                    + "Now you have " + list.size() + (list.size() == 1 ? " task in the list."
+                    : " tasks in the list.");
+        return response;
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public String execute(TaskList list, Ui ui, Storage storage) {
         Task t = new DeadlineTask(description, by);
         list.add(t);
-        taskAdded(list, t);
+        return addTask(list, t);
     }
 
     @Override

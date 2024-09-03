@@ -18,10 +18,9 @@ public class Ui {
     /**
      * Shows welcome message to the user.
      */
-    public static void showWelcome() {
+    public static String showWelcome() {
         String logo = "Bob";
-        System.out.println("Hello! I'm " + logo);
-        System.out.println("What can I do for you?");
+        return "Hello! I'm " + logo + "\n" + "What can I do for you?";
     }
 
     /**

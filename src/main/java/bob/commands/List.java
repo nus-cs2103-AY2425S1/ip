@@ -9,22 +9,23 @@ import bob.ui.Ui;
  */
 public class List extends Command {
 
-    private static void listTasks(TaskList list) {
+    private static String listTasks(TaskList list) {
         if (list.isEmpty()) {
-            System.out.println("There are no tasks in your list.");
-            return;
+            return "There are no tasks in your list.";
         }
 
-        System.out.println("Here are the tasks in your list:");
+        String response = "Here are the tasks in your list:";
 
+        StringBuilder tasksResponse = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + ". " + list.get(i));
+            tasksResponse.append((i + 1) + ". " + list.get(i) + "\n");
         }
+        return response + "\n" + tasksResponse.toString().trim();
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        listTasks(list);
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        return listTasks(list);
     }
 
     @Override
