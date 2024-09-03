@@ -26,15 +26,15 @@ public class KorolevStorage {
     private static final Path dir = Paths.get(
             home, "src", "main", "java", "data");
 
-    private static final Path path = Paths.get(
+    private static final Path PATH = Paths.get(
             home, "src", "main", "java", "data", "korolev.txt");
 
     private void createNewFile() {
-        if (!java.nio.file.Files.exists(path)) {
+        if (!java.nio.file.Files.exists(PATH)) {
             try {
                 Files.createDirectories(KorolevStorage.dir);
-                Files.createFile(path);
-                File record = new File(String.valueOf(path));
+                Files.createFile(PATH);
+                File record = new File(String.valueOf(PATH));
                 boolean test = record.createNewFile();
             } catch (IOException e) {
                 System.out.println("IOException: " + e.getMessage());
@@ -51,7 +51,7 @@ public class KorolevStorage {
         createNewFile();
 
         try {
-            FileWriter writer = new FileWriter(String.valueOf(path));
+            FileWriter writer = new FileWriter(String.valueOf(PATH));
             writer.write(msg);
             writer.close();
         } catch (IOException e) {
@@ -67,7 +67,7 @@ public class KorolevStorage {
     public void readLines(ArrayList<KorolevTask> events) {
         createNewFile();
         try {
-            BufferedReader bfr = new BufferedReader(new FileReader(String.valueOf(path)));
+            BufferedReader bfr = new BufferedReader(new FileReader(String.valueOf(PATH)));
             String line = bfr.readLine();
             while(line != null) {
                 events.add(EventParser.parseLoadedRecord(line));
