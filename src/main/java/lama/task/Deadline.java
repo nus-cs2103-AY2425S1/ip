@@ -51,7 +51,7 @@ public class Deadline extends Task {
      * @return String representation of deadline task in file.
      */
     @Override
-    public String toFile() {
+    public String toFileFormat() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
                 + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }

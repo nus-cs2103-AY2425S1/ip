@@ -43,6 +43,6 @@ public class DeadlineTest {
 
         String output = "D | 0 | Return Book | 2025-12-12";
 
-        assertEquals(output, deadline.toFile());
+        assertEquals(output, deadline.toFileFormat());
     }
 }

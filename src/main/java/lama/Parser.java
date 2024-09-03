@@ -29,6 +29,7 @@ public class Parser {
      * @return A command representing the user's input.
      * @throws LamaException Thrown if input command is invalid or improperly formatted.
      */
+    @SuppressWarnings("checkstyle:Regexp")
     public static Command parse(String command) throws LamaException {
         String[] words = command.split(" ", 2);
 
@@ -40,28 +41,28 @@ public class Parser {
             return new ListCommand();
 
         case "mark":
-            if (words.length < 2) {
+            if (words.length < 2 || words[1].isBlank() || words[1].isEmpty()) {
                 throw new LamaException("Please specify the number that wanted to be marked as done!");
             }
 
-            return new MarkCommand(Integer.parseInt(words[1]) - 1);
+            return new MarkCommand(Integer.parseInt(words[1].trim()) - 1);
 
         case "unmark":
-            if (words.length < 2) {
+            if (words.length < 2 || words[1].isBlank() || words[1].isEmpty()) {
                 throw new LamaException("Please specify the number that wanted to be unmarked!");
             }
 
-            return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
+            return new UnmarkCommand(Integer.parseInt(words[1].trim()) - 1);
 
         case "todo":
-            if (words.length < 2) {
+            if (words.length < 2 || words[1].isEmpty() || words[1].isBlank()) {
                 throw new LamaException("Please specify the description of TODO!");
             }
 
-            return new AddCommand(new Todo(words[1]));
+            return new AddCommand(new Todo(words[1].trim()));
 
         case "deadline":
-            if (words.length < 2) {
+            if (words.length < 2 || words[1].isEmpty() || words[1].isBlank()) {
                 throw new LamaException("Please specify the description of deadline!");
             }
 
@@ -71,56 +72,62 @@ public class Parser {
                 throw new LamaException("Please specify the date of deadline in the format of:\n"
                         + "deadline [description] /by [date]");
             }
+            if (half[0].isEmpty() || half[0].isBlank()) {
+                throw new LamaException("Please specify the description of deadline!");
+            }
 
             try {
-                LocalDate date = LocalDate.parse(half[1]);
-                return new AddCommand(new Deadline(half[0], date));
+                LocalDate date = LocalDate.parse(half[1].trim());
+                return new AddCommand(new Deadline(half[0].trim(), date));
             } catch (DateTimeException e) {
                 throw new LamaException("Date format should follow yyyy-MM-dd");
             }
 
         case "event":
-            if (words.length < 2) {
+            if (words.length < 2 || words[1].isBlank() || words[1].isEmpty()) {
                 throw new LamaException("Please specify the description of event in the format of:\n"
                         + "event [description] /from [start time] /to [end time]");
             }
 
             String[] first = words[1].split(" /from ");
-
             if (first.length < 2) {
                 throw new LamaException("Please specify the start time of event in the format of:\n"
                         + "event [description] /from [start time] /to [end time]");
             }
 
+            if (first[0].isEmpty() || first[0].isBlank()) {
+                throw new LamaException("Please specify the description of event in the format of:\n"
+                        + "event [description] /from [start time] /to [end time]");
+            }
             String[] time = first[1].split(" /to ");
 
-            if (time.length < 2) {
+            if (time.length < 2 || time[1].isEmpty() || time[1].isBlank()) {
                 throw new LamaException("Please specify the end time of event in the format of:\n"
                         + "event [description] /from [start time] /to [end time]");
             }
 
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                LocalDateTime from = LocalDateTime.parse(time[0], formatter);
-                LocalDateTime to = LocalDateTime.parse(time[1], formatter);
-                return new AddCommand(new Event(first[0], from, to));
+                LocalDateTime from = LocalDateTime.parse(time[0].trim(), formatter);
+                LocalDateTime to = LocalDateTime.parse(time[1].trim(), formatter);
+                return new AddCommand(new Event(first[0].trim(), from, to));
             } catch (DateTimeException e) {
                 throw new LamaException("Date time format should follow yyyy-MM-dd HHmm");
             }
 
         case "delete":
-            if (words.length < 2) {
+            if (words.length < 2 || words[1].isBlank() || words[1].isEmpty()) {
                 throw new LamaException("Please specify the number that wanted to delete!");
             }
 
-            return new DeleteCommand(Integer.parseInt(words[1]) - 1);
+            return new DeleteCommand(Integer.parseInt(words[1].trim()) - 1);
 
         case "find":
-            if (words.length < 2) {
+            if (words.length < 2 || words[1].isBlank() || words[1].isEmpty()) {
                 throw new LamaException("Please specify the keyword you wanted to search!");
             }
 
-            return new FindCommand(words[1]);
+            return new FindCommand(words[1].trim());
 
         default:
             throw new LamaException("Sorry, I don't know what you want to do!\n"
@@ -131,7 +138,7 @@ public class Parser {
                     + "4. list\n"
                     + "5. mark [number of todo in the list]\n"
                     + "6. unmark [number of todo in the list]\n"
-                    + "7. find [keywords]"
+                    + "7. find [keywords]\n"
                     + "8. bye");
         }
 

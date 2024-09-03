@@ -1,0 +1,46 @@
+.root {
+    main-color: #ADE6BB;
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color:  #E6F0DC;
+    -fx-font: 16px "Times New Roman";
+}
+
+.button {
+    -fx-background-color: #C1E899;
+    -fx-font: italic bold 16px "Times New Roman";
+}
+
+.button:hover {
+    -fx-background-color:#55883B;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color:orange;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #9A6735;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+

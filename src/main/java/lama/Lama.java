@@ -14,8 +14,8 @@ public class Lama {
     private TaskList taskList;
 
     /**
-     * Construct a Lama object with specified file path for storing data.
-     * Initialise the UI, storage and task list.
+     * Constructs a Lama object with specified file path for storing data.
+     * Initialises the UI, storage and task list.
      * If loading task fail, it creates a new one.
      *
      * @param filePath String file path where tasks will be stored.
@@ -59,5 +59,17 @@ public class Lama {
      */
     public static void main(String[] args) {
         new Lama("./data/lama.txt").run();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.run(taskList, storage, ui);
+        } catch (LamaException e) {
+            return e.getMessage();
+        }
     }
 }

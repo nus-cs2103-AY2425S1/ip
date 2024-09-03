@@ -61,5 +61,5 @@ public abstract class Task {
      *
      * @return String representation of the task suitable to save in the file.
      */
-    public abstract String toFile();
+    public abstract String toFileFormat();
 }

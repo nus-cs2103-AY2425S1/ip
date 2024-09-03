@@ -31,11 +31,13 @@ public class MarkCommand extends Command {
      * @throws LamaException Thrown if an error occurs during execution of command.
      */
     @Override
-    public void run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
+    public String run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
         try {
             taskList.get(indexOfMark).markAsDone();
             ui.showMarkCommand(taskList, indexOfMark);
             storage.saveTasks(taskList);
+            return "Nice! I've marked this task as done:\n"
+                    + "  " + taskList.get(indexOfMark);
         } catch (IndexOutOfBoundsException e) {
             throw new LamaException("Sorry, the number given exceed the bound of list");
         }

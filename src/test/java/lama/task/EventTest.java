@@ -43,7 +43,7 @@ public class EventTest {
 
         String output = "E | 0 | Return Book | 2025-12-12 2010 | 2026-12-12 2010";
 
-        assertEquals(output, event.toFile());
+        assertEquals(output, event.toFileFormat());
     }
 
 }

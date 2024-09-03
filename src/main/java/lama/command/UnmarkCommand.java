@@ -31,11 +31,13 @@ public class UnmarkCommand extends Command {
      * @throws LamaException Thrown if an error occurs during execution of command.
      */
     @Override
-    public void run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
+    public String run(TaskList taskList, Storage storage, Ui ui) throws LamaException {
         try {
             taskList.get(indexOfUnmark).markAsUnDone();
             ui.showUnmarkCommand(taskList, indexOfUnmark);
             storage.saveTasks(taskList);
+            return "OK, I've marked this task as not done yet:\n"
+                    + "  " + taskList.get(indexOfUnmark);
         } catch (IndexOutOfBoundsException e) {
             throw new LamaException("Sorry, the number given exceed the bound of list");
         }

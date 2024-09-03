@@ -34,7 +34,7 @@ public class Todo extends Task {
      * @return String representation of to-do task in file.
      */
     @Override
-    public String toFile() {
+    public String toFileFormat() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 }
