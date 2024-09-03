@@ -1,238 +1,41 @@
 package spiderman;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-import java.util.ArrayList;
-
 public class Spiderman {
-    public static void main(String[] args) {
-        // Initialise scanner
-        Scanner scan = new Scanner(System.in);  // Create a Scanner object
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-        // Initialise arrays for tasks
-        ArrayList<Task> taskList = loadTasksFromFile();
-
-        // Greeting users
-        System.out.println("Hello! This is your friendly neighbourhood Spiderman.");
-        System.out.println("What can I do for you?");
-
-        while (true) {
-            // Get users input
-            String input = scan.nextLine();
-            String[] splitInput = input.split("\\s+");
-            String[] splitInputByCommand = input.split("/");
-
-            // User types bye; program terminates
-            if (input.equals("bye")) {
-                break;
-            }
-
-            // User types list; display list
-            if (input.equals("list")) {
-                for (int i = 0; i < taskList.size(); i++) {
-                    System.out.println((i+1) + ". " + taskList.get(i).toString());
-                }
-                continue;
-            }
-
-            // User types delete; delete task
-            if (splitInput[0].equals("delete")) {
-                int number = Integer.parseInt(splitInput[1]) - 1;
-                System.out.println("Alright! I will delete this task for you!");
-                System.out.println(taskList.get(number).toString());
-
-                taskList.remove(number);
-                continue;
-            }
-
-            // User types find; find tasks by keyword
-            if (splitInput[0].equals("find")) {
-                String keyword = input.replaceFirst("find", "").trim();
-                if (keyword.isEmpty()) {
-                    System.out.println("The keyword for find cannot be empty!");
-                } else {
-                    findTasks(taskList, keyword);
-                }
-                continue;
-            }
-
-            // User types mark; mark as done
-            if (splitInput[0].equals("mark")) {
-                int number = Integer.parseInt(splitInput[1]) - 1;
-                taskList.get(number).markAsDone();
-                System.out.println("Great! I've marked this task as done:");
-                System.out.println(taskList.get(number).toString());
-                continue;
-            }
-
-            // User types unmark; mark as not done
-            if (splitInput[0].equals("unmark")) {
-                int number = Integer.parseInt(splitInput[1]) - 1;
-                taskList.get(number).markAsNotDone();
-                System.out.println("OK, this task will be marked as not done yet:");
-                System.out.println(taskList.get(number).toString());
-                continue;
-            }
-
-            // Store users input into tasks
-            // Check what kind of tasks to add
-            if (splitInput[0].equals("deadline")) {
-                String description = splitInputByCommand[0].replaceFirst("deadline", "").trim();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-                if (description.isEmpty()) {
-                    System.out.println("The description of a deadline cannot be empty.");
-                    continue;
-                }
-
-                try {
-                    LocalDate by = LocalDate.parse(splitInputByCommand[1]
-                            .replaceFirst("by", "").trim(), formatter);
-                    taskList.add(new Deadline(description, by));
-                }
-                catch (DateTimeParseException e) {
-                    System.out.println("The date is not in the correct format!");
-                    continue;
-                }
-                catch (Exception e) {
-                    System.out.println("The stated deadline should have a date");
-                    continue;
-                }
-                System.out.println("Cool! I'll add this to your task list!");
-                System.out.println("You now have " + taskList.size() + " tasks in your task list.");
-            } else if (splitInput[0].equals("event")) {
-                String description = splitInputByCommand[0].replaceFirst("event", "").trim();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-                if (description.isEmpty()) {
-                    System.out.println("The description of an event cannot be empty.");
-                    continue;
-                }
-
-                String fromString = splitInputByCommand[1].replaceFirst("from", "").trim();
-                String toString = splitInputByCommand[2].replaceFirst("to", "").trim();
-
-                try {
-                    LocalDateTime from = LocalDateTime.parse(fromString, formatter);
-                    LocalDateTime to = LocalDateTime.parse(toString, formatter);
-                    taskList.add(new Event(description, from, to));
-                }
-                catch (DateTimeParseException e) {
-                    System.out.println("The date and time is not in the correct format!");
-                    continue;
-                }
-                catch (Exception e) {
-
-                    System.out.println("The from and/or to cannot be empty!");
-                    continue;
-                }
-                System.out.println("Cool! I'll add this to your task list!");
-                System.out.println("You now have " + taskList.size() + " tasks in your task list.");
-            } else if (splitInput[0].equals("todo")) {
-                String description = splitInputByCommand[0].replaceFirst("todo", "").trim();
-                if (description.isEmpty()) {
-                    System.out.println("The description of a todo cannot be empty.");
-                    continue;
-                }
-
-                taskList.add(new Todo(description));
-                System.out.println("Cool! I'll add this to your task list!");
-                System.out.println("You now have " + taskList.size() + " tasks in your task list.");
-            } else {
-                System.out.println("Sorry, I do not understand what you mean. " +
-                        "Check the README file for the list of known actions!");
-            }
-        }
-
-        saveTasksToFile(taskList);
-
-        // Exit program message
-        System.out.println("Bye. Hope to see you again soon!");
-        scan.close();
-    }
-
-    // Method to save tasks to file
-    private static void saveTasksToFile(ArrayList<Task> taskList) {
-        try (FileWriter writer = new FileWriter("tasks.txt")) {
-            for (Task task : taskList) {
-                writer.write(task.toTextFormat());
-                writer.write("\n");
-            }
-            System.out.println("Tasks have been saved to tasks.txt.");
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks to file.");
-        }
-    }
-
-    private static ArrayList<Task> loadTasksFromFile() {
-        ArrayList<Task> taskList = new ArrayList<>();
+    public Spiderman(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            File myObj = new File("tasks.txt");
-            Scanner scan = new Scanner(myObj);
-            while (scan.hasNextLine()) {
-                String data = scan.nextLine();
-                String[] savedTasks = data.split("\\|");
-                // If task is a todo
-                if (savedTasks[0].equals("T")) {
-                    Todo task = new Todo(savedTasks[2]);
-                    if (savedTasks[1].equals("T")) {
-                        task.markAsDone();
-                    } else {
-                        task.markAsNotDone();
-                    }
-                    taskList.add(task);
-                }
-
-                // If task is a deadline
-                if (savedTasks[0].equals("D")) {
-                    Deadline task = new Deadline(savedTasks[2], LocalDate.parse(savedTasks[3]));
-                    if (savedTasks[1].equals("T")) {
-                        task.markAsDone();
-                    } else {
-                        task.markAsNotDone();
-                    }
-                    taskList.add(task);
-                }
-
-                // If task is an event
-                if (savedTasks[0].equals("E")) {
-                    Event task = new Event(savedTasks[2],
-                            LocalDateTime.parse(savedTasks[3]),
-                            LocalDateTime.parse(savedTasks[4]));
-
-                    if (savedTasks[1].equals("T")) {
-                        task.markAsDone();
-                    } else {
-                        task.markAsNotDone();
-                    }
-                    taskList.add(task);
-                }
-            }
-            scan.close();
-        } catch (FileNotFoundException e) {
-            System.out.print("");
+            tasks = new TaskList(storage.loadTasksFromStorage());
+        } catch (Exception e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
-        return taskList;
     }
 
-    private static void findTasks(ArrayList<Task> taskList, String keyword) {
-        System.out.println("Here are the matching tasks in your list:");
-        int numOfMatches = 0;
-        for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getDescription().contains(keyword)) {
-                numOfMatches++;
-                System.out.println((i + 1) + ". " + taskList.get(i).toString());
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showDividerLine();
+                Parser.parseInput(fullCommand, tasks);
+                isExit = Parser.isExit();
+            } catch (Exception e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showDividerLine();
             }
         }
-        if (numOfMatches == 0) {
-            System.out.println("No tasks found with the keyword: " + keyword);
-        }
+        storage.saveTasksToStorage(tasks.getTasks());
+        ui.close();
+    }
+
+    public static void main(String[] args) {
+        new Spiderman("tasks.txt").run();
     }
 }
