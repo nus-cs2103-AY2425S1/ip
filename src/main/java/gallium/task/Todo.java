@@ -1,9 +1,17 @@
 package gallium.task;
 
+/**
+ * Represents a Todo task.
+ */
 public class Todo extends Task {
 
     protected String desc;
 
+    /**
+     * Constructs a Todo task with a description.
+     * 
+     * @param description The description of the Todo task.
+     */
     public Todo(String description) {
         super(description);
         if (description.startsWith("todo ")) {
@@ -17,6 +25,13 @@ public class Todo extends Task {
         }
     }
 
+    /**
+     * Returns a string representation of the Todo task.
+     * 
+     * @return A string representation of the Todo task in the format "[T][X/
+     *         ][description]".
+     */
+    @Override
     public String toString() {
         return "[T]" + this.getStatusIcon() + this.desc;
     }

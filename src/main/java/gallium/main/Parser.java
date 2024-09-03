@@ -8,6 +8,11 @@ import gallium.command.DeleteCommand;
 import gallium.command.ListCommand;
 import gallium.command.MarkCommand;
 
+/**
+ * The Parser class interprets user input and generates Command.
+ * It handles listing tasks, marking tasks, adding new tasks, deleting tasks,
+ * and filtering tasks by dates.
+ */
 public class Parser {
 
     private static final String BYE = "bye";
@@ -22,16 +27,30 @@ public class Parser {
 
     private Ui ui;
 
+    /**
+     * Constructs a Parser object.
+     * 
+     * @param ui The UI instance to interact with the user.
+     */
     public Parser(Ui ui) {
         this.ui = ui;
     }
 
+    /**
+     * Parses the input message and returns a Command.
+     * The method handles list, mark, unmark, todo, deadline, event, delete, and
+     * date. It will continue in the loop to prompt for new input until a "bye"
+     * command is received.
+     * 
+     * @param Message The user input message to be parsed.
+     * @return The Command to be executed.
+     */
     public Command parse(String Message) {
         while (!Message.equals(BYE)) {
             try {
                 switch (Message) {
                     case LIST:
-                        return runList();
+                        return new ListCommand();
 
                     case "todo":
                     case "todo ":
@@ -43,14 +62,14 @@ public class Parser {
 
                     default:
                         if (Message.matches(MARK + " \\d+") || Message.matches(UNMARK + " \\d+")) {
-                            return runMark(Message);
+                            return new MarkCommand(Message);
                         } else if (Message.startsWith(TODO) || Message.startsWith(DEADLINE)
                                 || Message.startsWith(EVENT)) {
-                            return runAdd(Message);
+                            return new AddCommand(Message);
                         } else if (Message.startsWith(DELETE)) {
-                            return runDelete(Message);
+                            return new DeleteCommand(Message);
                         } else if (Message.startsWith(DATE)) {
-                            return runDate(Message);
+                            return new DateCommand(Message);
                         } else {
                             throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
                         }
@@ -72,26 +91,6 @@ public class Parser {
             Message = ui.readNextLine();
         }
         return new ByeCommand();
-    }
-
-    public ListCommand runList() {
-        return new ListCommand();
-    }
-
-    public MarkCommand runMark(String Message) {
-        return new MarkCommand(Message);
-    }
-
-    public AddCommand runAdd(String Message) {
-        return new AddCommand(Message);
-    }
-
-    public DeleteCommand runDelete(String Message) {
-        return new DeleteCommand(Message);
-    }
-
-    public DateCommand runDate(String Message) {
-        return new DateCommand(Message);
     }
 
 }
