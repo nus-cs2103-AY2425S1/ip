@@ -25,8 +25,9 @@ public class Deadline extends Task {
             return null;
         }
         Deadline deadline = new Deadline(parts[2], dateTime);
-        if (parts[1].equals("1"))
+        if (parts[1].equals("1")) {
             deadline.markAsDone();
+        }
 
         return deadline;
     }

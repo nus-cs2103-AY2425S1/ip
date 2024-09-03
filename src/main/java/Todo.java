@@ -10,8 +10,9 @@ public class Todo extends Task {
             return null;
 
         Todo todo = new Todo(parts[2]);
-        if (parts[1].equals("1"))
+        if (parts[1].equals("1")) {
             todo.markAsDone();
+        }
 
         return todo;
     }
