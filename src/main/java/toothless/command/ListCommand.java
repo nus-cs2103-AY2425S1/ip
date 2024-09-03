@@ -4,6 +4,9 @@ import toothless.storage.Storage;
 import toothless.task.TaskList;
 import toothless.ui.Ui;
 
+/**
+ * Represents a command to list all tasks.
+ */
 public class ListCommand extends Command {
     @Override
     public void executeCommand(TaskList taskList, Ui ui, Storage storage) {

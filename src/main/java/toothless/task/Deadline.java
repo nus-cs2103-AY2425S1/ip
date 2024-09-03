@@ -43,10 +43,6 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    /**
-     * Returns the string representation of the deadline task.
-     * @return the string representation of the deadline task.
-     */
     @Override
     public String toFileString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(INPUT_FORMATTER);

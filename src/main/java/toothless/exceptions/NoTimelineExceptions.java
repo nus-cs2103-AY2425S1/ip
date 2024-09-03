@@ -1,7 +1,5 @@
 package toothless.exceptions;
 
-import toothless.exceptions.ToothlessExceptions;
-
 /**
  * This class is a subclass of ToothlessExceptions.
  */

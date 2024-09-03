@@ -1,6 +1,12 @@
 package toothless.command;
 
+/**
+ * Represents a parser to parse the user input.
+ */
 public class Parser {
+    /**
+     * Represents the type of command.
+     */
     private enum CommandType {
         TODO,
         DEADLINE,
@@ -52,6 +58,12 @@ public class Parser {
         return handleCommand(commandType, description);
     }
 
+    /**
+     * Returns the Command based on the CommandType and description.
+     * @param commandType the CommandType
+     * @param description the description
+     * @return the Command based on the CommandType and description
+     */
     private static Command handleCommand (CommandType commandType, String description) {
         switch (commandType) {
         case TODO:

@@ -8,13 +8,22 @@ import toothless.exceptions.ToothlessExceptions;
 import toothless.task.Event;
 import toothless.ui.Ui;
 
+/**
+ * Represents a command to add an event task.
+ */
 public class EventCommand extends Command {
 
     private String description;
 
+    /**
+     * Constructor for EventCommand.
+     * @param description Description of the event task.
+     *                    Should contain the description, start time and end time of the event.
+     */
     public EventCommand(String description) {
         this.description = description;
     }
+
     @Override
     public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
         if(description.isEmpty()) {

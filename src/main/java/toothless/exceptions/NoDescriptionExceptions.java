@@ -1,7 +1,5 @@
 package toothless.exceptions;
 
-import toothless.exceptions.ToothlessExceptions;
-
 /**
  * This class is a subclass of ToothlessExceptions.
  * It is used to handle the case when the user does not provide a description for the task.

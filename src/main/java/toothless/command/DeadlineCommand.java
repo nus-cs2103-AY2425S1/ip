@@ -8,13 +8,21 @@ import toothless.exceptions.ToothlessExceptions;
 import toothless.task.Deadline;
 import toothless.ui.Ui;
 
+/**
+ * Represents a command to add a deadline task.
+ */
 public class DeadlineCommand extends Command {
 
     private String description;
 
+    /**
+     * Constructor for DeadlineCommand.
+     * @param description Description of the deadline task.
+     */
     public DeadlineCommand(String description) {
         this.description = description;
     }
+
     @Override
     public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
         if(description.isEmpty()) {

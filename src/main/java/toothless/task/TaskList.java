@@ -58,7 +58,7 @@ public class TaskList {
      * Marks a task as done.
      * @param index The index of the task to be marked as done.
      */
-    public void markDone(int index) throws ToothlessExceptions {
+    public void markDone(int index, Ui ui) throws ToothlessExceptions {
         if(index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
                     DIVIDER);
@@ -66,15 +66,14 @@ public class TaskList {
         int fixedIndex = index - 1;
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsDone();
-        System.out.println("Toothless:\nGood job! You had completed this quest!\n" +
-                currentTask + "\n\n" + DIVIDER);
+        ui.markDoneMessage(currentTask);
     }
 
     /**
      * Mark a task as undone.
      * @param index The index of the task to be marked as undone.
      */
-    public void markUndone(int index) throws ToothlessExceptions {
+    public void markUndone(int index, Ui ui) throws ToothlessExceptions {
         if(index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
                     DIVIDER);
@@ -82,8 +81,7 @@ public class TaskList {
         int fixedIndex = index - 1;
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsUndone();
-        System.out.println("Toothless:\nOops! Quest is back in play!\n" +
-                currentTask + "\n\n" + DIVIDER);
+        ui.markUndoneMessage(currentTask);
     }
 
     /**

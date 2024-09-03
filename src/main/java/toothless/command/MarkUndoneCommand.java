@@ -10,7 +10,12 @@ public class MarkUndoneCommand extends Command {
 
         private String description;
 
-        public MarkUndoneCommand(String taskNumber) {
+        /**
+         * Constructor for MarkUndoneCommand
+         * @param description Description of the task to be marked as done.
+         *                   Should be the index of the task.
+         */
+        public MarkUndoneCommand(String description) {
             this.description = description;
         }
 
@@ -20,7 +25,7 @@ public class MarkUndoneCommand extends Command {
                 throw new MissingIndexExceptions("unmark", "unmark <index>");
             }
             int markIndex = Integer.parseInt(description);
-            taskList.markUndone(markIndex);
+            taskList.markUndone(markIndex, ui);
             storage.saveTask(taskList.getList());
         }
 }

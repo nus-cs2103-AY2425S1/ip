@@ -11,6 +11,11 @@ public class MarkDoneCommand extends Command {
     private String description;
     private final static String DIVIDER = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
 
+    /**
+     * Constructor for MarkDoneCommand
+     * @param description Description of the task to be marked as done.
+     *                    Should be the index of the task.
+     */
     public MarkDoneCommand(String description) {
         this.description = description;
     }
@@ -21,7 +26,7 @@ public class MarkDoneCommand extends Command {
             throw new MissingIndexExceptions("mark", "mark <index>");
         }
         int markIndex = Integer.parseInt(description);
-        taskList.markDone(markIndex);
+        taskList.markDone(markIndex, ui);
         storage.saveTask(taskList.getList());
     }
 }
