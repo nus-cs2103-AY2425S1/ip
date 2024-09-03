@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.commands.ByeCommand;
 import com.commands.Command;
+import javafx.scene.image.Image;
 
 public class Nimbus {
     final private static String name = "Nimbus";
@@ -13,37 +14,41 @@ public class Nimbus {
     private final Ui ui;
     private final Storage storage;
 
-    public Nimbus(String filePath) {
-        this.ui = new Ui(name);
+    public Nimbus(String filePath, Ui ui) {
+        this.ui = ui;
         this.storage = new Storage(filePath);
         this.isRunning = true;
         this.tasks = new TaskList();
+        tasks.add(storage.load());
+        ui.showWelcomeMessage();
     }
 
-    public static void main(String[] args) {
-        new Nimbus("./data/data.txt").run();
+    public void executeCommand(String command) {
+        try {
+            ui.showUserMessage(command);
+            Command c = Parser.parse(command);
+            c.execute(ui, storage, tasks);
+            if (c instanceof ByeCommand) {
+                isRunning = false;
+                ui.stopGUI();
+            }
+        } catch (InvalidCommandException | InvalidArgumentException e) {
+            ui.showError(e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Failed to exit the GUI");
+        }
     }
 
     /**
      * Run the Nimbus Chatbot
      */
     public void run() {
-        tasks.add(storage.load());
-        ui.showWelcomeMessage();
-
         Scanner scanner = new Scanner(System.in);
         String line;
 
         while(isRunning) {
             line = scanner.nextLine();
-            try {
-                Command c = Parser.parse(line);
-                c.execute(ui, storage, tasks);
-                if (c instanceof ByeCommand)
-                    isRunning = false;
-            } catch (InvalidCommandException | InvalidArgumentException e) {
-                System.out.println(e.getMessage());
-            }
+            executeCommand(line);
         }
     }
 }
