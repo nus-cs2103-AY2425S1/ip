@@ -41,9 +41,7 @@ public class TaskManager {
         String taskString = "Here are the tasks in your list:\n" + "    ";
 
         if (!tasks.isEmpty()) {
-            System.out.println(tasks.size());
             for (int i=0; i<tasks.size(); i++) {
-                System.out.println(i);
                 if (i != tasks.size() - 1) {
                     taskString += i + 1 + "." + tasks.get(i).toString() + "\n    ";
                 }
@@ -83,7 +81,6 @@ public class TaskManager {
             for (String line : txtLines) {
                 Task task = findTask(line);
                 tasks.add(task);
-                System.out.println(tasks);
             }
         } catch (IOException e) {
             System.out.println("Error reading database: " + e.getMessage());
@@ -92,7 +89,6 @@ public class TaskManager {
 
     private Task findTask(String line) {
         String[] parts = line.split(" \\| ");
-        System.out.println(parts.length);
         if (parts.length >= 3) {
             String taskType = parts[0];
             boolean isCompleted = parts[1].equals("1");

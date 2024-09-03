@@ -11,9 +11,12 @@ public class Taskalyn {
         ui.printWelcome();
 
         while (true) {
-            parser.parse(taskManager);
-            String lastCommand = ui.getLastCommand();
-            if (lastCommand.equals("bye")) {
+            boolean continueRunning = parser.parse(taskManager);
+            // String lastCommand = ui.getLastCommand();
+            // if (lastCommand.equals("bye")) {
+            //     break;
+            // }
+            if (!continueRunning) {
                 break;
             }
         }

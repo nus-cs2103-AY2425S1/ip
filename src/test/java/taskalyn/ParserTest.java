@@ -14,13 +14,20 @@ public class ParserTest {
         System.setOut(new PrintStream(out));
         System.setIn(new ByteArrayInputStream("bye\n".getBytes()));
 
-        Taskalyn.main(null);
-        System.setOut(System.out);
-        System.setIn(System.in);
+        Ui ui = new Ui();
+        Database database = new Database();
+        TaskManager taskManager = new TaskManager(database, ui);
+        Parser parser = new Parser(ui, taskManager);
+        parser.parse(taskManager);
 
-        String expectedOutput = "    ____________________________________________________________\n" +
+        String output = out.toString();
+
+        String expectedOutput =
+                "    ____________________________________________________________\n" +
                 "    Bye. Hope to see you again soon!\n" +
                 "    ____________________________________________________________\n";
-        assertEquals(expectedOutput.trim(), out.toString().trim());
+        assertEquals(expectedOutput, out.toString());
+        System.setOut(null);
+        System.setIn(null);
     }
 }
