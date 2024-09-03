@@ -1,4 +1,7 @@
-import java.util.Scanner;
+package neon;
+
+import neon.Deadline;
+import neon.Event;
 
 public class Parser {
     private TaskList tasks;

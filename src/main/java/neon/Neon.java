@@ -1,10 +1,7 @@
+package neon;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
-import java.io.FileWriter;
-import java.time.LocalDate;
 
 
 public class Neon {

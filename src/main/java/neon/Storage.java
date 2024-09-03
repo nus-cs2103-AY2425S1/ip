@@ -1,3 +1,8 @@
+package neon;
+
+import neon.Deadline;
+import neon.Event;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

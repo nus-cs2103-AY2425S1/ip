@@ -1,3 +1,7 @@
+package neon;
+
+import neon.Task;
+
 public class Todo extends Task {
     private final String taskType = "T";
     public Todo(String name, boolean completed) {

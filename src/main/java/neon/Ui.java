@@ -1,3 +1,5 @@
+package neon;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -7,7 +9,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String NAME = "Neon";
+    private static final String NAME = "neon.Neon";
     private static final String DASH_BREAK = "-----------------------------------";
 
     public void printGreetingLine() {
