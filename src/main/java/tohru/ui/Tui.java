@@ -48,15 +48,19 @@ public class Tui implements Ui {
     /**
      * Prints text output from commands.
      */
-    public void showText(String text) {
-        System.out.println(text);
+    public void showText(String ...text) {
+        for (String msg : text) {
+            System.out.println(msg);
+        }
     }
 
     /**
      * Prints errors from commands.
      */
-    public void showError(String error) {
-        System.out.printf("Error | %s%n", error);
+    public void showError(String ...error) {
+        for (String msg : error) {
+            System.out.printf("Error | %s%n", msg);
+        }
     }
 
     /**

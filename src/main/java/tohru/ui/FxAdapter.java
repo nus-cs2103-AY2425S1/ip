@@ -1,6 +1,7 @@
 package tohru.ui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
@@ -83,12 +84,13 @@ public class FxAdapter implements Ui {
     /**
      * Prints text output from commands.
      */
-    public void showText(String text) {
+    public void showText(String ...text) {
         if (dialogContainer == null) {
-            infoPreWindowMessages.add(text);
+            infoPreWindowMessages.addAll(Arrays.asList(text));
         } else {
+            String joinedMessage = String.join(System.lineSeparator(), text);
             dialogContainer.getChildren().addAll(
-                    DialogBox.getChatbotDialog(text)
+                    DialogBox.getChatbotDialog(joinedMessage)
             );
         }
 
@@ -97,12 +99,13 @@ public class FxAdapter implements Ui {
     /**
      * Prints errors from commands.
      */
-    public void showError(String error) {
+    public void showError(String ...error) {
         if (dialogContainer == null) {
-            errorPreWindowMessages.add(error);
+            errorPreWindowMessages.addAll(Arrays.asList(error));
         } else {
+            String joinedMessage = String.join(System.lineSeparator(), error);
             dialogContainer.getChildren().addAll(
-                    DialogBox.getChatbotDialog(error)
+                    DialogBox.getChatbotDialog(joinedMessage)
             );
         }
     }
@@ -125,9 +128,8 @@ public class FxAdapter implements Ui {
             showError(message);
         }
 
-        showText(String.join(System.lineSeparator(),
-                "Hello! I'm Tohru",
-                "What can I do for you?"));
+        showText("Hello! I'm Tohru",
+                "What can I do for you?");
     }
 
     /**

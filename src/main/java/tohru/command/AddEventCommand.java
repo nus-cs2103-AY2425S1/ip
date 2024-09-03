@@ -68,10 +68,9 @@ public class AddEventCommand extends Command {
         EventItem newEvent = new EventItem(eventContent, eventFromDate, eventToDate);
         list.addItem(newEvent);
 
-        ui.showText("Added event entry:");
-        ui.showText(newEvent.toString());
-
-        ui.showText(String.format("There are now %d total entries", list.getTotal()));
+        ui.showText("Added event entry:",
+                newEvent.toString(),
+                String.format("There are now %d total entries", list.getTotal()));
 
         store.saveTodoList(list.getTodoList());
 

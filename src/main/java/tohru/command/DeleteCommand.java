@@ -45,8 +45,7 @@ public class DeleteCommand extends Command {
 
         list.deleteItem(itemIndex);
 
-        ui.showText("Alright! I have removed this task from list:");
-        ui.showText(storedItemStatus);
+        ui.showText("Alright! I have removed this task from list:", storedItemStatus);
 
         store.saveTodoList(list.getTodoList());
 

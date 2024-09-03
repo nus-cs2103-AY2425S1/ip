@@ -20,12 +20,12 @@ public interface Ui {
     /**
      * Prints text output from commands.
      */
-    void showText(String text);
+    void showText(String ...text);
 
     /**
      * Prints errors from commands.
      */
-    void showError(String error);
+    void showError(String ...error);
 
     /**
      * Prints dividers.

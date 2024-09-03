@@ -26,11 +26,12 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TodoList list, Ui ui, FileStore store) {
-        ui.showText(String.format("These are %s entries on your todo:", list.getTotal()));
-
+        String[] itemsListString = new String[list.getTotal()];
         for (int i = 0; i < list.getTotal(); i++) {
-            ui.showText(String.format("%d. %s", i + 1, list.getItemStatus(i)));
+            itemsListString[i] = String.format("%d. %s", i + 1, list.getItemStatus(i));
         }
+        ui.showText(String.format("These are %s entries on your todo:", list.getTotal()),
+                String.join(System.lineSeparator(), itemsListString));
     }
 
 }

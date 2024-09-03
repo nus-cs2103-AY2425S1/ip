@@ -36,10 +36,9 @@ public class AddTodoCommand extends Command {
         TodoItem newTodo = new TodoItem(super.arguments);
         list.addItem(newTodo);
 
-        ui.showText("Added todo entry:");
-        ui.showText(newTodo.toString());
-
-        ui.showText(String.format("There are now %d total entries", list.getTotal()));
+        ui.showText("Added todo entry:",
+                newTodo.toString(),
+                String.format("There are now %d total entries", list.getTotal()));
 
         store.saveTodoList(list.getTodoList());
 

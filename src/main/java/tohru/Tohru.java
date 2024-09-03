@@ -1,7 +1,6 @@
 package tohru;
 
 import javafx.application.Application;
-
 import tohru.command.Command;
 import tohru.command.Parser;
 import tohru.exception.CorruptSaveException;

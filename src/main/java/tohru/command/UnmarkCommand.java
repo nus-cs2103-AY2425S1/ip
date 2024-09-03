@@ -43,8 +43,8 @@ public class UnmarkCommand extends Command {
 
         list.markIncomplete(itemIndex);
 
-        ui.showText("Alright! I have set this task as not done:");
-        ui.showText(list.getItemStatus(itemIndex));
+        ui.showText("Alright! I have set this task as not done:",
+                list.getItemStatus(itemIndex));
 
         store.saveTodoList(list.getTodoList());
 
