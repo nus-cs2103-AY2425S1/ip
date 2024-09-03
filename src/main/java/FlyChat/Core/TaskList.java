@@ -21,7 +21,7 @@ public class TaskList {
     public String addTask(String inputString) {
         if (parser.parseCommand(inputString).equals("todo")) {
             try {
-                Todo newToDo = Todo.createNewTodo(parser.getTaskDescription(inputString));
+                Todo newToDo = Todo.createNewTodo(parser.getTaskDescription(inputString), false);
                 addToList(newToDo);
                 return "Task added:\n  " + newToDo + "\nNow you have " + storageList.size() 
                         + " tasks in the list. HAVE FUN ^o^";
