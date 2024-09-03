@@ -90,17 +90,20 @@ public class TaskManager {
      * @return Whether the save is successful
      */
     public boolean saveTasks() {
-        FileWriter file;
+        File file = new File(SAVE_FILE);
+        // ensure our data directory exists first
+        file.getParentFile().mkdir();
+
         try {
-            file = new FileWriter(SAVE_FILE);
+            FileWriter fileWriter = new FileWriter(SAVE_FILE);
 
             StringBuilder output = new StringBuilder();
             for (Task task : taskList) {
                 output.append(task.toTaskString()).append("\n");
             }
 
-            file.write(output.toString());
-            file.close();
+            fileWriter.write(output.toString());
+            fileWriter.close();
             return true;
         } catch (IOException e) {
             System.out.println("Error! Failed to save tasks!");
