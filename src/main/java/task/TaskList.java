@@ -31,4 +31,21 @@ public class TaskList {
     public int size() {
         return this.taskList.size();
     }
+
+    /**
+     * Filters the task list by tasks with descriptions that match the keyword
+     *
+     * @param keyword String representing the keyword to match
+     * @return ArrayList of matching tasks
+     */
+    public ArrayList<Task> filterByKeyword(String keyword) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for (Task t : this.taskList) {
+            if (t.getDescription().contains(keyword)) {
+                filteredTasks.add(t);
+            }
+        }
+
+        return filteredTasks;
+    }
 }

@@ -31,6 +31,8 @@ public abstract class UserCommand {
             return new AddCommand();
         case "delete":
             return new DeleteCommand();
+        case "find":
+            return new FindCommand();
         default:
             throw new InvalidCommandException();
         }

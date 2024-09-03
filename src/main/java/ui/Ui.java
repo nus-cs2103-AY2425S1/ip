@@ -78,6 +78,24 @@ public class Ui {
     }
 
     /**
+     * Prints tasks that matches the keyword
+     *
+     * @param tasks ArrayList of tasks that matches the keyword
+     */
+    public void printMatchingTasks(ArrayList<Task> tasks) {
+        this.printHorizontalLine();
+        if (tasks.isEmpty()) {
+            System.out.println("\t No matching tasks found");
+        } else {
+            System.out.println("\tHere are the matching tasks in your list");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
+            }
+        }
+        this.printHorizontalLine();
+    }
+
+    /**
      * Informs user that task has been marked as done
      * @param t Task that has been marked as done
      */
