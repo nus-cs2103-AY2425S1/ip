@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Item {
 
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private LocalDate from;
     private LocalDate to;
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     /**
      * Constructs an Event object with the specified name, start date, and end date.
@@ -32,7 +32,7 @@ public class Event extends Item {
 
     @Override
     public String toString() {
-        return String.format("[E] %s (from: %s to: %s)", 
+        return String.format("[E] %s (from: %s to: %s)",
         super.toString(), this.from.format(
             DateTimeFormatter.ofPattern("d MMMM yyyy")), this.to.format(
                 DateTimeFormatter.ofPattern("d MMMM yyyy")));

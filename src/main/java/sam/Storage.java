@@ -37,7 +37,7 @@ public class Storage {
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             file.createNewFile();
-            return items;  // Return empty list if file didn't exist
+            return items; // Return empty list if file didn't exist
         }
 
         BufferedReader reader = new BufferedReader(new FileReader(file));

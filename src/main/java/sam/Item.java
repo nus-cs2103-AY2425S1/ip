@@ -4,8 +4,8 @@ package sam;
  */
 public class Item {
 
-    private String name;
-    private Boolean done;
+    private final String name;
+    private Boolean isDone;
 
     /**
      * Constructs a new Item object with the specified name.
@@ -14,21 +14,21 @@ public class Item {
      */
     public Item(String newname) {
         this.name = newname;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
      * Marks the item as done.
      */
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the item as undone.
      */
     public void markAsUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -37,7 +37,7 @@ public class Item {
      * @return the status icon ("X" if done, " " if undone)
      */
     public String getStatusIcon() {
-        return (done ? "X" : " ");
+        return (isDone ? "X" : " ");
     }
 
     /**
@@ -47,7 +47,7 @@ public class Item {
      */
     public String toData() {
         String str;
-        str = String.format("%s | %s", this.done ? "1" : "0", this.name);
+        str = String.format("%s | %s", this.isDone ? "1" : "0", this.name);
         return str;
     }
 

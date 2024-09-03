@@ -13,7 +13,7 @@ public class Deadline extends Item {
 
     /**
      * Constructs a Deadline object with the specified name and deadline.
-     * 
+     *
      * @param newname The name of the deadline task.
      * @param by The deadline of the task in the format "dd-MM-yyyy".
      */
@@ -25,7 +25,8 @@ public class Deadline extends Item {
 
     @Override
     public String toData() {
-        String str = String.format("D | %s | %s\n", super.toData(), this.by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        String str = String.format(
+            "D | %s | %s\n", super.toData(), this.by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         return str;
     }
 

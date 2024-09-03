@@ -1,4 +1,10 @@
 package sam;
+
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.Scanner;
+
 /**
  * The Sam class represents a task management application.
  * It allows users to add, mark, unmark, and delete tasks.
@@ -6,26 +12,25 @@ package sam;
  * The application provides a command-line interface for users to interact with.
  * Users can input commands to perform various operations on the tasks.
  * The application also supports saving and loading tasks from a file.
- * 
+ *
  * The Sam class contains methods to handle user commands and perform the corresponding operations.
  * It uses the Ui class to display messages to the user.
  * It uses the Storage class to save and load tasks from a file.
  * It uses the Items class to store and manage the list of tasks.
- * 
+ *
  * The main method creates an instance of the Sam class and starts the application.
- * 
+ *
  */
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.List;
-import java.util.Scanner;
-
-
 public class Sam {
+    private Ui ui;
     private Storage storage;
     private Items items;
-    private Ui ui;
 
+    /**
+     * Constructs a new instance of the Sam class.
+     *
+     * @param filePath The file path to the storage file.
+     */
     public Sam(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -36,10 +41,18 @@ public class Sam {
             items = new Items(loadedItems);
         } catch (IOException e) {
             ui.showMessage("Error loading tasks. Starting with an empty list.");
-            items = new Items();  // Start with an empty list if loading fails
+            items = new Items(); // Start with an empty list if loading fails
         }
     }
 
+    /**
+     * Runs the program and handles user input.
+     * Displays a welcome message and prompts the user for input.
+     * Executes different actions based on the user's input, such as adding, deleting, marking, or finding tasks.
+     * Saves the tasks to storage after each action.
+     * Catches and displays any exceptions that occur during the execution of the program.
+     * Closes the scanner after the program finishes running.
+     */
     public void run() {
         ui.showWelcome();
         Scanner scanner = new Scanner(System.in);
@@ -61,7 +74,7 @@ public class Sam {
                     markItemDone(input);
                 } else if (input.startsWith("find")) {
                     findItem(input);
-                }else if (input.startsWith("unmark")) {
+                } else if (input.startsWith("unmark")) {
                     markItemUndone(input);
                 } else if (input.startsWith("delete")) {
                     deleteItem(input);
@@ -160,17 +173,17 @@ public class Sam {
             }
             items.addItem(new ToDo(input.substring(5).trim()));
         } else if ("deadline".equals(itemType)) {
-            String[] Dparts = input.split(" /by ");
-            if (Dparts.length < 2 || "".equals(Dparts[1].trim())) {
+            String[] dParts = input.split(" /by ");
+            if (dParts.length < 2 || "".equals(dParts[1].trim())) {
                 throw new SamException("Please include the date of the Deadline task.");
             }
-            items.addItem(new Deadline(Dparts[0].substring(9).trim(), Dparts[1].trim()));
+            items.addItem(new Deadline(dParts[0].substring(9).trim(), dParts[1].trim()));
         } else if ("event".equals(itemType)) {
-            String[] Eparts = input.split(" /from | /to ");
-            if (Eparts.length < 3 || "".equals(Eparts[1].trim()) || "".equals(Eparts[2].trim())) {
+            String[] eParts = input.split(" /from | /to ");
+            if (eParts.length < 3 || "".equals(eParts[1].trim()) || "".equals(eParts[2].trim())) {
                 throw new SamException("Please include the dates for the Event task.");
             }
-            items.addItem(new Event(Eparts[0].substring(6).trim(), Eparts[1].trim(), Eparts[2].trim()));
+            items.addItem(new Event(eParts[0].substring(6).trim(), eParts[1].trim(), eParts[2].trim()));
         } else {
             throw new SamException("I'm sorry, but I don't know what that means.");
         }

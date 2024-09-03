@@ -35,5 +35,4 @@ public class ToDo extends Item {
         String str = String.format("[T] %s", super.toString());
         return str;
     }
-    
 }
