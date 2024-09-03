@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Devon {
-
-    protected Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private TaskList tasks = new TaskList();
     private Storage storage = new Storage();
     private Parser parser = new Parser();
@@ -126,6 +125,7 @@ public class Devon {
         String[] contents = parser.extractDeadline(input);
         String description = contents[0];
         String by = contents[1];
+
         try {
             LocalDateTime byDateTime = LocalDateTime.parse(by, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
             addToList(new Deadline(description, byDateTime));
@@ -139,6 +139,7 @@ public class Devon {
         String description = contents[0];
         String from = contents[1];
         String to = contents[2];
+
         try {
             LocalDateTime fromDateTime = LocalDateTime.parse(from, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
             LocalDateTime toDateTime = LocalDateTime.parse(to, Storage.DATE_TIME_FORMATTER_FOR_EXTERNAL_INPUT);
@@ -150,6 +151,7 @@ public class Devon {
 
     private void deleteAction(String input) throws DevonInvalidTaskNumberException {
         int taskIndex;
+
         try {
             taskIndex = parser.extractTaskIndex(input) - 1;
         } catch (NumberFormatException e) {
@@ -158,6 +160,7 @@ public class Devon {
         if (taskIndex < 0 || taskIndex >= tasks.getNumberOfTasks()) {
             throw new DevonInvalidTaskNumberException();
         }
+
         deleteTask(taskIndex);
     }
 
