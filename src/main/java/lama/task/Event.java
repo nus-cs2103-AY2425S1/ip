@@ -65,7 +65,7 @@ public class Event extends Task {
      * @return String representation of event task in file.
      */
     @Override
-    public String toFile() {
+    public String toFileFormat() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
                 + from.format(FILE_FORMAT) + " | " + to.format(FILE_FORMAT);
     }

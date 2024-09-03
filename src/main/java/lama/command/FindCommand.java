@@ -10,7 +10,7 @@ import lama.task.Task;
  */
 public class FindCommand extends Command {
 
-    private String word;
+    private String keyword;
 
     /**
      * Construct a FindCommand object with a string of specified word.
@@ -18,7 +18,7 @@ public class FindCommand extends Command {
      * @param word The keyword to search.
      */
     public FindCommand(String word) {
-        this.word = word;
+        this.keyword = word;
     }
 
     /**
@@ -31,7 +31,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String run(TaskList taskList, Storage storage, Ui ui) {
-        TaskList tasks = taskList.find(word);
+        TaskList tasks = taskList.find(keyword);
         ui.showFindCommand(tasks);
         if (tasks.size() == 0) {
             return "No matching tasks found!";

@@ -118,7 +118,7 @@ public class Storage {
 
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
-                fileWriter.write(task.toFile() + "\n");
+                fileWriter.write(task.toFileFormat() + "\n");
             }
 
             fileWriter.close();
@@ -136,7 +136,7 @@ public class Storage {
     public void addTask(Task task) throws LamaException {
         try {
             FileWriter fileWriter = new FileWriter(path, true);
-            fileWriter.write(task.toFile() + "\n");
+            fileWriter.write(task.toFileFormat() + "\n");
             fileWriter.close();
         } catch (IOException e) {
             throw new LamaException("Error writing file: " + e.getMessage());

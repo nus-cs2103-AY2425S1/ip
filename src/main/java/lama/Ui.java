@@ -148,18 +148,18 @@ public class Ui {
     /**
      * Display the list of tasks that match with the word given.
      *
-     * @param taskList TaskList that contains the matched tasks.
+     * @param filteredList TaskList that contains the matched tasks.
      */
-    public void showFindCommand(TaskList taskList) {
-        if (taskList.size() == 0) {
+    public void showFindCommand(TaskList filteredList) {
+        if (filteredList.size() == 0) {
             System.out.println(BAR);
             System.out.println("No matching tasks found!");
             System.out.println(BAR + "\n");
         } else {
             System.out.println(BAR);
             System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < taskList.size(); i++) {
-                Task task = taskList.get(i);
+            for (int i = 0; i < filteredList.size(); i++) {
+                Task task = filteredList.get(i);
                 System.out.println((i + 1) + "." + task);
             }
             System.out.println(BAR + "\n");

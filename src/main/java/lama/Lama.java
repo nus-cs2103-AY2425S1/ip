@@ -14,8 +14,8 @@ public class Lama {
     private TaskList taskList;
 
     /**
-     * Construct a Lama object with specified file path for storing data.
-     * Initialise the UI, storage and task list.
+     * Constructs a Lama object with specified file path for storing data.
+     * Initialises the UI, storage and task list.
      * If loading task fail, it creates a new one.
      *
      * @param filePath String file path where tasks will be stored.

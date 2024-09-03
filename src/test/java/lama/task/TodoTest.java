@@ -37,6 +37,6 @@ public class TodoTest {
 
         String output = "T | 0 | Return Book";
 
-        assertEquals(output, todo.toFile());
+        assertEquals(output, todo.toFileFormat());
     }
 }
