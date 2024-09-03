@@ -184,7 +184,6 @@ public class ParserTest {
 
         // prepare mocked objects/behaviour and input
 
-        Task mockedTask = mock(Task.class);
         String input = "delete 2";
 
         // when taskList.size() is called, return 1
