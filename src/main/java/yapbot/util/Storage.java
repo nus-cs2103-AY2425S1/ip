@@ -15,15 +15,32 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles all file interactions for YapBot.
+ */
 public class Storage {
     private File file;
     private String filepath;
 
+    /**
+     * Returns a Storage instance.
+     * The actual file is not automatically created together with the instance.
+     *
+     * @param filepath Location where tasks are saved to.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
         this.file = new File(filepath);
     }
 
+    /**
+     * Parses the file to return the tasks stored on it.
+     * If the file is empty, an empty ArrayList is returned.
+     * If the file is corrupted or parsing fails, data on the file is dumped.
+     *
+     * @return An ArrayList of tasks parsed from the file.
+     * @throws YapBotException If the file cannot be parsed or the file cannot be created.
+     */
     public ArrayList<Task> load() throws YapBotException {
         try {
 
@@ -124,6 +141,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks onto the file.
+     *
+     * @param saveableTasks String representation of the tasks to be saved.
+     * @return true if tasks are saved successfully.
+     * @throws IOException If tasks cannot be saved.
+     */
     public boolean save(String saveableTasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filepath);
         fileWriter.write(saveableTasks);

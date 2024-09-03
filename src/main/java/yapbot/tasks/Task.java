@@ -26,6 +26,7 @@ public class Task {
      * Returns a Task instance.
      *
      * @param description Details of the Task.
+     * @throws YapBotException If task detail is empty.
      */
     public Task(String description) throws YapBotException {
         if (description.isEmpty()) {
@@ -42,7 +43,8 @@ public class Task {
     }
 
     /**
-     * Returns the string representation of the task that is parseable by YapBot.
+     * Returns the string representation of the task to be saved on a file.
+     * The string is formatted such that YapBot can create the task again by parsing it.
      */
     public String saveTask() {
         if (this.isDone) {

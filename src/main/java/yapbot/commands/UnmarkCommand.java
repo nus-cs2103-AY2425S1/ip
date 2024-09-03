@@ -7,9 +7,14 @@ import yapbot.util.TaskList;
 import yapbot.util.Ui;
 
 public class UnmarkCommand extends Command {
-
     private int index;
 
+    /**
+     * Creates an UnmarkCommand instance.
+     *
+     * @param commandDetails Details specifying the task..
+     * @throws YapBotException If commandDetails is empty.
+     */
     public UnmarkCommand(String commandDetails) throws YapBotException {
         if (commandDetails.isEmpty()) {
             throw new YapBotException("Error, User Input Prediction module offline."
@@ -23,6 +28,12 @@ public class UnmarkCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Marks the task as incomplete.
+     *
+     * @throws YapBotException if the task cannot be found.
+     */
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException{
 

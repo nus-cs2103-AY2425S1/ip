@@ -17,12 +17,20 @@ public class YapBot {
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Returns a YapBot instance.
+     *
+     * @param filepath Location where tasks are saved to.
+     */
     public YapBot(String filepath) {
         this.ui = new Ui();
         this.storage = new Storage(filepath);
         this.taskList = new TaskList();
     }
 
+    /**
+     * Driver function to start the YapBot instance.
+     */
     public void run() {
         ui.welcomeUser();
 
@@ -59,11 +67,6 @@ public class YapBot {
         }
     }
 
-    /**
-     * Driver method to accept user input and parse commands.
-     *
-     * @param args Not needed.
-     */
     public static void main(String[] args) {
         new YapBot("data/tasks.txt").run();
     }

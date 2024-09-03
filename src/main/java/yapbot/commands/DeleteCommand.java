@@ -9,6 +9,12 @@ import yapbot.util.Ui;
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Creates a DeleteCommand instance.
+     *
+     * @param commandDetails Details containing the task to be deleted.
+     * @throws YapBotException If commandDetails is empty.
+     */
     public DeleteCommand(String commandDetails) throws YapBotException {
         if (commandDetails.isEmpty()) {
             throw new YapBotException("Error, User Input Prediction module offline."
@@ -22,6 +28,12 @@ public class DeleteCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Removes the task from the TaskList.
+     *
+     * @throws YapBotException if the task cannot be found.
+     */
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
 

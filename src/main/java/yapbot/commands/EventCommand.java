@@ -11,6 +11,12 @@ public class EventCommand extends Command {
 
     private String taskDetails;
 
+    /**
+     * Creates an EventCommand instance.
+     *
+     * @param taskDetails Details of the Event task to be created.
+     * @throws YapBotException If task details are empty.
+     */
     public EventCommand(String taskDetails) throws YapBotException {
         if (taskDetails.isEmpty()) {
             throw new YapBotException("Error, Automated Task Suggestion module offline."
@@ -20,6 +26,12 @@ public class EventCommand extends Command {
         this.taskDetails = taskDetails;
     }
 
+    /**
+     * {@inheritDoc}
+     * Creates and adds the Event Task to TaskList.
+     *
+     * @throws YapBotException If task details do not contain start and end times/dates.
+     */
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
         boolean containsFrom = taskDetails.contains("/from");

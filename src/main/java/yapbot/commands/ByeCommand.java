@@ -9,6 +9,13 @@ import java.io.IOException;
 
 public class ByeCommand extends Command {
 
+    /**
+     * {@inheritDoc}
+     * Saves current Tasks onto file and closes the Ui.
+     * If saving fails, the Ui is still closed regardless.
+     *
+     * @throws YapBotException If Tasks could not be saved onto file.
+     */
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
         try {

@@ -10,10 +10,21 @@ import yapbot.util.Ui;
 public class ToDoCommand extends Command {
     private String taskDetails;
 
+    /**
+     * Creates a ToDoCommand instance.
+     *
+     * @param taskDetails Details of the ToDo task to be created.
+     */
     public ToDoCommand(String taskDetails) {
         this.taskDetails = taskDetails;
     }
 
+    /**
+     * {@inheritDoc}
+     * Creates and adds the ToDo Task to TaskList.
+     *
+     * @throws YapBotException if task details is empty.
+     */
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
         Task task = new ToDo(taskDetails);

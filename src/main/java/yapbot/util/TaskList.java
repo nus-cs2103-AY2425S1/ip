@@ -7,39 +7,41 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Handles management of Tasks.
+ */
 public class TaskList {
     private ArrayList<Task> storedTasks;
 
+    /**
+     * Returns an empty TaskList instance.
+     */
     public TaskList() {
         this.storedTasks = new ArrayList<>();
     }
 
     /**
-     * Loads tasks from file and creates the file if its does not exist.
-     * If the file cannot be created, YapBot continues running but tasks will not be saved.
-     * If load file is corrupted, previously loaded tasks are cleared from storedTasks and the file is overwritten.
+     * Returns a TaskList instance with tasks initialised from input list.
      *
-     * @return true if data is loaded successfully and false otherwise.
+     * @param tasks List of tasks to initialise the instance with.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.storedTasks = tasks;
     }
 
     /**
-     * Creates a task instance and stores it in storedTasks field.
+     * Adds the task to the TaskList instance.
      *
-     * @param tasktype Type of task to be created (eg. ToDo, Event, etc).
-     * @param taskDetails Details of the task to be created.
-     * @throws YapBotException If task details are missing for the specified task type.
+     * @param task Task to be added to the TaskList.
      */
-    public void addTask(Task task) throws YapBotException {
+    public void addTask(Task task) {
         this.storedTasks.add(task);
     }
 
     /**
-     * Prints the list of tasks currently in storedTasks.
+     * Returns the string representation of the tasks currently in the TaskList.
      *
-     * @throws YapBotException If storedTasks is empty.
+     * @throws YapBotException If TaskList is empty.
      */
     public String listTasks() throws YapBotException {
         if (storedTasks.isEmpty()) {
@@ -67,9 +69,9 @@ public class TaskList {
     }
 
     /**
-     * Saves the tasks stored in storedTasks in a text file.
+     * Returns the String representation of tasks currently in the TaskList to be saved on a file.
+     * String representation of tasks is in a format that YapBot can parse.
      *
-     * @throws IOException If the file cannot be found.
      */
     public String saveTasks() {
 
@@ -89,10 +91,10 @@ public class TaskList {
     }
 
     /**
-     * Removes task in storedTasks.
+     * Removes a Task from the TaskList.
      *
-     * @param index Task number specifed by user. index = actual array index + 1.
-     * @throws YapBotException If index > size of storedTasks array or index <= 0 (ie there is no task for the index).
+     * @param index Index of task to be removed.
+     * @throws YapBotException If index >= size of storedTasks array or index < 0 (ie there is no task for the index).
      */
     public Task deleteTask(int index) throws YapBotException {
         if (index < 0 || index >= storedTasks.size()) {
@@ -104,7 +106,7 @@ public class TaskList {
     }
 
     /**
-     * Sets a task to either completed or incomplete.
+     * Changes a Task to completed status.
      *
      * @param index Index of task to be marked.
      * @throws YapBotException If index >= size of storedTasks array or index < 0 (ie there is no task for the index).
@@ -121,6 +123,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Changes a Task to incomplete status.
+     *
+     * @param index Index of task to be marked.
+     * @throws YapBotException If index >= size of storedTasks array or index < 0 (ie there is no task for the index).
+     */
     public Task unmarkTask(int index) throws YapBotException {
         if (index < 0 || index >= storedTasks.size()) {
             throw new YapBotException("Finding Task...Failure\nError, requested Task does not exist"
@@ -133,6 +141,9 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Returns the number of tasks in the TaskList.
+     */
     public int size() {
         return this.storedTasks.size();
     }

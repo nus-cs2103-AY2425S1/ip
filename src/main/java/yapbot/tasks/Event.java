@@ -5,21 +5,21 @@ import yapbot.exceptions.YapBotException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 /**
- * Child class of Task that has a start and end dates/times.
+ * Child class of Task that has start and end dates/times.
  */
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
     /**
-     * Returns an Event instance with isDone set to false by default.
+     * Returns an Event instance which is set as incomplete by default.
      *
-     * @param description Details of the Task.
-     * @param from Date/time when this task should start.
-     * @param to Date/time when this task should end.
+     * @param description Details of the task to be created.
+     * @param fromStr Start time of the task.
+     * @param toStr End time of the task.
+     * @throws YapBotException If task description, start and/or end times are empty.
      */
     public Event(String description, String fromStr, String toStr) throws YapBotException {
         super(description);
@@ -71,12 +71,14 @@ public class Event extends Task {
     }
 
     /**
-     * Creates an Event instance and allows isDone to be set to any boolean value.
+     * Creates an Event instance and allows completion status to be initialised.
+     * This is mostly used when creating the task from a saved format.
      *
      * @param description Details of the Task.
      * @param from Date/time when this task should start.
      * @param to Date/time when this task should end.
-     * @param isDone Set to true for task to be completed by default.
+     * @param isDone Completion status the task will be initialized with.
+     * @throws YapBotException If task description is empty.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) throws YapBotException {
         super(description);

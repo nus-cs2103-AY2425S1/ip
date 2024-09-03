@@ -5,7 +5,6 @@ import yapbot.exceptions.YapBotException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Child class of Task that has an additional deadline field.
@@ -14,10 +13,11 @@ public class Deadline extends Task {
     private LocalDateTime deadline;
 
     /**
-     * Creates a Deadline instance with isDone set to false by default.
+     * Creates a Deadline instance that is set to incomplete by default.
      *
      * @param description Details of the Task.
-     * @param deadline Date/time when this task should be completed by.
+     * @param deadlineStr Date/time when this task should be completed by.
+     * @throws YapBotException If task description and/or deadline is empty.
      */
     public Deadline(String description, String deadlineStr) throws YapBotException {
         super(description);
@@ -47,11 +47,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * Creates a Deadline instance and allows isDone to be set to any boolean value.
+     * Creates a Deadline instance and allows completion status to be initialised.
+     * This is mostly used when creating the task from a saved format.
      *
      * @param description Details of the Task.
      * @param deadline Date/time when this task should be completed by.
-     * @param isDone Set to true for task to be completed by default.
+     * @param isDone Completion status the task will be initialized with.
+     * @throws YapBotException If task description is empty.
      */
     public Deadline(String description, LocalDateTime deadline, boolean isDone) throws YapBotException {
         super(description);

@@ -7,6 +7,12 @@ import yapbot.util.Ui;
 
 public class ListCommand extends Command {
 
+    /**
+     * {@inheritDoc}
+     * Displays the list of tasks currently in TaskList.
+     *
+     * @throws YapBotException If the TaskList is empty.
+     */
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
         String outputString = tasks.listTasks();
