@@ -1,8 +1,8 @@
 package gavinchatbot.task;
 
-import gavinchatbot.util.GavinException;
-
 import java.util.ArrayList;
+
+import gavinchatbot.util.GavinException;
 
 /**
  * Represents a list of tasks.

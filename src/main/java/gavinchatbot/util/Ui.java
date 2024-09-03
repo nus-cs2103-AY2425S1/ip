@@ -1,9 +1,10 @@
 package gavinchatbot.util;
 
-import gavinchatbot.task.Task;
-import gavinchatbot.task.TaskList;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import gavinchatbot.task.Task;
+import gavinchatbot.task.TaskList;
 
 /**
  * Handles the user interface of the GavinChatBot application.
@@ -131,11 +132,9 @@ public class Ui {
     }
 
     /**
-     * Reads and returns a command input by the user.
+     * Displays tasks in the list that match the user task input.
      *
-     * @return The command input by the user.
      */
-
     public void showFoundTasks(ArrayList<Task> tasks) {
         String horizontalLine = "___________________________________________________________________________________\n";
         System.out.println(horizontalLine);
@@ -146,6 +145,11 @@ public class Ui {
         System.out.println(horizontalLine);
     }
 
+    /**
+     * Reads and returns a command input by the user.
+     *
+     * @return The command input by the user.
+     */
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();

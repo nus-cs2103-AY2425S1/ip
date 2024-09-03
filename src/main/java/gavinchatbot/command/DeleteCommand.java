@@ -1,11 +1,12 @@
 package gavinchatbot.command;
 
 import java.io.IOException;
+
 import gavinchatbot.task.Task;
 import gavinchatbot.task.TaskList;
-import gavinchatbot.util.Ui;
-import gavinchatbot.util.Storage;
 import gavinchatbot.util.GavinException;
+import gavinchatbot.util.Storage;
+import gavinchatbot.util.Ui;
 
 /**
  * Represents a command to delete a task from the task list.

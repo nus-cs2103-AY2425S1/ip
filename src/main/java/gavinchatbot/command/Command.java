@@ -1,10 +1,11 @@
 package gavinchatbot.command;
 
+import java.io.IOException;
+
 import gavinchatbot.task.TaskList;
 import gavinchatbot.util.GavinException;
 import gavinchatbot.util.Storage;
 import gavinchatbot.util.Ui;
-import java.io.IOException;
 
 /**
  * Represents a command that can be executed in the GavinChatBot application.

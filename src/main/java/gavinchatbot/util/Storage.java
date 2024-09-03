@@ -1,14 +1,16 @@
 package gavinchatbot.util;
 
-import gavinchatbot.task.Deadline;
-import gavinchatbot.task.Event;
-import gavinchatbot.task.Task;
-import gavinchatbot.task.ToDos;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import gavinchatbot.task.Deadline;
+import gavinchatbot.task.Event;
+import gavinchatbot.task.Task;
+import gavinchatbot.task.ToDos;
+
 
 /**
  * Handles the storage of tasks in the file system.

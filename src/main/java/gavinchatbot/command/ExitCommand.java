@@ -1,8 +1,8 @@
 package gavinchatbot.command;
 
 import gavinchatbot.task.TaskList;
-import gavinchatbot.util.Ui;
 import gavinchatbot.util.Storage;
+import gavinchatbot.util.Ui;
 
 /**
  * Represents a command to exit the application.

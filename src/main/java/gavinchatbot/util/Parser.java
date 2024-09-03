@@ -1,8 +1,17 @@
 package gavinchatbot.util;
 
-import gavinchatbot.command.*;
-
 import java.time.LocalDate;
+
+import gavinchatbot.command.AddDeadlineCommand;
+import gavinchatbot.command.AddEventCommand;
+import gavinchatbot.command.AddToDoCommand;
+import gavinchatbot.command.Command;
+import gavinchatbot.command.DeleteCommand;
+import gavinchatbot.command.ExitCommand;
+import gavinchatbot.command.FindCommand;
+import gavinchatbot.command.ListCommand;
+import gavinchatbot.command.MarkCommand;
+import gavinchatbot.command.UnmarkCommand;
 
 /**
  * Represents a parser that interprets user input and returns the appropriate command.
@@ -45,17 +54,17 @@ public class Parser {
         } else if (input.startsWith("delete")) {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             return new DeleteCommand(index);
-        } else if (input.startsWith("find")){
+        } else if (input.startsWith("find")) {
             String find = input.substring(5).trim();
             return new FindCommand(find);
         } else {
-            throw new GavinException("Invalid input!!! \n" +
-                    "To add a new task, please start with 'todo', 'deadline', or 'event'. \n" +
-                    "For deadlines, enter the task, followed with '/by YYYY-MM-DD'. \n" +
-                    "To view the list of tasks, please type 'list'. \n" +
-                    "To mark/unmark the tasks, please type 'mark' or 'unmark' , followed by the index of the task. \n" +
-                    "To delete an existing task, please type 'delete' , followed by the index of the task. \n" +
-                    "To exit, please type 'bye'. ");
+            throw new GavinException("Invalid input!!! \n"
+                    + "To add a new task, please start with 'todo', 'deadline', or 'event'. \n"
+                    + "For deadlines, enter the task, followed with '/by YYYY-MM-DD'. \n"
+                    + "To view the list of tasks, please type 'list'. \n"
+                    + "To mark/unmark the tasks, please type 'mark' or 'unmark' , followed by the index of the task. \n"
+                    + "To delete an existing task, please type 'delete' , followed by the index of the task. \n"
+                    + "To exit, please type 'bye'. ");
         }
     }
 }
