@@ -49,7 +49,7 @@ public class Task {
                     + "]"
                     + "[X] "
                     + this.description;
-            Bob.printLines(finishedMarking);
+            Ui.printLines(finishedMarking);
         } else {
             this.isDone = false;
             String finishedUnmarking = "OK, I've marked this task as not done yet:\n\t"
@@ -58,7 +58,7 @@ public class Task {
                     + "]"
                     + "[ ] "
                     + this.description;
-            Bob.printLines(finishedUnmarking);
+            Ui.printLines(finishedUnmarking);
         }
     }
 
