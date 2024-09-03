@@ -60,23 +60,25 @@ public class TaskList {
      *
      * @param date string representing target date
      * @param ui ui object to print output
+     * @return String representing tasks on certain date
      * @throws TalkerException if incorrect date format
      */
-    public void printTasksOn(String date, Ui ui) throws TalkerException {
+    public String printTasksOn(String date, Ui ui) throws TalkerException {
         LocalDate targetDate;
+        StringBuilder output = new StringBuilder();
         try {
             String[] parsed = date.split(" ");
             targetDate = LocalDate.parse(parsed[1], INPUT_FORMAT);
         } catch (DateTimeException e) {
             throw new TalkerException("Incorrect date format. Try again with: yyyy/MM/dd");
         }
-        ui.printTasksOn(targetDate.format(OUTPUT_FORMAT));
+        output.append(ui.printTasksOn(targetDate.format(OUTPUT_FORMAT)));
         for (Task task: list) {
             if (task instanceof Deadline) {
                 LocalDate deadline = ((Deadline) task).getDeadline().toLocalDate();
                 if (targetDate.isBefore(deadline) || targetDate.isEqual(deadline)) {
                     if (!task.isComplete()) {
-                        ui.printTask(task);
+                        output.append(ui.printTask(task));
                     }
                 }
             } else if (task instanceof Event) {
@@ -86,24 +88,26 @@ public class TaskList {
                 if ((targetDate.isAfter(start) || targetDate.isEqual(start))
                         && (targetDate.isBefore(end) || targetDate.isEqual(end))) {
                     if (!task.isComplete()) {
-                        ui.printTask(task);
+                        output.append(ui.printTask(task));
                     }
                 }
             }
         }
+        return output.toString();
     }
 
     /**
      * Prints the list of current tasks
      *
      * @param ui ui object to print output
+     * @return String list of current tasks
      * @throws TalkerException if list is empty
      */
-    public void listTasks(Ui ui) throws TalkerException {
+    public String listTasks(Ui ui) throws TalkerException {
         if (list.isEmpty()) {
             throw new TalkerException("List is empty!");
         }
-        ui.printTaskList(list);
+        return ui.printTaskList(list);
     }
 
     /**
@@ -111,12 +115,13 @@ public class TaskList {
      *
      * @param parsed string representing task number
      * @param ui ui object to print output
+     * @return String representing outcome of this event
      * @throws TalkerException if no corresponding task found
      */
-    public void markTaskComplete(String[] parsed, Ui ui) throws TalkerException {
+    public String markTaskComplete(String[] parsed, Ui ui) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
-            ui.printTaskMarked(list.get(index).mark());
+            return ui.printTaskMarked(list.get(index).mark());
         } catch (NumberFormatException e) {
             throw new TalkerException("Mark format wrong. Try again with: mark <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -129,12 +134,13 @@ public class TaskList {
      *
      * @param parsed string representing task number
      * @param ui ui object to print output
+     * @return String representing outcome of this event
      * @throws TalkerException if no corresponding task found
      */
-    public void unmarkTaskComplete(String[] parsed, Ui ui) throws TalkerException {
+    public String unmarkTaskComplete(String[] parsed, Ui ui) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
-            ui.printTaskUnmarked(list.get(index).unmark());
+            return ui.printTaskUnmarked(list.get(index).unmark());
         } catch (NumberFormatException e) {
             throw new TalkerException("Unmark format wrong. Try again with: unmark <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -147,13 +153,14 @@ public class TaskList {
      *
      * @param parsed string representing task number
      * @param ui ui object to print output
+     * @return String representing outcome of this event
      * @throws TalkerException if no corresponding task found
      */
-    public void deleteTask(String[] parsed, Ui ui) throws TalkerException {
+    public String deleteTask(String[] parsed, Ui ui) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
             Task removed = list.remove(index);
-            ui.printTaskDelete(removed, list.size());
+            return ui.printTaskDelete(removed, list.size());
         } catch (NumberFormatException e) {
             throw new TalkerException("Delete format wrong. Try again with: delete <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -166,14 +173,15 @@ public class TaskList {
      *
      * @param input string representing ToDo task
      * @param ui ui object to print output
+     * @return String representing outcome of this event
      * @throws TalkerException if incorrect input format
      */
-    public void createToDo(String input, Ui ui) throws TalkerException {
+    public String createToDo(String input, Ui ui) throws TalkerException {
         try {
             String desc = input.substring(5);
             Task newTask = new ToDo(desc);
             list.add(newTask);
-            ui.printTaskAdd(newTask, list.size());
+            return ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException("ToDo format wrong. Try again with: todo <description>");
         }
@@ -184,9 +192,10 @@ public class TaskList {
      *
      * @param input string representing Deadline task
      * @param ui ui object to print output
+     * @return String representing outcome of this event
      * @throws TalkerException if incorrect input format
      */
-    public void createDeadline(String input, Ui ui) throws TalkerException {
+    public String createDeadline(String input, Ui ui) throws TalkerException {
         try {
             String contents = input.substring(9);
 
@@ -196,7 +205,7 @@ public class TaskList {
 
             Task newTask = new Deadline(desc, by);
             list.add(newTask);
-            ui.printTaskAdd(newTask, list.size());
+            return ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException(
                     "Deadline format wrong. Try again with: deadline <description> /by <dd-MM-yyyy HH:mm>");
@@ -208,9 +217,10 @@ public class TaskList {
      *
      * @param input string representing Event task
      * @param ui ui object to print output
+     * @return String representing outcome of this event
      * @throws TalkerException if incorrect input format
      */
-    public void createEvent(String input, Ui ui) throws TalkerException {
+    public String createEvent(String input, Ui ui) throws TalkerException {
         try {
             String contents = input.substring(6);
 
@@ -223,7 +233,7 @@ public class TaskList {
             Task newTask = new Event(desc, from, to);
 
             list.add(newTask);
-            ui.printTaskAdd(newTask, list.size());
+            return ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException(
                     "Event format wrong. Try again with: event <description> "
@@ -236,14 +246,16 @@ public class TaskList {
      *
      * @param keyword keyword to be searched through descriptions
      * @param ui ui object to print output
+     * @return String representing outcome of this event
+     * @throws TalkerException if nothing found
      */
-    public void findTask(String keyword, Ui ui) throws TalkerException {
+    public String findTask(String keyword, Ui ui) throws TalkerException {
         ArrayList<Task> outputList = new ArrayList<>();
         for (Task task: list) {
             if (task.getDescription().contains(keyword)) {
                 outputList.add(task);
             }
         }
-        ui.printMatchingTasks(outputList);
+        return ui.printMatchingTasks(outputList);
     }
 }

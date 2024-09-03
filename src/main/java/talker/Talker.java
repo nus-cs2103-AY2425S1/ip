@@ -50,6 +50,22 @@ public class Talker {
         }
     }
 
+    /**
+     * Generates response for user's chat messages
+     * @param input user input into chat bot
+     * @return String reponse depending on user's input
+     */
+    public String getResponse(String input) {
+        String output;
+        try {
+            Command c = Parser.parseInput(input);
+            output = c.execute(list, ui, storage);
+            return output;
+        } catch (TalkerException e) {
+            return ui.printError(e);
+        }
+    }
+
     public static void main(String[] args) {
         new Talker().run();
     }

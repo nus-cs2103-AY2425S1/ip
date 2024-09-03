@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import talker.Talker;
 
 /**
  * Represents implementation of Application
@@ -22,6 +23,7 @@ public class Main extends Application {
     private Scene scene;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
     private Image talkerImage = new Image(this.getClass().getResourceAsStream("/images/Talker.jpeg"));
+    private Talker talker = new Talker();
     @Override
     public void start(Stage stage) {
         scrollPane = new ScrollPane();
@@ -43,6 +45,8 @@ public class Main extends Application {
         userInput.setOnAction((event) -> {
             handleUserInput();
         });
+        // Scroll down once dialogContainer height changes
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
     /**
@@ -50,7 +54,12 @@ public class Main extends Application {
      * to the dialog container. Clears user input after processing
      */
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String talkerText = talker.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, userImage),
+                new DialogBox(talkerText, talkerImage)
+        );
         userInput.clear();
     }
     private void formatWindow(Stage stage, AnchorPane mainLayout) {

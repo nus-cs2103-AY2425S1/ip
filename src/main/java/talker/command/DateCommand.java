@@ -23,11 +23,12 @@ public class DateCommand extends Command {
      * @param list list of tasks to search for target date from
      * @param ui ui object to print output
      * @param storage storage object to read/write file
+     * @return String representing outcome of this event
      * @throws TalkerException if unable to find tasks on certain date
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
-        list.printTasksOn(input, ui);
+    public String execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
+        return list.printTasksOn(input, ui);
     }
 
 }
