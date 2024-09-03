@@ -1,6 +1,8 @@
 package ipman;
 
-import ipman.commands.*;
+import ipman.commands.Command;
+import ipman.commands.Context;
+import ipman.commands.ExitException;
 import ipman.models.TaskList;
 import ipman.models.TasksFileManager;
 import ipman.ui.CliUi;
