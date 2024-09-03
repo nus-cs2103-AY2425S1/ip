@@ -5,7 +5,7 @@ public class UserTaskCreator implements TaskCreator {
     @Override
     public Task createTask(String input) {
         // separate the string containing information about the task type into index 0
-        String[] inputComponents = input.split(" \\| ", 2);
+        String[] inputComponents = input.split(" ", 2);
 
         // parse the type of task that needs to be created
         TaskType type = TaskType.fromString(inputComponents[0]);
