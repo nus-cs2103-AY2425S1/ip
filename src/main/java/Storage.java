@@ -1,11 +1,16 @@
+import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
     private String path;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     public Storage(String path) {
         this.path = path;
@@ -33,12 +38,15 @@ public class Storage {
                         break;
 
                     case "D":
-                        tasks.add(new Deadline(name, status, separated[3]));
+                        LocalDate due = LocalDate.parse(separated[3]);
+                        tasks.add(new Deadline(name, status, due));
                         break;
 
                     case "E":
-                        String[] dates = separated[3].split("-");
-                        tasks.add(new Event(name, status, dates[0], dates[1]));
+                        String[] startAndEnd = separated[3].split("-");
+                        LocalDateTime start = LocalDateTime.parse(startAndEnd[0].trim(), FORMATTER);
+                        LocalDateTime end = LocalDateTime.parse(startAndEnd[1].trim(), FORMATTER);
+                        tasks.add(new Event(name, status, start, end));
                         break;
 
                     default:

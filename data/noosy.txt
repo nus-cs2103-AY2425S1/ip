@@ -1,3 +1,5 @@
 T | 1 | Gym
 T | 0 | cs2100 quiz
-T | 0 | lecture | 5pm-7pm
+T | 0 | lecture
+T | 0 | ip
+E | 0 | cooking | Sept 03 2024 16:20 - Sept 03 2024 18:20
