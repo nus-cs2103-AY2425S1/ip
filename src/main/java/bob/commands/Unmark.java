@@ -1,11 +1,11 @@
 package bob.commands;
 
-import bob.storage.Storage;
 import bob.data.TaskList;
+import bob.storage.Storage;
 import bob.ui.Ui;
 
 /**
- * Marks a task as not done.
+ * Represents the unmark command.
  */
 public class Unmark extends Command {
     private final int index;

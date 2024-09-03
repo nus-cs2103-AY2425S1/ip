@@ -1,10 +1,13 @@
 package bob.commands;
 
-import bob.storage.Storage;
 import bob.data.TaskList;
+import bob.storage.Storage;
 import bob.tasks.Task;
 import bob.ui.Ui;
 
+/**
+ * Class representing the find command.
+ */
 public class Find extends Command {
     private final String input;
 

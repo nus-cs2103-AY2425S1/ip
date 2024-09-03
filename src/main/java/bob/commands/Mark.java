@@ -1,11 +1,11 @@
 package bob.commands;
 
-import bob.storage.Storage;
 import bob.data.TaskList;
+import bob.storage.Storage;
 import bob.ui.Ui;
 
 /**
- * Marks a task as done.
+ * Represents the mark command.
  */
 public class Mark extends Command {
     private final int index;

@@ -3,8 +3,7 @@ package bob.tasks;
 import java.time.LocalDate;
 
 /**
- * Represents a todo task.
- * A todo task has no deadline.
+ * Represents a todo task in the task list.
  */
 public class TodoTask extends Task {
 

@@ -2,13 +2,13 @@ package bob.commands;
 
 import java.io.IOException;
 
+import bob.data.TaskList;
 import bob.storage.FileWriting;
 import bob.storage.Storage;
-import bob.data.TaskList;
 import bob.ui.Ui;
 
 /**
- * Exits the program.
+ * Represents the bye command.
  */
 public class Bye extends Command {
     /**

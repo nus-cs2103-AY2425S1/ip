@@ -7,25 +7,26 @@ import java.io.IOException;
 import bob.data.BobException;
 import bob.data.TaskList;
 
+
 /**
- * Handles the storage of tasks.
+ * Represents the storage of tasks.
  */
 public class Storage {
     protected static String filePath;
 
     /**
-     * Creates a new Storage instance.
+     * Constructor for the Storage class if the file already exists.
      *
-     * @param filePath The path to the file.
+     * @param filePath the path to the file.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Creates a new Storage instance if the file does not exist.
+     * Constructor for the Storage class if the file does not exist.
      *
-     * @throws IOException If the file cannot be created.
+     * @throws IOException if the file cannot be created.
      */
     public Storage() throws IOException {
         FileReading.createDirectory(getDirectoryName());
@@ -35,8 +36,8 @@ public class Storage {
     /**
      * Loads the tasks from the file.
      *
-     * @return TaskList The list of tasks.
-     * @throws BobException If the file cannot be loaded.
+     * @return the list of tasks.
+     * @throws BobException if the file cannot be loaded.
      */
     public TaskList load() throws BobException {
         try {
@@ -52,11 +53,6 @@ public class Storage {
         }
     }
 
-    /**
-     * Returns the directory path of the file.
-     *
-     * @return The directory path.
-     */
     private String getDirectoryName() {
         return new File(filePath).getParent(); // Extracts the directory path
     }

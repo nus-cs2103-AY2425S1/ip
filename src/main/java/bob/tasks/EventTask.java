@@ -7,18 +7,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents an event task.
+ * Represents an event task in the task list.
  */
 public class EventTask extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
     /**
-     * Creates an event task where the 'to' date is the same as the 'from' date.
+     * Creates an event task.
      *
-     * @param description The description of the task.
-     * @param from The start date and time.
-     * @param to The end time.
+     * @param description of the task
+     * @param from start date and time
+     * @param to end date and time in String
      */
     public EventTask(String description, LocalDateTime from, String to) {
         super(description);
@@ -27,11 +27,11 @@ public class EventTask extends Task {
     }
 
     /**
-     * Creates an event task where the 'to' date has a different date as the 'from' date.
+     * Creates an event task.
      *
-     * @param description The description of the task.
-     * @param from The start date and time.
-     * @param to The end date and time.
+     * @param description of the task
+     * @param from start date and time
+     * @param to end date and time in LocalDateTime
      */
     public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
@@ -40,22 +40,16 @@ public class EventTask extends Task {
     }
 
     /**
-     * Parses a date and time in the format 'yyyy-MM-dd HH:mm'.
+     * Converts a String date and time to LocalDateTime
      *
-     * @param dateTimeInput The date and time input as a string.
-     * @return The parsed date and time in LocalDateTime.
+     * @param dateTimeInput a String date and time
+     * @return a LocalDateTime
      */
     public static LocalDateTime parseDateTime(String dateTimeInput) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(dateTimeInput, formatter);
     }
 
-    /**
-     * Parses a time in the format 'HH:mm'.
-     *
-     * @param toInput The time input as a string.
-     * @return The parsed date and time in LocalDateTime.
-     */
     protected LocalDateTime parseToDateTime(String toInput) {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         DateTimeFormatter fullFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

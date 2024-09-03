@@ -5,17 +5,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a deadline task.
+ * Class representing a deadline task in the task list.
  */
 public class DeadlineTask extends Task {
     protected LocalDateTime by;
 
     /**
-     * Creates a new deadline task.
-     * Each deadline task has a due date.
+     * Creates a deadline task.
      *
-     * @param description The description of the task.
-     * @param by The deadline date and time.
+     * @param description the description of the task
+     * @param by the date and time the task is due
      */
     public DeadlineTask(String description, LocalDateTime by) {
         super(description);
@@ -38,10 +37,10 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Parses a date and time string into a LocalDateTime object.
+     * Converts a String date and time to LocalDateTime
      *
-     * @param dateTimeInput The date and time string.
-     * @return The LocalDateTime object.
+     * @param dateTimeInput a String date and time
+     * @return a LocalDateTime
      */
     public static LocalDateTime parseDateTime(String dateTimeInput) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

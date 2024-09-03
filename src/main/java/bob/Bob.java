@@ -7,6 +7,9 @@ import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.ui.Ui;
 
+/**
+ * Represents the main program.
+ */
 public class Bob {
     private final Ui ui;
     private final Storage storage;
@@ -29,9 +32,9 @@ public class Bob {
     }
 
     /**
-     * Runs the bob chatbot.
+     * Entry point of the program
      */
-    public void run(){
+    public void run() {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {

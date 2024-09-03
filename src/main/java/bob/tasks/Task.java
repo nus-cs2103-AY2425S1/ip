@@ -3,23 +3,22 @@ package bob.tasks;
 import java.time.LocalDate;
 
 /**
- * Represents a task.
- * There are three types of tasks: Todo, Deadline, and Event.
+ * Abstract class representing a task in the task list.
  */
 public abstract class Task {
     protected String description;
-    public boolean isDone;
+    private boolean isDone;
 
+    /**
+     * Constructor for a task.
+     *
+     * @param description the description of the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    /**
-     * Returns the status icon for the task.
-     *
-     * @return The status icon as an X or space.
-     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
@@ -38,6 +37,14 @@ public abstract class Task {
 
     public String getTo() {
         return null;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
+    }
+
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public String getDescription() {

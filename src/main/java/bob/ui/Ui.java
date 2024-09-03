@@ -3,20 +3,20 @@ package bob.ui;
 import java.util.Scanner;
 
 /**
- * Class for user interface.
+ * Class to represent interactions with the user.
  */
 public class Ui {
     private final Scanner scanner;
 
     /**
-     * Creates a new user interface.
+     * Constructor for user interface.
      */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
     /**
-     * Shows the welcome message.
+     * Shows welcome message to the user.
      */
     public static void showWelcome() {
         String logo = "Bob";

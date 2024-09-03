@@ -1,42 +1,43 @@
 package bob.parser;
 
-import bob.data.BobException;
-import bob.commands.Bye;
-import bob.commands.Command;
-import bob.commands.Delete;
-import bob.commands.Event;
-import bob.commands.List;
-import bob.commands.Mark;
-import bob.commands.On;
-import bob.commands.Unmark;
-import bob.commands.Find;
-import bob.commands.Todo;
-import bob.commands.Deadline;
-import bob.tasks.DeadlineTask;
-import bob.tasks.EventTask;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import bob.commands.Bye;
+import bob.commands.Command;
+import bob.commands.Deadline;
+import bob.commands.Delete;
+import bob.commands.Event;
+import bob.commands.Find;
+import bob.commands.List;
+import bob.commands.Mark;
+import bob.commands.On;
+import bob.commands.Todo;
+import bob.commands.Unmark;
+import bob.data.BobException;
+import bob.tasks.DeadlineTask;
+import bob.tasks.EventTask;
+
 /**
- * Parses user input and returns an object of the appropriate type.
+ * Represents the parser to parse user input into commands.
  */
 public class Parser {
+
     /**
-     * Represents the different types of commands.
+     * Enum for commands.
      */
     public enum CommandType {
-        LIST, UNMARK, MARK, ON, DELETE, FIND, TODO, DEADLINE, EVENT, INVALID, BYE
+        LIST, UNMARK, MARK, ON, DELETE, FIND, TODO, DEADLINE, EVENT, BYE
     }
 
     /**
-     * Parses user input and returns a Command object.
+     * Parses the command from a String and returns a Command.
      *
-     * @param fullCommand The user input with the command word and arguments.
-     * @return A Command object.
-     * @throws BobException If the user input is invalid.
+     * @param fullCommand the full command with command word and arguments
+     * @return the parsed command
+     * @throws BobException if the user inputs an invalid command
      */
     public static Command parse(String fullCommand) throws BobException {
         String[] commandParts = fullCommand.split(" "); // Split into command and arguments
@@ -47,34 +48,35 @@ public class Parser {
         try {
             commandType = CommandType.valueOf(commandWord); // Convert string to enum
         } catch (IllegalArgumentException e) {
-            throw new BobException("Invalid command. Please enter a valid command. Valid commands are: list, unmark, mark, delete, on, todo, deadline, event, and bye.");
+            throw new BobException("Invalid command. Please enter a valid command. Valid commands are:"
+                    + " list, unmark, mark, delete, on, todo, deadline, event, and bye.");
         }
 
         switch (commandType) {
-            case LIST:
-                return prepareList();
-            case MARK:
-                return prepareMark(fullCommand);
-            case UNMARK:
-                return prepareUnmark(fullCommand);
-            case ON:
-                return prepareOn(fullCommand);
-            case DELETE:
-                return prepareDelete(fullCommand);
-            case FIND:
-                return prepareFine(fullCommand);
-            case TODO:
-                return prepareTodo(fullCommand);
-            case DEADLINE:
-                return prepareDeadline(fullCommand);
-            case EVENT:
-                return prepareEvent(fullCommand);
-            case BYE:
-                return new Bye();
-            case INVALID:
-                throw new BobException("Invalid command. Please enter a valid command. Valid commands are: list, unmark, mark, delete, on, todo, deadline, event, and bye.");
+        case LIST:
+            return prepareList();
+        case MARK:
+            return prepareMark(fullCommand);
+        case UNMARK:
+            return prepareUnmark(fullCommand);
+        case ON:
+            return prepareOn(fullCommand);
+        case DELETE:
+            return prepareDelete(fullCommand);
+        case FIND:
+            return prepareFine(fullCommand);
+        case TODO:
+            return prepareTodo(fullCommand);
+        case DEADLINE:
+            return prepareDeadline(fullCommand);
+        case EVENT:
+            return prepareEvent(fullCommand);
+        case BYE:
+            return new Bye();
+        default:
+            throw new BobException("Invalid command. Please enter a valid command. Valid commands are:"
+                    + " list, unmark, mark, delete, on, todo, deadline, event, and bye.");
         }
-        return null;
     }
 
     private static List prepareList() {
@@ -146,7 +148,7 @@ public class Parser {
     }
 
     private static Find prepareFine(String fullCommand) throws BobException {
-        String[] parts = fullCommand.split(" ",2);
+        String[] parts = fullCommand.split(" ", 2);
         if (parts.length < 2) {
             throw new BobException("Please provide a description.");
         }
@@ -166,7 +168,8 @@ public class Parser {
         String[] parts = fullCommand.split("/by");
 
         if (parts.length < 2) {
-            throw new BobException("The date of a deadline cannot be empty. Please enter in the format: description /by <date>");
+            throw new BobException("The date of a deadline cannot be empty. Please enter in the format: "
+                    + "description /by <date>");
         }
 
         String description = parts[0].substring("deadline".length()).trim();
@@ -188,7 +191,8 @@ public class Parser {
         String[] parts = fullCommand.split("/from|/to");
 
         if (parts.length < 3) {
-            throw new BobException("The start and end date/time of an event cannot be empty. Please enter in the format: description /from <start> /to <end>");
+            throw new BobException("The start and end date/time of an event cannot be empty. "
+                    + "Please enter in the format: description /from <start> /to <end>");
         }
 
         String description = parts[0].substring("event".length()).trim();
@@ -203,7 +207,8 @@ public class Parser {
             LocalDateTime fromTime = EventTask.parseDateTime(from);
             return new Event(description, fromTime, to);
         } catch (DateTimeParseException e) {
-            throw new BobException("Invalid start and end date. Please enter in the format: /from yyyy-MM-dd HH:mm /to: yyyy-MM-dd HH:mm or HH:mm");
+            throw new BobException("Invalid start and end date. Please enter in the format: "
+                    + "/from yyyy-MM-dd HH:mm /to: yyyy-MM-dd HH:mm or HH:mm");
         }
     }
 }

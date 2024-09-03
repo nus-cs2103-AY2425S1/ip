@@ -1,10 +1,12 @@
 package bob.commands;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import bob.data.TaskList;
 import bob.tasks.TodoTask;
@@ -28,9 +30,10 @@ public class DeleteTest {
     public void deleteTask_success() {
         taskList.add(new TodoTask("Task 1"));
         deleteCommand.execute(taskList, null, null);
-        String expectedOutput = "Noted. I've removed this task:\n" +
-                "[T][ ] Task 1" +
-                "\nNow you have " + taskList.size() + (taskList.isEmpty() ? " task in the list." : " tasks in the list.");
+        String expectedOutput = "Noted. I've removed this task:\n"
+                + "[T][ ] Task 1"
+                + "\nNow you have " + taskList.size() + (taskList.isEmpty() ? " task in the list."
+                : " tasks in the list.");
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
     }
 }

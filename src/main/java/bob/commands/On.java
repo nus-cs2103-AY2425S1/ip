@@ -1,19 +1,18 @@
 package bob.commands;
 
-import bob.storage.Storage;
-import bob.tasks.Task;
-import bob.data.TaskList;
-import bob.ui.Ui;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import bob.data.TaskList;
+import bob.storage.Storage;
+import bob.tasks.Task;
+import bob.ui.Ui;
+
 /**
- * Lists tasks on a specific date.
+ * Class representing the on command.
  */
 public class On extends Command {
-    private final LocalDate date;
-
+    private LocalDate date;
     public On(LocalDate date) {
         this.date = date;
     }
@@ -25,7 +24,7 @@ public class On extends Command {
 
         for (Task t : list) {
             LocalDate taskDate = t.getDate();
-            if (taskDate != null && taskDate.equals(date)) {
+            if (t.getDate() != (null) && taskDate.equals(date)) {
                 taskOnDate.append("\n").append(++count).append(". ").append(t);
             }
         }
