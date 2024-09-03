@@ -1,22 +1,22 @@
 package duke.Tasks;
 public class Task {
     public String task;
-    private boolean done;
+    private boolean isDone;
 
 
     public Task(String s){
         task = s;
-        done = false;
+        isDone = false;
     }
     public void complete(){
-        done = true;
+        isDone = true;
     }
     public void uncomplete(){
-        done = false;
+        isDone = false;
     }
     public String toString() {
         String status;
-        if(done) {
+        if(isDone) {
             status = "[X] ";
         }
         else {
