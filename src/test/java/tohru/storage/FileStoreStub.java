@@ -6,7 +6,7 @@ import tohru.task.TodoItem;
 
 /**
  * A stub class that represent hte FileStore class simulating loading
- * and saving from local storage
+ * and saving from local storage.
  */
 public class FileStoreStub extends FileStore {
 
