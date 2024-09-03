@@ -265,6 +265,20 @@ public class TaskList {
     }
 
     /**
+     * Changes the current save file.
+     *
+     * @param input The name of the new file to use
+     */
+    public void saveFile(String input) {
+        if (input.isEmpty()) {
+            System.out.println("Please provide a file name.");
+            return;
+        }
+        Storage.getInstance().changeFile(input);
+        System.out.println("Tasks will now be saved to and loaded from: " + Storage.getInstance().getCurrentFile());
+    }
+
+    /**
      * Clears all tasks from the list.
      */
     public void clearTasks() {

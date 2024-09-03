@@ -17,9 +17,10 @@ public class Storage {
 
     private static Storage storage;
     private static final String DATA_DIR = "data/";
-    private static final String MAIN_FILE = "duke.txt";
+    private static final String DEFAULT_FILE = "duke.txt";
     private static final String TEST_FILE = "duke_test.txt";
     private static boolean isTestMode = false;
+    private static String currentFile = DEFAULT_FILE;
 
     /**
      * Gets the singleton instance of the Storage class.
@@ -34,11 +35,11 @@ public class Storage {
     }
 
     /**
-     * Reads data from the file system and loads it into the TaskList.
+     * Reads data from the current file and loads it into the TaskList.
      * Creates necessary directories and files if they don't exist.
      */
     public void readData() {
-        String fileName = isTestMode ? TEST_FILE : MAIN_FILE;
+        String fileName = isTestMode ? TEST_FILE : currentFile;
         try {
             File filedir = new File(DATA_DIR);
             if (!filedir.exists()) {
@@ -51,6 +52,7 @@ public class Storage {
 
             Scanner scan = new Scanner(file);
             TaskList taskList = TaskList.getInstance();
+            taskList.clearTasks();
             while (scan.hasNext()) {
                 taskList.loadData(scan.nextLine());
             }
@@ -61,10 +63,10 @@ public class Storage {
     }
 
     /**
-     * Writes the current TaskList data to the file system.
+     * Writes the current TaskList data to the current file.
      */
     public void writeData() {
-        String fileName = isTestMode ? TEST_FILE : MAIN_FILE;
+        String fileName = isTestMode ? TEST_FILE : currentFile;
         try {
             FileWriter filewriter = new FileWriter(DATA_DIR + fileName);
             ArrayList<Task> storage = TaskList.getInstance().getTaskList();
@@ -86,6 +88,31 @@ public class Storage {
     }
 
     /**
+     * Changes the current save file and loads tasks from the new file.
+     *
+     * @param fileName The name of the new file to use (without .txt extension)
+     */
+    public void changeFile(String fileName) {
+        if (isTestMode) {
+            System.out.println("Cannot change file in test mode.");
+            return;
+        }
+        saveData();
+        currentFile = fileName + ".txt";
+        readData();
+        System.out.println("Switched to file: " + currentFile);
+    }
+
+    /**
+     * Gets the name of the current file being used.
+     *
+     * @return The name of the current file
+     */
+    public String getCurrentFile() {
+        return currentFile;
+    }
+
+    /**
      * Sets up and enters testing environment.
      */
     public static void startTest() {
@@ -101,6 +128,7 @@ public class Storage {
         deleteTestFile();
         isTestMode = false;
         TaskList.getInstance().clearTasks();
+        currentFile = DEFAULT_FILE;
     }
 
     /**
