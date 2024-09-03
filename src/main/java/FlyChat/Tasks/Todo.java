@@ -2,20 +2,28 @@ package FlyChat.Tasks;
 
 import java.util.InputMismatchException;
 
+/**
+ * Represents the Todo task type.
+ */
 public class Todo extends Task {
 
     private Todo(String description) {
         super(description);
     }
 
-    public static Todo createNewTodo(String userInput) throws InputMismatchException {
-        if (userInput.matches("\\s*")) {
-            throw new InputMismatchException("Todo description cannot be empty");
-        } 
-        return new Todo(userInput.trim());
-    }
+    /**
+     * Creates a new Todo task.
+     * 
+     * @param description A string containing the description for the todo.
+     * @param isMarked A boolean indicating whether the todo task is marked.
+     * @return New Todo object.
+     * @throws InputMismatchException If description is empty.
+     */
+    public static Todo createNewTodo(String description, boolean isMarked) throws InputMismatchException {
+        if (description.equals("")) {
+            throw new InputMismatchException("Please ensure that the input contains a description TT");
+        }
 
-    public static Todo createNewTodo(String description, boolean isMarked) {
         Todo newTodo = new Todo(description);
         if (isMarked) {
             newTodo.completeTask();

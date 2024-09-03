@@ -33,6 +33,7 @@ public class Ui {
 
     /**
      * Scans for user input and returns the scanned input to the system.
+     * 
      * @return Scanned user input.
      * @throws IOException If no input is detected.
      */
@@ -47,6 +48,7 @@ public class Ui {
 
     /**
      * Formats and announces actions taken by the application to the user.
+     * 
      * @param str String to be announced.
      */
     public void announceString(String str) {

@@ -1,6 +1,10 @@
 package FlyChat.Tasks;
 
 import java.util.InputMismatchException;
+
+/**
+ * Represents the Event task type.
+ */
 public class Event extends Task {
     private String startTime;
     private String endTime;
@@ -11,17 +15,21 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
-    public static Event createNewEvent(String userInput) throws InputMismatchException {
-        if (!userInput.matches("^\\s+\\S.*\\s*/from\\s*\\S.*\\s*/to\\s*\\S.*")) {
-            throw new InputMismatchException("Ensure that input contains description, start and end time");
-        }
+    /**
+     * Creates a new event object.
+     * 
+     * @param description A string containing the description of the event task.
+     * @param startTime A string containing the start time of the event task.
+     * @param endTime A string containing the end time of the event task.
+     * @param isMarked A boolean indicating if the event task is marked.
+     * @return A new Event task.
+     * @throws InputMismatchException If input does not contain a description, startTime or endTime. 
+     */
+    public static Event createNewEvent(String description, String startTime, String endTime, boolean isMarked) throws InputMismatchException {
+        if (description.equals("") || startTime.equals("") || endTime.equals("")) {
+            throw new InputMismatchException("Please ensure that the input contains a description, start and end time TT");
+        } 
 
-        String description = userInput.replaceAll("/from.*", "").trim();
-        String startTime = userInput.replaceAll(".*/from\\s|\\s/to.*", "").trim();
-        String endTime = userInput.replaceAll(".*/to\\s", "").trim();
-        return new Event(description, startTime, endTime);
-    }
-    public static Event createNewEvent(String description, String startTime, String endTime, boolean isMarked) {
         Event newEvent = new Event(description, startTime, endTime);
         if (isMarked) {
             newEvent.completeTask();
