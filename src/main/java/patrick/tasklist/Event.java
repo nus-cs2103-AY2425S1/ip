@@ -50,9 +50,11 @@ public class Event extends Task {
      * The method also validates the input for the task details and the time format.
      *
      * @param input the user input containing the task description, start time, and end time.
+     * @return a response message indicating the result of the operation.
      * @throws Parser.PatrickException if the input is invalid or missing required components.
      */
-    public static void eventTask(String input) throws Parser.PatrickException {
+    public static String eventTask(String input) throws Parser.PatrickException {
+        String response;
         String newInput = input.replace("event ", "");
         Task task;
         if (newInput.isEmpty()) {
@@ -81,13 +83,14 @@ public class Event extends Task {
                 } else {
                     task = new Event(taskDescription, from, to);
                     Storage.addList(task);
-                    Ui.showUserMsg(task.toString());
+                    response = Ui.showUserMsg(task.toString());
                     try {
                         Storage.appendToFile("\n" + task.toString());
                     } catch (IOException e) {
-                        System.out.println("There is an error: " + e.getMessage());
+                        response = "There is an error: " + e.getMessage();
                     }
                 }
+                return response;
             }
         }
     }

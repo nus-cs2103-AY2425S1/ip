@@ -44,9 +44,11 @@ public class Deadline extends Task {
      * The method also validates the input for the task details and deadline format.
      *
      * @param input the user input containing the task description and deadline.
+     * @return a response message indicating the result of the operation.
      * @throws Parser.PatrickException if the input is invalid or missing required components.
      */
-    public static void deadlineTask(String input) throws Parser.PatrickException {
+    public static String deadlineTask(String input) throws Parser.PatrickException {
+        String response;
         String newInput = input.replace("deadline ", "");
         if (newInput.isEmpty()) {
             throw new Parser.PatrickException("Deadline Task Details cannot be empty!!");
@@ -66,13 +68,14 @@ public class Deadline extends Task {
                 } else {
                     Task task = new Deadline(taskDescription, deadline);
                     Storage.addList(task);
-                    Ui.showUserMsg(task.toString());
+                    response = Ui.showUserMsg(task.toString());
                     try {
                         Storage.appendToFile("\n" + task);
                     } catch (IOException e) {
-                        System.out.println("There is an error: " + e.getMessage());
+                        response = "There is an error: " + e.getMessage();
                     }
                 }
+                return response;
             }
         }
     }

@@ -39,9 +39,11 @@ public class TaskList {
      * Deletes a task from the task list based on the user input.
      *
      * @param input the user input containing the index of the task to be deleted.
+     * @return a response message indicating the result of the operation.
      * @throws Parser.PatrickException if the input is invalid or the index is out of bounds.
      */
-    public static void delete(String input) throws Parser.PatrickException {
+    public static String delete(String input) throws Parser.PatrickException {
+        String response;
         String taskNo = input.replace("delete", "").trim();
         try {
             Integer.parseInt(taskNo);
@@ -54,24 +56,27 @@ public class TaskList {
         } else if (num > Storage.getList().size()) {
             throw new Parser.PatrickException("Input task index is invalid. Please try again!!");
         } else {
-            Ui.showDeleteItemMsg(num);
+            response = Ui.showDeleteItemMsg(num);
             Storage.deleteItem(num);
             try {
                 Storage.writeToFile();
             } catch (IOException e) {
-                System.out.println("There is an error: " + e.getMessage());
+                response = "There is an error: " + e.getMessage();
             }
         }
+        return response;
     }
 
     /**
      * Marks a task as done based on the user input.
      *
      * @param input the user input containing the index of the task to be marked as done.
+     * @return a response message indicating the result of the operation.
      * @throws Parser.PatrickException if the input is invalid, the index is out of bounds,
      *     or the task is already marked as done.
      */
-    public static void mark(String input) throws Parser.PatrickException {
+    public static String mark(String input) throws Parser.PatrickException {
+        String response = null;
         String taskNo = input.replace("mark", "").trim();
         if (taskNo.isEmpty()) {
             throw new Parser.PatrickException("Task Number cannot be empty!!");
@@ -90,12 +95,13 @@ public class TaskList {
                     throw new Parser.PatrickException("You cannot mark a completed task!!");
                 } else {
                     curr.markAsDone();
-                    Ui.showMarkUnmarkMsg("Nice! I've marked this task as done:\n  ", curr.toString() + "\n");
+                    response = "Nice! I've marked this task as done:\n  " + curr.toString() + "\n";
                     try {
                         Storage.writeToFile();
                     } catch (IOException e) {
-                        System.out.println("There is an error: " + e.getMessage());
+                        return "There is an error: " + e.getMessage();
                     }
+                    return response;
                 }
             }
         }
@@ -105,10 +111,12 @@ public class TaskList {
      * Marks a task as not done based on the user input.
      *
      * @param input the user input containing the index of the task to be marked as not done.
+     * @return a response message indicating the result of the operation.
      * @throws Parser.PatrickException if the input is invalid, the index is out of bounds,
      *     or the task is already marked as not done.
      */
-    public static void unmark(String input) throws Parser.PatrickException {
+    public static String unmark(String input) throws Parser.PatrickException {
+        String response = null;
         String taskNo = input.replace("unmark", "").trim();
         if (taskNo.isEmpty()) {
             throw new Parser.PatrickException("Task Number cannot be empty!!");
@@ -128,12 +136,13 @@ public class TaskList {
                     throw new Parser.PatrickException("You cannot unmark an incomplete task!!");
                 } else {
                     curr.markAsUndone();
-                    Ui.showMarkUnmarkMsg("Nice! I've marked this task as not done yet:\n  ", curr.toString() + "\n");
+                    response = "Nice! I've marked this task as not done yet:\n  " + curr.toString() + "\n";
                     try {
                         Storage.writeToFile();
                     } catch (IOException e) {
-                        System.out.println("There is an error: " + e.getMessage());
+                        return "There is an error: " + e.getMessage();
                     }
+                    return response;
                 }
             }
         }
@@ -143,9 +152,11 @@ public class TaskList {
      * Finds and displays tasks in the list that match the given keyword.
      *
      * @param input The user input containing the keyword to search for.
+     * @return a response message indicating the result of the operation.
      * @throws Parser.PatrickException if the keyword is empty.
      */
-    public static void findTask(String input) throws Parser.PatrickException {
+    public static String findTask(String input) throws Parser.PatrickException {
+        String response = null;
         int count = 0;
         String keyword = input.replace("find", "").trim();
         if (keyword.isEmpty()) {
@@ -154,17 +165,17 @@ public class TaskList {
             for (int i = 0; i < Storage.getList().size(); i++) {
                 if (Storage.getList().get(i).toString().contains(keyword)) {
                     if (count == 0) {
-                        Ui.printLine();
-                        Ui.showMsg("Here are the matching tasks in your list:\n");
+                        response = "Here are the matching tasks in your list:\n";
                     }
                     count++;
-                    Ui.showMsg(count + " " + Storage.getList().get(i).toString() + "\n");
+                    response += count + " " + Storage.getList().get(i).toString() + "\n";
                 }
             }
             if (count == 0) {
-                Ui.showErrorMsg("There are no matching tasks in your list!");
+                response = "There are no matching tasks in your list!";
             }
         }
+        return response;
     }
 
 }
