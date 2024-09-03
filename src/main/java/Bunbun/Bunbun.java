@@ -7,6 +7,7 @@ import Bunbun.utils.TaskList;
 import Bunbun.utils.Ui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class implements a chatbot by the name of Bunbun.
@@ -43,6 +44,16 @@ public class Bunbun {
                 c.execute(tokens);
             }
         }
+    }
+
+    public void close() {
+        this.storage.writeAllFromList(list);
+    }
+
+    public String getResponse(String userInput) {
+        Command c = new Command(this.list, this.ui);
+        ArrayList<String> tokens = new ArrayList<>(Arrays.asList(userInput.split(" ")));
+        return c.execute(tokens);
     }
     public static void main(String[] args) {
         new Bunbun("src/main/data").run();

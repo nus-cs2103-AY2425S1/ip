@@ -42,7 +42,8 @@ public class Ui {
      *
      * @param res String of chatbot response to be formatted.
      */
-    public void response(String res) {
-        System.out.println("Bunbun: " + res);
+    public String response(String res) {
+        //System.out.println("Bunbun: " + res);
+        return "Bunbun: " + res;
     }
 }

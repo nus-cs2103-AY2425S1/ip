@@ -64,12 +64,12 @@ public class TaskList {
      *
      * @param task task to be added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.taskList.add(task);
         this.numOfTasks += 1;
-        this.ui.response("Added \'" + task + "\' task!");
-        String msg = String.format("By the way, you have %d tasks now!", this.numOfTasks);
-        this.ui.response(msg);
+        String res = "Added \'" + task + "\' task!\n";
+        res += String.format("By the way, you have %d tasks now!", this.numOfTasks);
+        return this.ui.response(res);
     }
 
     /**
@@ -79,7 +79,7 @@ public class TaskList {
      * @throws MissingTaskException if the command specifying the task is invalid due to
      * no task specified.
      */
-    public void addToDo(ArrayList<String> tokens) throws MissingTaskException {
+    public String addToDo(ArrayList<String> tokens) throws MissingTaskException {
         if (tokens.size() == 1) {
             throw new MissingTaskException("Failed. Specify a task for your todo!!!! D:");
         } else {
@@ -89,7 +89,7 @@ public class TaskList {
                 taskDescription += tokens.get(i) + " ";
             }
             ToDo todo = new ToDo(taskDescription);
-            this.addTask(todo);
+            return this.addTask(todo);
         }
     }
 
@@ -99,7 +99,7 @@ public class TaskList {
      * @param tokens ArrayList with Strings specifying the task.
      * @throws BunbunException if the command specifying the task is invalid.
      */
-    public void addDeadline(ArrayList<String> tokens) throws BunbunException {
+    public String addDeadline(ArrayList<String> tokens) throws BunbunException {
         if (tokens.size() == 1 || tokens.get(1).equals("/by")) {
             throw new MissingTaskException("Failed. Specify a task for your deadline task!!!! D:");
         } else if (!(tokens.contains("/by")) || tokens.indexOf("/by") == tokens.size() - 1) {
@@ -123,7 +123,7 @@ public class TaskList {
             }
             if (!failed) {
                 Deadline deadlineTask = new Deadline(taskDescription, deadline);
-                this.addTask(deadlineTask);
+                return this.addTask(deadlineTask);
             } else {
                 throw new InvalidDateFormatException("Failed. Specify your date in yyyy-MM-dd format!! ;^;");
             }
@@ -136,7 +136,7 @@ public class TaskList {
      * @param tokens ArrayList with Strings specifying the task.
      * @throws BunbunException if the command specifying the task is invalid.
      */
-    public void addEvent(ArrayList<String> tokens) throws BunbunException {
+    public String addEvent(ArrayList<String> tokens) throws BunbunException {
         if (tokens.size() == 1 || tokens.get(1).equals("/from") || tokens.get(1).equals("/to")) {
             throw new MissingTaskException("Failed. Specify a task for your event task!!!! D:");
         } else if (!(tokens.contains("/from")) || !(tokens.contains("/to")) ||
@@ -170,7 +170,7 @@ public class TaskList {
 
             if (!failed) {
                 Event event = new Event(taskDescription, start, end);
-                this.addTask(event);
+                return this.addTask(event);
             } else {
                 throw new InvalidDateFormatException("Failed. Specify your date in yyyy-MM-dd format!! ;^;");
             }
@@ -181,14 +181,16 @@ public class TaskList {
     /**
      * Displays task list for user.
      */
-    public void displayList() {
+    public String displayList() {
+        String res = "These are your tasks!\n";
         this.ui.response("These are your tasks!");
         for (int i = 0; i < this.numOfTasks; i++) {
             Task currTask = this.taskList.get(i);
-            String res = String.format("%d.%s", i + 1, currTask);
+            res += String.format("%d.%s\n", i + 1, currTask);
             this.ui.response(res);
         }
-        this.ui.response("That's all your tasks for now :>>>");
+        res += "That's all your tasks for now :>>>";
+        return this.ui.response(res);
     }
 
     /**
@@ -196,16 +198,16 @@ public class TaskList {
      *
      * @param taskNum int to indicate which task to mark as complete.
      */
-    public void markDoneTask(int taskNum) throws TaskNumOutOfBoundsException {
+    public String markDoneTask(int taskNum) throws TaskNumOutOfBoundsException {
         if (taskNum <= 0 || taskNum > this.numOfTasks) {
             throw new TaskNumOutOfBoundsException(
                     String.format("I can't mark task %d cause it doesn't exist!!! ;-;", taskNum));
         } else {
             Task reqTask = this.taskList.get(taskNum - 1);
             reqTask.complete();
-            this.ui.response("Oki, I'll mark the task as done *w*! Good job finishing the task!!");
-            String res = String.format("%s", reqTask);
-            this.ui.response(res);
+            String res = "Oki, I'll mark the task as done *w*! Good job finishing the task!!\n";
+            res += String.format("%s", reqTask);
+            return this.ui.response(res);
         }
     }
 
@@ -214,15 +216,16 @@ public class TaskList {
      *
      * @param taskNum int to indicate which task to delete.
      */
-    public void deleteTask(int taskNum) throws TaskNumOutOfBoundsException {
+    public String deleteTask(int taskNum) throws TaskNumOutOfBoundsException {
         if (taskNum <= 0 || taskNum > this.numOfTasks) {
             throw new TaskNumOutOfBoundsException(
                     String.format("I can't delete task %d cause it doesn't exist!!! ;-;", taskNum));
         } else {
-            this.ui.response(String.format("Oki, I've deleted %s task!", this.taskList.get(taskNum - 1)));
+            String res = String.format("Oki, I've deleted %s task!\n", this.taskList.get(taskNum - 1));
             this.taskList.remove(taskNum - 1);
             this.numOfTasks -= 1;
-            this.ui.response(String.format("You have %d tasks left!!", this.numOfTasks));
+            res += String.format("You have %d tasks left!!", this.numOfTasks);
+            return this.ui.response(res);
         }
     }
 
@@ -231,7 +234,7 @@ public class TaskList {
      *
      * @param tokens ArrayList with Strings specifying the word to search for
      */
-    public void searchAndDisplay(ArrayList<String> tokens) throws BunbunException {
+    public String searchAndDisplay(ArrayList<String> tokens) throws BunbunException {
         if (tokens.size() == 1) {
             throw new InvalidFindFormatException("Failed. Key in word to find!! :<");
         }
@@ -251,11 +254,12 @@ public class TaskList {
             }
         }
 
+        String res = "";
         for (int i = 0; i < tasksContainingWord.size(); i++) {
             Task currTask = tasksContainingWord.get(i);
-            String res = String.format("%d.%s", i + 1, currTask);
-            this.ui.response(res);
+            res += String.format("%d.%s\n", i + 1, currTask);
         }
+        return this.ui.response(res);
     }
 
 }
