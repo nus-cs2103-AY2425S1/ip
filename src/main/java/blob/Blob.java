@@ -1,5 +1,8 @@
 package blob;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 
 /**
@@ -13,21 +16,26 @@ public class Blob {
     private TaskList tasklist;
     private Ui ui;
 
-    public Blob(String filePath) {
+    public Blob(String filePath, Image userImg, Image blobImg) {
         this.storage = new Storage(filePath);
         this.tasklist = new TaskList(this.storage);
-        this.ui = new Ui(this.tasklist);
+        this.ui = new Ui(this.tasklist, userImg, blobImg);
     }
 
     /**
      * Kicks start the chatbot's chatting functionality
      */
-    public void run() {
-        this.ui.initialise();
-        this.ui.converse();
+    public void run(VBox dialogContainer) {
+        this.ui.initialise(dialogContainer);
     }
 
-    public static void main(String[] args) throws IOException {
-        new Blob("./src/main/java/database.csv").run();
+    public String reply(VBox dialogContainer, String humanInput) {
+        return this.ui.converse(dialogContainer, humanInput);
     }
+
+
+
+//    public static void main(String[] args) {
+//        new Blob("./src/main/java/database.csv").run();
+//    }
 }

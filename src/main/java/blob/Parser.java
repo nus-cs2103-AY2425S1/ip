@@ -21,84 +21,73 @@ public class Parser {
      *               'deadline task /by YYYY-MM-DD HH:mm' - adds a deadline task to the database
      *               'event task /from YYYY-MM-DD HH:mm /to YYYY-MM-DD HH:mm' - adds a event task to the database
      */
-    public static void evaluateAction(Ui ui, TaskList tasklist, String action) {
+    public String evaluateAction(Ui ui, TaskList tasklist, String action) {
         String[] arr = action.split(" ");
 
         for (int i = 0; i < arr.length; i++) {
             String act = arr[i].toLowerCase();
 
-            if (act.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                ui.breakLine();
-                ui.exit();
-                break;
-
-            } else if (act.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
+            if (act.equals("list")) {
+                StringBuilder s = new StringBuilder("Here are the tasks in your list:\n");
                 for (int j = 0; j < tasklist.size(); j++) {
                     Task t = tasklist.getTask(j);
-                    System.out.println(String.format("%d. %s", j + 1, t));
+                    s.append(String.format("%d. %s\n", j + 1, t));
                 }
-                ui.breakLine();
-                break;
+                return s.toString();
 
             } else if (act.equals("mark")) {
+                StringBuilder s = new StringBuilder("");
                 try {
                     int index = Integer.parseInt(arr[i + 1]) - 1;
                     tasklist.markTask(index);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(tasklist.getTask(index));
-                    ui.breakLine();
+                    s.append("Nice! I've marked this task as done:\n");
+                    s.append(tasklist.getTask(index));
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid Command!");
+                    s.append("Invalid Command!");
                 } catch (IndexOutOfBoundsException e) {
                     int taskNum = Integer.parseInt(arr[i + 1]);
-                    System.out.println(String.format("There is no task at task number '%d'", taskNum));
+                    s.append(String.format("There is no task at task number '%d'", taskNum));
                 }
-                break;
+                return s.toString();
 
             } else if (act.equals("unmark")) {
+                StringBuilder s = new StringBuilder("");
                 try {
                     int index = Integer.parseInt(arr[i + 1]) - 1;
                     tasklist.unmarkTask(index);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(tasklist.getTask(index));
-                    ui.breakLine();
+                    s.append("OK, I've marked this task as not done yet:\n");
+                    s.append(tasklist.getTask(index));
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid Command!");
-                    ui.breakLine();
+                    s.append("Invalid Command!");
                 } catch (IndexOutOfBoundsException e) {
                     int taskNum = Integer.parseInt(arr[i + 1]);
-                    System.out.println(String.format("There is no task at task number '%d'", taskNum));
-                    ui.breakLine();
+                    s.append(String.format("There is no task at task number '%d'", taskNum));
                 }
-                break;
+                return s.toString();
 
             } else if (act.equals("delete")) {
+                StringBuilder s = new StringBuilder();
                 try {
                     int index = Integer.parseInt(arr[i + 1]) - 1;
                     Task t = tasklist.deleteTask(index);
-                    System.out.println("Noted, I've removed this task:");
-                    System.out.println(t);
-                    System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
-                    ui.breakLine();
+                    s.append("Noted, I've removed this task:\n");
+                    s.append(t + "\n");
+                    s.append("Now you have " + tasklist.size() + " tasks in the list.");
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid Command!");
-                    ui.breakLine();
+                    s.append("Invalid Command!");
                 } catch (IndexOutOfBoundsException e) {
                     int taskNum = Integer.parseInt(arr[i + 1]);
-                    System.out.println(String.format("There is no task at task number '%d'", taskNum));
-                    ui.breakLine();
+                    s.append(String.format("There is no task at task number '%d'", taskNum));
                 }
-                break;
+                return s.toString();
 
             } else if (act.equals("todo")) {
                 // task name error handling
                 if (arr.length == 1) {
-                    System.out.println("Sorry, I am unable to generate an empty 'todo' task!");
-                    ui.breakLine();
-                    break;
+                    return "Sorry, I am unable to generate an empty 'todo' task!";
                 }
+
+                StringBuilder msg = new StringBuilder("");
 
                 // for task name string
                 StringBuilder a = new StringBuilder(arr[i + 1]);
@@ -109,11 +98,10 @@ public class Parser {
 
                 Todo t = new Todo(a.toString(), false);
                 tasklist.addTask(t);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(t);
-                System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
-                ui.breakLine();
-                break;
+                msg.append("Got it. I've added this task:\n");
+                msg.append(t + "\n");
+                msg.append("Now you have " + tasklist.size() + " tasks in the list.");
+                return msg.toString();
 
             } else if (act.equals("deadline")) {
                 int by = 0;
@@ -125,24 +113,20 @@ public class Parser {
 
                 // task name error handling
                 if (by <= 1) {
-                    System.out.println("I require a description for your 'deadline' task 😅!");
-                    ui.breakLine();
-                    break;
+                    return "I require a description for your 'deadline' task 😅!";
                 }
 
                 // task deadline error handling
                 if (by == arr.length - 1) {
-                    System.out.println("Your deadline task can't not have a deadline! Please enter your task again!");
-                    ui.breakLine();
-                    break;
+                    return "Your deadline task can't not have a deadline! Please enter your task again!";
                 }
 
                 //task deadline only having date or time
                 if (by == arr.length - 2) {
-                    System.out.println("You need to add both DATE and TIME to your deadline \uD83D\uDD27! (Format: yyyy-mm-dd HH:mm)");
-                    ui.breakLine();
-                    break;
+                    return "You need to add both DATE and TIME to your deadline \uD83D\uDD27! (Format: yyyy-mm-dd HH:mm)";
                 }
+
+                StringBuilder msg = new StringBuilder("");
 
                 // for task name string
                 StringBuilder a = new StringBuilder(arr[i + 1]);
@@ -159,15 +143,13 @@ public class Parser {
                 try {
                     Deadline d = new Deadline(a.toString(), false, ISO8601Format);
                     tasklist.addTask(d);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(d);
-                    System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
-                    ui.breakLine();
+                    msg.append("Got it. I've added this task:\n");
+                    msg.append(d + "\n");
+                    msg.append("Now you have " + tasklist.size() + " tasks in the list.");
                 } catch (DateTimeParseException e) {
-                    System.out.println("Input dates and times not in the format 'yyyy-mm-dd HH:mm'!");
-                    ui.breakLine();
+                    msg.append("Input dates and times not in the format 'yyyy-mm-dd HH:mm'!");
                 }
-                break;
+                return msg.toString();
 
             } else if (act.equals("event")) {
                 int start = 0;
@@ -182,38 +164,30 @@ public class Parser {
 
                 // task name error handling
                 if (start <= 1) {
-                    System.out.println("What's the name of your event? Please add it 😅!");
-                    ui.breakLine();
-                    break;
+                    return "What's the name of your event? Please add it 😅!";
                 }
 
                 // start string error handling
                 if (end - start <= 1) {
-                    System.out.println("When does your event begin? Please add it 😅!");
-                    ui.breakLine();
-                    break;
+                    return "When does your event begin? Please add it 😅!";
                 }
 
                 // end string error handling
                 if (end == arr.length - 1) {
-                    System.out.println("What time does your event end? Please let me know 😅!");
-                    ui.breakLine();
-                    break;
+                    return "What time does your event end? Please let me know 😅!";
                 }
 
                 //'/from' only having date or time
                 if (end - start == 2) {
-                    System.out.println("You need to add both DATE and TIME to your event's start \uD83D\uDD27! (Format: yyyy-mm-dd HH:mm)");
-                    ui.breakLine();
-                    break;
+                    return "You need to add both DATE and TIME to your event's start \uD83D\uDD27! (Format: yyyy-mm-dd HH:mm)";
                 }
 
                 //'/to' only having date or time
                 if (end == arr.length - 2) {
-                    System.out.println("You need to add both DATE and TIME to your event's end \uD83D\uDD27! (Format: yyyy-mm-dd HH:mm)");
-                    ui.breakLine();
-                    break;
+                    return "You need to add both DATE and TIME to your event's end \uD83D\uDD27! (Format: yyyy-mm-dd HH:mm)";
                 }
+
+                StringBuilder msg = new StringBuilder("");
 
                 //for task name string
                 StringBuilder a = new StringBuilder(arr[i + 1]);
@@ -235,29 +209,27 @@ public class Parser {
                 try {
                     Event e = new Event(a.toString(), false, startISO8601Format, endISO8601Format);
                     tasklist.addTask(e);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(e);
-                    System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
-                    ui.breakLine();
+                    msg.append("Got it. I've added this task:\n");
+                    msg.append(e + "\n");
+                    msg.append("Now you have " + tasklist.size() + " tasks in the list.");
                 } catch (DateTimeParseException e) {
-                    System.out.println("Input dates and times not in the format 'yyyy-mm-dd HH:mm'!");
-                    ui.breakLine();
+                    msg.append("Input dates and times not in the format 'yyyy-mm-dd HH:mm'!");
                 }
-                break;
+                return msg.toString();
 
             } else if (act.equals("find")) {
                 //if 'find' entered without keyword
+                StringBuilder msg = new StringBuilder("");
                 if (arr.length == 1) {
-                    System.out.println("You need to enter a keyword to find your tasks!");
-                    break;
+                    msg.append("You need to enter a keyword to find your tasks!");
+                    return msg.toString();
                 //if 'find' entered with more than 1 keyword
                 } else if (arr.length > 2) {
-                    System.out.println("You can only enter on keyword!");
-                    break;
-
+                    msg.append("You can only enter on keyword!");
+                    return msg.toString();
                 } else {
                     String keyword = arr[1];
-                    System.out.println("Here are the matching tasks in your list:");
+                    msg.append("Here are the matching tasks in your list:\n");
                     int num = 1;
                     boolean match = false;
                     for (int j = 0; j < tasklist.size(); j++) {
@@ -269,20 +241,18 @@ public class Parser {
                             }
                         }
                         if (match) {
-                            System.out.println(String.format("%d. %s", num, t));
+                            msg.append(String.format("%d. %s", num, t));
                             num++;
                             match = false;
                         }
                     }
-                    ui.breakLine();
-                    break;
+                    return msg.toString();
                 }
             } else {
-                    System.out.println("ERROR! Unknown Command!");
-                    ui.breakLine();
-                    break;
+                    return "ERROR! Unknown Command!";
             }
         }
+        return "";
     }
 }
 

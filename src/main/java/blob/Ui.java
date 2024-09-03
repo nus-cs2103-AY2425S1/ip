@@ -1,5 +1,8 @@
 package blob;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+
 import java.util.Scanner;
 
 /**
@@ -11,52 +14,41 @@ import java.util.Scanner;
 public class Ui {
 
     public final String unknownCommandMsg = "ERROR! Unknown command!";
-    public final String breakLine = "__________________________________________________";
-    private Scanner human;
     private Parser parser;
     private TaskList tasklist;
-    private boolean active = false;
+    private Image userImg;
+    private Image blobImg;
 
-    public Ui(TaskList tasklist) {
+    public Ui(TaskList tasklist, Image userImg, Image blobImg) {
         this.tasklist = tasklist;
-        this.human = new Scanner(System.in);
         this.parser = new Parser();
-    }
-
-    /**
-     * Prints out a long line
-     */
-    public void breakLine() {
-        System.out.println(this.breakLine);
+        this.userImg = userImg;
+        this.blobImg = blobImg;
     }
 
     /**
      * Begins conversation with user
      */
-    public void initialise() {
-        this.active = true;
-        System.out.println();
-        this.breakLine();
-        System.out.println("Hello! I'm Blob");
-        System.out.println("What can I do for you?");
-        this.breakLine();
+    public void initialise(VBox dialogContainer) {
+        String startMsg = "Hello! I'm Blob! What can I do for you?";
+        addBlobMsg(dialogContainer,startMsg);
     }
 
     /**
-     * Exits the conversation.
+     *
+     * @param dialogContainer container containing all dialogue between Blob and user
+     * @param msg String message to be displayed
      */
-    public void exit() {
-        this.active = false;
+    public void addBlobMsg(VBox dialogContainer, String msg) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBlobDialog(msg, blobImg)
+        );
     }
 
     /**
      * Maintains constant conversation with user.
      */
-    public void converse() {
-        while (this.active) {
-            String action = human.nextLine();
-            this.breakLine();
-            parser.evaluateAction(this, tasklist, action);
-        }
+    public String converse(VBox dialogContainer, String humanInput) {
+        return parser.evaluateAction(this, tasklist, humanInput);
     }
 }
