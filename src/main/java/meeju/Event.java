@@ -9,10 +9,10 @@ import java.time.format.DateTimeParseException;
  * Represents an event task.
  * This class extends the <code>Task</code> class having from and to as additional properties.
  */
-public class Event extends Task{
+public class Event extends Task {
+    private static final String TASK_ICON = "[E]";
     private LocalDateTime from;
     private LocalDateTime to;
-    private final String TASK_ICON = "[E]";
 
     /**
      * Constructor for an event task.
@@ -23,7 +23,7 @@ public class Event extends Task{
      * @param to The end date and time for the task in the format "DD/MM/YYYY HHMM".
      * @throws MeejuException If the deadline format is incorrect or if parsing the date or time fails.
      */
-    public Event(String taskDescription, String from, String to) throws MeejuException{
+    public Event(String taskDescription, String from, String to) throws MeejuException {
         super(taskDescription, false);
         String[] dateAndTimeFrom = from.split(" ");
         String[] dateAndTimeTo = to.split(" ");
@@ -32,7 +32,7 @@ public class Event extends Task{
                 + "Could you please explain it using the correct format?\n"
                 + "The Correct format is -> event <desc> /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM";
 
-        if (dateAndTimeFrom.length != 2 || dateAndTimeTo.length != 2 ) {
+        if (dateAndTimeFrom.length != 2 || dateAndTimeTo.length != 2) {
             throw new MeejuException(exceptionMessage);
         }
 
@@ -106,7 +106,7 @@ public class Event extends Task{
     }
     @Override
     public String toString() {
-        return TASK_ICON + super.toString() +  " (from: " + this.getFrom()
+        return TASK_ICON + super.toString() + " (from: " + this.getFrom()
                     + " to: " + this.getTo() + ")";
     }
 }

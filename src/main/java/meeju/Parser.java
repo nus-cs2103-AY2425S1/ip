@@ -2,7 +2,8 @@ package meeju;
 
 /**
  * The Parser class is responsible for interpreting and processing user instructions.
- * It interacts with the TaskList object to perform various operations like creating, updating, finding and deleting tasks.
+ * It interacts with the TaskList object to perform various operations like creating, updating,
+ * finding and deleting tasks.
  */
 public class Parser {
 
@@ -53,13 +54,13 @@ public class Parser {
             } catch (MeejuException e) {
                 System.out.println(e);
             }
-        }  else if (instruction.startsWith("deadline ")) {
+        } else if (instruction.startsWith("deadline ")) {
             try {
                 taskList.addDeadlineTask(instruction.substring(9));
             } catch (MeejuException e) {
                 System.out.println(e);
             }
-        }  else if (instruction.startsWith("event ")) {
+        } else if (instruction.startsWith("event ")) {
             try {
                 taskList.addEventTask(instruction.substring(6));
             } catch (MeejuException e) {

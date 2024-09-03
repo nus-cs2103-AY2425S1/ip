@@ -4,7 +4,9 @@ package meeju;
  * Represents a todo task.
  * This class extends the <code>Task</code> class.
  */
-public class Todo extends Task{
+public class Todo extends Task {
+    private static final String TASK_ICON = "[T]";
+
     /**
      * Constructor for a todo task.
      *
@@ -13,8 +15,6 @@ public class Todo extends Task{
     public Todo(String taskDescription) {
         super(taskDescription, false);
     }
-
-    private final String TASK_ICON = "[T]";
 
     /**
      * Serializes the task details into a string format suitable for storage.

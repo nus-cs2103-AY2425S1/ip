@@ -31,9 +31,14 @@ public class TaskList {
     public int getNumberOfTask() {
         return this.taskList.size();
     }
+
+    /**
+     * Prints out all the contents of taskList
+     *
+     */
     public void printList() {
         for (int i = 0; i < this.taskList.size(); i++) {
-            System.out.println("\t" + (i+1) + ". " + this.taskList.get(i));
+            System.out.println("\t" + (i + 1) + ". " + this.taskList.get(i));
         }
     }
 
@@ -43,7 +48,7 @@ public class TaskList {
      * @param taskNumber The number of the task to mark as done.
      * @throws MeejuException If the task number is invalid, or the task is already marked.
      */
-    public void markTask(String taskNumber) throws MeejuException{
+    public void markTask(String taskNumber) throws MeejuException {
         Task taskToMark;
         if (taskNumber.isEmpty()) {
             throw new MeejuException("Please specify which task to mark!");
@@ -57,8 +62,8 @@ public class TaskList {
             throw new MeejuException("The task is already marked!");
         }
         taskToMark.setIsDone(true);
-        System.out.println("Meow! I've marked this task as done:\n" +
-                "\t" + taskToMark);
+        System.out.println("Meow! I've marked this task as done:\n"
+                + "\t" + taskToMark);
         this.storage.updateFile(taskList);
     }
 
@@ -69,7 +74,7 @@ public class TaskList {
      * @param taskNumber The number of the task to unmark.
      * @throws MeejuException If the task number is invalid, or the task is not yet marked.
      */
-    public void unmarkTask(String taskNumber) throws MeejuException{
+    public void unmarkTask(String taskNumber) throws MeejuException {
         Task taskToUnmark;
         if (taskNumber.isEmpty()) {
             throw new MeejuException("Please specify which task to unmark!");
@@ -84,8 +89,8 @@ public class TaskList {
         }
         taskToUnmark.setIsDone(false);
 
-        System.out.println("Meow! I've marked this task as not done yet:\n" +
-                "\t" + taskToUnmark);
+        System.out.println("Meow! I've marked this task as not done yet:\n"
+                + "\t" + taskToUnmark);
         this.storage.updateFile(taskList);
     }
 
@@ -101,8 +106,8 @@ public class TaskList {
         }
         Todo task = new Todo(taskInstruction);
         this.taskList.add(task);
-        System.out.println("Meow! I've added this task:\n" +
-                "\t" + task + "\nNow you have " + getNumberOfTask() + " tasks in the list.");
+        System.out.println("Meow! I've added this task:\n"
+                + "\t" + task + "\nNow you have " + getNumberOfTask() + " tasks in the list.");
         this.storage.updateFile(taskList);
     }
 
@@ -112,7 +117,7 @@ public class TaskList {
      * @param taskInstruction The instruction containing the description and deadline of the task.
      * @throws MeejuException If the task description or deadline is empty, or the format is incorrect.
      */
-    public void addDeadlineTask(String taskInstruction) throws MeejuException{
+    public void addDeadlineTask(String taskInstruction) throws MeejuException {
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
         }
@@ -121,10 +126,10 @@ public class TaskList {
         try {
             taskDescription = taskInstruction.substring(0, taskInstruction.indexOf(" /by"));
             taskDeadline = taskInstruction.substring(taskInstruction.indexOf(" /by") + 5);
-        } catch (StringIndexOutOfBoundsException e){
-            throw new MeejuException("I'm having a bit of trouble understanding the task.\n" +
-                    "Could you please explain it using the correct format?\n" +
-                    "The Correct format is -> deadline <desc> /by DD/MM/YYYY HHMM");
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new MeejuException("I'm having a bit of trouble understanding the task.\n"
+                    + "Could you please explain it using the correct format?\n"
+                    + "The Correct format is -> deadline <desc> /by DD/MM/YYYY HHMM");
         }
         if (taskDescription.isEmpty() || taskDeadline.isEmpty()) {
             throw new MeejuException("I can't understand the task details!");
@@ -132,8 +137,8 @@ public class TaskList {
         Deadline task = new Deadline(taskDescription, taskDeadline);
         this.taskList.add(task);
 
-        System.out.println("Meow! I've added this task:\n" +
-                "\t" + task + "\nNow you have " + getNumberOfTask() + " tasks in the list.");
+        System.out.println("Meow! I've added this task:\n"
+                + "\t" + task + "\nNow you have " + getNumberOfTask() + " tasks in the list.");
         this.storage.updateFile(taskList);
     }
 
@@ -143,7 +148,7 @@ public class TaskList {
      * @param taskInstruction The instruction containing the description, start time, and end time of the event task.
      * @throws MeejuException If the task description, start time, or end time is empty, or the format is incorrect.
      */
-    public void addEventTask(String taskInstruction) throws MeejuException{
+    public void addEventTask(String taskInstruction) throws MeejuException {
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
         }
@@ -155,10 +160,10 @@ public class TaskList {
             taskStart = taskInstruction.substring(taskInstruction.indexOf(" /from") + 7,
                     taskInstruction.indexOf(" /to"));
             taskEnd = taskInstruction.substring(taskInstruction.indexOf(" /to") + 5);
-        } catch (StringIndexOutOfBoundsException e){
-            throw new MeejuException("I'm having a bit of trouble understanding the task. \n" +
-                    "Could you please explain it using the correct format?\n" +
-                    "The Correct format is -> event <desc> /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM");
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new MeejuException("I'm having a bit of trouble understanding the task. \n"
+                    + "Could you please explain it using the correct format?\n"
+                    + "The Correct format is -> event <desc> /from DD/MM/YYYY HHMM /to DD/MM/YYYY HHMM");
         }
         if (taskDescription.isEmpty() || taskStart.isEmpty() || taskEnd.isEmpty()) {
             throw new MeejuException("I can't understand the task details!");
@@ -167,8 +172,9 @@ public class TaskList {
         Event task = new Event(taskDescription, taskStart, taskEnd);
         this.taskList.add(task);
 
-        System.out.println("Meow! I've added this task:\n" +
-                "\t" + task + "\nNow you have " + getNumberOfTask() + " tasks in the list.");
+        System.out.println("Meow! I've added this task:\n"
+                + "\t" + task + "\nNow you have " + getNumberOfTask()
+                + " tasks in the list.");
         this.storage.updateFile(taskList);
     }
 
@@ -191,9 +197,9 @@ public class TaskList {
 
         this.taskList.remove(Integer.parseInt(taskNumber) - 1);
 
-        System.out.println("Meow! I've removed this task:\n" +
-                "\t" + taskToDelete +
-                "\nNow you have " + getNumberOfTask() + " tasks in the list.");
+        System.out.println("Meow! I've removed this task:\n"
+                + "\t" + taskToDelete
+                + "\nNow you have " + getNumberOfTask() + " tasks in the list.");
         this.storage.updateFile(taskList);
 
     }
@@ -204,7 +210,7 @@ public class TaskList {
      * @param keyword The search keyword.
      * @throws MeejuException If blank string is provided.
      */
-    public void findTask(String keyword) throws MeejuException{
+    public void findTask(String keyword) throws MeejuException {
         if (keyword.isEmpty()) {
             throw new MeejuException("Meow! Please tell me what should i find");
         }

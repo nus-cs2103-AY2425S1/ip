@@ -1,12 +1,14 @@
 package meeju;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
 public class TaskTest {
+    //CHECKSTYLE.OFF: MethodName
     @Test
-    public void create_new_todoTask_Success(){
+    public void create_new_todoTask_Success() {
         assertEquals("[T][ ] Test Todo", new Todo("Test Todo").toString());
     }
 
@@ -71,7 +73,6 @@ public class TaskTest {
             assertEquals(message, e.getMessage());
         }
     }
-
-
+    //CHECKSTYLE.ON: MethodName
 }
 

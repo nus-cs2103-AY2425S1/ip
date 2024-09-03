@@ -10,10 +10,10 @@ import java.time.format.DateTimeParseException;
  * Represents a task with a deadline.
  * This class extends the <code>Task</code> class having deadline as an additional property.
  */
-public class Deadline extends Task{
-    /* by stores the date and time of deadline as a LocalDateTime object*/
+public class Deadline extends Task {
+    private static final String TASK_ICON = "[D]";
+
     private LocalDateTime deadline;
-    private final String TASK_ICON = "[D]";
 
     /**
      * Constructor for a deadline task.
@@ -23,7 +23,7 @@ public class Deadline extends Task{
      * @param taskDeadline The deadline for the task in the format "DD/MM/YYYY HHMM".
      * @throws MeejuException If the deadline format is incorrect or if parsing the date or time fails.
      */
-    public Deadline(String taskDescription, String taskDeadline) throws MeejuException{
+    public Deadline(String taskDescription, String taskDeadline) throws MeejuException {
         super(taskDescription, false);
         String[] dateAndTime = taskDeadline.split(" ");
         String exceptionMessage = "I'm having a bit of trouble understanding the task.\n"
