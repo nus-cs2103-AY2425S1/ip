@@ -2,7 +2,10 @@ package sunny;
 
 import java.util.List;
 
-public class MarkCommand extends Command{
+/**
+ * Marks the corresponding task as done
+ */
+public class MarkCommand extends Command {
     private String s = "";
     @Override
     public String runCommand(List<Task> ls, String m) {

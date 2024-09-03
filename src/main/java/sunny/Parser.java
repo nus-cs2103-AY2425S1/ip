@@ -6,6 +6,10 @@ public class Parser {
     private String firstHalf;
     private String secondHalf;
 
+    /**
+     * Initialises the string to be parsed into the object
+     * @param message string to be parsed
+     */
     public Parser(String message) {
         String[] words = message.split("\\s+", 2);
         firstHalf = words[0];
@@ -13,7 +17,11 @@ public class Parser {
             secondHalf = words[1];
         }
     }
-
+    /**
+     * Initialises the string to be parsed into the object
+     * @param message string to be parsed
+     * @param parseBy User can select the string to parse the message
+     */
     public Parser(String message, String parseBy) {
         String[] words = message.split(parseBy, 2);
         firstHalf = words[0];

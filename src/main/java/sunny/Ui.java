@@ -9,22 +9,22 @@ import java.util.Objects;
 public class Ui {
 
     // Stock messages
-    public static final String logo = "       _____   _    _  _   _  _   _  __     __  \n" +
-            "      / ____| | |  | || \\ | || \\ | | \\ \\   / /  \n" +
-            "     | (___   | |  | ||  \\| ||  \\| |  \\ \\_/ /   \n" +
-            "      \\___ \\  | |  | || . ` || . ` |   \\   /    \n" +
-            "      ____) | | |__| || |\\  || |\\  |    | |     \n" +
-            "     |_____/   \\____/ |_| \\_||_| \\_|    |_|     \n";
-    public static final String line = "     ────────────────────";
-    public static final String welcome = "     HELLO! I am Sunny:)\n     How can I help you?";
-    public static final String goodbye = "     You are leaving? Ok bye:( come back soon";
+    public static final String logo = "       _____   _    _  _   _  _   _  __     __  \n"
+           + "      / ____| | |  | || \\ | || \\ | | \\ \\   / /  \n"
+           + "     | (___   | |  | ||  \\| ||  \\| |  \\ \\_/ /   \n"
+           + "      \\___ \\  | |  | || . ` || . ` |   \\   /    \n"
+           + "      ____) | | |__| || |\\  || |\\  |    | |     \n"
+           + "     |_____/   \\____/ |_| \\_||_| \\_|    |_|     \n";
+    public static final String LINE = "     ────────────────────";
+    public static final String WELCOME = "     HELLO! I am Sunny:)\n     How can I help you?";
+    public static final String GOODBYE = "     You are leaving? Ok bye:( come back soon";
 
     // List for tasks
-    List<Task> ls;
+    private List<Task> ls;
 
     // File path for external storage
-    String filePath = "/Users/jerryyou/ip/taskslist.txt";
-    Storage store = new Storage(filePath);
+    private String filePath = "/Users/jerryyou/ip/taskslist.txt";
+    private Storage store = new Storage(filePath);
 
     /**
      * Generates welcome message, load in previous files
@@ -32,7 +32,7 @@ public class Ui {
      */
     public String welcome() {
         ls = store.read();
-        return "Hello from\n" + logo + "\n" + welcome + "\n" + line + "\n";
+        return "Hello from\n" + logo + "\n" + WELCOME + "\n" + LINE + "\n";
     }
 
     /**
@@ -44,17 +44,17 @@ public class Ui {
         Parser p = new Parser(message);
         String command = p.getFirstHalf();
 
-        if (Objects.equals(command,"bye")) {
+        if (Objects.equals(command, "bye")) {
             store.write(ls);
-            return line + "\n" + goodbye;
-        } else if (Objects.equals(command,"list")){
+            return LINE + "\n" + GOODBYE;
+        } else if (Objects.equals(command, "list")) {
             Command c = new ListCommand();
             return c.runCommand(ls, "");
-        } else if (Objects.equals(command,"find")) {
+        } else if (Objects.equals(command, "find")) {
             Command c = new FindCommand();
             return c.runCommand(ls, p.getSecondHalf());
-        } else if (Objects.equals(command,"")) {
-            return line;
+        } else if (Objects.equals(command, "")) {
+            return LINE;
         } else if (Objects.equals(command, "mark")) {
             Command c = new MarkCommand();
             return c.runCommand(ls, p.getSecondHalf());
@@ -69,12 +69,12 @@ public class Ui {
                 Task t = TaskCreator.create(message + "|false");
                 ls.add(t);
                 store.write(ls);
-                return line + "\n     "
+                return LINE + "\n     "
                         + "Got it! added the task: \n     "
                         + t + "\n     "
-                        + String.format("Now you have %h tasks in the list \n", ls.size()) + line;
-            } catch (Exception e){
-                return line + "\n      " + e + line;
+                        + String.format("Now you have %h tasks in the list \n", ls.size()) + LINE;
+            } catch (Exception e) {
+                return LINE + "\n      " + e + LINE;
             }
         }
     }
