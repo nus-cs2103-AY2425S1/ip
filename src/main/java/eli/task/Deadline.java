@@ -2,6 +2,7 @@ package eli.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents a Deadline task with a specific deadline.
@@ -21,6 +22,7 @@ public class Deadline extends Task {
     super(task);
     this.deadline = deadline;
   }
+
 
   @Override
   public String toFileFormat() {
@@ -49,5 +51,16 @@ public class Deadline extends Task {
     String formattedDeadline = deadline.format(formatter);
     return "[D] " + super.toString() + " (by: " + formattedDeadline + ")";
   }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Deadline that = (Deadline) o;
+    return Objects.equals(this.getTask(), that.getTask()) &&
+            Objects.equals(deadline, that.deadline) && this.getStatus() == that.getStatus();}
 
 }

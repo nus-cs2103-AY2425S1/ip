@@ -54,39 +54,6 @@ public class TaskList {
   }
 
 
-    /**
-     * Parses a line from the file into a Task object.
-     *
-     * @param line The line from the file representing a task.
-     * @return The Task object represented by the line.
-     */
-    public static Task parseTaskFromFile(String line) {
-      String[] parts = line.split(" \\| ");
-      String type = parts[0];
-      boolean isDone = parts[1].equals("1");
-      String description = parts[2];
-
-      Task task = null;
-      switch (type) {
-        case "T":
-          task = new ToDo(description);
-          break;
-        case "D":
-          task = new Deadline(description, parts[3]);
-          break;
-        case "E":
-          String[] eventDetails = parts[3].split(" to ");
-          task = new Event(description, eventDetails[0], eventDetails[1]);
-          break;
-      }
-
-      if (task != null && isDone) {
-        task.changeDoneStatus(true);
-      }
-
-      return task;
-    }
-
 
 
   /**
