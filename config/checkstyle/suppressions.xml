@@ -1,7 +1,10 @@
-<!-- config/checkstyle/suppressions.xml -->
-<!DOCTYPE suppressions PUBLIC "-//Checkstyle//DTD Suppressions 1.1//EN" "https://checkstyle.org/dtds/suppressions_1_1.dtd">
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
 <suppressions>
-    <!-- Suppress specific Checkstyle rules here -->
-    <!-- Example: Suppress LineLength check for specific files -->
-    <suppress files=".*\.java" checks="LineLength"/>
+    <suppress checks="JavadocType" files=".*Test\.java"/>
+    <suppress checks="MissingJavadocMethodCheck" files=".*Test\.java"/>
 </suppressions>

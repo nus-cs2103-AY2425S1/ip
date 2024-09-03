@@ -1,10 +1,10 @@
-package Velma;
+package velma;
 
 import java.util.ArrayList;
-import Velma.task.Task;
-import Velma.task.TaskList;
-import Velma.task.Event;
-import Velma.task.Deadline;
+import velma.task.Task;
+import velma.task.TaskList;
+import velma.task.Event;
+import velma.task.Deadline;
 import java.time.LocalDate;
 
 public class Ui {

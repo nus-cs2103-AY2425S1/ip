@@ -1,11 +1,11 @@
-package Velma;
+package velma;
 
-import Velma.task.TaskList;
-import Velma.task.Task;
-import Velma.task.Todo;
-import Velma.task.Deadline;
-import Velma.task.Event;
-import Velma.exception.VelmaException;
+import velma.task.Task;
+import velma.task.TaskList;
+import velma.task.Deadline;
+import velma.task.Todo;
+import velma.task.Event;
+import velma.exception.VelmaException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;

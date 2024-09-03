@@ -1,4 +1,4 @@
-package Velma.exception;
+package velma.exception;
 
 public class VelmaException extends Exception{
     public VelmaException(String message) {

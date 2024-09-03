@@ -1,6 +1,6 @@
-package Velma.task;
+package velma.task;
 
-import Velma.task.Task;
+import velma.task.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

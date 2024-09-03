@@ -1,6 +1,6 @@
-package Velma;
-import Velma.task.Task;
-import Velma.task.Todo;
+package velma;
+import velma.task.Task;
+import velma.task.Todo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

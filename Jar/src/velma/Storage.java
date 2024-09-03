@@ -1,4 +1,4 @@
-package Velma;
+package velma;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Velma.task.Task;
-import Velma.task.Todo;
-import Velma.task.Deadline;
-import Velma.task.Event;
+import velma.task.Task;
+import velma.task.Todo;
+import velma.task.Deadline;
+import velma.task.Event;
 
 public class Storage {
     private String filepath;

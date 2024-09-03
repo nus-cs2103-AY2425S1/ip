@@ -1,4 +1,4 @@
-package Velma;
+package velma;
 
 public enum Command {
     TODO,

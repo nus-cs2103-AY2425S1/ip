@@ -1,4 +1,4 @@
-package Velma.task;
+package velma.task;
 
 public class Todo extends Task {
 
