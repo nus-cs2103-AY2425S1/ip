@@ -62,18 +62,20 @@ public class TaskManager {
         try {
             Scanner scanner = new Scanner(file);
 
-            String taskString = scanner.nextLine();
-            if (taskString.startsWith("T")) {
-                Task task = Todo.fromTaskString(taskString);
-                taskList.add(task);
-            } else if (taskString.startsWith("D")) {
-                Task task = Deadline.fromTaskString(taskString);
-                taskList.add(task);
-            } else if (taskString.startsWith("E")) {
-                Task task = Event.fromTaskString(taskString);
-                taskList.add(task);
-            } else {
-                System.out.println("Invalid task found, skipping: " + taskString);
+            while (scanner.hasNext()) {
+                String taskString = scanner.nextLine();
+                if (taskString.startsWith("T")) {
+                    Task task = Todo.fromTaskString(taskString);
+                    taskList.add(task);
+                } else if (taskString.startsWith("D")) {
+                    Task task = Deadline.fromTaskString(taskString);
+                    taskList.add(task);
+                } else if (taskString.startsWith("E")) {
+                    Task task = Event.fromTaskString(taskString);
+                    taskList.add(task);
+                } else {
+                    System.out.println("Invalid task found, skipping: " + taskString);
+                }
             }
 
             System.out.println("Loaded saved tasks from disk!");
