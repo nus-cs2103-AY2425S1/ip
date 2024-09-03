@@ -134,11 +134,28 @@ public class Tasklist {
         return this.TASKLIST;
     }
 
+
     public String getTaskStr(int taskNumber) {
         if (taskNumber < 0) {
             return null;
         }
         return TASKLIST.get(taskNumber).toString();
     }
+
+    public String find(String input) {
+        List<Task> foundList = Parser.parseFind(input, this.TASKLIST);
+
+        if (!foundList.isEmpty()) {
+            int length = foundList.size();
+            StringBuilder toReturn = new StringBuilder("Here are the matching tasks in your list: \n");
+            for (int i = 0; i < length; i++) {
+                toReturn.append(i).append(". ").append(foundList.get(i).toString()).append("\n");
+            }
+            return toReturn.toString();
+        }
+        return "";
+    }
+
+
 
 }
