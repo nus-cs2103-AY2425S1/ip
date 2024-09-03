@@ -12,10 +12,22 @@ import java.time.format.DateTimeParseException;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Parses user input and returns the appropriate command for execution.
+ * Handles parsing for various commands such as adding tasks, marking tasks,
+ * unmarking tasks, listing tasks, deleting tasks, and exiting the application.
+ */
 public class Parser {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    /**
+     * Parses the user input and returns a corresponding command.
+     *
+     * @param userInput The input provided by the user.
+     * @return A Command object representing the user's intended action.
+     * @throws DrBrownException If the input is invalid or an error occurs while parsing.
+     */
     public static Command parse(String userInput) throws DrBrownException {
         String[] inputSplit = userInput.split(" ", 2);
         switch (inputSplit[0]) {
