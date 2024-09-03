@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public class UserTaskCreator implements TaskCreator {
     private static final int NUMBER_OF_DEADLINE_PARAMETERS = 2;
     private static final int NUMBER_OF_EVENT_PARAMETERS = 3;
@@ -43,7 +45,7 @@ public class UserTaskCreator implements TaskCreator {
 
         // deconstruct array elements into their respective attributes
         String description = parameters[0];
-        String by = parameters[1];
+        LocalDateTime by = DateUtils.parseUserInputDate(parameters[1]);
 
         return new Deadline(description, by);
     }
@@ -59,8 +61,8 @@ public class UserTaskCreator implements TaskCreator {
 
         // deconstruct array elements into their respective attributes
         String description = parameters[0];
-        String from = parameters[1];
-        String to = parameters[2];
+        LocalDateTime from = DateUtils.parseUserInputDate(parameters[1]);
+        LocalDateTime to = DateUtils.parseUserInputDate(parameters[2]);
 
         return new Event(description, from, to);
     }
