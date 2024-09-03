@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public interface TaskCreator {
+public interface TaskCreator {
+    Task createTask(String input);
 }
