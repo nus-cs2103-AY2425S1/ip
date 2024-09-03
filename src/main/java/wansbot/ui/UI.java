@@ -78,11 +78,10 @@ public class UI {
     /**
      * Prints to console the list of tasks in current userTaskList
      */
-    public void handleListingTask(TaskList taskList) {
-        System.out.println(HR + "\nWans:"
-                + "\nHere are your tasks!\n"
-                + taskList.toString());
-        System.out.println("You have " + taskList.numOfTasks() + " tasks!" + "\n" + HR);
+    public String handleListingTask(TaskList taskList) {
+        return "\nHere are your tasks!\n"
+                + taskList.toString()
+                + "\nYou have " + taskList.numOfTasks() + " tasks!";
     }
 
     /**
@@ -91,49 +90,43 @@ public class UI {
      * @param taskList Current useTaskList.
      * @param posTask Postion of task user wants to remove.
      */
-    public void handleSuccesfulMarking(TaskList taskList, int posTask) {
-        System.out.println(HR + "\nWans:"
-                + "\nNice! I've marked\n"
+    public String handleSuccesfulMarking(TaskList taskList, int posTask) {
+        return "Nice! I've marked\n"
                 + taskList.getTask(posTask).toString()
-                + " as completed\n" + HR);
+                + " as completed\n";
     }
 
     /**
      * Prints to console when user inputs wrong format for mark.
      */
-    public void handleMarkingFormat() {
-        System.out.println(HR + "\nWans:\n"
-                + "You need to input a single space, followed by a number after mark"
-                + "!\n" + HR);
+    public String handleMarkingFormat() {
+        return "You need to input a single space, followed by a number after mark";
     }
 
     /**
      * Prints to console when task is unmarked successfully, along with the task deleted.
      */
-    public void handleSuccesfulUnmarking(TaskList taskList, int posTask) {
-        System.out.println(HR + "\nWans:"
-                + "\nOkay, so you lied! I've marked\n"
+    public String handleSuccesfulUnmarking(TaskList taskList, int posTask) {
+        return "Okay, so you lied! I've marked\n"
                 + taskList.getTask(posTask).toString()
-                + " as uncompleted\n" + HR);
+                + " as uncompleted\n";
     }
 
     /**
      * Prints to console when unmarking format is wrong.
      */
-    public void handleUnmarkingFormat() {
-        System.out.println(HR + "\nWans:\n"
-                + "You need to input a single space, followed by a number after unmark"
-                + "!\n" + HR);
+    public String handleUnmarkingFormat() {
+        return "You need to input a single space, followed by a number after unmark"
+                + "!\n";
     }
 
     /**
      * Prints to console when either mark or unmark is of correct format but is acting on a number that doesn't exist
      * in the userTaskList.
      */
-    public void handleInvalidNum() {
-        System.out.println(HR + "\nWans:\n"
-                + "You need to input a valid number that exists in your TaskList!"
-                + "\n" + HR);
+    public String handleInvalidNum() {
+       return "You need to input a valid number that exists in your TaskList!"
+                + "\n";
     }
 
     /**

@@ -40,7 +40,7 @@ public class WansBot {
      * Throws NumberFormatException and NotANumMarkingException when a non-number is inputted and when it's not
      * a valid task number in the userTaskList.
      */
-    private static void notNumInput(String userInput, int taskListSize) throws NumberFormatException,
+    private void checkNumInput(String userInput, int taskListSize) throws NumberFormatException,
             NotANumMarkingException {
         if (userInput.startsWith("unmark")) {
             int posTask = Integer.parseInt(userInput.substring(7));
@@ -89,32 +89,33 @@ public class WansBot {
      * Handles marking tasks function by specifying how caught exceptions are dealt with. Prints to console what
      * user needs to correct for the command to work.
      */
-    private static void markTasks(String userInput) {
+    private String markTasks(String userInput) {
+
         try {
-            notNumInput(userInput, userTaskList.numOfTasks());
+            checkNumInput(userInput, userTaskList.numOfTasks());
             int posTask = Integer.parseInt(userInput.substring(5)) - 1;
             userTaskList.getTask(posTask).finish();
-            ui.handleSuccesfulMarking(userTaskList, posTask);
+            return ui.handleSuccesfulMarking(userTaskList, posTask);
         } catch (NumberFormatException e) {
-            ui.handleMarkingFormat();
+            return ui.handleMarkingFormat();
         } catch (NotANumMarkingException e) {
-            ui.handleInvalidNum();
+            return ui.handleInvalidNum();
         }
     }
 
     /**
      * Handles unmarking tasks function by specifying to user what went wrong.
      */
-    private static void unmarkTasks(String userInput) {
+    private String unmarkTasks(String userInput) {
         try {
-            notNumInput(userInput, userTaskList.numOfTasks());
+            checkNumInput(userInput, userTaskList.numOfTasks());
             int posTask = Integer.parseInt(userInput.substring(7)) - 1;
             userTaskList.getTask(posTask).unfinish();
-            ui.handleSuccesfulUnmarking(userTaskList, posTask);
+            return ui.handleSuccesfulUnmarking(userTaskList, posTask);
         } catch (NumberFormatException e) {
-            ui.handleUnmarkingFormat();
+            return ui.handleUnmarkingFormat();
         } catch (NotANumMarkingException e) {
-            ui.handleInvalidNum();
+            return ui.handleInvalidNum();
         }
     }
 
@@ -169,9 +170,9 @@ public class WansBot {
      * Removes the user-specified task. If removal is of an invalid task number or not a number, WansBot will guide
      * user on how to correct the command.
      */
-    private static void removeTask(String userInput) {
+    private void removeTask(String userInput) {
         try {
-            notNumInput(userInput, userTaskList.numOfTasks());
+            checkNumInput(userInput, userTaskList.numOfTasks());
             int posTask = Integer.parseInt(userInput.substring(7)) - 1;
             ui.handleRemoveTask(userTaskList, posTask);
             userTaskList.removeTask(posTask);
@@ -209,10 +210,6 @@ public class WansBot {
         }
     }
 
-    public String getResponse(String input) {
-        return "Wans heard: " + input;
-    }
-
     /**
      * Finds the current tasks in userTaskList that contain the keyword and prints to console in a list.
      */
@@ -230,32 +227,19 @@ public class WansBot {
         ui.handleFindKeyword(filteredList);
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        ui.introduceToUser();
-        userTaskList = storage.loadTasks();
+    public String getResponse(String userInput) {
+        String command = userInput.split(" ")[0];
+        String response = "";
 
-        while (true) {
-            System.out.println("User: ");
-            String userInput = sc.nextLine();
-            try {
-                emptyInput(userInput);
-            } catch (InputEmptyException e) {
-                ui.handleInvalidCommands(userInput);
-                continue;
-            }
-
-            String command = userInput.split(" ")[0];
-
-            switch (command) {
+        switch (command) {
             case "list":
-                ui.handleListingTask(userTaskList);
+                response += ui.handleListingTask(userTaskList);
                 break;
             case "mark":
-                markTasks(userInput);
+                response += markTasks(userInput);
                 break;
             case "unmark":
-                unmarkTasks(userInput);
+                response += unmarkTasks(userInput);
                 break;
             case "todos":
                 addTodos(userInput);
@@ -286,7 +270,68 @@ public class WansBot {
                 break;
             default:
                 ui.handleUnrecognisedInput(userInput);
-            }
         }
+
+        return response;
     }
+
+//    public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+//        ui.introduceToUser();
+//        userTaskList = storage.loadTasks();
+//
+//        while (true) {
+//            System.out.println("User: ");
+//            String userInput = sc.nextLine();
+//            try {
+//                emptyInput(userInput);
+//            } catch (InputEmptyException e) {
+//                ui.handleInvalidCommands(userInput);
+//                continue;
+//            }
+//
+//            String command = userInput.split(" ")[0];
+//
+//            switch (command) {
+//            case "list":
+//                ui.handleListingTask(userTaskList);
+//                break;
+//            case "mark":
+//                markTasks(userInput);
+//                break;
+//            case "unmark":
+//                unmarkTasks(userInput);
+//                break;
+//            case "todos":
+//                addTodos(userInput);
+//                break;
+//            case "deadline":
+//                addDeadlined(userInput);
+//                break;
+//            case "event":
+//                addEvent(userInput);
+//                break;
+//            case "remove":
+//                removeTask(userInput);
+//                break;
+//            case "save":
+//                storage.saveTasks(userTaskList);
+//                break;
+//            case "load":
+//                userTaskList = storage.loadTasks();
+//                break;
+//            case "findTask":
+//                findTaskDate(userInput);
+//                break;
+//            case "findName":
+//                findTaskName(userInput);
+//                break;
+//            case "bye":
+//                ui.handleGoodbye();
+//                break;
+//            default:
+//                ui.handleUnrecognisedInput(userInput);
+//            }
+//        }
+//    }
 }
