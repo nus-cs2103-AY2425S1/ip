@@ -1,5 +1,8 @@
 package lutchat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Parser {
     public static boolean parse(String userInput, Ui ui, TaskList taskList, Storage storage) {
         String[] userInputArr = userInput.split(" ");
@@ -85,6 +88,20 @@ public class Parser {
                             ui.showError(e.getMessage());
                         }
                     }
+                }
+                return true;
+            case "find":
+                if (userInputArr.length < 2) {
+                    ui.showError("Please indicate 1 keyword...");
+                } else {
+                    String searchWord = userInput.substring(5).trim();
+                    ArrayList<Task> filteredTasks = new ArrayList<>();
+                    for (Task task : taskList.getTasks()) {
+                        if (task.contains(searchWord)) {
+                            filteredTasks.add(task);
+                        }
+                    }
+                    ui.showTaskList(filteredTasks);
                 }
                 return true;
 

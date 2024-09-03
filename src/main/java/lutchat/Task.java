@@ -28,6 +28,13 @@ public abstract class Task {
                 + additionalDescDetailsToFileFormat();
     }
 
+    public boolean contains(String str) {
+        if (desc.contains(str)) {
+            return true;
+        }
+        return false;
+    }
+
     public abstract String getTaskType();
     public abstract String additionalDescDetailsToFileFormat();
 
