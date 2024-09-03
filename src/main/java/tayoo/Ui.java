@@ -2,7 +2,9 @@ package tayoo;
 
 import java.util.Scanner;
 
-// Ui class will deal with interactions with users, including input, output
+/**
+ * The Ui class will deal with interactions with users, including input, output
+ */
 public class Ui {
 
     private final String botname;
@@ -13,7 +15,7 @@ public class Ui {
 
 
     /**
-     * Shows the welcome default message of the chatbot.
+     * Prints out the welcome default message of the chatbot.
      *
      */
     public void showWelcome() {
@@ -21,6 +23,9 @@ public class Ui {
         printText("Hello! I'm " + this.botname + "\nAt your service! O7");
     }
 
+    /**
+     * Prints out the standard chatbot message when exiting the bot
+     */
     public void showExit() {
         printText("\tBye. Hope to see you again soon!\n");
     }
@@ -41,12 +46,22 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Prints out the error provided to it in a standardised "segment". Automatically include the linebreak, showLine()
+     * and newline
+     *
+     * @param text String to be printed out by the chatbot
+     */
     public void printError(String text) {
         System.out.println("Error! \n");
         System.out.println(text);
         showLine();
     }
 
+    /**
+     * Waits for the user's input then returns the whole input as a string
+     * @return The user input as a string
+     */
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
 

@@ -1,32 +1,51 @@
 package tayoo;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.TemporalAccessor;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
 import java.util.Scanner;
-import tayoo.command.Command;
+
 import tayoo.command.AddTaskCommand;
-import tayoo.command.ExitCommand;
-import tayoo.command.DeleteTaskCommand;
+import tayoo.command.Command;
 import tayoo.command.DeleteAllCommand;
-import tayoo.command.MarkTaskCommand;
+import tayoo.command.DeleteTaskCommand;
+import tayoo.command.ExitCommand;
 import tayoo.command.ListCommand;
+import tayoo.command.MarkTaskCommand;
 import tayoo.exception.ParserException;
 import tayoo.tasks.Deadline;
 import tayoo.tasks.Event;
 import tayoo.tasks.Task;
 import tayoo.tasks.ToDo;
 
-// Deal with making sense of the user commands
+/**
+ * The Parser class contains all the methods related to parsing. This includes parsing user commands, dates, time and
+ * text input. All methods within this class should be static.
+ */
 public class Parser {
 
+    /**
+     * Contains all the commands which can be used to exit the Tayoo chatbot.
+     */
     private static final String[] exitCodes = {"EXIT", "BYE", "GOODBYE", "CLOSE", "QUIT"};
 
+    /**
+     * Parses the user's input. Currently utilises a series of if-else checks to correlate the user's input with any
+     * commands that have been implemented. The case of the input command is arbitrary as all commands are automatically
+     * converted to upper case. This means that if implementing any new commands, they should be in all upper case when
+     * being added to the if-else chain.
+     *
+     * @param command The user's input in a String format. The command should start with a substring representing the
+     *                type of command,
+     * @return An object that is a subclass of the Command class.
+     * @throws ParserException if there is an error when parsing a command, either because the command is not supported,
+     * or the format of the command is wrong
+     */
     public static Command parseCommand(String command) throws ParserException {
             String input = command.toUpperCase();
 
@@ -50,8 +69,8 @@ public class Parser {
             try {
                 int deadlineIndex = input.indexOf("/BY ");
                 if (deadlineIndex < 9) {
-                    throw new ParserException("Deadline format incorrect. Format: \"deadline [taskName] /by [deadline]\"." +
-                            " Try again please");
+                    throw new ParserException("Deadline format incorrect. Format: \"deadline [taskName] /by "
+                            + "[deadline]\"." + " Try again please");
                 }
                 if (deadlineIndex == 9) {
                     throw new ParserException("I see the deadline but no task :(");
@@ -68,7 +87,8 @@ public class Parser {
                 }
 
             } catch (IndexOutOfBoundsException e) {
-                throw new ParserException("You've made a fatal error! Report it to the developer or face eternal DOOM!!");
+                throw new ParserException("You've made a fatal error! Report it to the developer or" +
+                        " face eternal DOOM!!");
             }
         } else if (input.startsWith("EVENT")) {
             try {
@@ -87,8 +107,8 @@ public class Parser {
                     return new AddTaskCommand(new Event(eventTitle, eventStart, eventEnd));
                 }
             } catch (IndexOutOfBoundsException e) {
-                throw new ParserException("Event format incorrect. Format: \"Event [taskName] /from [start] /to [end]\". " +
-                        "Try again please");
+                throw new ParserException("Event format incorrect. Format: \"Event [taskName] /from [start] "
+                        + "/to [end]\". Try again please");
             }
         } else if (input.startsWith("DELETE") || input.startsWith("REMOVE")) {
             try {
@@ -109,6 +129,19 @@ public class Parser {
     }
 
 
+    /**
+     * Parses the task after it is read from the tasklist.txt, then returns the parsed task as a Task object. The parser
+     * splits the input string using the '|' char as a delimiter between sections of the parsed string. Depending on the
+     * type of task parsed, the scanner will scan through a different number of segments depending on the .txt
+     * representation of the task
+     *
+     * <p>The typical format of the task is as follows</p>
+     * <p>[Task type] | [Task completion status] | [Task name/title] | [Other relevant info] | ... </p>
+     *
+     * @param str The string representation of any task within the tasklist.txt file
+     * @return The Task that is represented by the input string
+     * @throws ParserException if there is any error while parsing, for example, an invalid task entry
+     */
     public static Task parseTask(String str) throws ParserException {
         Scanner scanner = new Scanner(str);
         scanner.useDelimiter("\\|");
@@ -152,6 +185,19 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the date and time. The method contains a series of potential formats for dates and times separately. It
+     * takes in a String which may represent a date. The formatter first tries to match this string input to any one
+     * of the preset date formats, the time is optional but can be included. If this fails, the parser will then try
+     * to interpret the input as a time only input. Therefore, any one of the following are valid inputs; "01/03/2024",
+     * "01 Mar 2024 18:00" and "1800". If the parser is unable to parse the input string as either date or time only, it
+     * returns {@code null}. The method returns an object of type TemporalAccessor, because the object returned must
+     * implement the method {@code format()} in order to be reformatted later on into a standardised format for the
+     * chatbot to print out.
+     *
+     * @param dateTime The string input that represents the time
+     * @return An instance that implements TemporalAccessor
+     */
     private static TemporalAccessor parseDateTime(String dateTime) {
 
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
@@ -168,7 +214,6 @@ public class Parser {
                 .optionalStart()
                 .appendOptional(DateTimeFormatter.ofPattern(" HH:mm"))
                 .appendOptional(DateTimeFormatter.ofPattern(" HHmm"))
-                .appendOptional(DateTimeFormatter.ofPattern("HH:mm"))
                 .optionalEnd()
                 .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
