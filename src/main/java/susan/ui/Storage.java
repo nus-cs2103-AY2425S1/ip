@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
-    final String FILE_PATH = "./data/SusanToDoList.txt";
+    final String FILE_PATH = "./src/data/SusanToDoList.txt";
 
     public Storage() {}
 

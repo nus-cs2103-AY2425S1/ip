@@ -14,8 +14,8 @@ public class AddCommand extends Command {
     private String taskType;
     private String[] commandParts;
 
-    public AddCommand(String type, String[] commandParts) {
-        this.taskType = type;
+    public AddCommand(String[] commandParts) {
+        this.taskType = commandParts[0];
         this.commandParts = commandParts;
     }
 

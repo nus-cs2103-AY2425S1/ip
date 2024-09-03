@@ -13,11 +13,11 @@ public class Parser {
 
         switch (commandWord) {
         case "todo":
-            return new AddCommand("todo", commandParts);
+            return new AddCommand(commandParts);
         case "deadline":
-            return new AddCommand("deadline", commandParts);
+            return new AddCommand(commandParts);
         case "event":
-            return new AddCommand("event", commandParts);
+            return new AddCommand(commandParts);
         case "list":
             return new ListCommand();
         case "delete":
