@@ -15,7 +15,8 @@ public class Parser {
         DELETE,
         BYE,
         LIST,
-        TODAY
+        TODAY,
+        FIND
     }
 
     public Parser(String command, String input) throws DawnException {
@@ -57,6 +58,9 @@ public class Parser {
             case TODAY:
                 doByToday();
                 break;
+            case FIND:
+                findTask(input);
+                break;
             }
         } catch (DawnException e) {
             System.out.println(e);
@@ -78,6 +82,25 @@ public class Parser {
             markAsNotDone(ind);
         } else {
             markAsDone(ind);
+        }
+    }
+
+    public static void findTask(String input) throws DawnException {
+        if (input.isBlank()) {
+            throw new DawnException("Please specify what tasks you are looking for!");
+        }
+        System.out.println("Finding the matching tasks in your list...");
+        boolean hasMatch = false;
+        int counter = 1;
+        for (int i = 0; i < numOfTasks(); i++) {
+            if (getTask(i).isAMatch(input)) {
+                hasMatch = true;
+                System.out.println(counter + ". " + getTask(i));
+                counter++;
+            }
+        }
+        if (!hasMatch) {
+            System.out.println("There are no matching tasks in your task list!");
         }
     }
 }

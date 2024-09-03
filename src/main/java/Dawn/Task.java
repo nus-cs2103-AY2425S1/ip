@@ -1,7 +1,7 @@
 package Dawn;
 public class Task {
-    protected String desc;
-    protected boolean isDone;
+    private String desc;
+    private boolean isDone;
 
     public Task() {
         this.desc = "";
@@ -12,11 +12,11 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    protected String getStatusIcon() {
         return isDone ? "X" : " ";
     }
 
-    public boolean isDone() {
+    protected boolean isDone() {
         return this.isDone;
     }
 
@@ -25,15 +25,19 @@ public class Task {
         return this.desc;
     }
 
-    public void markAsDone() {
+    protected void markAsDone() {
         this.isDone = true;
     }
 
-    public void markAsNotDone() {
+    protected void markAsNotDone() {
         this.isDone = false;
     }
 
-    public String getDesc() {
+    protected String getDesc() {
         return this.desc;
+    }
+
+    protected boolean isAMatch(String d) {
+        return this.desc.contains(d);
     }
 }
