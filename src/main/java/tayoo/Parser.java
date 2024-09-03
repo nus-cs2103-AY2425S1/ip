@@ -7,16 +7,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
-import tayoo.command.AddTaskCommand;
-import tayoo.command.Command;
-import tayoo.command.DeleteAllCommand;
-import tayoo.command.DeleteTaskCommand;
-import tayoo.command.ExitCommand;
-import tayoo.command.ListCommand;
-import tayoo.command.MarkTaskCommand;
+import tayoo.command.*;
 import tayoo.exception.ParserException;
 import tayoo.tasks.Deadline;
 import tayoo.tasks.Event;
@@ -51,6 +47,9 @@ public class Parser {
 
         if (Arrays.asList(exitCodes).contains(input)) {
             return new ExitCommand();
+        } else if (input.startsWith("FIND")) {
+            String toFind = input.substring(5).trim();
+            return new FindCommand(toFind);
         } else if (input.equals("LIST")) {
             return new ListCommand();
         } else if (input.startsWith("MARK ")) {
@@ -233,5 +232,26 @@ public class Parser {
                 return null;
             }
         }
+    }
+
+    /**
+     * Given a string to check for, this method will iterate through the given list of tasks and check if each task's
+     * title contains the string to check for as a substring. If true, then adds that task to a list of tasks which
+     * will be return. The capitalisation of input should be arbitrary.
+     *
+     * @param input The string input to be checked for
+     * @param tasklist The tasklist to be iterated through
+     * @return A list of tasks which contains the input string as a substring in the title
+     */
+    static List<Task> parseFind(String input, List<? extends Task> tasklist) {
+        String toCheck = input.toUpperCase();
+        List<Task> toReturn = new ArrayList<>();
+        int length = tasklist.size();
+        for (int i = 0; i < length; i++) {
+            if (tasklist.get(i).getTitle().toUpperCase().contains(input)) {
+                toReturn.add(tasklist.get(i));
+            }
+        }
+        return toReturn;
     }
 }

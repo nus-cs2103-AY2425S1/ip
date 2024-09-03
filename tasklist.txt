@@ -1,2 +1,3 @@
 Todo | false | make this chatbot
-Deadline | false | return book | 2024-01-13T18:30
+Deadline | true | return book | 2024-01-13T18:30
+Todo | false | read book
