@@ -26,8 +26,7 @@ public class DeadlineCommand extends Command {
         if(splitDeadline.length != 2) {
             throw new NoTimelineExceptions("deadline", "deadline <description> /by <timing>");
         }
-        taskList.addTask(new Deadline(splitDeadline[0], splitDeadline[1]));
+        taskList.addTask(new Deadline(splitDeadline[0], splitDeadline[1]), ui, taskList);
         storage.saveTask(taskList.getList());
-        ui.addTaskMessage(taskList.getList().getLast(), taskList.getList().size());
     }
 }

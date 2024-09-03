@@ -30,8 +30,7 @@ public class EventsCommand extends Command {
         if (splitEventTime.length != 2) {
             throw new NoTimelineExceptions("event", "event <description> /from <start time> /to <end time>");
         }
-        taskList.addTask(new Event(splitEvent[0], splitEventTime[0], splitEventTime[1]));
+        taskList.addTask(new Event(splitEvent[0], splitEventTime[0], splitEventTime[1]), ui, taskList);
         storage.saveTask(taskList.getList());
-        ui.addTaskMessage(taskList.getList().getLast(), taskList.getList().size());
     }
 }

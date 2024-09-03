@@ -1,7 +1,7 @@
 package toothless.task;
 
 import toothless.exceptions.ToothlessExceptions;
-import toothless.task.Task;
+import toothless.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -27,8 +27,9 @@ public class TaskList {
         return list;
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task, Ui ui, TaskList taskList) {
         list.add(task);
+        ui.addTaskMessage(task, taskList.getList().size());
     }
 
     /**

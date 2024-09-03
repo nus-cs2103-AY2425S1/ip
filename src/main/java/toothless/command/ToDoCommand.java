@@ -21,8 +21,7 @@ public class ToDoCommand extends Command {
         if(description.isEmpty()) {
             throw new NoDescriptionExceptions("todo", "todo <description>");
         }
-        taskList.addTask(new ToDo(description));
+        taskList.addTask(new ToDo(description), ui, taskList);
         storage.saveTask(taskList.getList());
-        ui.addTaskMessage(taskList.getList().getLast(), taskList.getList().size());
     }
 }
