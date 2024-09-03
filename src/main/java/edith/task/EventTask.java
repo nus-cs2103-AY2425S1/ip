@@ -58,15 +58,15 @@ public class EventTask extends Task {
     }
 
     @Override
-    public String toFileFormat() {
+    public String convertToFileFormat() {
         String divider = " | ";
-        String status = this.getStatus() ? "1" : "0";
+        String status = this.getCompletionStatus() ? "1" : "0";
         return "E" + divider + status + divider + this.getTaskName() + divider + this.start + divider + this.end;
     }
 
     @Override
     public String toString() {
-        if (this.getStatus()) {
+        if (this.getCompletionStatus()) {
             return "[E][X] " + this.getTaskName() + " (from: " + this.start + " to: " + this.end + ")";
         } else {
             return "[E][ ] " + this.getTaskName() + " (from: " + this.start + " to: " + this.end + ")";

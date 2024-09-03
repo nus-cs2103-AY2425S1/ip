@@ -26,7 +26,7 @@ public class ToDoList {
      * @throws InvalidTaskNumberException When task number specified is < 1 or more than number of current tasks in
      * list.
      */
-    public void mark(int taskNumber) throws InvalidTaskNumberException {
+    public void markTaskAsCompleted(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber > toDoList.size() || taskNumber < 1) {
             throw new InvalidTaskNumberException();
         }
@@ -40,7 +40,7 @@ public class ToDoList {
      * @throws InvalidTaskNumberException When task number specified is < 1 or more than number of current tasks in
      * list.
      */
-    public void unmark(int taskNumber) throws InvalidTaskNumberException {
+    public void unmarkTaskAsCompleted(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber > toDoList.size() || taskNumber < 1) {
             throw new InvalidTaskNumberException();
         }
@@ -66,7 +66,7 @@ public class ToDoList {
      * Getter for number of tasks in list currently.
      * @return Number of tasks.
      */
-    public int getNumberofTasks() {
+    public int getNumberOfTasks() {
         return this.toDoList.size();
     }
 

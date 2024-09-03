@@ -28,7 +28,6 @@ public class Edith {
             Ui.handleUserInput(userInput, todoList);
             Ui.showLine();
             userInput = scanner.nextLine();
-
         }
 
         Ui.bidFarewell();

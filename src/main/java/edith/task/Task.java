@@ -39,7 +39,7 @@ public abstract class Task {
      * Getter for status of task.
      * @return Task status as a boolean.
      */
-    public boolean getStatus() {
+    public boolean getCompletionStatus() {
         return this.isCompleted;
     }
 
@@ -56,5 +56,5 @@ public abstract class Task {
      * Converts each task into a string to be stored in a file.
      * @return Task to be saved in file format as a String.
      */
-    public abstract String toFileFormat();
+    public abstract String convertToFileFormat();
 }

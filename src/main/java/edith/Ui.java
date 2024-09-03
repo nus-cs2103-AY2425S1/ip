@@ -1,6 +1,11 @@
 package edith;
 
-import edith.exception.*;
+import edith.exception.InvalidCommandException;
+import edith.exception.InvalidTaskNumberException;
+import edith.exception.MissingTaskNameException;
+import edith.exception.MissingDeadlineException;
+import edith.exception.MissingEventDurationException;
+import edith.exception.MissingTaskNumberException;
 import edith.task.DeadlineTask;
 import edith.task.EventTask;
 import edith.task.ToDoTask;
@@ -28,22 +33,14 @@ public class Ui {
         if (Objects.equals(command, "list")) { // check if user wants the todo list
             System.out.println(" tasks in your todo list!" + LINEBREAK +
                     toDoList.toString());
-        }
-
-        else if (Objects.equals(command, "mark") || Objects.equals(command, "unmark")) { // check if user wants to mark a task
+        } else if (Objects.equals(command, "mark") || Objects.equals(command, "unmark")) {
             changeTaskStatus(userInput, toDoList);
-        }
-
-        else if (Objects.equals(command, "todo") || Objects.equals(command, "deadline") ||
+        } else if (Objects.equals(command, "todo") || Objects.equals(command, "deadline") ||
                 Objects.equals(command, "event")) {
             addTask(userInput, toDoList);
-        }
-
-        else if (Objects.equals(command, "delete")) {
+        } else if (Objects.equals(command, "delete")) {
             delete(userInput, toDoList);
-        }
-
-        else {
+        } else {
             try {
                 otherCommand();
             } catch (InvalidCommandException e) {
@@ -78,11 +75,11 @@ public class Ui {
             String command = Parser.getCommand(userInput);
 
             if (Objects.equals(command, "mark")) { // check if user wants to mark a task
-                toDoList.mark(taskNumber); // may throw Edith.InvalidTaskNumberException
+                toDoList.markTaskAsCompleted(taskNumber); // may throw Edith.InvalidTaskNumberException
                 System.out.println(" " + "yay! i've marked this task as done #productive:" + LINEBREAK +
                         "   " + toDoList.getTask(taskNumber) + LINEBREAK);
             } else { // unmarking a task
-                toDoList.unmark(taskNumber); // may throw Edith.InvalidTaskNumberException
+                toDoList.unmarkTaskAsCompleted(taskNumber); // may throw Edith.InvalidTaskNumberException
                 System.out.println(" " + "aw, i've marked this task as undone:" + LINEBREAK +
                         "   " + toDoList.getTask(taskNumber) + LINEBREAK);
             }
@@ -101,15 +98,12 @@ public class Ui {
         String taskType = Parser.getCommand(userInput);
         try {
             String taskDetails = Parser.getTaskDetails(userInput, taskType);
-
             if (Objects.equals(taskType, "todo")) {
                 addToDoTask(taskDetails, toDoList);
             }
-
             if (Objects.equals(taskType, "deadline")) {
                 addDeadlineTask(taskDetails, taskType, toDoList);
             }
-
             if (Objects.equals(taskType, "event")) {
                 addEventTask(taskDetails, taskType, toDoList);
             }
@@ -128,7 +122,7 @@ public class Ui {
         toDoList.add(task);
         System.out.println(" " + "nice! i've added this task:" + LINEBREAK +
                 " " + task + LINEBREAK +
-                " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + LINEBREAK);
+                " there are currently " + toDoList.getNumberOfTasks() + " tasks in your todo list." + LINEBREAK);
     }
 
     /**
@@ -145,7 +139,7 @@ public class Ui {
             toDoList.add(task);
             System.out.println(" " + "nice! i've added this task:" + LINEBREAK +
                     " " + task + LINEBREAK +
-                    " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + LINEBREAK);
+                    " there are currently " + toDoList.getNumberOfTasks() + " tasks in your todo list." + LINEBREAK);
         } catch (MissingDeadlineException e) {
             showError(e.getMessage());
         }
@@ -167,7 +161,7 @@ public class Ui {
             toDoList.add(task);
             System.out.println(" " + "nice! i've added this task:" + LINEBREAK +
                     " " + task + LINEBREAK +
-                    " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + LINEBREAK);
+                    " there are currently " + toDoList.getNumberOfTasks() + " tasks in your todo list." + LINEBREAK);
         } catch (MissingEventDurationException e) {
             showError(e.getMessage());
         }
@@ -191,7 +185,7 @@ public class Ui {
             int taskNumber = Parser.getTaskNumber(userInput);
             System.out.println(" okay! i've deleted this task:" + LINEBREAK +
                     "   " + toDoList.getTask(taskNumber) + LINEBREAK +
-                    " you currently have " + (toDoList.getNumberofTasks() - 1) + " tasks in your todo list"
+                    " you currently have " + (toDoList.getNumberOfTasks() - 1) + " tasks in your todo list"
                     + LINEBREAK);
             toDoList.delete(taskNumber);
         } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
