@@ -33,7 +33,7 @@ public class Storage {
      * @return The file object representing the data file.
      * @throws DarkpoolException If an I/O error occurs.
      */
-    private File fileAndDirCheck() throws DarkpoolException {
+    private File checkFileAndDir() throws DarkpoolException {
         File dataFile = new File(filePath);
 
         if (!dataFile.exists()) {
@@ -57,7 +57,7 @@ public class Storage {
     public ArrayList<Task> loadData() throws DarkpoolException {
         ArrayList<Task> taskList = new ArrayList<>();
         String curTask;
-        File dataFile = fileAndDirCheck();
+        File dataFile = checkFileAndDir();
         Scanner scanner;
 
         try {
@@ -106,22 +106,22 @@ public class Storage {
         String from, to, by;
 
         switch (type) {
-            case "E" -> {
-                from = taskParts[3];
-                to = taskParts[4];
-                return new Event(description, from, to, isDone);
-            }
-            case "D" -> {
-                by = taskParts[3];
-                return new Deadline(description, by, isDone);
-            }
-            case "T" -> {
-                return new Todo(description, isDone);
-            }
-            default -> {
-                System.out.println("Unknown task type: " + type);
-                return null;
-            }
+        case "E" -> {
+            from = taskParts[3];
+            to = taskParts[4];
+            return new Event(description, from, to, isDone);
+        }
+        case "D" -> {
+            by = taskParts[3];
+            return new Deadline(description, by, isDone);
+        }
+        case "T" -> {
+            return new Todo(description, isDone);
+        }
+        default -> {
+            System.out.println("Unknown task type: " + type);
+            return null;
+        }
         }
     }
 }
