@@ -2,9 +2,9 @@ package ekud.commands;
 
 import ekud.components.Storage;
 import ekud.components.TaskList;
-import ekud.components.Ui;
 import ekud.exceptions.EkudException;
 import ekud.task.Task;
+import ekud.ui.Ui;
 
 /**
  * Represents a {@link Command} that can find tasks in some {@link TaskList}
@@ -30,7 +30,7 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printOutput("""
+        ui.addToBuffer("""
                 Urrgh! Why do you bother me with this task!
                 Fine, fine.... I will go look for them...
                 Here are the results of my search:""");
@@ -40,13 +40,13 @@ public class FindCommand extends Command {
             if (task.hasMatchingDescription(keyword)) {
                 found++;
                 String foundTask = String.format("%d. %s", found, task);
-                ui.printOutput(foundTask);
+                ui.addToBuffer(foundTask);
             }
         }
 
         // no tasks found
         if (found == 0) {
-            ui.printOutput("...I've found nothing!!\nWhat a big waste of time! ALL THANKS TO YOU!!");
+            ui.addToBuffer("...I've found nothing!!\nWhat a big waste of time! ALL THANKS TO YOU!!");
         }
     }
 

@@ -2,9 +2,9 @@ package ekud.commands;
 
 import ekud.components.Storage;
 import ekud.components.TaskList;
-import ekud.components.Ui;
 import ekud.exceptions.EkudException;
 import ekud.task.Task;
+import ekud.ui.Ui;
 
 /**
  * Represents the {@link Command} to delete a {@link Task} at some index in a {@link TaskList}.
@@ -53,7 +53,7 @@ public class DeleteCommand extends Command {
                 completeResponse,
                 removed,
                 listStatus);
-        ui.printOutput(message);
+        ui.addToBuffer(message);
 
         storage.deleteTask(removed, ui);
     }

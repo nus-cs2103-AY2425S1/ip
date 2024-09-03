@@ -2,8 +2,8 @@ package ekud.commands;
 
 import ekud.components.Storage;
 import ekud.components.TaskList;
-import ekud.components.Ui;
 import ekud.task.Task;
+import ekud.ui.Ui;
 
 /**
  * Represents a {@link Command} to add a task to some {@link TaskList}.
@@ -30,7 +30,7 @@ public class AddCommand extends Command {
                 task,
                 tasks.getIncompleteCount(),
                 tasks.getCount());
-        ui.printOutput(message);
+        ui.addToBuffer(message);
 
         storage.saveNewTask(task, ui);
     }

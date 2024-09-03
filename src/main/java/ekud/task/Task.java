@@ -3,8 +3,8 @@ package ekud.task;
 import java.util.HashMap;
 
 import ekud.components.TaskList;
-import ekud.components.Ui;
 import ekud.exceptions.EkudException;
+import ekud.ui.Ui;
 
 /**
  * Represents a task. Each task minimally has a description and completion status.
@@ -69,7 +69,7 @@ public abstract class Task {
                         "Warning: ekud.task.Task entry { %s } is missing required arguments or is"
                                 + "incorrectly formatted\nRemoving ekud.task entry...",
                         taskSaveString);
-            ui.printOutput(message);
+            ui.addToBuffer(message);
             return null;
         }
     }

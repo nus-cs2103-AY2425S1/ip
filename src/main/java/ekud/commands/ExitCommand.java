@@ -2,7 +2,7 @@ package ekud.commands;
 
 import ekud.components.Storage;
 import ekud.components.TaskList;
-import ekud.components.Ui;
+import ekud.ui.Ui;
 
 /**
  * Represents a {@link Command} to terminate EKuD.
@@ -12,7 +12,7 @@ import ekud.components.Ui;
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printGoodbye();
+        // does nothing
     }
 
     @Override
