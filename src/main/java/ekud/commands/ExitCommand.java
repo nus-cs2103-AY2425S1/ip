@@ -1,8 +1,8 @@
 package ekud.commands;
 
 import ekud.components.Storage;
-import ekud.components.Ui;
 import ekud.components.TaskList;
+import ekud.components.Ui;
 
 /**
  * Represents a {@link Command} to terminate EKuD.

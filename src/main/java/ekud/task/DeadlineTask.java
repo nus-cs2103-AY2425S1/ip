@@ -1,11 +1,11 @@
 package ekud.task;
 
-import ekud.exceptions.EkudException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
+
+import ekud.exceptions.EkudException;
 
 /**
  * Represents a {@link Task} that has a deadline.
@@ -14,11 +14,11 @@ import java.util.Locale;
  */
 public class DeadlineTask extends Task {
     /** The {@link LocalDateTime} format when parsing input date Strings */
-    public static DateTimeFormatter READ_FORMAT =
+    public static final DateTimeFormatter READ_FORMAT =
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm", Locale.ENGLISH);
 
     /** The {@link LocalDateTime} format when outputting date Strings */
-    public static DateTimeFormatter PRINT_FORMAT =
+    public static final DateTimeFormatter PRINT_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a", Locale.ENGLISH);
 
     /** The deadline of the task */

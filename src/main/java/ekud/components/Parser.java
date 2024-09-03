@@ -1,10 +1,17 @@
 package ekud.components;
 
-import ekud.commands.*;
+import java.util.HashMap;
+
+import ekud.commands.AddCommand;
+import ekud.commands.Command;
+import ekud.commands.DeleteCommand;
+import ekud.commands.ExitCommand;
+import ekud.commands.FindCommand;
+import ekud.commands.ListCommand;
+import ekud.commands.MarkCommand;
+import ekud.commands.UnmarkCommand;
 import ekud.exceptions.EkudException;
 import ekud.task.Task;
-
-import java.util.HashMap;
 
 /**
  * The Parser of user inputs to {@link Command Commands}.
@@ -72,6 +79,7 @@ public class Parser {
         HashMap<String, String> tokenMap = tokenize(command);
         Command.Type type = Command.Type.getType(tokenMap.get("command"));
         String argument = tokenMap.get("argument");
+        // CHECKSTYLE.OFF: Indentation
         return switch (type) {
             case ADD -> new AddCommand(Task.getTaskFromTokens(tokenMap));
             case DELETE -> new DeleteCommand(parseInt(argument));
@@ -81,5 +89,6 @@ public class Parser {
             case FIND -> new FindCommand(argument);
             case EXIT -> new ExitCommand();
         };
+        // CHECKSTYLE.ON: Indentation
     }
 }

@@ -1,10 +1,10 @@
 package ekud.commands;
 
-import ekud.exceptions.EkudException;
 import ekud.components.Storage;
-import ekud.components.Ui;
-import ekud.task.Task;
 import ekud.components.TaskList;
+import ekud.components.Ui;
+import ekud.exceptions.EkudException;
+import ekud.task.Task;
 
 /**
  * Represents the {@link Command} to mark a {@link Task} at some index in a {@link TaskList} as complete.

@@ -1,13 +1,13 @@
 package ekud.components;
 
-import ekud.task.Task;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import ekud.task.Task;
 
 
 /**
@@ -200,7 +200,7 @@ public class Storage {
             String error = String.format("""
                     Oh no!! I've encountered an error while trying to update the task in your save file!
                       ERROR: %s""",
-                    e) ;
+                    e);
             ui.printOutput(error);
         }
     }

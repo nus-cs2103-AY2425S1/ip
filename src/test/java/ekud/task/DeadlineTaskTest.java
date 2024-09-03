@@ -1,19 +1,19 @@
 package ekud.task;
 
-import ekud.Ekud;
-import ekud.exceptions.EkudException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.fail;
+import ekud.exceptions.EkudException;
 
 public class DeadlineTaskTest {
     @Test
     public void constructor_emptyDescription_exceptionThrown() {
         EkudException emptyDescription = assertThrows(
                 EkudException.class,
-                () -> new DeadlineTask("", "1/1/2024 0000")
-        );
+                () -> new DeadlineTask("", "1/1/2024 0000"));
         assertEquals(
                 "I'm sorry, but, nothing does not have a DEADLINE.\nTry giving me an actual task.",
                 emptyDescription.getMessage());
@@ -24,8 +24,7 @@ public class DeadlineTaskTest {
     public void constructor_emptyDeadline_exceptionThrown() {
         EkudException emptyDeadline = assertThrows(
                 EkudException.class,
-                () -> new DeadlineTask("task name", "")
-        );
+                () -> new DeadlineTask("task name", ""));
         assertEquals(
                 """
                         Whoopsies!! Looks like you forgot your deadline!
@@ -41,14 +40,12 @@ public class DeadlineTaskTest {
 
         EkudException wrongDeadlineFormat = assertThrows(
                 EkudException.class,
-                () -> new DeadlineTask("task name", "1 Jan 2024 12 AM")
-        );
+                () -> new DeadlineTask("task name", "1 Jan 2024 12 AM"));
         assertEquals(expected, wrongDeadlineFormat.getMessage());
 
         EkudException correctFormatInvalidDate = assertThrows(
                 EkudException.class,
-        () -> new DeadlineTask("task name", "1/13/2024 2200")
-        );
+                () -> new DeadlineTask("task name", "1/13/2024 2200"));
         assertEquals(expected, correctFormatInvalidDate.getMessage());
     }
 

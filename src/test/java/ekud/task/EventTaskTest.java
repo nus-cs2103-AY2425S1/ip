@@ -1,18 +1,19 @@
 package ekud.task;
 
-import ekud.exceptions.EkudException;
-import jdk.jfr.Event;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import ekud.exceptions.EkudException;
 
 public class EventTaskTest {
     @Test
     public void constructor_emptyDescription_exceptionThrown() {
         EkudException emptyDescription = assertThrows(
                 EkudException.class,
-                () -> new EventTask("", "1/1/2024 0000", "31/12/2024 1159")
-        );
+                () -> new EventTask("", "1/1/2024 0000", "31/12/2024 1159"));
         assertEquals(
                 "Did you forget your EVENT?\nBecause you tried to make an event of nothing!",
                 emptyDescription.getMessage());
@@ -31,14 +32,12 @@ public class EventTaskTest {
 
         EkudException emptyFrom = assertThrows(
                 EkudException.class,
-                () -> new EventTask("task name", "", "31/12/2024 1159")
-        );
+                () -> new EventTask("task name", "", "31/12/2024 1159"));
         assertEquals(fromExpected, emptyFrom.getMessage());
 
         EkudException emptyTo = assertThrows(
                 EkudException.class,
-                () -> new EventTask("task name", "1/1/2024 0000", "")
-        );
+                () -> new EventTask("task name", "1/1/2024 0000", ""));
         assertEquals(toExpected, emptyTo.getMessage());
     }
 
@@ -50,26 +49,22 @@ public class EventTaskTest {
 
         EkudException wrongFromFormat = assertThrows(
                 EkudException.class,
-                () -> new EventTask("task name", "1 Jan 2024 12:00 AM", "31/12/2024 1159")
-        );
+                () -> new EventTask("task name", "1 Jan 2024 12:00 AM", "31/12/2024 1159"));
         assertEquals(expected, wrongFromFormat.getMessage());
 
         EkudException correctFromFormatInvalidDate = assertThrows(
                 EkudException.class,
-                () -> new EventTask("task name", "1/1/2024 3000", "31/12/2024 1159")
-        );
+                () -> new EventTask("task name", "1/1/2024 3000", "31/12/2024 1159"));
         assertEquals(expected, correctFromFormatInvalidDate.getMessage());
 
         EkudException wrongToFormat = assertThrows(
                 EkudException.class,
-                () -> new EventTask("task name", "1/1/2024 0000", "31 December 2024 1159")
-        );
+                () -> new EventTask("task name", "1/1/2024 0000", "31 December 2024 1159"));
         assertEquals(expected, wrongToFormat.getMessage());
 
         EkudException correctToFormatInvalidDate = assertThrows(
                 EkudException.class,
-                () -> new EventTask("task name", "1/1/2024 0000", "32/12/2024 1159")
-        );
+                () -> new EventTask("task name", "1/1/2024 0000", "32/12/2024 1159"));
         assertEquals(expected, correctToFormatInvalidDate.getMessage());
     }
 

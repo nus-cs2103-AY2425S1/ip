@@ -1,10 +1,10 @@
 package ekud.commands;
 
-import ekud.exceptions.EkudException;
 import ekud.components.Storage;
-import ekud.components.Ui;
-import ekud.task.Task;
 import ekud.components.TaskList;
+import ekud.components.Ui;
+import ekud.exceptions.EkudException;
+import ekud.task.Task;
 
 /**
  * Represents the {@link Command} to delete a {@link Task} at some index in a {@link TaskList}.
@@ -15,7 +15,8 @@ public class DeleteCommand extends Command {
     /** The index to delete */
     private final int index;
 
-    /** Creates a {@link DeleteCommand}.
+    /**
+     * Creates a {@link DeleteCommand}.
      *
      * @param index The index to delete.
      */

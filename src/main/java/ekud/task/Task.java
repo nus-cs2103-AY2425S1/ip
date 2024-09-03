@@ -1,10 +1,10 @@
 package ekud.task;
 
+import java.util.HashMap;
+
 import ekud.components.TaskList;
 import ekud.components.Ui;
 import ekud.exceptions.EkudException;
-
-import java.util.HashMap;
 
 /**
  * Represents a task. Each task minimally has a description and completion status.
@@ -40,7 +40,7 @@ public abstract class Task {
      * @param ui The ui which prints the warning for an invalid taskSaveString.
      * @return Task corresponding to taskSaveString.
      * @see Ui
-     * @see ekud.components.Storage#loadTasks(TaskList, Ui) 
+     * @see ekud.components.Storage#loadTasks(TaskList, Ui)
      */
     public static Task getTaskFromSave(String taskSaveString, Ui ui) {
         try {
@@ -49,12 +49,14 @@ public abstract class Task {
 
             String type = args[0];
             boolean isDone = args[1].equals("1");
+            // CHECKSTYLE.OFF: Indentation
             Task task = switch (type) {
                 case "T" -> new TodoTask(args[2]);
                 case "D" -> new DeadlineTask(args[2], args[3]);
                 case "E" -> new EventTask(args[2], args[3], args[4]);
                 default -> null;
             };
+            // CHECKSTYLE.ON: Indentation
 
             if (task != null) {
                 task.isDone = isDone;
@@ -84,6 +86,7 @@ public abstract class Task {
         String type = tokens.get("command").toLowerCase();
         String argument = tokens.get("argument");
 
+        // CHECKSTYLE.OFF: Indentation
         return switch (type) {
             case "todo" -> new TodoTask(argument);
             case "deadline" -> new DeadlineTask(argument, tokens.get("/by"));
@@ -91,6 +94,7 @@ public abstract class Task {
             default -> throw new EkudException("Wow! What is this type of ekud.task?"
                     + "\nI'm not sure how to process this");
         };
+        // CHECKSTYLE.ON: Indentation
     }
 
     /**

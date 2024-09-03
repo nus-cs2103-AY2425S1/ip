@@ -1,10 +1,13 @@
 package ekud.components;
 
-import ekud.exceptions.EkudException;
-import ekud.task.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import ekud.exceptions.EkudException;
+import ekud.task.Task;
 
 public class TaskListTest {
     private static class TaskStub extends Task {
