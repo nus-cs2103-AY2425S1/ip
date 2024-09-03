@@ -1,3 +1,12 @@
+package sammy;
+
+import sammy.command.AddCommand;
+import sammy.command.DeleteCommand;
+import sammy.command.ExitCommand;
+import sammy.command.ListCommand;
+import sammy.task.Deadline;
+import sammy.task.Event;
+import sammy.task.Todo;;
 
 public class Parser {
     public static Command parse(String fullCommand) throws SammyException {

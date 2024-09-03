@@ -1,3 +1,11 @@
+package sammy.command;
+
+import sammy.Command;
+import sammy.Storage;
+import sammy.TaskList;
+import sammy.Ui;
+import sammy.Task;
+
 import java.io.IOException;
 
 public class AddCommand extends Command {

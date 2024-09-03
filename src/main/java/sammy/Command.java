@@ -1,3 +1,9 @@
+package sammy;
+
+import sammy.Storage;
+import sammy.TaskList;
+import sammy.Ui;
+
 import java.io.IOException;
 
 public abstract class Command {
