@@ -6,7 +6,6 @@ public class Nave {
     private static final String greeting =
             "Hello! :) I'm Nave, your personal task management assistant.\n" +
             "What can I do for you today?";
-
     private static final String farewell = "Goodbye :( Come visit me again";
     private static final String helpMessage = """
             /help: shows all available commands
@@ -16,11 +15,14 @@ public class Nave {
             event [name] /from [date] /to [date]: adds an event with associated name,
                 start date and end date
             bye: ends the Nave chatbot""";
+    private static final String filePath = "./data/tasks.txt";
+    private static final TaskList tasks = new TaskList(filePath);
 
-    private static final TaskList tasks = new TaskList();
     public static void main(String[] args) {
         //Greet User
         System.out.println(formatResponse(greeting));
+
+        tasks.onStart();
 
         Scanner inputReader = new Scanner(System.in);
 
