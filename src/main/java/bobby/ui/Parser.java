@@ -1,3 +1,5 @@
+package bobby.ui;
+
 /**
  * The Parser class is responsible for interpreting and processing user input.
  * It determines the type of action requested by the user and provides the appropriate

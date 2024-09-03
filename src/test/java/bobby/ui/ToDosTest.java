@@ -1,10 +1,13 @@
+package bobby.ui;
+
+import bobby.ui.ToDos;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests the functionality of the {@link ToDos} class.
- * This class verifies the correct behavior of the ToDos task class
+ * This class verifies the correct behavior of the bobby.ui.ToDos task class
  * regarding its initialization, string representation, and storage format.
  */
 public class ToDosTest {

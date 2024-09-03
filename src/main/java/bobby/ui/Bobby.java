@@ -1,3 +1,7 @@
+package bobby.ui;
+
+import bobby.ui.ToDos;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -5,7 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
- * Bobby is a chatbot that can manage a list of tasks, including ToDos, Deadlines, and Events.
+ * Bobby is a chatbot that can manage a list of tasks, including bobby.ui.ToDos, Deadlines, and Events.
 <<<<<<< HEAD
  * It can mark tasks as done, unmark, delete and add tasks.
 =======

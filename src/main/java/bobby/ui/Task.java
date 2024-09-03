@@ -1,3 +1,5 @@
+package bobby.ui;
+
 /**
  * Represents a generic task with a description and a completion status.
  * Provides methods to mark the task as done or not done,
