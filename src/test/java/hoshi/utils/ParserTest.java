@@ -1,18 +1,19 @@
 package hoshi.utils;
 
-import hoshi.task.Task;
-import hoshi.task.TaskList;
-import hoshi.task.Todo;
-import hoshi.ui.Ui;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-
-import java.util.Scanner;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import hoshi.task.Task;
+import hoshi.task.TaskList;
+import hoshi.task.Todo;
+import hoshi.ui.Ui;
 
 
 /**
@@ -206,17 +207,21 @@ public class ParserTest {
     public void handleAddTest_addCompleted_success() {
 
         // prepare mocked objects/behaviour and input
-
         String input = "add todo";
 
-        Scanner scanner = new Scanner("Test Todo Description"); // Simulating user input
+        // Simulating user input
+        Scanner scanner = new Scanner("Test Todo Description");
+
+        // Mock the parser class to instruct handleSave to do nothing later on
+        Parser parser = Mockito.spy(new Parser());
+
+        // Tell handleSave to do nothing during this JUnit test
+        Mockito.doNothing().when(parser).handleSave(Mockito.any(Ui.class), Mockito.any(TaskList.class));
 
         // test
-
         parser.handleAdd(input, scanner, taskList, ui);
 
         // assert
-
         verify(taskList).add(Mockito.any(Todo.class));
         verify(ui).displayTodoTask();
 
