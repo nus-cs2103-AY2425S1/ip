@@ -5,11 +5,11 @@ import Majima.command.AddTodoCommand;
 import Majima.command.Command;
 import Majima.command.ExitCommand;
 import Majima.command.FindCommand;
-import Majima.command.ListCommand;
 import Majima.command.AddDeadlineCommand;
 import Majima.command.AddEventCommand;
-import Majima.command.MarkCommand;
+import Majima.command.ListCommand;
 import Majima.command.DeleteCommand;
+import Majima.command.MarkCommand;
 import Majima.command.UnmarkCommand;
 import Majima.task.Task;
 
@@ -28,25 +28,25 @@ public class Parser {
 
         switch (command) {
             case "list":
-                return new ListCommand();
+            return new ListCommand();
             case "todo":
-                return parseAddCommand(Task.TaskType.TODO, args);
+            return parseAddCommand(Task.TaskType.TODO, args);
             case "deadline":
-                return parseAddCommand(Task.TaskType.DEADLINE, args);
+            return parseAddCommand(Task.TaskType.DEADLINE, args);
             case "event":
-                return parseAddCommand(Task.TaskType.EVENT, args);
+            return parseAddCommand(Task.TaskType.EVENT, args);
             case "delete":
-                return parseDeleteCommand(args);
+            return parseDeleteCommand(args);
             case "mark":
-                return parseMarkCommand(args);
+            return parseMarkCommand(args);
             case "unmark":
-                return parseUnmarkCommand(args);
+            return parseUnmarkCommand(args);
             case "bye":
-                return new ExitCommand();
+            return new ExitCommand();
             case "find":
-                return new FindCommand(args);
+            return new FindCommand(args);
             default:
-                throw new MajimaException("Kiryu? I ain't got the faintest idea of what ya just said!");
+            throw new MajimaException("Kiryu? I ain't got the faintest idea of what ya just said!");
         }
     }
 

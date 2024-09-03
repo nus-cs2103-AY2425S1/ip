@@ -31,7 +31,7 @@ public class TaskList {
      *
      * @param index The int value of the corresponding task
      * */
-    public Task deleteTask (int index) throws MajimaException {
+    public Task deleteTask(int index) throws MajimaException {
         if (index < 0 || index >= tasks.size()) {
             throw new MajimaException("Kiryu! That number ain't even there!");
         }
