@@ -20,6 +20,15 @@ public abstract class Task {
     }
 
     /**
+     * Retrieves the description of this task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Returns the status icon of the task, indicating whether it is completed or not.
      *
      * @return A string representing the task's status icon, "[X]" if done, "[ ]" if not done.
