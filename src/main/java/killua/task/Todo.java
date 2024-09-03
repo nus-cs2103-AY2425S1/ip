@@ -21,8 +21,8 @@ public class Todo extends Task {
      * @return A string representation of the Todo task for saving.
      */
     @Override
-    public String toSave() {
-        return "T" + super.toSave();
+    public String toSaveAsString() {
+        return "T" + super.toSaveAsString();
     }
 
     /**

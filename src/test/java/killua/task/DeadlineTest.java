@@ -53,7 +53,7 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("Submit report", dateTime);
 
         String expectedSaveFormat = "D | 0 | Submit report | Aug 26 2024 15:30";
-        assertEquals(expectedSaveFormat, deadline.toSave());
+        assertEquals(expectedSaveFormat, deadline.toSaveAsString());
     }
 
     @Test
@@ -62,7 +62,7 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("Submit report", date);
 
         String expectedSaveFormat = "D | 0 | Submit report | Aug 26 2024";
-        assertEquals(expectedSaveFormat, deadline.toSave());
+        assertEquals(expectedSaveFormat, deadline.toSaveAsString());
     }
 
     @Test

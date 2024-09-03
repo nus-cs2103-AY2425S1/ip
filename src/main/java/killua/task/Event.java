@@ -94,8 +94,8 @@ public class Event extends Task {
      * @return A string representation of the event for saving.
      */
     @Override
-    public String toSave() {
-        return "E" + super.toSave() + " | " + format()[0] + " | " + format()[1];
+    public String toSaveAsString() {
+        return "E" + super.toSaveAsString() + " | " + format()[0] + " | " + format()[1];
     }
 
     /**

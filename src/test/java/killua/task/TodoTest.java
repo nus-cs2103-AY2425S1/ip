@@ -9,7 +9,7 @@ public class TodoTest {
     public void testTodoToSave() {
         Todo todo = new Todo("Sample Task");
         String expectedSaveFormat = "T | 0 | Sample Task";
-        assertEquals(expectedSaveFormat, todo.toSave());
+        assertEquals(expectedSaveFormat, todo.toSaveAsString());
     }
 
     @Test

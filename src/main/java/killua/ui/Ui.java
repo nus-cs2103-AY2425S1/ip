@@ -39,18 +39,19 @@ public class Ui {
      */
     public void showWelcomeMessage() {
         printLine();
-        System.out.println("Welcome to Killua Task Manager!");
-        System.out.println("Here are some commands you can use:");
-        System.out.println("  bye - Exit the application");
-        System.out.println("  list - List all tasks");
-        System.out.println("  mark <task number> - Mark a task as done");
-        System.out.println("  unmark <task number> - Mark a task as not done yet");
-        System.out.println("  delete <task number> - Delete a task");
-        System.out.println("  todo <description> - Add a new todo task");
-        System.out.println("  deadline <description> /by <yyyy-mm-dd> OR ");
-        System.out.println("  deadline <description> /by <yyyy-mm-dd hh:mm> - Add a new deadline task");
-        System.out.println("  event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR ");
-        System.out.println("  event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm> - Add a new event task");
+        System.out.println("""
+        Welcome to Killua Task Manager!
+        Here are some commands you can use:
+            bye - Exit the application
+            list - List all tasks
+            mark <task number> - Mark a task as done
+            unmark <task number> - Mark a task as not done yet
+            delete <task number> - Delete a task
+            todo <description> - Add a new todo task
+            deadline <description> /by <yyyy-mm-dd> OR
+            deadline <description> /by <yyyy-mm-dd hh:mm> - Add a new deadline task
+            event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR
+            event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm> - Add a new event task""");
         printLine();
     }
 

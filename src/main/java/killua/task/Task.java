@@ -69,7 +69,7 @@ public abstract class Task {
      *
      * @return A string representation of the task for saving.
      */
-    public String toSave() {
+    public String toSaveAsString() {
         return " | " + (isDone ? 1 : 0) + " | " + description;
     }
 

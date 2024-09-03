@@ -101,7 +101,8 @@ public class Parser {
                 return new Deadline(description, date);
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new KilluaException("Please use the correct format for deadlines: deadline <description> /by <yyyy-mm-dd> OR deadline <description> /by <yyyy-mm-dd hh:mm>");
+            throw new KilluaException("Please use the correct format for deadlines: " +
+                    "deadline <description> /by <yyyy-mm-dd> OR deadline <description> /by <yyyy-mm-dd hh:mm>");
         }
     }
 
@@ -135,7 +136,9 @@ public class Parser {
                 return new Event(description, fromDate, toDate);
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new KilluaException("Please use the correct format for events: event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>");
+            throw new KilluaException("Please use the correct format for events: "
+                    + "event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR "
+                            + "event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>");
         }
     }
 
@@ -174,15 +177,19 @@ public class Parser {
 
         Task task;
 
-        if (taskType == 'T') {
+        switch (taskType) {
+        case 'T':
             task = new Todo(argument);
-        } else if (taskType == 'D') {
-            String[] strs = argument.split("\\|", 2);
-            task = getDeadline(strs[0].strip(), strs[1].strip());
-        } else if (taskType == 'E') {
-            String[] strs = argument.split("\\|", 3);
-            task = getEvent(strs[0].strip(), strs[1].strip(), strs[2].strip());
-        } else {
+            break;
+        case 'D':
+            String[] deadlineParts = argument.split("\\|", 2);
+            task = getDeadline(deadlineParts[0].strip(), deadlineParts[1].strip());
+            break;
+        case 'E':
+            String[] eventParts = argument.split("\\|", 3);
+            task = getEvent(eventParts[0].strip(), eventParts[1].strip(), eventParts[2].strip());
+            break;
+        default:
             throw new IllegalArgumentException("Unknown task type: " + taskType);
         }
 
@@ -235,7 +242,8 @@ public class Parser {
                 LocalDate toDate = LocalDate.parse(dateTimeStringTo, DATE_FORMATTER);
                 return new Event(description, fromDate, toDate);
             } catch (DateTimeParseException e2) {
-                throw new IllegalArgumentException("Invalid date format: from '" + dateTimeStringFrom + "' to '" + dateTimeStringTo + "'");
+                throw new IllegalArgumentException("Invalid date format: from '"
+                        + dateTimeStringFrom + "' to '" + dateTimeStringTo + "'");
             }
         }
     }

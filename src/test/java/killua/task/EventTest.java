@@ -73,7 +73,7 @@ public class EventTest {
         Event event = new Event("Meeting", startDateTime, endDateTime);
 
         String expectedSaveFormat = "E | 0 | Meeting | Aug 26 2024 10:00 | Aug 26 2024 12:00";
-        assertEquals(expectedSaveFormat, event.toSave());
+        assertEquals(expectedSaveFormat, event.toSaveAsString());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class EventTest {
         Event event = new Event("Meeting", startDate, endDate);
 
         String expectedSaveFormat = "E | 0 | Meeting | Aug 26 2024 | Aug 27 2024";
-        assertEquals(expectedSaveFormat, event.toSave());
+        assertEquals(expectedSaveFormat, event.toSaveAsString());
     }
 
     @Test

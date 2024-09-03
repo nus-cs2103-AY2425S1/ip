@@ -19,6 +19,7 @@ public class Killua {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
+    private static final String FILE_PATH = "./data/tasks.txt";
 
     /**
      * Constructs a Killua instance with the specified file path for task storage.
@@ -62,6 +63,6 @@ public class Killua {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        new Killua("./data/tasks.txt").run();
+        new Killua(FILE_PATH).run();
     }
 }

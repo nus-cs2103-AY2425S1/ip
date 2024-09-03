@@ -79,8 +79,8 @@ public class Deadline extends Task {
      * @return A string representation of the deadline for saving.
      */
     @Override
-    public String toSave() {
-        return "D" + super.toSave() + " | " + format();
+    public String toSaveAsString() {
+        return "D" + super.toSaveAsString() + " | " + format();
     }
 
     /**
