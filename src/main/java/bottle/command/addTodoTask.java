@@ -6,11 +6,12 @@ import bottle.task.TaskList;
 import bottle.task.Todo;
 
 public class addTodoTask extends Command {
-    private String description;
+    private final String description;
 
-    public addTodoTask(String description){
+    public addTodoTask(String description) {
         this.description = description;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(new Todo(description));

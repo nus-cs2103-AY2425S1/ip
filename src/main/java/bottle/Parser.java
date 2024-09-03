@@ -1,13 +1,49 @@
 package bottle;
 
-import bottle.command.*;
-import bottle.task.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import bottle.command.Command;
+import bottle.command.DeleteCommand;
+import bottle.command.addDeadlineTask;
+import bottle.command.addEventTask;
+import bottle.command.addTodoTask;
+import bottle.command.exitCommand;
+import bottle.command.listCommand;
+import bottle.command.markCommand;
+import bottle.command.unMarkCommand;
+import bottle.task.Deadline;
+import bottle.task.Event;
+import bottle.task.Task;
+import bottle.task.Todo;
+
+/**
+ * The type Parser.
+ */
 public class Parser {
 
+    /**
+     * Parse date time local date time.
+     *
+     * @param dateTimeStr the date time str
+     * @return the local date time
+     */
+    private static LocalDateTime parseDateTime(String dateTimeStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        try {
+            return LocalDateTime.parse(dateTimeStr, formatter);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("OOPS!!! The date format is incorrect. Please use: dd/MM/yyyy HHmm");
+        }
+    }
+
+    /**
+     * Parse command command.
+     *
+     * @param input the input
+     * @return the command
+     */
     public Command parseCommand(String input) {
         try {
             if (input.equalsIgnoreCase("bye")) {
@@ -41,7 +77,7 @@ public class Parser {
                 LocalDateTime from = parseDateTime(parts[1]);
                 LocalDateTime to = parseDateTime(parts[2]);
                 return new addEventTask(description, from, to);
-            } else if (input.startsWith("delete ")){
+            } else if (input.startsWith("delete ")) {
                 String indexStr = input.substring(7);
                 int taskIndex = Integer.parseInt(indexStr) - 1;
                 return new DeleteCommand(taskIndex);
@@ -54,6 +90,13 @@ public class Parser {
         }
         return null;
     }
+
+    /**
+     * Parse task task.
+     *
+     * @param input the input
+     * @return the task
+     */
     public Task parseTask(String input) {
         String[] parts = input.split("\\|");
         Task task;
@@ -75,16 +118,6 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
             System.out.println("Wrong input format" + e.getMessage());
             return null;
-        }
-    }
-
-
-    private static LocalDateTime parseDateTime(String dateTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        try {
-            return LocalDateTime.parse(dateTimeStr, formatter);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("OOPS!!! The date format is incorrect. Please use: dd/MM/yyyy HHmm");
         }
     }
 }

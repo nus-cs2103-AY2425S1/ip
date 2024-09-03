@@ -1,15 +1,34 @@
 package bottle;
 
 import bottle.command.Command;
-import bottle.task.*;
+import bottle.task.TaskList;
 
-import java.io.ByteArrayOutputStream;
-
+/**
+ * The type Bottle.
+ */
 public class Bottle {
-    private Storage storage;
-    private Parser parser;
-    private TaskList taskList;
-    private Ui ui;
+    /**
+     * The Storage.
+     */
+    private final Storage storage;
+    /**
+     * The Parser.
+     */
+    private final Parser parser;
+    /**
+     * The Task list.
+     */
+    private final TaskList taskList;
+    /**
+     * The Ui.
+     */
+    private final Ui ui;
+
+    /**
+     * Instantiates a new Bottle.
+     *
+     * @param filePath the file path
+     */
     public Bottle(String filePath) {
         storage = new Storage(filePath);
         parser = new Parser();
@@ -17,6 +36,18 @@ public class Bottle {
         taskList = new TaskList(storage.loadTasks());
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
+    public static void main(String[] args) {
+        new Bottle("./data/bottle.txt").run();
+    }
+
+    /**
+     * Run.
+     */
     public void run() {
         ui.printWelcomeMsg();
         while (true) {
@@ -24,8 +55,5 @@ public class Bottle {
             Command command = parser.parseCommand(input);
             command.execute(taskList, ui, storage);
         }
-    }
-    public static void main(String[] args) {
-        new Bottle("./data/bottle.txt").run();
     }
 }

@@ -3,10 +3,26 @@ package bottle.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The type Event.
+ */
 public class Event extends bottle.task.Task {
+    /**
+     * The From.
+     */
     protected LocalDateTime from;
+    /**
+     * The To.
+     */
     protected LocalDateTime to;
 
+    /**
+     * Instantiates a new Event.
+     *
+     * @param desc the desc
+     * @param from the from
+     * @param to   the to
+     */
     public Event(String desc, LocalDateTime from, LocalDateTime to) {
         super(desc);
         this.from = from;

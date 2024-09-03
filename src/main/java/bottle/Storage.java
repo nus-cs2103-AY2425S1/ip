@@ -1,6 +1,5 @@
 package bottle;
 
-import bottle.task.Task;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,23 +9,49 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Storage {
-    private String filePath;
-    private Parser parser;
+import bottle.task.Task;
 
+/**
+ * The type Storage.
+ */
+public class Storage {
+    /**
+     * The File path.
+     */
+    private final String filePath;
+    /**
+     * The Parser.
+     */
+    private final Parser parser;
+
+    /**
+     * Instantiates a new Storage.
+     *
+     * @param filePath the file path
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.parser = new Parser();
     }
+
+    /**
+     * Handle missing file.
+     */
     private void handleMissingFile() {
         Path path = Paths.get(filePath);
         try {
             Files.createDirectories(path.getParent());
             Files.createFile(path);
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error occurred creating file");
         }
     }
+
+    /**
+     * Load tasks array list.
+     *
+     * @return the array list
+     */
     public ArrayList<Task> loadTasks() {
         File file = new File(filePath);
         ArrayList<Task> taskList = new ArrayList<>();
@@ -47,13 +72,19 @@ public class Storage {
         }
         return taskList;
     }
+
+    /**
+     * Save tasks.
+     *
+     * @param taskList the task list
+     */
     public void saveTasks(ArrayList<Task> taskList) {
         File file = new File(filePath);
         if (!file.exists()) {
             handleMissingFile();
         }
         try {
-            FileWriter fileWriter =  new FileWriter(file);
+            FileWriter fileWriter = new FileWriter(file);
             for (Task task : taskList) {
                 fileWriter.write(task.toSaveFormat() + System.lineSeparator());
             }
