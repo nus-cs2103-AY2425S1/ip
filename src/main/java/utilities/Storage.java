@@ -15,7 +15,6 @@ public class Storage {
     }
 
     public TaskList load() throws DukeException {
-        // create a new file if the file does not exist
         File file = new File(filePath);
         if (!file.exists()) {
             try {
@@ -28,7 +27,7 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                tasks.add(Task.of(line));
+                tasks.add(Task.fromFileString(line));
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -39,9 +38,9 @@ public class Storage {
         return new TaskList(tasks);
     }
 
-    public void save(TaskList taskList) {
+    public void save(TaskList tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Task task : taskList) {
+            for (Task task : tasks) {
                 writer.write(task.toFileString());
                 writer.newLine();
             }
