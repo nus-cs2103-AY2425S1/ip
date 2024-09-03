@@ -33,7 +33,7 @@ public class UnmarkCommand extends Command {
         }
         tasks.getTask(index).markUncompleted();
         storage.overwriteFile(tasks);
-        System.out.println("    Good job! I've marked this task as done:");
+        System.out.println("        Noted. I've removed this task:");
         System.out.println("       " + tasks.getTask(index).toString());
     }
 }
