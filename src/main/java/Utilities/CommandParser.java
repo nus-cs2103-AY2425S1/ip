@@ -22,28 +22,26 @@ public class CommandParser {
      * @param store Storage class for writing to files.
      * @return Boolean value for termination of program.
      */
-    public static boolean canParseCommand(String input, TaskList tl, Storage store) {
-        if (input.startsWith("bye")) {
-            UI.updateUserOnExit();
-            return false;
-        } else if (input.startsWith("list")) {
-            System.out.println("Here are the tasks in your list: ");
-            System.out.println(tl.toString());
+    public static String parseCommand(String input, TaskList tl, Storage store) {
+        String response = "";
+        if (input.startsWith("list")) {
+            response += "Here are the tasks in your list: ";
+            response += tl.toString();
         } else if (input.startsWith("unmark") || input.startsWith("mark")) {
             // extract integer value
             String intValue = input.replaceAll("[^0-9]", "");
             int index = Integer.parseInt(intValue) - 1;
-            tl.updateTaskListStatus(index, input.startsWith("mark"));
+            response += tl.updateTaskListStatus(index, input.startsWith("mark"));
             store.updateFileStatus(index, input.startsWith("mark"));
         } else if (input.startsWith("delete")) {
             // extract integer value
             String intValue = input.replaceAll("[^0-9]", "");
             int index = Integer.parseInt(intValue) - 1;
-            tl.removeFromTaskList(index);
+            response += tl.removeFromTaskList(index);
             store.removeFileTask(index);
         } else if (input.startsWith("find")) {
             String matchValue = input.replace("find", "").strip();
-            tl.findTasks(matchValue);
+            response += tl.findTasks(matchValue);
         } else {
             try {
                 String name = "";
@@ -53,7 +51,7 @@ public class CommandParser {
                         throw new BadDescriptionException(TaskTypes.TODO);
                     }
                     Task t = new ToDos(name);
-                    tl.addToTaskList(t, name);
+                    response += tl.addToTaskList(t, name);
                     store.updateFileTasks(String.format("T, %d, %s", 0, name));
                 } else if (input.startsWith("deadline")) {
                     String[] splits = input.split("/");
@@ -65,7 +63,7 @@ public class CommandParser {
                     String details = splits[1].replace("by", "");
                     try {
                         Task t = new Deadlines(name, details.strip());
-                        tl.addToTaskList(t, name);
+                        response += tl.addToTaskList(t, name);
                         store.updateFileTasks(String.format("D, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
                     } catch (DateTimeParseException ex) {
                         throw new DateTimeException(name);
@@ -81,7 +79,7 @@ public class CommandParser {
                     String endDetails = splits[2].replace("to", "");
                     try {
                         Task t = new Event(name, startDetails.strip(), endDetails.strip());
-                        tl.addToTaskList(t, name);
+                        response += tl.addToTaskList(t, name);
                         store.updateFileTasks(String.format("E, %d, %s, %s", 0, name, t.getWriteTaskInfo()));
                     } catch (DateTimeParseException ex) {
                         throw new DateTimeException(name);
@@ -90,10 +88,10 @@ public class CommandParser {
                     throw new UnknownCommandException();
                 }
             } catch (UnknownCommandException | BadDescriptionException | DateTimeException e) {
-                UI.updateUserOnError(e);
+                response += UI.updateUserOnError(e);
             }
         }
 
-        return true;
+        return response;
     }
 }

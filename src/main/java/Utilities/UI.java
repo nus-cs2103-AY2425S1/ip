@@ -4,36 +4,49 @@ import tasks.Task;
 
 // Handles all system interactions
 public class UI {
-    public static void updateUserOnAddition(String name, int size) {
-        System.out.println("I've added: " + name);
-        System.out.println(String.format("Now you have %d in the list!", size));
+    public static String updateUserOnAddition(String name, int size) {
+        String message = "";
+
+        message += "I've added: ";
+        message += name;
+        message += String.format("\nNow you have %d in the list!", size);
+
+        return message;
     }
 
-    public static void updateUserOnDeletion(Task t) {
-        System.out.println("Noted! I've removed this task:");
-        System.out.println(t.toString());
+    public static String updateUserOnDeletion(Task t) {
+        String message = "";
+
+        message += "Noted! I've removed this task: ";
+        message += t.toString();
+
+        return message;
     }
 
-    public static void updateUserOnUncompletion(Task t) {
-        System.out.println("OK! I've marked the task as not done yet: ");
-        System.out.println(t.toString());
+    public static String updateUserOnUncompletion(Task t) {
+        String message = "";
+
+        message += "OK! I've marked the task as not done yet: ";
+        message += t.toString();
+
+        return message;
     }
 
-    public static void updateUserOnCompletion(Task t) {
-        System.out.println("Good job! I've marked this task as done: ");
-        System.out.println(t.toString());
+    public static String updateUserOnCompletion(Task t) {
+        String message = "";
+
+        message += "Good job! I've marked this task as done: ";
+        message += t.toString();
+
+        return message;
     }
 
-    public static void updateUserOnError(Exception e) {
-        System.out.println("Some error has occured, please try again.");
-        System.out.println(e.getMessage());
-    }
+    public static String updateUserOnError(Exception e) {
+        String message = "";
 
-    public static void greetUserOnEntry() {
-        System.out.println("Hello! I'm Peter!\nWhat can I do for you?\n");
-    }
+        message += "Some error has occured, please try again.";
+        message += e.getMessage();
 
-    public static void updateUserOnExit() {
-        System.out.println("\nBye, hope to see you again soon!");
+        return message;
     }
 }

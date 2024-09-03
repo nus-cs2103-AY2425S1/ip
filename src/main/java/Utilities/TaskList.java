@@ -17,9 +17,13 @@ public class TaskList {
      * @param t Task to be added.
      * @param name Name of the task to be added.
      */
-    public void addToTaskList(Task t, String name) {
+    public String addToTaskList(Task t, String name) {
+        String message = "";
+
         this.taskList.add(t);
-        UI.updateUserOnAddition(name, this.taskList.size());
+        message += UI.updateUserOnAddition(name, this.taskList.size());
+
+        return message;
     }
 
     /**
@@ -27,10 +31,14 @@ public class TaskList {
      *
      * @param index Index of task to be removed.
      */
-    public void removeFromTaskList(int index) {
+    public String removeFromTaskList(int index) {
+        String message = "";
+
         Task t = this.taskList.get(index);
         this.taskList.remove(index);
-        UI.updateUserOnDeletion(t);
+        message += UI.updateUserOnDeletion(t);
+
+        return message;
     }
 
     /**
@@ -39,15 +47,19 @@ public class TaskList {
      * @param index Index of task to be updated.
      * @param status Boolean status to update.
      */
-    public void updateTaskListStatus(int index, boolean status) {
+    public String updateTaskListStatus(int index, boolean status) {
+        String message = "";
+
         Task t = this.taskList.get(index);
         if (status) {
             t.markAsDone();
-            UI.updateUserOnCompletion(t);
+            message += UI.updateUserOnCompletion(t);
         } else {
             t.markAsNotDone();
-            UI.updateUserOnUncompletion(t);
+            message += UI.updateUserOnUncompletion(t);
         }
+
+        return message;
     }
 
     /**
@@ -55,7 +67,9 @@ public class TaskList {
      *
      * @param input String pattern to be matched for search.
      */
-    public void findTasks(String input) {
+    public String findTasks(String input) {
+        String message = "";
+
         System.out.println("I found some matching tasks in your list:");
         int count = 1;
         for (Task t : this.taskList) {
@@ -64,6 +78,8 @@ public class TaskList {
                 count++;
             }
         }
+
+        return message;
     }
 
     public int getSize() {
