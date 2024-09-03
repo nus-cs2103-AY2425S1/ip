@@ -3,7 +3,6 @@ package colress;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.util.Objects;
 import java.util.Scanner;
 
 import colress.command.AddCommand;
@@ -16,7 +15,6 @@ import colress.command.FindCommand;
 import colress.command.ListCommand;
 import colress.command.UncheckCommand;
 import colress.exception.UnknownCommandException;
-import colress.exception.UnknownTaskTypeException;
 
 /**
  * Represents the Parser of the Ui of the Colress chatbot.
@@ -70,15 +68,8 @@ public final class Parser {
      * Reads user input and returns the corresponding task type.
      * Throws an UnknownTaskTypeException if an invalid task type is detected.
      */
-    public String getTaskType() throws UnknownTaskTypeException {
-        String result = getInput();
-        if (Objects.equals(result, "todo")
-                || Objects.equals(result, "deadline")
-                || Objects.equals(result, "event")) {
-            return result;
-        } else {
-            throw new UnknownTaskTypeException();
-        }
+    public TaskType getTaskType() throws IllegalArgumentException {
+        return TaskType.valueOf(getInput().toUpperCase());
     }
 
     /**

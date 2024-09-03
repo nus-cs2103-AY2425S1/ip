@@ -99,7 +99,7 @@ public final class Ui {
             try {
                 command = parser.getCommand();
             } catch (UnknownCommandException e) {
-                print(String.valueOf(e));
+                print(e.getMessage());
             }
         }
         command.execute(this, taskList);
@@ -122,14 +122,14 @@ public final class Ui {
      *
      * @return A String that represents the type of task indicated by the user.
      */
-    public String promptTaskType() {
-        String result = null;
+    public TaskType promptTaskType() {
+        TaskType result = null;
         while (result == null) {
             try {
                 print(PROMPT_TASK_TYPE);
                 result = parser.getTaskType();
-            } catch (UnknownTaskTypeException e) {
-                print(String.valueOf(e));
+            } catch (IllegalArgumentException e) {
+                print(new UnknownTaskTypeException().getMessage());
             }
         }
         return result;
@@ -141,12 +141,12 @@ public final class Ui {
      * @param taskType A String that represents the type of task, and prints the corresponding prompt.
      * @return A String that represents the description of the task indicated by the user.
      */
-    public String promptDescription(String taskType) {
+    public String promptDescription(TaskType taskType) {
         switch (taskType) {
-        case "deadline":
+        case DEADLINE:
             print(PROMPT_DEADLINE_DESCRIPTION);
             break;
-        case "event":
+        case EVENT:
             print(PROMPT_EVENT_DESCRIPTION);
             break;
         default:
@@ -163,13 +163,16 @@ public final class Ui {
      * @param taskType A String that represents the type of task, and prints the corresponding prompt.
      * @return A LocalDate object that represents the date of the task indicated by the user.
      */
-    public LocalDate promptDate(String taskType) {
+    public LocalDate promptDate(TaskType taskType) {
         String prompt;
-        if (taskType.equals("deadline")) {
+        switch (taskType) {
+        case DEADLINE:
             prompt = PROMPT_DEADLINE;
-        } else if (taskType.equals("event")) {
+            break;
+        case EVENT:
             prompt = PROMPT_EVENT_DATE;
-        } else {
+            break;
+        default:
             prompt = PROMPT_DATE;
         }
 
@@ -257,7 +260,7 @@ public final class Ui {
             String result = taskList.retrieveTasks();
             print(Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result);
         } else if (Objects.equals(listType, "date")) {
-            String result = taskList.retrieveTasks(promptDate("date"));
+            String result = taskList.retrieveTasks(promptDate(TaskType.TODO));
             print(Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result);
         } else if (Objects.equals(listType, "find")) {
             String result = taskList.retrieveTasks(promptKeyword());

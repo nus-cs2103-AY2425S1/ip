@@ -12,7 +12,7 @@ Your list is empty.
 ________________________________________________________________________________
 
 ________________________________________________________________________________
-colress.exception.UnknownCommandException: I do not recognise that command.
+I do not recognise that command.
 Here are the commands I recognise:
 add: add a new item to your list of tasks.
 check: check off an item to your list of tasks.
@@ -53,7 +53,7 @@ Enter the type of task you wish to add to your list.
 ________________________________________________________________________________
 
 ________________________________________________________________________________
-colress.exception.UnknownTaskTypeException: I do not recognise that task type.
+I do not recognise that task type.
 Here are the task types I recognise:
 todo: add a new task item to your list.
 deadline: add a new task item with a deadline to your list.

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import colress.TaskList;
+import colress.TaskType;
 import colress.Ui;
 import colress.task.Deadline;
 import colress.task.Event;
@@ -24,24 +25,28 @@ public final class AddCommand extends Command {
      */
     @Override
     public void execute(Ui ui, TaskList taskList) {
-        String taskType = ui.promptTaskType();
+        TaskType taskType = ui.promptTaskType();
         String description = ui.promptDescription(taskType);
         LocalDate date;
         LocalTime from;
         LocalTime to;
         Task task;
 
-        if (taskType.equals("todo")) {
-            task = new ToDo(description);
-        } else if (taskType.equals("deadline")) {
+        switch (taskType) {
+        case DEADLINE:
             date = ui.promptDate(taskType);
             task = new Deadline(description, date);
-        } else {
+            break;
+        case EVENT:
             date = ui.promptDate(taskType);
             from = ui.promptTime("from");
             to = ui.promptTime("to");
             task = new Event(description, date, from, to);
+            break;
+        default:
+            task = new ToDo(description);
         }
+
         ui.printConfirmationMessage(taskList, getSuccessfulExecutionMessage() + taskList.addTask(task));
     }
 }
