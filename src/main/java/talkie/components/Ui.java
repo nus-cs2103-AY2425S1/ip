@@ -1,10 +1,10 @@
 package talkie.components;
 
+import java.util.Scanner;
+
 import talkie.exception.TalkieException;
 import talkie.task.Task;
 import talkie.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Handles user interactions and displays messages to the user.
@@ -133,7 +133,7 @@ public class Ui {
 
         String finalMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
                 + "Here are the tasks in your list:\n"
-                +  listMessage
+                + listMessage
                 + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
         System.out.println(finalMessage);
     }

@@ -1,5 +1,9 @@
 package talkie.command;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import talkie.components.Storage;
 import talkie.components.Ui;
 import talkie.exception.TalkieMissingArgumentException;
@@ -7,13 +11,10 @@ import talkie.task.Deadline;
 import talkie.task.Task;
 import talkie.task.TaskList;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 /**
  * Represents a command to add a deadline task to the task list in the Talkie application.
- * The command parses the user input to create a {@code Deadline} task with a description and a specific deadline date and time.
+ * The command parses the user input to create a {@code Deadline} task with a description
+ * and a specific deadline date and time.
  */
 public class DeadlineCommand extends Command {
 

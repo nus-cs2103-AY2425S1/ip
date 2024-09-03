@@ -1,15 +1,15 @@
 package talkie.command;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import talkie.components.Storage;
 import talkie.components.Ui;
 import talkie.exception.TalkieMissingArgumentException;
 import talkie.task.Event;
 import talkie.task.Task;
 import talkie.task.TaskList;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a command to add a new event task to the task list in the Talkie application.
@@ -36,7 +36,8 @@ public class EventCommand extends Command {
      * @param tasks   The task list containing all current tasks.
      * @param ui      The UI component used to display messages to the user.
      * @param storage The storage component used to save task data.
-     * @throws TalkieMissingArgumentException If the command is missing the required description, start time, or end time.
+     * @throws TalkieMissingArgumentException If the command is missing the required description,
+     *                                        start time, or end time.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws TalkieMissingArgumentException {

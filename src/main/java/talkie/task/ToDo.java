@@ -21,7 +21,8 @@ public class ToDo extends Task {
     /**
      * Serializes the ToDo task to a string format for storage or retrieval.
      * <p>
-     * The string format is as follows: "T | status | description", where "status" is 1 if the task is done and 0 otherwise.
+     * The string format is as follows: "T | status | description",
+     * where "status" is 1 if the task is done and 0 otherwise.
      * </p>
      *
      * @return A string representation of the todo task for storage.

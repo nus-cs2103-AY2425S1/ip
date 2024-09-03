@@ -42,7 +42,8 @@ public class Deadline extends Task {
     /**
      * Returns a string representation of the deadline task.
      * <p>
-     * The string includes the task's status icon, description, and the deadline date/time in the format "MMM dd yyyy HH:mm".
+     * The string includes the task's status icon, description,
+     * and the deadline date/time in the format "MMM dd yyyy HH:mm".
      * </p>
      *
      * @return A string representing the deadline task.

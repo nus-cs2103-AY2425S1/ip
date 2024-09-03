@@ -1,13 +1,21 @@
 package talkie.components;
 
-import talkie.exception.TalkieNoTaskFoundException;
-import talkie.task.*;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import talkie.exception.TalkieNoTaskFoundException;
+import talkie.task.Deadline;
+import talkie.task.Event;
+import talkie.task.Task;
+import talkie.task.TaskList;
+import talkie.task.ToDo;
 
 /**
  * Handles loading and saving of tasks to and from a file.

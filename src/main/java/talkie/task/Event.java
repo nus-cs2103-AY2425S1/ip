@@ -46,7 +46,8 @@ public class Event extends Task {
     /**
      * Returns a string representation of the event task.
      * <p>
-     * The string includes the task's status icon, description, start date/time, and end date/time in the format "MMM dd yyyy HH:mm".
+     * The string includes the task's status icon, description,
+     * start date/time, and end date/time in the format "MMM dd yyyy HH:mm".
      * </p>
      *
      * @return A string representing the event task.

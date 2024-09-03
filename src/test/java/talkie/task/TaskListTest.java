@@ -16,7 +16,7 @@ public class TaskListTest {
     }
 
     @Test
-    public  void testDeleteTask() {
+    public void testDeleteTask() {
         TaskList taskList = new TaskList();
         ToDo test1 = new ToDo("test");
         ToDo test2 = new ToDo("test2");

@@ -1,10 +1,10 @@
 package talkie.command;
 
+import java.io.IOException;
+
 import talkie.components.Storage;
 import talkie.components.Ui;
 import talkie.task.TaskList;
-
-import java.io.IOException;
 
 /**
  * Represents a command to exit the Talkie application.

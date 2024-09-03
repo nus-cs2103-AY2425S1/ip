@@ -20,7 +20,8 @@ public class FindCommand extends Command {
     /**
      * Constructs a {@code FindCommand} with the specified full command string.
      * <p>
-     * Initializes the command with the full string provided by the user, which is used to parse and execute the find operation.
+     * Initializes the command with the full string provided by the user,
+     * which is used to parse and execute the find operation.
      * </p>
      *
      * @param fullCommand The full command string input by the user.
@@ -38,7 +39,8 @@ public class FindCommand extends Command {
      *
      * @param tasks The {@code TaskList} containing all the tasks to search within.
      * @param ui The {@code Ui} component used to display search results.
-     * @param storage The {@code Storage} component (not used in this method but included for method signature consistency).
+     * @param storage The {@code Storage} component (not used in this method but
+     *                included for method signature consistency).
      * @throws TalkieMissingArgumentException If the keyword is not provided.
      * @throws TalkieInvalidArgumentException If the argument is not a valid string.
      */
