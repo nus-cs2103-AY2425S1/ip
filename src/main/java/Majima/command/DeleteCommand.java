@@ -9,6 +9,12 @@ import Majima.ui.Ui;
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Adds a DeleteCommand object, which when executed, will delete the corresponding
+     * index task in the list of tasks.
+     *
+     * @param index The int index of the task in the list of tasks to be deleted.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }

@@ -26,6 +26,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks saved in Majima.txt.
+     * Tasks not formatted properly will be skipped, and will return an error. This
+     * does not terminate the program.
+     *
+     * @return A list of tasks from the saved Majima.txt file
+     */
     public List<Task> load() throws MajimaException {
         List<Task> tasks = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -41,6 +48,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current list of tasks as Majima.txt
+     * Overwrites old 'Majima.txt's.
+     *
+     * @param tasks A List<Task> to be saved as Majima.txt
+     */
     public void save(List<Task> tasks) throws MajimaException {
         try (PrintWriter wr = new PrintWriter(new BufferedWriter(new FileWriter(filePath)))) {
             for (Task task : tasks) {
@@ -53,7 +66,14 @@ public class Storage {
     }
 
     /**
-     Test TODO: write javadoc
+     * Helper function to load tasks from Majima.txt.
+     * As data is saved in a different format in Majima.txt, this function
+     * helps to parse data in that different format, and print them back
+     * when Majima.java is run to give back the updated list of tasks which
+     * were saved. Handles errors and corrupted data.
+     *
+     * @param line A line from Majima.txt which contains info of a saved task
+     * @return A Task of its corresponding type.
      */
     private Task parseTask(String line) throws MajimaException {
         String[] parts = line.split(" \\| ");
@@ -107,6 +127,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * A helper method to convert the format of deadlines in Deadline tasks.
+     *
+     * @param dateString a String in the format of INPUT_FORMAT (see static final value above)
+     * @return a String in the format of OUTPUT_FORMAT, as needed by Deadline Tasks.
+     */
     public static String convertDateFormat(String dateString) throws DateTimeParseException {
         LocalDateTime dateTime = LocalDateTime.parse(dateString, INPUT_FORMAT);
         return dateTime.format(OUTPUT_FORMAT);

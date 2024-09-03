@@ -11,6 +11,10 @@ public class Majima {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a Majima object and the datapath for the .txt file.
+     *
+     */
     public Majima(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +26,10 @@ public class Majima {
         }
     }
 
+    /**
+     * Starts the Majima chatbot.
+     *
+     */
     public void run() {
         ui.userGreet();
         boolean isExit = false;

@@ -16,25 +16,41 @@ public class Task {
         return getStatusIcon() + " " + this.description;
     }
 
-    /*
-    This method should not be called upon and only exists to be overridden by the subclasses of Task.
+    /**
+     * Helps to parse info from
      */
     public String toFileString() {
         return "";
     }
 
+    /**
+     * Gets the description of the task.
+     *
+     * @return The description of the task.
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Gets the status icon of the task. "[X]" if marked, "[ ]" if unmarked.
+     *
+     * @return The status icon of the task.
+     */
     public String getStatusIcon() {
         return status.getIcon();
     }
 
+    /**
+     * Marks the status icon of the task.
+     */
     public void markAsDone() {
         this.status = TaskStatus.DONE;
     }
 
+    /**
+     * Unmarks the status icon of the task.
+     */
     public void markAsUndone() {
         this.status = TaskStatus.UNDONE;
     }
@@ -49,6 +65,9 @@ public class Task {
             this.icon = icon;
         }
 
+        /**
+         * Gets the status icon of the task.
+         */
         public String getIcon() {
             return icon;
         }

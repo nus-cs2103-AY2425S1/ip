@@ -9,6 +9,13 @@ import Majima.ui.Ui;
 public class MarkCommand extends Command {
     private int index;
 
+    /**
+     * Adds a MarkCommand object, which when executed, will mark the corresponding
+     * task as Done in the list of tasks and saves it to the .txt file.
+     *
+     * @param index The int index of the task in the list of tasks to be
+     *              marked as done.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }

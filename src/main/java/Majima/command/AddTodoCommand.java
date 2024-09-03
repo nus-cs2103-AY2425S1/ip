@@ -10,9 +10,16 @@ import Majima.ui.Ui;
 public class AddTodoCommand extends Command {
     private String description;
 
+    /**
+     * Adds a AddTodoCommand object, which when executed, will create the corresponding
+     * event task in the list of tasks.
+     *
+     * @param description The description of the event. A String.
+     */
     public AddTodoCommand(String description) {
         this.description = description;
     }
+
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MajimaException {
