@@ -39,9 +39,9 @@ public class AddCommand extends Command{
                     String.format("Now you have %s tasks in the list", taskList.size())});
             storage.updateFile(taskList);
         } catch (MissingInformationException e) {
-            printMessage(e.getMessage());
+            printMessages(e.getMessage());
         } catch (InvalidInputException e) {
-            printMessage(e.getMessage());
+            printMessages(e.getMessage());
         } catch (DateTimeParseException e) {
             printMessages("Sorry~ I can not recognize the time", "Please enter the time in the " +
                     "YYYY-MM-DD format");

@@ -45,6 +45,10 @@ public class Kotori {
     public static void main(String[] args) {
         new Kotori().run();
     }
+
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
 }
 
 
