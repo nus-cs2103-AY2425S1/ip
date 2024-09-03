@@ -1,2 +1,3 @@
-todo eat lunch|true
 todo do work|false
+todo eat lunch|false
+todo go lesson|false

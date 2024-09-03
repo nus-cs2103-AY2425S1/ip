@@ -56,24 +56,14 @@ public class Ui {
         } else if (Objects.equals(command,"")) {
             return line;
         } else if (Objects.equals(command, "mark")) {
-             String m2 = message.split(" ", 2)[1];
-             int i2 = Integer.parseInt(m2);
-             ls.get(i2 - 1).setter(true);
-             return "     Marked the task as done! \n     " + ls.get(i2 - 1);
+            Command c = new MarkCommand();
+            return c.runCommand(ls, p.getSecondHalf());
         } else if (Objects.equals(command, "unmark")) {
-            String m2 = message.split(" ", 2)[1];
-            int i2 = Integer.parseInt(m2);
-            ls.get(i2 - 1).setter(false);
-            return "     Task undone \n     " + ls.get(i2 - 1);
+            Command c = new UnmarkCommand();
+            return c.runCommand(ls, p.getSecondHalf());
         } else if (Objects.equals(command, "delete")) {
-            String m2 = message.split(" ", 2)[1];
-            int i2 = Integer.parseInt(m2);
-            String s = ls.get(i2 - 1).toString();
-            ls.remove(i2 -1);
-            return line + "\n     "
-                    + "Got it! removed the task: \n     "
-                    + s + "\n     "
-                    + String.format("Now you have %h tasks in the list \n", ls.size()) + line;
+            Command c = new DeleteCommand();
+            return c.runCommand(ls,p.getSecondHalf());
         } else {
             try {
                 Task t = TaskCreator.create(message + "|false");
