@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
     private static final DateTimeFormatter FILE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
@@ -34,7 +34,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + this.getStatus() + " | " + this.getDescription() + " | " + this.start.format(FILE_DATE_TIME_FORMATTER) + " | " + this.end.format(FILE_DATE_TIME_FORMATTER);
+        return "E | " + getStatus() + " | " + getDescription() + " | " + start.format(FILE_DATE_TIME_FORMATTER) + " | " + end.format(FILE_DATE_TIME_FORMATTER);
     }
 
     /**
@@ -54,8 +54,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + (this.getStatus() ? "X" : " ") + "] " +
-                this.getDescription() + " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " end: " + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "[E][" + (getStatus() ? "X" : " ") + "] " + getDescription() + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " end: " + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
-
 }

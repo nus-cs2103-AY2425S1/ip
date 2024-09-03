@@ -12,16 +12,19 @@ import java.util.ArrayList;
  * Represents a command to mark a task as completed in the task list.
  */
 public class MarkCommand extends Command {
-    private int itemIndex;
+
+    private final int itemIndex;
 
     /**
      * Constructs a MarkCommand with the specified index of the task to be marked as completed.
      *
      * @param itemIndex The index of the task to mark as completed.
      */
+
     public MarkCommand(int itemIndex) {
         this.itemIndex = itemIndex;
     }
+
 
     /**
      * Executes the mark command by setting the status of the task at the specified index to completed.
@@ -32,10 +35,12 @@ public class MarkCommand extends Command {
      * @param storage The Storage object for saving changes to the file (not used in this command).
      * @throws DrBrownException If the task index is invalid (out of bounds).
      */
+
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         try {
             ArrayList<Task> list = tasks.getList();
-            Task markTask = list.get(this.itemIndex);
+            Task markTask = list.get(itemIndex);
             markTask.setStatus(true);
             ui.showMarkTask(markTask);
         } catch (IndexOutOfBoundsException e) {
@@ -48,6 +53,8 @@ public class MarkCommand extends Command {
      *
      * @return false, as this command does not exit the program.
      */
+
+    @Override
     public boolean isExit() {
         return false;
     }

@@ -8,7 +8,7 @@ package drbrown.task;
 public abstract class Task {
 
     private boolean status;
-    private String description;
+    private final String description;
 
     /**
      * Constructs a Task with the specified status and description.
@@ -17,14 +17,17 @@ public abstract class Task {
      * @param description The description of the task.
      */
     public Task(boolean status, String description) {
-        this.description = description;
         this.status = status;
+        this.description = description;
     }
 
     /**
-     * Default constructor for Task.
+     * Constructs a Task with a default description.
+     * The default description is an empty string, and the task status is not set.
      */
-    public Task() {}
+    public Task() {
+        this.description = "";
+    }
 
     /**
      * Returns the completion status of the task.
@@ -32,7 +35,7 @@ public abstract class Task {
      * @return true if the task is completed, false otherwise.
      */
     public boolean getStatus() {
-        return this.status;
+        return status;
     }
 
     /**
@@ -41,7 +44,7 @@ public abstract class Task {
      * @return The description of the task.
      */
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**

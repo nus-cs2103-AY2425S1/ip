@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
+
 import static java.lang.Boolean.parseBoolean;
 
 /**
@@ -19,6 +20,7 @@ import static java.lang.Boolean.parseBoolean;
  * The tasks are stored in a specified file and are retrieved or updated as needed.
  */
 public class Storage {
+
     private final String filePath;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
@@ -39,16 +41,16 @@ public class Storage {
      * @throws DrBrownException If the file is corrupted or if an I/O error occurs.
      */
     public TaskList load() throws DrBrownException {
-        TaskList taskList = new TaskList(new ArrayList<Task>());
+        TaskList taskList = new TaskList(new ArrayList<>());
         try {
-            File f = new File(this.filePath);
-            if (!f.exists()) {
-                f.getParentFile().mkdirs();
-                f.createNewFile();
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
             }
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String[] sentenceSplit = s.nextLine().split(" \\| ");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String[] sentenceSplit = scanner.nextLine().split(" \\| ");
                 switch (sentenceSplit[0]) {
                     case "T":
                         taskList.add(new Todo(parseBoolean(sentenceSplit[1]), sentenceSplit[2]));
@@ -77,12 +79,12 @@ public class Storage {
      */
     public void update(TaskList tasks) {
         try {
-            File f = new File(this.filePath);
-            if (!f.exists()) {
-                f.getParentFile().mkdirs();
-                f.createNewFile();
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
             }
-            FileWriter fw = new FileWriter(this.filePath);
+            FileWriter fw = new FileWriter(filePath);
             for (Task task : tasks.getList()) {
                 fw.write(task.toFileString() + System.lineSeparator());
             }

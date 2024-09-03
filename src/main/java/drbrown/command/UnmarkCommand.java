@@ -12,7 +12,8 @@ import java.util.ArrayList;
  * Represents a command to unmark a task as incomplete in the task list.
  */
 public class UnmarkCommand extends Command {
-    private int itemIndex;
+
+    private final int itemIndex;
 
     /**
      * Constructs an UnmarkCommand with the specified index of the task to be marked as incomplete.
@@ -32,10 +33,12 @@ public class UnmarkCommand extends Command {
      * @param storage The Storage object for saving changes to the file (not used in this command).
      * @throws DrBrownException If the task index is invalid (out of bounds).
      */
+
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         try {
             ArrayList<Task> list = tasks.getList();
-            Task unmarkTask = list.get(this.itemIndex);
+            Task unmarkTask = list.get(itemIndex);
             unmarkTask.setStatus(false);
             ui.showUnmarkTask(unmarkTask);
         } catch (IndexOutOfBoundsException e) {
@@ -48,8 +51,9 @@ public class UnmarkCommand extends Command {
      *
      * @return false, as this command does not exit the program.
      */
+
+    @Override
     public boolean isExit() {
         return false;
     }
-
 }

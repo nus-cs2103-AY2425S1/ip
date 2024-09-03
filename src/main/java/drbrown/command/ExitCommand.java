@@ -19,6 +19,8 @@ public class ExitCommand extends Command {
      * @param storage The Storage object to update the saved tasks.
      * @throws DrBrownException If there is an error updating the storage.
      */
+
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         ui.showEnd();
         ui.closeCommand();
@@ -30,6 +32,8 @@ public class ExitCommand extends Command {
      *
      * @return true, as this command exits the program.
      */
+
+    @Override
     public boolean isExit() {
         return true;
     }

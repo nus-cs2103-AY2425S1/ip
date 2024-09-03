@@ -10,14 +10,13 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    private ArrayList<Task> tasks;
-    private int count = 0;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -35,8 +34,7 @@ public class TaskList {
      * @param item The task to be added.
      */
     public void add(Task item) {
-        this.tasks.add(item);
-        this.count++;
+        tasks.add(item);
     }
 
     /**
@@ -45,7 +43,7 @@ public class TaskList {
      * @return An ArrayList containing all the tasks.
      */
     public ArrayList<Task> getList() {
-        return this.tasks;
+        return tasks;
     }
 
     /**
@@ -54,16 +52,15 @@ public class TaskList {
      * @return The number of tasks in the list.
      */
     public int getCount() {
-        return this.count;
+        return tasks.size();
     }
 
     /**
      * Removes a task from the TaskList based on its index.
      *
-     * @param count The index of the task to be removed.
+     * @param index The index of the task to be removed.
      */
-    public void removeItem(int count) {
-        this.tasks.remove(count);
+    public void removeItem(int index) {
+        tasks.remove(index);
     }
-
 }

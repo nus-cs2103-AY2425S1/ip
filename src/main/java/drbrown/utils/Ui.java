@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     /**
      * Constructs a Ui object.
@@ -64,7 +64,7 @@ public class Ui {
      */
     public void showMarkTask(Task markTask) {
         System.out.println("Task complete! If my calculations are correct, when this baby hits 88 miles per hour... you're gonna see some serious progress!\n");
-        System.out.println(markTask.toString());
+        System.out.println(markTask);
     }
 
     /**
@@ -74,7 +74,7 @@ public class Ui {
      */
     public void showUnmarkTask(Task unmarkTask) {
         System.out.println("Looks like we're going back to the future—task unmarked! Time to revisit this one.\n");
-        System.out.println(unmarkTask.toString());
+        System.out.println(unmarkTask);
     }
 
     /**
@@ -91,7 +91,7 @@ public class Ui {
      */
     public void showDeleteTask(Task deleteTask) {
         System.out.println("That task's history has been erased! Just like Marty’s fading photo—it's gone, like it never existed!\n");
-        System.out.println(deleteTask.toString());
+        System.out.println(deleteTask);
     }
 
     /**
@@ -116,8 +116,7 @@ public class Ui {
      * @return The user input as a String.
      */
     public String readCommand() {
-        String input = scanner.nextLine();
-        return input;
+        return scanner.nextLine();
     }
 
     /**

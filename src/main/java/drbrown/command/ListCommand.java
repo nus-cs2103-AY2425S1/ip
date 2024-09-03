@@ -22,6 +22,8 @@ public class ListCommand extends Command {
      * @param storage The Storage object for saving and loading tasks (not used in this command).
      * @throws DrBrownException If the task list is empty.
      */
+
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         if (tasks.getCount() == 0) {
             throw new DrBrownException("Wait a minute, Doc! There's nothing here! We can't go anywhere until you add something to the list!");
@@ -30,7 +32,7 @@ public class ListCommand extends Command {
         ui.showList();
         int listCount = 1;
         for (Task item : list) {
-            System.out.println(listCount + ". " + item.toString());
+            System.out.println(listCount + ". " + item);
             listCount++;
         }
     }
@@ -40,6 +42,8 @@ public class ListCommand extends Command {
      *
      * @return false, as this command does not exit the program.
      */
+
+    @Override
     public boolean isExit() {
         return false;
     }

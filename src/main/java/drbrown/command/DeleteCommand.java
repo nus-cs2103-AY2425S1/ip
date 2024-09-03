@@ -8,14 +8,13 @@ import drbrown.utils.Ui;
 
 import java.util.ArrayList;
 
-import static java.lang.Integer.parseInt;
-
 /**
  * Represents a command to delete a task from the task list.
  */
+
 public class DeleteCommand extends Command {
 
-    private int itemIndex;
+    private final int itemIndex;
 
     /**
      * Constructs a DeleteCommand with the specified index of the task to be deleted.
@@ -35,11 +34,13 @@ public class DeleteCommand extends Command {
      * @param storage The Storage object for saving changes to the file.
      * @throws DrBrownException If the task index is invalid (out of bounds).
      */
+
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         try {
             ArrayList<Task> list = tasks.getList();
-            Task deleteTask = list.get(this.itemIndex);
-            tasks.removeItem(this.itemIndex);
+            Task deleteTask = list.get(itemIndex);
+            tasks.removeItem(itemIndex);
             ui.showDeleteTask(deleteTask);
             ui.showEnd();
             ui.showCount(tasks);
@@ -53,8 +54,9 @@ public class DeleteCommand extends Command {
      *
      * @return false, as this command does not exit the program.
      */
+
+    @Override
     public boolean isExit() {
         return false;
     }
-
 }

@@ -1,6 +1,12 @@
 package drbrown.utils;
 
-import drbrown.command.*;
+import drbrown.command.AddCommand;
+import drbrown.command.Command;
+import drbrown.command.DeleteCommand;
+import drbrown.command.ExitCommand;
+import drbrown.command.ListCommand;
+import drbrown.command.MarkCommand;
+import drbrown.command.UnmarkCommand;
 import drbrown.task.Deadline;
 import drbrown.task.Event;
 import drbrown.task.Task;
@@ -19,7 +25,7 @@ import static java.lang.Integer.parseInt;
  */
 public class Parser {
 
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
      * Parses the user input and returns a corresponding command.
@@ -31,7 +37,6 @@ public class Parser {
     public static Command parse(String userInput) throws DrBrownException {
         String[] inputSplit = userInput.split(" ", 2);
         switch (inputSplit[0]) {
-
             case "todo":
                 try {
                     if (inputSplit[1].trim().isEmpty()) {
@@ -52,7 +57,7 @@ public class Parser {
                     if (deadlineSplit[0].isEmpty()) {
                         throw new DrBrownException("Hello? Hello? Anybody home? Looks like something's missing here!\nUse the format: deadline {description} /by {date}");
                     }
-                    Task deadline = new Deadline(false, deadlineSplit[0].trim(), LocalDateTime.parse(deadlineSplit[1].trim(),formatter));
+                    Task deadline = new Deadline(false, deadlineSplit[0].trim(), LocalDateTime.parse(deadlineSplit[1].trim(), formatter));
                     return new AddCommand(deadline);
                 } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
                     throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... and you missed the date! Let's fix that deadline!\nUse the format: deadline {description} /by {MMM dd yyyy HH:mm}");
@@ -61,13 +66,13 @@ public class Parser {
             case "event":
                 try {
                     if (inputSplit.length == 1) {
-                        throw new DrBrownException("Great Scott! You can't add a event without a description and from and to date!\nUse the format: event {description} /from {date} /to {date}");
+                        throw new DrBrownException("Great Scott! You can't add an event without a description and from and to date!\nUse the format: event {description} /from {date} /to {date}");
                     }
                     if (!userInput.contains("/from") || !userInput.contains("/to") || userInput.indexOf("/from") > userInput.indexOf("/to")) {
                         throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... and you missed the date! Let's fix that event!\nUse the format: event {description} /from {date} /to {date}");
                     }
                     String[] eventSplit = inputSplit[1].split("/from | /to");
-                    Task event = new Event(false, eventSplit[0].trim(), LocalDateTime.parse(eventSplit[1].trim(),formatter), LocalDateTime.parse(eventSplit[2].trim(),formatter));
+                    Task event = new Event(false, eventSplit[0].trim(), LocalDateTime.parse(eventSplit[1].trim(), formatter), LocalDateTime.parse(eventSplit[2].trim(), formatter));
                     return new AddCommand(event);
                 } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
                     throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... and you missed the date! Let's fix that event!\nUse the format: event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm}");
@@ -121,7 +126,5 @@ public class Parser {
             default:
                 throw new DrBrownException("I’m from the future, and even I don’t know what that means.");
         }
-
     }
-
 }

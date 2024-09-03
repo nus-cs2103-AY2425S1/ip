@@ -9,7 +9,8 @@ import drbrown.utils.Ui;
  * Represents a command to add a task to the task list.
  */
 public class AddCommand extends Command {
-    private Task task;
+
+    private final Task task;
 
     /**
      * Constructs an AddCommand with the specified task.
@@ -28,9 +29,10 @@ public class AddCommand extends Command {
      * @param ui      The UI object to display messages to the user.
      * @param storage The Storage object for saving tasks to a file.
      */
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTaskCreation(this.task);
-        tasks.add(this.task);
+        ui.showTaskCreation(task);
+        tasks.add(task);
         ui.showCount(tasks);
     }
 
@@ -39,6 +41,7 @@ public class AddCommand extends Command {
      *
      * @return false, as this command does not exit the program.
      */
+    @Override
     public boolean isExit() {
         return false;
     }
