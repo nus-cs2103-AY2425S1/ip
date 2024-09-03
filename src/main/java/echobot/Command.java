@@ -80,10 +80,8 @@ public class Command {
                 handleDeadlineCommand(inputParts);
                 Storage.saveTasksToFile(tasks);
             } catch (IllegalArgumentException e) {
-                System.out.println("____________________________________________________________");
                 System.out.println(" " + e.getMessage());
                 System.out.println(" Please enter date in the format dd/MM/yyyy?");
-                System.out.println("____________________________________________________________");
             }
             break;
         }
@@ -92,10 +90,8 @@ public class Command {
                 handleEventCommand(inputParts);
                 Storage.saveTasksToFile(tasks);
             } catch (IllegalArgumentException e) {
-                System.out.println("____________________________________________________________");
                 System.out.println(" " + e.getMessage());
                 System.out.println(" Please enter date in the format dd/MM/yyyy?");
-                System.out.println("____________________________________________________________");
             }
             break;
         }
@@ -114,9 +110,7 @@ public class Command {
             break;
         }
         default:
-            System.out.println("____________________________________________________________");
             System.out.println(" I'm sorry, I don't recognize that command.");
-            System.out.println("____________________________________________________________");
             break;
         }
     }
@@ -125,12 +119,10 @@ public class Command {
      * Lists all tasks in the task list.
      */
     private void listTasks() {
-        System.out.println("____________________________________________________________");
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(" " + (i + 1) + "." + tasks.get(i));
         }
-        System.out.println("____________________________________________________________");
     }
 
     /**
@@ -140,22 +132,16 @@ public class Command {
      */
     private void handleMarkCommand(String[] inputParts) {
         if (inputParts.length < 2) {
-            System.out.println("____________________________________________________________");
             System.out.println(" Please specify the task number to mark as done.");
-            System.out.println("____________________________________________________________");
         } else {
             int taskNumber = Integer.parseInt(inputParts[1]) - 1;
             if (taskNumber < tasks.size() && taskNumber >= 0) {
                 tasks.get(taskNumber).markAsDone();
                 Storage.saveTasksToFile(tasks);
-                System.out.println("____________________________________________________________");
                 System.out.println(" Great! I've marked this task as done:");
                 System.out.println("   " + tasks.get(taskNumber));
-                System.out.println("____________________________________________________________");
             } else {
-                System.out.println("____________________________________________________________");
                 System.out.println(" Oops! That task number doesn't exist.");
-                System.out.println("____________________________________________________________");
             }
         }
     }
@@ -167,22 +153,16 @@ public class Command {
      */
     private void handleUnmarkCommand(String[] inputParts) {
         if (inputParts.length < 2) {
-            System.out.println("____________________________________________________________");
             System.out.println(" Please specify the task number to unmark.");
-            System.out.println("____________________________________________________________");
         } else {
             int taskNumber = Integer.parseInt(inputParts[1]) - 1;
             if (taskNumber < tasks.size() && taskNumber >= 0) {
                 tasks.get(taskNumber).markAsNotDone();
                 Storage.saveTasksToFile(tasks);
-                System.out.println("____________________________________________________________");
                 System.out.println(" OK! I've marked this task as not done yet:");
                 System.out.println("   " + tasks.get(taskNumber));
-                System.out.println("____________________________________________________________");
             } else {
-                System.out.println("____________________________________________________________");
                 System.out.println(" Oops! That task number doesn't exist.");
-                System.out.println("____________________________________________________________");
             }
         }
     }
@@ -194,16 +174,12 @@ public class Command {
      */
     private void handleTodoCommand(String[] inputParts) {
         if (inputParts.length < 2 || inputParts[1].trim().isEmpty()) {
-            System.out.println("____________________________________________________________");
             System.out.println(" The description of a todo cannot be empty.");
-            System.out.println("____________________________________________________________");
         } else {
             tasks.addTask(new Todo(inputParts[1]));
-            System.out.println("____________________________________________________________");
             System.out.println(" Got it. I've added this task:");
             System.out.println("   " + tasks.get(tasks.size() - 1));
             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println("____________________________________________________________");
         }
     }
 
@@ -214,22 +190,16 @@ public class Command {
      */
     private void handleDeadlineCommand(String[] inputParts) {
         if (inputParts.length < 2 || !inputParts[1].contains("/by ")) {
-            System.out.println("____________________________________________________________");
             System.out.println(" The description of a deadline must include a due date.");
-            System.out.println("____________________________________________________________");
         } else {
             String[] details = inputParts[1].split(" /by ");
             if (details.length < 2 || details[0].trim().isEmpty()) {
-                System.out.println("____________________________________________________________");
                 System.out.println(" The description of a deadline cannot be empty.");
-                System.out.println("____________________________________________________________");
             } else {
                 tasks.addTask(new Deadline(details[0], details[1]));
-                System.out.println("____________________________________________________________");
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + tasks.get(tasks.size() - 1));
                 System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
             }
         }
     }
@@ -241,22 +211,16 @@ public class Command {
      */
     private void handleEventCommand(String[] inputParts) {
         if (inputParts.length < 2 || !inputParts[1].contains("/from ") || !inputParts[1].contains("/to ")) {
-            System.out.println("____________________________________________________________");
             System.out.println(" The description of an event must include start and end times.");
-            System.out.println("____________________________________________________________");
         } else {
             String[] details = inputParts[1].split(" /from | /to ");
             if (details.length < 3 || details[0].trim().isEmpty()) {
-                System.out.println("____________________________________________________________");
                 System.out.println(" The description of an event cannot be empty.");
-                System.out.println("____________________________________________________________");
             } else {
                 tasks.addTask(new Event(details[0], details[1], details[2]));
-                System.out.println("____________________________________________________________");
                 System.out.println(" Got it. I've added this task:");
                 System.out.println("   " + tasks.get(tasks.size() - 1));
                 System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
             }
         }
     }
@@ -268,27 +232,20 @@ public class Command {
      */
     private void handleDeleteCommand(String[] inputParts) {
         if (inputParts.length < 2) {
-            System.out.println("____________________________________________________________");
             System.out.println(" Please specify the task number to delete.");
-            System.out.println("____________________________________________________________");
         } else {
             try {
                 int taskNumber = Integer.parseInt(inputParts[1]) - 1;
                 if (taskNumber < tasks.size() && taskNumber >= 0) {
                     Task removedTask = tasks.removeTask(taskNumber);
-                    System.out.println("____________________________________________________________");
                     System.out.println(" Noted. I've removed this task:");
                     System.out.println("   " + removedTask);
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
                 } else {
-                    System.out.println("____________________________________________________________");
                     System.out.println(" Oops! That task number doesn't exist.");
-                    System.out.println("____________________________________________________________");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter an item number to delete!");
-                System.out.println("____________________________________________________________");
             }
         }
     }
@@ -299,10 +256,8 @@ public class Command {
      * @param inputParts The parts of the user input, including the date to search for.
      */
     private void handleFindByDateCommand(String[] inputParts) {
-        System.out.println("____________________________________________________________");
         if (inputParts.length < 2) {
             System.out.println("Please specify a date in the format yyyy-mm-dd.");
-            System.out.println("____________________________________________________________");
             return;
         }
 
@@ -326,10 +281,8 @@ public class Command {
             if (!hasTasks) {
                 System.out.println("No tasks found on this date.");
             }
-            System.out.println("____________________________________________________________");
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date format. Please use yyyy-mm-dd.");
-            System.out.println("____________________________________________________________");
         }
     }
 
@@ -339,11 +292,9 @@ public class Command {
      * @param inputParts The parts of the user input, including the keyword to search for.
      */
     private void handleFindCommand(String[] inputParts) {
-        System.out.println("____________________________________________________________");
         // Check if the command includes a keyword to search
         if (inputParts.length < 2) {
             System.out.println("Please specify a keyword to search for.");
-            System.out.println("____________________________________________________________");
             return;
         }
 
@@ -368,6 +319,5 @@ public class Command {
         if (!hasMatchingTasks) {
             System.out.println("No tasks found containing the keyword: " + keyword);
         }
-        System.out.println("____________________________________________________________");
     }
 }

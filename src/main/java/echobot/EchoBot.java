@@ -1,6 +1,9 @@
 package echobot;
 import echobot.task.TaskList;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 /**
  * Main class for the EchoBot application.
  * Initializes the bot, loads tasks, and starts the user interface.
@@ -38,5 +41,37 @@ public class EchoBot {
 
         // Exit the user interface
         ui.exit();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        Parser parser = new Parser(tasks);
+        Command command = parser.parse(input);
+
+        // Create a ByteArrayOutputStream to capture the output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        // Save the current System.out
+        PrintStream originalOut = System.out;
+
+        try {
+            // Redirect System.out to the printStream
+            System.setOut(printStream);
+
+            // Execute the command which will print to the redirected output
+            command.run();
+
+            // Flush the printStream to capture the output into outputStream
+            printStream.flush();
+
+            // Convert the captured output to a string and return it
+            return outputStream.toString().trim();
+        } finally {
+            // Restore the original System.out
+            System.setOut(originalOut);
+        }
     }
 }
