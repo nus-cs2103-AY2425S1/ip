@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,13 +32,12 @@ public class TaskFileManager {
         Scanner sc = new Scanner(new FileReader(file));
         sc.useDelimiter("\n");
 
-        FileTaskCreator creator = new FileTaskCreator();
         ArrayList<Task> tasks = new ArrayList<>();
         while(sc.hasNext()) {
             try {
                 String taskString = sc.nextLine();
-                tasks.add(creator.createTask(taskString));
-            } catch (IllegalArgumentException e) {
+                tasks.add(TaskFactory.createTask(taskString, InputSource.FILE));
+            } catch (IllegalArgumentException | DateTimeParseException e) {
                 // Task contains faulty information in file, just skip
             }
         }

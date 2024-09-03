@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public class FileTaskCreator implements TaskCreator {
     private static final int NUMBER_OF_TODO_PARAMETERS = 2;
     private static final int NUMBER_OF_DEADLINE_PARAMETERS = 3;
@@ -58,7 +60,7 @@ public class FileTaskCreator implements TaskCreator {
         // deconstruct array elements into their respective attributes
         boolean isComplete = parameters[0].equals("1");
         String description = parameters[1];
-        String by = parameters[2];
+        LocalDateTime by = DateUtils.parseFileInputDate(parameters[2]);
 
         return new Deadline(description, isComplete, by);
     }
@@ -76,8 +78,8 @@ public class FileTaskCreator implements TaskCreator {
         // deconstruct array elements into their respective attributes
         boolean isComplete = parameters[0].equals("1");
         String description = parameters[1];
-        String from = parameters[2];
-        String to = parameters[3];
+        LocalDateTime from = DateUtils.parseFileInputDate(parameters[2]);
+        LocalDateTime to = DateUtils.parseFileInputDate(parameters[3]);
 
         return new Event(description, isComplete, from, to);
     }

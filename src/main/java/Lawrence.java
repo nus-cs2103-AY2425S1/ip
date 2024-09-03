@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Lawrence {
@@ -72,8 +73,13 @@ public class Lawrence {
             case CREATE_DEADLINE:
                 // Intentional falling through of case
             case CREATE_EVENT:
-                Task t = TaskFactory.createTask(userInput, InputSource.USER);
-                addTask(t);
+                try {
+                    Task t = TaskFactory.createTask(userInput, InputSource.USER);
+                    addTask(t);
+                } catch (DateTimeParseException e) {
+                    System.out.println(e);
+                    displayMessage("Invalid date and/or time provided. Please try again.");
+                }
                 break;
             default:
                 // This case should never be reached
