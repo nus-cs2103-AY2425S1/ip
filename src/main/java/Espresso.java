@@ -10,10 +10,27 @@ public class Espresso {
 
     void addToList(String str) {
         if (count < tasks.length) {
-            Task task = new Task(str);
+            Task task;
+            if (str.startsWith("todo ")) {
+                task = new todoTask(str.substring(5));
+            }else if (str.startsWith("deadline ")) {
+                String split[] = str.substring(9).split(" /by");
+                task = new deadlineTask(split[0], split[1]);
+            } else if (str.startsWith("event ")) {
+                String split1[] = str.substring(6).split(" /from ");
+                String split2[] = split1[1].split(" /to ");
+                task = new eventTask(split1[0], split2[0], split2[1]);
+            } else {
+                task = new Task(str);
+            }
             tasks[count] = task;
             System.out.println("____________________________________________________________");
-            System.out.println("added: " + str);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + task);
+            if(count == 0)
+                System.out.println("Now you have " + (count + 1) + " task in the list.");
+            else
+                System.out.println("Now you have " + (count + 1) + " tasks in the list.");
             System.out.println("____________________________________________________________");
             count++;
         } else {
@@ -55,7 +72,8 @@ public class Espresso {
                 unmarkTask(pos - 1);
             }else if (str.equals("list")) {
                 printList();
-            } else {
+            }
+            else {
                 addToList(str);
             }
         }
