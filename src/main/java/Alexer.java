@@ -1,3 +1,6 @@
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -98,7 +101,16 @@ public class Alexer {
                 .collect(Collectors.joining(" "));
         String by = arguments.stream().skip(keywordIndex + 1).collect(Collectors.joining(" "));
 
-        Deadline deadline = new Deadline(description, by);
+        LocalDateTime dateTime;
+        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        try {
+            dateTime = LocalDateTime.parse(by, dateTimeFormat);
+        } catch (DateTimeException e) {
+            printResponse("Uh-oh, I failed to understand what is the task deadline!");
+            return;
+        }
+
+        Deadline deadline = new Deadline(description, dateTime);
         tasks.addTask(deadline);
         tasks.saveTasks();
 

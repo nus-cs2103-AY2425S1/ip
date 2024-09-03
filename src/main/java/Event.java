@@ -15,8 +15,9 @@ public class Event extends Task {
             return null;
 
         Event event = new Event(parts[2], parts[3], parts[4]);
-        if (parts[1].equals("1"))
+        if (parts[1].equals("1")) {
             event.markAsDone();
+        }
 
         return event;
     }

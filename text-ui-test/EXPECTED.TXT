@@ -13,7 +13,7 @@ ____________________________________________________________
 Sure thing! Here is your task list:
 
 	1: [T] [X] individual project
-	2: [D] [ ] presentation (by: Monday)
+	2: [D] [ ] presentation (by: 6 Sep 2024 4:00 pm)
 	3: [E] [ ] project meeting (from: 4pm to: 6pm)
 ____________________________________________________________
 ____________________________________________________________
@@ -27,7 +27,7 @@ ____________________________________________________________
 Sure thing! Here is your task list:
 
 	1: [T] [X] individual project
-	2: [D] [ ] presentation (by: Monday)
+	2: [D] [ ] presentation (by: 6 Sep 2024 4:00 pm)
 	3: [E] [ ] project meeting (from: 4pm to: 6pm)
 ____________________________________________________________
 ____________________________________________________________

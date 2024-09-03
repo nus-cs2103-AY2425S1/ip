@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -36,7 +37,7 @@ public class TaskManager {
         return todo;
     }
 
-    public Task createDeadline(String description, String by) {
+    public Task createDeadline(String description, LocalDateTime by) {
         Task deadline = new Deadline(description, by);
         taskList.add(deadline);
         return deadline;
@@ -64,17 +65,20 @@ public class TaskManager {
 
             while (scanner.hasNext()) {
                 String taskString = scanner.nextLine();
+                Task task;
                 if (taskString.startsWith("T")) {
-                    Task task = Todo.fromTaskString(taskString);
-                    taskList.add(task);
+                    task = Todo.fromTaskString(taskString);
                 } else if (taskString.startsWith("D")) {
-                    Task task = Deadline.fromTaskString(taskString);
-                    taskList.add(task);
+                    task = Deadline.fromTaskString(taskString);
                 } else if (taskString.startsWith("E")) {
-                    Task task = Event.fromTaskString(taskString);
-                    taskList.add(task);
+                    task = Event.fromTaskString(taskString);
                 } else {
-                    System.out.println("Invalid task found, skipping: " + taskString);
+                    System.out.println("Invalid task type found, skipping: " + taskString);
+                    continue;
+                }
+
+                if (task != null) {
+                    taskList.add(task);
                 }
             }
 
