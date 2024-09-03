@@ -1,7 +1,7 @@
 package Dawn;
 public class Task {
-    protected String desc;
-    protected boolean isDone;
+    private String desc;
+    private boolean isDone;
 
     public Task() {
         this.desc = "";
@@ -23,7 +23,7 @@ public class Task {
      *
      * @return status of the task as an icon
      */
-    public String getStatusIcon() {
+    protected String getStatusIcon() {
         return isDone ? "X" : " ";
     }
 
@@ -32,7 +32,7 @@ public class Task {
      *
      * @return status of the task as a boolean
      */
-    public boolean isDone() {
+    protected boolean isDone() {
         return this.isDone;
     }
 
@@ -44,21 +44,25 @@ public class Task {
     /**
      * Sets the status of the task as done
      */
-    public void markAsDone() {
+    protected void markAsDone() {
         this.isDone = true;
     }
 
     /**
      * Sets the status of the task as not done
      */
-    public void markAsNotDone() {
+    protected void markAsNotDone() {
         this.isDone = false;
     }
 
     /**
      * Returns the task description
      */
-    public String getDesc() {
+    protected String getDesc() {
         return this.desc;
+    }
+
+    protected boolean isAMatch(String d) {
+        return this.desc.contains(d);
     }
 }
