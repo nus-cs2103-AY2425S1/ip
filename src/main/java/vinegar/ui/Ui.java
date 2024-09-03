@@ -1,6 +1,6 @@
 package vinegar.ui;
 
-import vinegar.TaskList;
+import vinegar.task.TaskList;
 import vinegar.task.Task;
 
 import java.util.Scanner;

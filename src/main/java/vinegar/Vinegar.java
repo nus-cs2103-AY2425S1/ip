@@ -2,6 +2,7 @@ package vinegar;
 
 import vinegar.command.Command;
 import vinegar.storage.Storage;
+import vinegar.task.TaskList;
 import vinegar.ui.Ui;
 
 import java.io.IOException;

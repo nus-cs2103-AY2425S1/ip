@@ -1,4 +1,4 @@
-package vinegar;
+package vinegar.task;
 
 import vinegar.task.Task;
 
@@ -17,6 +17,9 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
+        if (task == null) {
+            throw new NullPointerException("Task cannot be null");
+        }
         tasks.add(task);
     }
 

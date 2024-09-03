@@ -4,7 +4,7 @@ import vinegar.storage.Storage;
 import vinegar.ui.Ui;
 import vinegar.VinegarException;
 import vinegar.Validator;
-import vinegar.TaskList;
+import vinegar.task.TaskList;
 import vinegar.task.Task;
 import vinegar.task.Deadline;
 

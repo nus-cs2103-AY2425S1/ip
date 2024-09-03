@@ -25,4 +25,5 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + description;
     }
     public abstract String toFileFormat();
+
 }

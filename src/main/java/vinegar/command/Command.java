@@ -1,6 +1,6 @@
 package vinegar.command;
 
-import vinegar.TaskList;
+import vinegar.task.TaskList;
 import vinegar.VinegarException;
 import vinegar.storage.Storage;
 import vinegar.ui.Ui;
