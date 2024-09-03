@@ -79,6 +79,7 @@ public class Parser {
         HashMap<String, String> tokenMap = tokenize(command);
         Command.Type type = Command.Type.getType(tokenMap.get("command"));
         String argument = tokenMap.get("argument");
+        // CHECKSTYLE.OFF: Indentation
         return switch (type) {
             case ADD -> new AddCommand(Task.getTaskFromTokens(tokenMap));
             case DELETE -> new DeleteCommand(parseInt(argument));
@@ -88,5 +89,6 @@ public class Parser {
             case FIND -> new FindCommand(argument);
             case EXIT -> new ExitCommand();
         };
+        // CHECKSTYLE.ON: Indentation
     }
 }
