@@ -8,3 +8,4 @@ public class InvalidArgumentException extends Exception {
         super(msg);
     }
 }
+

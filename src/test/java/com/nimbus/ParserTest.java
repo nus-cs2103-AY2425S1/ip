@@ -1,14 +1,12 @@
 package com.nimbus;
 
-import com.nimbus.InvalidArgumentException;
-import com.nimbus.Parser;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
-    public void readOption_NormalInput_readSuccess() {
+    public void readOption_normalInput_readSuccess() {
         try {
             String tmp = "A very very long string /with /some Hello World /option ";
             assertEquals(Parser.readOption(tmp, "some"), "Hello World");
