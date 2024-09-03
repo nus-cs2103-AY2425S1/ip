@@ -13,10 +13,8 @@ import java.util.ArrayList;
  * JEFF is a task management application that allows users to create and manage tasks.
  */
 public class JEFF {
-    private static ArrayList<Task> taskList = new ArrayList<>();
     private static final String DIR_PATH = "./data";
     private static final String FILE_PATH = DIR_PATH + "/JEFF.txt";
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     private Ui ui;
     private Storage storage;
