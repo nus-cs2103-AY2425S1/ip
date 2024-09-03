@@ -5,24 +5,26 @@ import bruno.exceptions.BrunoException;
 import bruno.task.Task;
 import bruno.task.TaskList;
 
+import java.util.ArrayList;
+
 /**
  * Represents a command to delete a task from the task list.
  * This command encapsulates the information needed to remove a specific task from
  * the task list based on its index and handles the execution of the task deletion.
  */
 public class DeleteCommand extends Command {
-    private String taskNum;
-    private Task task;
+    private String[] taskNums;
+    private ArrayList<Task> deletedTasks;
 
     /**
      * Constructs a DeleteCommand with the specified task list and task number.
      *
      * @param tasks   The task list from which the task will be deleted.
-     * @param taskNum The index of the task to be deleted (1-based index).
+     * @param taskNums The index of the task to be deleted (1-based index).
      */
-    public DeleteCommand(TaskList tasks, String taskNum) {
+    public DeleteCommand(TaskList tasks, String ... taskNums) {
         super(tasks);
-        this.taskNum = taskNum;
+        this.taskNums = taskNums;
     }
 
     /**
@@ -31,12 +33,16 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute() throws BrunoException {
-        task = getTaskList().deleteTask(taskNum);
+        deletedTasks = getTaskList().deleteTask(taskNums);
     }
 
     @Override
     public String toString() {
-        return "Noted! I've removed this task:\n" + task
+        String tasksAsString = "";
+        for (Task task : deletedTasks) {
+            tasksAsString += task + "\n";
+        }
+        return "Noted! I've removed these tasks:\n" + tasksAsString
                 + "Now you have " + getTaskList().getTasks().size() + " tasks in the list";
     }
 }

@@ -31,11 +31,14 @@ public class Parser {
         } else if (command.equalsIgnoreCase("list")) {
             return new ListCommand(tasks);
         } else if (firstWord.equalsIgnoreCase("mark")) {
-            return new MarkCommand(tasks, restOfString);
+            String[] taskNums = restOfString.split(" ");
+            return new MarkCommand(tasks, taskNums);
         } else if (firstWord.equalsIgnoreCase("unmark")) {
-            return new UnmarkCommand(tasks, restOfString);
+            String[] taskNums = restOfString.split(" ");
+            return new UnmarkCommand(tasks, taskNums);
         } else if (firstWord.equalsIgnoreCase("delete")) {
-            return new DeleteCommand(tasks, restOfString);
+            String[] taskNums = restOfString.split(" ");
+            return new DeleteCommand(tasks, taskNums);
         } else if (firstWord.equalsIgnoreCase("todo")) {
             return new AddCommand(tasks, restOfString, Bruno.TaskType.TODO);
         } else if (firstWord.equalsIgnoreCase("deadline")) {

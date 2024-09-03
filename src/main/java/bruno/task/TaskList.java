@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 import bruno.Bruno;
 import bruno.Storage;
@@ -111,15 +114,20 @@ public class TaskList {
     /**
      * Marks a task as completed based on its index.
      *
-     * @param num The index of the task to mark as completed.
+     * @param nums The index of the task to mark as completed.
      * @throws BrunoException If the index is invalid.
      */
-    public Task markTask(String num) throws BrunoException {
+    public ArrayList<Task> markTask(String ... nums) throws BrunoException {
+        ArrayList<Task> markedTasks = new ArrayList<>();
         try {
-            Task task = tasks.get(Integer.parseInt(num) - 1);
-            task.complete();
-            storage.updateFile(this.tasks);
-            return task;
+            for (String i : nums) {
+                Task task = tasks.get(Integer.parseInt(i) - 1);
+                task.complete();
+                markedTasks.add(task);
+                storage.updateFile(this.tasks);
+            }
+
+            return markedTasks;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }
@@ -128,15 +136,20 @@ public class TaskList {
     /**
      * Unmarks a task (sets it as incomplete) based on its index.
      *
-     * @param num The index of the task to unmark.
+     * @param nums The index of the task to unmark.
      * @throws BrunoException If the index is invalid.
      */
-    public Task unmarkTask(String num) throws BrunoException {
+    public ArrayList<Task> unmarkTask(String ... nums) throws BrunoException {
+        ArrayList<Task> unmarkedTasks = new ArrayList<>();
         try {
-            Task task = tasks.get(Integer.parseInt(num) - 1);
-            task.uncomplete();
-            storage.updateFile(this.tasks);
-            return task;
+            for (String i : nums) {
+                Task task = tasks.get(Integer.parseInt(i) - 1);
+                task.uncomplete();
+                unmarkedTasks.add(task);
+                storage.updateFile(this.tasks);
+            }
+
+            return unmarkedTasks;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }
@@ -145,14 +158,22 @@ public class TaskList {
     /**
      * Deletes a task based on its index.
      *
-     * @param num The index of the task to delete.
+     * @param nums The indices of the tasks to delete.
      * @throws BrunoException If the index is invalid.
      */
-    public Task deleteTask(String num) throws BrunoException {
+    public ArrayList<Task> deleteTask(String ... nums) throws BrunoException {
         try {
-            Task task = tasks.remove(Integer.parseInt(num) - 1);
-            storage.updateFile(this.tasks);
-            return task;
+            ArrayList<Task> deletedTasks = new ArrayList<>();
+            List<Integer> indices = Arrays.stream(nums)
+                    .map(i -> Integer.parseInt(i.trim()) - 1)
+                    .sorted(Comparator.reverseOrder())
+                    .toList();
+            for (int i : indices) {
+                Task task = tasks.remove(i);
+                deletedTasks.add(task);
+                storage.updateFile(this.tasks);
+            }
+            return deletedTasks;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }
