@@ -32,6 +32,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        String greetings = "Hello! I'm Luna. What can I do for you?\n" +
+                "If you are new or unsure how I can help you, press enter to view a list of commands.";
+        dialogContainer.getChildren().addAll(DialogBox.getLunaDialog(greetings, lunaImage));
     }
 
     /** Injects the Luna instance */
@@ -49,9 +53,7 @@ public class MainWindow extends AnchorPane {
         String response = luna.run(input);
 
         if (input.isEmpty()) {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getLunaDialog(response, lunaImage)
-            );
+            dialogContainer.getChildren().addAll(DialogBox.getLunaDialog(response, lunaImage));
         } else {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
