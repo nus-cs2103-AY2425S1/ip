@@ -1,6 +1,4 @@
-T | 0 | read book
-D | 0 | return book | Sunday
-E | 0 | project meeting | Mon 2pm | 4pm
-T | 0 | read book after save
-D | 0 | return book 2 after save | Monday
-E | 0 | after save meeting | Mon 2pm | 4pm
+T | 0 | read book after dates and times
+D | 0 | return book | 2024-09-10 1200
+E | 0 | hackathon | 2024-10-10 0800 | 2024-10-12 1700
+T | 0 | code
