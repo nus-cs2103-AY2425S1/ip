@@ -1,7 +1,7 @@
 package easton;
 
 /**
- * Exception for incorrect Date & Time format.
+ * Exception for incorrect date & time format.
  */
 public class DateTimeFormatException extends Exception {
     /**

@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Represents the chatbot, Easton.
+ * Represents the chatbot, easton.
  */
 public class Easton {
 
@@ -183,11 +183,11 @@ public class Easton {
     }
 
     /**
-     * Creates a ToDo task from the input.
+     * Creates a todo task from the input.
      * If the body of the input is empty, an exception is thrown.
      *
      * @param input Input from the prompt.
-     * @return A new ToDo task.
+     * @return A new todo task.
      * @throws EmptyDescriptionException If the body of the prompt is empty.
      */
     public static ToDo createToDo(String input) throws EmptyDescriptionException {
@@ -202,11 +202,11 @@ public class Easton {
     }
 
     /**
-     * Creates a Deadline task from the input.
+     * Creates a deadline task from the input.
      * If the body of the input is empty or the format is invalid, an exception is thrown.
      *
      * @param input Input from the prompt.
-     * @return A new Deadline task.
+     * @return A new deadline task.
      * @throws EmptyDescriptionException If the body of the prompt is empty.
      * @throws InvalidFormatException If the body is in the incorrect format.
      * @throws DateTimeFormatException If the date & time indicated is in the wrong format.
@@ -230,11 +230,11 @@ public class Easton {
     }
 
     /**
-     * Creates an Event task from the input.
+     * Creates an event task from the input.
      * If the body of the input is empty or the format is invalid, an exception is thrown.
      *
      * @param input Input from the prompt.
-     * @return A new Event task.
+     * @return A new event task.
      * @throws EmptyDescriptionException If the body of the prompt is empty.
      * @throws InvalidFormatException If the body is in the incorrect format.
      * @throws DateTimeFormatException If the date & time indicated is in the wrong format.
@@ -256,11 +256,11 @@ public class Easton {
     }
 
     /**
-     * Returns an Action that can be done/exist.
+     * Returns an action that can be done/exist.
      * If the action cannot be handled, an exception is thrown.
      *
      * @param input Input from the prompt.
-     * @return A valid Action.
+     * @return A valid action.
      * @throws IllegalActionException If the action given cannot be done.
      */
     public static Action getActionFromInput(String input) throws IllegalActionException {
