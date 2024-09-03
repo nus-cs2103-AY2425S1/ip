@@ -1,10 +1,9 @@
 package tick.storage;
 
-import tick.Tick;
+import java.util.ArrayList;
+
 import tick.exceptions.TickException;
 import tick.tasks.Task;
-
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.

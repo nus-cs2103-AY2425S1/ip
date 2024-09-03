@@ -73,8 +73,8 @@ public class Parser {
     private static Command prepareDeadline(String args) throws TickException {
         String[] parts = args.split(" /by ", 2);
         if (parts.length < 2) {
-            throw new TickException("Please specify the deadline task in this format:" +
-                    " <description> /by <deadline>.");
+            throw new TickException("Please specify the deadline task in this format:"
+                    + " <description> /by <deadline>.");
         }
         try {
             LocalDate by = LocalDate.parse(parts[1]);
@@ -88,8 +88,8 @@ public class Parser {
     private static Command prepareEvent(String args) throws TickException {
         String[] parts = args.split(" /from | /to ", 3);
         if (parts.length < 3) {
-            throw new TickException("Please specify the event task in this format:" +
-                    " <description> /from <start> /to <end>.");
+            throw new TickException("Please specify the event task in this format:"
+                    + " <description> /from <start> /to <end>.");
         }
         try {
             LocalDate from = LocalDate.parse(parts[1]);
