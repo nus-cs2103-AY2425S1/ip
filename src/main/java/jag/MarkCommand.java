@@ -7,7 +7,7 @@ import java.io.IOException;
  * methods to mark and unmark a task
  */
 public class MarkCommand extends Command {
-    Boolean isMark;
+    private Boolean isMark;
 
     /**
      * Custom constructor for this class
@@ -36,7 +36,7 @@ public class MarkCommand extends Command {
         if (isMark) {
             // Mark jag.Command
             int index = ui.getMark();
-            Task task = tasks.getTask(index-1);
+            Task task = tasks.getTask(index - 1);
             task.setStatus(true);
 
             // jag.Ui response
@@ -51,7 +51,7 @@ public class MarkCommand extends Command {
         } else {
             // Unmark jag.Command
             int index = ui.getMark();
-            Task task = tasks.getTask(index-1);
+            Task task = tasks.getTask(index - 1);
             task.setStatus(false);
 
             // jag.Ui response
@@ -70,7 +70,7 @@ public class MarkCommand extends Command {
      * Returns false so that Jag.java does not exit for loop
      *
      * @return a default false so the run() in Jag.java does not exit
-     * the while loop
+     *              the while loop
      */
     @Override
     public Boolean isExit() {

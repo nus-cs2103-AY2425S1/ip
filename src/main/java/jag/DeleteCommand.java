@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
      * @param tasks Represents instance of the TaskList to be accessed
      *              such that the right task is deleted
      * @param ui Represents the Ui instance for user interaction and to
-     *           break down the command input to get the right idnex
+     *           break down the command input to get the right index
      *           of the task to be deleted in the TaskList instance
      * @param storage To update the output file storage after task
      *                has been deleted
@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
      * Returns false so that Jag.java does not exit for loop
      *
      * @return a default false so the run() in Jag.java does not exit
-     * the while loop
+     *              the while loop
      */
     @Override
     public Boolean isExit() {

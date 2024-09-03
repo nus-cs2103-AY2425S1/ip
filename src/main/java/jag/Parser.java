@@ -1,7 +1,22 @@
 package jag;
 
+/**
+ * Parser Class is responsible for taking in a user input and making sense of it
+ * by checking what the user has entered and returning the right type of command
+ * that the user has requested
+ */
 public class Parser {
 
+    /**
+     * Responsible for parsing a user input to read it's command
+     * and return the appropriate instance of the right command
+     *
+     * @param fullCommand String representation of the full user input
+     * @return An instance of a type of Command, from the list of Commands
+     *              that has been extended by the abstract class Command
+     * @throws AExceptions Instance thrown in the event user input does not include
+     *              any of the right commands available
+     */
     public static Command parse(String fullCommand) throws AExceptions {
         // Breaking down command input
         String[] splitWords = fullCommand.split(" ");
@@ -15,37 +30,37 @@ public class Parser {
 
             switch (command) {
             case LIST:
-                cmd =  new ListCommand();
+                cmd = new ListCommand();
                 break;
 
             case MARK:
-                cmd =  new MarkCommand(true);
+                cmd = new MarkCommand(true);
                 break;
 
             case UNMARK:
-                cmd =  new MarkCommand(false);
+                cmd = new MarkCommand(false);
                 break;
 
             case TODO:
-                cmd =  new AddCommand('T');
+                cmd = new AddCommand('T');
                 break;
             case DEADLINE:
-                cmd =  new AddCommand('D');
+                cmd = new AddCommand('D');
                 break;
             case EVENT:
-                cmd =  new AddCommand('E');
+                cmd = new AddCommand('E');
                 break;
 
             case DELETE:
-                cmd =  new DeleteCommand();
+                cmd = new DeleteCommand();
                 break;
 
             case BYE:
-                cmd =  new ExitCommand();
+                cmd = new ExitCommand();
                 break;
 
             case FIND:
-                cmd =  new FindCommand();
+                cmd = new FindCommand();
                 break;
 
             default:

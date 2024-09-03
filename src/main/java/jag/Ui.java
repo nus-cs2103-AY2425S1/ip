@@ -8,16 +8,22 @@ import java.util.Scanner;
  * and return values to be used for other Command instances e.g. "Event"
  */
 public class Ui {
-    String loadingError = "File not found :(";
-    String dashed = "----------";
-    Scanner scanner = new Scanner(System.in);
-    String greetings = this.dashed + "\nHello! I'm jag.Jag What can I do for you?\n" + this.dashed;
-    String bye = this.dashed + "\nBye. Hope to see you again soon!\n" + this.dashed;
+    private String loadingError = "File not found :(";
+    private String dashed = "----------";
+    private Scanner scanner = new Scanner(System.in);
+    private String greetings = this.dashed + "\nHello! I'm jag.Jag What can I do for you?\n" + this.dashed;
+    private String bye = this.dashed + "\nBye. Hope to see you again soon!\n" + this.dashed;
 
-    String command;
+    private String command;
     public void showLoadingError() {
         System.out.println(this.loadingError);;
     }
+
+    /**
+     * Prints out the error message in the case of an exception caught
+     *
+     * @param e String representation of the error message
+     */
     public void showError(String e) {
         System.out.println(this.dashed);
         System.out.println(e);
@@ -29,6 +35,9 @@ public class Ui {
         System.out.println(this.dashed);
     }
 
+    /**
+     * Prints out a greeting message for the user
+     */
     public void showWelcome() {
         System.out.println(greetings);
         this.command = scanner.nextLine();

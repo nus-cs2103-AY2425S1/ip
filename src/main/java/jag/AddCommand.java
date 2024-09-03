@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * response is displayed
  */
 public class AddCommand extends Command {
-    char type;
+    private char type;
 
     /**
      * Constructor for the class to store the type of task
@@ -100,7 +100,7 @@ public class AddCommand extends Command {
      * Returns false so that Jag.java does not exit for loop
      *
      * @return a default false so the run() in Jag.java does not exit
-     * the while loop
+     *              the while loop
      */
     @Override
     public Boolean isExit() {

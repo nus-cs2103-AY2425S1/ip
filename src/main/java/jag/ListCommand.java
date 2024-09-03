@@ -29,7 +29,7 @@ public class ListCommand extends Command {
      * Returns false so that Jag.java does not exit for loop
      *
      * @return a default false so the run() in Jag.java does not exit
-     * the while loop
+     *              the while loop
      */
     @Override
     public Boolean isExit() {

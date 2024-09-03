@@ -1,22 +1,36 @@
 package jag;
 
-import java.util.ArrayList;
-import java.io.FileNotFoundException;
-import java.time.LocalDateTime;
-import java.util.Scanner;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
 
+/**
+ * Storage Class represents and encapsulates all the properties and methods
+ * needed to read and write any list of tasks that the user has, either
+ * from previous use of the chatbot and / or the current use
+ */
 public class Storage {
-    String filePath;
-    ArrayList<Task> arrayListTasks = new ArrayList<>();
-    TaskList tasks;
+    private String filePath;
+    private ArrayList<Task> arrayListTasks = new ArrayList<>();
+    private TaskList tasks;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads any list of tasks that the user had saved previously at a given file
+     * path
+     *
+     * @return An instance of TaskList of the saved previous list of tasks or
+     *              an empty TaskList to be filled up by the user
+     * @throws FileNotFoundException An instance of an exception in the event
+     *              no such file path exists
+     */
     public TaskList load() throws FileNotFoundException {
         File f = new File(this.filePath);
         char taskType;
@@ -86,6 +100,15 @@ public class Storage {
         return this.tasks;
     }
 
+    /**
+     * Method to write and record down the saved list of tasks the user has
+     * into a given file path
+     *
+     * @param tasks Instance of the most updated TaskList that the user has to be
+     *              saved
+     * @throws IOException Instance of an Exception in the event TaskList size is 0
+     *              for testing purposes
+     */
     public void write(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
 
