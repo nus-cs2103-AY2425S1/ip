@@ -27,16 +27,12 @@ public class Chobo {
     public void run() {
         ui.printWelcome();
         Scanner scanner = new Scanner(System.in);
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String Command = scanner.nextLine();
-                isExit = Parser.parse(Command, taskList, ui, storage);
-            } catch (InputException e) {
-                ui.printError(e.getMessage());
-            }
+        try {
+            String Command = scanner.nextLine();
+            Parser.parse(Command, taskList, ui, storage);
+        } catch (InputException e) {
+            ui.printError(e.getMessage());
         }
-        ui.printGoodbye();
     }
 
     /**
@@ -49,7 +45,15 @@ public class Chobo {
     }
 
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        Scanner scanner = new Scanner(input);
+        String toReturn;
+        try {
+            String Command = scanner.nextLine();
+            toReturn = Parser.parse(Command, taskList, ui, storage);
+        } catch (InputException e) {
+            return e.getMessage();
+        }
+        return toReturn;
     }
 }
 

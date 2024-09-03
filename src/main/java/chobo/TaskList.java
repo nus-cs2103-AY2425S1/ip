@@ -1,5 +1,4 @@
 package chobo;
-
 import java.util.ArrayList;
 /**
  * The type Task list.

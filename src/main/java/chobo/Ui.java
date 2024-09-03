@@ -1,6 +1,7 @@
 package chobo;
 
 import java.util.ArrayList;
+
 /**
  * The type Ui.
  */
@@ -35,8 +36,8 @@ public class Ui {
      *
      * @param message the message
      */
-    public void printError(String message) {
-        System.out.println(message);
+    public String printError(String message) {
+        return (message);
     }
 
     /**
@@ -45,11 +46,8 @@ public class Ui {
      * @param task       the task
      * @param totalTasks the total tasks
      */
-    public void printTaskAdded(Task task, int totalTasks) {
-        printLine();
-        System.out.println("added: " + task);
-        System.out.println(totalTasks + " task(s) in the list");
-        printLine();
+    public String printTaskAdded(Task task, int totalTasks) {
+        return ("added: " + task + " " + totalTasks + " task(s) in the list");
     }
 
     /**
@@ -58,11 +56,8 @@ public class Ui {
      * @param task       the task
      * @param totalTasks the total tasks
      */
-    public void printTaskDeleted(Task task, int totalTasks) {
-        printLine();
-        System.out.println("deleted: " + task);
-        System.out.println(totalTasks + " task(s) left in the list");
-        printLine();
+    public String printTaskDeleted(Task task, int totalTasks) {
+        return ("deleted: " + task + "\n" + totalTasks + " task(s) left in the list");
     }
 
     /**
@@ -70,12 +65,15 @@ public class Ui {
      *
      * @param tasks the tasks
      */
-    public void printTaskList(ArrayList<Task> tasks) {
-        printLine();
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+    public String printTaskList(ArrayList<Task> tasks) {
+        String toReturn = "Your tasks are: \n";
+        if (tasks.size() > 0) {
+            for (int i = 0; i < tasks.size(); i++) {
+                toReturn = toReturn + (i + 1) + "." + tasks.get(i) + "\n";
+            }
+            return toReturn;
         }
-        printLine();
+        return "no tasks present";
     }
 
     /**
@@ -83,10 +81,8 @@ public class Ui {
      *
      * @param task the task
      */
-    public void printTaskMarked(Task task) {
-        printLine();
-        System.out.println("Nice! I have marked this task as done:\n" + task);
-        printLine();
+    public String printTaskMarked(Task task) {
+        return "Nice! I have marked this task as done:\n" + task;
     }
 
     /**
@@ -94,10 +90,8 @@ public class Ui {
      *
      * @param task the task
      */
-    public void printTaskUnmarked(Task task) {
-        printLine();
-        System.out.println("OK, I have marked this task as not done yet\n" + task);
-        printLine();
+    public String printTaskUnmarked(Task task) {
+        return "OK, I have marked this task as not done yet\n" + task;
     }
 
 
@@ -106,16 +100,15 @@ public class Ui {
      *
      * @param tasks the array of tasks
      */
-    public void printMatchedTasks(ArrayList<Task> tasks) {
-        System.out.println("____________________________________________________________");
+    public String printMatchedTasks(ArrayList<Task> tasks) {
+        String toReturn = "The matching tasks in your list: \n";
         if (tasks.isEmpty()) {
-            System.out.println("No such tasks.");
+            return ("No such tasks.");
         } else {
-            System.out.println("The matching tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                toReturn = toReturn + (i + 1) + "." + tasks.get(i) + "\n";
             }
+            return toReturn;
         }
-        System.out.println("____________________________________________________________");
     }
 }

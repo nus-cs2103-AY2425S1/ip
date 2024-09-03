@@ -12,7 +12,6 @@ public class Event extends Task {
     private String unformattedTo;
     private LocalDateTime from;
     private LocalDateTime to;
-
     /**
      * Creates a new chobo.Event task.
      *

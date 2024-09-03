@@ -11,6 +11,9 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * The type Main window.
+ */
 public class MainWindow extends AnchorPane {
 
     @FXML
@@ -27,6 +30,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/anon.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/anon.jpg"));
 
+    /**
+     * Instantiates a new Main window.
+     */
     public MainWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
         fxmlLoader.setRoot(this);  // Set this as the root node
@@ -39,11 +45,19 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Initialize.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets chobo.
+     *
+     * @param chobo the chobo
+     */
     public void setChobo(Chobo chobo) {
         this.chobo = chobo;
     }
