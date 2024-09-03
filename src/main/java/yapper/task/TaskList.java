@@ -1,6 +1,7 @@
 package yapper.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
 
@@ -32,5 +33,15 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }

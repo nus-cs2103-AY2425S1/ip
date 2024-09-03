@@ -3,6 +3,7 @@ package yapper.ui;
 import yapper.task.Task;
 import yapper.task.TaskList;
 import java.util.Scanner;
+import java.util.List;
 
 public class Ui {
 
@@ -82,5 +83,16 @@ public class Ui {
         System.out.println(" OK Boss! I've marked this task as not done yet:");
         System.out.println("   " + task);
         System.out.println("____________________________________________________________");
+    }
+
+    public void showMatchingTasks(List<Task> tasks) {
+        System.out.println("Boss,here is the tasks you requested!");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
+    }
+
+    public void showNoMatchingTasksMessage() {
+        System.out.println("No matching tasks has been found Boss!");
     }
 }

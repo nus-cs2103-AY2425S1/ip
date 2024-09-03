@@ -24,6 +24,7 @@ public class Parser {
      */
     private static CommandType getCommandType(String command) {
         switch (command.toLowerCase()) {
+<<<<<<< HEAD
         case "bye":
             return CommandType.BYE;
         case "list":
@@ -42,6 +43,28 @@ public class Parser {
             return CommandType.DELETE;
         default:
             return CommandType.UNKNOWN;
+=======
+            case "bye":
+                return CommandType.BYE;
+            case "list":
+                return CommandType.LIST;
+            case "mark":
+                return CommandType.MARK;
+            case "unmark":
+                return CommandType.UNMARK;
+            case "todo":
+                return CommandType.TODO;
+            case "deadline":
+                return CommandType.DEADLINE;
+            case "event":
+                return CommandType.EVENT;
+            case "delete":
+                return CommandType.DELETE;
+            case "find":
+                return CommandType.FIND;
+            default:
+                return CommandType.UNKNOWN;
+>>>>>>> branch-Level-9
         }
     }
 }
