@@ -63,7 +63,7 @@ public class WansBot {
     /**
      * Throws InputEmptyException when user does not input a deadline after "deadline /by".
      */
-    private static void missingInputDeadline(String userInput) {
+    private static void checkMissingInputDeadline(String userInput) {
         String[] splitUser = userInput.split(" /by ", 2);
         if (splitUser.length < 2) {
             throw new InputEmptyException(userInput, "/by");
@@ -122,34 +122,34 @@ public class WansBot {
     /**
      * Adds Todos to the userTaskList.
      */
-    private static void addTodos(String userInput) {
+    private String addTodos(String userInput) {
         Todos newTodo = new Todos(userInput.substring(5));
         userTaskList.add(newTodo);
-        ui.handleSuccessfulAdd(newTodo);
+        return ui.handleSuccessfulAdd(newTodo);
     }
 
     /**
      * Adds Deadlined to userTaskList. If there is invalid input, WansBot will guide user on the correct commands.
      */
-    private static void addDeadlined(String userInput) {
+    private String addDeadlined(String userInput) {
         try {
-            missingInputDeadline(userInput);
+            checkMissingInputDeadline(userInput);
             String[] splitUser = userInput.split(" /by ", 2);
             Deadlined newDeadlined = new Deadlined(splitUser[0].substring(8),
                     LocalDate.parse(splitUser[1].trim()));
             userTaskList.add(newDeadlined);
-            ui.handleSuccessfulAdd(newDeadlined);
+            return ui.handleSuccessfulAdd(newDeadlined);
         } catch (InputEmptyException e) {
-            ui.handleDeadlineFormat();
+            return ui.handleDeadlineFormat();
         } catch (DateTimeParseException e) {
-            ui.handleDateTimeException();
+            return ui.handleDateTimeException();
         }
     }
 
     /**
      * Adds Deadlined to userTaskList. If there is invalid input, WansBot will guide user on the correct commands.
      */
-    private static void addEvent(String userInput) {
+    private String addEvent(String userInput) {
         try {
             missingInputEvent(userInput);
             String[] splitUserStartDate = userInput.split(" /from ", 3);
@@ -158,11 +158,11 @@ public class WansBot {
                     LocalDate.parse(splitUserEndDate[0].trim()),
                     LocalDate.parse(splitUserEndDate[1].trim()));
             userTaskList.add(newEvent);
-            ui.handleSuccessfulAdd(newEvent);
+            return ui.handleSuccessfulAdd(newEvent);
         } catch (InputEmptyException e) {
-            ui.handleEventFormat();
+            return ui.handleEventFormat();
         } catch (DateTimeParseException e) {
-            ui.handleDateTimeException();
+            return ui.handleDateTimeException();
         }
     }
 
@@ -170,16 +170,16 @@ public class WansBot {
      * Removes the user-specified task. If removal is of an invalid task number or not a number, WansBot will guide
      * user on how to correct the command.
      */
-    private void removeTask(String userInput) {
+    private String removeTask(String userInput) {
         try {
             checkNumInput(userInput, userTaskList.numOfTasks());
             int posTask = Integer.parseInt(userInput.substring(7)) - 1;
-            ui.handleRemoveTask(userTaskList, posTask);
-            userTaskList.removeTask(posTask);
+
+            return ui.handleRemoveTask(userTaskList.removeTask(posTask));
         } catch (NumberFormatException e) {
-            ui.handleRemoveFormat();
+            return ui.handleRemoveFormat();
         } catch (NotANumMarkingException e) {
-            ui.handleInvalidNum();
+            return ui.handleInvalidNum();
         }
     }
 
@@ -187,7 +187,7 @@ public class WansBot {
      * Gathers Deadlined and Event which are of exact date and in-between start and end date respectively. WansBot
      * will tell the user which tasks these are. Todos will not be able to be found
      */
-    private static void findTaskDate(String userInput) {
+    private String findTaskDate(String userInput) {
         try {
             String[] splitDate = userInput.split(" ");
             TaskList filteredList = new TaskList();
@@ -204,27 +204,24 @@ public class WansBot {
                     }
                 }
             }
-            ui.handleFindFiles(userTaskList, splitDate[1]);
+            return ui.handleFindFiles(filteredList, splitDate[1]);
         } catch (DateTimeParseException e) {
-            ui.handleDateTimeException();
+            return ui.handleDateTimeException();
         }
     }
 
     /**
      * Finds the current tasks in userTaskList that contain the keyword and prints to console in a list.
      */
-    private static void findTaskName(String userInput) { // "find [keyword]"
+    private String findTaskName(String userInput) { // "find [keyword]"
         String[] splitName = userInput.split("findName ");
         TaskList filteredList = new TaskList();
-        //testing
-        System.out.println(splitName[1]);
-        //testing
         for (int i = 0; i < userTaskList.numOfTasks(); i++) {
             if (userTaskList.getTask(i).hasName(splitName[1])) {
                 filteredList.add(userTaskList.getTask(i));
             }
         }
-        ui.handleFindKeyword(filteredList);
+        return ui.handleFindKeyword(filteredList);
     }
 
     public String getResponse(String userInput) {
@@ -242,34 +239,34 @@ public class WansBot {
                 response += unmarkTasks(userInput);
                 break;
             case "todos":
-                addTodos(userInput);
+                response += addTodos(userInput);
                 break;
             case "deadline":
-                addDeadlined(userInput);
+                response += addDeadlined(userInput);
                 break;
             case "event":
-                addEvent(userInput);
+                response += addEvent(userInput);
                 break;
             case "remove":
-                removeTask(userInput);
+                response += removeTask(userInput);
                 break;
             case "save":
-                storage.saveTasks(userTaskList);
+                response += storage.saveTasks(userTaskList);
                 break;
             case "load":
-                userTaskList = storage.loadTasks();
+                response += storage.loadTasks(userTaskList);
                 break;
             case "findTask":
-                findTaskDate(userInput);
+                response += findTaskDate(userInput);
                 break;
             case "findName":
-                findTaskName(userInput);
+                response += findTaskName(userInput);
                 break;
             case "bye":
-                ui.handleGoodbye();
+                response += ui.handleGoodbye();
                 break;
             default:
-                ui.handleUnrecognisedInput(userInput);
+                return ui.handleUnrecognisedInput(userInput);
         }
 
         return response;

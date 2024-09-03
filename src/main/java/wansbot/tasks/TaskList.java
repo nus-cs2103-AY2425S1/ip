@@ -46,8 +46,10 @@ public class TaskList {
     /**
      * Removes a specified task in listOfTasks.
      */
-    public void removeTask(int taskNum) {
+    public Task removeTask(int taskNum) {
+        Task task = this.listOfTasks.get(taskNum);
         this.listOfTasks.remove(taskNum);
+        return task;
     }
 
     /**

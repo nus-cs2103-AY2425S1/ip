@@ -38,8 +38,7 @@ public class Storage {
      *
      * @return TaskList which is loaded from ./data/tasklist.txt.
      */
-    public TaskList loadTasks() {
-        TaskList taskList = new TaskList();
+    public String loadTasks(TaskList taskList) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("./data/tasklist.txt"));
             String line = reader.readLine();
@@ -100,12 +99,12 @@ public class Storage {
                 line = reader.readLine();
             }
             reader.close();
+            return ui.handleSuccessfulLoad(taskList);
         } catch (FileNotFoundException e) {
-            ui.handleFileNotFound();
+            return ui.handleFileNotFound();
         } catch (IOException e) {
-            ui.handleIoExceptionLoad();
+            return ui.handleIoExceptionLoad();
         }
-        return taskList;
     }
 
     /**
@@ -114,7 +113,7 @@ public class Storage {
      *
      * @param taskList Takes in the current userTaskList and writes it to ./data/tasklist.txt.
      */
-    public void saveTasks(TaskList taskList) {
+    public String saveTasks(TaskList taskList) {
         try {
             if (!Files.exists(Paths.get("data"))) {
                 File directory = new File("./data");
@@ -126,8 +125,12 @@ public class Storage {
                 writer.write(taskList.getTask(i) + "\n");
             }
             writer.close();
+            if (taskList.numOfTasks() == 0) {
+                return ui.handleUnsuccessfulSave(taskList);
+            }
+            return ui.handleSuccessfulSave(taskList);
         } catch (IOException e) {
-            ui.handleIoExceptionSave();
+            return ui.handleIoExceptionSave();
         }
     }
 }

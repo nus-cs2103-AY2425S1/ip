@@ -41,45 +41,38 @@ public class UI {
     /**
      * Prints to console when input isn't recognised by WansBot.
      */
-    public void handleUnrecognisedInput(String userInput) {
-        System.out.println(HR + "\nWans: \n"
-                + "I'm sorry I'm not that useful I don't know what "
-                + userInput + " means!!!" + "\n" + HR);
+    public String handleUnrecognisedInput(String userInput) {
+        return "I'm sorry I'm not that useful I don't know what "
+                + userInput + " means!!!";
     }
 
     /**
      * Prints to console when wrong date amd time format is input.
      */
-    public void handleDateTimeException() {
-        System.out.println(HR + "\nWans:\n"
-                + "Your date needs to be in the form YYYY-MM-DD! It needs to be a valid \ndate too please!"
-                + "\n" + HR);
+    public String handleDateTimeException() {
+        return "Your date needs to be in the form YYYY-MM-DD! It needs to be a valid date too please!";
     }
 
     /**
      * Prints to console when deadline date format is wrong.
      */
-    public void handleDeadlineFormat() {
-        System.out.println(HR + "\nWans:\n"
-                + "You need to input deadline, followed by /by, then the deadline!"
-                + "\n" + HR);
+    public String handleDeadlineFormat() {
+        return "You need to input deadline, followed by /by, then the deadline!";
     }
 
     /**
      * Prints to console when event date format is wrong
      */
-    public void handleEventFormat() {
-        System.out.println(HR + "\nWans:\n"
-                + "You need to input event, followed by /from, then your start time, then /to, then "
-                + "your end time!"
-                + "\n" + HR);
+    public String handleEventFormat() {
+        return "You need to input event, followed by /from, then your start time, then /to, then "
+                + "your end time!";
     }
 
     /**
      * Prints to console the list of tasks in current userTaskList
      */
     public String handleListingTask(TaskList taskList) {
-        return "\nHere are your tasks!\n"
+        return "Here are your tasks!\n"
                 + taskList.toString()
                 + "\nYou have " + taskList.numOfTasks() + " tasks!";
     }
@@ -125,115 +118,114 @@ public class UI {
      * in the userTaskList.
      */
     public String handleInvalidNum() {
-       return "You need to input a valid number that exists in your TaskList!"
-                + "\n";
+       return "You need to input a valid number that exists in your TaskList!";
     }
 
     /**
      * Prints to console when task is successfully added to userTaskList.
      */
-    public void handleSuccessfulAdd(Task task) {
-        System.out.println(HR + "\nWans:\n"
-                + "Ok! I've added " + task.toString()
-                + "\n" + HR);
+    public String handleSuccessfulAdd(Task task) {
+        return "Ok! I've added " + task.toString()
+                + "\n";
     }
 
     /**
      * Prints to console when user successfully removes a task, as well as the task deleted.
      */
-    public void handleRemoveTask(TaskList taskList, int posTask) {
-        System.out.println(HR + "\nWans:\n"
-                + "Ok! I've removed " + taskList.getTask(posTask)
-                + "\n" + HR);
+    public String handleRemoveTask(Task task) {
+        return "Ok! I've removed " + task;
     }
 
     /**
      * Prints to console when wrong format of remove command is used.
      */
-    public void handleRemoveFormat() {
-        System.out.println(HR + "\nWans:\n"
-                + "You need to input a single space, followed by a number after remove"
-                + "!\n" + HR);
+    public String handleRemoveFormat() {
+        return "You need to input a single space, followed by a number after remove";
     }
 
     /**
      * Prints to console depending on the result of find command. If empty, WansBot will tell user that no tasks
      * fall on the date. If not then WansBot will tell the user exactly which events lie on date.
      */
-    public void handleFindFiles(TaskList taskList, String date) {
+    public String handleFindFiles(TaskList taskList, String date) {
         if (taskList.numOfTasks() != 0) {
-            System.out.println(HR + "\nWans:"
-                    + "\nHere are your tasks on " + LocalDate.parse(date)
-                            .format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n"
-                    + taskList.toString());
-            System.out.println("You have " + taskList.numOfTasks() + " tasks " + "on "
+            return "Here are your tasks on " + LocalDate.parse(date)
+                    .format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n"
+                    + taskList.toString()
+                    + "\nYou have " + taskList.numOfTasks() + " tasks " + "on "
                     + LocalDate.parse(date)
-                            .format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                    + "\n" + HR);
+                    .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } else {
-            System.out.println(HR + "\nWans:"
-                    + "\n You have no tasks on "
+            return "You have no tasks on "
                     + LocalDate.parse(date)
                     .format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                    + "!" + "\n" + HR);
+                    + "!";
         }
     }
 
     /**
      * Prints to console when IOException occurs when user tries to save tasks to data folder.
      */
-    public void handleIoExceptionSave() {
-        System.out.println(HR + "\nWans:\n"
-                + "I can't seem to save your tasks!"
-                + "\n" + HR);
+    public String handleIoExceptionSave() {
+        return "I can't seem to save your tasks!";
     }
 
     /**
+     * Prints success on successful save
+     */
+    public String handleSuccessfulSave(TaskList taskList) {
+        return taskList + "\nI have saved these tasks!";
+    }
+
+    /**
+     * Prints to user that save was unsuccessful
+     */
+    public String handleUnsuccessfulSave(TaskList taskList) {
+        return "You have no tasks to save!";
+    }
+
+    /**
+     * Prints that user successfully loads tasklist
+     */
+    public String handleSuccessfulLoad(TaskList taskList) {
+        return taskList + "\nYou have loaded these tasks!";
+    }
+    /**
      * Prints to console when user encounters IOException when trying to load files using the load command
      */
-    public void handleIoExceptionLoad() {
-        System.out.println(HR + "\nWans:\n"
-                + "I can't seem to load your tasks!"
-                + "\n" + HR);
+    public String handleIoExceptionLoad() {
+         return "I can't seem to load your tasks!";
     }
 
     /**
      * Prints to console when user does not currently have data folder which holds taskList.txt
      */
-    public void handleFileNotFound() {
-        System.out.println("\nWans:\n"
-                + "You don't have files to load!"
-                + "\n" + HR);
+    public String handleFileNotFound() {
+        return "You don't have files to load!";
     }
 
     /**
      * Prints to console when WansBot finds tasks whose name contain the keyword.
      */
-    public void handleFindKeyword(TaskList tasklist) {
+    public String handleFindKeyword(TaskList tasklist) {
         if (tasklist.numOfTasks() == 0) {
-            System.out.println("\nWans:\n"
-                    + "You have no matching tasks!!"
-                    + "\n" + HR);
+            return "You have no matching tasks!!";
         } else {
-            System.out.println(HR + "\nWans:"
-                    + "\nHere are your matching tasks!\n"
-                    + tasklist.toString());
-            System.out.println("You have " + tasklist.numOfTasks() + " tasks!" + "\n" + HR);
+           return "Here are your matching tasks!\n"
+                    + tasklist.toString()
+                    + "\nYou have " + tasklist.numOfTasks() + " tasks!";
         }
     }
 
     /**
      * Prints to console Goodbye message when user inputs bye
      */
-    public void handleGoodbye() {
+    public String handleGoodbye() {
         String exit = "|  _ \\ \\   / /  ____|"
                 + "\n| |_) \\ \\_/ /| |__"
                 + "\n|  _ < \\   / |  __|"
                 + "\n| |_) | | |  | |____"
                 + "\n|____/  |_|  |______";
-        System.out.println(HR + "\nWans: \n"
-                + exit
-                + "\nI'll miss you :( (I really wanna go home)\n" + HR);
-        System.exit(0);
+        return "I'll miss you :( (I really wanna go home)\n";
     }
 }
