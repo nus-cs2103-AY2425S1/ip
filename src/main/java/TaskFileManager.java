@@ -34,8 +34,12 @@ public class TaskFileManager {
         FileTaskCreator creator = new FileTaskCreator();
         ArrayList<Task> tasks = new ArrayList<>();
         while(sc.hasNext()) {
-            String taskString = sc.nextLine();
-            tasks.add(creator.createTask(taskString));
+            try {
+                String taskString = sc.nextLine();
+                tasks.add(creator.createTask(taskString));
+            } catch (IllegalArgumentException e) {
+                // Task contains faulty information in file, just skip
+            }
         }
 
         sc.close();
