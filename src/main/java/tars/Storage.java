@@ -3,7 +3,9 @@ package tars;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,14 +16,14 @@ import java.util.Scanner;
  * @version 1
  */
 public class Storage {
-    protected static File f;
+    protected static File F;
 
     public Storage(String filePath) throws IOException {
-        this.f = new File(filePath); // create a File for the given file path
+        this.F = new File(filePath); // create a File for the given file path
 
-        if (!f.exists()) {
-            f.getParentFile().mkdirs();
-            f.createNewFile();
+        if (!F.exists()) {
+            F.getParentFile().mkdirs();
+            F.createNewFile();
         }
     }
     public static void writeFile(String filePath, ArrayList<Task> tasks) throws IOException {
@@ -33,7 +35,7 @@ public class Storage {
     }
 
     public static ArrayList<Task> readFile() throws IOException {
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        Scanner s = new Scanner(F); // create a Scanner using the File as the source
         ArrayList<Task> itemsList = new ArrayList<>();
 
         while (s.hasNext()) {

@@ -2,6 +2,7 @@ package tars;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 /**
  * Class represents a generic class with a Description and isDone status
  * Serves as a base class for other Task types like ToDos, Deadline, Event
@@ -134,7 +135,8 @@ class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "[D] " + super.toString() + " (by: "
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     @Override
@@ -176,7 +178,8 @@ class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + "(from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+        return "[E] " + super.toString()
+                + "(from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
                 + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
