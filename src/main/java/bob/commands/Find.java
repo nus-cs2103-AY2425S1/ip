@@ -30,13 +30,12 @@ public class Find extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public String execute(TaskList list, Ui ui, Storage storage) {
         String matchingTasks = findTasks(list);
         if (matchingTasks.isEmpty()) {
-            System.out.println("No tasks match your search.");
-            return;
+            return "No tasks match your search.";
         }
-        System.out.println("Here are the matching tasks in your list:\n" + findTasks(list));
+        return "Here are the matching tasks in your list:\n" + findTasks(list);
     }
 
     @Override

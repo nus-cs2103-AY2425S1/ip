@@ -31,25 +31,16 @@ public class Bob {
         }
     }
 
-    /**
-     * Entry point of the program
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (BobException e) {
-                ui.showError(e.getMessage());
-            }
-        }
+    public Ui getUi() {
+        return ui;
     }
 
-    public static void main(String[] args) {
-        new Bob("data/bob.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (BobException e) {
+            return e.getMessage();
+        }
     }
 }

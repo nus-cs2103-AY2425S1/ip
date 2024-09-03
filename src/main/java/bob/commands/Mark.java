@@ -14,14 +14,14 @@ public class Mark extends Command {
         this.index = index;
     }
 
-    private void markTask(TaskList list) {
+    private String markTask(TaskList list) {
         list.get(this.index).markAsDone();
-        System.out.println("Nice! I've marked this task as done:\n" + list.get(index));
+        return "Nice! I've marked this task as done:\n" + list.get(index);
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        markTask(list);
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        return markTask(list);
     }
 
     @Override
