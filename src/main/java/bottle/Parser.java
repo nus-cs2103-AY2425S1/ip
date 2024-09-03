@@ -81,14 +81,17 @@ public class Parser {
                 String indexStr = input.substring(7);
                 int taskIndex = Integer.parseInt(indexStr) - 1;
                 return new DeleteCommand(taskIndex);
+            } else if (input.startsWith("find ")) {
+                String filterString = input.substring(5);
+                return new findCommand(filterString);
             } else {
                 throw new RuntimeException("OOPS!!! Something went wrong.");
             }
 
         } catch (RuntimeException e) {
             System.out.println("Error parsing input" + e.getMessage());
+            return new invalidCommand();
         }
-        return null;
     }
 
     /**
