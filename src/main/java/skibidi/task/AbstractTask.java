@@ -3,22 +3,28 @@ package skibidi.task;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * Abstract class representing a task.
+ */
 public abstract class AbstractTask {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Exception thrown when unable to deserialize a string into any subclasses of AbstractTask.
+     */
     public static class TaskDeserializationException extends Exception {
         public TaskDeserializationException(String message) {
             super(String.format("TASK PARSING ERROR: %s", message));
         }
     }
 
-    public AbstractTask(String description) {
+    protected AbstractTask(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    public AbstractTask(String marker, String description) {
+    protected AbstractTask(String marker, String description) {
         this.description = description;
         this.isDone = marker.equals("X");
     }
@@ -44,8 +50,14 @@ public abstract class AbstractTask {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Convert information about task to string representation to save to disk easily.
+     */
     public abstract String serialize() throws IOException;
 
+    /**
+     * Construct new instance of AbstractTask from its serialized string representation.
+     */
     public static AbstractTask deserialize(String rawString) throws IOException, TaskDeserializationException {
         String[] args = rawString.split("[|]");
         if (args.length == 0) {

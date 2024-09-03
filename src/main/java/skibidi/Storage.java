@@ -10,13 +10,19 @@ import java.util.Scanner;
 
 import skibidi.task.AbstractTask;
 
+/**
+ * Handles writing tasks to disk and loading tasks from file.
+ */
 public final class Storage {
-    String dataPath;
+    private String dataPath;
 
     public Storage(String dataPath) {
         this.dataPath = dataPath;
     }
 
+    /**
+     * Save given task list to storage data path. Overrides any existing data on the file.
+     */
     public void saveTasksToDisk(TaskList taskList) {
         File directory = new File("data");
         if (!directory.exists()) {
@@ -41,6 +47,9 @@ public final class Storage {
         }
     }
 
+    /**
+     * Loads list of tasks from file in data path.
+     */
     public List<AbstractTask> loadTasksFromDisk() {
         File file = new File(dataPath);
         List<AbstractTask> tasks = new ArrayList<>();

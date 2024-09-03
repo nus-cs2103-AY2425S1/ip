@@ -15,6 +15,9 @@ import skibidi.task.Deadline;
 import skibidi.task.Event;
 import skibidi.task.Todo;
 
+/**
+ * Handles parsing of input commands.
+ */
 public class CommandParser {
     static class CommandParseException extends Exception {
         public CommandParseException(String message) {
@@ -33,10 +36,16 @@ public class CommandParser {
         FIND
     }
 
+    /**
+     * Check if command is exit command.
+     */
     public boolean isExit(String command) {
         return command.equalsIgnoreCase("bye") || command.equalsIgnoreCase("exit");
     }
 
+    /**
+     * Parse given string command and returns command if succesful. Otherwise, an empty Optional is returned.
+     */
     public Optional<AbstractCommand> parseCommand(String line) {
         String[] args = line.split(" ", 2);
         if (args.length == 0) {
