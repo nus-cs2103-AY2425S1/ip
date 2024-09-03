@@ -3,9 +3,4 @@ public class VoidException extends Exception{
         super(message);
     }
 
-    public void voidExceptionMessage() {
-        System.out.printf("\t%s%n", "------------------------------------------------------------------");
-        System.out.printf("\t%s%n", this.getMessage());
-        System.out.printf("\t%s%n", "------------------------------------------------------------------");
-    }
 }
