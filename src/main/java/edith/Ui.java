@@ -60,7 +60,9 @@ public class Ui {
      * Bids farewell when user inputs "bye".
      */
     public static void bidFarewell() {
+        showLine();
         System.out.println(FAREWELL + LINEBREAK);
+        showLine();
     }
 
     /**
