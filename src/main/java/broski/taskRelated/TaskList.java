@@ -1,6 +1,8 @@
-package broski;
+package broski.taskRelated;
 
 import java.util.ArrayList;
+
+import broski.task.Task;
 
 /**
  * Task that stores all functionality related to the tasklist.
@@ -16,7 +18,7 @@ public class TaskList {
         this.list = list;
     }
 
-    protected ArrayList<Task> getList() {
+    public ArrayList<Task> getList() {
         return list;
     }
 

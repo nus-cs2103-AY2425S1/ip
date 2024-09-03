@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import broski.output.Broski;
+
 public class BroskiTest {
     @Test
     public void start_checkGreeting_success(){

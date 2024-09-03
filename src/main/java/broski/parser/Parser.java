@@ -1,4 +1,4 @@
-package broski;
+package broski.parser;
 
 /**
  * Simple class that parses some input by users.

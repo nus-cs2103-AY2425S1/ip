@@ -1,4 +1,4 @@
-package broski;
+package broski.task;
 
 /**
  * Abstract class that acts as a parent class for 3 subcategories of tasks.
@@ -39,7 +39,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    protected String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
