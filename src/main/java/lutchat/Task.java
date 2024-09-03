@@ -1,12 +1,12 @@
 package lutchat;
 
 public abstract class Task {
-    boolean done;
-    String desc;
+    private boolean done;
+    private String description;
 
-    public Task(String d) {
-        desc = d;
-        done = false;
+    public Task(String description) {
+        this.description = description;
+        this.done = false;
     }
 
     public boolean isDone() {
@@ -24,18 +24,16 @@ public abstract class Task {
     public String toFileFormat() {
         return getTaskType() + " | "
                 + (done ? "1" : "0") + " | "
-                + desc
+                + description
                 + additionalDescDetailsToFileFormat();
     }
 
     public abstract String getTaskType();
+
     public abstract String additionalDescDetailsToFileFormat();
 
     @Override
     public String toString() {
-        if (done) {
-            return "[X] " + desc;
-        } else
-            return "[ ] " + desc;
+        return (done ? "[X] " : "[ ] ") + description;
     }
 }
