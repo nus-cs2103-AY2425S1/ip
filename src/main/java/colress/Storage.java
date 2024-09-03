@@ -65,16 +65,16 @@ public final class Storage {
                     throw new FileCorruptedException();
                 }
 
-                switch (strings[1]) {
-                case "To-Do":
+                switch (TaskType.valueOf(strings[1].toUpperCase())) {
+                case TODO:
                     taskList.addTask(new ToDo(strings[2], isChecked));
                     break;
-                case "Deadline":
+                case DEADLINE:
                     LocalDate deadline = readDate(strings[3]);
 
                     taskList.addTask(new Deadline(strings[2], deadline, isChecked));
                     break;
-                case "Event":
+                case EVENT:
                     LocalDate eventDate = readDate(strings[3]);
                     String[] times = strings[4].split(" to ");
                     LocalTime from = readTime(times[0]);
