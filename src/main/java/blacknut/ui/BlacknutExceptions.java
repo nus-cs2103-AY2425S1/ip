@@ -1,6 +1,11 @@
 package blacknut.ui;
 public class BlacknutExceptions {
 
+    public static class BlacknutException extends Exception {
+        public BlacknutException(String message) {
+            super(message);
+        }
+    }
     public static class InvalidCommandException extends Exception {
         public InvalidCommandException(String message) {
             super(message);
