@@ -1,5 +1,8 @@
 package phenex.task;
 
+/**
+ * ToDo class encapsulating a ToDo Task.
+ */
 public class ToDo extends Task {
 
     public ToDo(String name) {

@@ -1,5 +1,8 @@
 package phenex.task;
 
+/**
+ * Abstract class Task which encapsulates a Task for the Phenex to keep track of.
+ */
 public abstract class Task {
     protected final String name;
     protected boolean isCompleted;

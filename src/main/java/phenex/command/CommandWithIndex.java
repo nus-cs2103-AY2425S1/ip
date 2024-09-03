@@ -1,5 +1,8 @@
 package phenex.command;
 
+/**
+ * Abstract class CommandWithIndex to represent a more specific Command with an index.
+ */
 public abstract class CommandWithIndex extends Command {
     protected int index;
 

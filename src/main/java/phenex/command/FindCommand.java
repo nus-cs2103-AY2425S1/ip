@@ -5,6 +5,9 @@ import phenex.storage.Storage;
 import phenex.task.TaskList;
 import phenex.ui.Ui;
 
+/**
+ * FindCommand class which encapsulates a Command which finds tasks.
+ */
 public class FindCommand extends Command {
     private String name;
 

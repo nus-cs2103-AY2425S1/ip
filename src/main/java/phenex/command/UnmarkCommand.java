@@ -6,6 +6,9 @@ import phenex.task.Task;
 import phenex.task.TaskList;
 import phenex.ui.Ui;
 
+/**
+ * UnmarkCommand class which encapsulates a Command which unmarks a task.
+ */
 public class UnmarkCommand extends CommandWithIndex {
 
     public UnmarkCommand() {
@@ -19,6 +22,6 @@ public class UnmarkCommand extends CommandWithIndex {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
         Task taskMarked = taskList.markTaskIncomplete(super.index);
-        ui.printTaskDeletedMessage(taskMarked, taskList.getTasks().size());
+        ui.printTaskMarkedIncompleteMessage(taskMarked);
     }
 }
