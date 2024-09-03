@@ -1,13 +1,14 @@
 package nuffle.parser;
 
-import nuffle.exception.NuffleException;
-import nuffle.task.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import nuffle.exception.NuffleException;
+import nuffle.task.*;
+
+
 
 /**
  * The Parser class is responsible for interpreting user commands and converting them
@@ -15,7 +16,6 @@ import java.util.regex.Pattern;
  * It also validates date and time formats and handles input parsing.
  */
 public class Parser {
-
     private static final String DATE_TIME_FORMAT_REGEX = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
     // interpret user commands and create the task objects
 
@@ -90,7 +90,6 @@ public class Parser {
             return null;
         }
     }
-
     /**
      * Parses the event command from the user and creates an Event task.
      *
@@ -137,5 +136,4 @@ public class Parser {
         String desc = command.substring(4).trim();
         return inputList.findTasksByKeyword(desc);
     }
-
 }

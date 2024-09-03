@@ -16,7 +16,6 @@ public class NuffleException extends Exception {
     public static NuffleException checkEventParams() {
         return new NuffleException("There is missing input after /to or /from.");
     }
-
     public static NuffleException checkDeadlineParams() {
         return new NuffleException("There is missing input after /by.");
     }

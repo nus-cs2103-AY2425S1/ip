@@ -12,8 +12,6 @@ public class TaskList {
      * Construct a new TaskList.
      */
     public TaskList() {
-
-
         this.inputList = new ArrayList<>();
     }
 

@@ -12,13 +12,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Nuffle {
-    private static Storage storage = new Storage("./data/Nuffle.txt");
+    private Storage storage;
 
-    private static TaskList inputList;
+    private TaskList inputList;
 
-    static {
+    public Nuffle(String filePath) {
         try {
-            inputList = new TaskList(storage.load());
+            this.storage = new Storage(filePath);
+            this.inputList = new TaskList(this.storage.load());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -27,7 +28,7 @@ public class Nuffle {
     /**
      * This method will print out all the task that is stored in the inputList
      */
-    private static void outputList() {
+    private void outputList() {
         // If there is no user input in the list
         if (inputList.getInputList().isEmpty()) {
             System.out.println("List is empty. No input added.");
@@ -44,7 +45,7 @@ public class Nuffle {
      *
      * @param index the index of the task to mark
      */
-    private static void markTask(int index) {
+    private void markTask(int index) {
 
         // check that index is always more than or equals to 0 and index must be within the inputList size
         if (index >= 0 && index < inputList.getSize()) {
@@ -63,7 +64,7 @@ public class Nuffle {
      *
      * @param index the index of the task to unmark
      */
-    private static void unMarkTask(int index) {
+    private void unMarkTask(int index) {
 
         // check that index is always more than or equals to 0 and index must be within the inputList size
         if (index >= 0 && index < inputList.getSize()) {
@@ -81,7 +82,7 @@ public class Nuffle {
      *
      * @param task which is Task object
      */
-    private static void addTaskToList(Task task) {
+    private void addTaskToList(Task task) {
         inputList.addTask(task);
         Ui.addTaskMessage(task, inputList.getSize());
     }
@@ -91,7 +92,7 @@ public class Nuffle {
      *
      * @param index which is the index of the task to be removed
      */
-    private static void deleteTask(int index) {
+    private void deleteTask(int index) {
 
 
         // first, check if the provided index is valid or not
@@ -104,8 +105,7 @@ public class Nuffle {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-
+    public void run() throws IOException {
         // This will be starting point of the application
         Ui.welcomeMessage();
 
@@ -174,5 +174,9 @@ public class Nuffle {
         }
         storage.save(inputList.getInputList());
         user_s.close();
+
+    }
+    public static void main(String[] args) throws IOException {
+        new Nuffle("./data/Nuffle.txt").run();
     }
 }
