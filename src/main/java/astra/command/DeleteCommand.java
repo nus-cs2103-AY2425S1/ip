@@ -25,6 +25,13 @@ public class DeleteCommand extends Command {
     }
 
     @Override
+    public String execute(TaskList tasks, Storage storage) throws AstraException {
+        Task t = tasks.delete(index);
+        storage.save(tasks);
+        return " Noted. I've removed this task: \n  " + t + "\n";
+    }
+
+    @Override
     public boolean isExit() {
         return false;
     }
