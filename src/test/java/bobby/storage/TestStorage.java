@@ -1,14 +1,10 @@
 package bobby.storage;
 
-import bobby.tasklist.TaskList;
-import bobby.tasks.Deadline;
-import bobby.tasks.Event;
-import bobby.tasks.Task;
-import bobby.tasks.Todo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+// Static imports
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+// Java standard library imports
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,9 +12,24 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+// Special imports (JUnit library imports)
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+// Project-specific imports
+import bobby.tasklist.TaskList;
+import bobby.tasks.Deadline;
+import bobby.tasks.Event;
+import bobby.tasks.Task;
+import bobby.tasks.Todo;
+
+
+
+/**
+ * Test class for the Storage class.
+ * This class contains unit tests for the methods in the Storage class.
+ */
 public class TestStorage {
     private static final String TEST_FILE_PATH = "./src/main/data/test_tasks.txt";
     private Storage storage;
@@ -62,9 +73,9 @@ public class TestStorage {
         storage.saveTasks(taskList);
 
         String content = new String(Files.readAllBytes(Paths.get(TEST_FILE_PATH)));
-        String expectedContent = "T | false | Read book\n" +
-                "D | false | Submit report | 2024-12-12\n" +
-                "E | false | Conference | 2024-12-15 | 2024-12-16\n";
+        String expectedContent = "T | false | Read book\n"
+                + "D | false | Submit report | 2024-12-12\n"
+                + "E | false | Conference | 2024-12-15 | 2024-12-16\n";
 
         assertEquals(expectedContent, content, "File content should match the expected output.");
     }
@@ -77,9 +88,9 @@ public class TestStorage {
 
     @Test
     void testLoadTasks_nonEmptyFile() throws IOException {
-        String content = "T | false | Read book\n" +
-                "D | false | Submit report | 2024-12-12\n" +
-                "E | false | Conference | 2024-12-15 | 2024-12-16\n";
+        String content = "T | false | Read book\n"
+                + "D | false | Submit report | 2024-12-12\n"
+                + "E | false | Conference | 2024-12-15 | 2024-12-16\n";
         writeToFile(TEST_FILE_PATH, content);
 
         TaskList loadedTasks = storage.loadTasks();

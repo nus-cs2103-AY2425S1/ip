@@ -1,5 +1,7 @@
 package bobby;
 
+import java.util.ArrayList;
+
 import bobby.command.Command;
 import bobby.exceptions.BobbyException;
 import bobby.parser.Parser;
@@ -7,8 +9,6 @@ import bobby.storage.Storage;
 import bobby.tasklist.TaskList;
 import bobby.tasks.Task;
 import bobby.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * The {@code Bobby} class represents the main application for a task management program.
