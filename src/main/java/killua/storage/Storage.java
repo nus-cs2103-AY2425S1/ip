@@ -1,13 +1,13 @@
 package killua.storage;
 
-import killua.task.Task;
-import killua.parser.Parser;
-import killua.util.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import killua.parser.Parser;
+import killua.task.Task;
+import killua.util.TaskList;
 
 /**
  * Handles the loading and saving of tasks to and from a file.

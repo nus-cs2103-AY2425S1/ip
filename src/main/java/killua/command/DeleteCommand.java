@@ -1,12 +1,12 @@
 package killua.command;
 
-import killua.task.Task;
-import killua.util.KilluaException;
-import killua.storage.Storage;
-import killua.util.TaskList;
-import killua.ui.Ui;
-
 import java.io.IOException;
+
+import killua.storage.Storage;
+import killua.task.Task;
+import killua.ui.Ui;
+import killua.util.KilluaException;
+import killua.util.TaskList;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -41,3 +41,4 @@ public class DeleteCommand extends Command {
         storage.save(tasks);
     }
 }
+

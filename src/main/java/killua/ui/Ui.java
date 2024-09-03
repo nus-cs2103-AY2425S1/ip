@@ -1,12 +1,12 @@
 package killua.ui;
 
-import killua.task.Task;
-import killua.util.TaskList;
-
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import killua.task.Task;
+import killua.util.TaskList;
 
 /**
  * Represents the user interface of the Killua task manager.
@@ -14,8 +14,8 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private final Scanner in;
     private static final String LINE = "______________________________________________________________________________";
+    private final Scanner in;
 
     /**
      * Constructs a Ui instance with default input and output streams.

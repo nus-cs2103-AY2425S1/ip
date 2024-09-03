@@ -1,16 +1,22 @@
-package killua.util;
+package killua.parser;
 
-import killua.command.*;
-import killua.parser.Parser;
-import killua.task.Deadline;
-import killua.task.Event;
-import killua.task.Todo;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import killua.command.AddCommand;
+import killua.command.Command;
+import killua.task.Deadline;
+import killua.task.Event;
+import killua.task.Todo;
+import killua.util.KilluaException;
+
 
 class ParserTest {
 
