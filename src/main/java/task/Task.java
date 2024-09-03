@@ -93,6 +93,10 @@ public abstract class Task {
         isDone = val;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), description);
