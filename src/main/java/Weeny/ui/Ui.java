@@ -1,7 +1,10 @@
-package weeny;
+package weeny.ui;
 
 import java.util.List;
 import java.util.Scanner;
+
+import weeny.task.Task;
+
 
 /**
  * Handles user interactions by displaying messages and reading input.

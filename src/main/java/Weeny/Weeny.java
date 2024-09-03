@@ -1,5 +1,14 @@
 package weeny;
 
+import weeny.ui.Ui;
+import weeny.task.Todo;
+import weeny.task.Events;
+import weeny.task.Deadlines;
+import weeny.task.TaskList;
+import weeny.task.Task;
+import weeny.storage.Storage;
+import weeny.parser.Parser;
+
 /**
  * Main class for the Weeny task management application.
  * Manages user commands and handles tasks.

@@ -1,9 +1,10 @@
-package weeny;
+package weeny.task;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import weeny.parser.Parser;
 /**
  * Represents a deadline task with a description and due date/time.
  */

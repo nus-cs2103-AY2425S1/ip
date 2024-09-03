@@ -1,4 +1,4 @@
-package weeny;
+package weeny.task;
 
 /**
  * Enum representing different types of tasks.
