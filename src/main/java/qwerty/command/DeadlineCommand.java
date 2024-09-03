@@ -8,9 +8,9 @@ import java.util.HashMap;
 import qwerty.QwertyException;
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.ui.Ui;
-import qwerty.task.Task;
 import qwerty.task.Deadline;
+import qwerty.task.Task;
+import qwerty.ui.Ui;
 
 /**
  * This class encapsulates a 'deadline' command.

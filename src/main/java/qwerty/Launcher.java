@@ -1,7 +1,6 @@
 package qwerty;
 
 import javafx.application.Application;
-
 import qwerty.ui.Ui;
 
 /**

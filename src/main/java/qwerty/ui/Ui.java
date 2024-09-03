@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import qwerty.Qwerty;
 
 
@@ -19,6 +18,11 @@ public class Ui extends Application {
 
     private static FXMLLoader fxmlLoader;
 
+    /**
+     * Starts the GUI and the associated chatbot.
+     *
+     * @param stage Stage instance.
+     */
     public void start(Stage stage) {
         try {
             fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindow.fxml"));
@@ -26,7 +30,7 @@ public class Ui extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             Qwerty qwerty = new Qwerty();
-            fxmlLoader.<MainWindow>getController().setQwerty(qwerty);  // inject the Qwerty instance
+            fxmlLoader.<MainWindow>getController().setQwerty(qwerty); // inject the Qwerty instance
             qwerty.start();
             stage.show();
         } catch (IOException e) {
@@ -76,9 +80,7 @@ public class Ui extends Application {
      * Displays a hardcoded goodbye message to the user in the GUI.
      */
     public void showGoodbye() {
-        showQwertyMessage("""
-                
-                Goodbye, and I'll see you within 3 business days.""");
+        showQwertyMessage("\nGoodbye, and I'll see you within 3 business days.");
     }
 
 }

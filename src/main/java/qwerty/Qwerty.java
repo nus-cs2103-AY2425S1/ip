@@ -17,6 +17,9 @@ public class Qwerty {
     /** Component that manages read/write to hard drive */
     private Storage storage;
 
+    /**
+     * Creates a new Qwerty instance.
+     */
     public Qwerty() {
         this.isChatting = true;
         this.ui = new Ui();
@@ -34,6 +37,11 @@ public class Qwerty {
         ui.showGreeting();
     }
 
+    /**
+     * Handle the given user input. Attempts to create a corresponding command and execute it.
+     *
+     * @param rawInput String input to execute.
+     */
     public void handleUserInput(String rawInput) {
         ui.showUserMessage(rawInput);
         if (isChatting) {

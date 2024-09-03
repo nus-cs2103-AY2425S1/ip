@@ -16,6 +16,13 @@ public class Event extends Task {
     /** The time at which the event ends */
     private final LocalDateTime to;
 
+    /**
+     * Creates a new Event instance.
+     *
+     * @param description String description of the event.
+     * @param from Start date of the event.
+     * @param to End date of the event.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;

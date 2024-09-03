@@ -1,7 +1,7 @@
 package qwerty.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +14,12 @@ public class Deadline extends Task {
     /** The deadline of the task */
     private final LocalDateTime by;
 
+    /**
+     * Creates a new Deadline instance.
+     *
+     * @param description String description of the deadline.
+     * @param by Due date of the deadline.
+     */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;

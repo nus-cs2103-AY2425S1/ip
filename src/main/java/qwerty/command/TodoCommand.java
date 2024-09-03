@@ -5,9 +5,9 @@ import java.util.HashMap;
 import qwerty.QwertyException;
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.ui.Ui;
 import qwerty.task.Task;
 import qwerty.task.Todo;
+import qwerty.ui.Ui;
 
 /**
  * This class encapsulates a 'todo' command.

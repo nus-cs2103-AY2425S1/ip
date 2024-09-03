@@ -11,6 +11,11 @@ public abstract class Task {
     /** Marks whether the task is done */
     private boolean isDone;
 
+    /**
+     * Creates a new Task instance.
+     *
+     * @param description String description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

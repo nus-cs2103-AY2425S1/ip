@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 import qwerty.Storage;
 import qwerty.TaskList;
-import qwerty.ui.Ui;
 import qwerty.task.Task;
+import qwerty.ui.Ui;
 
 /**
  * This class encapsulates a 'mark' command.

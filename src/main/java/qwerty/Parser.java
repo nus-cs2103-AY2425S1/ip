@@ -7,9 +7,9 @@ import qwerty.command.ByeCommand;
 import qwerty.command.Command;
 import qwerty.command.DeadlineCommand;
 import qwerty.command.DeleteCommand;
-import qwerty.command.FindCommand;
 import qwerty.command.EmptyCommand;
 import qwerty.command.EventCommand;
+import qwerty.command.FindCommand;
 import qwerty.command.ListCommand;
 import qwerty.command.MarkCommand;
 import qwerty.command.TodoCommand;
@@ -69,17 +69,17 @@ public class Parser {
         HashMap<String, String> args = Parser.parseArgs(argumentString);
 
         return switch (commandWord) {
-            case "" -> new EmptyCommand(args);
-            case "bye" -> new ByeCommand(args);
-            case "list" -> new ListCommand(args);
-            case "mark" -> new MarkCommand(args);
-            case "unmark" -> new UnmarkCommand(args);
-            case "todo" -> new TodoCommand(args);
-            case "deadline" -> new DeadlineCommand(args);
-            case "event" -> new EventCommand(args);
-            case "delete" -> new DeleteCommand(args);
-            case "find" -> new FindCommand(args);
-            default -> new UnknownCommand(args);
+        case "" -> new EmptyCommand(args);
+        case "bye" -> new ByeCommand(args);
+        case "list" -> new ListCommand(args);
+        case "mark" -> new MarkCommand(args);
+        case "unmark" -> new UnmarkCommand(args);
+        case "todo" -> new TodoCommand(args);
+        case "deadline" -> new DeadlineCommand(args);
+        case "event" -> new EventCommand(args);
+        case "delete" -> new DeleteCommand(args);
+        case "find" -> new FindCommand(args);
+        default -> new UnknownCommand(args);
         };
     }
 }
