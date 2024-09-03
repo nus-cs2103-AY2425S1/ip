@@ -1,16 +1,30 @@
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Lawrence {
     private static final String NAME = "Lawrence";
-    private static final Tasks tasks = new Tasks();
+    private static final Path saveLocation = Paths.get(".", "data", "tasks.txt");
+    private static final Tasks tasks = new Tasks(saveLocation);
 
     public static void main(String[] args) {
         greetUser();
+
+        // Parse saved tasks from file
+        try {
+            tasks.initialiseExistingTasks();
+        } catch (IOException e) {
+            displayMessage("Failed to initialise tasks from file");
+        }
+
         Scanner sc = new Scanner(System.in);
 
         String userInput;
         while (true) {
             userInput = sc.nextLine();  // Get next user input
+
+            // Parse command at start of the line
             String[] inputComponents = userInput.split(" ", 2);
 
             Command command;
@@ -23,92 +37,66 @@ public class Lawrence {
             }
 
             switch (command) {
-                case EXIT:
-                    exitSession();
+            case EXIT:
+                exitSession();
+                break;
+            case DISPLAY:
+                displayTasks();
+                break;
+            case MARK_COMPLETE:
+                if (inputComponents.length < 2) {
+                    displayMessage("Please specify the task you want to mark as complete.");
                     break;
-                case DISPLAY:
-                    displayTasks();
+                }
+                int taskNumberToComplete = Integer.parseInt(inputComponents[1]);
+                markTaskAsComplete(taskNumberToComplete);
+                break;
+            case MARK_INCOMPLETE:
+                if (inputComponents.length < 2) {
+                    displayMessage("Please specify the task you want to mark as incomplete.");
                     break;
-                case MARK_COMPLETE:
-                    if (inputComponents.length < 2) {
-                        displayMessage("Please specify the task you want to mark as complete.");
-                        break;
-                    }
-                    markTaskAsComplete(inputComponents[1]);
+                }
+                int taskNumberToIncomplete = Integer.parseInt(inputComponents[1]);
+                markTaskAsIncomplete(taskNumberToIncomplete);
+                break;
+            case DELETE:
+                if (inputComponents.length < 2) {
+                    displayMessage("Please specify the task you want to delete.");
                     break;
-                case MARK_INCOMPLETE:
-                    if (inputComponents.length < 2) {
-                        displayMessage("Please specify the task you want to mark as incomplete.");
-                        break;
-                    }
-                    markTaskAsIncomplete(inputComponents[1]);
-                    break;
-                case DELETE:
-                    if (inputComponents.length < 2) {
-                        displayMessage("Please specify the task you want to delete.");
-                        break;
-                    }
-                    deleteTask(inputComponents[1]);
-                    break;
-                case CREATE_TODO:
-                    if (inputComponents.length < 2) {
-                        displayMessage("Todo description cannot be empty! Please try again.");
-                        break;
-                    }
-                    addTodo(inputComponents[1]);
-                    break;
-                case CREATE_DEADLINE:
-                    if (inputComponents.length < 2) {
-                        displayMessage("Deadline information not found! Please try again.");
-                        break;
-                    }
-                    addDeadline(inputComponents[1]);
-                    break;
-                case CREATE_EVENT:
-                    if (inputComponents.length < 2) {
-                        displayMessage("Event information not found! Please try again.");
-                        break;
-                    }
-                    addEvent(inputComponents[1]);
-                    break;
+                }
+                int taskNumberToDelete = Integer.parseInt(inputComponents[1]);
+                deleteTask(taskNumberToDelete);
+                break;
+            case CREATE_TODO:
+                // Intentional falling through of case
+            case CREATE_DEADLINE:
+                // Intentional falling through of case
+            case CREATE_EVENT:
+                Task t = TaskFactory.createTask(userInput, InputSource.USER);
+                addTask(t);
+                break;
+            default:
+                // This case should never be reached
+                throw new IllegalStateException("Unexpected command: " + command);
             }
         }
     }
 
-    private static void addTodo(String description) {
-        addTask(new ToDo(description));
-    }
-
-    private static void addDeadline(String parameters) {
-        String[] deadlineComponents = parameters.split(" /by ");
-        if (deadlineComponents.length < 2) {
-            displayMessage("Not enough information to create deadline.");
-            return;
-        }
-        addTask(new Deadline(deadlineComponents[0], deadlineComponents[1]));
-    }
-
-    private static void addEvent(String parameters) {
-        String[] eventComponents = parameters.split(" /from | /to ");
-        if (eventComponents.length < 3) {
-            displayMessage("Not enough information to create event.");
-            return;
-        }
-        addTask(new Event(eventComponents[0], eventComponents[1], eventComponents[2]));
-    }
-
     private static void addTask(Task t) {
-        tasks.add(t);
-        int numberOfTasks = tasks.getSize();
-        String verb = numberOfTasks == 1 ? "is" : "are";
-        String plural = numberOfTasks == 1 ? "" : "s";
-        displayMessage(String.format("Alright, added task:%n%s%n to the list.%n"
-                + "There %s currently %d task%s in the list.", t, verb, numberOfTasks, plural));
+        try {
+            tasks.addTask(t);
+            int numberOfTasks = tasks.getSize();
+            String verb = numberOfTasks == 1 ? "is" : "are";
+            String plural = numberOfTasks == 1 ? "" : "s";
+            displayMessage(String.format("Alright, added task:%n%s%nto the list.%n"
+                    + "There %s currently %d task%s in the list.", t, verb, numberOfTasks, plural));
+        } catch (IOException e) {
+            displayMessage("Failed to add task to the list. Please try again later.");
+        }
     }
 
-    private static void deleteTask(String parameters) {
+    private static void deleteTask(int taskNumber) {
         try {
-            int taskNumber = Integer.parseInt(parameters);
             Task deletedTask = tasks.deleteTask(taskNumber);
             displayMessage(
                     String.format("Task %s has been deleted.", deletedTask));
@@ -117,12 +105,14 @@ public class Lawrence {
         } catch (IllegalArgumentException | IllegalStateException e) {
             displayMessage(
                     String.format("%s Please try again.", e.getMessage()));
+        } catch (IOException e) {
+            displayMessage(
+                    String.format("Failed to delete task %d from the list. Please try again later.", taskNumber));
         }
     }
 
-    private static void markTaskAsComplete(String parameters) {
+    private static void markTaskAsComplete(int taskNumber) {
         try {
-            int taskNumber = Integer.parseInt(parameters);
             Task completeTask = tasks.completeTask(taskNumber);
             displayMessage(
                     String.format("I've marked the task as complete:%n%s", completeTask));
@@ -131,12 +121,14 @@ public class Lawrence {
         } catch (IllegalArgumentException | IllegalStateException e) {
             displayMessage(
                     String.format("%s Please try again.", e.getMessage()));
+        } catch (IOException e) {
+            displayMessage(
+                    String.format("Failed to mark task %d as complete. Please try again later.", taskNumber));
         }
     }
 
-    private static void markTaskAsIncomplete(String parameters) {
+    private static void markTaskAsIncomplete(int taskNumber) {
         try {
-            int taskNumber = Integer.parseInt(parameters);
             Task incompleteTask = tasks.uncompleteTask(taskNumber);
             displayMessage(
                     String.format("Changed your mind? The task is set to incomplete:%n%s", incompleteTask));
@@ -145,6 +137,9 @@ public class Lawrence {
         } catch (IllegalArgumentException | IllegalStateException e) {
             displayMessage(
                     String.format("%s Please try again.", e.getMessage()));
+        } catch (IOException e) {
+            displayMessage(
+                    String.format("Failed to mark task %d as incomplete. Please try again later.", taskNumber));
         }
     }
 
@@ -153,7 +148,7 @@ public class Lawrence {
             displayMessage("You have no tasks at the moment.");
             return;
         }
-        displayMessage(String.format("Here's your laundry list:%n%s", tasks.toString()));
+        displayMessage(String.format("Here's your laundry list:%n%s", tasks));
     }
 
     private static void greetUser() {
