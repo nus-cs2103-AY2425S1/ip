@@ -111,6 +111,13 @@ public class Ui {
     }
 
     /**
+     * Displays the matching tasks found in the list.
+     */
+    public void showFind() {
+        System.out.println("Here are the matching tasks in your list — it's your density... I mean, your destiny to get these done!\n");
+    }
+
+    /**
      * Reads a command input from the user.
      *
      * @return The user input as a String.

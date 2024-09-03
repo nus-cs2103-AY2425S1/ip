@@ -1,12 +1,6 @@
 package drbrown.utils;
 
-import drbrown.command.AddCommand;
-import drbrown.command.Command;
-import drbrown.command.DeleteCommand;
-import drbrown.command.ExitCommand;
-import drbrown.command.ListCommand;
-import drbrown.command.MarkCommand;
-import drbrown.command.UnmarkCommand;
+import drbrown.command.*;
 import drbrown.task.Deadline;
 import drbrown.task.Event;
 import drbrown.task.Task;
@@ -122,6 +116,12 @@ public class Parser {
                     throw new DrBrownException("Whoa, hold on! You've written more letters than necessary! It's like trying to fit a flux capacitor into a toaster – it just doesn't belong!");
                 }
                 return new ExitCommand();
+
+            case "find":
+                if (inputSplit.length == 1) {
+                    throw new DrBrownException("Whoa, hold on! You've written too few letters than necessary! It's like trying to fit a flux capacitor into a toaster – it just doesn't belong!");
+                }
+                return new FindCommand(inputSplit[1]);
 
             default:
                 throw new DrBrownException("I’m from the future, and even I don’t know what that means.");
