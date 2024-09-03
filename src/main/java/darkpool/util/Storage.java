@@ -33,7 +33,7 @@ public class Storage {
      * @return The file object representing the data file.
      * @throws DarkpoolException If an I/O error occurs.
      */
-    private File checkFileAndDir() throws DarkpoolException {
+    private File validateData() throws DarkpoolException {
         File dataFile = new File(filePath);
 
         if (!dataFile.exists()) {
@@ -57,7 +57,7 @@ public class Storage {
     public ArrayList<Task> loadData() throws DarkpoolException {
         ArrayList<Task> taskList = new ArrayList<>();
         String curTask;
-        File dataFile = checkFileAndDir();
+        File dataFile = validateData();
         Scanner scanner;
 
         try {
