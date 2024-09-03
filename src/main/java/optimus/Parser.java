@@ -1,5 +1,6 @@
 package optimus;
 import java.io.IOException;
+import java.util.List;
 
 public class Parser {
 
@@ -9,6 +10,12 @@ public class Parser {
             storage.saveToFile(record.getTasks());
             ui.showGoodbye();
             System.exit(0);
+        } else if (text.startsWith("find ")) {
+            String keyword = text.substring(5).trim();
+            if (keyword.isEmpty()) {
+                throw new OptimusException("The keyword provided is empty");
+            }
+            record.findTasks(keyword, ui);
         } else if (text.equals("list")) {
             ui.listTasks(record);
         } else if (text.startsWith("delete")) {

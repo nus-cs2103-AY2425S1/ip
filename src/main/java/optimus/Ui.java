@@ -1,5 +1,6 @@
 package optimus;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -95,6 +96,18 @@ public class Ui {
     public void TaskUnmarked(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task.toString());
+    }
+
+    /**
+     * Displays a list of tasks that match the search keyword.
+     *
+     * @param tasks the list of tasks to display.
+     */
+    public void listFoundTasks(List<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+        }
     }
 
     /**
