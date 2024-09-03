@@ -15,11 +15,16 @@ public class Evelyn {
     private TextBasedUi ui;
     private TaskList taskList;
     private Parser parser;
+    private static final String DEFAULT_FILE_PATH = "src/main/data/evelyn.txt";
 
-    public Evelyn(String filePath) {
-        this.taskList = new TaskList(new Storage(filePath));
+    public Evelyn() {
+        this.taskList = new TaskList(new Storage(DEFAULT_FILE_PATH));
         this.parser = new Parser(this.taskList);
-        this.ui = new TextBasedUi(this.parser);
+//        this.ui = new TextBasedUi(this.parser);
+    }
+
+    public String getResponse(String input) {
+        return "Evelyn heard: " + input;
     }
 
 
