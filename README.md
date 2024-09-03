@@ -1,5 +1,8 @@
 ## Gumball
-Gumball frees your mind of having to remember things you need to do. It's,
+
+> “Your mind is for having ideas, not holding them.” – David Allen ([source](https://dansilvestre.com/productivity-quotes/))
+
+Gumball frees your mind of having to remember things you need to do ~~stopping you from being too lazy~~. It's,
 
 -text-based
 
@@ -9,21 +12,22 @@ Gumball frees your mind of having to remember things you need to do. It's,
 
 All you need to do is,
 
-1.download it from here.
+1.download it from _here_.
 
 2.double-click it.
 
 3.add your tasks.
 
-4.let it manage your tasks for you 😉
+4.let it manage your tasks for you 😸:
 
+Plus its completely __Free__
 Features:
 
--[x] Managing tasks
+- [x] Managing tasks
 
--[x] Managing deadlines
+- [x] Managing deadlines
 
--[ ] Reminders (coming soon)
+- [ ] Reminders (coming soon)
 
 Here is a look at the main method:
 
