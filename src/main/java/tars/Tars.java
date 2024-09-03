@@ -49,6 +49,8 @@ public class Tars {
                 } else {
                     parserHelp.checkEntry(entryParts, entry, taskList);
                 }
+            } else if (entryParts[0].equals("find")) {
+                parserHelp.findTask(entryParts, taskList);
             } else {
                 taskList.addTask(entryParts, entry);
             }
