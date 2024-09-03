@@ -13,12 +13,15 @@ public class Deadline extends Task {
     public String getStatusIcon() {
         return super.getStatusIcon();
     }
+
     @Override
     public String toFormatted() {
         return "D," + this.isDone() + "," + this.description + "," + this.by + "\n";
     }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.getDayOfMonth() + " " + by.getMonth() + " " + by.getYear() + ")";
+        return "[D]" + super.toString() + " (by: " + by.getDayOfMonth() + " " + by.getMonth() + " " + by.getYear()
+                + ")";
     }
 }

@@ -26,17 +26,15 @@ public class Zero {
     public void run() {
         ui.showWelcome();
 
-        while(!ui.isDone()) {
+        while (!ui.isDone()) {
             try {
                 String command = ui.readCommand();
                 Parser.parseCommand(command, tasks, ui);
                 storage.save(tasks);
-            }catch (ZeroException e) {
+            } catch (ZeroException e) {
                 ui.showError(e.getMessage());
             }
-
         }
-
     }
 
     public static void main(String[] args) {

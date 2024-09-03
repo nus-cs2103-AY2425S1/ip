@@ -1,13 +1,5 @@
 package zero.util;
 
-import zero.task.Deadline;
-import zero.task.Event;
-import zero.task.Task;
-import zero.task.Todo;
-import zero.task.TaskList;
-
-import zero.exception.ZeroException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,6 +7,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+import zero.exception.ZeroException;
+import zero.task.Deadline;
+import zero.task.Event;
+import zero.task.Task;
+import zero.task.TaskList;
+import zero.task.Todo;
 
 public class Storage {
     private String filePath;
@@ -28,8 +26,8 @@ public class Storage {
         try {
             File fileObj = new File(filePath);
             if (!fileObj.exists()) {
-                fileObj.getParentFile().mkdirs();  // create directories if they don't exist
-                fileObj.createNewFile();  // create the file if it doesn't exist
+                fileObj.getParentFile().mkdirs(); // create directories if they don't exist
+                fileObj.createNewFile(); // create the file if it doesn't exist
             }
             Scanner myReader = new Scanner(fileObj);
             while (myReader.hasNextLine()) {
@@ -51,7 +49,8 @@ public class Storage {
                         tasks.add(newDeadline);
                         break;
                     case "E":
-                        Event newEvent = new Event(items[2], LocalDateTime.parse(items[3]), LocalDateTime.parse(items[4]));
+                        Event newEvent =
+                                new Event(items[2], LocalDateTime.parse(items[3]), LocalDateTime.parse(items[4]));
                         if (items[1].equals("1")) {
                             newEvent.markAsDone();
                         }

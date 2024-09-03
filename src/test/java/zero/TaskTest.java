@@ -1,15 +1,13 @@
 package zero;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDateTime;
+import org.junit.jupiter.api.Test;
+import zero.exception.ZeroException;
 import zero.task.Task;
 import zero.task.Todo;
 import zero.util.Parser;
-import zero.exception.ZeroException;
-
-import java.time.LocalDateTime;
-
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskTest {
 
@@ -33,7 +31,5 @@ public class TaskTest {
         } catch (ZeroException e) {
             System.out.println(e.getMessage());
         }
-
     }
-
 }

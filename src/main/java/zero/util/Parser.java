@@ -1,18 +1,15 @@
 package zero.util;
 
-import zero.task.Deadline;
-import zero.task.Event;
-import zero.task.Task;
-import zero.task.Todo;
-import zero.task.TaskList;
-
-import zero.exception.ZeroException;
-
-import zero.ui.Ui;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import zero.exception.ZeroException;
+import zero.task.Deadline;
+import zero.task.Event;
+import zero.task.Task;
+import zero.task.TaskList;
+import zero.task.Todo;
+import zero.ui.Ui;
 
 public class Parser {
     public static void parseCommand(String fullCommand, TaskList tasks, Ui ui) {
@@ -52,11 +49,11 @@ public class Parser {
         }
     }
 
-    //its getting abit too long so gonna shift it here
+    // its getting abit too long so gonna shift it here
     private static void handleMark(TaskList tasks, String input, Ui ui) throws ZeroException {
         try {
             String[] strArr = input.split(" ", 2);
-            int choice = Integer.parseInt(strArr[1]) - 1;  // convert to zero-based index
+            int choice = Integer.parseInt(strArr[1]) - 1; // convert to zero-based index
             tasks.getTask(choice).markAsDone();
             ui.showTaskMarked(tasks.getTask(choice));
         } catch (NumberFormatException e) {
@@ -67,7 +64,7 @@ public class Parser {
     private static void handleUnmark(TaskList tasks, String input, Ui ui) throws ZeroException {
         try {
             String[] strArr = input.split(" ", 2);
-            int choice = Integer.parseInt(strArr[1]) - 1;  // convert to zero-based index
+            int choice = Integer.parseInt(strArr[1]) - 1; // convert to zero-based index
             tasks.getTask(choice).markAsNotDone();
             ui.showTaskUnmarked(tasks.getTask(choice));
         } catch (NumberFormatException e) {
@@ -79,7 +76,7 @@ public class Parser {
         if (input.trim().equals("todo")) {
             throw new ZeroException("The description of a todo cannot be empty.");
         }
-        String description = input.substring(5).trim();  // extract description
+        String description = input.substring(5).trim(); // extract description
         Todo newTodo = new Todo(description);
         tasks.addTask(newTodo);
         ui.showTaskAdded(newTodo, tasks.getSize());
@@ -90,8 +87,8 @@ public class Parser {
         if (parts.length < 2 || parts[0].trim().equals("deadline")) {
             throw new ZeroException("The description of a deadline or the date/time cannot be empty.");
         }
-        String description = parts[0].substring(9).trim();  // extract description
-        String byString = parts[1].trim();  // extract deadline
+        String description = parts[0].substring(9).trim(); // extract description
+        String byString = parts[1].trim(); // extract deadline
         LocalDateTime by = handleDate(byString);
         Deadline newDeadline = new Deadline(description, by);
         tasks.addTask(newDeadline);
@@ -103,9 +100,9 @@ public class Parser {
         if (parts.length < 3 || parts[0].trim().equals("event")) {
             throw new ZeroException("The description of an event or the date/time cannot be empty.");
         }
-        String description = parts[0].substring(6).trim();  // extract description
-        String fromString = parts[1].trim();  // extract start time
-        String toString = parts[2].trim();  // extract end time
+        String description = parts[0].substring(6).trim(); // extract description
+        String fromString = parts[1].trim(); // extract start time
+        String toString = parts[2].trim(); // extract end time
         LocalDateTime from = handleDate(fromString);
         LocalDateTime to = handleDate(toString);
         Event newEvent = new Event(description, from, to);
