@@ -42,7 +42,7 @@ public class Parser {
                 if (unmarkIndex < 0 || unmarkIndex >= tasks.size()) {
                     throw new SeanBotException("The task number must be valid.");
                 }
-                tasks.getTask(unmarkIndex).markAsUnmarkAsDone();
+                tasks.getTask(unmarkIndex).markAsUndone();
                 storage.save(tasks.getTasks());
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks.getTask(unmarkIndex));
