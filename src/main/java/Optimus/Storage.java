@@ -1,7 +1,4 @@
-package optimus;
-
-import optimus.Deadlines;
-import optimus.Events;
+package Optimus;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,4 +1,4 @@
-package optimus;
+package Optimus;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class Optimus {
                 Task task = Parser.parseCommand(command, tasks, ui, storage);
                 if (task != null) {
                     tasks.addTask(task);
-                    ui.TaskAdded(task, tasks.size());
+                    ui.TaskAdded(task, tasks.sizeOfRecord());
                 }
             } catch (OptimusException | IOException e) { // used gpt
                 ui.printError(e.getMessage());

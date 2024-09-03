@@ -1,4 +1,4 @@
-package optimus;
+package Optimus;
 
 public class OptimusException extends Exception {
     public OptimusException(String message) {

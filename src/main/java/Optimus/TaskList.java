@@ -1,6 +1,4 @@
-package optimus;
-
-import optimus.Task;
+package Optimus;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public class TaskList {
         return record.get(index);
     }
 
-    public int size() {
+    public int sizeOfRecord() {
         return record.size();
     }
 
