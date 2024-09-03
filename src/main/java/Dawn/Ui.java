@@ -26,6 +26,7 @@ public class Ui {
             }
         }
     }
+
     public void showLoadingError(DawnException ex) {
         System.out.println(ex);
     }
