@@ -1,12 +1,12 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class Dash {
     private static final String LOGO = " .----------------.  .----------------.  .----------------.  .----------------.\n" +
             "| .--------------. || .--------------. || .--------------. || .--------------. |\n" +
@@ -34,10 +34,6 @@ public class Dash {
         //Initialise array list to store date
         ArrayList<Task> list = new ArrayList<>();
 
-        //Formatters for date and time
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
-        DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
-
         System.out.println(HORIZONTAL_LINE);
 
         //Check if file exists; else create file
@@ -57,14 +53,14 @@ public class Dash {
                         }
                         list.add(t);
                     } else if (type == 'D') {
-                        Deadline d = new Deadline(stringArray[2], LocalDateTime.parse(stringArray[3], fileFormatter));
+                        Deadline d = new Deadline(stringArray[2], stringArray[3]);
                         if (stringArray[1].equals("X")) {
                             d.markTaskAsDone();
                         }
                         list.add(d);
                     } else if (type == 'E') {
-                        Event e = new Event(stringArray[2], LocalDateTime.parse(stringArray[3], fileFormatter),
-                                LocalDateTime.parse(stringArray[4], fileFormatter));
+                        System.out.println(stringArray[2]);
+                        Event e = new Event(stringArray[2], stringArray[3], stringArray[4]);
                         if (stringArray[1].equals("X")) {
                             e.markTaskAsDone();
                         }
@@ -176,7 +172,7 @@ public class Dash {
                         throw new IncorrectCommandUseException("Please include deadline!");
                     }
 
-                    LocalDateTime date = LocalDateTime.parse(byString[1], inputFormatter);
+                    String date = byString[1];
                     String[] string2 = string[0].split(" ", 2); //"deadline" and "XX"
                     String desc = string2[1];
                     Deadline t = new Deadline(desc, date);
@@ -212,8 +208,8 @@ public class Dash {
                         throw new IncorrectCommandUseException("Please include the /to command.");
                     }
 
-                    LocalDateTime from = LocalDateTime.parse(fromString[1], inputFormatter);
-                    LocalDateTime to = LocalDateTime.parse(toString[1], inputFormatter);
+                    String from = fromString[1];
+                    String to = toString[1];
                     String[] eventString = string[0].split(" ", 2); //"event" and "XX"
                     String desc = eventString[1];
                     Event t = new Event(desc, from, to);
@@ -254,9 +250,6 @@ public class Dash {
             } catch (UnknownCommandException | EmptyDescriptionException
                      | IncorrectCommandUseException | WrongIndexException e) {
                 System.out.println("ERROR: " + e.getMessage());
-                System.out.println(HORIZONTAL_LINE);
-            } catch (DateTimeParseException e) {
-                System.out.println("Date format is wrong, please input dd-mm-yyyy hhmm: " + e.getMessage());
                 System.out.println(HORIZONTAL_LINE);
             } catch (Exception e) {
                 System.out.println("UNEXPECTED ERROR: " + e.getMessage());
