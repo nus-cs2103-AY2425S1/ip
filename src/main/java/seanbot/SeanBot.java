@@ -1,7 +1,6 @@
 package seanbot;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.*;
 
 /**
@@ -20,9 +19,9 @@ public class SeanBot {
      *
      * @param filePath The file path where the task list is stored.
      */
-    public SeanBot(String filePath) {
+    public SeanBot() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("data/seanbot.txt");
         parser = new Parser();
         try {
             tasks = new TaskList(storage.load());
@@ -60,6 +59,13 @@ public class SeanBot {
      * The main method of the SeanBot application.
      */
     public static void main(String[] args) {
-        new SeanBot("data/seanbot.txt").run();
+        new SeanBot().run();
+    }
+    
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "SeanBot heard: " + input;
     }
 }
