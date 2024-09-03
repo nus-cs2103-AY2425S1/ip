@@ -36,7 +36,7 @@ public class Storage {
      * @param taskList TaskList.
      * @return String of all Task Details divided by " | ".
      */
-    private String saveTaskString(TaskList taskList) {
+    private String obtainTaskString(TaskList taskList) {
         return taskList.getTaskList().stream()
                 .map(Task::getTaskDetails)
                 .map(x -> String.join(" | ", x) + "\n")
@@ -51,7 +51,7 @@ public class Storage {
     public void saveTaskList(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
-            fileWriter.write(saveTaskString(taskList));
+            fileWriter.write(obtainTaskString(taskList));
             fileWriter.close();
         } catch (IOException e) {
             System.out.println("\tSora is unable to write to file" + Ui.HORIZONTAL_LINE);
