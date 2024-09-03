@@ -3,7 +3,6 @@ package tick;
 import java.io.IOException;
 
 import tick.commands.Command;
-import tick.commands.CommandType;
 import tick.exceptions.TickException;
 import tick.parser.Parser;
 import tick.storage.Storage;
