@@ -19,20 +19,6 @@ public abstract class Command {
     public enum Type {
         LIST, ADD, DELETE, MARK, UNMARK, EXIT, FIND;
 
-        /**
-         * Converts a given {@link String} into a {@link Type}.
-         * @param type The {@link String} to convert.
-         * @return The converted {@link Type}.
-         * @throws EkudException If {@code type} does not match to any {@link Type}.
-         */
-        public static Type getType(String type) throws EkudException {
-            Type query = aliases.get(type.toLowerCase());
-            if (query == null) {
-                throw new EkudException("Quit yapping buddy, I have no clue what ya saying!");
-            }
-            return query;
-        }
-
         /** A set of aliases for the different {@link Type Types} of {@link Command} */
         private static final HashMap<String, Type> aliases;
         // initialize command aliases
@@ -48,6 +34,20 @@ public abstract class Command {
             aliases.put("bye", EXIT);
             aliases.put("exit", EXIT);
             aliases.put("find", FIND);
+        }
+
+        /**
+         * Converts a given {@link String} into a {@link Type}.
+         * @param type The {@link String} to convert.
+         * @return The converted {@link Type}.
+         * @throws EkudException If {@code type} does not match to any {@link Type}.
+         */
+        public static Type getType(String type) throws EkudException {
+            Type query = aliases.get(type.toLowerCase());
+            if (query == null) {
+                throw new EkudException("Quit yapping buddy, I have no clue what ya saying!");
+            }
+            return query;
         }
     }
 
