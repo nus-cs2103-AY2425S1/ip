@@ -2,6 +2,7 @@ package bruno.command;
 
 import bruno.Ui;
 import bruno.exceptions.BrunoException;
+import bruno.task.Task;
 import bruno.task.TaskList;
 
 /**
@@ -11,6 +12,7 @@ import bruno.task.TaskList;
  */
 public class DeleteCommand extends Command {
     private String taskNum;
+    private Task task;
 
     /**
      * Constructs a DeleteCommand with the specified task list and task number.
@@ -28,11 +30,13 @@ public class DeleteCommand extends Command {
      * If an error occurs during task deletion, an error message is printed.
      */
     @Override
-    public void execute() {
-        try {
-            getTasks().deleteTask(taskNum);
-        } catch (BrunoException e) {
-            Ui.printErrorMessage(e);
-        }
+    public void execute() throws BrunoException {
+        task = getTaskList().deleteTask(taskNum);
+    }
+
+    @Override
+    public String toString() {
+        return "Noted! I've removed this task:\n" + task
+                + "Now you have " + getTaskList().getTasks().size() + " tasks in the list";
     }
 }

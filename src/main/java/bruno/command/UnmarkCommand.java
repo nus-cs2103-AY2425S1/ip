@@ -2,6 +2,7 @@ package bruno.command;
 
 import bruno.Ui;
 import bruno.exceptions.BrunoException;
+import bruno.task.Task;
 import bruno.task.TaskList;
 
 /**
@@ -10,6 +11,7 @@ import bruno.task.TaskList;
  */
 public class UnmarkCommand extends Command {
     private String taskNum;
+    private Task task;
 
     /**
      * Constructs a UnmarkCommand with the specified task list and task number.
@@ -27,11 +29,12 @@ public class UnmarkCommand extends Command {
      * If an error occurs during the process, an error message is printed.
      */
     @Override
-    public void execute() {
-        try {
-            getTasks().unmarkTask(taskNum);
-        } catch (BrunoException e) {
-            Ui.printErrorMessage(e);
-        }
+    public void execute() throws BrunoException {
+        task = getTaskList().unmarkTask(taskNum);
+    }
+
+    @Override
+    public String toString() {
+        return "I've unmarked this task as done:\n" + task;
     }
 }

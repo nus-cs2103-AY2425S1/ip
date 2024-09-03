@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import bruno.Bruno;
 import bruno.Storage;
-import bruno.Ui;
 import bruno.exceptions.BrunoException;
 import bruno.exceptions.EmptyTaskException;
 import bruno.exceptions.InvalidTaskIndexException;
@@ -34,8 +33,7 @@ public class TaskList {
         try {
             this.tasks = storage.loadFromFile();
         } catch (BrunoException e) {
-            Ui.showLoadingError();
-            tasks = new ArrayList<Task>();
+            tasks = new ArrayList<>();
         }
     }
 
@@ -56,7 +54,7 @@ public class TaskList {
      * @param type The type of the task.
      * @throws BrunoException If the input is invalid or a required field is missing.
      */
-    public void addTask(String str, Bruno.TaskType type) throws BrunoException {
+    public Task addTask(String str, Bruno.TaskType type) throws BrunoException {
         if (str.trim().isEmpty()) {
             throw new EmptyTaskException();
         }
@@ -70,7 +68,7 @@ public class TaskList {
                 throw new MissingFieldException();
             }
             String description = str.substring(0, str.indexOf("/by")).trim();
-            String byString = str.substring(str.indexOf("/by") + 4).trim();
+            String byString = str.substring(str.indexOf("/by") + 3).trim();
             if (description.isEmpty()) {
                 throw new EmptyTaskException();
             }
@@ -104,7 +102,7 @@ public class TaskList {
         if (recognized) {
             tasks.add(task);
             storage.updateFile(this.tasks);
-            Ui.printAddedTask(task, tasks.size());
+            return task;
         } else {
             throw new UnknownCommandException();
         }
@@ -116,12 +114,12 @@ public class TaskList {
      * @param num The index of the task to mark as completed.
      * @throws BrunoException If the index is invalid.
      */
-    public void markTask(String num) throws BrunoException {
+    public Task markTask(String num) throws BrunoException {
         try {
             Task task = tasks.get(Integer.parseInt(num) - 1);
             task.complete();
             storage.updateFile(this.tasks);
-            Ui.printMarkedTask(task);
+            return task;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }
@@ -133,12 +131,12 @@ public class TaskList {
      * @param num The index of the task to unmark.
      * @throws BrunoException If the index is invalid.
      */
-    public void unmarkTask(String num) throws BrunoException {
+    public Task unmarkTask(String num) throws BrunoException {
         try {
             Task task = tasks.get(Integer.parseInt(num) - 1);
             task.uncomplete();
             storage.updateFile(this.tasks);
-            Ui.printUnmarkedTask(task);
+            return task;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }
@@ -150,11 +148,11 @@ public class TaskList {
      * @param num The index of the task to delete.
      * @throws BrunoException If the index is invalid.
      */
-    public void deleteTask(String num) throws BrunoException {
+    public Task deleteTask(String num) throws BrunoException {
         try {
             Task task = tasks.remove(Integer.parseInt(num) - 1);
             storage.updateFile(this.tasks);
-            Ui.printDeletedTask(task, tasks.size());
+            return task;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException();
         }
@@ -165,7 +163,7 @@ public class TaskList {
      *
      * @param keyword The keyword used to find results.
      */
-    public void findTask(String keyword) {
+    public ArrayList<Task> findTask(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.toString().contains(keyword)) {
@@ -173,10 +171,6 @@ public class TaskList {
             }
         }
 
-        if (foundTasks.isEmpty()) {
-            Ui.printNoTaskFound();
-        } else {
-            Ui.printFoundTasks(foundTasks);
-        }
+        return foundTasks;
     }
 }

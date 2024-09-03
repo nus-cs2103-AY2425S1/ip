@@ -1,13 +1,6 @@
 package bruno;
 
-import bruno.command.AddCommand;
-import bruno.command.Command;
-import bruno.command.DeleteCommand;
-import bruno.command.ExitCommand;
-import bruno.command.FindCommand;
-import bruno.command.ListCommand;
-import bruno.command.MarkCommand;
-import bruno.command.UnmarkCommand;
+import bruno.command.*;
 import bruno.exceptions.BrunoException;
 import bruno.exceptions.UnknownCommandException;
 import bruno.task.TaskList;
@@ -26,38 +19,33 @@ public class Parser {
      * @param tasks The TaskList containing the user's tasks, used to apply the command.
      * @return A Command object corresponding to the parsed command, or null if an exception occurs.
      */
-    public static Command parse(String command, TaskList tasks) {
+    public static Command parse(String command, TaskList tasks) throws BrunoException {
         command = command.trim();
 
         String[] parts = command.split(" ", 2);
         String firstWord = parts[0];
         String restOfString = parts.length > 1 ? parts[1] : "";
 
-        try {
-            if (command.equalsIgnoreCase("bye")) {
-                return new ExitCommand(tasks);
-            } else if (command.equalsIgnoreCase("list")) {
-                return new ListCommand(tasks);
-            } else if (firstWord.equalsIgnoreCase("mark")) {
-                return new MarkCommand(tasks, restOfString);
-            } else if (firstWord.equalsIgnoreCase("unmark")) {
-                return new UnmarkCommand(tasks, restOfString);
-            } else if (firstWord.equalsIgnoreCase("delete")) {
-                return new DeleteCommand(tasks, restOfString);
-            } else if (firstWord.equalsIgnoreCase("todo")) {
-                return new AddCommand(tasks, restOfString, Bruno.TaskType.TODO);
-            } else if (firstWord.equalsIgnoreCase("deadline")) {
-                return new AddCommand(tasks, restOfString, Bruno.TaskType.DEADLINE);
-            } else if (firstWord.equalsIgnoreCase("event")) {
-                return new AddCommand(tasks, restOfString, Bruno.TaskType.EVENT);
-            } else if (firstWord.equalsIgnoreCase("find")) {
-                return new FindCommand(tasks, restOfString);
-            } else {
-                throw new UnknownCommandException();
-            }
-        } catch (BrunoException e) {
-            Ui.printErrorMessage(e);
-            return null;
+        if (command.equalsIgnoreCase("bye")) {
+            return new ExitCommand(tasks);
+        } else if (command.equalsIgnoreCase("list")) {
+            return new ListCommand(tasks);
+        } else if (firstWord.equalsIgnoreCase("mark")) {
+            return new MarkCommand(tasks, restOfString);
+        } else if (firstWord.equalsIgnoreCase("unmark")) {
+            return new UnmarkCommand(tasks, restOfString);
+        } else if (firstWord.equalsIgnoreCase("delete")) {
+            return new DeleteCommand(tasks, restOfString);
+        } else if (firstWord.equalsIgnoreCase("todo")) {
+            return new AddCommand(tasks, restOfString, Bruno.TaskType.TODO);
+        } else if (firstWord.equalsIgnoreCase("deadline")) {
+            return new AddCommand(tasks, restOfString, Bruno.TaskType.DEADLINE);
+        } else if (firstWord.equalsIgnoreCase("event")) {
+            return new AddCommand(tasks, restOfString, Bruno.TaskType.EVENT);
+        } else if (firstWord.equalsIgnoreCase("find")) {
+            return new FindCommand(tasks, restOfString);
+        } else {
+            return new UnknownCommand(tasks);
         }
     }
 }

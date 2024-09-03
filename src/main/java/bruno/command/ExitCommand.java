@@ -26,6 +26,11 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute() {
-        Ui.printByeMessage();
+
+    }
+
+    @Override
+    public String toString() {
+        return "Bye. Hope to see you again soon!";
     }
 }
