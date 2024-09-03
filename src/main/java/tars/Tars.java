@@ -1,6 +1,7 @@
 package tars;
 
 import java.util.Scanner;
+
 import java.io.IOException;
 /**
  * This class is Chatbot application which handles Task Management, mainly ToDos, Deadline and Event tasks
@@ -12,7 +13,6 @@ import java.io.IOException;
  * @version 1
  */
 public class Tars {
-    static String line = "    _____________________________________________";
     private TaskList taskList;
     private Storage storage;
     private Ui ui;

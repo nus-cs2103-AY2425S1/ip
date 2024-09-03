@@ -2,11 +2,12 @@ package tars;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> taskList;
-    static String line = "    _____________________________________________";
+    static String LINE = "    _____________________________________________";
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
@@ -21,23 +22,23 @@ public class TaskList {
 
     public void addTask(String[] task, String entry) {
         if (task[0].equals("mark")) {
-            Integer index = Integer.parseInt(task[task.length - 1]); //to convert string format of number to Integer
+            Integer index = Integer.parseInt(task[task.length - 1]); //convert string format of number to Integer
             taskList.get(index - 1).mark(); //marking TASK as done
 
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("        " + taskList.get(index - 1) + "\n" + line);
+            System.out.println("        " + taskList.get(index - 1) + "\n" + LINE);
         } else if (task[0].equals("unmark")) {
             Integer index = Integer.parseInt(task[task.length - 1]); //convert str format of number to Integer
             taskList.get(index - 1).unmark(); //unmarking TASK as not done
 
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("        " + taskList.get(index - 1) + "\n" + line);
+            System.out.println("        " + taskList.get(index - 1) + "\n" + LINE);
         } else if (task[0].equals("todo")) {
             this.addToDos(task, entry);
-        } else if (task[0].equals("deadline")) {
-           this.addDeadline(task, entry);
+        } else if (task[0].equals("deadLINE")) {
+           this.addDeadLINE(task, entry);
         } else if (task[0].equals("event")) {
             this.addEvent(task, entry);
         } else if (task[0].equals("delete")) {
@@ -45,16 +46,15 @@ public class TaskList {
             Task temp = taskList.get(index - 1);
             taskList.remove(taskList.get(index - 1));
 
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("    Noted. I've removed this task:");
             System.out.println("        " + temp);
-            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + line);
+            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE);
         } else {
             Task t = new Task(entry);
             taskList.add(t);
 
-            System.out.println(line);
-            System.out.println("    added: " + entry + "\n" + line);
+            System.out.println(LINE + "\n"  + "    added: " + entry + "\n" + LINE);
         }
     }
 
@@ -68,14 +68,14 @@ public class TaskList {
         ToDos todo = new ToDos(strBuild.toString().trim());
         taskList.add(todo);
 
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("    Got it. I've added this task:");
         System.out.println("        " + todo);
         System.out.println("    Now you have " + taskList.size() + " tasks in the list");
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
-    public void addDeadline(String[] task, String entry){
+    public void addDeadLINE(String[] task, String entry){
         StringBuilder strBuild = new StringBuilder();
         StringBuilder dateStr = new StringBuilder();
 
@@ -91,22 +91,22 @@ public class TaskList {
             }
         }
 
-        Deadline deadlineTask = null;
+        Deadline deadLINETask = null;
 
         if (dateStr.toString().length() == 17) {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(dateStr.toString().trim(), format);
-            deadlineTask = new Deadline(strBuild.toString().trim(), dateTime);
+            deadLINETask = new Deadline(strBuild.toString().trim(), dateTime);
 
-            taskList.add(deadlineTask);
+            taskList.add(deadLINETask);
 
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + deadlineTask);
-            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + line);
+            System.out.println("        " + deadLINETask);
+            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE);
         } else {
-            System.out.println(line + "\n" + "  Please state date and time of deadline" +
-                    "\n" + "in YYYY-dd-MM HH:mm format" + "\n" + line);
+            System.out.println(LINE + "\n" + "  Please state date and time of deadLINE" +
+                    "\n" + "in YYYY-dd-MM HH:mm format" + "\n" + LINE);
         }
     }
 
@@ -143,13 +143,13 @@ public class TaskList {
             Event eventTask = new Event(strBuild.toString(), dateTime, toTime);
             taskList.add(eventTask);
 
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("    Got it. I've added this task:");
             System.out.println("        " + eventTask);
-            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + line);
+            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE);
         } else {
-            System.out.println(line + "\n" + "  Please state date and time of from and to of event"
-                    + "in YYYY-dd-MM HH:mm format" + "\n" + line);
+            System.out.println(LINE + "\n" + "  Please state date and time of from and to of event"
+                    + "in YYYY-dd-MM HH:mm format" + "\n" + LINE);
         }
     }
 }

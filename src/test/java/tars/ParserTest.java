@@ -3,10 +3,13 @@ package tars;  //same package as the class being tested
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class ParserTest {
     private Parser parser;
@@ -20,7 +23,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outContent));
     }
     @Test
-    public void testEmptyList() {
+    public void taskList_EmptyList() {
         parser.listPrint(taskList);
         String expectedMessage = "No tasks added to list. Please add events/deadline/todos!\n";
 
@@ -28,7 +31,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testCheckPartialTask() {
+    public void checkEntry_testPartialTask() {
         String[] entryParts = {"todo"};
         String entry = "todo";
 
