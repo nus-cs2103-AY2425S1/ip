@@ -23,9 +23,8 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) throws LunaException {
-        ArrayList<Task> marked = tasks.markTaskAsDone(taskToMark);
-        storage.saveTasks(marked);
+    public String execute(TaskList tasks, Storage storage) throws LunaException {
+        return tasks.markTaskAsDone(taskToMark, storage);
     }
 }
 

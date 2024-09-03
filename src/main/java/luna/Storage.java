@@ -35,6 +35,11 @@ public class Storage {
 
         try {
             File file = new File(FILE_PATH);
+
+            if (file.createNewFile()) {
+                return tasks;
+            }
+
             Scanner sc = new Scanner(file);
 
             while (sc.hasNextLine()) {

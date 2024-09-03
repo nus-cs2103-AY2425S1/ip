@@ -9,7 +9,7 @@ import luna.TaskList;
 public class ListCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, Storage storage) {
-        tasks.list();
+    public String execute(TaskList tasks, Storage storage) {
+        return tasks.list();
     }
 }

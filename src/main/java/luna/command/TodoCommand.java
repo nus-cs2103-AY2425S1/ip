@@ -18,8 +18,7 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) {
-        ArrayList<Task> added = tasks.addTask(todo);
-        storage.saveTasks(added);
+    public String execute(TaskList tasks, Storage storage) {
+        return tasks.addTask(todo, storage);
     }
 }

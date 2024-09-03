@@ -16,11 +16,15 @@ public class ParserTest {
             fail();
         } catch (LunaException e) {
             assertEquals("""
-                    Please enter one of the following commands:
-                    "todo", "deadline", "event"
-                    "mark", "unmark", "delete"
-                    "list", "bye"
-                    """, e.getMessage());
+                   Please enter one of the following commands:
+                   "todo", "deadline", "event" - add task of specified type to list
+                   "mark" - mark a task as completed
+                   "unmark" - unmark a task as not completed
+                   "delete" - remove task from current tasks
+                   "list" - show all tasks
+                   "find" - search for task given description
+                   "bye" - close chatbot
+                   """, e.getMessage());
         }
     }
 
@@ -33,9 +37,13 @@ public class ParserTest {
             assertEquals("""
                     Invalid Command!
                     Please enter one of the following commands:
-                    "todo", "deadline", "event"
-                    "mark", "unmark", "delete"
-                    "list", "bye"
+                    "todo", "deadline", "event" - add task of specified type to list
+                    "mark" - mark a task as completed
+                    "unmark" - unmark a task as not completed
+                    "delete" - remove task from current tasks
+                    "list" - show all tasks
+                    "find" - search for task given description
+                    "bye" - close chatbot
                     """, e.getMessage());
         }
     }
@@ -56,7 +64,8 @@ public class ParserTest {
             assertEquals(new ListCommand(), Parser.parse("mark"));
             fail();
         } catch (LunaException e) {
-            assertEquals("Indicate the task number to mark as done e.g. mark 2", e.getMessage());
+            assertEquals("Indicate the task number to mark as done\n" +
+                    "e.g. mark 2", e.getMessage());
         }
     }
 
@@ -76,7 +85,8 @@ public class ParserTest {
             assertEquals(new ListCommand(), Parser.parse("unmark"));
             fail();
         } catch (LunaException e) {
-            assertEquals("Indicate the task number to unmark e.g. unmark 2", e.getMessage());
+            assertEquals("Indicate the task number to unmark\n" +
+                    "e.g. unmark 2", e.getMessage());
         }
     }
 
@@ -96,7 +106,8 @@ public class ParserTest {
             assertEquals(new ListCommand(), Parser.parse("delete"));
             fail();
         } catch (LunaException e) {
-            assertEquals("Indicate the task number to delete e.g. delete 2", e.getMessage());
+            assertEquals("Indicate the task number to delete\n" +
+                    "e.g. delete 2", e.getMessage());
         }
     }
 
@@ -106,7 +117,8 @@ public class ParserTest {
             assertEquals(new ListCommand(), Parser.parse("todo  "));
             fail();
         } catch (LunaException e) {
-            assertEquals("Enter description for todo e.g. todo [description]", e.getMessage());
+            assertEquals("Enter description for todo\n" +
+                    "e.g. todo [description]", e.getMessage());
         }
     }
 
@@ -116,8 +128,8 @@ public class ParserTest {
             assertEquals(new ListCommand(), Parser.parse("deadline  "));
             fail();
         } catch (LunaException e) {
-            assertEquals("Enter description for deadline e.g. deadline return book /by Sunday",
-                    e.getMessage());
+            assertEquals("Enter description for deadline\n" +
+                    "e.g. deadline return book /by 12/12/2024 12:00", e.getMessage());
         }
     }
 
@@ -127,8 +139,8 @@ public class ParserTest {
             assertEquals(new ListCommand(), Parser.parse("deadline return book "));
             fail();
         } catch (LunaException e) {
-            assertEquals("Enter deadline for task e.g. deadline [task] /by [deadline]",
-                    e.getMessage());
+            assertEquals("Enter deadline for task\n" +
+                    "e.g. deadline [task] /by [deadline]", e.getMessage());
         }
     }
 
@@ -138,8 +150,8 @@ public class ParserTest {
             assertEquals(new ListCommand(), Parser.parse("deadline return book /by Sunday"));
             fail();
         } catch (LunaException e) {
-            assertEquals("Enter deadline using format: dd/MM/yyyy HH:mm. eg. 14/02/2024 14:30",
-                    e.getMessage());
+            assertEquals("Enter deadline using format: [dd/MM/yyyy HH:mm]\n" +
+                    "e.g. 14/02/2024 14:30", e.getMessage());
         }
     }
 
@@ -149,7 +161,8 @@ public class ParserTest {
             assertEquals(new ListCommand(), Parser.parse("event  "));
             fail();
         } catch (LunaException e) {
-            assertEquals("Enter description for event e.g. event project meeting /from Mon 2pm /to 4pm",
+            assertEquals("Enter description for event\n" +
+                    "e.g. event project meeting /from 12/12/2024 12:00 /to 12/12/2024 16:00",
                     e.getMessage());
         }
     }
@@ -159,8 +172,8 @@ public class ParserTest {
         try {
             assertEquals(new ListCommand(), Parser.parse("event Meeting /to 12/12/2025 13:00"));
         } catch (LunaException e) {
-            assertEquals("Enter start and end time for event e.g. event [task] "
-                    + "/from [startTime] /to [endTime]", e.getMessage());
+            assertEquals("Enter start and end time for event\n" +
+                    "e.g. event [task] /from [startTime] /to [endTime]", e.getMessage());
         }
     }
 
@@ -180,8 +193,8 @@ public class ParserTest {
             assertEquals(new ListCommand(), Parser.parse("event Meeting /from 12/12/2024 2pm "
                     + "/to 12/12/2025 13:00"));
         } catch (LunaException e) {
-            assertEquals("Enter start and end time using format: dd/MM/yyyy HH:mm. eg. 14/02/2024 14:30",
-                    e.getMessage());
+            assertEquals("Enter start and end time using format: [dd/MM/yyyy HH:mm]\n" +
+                            "eg. 14/02/2024 14:30", e.getMessage());
         }
     }
 

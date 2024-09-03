@@ -15,7 +15,8 @@ public class TaskListTest {
     @Test
     public void deleteTask_negativeTaskNumber_exceptionThrown() {
         try {
-            assertEquals(new ArrayList<Task>(), new TaskList().deleteTask(-1));
+            Storage storage = new Storage();
+            assertEquals("", new TaskList().deleteTask(-1, storage));
             fail();
         } catch (LunaException e) {
             assertEquals("Invalid task number. Type \"list\" to view tasks.", e.getMessage());
@@ -25,7 +26,8 @@ public class TaskListTest {
     @Test
     public void deleteTask_exceedTotalTask_exceptionThrown() {
         try {
-            assertEquals(new ArrayList<Task>(), new TaskList().deleteTask(1));
+            Storage storage = new Storage();
+            assertEquals("", new TaskList().deleteTask(1, storage));
             fail();
         } catch (LunaException e) {
             assertEquals("Invalid task number. Type \"list\" to view tasks.", e.getMessage());
@@ -34,10 +36,13 @@ public class TaskListTest {
 
     @Test
     public void addTask_deadlineTask_success() {
+        Storage storage = new Storage();
         Deadline deadline = new Deadline("Buy groceries", LocalDateTime.now());
-        ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(deadline);
-        assertEquals(tasks, new TaskList().addTask(deadline));
+        String taskSize = "Got it. I've added this task:\n"
+                + "  " + deadline + "\n"
+                + "Now you have 1 tasks in the list.";
+
+        assertEquals(taskSize, new TaskList().addTask(deadline, storage));
     }
 }
 

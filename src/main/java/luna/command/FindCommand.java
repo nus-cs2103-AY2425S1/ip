@@ -22,17 +22,13 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) {
-        ArrayList<Task> task = tasks.find(query);
+    public String execute(TaskList tasks, Storage storage) {
+        String matched = tasks.find(query);
 
-        if (task.isEmpty()) {
-            System.out.println("No task with matching description");
-        } else {
-            System.out.println("Here are the tasks with the matching description:");
-            for (int i = 0; i < task.size(); i++) {
-                String s = String.format("%d.%s", i + 1 , task.get(i));
-                System.out.println(s);
-            }
+        if (matched.isEmpty()) {
+            return "No task with matching description";
         }
+
+        return "Here are the tasks with the matching description:\n" + matched;
     }
 }
