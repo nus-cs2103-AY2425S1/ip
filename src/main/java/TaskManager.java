@@ -65,17 +65,20 @@ public class TaskManager {
 
             while (scanner.hasNext()) {
                 String taskString = scanner.nextLine();
+                Task task;
                 if (taskString.startsWith("T")) {
-                    Task task = Todo.fromTaskString(taskString);
-                    taskList.add(task);
+                    task = Todo.fromTaskString(taskString);
                 } else if (taskString.startsWith("D")) {
-                    Task task = Deadline.fromTaskString(taskString);
-                    taskList.add(task);
+                    task = Deadline.fromTaskString(taskString);
                 } else if (taskString.startsWith("E")) {
-                    Task task = Event.fromTaskString(taskString);
-                    taskList.add(task);
+                    task = Event.fromTaskString(taskString);
                 } else {
-                    System.out.println("Invalid task found, skipping: " + taskString);
+                    System.out.println("Invalid task type found, skipping: " + taskString);
+                    continue;
+                }
+
+                if (task != null) {
+                    taskList.add(task);
                 }
             }
 
