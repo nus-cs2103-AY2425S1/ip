@@ -1,4 +1,5 @@
 package bean.parser;
+
 import bean.exception.UnknownCommandException;
 import org.junit.jupiter.api.Test;
 
