@@ -1,17 +1,12 @@
 package PHambot;
 
-import PHambot.utils.Utilities;
-import PHambot.command.*;
+import PHambot.command.Command;
+import PHambot.command.ExitCommand;
 import PHambot.parser.Parser;
-import PHambot.task.TaskList;
 import PHambot.storage.UserData;
-import jdk.jshell.execution.Util;
+import PHambot.task.TaskList;
+import PHambot.utils.Utilities;
 
-import javax.lang.model.type.ErrorType;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class PHamBot {
@@ -39,7 +34,6 @@ public class PHamBot {
                     break;
                 }
             }
-
         }
     }
 

@@ -1,27 +1,14 @@
 package PHambot.parser;
 
-import PHambot.command.Command;
-import PHambot.command.DeadlineCommand;
-import PHambot.command.DeleteCommand;
-import PHambot.command.EventCommand;
-import PHambot.command.ExitCommand;
-import PHambot.command.ListCommand;
-import PHambot.command.MarkCommand;
-import PHambot.command.ToDoCommand;
-import PHambot.command.UnmarkCommand;
-
-import PHambot.exceptions.MissingTaskException;
-import PHambot.exceptions.MissingDividerException;
+import PHambot.command.*;
 import PHambot.exceptions.MissingDateException;
-
+import PHambot.exceptions.MissingDividerException;
+import PHambot.exceptions.MissingTaskException;
+import PHambot.exceptions.UnknownCommandException;
 import PHambot.utils.Utilities;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Objects;
-
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Parses user input into commands.
@@ -62,7 +49,6 @@ public class Parser {
      *
      * @param userInput the input entered by the user.
      * @return the parsed command.
-     *
      */
     public Command parseCommand(String userInput) {
         Matcher matcher = BASIC_COMMAND_PATTERN.matcher(userInput.trim());
@@ -71,31 +57,50 @@ public class Parser {
             //Invalid command exception
             return null;
         }
+
         String command = matcher.group("command");
         String arguments = matcher.group("arguments");
+        Command parsedCommand = null;
 
         try {
-            return switch (command) {
-                case ToDoCommand.COMMAND_WORD -> prepToDo(arguments);
-                case ListCommand.COMMAND_WORD -> new ListCommand();
-                case DeadlineCommand.COMMAND_WORD -> prepDeadline(arguments);
-                case MarkCommand.COMMAND_WORD -> new MarkCommand(prepIndexedCommand(arguments));
-                case UnmarkCommand.COMMAND_WORD -> new UnmarkCommand(prepIndexedCommand(arguments));
-                case EventCommand.COMMAND_WORD -> prepEvent(arguments);
-                case ExitCommand.COMMAND_WORD -> new ExitCommand();
-                case DeleteCommand.COMMAND_WORD -> new DeleteCommand(prepIndexedCommand(arguments));
-                default ->
-                    //placeholder for future; should default to help
-                        null;
-            };
+            switch (command) {
+            case ToDoCommand.COMMAND_WORD:
+                parsedCommand = prepToDo(arguments);
+                break;
+            case ListCommand.COMMAND_WORD:
+                parsedCommand = new ListCommand();
+                break;
+            case DeadlineCommand.COMMAND_WORD:
+                 parsedCommand = prepDeadline(arguments);
+                 break;
+            case MarkCommand.COMMAND_WORD:
+                parsedCommand = new MarkCommand(prepIndexedCommand(arguments));
+                break;
+            case UnmarkCommand.COMMAND_WORD:
+                parsedCommand = new UnmarkCommand(prepIndexedCommand(arguments));
+                break;
+            case EventCommand.COMMAND_WORD:
+                parsedCommand = prepEvent(arguments);
+                break;
+            case ExitCommand.COMMAND_WORD:
+                parsedCommand = new ExitCommand();
+                break;
+            case DeleteCommand.COMMAND_WORD:
+                parsedCommand = new DeleteCommand(prepIndexedCommand(arguments));
+                break;
+            default:
+                throw new UnknownCommandException("Unknown command");
+            }
         } catch (MissingTaskException e) {
             Utilities.OutlineMessage("Missing a task");
         } catch (MissingDividerException e) {
             Utilities.OutlineMessage("Missing a divider");
         } catch (MissingDateException e) {
             Utilities.OutlineMessage("Missing a date");
+        } catch (UnknownCommandException e) {
+            Utilities.OutlineMessage("Unknown command");
         }
-        return null;
+        return parsedCommand;
     }
 
     /**
@@ -108,7 +113,7 @@ public class Parser {
      * @throws MissingDateException if the date is missing.
      */
     private Command prepDeadline(String arguments) throws
-            MissingDividerException, MissingTaskException, MissingDateException{
+            MissingDividerException, MissingTaskException, MissingDateException, UnknownCommandException{
         Matcher deadlineMatcher = DATETIME_COMMAND_PATTERN.matcher(arguments);
         if (!arguments.contains("/")) {
             throw new MissingDividerException("missing a divider");
@@ -137,7 +142,7 @@ public class Parser {
                 }
                 return new DeadlineCommand(task, date);
             } else {
-                return null;
+                throw new UnknownCommandException("Unknown command");
             }
         }
     }
@@ -152,11 +157,13 @@ public class Parser {
      * @throws MissingDateException if the date is missing.
      */
     private Command prepEvent(String arguments) throws
-            MissingTaskException, MissingDividerException, MissingDateException{
+            MissingTaskException, MissingDividerException, MissingDateException, UnknownCommandException {
         Matcher eventMatcher = DATETIME_COMMAND_PATTERN.matcher(arguments);
+
         if (!arguments.contains("/")) {
             throw new MissingDividerException("missing a divider");
         }
+
         if (eventMatcher.matches()) {
             String task = eventMatcher.group("task");
             String date = eventMatcher.group("date");
@@ -181,8 +188,7 @@ public class Parser {
                 }
                 return new EventCommand(task, date);
             } else {
-                //throw exception
-                return null;
+                throw new UnknownCommandException("Unknown command");
             }
         }
     }
@@ -199,7 +205,6 @@ public class Parser {
             String index = indexMatcher.group("index");
             return Integer.parseInt(index);
         } else {
-            //throw invalid format exception
             return -1;
         }
     }
