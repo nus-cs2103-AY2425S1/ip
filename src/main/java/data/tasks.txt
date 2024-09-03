@@ -4,4 +4,5 @@ D | 0 | return book | 10 Dec 2019
 D | 0 | return book | 10 Dec 2019
 D | 1 | coding interview assignment | 11 Dec 2019
 E | 0 | project meeting | Mon | 2pm | 4pm
-E | 1 | project meeting | Mon | 2pm | 666
+E | 0 | project meeting | Mon | 2pm | 666
+T | 1 | high five

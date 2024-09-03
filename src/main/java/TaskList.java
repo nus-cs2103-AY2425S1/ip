@@ -41,7 +41,7 @@ public class TaskList {
                 allRecords += num + "." + currTask.getTaskListItem() + "\n\t";
             }
         }
-        Bob.printLines(allRecords);
+        Ui.printLines(allRecords);
     }
 
     /**
@@ -78,7 +78,7 @@ public class TaskList {
                     + "Now you have "
                     + (String.valueOf(LATEST_RECORD_INDEX - 1))
                     + " tasks in the list.";
-            Bob.printLines(immediateAdd);
+            Ui.printLines(immediateAdd);
             this.records.remove(Integer.parseInt((separateKeyword[1]).trim()) - 1);
             this.LATEST_RECORD_INDEX -= 1;
         } catch (InvalidTaskException e) {
@@ -124,7 +124,7 @@ public class TaskList {
                     + (String.valueOf(LATEST_RECORD_INDEX + 1))
                     + " tasks in the list.";
 
-            Bob.printLines(immediateAdd);
+            Ui.printLines(immediateAdd);
             this.records.add(this.LATEST_RECORD_INDEX, newTask);
             this.LATEST_RECORD_INDEX += 1;
         } catch (InvalidTaskException e) {
