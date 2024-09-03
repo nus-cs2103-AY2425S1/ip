@@ -1,27 +1,27 @@
 package bruno.task;
 
-import bruno.Bruno;
-import bruno.Storage;
-import bruno.Ui;
-import bruno.exceptions.*;
-import bruno.task.Deadline;
-import bruno.task.Event;
-import bruno.task.Task;
-import bruno.task.ToDo;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import bruno.Bruno;
+import bruno.Storage;
+import bruno.Ui;
+import bruno.exceptions.BrunoException;
+import bruno.exceptions.EmptyTaskException;
+import bruno.exceptions.InvalidTaskIndexException;
+import bruno.exceptions.MissingFieldException;
+import bruno.exceptions.UnknownCommandException;
 
 /**
  * Manages the list of tasks, including adding, marking, unmarking, and deleting tasks.
  * Interacts with the Storage class to load and save tasks from and to a file.
  */
 public class TaskList {
+    private DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private ArrayList<Task> tasks;
     private Storage storage;
-    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Initializes a TaskList object and loads tasks from the storage file.

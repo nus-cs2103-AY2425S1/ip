@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * It extends the Task class and includes start and end times for the event.
  */
 public class Event extends Task {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
     private LocalDateTime from;
     private LocalDateTime to;
 
@@ -42,7 +42,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "E | " + super.toString() + " | from: " + this.from.format(formatter) +
-                " to: " + this.to.format(formatter);
+        return "E | " + super.toString() + " | from: " + this.from.format(formatter)
+                + " to: " + this.to.format(formatter);
     }
 }

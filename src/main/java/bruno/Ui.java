@@ -1,16 +1,16 @@
 package bruno;
 
-import bruno.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import bruno.task.Task;
 
 /**
  * The Ui class handles all user interaction in the Bruno application.
  * It prints messages to the console and reads user input.
  */
 public class Ui {
-    static Scanner input = new Scanner(System.in);
+    private static Scanner input = new Scanner(System.in);
 
     /**
      * Prints a horizontal line to the console for visual separation.

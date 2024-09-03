@@ -1,8 +1,8 @@
 package bruno.command;
 
-import bruno.task.TaskList;
 import bruno.Ui;
 import bruno.exceptions.BrunoException;
+import bruno.task.TaskList;
 
 /**
  * Represents a command to mark a specific task as completed.

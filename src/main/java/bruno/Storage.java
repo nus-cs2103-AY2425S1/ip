@@ -1,12 +1,5 @@
 package bruno;
 
-import bruno.exceptions.BrunoException;
-import bruno.exceptions.FileLoadingException;
-import bruno.task.Deadline;
-import bruno.task.Event;
-import bruno.task.Task;
-import bruno.task.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +7,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import bruno.exceptions.BrunoException;
+import bruno.exceptions.FileLoadingException;
+import bruno.task.Deadline;
+import bruno.task.Event;
+import bruno.task.Task;
+import bruno.task.ToDo;
 
 /**
  * The Storage class handles the reading and writing of task data
@@ -52,7 +52,7 @@ public class Storage {
             File f = new File(this.filePath);
             Scanner s = new Scanner(f);
             ArrayList<Task> taskList = new ArrayList<>();
-            while(s.hasNext()) {
+            while (s.hasNext()) {
                 String line = s.nextLine();
                 if (line.trim().isEmpty()) {
                     continue;

@@ -1,7 +1,7 @@
 package bruno.command;
 
-import bruno.task.TaskList;
 import bruno.Ui;
+import bruno.task.TaskList;
 
 /**
  * Represents a command to exit the application.

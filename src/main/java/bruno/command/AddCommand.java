@@ -1,9 +1,9 @@
 package bruno.command;
 
 import bruno.Bruno;
-import bruno.task.TaskList;
 import bruno.Ui;
 import bruno.exceptions.BrunoException;
+import bruno.task.TaskList;
 
 /**
  * Represents a command to add a new task to the task list.
