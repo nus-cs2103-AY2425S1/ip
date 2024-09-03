@@ -36,6 +36,7 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getBlitzDialog("Hello, I am Blitz! How can I help you?", blitzImage)
         );
+        userInput.setPromptText("Type here");
     }
 
     /** Injects the Blitz instance */
