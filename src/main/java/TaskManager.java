@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -36,7 +37,7 @@ public class TaskManager {
         return todo;
     }
 
-    public Task createDeadline(String description, String by) {
+    public Task createDeadline(String description, LocalDateTime by) {
         Task deadline = new Deadline(description, by);
         taskList.add(deadline);
         return deadline;

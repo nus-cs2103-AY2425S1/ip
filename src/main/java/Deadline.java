@@ -1,7 +1,10 @@
-public class Deadline extends Task {
-    protected String deadline;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String deadline) {
+public class Deadline extends Task {
+    protected LocalDateTime deadline;
+
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
         type = TaskType.DEADLINE;
@@ -12,7 +15,9 @@ public class Deadline extends Task {
         if (parts.length < 4)
             return null;
 
-        Deadline deadline = new Deadline(parts[2], parts[3]);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        LocalDateTime dateTime = LocalDateTime.parse(parts[3], formatter);
+        Deadline deadline = new Deadline(parts[2], dateTime);
         if (parts[1].equals("1"))
             deadline.markAsDone();
 
@@ -25,13 +30,16 @@ public class Deadline extends Task {
 
     @Override
     public String toTaskString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         return String.format("%s|%d|%s|%s",
-                getTaskType(), isDone ? 1 : 0, description, deadline);
+                getTaskType(), isDone ? 1 : 0, description,
+                formatter.format(deadline));
     }
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy h:mm a");
         return String.format("[%s] %s (by: %s)", getTaskType(),
-                super.toString(), deadline);
+                super.toString(), formatter.format(deadline));
     }
 }
