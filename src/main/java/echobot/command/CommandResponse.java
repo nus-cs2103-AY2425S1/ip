@@ -1,14 +1,13 @@
 package echobot.command;
 
+import echobot.command.Command.CommandType;
+
 public class CommandResponse {
-    private boolean isExit = false;
-    private String response;
+    private final CommandType commandType;
+    private final String response;
 
-    public CommandResponse(boolean isExitCommand) {
-        this.isExit = isExitCommand;
-    }
-
-    public CommandResponse(String response) {
+    public CommandResponse(CommandType commandType, String response) {
+        this.commandType = commandType;
         this.response = response;
     }
 
@@ -16,7 +15,11 @@ public class CommandResponse {
         return this.response;
     }
 
+    public CommandType getCommandType() {
+        return this.commandType;
+    }
+
     public boolean isExitCommand() {
-        return this.isExit;
+        return this.commandType.equals(CommandType.EXIT);
     }
 }
