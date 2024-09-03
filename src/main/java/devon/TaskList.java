@@ -135,6 +135,16 @@ public class TaskList {
         return s.toString();
     }
 
+    /**
+     * Searches for tasks that contain a specific keyword and returns the matching tasks as a formatted string.
+     * <p>
+     * This method iterates through the list of tasks, checks if each task's description contains the specified
+     * keyword (case-insensitive), and collects the matching tasks. The tasks are then formatted and returned as
+     * a string with each task on a new line, prefixed by its position in the list.
+     *
+     * @param query The keyword to search for within the task descriptions.
+     * @return A formatted string of matching tasks, each task on a new line prefixed by its position in the list.
+     */
     protected String search(String query) {
         ArrayList<String> matchingTasks = new ArrayList<>();
 

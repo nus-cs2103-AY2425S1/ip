@@ -231,6 +231,14 @@ public class Devon {
         deleteTask(taskIndex);
     }
 
+    /**
+     * Finds and displays tasks that match a given keyword.
+     * <p>
+     * This method extracts the content from the provided input string, converts it to lowercase, and searches
+     * for matching tasks within the task list. The results are then displayed to the user.
+     *
+     * @param input The input string containing the keyword for searching tasks.
+     */
     private void findAction(String input) {
         String keyword = parser.extractContent(input).toLowerCase();
         String results = tasks.search(keyword);
