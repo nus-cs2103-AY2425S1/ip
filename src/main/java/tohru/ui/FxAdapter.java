@@ -90,7 +90,7 @@ public class FxAdapter implements Ui {
         } else {
             String joinedMessage = String.join(System.lineSeparator(), text);
             dialogContainer.getChildren().addAll(
-                    DialogBox.getChatbotDialog(joinedMessage)
+                    DialogBox.getChatbotDialog(joinedMessage, false)
             );
         }
 
@@ -105,7 +105,7 @@ public class FxAdapter implements Ui {
         } else {
             String joinedMessage = String.join(System.lineSeparator(), error);
             dialogContainer.getChildren().addAll(
-                    DialogBox.getChatbotDialog(joinedMessage)
+                    DialogBox.getChatbotDialog(joinedMessage, true)
             );
         }
     }

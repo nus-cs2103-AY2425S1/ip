@@ -53,6 +53,14 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    private void tintReply(boolean isError) {
+        if (isError) {
+            dialog.getStyleClass().add("error-label");
+        } else {
+            dialog.getStyleClass().add("success-label");
+        }
+    }
+
     /**
      * Represents a chat message sent by the user.
      *
@@ -70,10 +78,11 @@ public class DialogBox extends HBox {
      * @param s Message written by chatbot.
      * @return A DialogBox instance with the chatbot's profile picture.
      */
-    public static DialogBox getChatbotDialog(String s) {
+    public static DialogBox getChatbotDialog(String s, boolean isError) {
         Image chatImage = new Image(DialogBox.class.getResourceAsStream("/images/Tohru.jpg"));
         var db = new DialogBox(s, chatImage);
         db.flip();
+        db.tintReply(isError);
         return db;
     }
 
