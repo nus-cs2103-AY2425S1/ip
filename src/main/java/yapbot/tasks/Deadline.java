@@ -28,7 +28,7 @@ public class Deadline extends Task {
         }
 
         LocalDateTime deadline;
-        System.out.println(DateTimeFormatter.ofPattern("ha yyyy/MM/dd").getLocale());
+
         if (deadlineStr.contains("AM") | deadlineStr.contains("PM")) {
             if (deadlineStr.contains("/")) {
                 deadline = LocalDateTime.parse(deadlineStr, DATETIME_FORMATTER);
