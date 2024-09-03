@@ -42,5 +42,9 @@ public class Ui {
         printWithBreak(taskList.toString());
     }
 
+    public void printDeleteMsg(ArrayList<Task> taskList, Task task) {
+        printWithBreak("Got it. I've removd this task:\n   " + task +
+                "\nNow you have " + taskList.size() + " tasks in the list.");
+    }
 
 }
