@@ -55,7 +55,9 @@ public class Task {
         return false;
     }
 
-    // thos method returns true if keyword is contained within task name.
+    /**
+     * Checks whether the task contains the String keyword. If yes, return true. If not, return false
+     */
     public Boolean hasName(String keyword) {
         if (this.name.contains(keyword)) {
             return true;
