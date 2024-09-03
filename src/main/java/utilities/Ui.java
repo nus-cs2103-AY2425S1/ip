@@ -28,18 +28,18 @@ public class Ui {
     }
 
     public void displayList() {
-        String lString = "";
+        String listString = "";
         int index = 1;
         for (Task task : taskList) {
-            lString += String.valueOf(index) + "."  + task.toString();
+            listString += String.valueOf(index) + "."  + task.toString();
             if (index == taskList.size()) {
                 break;
             }
-            lString += "\n";
+            listString += "\n";
             index++;
         }
-        lString = Parser.addHorizontalLinesAndIndentation(lString);
-        System.out.println(lString);
+        listString = Parser.addHorizontalLinesAndIndentation(listString);
+        System.out.println(listString);
     }
 
     public void showLoadingError() {
