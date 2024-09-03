@@ -2,8 +2,8 @@ package tick.commands;
 
 import tick.exceptions.TickException;
 import tick.storage.Storage;
-import tick.tasks.Task;
 import tick.storage.TaskList;
+import tick.tasks.Task;
 import tick.ui.Ui;
 
 /**

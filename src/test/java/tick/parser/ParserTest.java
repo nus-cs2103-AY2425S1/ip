@@ -1,13 +1,14 @@
 package tick.parser;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
+
 import tick.commands.AddCommand;
 import tick.commands.ExitCommand;
 import tick.commands.ListCommand;
 import tick.exceptions.TickException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
     @Test

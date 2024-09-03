@@ -1,11 +1,11 @@
 package tick.commands;
 
+import java.util.ArrayList;
+
 import tick.storage.Storage;
 import tick.storage.TaskList;
 import tick.tasks.Task;
 import tick.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to find tasks with a keyword.

@@ -3,8 +3,8 @@ package tick.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import tick.tasks.Task;
 import tick.storage.TaskList;
+import tick.tasks.Task;
 
 /**
  * Ui class handles the user interface of the application.
