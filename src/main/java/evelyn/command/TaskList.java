@@ -1,5 +1,6 @@
 package evelyn.command;
 
+import evelyn.command.ui.textbased.TextBasedUi;
 import evelyn.task.Deadline;
 import evelyn.task.Event;
 import evelyn.task.Task;
@@ -43,12 +44,12 @@ public class TaskList {
      * Lists all the tasks that have been input.
      */
     public void listTask() {
-        System.out.println(Ui.horizontalLine);
+        System.out.println(TextBasedUi.horizontalLine);
         System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < this.listSize(); i++) {
             System.out.println((i + 1) + "." + this.getTask(i).toString());
         }
-        System.out.println(Ui.horizontalLine);
+        System.out.println(TextBasedUi.horizontalLine);
     }
 
     /**
@@ -58,12 +59,12 @@ public class TaskList {
     public void removeTask(int index) {
         Task task = (Task) list.get(index);
         list.remove(index);
-        System.out.println(Ui.horizontalLine);
+        System.out.println(TextBasedUi.horizontalLine);
         System.out.println("Noted. I've removed this task:");
         System.out.println("   " + task.toString());
         System.out.println(this.listSize() > 1 ? "Now you have " + this.listSize() + " tasks in this list"
                 : "Now you have " + this.listSize() + " task in this list");
-        System.out.println(Ui.horizontalLine);
+        System.out.println(TextBasedUi.horizontalLine);
     }
 
     /**
@@ -74,12 +75,12 @@ public class TaskList {
         try {
             list.add(task);
             storage.writeToFile(task);
-            System.out.println(Ui.horizontalLine);
+            System.out.println(TextBasedUi.horizontalLine);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + task.toString());
             System.out.println(this.listSize() > 1 ? "Now you have " + this.listSize() + " tasks in this list"
                     : "Now you have " + this.listSize() + " task in this list");
-            System.out.println(Ui.horizontalLine);
+            System.out.println(TextBasedUi.horizontalLine);
         } catch (IOException e) {
             System.err.println("Error reading/writing to file: " + e);
         }
@@ -100,9 +101,9 @@ public class TaskList {
      */
     public void markTask(int index) {
         Task task = (Task) list.get(index);
-        System.out.println(Ui.horizontalLine);
+        System.out.println(TextBasedUi.horizontalLine);
         task.mark();
-        System.out.println(Ui.horizontalLine);
+        System.out.println(TextBasedUi.horizontalLine);
     }
 
     /**
@@ -111,9 +112,9 @@ public class TaskList {
      */
     public void unmarkTask(int index) {
         Task task = (Task) list.get(index);
-        System.out.println(Ui.horizontalLine);
+        System.out.println(TextBasedUi.horizontalLine);
         task.unmark();
-        System.out.println(Ui.horizontalLine);
+        System.out.println(TextBasedUi.horizontalLine);
     }
 
     /**
@@ -145,7 +146,7 @@ public class TaskList {
      */
     public void find(String keyword) {
         boolean foundSomething = false;
-       System.out.println(Ui.horizontalLine);
+       System.out.println(TextBasedUi.horizontalLine);
        System.out.println("The following are all tasks and their indexes that contain the keyword: " + keyword);
        for (int i = 0; i < list.size(); i++) {
            String taskString = list.get(i).toString();
@@ -156,11 +157,11 @@ public class TaskList {
        }
 
        if (foundSomething) {
-           System.out.println(Ui.horizontalLine);
+           System.out.println(TextBasedUi.horizontalLine);
        } else {
            System.out.println("It seems like there is no task that matches your specified keyword." +
                    " Try checking your spelling");
-           System.out.println(Ui.horizontalLine);
+           System.out.println(TextBasedUi.horizontalLine);
        }
     }
 

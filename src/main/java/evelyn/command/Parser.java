@@ -1,5 +1,6 @@
 package evelyn.command;
 
+import evelyn.command.ui.textbased.TextBasedUi;
 import evelyn.exception.InvalidInputException;
 import evelyn.exception.NoInputException;
 import evelyn.task.Deadline;
@@ -17,7 +18,7 @@ public class Parser {
     private String horizontalLine;
     public Parser(TaskList taskList) {
         this.lst = taskList;
-        this.horizontalLine = Ui.horizontalLine;
+        this.horizontalLine = TextBasedUi.horizontalLine;
     }
 
     public void parse(String text) throws NoInputException, DateTimeException {

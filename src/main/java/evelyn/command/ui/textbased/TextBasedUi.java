@@ -1,5 +1,6 @@
-package evelyn.command;
+package evelyn.command.ui.textbased;
 
+import evelyn.command.Parser;
 import evelyn.exception.InvalidInputException;
 import evelyn.exception.NoInputException;
 
@@ -11,7 +12,7 @@ import java.util.Scanner;
  * Houses all the logic for Evelyn's UI
  */
 
-public class Ui {
+public class TextBasedUi {
     public static String horizontalLine = "-----------------------------------------";
     private boolean isChatting;
     private String text = null;
@@ -22,7 +23,7 @@ public class Ui {
      * Constructor of a Ui object.
      * @param parser Parser used for the chatbot.
      */
-    public Ui(Parser parser) {
+    public TextBasedUi(Parser parser) {
         this.isChatting = false;
         this.scanner = new Scanner(System.in);
         this.parser = parser;
