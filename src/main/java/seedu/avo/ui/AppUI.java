@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 import seedu.avo.tasks.Task;
 
+/**
+ * Represents an interface for user interactions
+ */
 public class AppUI {
     private final Scanner scanner;
     public AppUI() {
@@ -49,6 +52,10 @@ public class AppUI {
         return index + 1 + ". " + tasks.get(index);
     }
 
+    /**
+     * Displays the number of tasks with a user-friendly message
+     * @param count The number of tasks
+     */
     public void printTaskCount(int count) {
         if (count == 0) {
             print("You have no tasks.");
@@ -58,6 +65,12 @@ public class AppUI {
             print(String.format("You have %s tasks.", count));
         }
     }
+
+    /**
+     * Displays the list of tasks with the given indices in a user-friendly manner
+     * @param tasks The list of tasks
+     * @param indexes The list of indices that will be printed out
+     */
     public void printTasksFromList(List<Task> tasks, List<Integer> indexes) {
         for (Integer index: indexes) {
             print(getTask(tasks, index));
@@ -66,18 +79,38 @@ public class AppUI {
     public void printTask(List<Task> tasks, int index) {
         print(getTask(tasks, index));
     }
+
+    /**
+     * Displays a user-friendly message when a task is marked as completed
+     * @param tasks The list of tasks
+     * @param index The index of the completed task
+     */
     public void printTaskMarked(List<Task> tasks, int index) {
         print("Nice! I've marked this task as done:");
         printTask(tasks, index);
     }
+    /**
+     * Displays a user-friendly message when a task is marked as uncompleted
+     * @param tasks The list of tasks
+     * @param index The index of the uncompleted task
+     */
     public void printTaskUnmarked(List<Task> tasks, int index) {
         print("OK, I've marked this task as not done yet:");
         printTask(tasks, index);
     }
+
+    /**
+     * Displays a user-friendly message when a task is added
+     * @param tasks The list of tasks
+     */
     public void printTaskAdded(List<Task> tasks) {
         print("Got it. I've added this task:");
         printTask(tasks, tasks.size() - 1);
     }
+    /**
+     * Displays a user-friendly message when a task is removed
+     * @param task The removed task
+     */
     public void printTaskRemoved(Task task) {
         print("Noted. I've removed this task:");
         print(task.toString());

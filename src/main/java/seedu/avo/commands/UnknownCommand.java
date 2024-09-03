@@ -1,11 +1,13 @@
 package seedu.avo.commands;
 
 import seedu.avo.exceptions.AvoException;
-
+/**
+ * Represents an unknown command
+ */
 public class UnknownCommand extends Command {
     private static final UnknownCommand INSTANCE = new UnknownCommand();
     private UnknownCommand() {}
-    public static  UnknownCommand of() {
+    public static UnknownCommand of() {
         return INSTANCE;
     }
     @Override

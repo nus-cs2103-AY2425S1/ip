@@ -1,13 +1,14 @@
 package seedu.avo.commands;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.tasks.Deadline;
 import seedu.avo.tasks.TaskManager;
 import seedu.avo.utils.DateTime;
-
+/**
+ * Represents the command to add a deadline task
+ */
 public class DeadlineCommand extends Command {
     private final TaskManager manager;
     public DeadlineCommand(TaskManager manager) {

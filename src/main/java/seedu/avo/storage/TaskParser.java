@@ -9,6 +9,9 @@ import seedu.avo.tasks.Task;
 import seedu.avo.tasks.ToDo;
 import seedu.avo.utils.DateTime;
 
+/**
+ * Represents a helper class to parse contents of file storage
+ */
 public class TaskParser extends FileParser<Task> {
     @Override
     public Task parse(String input) throws AvoException {
@@ -21,12 +24,12 @@ public class TaskParser extends FileParser<Task> {
             break;
         case "D":
             LocalDateTime dueDate = DateTime.parseFromStorage(inputs[3]);
-            task =  new Deadline(inputs[2], dueDate);
+            task = new Deadline(inputs[2], dueDate);
             break;
         case "E":
             LocalDateTime startTime = DateTime.parseFromStorage(inputs[3]);
             LocalDateTime endTime = DateTime.parseFromStorage(inputs[4]);
-            task =  new Event(inputs[2], startTime, endTime);
+            task = new Event(inputs[2], startTime, endTime);
             break;
         default:
             throw new AvoException("Invalid task type in storage");

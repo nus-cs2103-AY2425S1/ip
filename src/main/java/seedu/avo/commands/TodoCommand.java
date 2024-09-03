@@ -3,7 +3,9 @@ package seedu.avo.commands;
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.tasks.TaskManager;
 import seedu.avo.tasks.ToDo;
-
+/**
+ * Represents the command to add a todo task
+ */
 public class TodoCommand extends Command {
     private final TaskManager manager;
     public TodoCommand(TaskManager manager) {

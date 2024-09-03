@@ -1,12 +1,13 @@
 package seedu.avo.commands;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.tasks.TaskManager;
 import seedu.avo.utils.DateTime;
-
+/**
+ * Represents the command to search tasks by date
+ */
 public class SearchDateCommand extends Command {
     private final TaskManager manager;
     public SearchDateCommand(TaskManager manager) {

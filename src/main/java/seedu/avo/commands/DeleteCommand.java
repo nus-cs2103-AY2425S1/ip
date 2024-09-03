@@ -2,7 +2,9 @@ package seedu.avo.commands;
 
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.tasks.TaskManager;
-
+/**
+ * Represents the command to delete a task
+ */
 public class DeleteCommand extends Command {
     private final TaskManager manager;
     public DeleteCommand(TaskManager manager) {

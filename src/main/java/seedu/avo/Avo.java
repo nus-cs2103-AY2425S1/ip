@@ -3,7 +3,6 @@ package seedu.avo;
 import seedu.avo.commands.Command;
 import seedu.avo.commands.CommandManager;
 import seedu.avo.exceptions.AvoException;
-
 import seedu.avo.parser.CommandParser;
 import seedu.avo.storage.FileStorage;
 import seedu.avo.storage.Storage;
@@ -12,6 +11,9 @@ import seedu.avo.tasks.Task;
 import seedu.avo.tasks.TaskManager;
 import seedu.avo.ui.AppUI;
 
+/**
+ * Represents the bot
+ */
 public class Avo {
     private final AppUI ui;
     private final CommandParser parser;

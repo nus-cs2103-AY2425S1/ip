@@ -7,5 +7,5 @@ import seedu.avo.exceptions.AvoException;
  * @param <T> type of read data
  */
 public abstract class FileParser<T> {
-    abstract public T parse(String input) throws AvoException;
+    public abstract T parse(String input) throws AvoException;
 }

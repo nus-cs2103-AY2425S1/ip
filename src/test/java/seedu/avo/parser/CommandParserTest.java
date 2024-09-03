@@ -3,6 +3,7 @@ package seedu.avo.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.avo.commands.CommandManager;
 import seedu.avo.commands.ExitCommand;
 import seedu.avo.commands.UnknownCommand;
@@ -20,11 +21,11 @@ public class CommandParserTest {
         parser = new CommandParser(new CommandManager(taskManager));
     }
     @Test
-    public void testEmptyString(){
+    public void testEmptyString() {
         assertEquals(UnknownCommand.of(), parser.parse(""));
     }
     @Test
-    public void testExitString(){
+    public void testExitString() {
         assertEquals(ExitCommand.of(), parser.parse("exit"));
     }
 }

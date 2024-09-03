@@ -10,6 +10,11 @@ import seedu.avo.utils.DateTime;
  */
 public class Deadline extends Task {
     private final LocalDateTime dueDate;
+
+    /**
+     * @param name The name of the task
+     * @param dueDate The deadline of the task
+     */
     public Deadline(String name, LocalDateTime dueDate) {
         super(name);
         this.dueDate = dueDate;

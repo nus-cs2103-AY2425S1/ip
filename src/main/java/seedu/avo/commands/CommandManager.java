@@ -1,14 +1,19 @@
 package seedu.avo.commands;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 import seedu.avo.tasks.TaskManager;
-
+/**
+ * Represents a helper class to map commands to instances of Command
+ */
 public class CommandManager {
     private final Map<String, Command> commandMap;
     private final Command unknownCommand;
 
+    /**
+     * @param taskManager The controller to perform tasks related jobs
+     */
     public CommandManager(TaskManager taskManager) {
         commandMap = new HashMap<String, Command>();
         commandMap.put(CommandName.LIST.getName(), new ListCommand(taskManager));

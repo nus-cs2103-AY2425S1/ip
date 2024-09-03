@@ -7,6 +7,9 @@ import seedu.avo.tasks.Event;
 import seedu.avo.tasks.TaskManager;
 import seedu.avo.utils.DateTime;
 
+/**
+ * Represents the command to add an event task
+ */
 public class EventCommand extends Command {
     private final TaskManager manager;
     public EventCommand(TaskManager manager) {

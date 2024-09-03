@@ -2,11 +2,11 @@ package seedu.avo.commands;
 
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.tasks.TaskManager;
-import seedu.avo.utils.DateTime;
 
-import java.time.LocalDate;
-
-public class SearchNameCommand extends Command{
+/**
+ * Represents the command to search tasks by name
+ */
+public class SearchNameCommand extends Command {
     private final TaskManager manager;
     public SearchNameCommand(TaskManager manager) {
         this.manager = manager;

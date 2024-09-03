@@ -19,6 +19,11 @@ import seedu.avo.exceptions.AvoException;
 public class FileStorage<T> extends Storage<T, String> {
     private final String filePath;
     private final FileParser<T> parser;
+
+    /**
+     * @param dirPath The file path of the file storage
+     * @param parser A parser to read the contents of the file
+     */
     public FileStorage(String dirPath, FileParser<T> parser) {
         this.parser = parser;
         filePath = dirPath + "/" + "avo.txt";
@@ -41,16 +46,14 @@ public class FileStorage<T> extends Storage<T, String> {
     @Override
     public List<T> fetchAll() {
         List<T> result = new ArrayList<>();
-        File f = new File(filePath);// create a File for the given file path
+        File f = new File(filePath); // create a File for the given file path
         try {
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             while (s.hasNext()) {
                 T data = parser.parse(s.nextLine());
                 result.add(data);
             }
-        } catch (FileNotFoundException e) {
-
-        } catch (AvoException e) {
+        } catch (FileNotFoundException | AvoException e) {
             System.out.println(e.getMessage());
         }
         return result;

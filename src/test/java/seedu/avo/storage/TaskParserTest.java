@@ -22,8 +22,9 @@ public class TaskParserTest {
         parser = new TaskParser();
     }
     @Test
-    public void testInvalidString(){
-        assertThrows(AvoException.class, () -> {parser.parse("invalid");});
+    public void testInvalidString() {
+        assertThrows(AvoException.class, () -> {
+            parser.parse("invalid"); });
     }
     @Test
     public void testToDo() throws AvoException {

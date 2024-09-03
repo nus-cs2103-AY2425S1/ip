@@ -11,6 +11,12 @@ import seedu.avo.utils.DateTime;
 public class Event extends Task {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
+
+    /**
+     * @param name The name of task
+     * @param startTime The start datetime of the task
+     * @param endTime The end datetime of the task
+     */
     public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
         super(name);
         this.startTime = startTime;

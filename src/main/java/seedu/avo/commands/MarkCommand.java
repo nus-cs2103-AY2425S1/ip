@@ -2,7 +2,9 @@ package seedu.avo.commands;
 
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.tasks.TaskManager;
-
+/**
+ * Represents the command to mark a task as completed
+ */
 public class MarkCommand extends Command {
     private final TaskManager manager;
     public MarkCommand(TaskManager manager) {

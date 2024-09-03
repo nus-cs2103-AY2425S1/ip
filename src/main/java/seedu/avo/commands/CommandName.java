@@ -1,5 +1,7 @@
 package seedu.avo.commands;
-
+/**
+ * Represents valid commands
+ */
 public enum CommandName {
     LIST("list"),
     TODO("todo"),
