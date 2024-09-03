@@ -224,49 +224,52 @@ public class WansBot {
         return ui.handleFindKeyword(filteredList);
     }
 
+    /**
+     * Takes in userInput and returns WansBot's response as a String.
+     */
     public String getResponse(String userInput) {
         String command = userInput.split(" ")[0];
         String response = "";
 
         switch (command) {
-            case "list":
-                response += ui.handleListingTask(userTaskList);
-                break;
-            case "mark":
-                response += markTasks(userInput);
-                break;
-            case "unmark":
-                response += unmarkTasks(userInput);
-                break;
-            case "todos":
-                response += addTodos(userInput);
-                break;
-            case "deadline":
-                response += addDeadlined(userInput);
-                break;
-            case "event":
-                response += addEvent(userInput);
-                break;
-            case "remove":
-                response += removeTask(userInput);
-                break;
-            case "save":
-                response += storage.saveTasks(userTaskList);
-                break;
-            case "load":
-                response += storage.loadTasks(userTaskList);
-                break;
-            case "findTask":
-                response += findTaskDate(userInput);
-                break;
-            case "findName":
-                response += findTaskName(userInput);
-                break;
-            case "bye":
-                response += ui.handleGoodbye();
-                break;
-            default:
-                return ui.handleUnrecognisedInput(userInput);
+        case "list":
+            response += ui.handleListingTask(userTaskList);
+            break;
+        case "mark":
+            response += markTasks(userInput);
+            break;
+        case "unmark":
+            response += unmarkTasks(userInput);
+            break;
+        case "todos":
+            response += addTodos(userInput);
+            break;
+        case "deadline":
+            response += addDeadlined(userInput);
+            break;
+        case "event":
+            response += addEvent(userInput);
+            break;
+        case "remove":
+            response += removeTask(userInput);
+            break;
+        case "save":
+            response += storage.saveTasks(userTaskList);
+            break;
+        case "load":
+            response += storage.loadTasks(userTaskList);
+            break;
+        case "findTask":
+            response += findTaskDate(userInput);
+            break;
+        case "findName":
+            response += findTaskName(userInput);
+            break;
+        case "bye":
+            response += ui.handleGoodbye();
+            break;
+        default:
+            return ui.handleUnrecognisedInput(userInput);
         }
 
         return response;

@@ -86,7 +86,7 @@ public class UI {
     public String handleSuccesfulMarking(TaskList taskList, int posTask) {
         return "Nice! I've marked\n"
                 + taskList.getTask(posTask).toString()
-                + " as completed\n";
+                + " as completed";
     }
 
     /**
@@ -102,7 +102,7 @@ public class UI {
     public String handleSuccesfulUnmarking(TaskList taskList, int posTask) {
         return "Okay, so you lied! I've marked\n"
                 + taskList.getTask(posTask).toString()
-                + " as uncompleted\n";
+                + " as uncompleted";
     }
 
     /**
@@ -110,7 +110,7 @@ public class UI {
      */
     public String handleUnmarkingFormat() {
         return "You need to input a single space, followed by a number after unmark"
-                + "!\n";
+                + "!";
     }
 
     /**
@@ -125,8 +125,7 @@ public class UI {
      * Prints to console when task is successfully added to userTaskList.
      */
     public String handleSuccessfulAdd(Task task) {
-        return "Ok! I've added " + task.toString()
-                + "\n";
+        return "Ok! I've added " + task.toString();
     }
 
     /**
