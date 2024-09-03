@@ -3,30 +3,30 @@ package sunny;
  * Breaks down user messages for other classes
  */
 public class Parser {
-    private String command;
-    private String description;
+    private String firstHalf;
+    private String secondHalf;
 
     public Parser(String message) {
         String[] words = message.split("\\s+", 2);
-        command = words[0];
+        firstHalf = words[0];
         if (words.length > 1) {
-            description = words[1];
+            secondHalf = words[1];
         }
     }
 
     public Parser(String message, String parseBy) {
         String[] words = message.split(parseBy, 2);
-        command = words[0];
+        firstHalf = words[0];
         if (words.length > 1) {
-            description = words[1];
+            secondHalf = words[1];
         }
     }
 
-    public String getCommand() {
-        return command;
+    public String getFirstHalf() {
+        return firstHalf;
     }
 
-    public String getMessage() {
-        return description;
+    public String getSecondHalf() {
+        return secondHalf;
     }
 }

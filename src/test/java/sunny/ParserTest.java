@@ -15,15 +15,15 @@ public class ParserTest {
     @Test
     public void test1() {
         Parser x = new Parser("todo eat lunch");
-        assertEquals("todo", x.getCommand());
-        assertEquals("eat lunch", x.getMessage());
+        assertEquals("todo", x.getFirstHalf());
+        assertEquals("eat lunch", x.getSecondHalf());
 
         Parser y = new Parser("Hello");
-        assertEquals("Hello", y.getCommand());
-        assertNull(y.getMessage());
+        assertEquals("Hello", y.getFirstHalf());
+        assertNull(y.getSecondHalf());
 
         Parser z = new Parser("");
-        assertEquals("", z.getCommand());
-        assertNull(z.getMessage());
+        assertEquals("", z.getFirstHalf());
+        assertNull(z.getSecondHalf());
     }
 }

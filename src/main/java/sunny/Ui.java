@@ -1,11 +1,5 @@
 package sunny;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,26 +42,17 @@ public class Ui {
      */
     public String reply(String message) {
         Parser p = new Parser(message);
-        String command = p.getCommand();
+        String command = p.getFirstHalf();
 
         if (Objects.equals(command,"bye")) {
             store.write(ls);
             return line + "\n" + goodbye;
         } else if (Objects.equals(command,"list")){
-            String s = "";
-            for (int i = 1; i <= ls.size(); i++) {
-                s = s + String.format("     %h. %s \n", i, ls.get(i - 1));
-            }
-            return line + "\n" + s + "\n" + line;
+            Command c = new ListCommand();
+            return c.runCommand(ls, "");
         } else if (Objects.equals(command,"find")) {
-            String m2 = p.getMessage();
-            String s = "";
-            for (int i = 1; i <= ls.size(); i++) {
-                if (ls.get(i - 1).toString().contains(m2.trim())) {
-                    s = s + String.format("     %h. %s \n", i, ls.get(i - 1));
-                }
-            }
-            return line + "\n" + s + "\n" + line;
+            Command c = new FindCommand();
+            return c.runCommand(ls, p.getSecondHalf());
         } else if (Objects.equals(command,"")) {
             return line;
         } else if (Objects.equals(command, "mark")) {
