@@ -18,7 +18,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("    " +"Bye!!! Thanks for chatting!");
+        System.out.println("    " + "Bye!!! Thanks for chatting!");
         super.quitBot();
     }
 }

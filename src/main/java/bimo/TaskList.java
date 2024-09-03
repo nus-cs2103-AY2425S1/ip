@@ -1,16 +1,17 @@
 package bimo;
 
-import bimo.tasks.Task;
-
 import java.util.ArrayList;
+
+import bimo.tasks.Task;
 
 /**
  * Contains the list of tasks.
  */
 public class TaskList {
+    private static int length = 0;
+
     private ArrayList<Task> tasks;
 
-    private static int length = 0;
 
     /**
      * Instantiates a TaskList object with elements.

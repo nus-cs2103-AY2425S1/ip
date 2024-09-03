@@ -1,21 +1,22 @@
 package bimo;
 
-import bimo.tasks.Deadline;
-import bimo.tasks.Event;
-import bimo.tasks.Task;
-import bimo.tasks.ToDo;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import bimo.command.AddCommand;
 import bimo.command.ByeCommand;
 import bimo.command.Command;
 import bimo.command.DeleteCommand;
+import bimo.command.FindCommand;
 import bimo.command.ListCommand;
 import bimo.command.MarkCommand;
 import bimo.command.UnmarkCommand;
-import bimo.command.FindCommand;
+import bimo.tasks.Deadline;
+import bimo.tasks.Event;
+import bimo.tasks.Task;
+import bimo.tasks.ToDo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+
 
 
 /**
@@ -28,8 +29,7 @@ public class Parser {
      *
      * @param input Input that user typed in.
      * @return Command object.
-     * @throws BimoException If there is an invalid command or
-     * invalid date.
+     * @throws BimoException If there is an invalid command or invalid date.
      */
     public static Command parse(String input) throws BimoException {
         String[] parsedArray = input.split(" ");
@@ -79,8 +79,8 @@ public class Parser {
             return new FindCommand(word);
 
         } else {
-            throw new BimoException("    Sorry, I do not understand you \n" +
-                    "    as this is not a valid command");
+            throw new BimoException("    Sorry, I do not understand you \n"
+                    + "    as this is not a valid command");
         }
     }
 
@@ -91,7 +91,7 @@ public class Parser {
      * @return String value of task description.
      * @throws BimoException If there is no description typed in.
      */
-    public static String parseDescription(String input) throws BimoException{
+    public static String parseDescription(String input) throws BimoException {
         String[] parsedArray = input.split(" ");
         if (parsedArray.length <= 1) {
             throw new BimoException("    Please key in description for your task");

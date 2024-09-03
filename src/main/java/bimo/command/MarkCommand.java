@@ -27,6 +27,7 @@ public class MarkCommand extends Command {
      * @param ui User interface that interacts with users.
      * @param storage Storage that writes and load files.
      */
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (index >= tasks.getLength() || index < 0) {
             ui.showTaskNotFoundError();
