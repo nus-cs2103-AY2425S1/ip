@@ -39,6 +39,7 @@ application {
 shadowJar {
     archiveBaseName = "genji"
     archiveClassifier = null
+    archiveFileName = 'genji.jar'
 }
 
 run{
