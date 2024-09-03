@@ -37,6 +37,20 @@ public class Parser {
             tasks.removeTask(extractTaskIndex(input));
             break;
 
+        case "find":
+            String taskToFind = input.replace("find", "").trim();
+            if (taskToFind.isEmpty()) {
+                System.out.println("found no description of task! do try again");
+                break;
+            }
+            System.out.println("list of tasks:");
+            TaskList foundTask = tasks.findTask(taskToFind);
+
+            for (int i = 0; i < foundTask.getSize(); i++) {
+                System.out.println(foundTask.getTask(i));
+            }
+            break;
+
         case "todo":
             String taskTodo = input.replace("todo", "").trim();
             if (taskTodo.isEmpty()) {
