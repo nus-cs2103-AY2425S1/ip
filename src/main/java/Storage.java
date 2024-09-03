@@ -1,14 +1,18 @@
-package ip.derrick ;
-import java.io.*;
-import java.nio.file.*;
+package ip.derrick;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Storage class to store and load the TaskList.
+ */
 public class Storage {
 
-    private static final String FOLDER_PATH = Paths.get(System.getProperty("user.home"), "ip","data").toString();
+    private static final String FOLDER_PATH = Paths.get(System.getProperty("user.home"), "ip", "data").toString();
     private static final String FILE_NAME = "DATA.TXT";
     private static final Path FILE_PATH = Paths.get(FOLDER_PATH, FILE_NAME);
-    public Storage (){
+    public Storage() {
         createDirectory();
     }
 
@@ -38,7 +42,7 @@ public class Storage {
     /**
      * Loads tasks from a specified file.
      * If the file is empty, return an empty ArrayList.
-     * @return ArrayList<Task> result.
+     * @return ArrayList<Task>
      * @throws RuntimeException If an I/O error occurs during the retrieval of the directory or file.
      */
     public ArrayList<Task> loadTasksFromFile() {
@@ -53,18 +57,18 @@ public class Storage {
 
                 Task task = null;
                 switch (type) {
-                    case "T":
-                        task = new Todo(description);
-                        break;
-                    case "D":
-                        String by = parts[3];
-                        task = new Deadline(description, by);
-                        break;
-                    case "E":
-                        String start = parts[3];
-                        String end = parts[4];
-                        task = new Event(description, start, end);
-                        break;
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    String by = parts[3];
+                    task = new Deadline(description, by);
+                    break;
+                case "E":
+                    String start = parts[3];
+                    String end = parts[4];
+                    task = new Event(description, start, end);
+                    break;
                 }
 
                 if (task != null) {

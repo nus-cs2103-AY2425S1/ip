@@ -1,14 +1,24 @@
-package ip.derrick ;
+package ip.derrick;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+/**
+ * Event containing both a start time and end time.
+ */
+public class Event extends Task {
 
-    String start;
-    String end;
-    LocalDate newStart;
-    LocalDate newEnd;
+    private String start;
+    private String end;
+    private LocalDate newStart;
+    private LocalDate newEnd;
+
+    /**
+     * Initializes the event with a description, start time and end time.
+     * @param description Description of the event
+     * @param start Start time of the event
+     * @param end End time of the event
+     */
     public Event(String description, String start, String end) {
         super(description);
         this.start = start;

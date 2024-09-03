@@ -1,6 +1,9 @@
-package ip.derrick ;
+package ip.derrick;
 import java.util.ArrayList;
 
+/**
+ * TaskList containing all the tasks that the user has added.
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;
@@ -116,7 +119,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a new event task to the list based on the description, start time, and end time provided in the input string.
+     * Adds a new event task to the list based on the description, start time, and end time.
      *
      * @param input The input string containing the description, start time, and end time for the event task.
      * @throws InvalidDescriptionException If the description, start time, or end time is missing or invalid.
@@ -205,6 +208,11 @@ public class TaskList {
         System.out.println(task);
     }
 
+    /**
+     * Find the specified item(s) in the TaskList
+     * @param input The user input.
+     * @throws MissingPositionException if the input is missing an item position.
+     */
     public void findItem(String input) throws MissingPositionException {
         String keyword;
         try {

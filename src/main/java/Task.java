@@ -1,11 +1,17 @@
-package ip.derrick ;
+package ip.derrick;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
+/**
+ * Task class representing a task. It contains three subclasses, Todo, Event and Deadline.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Initializes the task with a description.
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

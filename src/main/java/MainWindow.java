@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
