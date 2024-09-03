@@ -6,6 +6,7 @@ import java.nio.file.*;
 
 import choaticbot.actions.ActionManager;
 import choaticbot.actions.Action;
+import choaticbot.exceptions.ChoaticBotException;
 import choaticbot.inputs.InputProcessor;
 import choaticbot.inputs.ProcessedInput;
 import choaticbot.tasks.TaskList;
@@ -108,14 +109,20 @@ public class ChoaticBot {
         boolean isEnd = false;
 
         ChoaticBot.welcome();
+
         while (!isEnd) {
-            String userInput = scanner.nextLine();
-            ProcessedInput processedInput = processor.processInput(userInput);
-            Action action = actionManager.createAction(processedInput, chatBot.tasklist);
-            action.execute();
-            chatBot.saveTasks(); // Save tasks after each action
-            isEnd = action.isEnd();
+            try {
+                String userInput = scanner.nextLine();
+                ProcessedInput processedInput = processor.processInput(userInput);
+                Action action = actionManager.createAction(processedInput, chatBot.tasklist);
+                action.execute();
+                chatBot.saveTasks();
+                isEnd = action.isEnd();
+            } catch (ChoaticBotException e) {
+                System.out.println(e.getMessage());
+            }
         }
+
         ChoaticBot.bye();
     }
 }
