@@ -1,9 +1,10 @@
 package Commands;
 
+import Main.Storage;
+import Main.Ui;
 import Tasks.Deadline;
 import Tasks.Task;
 import Tasks.TaskList;
-import Main.*;
 
 /**
  * Represents a command to add a deadline task to the task list.

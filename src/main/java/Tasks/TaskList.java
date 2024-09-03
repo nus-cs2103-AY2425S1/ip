@@ -83,7 +83,6 @@ public class TaskList {
      */
     public TaskList findTasks(String keyword) {
         assert keyword != null && !keyword.trim().isEmpty() : "Keyword for search should not be null or empty";
-        
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
