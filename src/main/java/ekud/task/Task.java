@@ -40,7 +40,7 @@ public abstract class Task {
      * @param ui The ui which prints the warning for an invalid taskSaveString.
      * @return Task corresponding to taskSaveString.
      * @see Ui
-     * @see ekud.components.Storage#loadTasks(TaskList, Ui) 
+     * @see ekud.components.Storage#loadTasks(TaskList, Ui)
      */
     public static Task getTaskFromSave(String taskSaveString, Ui ui) {
         try {

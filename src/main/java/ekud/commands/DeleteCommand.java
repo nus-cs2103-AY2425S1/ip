@@ -15,7 +15,8 @@ public class DeleteCommand extends Command {
     /** The index to delete */
     private final int index;
 
-    /** Creates a {@link DeleteCommand}.
+    /**
+     * Creates a {@link DeleteCommand}.
      *
      * @param index The index to delete.
      */

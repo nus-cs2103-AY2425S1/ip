@@ -200,7 +200,7 @@ public class Storage {
             String error = String.format("""
                     Oh no!! I've encountered an error while trying to update the task in your save file!
                       ERROR: %s""",
-                    e) ;
+                    e);
             ui.printOutput(error);
         }
     }
