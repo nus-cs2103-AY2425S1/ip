@@ -3,7 +3,7 @@ package repsmax;
 import java.util.List;
 
 /**
- * Parses user input and executes corresponding commands.
+ * Parses user inputs and executes corresponding commands.
  * The <code>Parser</code> class is responsible for interpreting user input, managing tasks,
  * and interacting with the user interface and storage.
  */
