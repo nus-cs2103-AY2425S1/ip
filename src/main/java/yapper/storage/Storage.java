@@ -14,7 +14,6 @@ import yapper.task.Event;
 import yapper.exception.YapperException;
 
 public class Storage {
-
     private final String filePath;
 
     public Storage(String filePath) {

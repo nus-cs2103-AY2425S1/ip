@@ -10,10 +10,6 @@ import yapper.exception.YapperException;
  * this class stores the date and time by which the task should be completed.
  */
 public class Deadline extends Task {
-<<<<<<< HEAD
-    
-=======
->>>>>>> branch-Level-9
     private LocalDateTime by;
 
     /**

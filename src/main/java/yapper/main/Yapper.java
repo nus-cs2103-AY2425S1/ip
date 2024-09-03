@@ -24,7 +24,6 @@ import yapper.ui.Ui;
      * of the Yapper task management application.
      */
 public class Yapper {
-
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
@@ -56,7 +55,6 @@ public class Yapper {
                 CommandType command = Parser.parseCommand(fullCommand);
 
                 switch (command) {
-<<<<<<< HEAD
                 case LIST:
                     ui.printTasks(tasks);
                     break;
@@ -84,38 +82,6 @@ public class Yapper {
                     break;
                 default:
                     throw new UnknownCommandException();
-=======
-                    case LIST:
-                        ui.printTasks(tasks);
-                        break;
-                    case MARK:
-                        handleMark(fullCommand);
-                        break;
-                    case UNMARK:
-                        handleUnmark(fullCommand);
-                        break;
-                    case TODO:
-                        handleTodo(fullCommand);
-                        break;
-                    case DEADLINE:
-                        handleDeadline(fullCommand);
-                        break;
-                    case EVENT:
-                        handleEvent(fullCommand);
-                        break;
-                    case DELETE:
-                        handleDelete(fullCommand);
-                        break;
-                    case FIND:
-                        handleFind(fullCommand);
-                        break;
-                    case BYE:
-                        isExit = true;
-                        ui.printGoodbye();
-                        break;
-                    default:
-                        throw new UnknownCommandException();
->>>>>>> branch-Level-9
                 }
 
                 storage.save(tasks.getTasks());

@@ -10,7 +10,6 @@ import yapper.exception.YapperException;
  * This class stores the start and end times of the event in addition to the description.
  */
 public class Event extends Task {
-
     private LocalDateTime from;
     private LocalDateTime to;
 
