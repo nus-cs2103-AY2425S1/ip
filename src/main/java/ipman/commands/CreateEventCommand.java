@@ -1,11 +1,11 @@
 package ipman.commands;
 
+import java.time.LocalDate;
+
 import ipman.models.Event;
 import ipman.models.Task;
 import ipman.models.TaskList;
 import ipman.ui.Ui;
-
-import java.time.LocalDate;
 
 public class CreateEventCommand implements Command {
     private final String name;

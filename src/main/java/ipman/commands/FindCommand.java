@@ -1,10 +1,10 @@
 package ipman.commands;
 
-import ipman.models.Task;
-import ipman.models.TaskList;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import ipman.models.Task;
+import ipman.models.TaskList;
 
 public class FindCommand implements Command {
     private final String query;

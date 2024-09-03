@@ -1,9 +1,9 @@
 package ipman.ui;
 
+import java.util.Scanner;
+
 import ipman.commands.Command;
 import ipman.parser.Parser;
-
-import java.util.Scanner;
 
 public class CliUi implements Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
