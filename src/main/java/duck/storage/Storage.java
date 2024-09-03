@@ -23,47 +23,47 @@ public class Storage {
     private final File file;
 
     /**
-     * Constructs a Storage object with the specified file path.
+     * Constructs a Storage object with the specified file path relative to the user's home directory.
      * If the file or its directory does not exist, they will be created.
      *
-     * @param filePath The path to the file where tasks are stored.
+     * @param filePath The relative path to the file where tasks are stored, starting from the user's home directory.
      * @throws DuckException If there is an error creating the file or directory.
      */
     public Storage(String filePath) throws DuckException {
-        this.filePath = filePath;
-        file = createFileIfDoesNotExist(filePath);
+        this.filePath = new File(System.getProperty("user.home"), filePath).getAbsolutePath();
+        file = createFileIfDoesNotExist(this.filePath);
+    }
+
+    /**
+     * Returns the file managed by this Storage object.
+     *
+     * @return The file managed by this Storage object.
+     */
+    public File getFile() {
+        return file;
     }
 
     /**
      * Creates the file and its directory if they do not exist.
      *
-     * @param filePath The path to the file to be created.
+     * @param filePath The absolute path to the file to be created.
      * @return The created file.
      * @throws DuckException If there is an error creating the file or directory.
      */
-    public File createFileIfDoesNotExist(String filePath) throws DuckException {
+    private File createFileIfDoesNotExist(String filePath) throws DuckException {
         try {
-            File directory = getFileDirectory(filePath);
-            if (!directory.isDirectory()) {
-                directory.mkdir();
+            File file = new File(filePath);
+            File directory = file.getParentFile();
+            if (!directory.exists() && !directory.mkdirs()) {
+                throw new DuckException("Error creating directory: " + directory.getPath());
             }
-
-            File f = new File(filePath);
-
-            if (f.createNewFile()) {
-                System.out.println("New file created under root path:\n"
-                        + "./" + filePath);
+            if (file.createNewFile()) {
+                System.out.println("New file created at: " + file.getPath());
             }
-
-            return f;
-        } catch (SecurityException e) {
-            System.out.println("Error creating directory due to security Exception:\n"
-                    + e.getMessage());
+            return file;
         } catch (IOException e) {
-            throw new DuckException("Error creating file:\n"
-                    + e.getMessage());
+            throw new DuckException("Error creating file: " + e.getMessage());
         }
-        return null;
     }
 
     /**

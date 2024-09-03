@@ -30,11 +30,12 @@ public class StorageTest {
     @RepeatedTest(3)
     public void writeTasks_repeatedly_shouldOverWrite() throws DuckException, IOException {
         String testFilePath = "data/test.txt";
-        File testFile = new File(testFilePath);
 
         // Initialize Storage and TaskList
         Storage storage = new Storage(testFilePath);
         TaskList tasks = new TaskList();
+
+        File testFile = storage.getFile();
 
         // Create and add the first task
         Task task1 = new ToDo(false, "Walk the dog");
@@ -95,18 +96,22 @@ public class StorageTest {
     @RepeatedTest(3)
     public void appendTasks_repeatedly_lineCountShouldAccumulate(RepetitionInfo ri) throws DuckException, IOException {
         String testFilePath = "data/test.txt";
-        File testFile = new File(testFilePath);
+
 
         int currentRep = ri.getCurrentRepetition();
+
+
+
+        // Initialize Storage and TaskList
+        Storage storage = new Storage(testFilePath);
+        TaskList tasks = new TaskList();
+
+        File testFile = storage.getFile();
 
         // Ensure that the test file starts fresh if it's the first repetition
         if (currentRep == 1 && testFile.exists()) {
             testFile.delete();
         }
-
-        // Initialize Storage and TaskList
-        Storage storage = new Storage(testFilePath);
-        TaskList tasks = new TaskList();
 
         // Create and append the first task
         Task task1 = new ToDo(false, "Walk the dog");
