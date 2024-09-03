@@ -8,7 +8,7 @@ package meeju;
  * and displayed to the user.
  *
  */
-public class MeejuException extends Exception{
+public class MeejuException extends Exception {
 
     private String message;
     /**

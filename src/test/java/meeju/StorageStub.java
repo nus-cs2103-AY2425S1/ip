@@ -2,7 +2,11 @@ package meeju;
 
 import java.util.ArrayList;
 
-public class StorageStub extends Storage{
+/**
+ * This class is a Stub that enables independent testing of Parser without interacting
+ * with the file on disk.
+ */
+public class StorageStub extends Storage {
 
     @Override
     public ArrayList<Task> initialiseList() {
@@ -12,6 +16,6 @@ public class StorageStub extends Storage{
 
     @Override
     public void updateFile(ArrayList<Task> taskList) throws MeejuException {
-        return ;
+        return;
     }
 }

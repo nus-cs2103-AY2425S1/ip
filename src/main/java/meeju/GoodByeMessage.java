@@ -5,6 +5,11 @@ package meeju;
  * and the goodbye message is printed out.
  */
 public class GoodByeMessage {
+
+    /**
+     * Prints out goodbye message before application terminates
+     *
+     */
     public static void goodByeMessage() {
         System.out.println(" Bye. Hope to see you again soon!");
 

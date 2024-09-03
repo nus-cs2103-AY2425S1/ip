@@ -3,7 +3,6 @@ package meeju;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,7 +12,7 @@ import java.util.Scanner;
 public class Storage {
     private File file;
     private Scanner scanner;
-    private String path  = "./data/meeju.txt";
+    private String path = "./data/meeju.txt";
 
     /* Note - The delimiter used is '!-' */
 
