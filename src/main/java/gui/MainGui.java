@@ -18,6 +18,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import skibidi.Skibidi;
 
+/**
+ * GUI for Skibidi chatbot.
+ */
 public class MainGui extends Application {
     @FXML
     private ScrollPane scrollPane;

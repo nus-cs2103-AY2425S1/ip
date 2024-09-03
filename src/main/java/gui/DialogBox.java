@@ -21,6 +21,9 @@ public class DialogBox extends HBox {
     @FXML
     private final ImageView displayPicture;
 
+    /**
+     * Construct new DialogBox with given label, image and background color.
+     */
     public DialogBox(Label l, ImageView iv, String color) {
         text = l;
         displayPicture = iv;

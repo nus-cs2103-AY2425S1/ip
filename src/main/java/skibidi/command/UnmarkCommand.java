@@ -8,13 +8,22 @@ import skibidi.TaskList.TaskNotFoundException;
 import skibidi.Ui;
 import skibidi.task.AbstractTask;
 
+/**
+ * Command to mark a task as not done.
+ */
 public class UnmarkCommand extends AbstractCommand {
     private final int taskId;
 
+    /**
+     * Construct new unmark command for given task id.
+     */
     public UnmarkCommand(int taskId) {
         this.taskId = taskId;
     }
 
+    /**
+     * Execute unmark command and return string to be printed.
+     */
     public Optional<String> execute(TaskList taskList, Storage storage, Ui ui) {
         try {
             AbstractTask task = taskList.getTask(taskId);

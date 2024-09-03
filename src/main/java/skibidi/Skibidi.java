@@ -7,19 +7,28 @@ import java.io.InputStreamReader;
 import gui.MainGui;
 import javafx.application.Application;
 
+/**
+ * Driver class for the chatbot application.
+ */
 public class Skibidi {
-    TaskList taskList;
-    Storage storage;
-    Ui ui;
-    CommandParser parser;
+    private final TaskList taskList;
+    private final Storage storage;
+    private final Ui ui;
+    private final CommandParser parser;
 
+    /**
+     * Constructor for Skibidi chatbot instance.
+     */
     public Skibidi(String dataPath) {
-        this.storage = new Storage(dataPath);
-        this.taskList = new TaskList(storage.loadTasksFromDisk());
-        this.ui = new Ui();
-        this.parser = new CommandParser();
+        storage = new Storage(dataPath);
+        taskList = new TaskList(storage.loadTasksFromDisk());
+        ui = new Ui();
+        parser = new CommandParser();
     }
 
+    /**
+     * Start terminal session for Skibidi chatbot.
+     */
     public void start() {
         System.out.println(Ui.getWelcomeMessage());
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -40,6 +49,9 @@ public class Skibidi {
         }
     }
 
+    /**
+     * Parse input command and get string message response.
+     */
     public String getResponse(String input) {
         if (parser.isExit(input)) {
             return Ui.getExitMessage();
