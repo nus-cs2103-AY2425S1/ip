@@ -124,7 +124,7 @@ public class TaskList {
         Task task = tasks.get(taskNum - 1);
         tasks.remove(taskNum - 1);
         String count = "\nYou now have " + tasks.size() + " task(s) to do.";
-        return "Just clearing up I see. I got you, I've removed this task:\n" + task.toString() + count;
+        return "Just clearing up I see. I've removed this task:\n" + task.toString() + count;
     }
 
     public int size() {
