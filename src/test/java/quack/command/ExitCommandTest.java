@@ -8,11 +8,12 @@ import quack.Quack;
 import quack.Storage;
 import quack.TaskListStub;
 
-    /** 
-     * This class is to test the ExitCommand functionality.
-     */
-    public class ExitCommandTest {
-    
+/**
+ * This class is to test the ExitCommand functionality.
+ */
+public class ExitCommandTest {
+
+    /** Quack chatbot object */
     private Quack quack;
     /** Stub Tasklist object */
     private TaskListStub taskList;
@@ -21,7 +22,7 @@ import quack.TaskListStub;
     /** Command to be executed */
     private ExitCommand exitCommand;
 
-    /** 
+    /**
      * Initiates objectes needed to test the delete command.
      */
     @BeforeEach
@@ -35,16 +36,15 @@ import quack.TaskListStub;
         storage = new Storage(taskList);
     }
 
-    /** 
+    /**
      * Tests if the exit command exits the program successfully.
      */
-    @Test 
+    @Test
     public void byeCommandOutput() {
         exitCommand = new ExitCommand(quack, taskList, storage);
         exitCommand.execute();
 
         assertEquals(quack.getIsRunning(), false, "The command did not stop the Quack from running");
-
     }
 
 }

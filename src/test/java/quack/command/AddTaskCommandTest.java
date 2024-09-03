@@ -4,19 +4,20 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import quack.TaskListStub;
 import quack.Ui;
 
-/** 
+/**
  * This class is to test the AddTaskCommand functionality.
  */
 public class AddTaskCommandTest {
-    
-     /** Stub Tasklist object */
+
+    /** Stub Tasklist object */
     private TaskListStub taskList;
     /** Ui object to handle UI interface tasks */
     private Ui ui;
@@ -25,7 +26,7 @@ public class AddTaskCommandTest {
     /** Set a output space to retrieve system.out messages */
     private ByteArrayOutputStream actualOutput;
 
-    /** 
+    /**
      * Initiates objectes needed to test the add task command.
      */
     @BeforeEach
@@ -34,14 +35,14 @@ public class AddTaskCommandTest {
         // Set the stub task list
         taskList = new TaskListStub();
         taskList.emptyTaskList();
-        
+
         // Set the output to a container to be used for comparison
         actualOutput = new ByteArrayOutputStream();
         System.setOut(new PrintStream(actualOutput));
     }
 
-    /** 
-     * Tests if the add task command prints the correct output 
+    /**
+     * Tests if the add task command prints the correct output
      * after adding an item.
      */
     @Test
@@ -55,23 +56,23 @@ public class AddTaskCommandTest {
         addTaskCommand = new AddTaskCommand(taskList, ui);
 
         addTaskCommand.execute();
-        String expected = "What is the type of task you would like to add: " +
-            "-".repeat(65) + "\n" +
-            "What is the description for the TODO task: " + 
-            "-".repeat(65) + "\n" +
-            "Success! I have added this task: [T][ ] Task1\n" + 
-            "You now have 1 tasks in your list right now!\n" +
-            "-".repeat(65) + "\n";
-        
+        String expected = "What is the type of task you would like to add: "
+            + "-".repeat(65) + "\n"
+            + "What is the description for the TODO task: "
+            + "-".repeat(65) + "\n"
+            + "Success! I have added this task: [T][ ] Task1\n"
+            + "You now have 1 tasks in your list right now!\n"
+            + "-".repeat(65) + "\n";
+
         String actual = actualOutput.toString().replaceAll("\r", "");
 
         assertEquals(expected, actual, "The add command did not show the correct prompt after adding a task");
         assertEquals(taskList.getLength(), 1, "The add command did not add the new task");
     }
 
-    /** 
-     * Tests if the add task command prints the correct output 
-     * after an invalid date input
+    /**
+     * Tests if the add task command prints the correct output
+     * after an invalid date input.
      */
     @Test
     public void testInvalidDateInput() {
@@ -84,17 +85,17 @@ public class AddTaskCommandTest {
         addTaskCommand = new AddTaskCommand(taskList, ui);
 
         addTaskCommand.execute();
-        String expected = "What is the type of task you would like to add: " +
-        "-".repeat(65) + "\n" +
-        "What is the description for the EVENT task: " +
-        "-".repeat(65) + "\n" +
-        "When is the start date for the EVENT task (Format: DD/MM/YYYY HH:MM:SS): \n"+
-        "-".repeat(65) + "\n" +
-        "When is the end date for the EVENT task (Format: DD/MM/YYYY HH:MM:SS): \n" +
-        "-".repeat(65) + "\n" +
-        "Im sorry but the date input is invalid ensure that it is in this format: DD/MM/YYYY HH:MM:SS\n" +
-        "-".repeat(65) + "\n";
-        
+        String expected = "What is the type of task you would like to add: "
+            + "-".repeat(65) + "\n"
+            + "What is the description for the EVENT task: "
+            + "-".repeat(65) + "\n"
+            + "When is the start date for the EVENT task (Format: DD/MM/YYYY HH:MM:SS): \n"
+            + "-".repeat(65) + "\n"
+            + "When is the end date for the EVENT task (Format: DD/MM/YYYY HH:MM:SS): \n"
+            + "-".repeat(65) + "\n"
+            + "Im sorry but the date input is invalid ensure that it is in this format: DD/MM/YYYY HH:MM:SS\n"
+            + "-".repeat(65) + "\n";
+
         String actual = actualOutput.toString().replaceAll("\r", "");
 
         assertEquals(expected, actual, "Add command did not display the correct prompt when an invalid date is given");

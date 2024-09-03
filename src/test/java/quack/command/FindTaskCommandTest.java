@@ -1,18 +1,21 @@
 package quack.command;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import quack.TaskListStub;
 import quack.Ui;
 
+/**
+ * This class is to test the FindTask functionality.
+ */
 public class FindTaskCommandTest {
-    
+
     /** List to store all tasks by Quack */
     private TaskListStub taskList;
     /** List to store all tasks by Quack */
@@ -22,17 +25,23 @@ public class FindTaskCommandTest {
     /** Set a output space to retrieve system.out messages */
     private ByteArrayOutputStream actualOutput;
 
+    /**
+     * Initiates objectes needed to test the find command.
+     */
     @BeforeEach
     public void initiate() {
 
         taskList = new TaskListStub();
         taskList.populateTaskList();
-        
+
         // Set the output to a container to be used for comparison
         actualOutput = new ByteArrayOutputStream();
         System.setOut(new PrintStream(actualOutput));
     }
 
+    /**
+     * Tests if the find command find the correct tasks.
+     */
     @Test
     public void findCorrectTask() {
 
@@ -45,15 +54,20 @@ public class FindTaskCommandTest {
 
         findTaskCommand.execute();
 
-        String expected = "What task would you like to find? : " + 
-            "-".repeat(65) + "\n" +
-            "Here are some tasks that I found that matches your description:\n" + 
-            "1. [T][ ] Dummy 1\n"+
-            "-".repeat(65) + "\n";
-        
-        assertEquals(expected, actualOutput.toString().replaceAll("\r", ""), "Find command did not find the correct tasks");
+        String expected = "What task would you like to find? : "
+            + "-".repeat(65) + "\n"
+            + "Here are some tasks that I found that matches your description:\n"
+            + "1. [T][ ] Dummy 1\n"
+            + "-".repeat(65) + "\n";
+
+        assertEquals(expected, actualOutput.toString().replaceAll("\r", ""),
+            "Find command did not find the correct tasks");
     }
 
+    /**
+     * Tests if the find command displays the correct message
+     * when no such tasks can be found.
+     */
     @Test
     public void cannotFindTask() {
 
@@ -66,11 +80,12 @@ public class FindTaskCommandTest {
 
         findTaskCommand.execute();
 
-        String expected = "What task would you like to find? : " + 
-            "-".repeat(65) + "\n" +
-            "Im sorry. Seems like no tasks in the task list fits the description!\n"+
-            "-".repeat(65) + "\n";
-        
-        assertEquals(expected, actualOutput.toString().replaceAll("\r", ""), "Find command found something which they should not find");
+        String expected = "What task would you like to find? : "
+            + "-".repeat(65) + "\n"
+            + "Im sorry. Seems like no tasks in the task list fits the description!\n"
+            + "-".repeat(65) + "\n";
+
+        assertEquals(expected, actualOutput.toString().replaceAll("\r", ""),
+            "Find command found something which they should not find");
     }
 }
