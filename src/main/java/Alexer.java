@@ -60,6 +60,7 @@ public class Alexer {
     public void deleteTask(List<String> arguments) {
         int index = Integer.parseInt(arguments.get(0)) - 1;
         Task task = tasks.removeTask(index);
+        tasks.saveTasks();
 
         System.out.println(BREAK);
         System.out.println("Don't want to see that task anymore? I got you!");
@@ -79,6 +80,7 @@ public class Alexer {
 
         Todo todo = new Todo(description);
         tasks.addTask(todo);
+        tasks.saveTasks();
 
         System.out.println(BREAK);
         System.out.format("Sure! I’ve added the todo to your list:\n\n\t%s\n", todo);
@@ -98,6 +100,7 @@ public class Alexer {
 
         Deadline deadline = new Deadline(description, by);
         tasks.addTask(deadline);
+        tasks.saveTasks();
 
         System.out.println(BREAK);
         System.out.format("No problems! I’ve added the task to your list:\n\n\t%s\n", deadline);
@@ -121,6 +124,7 @@ public class Alexer {
 
         Event event = new Event(description, from, to);
         tasks.addTask(event);
+        tasks.saveTasks();
 
         System.out.println(BREAK);
         System.out.format("Noted! I’ve added a new event to your tasks:\n\n\t%s\n", event);
@@ -131,6 +135,7 @@ public class Alexer {
     public void markTaskDone(int index) {
         // assume input here is valid, we will handle exceptions later
         tasks.getTask(index - 1).markAsDone();
+        tasks.saveTasks();
 
         System.out.println(BREAK);
         System.out.println("Great job completing the task! Keep up the great work!");
@@ -141,6 +146,7 @@ public class Alexer {
     public void unmarkTaskDone(int index) {
         // assume input here is valid, we will handle exceptions later
         tasks.getTask(index - 1).unmarkDone();
+        tasks.saveTasks();
 
         System.out.println(BREAK);
         System.out.println("Alright, it seems you are not done with that yet.");
@@ -207,9 +213,11 @@ public class Alexer {
                 ,'      \\ /\\__ `.___, /  \\  `.___, /   """;
         System.out.println(BREAK);
         System.out.println(logo);
+        System.out.println(BREAK);
 
         // create an instance of our bot
         Alexer alexer = new Alexer();
+        alexer.tasks.loadTasks();
         alexer.greetUser();
         alexer.promptLoop();
     }
