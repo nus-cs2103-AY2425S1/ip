@@ -1,28 +1,30 @@
 package jag;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
+
 public class StorageTest {
     // Creation of Task and TaskList objects
-    Ui testUi = new Ui();
+    private Ui testUi = new Ui();
 
-    Task testTodo = new Todo("read book");
+    private Task testTodo = new Todo("read book");
 
-    String b = "2020-10-10 1800";
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    LocalDateTime by = LocalDateTime.parse(b, formatter);
-    Task testDeadline = new Deadline("read magazine", by);
+    private String b = "2020-10-10 1800";
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private LocalDateTime by = LocalDateTime.parse(b, formatter);
+    private Task testDeadline = new Deadline("read magazine", by);
 
-    String f = "2019-10-10 1800";
-    String t = "2019-10-11 1900";
-    LocalDateTime from = LocalDateTime.parse(f, formatter);
-    LocalDateTime to = LocalDateTime.parse(t, formatter);
-    Task testEvent = new Event("read newspaper", from, to);
+    private String f = "2019-10-10 1800";
+    private String t = "2019-10-11 1900";
+    private LocalDateTime from = LocalDateTime.parse(f, formatter);
+    private LocalDateTime to = LocalDateTime.parse(t, formatter);
+    private Task testEvent = new Event("read newspaper", from, to);
 
 
 
@@ -37,12 +39,12 @@ public class StorageTest {
         testStorage.write(tasks);
         TaskList testTask = testStorage.load();
         Task todos = testTask.getTask(0);
-        Task Deadline = testTask.getTask(1);
-        Task Event = testTask.getTask(2);
+        Task deadline = testTask.getTask(1);
+        Task event = testTask.getTask(2);
 
         assertTrue((todos instanceof Todo), "Expected a todo");
-        assertTrue((Deadline instanceof Deadline), "Expected a Deadline");
-        assertTrue((Event instanceof Event), "Expected an Event");
+        assertTrue((deadline instanceof Deadline), "Expected a Deadline");
+        assertTrue((event instanceof Event), "Expected an Event");
 
     }
 
@@ -57,6 +59,5 @@ public class StorageTest {
         } catch (IOException e) {
             assertEquals(e.getMessage(), "No tasks to save :(");
         }
-
     }
 }

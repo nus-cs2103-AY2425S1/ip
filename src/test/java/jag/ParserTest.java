@@ -1,8 +1,10 @@
 package jag;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 public class ParserTest {
     @Test
     public void parse_list_test() throws AExceptions {
@@ -52,7 +54,7 @@ public class ParserTest {
      *
      *
      * @throws AExceptions In the event that the input received is not in any of the
-     * matching switch cases mentioned
+     *              matching switch cases mentioned
      */
     @Test
     public void parse_find_test() throws AExceptions {
@@ -75,5 +77,4 @@ public class ParserTest {
             assertEquals("OOPS!!! I'm sorry, but I don't know what that means :-(", e.getErrorMessage());
         }
     }
-
 }

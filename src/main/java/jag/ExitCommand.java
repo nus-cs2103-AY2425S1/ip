@@ -25,7 +25,7 @@ public class ExitCommand extends Command {
      * Returns true so that Jag.java does exit for loop
      *
      * @return a default true so the run() in Jag.java does exit
-     * the while loop
+     *              the while loop
      */
     @Override
     public Boolean isExit() {

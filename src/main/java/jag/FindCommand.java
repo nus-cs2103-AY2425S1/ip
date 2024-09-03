@@ -1,5 +1,9 @@
 package jag;
 
+/**
+ * A FindCommand Class that extends the Command Class. It is responsible for
+ * finding a given task in a taskList upon calling the command as a user input
+ */
 public class FindCommand extends Command {
 
     /**
