@@ -27,6 +27,11 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Creates a task list with the given tasks.
+     *
+     * @param tasks The tasks to be added to the task list.
+     */
     public TaskList(Task ... tasks) {
         this.tasks = new ArrayList<>();
         for (Task task : tasks) {
