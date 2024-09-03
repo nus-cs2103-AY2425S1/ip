@@ -28,8 +28,8 @@ public class MainWindow extends AnchorPane {
 
     private Derrick chatbot;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/skylarwhite.png"));
-    private Image chatBotImage = new Image(this.getClass().getResourceAsStream("/images/skylarwhite.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image chatBotImage = new Image(this.getClass().getResourceAsStream("/images/Chatbot.png"));
 
     @FXML
     public void initialize() {
