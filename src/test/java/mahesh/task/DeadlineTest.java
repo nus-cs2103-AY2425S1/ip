@@ -1,16 +1,17 @@
 package mahesh.task;
 
-import java.util.StringTokenizer;
-import org.junit.jupiter.api.Test;
-
-import mahesh.util.MaheshException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.StringTokenizer;
+
+import org.junit.jupiter.api.Test;
+
+import mahesh.util.MaheshException;
+
 public class DeadlineTest {
-    
+
     @Test
     public void testParseDeadline() {
         String input = "deadline Homework /by 2024-08-26T23:59:00";
@@ -25,7 +26,8 @@ public class DeadlineTest {
         }
     }
 
-    @Test void testParseDeadlineWithIncompleteInput() {
+    @Test
+    public void testParseDeadlineWithIncompleteInput() {
         String input = "deadline Homework /by";
         StringTokenizer tokenizer = new StringTokenizer(input);
         tokenizer.nextToken();
@@ -35,7 +37,8 @@ public class DeadlineTest {
         });
     }
 
-    @Test void testParseDeadlineWithIncorrectInput() {
+    @Test
+    public void testParseDeadlineWithIncorrectInput() {
         String input = "deadline Homework /by Aug 26 2024, 23:59:00";
         StringTokenizer tokenizer = new StringTokenizer(input);
         tokenizer.nextToken();
