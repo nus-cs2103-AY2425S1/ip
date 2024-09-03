@@ -8,9 +8,9 @@ import colress.exception.FileCorruptedException;
  * Represents the Colress chatbot.
  */
 public final class Colress {
-    private final Ui UI;
-    private final Storage STORAGE;
-    private final TaskList TASK_LIST;
+    private final Ui ui;
+    private final Storage storage;
+    private final TaskList taskList;
 
     /**
      * Constructor for the Colress class.
@@ -22,9 +22,9 @@ public final class Colress {
      * @param filePath A string representing the relative filepath for the text file containing the tasks.
      */
     public Colress(String filePath) {
-        UI = new Ui();
-        STORAGE = new Storage(filePath);
-        TASK_LIST = new TaskList();
+        ui = new Ui();
+        storage = new Storage(filePath);
+        taskList = new TaskList();
     }
 
     /**
@@ -41,15 +41,15 @@ public final class Colress {
      */
     public void run() {
         try {
-            UI.welcome();
-            UI.printLoadTaskStatus(STORAGE.loadTasks(TASK_LIST));
-            UI.printTasks(TASK_LIST, "list");
-            while (!UI.getHasCalledExitCommand()) {
-                UI.processInput(TASK_LIST);
-                STORAGE.writeToTaskFile(TASK_LIST);
+            ui.welcome();
+            ui.printLoadTaskStatus(storage.loadTasks(taskList));
+            ui.printTasks(taskList, "list");
+            while (!ui.getHasCalledExitCommand()) {
+                ui.processInput(taskList);
+                storage.writeToTaskFile(taskList);
             }
         } catch (FileCorruptedException e) {
-            UI.print(String.valueOf(e));
+            ui.print(String.valueOf(e));
         } catch (IOException e) {
             e.printStackTrace();
         }

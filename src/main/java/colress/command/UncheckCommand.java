@@ -19,7 +19,7 @@ public final class UncheckCommand extends Command {
     public void execute(Ui ui, TaskList taskList) {
         int taskNumber = ui.promptTaskNumber(taskList);
         if (taskNumber != -1) {
-            ui.printConfirmationMessage(taskList, getExecuteSuccessMessage() + taskList.uncheckTask(taskNumber));
+            ui.printConfirmationMessage(taskList, getSuccessfulExecutionMessage() + taskList.uncheckTask(taskNumber));
         }
     }
 }

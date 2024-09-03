@@ -19,7 +19,7 @@ public final class CheckCommand extends Command {
     public void execute(Ui ui, TaskList taskList) {
         int taskNumber = ui.promptTaskNumber(taskList);
         if (taskNumber != -1) {
-            ui.printConfirmationMessage(taskList, getExecuteSuccessMessage() + taskList.checkTask(taskNumber));
+            ui.printConfirmationMessage(taskList, getSuccessfulExecutionMessage() + taskList.checkTask(taskNumber));
         }
     }
 }

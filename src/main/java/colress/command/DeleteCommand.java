@@ -20,7 +20,7 @@ public final class DeleteCommand extends Command {
         int taskNumber = ui.promptTaskNumber(taskList);
         if (taskNumber != -1) {
             taskList.deleteTask(taskNumber);
-            ui.printConfirmationMessage(taskList, getExecuteSuccessMessage());
+            ui.printConfirmationMessage(taskList, getSuccessfulExecutionMessage());
         }
     }
 }

@@ -19,7 +19,7 @@ import colress.task.ToDo;
  * Represents the Storage of the Colress chatbot.
  */
 public final class Storage {
-    private final File TASK_FILE;
+    private final File taskFile;
     private FileWriter writer;
 
     /**
@@ -28,7 +28,7 @@ public final class Storage {
      * @param filePath A string representing the relative filepath for the text file containing the tasks.
      */
     public Storage(String filePath) {
-        this.TASK_FILE = new File(filePath);
+        this.taskFile = new File(filePath);
     }
     private LocalDate readDate(String date) throws FileCorruptedException {
         try {
@@ -48,7 +48,7 @@ public final class Storage {
 
     private void repopulateTasks(TaskList taskList)
             throws FileCorruptedException, FileNotFoundException {
-        Scanner reader = new Scanner(TASK_FILE);
+        Scanner reader = new Scanner(taskFile);
         String[] strings;
         String currLine;
 
@@ -95,13 +95,13 @@ public final class Storage {
      * The method throws a FileCorruptedException if there are error reading the file.
      */
     public boolean loadTasks(TaskList taskList) throws IOException, FileCorruptedException {
-        boolean createdNewFile = TASK_FILE.createNewFile();
+        boolean createdNewFile = taskFile.createNewFile();
         repopulateTasks(taskList);
         return createdNewFile;
     }
 
     private void initialiseFileWriter() throws IOException {
-        writer = new FileWriter(TASK_FILE, false);
+        writer = new FileWriter(taskFile, false);
     }
 
     /**

@@ -22,12 +22,12 @@ import colress.exception.UnknownTaskTypeException;
  * Represents the Parser of the Ui of the Colress chatbot.
  */
 public final class Parser {
-    private final Scanner INPUT_READER = new Scanner(System.in);
+    private final Scanner inputReader = new Scanner(System.in);
     private String input = "";
     public Parser() {}
 
     private String getInput() {
-        input = INPUT_READER.nextLine().toLowerCase();
+        input = inputReader.nextLine().toLowerCase();
         return input;
     }
 
