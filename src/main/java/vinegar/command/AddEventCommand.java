@@ -19,7 +19,7 @@ public class AddEventCommand extends Command {
     private LocalDateTime to;
 
     public AddEventCommand(String[] inputParts) throws VinegarException {
-        Validator.validateParts(inputParts, 1, "Please specify the description and event time.");
+        Validator.validateParts(inputParts, 2, "Please specify the description and event time.");
         String[] eventParts = inputParts[1].split(" /from | /to ");
         Validator.validateParts(eventParts, 3, "Please specify the event time using /from and /to in the format yyyy-MM-dd HH:mm.");
 

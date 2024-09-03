@@ -18,7 +18,7 @@ public class AddDeadlineCommand extends Command {
     private String by;
 
     public AddDeadlineCommand(String[] inputParts) throws VinegarException {
-        Validator.validateParts(inputParts, 1, "Please specify the description and deadline.");
+        Validator.validateParts(inputParts, 2, "Please specify the description and deadline.");
         String[] deadlineParts = inputParts[1].split(" /by ");
 
         // Validate if split operation resulted in two parts
