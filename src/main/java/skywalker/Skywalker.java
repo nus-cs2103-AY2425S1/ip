@@ -1,4 +1,4 @@
-package skywalker;
+import java.io.IOException;
 
 import skywalker.command.Command;
 import skywalker.parser.Parser;
@@ -6,14 +6,20 @@ import skywalker.storage.Storage;
 import skywalker.task.TaskList;
 import skywalker.ui.Ui;
 
-import java.io.IOException;
-
+/**
+ * The Skywalker class represents the main application that runs the chatbot.
+ */
 public class Skywalker {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Skywalker instance with the specified file path for storing tasks.
+     *
+     * @param filePath the file path to the storage file
+     */
     public Skywalker(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +31,9 @@ public class Skywalker {
         }
     }
 
+    /**
+     * Runs the chatbot, handling user input and executing commands until exit.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -47,6 +56,11 @@ public class Skywalker {
 
 
 
+    /**
+     * The main method that launches the Skywalker application.
+     *
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
         new Skywalker("./data/tasks.txt").run();
     }

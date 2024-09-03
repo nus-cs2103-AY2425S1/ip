@@ -1,7 +1,8 @@
 package skywalker.ui;
 
-import skywalker.task.TaskList;
 import java.util.Scanner;
+
+import skywalker.task.TaskList;
 
 /**
  * The Ui class handles interactions with the user.

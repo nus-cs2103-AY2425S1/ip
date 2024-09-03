@@ -1,16 +1,20 @@
 package skywalker.command;
 
+import java.util.ArrayList;
+
 import skywalker.storage.Storage;
 import skywalker.task.Task;
 import skywalker.task.TaskList;
 import skywalker.ui.Ui;
 
-import java.util.ArrayList;
 
-public class FindCommand extends Command{
+/**
+ * Customise the command type of find command.
+ */
+public class FindCommand extends Command {
     private String keyword;
 
-    public FindCommand(String keyword){
+    public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 

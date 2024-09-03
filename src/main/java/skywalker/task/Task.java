@@ -1,16 +1,20 @@
 package skywalker.task;
 
-
+/**
+ * Represents a specific type of task that has a status indicating whether it is done.
+ */
 public class Task {
-    public String description;
-    public boolean isDone;
     protected TaskType taskType;
+    private String description;
+    private boolean isDone;
+
 
     /**
      * Constructs a Task with the specified description and task type.
-     * The task is initialised to be undone.
-     * @param description
-     * @param taskType
+     * The task is initialized to be not done.
+     *
+     * @param description The description of the task.
+     * @param taskType    The type of the task.
      */
     public Task(String description, TaskType taskType) {
         this.description = description;
@@ -19,45 +23,82 @@ public class Task {
     }
 
     /**
-     * Returns a 'X' if the task is done and empty space otherwise.
-     * @return "X" if the task is done, otherwise a space character " "
+     * Returns the description of the task.
+     *
+     * @return The task description.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Sets the description of the task.
+     *
+     * @param description The new description of the task.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Returns the status of the task.
+     *
+     * @return True if the task is done, false otherwise.
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
+     * Sets the status of the task.
+     *
+     * @param done True to mark the task as done, false to mark it as not done.
+     */
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
+    /**
+     * Returns a 'X' if the task is done and an empty space otherwise.
+     *
+     * @return "X" if the task is done, otherwise a space character " ".
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
     /**
-     * Mark the task as done if undone
-     * Else print a statement to say that it is alr done.
+     * Marks the task as done.
      */
-    public void markDone(){
-        if(!this.isDone) {
+    public void markDone() {
+        if (!this.isDone) {
             this.isDone = true;
-        } else{
-            System.out.println("the task is done liao");
+        } else {
+            System.out.println("The task is already done.");
         }
     }
 
     /**
-     * Mark the task as undone if done
-     * Else print a statement to say that it is alr undone.
+     * Marks the task as not done.
      */
     public void unmarkDone() {
-        if(this.isDone) {
+        if (this.isDone) {
             this.isDone = false;
         } else {
-            System.out.println("the task is alr not done");
+            System.out.println("The task is already not done.");
         }
     }
+
+
 
     /**
      * Returns a string representation of the task, including its status icon
      * and description.
      *
-     * @return A string representation of the task if the "[X] description"
+     * @return A string representation of the task in the format "[X] description".
      */
     @Override
-    public String toString(){
-        return "[" + getStatusIcon()+ "] " + description;
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 }

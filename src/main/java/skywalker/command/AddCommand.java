@@ -1,11 +1,16 @@
 package skywalker.command;
+
+import java.io.IOException;
+
 import skywalker.storage.Storage;
 import skywalker.task.Task;
 import skywalker.task.TaskList;
 import skywalker.ui.Ui;
 
-import java.io.IOException;
 
+/**
+ * customise a special kind of command with add functionality.
+ */
 public class AddCommand extends Command {
     private Task task;
 

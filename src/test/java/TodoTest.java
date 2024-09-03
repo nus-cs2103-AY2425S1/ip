@@ -1,7 +1,9 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
 import skywalker.task.Todo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
 

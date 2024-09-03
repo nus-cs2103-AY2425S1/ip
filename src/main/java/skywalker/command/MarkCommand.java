@@ -1,15 +1,25 @@
 package skywalker.command;
+
+import java.io.IOException;
+
 import skywalker.storage.Storage;
 import skywalker.task.Task;
 import skywalker.task.TaskList;
 import skywalker.ui.Ui;
 
-import java.io.IOException;
 
+/**
+ * customise the command to mark command
+ */
 public class MarkCommand extends Command {
     private int index;
     private boolean isMark;
 
+    /**
+     * Initialise
+     * @param index index of the event
+     * @param isMark marked or not
+     */
     public MarkCommand(int index, boolean isMark) {
         this.index = index;
         this.isMark = isMark;

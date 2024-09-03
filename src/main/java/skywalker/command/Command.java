@@ -1,12 +1,18 @@
 package skywalker.command;
+
+import java.io.IOException;
+
 import skywalker.storage.Storage;
 import skywalker.task.TaskList;
 import skywalker.ui.Ui;
 
-import java.io.IOException;
 
+/**
+ * This gives a template for the commands
+ */
 public abstract class Command {
-    /** Executes the command. This method is implemented by
+    /**
+     * Executes the command. This method is implemented by
      * subclasses to define specific execution behavior
      *
      * @param tasks   The task list on which the command will operate.

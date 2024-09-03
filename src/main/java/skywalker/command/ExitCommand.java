@@ -4,6 +4,9 @@ import skywalker.storage.Storage;
 import skywalker.task.TaskList;
 import skywalker.ui.Ui;
 
+/**
+ * Customise the command type of exit command.
+ */
 public class ExitCommand extends Command {
 
     /**

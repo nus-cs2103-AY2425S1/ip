@@ -1,9 +1,8 @@
-import skywalker.task.Deadline;
-
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDate;
+import org.junit.jupiter.api.Test;
+
+import skywalker.task.Deadline;
 
 public class DeadlineTest {
 
