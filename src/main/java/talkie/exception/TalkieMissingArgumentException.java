@@ -37,10 +37,9 @@ public class TalkieMissingArgumentException extends TalkieException {
      */
     @Override
     public String toString() {
-        return "-------------------------------------------------------------------\n"
-                + super.toString() + " Your " + this.command + " has missing arguments!\n"
+        return super.toString() + " Your " + this.command + " has missing arguments!\n"
                 + "Hint: " + hint + "\n"
-                + "Please try again! :D\n"
-                + "-------------------------------------------------------------------\n";
+                + "Please try again! :D\n";
+
     }
 }

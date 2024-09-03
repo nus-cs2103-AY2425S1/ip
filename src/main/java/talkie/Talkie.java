@@ -63,6 +63,9 @@ public class Talkie {
         }
     }
 
+    /**
+     * Generates a response for the user's chat message.
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.getCommand(input);
