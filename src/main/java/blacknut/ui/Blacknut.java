@@ -180,7 +180,7 @@ public class Blacknut {
     private static void addDeadline(ArrayList<Task> tasks, String input) throws IncorrectFormatException {
         String[] parts = input.substring(9).split(" /by ");
         if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new IncorrectFormatException("The format for a deadline should be: deadline <description> /by <d/M/yyyy HHmm>");
+            throw new IncorrectFormatException("The format for a deadline should be: deadline <description> /by <yyyy-MM-dd HH:mm>");
         }
         Task newTask = new Deadline(parts[0].trim(), parts[1].trim());
         tasks.add(newTask);
@@ -189,6 +189,7 @@ public class Blacknut {
         System.out.println("   " + newTask);
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
+
 
 
     private static void addEvent(ArrayList<Task> tasks, String input) throws IncorrectFormatException {

@@ -1,10 +1,8 @@
 package blacknut.ui;
-import blacknut.ui.BlacknutExceptions.IncorrectFormatException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
 
+import blacknut.ui.BlacknutExceptions.IncorrectFormatException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     protected String description;
@@ -27,9 +25,7 @@ public class Task {
         isDone = false;
     }
 
-
     public static Task fromFileFormat(String line) throws IncorrectFormatException {
-        // Parse the line and create a Task object based on the type (Todo, Deadline, Event)
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
             throw new IncorrectFormatException("File format incorrect: " + line);
@@ -45,7 +41,7 @@ public class Task {
                 break;
             case "D":
                 if (parts.length != 4) throw new IncorrectFormatException("File format incorrect: " + line);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
                 task = new Deadline(description, by.format(formatter));
                 break;
@@ -67,7 +63,6 @@ public class Task {
     public String toFileFormat() {
         return this.getClass().getSimpleName().substring(0, 1) + " | " + (isDone ? "1" : "0") + " | " + description;
     }
-
 
     @Override
     public String toString() {
