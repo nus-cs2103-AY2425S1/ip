@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * Custom checked exception that the Chatbot can throw and catch.

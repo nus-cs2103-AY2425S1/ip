@@ -1,9 +1,10 @@
-package Commands;
+package commands;
 
-import Exceptions.BrockException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import exceptions.BrockException;
 
 public class ListCommandTest extends BaseCommandTest {
     private static final ListCommand LIST_COMMAND = new ListCommand("list");
@@ -32,7 +33,7 @@ public class ListCommandTest extends BaseCommandTest {
         UI.displayResponse(expectedResponse);
         String expectedOutput = super.getOutput();
 
-        LIST_COMMAND.execute(UI,STORAGE,TASKS);
+        LIST_COMMAND.execute(UI, STORAGE, TASKS);
         String actualOutput = super.getOutput();
 
         assertEquals(expectedOutput, actualOutput);

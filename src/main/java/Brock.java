@@ -1,15 +1,14 @@
-import Exceptions.BrockException;
-
-import Parser.Parser;
-import Storage.Storage;
-import Tasks.Task;
-import Tasks.TaskList;
-import Ui.Ui;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Commands.Command;
+
+import commands.Command;
+import exceptions.BrockException;
+import parser.Parser;
+import storage.Storage;
+import task.Task;
+import task.TaskList;
+import ui.Ui;
 
 /**
  * Class that represents the chatbot.
@@ -40,10 +39,10 @@ public class Brock {
 
         // Initialize the ArrayList
         // With any pre-existing tasks from save file
-        final TaskList TASKS;
+        TaskList tasks;
         try {
             ArrayList<Task> prevTasks = STORAGE.loadTasksFromFile();
-            TASKS = new TaskList(prevTasks);
+            tasks = new TaskList(prevTasks);
         } catch (BrockException e) {
             UI.displayResponse(e.getMessage());
             return;
@@ -57,7 +56,7 @@ public class Brock {
             String command = UI.readCommand(scanner);
             try {
                 Command commandObj = PARSER.handleCommand(command);
-                commandObj.execute(UI, STORAGE, TASKS);
+                commandObj.execute(UI, STORAGE, tasks);
                 isExit = commandObj.isExit();
             } catch (BrockException e) {
                 UI.displayResponse(e.getMessage());

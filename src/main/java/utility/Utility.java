@@ -1,20 +1,38 @@
-package Utility;
+package utility;
 
-import Exceptions.BrockException;
-import Tasks.TaskList;
+import exceptions.BrockException;
+import task.TaskList;
 
+/**
+ * Utility class with commonly used utility functions
+ *      to reduce code duplication
+ */
 public class Utility {
+    /**
+     * Enum used to represent mark and unmark actions.
+     * To help validate mark and unmark commands.
+     */
     public enum Action {
         MARK,
         UNMARK
     }
 
+    /**
+     * Enum used to represent due, start and end dateTimes.
+     * To help validate dateTimes of deadline and event commands.
+     */
     public enum Context {
         DUE,
         START,
         END
     }
 
+    /**
+     * Checks if a string holds an integer or not.
+     *
+     * @param commandWord String to be checked.
+     * @return True if string does not hold an integer, false otherwise.
+     */
     public static boolean isNotInteger(String commandWord) {
         try {
             Integer.parseInt(commandWord);
@@ -24,34 +42,53 @@ public class Utility {
         return false;
     }
 
-    public static int getTargetIndex(String command) {
-        char targetItemNumber = command.charAt(command.length() - 1);
-        return Character.getNumericValue(targetItemNumber) - 1;
+    /**
+     * Gets the task index of a {@code Task} object in the task list.
+     * From a command that specifies a task number.
+     *
+     * @param command Command to be examined.
+     * @return Task index obtained.
+     */
+    public static int getTaskIndex(String command) {
+        char taskNumber = command.charAt(command.length() - 1);
+        return Character.getNumericValue(taskNumber) - 1;
     }
 
+    /**
+     * Gets the label to be used in validating date and time.
+     *
+     * @param dateTimeWords Number of dateTime words. 1 means only date, 2 means both date and time.
+     * @param context Indicates if method is looking at due dateTime, start dateTime or end dateTime.
+     * @return Label based on context.
+     * @throws BrockException If more than 2 words.
+     */
     private static String getLabel(int dateTimeWords, Context context) throws BrockException {
-        String label = "";
-        switch (context) {
-        case DUE:
-            label = "Due ";
-            break;
-        case START:
-            label = "Start ";
-            break;
-        case END:
-            label = "End ";
-            break;
-        }
+        String label;
+        // Can ignore style error for this enhanced switch statement
+        label = switch (context) {
+            case DUE -> "Due ";
+            case START -> "Start ";
+            case END -> "End ";
+        };
 
         if (dateTimeWords > 2) {
-            throw new BrockException(String.format("Valid %s date & time must follow one of the below formats:\n"
-                    , label.toLowerCase())
+            throw new BrockException(String.format("Valid %s date & time must follow one of the below formats:\n",
+                    label.toLowerCase())
                     + "<yyyy-mm-dd> OR\n"
                     + "<yyyy-mm-dd> <24hr-time>");
         }
         return label;
     }
 
+    /**
+     * Checks if the dateTime string given is valid or not.
+     *
+     * @param dateTimeString String representing dateTime.
+     * @param dateTimeWords Number of words in the string. 1 means only date, 2 means both date and time.
+     * @param context Indicates if method is looking at due dateTime, start dateTime or end dateTime.
+     * @return Formatted date and time strings separately.
+     * @throws BrockException If dateTime string is invalid.
+     */
     public static String[] validateDateTime(String dateTimeString, int dateTimeWords, Context context)
             throws BrockException {
         String label = getLabel(dateTimeWords, context);
@@ -102,6 +139,14 @@ public class Utility {
         }
     }
 
+    /**
+     * Checks if the mark or unmark command is valid.
+     *
+     * @param command Either the mark or unmark command.
+     * @param action Specifying which command type.
+     * @param tasks {@code TaskList} object that stores the current tasks in an {@code ArrayList}.
+     * @throws BrockException If the command is invalid.
+     */
     public static void validateStatus(String command, Action action, TaskList tasks) throws BrockException {
         String actionName = action == Action.MARK
                 ? "Mark"

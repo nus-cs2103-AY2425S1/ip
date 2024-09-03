@@ -1,12 +1,12 @@
-package Commands;
+package commands;
 
-import Exceptions.BrockException;
-import Storage.Storage;
-import Tasks.Deadlines;
-import Tasks.Task;
-import Tasks.TaskList;
-import Ui.Ui;
-import Utility.Utility;
+import exceptions.BrockException;
+import storage.Storage;
+import task.Deadline;
+import task.Task;
+import task.TaskList;
+import ui.Ui;
+import utility.Utility;
 
 /**
  * Represents a deadline command entered by the user.
@@ -62,15 +62,15 @@ public class DeadlineCommand extends Command {
             throw new BrockException("Missing due date! Remember it is specified after /by!");
         }
 
-        String[] dateTimeValues = Utility.validateDateTime(dateTime.toString()
-                , dateTimeWords, Utility.Context.DUE);
+        String[] dateTimeValues = Utility.validateDateTime(dateTime.toString(),
+                dateTimeWords, Utility.Context.DUE);
         if (dateTimeWords == 1) {
-            return new Deadlines(description.toString()
-                    , dateTimeValues[0]);
+            return new Deadline(description.toString(),
+                    dateTimeValues[0]);
         } else {
-            return new Deadlines(description.toString()
-                    , dateTimeValues[0]
-                    , dateTimeValues[1]);
+            return new Deadline(description.toString(),
+                    dateTimeValues[0],
+                    dateTimeValues[1]);
         }
     }
 
@@ -99,8 +99,8 @@ public class DeadlineCommand extends Command {
         storage.writeToFile(tasks.numTasks()
                         + ". "
                         + tasks.getTaskDetails(deadlineTask)
-                        + '\n'
-                , true);
+                        + '\n',
+                true);
     }
 
     /**

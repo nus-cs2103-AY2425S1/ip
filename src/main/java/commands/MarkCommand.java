@@ -1,10 +1,10 @@
-package Commands;
+package commands;
 
-import Exceptions.BrockException;
-import Storage.Storage;
-import Tasks.TaskList;
-import Ui.Ui;
-import Utility.Utility;
+import exceptions.BrockException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+import utility.Utility;
 
 /**
  * Represents a mark command entered by the user.
@@ -35,11 +35,11 @@ public class MarkCommand extends Command {
         String command = super.getCommand();
         Utility.validateStatus(command, Utility.Action.MARK, tasks);
 
-        int targetIndex = Utility.getTargetIndex(command);
-        tasks.markTask(targetIndex);
+        int taskIndex = Utility.getTaskIndex(command);
+        tasks.markTask(taskIndex);
         ui.displayResponse("Nice! I've marked this task as done:\n"
                 + "  "
-                + tasks.getTaskDetails(targetIndex));
+                + tasks.getTaskDetails(taskIndex));
     }
 
     /**

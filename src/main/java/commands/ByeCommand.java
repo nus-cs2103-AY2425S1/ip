@@ -1,8 +1,8 @@
-package Commands;
+package commands;
 
-import Storage.Storage;
-import Tasks.TaskList;
-import Ui.Ui;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
 
 /**
  * Represents a bye command entered by the user.

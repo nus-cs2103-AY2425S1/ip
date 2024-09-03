@@ -1,11 +1,11 @@
-package Commands;
+package commands;
 
-import Exceptions.BrockException;
-import Storage.Storage;
-import Tasks.Task;
-import Tasks.TaskList;
-import Tasks.ToDos;
-import Ui.Ui;
+import exceptions.BrockException;
+import storage.Storage;
+import task.Task;
+import task.TaskList;
+import task.ToDo;
+import ui.Ui;
 
 /**
  * Represents a todo command entered by the user.
@@ -33,14 +33,14 @@ public class TodoCommand extends Command {
 
         StringBuilder description = new StringBuilder();
         for (int i = 1; i < commandLength; i++) {
-                description.append(commandWords[i])
-                        .append(" ");
+            description.append(commandWords[i])
+                    .append(" ");
         }
 
         if (description.isEmpty()) {
             throw new BrockException("Description is missing!");
         }
-        return new ToDos(description.toString());
+        return new ToDo(description.toString());
     }
 
     /**
@@ -68,8 +68,8 @@ public class TodoCommand extends Command {
         storage.writeToFile(tasks.numTasks()
                         + ". "
                         + tasks.getTaskDetails(todoTask)
-                        + '\n'
-                , true);
+                        + '\n',
+                true);
     }
 
     /**

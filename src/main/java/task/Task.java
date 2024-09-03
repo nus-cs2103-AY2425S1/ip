@@ -1,10 +1,10 @@
-package Tasks;
+package task;
 
 /**
  * Abstract base class to provide a template for a task object.
  */
 public abstract class Task {
-    private final String DESCRIPTION;
+    private final String description;
     private boolean isDone;
 
     /**
@@ -14,7 +14,7 @@ public abstract class Task {
      * @param description Description of the task.
      */
     protected Task(String description) {
-        DESCRIPTION = description;
+        this.description = description;
         this.isDone = false;
     }
 
@@ -24,7 +24,7 @@ public abstract class Task {
      * @return Description of the task.
      */
     public String getDescription() {
-        return DESCRIPTION;
+        return this.description;
     }
 
     /**
@@ -48,14 +48,14 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return this.isDone ? "X" : " ";
-    };
+    }
 
     /**
      * Gets the type of the task.
      *
      * @return Task type.
      */
-    abstract public String getTaskType();
+    public abstract String getTaskType();
 
     /**
      * Gets extra information about the task.
@@ -63,5 +63,5 @@ public abstract class Task {
      *
      * @return Extra information about the task.
      */
-    abstract public String getExtraInfo();
+    public abstract String getExtraInfo();
 }
