@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
 
-    protected LocalDate endTime;
+    private LocalDate endTime;
 
     /**
      * Constructs a new instance of Deadline.
@@ -43,7 +43,7 @@ public class Deadline extends Task{
      * @return description endTime which indicates when the Deadline is due by.
      */
     public LocalDate getEndTime() {
-        return endTime;
+        return this.endTime;
     }
 
     /**
@@ -55,7 +55,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
 }

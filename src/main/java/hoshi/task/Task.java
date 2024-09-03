@@ -9,8 +9,8 @@ package hoshi.task;
 
 public abstract class Task {
 
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
 
     /**
@@ -40,7 +40,7 @@ public abstract class Task {
      * @return isDone String which is either X or blank that indicates the task is done or not.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (this.isDone ? "X" : " "); // mark done task with X
     }
 
     /**
@@ -58,7 +58,7 @@ public abstract class Task {
      * @return description String which describes the current task.
      */
     public String getDesc() {
-        return description;
+        return this.description;
     }
 
     /**

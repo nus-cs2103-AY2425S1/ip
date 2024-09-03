@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs a TaskList with an initial list of tasks.
@@ -12,32 +12,32 @@ public class TaskList {
      * @param tasks the initial list of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
-        this.taskList = tasks;
+        this.tasks = tasks;
     }
 
     public TaskList() {
-        taskList = new ArrayList<Task>();
+        this.tasks = new ArrayList<Task>();
     }
 
     public void add(Task task) {
-        taskList.add(task);
+        this.tasks.add(task);
     }
 
     public Task get(int index) {
-        return taskList.get(index);
+        return this.tasks.get(index);
     }
 
     public void delete(int index) {
 
-        taskList.remove(index);
+        this.tasks.remove(index);
     }
 
     public void setMark(int index) {
-        taskList.get(index).setIsDone(true);
+        this.tasks.get(index).setIsDone(true);
     }
 
     public int size() {
-        return taskList.size();
+        return this.tasks.size();
     }
 
     @Override
@@ -45,14 +45,14 @@ public class TaskList {
 
         StringBuilder result = new StringBuilder();
 
-        for (int i = 0; i < taskList.size(); i++) {
-            result.append(i + 1).append(". ").append(taskList.get(i).toString()).append("\n");
+        for (int i = 0; i < this.tasks.size(); i++) {
+            result.append(i + 1).append(". ").append(this.tasks.get(i).toString()).append("\n");
         }
 
         return result.toString();
     }
 
     public boolean isEmpty() {
-        return taskList.isEmpty();
+        return this.tasks.isEmpty();
     }
 }

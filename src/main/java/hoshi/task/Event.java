@@ -9,11 +9,11 @@ import java.time.format.DateTimeFormatter;
  * <p>This class inherits from the Task class It maintains a description
  * of the event, whether the event has been completed or not and its start and end time</p>
  */
-public class Event extends Task{
+public class Event extends Task {
 
-    protected LocalDate startTime;
+    private LocalDate startTime;
 
-    protected LocalDate endTime;
+    private LocalDate endTime;
 
 
     /**
@@ -48,7 +48,7 @@ public class Event extends Task{
      * @return description startTime which indicates when the event is starting.
      */
     public LocalDate getStartTime() {
-        return startTime;
+        return this.startTime;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Event extends Task{
      * @return description endTime which indicates when the event is ending.
      */
     public LocalDate getEndTime() {
-        return endTime;
+        return this.endTime;
     }
 
     /**
@@ -69,6 +69,7 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: " + endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " )";
+        return "[E]" + super.toString() + " (from: " + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " )";
     }
 }
