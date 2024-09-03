@@ -11,31 +11,34 @@ public class TaskList {
      * Works as a ArrayList under the hood.
      */
     private List<Task> list;
-    public TaskList(){
+
+    public TaskList() {
         list = new ArrayList<>();
     }
 
-    public void add(Task task){
+    public void add(Task task) {
         list.add(task);
     }
 
-    public int size(){
+    public int size() {
         return list.size();
     }
 
-    public Task get(int i){
+    public Task get(int i) {
         return list.get(i);
     }
 
-    public void remove(int i){
+    public void remove(int i) {
         list.remove(i);
     }
+
     public void setLastDone() {
         list.get(list.size() - 1).setDone();
     }
-    public String saveTasks(){
+
+    public String saveTasks() {
         StringBuilder lines = new StringBuilder();
-        for(Task task: list){
+        for (Task task : list) {
             lines.append(task.loadString());
             lines.append(System.lineSeparator());
         }

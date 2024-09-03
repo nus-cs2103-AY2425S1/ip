@@ -3,8 +3,8 @@ package impl.storage;
 import impl.chatbot.Danny;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -20,7 +20,7 @@ public class Storage {
     String filePath;
     Danny danny;
 
-    public Storage(String path, Danny bot){
+    public Storage(String path, Danny bot) {
         file = new File(path);
         filePath = path;
         danny = bot;
@@ -29,9 +29,9 @@ public class Storage {
     public void loadTask() throws FileNotFoundException {
         Scanner s = new Scanner(file);
         String line;
-        while(s.hasNext()){
+        while (s.hasNext()) {
             line = s.nextLine();
-            if(!line.isEmpty()){
+            if (!line.isEmpty()) {
                 danny.parseString(line.split(" \\| ")[0]);
                 if (Objects.equals(line.split(" \\| ")[1], "true")) {
                     danny.setLastDone();

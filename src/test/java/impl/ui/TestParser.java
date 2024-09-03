@@ -11,29 +11,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestParser {
     TaskList list = new TaskList();
     Parser parser = new Parser(list);
+
     @Test
     public void check_command_working() throws Exception {
         // Command checking for todo
-        assertEquals(Parser.Command.Todo, Parser.checkCommand("todo Task1",list.size()));
+        assertEquals(Parser.Command.Todo, Parser.checkCommand("todo Task1", list.size()));
 
         // Command checking for Deadline
-        assertEquals(Parser.Command.Deadline, Parser.checkCommand("deadline Task2 /by Sunday",list.size()));
+        assertEquals(Parser.Command.Deadline, Parser.checkCommand("deadline Task2 /by Sunday", list.size()));
 
         // Command checking for Event
-        assertEquals(Parser.Command.Event, Parser.checkCommand("event Task3 /from Sunday /to Monday",list.size()));
+        assertEquals(Parser.Command.Event, Parser.checkCommand("event Task3 /from Sunday /to Monday", list.size()));
 
         // Command checking for List
-        assertEquals(Parser.Command.List, Parser.checkCommand("list",list.size()));
+        assertEquals(Parser.Command.List, Parser.checkCommand("list", list.size()));
 
         // Command checking for Mark
-        assertEquals(Parser.Command.Mark, Parser.checkCommand("mark 1",1));
+        assertEquals(Parser.Command.Mark, Parser.checkCommand("mark 1", 1));
 
         // Command checking for Unmark
-        assertEquals(Parser.Command.Unmark, Parser.checkCommand("unmark 1",1));
+        assertEquals(Parser.Command.Unmark, Parser.checkCommand("unmark 1", 1));
 
         // Command checking for Delete
-        assertEquals(Parser.Command.Delete, Parser.checkCommand("delete 1",1));
+        assertEquals(Parser.Command.Delete, Parser.checkCommand("delete 1", 1));
     }
+
     @Test
     public void check_handle_input_working() throws Exception {
         TaskList check = new TaskList();

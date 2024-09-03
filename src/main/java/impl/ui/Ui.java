@@ -9,13 +9,14 @@ public class Ui {
             """;
     static String seperator = "____________________________________________________________";
     Parser parser;
+
     /**
      * Main UI of the program.
      * Prints out all the statements in console
      *
      * @param parser parser for Danny to handle input string received.
      */
-    public Ui(Parser parser){
+    public Ui(Parser parser) {
         this.parser = parser;
         System.out.println(seperator);
         System.out.println("Hello! I'm Danny!");
@@ -25,13 +26,13 @@ public class Ui {
         System.out.println(seperator);
     }
 
-    public void running(String in){
+    public void running(String in) {
         System.out.println(seperator);
         parser.handleInput(in);
         System.out.println(seperator);
     }
 
-    public void end(){
+    public void end() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(seperator);
     }

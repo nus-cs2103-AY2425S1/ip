@@ -3,6 +3,7 @@ package impl.interfaces;
 public class Task {
     protected String description;
     protected boolean isDone;
+
     /**
      * Stores Description and Status of a Task.
      *
@@ -17,21 +18,24 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getDescription(){return this.description;}
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public void setDone(){
+    public void setDone() {
         this.isDone = true;
     }
 
-    public void setUnDone(){
+    public void setUnDone() {
         this.isDone = false;
     }
 
-    public String loadString(){
+    public String loadString() {
         return this.description;
     }
 
