@@ -16,6 +16,6 @@ class Deadline extends Task {
     }
 
     String toSaveAsString() {
-        return "D/" + super.toString() + "/" + this.deadline;
+        return "D/" + super.toSaveAsString() + "/" + this.deadline;
     }
 }
