@@ -49,6 +49,7 @@ public class Easton {
                 isFinished = true;
                 break;
             case LIST:
+                Ui.displayText("Here are the tasks in your list:");
                 ui.list(tasks);
                 break;
             case MARK:
@@ -86,6 +87,13 @@ public class Easton {
             case DELETE:
                 deleteTask(userInput);
                 saveTasks();
+                break;
+            case FIND:
+                try {
+                    findTasks(userInput);
+                } catch (EmptyDescriptionException e) {
+                    Ui.displayText(e.getMessage());
+                }
                 break;
             }
 
@@ -259,5 +267,35 @@ public class Easton {
         }
 
         storage.save(records);
+    }
+
+    public void findTasks(String input) throws EmptyDescriptionException {
+        ArrayList<Task> result = new ArrayList<>();
+        String[] splitInput = input.stripLeading()
+                .stripTrailing()
+                .split(" ", 2);
+
+        if (splitInput.length != 2) {
+            throw new EmptyDescriptionException();
+        }
+
+        String keyword = splitInput[1].trim();
+        if (keyword.contains(" ")) {
+            Ui.displayText("Only one keyword please!");
+        } else {
+            for (Task task : tasks) {
+                if (task.hasKeyword(keyword)) {
+                    result.add(task);
+                }
+            }
+            if (result.isEmpty()) {
+                Ui.displayText("No match was found.");
+            } else {
+                Ui.displayText("Here are the matching tasks in your list:");
+                ui.list(result);
+            }
+
+        }
+
     }
 }
