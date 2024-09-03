@@ -14,13 +14,30 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import static java.lang.Boolean.parseBoolean;
 
+/**
+ * Handles the loading and saving of tasks to a file for the DrBrown application.
+ * The tasks are stored in a specified file and are retrieved or updated as needed.
+ */
 public class Storage {
     private final String filePath;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    /**
+     * Constructs a Storage object with the specified file path for storing tasks.
+     *
+     * @param filePath The path to the file where tasks will be saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file and returns them as a TaskList.
+     * If the file does not exist, it creates a new file.
+     *
+     * @return A TaskList containing all the tasks loaded from the file.
+     * @throws DrBrownException If the file is corrupted or if an I/O error occurs.
+     */
     public TaskList load() throws DrBrownException {
         TaskList taskList = new TaskList(new ArrayList<Task>());
         try {
@@ -52,14 +69,20 @@ public class Storage {
         return taskList;
     }
 
-    public void update (TaskList tasks) {
+    /**
+     * Updates the file with the current list of tasks.
+     * If the file does not exist, it creates a new file.
+     *
+     * @param tasks The TaskList containing the current tasks to be saved to the file.
+     */
+    public void update(TaskList tasks) {
         try {
             File f = new File(this.filePath);
             if (!f.exists()) {
                 f.getParentFile().mkdirs();
                 f.createNewFile();
             }
-            FileWriter fw = new FileWriter (this.filePath);
+            FileWriter fw = new FileWriter(this.filePath);
             for (Task task : tasks.getList()) {
                 fw.write(task.toFileString() + System.lineSeparator());
             }
@@ -68,5 +91,4 @@ public class Storage {
             System.out.println("Seems like you messed up the file path somehow!");
         }
     }
-
 }

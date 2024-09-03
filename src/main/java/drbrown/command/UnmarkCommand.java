@@ -8,13 +8,30 @@ import drbrown.utils.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command to unmark a task as incomplete in the task list.
+ */
 public class UnmarkCommand extends Command {
     private int itemIndex;
 
+    /**
+     * Constructs an UnmarkCommand with the specified index of the task to be marked as incomplete.
+     *
+     * @param itemIndex The index of the task to unmark as incomplete.
+     */
     public UnmarkCommand(int itemIndex) {
         this.itemIndex = itemIndex;
     }
 
+    /**
+     * Executes the unmark command by setting the status of the task at the specified index to incomplete.
+     * It displays the unmarked task and handles exceptions if the index is out of bounds.
+     *
+     * @param tasks   The TaskList containing the current tasks.
+     * @param ui      The UI object to display messages to the user.
+     * @param storage The Storage object for saving changes to the file (not used in this command).
+     * @throws DrBrownException If the task index is invalid (out of bounds).
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         try {
             ArrayList<Task> list = tasks.getList();
@@ -26,6 +43,11 @@ public class UnmarkCommand extends Command {
         }
     }
 
+    /**
+     * Indicates whether this command exits the program.
+     *
+     * @return false, as this command does not exit the program.
+     */
     public boolean isExit() {
         return false;
     }
