@@ -55,33 +55,33 @@ public class Yapper {
                 CommandType command = Parser.parseCommand(fullCommand);
 
                 switch (command) {
-                    case LIST:
-                        ui.printTasks(tasks);
-                        break;
-                    case MARK:
-                        handleMark(fullCommand);
-                        break;
-                    case UNMARK:
-                        handleUnmark(fullCommand);
-                        break;
-                    case TODO:
-                        handleTodo(fullCommand);
-                        break;
-                    case DEADLINE:
-                        handleDeadline(fullCommand);
-                        break;
-                    case EVENT:
-                        handleEvent(fullCommand);
-                        break;
-                    case DELETE:
-                        handleDelete(fullCommand);
-                        break;
-                    case BYE:
-                        isExit = true;
-                        ui.printGoodbye();
-                        break;
-                    default:
-                        throw new UnknownCommandException();
+                case LIST:
+                    ui.printTasks(tasks);
+                    break;
+                case MARK:
+                    handleMark(fullCommand);
+                    break;
+                case UNMARK:
+                    handleUnmark(fullCommand);
+                    break;
+                case TODO:
+                    handleTodo(fullCommand);
+                    break;
+                case DEADLINE:
+                    handleDeadline(fullCommand);
+                    break;
+                case EVENT:
+                    handleEvent(fullCommand);
+                    break;
+                case DELETE:
+                    handleDelete(fullCommand);
+                    break;
+                case BYE:
+                    isExit = true;
+                    ui.printGoodbye();
+                    break;
+                default:
+                    throw new UnknownCommandException();
                 }
 
                 storage.save(tasks.getTasks());
