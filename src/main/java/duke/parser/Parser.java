@@ -51,6 +51,9 @@ public class Parser {
                 case "unmark":
                     taskList.unmark(args);
                     break;
+                case "update":
+                    taskList.updateTask(args);
+                    break;
                 case "find":
                     taskList.filter(args);
                     break;
@@ -102,6 +105,9 @@ public class Parser {
                 break;
             case "unmark":
                 tasklist.unmark(args);
+                break;
+            case "update":
+                tasklist.updateTask(args);
                 break;
             case "mark":
                 tasklist.mark(args);
