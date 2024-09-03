@@ -15,8 +15,8 @@ import java.util.List;
  * It interacts with the TaskList and Ui classes to manage tasks and provide feedback to the user.
  */
 public class Parser {
-    private TaskList tasks;
-    private Ui ui;
+    private final TaskList tasks;
+    private final Ui ui;
 
     /**
      * Constructs a Parser object with the specified TaskList and Ui.
@@ -33,28 +33,29 @@ public class Parser {
      * Parses the user input and performs the corresponding action.
      *
      * @param input The user's input as a string.
+     * @return Duke's response as a string.
      */
-    public void parse(String input) {
+    public String parse(String input) {
         if (input.equals("list")) {
-            ui.showTaskList(tasks.getTasks());
+            return ui.showTaskList(tasks.getTasks());
         } else if (input.startsWith("mark")) {
-            markTask(input);
+            return markTask(input);
         } else if (input.startsWith("unmark")) {
-            unmarkTask(input);
+            return unmarkTask(input);
         } else if (input.startsWith("todo")) {
-            addTodo(input);
+            return addTodo(input);
         } else if (input.startsWith("deadline")) {
-            addDeadline(input);
+            return addDeadline(input);
         } else if (input.startsWith("event")) {
-            addEvent(input);
+            return addEvent(input);
         } else if (input.startsWith("delete")) {
-            deleteTask(input);
+            return deleteTask(input);
         } else if (input.startsWith("find")) {
-            handleFind(input);
+            return handleFind(input);
         } else if (input.equals("bye")) {
-            ui.showGoodbyeMessage();
+            return ui.showGoodbyeMessage();
         } else {
-            ui.showUnknownCommand();
+            return ui.showUnknownCommand();
         }
     }
 
@@ -62,18 +63,19 @@ public class Parser {
      * Marks a task as done based on user input.
      *
      * @param input The user's input indicating which task to mark as done.
+     * @return The success or error message.
      */
-    private void markTask(String input) {
+    private String markTask(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             if (index >= 0 && index < tasks.size()) {
                 tasks.get(index).markAsDone();
-                ui.showTaskMarked(tasks.get(index));
+                return ui.showTaskMarked(tasks.get(index));
             } else {
-                ui.showErrorMessage("Oops! That task number doesn't exist. Please try again.");
+                return ui.showErrorMessage("Oops! That task number doesn't exist. Please try again.");
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            ui.showSuggestion("mark <task number>");
+            return ui.showSuggestion("mark <task number>");
         }
     }
 
@@ -81,18 +83,19 @@ public class Parser {
      * Marks a task as not done based on user input.
      *
      * @param input The user's input indicating which task to unmark as done.
+     * @return The success or error message.
      */
-    private void unmarkTask(String input) {
+    private String unmarkTask(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             if (index >= 0 && index < tasks.size()) {
                 tasks.get(index).markAsNotDone();
-                ui.showTaskUnmarked(tasks.get(index));
+                return ui.showTaskUnmarked(tasks.get(index));
             } else {
-                ui.showErrorMessage("Oops! That task number doesn't exist. Please try again.");
+                return ui.showErrorMessage("Oops! That task number doesn't exist. Please try again.");
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            ui.showSuggestion("unmark <task number>");
+            return ui.showSuggestion("unmark <task number>");
         }
     }
 
@@ -100,17 +103,18 @@ public class Parser {
      * Adds a new ToDo task based on user input.
      *
      * @param input The user's input containing the description of the ToDo task.
+     * @return The success or error message.
      */
-    private void addTodo(String input) {
+    private String addTodo(String input) {
         if (input.length() <= 5) {
-            ui.showErrorMessage("Oops! The description of a todo cannot be empty.");
+            return ui.showErrorMessage("Oops! The description of a todo cannot be empty.");
         } else {
             String description = input.substring(5).trim();
             tasks.add(new ToDo(description));
             if (description.isEmpty()) {
-                ui.showErrorMessage("Oops! The description of a todo cannot be empty.");
+                return ui.showErrorMessage("Oops! The description of a todo cannot be empty.");
             } else {
-                ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
+                return ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
             }
         }
     }
@@ -119,28 +123,29 @@ public class Parser {
      * Adds a new Deadline task based on user input.
      *
      * @param input The user's input containing the description and deadline.
+     * @return The success or error message.
      */
-    private void addDeadline(String input) {
+    private String addDeadline(String input) {
         String[] substrings = input.split(" /by ");
         if (substrings.length == 2) {
             if (substrings[0].length() <= 9) {
-                ui.showErrorMessage("Oops! The description of a deadline cannot be empty.");
+                return ui.showErrorMessage("Oops! The description of a deadline cannot be empty.");
             } else {
                 String description = substrings[0].substring(9).trim();
                 String by = substrings[1].trim();
                 if (description.isEmpty()) {
-                    ui.showErrorMessage("Oops! The description of a deadline cannot be empty.");
+                    return ui.showErrorMessage("Oops! The description of a deadline cannot be empty.");
                 } else {
                     try {
                         tasks.add(new Deadline(description, by));
-                        ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
+                        return ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
                     } catch (DateTimeParseException e) {
-                        ui.showErrorMessage("Please enter the date and time in the format yyyy-MM-dd HHmm.");
+                        return ui.showErrorMessage("Please enter the date and time in the format yyyy-MM-dd HHmm.");
                     }
                 }
             }
         } else {
-            ui.showSuggestion("deadline <description> /by <date/time>");
+            return ui.showSuggestion("deadline <description> /by <date/time>");
         }
     }
 
@@ -148,12 +153,13 @@ public class Parser {
      * Adds a new Event task based on user input.
      *
      * @param input The user's input containing the description, start time, and end time.
+     * @return The success or error message.
      */
-    private void addEvent(String input) {
+    private String addEvent(String input) {
         String[] substrings = input.split(" /from ");
         if (substrings.length == 2) {
             if (substrings[0].length() <= 6) {
-                ui.showErrorMessage("Oops! The description of an event cannot be empty.");
+                return ui.showErrorMessage("Oops! The description of an event cannot be empty.");
             } else {
                 String description = substrings[0].substring(6).trim();
                 String[] fromTo = substrings[1].split(" /to ");
@@ -161,21 +167,21 @@ public class Parser {
                     String from = fromTo[0].trim();
                     String to = fromTo[1].trim();
                     if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                        ui.showErrorMessage("Oops! The description, start time, or end time of an event cannot be empty.");
+                        return ui.showErrorMessage("Oops! The description, start time, or end time of an event cannot be empty.");
                     } else {
                         try {
                             tasks.add(new Event(description, from, to));
-                            ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
+                            return ui.showTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
                         } catch (DateTimeParseException e) {
-                            ui.showErrorMessage("Please enter the date and time in the format yyyy-MM-dd HHmm.");
+                            return ui.showErrorMessage("Please enter the date and time in the format yyyy-MM-dd HHmm.");
                         }
                     }
                 } else {
-                    ui.showSuggestion("event <description> /from <start date/time> /to <end date/time>");
+                    return ui.showSuggestion("event <description> /from <start date/time> /to <end date/time>");
                 }
             }
         } else {
-            ui.showSuggestion("event <description> /from <start date/time> /to <end date/time>");
+            return ui.showSuggestion("event <description> /from <start date/time> /to <end date/time>");
         }
     }
 
@@ -183,28 +189,35 @@ public class Parser {
      * Deletes a task based on user input.
      *
      * @param input The user's input indicating which task to delete.
+     * @return The success or error message.
      */
-    private void deleteTask(String input) {
+    private String deleteTask(String input) {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             if (index >= 0 && index < tasks.size()) {
                 Task removedTask = tasks.remove(index);
-                ui.showTaskDeleted(removedTask, tasks.size());
+                return ui.showTaskDeleted(removedTask, tasks.size());
             } else {
-                ui.showErrorMessage("Oops! That task number doesn't exist. Please try again.");
+                return ui.showErrorMessage("Oops! That task number doesn't exist. Please try again.");
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            ui.showSuggestion("delete <task number>");
+            return ui.showSuggestion("delete <task number>");
         }
     }
 
-    private void handleFind(String input) {
+    /**
+     * Finds a task based on user input.
+     *
+     * @param input The user's input indicating which task to find.
+     * @return The success or error message.
+     */
+    private String handleFind(String input) {
         try {
         String keyword = input.split(" ")[1];
         List<Task> foundTasks = tasks.findTasksByKeyword(keyword);
-        ui.showFoundTasks(foundTasks);
+            return ui.showFoundTasks(foundTasks);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showSuggestion("find <keyword>");
+            return ui.showSuggestion("find <keyword>");
         }
     }
 }

@@ -11,9 +11,11 @@ import java.util.List;
  */
 public class Ui {
     /**
-     * Displays a greeting message and instructions on how to interact with the application.
+     * Generates a greeting message and instructions on how to interact with the application.
+     *
+     * @return The greeting and instructions as a string.
      */
-    public void showGreeting() {
+    public String showGreeting() {
         String greeting = "   *        *        *        __o    *       *\n"
                 + "*      *       *        *    /_| _     *\n"
                 + "  FF  *    FF      *        O'_)/ \\  *    *\n"
@@ -21,99 +23,92 @@ public class Ui {
                 + "   \\ ___ )--\\ ___ )--( (    (___|__)/ /*     *\n"
                 + " *  |   |    |   |  * \\ \\____| |___/ /  *\n"
                 + "    |*  |    |   |     \\____________/       *\n";
-        String festiveMessage =
-                "Merry★* 。 • ˚ ˚ ˛ ˚ ˛ •\n" +
-                        "•。★Christmas★ 。* 。\n" +
-                        "° 。 ° ˛˚˛ * Π__。˚\n" +
-                        "˚ ˛ •˛•˚ */__/~＼。˚ ˚ ˛\n" +
-                        "˚ ˛ •˛• ˚ ｜ 田田 ｜門｜ ˚\n" +
-                        "And a happy new year!";
-        System.out.println(greeting + "Hello, I am Rudolf, Santa's trusty red-nose reindeer");
-        System.out.println("Christmas is nearing, and I am here to help you with your Christmas preparations.");
-        System.out.println("Here's how you can chat with me:");
-        System.out.println("1. Add a duke.task.ToDo: todo <description>");
-        System.out.println("2. Add a duke.task.Deadline: deadline <description> /by <date/time>");
-        System.out.println("3. Add an duke.task.Event: event <description> /from <start date/time> /to <end date/time>");
-        System.out.println("4. List all tasks: list");
-        System.out.println("5. Mark a task as done: mark <task number>");
-        System.out.println("6. Unmark a task: unmark <task number>");
-        System.out.println("7. Delete a task: delete <task number>");
-        System.out.println("8. Exit: bye");
-        System.out.println("____________________________________________________________");
+        return "Hello, I am Rudolf, Santa's trusty red-nose reindeer. Christmas is nearing, so I am here to help you with your Christmas preparations.\n"
+                + "Here's how you can chat with me:\n"
+                + "1. Add a duke.task.ToDo: todo <description>\n"
+                + "2. Add a duke.task.Deadline: deadline <description> /by <date/time>\n"
+                + "3. Add an duke.task.Event: event <description> /from <start date/time> /to <end date/time>\n"
+                + "4. List all tasks: list\n"
+                + "5. Mark a task as done: mark <task number>\n"
+                + "6. Unmark a task: unmark <task number>\n"
+                + "7. Delete a task: delete <task number>\n"
+                + "8. Exit: bye\n" + greeting;
     }
 
     /**
-     * Displays an error message when there is an issue loading previous tasks.
-     */
-    public void showLoadingError() {
-        System.out.println("Error encountered while loading previous tasks.");
-    }
-
-    /**
-     * Displays the list of tasks to the user.
+     * Generates the list of tasks to the user.
      * If the task list is empty, a message indicating no tasks is displayed.
      *
      * @param tasks The list of tasks to be displayed.
+     * @return The list of tasks or no tasks message as a string.
      */
-    public void showTaskList(List<Task> tasks) {
+    public String showTaskList(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("Ho Ho Ho! No tasks in your list yet. Add some tasks to get started.");
+            return "Ho Ho Ho! No tasks in your list yet. Add some tasks to get started.\n";
         } else {
-            System.out.println("Ho Ho Ho! Here are the tasks in your Christmas list:");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Ho Ho Ho! Here are the tasks in your Christmas list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
+                sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
+            return sb.toString();
         }
     }
 
     /**
-     * Displays a message indicating a task has been added.
+     * Generates a message indicating a task has been added.
      *
      * @param task The task that was added.
      * @param size The current number of tasks in the list.
+     * @return The task added message as a string.
      */
-    public void showTaskAdded(Task task, int size) {
-        System.out.println("Gotcha. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + size + " tasks in the list. Feliz Navidad!");
+    public String showTaskAdded(Task task, int size) {
+        return "Gotcha. I've added this task:\n"
+                + "  " + task + "\n"
+                + "Now you have " + size + " tasks in the list. Feliz Navidad!\n";
     }
 
     /**
-     * Displays a message indicating a task has been marked as done.
+     * Generates a message indicating a task has been marked as done.
      *
      * @param task The task that was marked as done.
+     * @return The task marked message as a string.
      */
-    public void showTaskMarked(Task task) {
-        System.out.println("Sleigh! I've marked this task as done:");
-        System.out.println("  " + task);
+    public String showTaskMarked(Task task) {
+        return "Sleigh! I've marked this task as done:\n"
+                + "  " + task + "\n";
     }
 
     /**
-     * Displays a message indicating a task has been marked as not done.
+     * Generates a message indicating a task has been marked as not done.
      *
      * @param task The task that was marked as not done.
+     * @return The task unmarked message as a string.
      */
-    public void showTaskUnmarked(Task task) {
-        System.out.println("Alright-o, I've marked this task as not done yet:");
-        System.out.println("  " + task);
+    public String showTaskUnmarked(Task task) {
+        return "Alright-o, I've marked this task as not done yet:\n"
+                + "  " + task + "\n";
     }
 
     /**
-     * Displays a message indicating a task has been deleted.
+     * Generates a message indicating a task has been deleted.
      *
      * @param task The task that was deleted.
      * @param size The current number of tasks in the list.
+     * @return The task deleted message as a string.
      */
-    public void showTaskDeleted(Task task, int size) {
-        System.out.println("Aww okay. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + size + " tasks in the list. Let it snow!");
+    public String showTaskDeleted(Task task, int size) {
+        return "Aww okay. I've removed this task:\n"
+                + "  " + task + "\n"
+                + "Now you have " + size + " tasks in the list. Let it snow!\n";
     }
 
     /**
-     * Displays a farewell message when the user exits the application.
+     * Generates a farewell message when the user exits the application.
+     *
+     * @return The farewell message as a string.
      */
-    public void showGoodbyeMessage() {
+    public String showGoodbyeMessage() {
         String festiveMessage =
                 "Merry★* 。 • ˚ ˚ ˛ ˚ ˛ •\n" +
                         "•。★Christmas★ 。* 。\n" +
@@ -121,54 +116,64 @@ public class Ui {
                         "˚ ˛ •˛•˚ */__/~＼。˚ ˚ ˛\n" +
                         "˚ ˛ •˛• ˚ ｜ 田田 ｜門｜ ˚\n" +
                         "And a happy new year!";
-        System.out.println("Bye~ Hope to see you again!\n" + festiveMessage);
+        return "Bye~ Hope to see you again!\n" + festiveMessage + "\n";
     }
 
     /**
-     * Displays a message when an unknown command is entered.
+     * Generates a message when an unknown command is entered.
+     *
+     * @return The unknown command message as a string.
      */
-    public void showUnknownCommand() {
-        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+    public String showUnknownCommand() {
+        return "OOPS!!! I'm sorry, but I don't know what that means :-(\n";
     }
 
     /**
-     * Displays a suggestion for the correct format of a command when an invalid command is entered.
+     * Generates a suggestion for the correct format of a command when an invalid command is entered.
      *
      * @param message The suggested command format.
+     * @return The suggestion message as a string.
      */
-    public void showSuggestion(String message) {
-        System.out.println("Sorry, I don't understand. Did you mean: " + message);
+    public String showSuggestion(String message) {
+        return "Sorry, I don't understand. Did you mean: " + message + "\n";
     }
 
     /**
-     * Displays an error message with a specific message.
+     * Generates an error message with a specific message.
      *
      * @param message The error message to be displayed.
+     * @return The error message as a string.
      */
-    public void showErrorMessage(String message) {
-        System.out.println(message);
+    public String showErrorMessage(String message) {
+        return message + "\n";
     }
 
     /**
-     * Displays an error message when there is an issue saving tasks.
+     * Generates an error message when there is an issue saving tasks.
      *
      * @param message The error message to be displayed.
+     * @return The save error message as a string.
      */
-    public void showSaveError(String message) {
-        System.out.println("Jingling bells! It seems like an error was encountered while saving tasks: " + message);
+    public String showSaveError(String message) {
+        return "Jingling bells! It seems like an error was encountered while saving tasks: " + message + "\n";
     }
 
-    // In Ui.java
-    public void showFoundTasks(List<Task> tasks) {
+    /**
+     * Generates a message when tasks matching a keyword are found.
+     *
+     * @param tasks The list of tasks found.
+     * @return The found tasks message as a string.
+     */
+    public String showFoundTasks(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("Aww popsicles! No matching tasks found.");
+            return "Aww popsicles! No matching tasks found.\n";
         } else {
-            System.out.println("Hooray! The elves found these matching tasks in your list:");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Hooray! The elves found these matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                sb.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
             }
+            return sb.toString();
         }
     }
-
 }
-
