@@ -18,9 +18,8 @@ public class TaskList {
     }
 
     /**
-     * Constructs a TaskList with an existing list of tasks.
-     *
-     * @param tasks The list of tasks to initialize with.
+     * Constructs a TaskList with the given list of tasks.
+     * @param tasks The list of tasks to initialize the TaskList with.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -39,10 +38,9 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the task list based on the index.
-     *
-     * @param index The zero-based index of the task to be deleted.
-     * @throws IndexOutOfBoundsException If the index is invalid.
+     * Deletes a task from the list by index.
+     * @param index The index of the task to delete.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public void deleteTask(int index) throws IndexOutOfBoundsException {
         Task removedTask = tasks.remove(index);
@@ -91,3 +89,4 @@ public class TaskList {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }
+

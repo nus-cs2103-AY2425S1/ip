@@ -6,13 +6,13 @@ import java.util.Scanner;
 import Alex.Task.Task;
 
 /**
- * Handles user interaction for the Alex chatbot.
+ * Handles user interface operations for displaying messages and reading input.
  */
 public class Ui {
     private Scanner scanner = new Scanner(System.in);
 
     /**
-     * Constructs a Ui object.
+     * Constructs a Ui object to handle user interactions.
      */
     public Ui() {
         // No need to pass the task list
@@ -67,17 +67,16 @@ public class Ui {
     }
 
     /**
-     * Displays a joke to the user.
+     * Prints a joke to the user.
      */
     public void printJoke() {
         printDividerWithMessage("Why did the scarecrow win an award? Because he was outstanding in his field!");
     }
 
-
     /**
-     * Prints the list of tasks.
+     * Prints the list of tasks to the user.
      *
-     * @param tasks The list of tasks to display.
+     * @param tasks The list of tasks to be displayed.
      */
     public void printTaskList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
@@ -89,6 +88,7 @@ public class Ui {
             }
         }
     }
+
     /**
      * Displays a message indicating a change in task status (e.g., marked as done or undone).
      *
@@ -100,9 +100,9 @@ public class Ui {
     }
 
     /**
-     * Displays a message with a dividing line before and after it.
+     * Prints a divider with a message.
      *
-     * @param message The message to be displayed.
+     * @param message The message to be displayed between dividers.
      */
     private void printDividerWithMessage(String message) {
         System.out.println("____________________________________________________________");
@@ -110,3 +110,4 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 }
+

@@ -6,7 +6,8 @@ import Alex.Task.TaskList;
 import Alex.Ui.Ui;
 
 /**
- * Main class for the Alex chatbot application.
+ * Represents the main application class that runs the Alex chatbot.
+ * Handles initialization, user interactions, and command processing.
  */
 public class Alex {
 
@@ -15,9 +16,9 @@ public class Alex {
     private Ui ui;
 
     /**
-     * Constructs an Alex instance with a specified file path for storage.
+     * Initializes the Alex chatbot with the specified file path for storage.
      *
-     * @param filePath The file path where task data is stored.
+     * @param filePath The path to the file where tasks are stored.
      */
     public Alex(String filePath) {
         ui = new Ui();
@@ -52,9 +53,9 @@ public class Alex {
     }
 
     /**
-     * The main method to launch the Alex application.
+     * Entry point of the application.
      *
-     * @param args Command-line arguments.
+     * @param args Command line arguments.
      */
     public static void main(String[] args) {
         new Alex("data/tasks.txt").run();

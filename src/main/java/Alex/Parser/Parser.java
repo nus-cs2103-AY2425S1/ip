@@ -28,6 +28,7 @@ public class Parser {
      * @param userInput The input entered by the user.
      * @return The corresponding Command object.
      * @throws AlexException If the input is invalid or unrecognized.
+
      */
     public static Command parse(String userInput) throws AlexException {
         userInput = userInput.trim().toLowerCase(); // Normalize the input
@@ -73,8 +74,8 @@ public class Parser {
     /**
      * Parses the task index from the user input.
      *
-     * @param userInput The input entered by the user.
-     * @return The zero-based index of the task.
+     * @param userInput The input string from the user.
+     * @return The zero-based index of the task, or -1 if parsing fails.
      */
     private static int parseTaskIndex(String userInput) {
         try {
@@ -84,7 +85,6 @@ public class Parser {
         }
     }
 }
-
 
 
 
