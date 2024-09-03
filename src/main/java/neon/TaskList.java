@@ -65,4 +65,16 @@ public class TaskList {
 
         System.out.println("unchecking task number : " + taskNumber);
     }
+
+    public TaskList findTask(String taskToFind) {
+        List<Task> matches = new ArrayList<>();
+
+        for (int i = 0; i < getSize(); i++) {
+            if (this.getTask(i).getName().contains(taskToFind)) {
+                matches.add(tasks.get(i));
+            }
+        }
+
+        return new TaskList(matches);
+    }
 }
