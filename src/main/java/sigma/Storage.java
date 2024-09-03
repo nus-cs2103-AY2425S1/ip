@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -45,13 +46,16 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(data);
             for (Task item : items) {
+                String date;
+                if (item instanceof DeadlineTask) {
+                    date = ((DeadlineTask) item).getDate();
+                } else if (item instanceof EventTask) {
+                    date = ((EventTask) item).getFrom() + " - " + ((EventTask) item).getTo();
+                } else {
+                    date = "";
+                }
                 writer.write(String.format("%s | %s | %s | %s \n",
-                        item.getTaskType(), item.getStatusString(), item.getDesc(),
-                        item instanceof DeadlineTask
-                                ? ((DeadlineTask) item).getDate()
-                                : item instanceof EventTask
-                                ? ((EventTask) item).getFrom() + " - " + ((EventTask) item).getTo()
-                                : ""));
+                        item.getTaskType(), item.getStatusString(), item.getDesc(), date));
             }
             writer.close();
         } catch (IOException e) {
@@ -120,6 +124,7 @@ public class Storage {
      */
     private Task createTaskFromFile(String type, String desc, String date) throws SigmaException {
         Task item;
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
         switch (type) {
         case "T":
             item = new ToDoTask(desc);
@@ -127,7 +132,7 @@ public class Storage {
         case "D":
             LocalDateTime dateTime;
             try {
-                dateTime = LocalDateTime.parse(date.strip(), DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"));
+                dateTime = LocalDateTime.parse(date.strip(), dateFormat);
             } catch (DateTimeParseException e) {
                 throw new SigmaException("What the sigma? File contains invalid date format!");
             }
@@ -138,8 +143,8 @@ public class Storage {
             LocalDateTime from;
             LocalDateTime to;
             try {
-                from = LocalDateTime.parse(dates[0].strip(), DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"));
-                to = LocalDateTime.parse(dates[1].strip(), DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"));
+                from = LocalDateTime.parse(dates[0].strip(), dateFormat);
+                to = LocalDateTime.parse(dates[1].strip(), dateFormat);
             } catch (DateTimeParseException e) {
                 throw new SigmaException("What the sigma? File not saved correctly, invalid date format!");
             }

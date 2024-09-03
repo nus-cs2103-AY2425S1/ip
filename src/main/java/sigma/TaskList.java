@@ -17,30 +17,59 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Constructs a TaskList object with an empty list of tasks.
+     */
     public void add(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Checks if the list of tasks is empty.
+     * @return true if the list is empty, false otherwise.
+     */
     public boolean isEmpty() {
         return tasks.size() == 0;
     }
 
+    /**
+     * Gets the number of tasks in the list.
+     * @return The number of tasks in the list.
+     */
     public int size() {
         return tasks.size();
     }
 
+    /**
+     * Gets the task at the specified index.
+     * @param i The index of the task to get.
+     * @return The task at the specified index.
+     */
     public Task get(int i) {
         return tasks.get(i);
     }
 
+    /**
+     * Removes the task at the specified index.
+     * @param i The index of the task to remove.
+     */
     public void remove(int i) {
         tasks.remove(i);
     }
 
+    /**
+     * Gets the list of tasks.
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Finds tasks that contain the specified keyword.
+     * @param keyword The keyword to search for in the tasks.
+     * @return An array list of tasks that contain the keyword.
+     */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {

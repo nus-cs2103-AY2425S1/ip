@@ -40,8 +40,8 @@ public class EventCommand extends Commands {
         if (timing.length < 2) {
             throw new SigmaException("What the sigma? You're missing the end timing! " + SYNTAX);
         }
-        LocalDateTime from = parser.dateTimeParse(timing[0]);
-        LocalDateTime to = parser.dateTimeParse(timing[1]);
+        LocalDateTime from = parser.parseLocalDateTime(timing[0]);
+        LocalDateTime to = parser.parseLocalDateTime(timing[1]);
         EventTask eventTask = new EventTask(eventSplit[0], from, to);
         tasks.add(eventTask);
         ui.print("You're a busy bee! Added: \n" + eventTask.toString()

@@ -5,6 +5,7 @@ import sigma.command.Commands;
 import sigma.command.DeadlineCommand;
 import sigma.command.DeleteCommand;
 import sigma.command.EventCommand;
+import sigma.command.FindCommand;
 import sigma.command.ListCommand;
 import sigma.command.MarkCommand;
 import sigma.command.TodoCommand;
@@ -59,7 +60,7 @@ public class Parser {
      * @return LocalDateTime object.
      * @throws SigmaException If the date and time input is invalid.
      */
-    public static LocalDateTime dateTimeParse(String timing) throws SigmaException {
+    public static LocalDateTime parseLocalDateTime(String timing) throws SigmaException {
         LocalDateTime dateTime;
         try {
             dateTime = LocalDateTime.parse(timing, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));

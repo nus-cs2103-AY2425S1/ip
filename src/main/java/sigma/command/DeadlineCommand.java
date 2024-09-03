@@ -37,7 +37,7 @@ public class DeadlineCommand extends Commands {
             throw new SigmaException("What the sigma? You're missing the deadline! " +
                     "Write \"deadline <task> /by <deadline>\"!");
         }
-        LocalDateTime dateTime = parser.dateTimeParse(deadlineSplit[1]);
+        LocalDateTime dateTime = parser.parseLocalDateTime(deadlineSplit[1]);
         DeadlineTask deadlineTask = new DeadlineTask(deadlineSplit[0], dateTime);
         tasks.add(deadlineTask);
         ui.print("Wow! Keeping yourself busy! Added: \n" + deadlineTask.toString()
