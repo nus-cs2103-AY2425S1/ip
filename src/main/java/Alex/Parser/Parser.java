@@ -8,6 +8,8 @@ import Alex.Command.JokeCommand;
 import Alex.Command.ListCommand;
 import Alex.Command.MarkCommand;
 import Alex.Exceptions.AlexException;
+import Alex.Exceptions.EmptyTodoException;
+import Alex.Exceptions.UnknownCommandException;
 import Alex.Task.Deadline;
 import Alex.Task.DefaultTask;
 import Alex.Task.Event;
@@ -44,6 +46,10 @@ public class Parser {
             return new ExitCommand();
         } else if (userInput.equalsIgnoreCase("tell me a joke")) {
             return new JokeCommand();
+        } else if (userInput.toLowerCase().equals("todo")) {
+            throw new EmptyTodoException();
+        } else if (userInput.toLowerCase().equals("blah")) {
+            throw new UnknownCommandException();
         } else {
             // Handle unrecognized command by checking if it starts with 'deadline'
             if (userInput.startsWith("deadline ")) {
