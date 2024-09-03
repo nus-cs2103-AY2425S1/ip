@@ -22,12 +22,12 @@ public class ByeCommand extends Command {
      * @param storage The storage component used to save task data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             storage.saveData(tasks);
-            ui.byeMessage();
+            return ui.byeMessage();
         } catch (IOException e) {
-            System.out.println("Oops! Something went wrong when saving the data!");
+            return "Oops! Something went wrong when saving the data!";
         }
     }
 

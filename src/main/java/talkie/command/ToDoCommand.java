@@ -33,14 +33,14 @@ public class ToDoCommand extends Command {
      * @throws TalkieMissingArgumentException If the description of the ToDo task is missing.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws TalkieMissingArgumentException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws TalkieMissingArgumentException {
         String[] parts = fullCommand.split(" ", 2); // Split into type and the rest of the input
 
         if (parts.length == 2) {
             String details = parts[1]; // rest of the input (e.g., task description)
             Task newToDo = new ToDo(details.trim());
             tasks.addTask(newToDo);
-            ui.addMessage(newToDo, tasks.size());
+            return ui.addMessage(newToDo, tasks.size());
         } else {
             throw new TalkieMissingArgumentException(parts[0], "The 'description' of todo cannot be empty.");
         }

@@ -41,7 +41,7 @@ public class DeadlineCommand extends Command {
      * @throws TalkieMissingArgumentException If the command is missing a description or deadline.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws TalkieMissingArgumentException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws TalkieMissingArgumentException {
         String[] parts = fullCommand.split(" ", 2); // Split into type and the rest of the input
 
         try {
@@ -57,13 +57,13 @@ public class DeadlineCommand extends Command {
 
                 Task newDeadline = new Deadline(description, time);
                 tasks.addTask(newDeadline);
-                ui.addMessage(newDeadline, tasks.size());
+                return ui.addMessage(newDeadline, tasks.size());
             } else {
                 throw new TalkieMissingArgumentException(parts[0],
                         "The 'description' and 'by' of deadline cannot be empty.");
             }
         } catch (DateTimeParseException e) {
-            ui.wrongDateTimeFormatMessage();
+            return ui.wrongDateTimeFormatMessage();
         }
     }
 

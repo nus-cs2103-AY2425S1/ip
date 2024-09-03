@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
      * @throws TalkieInvalidArgumentException  If the provided argument is not a valid integer.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage)
+    public String execute(TaskList tasks, Ui ui, Storage storage)
             throws TalkieMissingArgumentException, TalkieNoTaskFoundException, TalkieInvalidArgumentException {
         String[] temp = this.fullCommand.split(" ");
 
@@ -52,7 +52,7 @@ public class DeleteCommand extends Command {
             // Check if the task is in the list
             if (index <= tasks.size()) {
                 Task task = tasks.deleteTask(index);
-                ui.deleteMessage(task, tasks.size());
+                return ui.deleteMessage(task, tasks.size());
             } else {
                 throw new TalkieNoTaskFoundException();
             }

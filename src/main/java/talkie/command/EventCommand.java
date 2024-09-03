@@ -40,7 +40,7 @@ public class EventCommand extends Command {
      *                                        start time, or end time.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws TalkieMissingArgumentException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws TalkieMissingArgumentException {
         String[] parts = fullCommand.split(" ", 2); // Split into command type and the rest of the input
 
         try {
@@ -57,19 +57,19 @@ public class EventCommand extends Command {
                 LocalDateTime endTime = LocalDateTime.parse(to, formatter);
 
                 if (startTime.isAfter(endTime)) {
-                    System.out.println("The end time must be after the start time!");
-                    return;
+                    return "The end time must be after the start time!";
+
                 }
 
                 Task newEvent = new Event(description, startTime, endTime);
                 tasks.addTask(newEvent);
-                ui.addMessage(newEvent, tasks.size());
+                return ui.addMessage(newEvent, tasks.size());
             } else {
                 throw new TalkieMissingArgumentException(parts[0],
                         "The 'description', 'from', and 'to' of event cannot be empty.");
             }
         } catch (DateTimeParseException e) {
-            ui.wrongDateTimeFormatMessage();
+            return ui.wrongDateTimeFormatMessage();
         }
     }
 

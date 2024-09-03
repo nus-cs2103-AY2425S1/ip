@@ -48,17 +48,27 @@ public class Talkie {
      * </p>
      */
     public void runTalkie() {
-        ui.welcomeMessage();
+        System.out.print(ui.welcomeMessage());
         boolean isExit = false;
         while (!isExit) {
             try {
                 String input = this.ui.readCommand();
                 Command c = Parser.getCommand(input);
-                c.execute(this.tasks, this.ui, this.storage);
+                String response = c.execute(this.tasks, this.ui, this.storage);
+                System.out.println(response);
                 isExit = c.isExit();
             } catch (TalkieException e) {
                 System.out.println(e);
             }
+        }
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.getCommand(input);
+            return c.execute(this.tasks, this.ui, this.storage);
+        } catch (TalkieException e) {
+            return e.toString();
         }
     }
 

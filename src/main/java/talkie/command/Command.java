@@ -22,7 +22,7 @@ public abstract class Command {
      * @param storage The storage component used to save or load task data.
      * @throws TalkieException If an error occurs during the execution of the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws TalkieException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws TalkieException;
 
     /**
      * Indicates whether the command will terminate the application.

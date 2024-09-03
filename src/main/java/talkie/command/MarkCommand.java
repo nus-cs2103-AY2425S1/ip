@@ -36,7 +36,7 @@ public class MarkCommand extends Command {
      * @throws TalkieNoTaskFoundException     If the specified task does not exist in the list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage)
+    public String execute(TaskList tasks, Ui ui, Storage storage)
             throws TalkieInvalidArgumentException, TalkieMissingArgumentException, TalkieNoTaskFoundException {
         String[] temp = fullCommand.split(" ");
 
@@ -52,7 +52,7 @@ public class MarkCommand extends Command {
             if (index <= tasks.size()) {
                 Task task = tasks.getTask(index);
                 task.markAsDone();
-                ui.markMessage(task);
+                return ui.markMessage(task);
             } else {
                 throw new TalkieNoTaskFoundException();
             }

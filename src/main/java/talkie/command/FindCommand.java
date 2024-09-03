@@ -45,7 +45,7 @@ public class FindCommand extends Command {
      * @throws TalkieInvalidArgumentException If the argument is not a valid string.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage)
+    public String execute(TaskList tasks, Ui ui, Storage storage)
             throws TalkieMissingArgumentException, TalkieInvalidArgumentException {
         String[] temp = this.fullCommand.split(" ");
 
@@ -57,7 +57,7 @@ public class FindCommand extends Command {
         // Checks if the argument is a string
         if (temp[1] != null) {
             String keyword = temp[1];
-            ui.findTasks(tasks, keyword);
+            return ui.findTasks(tasks, keyword);
         } else {
             throw new TalkieInvalidArgumentException(temp[0], "The 'find' command requires a string as argument");
         }
