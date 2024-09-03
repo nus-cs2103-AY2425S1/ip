@@ -1,4 +1,4 @@
-package Optimus;
+package optimus;
 
 /**
  * Abstract class representing a task in the Optimus application.

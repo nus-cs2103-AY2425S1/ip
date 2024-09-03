@@ -1,4 +1,4 @@
-package Optimus;
+package optimus;
 
 import java.util.Scanner;
 

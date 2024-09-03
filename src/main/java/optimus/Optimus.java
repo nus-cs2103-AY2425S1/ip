@@ -1,4 +1,4 @@
-package Optimus;
+package optimus;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
