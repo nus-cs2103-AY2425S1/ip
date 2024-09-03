@@ -102,7 +102,7 @@ public class Parser {
                 throw new InvalidCommandException("Invalid command: " + command);
             }
         }
-        return null;
+        throw new InvalidCommandException("Invalid command: " + input);
     }
 
     private static LocalDateTime parseDateTime(String dateTime) throws ParseCommandException {

@@ -30,13 +30,14 @@ public class ToDoCommand extends Command {
      * @param tasks   contains list of tasks.
      * @throws ExecuteCommandException thrown if method is unable to create the task.
      * @throws FileException           thrown if there is an error encountered while reading or writing to file.
+     * @return ui method containing response.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException, FileException {
+    public String execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException, FileException {
         Todo todo = new Todo(this.description);
         tasks.addTask(todo);
         storage.saveTaskToFile(tasks);
-        ui.printTaskAddedMessage(todo);
+        return ui.sayAdded(todo);
     }
 
     @Override
