@@ -243,7 +243,7 @@ public class Parser {
      *
      * @param splitInput The user's input split into command and arguments.
      * @param tasks      The list of tasks to be searched.
-     * @param ui         The user interface to interact with the user.
+     * @param ui          The user interface to interact with the user.
      */
     private void handleFindCommand(String[] splitInput, TaskList tasks, Ui ui) {
         if (splitInput.length > 1) {
