@@ -1,9 +1,12 @@
 package bob.commands;
 
-import bob.storage.Storage;
 import bob.data.TaskList;
+import bob.storage.Storage;
 import bob.ui.Ui;
 
+/**
+ * Class representing the list command.
+ */
 public class List extends Command {
 
     private static void listTasks(TaskList list) {

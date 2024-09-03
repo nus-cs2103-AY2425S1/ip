@@ -6,23 +6,46 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event task in the task list.
+ */
 public class EventTask extends Task {
 
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Creates an event task.
+     *
+     * @param description of the task
+     * @param from start date and time
+     * @param to end date and time in String
+     */
     public EventTask(String description, LocalDateTime from, String to) {
         super(description);
         this.from = from;
         this.to = parseToDateTime(to);
     }
 
+    /**
+     * Creates an event task.
+     *
+     * @param description of the task
+     * @param from start date and time
+     * @param to end date and time in LocalDateTime
+     */
     public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Converts a String date and time to LocalDateTime
+     *
+     * @param dateTimeInput a String date and time
+     * @return a LocalDateTime
+     */
     public static LocalDateTime parseDateTime(String dateTimeInput) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(dateTimeInput, formatter);

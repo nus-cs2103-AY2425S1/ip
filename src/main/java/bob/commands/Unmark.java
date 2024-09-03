@@ -1,9 +1,12 @@
 package bob.commands;
 
-import bob.storage.Storage;
 import bob.data.TaskList;
+import bob.storage.Storage;
 import bob.ui.Ui;
 
+/**
+ * Represents the unmark command.
+ */
 public class Unmark extends Command {
     private final int index;
     public Unmark(int index) {

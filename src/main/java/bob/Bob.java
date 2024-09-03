@@ -7,12 +7,20 @@ import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.ui.Ui;
 
+/**
+ * Represents the main program.
+ */
 public class Bob {
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
 
 
+    /**
+     * Creates a new instance of Bob.
+     *
+     * @param filePath the path to the data file where tasklist will be stored.
+     */
     public Bob(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,7 +31,10 @@ public class Bob {
         }
     }
 
-    public void run(){
+    /**
+     * Entry point of the program
+     */
+    public void run() {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {

@@ -1,9 +1,12 @@
 package bob.commands;
 
-import bob.storage.Storage;
 import bob.data.TaskList;
+import bob.storage.Storage;
 import bob.ui.Ui;
 
+/**
+ * Represents the mark command.
+ */
 public class Mark extends Command {
     private final int index;
 

@@ -1,12 +1,15 @@
 package bob.commands;
 
-import bob.storage.FileWriting;
-import bob.storage.Storage;
-import bob.data.TaskList;
-import bob.ui.Ui;
-
 import java.io.IOException;
 
+import bob.data.TaskList;
+import bob.storage.FileWriting;
+import bob.storage.Storage;
+import bob.ui.Ui;
+
+/**
+ * Represents the bye command.
+ */
 public class Bye extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {

@@ -1,24 +1,44 @@
 package bob.storage;
 
-import bob.data.BobException;
-import bob.data.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import bob.data.BobException;
+import bob.data.TaskList;
+
+
+/**
+ * Represents the storage of tasks.
+ */
 public class Storage {
     protected static String filePath;
 
+    /**
+     * Constructor for the Storage class if the file already exists.
+     *
+     * @param filePath the path to the file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Constructor for the Storage class if the file does not exist.
+     *
+     * @throws IOException if the file cannot be created.
+     */
     public Storage() throws IOException {
         FileReading.createDirectory(getDirectoryName());
         FileReading.createFile(filePath);
     }
 
+    /**
+     * Loads the tasks from the file.
+     *
+     * @return the list of tasks.
+     * @throws BobException if the file cannot be loaded.
+     */
     public TaskList load() throws BobException {
         try {
             return FileReading.loadTasks(filePath);
