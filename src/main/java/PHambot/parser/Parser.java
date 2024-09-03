@@ -1,27 +1,69 @@
 package PHambot.parser;
 
-import PHambot.command.*;
-import PHambot.exceptions.*;
+import PHambot.command.Command;
+import PHambot.command.DeadlineCommand;
+import PHambot.command.DeleteCommand;
+import PHambot.command.EventCommand;
+import PHambot.command.ExitCommand;
+import PHambot.command.ListCommand;
+import PHambot.command.MarkCommand;
+import PHambot.command.ToDoCommand;
+import PHambot.command.UnmarkCommand;
+
+import PHambot.exceptions.MissingTaskException;
+import PHambot.exceptions.MissingDividerException;
+import PHambot.exceptions.MissingDateException;
+
 import PHambot.utils.Utilities;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
+
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/**
+ * Parses user input into commands.
+ * This class is responsible for interpreting the user's input and
+ * converting it into executable commands.
+ */
 public class Parser {
 
-    private static final Pattern BASIC_COMMAND_PATTERN = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
+    /**
+     * Pattern to match basic commands.
+     */
+    private static final Pattern BASIC_COMMAND_PATTERN =
+            Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
+
+    /**
+     * Pattern to match arguments with date and time.
+     */
     private static final Pattern DATETIME_COMMAND_PATTERN =
             Pattern.compile("(?<task>[^/]+)\\s*/\\s*(?<date>\\d{4}[-/]\\d{2}[-/]\\d{2})\\s+(?<time>\\d{2}:\\d{2})");
+
+    /**
+     * Pattern to match arguments with date only.
+     */
     private static final Pattern DATE_COMMAND_PATTERN =
             Pattern.compile("(?<task>[^/]+)\\s*/\\s*(?<date>\\d{4}[-/]\\d{2}[-/]\\d{2})\\s");
-    private static final Pattern INDEXED_COMMAND_PATTERN = Pattern.compile("\\s*(?<index>\\d+)\\s*");
+
+    /**
+     * Pattern to match commands with an index.
+     */
+    private static final Pattern INDEXED_COMMAND_PATTERN =
+            Pattern.compile("\\s*(?<index>\\d+)\\s*");
 
     public Parser() {
     }
 
+    /**
+     * Parses the user input into a command.
+     *
+     * @param userInput the input entered by the user.
+     * @return the parsed command.
+     *
+     */
     public Command parseCommand(String userInput) {
         Matcher matcher = BASIC_COMMAND_PATTERN.matcher(userInput.trim());
 
@@ -56,6 +98,15 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Prepares a DeadlineCommand from the given arguments.
+     *
+     * @param arguments the arguments for the deadline command.
+     * @return the prepared DeadlineCommand.
+     * @throws MissingDividerException if the divider is missing.
+     * @throws MissingTaskException if the task is missing.
+     * @throws MissingDateException if the date is missing.
+     */
     private Command prepDeadline(String arguments) throws
             MissingDividerException, MissingTaskException, MissingDateException{
         Matcher deadlineMatcher = DATETIME_COMMAND_PATTERN.matcher(arguments);
@@ -91,6 +142,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Prepares an EventCommand from the given arguments.
+     *
+     * @param arguments the arguments for the event command.
+     * @return the prepared EventCommand.
+     * @throws MissingTaskException if the task is missing.
+     * @throws MissingDividerException if the divider is missing.
+     * @throws MissingDateException if the date is missing.
+     */
     private Command prepEvent(String arguments) throws
             MissingTaskException, MissingDividerException, MissingDateException{
         Matcher eventMatcher = DATETIME_COMMAND_PATTERN.matcher(arguments);
@@ -127,6 +187,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Prepares an indexed command from the given arguments.
+     *
+     * @param arguments the arguments for the indexed command.
+     * @return the index parsed from the arguments.
+     */
     private int prepIndexedCommand(String arguments) {
         Matcher indexMatcher = INDEXED_COMMAND_PATTERN.matcher(arguments);
         if (indexMatcher.matches()) {
@@ -138,6 +204,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Prepares a ToDoCommand from the given arguments.
+     *
+     * @param arguments the arguments for the todo command.
+     * @return the prepared ToDoCommand.
+     * @throws MissingTaskException if the task is missing.
+     */
     private Command prepToDo(String arguments) throws MissingTaskException {
         if (arguments == null || arguments.isEmpty()) {
             throw new MissingTaskException("Missing a task to add!");

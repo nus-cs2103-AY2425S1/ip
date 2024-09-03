@@ -1,5 +1,8 @@
 package PHambot.task;
 
+/**
+ * Represents an event, which includes a date and optional time.
+ */
 public class Event extends DatedTask {
     public Event(String event, String date) {
         super(event, date);

@@ -3,6 +3,9 @@ package PHambot.command;
 import PHambot.task.Event;
 import PHambot.utils.Utilities;
 
+/**
+ * Represents a command to add an Event task.
+ */
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
 
@@ -19,7 +22,7 @@ public class EventCommand extends Command {
 
     @Override
     public boolean executeCommand() {
-        Utilities.OutlineMessage("Added: " + this.event.toString());
-        return Command.taskList.addTask(this.event);
+        Utilities.OutlineMessage("Added: " + event);
+        return Command.taskList.addTask(event);
     }
 }

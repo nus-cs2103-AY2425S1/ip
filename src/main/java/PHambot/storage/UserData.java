@@ -1,7 +1,5 @@
 package PHambot.storage;
 
-import PHambot.task.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.BufferedWriter;
@@ -10,30 +8,51 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 
+import PHambot.task.Deadline;
+import PHambot.task.Event;
+import PHambot.task.Task;
+import PHambot.task.TaskList;
+import PHambot.task.ToDo;
+
+/**
+ * Handles the storage and retrieval of user data, specifically tasks lists.
+ * This class is responsible for saving tasks lists to a file and loading tasks lists from a file.
+ */
 public class UserData {
 
     private TaskList tasks;
     private String defaultFileDirectory = "data/testSaveFile.txt";
     private String saveFileDirectory;
 
+    /**
+     * Constructs a UserData object with a specified directory.
+     *
+     * @param directory the directory where tasks will be saved and loaded from.
+     */
     public UserData(String directory) {
         saveFileDirectory = directory;
         this.tasks = loadTasks(directory);
     }
 
+    /**
+     * Constructs a UserData object with the default directory.
+     */
     public UserData() {
         saveFileDirectory = defaultFileDirectory;
         this.tasks = loadTasks(saveFileDirectory);
     }
 
     public TaskList getTasks() {
-        return this.tasks;
+        return tasks;
     }
 
     public void setTasks(TaskList tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Saves the list of tasks to the instance's save file directory.
+     */
     public void saveTasks() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveFileDirectory))) {
             for (int i = 0; i < tasks.taskCount(); i++) {
@@ -60,6 +79,12 @@ public class UserData {
         }
     }
 
+    /**
+     * Loads the list of tasks from the specified file directory.
+     *
+     * @param fileName the name of the file to load tasks from.
+     * @return the list of tasks loaded from the file.
+     */
     private TaskList loadTasks(String fileName) {
         TaskList taskList = new TaskList();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {

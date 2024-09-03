@@ -1,5 +1,8 @@
 package PHambot.task;
 
+/**
+ * Represents a task with a deadline, which includes a date and optional time.
+ */
 public class Deadline extends DatedTask{
     public Deadline(String task, String date) {
         super(task, date);

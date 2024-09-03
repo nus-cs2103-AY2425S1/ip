@@ -3,6 +3,9 @@ package PHambot.command;
 import PHambot.task.ToDo;
 import PHambot.utils.Utilities;
 
+/**
+ * Represents a command to add a ToDo task.
+ */
 public class ToDoCommand extends Command{
     public static final String COMMAND_WORD = "todo";
 
@@ -18,7 +21,7 @@ public class ToDoCommand extends Command{
 
     @Override
     public boolean executeCommand() {
-        Utilities.OutlineMessage("Added: " + toDo.toString());
-        return Command.taskList.addTask(this.toDo);
+        Utilities.OutlineMessage("Added: " + toDo);
+        return Command.taskList.addTask(toDo);
     }
 }

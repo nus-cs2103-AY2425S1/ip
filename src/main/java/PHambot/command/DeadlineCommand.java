@@ -3,6 +3,9 @@ package PHambot.command;
 import PHambot.task.Deadline;
 import PHambot.utils.Utilities;
 
+/**
+ * Represents a command to add a Deadline task.
+ */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
 
@@ -23,7 +26,7 @@ public class DeadlineCommand extends Command {
 
     @Override
     public boolean executeCommand() {
-        Utilities.OutlineMessage("Added: " + deadline.toString());
-        return Command.taskList.addTask(this.deadline);
+        Utilities.OutlineMessage("Added: " + deadline);
+        return Command.taskList.addTask(deadline);
     }
 }
