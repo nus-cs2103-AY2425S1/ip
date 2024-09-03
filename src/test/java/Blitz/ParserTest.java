@@ -168,7 +168,7 @@ public class ParserTest {
     public void commandValidation_commandDeadlineString_returnCommandDeadlineObject() {
         try {
             assertEquals(
-                    new CommandDeadline("deadline abc /by 2024-01-25 1900", new String[]{"abc", "2024-01-25 1900"}),
+                    new CommandDeadline("deadline abc /by 2024-01-25 1900", "abc", "2024-01-25 1900"),
                     Parser.parse("deadline abc /by 2024-01-25 1900"));
         } catch (Exception e) {
             fail();
@@ -178,8 +178,8 @@ public class ParserTest {
     @Test
     public void commandValidation_commandDeadlineStringNoParameter_exceptionThrown() {
         try {
-            assertEquals(new CommandDeadline("deadline", new String[]{""}), Parser.parse("deadline"));
-            assertEquals(new CommandDeadline("deadline ", new String[]{""}), Parser.parse("deadline "));
+            assertEquals(new CommandDeadline("deadline", ""), Parser.parse("deadline"));
+            assertEquals(new CommandDeadline("deadline ", ""), Parser.parse("deadline "));
             fail();
         } catch (Exception e) {
             assertEquals("Missing parameter(s) for command!", e.toString());
@@ -189,15 +189,15 @@ public class ParserTest {
     @Test
     public void commandValidation_commandDeadlineStringWrongParameterFormat_exceptionThrown() {
         try {
-            assertEquals(new CommandDeadline("deadline abc /by ", new String[]{""}),
+            assertEquals(new CommandDeadline("deadline abc /by ", ""),
                     Parser.parse("deadline abc /by "));
-            assertEquals(new CommandDeadline("deadline /by 1920-12-12 1212", new String[]{""}),
+            assertEquals(new CommandDeadline("deadline /by 1920-12-12 1212", ""),
                     Parser.parse("deadline /by 1920-12-12 1212"));
-            assertEquals(new CommandDeadline("deadline abc /by 1920-12-35 1212", new String[]{""}),
+            assertEquals(new CommandDeadline("deadline abc /by 1920-12-35 1212", ""),
                     Parser.parse("deadline abc /by 1920-12-35 1212"));
-            assertEquals(new CommandDeadline("deadline abc /by ", new String[]{""}),
+            assertEquals(new CommandDeadline("deadline abc /by ", ""),
                     Parser.parse("deadline abc /by abc"));
-            assertEquals(new CommandDeadline("deadline /by /by /by", new String[]{""}),
+            assertEquals(new CommandDeadline("deadline /by /by /by", ""),
                     Parser.parse("deadline /by /by /by"));
             fail();
         } catch (Exception e) {
@@ -211,7 +211,7 @@ public class ParserTest {
     public void commandValidation_commandEventString_returnCommandEventObject() {
         try {
             assertEquals(new CommandEvent("event abc /from 2024-01-25 1900 /to 2024-01-26 1900",
-                            new String[]{"abc", "2024-01-25 1900", "2024-01-26 1900"}),
+                            "abc", "2024-01-25 1900", "2024-01-26 1900"),
                     Parser.parse("event abc /from 2024-01-25 1900 /to 2024-01-26 1900"));
         } catch (Exception e) {
             fail();
@@ -221,17 +221,17 @@ public class ParserTest {
     @Test
     public void commandValidation_commandEventStringWrongParameterFormat_exceptionThrown() {
         try {
-            assertEquals(new CommandEvent("event  /from /to ", new String[]{""}),
+            assertEquals(new CommandEvent("event  /from /to ", ""),
                     Parser.parse("event  /from /to "));
-            assertEquals(new CommandEvent("event abc /from /to ", new String[]{""}),
+            assertEquals(new CommandEvent("event abc /from /to ", ""),
                     Parser.parse("event abc /from /to "));
-            assertEquals(new CommandEvent("event /from 2024-09-10 1900 /to 2024-10-09 2000", new String[]{""}),
+            assertEquals(new CommandEvent("event /from 2024-09-10 1900 /to 2024-10-09 2000", ""),
                     Parser.parse("event /from 2024-09-10 1900 /to 2024-10-09 2000"));
-            assertEquals(new CommandEvent("event abc /from 2024-09-10 1900 /to ", new String[]{""}),
+            assertEquals(new CommandEvent("event abc /from 2024-09-10 1900 /to ", ""),
                     Parser.parse("event abc /from 2024-09-10 1900 /to "));
-            assertEquals(new CommandEvent("event /from /to 2024-10-09 2000", new String[]{""}),
+            assertEquals(new CommandEvent("event /from /to 2024-10-09 2000", ""),
                     Parser.parse("event /from /to 2024-10-09 2000"));
-            assertEquals(new CommandEvent("event abc /from /to 2024-10-09 2000", new String[]{""}),
+            assertEquals(new CommandEvent("event abc /from /to 2024-10-09 2000", ""),
                     Parser.parse("event abc /from /to 2024-10-09 2000"));
             fail();
         } catch (Exception e) {

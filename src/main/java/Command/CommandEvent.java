@@ -16,12 +16,12 @@ public class CommandEvent extends Command {
     /**
      * Constructs a new CommandEvent object with specified command String and parameters as Array of String.
      *
-     * @param command Command String to be associated with this Command object.
-     * @param params Array of String containing the parameters for this command.
+     * @param values A variable number of String arguments associated with this Command object..
      */
-    public CommandEvent(String command, String[] params) {
-        super(command);
-        this.params = params;
+    public CommandEvent(String... values) {
+        super(values[0]);
+        this.params = new String[values.length - 1];
+        System.arraycopy(values, 1, params, 0, params.length);
     }
 
     /**

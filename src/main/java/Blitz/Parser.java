@@ -77,7 +77,7 @@ public class Parser {
 
                 String[] deadlineParams = cont[1].split(" /by ");
 
-                return new CommandDeadline(command, deadlineParams);
+                return new CommandDeadline(command, deadlineParams[0], deadlineParams[1]);
             case "event":
                 if (!isRegexMatched(
                         "^.+ \\/from (19|20)\\d\\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]) "
@@ -93,9 +93,8 @@ public class Parser {
 
                 String[] param1 = cont[1].split(" /from ");
                 String[] param2 = param1[1].split(" /to ");
-                String[] eventParams = {param1[0], param2[0], param2[1]};
 
-                return new CommandEvent(command, eventParams);
+                return new CommandEvent(command, param1[0], param2[0], param2[1]);
             case "delete":
                 String[] deleteParam = cont[1].split(" ");
 
