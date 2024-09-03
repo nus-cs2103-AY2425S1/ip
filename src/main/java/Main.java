@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Hamyo hamyo = new Hamyo();
+    private final Hamyo hamyo = new Hamyo();
 
     @Override
     public void start(Stage stage) {

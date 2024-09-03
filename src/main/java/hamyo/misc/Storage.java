@@ -50,6 +50,7 @@ public class Storage {
      */
     public void loadData(TaskList tasks) throws HamyoException {
         try {
+            tasks.clear();
             Scanner scannedTasks = new Scanner(this.file);
             while (scannedTasks.hasNext()) {
                 String[] task = scannedTasks.nextLine().split(" \\| ");
