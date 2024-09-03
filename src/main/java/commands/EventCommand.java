@@ -1,12 +1,12 @@
-package Commands;
+package commands;
 
-import Exceptions.BrockException;
-import Storage.Storage;
-import Tasks.Events;
-import Tasks.Task;
-import Tasks.TaskList;
-import Ui.Ui;
-import Utility.Utility;
+import exceptions.BrockException;
+import storage.Storage;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import ui.Ui;
+import utility.Utility;
 
 /**
  * Represents an event command entered by the user.
@@ -26,7 +26,7 @@ public class EventCommand extends Command {
      *
      * @return {@code Event} object.
      * @throws BrockException If event missing description, start date or end date.
-     * Or, if start and end dates are invalid.
+     *      Or, if start and end dates are invalid.
      */
     private Task createEvent() throws BrockException {
         String command = super.getCommand();
@@ -83,20 +83,20 @@ public class EventCommand extends Command {
             throw new BrockException("Both start and end dates must either include or exclude a time!");
         }
 
-        String[] startDateTimeValues = Utility.validateDateTime(startDateTime.toString()
-                , startDateTimeWords, Utility.Context.START);
-        String[] endDateTimeValues = Utility.validateDateTime(endDateTime.toString()
-                , endDateTimeWords, Utility.Context.END);
+        String[] startDateTimeValues = Utility.validateDateTime(startDateTime.toString(),
+                startDateTimeWords, Utility.Context.START);
+        String[] endDateTimeValues = Utility.validateDateTime(endDateTime.toString(),
+                endDateTimeWords, Utility.Context.END);
         if (startDateTimeWords == 1) {
-            return new Events(description.toString()
-                    , startDateTimeValues[0]
-                    , endDateTimeValues[0]);
+            return new Event(description.toString(),
+                    startDateTimeValues[0],
+                    endDateTimeValues[0]);
         } else {
-            return new Events(description.toString()
-                    , startDateTimeValues[0]
-                    , startDateTimeValues[1]
-                    , endDateTimeValues[0]
-                    , endDateTimeValues[1]);
+            return new Event(description.toString(),
+                    startDateTimeValues[0],
+                    startDateTimeValues[1],
+                    endDateTimeValues[0],
+                    endDateTimeValues[1]);
         }
     }
 
@@ -125,8 +125,8 @@ public class EventCommand extends Command {
         storage.writeToFile(tasks.numTasks()
                         + ". "
                         + tasks.getTaskDetails(eventTask)
-                        + '\n'
-                , true);
+                        + '\n',
+                true);
     }
 
     /**

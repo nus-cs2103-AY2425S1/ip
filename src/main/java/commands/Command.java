@@ -1,10 +1,9 @@
-package Commands;
+package commands;
 
-import Exceptions.BrockException;
-import Tasks.TaskList;
-import Storage.Storage;
-import Ui.Ui;
-
+import exceptions.BrockException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
 
 /**
  * Abstract class that defines a template for user commands.
@@ -40,7 +39,7 @@ public abstract class Command {
      * @param tasks {@code TaskList} object that stores the current tasks in an {@code ArrayList}.
      * @throws BrockException If there are any issues with running the command.
      */
-    abstract public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException;
+    public abstract void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException;
 
 
     /**
@@ -48,5 +47,5 @@ public abstract class Command {
      *
      * @return Exit status, either true or false.
      */
-    abstract public boolean isExit();
+    public abstract boolean isExit();
 }

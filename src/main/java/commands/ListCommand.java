@@ -1,9 +1,9 @@
-package Commands;
+package commands;
 
-import Exceptions.BrockException;
-import Storage.Storage;
-import Tasks.TaskList;
-import Ui.Ui;
+import exceptions.BrockException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
 
 /**
  * Represents a list command entered by the user.

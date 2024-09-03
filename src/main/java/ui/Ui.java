@@ -1,4 +1,4 @@
-package Ui;
+package ui;
 
 import java.util.Scanner;
 
@@ -7,7 +7,8 @@ import java.util.Scanner;
  * It also displays the response of the chatbot.
  */
 public class Ui {
-    private static final String HORIZONTAL_LINE = "_____________________________________________________________________\n";
+    private static final String HORIZONTAL_LINE =
+            "_____________________________________________________________________\n";
 
     /**
      * Reads the raw user command, from the {@code Scanner} object.

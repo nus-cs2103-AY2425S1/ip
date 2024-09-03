@@ -1,10 +1,10 @@
-package Commands;
+package commands;
 
-import Exceptions.BrockException;
-import Storage.Storage;
-import Tasks.TaskList;
-import Ui.Ui;
-import Utility.Utility;
+import exceptions.BrockException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+import utility.Utility;
 
 /**
  * Represents an unmark command entered by the user.
@@ -35,11 +35,11 @@ public class UnmarkCommand extends Command {
         String command = super.getCommand();
         Utility.validateStatus(command, Utility.Action.UNMARK, tasks);
 
-        int targetIndex = Utility.getTargetIndex(command);
-        tasks.unmarkTask(targetIndex);
+        int taskIndex = Utility.getTaskIndex(command);
+        tasks.unmarkTask(taskIndex);
         ui.displayResponse("OK, I've marked this task as not done yet:\n"
                 + "  "
-                + tasks.getTaskDetails(targetIndex));
+                + tasks.getTaskDetails(taskIndex));
     }
 
     /**

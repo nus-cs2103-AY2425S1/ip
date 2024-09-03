@@ -1,16 +1,17 @@
-package Commands;
-
-import Exceptions.BrockException;
-import org.junit.jupiter.api.Test;
+package commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UnmarkCommandTest extends BaseCommandTest {
+import org.junit.jupiter.api.Test;
+
+import exceptions.BrockException;
+
+public class MarkCommandTest extends BaseCommandTest {
     @Test
     public void execute_missingNumber_throwsException() {
-        UnmarkCommand uc = new UnmarkCommand("unmark");
+        MarkCommand mc = new MarkCommand("mark");
         try {
-            uc.execute(UI, STORAGE, TASKS);
+            mc.execute(UI, STORAGE, TASKS);
         } catch (BrockException e) {
             assertEquals("Missing task number!", e.getMessage());
         }
@@ -18,9 +19,9 @@ public class UnmarkCommandTest extends BaseCommandTest {
 
     @Test
     public void execute_invalidNumber_throwsException() {
-        UnmarkCommand uc = new UnmarkCommand("unmark 5");
+        MarkCommand mc = new MarkCommand("mark 5");
         try {
-            uc.execute(UI, STORAGE, TASKS);
+            mc.execute(UI, STORAGE, TASKS);
         } catch (BrockException e) {
             assertEquals("Task number does not exist!", e.getMessage());
         }
@@ -32,13 +33,13 @@ public class UnmarkCommandTest extends BaseCommandTest {
         tc.execute(UI, STORAGE, TASKS);
         NEW_OUT.reset();
 
-        String expectedResponse = "OK, I've marked this task as not done yet:\n"
-                + "  [T][ ] borrow book ";
+        String expectedResponse = "Nice! I've marked this task as done:\n"
+                + "  [T][X] borrow book ";
         UI.displayResponse(expectedResponse);
         String expectedOutput = super.getOutput();
 
-        UnmarkCommand uc = new UnmarkCommand("unmark 1");
-        uc.execute(UI, STORAGE, TASKS);
+        MarkCommand mc = new MarkCommand("mark 1");
+        mc.execute(UI, STORAGE, TASKS);
         String actualOutput = super.getOutput();
 
         assertEquals(expectedOutput, actualOutput);

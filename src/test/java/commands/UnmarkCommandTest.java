@@ -1,15 +1,17 @@
-package Commands;
+package commands;
 
-import Exceptions.BrockException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MarkCommandTest extends BaseCommandTest {
+import org.junit.jupiter.api.Test;
+
+import exceptions.BrockException;
+
+public class UnmarkCommandTest extends BaseCommandTest {
     @Test
     public void execute_missingNumber_throwsException() {
-        MarkCommand mc = new MarkCommand("mark");
+        UnmarkCommand uc = new UnmarkCommand("unmark");
         try {
-            mc.execute(UI, STORAGE, TASKS);
+            uc.execute(UI, STORAGE, TASKS);
         } catch (BrockException e) {
             assertEquals("Missing task number!", e.getMessage());
         }
@@ -17,9 +19,9 @@ public class MarkCommandTest extends BaseCommandTest {
 
     @Test
     public void execute_invalidNumber_throwsException() {
-        MarkCommand mc = new MarkCommand("mark 5");
+        UnmarkCommand uc = new UnmarkCommand("unmark 5");
         try {
-            mc.execute(UI, STORAGE, TASKS);
+            uc.execute(UI, STORAGE, TASKS);
         } catch (BrockException e) {
             assertEquals("Task number does not exist!", e.getMessage());
         }
@@ -31,13 +33,13 @@ public class MarkCommandTest extends BaseCommandTest {
         tc.execute(UI, STORAGE, TASKS);
         NEW_OUT.reset();
 
-        String expectedResponse = "Nice! I've marked this task as done:\n"
-                + "  [T][X] borrow book ";
+        String expectedResponse = "OK, I've marked this task as not done yet:\n"
+                + "  [T][ ] borrow book ";
         UI.displayResponse(expectedResponse);
         String expectedOutput = super.getOutput();
 
-        MarkCommand mc = new MarkCommand("mark 1");
-        mc.execute(UI, STORAGE, TASKS);
+        UnmarkCommand uc = new UnmarkCommand("unmark 1");
+        uc.execute(UI, STORAGE, TASKS);
         String actualOutput = super.getOutput();
 
         assertEquals(expectedOutput, actualOutput);

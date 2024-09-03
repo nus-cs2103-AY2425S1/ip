@@ -1,7 +1,15 @@
-package Parser;
+package parser;
 
-import Commands.*;
-import Exceptions.BrockException;
+import commands.ByeCommand;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.TodoCommand;
+import commands.UnmarkCommand;
+import exceptions.BrockException;
 
 /**
  * Class to identify user commands, and create associated {@code Command} objects.
@@ -14,7 +22,7 @@ public class Parser {
      * @param target Command type.
      * @return True if command matches the specified type. False otherwise.
      */
-    private boolean identifyCommand(String command, String target) {
+    private boolean isCommand(String command, String target) {
         String[] parts = command.toLowerCase()
                 .split(" ");
         String firstWord = parts[0];
@@ -29,28 +37,28 @@ public class Parser {
      * @throws BrockException If user command is invalid.
      */
     public Command handleCommand(String command) throws BrockException {
-        if (identifyCommand(command, "bye")) {
+        if (isCommand(command, "bye")) {
             return new ByeCommand(command);
-        }
-        if (identifyCommand(command, "list")) {
+
+        } else if (isCommand(command, "list")) {
             return new ListCommand(command);
 
-        } else if (identifyCommand(command, "mark")) {
+        } else if (isCommand(command, "mark")) {
             return new MarkCommand(command);
 
-        } else if (identifyCommand(command, "unmark")) {
+        } else if (isCommand(command, "unmark")) {
             return new UnmarkCommand(command);
 
-        } else if (identifyCommand(command, "delete")) {
+        } else if (isCommand(command, "delete")) {
             return new DeleteCommand(command);
 
-        } else if (identifyCommand(command, "todo")) {
+        } else if (isCommand(command, "todo")) {
             return new TodoCommand(command);
 
-        } else if (identifyCommand(command, "deadline")) {
+        } else if (isCommand(command, "deadline")) {
             return new DeadlineCommand(command);
 
-        } else if (identifyCommand(command, "event")) {
+        } else if (isCommand(command, "event")) {
             return new EventCommand(command);
 
         } else {

@@ -1,10 +1,10 @@
-package Commands;
+package commands;
 
-import Exceptions.BrockException;
-import Storage.Storage;
-import Tasks.TaskList;
-import Ui.Ui;
-import Utility.Utility;
+import exceptions.BrockException;
+import storage.Storage;
+import task.TaskList;
+import ui.Ui;
+import utility.Utility;
 
 /**
  * Represents a delete command entered by the user.
@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
      *
      * @param tasks List of current {@code Task} objects.
      * @throws BrockException If command is missing a task number, has a wrong task number.
-     * Or, it is in the wrong format altogether.
+     *      Or, it is in the wrong format altogether.
      */
     private void validateDelete(TaskList tasks) throws BrockException {
         String command = super.getCommand();
@@ -62,17 +62,17 @@ public class DeleteCommand extends Command {
         validateDelete(tasks);
 
         String command = super.getCommand();
-        int targetIndex = Utility.getTargetIndex(command);
-        tasks.removeFromList(targetIndex);
+        int taskIndex = Utility.getTaskIndex(command);
+        tasks.removeFromList(taskIndex);
 
         ui.displayResponse("Noted. I've removed this task:\n"
                 + "  "
-                + tasks.getTaskDetails(targetIndex)
+                + tasks.getTaskDetails(taskIndex)
                 + '\n'
                 + tasks.getTasksSummary());
 
         // Update the save file
-        String fileContents = storage.readFromFile(targetIndex + 1);
+        String fileContents = storage.readFromFile(taskIndex + 1);
         storage.writeToFile("", false);
         storage.writeToFile(fileContents, true);
     }
