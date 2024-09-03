@@ -11,16 +11,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import Commands.Command;
 
+/**
+ * Class that represents the chatbot.
+ */
 public class Brock {
     private static final Ui UI = new Ui();
     private static final Storage STORAGE = new Storage();
     private static final Parser PARSER = new Parser();
 
+    /**
+     * Main logic of the chatbot.
+     */
     public void run() {
         // Create a scanner object
         // Reads from standard system input
         Scanner scanner = new Scanner(System.in);
 
+        // Creates the save file if necessary
         try {
             String[] result = STORAGE.createFile();
             UI.displayResponse(result[0]);
@@ -42,6 +49,7 @@ public class Brock {
             return;
         }
 
+        // Begin the interaction with chatbot
         UI.displayInitialResponse();
         boolean isExit = false;
         // Main loop
@@ -57,6 +65,10 @@ public class Brock {
         }
     }
 
+    /**
+     * Main method, when called, runs the main logic of the chatbot.
+     * @param args The command line arguments.
+     **/
     public static void main(String[] args) {
         new Brock().run();
     }

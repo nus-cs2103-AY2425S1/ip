@@ -4,7 +4,7 @@ import Commands.*;
 import Exceptions.BrockException;
 
 /**
- * Class to identify user commands, and create associated command objects.
+ * Class to identify user commands, and create associated {@code Command} objects.
  */
 public class Parser {
     /**
@@ -22,7 +22,7 @@ public class Parser {
     }
 
     /**
-     * Creates an associated command object, based on the identified command type.
+     * Creates an associated {@code Command} object, based on the identified command type.
      *
      * @param command User command.
      * @return Associated command object.

@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
     /**
      * Checks if the delete command is valid.
      *
-     * @param tasks List of current task objects.
+     * @param tasks List of current {@code Task} objects.
      * @throws BrockException If command is missing a task number, has a wrong task number.
      * Or, it is in the wrong format altogether.
      */

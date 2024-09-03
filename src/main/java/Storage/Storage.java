@@ -55,9 +55,9 @@ public class Storage {
     }
 
     /**
-     * Creates a {code Deadline} object corresponding to a deadline task.
+     * Creates a {@code Deadline} object corresponding to a deadline task.
      *
-     * @param taskBody String storing task description and due date, time.
+     * @param taskBody String storing task description and due datetime.
      * @return {@code Deadline} object created.
      * @throws BrockException If date and time are invalid when constructing object.
      * (They should already be validated)
@@ -85,7 +85,7 @@ public class Storage {
     }
 
     /**
-     * Creates a {code Event} object corresponding to an event task.
+     * Creates an {code Event} object corresponding to an event task.
      *
      * @param taskBody String storing task description, as well as start and end datetime.
      * @return {@code Event} object created.
@@ -124,6 +124,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a task string into a corresponding {@code Task} object.
+     *
+     * @param taskString Task string being passed in.
+     * @return Corresponding {@code Task} object.
+     * @throws BrockException If task string is invalid.
+     */
     private Task convertToTaskObject(String taskString) throws BrockException {
         // Split by ". "
         String[] taskComponents = taskString.split("\\. ", 2);
@@ -145,6 +152,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts all tasks in save file into corresponding {@code Task} objects.
+     *
+     * @return An {@code ArrayList<Task>} to store all objects.
+     * @throws BrockException If unable to find save file.
+     */
     public ArrayList<Task> loadTasksFromFile() throws BrockException {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
@@ -160,6 +173,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if the save file and parent directories are present.
+     * If they are not, create them accordingly.
+     *
+     * @return {@code String[]} of size 2.
+     * First element is directory result, second element is file result.
+     * @throws IOException If there were issues creating the files and folders.
+     */
     public String[] createFile() throws IOException {
         StringBuilder dirResult = new StringBuilder();
         String dirStatus;
@@ -187,7 +208,12 @@ public class Storage {
                 , fileResult.toString()};
     }
 
-    // Read from file with no exclusion
+    /**
+     * Reads from the save file, without excluding any task.
+     *
+     * @return The tasks read, as a single string.
+     * @throws BrockException If unable to find the save file.
+     */
     public String readFromFile() throws BrockException {
         // Use SB as it is a faster way to append strings
         StringBuilder tasksString = new StringBuilder();
@@ -209,8 +235,13 @@ public class Storage {
         return tasksString.toString();
     }
 
-    // Read from file with exclusion
-    // Exclusion is the task number to be excluded (ie: deleted)
+    /**
+     * Reads from the save file, excluding a particular task.
+     *
+     * @param exclusion Task number of the task to be excluded.
+     * @return The tasks read, as a single string.
+     * @throws BrockException If unable to find the save file.
+     */
     public String readFromFile(int exclusion) throws BrockException {
         // Use SB as it is a faster way to append strings
         StringBuilder tasksString = new StringBuilder();
@@ -252,6 +283,13 @@ public class Storage {
         return tasksString.toString();
     }
 
+    /**
+     * Writes to the save file, to update it when there are new tasks or deleted tasks.
+     *
+     * @param writeContent The task to be written.
+     * @param isAppendMode Option to append to existing content, or overwrite existing content.
+     * @throws BrockException If there are issues with writing to the file.
+     */
     public void writeToFile(String writeContent, boolean isAppendMode) throws BrockException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH, isAppendMode);
