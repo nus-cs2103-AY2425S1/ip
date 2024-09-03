@@ -15,4 +15,9 @@ public class TerminatingCommand extends Command {
         ui.sayFarewell();
         storage.storeTasksToMemory(taskList);
     }
+
+    @Override
+    public boolean isTerminatingCommand() {
+        return true;
+    }
 }

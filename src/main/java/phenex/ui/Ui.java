@@ -8,19 +8,19 @@ import phenex.task.TaskList;
  */
 public class Ui {
 
-    private final String LINE = "\t____________________________________________________________\n";
-    private final String LOGO = "  _____    _    _   ______   _   _   ______  __   __\n"
+    private static final String LINE = "\t____________________________________________________________\n";
+    private static final String LOGO = "  _____    _    _   ______   _   _   ______  __   __\n"
             + " |  __ \\  | |  | | |  ____| | \\ | | |  ____| \\ \\ / /\n"
             + " | |__) | | |__| | | |__    |  \\| | | |__     \\ V /\n"
             + " | |      | |  | | | |____  | |\\  | | |____   / . \\\n"
             + " |_|      |_|  |_| |______| |_| \\_| |______| /_/ \\_\\\n";
-    private final String MSG_GREET = "Hello! I'm\n"
+    private static final String MSG_GREET = "Hello! I'm\n"
             + LOGO
             + "Your favourite solid gold mobile suit!\n"
             + LINE
             + "\tWhat can I do for you?\n"
             + LINE;
-    private final String MSG_FAREWELL = "\t Goodbye. Extinguish the Zeon forces on your way out!\n" + LINE;
+    private static final String MSG_FAREWELL = "\t Goodbye. Extinguish the Zeon forces on your way out!\n" + LINE;
 
     public void greet() {
         System.out.print(MSG_GREET);
@@ -37,7 +37,7 @@ public class Ui {
     /**
      * Prints all tasks in the taskList.
      *
-     * @param taskList.
+     * @param taskList
      */
     public void printTaskList(TaskList taskList) {
         int size = taskList.getTasks().size();
@@ -59,7 +59,7 @@ public class Ui {
     /**
      * Prints exception message.
      *
-     * @param e, Exception which contains the message to print.
+     * @param e Exception which contains the message to print.
      */
     public static void printExceptionMessage(Exception e) {
         System.out.println(e.getMessage());
@@ -68,7 +68,7 @@ public class Ui {
     /**
      * Prints the relevant messages when a task is marked as complete.
      *
-     * @param taskMarked, task which was marked as complete
+     * @param taskMarked task which was marked as complete
      */
     public void printTaskMarkedCompleteMessage(Task taskMarked) {
         System.out.println("\t Mission marked as complete. Good job, soldier!");
@@ -78,7 +78,7 @@ public class Ui {
     /**
      * Prints the relevant message when a task is marked as incomplete.
      *
-     * @param taskMarked, task which was marked as incomplete.
+     * @param taskMarked task which was marked as incomplete.
      */
     public void printTaskMarkedIncompleteMessage(Task taskMarked) {
         System.out.println("\t Mission marked as incomplete.");
@@ -88,8 +88,8 @@ public class Ui {
     /**
      * Prints the relevant messages when a task was deleted.
      *
-     * @param taskDeleted, task which was deleted.
-     * @param taskListSize, current size of the task list.
+     * @param taskDeleted task which was deleted.
+     * @param taskListSize current size of the task list.
      */
     public void printTaskDeletedMessage(Task taskDeleted, int taskListSize) {
         System.out.println("\t OK. Mission aborted, retreat!");
@@ -100,8 +100,8 @@ public class Ui {
     /**
      * Prints relevant message when a task is added.
      *
-     * @param taskAdded, task which was added.
-     * @param taskListSize, current size of task list.
+     * @param taskAdded task which was added.
+     * @param taskListSize current size of task list.
      */
     public void printTaskAddedMessage(Task taskAdded, int taskListSize) {
         System.out.println("\t Mission " + taskAdded.getName() + " added:");

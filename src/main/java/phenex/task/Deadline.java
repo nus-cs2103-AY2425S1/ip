@@ -10,6 +10,12 @@ public class Deadline extends TaskWithDate {
     /** Date of the Deadline */
     protected LocalDate localDate;
 
+    /**
+     * Constructs a new Deadline object.
+     *
+     * @param name the name of the Deadline task.
+     * @param localDate the date of the Deadline task.
+     */
     public Deadline(String name, LocalDate localDate) {
         super(name, "D");
         this.localDate = localDate;

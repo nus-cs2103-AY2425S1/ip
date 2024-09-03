@@ -13,4 +13,9 @@ public abstract class CommandWithIndex extends Command {
     public void setIndex(int idx) {
         this.index = idx;
     }
+
+    @Override
+    public boolean isTerminatingCommand() {
+        return false;
+    }
 }

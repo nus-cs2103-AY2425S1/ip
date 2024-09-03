@@ -1,16 +1,16 @@
 package phenex.storage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import phenex.task.Task;
 import phenex.task.TaskList;
 import phenex.ui.Ui;
 import phenex.util.Parser;
 
-import java.io.File;
-import java.io.FileWriter;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.io.IOException;
 
 /**
  * Storage class which encapsulates the storage for Phenex.
@@ -21,6 +21,10 @@ public class Storage {
     /** Encapsulates the File in storage. */
     protected File file;
 
+    /**
+     * Creates a Storage object which encapsulates the storage for Phenex.
+     * @param filePath the filePath in which to create the storage file.
+     */
     public Storage(Path filePath) {
         this.filePath = filePath;
 
@@ -45,7 +49,7 @@ public class Storage {
     /**
      * Stores tasks from a task list.
      *
-     * @param taskList, the task list to store tasks from.
+     * @param taskList the task list to store tasks from.
      */
     public void storeTasksToMemory(TaskList taskList) {
         try {

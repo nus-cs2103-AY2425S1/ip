@@ -28,4 +28,9 @@ public class FindCommand extends Command {
         TaskList matchingTasks = taskList.findTasks(this.name);
         ui.printTaskList(matchingTasks);
     }
+
+    @Override
+    public boolean isTerminatingCommand() {
+        return false;
+    }
 }

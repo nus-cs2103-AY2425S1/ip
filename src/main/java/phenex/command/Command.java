@@ -10,12 +10,19 @@ import phenex.ui.Ui;
  */
 public abstract class Command {
 
-    /** Executes the command.
+    /**
+     * Checks whether a Command is a terminating command.
+     * @return whether a command is a terminating command.
+     */
+    public abstract boolean isTerminatingCommand();
+
+    /**
+     * Executes the command.
      *
-     * @param taskList, the list of tasks.
-     * @param ui, the ui.
-     * @param storage, the storage.
-     * @throws PhenexException, if invalid inputs.
+     * @param taskList
+     * @param ui
+     * @param storage
+     * @throws PhenexException
      */
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException;
 }

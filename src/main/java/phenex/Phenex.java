@@ -1,22 +1,29 @@
 package phenex;
 
-import phenex.command.Command;
-import phenex.command.TerminatingCommand;
-import phenex.task.TaskList;
-import phenex.ui.Ui;
-import phenex.storage.Storage;
-import phenex.util.Parser;
-import phenex.exception.PhenexException;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.Scanner;
+
+import phenex.command.Command;
+import phenex.exception.PhenexException;
+import phenex.storage.Storage;
+import phenex.task.TaskList;
+import phenex.ui.Ui;
+import phenex.util.Parser;
+
 
 /**
  * Phenex class encapsulating the Phenex chatbot.
  */
 public class Phenex {
+
+    private static final Path DEFAULT_FILEPATH = Paths.get(System.getProperty("user.home"),
+                                                    "Downloads",
+                                                           "CS2103T_AY2425",
+                                                           "iP",
+                                                           "data",
+                                                           "phenex.txt");
+
     /** Encapsulates the Ui of Phenex. */
     private Ui ui;
     /** Encapsulates the task list of Phenex. */
@@ -26,12 +33,34 @@ public class Phenex {
     /** Encapsulates the parser of Phenex. */
     private Parser parser;
 
+
+    /**
+     * Creates a Phenex object with a specified filePath.
+     * @param filePath the filePath to be used.
+     */
     public Phenex(Path filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(this.storage);
         this.ui = new Ui();
         this.parser = new Parser();
 
+    }
+
+    /**
+     * Creates a Phenex object with the default filePath.
+     */
+    public Phenex() {
+        this.storage = new Storage(DEFAULT_FILEPATH);
+        this.tasks = new TaskList(this.storage);
+        this.ui = new Ui();
+        this.parser = new Parser();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 
     public static void main(String[] args) {
@@ -59,8 +88,8 @@ public class Phenex {
             }
 
             phenex.ui.printLine();
-            
-            if (command instanceof TerminatingCommand) {
+
+            if (command.isTerminatingCommand()) {
                 break;
             }
         }

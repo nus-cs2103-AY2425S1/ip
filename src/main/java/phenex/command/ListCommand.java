@@ -14,4 +14,9 @@ public class ListCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
         ui.printTaskList(taskList);
     }
+
+    @Override
+    public boolean isTerminatingCommand() {
+        return false;
+    }
 }
