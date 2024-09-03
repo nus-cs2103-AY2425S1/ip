@@ -42,6 +42,6 @@ public final class AddCommand extends Command {
             to = ui.promptTime("to");
             task = new Event(description, date, from, to);
         }
-        ui.printConfirmationMessage(taskList, getExecuteSuccessMessage() + taskList.addTask(task));
+        ui.printConfirmationMessage(taskList, getSuccessfulExecutionMessage() + taskList.addTask(task));
     }
 }

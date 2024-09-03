@@ -9,24 +9,24 @@ import colress.task.Task;
  * Represents the TaskList of the Colress chatbot.
  */
 public final class TaskList {
-    private final ArrayList<Task> TASKS;
+    private final ArrayList<Task> tasks;
     public TaskList() {
-        this.TASKS = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
     public Task get(int index) {
-        return TASKS.get(index);
+        return tasks.get(index);
     }
     public int size() {
-        return TASKS.size();
+        return tasks.size();
     }
     public boolean isEmpty() {
-        return TASKS.isEmpty();
+        return tasks.isEmpty();
     }
     public boolean isOutOfBounds(int x) {
-        return x > TASKS.size();
+        return x > tasks.size();
     }
     private String getCurrTask(int taskNumber) {
-        return taskNumber + ". " + TASKS.get(taskNumber - 1);
+        return taskNumber + ". " + tasks.get(taskNumber - 1);
     }
 
     /**
@@ -35,8 +35,8 @@ public final class TaskList {
      * @return A string representation of the task that was added.
      */
     public String addTask(Task task) {
-        TASKS.add(task);
-        return getCurrTask(TASKS.size());
+        tasks.add(task);
+        return getCurrTask(tasks.size());
     }
 
     /**
@@ -46,7 +46,7 @@ public final class TaskList {
      */
     public String checkTask(int taskNumber) {
         try {
-            Task task = TASKS.get(taskNumber - 1);
+            Task task = tasks.get(taskNumber - 1);
             task.check();
             return getCurrTask(taskNumber);
         } catch (IndexOutOfBoundsException e) {
@@ -61,7 +61,7 @@ public final class TaskList {
      */
     public String uncheckTask(int taskNumber) {
         try {
-            Task task = TASKS.get(taskNumber - 1);
+            Task task = tasks.get(taskNumber - 1);
             task.uncheck();
             return getCurrTask(taskNumber);
         } catch (IndexOutOfBoundsException e) {
@@ -74,7 +74,7 @@ public final class TaskList {
      */
     public void deleteTask(int taskNumber) {
         try {
-            TASKS.remove(taskNumber - 1);
+            tasks.remove(taskNumber - 1);
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -85,12 +85,12 @@ public final class TaskList {
      */
     public String retrieveTasks() {
         String result = "";
-        if (TASKS.isEmpty()) {
+        if (tasks.isEmpty()) {
             return result;
         }
 
-        for (int i = 0; i < TASKS.size(); i++) {
-            result += String.format("\n%d. " + TASKS.get(i), i + 1);
+        for (int i = 0; i < tasks.size(); i++) {
+            result += String.format("\n%d. " + tasks.get(i), i + 1);
         }
 
         if (result.isEmpty()) {
@@ -106,15 +106,15 @@ public final class TaskList {
      */
     public String retrieveTasks(LocalDate date) {
         String result = "";
-        if (TASKS.isEmpty()) {
+        if (tasks.isEmpty()) {
             return result;
         } else {
-            for (int i = 0; i < TASKS.size(); i++) {
-                Task currTask = TASKS.get(i);
+            for (int i = 0; i < tasks.size(); i++) {
+                Task currTask = tasks.get(i);
                 if (!currTask.fallsOnDate(date)) {
                     continue;
                 }
-                result += String.format("\n%d. " + TASKS.get(i), i + 1);
+                result += String.format("\n%d. " + tasks.get(i), i + 1);
             }
         }
 
@@ -126,15 +126,15 @@ public final class TaskList {
 
     public String retrieveTasks(String keyword) {
         String result = "";
-        if (TASKS.isEmpty()) {
+        if (tasks.isEmpty()) {
             return result;
         } else {
-            for (int i = 0; i < TASKS.size(); i++) {
-                Task currTask = TASKS.get(i);
+            for (int i = 0; i < tasks.size(); i++) {
+                Task currTask = tasks.get(i);
                 if (!currTask.containsInDescription(keyword)) {
                     continue;
                 }
-                result += String.format("\n%d. " + TASKS.get(i), i + 1);
+                result += String.format("\n%d. " + tasks.get(i), i + 1);
             }
         }
 

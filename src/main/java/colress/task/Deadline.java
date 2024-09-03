@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * whether the task is marked as done or not and a LocalDate field representing its deadline.
  */
 public class Deadline extends Task {
-    private final LocalDate DEADLINE;
+    private final LocalDate deadline;
 
     /**
      * Constructor for the Event class, initialising the description, date, from and to fields with the
@@ -17,7 +17,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDate deadline) {
         super(description);
-        this.DEADLINE = deadline;
+        this.deadline = deadline;
     }
 
     /**
@@ -25,31 +25,31 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDate deadline, boolean isDone) {
         super(description, isDone);
-        this.DEADLINE = deadline;
+        this.deadline = deadline;
     }
 
     @Override
     public boolean fallsOnDate(LocalDate date) {
-        return this.DEADLINE.isEqual(date);
+        return this.deadline.isEqual(date);
     }
 
     @Override
     public String toString() {
         if (getIsDone()) {
             return String.format("[X][D] %s (%s)", getDescription(),
-                    this.DEADLINE.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+                    this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
         } else {
             return String.format("[ ][D] %s (%s)", getDescription(),
-                    this.DEADLINE.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+                    this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
         }
     }
 
     @Override
     public String toTextFile() {
         if (getIsDone()) {
-            return String.format("[X] | Deadline | %s | %s", getDescription(), this.DEADLINE);
+            return String.format("[X] | Deadline | %s | %s", getDescription(), this.deadline);
         } else {
-            return String.format("[ ] | Deadline | %s | %s", getDescription(), this.DEADLINE);
+            return String.format("[ ] | Deadline | %s | %s", getDescription(), this.deadline);
         }
     }
 }

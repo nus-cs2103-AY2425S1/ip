@@ -7,14 +7,14 @@ import colress.Ui;
  * An abstract class that encapsulates behaviour of a command.
  */
 public abstract class Command {
-    private final String EXECUTE_SUCCESS_MESSAGE;
+    private final String successfulExecutionMessage;
 
-    public Command(String executeSuccessMessage) {
-        this.EXECUTE_SUCCESS_MESSAGE = executeSuccessMessage;
+    public Command(String successfulExecutionMessage) {
+        this.successfulExecutionMessage = successfulExecutionMessage;
     }
 
-    public String getExecuteSuccessMessage() {
-        return EXECUTE_SUCCESS_MESSAGE;
+    public String getSuccessfulExecutionMessage() {
+        return successfulExecutionMessage;
     }
 
     public abstract void execute(Ui ui, TaskList taskList);

@@ -10,9 +10,9 @@ import java.time.format.DateTimeFormatter;
  * representing the starting and ending times.
  */
 public class Event extends Task {
-    private final LocalDate DATE;
-    private final LocalTime FROM;
-    private final LocalTime TO;
+    private final LocalDate date;
+    private final LocalTime from;
+    private final LocalTime to;
 
     /**
      * Constructor for the Event class, initialising the description, date, from and to fields with the
@@ -21,9 +21,9 @@ public class Event extends Task {
      */
     public Event(String description, LocalDate date, LocalTime from, LocalTime to) {
         super(description);
-        this.DATE = date;
-        this.FROM = from;
-        this.TO = to;
+        this.date = date;
+        this.from = from;
+        this.to = to;
     }
 
     /**
@@ -31,9 +31,9 @@ public class Event extends Task {
      */
     public Event(String description, LocalDate date, LocalTime from, LocalTime to, boolean isDone) {
         super(description, isDone);
-        this.DATE = date;
-        this.FROM = from;
-        this.TO = to;
+        this.date = date;
+        this.from = from;
+        this.to = to;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Event extends Task {
      */
     @Override
     public boolean fallsOnDate(LocalDate date) {
-        return this.DATE.isEqual(date);
+        return this.date.isEqual(date);
     }
 
     /**
@@ -51,14 +51,14 @@ public class Event extends Task {
     public String toString() {
         if (getIsDone()) {
             return String.format("[X][E] %s (%s, %s to %s)", getDescription(),
-                    this.DATE.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
-                    this.FROM.format(DateTimeFormatter.ofPattern("HHmm")),
-                    this.TO.format(DateTimeFormatter.ofPattern("HHmm")));
+                    this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
+                    this.from.format(DateTimeFormatter.ofPattern("HHmm")),
+                    this.to.format(DateTimeFormatter.ofPattern("HHmm")));
         } else {
             return String.format("[ ][E] %s (%s, %s to %s)", getDescription(),
-                    this.DATE.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
-                    this.FROM.format(DateTimeFormatter.ofPattern("HHmm")),
-                    this.TO.format(DateTimeFormatter.ofPattern("HHmm")));
+                    this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
+                    this.from.format(DateTimeFormatter.ofPattern("HHmm")),
+                    this.to.format(DateTimeFormatter.ofPattern("HHmm")));
         }
     }
 
@@ -68,9 +68,9 @@ public class Event extends Task {
     @Override
     public String toTextFile() {
         if (getIsDone()) {
-            return String.format("[X] | Event | %s | %s | %s to %s", getDescription(), this.DATE, this.FROM, this.TO);
+            return String.format("[X] | Event | %s | %s | %s to %s", getDescription(), this.date, this.from, this.to);
         } else {
-            return String.format("[ ] | Event | %s | %s | %s to %s", getDescription(), this.DATE, this.FROM, this.TO);
+            return String.format("[ ] | Event | %s | %s | %s to %s", getDescription(), this.date, this.from, this.to);
         }
     }
 }
