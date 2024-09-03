@@ -1,6 +1,20 @@
 package lutchat;
 
+/**
+ * The Parser class is responsible for interpreting and executing user commands.
+ * It parses the user input and triggers the appropriate actions in the TaskList.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and executes the corresponding command.
+     *
+     * @param userInput The user's input as a string.
+     * @param ui        The Ui object for interacting with the user interface.
+     * @param taskList  The TaskList object that contains the current list of tasks.
+     * @param storage   The Storage object responsible for saving and loading tasks.
+     * @return A boolean indicating whether the application should continue running.
+     */
     public static boolean parse(String userInput, Ui ui, TaskList taskList, Storage storage) {
         String[] userInputArr = userInput.split(" ");
         String keyword = userInputArr[0];

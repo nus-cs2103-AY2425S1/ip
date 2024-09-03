@@ -7,16 +7,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class is responsible for saving and loading tasks from a file.
+ * It handles the persistence of tasks between sessions of the application.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path of the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file and returns them as an ArrayList.
+     * If the file does not exist, an empty task list is returned.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> taskList = new ArrayList<>();
-
 
         File file = new File(filePath);
         file.getParentFile().mkdirs();
@@ -73,6 +88,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the current list of tasks to the specified file.
+     *
+     * @param taskList The TaskList object containing the tasks to be saved.
+     */
     public void save(TaskList taskList) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
