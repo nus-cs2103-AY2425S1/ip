@@ -44,39 +44,39 @@ public class Parser {
      * date. It will continue in the loop to prompt for new input until a "bye"
      * command is received.
      * 
-     * @param Message The user input message to be parsed.
+     * @param message The user input message to be parsed.
      * @return The Command to be executed.
      */
     public Command parse(String message) {
         while (!message.equals(BYE)) {
             try {
                 switch (message) {
-                    case LIST:
-                        return new ListCommand();
+                case LIST:
+                    return new ListCommand();
 
-                    case "todo":
-                    case "todo ":
-                    case "deadline":
-                    case "deadline ":
-                    case "event":
-                    case "event ":
-                        throw new GalliumException("OOPS!!! The description of a " + message + " cannot be empty.");
+                case "todo":
+                case "todo ":
+                case "deadline":
+                case "deadline ":
+                case "event":
+                case "event ":
+                    throw new GalliumException("OOPS!!! The description of a " + message + " cannot be empty.");
 
-                    default:
-                        if (message.matches(MARK + " \\d+") || message.matches(UNMARK + " \\d+")) {
-                            return new MarkCommand(message);
-                        } else if (message.startsWith(TODO) || message.startsWith(DEADLINE)
-                                || message.startsWith(EVENT)) {
-                            return new AddCommand(message);
-                        } else if (message.startsWith(DELETE)) {
-                            return new DeleteCommand(message);
-                        } else if (message.startsWith(DATE)) {
-                            return new DateCommand(message);
-                        } else if (message.startsWith(FIND)) {
-                            return new FindCommand(message);
-                        } else {
-                            throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
-                        }
+                default:
+                    if (message.matches(MARK + " \\d+") || message.matches(UNMARK + " \\d+")) {
+                        return new MarkCommand(message);
+                    } else if (message.startsWith(TODO) || message.startsWith(DEADLINE)
+                            || message.startsWith(EVENT)) {
+                        return new AddCommand(message);
+                    } else if (message.startsWith(DELETE)) {
+                        return new DeleteCommand(message);
+                    } else if (message.startsWith(DATE)) {
+                        return new DateCommand(message);
+                    } else if (message.startsWith(FIND)) {
+                        return new FindCommand(message);
+                    } else {
+                        throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
+                    }
                 }
 
             } catch (GalliumException e) {
