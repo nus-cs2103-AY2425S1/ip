@@ -65,7 +65,7 @@ public final class Storage {
                     throw new FileCorruptedException();
                 }
 
-                switch (TaskType.valueOf(strings[1].toUpperCase())) {
+                switch (TaskType.valueOf(strings[1])) {
                 case TODO:
                     taskList.addTask(new ToDo(strings[2], isChecked));
                     break;
