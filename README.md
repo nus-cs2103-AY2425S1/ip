@@ -32,6 +32,7 @@ Features:
 Here is a look at the main method:
 
 '''
+
 public static void main(String[] args) {
         try {
             Gumball chat = new Gumball();
