@@ -17,11 +17,11 @@ public class Task {
 
     /**
      * Constructor for Task instance.
-     * @param task Description for the task, stored in String array.
-     *             [Description].
+     * @param input Derived from user command input. Description for the task,
+     *              [Description].
      */
-    public Task(String... task) {
-        this.task = task[0];
+    public Task(String... input) {
+        this.task = input[0];
     }
 
 

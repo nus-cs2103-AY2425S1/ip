@@ -25,17 +25,16 @@ public class TaskList extends ArrayList<Task> {
      * Adds the specified Task to the list of users' tasks.
      *
      * @param taskType Type of task (i.e. To-Do, Deadline, Event).
-     * @param task Trailing String after to-do/deadline/event command,
-     *             (e.g. " apple", " banana /from 2002-09-18).
+     * @param input Details required to create Task such as description, dates etc.
      * @throws HamyoException If the command is incomplete/invalid.
      */
-    public void addTask(TaskType taskType, String... task) throws HamyoException {
+    public void addTask(TaskType taskType, String... input) throws HamyoException {
         if (taskType.equals(TaskType.TODO)) {
-            this.add(new ToDo(task[0]));
+            this.add(new ToDo(input[0]));
         } else if (taskType.equals(TaskType.DEADLINE)) {
-            this.add(new Deadline(task[0], task[1]));
+            this.add(new Deadline(input[0], input[1]));
         } else if (taskType.equals(TaskType.EVENT)) {
-            this.add(new Event(task[0], task[1], task[2]));
+            this.add(new Event(input[0], input[1], input[2]));
         }
         Ui.printAddTask(this.get(this.size() - 1), this.size());
     }
@@ -77,7 +76,7 @@ public class TaskList extends ArrayList<Task> {
     /**
      * List all the users' tasks on the specified date onto the terminal.
      *
-     * @param strDate Trailing String after listDate command, (e.g. "2002-09-18").
+     * @param strDate Date in String format, (e.g. "2002-09-18").
      * @throws HamyoException If the command is incomplete/invalid.
      */
     public void listTasksByDate(String strDate) throws HamyoException {
@@ -105,7 +104,7 @@ public class TaskList extends ArrayList<Task> {
     /**
      * List all the users' tasks with the specified keyword onto the terminal.
      *
-     * @param keyword Trailing String after find command, (e.g. "apple").
+     * @param keyword Keyword to filter list, (e.g. "apple").
      * @throws HamyoException If the command is incomplete/invalid.
      */
     public void listTasksByKeyword(String keyword) throws HamyoException {
@@ -130,7 +129,7 @@ public class TaskList extends ArrayList<Task> {
     /**
      * Mark a task in the list of users' tasks.
      *
-     * @param index Index of task to unmark.
+     * @param index Index of task to mark.
      * @throws HamyoException If the command is incomplete/invalid.
      */
     public void markTask(int index) throws HamyoException {

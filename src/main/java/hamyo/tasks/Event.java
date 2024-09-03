@@ -22,28 +22,28 @@ public class Event extends Task {
     /**
      * Constructor for Event instance.
      *
-     * @param task Description for the task, stored in String array.
-     *             [Description, Event Start, Event End].
+     * @param input Derived from user command input. Description and Event Start and End for the task,
+     *              [Description, Event Start, Event End].
      * @throws HamyoException If user inputs an invalid Date/ Time.
      */
-    public Event(String... task) throws HamyoException {
-        super(task);
+    public Event(String... input) throws HamyoException {
+        super(input);
         try {
             LocalDateTime fromDateTimeTemp;
             LocalDateTime toDateTimeTemp;
             try {
-                fromDateTimeTemp = LocalDateTime.parse(task[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                fromDateTimeTemp = LocalDateTime.parse(input[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             } catch (Exception e) {
                 fromDateTimeTemp = null;
             } finally {
-                this.fromDate = LocalDate.parse(task[1].split(" ")[0]);
+                this.fromDate = LocalDate.parse(input[1].split(" ")[0]);
             }
             try {
-                toDateTimeTemp = LocalDateTime.parse(task[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                toDateTimeTemp = LocalDateTime.parse(input[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             } catch (Exception e) {
                 toDateTimeTemp = null;
             } finally {
-                this.toDate = LocalDate.parse(task[2].split(" ")[0]);
+                this.toDate = LocalDate.parse(input[2].split(" ")[0]);
             }
             this.fromDateTime = fromDateTimeTemp;
             this.toDateTime = toDateTimeTemp;

@@ -10,11 +10,11 @@ public class ToDo extends Task {
     /**
      * Constructor for To-Do instance.
      *
-     * @param task Description for the task, stored in String array.
-     *             [Description].
+     * @param input Derived from user command input. Description for the task,
+     *              [Description].
      */
-    public ToDo(String... task) {
-        super(task);
+    public ToDo(String... input) {
+        super(input);
     }
 
     /**

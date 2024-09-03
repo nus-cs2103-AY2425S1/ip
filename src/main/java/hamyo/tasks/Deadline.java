@@ -19,20 +19,20 @@ public class Deadline extends Task {
     /**
      * Constructor for Deadline instance.
      *
-     * @param task Description for the task, stored in String array.
-     *             [Description, Deadline].
+     * @param input Derived from user command input. Description and Deadline for the task,
+     *              [Description, Deadline].
      * @throws HamyoException If user inputs an invalid Date/ Time.
      */
-    public Deadline(String... task) throws HamyoException {
-        super(task);
+    public Deadline(String... input) throws HamyoException {
+        super(input);
         try {
             LocalDateTime deadlineDateTimeTemp;
             try {
-                deadlineDateTimeTemp = LocalDateTime.parse(task[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                deadlineDateTimeTemp = LocalDateTime.parse(input[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             } catch (Exception e) {
                 deadlineDateTimeTemp = null;
             } finally {
-                this.deadlineDate = LocalDate.parse(task[1].split(" ")[0]);
+                this.deadlineDate = LocalDate.parse(input[1].split(" ")[0]);
             }
             this.deadlineDateTime = deadlineDateTimeTemp;
         } catch (Exception e) {
