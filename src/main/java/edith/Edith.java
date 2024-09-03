@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Represents the main class for the EDITH chatbot application.
  * <p>
  * The Edith class is responsible for initializing and running the chatbot. It handles user interactions,
- * processes commands, and manages the task list. The application uses the Ui for user interface operations,
+ * processes commands, and manages the task list. The application uses the classes Ui for user interface operations,
  * Storage for data persistence, TaskList for managing tasks, and Parser for interpreting user commands.
  * </p>
  */
