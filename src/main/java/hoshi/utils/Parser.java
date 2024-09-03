@@ -1,13 +1,17 @@
 package hoshi.utils;
 
-import hoshi.exception.HoshiException;
-import hoshi.task.*;
-import hoshi.ui.Ui;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import hoshi.exception.HoshiException;
+import hoshi.task.Deadline;
+import hoshi.task.Event;
+import hoshi.task.Task;
+import hoshi.task.TaskList;
+import hoshi.task.Todo;
+import hoshi.ui.Ui;
 
 /**
  * Parser class for making sense of user command and calling the relevant function
@@ -20,10 +24,10 @@ public class Parser {
      * Parses all user commands into their respective methods as well as display the bye message once
      * program terminates
      *
-     * @param input the input that the user entered which is used to check which command to execute
-     * @param scanner scanner object that scans user input
+     * @param input    the input that the user entered which is used to check which command to execute
+     * @param scanner  scanner object that scans user input
      * @param taskList the TaskList that stores 3 types of tasks
-     * @param ui Ui that handles all user interaction
+     * @param ui       Ui that handles all user interaction
      */
     public void parseCommand(String input, Scanner scanner, TaskList taskList, Ui ui) {
 
@@ -65,9 +69,9 @@ public class Parser {
     /**
      * Handles the mark command when input by user.
      *
-     * @param input the input that the user entered which is used to check which command to execute
+     * @param input    the input that the user entered which is used to check which command to execute
      * @param taskList the TaskList that stores 3 types of tasks
-     * @param ui Ui that handles all user interaction
+     * @param ui       Ui that handles all user interaction
      */
     public void handleMark(String input, TaskList taskList, Ui ui) {
 
@@ -109,9 +113,9 @@ public class Parser {
     /**
      * Handles the unmark command when input by user.
      *
-     * @param input the input that the user entered which is used to check which command to execute
+     * @param input    the input that the user entered which is used to check which command to execute
      * @param taskList the TaskList that stores 3 types of tasks
-     * @param ui Ui that handles all user interaction
+     * @param ui       Ui that handles all user interaction
      */
     public void handleUnmark(String input, TaskList taskList, Ui ui) {
 
@@ -152,9 +156,9 @@ public class Parser {
     /**
      * Handles the delete command when input by user.
      *
-     * @param input the input that the user entered which is used to check which command to execute
+     * @param input    the input that the user entered which is used to check which command to execute
      * @param taskList the TaskList that stores 3 types of tasks
-     * @param ui Ui that handles displaying information to user
+     * @param ui       Ui that handles displaying information to user
      */
     public void handleDelete(String input, TaskList taskList, Ui ui) {
 
@@ -195,8 +199,8 @@ public class Parser {
      * Adds either to do/deadline/event tasks that are described by the user to TaskList which is to be written to a
      * txt file later
      *
-     * @param input  String that represents general user input before add task details are required.
-     * @param scanner Scanner that allows user input to be read.
+     * @param input    String that represents general user input before add task details are required.
+     * @param scanner  Scanner that allows user input to be read.
      * @param taskList TaskList of 3 types of tasks that will be added to in this method.
      */
     public void handleAdd(String input, Scanner scanner, TaskList taskList, Ui ui) {
@@ -229,7 +233,6 @@ public class Parser {
                     handleSave(ui, taskList);
 
                     ui.displayTaskAdded(input);
-
 
 
                 } catch (HoshiException e) {
@@ -311,7 +314,7 @@ public class Parser {
             }
             default ->
 
-                // in event of invalid input
+                    // in event of invalid input
                     ui.displayError("Hoshi doesn't understand! Please try again with the above keywords");
 
             }
@@ -320,6 +323,12 @@ public class Parser {
 
     }
 
+    /**
+     * Saves the current TaskList and displays a saving error if issues are encountered
+     *
+     * @param taskList the TaskList that stores 3 types of tasks
+     * @param ui       Ui that handles displaying information to user
+     */
     public void handleSave(Ui ui, TaskList taskList) {
 
         try {
@@ -334,7 +343,7 @@ public class Parser {
      * txt file later
      *
      * @param taskList the TaskList that stores 3 types of tasks
-     * @param ui Ui that handles displaying information to user
+     * @param ui       Ui that handles displaying information to user
      */
     public void handleFind(String input, TaskList taskList, Ui ui) {
 

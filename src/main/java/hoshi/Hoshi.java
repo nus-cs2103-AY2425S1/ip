@@ -1,14 +1,18 @@
 package hoshi;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
 import hoshi.task.TaskList;
 import hoshi.ui.Ui;
 import hoshi.utils.Parser;
 import hoshi.utils.Storage;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 
+/**
+ * Main class for Hoshi
+ */
 public class Hoshi {
 
     private Storage storage;
@@ -16,6 +20,9 @@ public class Hoshi {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Hoshi method
+     */
     public Hoshi(String filePath) {
 
         ui = new Ui();
@@ -24,7 +31,7 @@ public class Hoshi {
 
         taskList = new TaskList();
 
-        parser= new Parser();
+        parser = new Parser();
 
         try {
             storage.load(taskList);
@@ -33,6 +40,9 @@ public class Hoshi {
         }
     }
 
+    /**
+     * Run method - main flow of Hoshi
+     */
     public void run() {
 
         ui.displayWelcome();
@@ -53,6 +63,9 @@ public class Hoshi {
         }
     }
 
+    /**
+     * Main method
+     */
     public static void main(String[] args) {
         new Hoshi("data/Hoshi.txt").run();
 

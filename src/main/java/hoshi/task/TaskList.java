@@ -2,6 +2,9 @@ package hoshi.task;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList class that handles 3 types of tasks
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;
@@ -27,6 +30,11 @@ public class TaskList {
         return this.tasks.get(index);
     }
 
+    /**
+     * Deletes a task in the taskList given an index.
+     *
+     * @param index the index of the task to be deleted.
+     */
     public void delete(int index) {
 
         this.tasks.remove(index);

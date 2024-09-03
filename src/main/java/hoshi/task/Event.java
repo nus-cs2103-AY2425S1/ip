@@ -65,7 +65,7 @@ public class Event extends Task {
      *
      * <p>The string includes the E identifier, status icon and the description of the Event.</p>
      *
-     * @return A string in the format {" "[E]" + [statusIcon] description + " (from: " + startTime + " to: " + endTime + " ) "}.
+     * @return string in format," "[E]" + [statusIcon] description + " (from: " + startTime + " to: " + endTime + " ) ".
      */
     @Override
     public String toString() {

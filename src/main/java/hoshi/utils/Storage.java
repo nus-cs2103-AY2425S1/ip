@@ -1,11 +1,5 @@
 package hoshi.utils;
 
-import hoshi.task.TaskList;
-import hoshi.task.Todo;
-import hoshi.task.Deadline;
-import hoshi.task.Event;
-import hoshi.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,6 +7,12 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Scanner;
+
+import hoshi.task.Deadline;
+import hoshi.task.Event;
+import hoshi.task.Task;
+import hoshi.task.TaskList;
+import hoshi.task.Todo;
 
 /**
  * Storage class that handles I/O related functions such as Loading and Saving for Hoshi
@@ -110,7 +110,7 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
 
-            for (int i = 0; i< taskList.size(); i++) {
+            for (int i = 0; i < taskList.size(); i++) {
 
                 Task task = taskList.get(i);
 
@@ -138,7 +138,7 @@ public class Storage {
 
                 }
 
-                String textToAdd = taskType + ", " + isDone + ", " + description + additionalFields + System.lineSeparator();
+                String textToAdd = taskType + ", " + isDone + ", " + description + additionalFields + "\n";
                 fileWriter.write(textToAdd);
             }
             fileWriter.close();

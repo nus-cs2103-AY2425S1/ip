@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * of the deadline, whether the task has been completed or not and the end time.</p>
  */
 
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     private LocalDate endTime;
 
@@ -55,7 +55,8 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        String endTime = this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[D]" + super.toString() + " (by: " + endTime + ")";
     }
 
 }

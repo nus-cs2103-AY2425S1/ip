@@ -62,20 +62,6 @@ public abstract class Task {
     }
 
     /**
-     * Gets start time of the Task.
-     *
-     * @return description startTime which indicates when the task is starting.
-     */
-    //public abstract String getStartTime();
-
-    /**
-     * Gets end time of the Task.
-     *
-     * @return description endTime which indicates when the event is ending.
-     */
-    //public abstract String getEndTime();
-
-    /**
      * Returns a string representation of the task.
      *
      * <p>The string includes the status icon and the description of the task.</p>
