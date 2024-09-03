@@ -19,7 +19,7 @@ public enum Command {
     BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND, SEARCHDATE;
 
     /**
-     *Returns the corresponding {@code Command} enum constant for a given input string.
+     * Returns the corresponding {@code Command} enum constant for a given input string.
      * The input string is expected to be a command word (e.g., "bye", "list", "mark").
      * If the input does not match any known command, {@code UNKNOWN} is returned.
      *

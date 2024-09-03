@@ -1,17 +1,22 @@
 package bobby.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import bobby.command.Command;
-import bobby.exceptions.*;
+import bobby.exceptions.BobbyException;
+import bobby.exceptions.EmptyDeadlineException;
+import bobby.exceptions.EmptyEventException;
+import bobby.exceptions.EmptyTodoException;
+import bobby.exceptions.InvalidDateException;
+import bobby.exceptions.InvalidInputException;
 import bobby.tasklist.TaskList;
 import bobby.tasks.Deadline;
 import bobby.tasks.Event;
 import bobby.tasks.Task;
 import bobby.tasks.Todo;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 
 /**
@@ -54,7 +59,8 @@ public class Parser {
      * @throws InvalidDateException if the argument is invalid as a date format.
      * @throws InvalidInputException if the argument is invalid and cannot be parsed as a keyword.
      */
-    public ArrayList<Task> parseFindCommand(String userInput, TaskList tasks) throws InvalidDateException, InvalidInputException {
+    public ArrayList<Task> parseFindCommand(String userInput, TaskList tasks)
+            throws InvalidDateException, InvalidInputException {
         String[] parts = userInput.split(" ", 2);
         if (parts.length < 2) {
             throw new InvalidInputException();
@@ -86,13 +92,13 @@ public class Parser {
      * @return a {@code Task} object that represents the user's input
      * @throws BobbyException if the user's input is invalid or incomplete, causing
      *                        one of several possible exceptions:
-     *                        <ul>
-     *                          <li>{@code EmptyTodoException} if the description for a "todo" is empty.</li>
-     *                          <li>{@code EmptyDeadlineException} if the "deadline" input is missing parts or malformed.</li>
-     *                          <li>{@code EmptyEventException} if the "event" input is missing parts or malformed.</li>
-     *                          <li>{@code InvalidDateException} if the date format is incorrect.</li>
-     *                          <li>{@code InvalidInputException} if the input does not match any recognized command.</li>
-     *                        </ul>
+     *                <ul>
+     *                  <li>{@code EmptyTodoException} if the description for a "todo" is empty.</li>
+     *                  <li>{@code EmptyDeadlineException} if the "deadline" input is missing parts or malformed.</li>
+     *                  <li>{@code EmptyEventException} if the "event" input is missing parts or malformed.</li>
+     *                  <li>{@code InvalidDateException} if the date format is incorrect.</li>
+     *                  <li>{@code InvalidInputException} if the input does not match any recognized command.</li>
+     *                </ul>
      */
     public Task parseTask(String userInput) throws BobbyException {
         if (userInput.startsWith("todo ")) {

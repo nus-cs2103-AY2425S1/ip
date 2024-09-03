@@ -1,14 +1,25 @@
 package bobby.parser;
-
-import bobby.command.Command;
-import bobby.exceptions.*;
-import bobby.tasks.Task;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
+// Static imports
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+// Special imports (JUnit library imports)
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+// Other imports
+import bobby.command.Command;
+import bobby.exceptions.BobbyException;
+import bobby.exceptions.EmptyDeadlineException;
+import bobby.exceptions.EmptyEventException;
+import bobby.exceptions.EmptyTodoException;
+import bobby.exceptions.InvalidDateException;
+import bobby.tasks.Task;
+
+
+/**
+ * Test class for the Parser.
+ */
 public class TestParser {
     private Parser parser;
 

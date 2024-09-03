@@ -1,11 +1,13 @@
 package bobby.ui;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import bobby.exceptions.InvalidTaskNumberException;
 import bobby.tasklist.TaskList;
 import bobby.tasks.Task;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+
 
 /**
  * The {@code Ui} class handles all user interactions, including displaying messages

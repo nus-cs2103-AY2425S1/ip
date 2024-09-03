@@ -1,13 +1,14 @@
 package bobby.tasklist;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import bobby.exceptions.InvalidTaskNumberException;
 import bobby.tasks.Deadline;
 import bobby.tasks.Event;
 import bobby.tasks.Task;
 import bobby.tasks.Todo;
-import bobby.ui.Ui;
-import java.time.LocalDate;
-import java.util.ArrayList;
+
 
 
 /**
@@ -103,9 +104,9 @@ public class TaskList {
     public ArrayList<Task> findTasksByDate(LocalDate date) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task instanceof Deadline && ((Deadline) task).isOnDate(date)) {
+            if (task instanceof Deadline && task.isOnDate(date)) {
                 matchingTasks.add(task);
-            } else if (task instanceof Event && ((Event) task).isOnDate(date)) {
+            } else if (task instanceof Event && task.isOnDate(date)) {
                 matchingTasks.add(task);
             }
         }
