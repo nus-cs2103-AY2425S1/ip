@@ -1,10 +1,11 @@
 package fishman.utils;
 
+import java.util.List;
+import java.util.Scanner;
+
 import fishman.task.Task;
 import fishman.task.TaskList;
 
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Represents the user interface for fishman bot.
@@ -98,6 +99,7 @@ public class Ui {
 
     /**
      * Displays the confirmation message after task deletion.
+     *
      * @param task The task that is deleted.
      * @param size The size of the task list.
      */
@@ -107,6 +109,11 @@ public class Ui {
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
+    /**
+     * Displays the results after find command.
+     *
+     * @param tasks The tasks that have been found.
+     */
     public void displayFindResults(List<Task> tasks) {
         System.out.println("Bloop bloop, here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -114,6 +121,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the message after find command fails to find any tasks.
+     */
     public void displayEmptyFindResults() {
         System.out.println("Bloop bloop, no matching tasks found");
     }

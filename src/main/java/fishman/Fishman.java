@@ -2,9 +2,9 @@ package fishman;
 
 import fishman.command.Command;
 import fishman.exception.FishmanException;
+import fishman.task.TaskList;
 import fishman.utils.Parser;
 import fishman.utils.Storage;
-import fishman.task.TaskList;
 import fishman.utils.Ui;
 
 /**
