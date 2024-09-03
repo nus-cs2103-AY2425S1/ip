@@ -7,12 +7,22 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * Class representing an event task.
+ */
 public class Events extends Task {
     private final LocalDate START_DATE;
     private final LocalTime START_TIME;
     private final LocalDate END_DATE;
     private final LocalTime END_TIME;
 
+    /**
+     * Converts start/end time from {@code String} to {@code LocalTime}.
+     *
+     * @param timeString Time as a {@code String}.
+     * @return Time as a {@code LocalTime}.
+     */
     private LocalTime parseTime(String timeString) {
         String hours = timeString
                 .substring(0, 2);
@@ -22,6 +32,12 @@ public class Events extends Task {
                 , Integer.parseInt(minutes));
     }
 
+    /**
+     * Checks if the start/end date is valid.
+     * If start/end time is provided (ie: not a dummy), checks if it is valid.
+     *
+     * @throws BrockException If they are not valid.
+     */
     private void validateDateTime() throws BrockException {
         LocalDate today = LocalDate.now();
         if (START_DATE.isBefore(today)) {
@@ -47,6 +63,16 @@ public class Events extends Task {
         }
     }
 
+    /**
+     * Sets the event task description, start and end date.
+     * A dummy value is given for start and end time.
+     * Sets the event task status to be uncompleted.
+     *
+     * @param description Task description.
+     * @param startDateString Task start date.
+     * @param endDateString Task end date.
+     * @throws BrockException If start and end dates are not valid.
+     */
     public Events(String description, String startDateString, String endDateString) throws BrockException {
         super(description);
         boolean isParseStartDateSuccessful = false;
@@ -58,6 +84,7 @@ public class Events extends Task {
             START_DATE = LocalDate.parse(startDateString);
             isParseStartDateSuccessful = true;
             END_DATE = LocalDate.parse(endDateString);
+
             validateDateTime();
 
         } catch (DateTimeParseException e) {
@@ -69,6 +96,17 @@ public class Events extends Task {
         }
     }
 
+    /**
+     * Sets the event task description, start & end dates, start & end times.
+     * Sets the event task status to be uncompleted.
+     *
+     * @param description Task description.
+     * @param startDateString Task start date.
+     * @param startTimeString Task start time.
+     * @param endDateString Task end date.
+     * @param endTimeString Task end time.
+     * @throws BrockException If start & end datetimes are not valid.
+     */
     public Events(String description, String startDateString, String startTimeString
             , String endDateString, String endTimeString) throws BrockException {
         super(description);
@@ -80,6 +118,7 @@ public class Events extends Task {
             START_DATE = LocalDate.parse(startDateString);
             isParseStartDateSuccessful = true;
             END_DATE = LocalDate.parse(endDateString);
+
             validateDateTime();
 
         } catch (DateTimeParseException e) {
@@ -91,11 +130,18 @@ public class Events extends Task {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTaskType() {
         return "E";
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String getExtraInfo() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         String startDateFormatted = START_DATE

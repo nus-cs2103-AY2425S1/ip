@@ -7,11 +7,25 @@ import Tasks.TaskList;
 import Tasks.ToDos;
 import Ui.Ui;
 
+/**
+ * Represents a todo command entered by the user.
+ */
 public class TodoCommand extends Command {
+    /**
+     * Stores the command string associated with todo command.
+     *
+     * @param command Command string.
+     */
     public TodoCommand(String command) {
         super(command);
     }
 
+    /**
+     * Creates an {@code ToDo} object encapsulating details about the todo task.
+     *
+     * @return {@code ToDo} object.
+     * @throws BrockException If todo missing description.
+     */
     private Task createTodo() throws BrockException {
         String command = super.getCommand();
         String[] commandWords = command.split(" ");
@@ -29,6 +43,18 @@ public class TodoCommand extends Command {
         return new ToDos(description.toString());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * Chatbot checks if todo command is valid.
+     * If so, it creates a {@code ToDo} object.
+     * Adds it to {@code tasks}, writes it to save file.
+     * Displays a response indicating it has added the todo task.
+     * </p>
+     *
+     * @throws BrockException If todo command is invalid.
+     */
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
         Task todoTask = createTodo();
@@ -46,6 +72,9 @@ public class TodoCommand extends Command {
                 , true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;

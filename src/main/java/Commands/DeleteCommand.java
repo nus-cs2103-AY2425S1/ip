@@ -6,11 +6,27 @@ import Tasks.TaskList;
 import Ui.Ui;
 import Utility.Utility;
 
+/**
+ * Represents a delete command entered by the user.
+ */
 public class DeleteCommand extends Command {
+    /**
+     * Stores the command string associated with delete command.
+     *
+     * @param command Command string.
+     */
     public DeleteCommand(String command) {
         super(command);
     }
 
+
+    /**
+     * Checks if the delete command is valid.
+     *
+     * @param tasks List of current {@code Task} objects.
+     * @throws BrockException If command is missing a task number, has a wrong task number.
+     * Or, it is in the wrong format altogether.
+     */
     private void validateDelete(TaskList tasks) throws BrockException {
         String command = super.getCommand();
         String[] commandWords = command.split(" ");
@@ -30,6 +46,17 @@ public class DeleteCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * Chatbot checks if delete command is valid.
+     * If so, it deletes the corresponding task from {@code tasks}, updates the save file.
+     * As well as displays a response indicating successful deletion.
+     * </p>
+     *
+     * @throws BrockException If delete command is invalid.
+     */
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
         validateDelete(tasks);
@@ -50,6 +77,9 @@ public class DeleteCommand extends Command {
         storage.writeToFile(fileContents, true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;
