@@ -29,8 +29,7 @@ public class MichaelScott {
         storage = new Storage(tasks);
     }
 
-    public String getResponse(String input) {
-        Boolean isRunning = true;
+    public String getResponse(String input) throws MichaelScottException {
         try {
             CommandParser parser = new CommandParser();
             Command c = parser.parse(input);
@@ -38,13 +37,11 @@ public class MichaelScott {
             this.commandType = c.getSimpleName();
             storage.saveTasks(tasks.getTasks());
             if (commandType.equals("ExitCommand")) {
-                isRunning = false;
                 return "Exit-Signal";
             }
             return result;
         } catch (MichaelScottException e) {
-            System.out.println(e.getMessage());
-            return e.getMessage();
+            throw e;
         }
     }
 

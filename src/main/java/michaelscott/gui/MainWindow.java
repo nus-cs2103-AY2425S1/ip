@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import michaelscott.MichaelScott;
+import michaelscott.utils.MichaelScottException;
 
 /**
  * Controller for the main GUI.
@@ -25,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private MichaelScott michaelScott;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
 
     @FXML
     public void initialize() {
@@ -44,17 +45,27 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = michaelScott.getResponse(input);
-        String commandType = michaelScott.getCommandType();
-        if (response.equals("Exit-Signal")) {
-            Platform.exit();
+        String input = "";
+        try {
+            input = userInput.getText();
+            String response = michaelScott.getResponse(input);
+            String commandType = michaelScott.getCommandType();
+            if (response.equals("Exit-Signal")) {
+                Platform.exit();
+            }
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage, commandType)
+            );
+            userInput.clear();
+        } catch (MichaelScottException e) {
+            String response = e.getMessage();
+            String commandType = "ErrorOccurred";
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage, commandType)
+            );
         }
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage, commandType)
-        );
-        userInput.clear();
     }
 }
 

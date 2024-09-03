@@ -1,3 +1,4 @@
-T | 0 | epic stuff
-T | 0 | stuff
-D | 0 | assignment | 2024-03-03 12:00
+T | 0 | collect pins from reception
+T | 0 | send fax to dwight from reception
+T | 0 | spend 30 mins at reception
+D | 0 | prank dwight | 2024-09-03 12:30
