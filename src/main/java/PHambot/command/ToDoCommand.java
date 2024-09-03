@@ -6,7 +6,7 @@ import PHambot.utils.Utilities;
 /**
  * Represents a command to add a ToDo task.
  */
-public class ToDoCommand extends Command{
+public class ToDoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
 
     private final ToDo toDo;
