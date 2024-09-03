@@ -1,6 +1,7 @@
 package eli.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Contains the task list and provides methods to manipulate tasks within the list.
@@ -100,5 +101,21 @@ public class TaskList {
     System.out.println("   " + removedTask);
     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     System.out.println("____________________________________________________________");
+  }
+
+  /**
+   * Finds tasks that contain a specific keyword in their description.
+   *
+   * @param keyword The keyword to search for in task descriptions.
+   * @return A list of tasks that contain the keyword.
+   */
+  public List<Task> findTasksByKeyword(String keyword) {
+    List<Task> matchingTasks = new ArrayList<>();
+    for (Task task : tasks) {
+      if (task.getTask().contains(keyword)) {
+        matchingTasks.add(task);
+      }
+    }
+    return matchingTasks;
   }
 }

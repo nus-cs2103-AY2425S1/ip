@@ -49,7 +49,6 @@ public class Eli {
         ui.showError(e.getMessage());
       }
     }
-    // ui.showGoodbye();
     ui.close();
   }
 

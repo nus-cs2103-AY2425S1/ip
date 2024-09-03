@@ -48,6 +48,11 @@ public class Parser {
         }
         String[] times = eventParts[1].split(" /to ");
         return new AddCommand(new Event(eventParts[0], times[0], times[1]));
+      case "find":
+        if (description.isEmpty()) {
+          throw new EliException("The keyword for finding tasks cannot be empty.");
+        }
+        return new FindCommand(description);
       case "bye":
         return new ExitCommand();
       default:
