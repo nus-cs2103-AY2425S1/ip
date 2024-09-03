@@ -110,6 +110,8 @@ public class Parser {
             // this.deleteTask(Integer.parseInt(desc));
         } else if (action.equals("bye")) {
             c = new ExitCommand();
+        } else if (action.equals("find")) {
+            c = new FindCommand(desc);
         } else {
             try {
                 throw new InvalidCommandException();

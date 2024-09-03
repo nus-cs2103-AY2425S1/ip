@@ -41,6 +41,11 @@ public abstract class Task {
         return this.description;
     }
 
+    /** Returns true if there is a match of s in description, s.strip() to remove whitespaces */
+    public boolean contains(String s) {
+        return this.description.contains(s.strip());
+    }
+
     public String toString() {
         String s = "[" + this.getStatusIcon() + "] ";
         s += this.getDescription();

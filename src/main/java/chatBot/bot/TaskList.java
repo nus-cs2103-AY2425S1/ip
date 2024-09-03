@@ -59,4 +59,15 @@ public class TaskList {
     public void removeTask(int index) {
         this.tasks.remove(index);
     }
+
+    /** Returns ArrayList of tasksFound that contains the keyword */
+    public ArrayList<Task> findKeyword(String s) {
+        ArrayList<Task> tasksFound = new ArrayList<Task>();
+        for (Task t : this.tasks) {
+            if (t.contains(s)) {
+                tasksFound.add(t);
+            }
+        }
+        return tasksFound;
+    }
 }
