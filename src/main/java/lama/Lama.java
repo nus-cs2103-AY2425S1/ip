@@ -60,4 +60,11 @@ public class Lama {
     public static void main(String[] args) {
         new Lama("./data/lama.txt").run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Lama heard: " + input;
+    }
 }
