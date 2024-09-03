@@ -9,13 +9,13 @@ import quack.exception.InvalidDateTimeException;
  * This is an abstract class to define a task object.
  */
 public abstract class Task {
-    
+
+    /** Date time format for printing LocalDateTime objects */
+    protected static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     /** Description of the task */
     protected String description;
     /** Determine if the task is marked or not */
     protected boolean isChecked;
-    /** Date time format for printing LocalDateTime objects */
-    protected static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     /**
      * Creates a Task object with the given description.
@@ -34,7 +34,8 @@ public abstract class Task {
      * @return A task object of its given task type.
      * @throws InvalidDateTimeException If the date time string is invalid.
      */
-    public static Task createTask(String[] taskDetails) throws InvalidDateTimeException{
+    public static Task createTask(String[] taskDetails) throws InvalidDateTimeException {
+
         Task task = null;
 
         LocalDateTime startDate;
@@ -44,25 +45,28 @@ public abstract class Task {
         case "TODO":
             task = new ToDoTask(taskDetails[1]);
             break;
-            
+
         case "DEADLINE":
             startDate = LocalDateTime.parse(taskDetails[2], Task.DATE_FORMAT);
 
             task = new DeadlineTask(taskDetails[1], startDate);
             break;
-            
+
         case "EVENT":
             startDate = LocalDateTime.parse(taskDetails[2], Task.DATE_FORMAT);
             endDate = LocalDateTime.parse(taskDetails[3], Task.DATE_FORMAT);
 
             if (endDate.isBefore(startDate)) {
-                throw new InvalidDateTimeException("The end date before start date? Please enter a start date before the end date!");
+                throw new InvalidDateTimeException("The end date before start date? "
+                    + "Please enter a start date before the end date!");
             }
 
             task = new EventTask(taskDetails[1], startDate, endDate);
             break;
+
+        default:
         }
-        
+
         return task;
     }
 
@@ -71,7 +75,7 @@ public abstract class Task {
      * @return A string representation of the task description.
      */
     public String getDescription() {
-        
+
         return this.description;
     }
 
@@ -112,11 +116,11 @@ public abstract class Task {
      * <p>
      * The task object will be converted into a string format where its information
      * is seperated by a comma.
-     * 
+     *
      * @return A string representation of the task to be saved into a csv file.
      */
     public String toCsvFormat() {
-        
+
         return this.description;
     }
 

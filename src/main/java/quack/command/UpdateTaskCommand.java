@@ -2,18 +2,15 @@ package quack.command;
 
 import quack.TaskList;
 import quack.Ui;
-
-import quack.exception.InvalidIndexException;
 import quack.exception.FailedUpdateException;
-
+import quack.exception.InvalidIndexException;
 import quack.tasks.Task;
-
 
 /**
  * This class is responsible for updating of tasks in the task list.
  */
 public class UpdateTaskCommand extends Command {
-    
+
     /** List to store all tasks by Quack */
     private TaskList taskList;
     /** Ui to handle all user display interactions */
@@ -27,7 +24,7 @@ public class UpdateTaskCommand extends Command {
      * @param taskList A list that stores all the tasks tracked by Quack.
      * @param ui The ui object that handles user interface requests.
      */
-    public UpdateTaskCommand (String command, TaskList taskList, Ui ui) {
+    public UpdateTaskCommand(String command, TaskList taskList, Ui ui) {
         this.command = command;
         this.taskList = taskList;
         this.ui = ui;
@@ -51,7 +48,7 @@ public class UpdateTaskCommand extends Command {
             } catch (NumberFormatException invalidIdxError) {
                 ui.printExceptionMessage(new InvalidIndexException(input));
             } catch (IndexOutOfBoundsException indexError) {
-               ui.printExceptionMessage(indexError);
+                ui.printExceptionMessage(indexError);
             } catch (FailedUpdateException failUpdateError) {
                 ui.printExceptionMessage(failUpdateError);
             }

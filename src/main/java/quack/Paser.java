@@ -7,14 +7,13 @@ import quack.command.ExitCommand;
 import quack.command.FindTaskCommand;
 import quack.command.ListCommand;
 import quack.command.UpdateTaskCommand;
-
 import quack.exception.InvalidCommandException;
 
 /**
  * This class is responsible for handling user input commands.
  */
 public class Paser {
-    
+
     /** Quack chatbot object */
     private Quack quack;
     /** Ui object to handle UI interface tasks */
@@ -67,7 +66,7 @@ public class Paser {
         case "exit":
             command = new ExitCommand(quack, taskList, storage);
             return command;
-        
+
         case "add":
             command = new AddTaskCommand(taskList, ui);
             return command;
@@ -76,7 +75,7 @@ public class Paser {
         case "unmark":
             command = new UpdateTaskCommand(userCommand, taskList, ui);
             return command;
-        
+
         case "delete":
             command = new DeleteTaskCommand(taskList, ui);
             return command;
@@ -84,7 +83,7 @@ public class Paser {
         case "find":
             command = new FindTaskCommand(taskList, ui);
             return command;
-        
+
         default:
             throw new InvalidCommandException(userCommand);
         }

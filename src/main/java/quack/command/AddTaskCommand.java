@@ -4,10 +4,8 @@ import java.time.format.DateTimeParseException;
 
 import quack.TaskList;
 import quack.Ui;
-
-import quack.exception.InvalidTaskTypeException;
 import quack.exception.InvalidDateTimeException;
-
+import quack.exception.InvalidTaskTypeException;
 import quack.tasks.Task;
 
 
@@ -16,7 +14,7 @@ import quack.tasks.Task;
  * based on what the user entered.
  */
 public class AddTaskCommand extends Command {
-    
+
     /** List to store all tasks by Quack */
     private TaskList taskList;
     /** List to store all tasks by Quack */
@@ -34,7 +32,7 @@ public class AddTaskCommand extends Command {
 
     @Override
     public void execute() {
-        
+
         try {
             String taskType = ui.requestTaskType();
             this.getTaskDetails(taskType.toUpperCase());
@@ -48,10 +46,10 @@ public class AddTaskCommand extends Command {
      * <p>
      * After retrieving the task details, the task will be created and added,
      * into the tasklist.
-     * @param taskType The type of tasks to be created. 
+     * @param taskType The type of tasks to be created.
      */
     private void getTaskDetails(String taskType) {
-        
+
         String taskDescription = ui.requestTaskDescription(taskType);
         String startDate = null;
         String endDate = null;
@@ -64,6 +62,7 @@ public class AddTaskCommand extends Command {
         case "DEADLINE":
             startDate = ui.requestEndDate(taskType);
             break;
+        default:
         }
 
         String[] information = {taskType, taskDescription, startDate, endDate};
@@ -74,9 +73,10 @@ public class AddTaskCommand extends Command {
             ui.printUpdateSuccessfulMessage(newTask, "add", taskList);
 
         } catch (DateTimeParseException dateParseError) {
-            ui.printExceptionMessage(new InvalidDateTimeException("Im sorry but the date input is invalid ensure that it is in this format: DD/MM/YYYY HH:MM:SS"));
+            ui.printExceptionMessage(new InvalidDateTimeException("Im sorry but the date input is invalid, "
+                + "ensure that it is in this format: DD/MM/YYYY HH:MM:SS"));
         } catch (InvalidDateTimeException dateTimeError) {
-           ui.printExceptionMessage(dateTimeError);
-        } 
+            ui.printExceptionMessage(dateTimeError);
+        }
     }
 }

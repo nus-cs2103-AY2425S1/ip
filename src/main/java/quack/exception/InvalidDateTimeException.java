@@ -9,8 +9,8 @@ public class InvalidDateTimeException extends Exception {
      * Creates an InvalidDateTimeException exception object.
      * @param message The error message to be displayed to the user.
      */
-    public InvalidDateTimeException (String message) {
-        
+    public InvalidDateTimeException(String message) {
+
         super(message);
     }
 }

@@ -1,19 +1,16 @@
 package quack;
 
-import java.util.ArrayList;
-
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;  
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import quack.exception.InvalidDateTimeException;
-
 import quack.tasks.Task;
 
 /**
@@ -22,11 +19,11 @@ import quack.tasks.Task;
  * and saving into a file.
  */
 public class Storage {
-    
+
     /** Default file path for the save file */
-    public static String DEFAULT_PATH = "./data";
+    private static String DEFAULT_PATH = "./data";
     /** Default save file name */
-    public static String DEFAULT_FILE_NAME = "./data/savedData.csv";
+    private static String DEFAULT_FILE_NAME = "./data/savedData.csv";
 
     /**
      * Creates a storage object.
@@ -35,7 +32,7 @@ public class Storage {
      * if it does not exist.
      * <p>
      * Afterwards it will load the data from the save file.
-     * @param taskList A list that stores all the tasks tracked by Quack. 
+     * @param taskList A list that stores all the tasks tracked by Quack.
      */
     public Storage(TaskList taskList) {
 
@@ -43,7 +40,7 @@ public class Storage {
             Path filePath = Paths.get(DEFAULT_PATH);
             Files.createDirectories(filePath);
         } catch (Exception error) {
-            
+            System.out.println(error.getMessage());
         }
 
         this.loadData(taskList);
@@ -53,7 +50,7 @@ public class Storage {
      * Reads task data from the csv save file and add it into the task list.
      * <p>
      * All tasks that were saved will be readded into the task list upon running Quack.
-     * @param taskList A list that stores all the tasks tracked by Quack. 
+     * @param taskList A list that stores all the tasks tracked by Quack.
      */
     private void loadData(TaskList taskList) {
 
@@ -77,9 +74,9 @@ public class Storage {
 
             br.close();
 
-        } catch (IOException IOError) {
+        } catch (IOException IoError) {
             // There is no data file to read from, then continue as per normal.
-            System.out.println(IOError.getMessage());
+            System.out.println(IoError.getMessage());
         }
     }
 
@@ -87,7 +84,7 @@ public class Storage {
      * Saves the task list into a .csv folder.
      * <p>
      * All tasks inside the task list will be saved into a .csv folder once Quack stops running.
-     * @param taskList A list that stores all the tasks tracked by Quack. 
+     * @param taskList A list that stores all the tasks tracked by Quack.
      * @throws IOException Signals that an I/O exception of some sort has occurred.
      */
     public void saveData(TaskList taskList) throws IOException {
@@ -114,7 +111,7 @@ public class Storage {
      * @return A task object based on the data from the save file.
      */
     private Task parseCsvToTask(String dataLine) {
-        
+
         String[] data = dataLine.split(",");
 
         Task task = null;
@@ -127,7 +124,7 @@ public class Storage {
         } catch (InvalidDateTimeException dateTimeError) {
             System.out.println(dateTimeError);
         }
-        
+
         return task;
     }
 
@@ -140,6 +137,5 @@ public class Storage {
 
         String taskData = task.toCsvFormat();
         return taskData;
-      
     }
 }

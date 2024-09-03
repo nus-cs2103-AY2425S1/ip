@@ -3,7 +3,6 @@ package quack;
 import java.util.ArrayList;
 
 import quack.exception.FailedUpdateException;
-
 import quack.tasks.Task;
 
 /**
@@ -21,7 +20,7 @@ public class TaskList {
     /**
      * Creates a empty TaskList object.
      */
-    TaskList () {
+    TaskList() {
 
         this.toDoList = new ArrayList<Task>();
         length = 0;
@@ -53,19 +52,20 @@ public class TaskList {
      * If the user inputs unmark, then it will unmark the task.
      * <p>
      * If the index input is out of bounds it will throw a invalid index exception.
-     * 
+     *
      * @param idx Index of the task inside the task list.
      * @param command To state weather to mark or unmark the task.
      * @throws IndexOutOfBoundsException If the index is < 0 or if it is >= the size of the task list.
      */
-    public Task updateTask(int idx, String command) throws IndexOutOfBoundsException, FailedUpdateException{
+    public Task updateTask(int idx, String command) throws IndexOutOfBoundsException, FailedUpdateException {
 
         // Minus 1 because of 0 indexing
         idx = idx - 1;
 
         // Check if the index if out of bounds
         if (idx < 0 || idx >= length) {
-            throw new IndexOutOfBoundsException("Oops looks like the index: " + (idx + 1) + " entered is out of bounds!");
+            throw new IndexOutOfBoundsException("Oops looks like the index: " + (idx + 1)
+                + " entered is out of bounds!");
         }
 
         Task task = toDoList.get(idx);
@@ -100,18 +100,19 @@ public class TaskList {
      * Deletes the task from the list.
      * <p>
      * If the index input is out of bounds it will throw a invalid index exception.
-     * 
+     *
      * @param idx Index of the task inside the task list.
      * @return The task that has been removed from the list.
      * @throws IndexOutOfBoundsException If the index is < 0 or if it is >= the size of the task list.
      */
-    public Task deleteTask(int idx) throws IndexOutOfBoundsException{
+    public Task deleteTask(int idx) throws IndexOutOfBoundsException {
 
         // Minus 1 because of 0 indexing
         idx = idx - 1;
         // Check if the index if out of bounds
         if (idx < 0 || idx >= toDoList.size()) {
-            throw new IndexOutOfBoundsException("Oops looks like the index: " + (idx + 1) + " entered is out of bounds!");
+            throw new IndexOutOfBoundsException("Oops looks like the index: " + (idx + 1)
+                + " entered is out of bounds!");
         }
 
         // Remove the task from the list
@@ -123,7 +124,7 @@ public class TaskList {
 
     /**
      * Filters out tasks whos description does not contain the prompt.
-     * 
+     *
      * @param prompt The search citera to find tasks in the task list.
      * @return A list of tasks whos description matches the prompt.
      */
