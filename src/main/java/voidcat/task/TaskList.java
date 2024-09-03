@@ -1,4 +1,8 @@
-import javax.imageio.IIOException;
+package voidcat.task;
+
+import voidcat.exception.VoidException;
+import voidcat.ui.Ui;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,9 +61,4 @@ public class TaskList {
         }
         bw.close();
     }
-
-    public boolean isEmpty() {
-        return tasks.isEmpty();
-    }
-
 }

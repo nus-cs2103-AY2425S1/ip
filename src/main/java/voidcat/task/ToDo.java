@@ -1,6 +1,8 @@
-import java.util.ArrayList;
+package voidcat.task;
 
-public class ToDo extends Task{
+import voidcat.task.Task;
+
+public class ToDo extends Task {
 
     public ToDo(String description) {
         super(description);

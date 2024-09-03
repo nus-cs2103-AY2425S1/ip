@@ -1,3 +1,7 @@
+package voidcat.task;
+
+import voidcat.task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {

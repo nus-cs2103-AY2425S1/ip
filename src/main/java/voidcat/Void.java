@@ -1,3 +1,11 @@
+package voidcat;
+
+import voidcat.exception.VoidException;
+import voidcat.parser.Parser;
+import voidcat.storage.Storage;
+import voidcat.task.TaskList;
+import voidcat.ui.Ui;
+
 import java.io.IOException;
 import java.lang.SecurityException;
 public class Void {
