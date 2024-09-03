@@ -13,7 +13,7 @@ public interface Ui {
     String readCommand();
 
     /**
-     * Closes any open input
+     * Closes any open input.
      */
     void closeInput();
 
@@ -31,7 +31,6 @@ public interface Ui {
      * Prints dividers.
      */
     void showDivider();
-
 
     /**
      * Prints welcome message.
