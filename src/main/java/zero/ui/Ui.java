@@ -1,6 +1,7 @@
 package zero.ui;
 
 import java.util.Scanner;
+
 import zero.exception.ZeroException;
 import zero.task.Task;
 import zero.task.TaskList;
@@ -10,7 +11,7 @@ import zero.task.TaskList;
  * It handles input and output operations, including displaying messages and reading user commands.
  */
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
     private boolean isDone = false;
 
     /**

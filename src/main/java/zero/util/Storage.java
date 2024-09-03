@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import zero.exception.ZeroException;
 import zero.task.Deadline;
 import zero.task.Event;
@@ -19,7 +20,7 @@ import zero.task.Todo;
  * It reads tasks from a specified file during initialisation and writes tasks back to the file when required.
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -45,28 +46,28 @@ public class Storage {
                 String data = myReader.nextLine();
                 String[] items = data.split(",");
                 switch (items[0]) {
-                    case "T":
-                        Todo newTodo = new Todo(items[2]);
-                        if (items[1].equals("1")) {
-                            newTodo.markAsDone();
-                        }
-                        tasks.add(newTodo);
-                        break;
-                    case "D":
-                        Deadline newDeadline = new Deadline(items[2], LocalDateTime.parse(items[3]));
-                        if (items[1].equals("1")) {
-                            newDeadline.markAsDone();
-                        }
-                        tasks.add(newDeadline);
-                        break;
-                    case "E":
-                        Event newEvent =
-                                new Event(items[2], LocalDateTime.parse(items[3]), LocalDateTime.parse(items[4]));
-                        if (items[1].equals("1")) {
-                            newEvent.markAsDone();
-                        }
-                        tasks.add(newEvent);
-                        break;
+                case "T":
+                    Todo newTodo = new Todo(items[2]);
+                    if (items[1].equals("1")) {
+                        newTodo.markAsDone();
+                    }
+                    tasks.add(newTodo);
+                    break;
+                case "D":
+                    Deadline newDeadline = new Deadline(items[2], LocalDateTime.parse(items[3]));
+                    if (items[1].equals("1")) {
+                        newDeadline.markAsDone();
+                    }
+                    tasks.add(newDeadline);
+                    break;
+                case "E":
+                    Event newEvent =
+                            new Event(items[2], LocalDateTime.parse(items[3]), LocalDateTime.parse(items[4]));
+                    if (items[1].equals("1")) {
+                        newEvent.markAsDone();
+                    }
+                    tasks.add(newEvent);
+                    break;
                 }
             }
             myReader.close();
