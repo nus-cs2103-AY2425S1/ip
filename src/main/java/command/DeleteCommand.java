@@ -3,13 +3,15 @@ package command;
 import java.util.Arrays;
 
 import exception.InvalidArgumentException;
-import exception.LevelHundredException;
 import exception.MissingArgumentException;
 import task.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
 
+/**
+ * The DeleteCommand class deletes an existing task from the task list and storage file
+ */
 public class DeleteCommand extends UserCommand {
     /**
      * Deletes task at user specified index from storage and task list

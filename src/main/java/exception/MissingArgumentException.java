@@ -6,6 +6,12 @@ package exception;
 public class MissingArgumentException extends LevelHundredException {
     private String command;
     private String arg;
+
+    /**
+     * Constructor for MissingArgumentException
+     * @param command String representing the user command
+     * @param arg String representing the missing argument
+     */
     public MissingArgumentException(String command, String arg) {
         super("Missing inputs for command");
         this.command = command;

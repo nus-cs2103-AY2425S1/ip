@@ -42,7 +42,7 @@ public class Storage {
     /**
      * Loads the tasks from the file
      *
-     * @return ArrayList<Task> of tasks from the file
+     * @return ArrayList of tasks from the file
      * @throws InvalidStorageFileException if the storage file is corrupted
      */
     public ArrayList<Task> load() throws InvalidStorageFileException {
@@ -64,7 +64,7 @@ public class Storage {
     /**
      * Updates the tasks from an ArrayList of tasks
      *
-     * @param taskList ArrayList<Task> of tasks
+     * @param taskList ArrayList of tasks
      * @throws InvalidStorageFileException
      */
     public void update(ArrayList<Task> taskList) throws InvalidStorageFileException {

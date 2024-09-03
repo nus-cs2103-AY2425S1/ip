@@ -2,12 +2,14 @@ package command;
 
 import java.util.ArrayList;
 
-import exception.LevelHundredException;
 import task.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
 
+/**
+ * The ListCommand lists all existing tasks in the task list
+ */
 public class ListCommand extends UserCommand {
     /**
      * Lists all tasks

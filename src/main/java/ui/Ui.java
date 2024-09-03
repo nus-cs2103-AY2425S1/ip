@@ -63,7 +63,7 @@ public class Ui {
 
     /**
      * Lists out all tasks in the given array
-     * @param tasks ArrayList<Task> of tasks to be printed
+     * @param tasks ArrayList of tasks to be printed
      */
     public void printTasks(ArrayList<Task> tasks) {
         this.printHorizontalLine();

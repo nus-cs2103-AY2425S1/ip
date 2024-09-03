@@ -15,6 +15,9 @@ import task.Todo;
 import ui.Ui;
 import utility.Parser;
 
+/**
+ * The AddCommand class adds a new task into the task list and storage file
+ */
 public class AddCommand extends UserCommand {
     private Task createTask(String[] words, String command) throws LevelHundredException {
         if (command.equals("todo")) {

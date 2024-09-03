@@ -3,13 +3,15 @@ package command;
 import java.util.Arrays;
 
 import exception.InvalidArgumentException;
-import exception.LevelHundredException;
 import exception.MissingArgumentException;
 import task.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
 
+/**
+ * The UpdateStatusCommand updates the status of a task in the task list and storage file
+ */
 public class UpdateStatusCommand extends UserCommand {
     /**
      * Updates status of the task at user specified index from storage and task list

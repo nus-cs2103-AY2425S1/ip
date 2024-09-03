@@ -1,10 +1,12 @@
 package command;
 
-import exception.LevelHundredException;
 import task.Storage;
 import task.TaskList;
 import ui.Ui;
 
+/**
+ * The ExitCommand class terminates the program
+ */
 public class ExitCommand extends UserCommand {
     @Override 
     public boolean continueRunning() {

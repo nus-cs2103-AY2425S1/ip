@@ -46,8 +46,10 @@ public abstract class UserCommand {
 
     /**
      * Execute command that user inputs
-     *
-     * @param input String representing the line that user inputs
+     * @param userInput String representing the user input
+     * @param ui Ui to print output
+     * @param storage Storage where tasks are saved
+     * @param taskList Task list of current tasks
      */
     public abstract void execute(String userInput, Ui ui, Storage storage, TaskList taskList);
 }
