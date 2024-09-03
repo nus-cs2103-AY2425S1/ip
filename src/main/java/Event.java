@@ -14,6 +14,7 @@ public class Event extends Task {
         this.to = LocalDateTime.parse(to, inputFormatter);
     }
 
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(outputFormatter) + " to: "
