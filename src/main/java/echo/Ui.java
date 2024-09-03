@@ -11,7 +11,8 @@ public class Ui {
 
     public static void showClassFound(List<Task> tasks) {
         for(int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + tasks.get(i).toString());
+            int no = i + 1;
+            System.out.println(no + " . " + tasks.get(i).toString());
         }
     }
 
