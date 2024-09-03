@@ -14,8 +14,6 @@ import patrick.tasklist.Task;
 public class Ui {
     // Constants for displaying UI elements and messages
     private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
-    private static final String GREETING_MSG = HORIZONTAL_LINE + "Hello! I'm Patrick, Spongebob's bestie\n"
-                                                + "How can I help you?\n" + HORIZONTAL_LINE;
     private static final String EXIT_MSG = HORIZONTAL_LINE + "Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE;
     private static final String TASK_MSG = "Got it. I've added this task:\n";
     private static final String NUM_TASK_MSG_1 = "Now you have ";
@@ -43,56 +41,13 @@ public class Ui {
     }
 
     /**
-     * Displays the welcome message and the current list of tasks.
-     */
-    public void welcomeMessage() {
-        System.out.println(GREETING_MSG);
-        printFileContents();
-    }
-
-    /**
-     * Returns the current output stream.
-     *
-     * @return the current {@code PrintStream}.
-     */
-    public PrintStream getOut() {
-        return this.out;
-    }
-
-    /**
-     * Prompts the user for a command and returns their input.
-     *
-     * @return the user's command as a {@code String}.
-     */
-    public String getUserCommand() {
-        out.print(HORIZONTAL_LINE + "What do you want to do: \n");
-        return in.nextLine();
-    }
-
-    /**
-     * Displays the goodbye message when the user exits the program.
-     */
-    public void showGoodbyeMsg() {
-        out.print(HORIZONTAL_LINE + EXIT_MSG + HORIZONTAL_LINE);
-    }
-
-    /**
-     * Displays an error message to the user.
-     *
-     * @param error the error message to display.
-     */
-    public static void showErrorMsg(String error) {
-        System.out.println(HORIZONTAL_LINE + error + HORIZONTAL_LINE);
-    }
-
-    /**
      * Displays a message to the user after a task is added.
      *
      * @param msg the task details to display.
      */
-    public static void showUserMsg(String msg) {
-        System.out.println(HORIZONTAL_LINE + Ui.TASK_MSG + msg + "\n" + Ui.NUM_TASK_MSG_1
-                + Storage.getList().size() + Ui.NUM_TASK_MSG_2 + HORIZONTAL_LINE);
+    public static String showUserMsg(String msg) {
+        return Ui.TASK_MSG + msg + "\n" + Ui.NUM_TASK_MSG_1
+                + Storage.getList().size() + Ui.NUM_TASK_MSG_2;
     }
 
     /**
@@ -100,55 +55,35 @@ public class Ui {
      *
      * @param num the index of the deleted task.
      */
-    public static void showDeleteItemMsg(int num) {
-        System.out.println(HORIZONTAL_LINE + "Noted. I've removed this task:\n"
+    public static String showDeleteItemMsg(int num) {
+        return "Noted. I've removed this task:\n"
                 + Storage.getList().get(num - 1).toString() + "\n" + Ui.NUM_TASK_MSG_1 + (Storage.getList().size() - 1)
-                + Ui.NUM_TASK_MSG_2);
-    }
-
-    /**
-     * Displays a message to the user after a task is marked or unmarked.
-     *
-     * @param msg  the action performed (mark/unmark).
-     * @param task the task details to display.
-     */
-    public static void showMarkUnmarkMsg(String msg, String task) {
-        System.out.println(HORIZONTAL_LINE + msg + task + HORIZONTAL_LINE);
+                + Ui.NUM_TASK_MSG_2;
     }
 
     /**
      * Prints the contents of the task list to the user.
      */
-    public static void printFileContents() {
-        System.out.println(Ui.HORIZONTAL_LINE + "Here are the tasks in your list:");
+    public static String printFileContents() {
+        String list = "Here are the tasks in your list:" + "\n";
         for (int i = 1; i <= Storage.getList().size(); i++) {
             Task curr = (Task) Storage.getList().get(i - 1);
-            System.out.println(i + ". " + curr.toString());
+            list += i + ". " + curr.toString() + "\n";
         }
-        System.out.println(Ui.HORIZONTAL_LINE);
+        return list;
     }
 
     /**
      * Displays the supported date formats to the user.
      */
-    public static void formats() {
-        System.out.println(HORIZONTAL_LINE + "Here are the different formats available:");
-        System.out.println("yyyy-MM-dd HHmm");
-        System.out.println("dd-MM-yyyy HHmm");
-        System.out.println("d-MM-yyyy HHmm");
-        System.out.println("MM-dd-yyyy HHmm");
-        System.out.println("yyyy/MM/dd HHmm");
-        System.out.println("dd/MM/yyyy HHmm");
-        System.out.println("d/MM/yyyy HHmm");
-        System.out.println("MM/dd/yyyy HHmm");
-        System.out.println("MMM dd yyyy HHmm");
-        System.out.println("MMM d yyyy HHmm");
+    public static String formats() {
+        String response = "Here are the different formats available:\n" + "yyyy-MM-dd HHmm\n" + "dd-MM-yyyy HHmm\n"
+                            + "d-MM-yyyy HHmm\n" + "MM-dd-yyyy HHmm\n" + "yyyy/MM/dd HHmm\n" + "dd/MM/yyyy HHmm\n"
+                            + "d/MM/yyyy HHmm\n" + "MM/dd/yyyy HHmm\n" + "MMM dd yyyy HHmm\n" + "MMM d yyyy HHmm\n";
+        return response;
     }
 
-    public static void printLine() {
-        System.out.println(HORIZONTAL_LINE);
-    }
-    public static void showMsg(String input) {
-        System.out.print(input);
+    public static String showErrorMsg(String message) {
+        return message;
     }
 }

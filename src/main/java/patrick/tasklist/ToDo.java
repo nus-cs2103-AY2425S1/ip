@@ -36,24 +36,27 @@ public class ToDo extends Task {
      * Validates the input and adds the task to the task list if it is valid.
      *
      * @param input the user input containing the task description.
+     * @return a response message indicating the result of the operation.
      * @throws Parser.PatrickException if the description of the todo is empty.
      */
-    public static void toDoTask(String input) throws Parser.PatrickException {
+    public static String toDoTask(String input) throws Parser.PatrickException {
+        String response = null;
         String taskDescription = input.replace("todo ", "").trim();
         if (taskDescription.isEmpty()) {
             throw new Parser.PatrickException("Description of a todo cannot be empty!!");
         } else {
             Task task = new ToDo(taskDescription);
             Storage.addList(task);
-            Ui.showUserMsg(task.toString());
+            response = Ui.showUserMsg(task.toString());
             try {
                 if (!Storage.getList().isEmpty()) {
                     Storage.appendToFile("\n");
                 }
                 Storage.appendToFile(task.toString());
             } catch (IOException e) {
-                Ui.showErrorMsg("There is an error: " + e.getMessage());
+                response = Ui.showErrorMsg("There is an error: " + e.getMessage());
             }
         }
+        return response;
     }
 }

@@ -25,91 +25,93 @@ public class Parser {
      * Parses the user's input to determine the type of task and executes the appropriate action.
      *
      * @param userInput the input provided by the user.
-     * @return the type of the command that was executed.
+     * @return the response message based on the executed command.
      */
-    public Type parseTask(String userInput) {
+    public String parseTask(String userInput) {
         checkType(userInput);
+        String response = null;
 
         switch (inputType) {
         case LIST:
-            Ui.printFileContents();
+            response = Ui.printFileContents();
             break;
 
         case BYE:
-            return Type.BYE;
+            response = "BYE";
+            break;
 
         case MARK:
             try {
-                TaskList.mark(userInput);
+                response = TaskList.mark(userInput);
                 break;
             } catch (PatrickException e) {
-                Ui.showErrorMsg(e.getMessage());
+                response = e.getMessage();
                 break;
             }
 
         case UNMARK:
             try {
-                TaskList.unmark(userInput);
+                response = TaskList.unmark(userInput);
                 break;
             } catch (PatrickException e) {
-                Ui.showErrorMsg(e.getMessage());
+                response = e.getMessage();
                 break;
             }
 
         case TODO:
             try {
-                ToDo.toDoTask(userInput);
+                response = ToDo.toDoTask(userInput);
                 break;
             } catch (PatrickException e) {
-                Ui.showErrorMsg(e.getMessage());
+                response = e.getMessage();
                 break;
             }
 
         case DEADLINE:
             try {
-                Deadline.deadlineTask(userInput);
+                response = Deadline.deadlineTask(userInput);
                 break;
             } catch (PatrickException e) {
-                Ui.showErrorMsg(e.getMessage());
+                response = e.getMessage();
                 break;
             }
 
         case EVENT:
             try {
-                Event.eventTask(userInput);
+                response = Event.eventTask(userInput);
                 break;
             } catch (PatrickException e) {
-                Ui.showErrorMsg(e.getMessage());
+                response = e.getMessage();
                 break;
             }
 
         case DELETE:
             try {
-                TaskList.delete(userInput);
+                response = TaskList.delete(userInput);
                 break;
             } catch (PatrickException e) {
-                Ui.showErrorMsg(e.toString());
+                response = e.getMessage();
                 break;
             }
 
         case FORMATS:
-            Ui.formats();
+            response = Ui.formats();
             break;
 
         case FIND:
             try {
-                TaskList.findTask(userInput);
+                response = TaskList.findTask(userInput);
                 break;
             } catch (PatrickException e) {
-                Ui.showErrorMsg(e.getMessage());
+                response = e.getMessage();
                 break;
             }
 
         default:
-            Ui.showErrorMsg("What are you trying to say man. Re-enter your command \n");
+            response = "What are you trying to say man. Re-enter your command \n";
             break;
         }
-        return inputType;
+        return response;
     }
 
     /**
