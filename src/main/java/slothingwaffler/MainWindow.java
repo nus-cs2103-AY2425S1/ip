@@ -32,6 +32,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getSlothingWafflerDialog("Hello! I'm the Slothing Waffler!\n" +
+                        "Let's stop slothing and get cracking!", slothImage)
+        );
     }
 
     /** Injects the SlothingWaffler instance */
@@ -59,12 +63,5 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-    public void greet() {
-        String greeting = slothingWaffler.getResponse("Hello! I'm the Slothing Waffler!\n" +
-                                "Let's stop slothing and get cracking!");
-        dialogContainer.getChildren().add(
-                DialogBox.getSlothingWafflerDialog(greeting, slothImage)
-        );
-    }
 }
 
