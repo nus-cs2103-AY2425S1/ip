@@ -40,7 +40,7 @@ public class Deadline extends Task{
     }
 
     public String creationResponse() {
-        return "Ok! I've added a new task with a deadline:\n" + toString() +
+        return "Ok! I've added a new task with a deadline:\n" + this +
                 "\n";
     }
 

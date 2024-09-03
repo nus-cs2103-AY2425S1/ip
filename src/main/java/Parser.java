@@ -40,41 +40,43 @@ public class Parser {
     public int parseMark(String input) {
         Pattern markPattern = Pattern.compile("^(mark) (\\d+)$");
         Matcher markMatcher = markPattern.matcher(input);
-        markMatcher.matches();
-        return Integer.parseInt(markMatcher.group(2));
+
+        return markMatcher.matches()
+            ? Integer.parseInt(markMatcher.group(2))
+            : -1;
     }
 
     public int parseUnmark(String input) {
         Pattern markPattern = Pattern.compile("^(unmark) (\\d+)$");
         Matcher markMatcher = markPattern.matcher(input);
-        markMatcher.matches();
-        return Integer.parseInt(markMatcher.group(2));
+        ;
+        return markMatcher.matches()
+            ? Integer.parseInt(markMatcher.group(2))
+            : -1;
     }
 
     public int parseDelete(String input) {
         Pattern deletePattern = Pattern.compile("^delete (\\d+)$");
         Matcher deleteMatcher = deletePattern.matcher(input);
-        deleteMatcher.matches();
-        return Integer.parseInt(deleteMatcher.group(1));
+        ;
+        return deleteMatcher.matches()
+            ? Integer.parseInt(deleteMatcher.group(1))
+            : -1;
     }
 
     public Task parseTask(String input) throws WrongInputException {
         Pattern taskPattern = Pattern.compile("^(todo|deadline|event)\\s(.*)$");
         Matcher taskMatcher = taskPattern.matcher(input);
         Task newTask = null;
-        taskMatcher.matches();
-        System.out.println(taskMatcher.group(1));
-        switch(taskMatcher.group(1)) {
-            case "todo":
-                newTask = Todo.handleInput(taskMatcher.group(2));
-                break;
-            case "deadline":
-                newTask = Deadline.handleInput(taskMatcher.group(2));
-                break;
-            case "event":
-                newTask = Event.handleInput(taskMatcher.group(2));
-                break;
+        if (!taskMatcher.matches()) {
+            throw new WrongInputException("There is an error in your command");
         }
+        newTask = switch (taskMatcher.group(1)) {
+            case "todo" -> Todo.handleInput(taskMatcher.group(2));
+            case "deadline" -> Deadline.handleInput(taskMatcher.group(2));
+            case "event" -> Event.handleInput(taskMatcher.group(2));
+            default -> newTask;
+        };
         return newTask;
     }
 }

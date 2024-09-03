@@ -37,7 +37,7 @@ public class Event extends Task {
     }
 
     public String creationResponse() {
-        return "Ok! I've added a new event:\n" + toString() +
+        return "Ok! I've added a new event:\n" + this +
                 "\n";
     }
 
