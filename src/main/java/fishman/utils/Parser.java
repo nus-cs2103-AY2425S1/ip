@@ -1,5 +1,9 @@
 package fishman.utils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import fishman.command.AddCommand;
 import fishman.command.Command;
 import fishman.command.DeleteCommand;
@@ -13,9 +17,6 @@ import fishman.task.Event;
 import fishman.task.TaskList;
 import fishman.task.ToDo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Parser class is used to interpret user input and create the appropriate

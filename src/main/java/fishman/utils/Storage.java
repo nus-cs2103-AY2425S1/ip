@@ -1,12 +1,5 @@
 package fishman.utils;
 
-import fishman.exception.FishmanException;
-import fishman.task.Deadline;
-import fishman.task.Event;
-import fishman.task.Task;
-import fishman.task.TaskList;
-import fishman.task.ToDo;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,13 +10,22 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import fishman.exception.FishmanException;
+import fishman.task.Deadline;
+import fishman.task.Event;
+import fishman.task.Task;
+import fishman.task.TaskList;
+import fishman.task.ToDo;
+
+
+
 /**
  * The storage class is used to handle the storage of tasks to and from a save file.
  */
 public class Storage {
-
-    private final Path filePath;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private final Path filePath;
+
 
     /**
      * Constructs a new Storage object with the provided file path and creates the file if it does not exist.
@@ -51,8 +53,8 @@ public class Storage {
     }
 
     /**
-     * Saves the list of tasks to the save file as specified by the filepath. The tasks are converted to CSV string format
-     * before being written to the file.
+     * Saves the list of tasks to the save file as specified by the filepath. The tasks are converted to
+     * CSV string format before being written to the file.
      *
      * @param tasks The list of tasks to be written to the save file.
      * @throws RuntimeException If an error occurs while writing to the file.
@@ -76,12 +78,12 @@ public class Storage {
      */
     private String toCsv(Task task) {
         StringBuilder sb = new StringBuilder();
-        if(task instanceof ToDo) {
+        if (task instanceof ToDo) {
             sb.append("T").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription());
-        } else if(task instanceof Deadline) {
+        } else if (task instanceof Deadline) {
             sb.append("D").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|")
                             .append(((Deadline) task).getBy().format(DATE_TIME_FORMATTER));
-        } else if(task instanceof Event) {
+        } else if (task instanceof Event) {
             sb.append("E").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|")
                             .append(((Event) task).getFrom().format(DATE_TIME_FORMATTER)).append("|")
                             .append(((Event) task).getTo().format(DATE_TIME_FORMATTER));
@@ -90,7 +92,8 @@ public class Storage {
     }
 
     /**
-     * Loads the tasks from the file specified by the filepath. Each line is read and parsed into the corresponding Task object.
+     * Loads the tasks from the file specified by the filepath. Each line is read and parsed into the
+     * corresponding Task object.
      *
      * @return A TaskList object containing all the loaded tasks.
      * @throws FishmanException.InvalidArgumentsException If the file contains lines with invalid arguments.
@@ -154,7 +157,8 @@ public class Storage {
      *
      * @param dateTimeStr The date-time string to parses.
      * @return A LocalDateTime object representing the parsed date and time.
-     * @throws FishmanException.InvalidArgumentsException If the input string does not match the expected date-time format.
+     * @throws FishmanException.InvalidArgumentsException If the input string does not match
+     *      the expected date-time format.
      */
     private static LocalDateTime parseDateTime(String dateTimeStr) throws FishmanException {
         try {
@@ -163,5 +167,4 @@ public class Storage {
             throw new FishmanException.InvalidDateFormatException(dateTimeStr);
         }
     }
-
 }
