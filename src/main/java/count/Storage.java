@@ -49,7 +49,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws IncorrectFormatException, FileNotFoundException {
         this.sc = new Scanner(this.file);
-        ArrayList<Task> ls = new ArrayList<>();
+        ArrayList<Task> listOfTasksRead = new ArrayList<>();
         while (sc.hasNextLine()) {
             String taskString = sc.nextLine();
 
@@ -65,13 +65,13 @@ public class Storage {
 
                 switch (type) {
                 case "T":
-                    ls.add(new ToDo(desc, isComplete));
+                    listOfTasksRead.add(new ToDo(desc, isComplete));
                     break;
                 case "D":
                     String[] deadlineInfo = desc.split(" \\(by: ", 2);
                     LocalDate byTime = LocalDate.parse(deadlineInfo[1].substring(0, deadlineInfo[1].length() - 1),
                             readerFormat);
-                    ls.add(new Deadline(deadlineInfo[0], byTime, isComplete));
+                    listOfTasksRead.add(new Deadline(deadlineInfo[0], byTime, isComplete));
                     break;
                 case "E":
                     String[] eventInfo = desc.split(" \\(from: ", 2);
@@ -79,7 +79,7 @@ public class Storage {
                     LocalDate fromTime = LocalDate.parse(eventTimeInfo[0], readerFormat);
                     LocalDate toTime = LocalDate.parse(eventTimeInfo[1].substring(0, eventTimeInfo[1].length() - 1),
                             readerFormat);
-                    ls.add(new Event(eventInfo[0], toTime, fromTime, isComplete));
+                    listOfTasksRead.add(new Event(eventInfo[0], toTime, fromTime, isComplete));
                     break;
                 default:
                     throw new IncorrectFormatException("Incorrect format for Task types" +
@@ -95,6 +95,6 @@ public class Storage {
             }
 
         }
-        return ls;
+        return listOfTasksRead;
     }
 }
