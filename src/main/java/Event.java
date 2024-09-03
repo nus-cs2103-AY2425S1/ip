@@ -9,6 +9,18 @@ public class Event extends Task {
         type = TaskType.EVENT;
     }
 
+    public static Event fromTaskString(String taskString) {
+        String[] parts = taskString.split("\\|");
+        if (parts.length < 5)
+            return null;
+
+        Event event = new Event(parts[2], parts[3], parts[4]);
+        if (parts[1].equals("1"))
+            event.markAsDone();
+
+        return event;
+    }
+
     protected String getTaskType() {
         return "E";
     }

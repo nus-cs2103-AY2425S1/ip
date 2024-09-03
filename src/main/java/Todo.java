@@ -4,6 +4,19 @@ public class Todo extends Task {
         type = TaskType.TODO;
     }
 
+    public static Todo fromTaskString(String taskString) {
+        String[] parts = taskString.split("\\|");
+        if (parts.length < 3)
+            return null;
+
+        Todo todo = new Todo(parts[2]);
+        if (parts[1].equals("1"))
+            todo.markAsDone();
+
+        return todo;
+    }
+
+
     protected String getTaskType() {
         return "T";
     }
