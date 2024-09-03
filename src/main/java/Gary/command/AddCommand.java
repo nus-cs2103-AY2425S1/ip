@@ -22,9 +22,15 @@ public class AddCommand extends Command {
 
             }
         }
-
         @Override
         public boolean isBye() {
+            return false;
+        }
+        @Override
+        public boolean equals(Object o) {
+            if (o instanceof AddCommand) {
+                return ((AddCommand) o).task.equals(this.task);
+            }
             return false;
         }
 }
