@@ -4,7 +4,6 @@ package Exception;
  * Represents an exception specific to the Diego application.
  */
 public class DiegoException extends Exception {
-    
     /**
      * Constructs a new DiegoException.
      *

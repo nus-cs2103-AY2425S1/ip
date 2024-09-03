@@ -1,9 +1,10 @@
 package Commands;
 
+import Main.Storage;
+import Main.Ui;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.TaskList;
-import Main.*;
 
 /**
  * Represents a command to add an event task to the task list.
@@ -26,7 +27,7 @@ public class AddEventCommand implements Command {
         this.to = to;
     }
 
-     /**
+    /**
      * Executes the command to add an event task to the task list.
      *
      * @param tasks   The task list to which the task is added.

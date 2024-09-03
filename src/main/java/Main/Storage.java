@@ -1,13 +1,17 @@
 package Main;
 
-import Tasks.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.TaskList;
+import Tasks.Todo;
 
 /**
  * Handles loading and saving tasks to and from a file.
@@ -46,7 +50,6 @@ public class Storage {
      * @throws FileNotFoundException If the file cannot be found.
      */
     public ArrayList<Task> load() throws FileNotFoundException {
-        
         assert this.filePath != null && !this.filePath.isEmpty() : "File path should not be null or empty";
 
         ArrayList<Task> tasks = new ArrayList<>();
@@ -73,6 +76,9 @@ public class Storage {
                         break;
                     case "E":
                         tasks.add(new Event(description, parts[3], parts[4]));
+                        break;
+                    default:
+                        // Handle unexpected task types
                         break;
                 }
                 if (isDone) {

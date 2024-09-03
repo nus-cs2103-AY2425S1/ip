@@ -1,7 +1,5 @@
 package Tasks;
 
-import Tasks.Task;
-
 /**
  * Represents an event task with a description, start time, and end time.
  */

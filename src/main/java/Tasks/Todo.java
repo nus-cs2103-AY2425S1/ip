@@ -1,7 +1,5 @@
 package Tasks;
 
-import Tasks.Task;
-
 /**
  * Represents a to-do task with a description.
  */

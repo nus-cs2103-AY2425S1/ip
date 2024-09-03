@@ -1,12 +1,16 @@
 package Main;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
 import Commands.AddDeadlineCommand;
 import Commands.AddEventCommand;
 import Commands.AddTodoCommand;
 import Commands.Command;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import Exception.*;
+import Exception.DiegoException;
+import Exception.UnknownCommandException;
+
 class ParserTest {
 
     @Test

@@ -1,10 +1,11 @@
 package Main;
 
-import Commands.Command;
-import Tasks.TaskList;
-import Exception.*;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+
+import Commands.Command;
+import Exception.DiegoException;
+import Tasks.TaskList;
+
 
 /**
  * The main class for the Diego task manager application.
@@ -23,7 +24,6 @@ public class Diego {
      */
     public Diego(String filePath) {
         assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
-        
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
