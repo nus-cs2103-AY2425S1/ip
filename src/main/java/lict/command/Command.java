@@ -1,13 +1,14 @@
 package lict.command;
 
+import lict.LictException;
 import lict.Storage;
 import lict.TaskList;
 import lict.Ui;
-import lict.LictException;
 
 /**
  * The abstract {@code Command} class represents a command that can be executed in the application.
- * Subclasses of {@code Command} must implement the {@code execute} method to define the specific behavior of the command.
+ * Subclasses of {@code Command} must implement the {@code execute} method
+ * to define the specific behavior of the command.
  */
 public abstract class Command {
 

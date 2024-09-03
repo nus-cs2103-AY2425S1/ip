@@ -1,13 +1,15 @@
 package lict.task;
 
+import java.time.DateTimeException;
+
 import lict.DateTime;
 import lict.LictException;
 
-import java.time.DateTimeException;
 
 /**
  * The {@code lict.task.Event} class represents a task that has a start time and an end time.
- * It extends the {@code lict.task.Task} class and provides specific implementations for the {@code toString} and {@code toData} methods.
+ * It extends the {@code lict.task.Task} class and provides specific implementations for
+ * the {@code toString} and {@code toData} methods.
  */
 public class Event extends Task {
     protected DateTime from;
@@ -33,7 +35,12 @@ public class Event extends Task {
                 this.to = new DateTime(to);
             }
         } catch (DateTimeException e) {
-            throw new LictException("Invalid format for event start date or event end date. Please ensure that Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.");
+            throw new LictException(
+                    """
+                    Invalid format for event start date or event end date.
+                    Please ensure that Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.
+                    """
+            );
         }
     }
 
@@ -46,7 +53,9 @@ public class Event extends Task {
     @Override
     public String toData() {
         String status = this.isDone ? "1" : "0";
-        return String.format("EVENT | %s | %s | %s | %s\n", status, this.description, this.from.getData(), this.to.getData());
+        return String.format(
+                "EVENT | %s | %s | %s | %s\n", status, this.description, this.from.getData(), this.to.getData()
+        );
     }
 
     /**

@@ -9,7 +9,7 @@ import lict.command.Command;
 public class Lict {
     private Storage storage;
     private TaskList tasks;
-    private static Ui ui;
+    private Ui ui;
 
     /**
      * Constructs a {@code Lict} object and initializes the UI, storage, and task list.
