@@ -12,6 +12,12 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toTaskString() {
+        return String.format("%s|%d|%s|%s",
+                getTaskType(), isDone ? 1 : 0, description, deadline);
+    }
+
+    @Override
     public String toString() {
         return String.format("[%s] %s (by: %s)", getTaskType(),
                 super.toString(), deadline);

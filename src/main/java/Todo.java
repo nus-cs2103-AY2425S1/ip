@@ -9,6 +9,12 @@ public class Todo extends Task {
     }
 
     @Override
+    public String toTaskString() {
+        return String.format("%s|%d|%s",
+                getTaskType(), isDone ? 1 : 0, description);
+    }
+
+    @Override
     public String toString() {
         return String.format("[%s] %s", getTaskType(), super.toString());
     }

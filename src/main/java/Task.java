@@ -23,6 +23,10 @@ public class Task {
         isDone = false;
     }
 
+    public String toTaskString() {
+        throw new RuntimeException("Not implemented!");
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), description);
