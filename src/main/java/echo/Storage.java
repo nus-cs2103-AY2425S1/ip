@@ -8,12 +8,27 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles loading tasks from a file and saving tasks to a file.
+ */
 public class Storage {
     String filePath;
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path of the file to load and save tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+
+    /**
+     * Loads the content of the file specified by the file path and prints each line.
+     *
+     * @throws FileNotFoundException If the file does not exist.
+     */
     public void loadTest() throws FileNotFoundException {
         File file = new File(filePath);
         Scanner saveScanner = new Scanner(file);
@@ -23,10 +38,15 @@ public class Storage {
     }
 
 
-
+    /**
+     * Loads tasks from the file specified by the file path and returns them as a list.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
     public List<Task> load() throws IOException {
         List<Task> tasks = new ArrayList<>();
-        File file = new File(filePath);
+        File file = new File(filePath); //always using same file
 
         if (file.exists()) {
             Scanner saveScanner = new Scanner(file);
@@ -40,7 +60,6 @@ public class Storage {
                 String info = parts[3];
                 switch (type) {
                     case "T":
-
                         Todo todo = new Todo(des);
                         if (Objects.equals(marked, "1")) {
                             todo.setDone();
@@ -81,6 +100,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the list of tasks to the file specified by the file path.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void save(List<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(TaskList.listToString(tasks));

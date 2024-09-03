@@ -4,6 +4,10 @@ import java.io.FileNotFoundException;
 
 import java.io.IOException;
 
+/**
+ * The Echo class is the main entry point for the Echo application.
+ * It handles the loading, saving, and processing of user commands related to task management.
+ */
 public class Echo {
 
     private Storage storage;
@@ -11,6 +15,11 @@ public class Echo {
     private Ui ui;
     public static final String DOCS_TASKS_TXT = "docs/tasks.txt";
 
+    /**
+     * Constructs an Echo object and initializes the necessary components.
+     *
+     * @param filePath The file path where tasks are stored and loaded.
+     */
     public Echo(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -28,6 +37,9 @@ public class Echo {
 
     }
 
+    /**
+     * Runs the main loop of the Echo application, processing user commands and interacting with the user interface.
+     */
     public void run() {
         ui.showWelcomeMessage();
 
@@ -80,6 +92,12 @@ public class Echo {
 
         }
     }
+
+    /**
+     * The main method that creates an instance of Echo and starts the application.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         Echo echo = new Echo(DOCS_TASKS_TXT);
         echo.run();
