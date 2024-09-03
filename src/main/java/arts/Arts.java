@@ -121,6 +121,10 @@ public class Arts {
         }
     }
 
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
     /**
      * Main method to start the Arts application.
      *
