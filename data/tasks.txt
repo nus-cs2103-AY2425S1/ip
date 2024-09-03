@@ -1,6 +1,4 @@
-now
-yes
-filetest deadline,tomorrow
-now
-filetest event,now,later
-no
+test
+hi
+bye
+date,2020-04-04
