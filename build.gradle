@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("xizi.chatbot.Launcher")
+    mainClass.set("xizi.chatbot.gui.Launcher")
 }
 
 shadowJar {

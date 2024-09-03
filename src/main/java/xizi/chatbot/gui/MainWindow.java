@@ -1,5 +1,6 @@
-package xizi.chatbot;
+package xizi.chatbot.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import xizi.chatbot.Xizi;
+
+import java.util.Objects;
+
 /**
  * Controller for the main GUI.
  */
@@ -22,12 +27,13 @@ public class MainWindow extends AnchorPane {
 
     private Xizi xizi;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/tea.png"));
-    private Image xiziImage = new Image(this.getClass().getResourceAsStream("/images/wine.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/tea.png")));
+    private final Image xiziImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/wine.png")));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        showWelcomeMessage();
     }
 
     /** Injects the Xizi instance */
@@ -48,6 +54,16 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getXiziDialog(response, xiziImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Displays a welcome message when the application is first opened.
+     */
+    private void showWelcomeMessage() {
+        Platform.runLater(() -> { //need to run on the application thread?
+            String welcomeMessage = xizi.returnWelcomeString();
+            dialogContainer.getChildren().add(DialogBox.getXiziDialog(welcomeMessage, xiziImage));
+        });
     }
 }
 

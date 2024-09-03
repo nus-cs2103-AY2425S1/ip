@@ -89,18 +89,7 @@ public class TaskList {
     }
 
 
-    /**
-     * Prints all the tasks in the list, each prefixed by its index.
-     * If the list is empty, a message indicating that there are no tasks is printed.
-     */
-    public void printActions() {
-        for (int i = 1; i <= this.size; i++){
-            System.out.printf("%,d. %s%n", i ,this.items.get(i-1).toString());
-        }
-        if (this.size == 0) {
-            System.out.println("There are no tasks in the list now");
-        }
-    }
+
 
 
 }

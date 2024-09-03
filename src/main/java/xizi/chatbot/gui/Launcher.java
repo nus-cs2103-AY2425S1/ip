@@ -1,4 +1,4 @@
-package xizi.chatbot;
+package xizi.chatbot.gui;
 import javafx.application.Application;
 
 public class Launcher {

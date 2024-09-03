@@ -47,10 +47,14 @@ public class Storage {
      */
     public List<Task> load() throws IOException, XiziException {
         List<Task> tasks = new ArrayList<>();
-        if (!Files.exists(filePath)) {
-            Files.createDirectories(filePath.getParent());
-            Files.createFile(filePath);
-            return tasks; // Return an empty task list if file doesn't exist
+        try {
+            if (!Files.exists(filePath)) {
+                Files.createDirectories(filePath.getParent());
+                Files.createFile(filePath);
+                return tasks; // Return an empty task list if file doesn't exist
+            }
+        } catch (IOException e) {
+            throw new IOException("Failed to create file or directory: " + filePath, e); // assist in debugging
         }
         BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()));
         try {

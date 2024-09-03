@@ -1,21 +1,17 @@
-package xizi.chatbot;
+package xizi.chatbot.gui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import xizi.chatbot.Xizi;
 
 import java.io.IOException;
 
-
+//https://openjfx.io/javadoc/17/javafx.controls/javafx/scene/control/package-summary.html
 public class XiziApp extends Application {
 
-    private Xizi xizi = new Xizi("./data/xizi.txt");
+    private Xizi xizi = new Xizi("data/xizi.txt");
 
     @Override
     public void start(Stage stage) {
@@ -24,7 +20,7 @@ public class XiziApp extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setXizi(xizi);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setXizi(xizi);  // inject the Xizi instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

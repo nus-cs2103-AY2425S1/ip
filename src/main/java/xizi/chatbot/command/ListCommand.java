@@ -1,8 +1,11 @@
 package xizi.chatbot.command;
 
 import xizi.chatbot.Storage;
+import xizi.chatbot.task.Task;
 import xizi.chatbot.task.TaskList;
 import xizi.chatbot.Ui;
+
+import java.util.List;
 
 /**
  * Represents a command to list all tasks currently in the task list.
@@ -22,7 +25,16 @@ public class ListCommand implements Command {
     public void execute(TaskList actions, Storage storage, Ui ui) {
         ui.showLine();
         ui.printMessage("Here are the tasks in your list:");
-        actions.printActions();
+        int listSize = actions.getSize();
+        List<Task> innerTasks = actions.getItems();
+        for (int i = 1; i <= listSize; i++) {
+            Task task = innerTasks.get(i - 1);
+            String taskString = String.format("%d. %s", i, task.toString());
+            ui.printMessage(taskString);
+        }
+        if (listSize == 0) {
+            ui.printMessage("There are no tasks in the list now");
+        }
         ui.showLine();
     }
 }

@@ -1,4 +1,4 @@
-package xizi.chatbot;
+package xizi.chatbot.gui;
 import java.io.IOException;
 import java.util.Collections;
 

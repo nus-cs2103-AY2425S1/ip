@@ -10,7 +10,7 @@ import java.io.PrintStream;
 public class Ui {
     private static final String DIVIDER = "____________________________________________________________";
     private final Scanner in;
-    private final PrintStream out;
+    private PrintStream out;
 
     /**
      * Creates a new Ui instance with default input and output streams.
@@ -31,6 +31,15 @@ public class Ui {
     }
 
     /**
+     * Allows setting a new output stream.
+     *
+     * @param out The new PrintStream to use for output.
+     */
+    public void setOutput(PrintStream out) {
+        this.out = out;
+    }
+
+    /**
      * Displays a welcome message to the user.
      */
     public void showWelcomeMessage() {
@@ -39,6 +48,8 @@ public class Ui {
         out.println("What can I do for you?");
         out.println(DIVIDER);
     }
+
+
 
     /**
      * Prints an error message to the user.

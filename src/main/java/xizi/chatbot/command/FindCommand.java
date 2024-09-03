@@ -45,6 +45,7 @@ public class FindCommand implements Command {
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws XiziException, IOException {
         List<Task> matchingTasks = new ArrayList<>();
+        ui.showLine();
 
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getItems().get(i);
