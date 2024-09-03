@@ -1,6 +1,5 @@
 package Dawn;
 public class Dawn {
-
     private Storage storage;
     private Ui ui;
     private TaskList taskList;
