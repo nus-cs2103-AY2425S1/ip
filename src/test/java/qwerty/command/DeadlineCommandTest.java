@@ -13,7 +13,9 @@ import qwerty.Storage;
 import qwerty.TaskList;
 import qwerty.ui.Ui;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DeadlineCommandTest {
 

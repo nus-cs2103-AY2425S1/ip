@@ -13,6 +13,10 @@ import qwerty.task.Event;
 import qwerty.task.Task;
 import qwerty.task.Todo;
 
+/**
+ * This class encapsulates a storage component that handles saving and loading the
+ * task list from the hard drive.
+ */
 public class Storage {
     /** The file path of the save file */
     private String savePath;
@@ -74,54 +78,8 @@ public class Storage {
                     try {
                         // Parse the string in each line and match it to a task type
                         String[] args = scanner.nextLine().split("\\|");
-                        switch (args[0]) {
-                        case "":
-                            break; // skip empty lines
-                        case "T":
-                            // Check if arguments exist
-                            if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for Todo task");
-                            }
-
-                            // Create task with the given arguments and mark as done if needed
-                            Task todo = new Todo(args[2]);
-                            if (args[1].equals("X")) {
-                                todo.markAsDone();
-                            }
-
-                            // Add the task to the task list
-                            taskList.addTask(todo);
-                            break;
-                        case "D":
-                            if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for Deadline task");
-                            }
-                            Task deadline = new Deadline(
-                                    args[2],
-                                    LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
-                            );
-                            if (args[1].equals("X")) {
-                                deadline.markAsDone();
-                            }
-                            taskList.addTask(deadline);
-                            break;
-                        case "E":
-                            if (args.length < 3) {
-                                throw new QwertyException("Missing arguments for Event task");
-                            }
-                            Task event = new Event(args[2],
-                                    LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
-                                    LocalDateTime.parse(args[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
-                            );
-                            if (args[1].equals("X")) {
-                                event.markAsDone();
-                            }
-                            taskList.addTask(event);
-                            break;
-                        default:
-                            System.out.println("Unrecognised task identifier: " + args[0]);
-                            break;
-                        }
+                        // create corresponding Task object and add to the list
+                        createTask(taskList, args);
                     } catch (QwertyException e) {
                         System.out.println("Error while reading from line "
                                 + lineNumber + ": " + e.getMessage());
@@ -130,6 +88,65 @@ public class Storage {
             } catch (FileNotFoundException e) {
                 // this should not happen, already checked if file exists
             }
+        }
+    }
+
+    /**
+     * Creates a task using the given args and adds it to the task list.
+     * Helper method for loadTasks.
+     *
+     * @param taskList TaskList object to add the task into.
+     * @param args Array of string arguments.
+     * @throws QwertyException If arguments are missing and/or invalid.
+     */
+    private void createTask(TaskList taskList, String[] args) throws QwertyException {
+        switch (args[0]) {
+        case "":
+            break; // skip empty lines
+        case "T":
+            // Check if arguments exist
+            if (args.length < 3) {
+                throw new QwertyException("Missing arguments for Todo task");
+            }
+
+            // Create task with the given arguments and mark as done if needed
+            Task todo = new Todo(args[2]);
+            if (args[1].equals("X")) {
+                todo.markAsDone();
+            }
+
+            // Add the task to the task list
+            taskList.addTask(todo);
+            break;
+        case "D":
+            if (args.length < 3) {
+                throw new QwertyException("Missing arguments for Deadline task");
+            }
+            Task deadline = new Deadline(
+                    args[2],
+                    LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+            );
+            if (args[1].equals("X")) {
+                deadline.markAsDone();
+            }
+            taskList.addTask(deadline);
+            break;
+        case "E":
+            if (args.length < 3) {
+                throw new QwertyException("Missing arguments for Event task");
+            }
+            Task event = new Event(args[2],
+                    LocalDateTime.parse(args[3], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
+                    LocalDateTime.parse(args[4], DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
+            );
+            if (args[1].equals("X")) {
+                event.markAsDone();
+            }
+            taskList.addTask(event);
+            break;
+        default:
+            System.out.println("Unrecognised task identifier: " + args[0]);
+            break;
         }
     }
 }

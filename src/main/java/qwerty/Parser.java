@@ -32,7 +32,7 @@ public class Parser {
     public static HashMap<String, String> parseArgs(String additionalArgs) {
         HashMap<String, String> map = new HashMap<>();
 
-        //extract first argument separately because it has no identifier
+        // extract first argument separately because it has no identifier
         String[] argSplit = additionalArgs.split(" /", 2);
         map.put("main", argSplit[0].isEmpty() ? null : argSplit[0]);
 
