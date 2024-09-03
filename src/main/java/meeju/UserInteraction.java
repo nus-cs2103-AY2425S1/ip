@@ -13,6 +13,9 @@ public class UserInteraction {
      * and sent for parsing and executing the instruction.
      * The loop continues until the user provides the command "bye".
      */
+
+
+    //CONSIDER REMOVING THIS CLASS AND MOVING ALL LOGIC TO MEEJU.JAVA
     public void interact() {
         Scanner scannerObject = new Scanner(System.in);
         Storage storage = new Storage();

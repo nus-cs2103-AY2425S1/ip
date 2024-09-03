@@ -5,6 +5,12 @@ package meeju;
  * It interacts with the TaskList object to perform various operations like creating, updating,
  * finding and deleting tasks.
  */
+
+
+// Make changes to this parse method
+    // it should take in the string and tasklist as usual BUT, it must return the respons as a
+    // STRING NOW!!!!
+    // EVEN AN EXCEPTION IS TO BE RETURNED AS A STRING - return in catch block
 public class Parser {
 
     /**

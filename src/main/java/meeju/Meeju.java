@@ -26,5 +26,10 @@ public class Meeju {
         userInteraction.interact();
         GoodByeMessage.goodByeMessage();
         System.out.println(Meeju.LINE_BREAK);
+
+
+        //REMOVE ALL THE LINE BREAK,... Initialize all objects that was initialised in userinteraction clas
+        // add a getResponse method method should get input, pass to parse and get back a string
+        // -> an instance of meeju will be passed to the GUI part
     }
 }
