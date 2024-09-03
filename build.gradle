@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("echobot.EchoBot")
+    mainClass.set("echobot.Launcher")
 }
 
 shadowJar {
