@@ -6,21 +6,32 @@ import java.util.Scanner;
 
 public class Lawrence {
     private static final String NAME = "Lawrence";
-    private static final Path saveLocation = Paths.get(".", "data", "tasks.txt");
-    private static final Tasks tasks = new Tasks(saveLocation);
+    private static final Path SAVE_LOCATION = Paths.get(".", "data", "tasks.txt");
+    private TaskList taskList;
+    private final TaskFileManager manager;
+    private final UserInterface ui;
+
+    public Lawrence() {
+        ui = new UserInterface(NAME);
+        manager = new TaskFileManager(SAVE_LOCATION);
+        try {
+            Task[] existingTasks = manager.readTasksFromFile();
+            taskList = new TaskList(existingTasks);
+        } catch (IOException e) {
+            // initialise with no tasks instead
+            taskList = new TaskList(new Task[0]);
+        }
+    }
 
     public static void main(String[] args) {
-        greetUser();
+        Lawrence primeMinister = new Lawrence();
+        primeMinister.run();
+    }
 
-        // Parse saved tasks from file
-        try {
-            tasks.initialiseExistingTasks();
-        } catch (IOException e) {
-            displayMessage("Failed to initialise tasks from file");
-        }
+    public void run() {
+        ui.greetUser();
 
         Scanner sc = new Scanner(System.in);
-
         String userInput;
         while (true) {
             userInput = sc.nextLine();  // Get next user input
@@ -28,25 +39,25 @@ public class Lawrence {
             // Parse command at start of the line
             String[] inputComponents = userInput.split(" ", 2);
 
-            Command command;
+            CommandType command;
             try {
-                command = Command.fromString(inputComponents[0]);
+                command = CommandType.fromString(inputComponents[0]);
             } catch (IllegalArgumentException e) {
-                displayMessage(
+                ui.showMessage(
                         String.format("Unable to recognize command '%s'. Please try again.", inputComponents[0]));
                 continue;  // Skip to the next iteration
             }
 
             switch (command) {
             case EXIT:
-                exitSession();
+                ui.exitSession();
                 break;
             case DISPLAY:
                 displayTasks();
                 break;
             case MARK_COMPLETE:
                 if (inputComponents.length < 2) {
-                    displayMessage("Please specify the task you want to mark as complete.");
+                    ui.showMessage("Please specify the task you want to mark as complete.");
                     break;
                 }
                 int taskNumberToComplete = Integer.parseInt(inputComponents[1]);
@@ -54,7 +65,7 @@ public class Lawrence {
                 break;
             case MARK_INCOMPLETE:
                 if (inputComponents.length < 2) {
-                    displayMessage("Please specify the task you want to mark as incomplete.");
+                    ui.showMessage("Please specify the task you want to mark as incomplete.");
                     break;
                 }
                 int taskNumberToIncomplete = Integer.parseInt(inputComponents[1]);
@@ -62,7 +73,7 @@ public class Lawrence {
                 break;
             case DELETE:
                 if (inputComponents.length < 2) {
-                    displayMessage("Please specify the task you want to delete.");
+                    ui.showMessage("Please specify the task you want to delete.");
                     break;
                 }
                 int taskNumberToDelete = Integer.parseInt(inputComponents[1]);
@@ -77,8 +88,11 @@ public class Lawrence {
                     Task t = TaskFactory.createTask(userInput, InputSource.USER);
                     addTask(t);
                 } catch (DateTimeParseException e) {
-                    System.out.println(e);
-                    displayMessage("Invalid date and/or time provided. Please try again.");
+                    ui.showMessage(
+                            String.format("Invalid date and/or time provided. DateTime should be in the format: %s",
+                                    DateUtils.USER_INPUT_FORMAT_STRING));
+                } catch (IllegalArgumentException e) {
+                    ui.showMessage(String.format(e.getMessage()));
                 }
                 break;
             default:
@@ -88,93 +102,77 @@ public class Lawrence {
         }
     }
 
-    private static void addTask(Task t) {
+    private void addTask(Task t) {
         try {
-            tasks.addTask(t);
-            int numberOfTasks = tasks.getSize();
+            taskList.addTask(t);
+            saveTasks();
+
+            // Format components of message
+            int numberOfTasks = taskList.getSize();
             String verb = numberOfTasks == 1 ? "is" : "are";
             String plural = numberOfTasks == 1 ? "" : "s";
-            displayMessage(String.format("Alright, added task:%n%s%nto the list.%n"
+            ui.showMessage(String.format("Alright, added task:%n%s%nto the list.%n"
                     + "There %s currently %d task%s in the list.", t, verb, numberOfTasks, plural));
         } catch (IOException e) {
-            displayMessage("Failed to add task to the list. Please try again later.");
+            ui.showMessage("Failed to add task to the list. Please try again later.");
         }
     }
 
-    private static void deleteTask(int taskNumber) {
+    private void deleteTask(int taskNumber) {
         try {
-            Task deletedTask = tasks.deleteTask(taskNumber);
-            displayMessage(
-                    String.format("Task %s has been deleted.", deletedTask));
+            Task deletedTask = taskList.deleteTask(taskNumber);
+            saveTasks();
+
+            ui.showMessage(String.format("Task %s has been deleted.", deletedTask));
         } catch (NumberFormatException e) {
-            displayMessage("Please specify a number to select a task.");
+            ui.showMessage("Please specify a number to select a task.");
         } catch (IllegalArgumentException | IllegalStateException e) {
-            displayMessage(
-                    String.format("%s Please try again.", e.getMessage()));
+            ui.showMessage(String.format("%s Please try again.", e.getMessage()));
         } catch (IOException e) {
-            displayMessage(
-                    String.format("Failed to delete task %d from the list. Please try again later.", taskNumber));
+            ui.showMessage(String.format("Failed to delete task %d from the list. Please try again.", taskNumber));
         }
     }
 
-    private static void markTaskAsComplete(int taskNumber) {
+    private void markTaskAsComplete(int taskNumber) {
         try {
-            Task completeTask = tasks.completeTask(taskNumber);
-            displayMessage(
+            Task completeTask = taskList.completeTask(taskNumber);
+            saveTasks();
+
+            ui.showMessage(
                     String.format("I've marked the task as complete:%n%s", completeTask));
         } catch (NumberFormatException e) {
-            displayMessage("Please specify a number to select a task.");
+            ui.showMessage("Please specify a number to select a task.");
         } catch (IllegalArgumentException | IllegalStateException e) {
-            displayMessage(
-                    String.format("%s Please try again.", e.getMessage()));
+            ui.showMessage(String.format("%s Please try again.", e.getMessage()));
         } catch (IOException e) {
-            displayMessage(
-                    String.format("Failed to mark task %d as complete. Please try again later.", taskNumber));
+            ui.showMessage(String.format("Failed to mark task %d as complete. Please try again later.", taskNumber));
         }
     }
 
-    private static void markTaskAsIncomplete(int taskNumber) {
+    private void markTaskAsIncomplete(int taskNumber) {
         try {
-            Task incompleteTask = tasks.uncompleteTask(taskNumber);
-            displayMessage(
-                    String.format("Changed your mind? The task is set to incomplete:%n%s", incompleteTask));
+            Task incompleteTask = taskList.uncompleteTask(taskNumber);
+            saveTasks();
+
+            ui.showMessage(String.format("Changed your mind? The task is set to incomplete:%n%s", incompleteTask));
         } catch (NumberFormatException e) {
-            displayMessage("Please specify a number to select a task.");
+            ui.showMessage("Please specify a number to select a task.");
         } catch (IllegalArgumentException | IllegalStateException e) {
-            displayMessage(
-                    String.format("%s Please try again.", e.getMessage()));
+            ui.showMessage(String.format("%s Please try again.", e.getMessage()));
         } catch (IOException e) {
-            displayMessage(
-                    String.format("Failed to mark task %d as incomplete. Please try again later.", taskNumber));
+            ui.showMessage(String.format("Failed to mark task %d as incomplete. Please try again later.", taskNumber));
         }
     }
 
-    private static void displayTasks() {
-        if (tasks.getSize() < 1) {
-            displayMessage("You have no tasks at the moment.");
+    private void saveTasks() throws IOException{
+        manager.saveTasksToFile(taskList.getTasks());
+    }
+
+    private void displayTasks() {
+        if (taskList.getSize() < 1) {
+            ui.showMessage("You have no tasks at the moment.");
             return;
         }
-        displayMessage(String.format("Here's your laundry list:%n%s", tasks));
-    }
-
-    private static void greetUser() {
-        String greeting = String.format("Hello! I'm %s and I'm here to establish another GST hike.%n"
-                + "What can I do for you?", NAME);
-        displayMessage(greeting);
-    }
-
-    private static void exitSession() {
-        displayMessage("That's all folks! Hope to see you again soon!");
-        System.exit(0);
-    }
-
-    private static void displayMessage(String message) {
-        displayHorizontalLine();
-        System.out.println(message);
-        displayHorizontalLine();
-    }
-
-    private static void displayHorizontalLine() {
-        System.out.println("====================");
+        ui.showMessage(String.format("Here's your laundry list:%n%s", taskList));
     }
 }

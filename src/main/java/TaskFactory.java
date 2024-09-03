@@ -4,13 +4,14 @@ public class TaskFactory {
         switch(source) {
         case FILE:
             creator = new FileTaskCreator();
-            return creator.createTask(input);
+            break;
         case USER:
             creator = new UserTaskCreator();
-            return creator.createTask(input);
+            break;
         default:
             // This case should never be reached
             throw new IllegalStateException("Unexpected source: " + source);
         }
+        return creator.createTask(input);
     }
 }
