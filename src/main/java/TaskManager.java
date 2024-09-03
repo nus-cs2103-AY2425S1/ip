@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TaskManager {
     private final List<Task> taskList;
@@ -45,6 +46,37 @@ public class TaskManager {
         Task event = new Event(description, from, to);
         taskList.add(event);
         return event;
+    }
+
+    /**
+     * Loads tasks from the task save file
+     * @return boolean whether tasks loaded successfully
+     */
+    public boolean loadTasks() {
+        File file;
+        try {
+            file = new File(SAVE_FILE);
+            Scanner scanner = new Scanner(file);
+
+            String taskString = scanner.nextLine();
+            if (taskString.startsWith("T")) {
+                Task task = Todo.fromTaskString(taskString);
+                taskList.add(task);
+            } else if (taskString.startsWith("D")) {
+                Task task = Deadline.fromTaskString(taskString);
+                taskList.add(task);
+            } else if (taskString.startsWith("E")) {
+                Task task = Event.fromTaskString(taskString);
+                taskList.add(task);
+            } else {
+                System.out.println("Invalid task found, skipping: " + taskString);
+            }
+
+            return true;
+        } catch (IOException e) {
+            System.out.println("Error! Failed to load tasks!");
+            return false;
+        }
     }
 
     /**
