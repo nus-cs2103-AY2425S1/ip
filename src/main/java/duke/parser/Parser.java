@@ -54,6 +54,9 @@ public class Parser {
                 case "update":
                     taskList.updateTask(args);
                     break;
+                case "savefile":
+                    taskList.saveFile(args);
+                    break;
                 case "find":
                     taskList.filter(args);
                     break;
@@ -84,7 +87,7 @@ public class Parser {
      * @return string
      */
     public String handleGuiInput(String input) throws DukeException {
-        TaskList tasklist = TaskList.getInstance();
+        TaskList taskList = TaskList.getInstance();
 
         ByteArrayOutputStream bstream = new ByteArrayOutputStream();
         PrintStream pstream = new PrintStream(bstream);
@@ -101,27 +104,30 @@ public class Parser {
                 System.setOut(sysstream);
                 return "Bye. Hope to see you again soon!";
             case "list":
-                tasklist.printTaskList();
-                break;
-            case "unmark":
-                tasklist.unmark(args);
+                taskList.printTaskList();
                 break;
             case "update":
-                tasklist.updateTask(args);
+                taskList.updateTask(args);
+                break;
+            case "savefile":
+                taskList.saveFile(args);
                 break;
             case "mark":
-                tasklist.mark(args);
+                taskList.mark(args);
+                break;
+            case "unmark":
+                taskList.unmark(args);
+                break;
+            case "find":
+                taskList.filter(args);
+                break;
+            case "delete":
+                taskList.deleteTask(args);
                 break;
             case "todo":
             case "deadline":
             case "event":
-                tasklist.createTask(cmd, args);
-                break;
-            case "delete":
-                tasklist.deleteTask(args);
-                break;
-            case "find":
-                tasklist.filter(args);
+                taskList.createTask(cmd, args);
                 break;
             default:
                 throw new DukeException("Invalid command provided.");
