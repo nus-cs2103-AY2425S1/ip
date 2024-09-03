@@ -1,7 +1,7 @@
 list
-todo read book after save
-deadline return book 2 after save /by Monday
-event after save meeting /from Mon 2pm /to 4pm
+todo read book after dates and times
+deadline return book /by 2024-09-10 1200
+event hackathon /from 2024-10-10 0800 /to 2024-10-12 1700
 list
 mark 1
 unmark 1
@@ -10,11 +10,13 @@ unmark
 mark 0
 unmark 0
 deadline
-deadline code project after save
+deadline code project
+deadline return book /by 2024 Sep 15 2359
+deadline return book /by 2024 Sep 15 2500
 event
 event hackathon
-event /from 2pm /to 6pm
-todo code after save
+event testing /from 2024 09 10 10am /to 2024 09 12 5pm
+todo code
 list
 delete
 delete 7

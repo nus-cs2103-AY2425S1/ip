@@ -1,4 +1,5 @@
 import javax.crypto.SecretKey;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -250,8 +251,14 @@ public class Void {
                             throw new VoidException("AH! The description of a deadline and the deadline can't be empty!\n\tRemember to put a /by after the description!");
 
                         } else {
-                            Deadline d = new Deadline(details[0], details[1]);
-                            d.addTaskMessage(tasks);
+                            try {
+                                Deadline d = new Deadline(details[0], details[1]);
+                                d.addTaskMessage(tasks);
+                            } catch (DateTimeParseException d) {
+                                System.out.printf("\t%s%n", "------------------------------------------------------------------");
+                                System.out.printf("\t%s%n", "AH! Check if:\n\t1. Input time is valid\n\t2. Format of the date time is yyyy-mm-dd hhmm");
+                                System.out.printf("\t%s%n", "------------------------------------------------------------------");
+                            }
                         }
                     }
                 } else if (splitInput[0].equalsIgnoreCase("event")) {
@@ -262,8 +269,14 @@ public class Void {
                         if (details.length != 3) {
                             throw new VoidException("AH! The description of an event, and the start and end time can't be empty!\n\tRemember to put a /from and /to after the description!");
                         } else {
-                            Event e = new Event(details[0], details[1], details[2]);
-                            e.addTaskMessage(tasks);
+                            try {
+                                Event e = new Event(details[0], details[1], details[2]);
+                                e.addTaskMessage(tasks);
+                            } catch (DateTimeParseException d) {
+                                System.out.printf("\t%s%n", "------------------------------------------------------------------");
+                                System.out.printf("\t%s%n", "AH! Check if:\n\t1. Input time is valid\n\t2. Format of the date time is yyyy-mm-dd hhmm");
+                                System.out.printf("\t%s%n", "------------------------------------------------------------------");
+                            }
                         }
                     }
                 } else {

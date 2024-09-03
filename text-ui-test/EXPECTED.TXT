@@ -12,42 +12,36 @@
 	At your service, human.
 	------------------------------------------------------------------
 	------------------------------------------------------------------
-	Here are the tasks in your list:
-	1. [T][ ] read book
-	2. [D][ ] return book (by: Sunday)
-	3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	No tasks found in list yet!
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	Got it. I've added this task:
-		[T][ ] read book after save
-	Now you have 4 tasks in the list.
+		[T][ ] read book after dates and times
+	Now you have 1 tasks in the list.
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	Got it. I've added this task:
-		[D][ ] return book 2 after save (by: Monday)
-	Now you have 5 tasks in the list.
+		[D][ ] return book (by: Sept 10 2024, 12:00pm)
+	Now you have 2 tasks in the list.
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	Got it. I've added this task:
-		[E][ ] after save meeting (from: Mon 2pm to: 4pm)
-	Now you have 6 tasks in the list.
+		[E][ ] hackathon (from: Oct 10 2024, 8:00am to: Oct 12 2024, 5:00pm)
+	Now you have 3 tasks in the list.
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	Here are the tasks in your list:
-	1. [T][ ] read book
-	2. [D][ ] return book (by: Sunday)
-	3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-	4. [T][ ] read book after save
-	5. [D][ ] return book 2 after save (by: Monday)
-	6. [E][ ] after save meeting (from: Mon 2pm to: 4pm)
+	1. [T][ ] read book after dates and times
+	2. [D][ ] return book (by: Sept 10 2024, 12:00pm)
+	3. [E][ ] hackathon (from: Oct 10 2024, 8:00am to: Oct 12 2024, 5:00pm)
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	Good job! I've marked this task as done:
-		[T][X] read book
+		[T][X] read book after dates and times
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	OK, I've marked this task as not done yet:
-		[T][ ] read book
+		[T][ ] read book after dates and times
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	Hm.. I don't know which to mark! Give me the task number please.
@@ -69,6 +63,16 @@
 	Remember to put a /by after the description!
 	------------------------------------------------------------------
 	------------------------------------------------------------------
+	AH! Check if:
+	1. Input time is valid
+	2. Format of the date time is yyyy-mm-dd hhmm
+	------------------------------------------------------------------
+	------------------------------------------------------------------
+	AH! Check if:
+	1. Input time is valid
+	2. Format of the date time is yyyy-mm-dd hhmm
+	------------------------------------------------------------------
+	------------------------------------------------------------------
 	Meow! The description of an event can't be empty!
 	------------------------------------------------------------------
 	------------------------------------------------------------------
@@ -76,31 +80,27 @@
 	Remember to put a /from and /to after the description!
 	------------------------------------------------------------------
 	------------------------------------------------------------------
-	AH! The description of an event, and the start and end time can't be empty!
-	Remember to put a /from and /to after the description!
+	AH! Check if:
+	1. Input time is valid
+	2. Format of the date time is yyyy-mm-dd hhmm
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	Got it. I've added this task:
-		[T][ ] code after save
-	Now you have 7 tasks in the list.
+		[T][ ] code
+	Now you have 4 tasks in the list.
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	Here are the tasks in your list:
-	1. [T][ ] read book
-	2. [D][ ] return book (by: Sunday)
-	3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-	4. [T][ ] read book after save
-	5. [D][ ] return book 2 after save (by: Monday)
-	6. [E][ ] after save meeting (from: Mon 2pm to: 4pm)
-	7. [T][ ] code after save
+	1. [T][ ] read book after dates and times
+	2. [D][ ] return book (by: Sept 10 2024, 12:00pm)
+	3. [E][ ] hackathon (from: Oct 10 2024, 8:00am to: Oct 12 2024, 5:00pm)
+	4. [T][ ] code
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	Hm.. I dont know which to delete! Give me the task number please.
 	------------------------------------------------------------------
 	------------------------------------------------------------------
-	Noted. I've removed this task:
-		[T][ ] code after save
-	Now you have 6 tasks in the list.
+	OOPS!!! The task number provided is invalid.
 	------------------------------------------------------------------
 	------------------------------------------------------------------
 	AH!! My apologies, I don't know what that means =T^T=
