@@ -30,14 +30,14 @@ public class MainWindow extends AnchorPane {
 
     private Talkie talkie;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/travis.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/baby-yoda.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        sendButton.setFont(Font.font("Helvetica"));
-        userInput.setFont(Font.font("Helvetica"));
+        sendButton.setFont(Font.font("Verdana"));
+        userInput.setFont(Font.font("Verdana"));
         String greeting = "Welcome! I'm Talkie.\nWhat can I do for you?";
         dialogContainer.getChildren().add(
                 DialogBox.getTalkieDialog(greeting, dukeImage)
