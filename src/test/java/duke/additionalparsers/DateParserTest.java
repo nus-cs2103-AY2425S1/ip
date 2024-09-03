@@ -1,4 +1,4 @@
-package duke.additionalParsers;
+package duke.additionalparsers;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

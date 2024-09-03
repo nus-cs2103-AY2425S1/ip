@@ -1,9 +1,9 @@
-package duke.additionalParsers;
+package duke.additionalparsers;
 
-import duke.Tasks.Deadline;
-import duke.Tasks.Event;
-import duke.Tasks.Task;
-import duke.Tasks.Todo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 import java.io.IOException;
 import java.nio.file.Files;

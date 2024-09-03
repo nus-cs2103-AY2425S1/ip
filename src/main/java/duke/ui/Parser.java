@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.Tasks.Storage;
+import duke.tasks.Storage;
 
 import java.util.Scanner;
 /**
@@ -40,7 +40,7 @@ public class Parser {
                     System.out.println("sorry bud that ain't a number\ni don't know which task u're referring to...");
                     break;
                 }
-                if(0 < i && i <= storage.size()) {
+                if (0 < i && i <= storage.size()) {
                     storage.mark(i);
                     System.out.println(String.format("marked %s as completed\nuse \"list\" to see changes",i));
                 }else {
@@ -64,14 +64,14 @@ public class Parser {
                 }
                 break;
             case "todo":
-                if(!text.isEmpty()){
+                if (!text.isEmpty()){
                     storage.todo(text);
                     System.out.println("Added " + '\"'+ text + "\"" + " as a new task I guess");
                     System.out.println(String.format("you have %s tasks now",storage.size()));
                 } else System.out.println("bruh? type something to add I'm not adding a blank...");
             break;
             case "event":
-                if(!text.isEmpty()){
+                if (!text.isEmpty()){
                     try{
                         if (text.contains("/from") && text.contains("/to")) {
                             storage.event(text);
@@ -86,7 +86,7 @@ public class Parser {
              } else System.out.println("bruh? type something to add I'm not adding a blank...");
             break;
             case "deadline":
-                if(!text.isEmpty()){
+                if (!text.isEmpty()){
                     try{
                         if (text.contains("/by")) {
                             storage.deadline(text);

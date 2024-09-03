@@ -1,5 +1,5 @@
-package duke.Tasks;
-import duke.additionalParsers.DateParser;
+package duke.tasks;
+import duke.additionalparsers.DateParser;
 
 
 public class Deadline extends Task {

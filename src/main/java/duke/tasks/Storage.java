@@ -1,7 +1,7 @@
-package duke.Tasks;
+package duke.tasks;
 
 import duke.ui.Notgpt;
-import duke.additionalParsers.DataParser;
+import duke.additionalparsers.DataParser;
 
 import java.util.ArrayList;
 import java.io.IOException;
