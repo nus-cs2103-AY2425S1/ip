@@ -1,4 +1,4 @@
-package broski;
+package broski.exception;
 
 /**
  * Exception class to handle invalid date and time input by user.

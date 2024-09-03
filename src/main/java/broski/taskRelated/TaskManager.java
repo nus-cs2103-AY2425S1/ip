@@ -1,4 +1,4 @@
-package broski;
+package broski.taskRelated;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import broski.task.Deadline;
+import broski.task.Event;
+import broski.task.Task;
+import broski.task.Todo;
 
 /**
  * Class that holds all functionality for the saving and loading of tasks into hard disk.
@@ -52,7 +57,7 @@ public class TaskManager {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null) {
-                Task task = parseTask(line); // Implement this method to convert a line to a broski.Task
+                Task task = parseTask(line); // Implement this method to convert a line to a broski.task.Task
                 tasks.add(task);
             }
             reader.close();
