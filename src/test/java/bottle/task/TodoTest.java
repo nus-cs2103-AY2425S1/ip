@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 public class TodoTest {
 
     private Todo todo;
@@ -55,3 +56,4 @@ public class TodoTest {
         assertEquals("[T][ ] Finish homework", todo.toString());
     }
 }
+
