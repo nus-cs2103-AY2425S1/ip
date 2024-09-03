@@ -66,7 +66,7 @@ public class Alvis {
 
     public static void addTask(Task task, List<Task> tracker) {
         tracker.add(task);
-        System.out.println("Understood, I have added to your list: \n" + task.toString());
+        System.out.println("Understood, I have added to your list:\n" + task.toString());
         System.out.println("You have " + tracker.size() + " tasks");
     }
 
