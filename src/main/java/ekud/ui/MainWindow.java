@@ -1,12 +1,12 @@
 package ekud.ui;
 
 import ekud.Ekud;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -27,8 +27,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Scene scene;
     private Ekud ekud;
-    private Image ekudImage = new Image(this.getClass().getResourceAsStream("/images/upside-down.png"));
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/flushed.png"));
 
     @FXML
     public void initialize() {
@@ -36,12 +34,21 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the {@link Ekud} instance.
-     *
-     * @param e The injected {@link Ekud} instance.
+     * Injects a new {@link Ekud} instance with graphical UI.
      */
-    public void setEkud(Ekud e) {
-        ekud = e;
+    public void setEkud() {
+        GraphicalUi ui = new GraphicalUi(dialogContainer, this::readInput);
+        ekud = new Ekud(ui);
+        ekud.runStartup();
+    }
+
+    /**
+     * Reads user input.
+     */
+    private String readInput() {
+        String input = userInput.getText();
+        userInput.clear();
+        return input;
     }
 
     /**
@@ -49,12 +56,13 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
-        String userText = userInput.getText();
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getEkudDialog("ha: " + userText, ekudImage)
-        );
-        userInput.clear();
+    private void handleUserInput() throws InterruptedException {
+        ekud.runReadAndExecute();
+        // terminates on "exit" or "bye" command
+        if (ekud.isExited()) {
+            ekud.runExit();
+            Platform.exit(); // closes application
+            System.exit(0); // terminates JVM
+        }
     }
 }

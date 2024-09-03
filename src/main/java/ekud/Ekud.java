@@ -12,10 +12,14 @@ import ekud.ui.Ui;
 
 /**
  * The Ekud class represents an instance of the EKuD chat robot that takes in user input
- * from the Command-Line-Interface (CLI) and prints an appropriate output.
+ * from the UI and prints an output to the UI.
  * <p/>
  * Each Ekud instance encapsulates a {@link Storage}, {@link TaskList}, and {@link Ui} component
  * which work together with the {@link Parser} to read and manipulate user input.
+ * <p/>
+ * EKuD starts by first greeting the user and then loading in previously saved tasks. After which,
+ * EKuD continuously executes the {@link Command} returned from the {@link Parser} reading user inputs
+ * until the user stops the program by giving the exit command using "bye" or "stop".
  *
  * @author uniqly
  */
@@ -32,6 +36,9 @@ public class Ekud {
     /** The ui handler of EKuD */
     private final Ui ui;
 
+    /** Boolean flag which indicates if user has exited Ekud */
+    private boolean hasExit = false;
+
     /**
      * Creates a new instance of the EKuD chat robot.
      *
@@ -41,6 +48,15 @@ public class Ekud {
         this.ui = ui;
         storage = new Storage(TASK_DATA_PATH);
         tasks = new TaskList();
+    }
+
+    /**
+     * Returns a boolean flag if the user has exited EKuD.
+     *
+     * @return {@link #hasExit}
+     */
+    public boolean isExited() {
+        return hasExit;
     }
 
     /**
@@ -59,36 +75,38 @@ public class Ekud {
     }
 
     /**
-     * Starts the EKuD chat robot program in text CLI.
-     * EKuD starts by first greeting the user and then loading in previously saved tasks. After which,
-     * EKuD continuously executes the {@link Command} returned from the {@link Parser} reading user inputs
-     * until the user stops the program by giving the exit command using "bye" or "stop".
-     *
-     * @see Parser#parse(String)
-     * @see Command#execute(TaskList, Ui, Storage)
+     * Executes startup actions; greeting and load tasks.
      */
-    private void runTextMode() {
+    public void runStartup() {
         // greet
         ui.printGreeting();
 
         // load storage
         loadTasks();
+    }
 
-        // read commands and execute
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (EkudException e) {
-                ui.addToBuffer(e.getMessage());
-            } finally {
+    /**
+     * Reads user input and executes commands.
+     */
+    public void runReadAndExecute() {
+        try {
+            String fullCommand = ui.readCommand();
+            Command command = Parser.parse(fullCommand);
+            command.execute(tasks, ui, storage);
+            hasExit = command.isExit();
+        } catch (EkudException e) {
+            ui.addToBuffer(e.getMessage());
+        } finally {
+            if (!hasExit) {
                 ui.printOutput();
             }
         }
+    }
 
+    /**
+     * Executes actions after exiting Ekud; print goodbye.
+     */
+    public void runExit() {
         // say goodbye
         ui.printGoodbye();
     }
@@ -96,10 +114,20 @@ public class Ekud {
     /**
      * Runs EKuD in Text CLI.
      */
-    public static void textMode() {
+    public static void runTextMode() {
+        // set up
         Scanner sc = new Scanner(System.in);
         TextUi ui = new TextUi(sc);
-        new Ekud(ui).runTextMode();
+        Ekud ekud = new Ekud(ui);
+
+        // ekud runs
+        ekud.runStartup();
+        while (!ekud.isExited()) {
+            ekud.runReadAndExecute();
+        }
+        ekud.runExit();
+
+        // close
         sc.close();
     }
 }
