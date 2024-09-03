@@ -33,7 +33,7 @@ public class StorageTest {
             assertDoesNotThrow(() -> {
                 storage.retrieve();
             });
-        } catch(IOException e) {
+        } catch (IOException e) {
 
         }
     }

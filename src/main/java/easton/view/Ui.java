@@ -45,7 +45,7 @@ public class Ui<T> {
 
     public void list(ArrayList<T> records) {
         print("Here are the tasks in your list:");
-        for (int i = 0; i < records.size(); i ++) {
+        for (int i = 0; i < records.size(); i++) {
             print((i + 1) + "." + records.get(i));
         }
     }

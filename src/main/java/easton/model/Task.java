@@ -18,7 +18,7 @@ public abstract class Task {
     }
 
     public String getCsvFormat() {
-        return (isDone ?  "1" : "0") + "," + description;
+        return (isDone ? "1" : "0") + "," + description;
     }
 
     @Override
