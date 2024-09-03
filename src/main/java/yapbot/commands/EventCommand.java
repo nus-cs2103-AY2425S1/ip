@@ -1,10 +1,10 @@
 package yapbot.commands;
 
 import yapbot.exceptions.YapBotException;
+import yapbot.tasks.Event;
 import yapbot.tasks.Task;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
-import yapbot.util.Tasktype;
 import yapbot.util.Ui;
 
 public class EventCommand extends Command {
@@ -22,7 +22,46 @@ public class EventCommand extends Command {
 
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
-        Task task = tasks.addTask(Tasktype.EVENT,this.taskDetails);
+        boolean containsFrom = taskDetails.contains("/from");
+        boolean containsTo = taskDetails.contains("/to");
+
+        if (!containsFrom && !containsTo) {
+            throw new YapBotException("Error, start and end times not detected.\nSupply start time using "
+                    + "\"/from\" (eg. /from Monday 1pm).\nSupply end time using \"/to\" (eg. /to Tuesday 1pm).");
+        }
+
+        if (!containsFrom) {
+            throw new YapBotException("Error, start time not detected.\nSupply start time using \"/from\" (eg. "
+                    + "/from Monday 1pm).");
+        }
+
+        if (!containsTo) {
+            throw new YapBotException("Error, end time not detected.\nSupply end time using \"/to\" (eg. /to "
+                    + "Tuesday 1pm).");
+        }
+
+        String taskName = taskDetails.substring(0, taskDetails.indexOf("/")).strip();
+        String taskDeadlines = taskDetails.substring(taskDetails.indexOf("/"));
+        int fromIndex = taskDeadlines.indexOf("/from");
+        int toIndex = taskDeadlines.indexOf("/to");
+        String fromStr;
+        String toStr;
+
+        // Checks order of /from and /to
+        if (toIndex > fromIndex) {
+            fromStr =
+                    taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5, taskDeadlines.indexOf("/to")).strip()
+                            .toUpperCase();
+            toStr = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3).strip().toUpperCase();
+        } else {
+            toStr = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3, taskDeadlines.indexOf("/from")).strip()
+                    .toUpperCase();
+            fromStr = taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5).strip().toUpperCase();
+        }
+
+        Task task = new Event(taskName, fromStr, toStr);
+        tasks.addTask(task);
+
         String successMessage = "Adding Task...\nSuccess\nTask added to database:\n" + "  "
                 + task + "\n" + "Total tasks: " + tasks.size();
         ui.printOutput(successMessage);

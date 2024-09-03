@@ -2,9 +2,9 @@ package yapbot.commands;
 
 import yapbot.exceptions.YapBotException;
 import yapbot.tasks.Task;
+import yapbot.tasks.ToDo;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
-import yapbot.util.Tasktype;
 import yapbot.util.Ui;
 
 public class ToDoCommand extends Command {
@@ -16,7 +16,8 @@ public class ToDoCommand extends Command {
 
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
-        Task task = tasks.addTask(Tasktype.TODO, this.taskDetails);
+        Task task = new ToDo(taskDetails);
+        tasks.addTask(task);
         String successMessage = "Adding Task...\nSuccess\nTask added to database:\n" + "  "
                 + task + "\n" + "Total tasks: " + tasks.size();
         ui.printOutput(successMessage);

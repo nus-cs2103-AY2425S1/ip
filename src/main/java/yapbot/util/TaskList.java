@@ -35,77 +35,9 @@ public class TaskList {
      * @param taskDetails Details of the task to be created.
      * @throws YapBotException If task details are missing for the specified task type.
      */
-    public Task addTask(Tasktype tasktype, String taskDetails) throws YapBotException {
+    public void addTask(Task task) throws YapBotException {
+        this.storedTasks.add(task);
 
-        switch (tasktype) {
-        case TODO: {
-            Task task = new ToDo(taskDetails);
-
-            storedTasks.add(task);
-            return task;
-        }
-
-        case DEADLINE: {
-            if (!taskDetails.contains("/by")) {
-                throw new YapBotException("Error, Deadline Prediction module offline.\nSupply a deadline using "
-                        + "\"/by\" (eg. /by Monday 1pm).");
-            }
-
-            String taskName = taskDetails.substring(0, taskDetails.indexOf("/by")).strip();
-            String deadlineStr = taskDetails.substring(taskDetails.indexOf("/by") + 3).strip().toUpperCase();
-
-            Task task = new Deadline(taskName, deadlineStr);
-            storedTasks.add(task);
-
-            return task;
-        }
-
-        case EVENT: {
-            boolean containsFrom = taskDetails.contains("/from");
-            boolean containsTo = taskDetails.contains("/to");
-
-            if (!containsFrom && !containsTo) {
-                throw new YapBotException("Error, start and end times not detected.\nSupply start time using "
-                        + "\"/from\" (eg. /from Monday 1pm).\nSupply end time using \"/to\" (eg. /to Tuesday 1pm).");
-            }
-
-            if (!containsFrom) {
-                throw new YapBotException("Error, start time not detected.\nSupply start time using \"/from\" (eg. "
-                        + "/from Monday 1pm).");
-            }
-
-            if (!containsTo) {
-                throw new YapBotException("Error, end time not detected.\nSupply end time using \"/to\" (eg. /to "
-                        + "Tuesday 1pm).");
-            }
-
-            String taskName = taskDetails.substring(0, taskDetails.indexOf("/")).strip();
-            String taskDeadlines = taskDetails.substring(taskDetails.indexOf("/"));
-            int fromIndex = taskDeadlines.indexOf("/from");
-            int toIndex = taskDeadlines.indexOf("/to");
-            String fromStr;
-            String toStr;
-
-            // Checks order of /from and /to
-            if (toIndex > fromIndex) {
-                fromStr =
-                        taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5, taskDeadlines.indexOf("/to")).strip()
-                                .toUpperCase();
-                toStr = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3).strip().toUpperCase();
-            } else {
-                toStr = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3, taskDeadlines.indexOf("/from")).strip()
-                        .toUpperCase();
-                fromStr = taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5).strip().toUpperCase();
-            }
-
-            Task task = new Event(taskName, fromStr, toStr);
-            storedTasks.add(task);
-
-            return task;
-        }
-        }
-
-        return null;
     }
 
     /**
