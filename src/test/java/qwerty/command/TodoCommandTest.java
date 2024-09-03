@@ -1,10 +1,11 @@
 package qwerty.command;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import qwerty.QwertyException;
 import qwerty.Storage;

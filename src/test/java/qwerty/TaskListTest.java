@@ -1,16 +1,17 @@
 package qwerty;
 
-import org.junit.jupiter.api.Test;
-import qwerty.task.Deadline;
-import qwerty.task.Task;
-import qwerty.task.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import qwerty.task.Deadline;
+import qwerty.task.Task;
+import qwerty.task.Todo;
 
 public class TaskListTest {
 

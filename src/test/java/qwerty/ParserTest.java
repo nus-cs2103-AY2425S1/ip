@@ -1,9 +1,10 @@
 package qwerty;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
     @Test
@@ -21,7 +22,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseArgs_MultipleSlashesWithSpacing_success() {
+    public void parseArgs_multipleSlashesWithSpacing_success() {
         HashMap<String, String> emptyMap = new HashMap<>();
         emptyMap.put("main", "/");
         // should ignore the other slashes due to empty argument

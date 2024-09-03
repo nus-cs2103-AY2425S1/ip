@@ -1,21 +1,21 @@
 package qwerty.command;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import qwerty.QwertyException;
 import qwerty.Storage;
 import qwerty.TaskList;
 import qwerty.ui.Ui;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DeadlineCommandTest {
 
@@ -86,7 +86,7 @@ public class DeadlineCommandTest {
                 Well done! An error has occurred:
                 I don't like the way you write dates.
                 Use this format: dd/MM/yyyy HHmm""";
-        assertEquals(expected, outContent.toString().trim().replace("\r",""));
+        assertEquals(expected, outContent.toString().trim().replace("\r", ""));
     }
 
     @Test
@@ -101,6 +101,6 @@ public class DeadlineCommandTest {
                 [D][ ] deadline (by: Aug 12 2036 0000)
                 Now you have 1 task in the list.
                 Better get to it.""";
-        assertEquals(expected, outContent.toString().trim().replace("\r",""));
+        assertEquals(expected, outContent.toString().trim().replace("\r", ""));
     }
 }
