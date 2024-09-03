@@ -2,6 +2,9 @@ package bitbot;
 
 import java.io.FileNotFoundException;
 
+/**
+ * The main class to run the application
+ */
 public class BitBot {
 
 

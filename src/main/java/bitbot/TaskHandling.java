@@ -5,9 +5,11 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
 
+/**
+ * This is the TaskHandling class which deals with the different types of tasks present.
+ */
 public class TaskHandling {
     /**
      * Handles the event task. It takes in the input
@@ -23,7 +25,7 @@ public class TaskHandling {
      * @param task This helps to determine if I need to add "task" or "tasks"
      * @throws BitBotException if input is invalid
      */
-    public static void handleEvent (ArrayList<Task> arrayList, String textPart,
+    public static void handleEvent(ArrayList<Task> arrayList, String textPart,
                                     String[] partsOfInput, int indexFrom, StringBuilder from,
                                     StringBuilder to, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
@@ -69,11 +71,14 @@ public class TaskHandling {
         textPart = sb.toString().trim();
 
         // this is if the user keys in a time after the date.
-        LocalDateTime eventDateAndTime = null, eventDateAndTime1 = null;
+        LocalDateTime beginningDateTime = null;
+        LocalDateTime endingDateTime = null;
         // this is if the user only keys in the date.
-        LocalDate eventDate = null, eventDate1 = null;
+        LocalDate beginningDate = null;
+        LocalDate endingDate = null;
         // this is if the user only keys in the time.
-        LocalTime eventTime = null, eventTime1 = null;
+        LocalTime beginningTime = null;
+        LocalTime endingTime = null;
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -82,16 +87,16 @@ public class TaskHandling {
         Task event;
 
         try {
-            eventDateAndTime = LocalDateTime.parse(from.toString().trim(), dateTimeFormatter);
-            eventDateAndTime1 = LocalDateTime.parse(to.toString().trim(), dateTimeFormatter);
+            beginningDateTime = LocalDateTime.parse(from.toString().trim(), dateTimeFormatter);
+            endingDateTime = LocalDateTime.parse(to.toString().trim(), dateTimeFormatter);
         } catch (DateTimeParseException e) {
             try {
-                eventTime = LocalTime.parse(from.toString().trim(), timeFormatter);
-                eventTime1 = LocalTime.parse(to.toString(), timeFormatter);
+                beginningTime = LocalTime.parse(from.toString().trim(), timeFormatter);
+                endingTime = LocalTime.parse(to.toString(), timeFormatter);
             } catch (DateTimeParseException error) {
                 try {
-                    eventDate = LocalDate.parse(from.toString().trim(), dateFormatter);
-                    eventDate1 = LocalDate.parse(to.toString().trim(), dateFormatter);
+                    beginningDate = LocalDate.parse(from.toString().trim(), dateFormatter);
+                    endingDate = LocalDate.parse(to.toString().trim(), dateFormatter);
                 } catch (DateTimeParseException dateTimeParseException) {
                     // do nothing
                 }
@@ -99,12 +104,12 @@ public class TaskHandling {
         }
 
 
-        if (eventDateAndTime != null) {
-            event = new Events(textPart, eventDateAndTime, eventDateAndTime1);
-        } else if (eventTime != null) {
-            event = new Events(textPart, eventTime, eventTime1);
-        } else if (eventDate != null){
-            event = new Events(textPart, eventDate, eventDate1);
+        if (beginningDateTime != null) {
+            event = new Events(textPart, beginningDateTime, endingDateTime);
+        } else if (beginningTime != null) {
+            event = new Events(textPart, beginningTime, endingTime);
+        } else if (beginningDate != null) {
+            event = new Events(textPart, beginningDate, endingDate);
         } else {
             // this is if the user does not key in a specific date / time and only
             // keys in values such as "today" or "tomorrow"
@@ -126,7 +131,7 @@ public class TaskHandling {
      * @param to the time when the task is supposed to be completed
      * @return an Event
      */
-    public static Task handleEventFromFile (String description, String from, String to) {
+    public static Task handleEventFromFile(String description, String from, String to) {
         Task event = new Events(description, from, to);
         return event;
     }
@@ -143,12 +148,12 @@ public class TaskHandling {
      * @throws BitBotException if input is invalid
      */
 
-    public static void handleDeadline (ArrayList<Task> arrayList, String textPart,
+    public static void handleDeadline(ArrayList<Task> arrayList, String textPart,
                                        String[] partsOfInput, int indexBy, StringBuilder by,
                                        StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
-            throw new BitBotException("OOPS!!! You need to add the \"by\" details.\n" +
-                    "          For example: deadline homework /by Aug 6th");
+            throw new BitBotException("OOPS!!! You need to add the \"by\" details.\n"
+                    + "          For example: deadline homework /by Aug 6th");
         }
         for (int i = 0; i < partsOfInput.length; i++) {
             if (partsOfInput[i].equals("/by")) {
@@ -199,7 +204,7 @@ public class TaskHandling {
             deadline = new Deadline(textPart, deadlineDateAndTime);
         } else if (deadlineTime != null) {
             deadline = new Deadline(textPart, deadlineTime);
-        } else if (deadlineDate != null){
+        } else if (deadlineDate != null) {
             deadline = new Deadline(textPart, deadlineDate);
         } else {
             // this is if the user does not key in a specific date / time and only
@@ -221,7 +226,7 @@ public class TaskHandling {
      * @param by the time by when the task is supposed to be completed.
      * @return a Deadline
      */
-    public static Task handleDeadlineFromFile (String description, String by) {
+    public static Task handleDeadlineFromFile(String description, String by) {
         Task deadline = new Deadline(description, by);
         return deadline;
     }
@@ -239,8 +244,8 @@ public class TaskHandling {
     public static void handleTodo(ArrayList<Task> arrayList, String textPart,
                                    String[] partsOfInput, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
-            throw new BitBotException("OOPS!!! Need to add a description for a todo activity\n " +
-                    "         For example: todo borrow book");
+            throw new BitBotException("OOPS!!! Need to add a description for a todo activity\n "
+                    + "         For example: todo borrow book");
         }
         for (int i = 1; i < partsOfInput.length; i++) {
             sb.append(partsOfInput[i]).append(" ");
@@ -259,7 +264,7 @@ public class TaskHandling {
      * @param description the string that tells the user what the task is about
      * @return a ToDos
      */
-    public static Task handleTodoFromFile (String description) {
+    public static Task handleTodoFromFile(String description) {
         Task todo = new ToDos(description);
         return todo;
     }
@@ -269,7 +274,8 @@ public class TaskHandling {
      * @param arrayList the list of tasks
      */
     public static void handleList(ArrayList<Task> arrayList) {
-        System.out.println("          ____________________________________\n          Here are the tasks in your list:");
+        System.out.println("          ____________________________________\n          "
+                + "Here are the tasks in your list:");
         for (int i = 1; i < arrayList.size() + 1; i++) {
             System.out.println("          " + i + ". " + arrayList.get(i - 1).finalString());
         }
@@ -283,10 +289,10 @@ public class TaskHandling {
      * @param arrayList the list of tasks
      * @throws BitBotException when the user does not key in any text after "find"
      */
-    public static void handleFind (String[] partsOfInput, ArrayList<Task> arrayList) throws BitBotException {
+    public static void handleFind(String[] partsOfInput, ArrayList<Task> arrayList) throws BitBotException {
         if (partsOfInput.length < 2) {
-            throw new BitBotException("OOPS!! Add a string of words you want to find.\n" +
-                    "          Please do not leave it blank.");
+            throw new BitBotException("OOPS!! Add a string of words you want to find.\n"
+                    + "          Please do not leave it blank.");
         }
         String textToBeFound;
         StringBuilder sb1 = new StringBuilder();
@@ -327,7 +333,7 @@ public class TaskHandling {
      * @param str the input string
      * @return true if it is a string and false if it is an integer wrapped in a string.
      */
-    private static boolean isAString (String str) {
+    private static boolean isAString(String str) {
         try {
             Integer.parseInt(str);
             return false;
@@ -344,7 +350,7 @@ public class TaskHandling {
      * @return an in of the numberPart so that it can use it in subsequent calculations.
      * @throws BitBotException when the user does not key in any text after "delete" / "mark" / "unmark"
      */
-    public static int checkAndThrowException(String[] partsOfInput, ArrayList<Task> arrayList) throws BitBotException{
+    public static int checkAndThrowException(String[] partsOfInput, ArrayList<Task> arrayList) throws BitBotException {
         // to get the integer number for mark / unmark / delete / find
         int numberPart = -1;
 
@@ -358,8 +364,8 @@ public class TaskHandling {
         }
         if (arrayList.isEmpty()) {
             throw new BitBotException("You cannot mark / unmark / delete anything yet "
-                    + "since the list is empty.\n" +
-                    "          Add something into the list first!");
+                    + "since the list is empty.\n"
+                    + "          Add something into the list first!");
         }
 
         String lastNumber = partsOfInput[partsOfInput.length - 1];

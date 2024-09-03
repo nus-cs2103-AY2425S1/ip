@@ -3,18 +3,19 @@ package bitbot;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-
 import java.io.IOException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This is the Storage class which helps to store the file created and also
+ * reads and writes to the file.
+ */
 public class Storage {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
@@ -77,7 +78,7 @@ public class Storage {
      * user-readable format and stored in an ArrayList.
      *
      * @param filePath uses the filePath to read the correct file.
-     * @return ArrayList<Task> which contains all the tasks from the storage file.
+     * @return an arrayList of tasks which contains all the tasks from the storage file.
      * @throws FileNotFoundException if the file is not found
      */
     public static ArrayList<Task> readTasksFromFile(String filePath) throws FileNotFoundException {
@@ -142,6 +143,7 @@ public class Storage {
                         }
                     }
                     break;
+                default:
                 }
 
                 if (partsOfLineFromFile[1].trim().equals("X")) {

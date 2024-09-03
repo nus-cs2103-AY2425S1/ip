@@ -2,12 +2,15 @@ package bitbot;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This is the ToDos class which creates new ToDos objects.
+ */
 public class ToDos extends Task {
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    public ToDos (String description) {
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    public ToDos(String description) {
         super(description);
     }
 

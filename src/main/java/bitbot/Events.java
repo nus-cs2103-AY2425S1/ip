@@ -5,37 +5,76 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This is the Events class which extends Task
+ * as this is where new Events objects are created
+ */
 public class Events extends Task {
-    protected LocalDateTime localDateTime, localDateTime1;
-    protected LocalDate localDate, localDate1;
-    protected LocalTime localTime, localTime1;
+    protected LocalDateTime beginningDateTime;
+    protected LocalDateTime endingDateTime;
+    protected LocalDate beginningDate;
+    protected LocalDate endingDate;
+    protected LocalTime beginningTime;
+    protected LocalTime endingTime;
+    protected String from;
+    protected String to;
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    protected String from, to;
-
-    public Events (String description, String from, String to) {
+    /**
+     * This is an Events constructor that takes in a description, a "from" time and a "to" time
+     *
+     * @param description the description of the event
+     * @param from the beginning time in string
+     * @param to the ending time in string
+     */
+    public Events(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
     }
-    public Events (String description, LocalDateTime localDateTime, LocalDateTime localDateTime1) {
+
+    /**
+     * This is an Events constructor that takes in a description, a "from" time (in dd/MM/yyyy HH:mm)
+     * and a "to" time (in dd/MM/yyyy HH:mm)
+     *
+     * @param description the description of the event
+     * @param beginningDateTime the beginning time in (in dd/MM/yyyy HH:mm) format
+     * @param endingDateTime the ending time in (in dd/MM/yyyy HH:mm) format
+     */
+    public Events(String description, LocalDateTime beginningDateTime, LocalDateTime endingDateTime) {
         super(description);
-        this.localDateTime = localDateTime;
-        this.localDateTime1 = localDateTime1;
+        this.beginningDateTime = beginningDateTime;
+        this.endingDateTime = endingDateTime;
     }
 
-    public Events (String description, LocalDate localDate, LocalDate localDate1) {
+    /**
+     * This is an Events constructor that takes in a description, a "from" time (in dd/MM/yyyy)
+     * and a "to" time (in dd/MM/yyyy)
+     *
+     * @param description the description of the event
+     * @param beginningDate the beginning time in (in dd/MM/yyyy) format
+     * @param endingDate the ending time in (in dd/MM/yyyy) format
+     */
+    public Events(String description, LocalDate beginningDate, LocalDate endingDate) {
         super(description);
-        this.localDate = localDate;
-        this.localDate1 = localDate1;
+        this.beginningDate = beginningDate;
+        this.endingDate = endingDate;
     }
 
-    public Events (String description, LocalTime localTime, LocalTime localTime1) {
+    /**
+     * This is an Events constructor that takes in a description, a "from" time (in HH:mm)
+     * and a "to" time (in HH:mm)
+     *
+     * @param description the description of the event
+     * @param beginningTime the beginning time in (in HH:mm) format
+     * @param endingTime the ending time in (in HH:mm) format
+     */
+    public Events(String description, LocalTime beginningTime, LocalTime endingTime) {
         super(description);
-        this.localTime = localTime;
-        this.localTime1 = localTime1;
+        this.beginningTime = beginningTime;
+        this.endingTime = endingTime;
     }
 
     /**
@@ -44,15 +83,15 @@ public class Events extends Task {
      */
     @Override
     public String finalString() {
-        if (localDateTime != null) {
-            return "[E]" + super.finalString() + " (from: " + localDateTime.format(dateTimeFormatter) + " to: "
-                    + localDateTime1.format(dateTimeFormatter) + ")";
-        } else if (localDate != null) {
-            return "[E]" + super.finalString() + " (from: " + localDate.format(dateFormatter) + " to: "
-                    + localDate1.format(dateFormatter) + ")";
-        } else if (localTime != null){
-            return "[E]" + super.finalString() + " (from: " + localTime.format(timeFormatter) + " to: "
-                    + localTime1.format(timeFormatter) + ")";
+        if (beginningDateTime != null) {
+            return "[E]" + super.finalString() + " (from: " + beginningDateTime.format(dateTimeFormatter) + " to: "
+                    + endingDateTime.format(dateTimeFormatter) + ")";
+        } else if (beginningDate != null) {
+            return "[E]" + super.finalString() + " (from: " + beginningDate.format(dateFormatter) + " to: "
+                    + endingDate.format(dateFormatter) + ")";
+        } else if (beginningTime != null) {
+            return "[E]" + super.finalString() + " (from: " + beginningTime.format(timeFormatter) + " to: "
+                    + endingTime.format(timeFormatter) + ")";
         } else {
             return "[E]" + super.finalString() + " (from: " + from + " to: " + to + ")";
         }
@@ -66,15 +105,15 @@ public class Events extends Task {
     public String toFileFormat() {
         String fromToTimeString;
 
-        if (localDateTime != null) {
+        if (beginningDateTime != null) {
             fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
-                    + localDateTime.format(dateTimeFormatter) + "|" + localDateTime1.format(dateTimeFormatter);
-        } else if (localDate != null) {
+                    + beginningDateTime.format(dateTimeFormatter) + "|" + endingDateTime.format(dateTimeFormatter);
+        } else if (beginningDate != null) {
             fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
-                    + localDate.format(dateFormatter) + "|" + localDate1.format(dateFormatter);
-        } else if (localTime != null){
+                    + beginningDate.format(dateFormatter) + "|" + endingDate.format(dateFormatter);
+        } else if (beginningTime != null) {
             fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
-                    + localTime.format(timeFormatter) + "|" + localTime1.format(timeFormatter);
+                    + beginningTime.format(timeFormatter) + "|" + endingTime.format(timeFormatter);
         } else {
             fromToTimeString = "E|" + (isDone ? "X" : " ") + "|" + taskDescription + "|" + from + "|" + to;
         }
