@@ -53,9 +53,13 @@ public class TaskManager {
      * @return boolean whether tasks loaded successfully
      */
     public boolean loadTasks() {
-        File file;
+        File file = new File(SAVE_FILE);
+        if (!file.isFile()) {
+            System.out.println("Failed to find task save file, not loading any tasks.");
+            return false;
+        }
+
         try {
-            file = new File(SAVE_FILE);
             Scanner scanner = new Scanner(file);
 
             String taskString = scanner.nextLine();
@@ -71,6 +75,8 @@ public class TaskManager {
             } else {
                 System.out.println("Invalid task found, skipping: " + taskString);
             }
+
+            System.out.println("Loaded saved tasks from disk!");
 
             return true;
         } catch (IOException e) {
