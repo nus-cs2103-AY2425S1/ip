@@ -215,6 +215,77 @@ public class TaskList {
     }
 
     /**
+     * Updates an existing task in the list.
+     *
+     * @param input The user input containing the index and new task details
+     * @throws DukeException If the input is invalid or the index is out of range
+     */
+    public void updateTask(String input) throws DukeException {
+        if (this.taskStore.isEmpty()) {
+            throw new DukeException("Task list is empty. Nothing to update.");
+        }
+        String[] parts = input.trim().split("\\s+", 3);
+        if (parts.length < 3) {
+            throw new DukeException(
+                    "Invalid update format.");
+        }
+
+        int index;
+        try {
+            index = Integer.parseInt(parts[0]) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Invalid index provided.");
+        }
+
+        if (index < 0 || index >= this.taskStore.size()) {
+            throw new DukeException("Task index out of range.");
+        }
+
+        String type = parts[1].toLowerCase();
+        String description = parts[2];
+
+        Task newTask;
+        try {
+            switch (type) {
+            case "todo":
+                newTask = new Todo(description);
+                break;
+            case "deadline":
+                if (!description.contains("/by")) {
+                    throw new DukeException("Invalid deadline format.");
+                }
+                String[] deadlineParts = description.split("/by", 2);
+                newTask = new Deadline(deadlineParts[0].trim(),
+                        LocalDateTime.parse(deadlineParts[1].trim(), formatter));
+                break;
+            case "event":
+                if (!description.contains("/from") || !description.contains("/to")) {
+                    throw new DukeException("Invalid event format.");
+                }
+                String[] eventParts = description.split("/from", 2);
+                String[] eventTimeParts = eventParts[1].split("/to", 2);
+                newTask = new Event(eventParts[0].trim(),
+                        LocalDateTime.parse(eventTimeParts[0].trim(), formatter),
+                        LocalDateTime.parse(eventTimeParts[1].trim(), formatter));
+                break;
+            default:
+                throw new DukeException("Invalid task type.");
+            }
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format.");
+        }
+
+        if (this.taskStore.get(index).isDone) {
+            newTask.markAsDoneNonVerbose();
+        }
+
+        this.taskStore.set(index, newTask);
+        Storage.saveData();
+        System.out.println("Got it. I've updated the task:");
+        System.out.println(newTask);
+    }
+
+    /**
      * Marks a task as done.
      *
      * @param input Index of the task to mark as done
