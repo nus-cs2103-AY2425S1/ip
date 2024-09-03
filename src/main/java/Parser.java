@@ -49,7 +49,6 @@ public class Parser {
     public int parseUnmark(String input) {
         Pattern markPattern = Pattern.compile("^(unmark) (\\d+)$");
         Matcher markMatcher = markPattern.matcher(input);
-        ;
         return markMatcher.matches()
             ? Integer.parseInt(markMatcher.group(2))
             : -1;
@@ -58,7 +57,6 @@ public class Parser {
     public int parseDelete(String input) {
         Pattern deletePattern = Pattern.compile("^delete (\\d+)$");
         Matcher deleteMatcher = deletePattern.matcher(input);
-        ;
         return deleteMatcher.matches()
             ? Integer.parseInt(deleteMatcher.group(1))
             : -1;
