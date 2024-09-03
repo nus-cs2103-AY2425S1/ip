@@ -11,7 +11,6 @@ import java.io.*;
  * Handles loading tasks from the file and saving tasks to the file.
  */
 public class Storage {
-  // deals with loading tasks from the file and saving tasks in the file
   private String filePath;
 
   /**

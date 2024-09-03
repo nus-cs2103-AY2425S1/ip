@@ -2,7 +2,6 @@ package eli.command;
 
 import eli.exception.EliException;
 import eli.storage.Storage;
-import eli.task.Task;
 import eli.task.TaskList;
 import eli.ui.Ui;
 
