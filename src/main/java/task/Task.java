@@ -46,8 +46,8 @@ public abstract class Task {
      *
      * @return Icon representing task status.
      */
-    public String getStatusIcon() {
-        return this.isDone ? "X" : " ";
+    public char getStatusIcon() {
+        return this.isDone ? 'X' : ' ';
     }
 
     /**

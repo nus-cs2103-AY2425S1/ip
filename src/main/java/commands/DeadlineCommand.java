@@ -40,6 +40,7 @@ public class DeadlineCommand extends Command {
             description.append(commandWords[i])
                     .append(" ");
         }
+        description.deleteCharAt(description.length() - 1);
 
         StringBuilder dateTime = new StringBuilder();
         boolean isSeeingDateTime = false;
@@ -96,6 +97,7 @@ public class DeadlineCommand extends Command {
                 + '\n'
                 + tasks.getTasksSummary());
 
+        // Update the save file
         storage.writeToFile(tasks.numTasks()
                         + ". "
                         + tasks.getTaskDetails(deadlineTask)

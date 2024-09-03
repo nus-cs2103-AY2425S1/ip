@@ -63,18 +63,19 @@ public class DeleteCommand extends Command {
 
         String command = super.getCommand();
         int taskIndex = Utility.getTaskIndex(command);
+        String deletedTaskDetails = tasks.getTaskDetails(taskIndex);
         tasks.removeFromList(taskIndex);
 
         ui.displayResponse("Noted. I've removed this task:\n"
                 + "  "
-                + tasks.getTaskDetails(taskIndex)
+                + deletedTaskDetails
                 + '\n'
                 + tasks.getTasksSummary());
 
         // Update the save file
-        String fileContents = storage.readFromFile(taskIndex + 1);
+        String remainingTasks = tasks.listTasks();
         storage.writeToFile("", false);
-        storage.writeToFile(fileContents, true);
+        storage.writeToFile(remainingTasks, true);
     }
 
     /**

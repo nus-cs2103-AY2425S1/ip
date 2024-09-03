@@ -24,7 +24,7 @@ public class MarkCommand extends Command {
      *
      * <p>
      * Chatbot checks if mark command is valid.
-     * If so, it marks the associated task in {@code tasks}.
+     * If so, it marks the associated task in {@code tasks} and updates the save file.
      * Displays a response indicating it has successfully marked the task.
      * </p>
      *
@@ -36,10 +36,20 @@ public class MarkCommand extends Command {
         Utility.validateStatus(command, Utility.Action.MARK, tasks);
 
         int taskIndex = Utility.getTaskIndex(command);
-        tasks.markTask(taskIndex);
+        boolean isSuccessful = tasks.markTask(taskIndex);
+        if (!isSuccessful) {
+            ui.displayResponse("Task has been marked already!");
+            return;
+        }
+
         ui.displayResponse("Nice! I've marked this task as done:\n"
                 + "  "
                 + tasks.getTaskDetails(taskIndex));
+
+        // Update the save file
+        String tasksString = tasks.listTasks();
+        storage.writeToFile("", false);
+        storage.writeToFile(tasksString, true);
     }
 
     /**
