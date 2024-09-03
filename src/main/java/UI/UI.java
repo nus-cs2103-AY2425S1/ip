@@ -54,7 +54,7 @@ public class UI {
      * Displays a separator line followed by a newline to the console.
      */
     public void showNewLineSeparator() {
-        System.out.println("--------------------------------------------------\n");
+        System.out.println(DIVIDER + "\n");
     }
 
     /**
