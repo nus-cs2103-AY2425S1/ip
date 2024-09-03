@@ -80,7 +80,7 @@ public class Parser {
                 }
                 return new MarkCommand(markIndex, true);
             case "unmark":
-                if (tasks.size() == 0) {
+                if (tasks.isEmpty()) {
                     throw new FishmanException.EmptyListException();
                 }
                 int unmarkIndex = Integer.parseInt(inputs[1]) - 1;

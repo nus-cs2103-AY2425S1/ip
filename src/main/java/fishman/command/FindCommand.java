@@ -32,16 +32,12 @@ public class FindCommand implements Command{
      * @param ui The Ui object used to display the tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         List<Task> matchedTask = tasks.getTasks().stream()
                 .filter(task -> task.getDescription().toLowerCase()
                 .contains(keyword.toLowerCase()))
                 .toList();
 
-        if (matchedTask.isEmpty()) {
-            ui.displayEmptyFindResults();
-        } else {
-            ui.displayFindResults(matchedTask);
-        }
+        return ui.getFindResultsMessage(matchedTask);
     }
 }

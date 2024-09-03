@@ -35,14 +35,12 @@ public class MarkCommand implements Command {
      * @param ui The Ui object used to display the confirmation message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         if (isMark) {
             tasks.markAsDone(index);
-            ui.displayTaskStatus(tasks.getTask(index));
         } else {
             tasks.markAsNotDone(index);
-            ui.displayTaskStatus(tasks.getTask(index));
         }
-
+        return ui.getTaskStatusMessage(tasks.getTask(index));
     }
 }

@@ -18,7 +18,7 @@ public class ListCommand implements Command {
      * @param ui The Ui object used to display the tasks in the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.displayTaskList(tasks);
+    public String execute(TaskList tasks, Ui ui) {
+        return ui.getTaskListMessage(tasks);
     }
 }

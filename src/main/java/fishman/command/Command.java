@@ -13,9 +13,8 @@ public interface Command {
      * Executes the command, performing actions on the task list and user interface.
      *
      * @param tasks The tasks to be added.
-     * @param ui The Ui object used when displaying the message.
      */
-    void execute(TaskList tasks, Ui ui);
+    String execute(TaskList tasks, Ui ui);
 
     /**
      * Indicator for whether the program should exit.

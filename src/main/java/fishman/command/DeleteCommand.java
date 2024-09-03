@@ -32,9 +32,9 @@ public class DeleteCommand implements Command {
      * @param ui The Ui object used to display the confirmation message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         Task tempTask = tasks.getTask(index);
         tasks.delete(index);
-        ui.displayDeletedTask(tempTask, tasks.size());
+        return ui.getDeletedTaskMessage(tempTask, tasks.size());
     }
 }

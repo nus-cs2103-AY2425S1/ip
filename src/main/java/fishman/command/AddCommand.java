@@ -32,11 +32,10 @@ public class AddCommand implements Command {
      * current number of tasks in the list.
      *
      * @param tasks The TaskList which the new task will be added.
-     * @param ui The Ui object used to display the confirmation message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         tasks.addTask(task);
-        ui.displayAddedTask(task, tasks.size());
+        return ui.getAddedTaskMessage(task, tasks.size());
     }
 }

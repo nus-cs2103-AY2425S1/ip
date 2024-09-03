@@ -22,8 +22,8 @@ public class ExitCommand implements Command {
      * @param ui The Ui object used to display the termination message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        ui.displayGoodbye();
+    public String execute(TaskList tasks, Ui ui) {
+        return "exited";
     }
 
     /**
@@ -36,4 +36,5 @@ public class ExitCommand implements Command {
     public boolean isExit() {
         return true;
     }
+
 }

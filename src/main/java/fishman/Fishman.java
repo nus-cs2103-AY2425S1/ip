@@ -6,6 +6,9 @@ import fishman.task.TaskList;
 import fishman.utils.Parser;
 import fishman.utils.Storage;
 import fishman.utils.Ui;
+import javafx.application.Platform;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * The main class for the Fishman bot.
@@ -13,63 +16,45 @@ import fishman.utils.Ui;
  * and manages the main program.
  */
 public class Fishman {
-    /** The user interface object for handling input and output operations. */
-    private final Ui ui;
+
     /** The task list object to store and manage tasks. */
-    private TaskList tasks;
+    private TaskList tasks = new TaskList();
     /** The storage object used to handle file operations. */
-    private final Storage storage;
+    private final Storage storage = new Storage("./data/fishman.csv");
+    private final Ui ui = new Ui();
 
-    /**
-     * Constructs a new instance of Fishman
-     * Initializes the UI, task list and parser.
-     */
-    public Fishman() {
-        ui = new Ui();
-        tasks = new TaskList();
-
-        storage = new Storage("./data/fishman.csv");
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input, tasks);
+            if (command.isExit()) {
+                saveTasks();
+                Platform.exit();
+            }
+            return command.execute(tasks, ui);
+        } catch (FishmanException e) {
+            return e.getMessage();
+        }
     }
 
-    /**
-     * Starts the Fishman bot.
-     * Displays the logo and welcome message, before entering the main loop.
-     * The loop will continue until the exit command is received.
-     * The method will handle exceptions that may occur during execution.
-     * Any unchecked exception is caught and reported as well.
-     */
-    public void start() {
-        ui.displayLogo();
-        ui.displayWelcome();
-        boolean isExit = false;
+    public void loadTasks() throws FishmanException {
         try {
             tasks = storage.load();
         } catch (FishmanException e) {
-            ui.displayError(e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            throw new FishmanException("Error");
         }
-        while (!isExit) {
-            try {
-                String userInput = ui.readCommands();
-                Command command = Parser.parse(userInput, tasks);
-                command.execute(tasks, ui);
-                isExit = command.isExit();
-            } catch (FishmanException e) {
-                ui.displayError(e.getMessage());
-            } catch (Exception e) {
-                ui.displayError("Uh oh, an unexpected error has occured: " + e.getMessage());
-            }
-        }
-        storage.save(tasks);
+
     }
 
-    /**
-     * The main entry point for Fishman bot.
-     * Creates a new Fishman instance and starts the bot.
-     *
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) throws FishmanException {
-        new Fishman().start();
+    public void saveTasks() throws FishmanException {
+        try {
+            storage.save(tasks);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
+
 }
 
