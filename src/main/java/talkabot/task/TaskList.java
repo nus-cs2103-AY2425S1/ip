@@ -1,9 +1,8 @@
 package talkabot.task;
 
-import talkabot.Ui;
-import talkabot.exceptions.InvalidEditException;
-
 import java.util.ArrayList;
+
+import talkabot.Ui;
 
 /**
  * TaskList class contains list of tasks.

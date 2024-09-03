@@ -1,10 +1,8 @@
 package talkabot.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import talkabot.task.Event;
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test

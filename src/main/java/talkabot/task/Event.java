@@ -1,10 +1,10 @@
 package talkabot.task;
 
-import talkabot.Parser;
-
-import java.time.format.TextStyle;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.Locale;
+
+import talkabot.Parser;
 
 /**
  * Event class contains task info and start and end dates of task.

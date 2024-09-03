@@ -33,8 +33,7 @@ public class Storage {
      * If not, returns empty task list.
      *
      * @return Task list.
-     * @throws IOException When an issue is encountered
-     * while trying to create or read file.
+     * @throws IOException When an issue is encountered while trying to create or read file.
      */
     public TaskList load() throws IOException {
         File file = new File(this.filePath);
@@ -51,18 +50,18 @@ public class Storage {
                 String[] keywords = line.split(" \\| ");
                 Task curr = null;
                 switch (keywords.length) {
-                    case 2:
-                        curr = new ToDo(keywords[1]);
-                        break;
-                    case 3:
-                        curr = new Deadline(new String[] {keywords[1], keywords[2]});
-                        break;
-                    case 4:
-                        curr = new Event(new String[] {keywords[1], keywords[2], keywords[3]});
-                        break;
-                    default:
-                        System.out.println("error");
-                        break;
+                case 2:
+                    curr = new ToDo(keywords[1]);
+                    break;
+                case 3:
+                    curr = new Deadline(new String[] {keywords[1], keywords[2]});
+                    break;
+                case 4:
+                    curr = new Event(new String[] {keywords[1], keywords[2], keywords[3]});
+                    break;
+                default:
+                    System.out.println("error");
+                    break;
                 }
                 if (keywords[0].equals("1")) {
                     curr.markAsDone();
@@ -78,8 +77,7 @@ public class Storage {
     /**
      * Saves file based on current task list.
      *
-     * @throws IOException When an issue is encountered
-     * while trying to write or save file.
+     * @throws IOException When an issue is encountered while trying to write or save file.
      */
     public void save(TaskList taskList) throws IOException {
         BufferedWriter taskWriter = new BufferedWriter(new FileWriter(this.filePath));
