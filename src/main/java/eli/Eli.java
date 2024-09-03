@@ -49,7 +49,7 @@ public class Eli {
         ui.showError(e.getMessage());
       }
     }
-    ui.showGoodbye();
+    // ui.showGoodbye();
     ui.close();
   }
 
