@@ -12,7 +12,7 @@ public class Winner {
         Storage.saveTasks(taskList.getTasks());
     }
 
-    private static void WinnerTaskBot(TaskList taskList) {
+    static void WinnerTaskBot(TaskList taskList) {
         Scanner scanner = new Scanner(System.in);
         Ui.winnerSaysHi();
 
