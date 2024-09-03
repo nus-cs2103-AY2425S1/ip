@@ -1,5 +1,10 @@
 package Dawn;
 public class ToDo extends Task {
+    /**
+     * Creates a new instance of a ToDo task
+     *
+     * @param desc
+     */
     public ToDo(String desc) {
         super(desc);
     }
