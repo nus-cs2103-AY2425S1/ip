@@ -1,4 +1,4 @@
-package Optimus;
+package optimus;
 
 /**
  * Custom exception class for handling errors specific to the Optimus application.

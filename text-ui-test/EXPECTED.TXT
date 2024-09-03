@@ -1,4 +1,4 @@
-Hello! I'm Optimus.Optimus
+Hello! I'm optimus.optimus
 What can I do for you?
 Got it. I've added this task:
   [T][ ] read book

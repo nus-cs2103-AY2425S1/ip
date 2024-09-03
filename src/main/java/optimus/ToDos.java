@@ -1,4 +1,4 @@
-package Optimus;
+package optimus;
 
 /**
  * Represents a to-do task in the Optimus application.

@@ -1,4 +1,4 @@
-package Optimus;
+package optimus;
 
 import java.io.File;
 import java.io.FileWriter;
