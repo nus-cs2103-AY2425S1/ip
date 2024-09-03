@@ -106,6 +106,12 @@ public class Parser {
                 }
                 return new ExitCommand();
 
+            case "find":
+                if (inputSplit.length == 1) {
+                    throw new DrBrownException("Whoa, hold on! You've written too few letters than necessary! It's like trying to fit a flux capacitor into a toaster – it just doesn't belong!");
+                }
+                return new FindCommand(inputSplit[1]);
+
             default:
                 throw new DrBrownException("I’m from the future, and even I don’t know what that means.");
         }

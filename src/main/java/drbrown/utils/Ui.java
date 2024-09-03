@@ -56,6 +56,10 @@ public class Ui {
         System.out.println("I’m from the future, and even I don’t know what that means.");
     }
 
+    public void showFind() {
+        System.out.println("Here are the matching tasks in your list — it's your density... I mean, your destiny to get these done!\n");
+    }
+
     public String readCommand() {
         String input = scanner.nextLine();
         return input;
