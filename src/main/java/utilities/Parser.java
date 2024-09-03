@@ -13,7 +13,15 @@ import exception.FormatException;
 import exception.NoInputException;
 import task.TaskList;
 
+/**
+ * Parser class is used to parse user input and execute commands.
+ */
 public class Parser {
+    /**
+     * Static method to add horizontal lines and indentation to the dialog.
+     * @param dialog The dialog to be formatted.
+     * @return The formatted dialog.
+     */
     public static String addHorizontalLinesAndIndentation(String dialog) {
         StringBuilder res = new StringBuilder("    ____________________________________________________________\n");
         Scanner sc = new Scanner(dialog);
@@ -26,6 +34,14 @@ public class Parser {
         return res.toString();
     }
 
+    /**
+     * Method to parse user input returning executable commands.
+     * @param dialog The user input.
+     * @param taskList The task list.
+     * @return The command indicated by the user dialog.
+     * @throws FormatException If the format of the user input is not suitable.
+     * @throws NoInputException If no input is given.
+     */
     public Command parseUserInput(String dialog, TaskList taskList) throws FormatException, NoInputException {
         if (dialog.isEmpty()) {
             throw new NoInputException();
@@ -63,6 +79,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to get the next command from the user.
+     * @param sc The scanner to read the user input.
+     * @param taskList The task list.
+     * @return The command to be executed.
+     */
     public Command getNextCommand(Scanner sc, TaskList taskList) {
         try {
             String input = sc.nextLine();

@@ -3,18 +3,25 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import exception.DukeException;
 import task.Task;
 import task.TaskList;
 
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructor for Storage.
+     * @param filePath The path to the file where the tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public TaskList load() throws DukeException {
+    /**
+     * Method to load the tasks from text file.
+     * @return The task list.
+     */
+    public TaskList load() {
         File file = new File(filePath);
         if (!file.exists()) {
             try {
@@ -38,6 +45,11 @@ public class Storage {
         return new TaskList(tasks);
     }
 
+    /**
+     * Method to save the tasks to text file.
+     * 
+     * @param taskList The task list to be saved.
+     */
     public void save(TaskList tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {

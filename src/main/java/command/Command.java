@@ -1,4 +1,11 @@
 package command;
+
+/**
+ * An abstract class that represents a command.
+ */
 public abstract class Command {
-    public abstract void execute();
+    /**
+     * Executes the command.
+     */
+   public abstract void execute();
 }

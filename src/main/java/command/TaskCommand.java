@@ -4,14 +4,26 @@ import task.TaskList;
 import utilities.Parser;
 import utilities.Storage;
 
+/**
+ * TaskCommand class is used to add a task to the task list.
+ */
 public class TaskCommand extends Command {
     private String dialog;
     private TaskList taskList;
 
+    /**
+     * Constructor for TaskCommand.
+     * @param dialog The dialog from interface providing the task details.
+     * @param taskList The task list that the task is to be added to.
+     */
     public TaskCommand(String dialog, TaskList taskList) {
         this.dialog = dialog;
         this.taskList = taskList;
     }
+
+    /**
+     * Executes the task command.
+     */
 
     @Override
     public void execute() {
