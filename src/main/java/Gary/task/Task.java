@@ -18,4 +18,13 @@ public abstract class Task {
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.description;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Task) {
+            return ((Task) o).description.equals(this.description) &&
+                    (((Task) o).isDone == this.isDone);
+        }
+        return false;
+    }
 }
