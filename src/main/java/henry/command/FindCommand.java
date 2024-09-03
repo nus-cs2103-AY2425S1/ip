@@ -18,21 +18,22 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Finds tasks with the keyword given by user
+     * Returns tasks with the keyword given by user
      *
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
      * @param ui instance of a Ui class that interacts with the user
+     * @return list of tasks with the given keyword
      */
-    public void execute(TaskList taskList, Ui ui) throws HenryException {
+    public String execute(TaskList taskList, Ui ui) throws HenryException {
         ArrayList<Task> tasks = taskList.getTasks();
-        System.out.println("\nHere are the matching tasks in your list:");
+        StringBuilder string = new StringBuilder("\nHere are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.getDescription().contains(this.input)) {
-                System.out.println(i + 1 + "." + task.toString());
+                string.append(i + 1).append(".").append(task.toString()).append("\n");
             }
         }
-        System.out.println();
+        return string.toString();
     }
 }

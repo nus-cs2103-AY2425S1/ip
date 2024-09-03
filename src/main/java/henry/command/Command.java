@@ -15,7 +15,7 @@ import henry.util.Ui;
  */
 public abstract class Command {
 
-    public abstract void execute(TaskList tasks, Ui ui) throws HenryException;
+    public abstract String execute(TaskList tasks, Ui ui) throws HenryException;
 
     public boolean isExit() {
         return false;
