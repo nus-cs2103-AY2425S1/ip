@@ -8,6 +8,11 @@ public abstract class Task {
     protected boolean isCompleted;
     protected String symbol;
 
+    /**
+     * Creates a Task.
+     * @param name the name of the task.
+     * @param symbol the symbol of the task.
+     */
     public Task(String name, String symbol) {
         this.name = name;
         this.isCompleted = false;

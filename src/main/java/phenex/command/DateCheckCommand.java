@@ -1,11 +1,12 @@
 package phenex.command;
 
+import java.time.LocalDate;
+
 import phenex.exception.PhenexException;
 import phenex.storage.Storage;
 import phenex.task.TaskList;
 import phenex.ui.Ui;
 
-import java.time.LocalDate;
 
 /**
  * DateCheckCommand class which encapsulates a Command that checks a date.
@@ -24,6 +25,11 @@ public class DateCheckCommand extends Command {
 
     public void setLocalDate(LocalDate localDate) {
         this.localDate = localDate;
+    }
+
+    @Override
+    public boolean isTerminatingCommand() {
+        return false;
     }
 
     @Override

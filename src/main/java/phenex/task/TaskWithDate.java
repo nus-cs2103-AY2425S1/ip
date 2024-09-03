@@ -13,7 +13,7 @@ public abstract class TaskWithDate extends Task {
     /**
      * Returns a string which is a formatted representation of the date.
      *
-     * @param localDate, the date to format.
+     * @param localDate the date to format.
      * @return string which is a formatted representation of the date.
      */
     public abstract String formatDate(LocalDate localDate);
@@ -21,7 +21,7 @@ public abstract class TaskWithDate extends Task {
     /**
      * Returns a boolean indicating whether a specific date overlaps with deadline.
      *
-     * @param localDate, the date to check whether deadline overlaps with.
+     * @param localDate the date to check whether deadline overlaps with.
      * @return boolean indicating whether the specified date overlaps with deadline.
      */
     public abstract boolean overlapsWith(LocalDate localDate);

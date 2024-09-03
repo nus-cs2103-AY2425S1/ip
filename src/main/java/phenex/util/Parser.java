@@ -1,5 +1,11 @@
 package phenex.util;
 
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import phenex.command.Command;
 import phenex.command.CommandWithIndex;
 import phenex.command.CreateTaskCommand;
@@ -13,22 +19,21 @@ import phenex.command.MarkCommand;
 import phenex.command.TerminatingCommand;
 import phenex.command.TodoCommand;
 import phenex.command.UnmarkCommand;
-
 import phenex.exception.PhenexException;
 import phenex.task.Deadline;
 import phenex.task.Event;
 import phenex.task.Task;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Parser class encapsulating the parser which parses inputs for the Phenex.
  */
 public class Parser {
 
+    /**
+     * Encapsulates the different RegexFormats for each of the Phenex
+     * commands
+     */
     public enum RegexFormat {
         REGEX_TERMINATING("(?i)bye\\s*$", new TerminatingCommand()),
         REGEX_LIST("(?i)list\\s*$", new ListCommand()),
@@ -49,9 +54,10 @@ public class Parser {
             this.command = command;
         }
 
-        /** detects if a line matches the regex format.
+        /**
+         * Detects if a line matches the regex format.
          *
-         * @param line, the line to check.
+         * @param line the line to check.
          * @return a boolean indicating whether a match is detected.
          */
         public boolean detectMatch(String line) {
@@ -61,11 +67,12 @@ public class Parser {
         }
     }
 
-    /** parses local date from a line.
+    /**
+     * Parses local date from a line.
      *
-     * @param line, the line to check.
+     * @param line the line to check.
      * @return a LocalDate object representing the local date.
-     * @throws PhenexException, if parsing error occurs.
+     * @throws PhenexException if parsing error occurs.
      */
     public LocalDate parseLocalDateFromLine(String line) throws PhenexException {
         try {
@@ -75,11 +82,12 @@ public class Parser {
         }
     }
 
-    /** parses command from a line.
+    /**
+     * Parses command from a line.
      *
-     * @param line, the line to check.
+     * @param line the line to check.
      * @return a Command object representing the command parsed.
-     * @throws PhenexException, if parsing error.
+     * @throws PhenexException if parsing error.
      */
     public Command parseCommandFromLine(String line) throws PhenexException {
         try {
@@ -91,25 +99,31 @@ public class Parser {
                     matcher.matches();
 
                     if (command instanceof CommandWithIndex) {
-                        ((CommandWithIndex) command).setIndex(this.getIndexOfTask(line, command));
+                        CommandWithIndex commandWithIndex = (CommandWithIndex) command;
+                        commandWithIndex.setIndex(this.getIndexOfTask(line, command));
                     } else if (command instanceof DateCheckCommand) {
-                        ((DateCheckCommand) command).setLocalDate(this.parseLocalDateFromLine(line));
+                        DateCheckCommand dateCheckCommand = (DateCheckCommand) command;
+                        dateCheckCommand.setLocalDate(this.parseLocalDateFromLine(line));
                     } else if (command instanceof CreateTaskCommand) {
 
                         if (command instanceof DeadlineCommand) {
                             String deadlineBy = matcher.group(2);
                             LocalDate localDate = LocalDate.parse(deadlineBy);
-                            ((DeadlineCommand) command).setDate(localDate);
+                            DeadlineCommand deadlineCommand = (DeadlineCommand) command;
+                            deadlineCommand.setDate(localDate);
                         } else if (command instanceof EventCommand) {
                             LocalDate fromDate = LocalDate.parse(matcher.group(2));
                             LocalDate toDate = LocalDate.parse(matcher.group(3));
-                            ((EventCommand) command).setDates(fromDate, toDate);
+                            EventCommand eventCommand = (EventCommand) command;
+                            eventCommand.setDates(fromDate, toDate);
                         }
                         String name = matcher.group(1);
-                        ((CreateTaskCommand) command).setName(name);
+                        CreateTaskCommand createTaskCommand = (CreateTaskCommand) command;
+                        createTaskCommand.setName(name);
                     } else if (command instanceof FindCommand) {
                         String name = matcher.group(1);
-                        ((FindCommand) command).setName(name);
+                        FindCommand findCommand = (FindCommand) command;
+                        findCommand.setName(name);
                     }
 
                     return command;
@@ -136,7 +150,7 @@ public class Parser {
     /**
      * Returns a string representation of a task name.
      *
-     * @param line, line to parse from.
+     * @param line line to parse from.
      * @return name of task in string representation.
      */
     public String getNameOfTask(String line) {
@@ -146,7 +160,7 @@ public class Parser {
     /**
      * Returns a formatted string representation of a task for storage in memory.
      *
-     * @param task, task to format string representation.
+     * @param task task to format string representation.
      * @return formatted string representation of task.
      */
     public static String parseTaskInfo(Task task) {

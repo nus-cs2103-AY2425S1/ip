@@ -1,13 +1,12 @@
 package phenex.command;
 
+import java.time.LocalDate;
+
 import phenex.exception.PhenexException;
 import phenex.storage.Storage;
 import phenex.task.Deadline;
 import phenex.task.TaskList;
-import phenex.task.ToDo;
 import phenex.ui.Ui;
-
-import java.time.LocalDate;
 
 /**
  * DeadlineCommand class which encapsulates Command to create a Deadline task.

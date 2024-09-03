@@ -1,12 +1,12 @@
 package phenex.command;
 
+import java.time.LocalDate;
+
 import phenex.exception.PhenexException;
 import phenex.storage.Storage;
 import phenex.task.Event;
 import phenex.task.TaskList;
 import phenex.ui.Ui;
-
-import java.time.LocalDate;
 
 /**
  * EventCommand class which encapsulates a Command which creates an Event task.
@@ -20,6 +20,12 @@ public class EventCommand extends CreateTaskCommand {
         super("");
     }
 
+    /**
+     * Creates an EventCommand object which creates an Event object.
+     * @param name the name of the EventCommand
+     * @param from the from date of the event to be created.
+     * @param to the to date of the event to be created.
+     */
     public EventCommand(String name, LocalDate from, LocalDate to) {
         super(name);
         this.fromDate = from;

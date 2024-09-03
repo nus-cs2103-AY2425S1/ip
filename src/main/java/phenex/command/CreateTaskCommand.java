@@ -14,4 +14,9 @@ public abstract class CreateTaskCommand extends Command {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean isTerminatingCommand() {
+        return false;
+    }
 }
