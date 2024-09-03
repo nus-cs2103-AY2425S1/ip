@@ -8,11 +8,22 @@ public abstract class Task {
     private String name;
     private boolean isCompleted;
 
-    public Task(String name, boolean completed) {
+    /**
+     * Constructs a Task object with the specified description.
+     *
+     * @param name - Description of task.
+     * @param isCompleted - Whether the task is completed.
+     */
+    public Task(String name, boolean isCompleted) {
         this.name = name;
-        this.isCompleted = completed;
+        this.isCompleted = isCompleted;
     }
 
+    /**
+     * Returns a String reflecting whether the task is completed.
+     *
+     * @return String reflecting completeness.
+     */
     public String checkMark() {
         if (isCompleted) {
             return "X";
@@ -21,6 +32,11 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Returns a String reflecting whether the task is completed.
+     *
+     * @return String reflecting completeness.
+     */
     public String completeStatus() {
         if (isCompleted) {
             return "1";
@@ -29,6 +45,13 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Formats a date of a specific format into a new format.
+     *
+     * @param date - a String that represents a date.
+     * @return String that represents a date.
+     * @throws DateTimeException when the date time does not follow a specific format.
+     */
     public String processDate(String date) throws DateTimeException {
         try {
             LocalDate parsedDate = LocalDate.parse(date);
@@ -38,14 +61,25 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Assign the value of true into isCompleted.
+     */
     public void check() {
         this.isCompleted = true;
     }
 
+    /**
+     * Assign the value of false into isCompleted.
+     */
     public void uncheck() {
         this.isCompleted = false;
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return String description of task.
+     */
     public String getName() {
         return this.name;
     }
