@@ -21,6 +21,9 @@ public class Derrick {
         this.parser = new Parser();
         this.storage = new Storage();
         this.tasks = new TaskList(storage.loadTasksFromFile());
+
+        assert tasks != null : "TaskList should be initialized and not null";
+        assert storage != null : "Storage should be initialized and not null";
     }
 
     /**
