@@ -23,8 +23,6 @@ public class Eli {
    * @param filePath The file path where tasks are stored.
    */
   public Eli(String filePath) {
-    // this.tasks = new TaskList();
-    // this.scanner = new Scanner(System.in);
     ui = new Ui();
     storage = new Storage(filePath);
     try {
@@ -61,7 +59,7 @@ public class Eli {
    * @param args Command-line arguments.
    */
   public static void main(String[] args) {
-    Eli eli = new Eli("data/tasks.txt");
+    Eli eli = new Eli("data/eli.txt");
     eli.run();
   }
 }

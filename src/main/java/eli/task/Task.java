@@ -36,6 +36,10 @@ public abstract class Task {
     return "[ ]";
   }
 
+  public String getTask() {
+    return this.task;
+  }
+
   /**
    * Changes the done status of the task.
    *
@@ -56,4 +60,5 @@ public abstract class Task {
   public String toString() {
     return getStatus() + " " + task; // [X] read book
   }
+
 }
