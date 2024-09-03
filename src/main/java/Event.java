@@ -36,6 +36,11 @@ public class Event extends Task {
         }
     }
 
+    public String creationResponse() {
+        return "Ok! I've added a new event:\n" + toString() +
+                "\n";
+    }
+
     @Override
     public String toFileFormat() {
         return super.toFileFormat() + "," + startDate + "," + endDate + System.lineSeparator();

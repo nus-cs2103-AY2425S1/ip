@@ -1,58 +1,18 @@
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class TaskList {
     private final ArrayList<Task> list;
-    private final String filePath;
 
-    public TaskList(String filePath) {
+    public TaskList() {
         this.list = new ArrayList<>();
-        this.filePath = filePath;
     }
 
-    public String addTask(String taskType, String input) {
-        Task newTask;
-        String response;
-        try {
-            switch (taskType) {
-                case "todo":
-                    newTask = Todo.handleInput(input);
-                    response = "Ok! I've added a new todo task:\n" + newTask +
-                            "\n";
-                    break;
-                case "deadline":
-                    newTask = Deadline.handleInput(input);
-                    response = "Ok! I've added a new task with a deadline:\n" + newTask +
-                            "\n";
-                    break;
-                case "event":
-                    newTask = Event.handleInput(input);
-                    response = "Ok! I've added a new event:\n" + newTask +
-                            "\n";
-                    break;
-                default:
-                    response = "";
-                    newTask = null;
-                    break;
-            }
-            list.add(newTask);
-            if (newTask !=  null) {
-                saveToFile(newTask.toFileFormat());
-            }
-            return response + countTasks();
-        } catch (WrongInputException e) {
-            return e.toString();
-        }
+    public void addTask(Task task) {
+        list.add(task);
     }
 
     public String countTasks() {
-        return "You have " + list.size() + " tasks in total.";
+        return "You have " + list.size() + " tasks now.";
     }
 
     public String listItems() {
@@ -93,7 +53,6 @@ public class TaskList {
     public String deleteItem(int place) {
         try {
             Task deleted = list.remove(place - 1);
-            deleteFromFile(place);
             return "I have taken this item off the list:\n" + deleted +
                     "\n" + countTasks();
         } catch (IndexOutOfBoundsException e) {
@@ -101,65 +60,7 @@ public class TaskList {
         }
     }
 
-    public void onStart() {
-        try {
-            File loadFile = new File(filePath);
-            Scanner scanner = new Scanner(loadFile);
-            while (scanner.hasNext()) {
-                String currLine = scanner.nextLine();
-                String[] split = currLine.split(",");
-                switch (split.length) {
-                    case 1:
-                        list.add(new Todo(split[0]));
-                        break;
-                    case 2:
-                        list.add(new Deadline(split[0], LocalDate.parse(split[1])));
-                        break;
-                    case 3:
-                        list.add(new Event(split[0], split[1], split[2]));
-                        break;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            if (!Files.isDirectory(Path.of("./data"))) {
-                System.out.println("Directory './data' does not exist. Please create it first.");
-                System.exit(0);
-            } else {
-                System.out.println("File './data/tasks.txt' does not exist. Please create it first.");
-                System.exit(0);
-            }
-        }
-    }
 
-    private void saveToFile(String content) {
-        try {
-            FileWriter writer = new FileWriter(filePath, true);
-            writer.write(content);
-            writer.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
-    private void deleteFromFile(int place) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            FileWriter writer = new FileWriter("./data/temp.txt");
 
-            int counter = 1;
-            String currLine;
-            while((currLine = reader.readLine() ) != null) {
-                if (counter == place) {
-                    counter++;
-                    continue;
-                }
-                writer.write(currLine + System.lineSeparator());
-                counter++;
-            }
-            writer.close();
-            Files.copy(Path.of("./data/temp.txt"), Path.of(filePath), REPLACE_EXISTING);
-        } catch (IOException e) {
-            System.out.println("There was an error with the file input.");
-        }
-    }
 }
