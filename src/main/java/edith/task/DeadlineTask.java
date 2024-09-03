@@ -5,9 +5,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * This class extends the Task class. The DeadlineTask inherits the following fields: String taskName,
+ * boolean isCompleted. It also has its own field: String deadline.
+ */
 public class DeadlineTask extends Task {
     private String deadline;
 
+    /**
+     * Constructor for DeadlineTask class.
+     * @param taskName Name of task.
+     * @param deadline Task deadline.
+     */
     public DeadlineTask(String taskName, String deadline) {
         super(taskName);
         try {

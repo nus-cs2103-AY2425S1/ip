@@ -6,10 +6,20 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * This class extends the Task class. The EventTask inherits the following fields: String taskName,
+ * boolean isCompleted. It also has its own field: String start, String end.
+ */
 public class EventTask extends Task {
     private String start;
     private String end;
 
+    /**
+     * Constructor for EventTask class.
+     * @param taskName Name of task.
+     * @param start Start date/time of task.
+     * @param end End date/time of task.
+     */
     public EventTask(String taskName, String start, String end) {
         super(taskName);
         try {
