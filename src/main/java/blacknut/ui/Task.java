@@ -45,7 +45,7 @@ public class Task {
                 break;
             case "D":
                 if (parts.length != 4) throw new IncorrectFormatException("File format incorrect: " + line);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
                 task = new Deadline(description, by.format(formatter));
                 break;
