@@ -3,6 +3,9 @@ package phenex.task;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
+/**
+ * Event class which encapsulates an Event task.
+ */
 public class Event extends TaskWithDate {
     protected LocalDate startDate;
     protected LocalDate endDate;

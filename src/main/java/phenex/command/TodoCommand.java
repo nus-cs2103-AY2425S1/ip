@@ -6,6 +6,9 @@ import phenex.task.TaskList;
 import phenex.task.ToDo;
 import phenex.ui.Ui;
 
+/**
+ * TodoCommand class which encapsulates a Command which creates a ToDo task.
+ */
 public class TodoCommand extends CreateTaskCommand {
 
     public TodoCommand() {

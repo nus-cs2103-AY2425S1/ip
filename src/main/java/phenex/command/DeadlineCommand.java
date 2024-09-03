@@ -9,6 +9,9 @@ import phenex.ui.Ui;
 
 import java.time.LocalDate;
 
+/**
+ * DeadlineCommand class which encapsulates Command to create a Deadline task.
+ */
 public class DeadlineCommand extends CreateTaskCommand {
     /** encapsulates the date of deadline */
     private LocalDate localDate;

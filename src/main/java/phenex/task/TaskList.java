@@ -10,8 +10,11 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The TaskList object representing a list of Tasks for Phenex.
+ */
 public class TaskList {
-    /** Encapsulates all tasks in the TaskList */
+    /** Encapsulates all tasks in the TaskList. */
     protected ArrayList<Task> tasks;
 
     public TaskList(Storage storage) {
@@ -32,11 +35,11 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as complete
+     * Marks a task as complete.
      *
-     * @param idx, the index of the task to mark as complete
-     * @throws PhenexException, if invalid index
-     * @return task which was marked as complete
+     * @param idx, the index of the task to mark as complete.
+     * @throws PhenexException, if invalid index.
+     * @return task which was marked as complete.
      */
     public Task markTaskCompleted(int idx) throws PhenexException {
         if (idx >= this.tasks.size() || idx < 0) {
@@ -49,11 +52,11 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as incomplete
+     * Marks a task as incomplete.
      *
-     * @param idx, the index of the task to mark as complete
-     * @throws PhenexException, if invalid index
-     * @return task which was marked as incomplete
+     * @param idx, the index of the task to mark as complete.
+     * @throws PhenexException, if invalid index.
+     * @return task which was marked as incomplete.
      */
     public Task markTaskIncomplete(int idx) throws PhenexException {
         if (idx >= this.tasks.size() || idx < 0) {
@@ -66,20 +69,20 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to task list
+     * Adds a task to task list.
      *
-     * @param task, task to add
+     * @param task, task to add.
      */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
     /**
-     * Deletes a task
+     * Deletes a task.
      *
-     * @param idx, index of task to delete
-     * @throws PhenexException, if invalid index
-     * @return task which was deleted
+     * @param idx, index of task to delete.
+     * @throws PhenexException, if invalid index.
+     * @return task which was deleted.
      */
     public Task deleteTask(int idx) throws PhenexException {
         if (idx >= this.tasks.size() || idx < 0) {
@@ -90,10 +93,10 @@ public class TaskList {
         return taskToDelete;
     }
 
-    /** finds tasks with a given name
+    /** Finds tasks with a given name.
      *
-     * @param name, name of task
-     * @return task list containing all tasks with given name
+     * @param name, name of task.
+     * @return task list containing all tasks with given name.
      */
     public TaskList findTasks(String name) {
         TaskList matchingTasks = new TaskList();
@@ -105,10 +108,10 @@ public class TaskList {
         return matchingTasks;
     }
 
-    /** finds tasks which overlap with a given date
+    /** Finds tasks which overlap with a given date.
      *
-     * @param localDate, date to check overlap
-     * @return task list containing all tasks overlapping date
+     * @param localDate, date to check overlap.
+     * @return task list containing all tasks overlapping date.
      */
     public TaskList findAllTasksOn(LocalDate localDate) {
         TaskList taskList = new TaskList();
@@ -126,9 +129,9 @@ public class TaskList {
     }
 
     /**
-     * Fills up data from storage into task list
+     * Fills up data from storage into task list.
      *
-     * @param storage, the Storage to read from
+     * @param storage, the Storage to read from.
      */
     private void readFromStorage(Storage storage) {
         try {
@@ -145,10 +148,10 @@ public class TaskList {
     }
 
     /**
-     * Adds task from line from memory
+     * Adds task from line from memory.
      *
-     * @param data, the data to add
-     * @throws PhenexException, if invalid line
+     * @param data, the data to add.
+     * @throws PhenexException, if invalid line.
      */
     private void addTaskFromMemoryLine(String data) throws PhenexException {
         String[] taskDetails = data.split(", ");

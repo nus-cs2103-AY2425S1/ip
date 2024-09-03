@@ -6,6 +6,9 @@ import phenex.task.Task;
 import phenex.task.TaskList;
 import phenex.ui.Ui;
 
+/**
+ * DeleteCommand class encapsulating a Command to Delete a Task.
+ */
 public class DeleteCommand extends CommandWithIndex {
 
     public DeleteCommand() {

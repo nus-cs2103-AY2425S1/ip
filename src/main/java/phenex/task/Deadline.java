@@ -3,6 +3,9 @@ package phenex.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline class which encapsulates a Deadline task.
+ */
 public class Deadline extends TaskWithDate {
     /** Date of the Deadline */
     protected LocalDate localDate;

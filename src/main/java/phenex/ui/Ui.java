@@ -1,15 +1,11 @@
 package phenex.ui;
 
-import phenex.exception.PhenexException;
 import phenex.task.Task;
 import phenex.task.TaskList;
-import phenex.task.TaskWithDate;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-
+/**
+ * Ui class encapsulating the user interface of Phenex.
+ */
 public class Ui {
 
     private final String LINE = "\t____________________________________________________________\n";
@@ -39,9 +35,9 @@ public class Ui {
     }
 
     /**
-     * Prints all tasks in the taskList
+     * Prints all tasks in the taskList.
      *
-     * @param taskList
+     * @param taskList.
      */
     public void printTaskList(TaskList taskList) {
         int size = taskList.getTasks().size();
@@ -61,14 +57,6 @@ public class Ui {
     }
 
     /**
-     * Prints invalid input message.
-     *
-     */
-    public static void printInvalidInputMessage() {
-        System.out.println("\tUnknown input!");
-    }
-
-    /**
      * Prints exception message.
      *
      * @param e, Exception which contains the message to print.
@@ -82,7 +70,7 @@ public class Ui {
      *
      * @param taskMarked, task which was marked as complete
      */
-    public static void printTaskMarkedCompleteMessage(Task taskMarked) {
+    public void printTaskMarkedCompleteMessage(Task taskMarked) {
         System.out.println("\t Mission marked as complete. Good job, soldier!");
         System.out.println("\t\t" + taskMarked);
     }
@@ -92,7 +80,7 @@ public class Ui {
      *
      * @param taskMarked, task which was marked as incomplete.
      */
-    public static void printTaskMarkedIncompleteMessage(Task taskMarked) {
+    public void printTaskMarkedIncompleteMessage(Task taskMarked) {
         System.out.println("\t Mission marked as incomplete.");
         System.out.println("\t\t" + taskMarked);
     }
@@ -100,8 +88,8 @@ public class Ui {
     /**
      * Prints the relevant messages when a task was deleted.
      *
-     * @param taskDeleted, task which was deleted
-     * @param taskListSize, current size of the task list
+     * @param taskDeleted, task which was deleted.
+     * @param taskListSize, current size of the task list.
      */
     public void printTaskDeletedMessage(Task taskDeleted, int taskListSize) {
         System.out.println("\t OK. Mission aborted, retreat!");
@@ -112,8 +100,8 @@ public class Ui {
     /**
      * Prints relevant message when a task is added.
      *
-     * @param taskAdded, task which was added
-     * @param taskListSize, current size of task list
+     * @param taskAdded, task which was added.
+     * @param taskListSize, current size of task list.
      */
     public void printTaskAddedMessage(Task taskAdded, int taskListSize) {
         System.out.println("\t Mission " + taskAdded.getName() + " added:");

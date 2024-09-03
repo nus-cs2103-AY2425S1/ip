@@ -1,6 +1,19 @@
 package phenex.util;
 
-import phenex.command.*;
+import phenex.command.Command;
+import phenex.command.CommandWithIndex;
+import phenex.command.CreateTaskCommand;
+import phenex.command.DateCheckCommand;
+import phenex.command.DeadlineCommand;
+import phenex.command.DeleteCommand;
+import phenex.command.EventCommand;
+import phenex.command.FindCommand;
+import phenex.command.ListCommand;
+import phenex.command.MarkCommand;
+import phenex.command.TerminatingCommand;
+import phenex.command.TodoCommand;
+import phenex.command.UnmarkCommand;
+
 import phenex.exception.PhenexException;
 import phenex.task.Deadline;
 import phenex.task.Event;
@@ -11,6 +24,9 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parser class encapsulating the parser which parses inputs for the Phenex.
+ */
 public class Parser {
 
     public enum RegexFormat {
@@ -33,10 +49,10 @@ public class Parser {
             this.command = command;
         }
 
-        /** detects if a line matches the regex format
+        /** detects if a line matches the regex format.
          *
-         * @param line, the line to check
-         * @return a boolean indicating whether a match is detected
+         * @param line, the line to check.
+         * @return a boolean indicating whether a match is detected.
          */
         public boolean detectMatch(String line) {
             Pattern pattern = Pattern.compile(this.regex);
@@ -45,11 +61,11 @@ public class Parser {
         }
     }
 
-    /** parses local date from a line
+    /** parses local date from a line.
      *
-     * @param line, the line to check
-     * @return a LocalDate object representing the local date
-     * @throws PhenexException, if parsing error occurs
+     * @param line, the line to check.
+     * @return a LocalDate object representing the local date.
+     * @throws PhenexException, if parsing error occurs.
      */
     public LocalDate parseLocalDateFromLine(String line) throws PhenexException {
         try {
@@ -59,11 +75,11 @@ public class Parser {
         }
     }
 
-    /** parses command from a line
+    /** parses command from a line.
      *
-     * @param line, the line to check
-     * @return a Command object representing the command parsed
-     * @throws PhenexException, if parsing error
+     * @param line, the line to check.
+     * @return a Command object representing the command parsed.
+     * @throws PhenexException, if parsing error.
      */
     public Command parseCommandFromLine(String line) throws PhenexException {
         try {
@@ -118,20 +134,20 @@ public class Parser {
     }
 
     /**
-     * Returns a string representation of a task name
+     * Returns a string representation of a task name.
      *
-     * @param line, line to parse from
-     * @return name of task in string representation
+     * @param line, line to parse from.
+     * @return name of task in string representation.
      */
     public String getNameOfTask(String line) {
         return line.substring(5);
     }
 
     /**
-     * Returns a formatted string representation of a task for storage in memory
+     * Returns a formatted string representation of a task for storage in memory.
      *
-     * @param task, task to format string representation
-     * @return formatted string representation of task
+     * @param task, task to format string representation.
+     * @return formatted string representation of task.
      */
     public static String parseTaskInfo(Task task) {
         String localDateString = "";

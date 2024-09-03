@@ -12,10 +12,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.IOException;
 
+/**
+ * Storage class which encapsulates the storage for Phenex.
+ */
 public class Storage {
-    /** Encapsulates the filePath in storage */
+    /** Encapsulates the filePath in storage. */
     protected final Path filePath;
-    /** Encapsulates the File in storage */
+    /** Encapsulates the File in storage. */
     protected File file;
 
     public Storage(Path filePath) {
@@ -40,9 +43,9 @@ public class Storage {
     }
 
     /**
-     * Stores tasks from a task list
+     * Stores tasks from a task list.
      *
-     * @param taskList, the task list to store tasks from
+     * @param taskList, the task list to store tasks from.
      */
     public void storeTasksToMemory(TaskList taskList) {
         try {

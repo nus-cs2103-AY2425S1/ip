@@ -11,24 +11,20 @@ import phenex.exception.PhenexException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Scanner;
 
-
+/**
+ * Phenex class encapsulating the Phenex chatbot.
+ */
 public class Phenex {
-    /** Encapsulates the Ui of Phenex */
+    /** Encapsulates the Ui of Phenex. */
     private Ui ui;
-    /** Encapsulates the task list of Phenex */
+    /** Encapsulates the task list of Phenex. */
     private TaskList tasks;
-    /** Encapsulates the storage of Phenex */
+    /** Encapsulates the storage of Phenex. */
     private Storage storage;
-    /** Encapsulates the parser of Phenex */
+    /** Encapsulates the parser of Phenex. */
     private Parser parser;
-
-    public enum CommandType {
-        COMMAND_MARK, COMMAND_UNMARK, COMMAND_DELETE
-    }
 
     public Phenex(Path filePath) {
         this.storage = new Storage(filePath);
