@@ -6,16 +6,15 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
     private String name;
-    private boolean completed;
-    private String taskType;
+    private boolean isCompleted;
 
     public Task(String name, boolean completed) {
         this.name = name;
-        this.completed = completed;
+        this.isCompleted = completed;
     }
 
     public String checkMark() {
-        if (completed) {
+        if (isCompleted) {
             return "X";
         } else {
             return " ";
@@ -23,7 +22,7 @@ public abstract class Task {
     }
 
     public String completeStatus() {
-        if (completed) {
+        if (isCompleted) {
             return "1";
         } else {
             return "0";
@@ -40,11 +39,11 @@ public abstract class Task {
     }
 
     public void check() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     public void uncheck() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     public String getName() {

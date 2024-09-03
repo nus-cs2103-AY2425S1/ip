@@ -4,8 +4,8 @@ public class Deadline extends Task {
     private String dateTime;
     private final String taskType = "D";
 
-    public Deadline(String name, boolean completed, String dateTime) {
-        super(name, completed);
+    public Deadline(String name, boolean isCompleted, String dateTime) {
+        super(name, isCompleted);
         this.dateTime = dateTime;
     }
 
