@@ -19,7 +19,7 @@ public class Ui {
      * Enum representing different types of messages used by the {@code Ui} class.
      */
     public enum MessageType {
-        WELCOME_MESSAGE( "Hello! I'm Talkie, your friendly ChatBot.\n"
+        WELCOME_MESSAGE("Hello! I'm Talkie, your friendly ChatBot.\n"
                 + "What can I do for you?\n"),
 
         BYE_MESSAGE("Bye. Hope to see you again soon!\n");
@@ -70,7 +70,7 @@ public class Ui {
      * Displays a goodbye message to the user.
      */
     public String byeMessage() {
-       return MessageType.BYE_MESSAGE.getMessage();
+        return MessageType.BYE_MESSAGE.getMessage();
     }
 
     /**
@@ -92,7 +92,7 @@ public class Ui {
                 + "  " + t + "\n"
                 + "Now you have " + taskListSize + " " + taskWord + " in the list.\n";
 
-       return finalMessage;
+        return finalMessage;
     }
 
     /**

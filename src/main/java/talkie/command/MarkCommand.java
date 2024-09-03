@@ -37,9 +37,9 @@ public class MarkCommand extends Command {
      * @param ui      The UI component used to display messages to the user.
      * @param storage The storage component used to save task data.
      * @return A string containing a confirmation message about the task being marked as done, including the
-     * task details.
+     *         task details.
      * @throws TalkieInvalidArgumentException If the argument provided is not a valid integer or is not in the expected
-     * format.
+     *         format.
      * @throws TalkieMissingArgumentException If no task index is provided in the command input.
      * @throws TalkieNoTaskFoundException     If the specified task index does not correspond to any task in the list.
      */

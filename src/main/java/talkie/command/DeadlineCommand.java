@@ -42,7 +42,7 @@ public class DeadlineCommand extends Command {
      * @param ui      The {@code Ui} component used to display messages to the user.
      * @param storage The {@code Storage} component used to save task data.
      * @return A string containing a confirmation message about the added deadline task, or an error message if the
-     * input is invalid.
+     *         input is invalid.
      * @throws TalkieMissingArgumentException If the command is missing the required description or deadline.
      */
     @Override

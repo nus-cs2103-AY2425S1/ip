@@ -28,7 +28,7 @@ public abstract class Command {
      * @param ui      The UI component used to interact with the user.
      * @param storage The storage component used to save or load task data.
      * @return A string representing the result of the command's execution, typically a message to be
-     * displayed to the user.
+     *         displayed to the user.
      * @throws TalkieException If an error occurs during the execution of the command.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws TalkieException;
