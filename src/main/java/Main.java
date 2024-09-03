@@ -23,7 +23,7 @@ public class Main extends Application {
             stage.setTitle("Hamyo Chatbot");
             stage.setMinHeight(630);
             stage.setMinWidth(420);
-            fxmlLoader.<MainWindow>getController().setHamyo(hamyo);  // inject the Hamyo instance
+            fxmlLoader.<MainWindow>getController().setHamyo(hamyo); // inject the Hamyo instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

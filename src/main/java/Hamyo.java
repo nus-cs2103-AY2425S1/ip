@@ -90,7 +90,7 @@ public class Hamyo {
 
         System.out.print(outputStream);
         return outputStream.toString().split(
-                "\n" + Ui.line)[0];
+                "\n" + Ui.LINE)[0];
     }
 
     /**

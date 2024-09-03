@@ -1,4 +1,3 @@
-import hamyo.misc.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -25,6 +24,9 @@ public class MainWindow extends AnchorPane {
     private final Image userIcon = new Image(this.getClass().getResourceAsStream("/images/userIcon.png"));
     private final Image hamyoIcon = new Image(this.getClass().getResourceAsStream("/images/hamyoIcon.png"));
 
+    /**
+     *  Initialises the Chatbot, Hamyo greets user.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
