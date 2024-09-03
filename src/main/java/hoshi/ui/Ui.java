@@ -35,12 +35,12 @@ public class Ui {
     /**
      * Displays all tasks that the user has previously added to Hoshi
      */
-    public void displayTasks(TaskList taskList) {
+    public String displayTasks(TaskList tasks) {
 
-        if (!taskList.isEmpty()) {
-            System.out.println(taskList);
+        if (!tasks.isEmpty()) {
+            return tasks.toString();
         } else {
-            System.out.println("Hoshi doesn't have anything stored! Please add a task first");
+            return "Hoshi doesn't have anything stored! Please add a task first";
         }
 
     }
@@ -62,24 +62,23 @@ public class Ui {
     /**
      * Displays text requesting user to specify which task to mark
      */
-    public void displayTaskToMark() {
-        System.out.println("Please specify the task number to mark! \n");
+    public String displayTaskToMark() {
+        return "Please specify the task number to mark!";
     }
 
     /**
      * Displays text indicating text has been marked as done
      */
-    public void displayTaskMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done: \n");
-        System.out.println(task.toString() + "\n");
+    public String displayTaskMarked(Task task) {
+        return "Nice! I've marked this task as done: \n" + task.toString() + "\n";
     }
 
     /**
      * Displays text indicating text has been unmarked
      */
-    public void displayTaskUnmarked(Task task) {
-        System.out.println("OK! I've marked this task as not done: \n");
-        System.out.println(task.toString() + "\n");
+    public String displayTaskUnmarked(Task task) {
+        return "Nice! I've marked this task as not done: \n" + task.toString() + "\n";
+
     }
 
     /**
@@ -92,15 +91,15 @@ public class Ui {
     /**
      * Displays text indicating which task was deleted
      */
-    public void displayTaskDeleted(Task task) {
-        System.out.println("OK, Hoshi has removed ( " + task.getDesc() + " )! \n");
+    public String displayTaskDeleted(Task task) {
+        return "OK, Hoshi has removed ( " + task.getDesc() + " )! \n";
     }
 
     /**
      * Displays text requesting user to specify which task to add
      */
-    public void displayTaskAdd() {
-        System.out.println("Please specify the task to add! E.g. Add {task to be added} \n");
+    public String displayTaskAdd() {
+        return "Please specify the task to add! E.g. Add {task to be added} \n";
     }
 
     /**
@@ -162,8 +161,8 @@ public class Ui {
     /**
      * Displays text indicating an error has occurred
      */
-    public void displayError(String message) {
-        System.out.println(message);
+    public String displayError(String message) {
+        return message;
     }
 
     /**
@@ -183,11 +182,8 @@ public class Ui {
     /**
      * Displays text indicating the program has terminated
      */
-    public void displayBye() {
-        System.out.println("""
-                    Bye. Hope to see you again soon!\s
-                    ____________________________________________________________
-                    """);
+    public String displayBye() {
+        return "Bye, Hope to see you again soon! \n";
     }
 
 }

@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
  * <p>This class inherits from the Task class It maintains a description
  * of the deadline, whether the task has been completed or not and the end time.</p>
  */
-
 public class Deadline extends Task {
 
     private LocalDate endTime;

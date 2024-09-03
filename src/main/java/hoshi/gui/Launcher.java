@@ -1,3 +1,5 @@
+package hoshi.gui;
+
 import javafx.application.Application;
 
 /**

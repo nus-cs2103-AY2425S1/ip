@@ -23,7 +23,9 @@ public class Hoshi {
     /**
      * Hoshi method
      */
-    public Hoshi(String filePath) {
+    public Hoshi() {
+
+        String filePath = "data/Hoshi.txt";
 
         ui = new Ui();
 
@@ -43,33 +45,26 @@ public class Hoshi {
     /**
      * Run method - main flow of Hoshi
      */
-    public void run() {
+    public String run(String input) {
 
-        ui.displayWelcome();
-        Scanner scanner = new Scanner(System.in);
-        String input;
+        String response = "";
 
-        do {
-            ui.displayPrompt();
-            input = scanner.nextLine();
-            parser.parseCommand(input, scanner, taskList, ui);
+        response = parser.parseCommand(input, taskList, ui);
 
-        } while (!input.equalsIgnoreCase("bye"));
+        //ui.displayWelcome();
+        //Scanner scanner = new Scanner(System.in);
+
+        //ui.displayPrompt();
+        //input = scanner.nextLine();
+
 
         try {
             storage.save(taskList);
         } catch (IOException e) {
             ui.displaySavingError(e.getMessage());
+            response = e.getMessage();
         }
+        return response;
     }
-
-    /**
-     * Main method
-     */
-    public static void main(String[] args) {
-        new Hoshi("data/Hoshi.txt").run();
-
-    }
-
 
 }

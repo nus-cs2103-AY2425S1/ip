@@ -219,7 +219,7 @@ public class ParserTest {
         Mockito.doNothing().when(parser).handleSave(Mockito.any(Ui.class), Mockito.any(TaskList.class));
 
         // test
-        parser.handleAdd(input, scanner, taskList, ui);
+        parser.handleAdd(input, taskList, ui);
 
         // assert
         verify(taskList).add(Mockito.any(Todo.class));
@@ -241,7 +241,7 @@ public class ParserTest {
 
         // test
 
-        parser.handleAdd(input, scanner, taskList, ui);
+        parser.handleAdd(input, taskList, ui);
 
         // assert
 

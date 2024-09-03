@@ -18,52 +18,45 @@ import hoshi.ui.Ui;
  */
 public class Parser {
 
-    private Storage storage = new Storage("./data/Hoshi.txt");
+    private final Storage storage = new Storage("./data/Hoshi.txt");
 
     /**
      * Parses all user commands into their respective methods as well as display the bye message once
      * program terminates
      *
      * @param input    the input that the user entered which is used to check which command to execute
-     * @param scanner  scanner object that scans user input
      * @param taskList the TaskList that stores 3 types of tasks
      * @param ui       Ui that handles all user interaction
+     * @return
      */
-    public void parseCommand(String input, Scanner scanner, TaskList taskList, Ui ui) {
+    public String parseCommand(String input, TaskList taskList, Ui ui) {
 
         switch (input.split(" ")[0].toLowerCase()) {
         case "bye":
-            ui.displayBye();
-            break;
+            return ui.displayBye();
 
         case "list":
-            ui.displayTasks(taskList);
-            break;
+            return ui.displayTasks(taskList);
 
         case "mark":
-            handleMark(input, taskList, ui);
-            break;
+            return handleMark(input, taskList, ui);
 
         case "unmark":
-            handleUnmark(input, taskList, ui);
-            break;
-
+            return handleUnmark(input, taskList, ui);
         case "delete":
-
             handleDelete(input, taskList, ui);
             break;
 
         case "add":
-            handleAdd(input, scanner, taskList, ui);
-            break;
+            return handleAdd(input, taskList, ui);
 
         case "find":
             handleFind(input, taskList, ui);
             break;
         default:
-            ui.displayError("Hoshi doesn't understand, try a different input?");
-            break;
+            return ui.displayError("Hoshi doesn't understand, try a different input?");
         }
+        return "NOT WORKING - STRICTLY FOR DEBUGGING ONLY";
     }
 
     /**
@@ -73,11 +66,11 @@ public class Parser {
      * @param taskList the TaskList that stores 3 types of tasks
      * @param ui       Ui that handles all user interaction
      */
-    public void handleMark(String input, TaskList taskList, Ui ui) {
+    public String handleMark(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 5) {
 
-            ui.displayTaskToMark();
+            return ui.displayTaskToMark();
 
         } else {
 
@@ -94,9 +87,10 @@ public class Parser {
                 if (markIndex <= taskList.size() - 1) {
 
                     taskList.get(markIndex).setIsDone(true);
-                    ui.displayTaskMarked(taskList.get(markIndex));
-
+                    //ui.displayTaskMarked(taskList.get(markIndex));
                     handleSave(ui, taskList);
+
+                    return ui.displayTaskMarked(taskList.get(markIndex));
 
                 } else {
                     throw new HoshiException("Hoshi doesn't have such a task!");
@@ -104,7 +98,7 @@ public class Parser {
 
 
             } catch (HoshiException e) {
-                ui.displayError(e.getMessage());
+                return ui.displayError(e.getMessage());
             }
 
         }
@@ -117,10 +111,10 @@ public class Parser {
      * @param taskList the TaskList that stores 3 types of tasks
      * @param ui       Ui that handles all user interaction
      */
-    public void handleUnmark(String input, TaskList taskList, Ui ui) {
+    public String handleUnmark(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 7) {
-            ui.displayTaskToMark();
+            return ui.displayTaskToMark();
 
         } else {
 
@@ -141,14 +135,14 @@ public class Parser {
 
                     handleSave(ui, taskList);
 
-                    ui.displayTaskUnmarked(taskList.get(markIndex));
+                    return ui.displayTaskUnmarked(taskList.get(markIndex));
 
                 } else {
                     throw new HoshiException("Hoshi doesn't have such a task!");
                 }
 
             } catch (HoshiException e) {
-                ui.displayError(e.getMessage());
+                return ui.displayError(e.getMessage());
             }
         }
     }
@@ -200,14 +194,13 @@ public class Parser {
      * txt file later
      *
      * @param input    String that represents general user input before add task details are required.
-     * @param scanner  Scanner that allows user input to be read.
      * @param taskList TaskList of 3 types of tasks that will be added to in this method.
      */
-    public void handleAdd(String input, Scanner scanner, TaskList taskList, Ui ui) {
+    public String handleAdd(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 4) {
 
-            ui.displayTaskAdd();
+            return ui.displayTaskAdd();
 
         } else {
 
@@ -219,6 +212,7 @@ public class Parser {
             case "todo" -> {
 
                 ui.displayTodoTask();
+                Scanner scanner = new Scanner(System.in);
                 String desc = scanner.nextLine();
 
                 try {
@@ -243,6 +237,7 @@ public class Parser {
             case "deadline" -> {
 
                 ui.displayDeadlineTask();
+                Scanner scanner = new Scanner(System.in);
                 String desc = scanner.nextLine();
 
                 try {
@@ -276,6 +271,7 @@ public class Parser {
             case "event" -> {
 
                 ui.displayEventTask();
+                Scanner scanner = new Scanner(System.in);
                 String desc = scanner.nextLine();
 
                 try {
@@ -320,7 +316,7 @@ public class Parser {
             }
 
         }
-
+        return "STRICTLY FOR DEBUGGING ONLY - TO BE REMOVED";
     }
 
     /**
