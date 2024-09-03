@@ -14,7 +14,7 @@ public class TaskFileManager {
                 .toFile();
     }
 
-    public void saveTasks(Task[] tasks) throws IOException {
+    public void saveTasksToFile(Task[] tasks) throws IOException {
         createFileIfNotExists();
 
         FileWriter writer = new FileWriter(file);
@@ -31,13 +31,17 @@ public class TaskFileManager {
         Scanner sc = new Scanner(new FileReader(file));
         sc.useDelimiter("\n");
 
-        ArrayList<String> taskStrings = new ArrayList<>();
+        FileTaskCreator creator = new FileTaskCreator();
+        ArrayList<Task> tasks = new ArrayList<>();
         while(sc.hasNext()) {
-            taskStrings.add(sc.nextLine());
+            String taskString = sc.nextLine();
+            tasks.add(creator.createTask(taskString));
         }
 
+        sc.close();
+
         // convert to task objects
-        return new Task[0];
+        return tasks.toArray(new Task[0]);
     }
 
     private String toSaveFormat(Task[] tasks) {
