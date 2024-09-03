@@ -21,11 +21,11 @@ public class Parser {
      */
     public static ArrayList<String> parse(String command) {
         ArrayList<String> parsedResult = new ArrayList<>();
-        String[] parse_1 = command.split(" ", 2);
-        parsedResult.add(parse_1[0]);
-        if (parse_1.length > 1) {
-            String[] parse_2 = parse_1[1].split(" /", 3);
-            parsedResult.addAll(Arrays.stream(parse_2).toList());
+        String[] parseSpaces = command.split(" ", 2);
+        parsedResult.add(parseSpaces[0]);
+        if (parseSpaces.length > 1) {
+            String[] parseSlash = parseSpaces[1].split(" /", 3);
+            parsedResult.addAll(Arrays.stream(parseSlash).toList());
         }
         return parsedResult;
     }
