@@ -1,13 +1,22 @@
-package ip.derrick ;
+package ip.derrick;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deadline containing a deadline that is to be adhered to.
+ */
 public class Deadline extends Task {
 
-    String by;
-    LocalDate newBy;
+    private LocalDate newBy;
+    private String by;
 
+    /**
+     * Initialises the class with a description and deadline.
+     * @param description Description of the task
+     * @param by Deadline of the task
+     */
     public Deadline(String description, String by) {
         super(description);
         this.newBy = convertDate(by);

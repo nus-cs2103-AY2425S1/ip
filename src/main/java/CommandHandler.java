@@ -1,8 +1,17 @@
-package ip.derrick ;
+package ip.derrick;
+
+/**
+ * Handles the commands that the user inputs and execute the corresponding outputs.
+ */
 public class CommandHandler {
 
     private Commands command;
     private boolean isExit;
+
+    /**
+     * Initialize the class with the specified command.
+     * @param command enum value from Commands class
+     */
     public CommandHandler(Commands command) {
         this.isExit = false;
         this.command = command;
@@ -25,7 +34,7 @@ public class CommandHandler {
      * @param storage The storage in charge of saving and loading the TaskList.
      * @param ui The Ui in charge of user interactions
      */
-    public void execute(String input, TaskList tasks,Storage storage, Ui ui) {
+    public void execute(String input, TaskList tasks, Storage storage, Ui ui) {
         switch (command) {
         case BYE:
             this.isExit = true;

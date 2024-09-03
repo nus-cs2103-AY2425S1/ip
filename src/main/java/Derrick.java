@@ -1,16 +1,21 @@
-package ip.derrick ;
-import java.awt.geom.NoninvertibleTransformException;
-import java.lang.reflect.Array;
+package ip.derrick;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
+/**
+ * Main class to execute the chatbot
+ */
 public class Derrick {
     private ArrayList<Task> toDo = new ArrayList<>();
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
+
+    /**
+     * Initializes the class with an Ui, Parser, Storage, and TaskList object.
+     */
     public Derrick() {
         this.ui = new Ui();
         this.parser = new Parser();

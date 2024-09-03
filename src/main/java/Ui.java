@@ -1,4 +1,8 @@
-package ip.derrick ;
+package ip.derrick;
+
+/**
+ * Ui class containing all the interactions of the chat bot with the user.
+ */
 public class Ui {
 
     /**

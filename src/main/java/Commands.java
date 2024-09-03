@@ -1,4 +1,8 @@
-package ip.derrick ;
+package ip.derrick;
+
+/**
+ * Contains the list of commands that the chatbot can execute.
+ */
 public enum Commands {
 
     BYE, LIST, MARK, UNMARK, FIND, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
