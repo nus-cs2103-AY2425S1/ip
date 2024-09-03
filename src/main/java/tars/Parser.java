@@ -35,4 +35,25 @@ public class Parser {
             System.out.println(line);
         }
     }
+
+    public void findTask(String[] entryParts, TaskList tasks){
+        ArrayList<Task> resultList = new ArrayList<>();
+        String taskPrefix = entryParts[1];
+
+        for (int i = 0; i < tasks.getList().size(); i++) {
+            String[] j = tasks.getList().get(i).toString().split(" ");
+
+            for (int k = 0; k < j.length; k++) {
+                if (j[k].equals(taskPrefix)) {
+                    resultList.add(tasks.getList().get(i));
+                }
+            }
+        }
+
+        System.out.println(line + "\n" + "Here are the matching tasks in your list");
+        for (int i = 0; i < resultList.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.getList().get(i));
+        }
+        System.out.println(line);
+    }
 }
