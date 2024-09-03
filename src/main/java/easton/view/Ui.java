@@ -3,11 +3,17 @@ package easton.view;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the program.
+ */
 public class Ui<T> {
 
     private static final String CHATBOT_NAME = "easton.Easton";
     private Scanner scanner;
 
+    /**
+     * Construct a new user interface.
+     */
     public Ui() {
         scanner = new Scanner(System.in);
     }
@@ -20,6 +26,9 @@ public class Ui<T> {
         print("____________________________________________________________");
     }
 
+    /**
+     * Prints welcome message.
+     */
     public static void welcome() {
         String logo = " _______  _______  _______  _______  _______  __    _\n"
                 + "|       ||   _   ||       ||       ||       ||  |  | |\n"
@@ -35,14 +44,26 @@ public class Ui<T> {
         divider();
     }
 
+    /**
+     * Prints goodbye message.
+     */
     public static void goodbye() {
         print("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Reads the input from the user interface.
+     * @return The input from the user.
+     */
     public String input() {
         return scanner.nextLine();
     }
 
+    /**
+     * Prints the list.
+     *
+     * @param records Records to be printed.
+     */
     public void list(ArrayList<T> records) {
         print("Here are the tasks in your list:");
         for (int i = 0; i < records.size(); i ++) {
@@ -50,10 +71,20 @@ public class Ui<T> {
         }
     }
 
+    /**
+     * Shows a record.
+     *
+     * @param record Record to be printed.
+     */
     public void show(T record) {
         print(record.toString());
     }
 
+    /**
+     * Prints a given text.
+     *
+     * @param text Text to be printed
+     */
     public static void displayText(String text) {
         print(text);
     }
