@@ -3,6 +3,9 @@ package choaticbot.tasks;
 import java.util.ArrayList;
 import static choaticbot.ui.Ui.printLine;
 
+/**
+ * Represents a list of tasks
+ */
 public class TaskList {
     private ArrayList<Task> tasklist;
     //private int numberOfTask;
@@ -11,6 +14,10 @@ public class TaskList {
         this.tasklist = new ArrayList<>();
     }
 
+    /**
+     * Adds a task to the list of tasks
+     * @param task The new task
+     */
     public void addTask(Task task) {
         printLine();
         this.tasklist.add(task);
@@ -19,6 +26,10 @@ public class TaskList {
         printLine();
     }
 
+    /**
+     * Deletes a task from the list of tasks
+     * @param task The task to be deleted
+     */
     public void deleteTask(int index) {
         printLine();
         System.out.println("deleted: " + this.tasklist.get(index - 1) + "\n");
@@ -27,6 +38,9 @@ public class TaskList {
         printLine();
     }
 
+    /**
+     * Prints the list of tasks
+     */
     public void listTask() {
         printLine();
         for (int i = 0; i < tasklist.size(); i++) {
@@ -35,6 +49,10 @@ public class TaskList {
         printLine();
     }
 
+    /**
+     * Marks a task in the list of tasks to be completed
+     * @param task The task to be marked completed
+     */
     public void markTask(int index) {
         printLine();
         this.tasklist.get(index - 1).complete();
@@ -42,6 +60,10 @@ public class TaskList {
         printLine();
     }
 
+    /**
+     * Marks a task in the list of tasks to be uncompleted
+     * @param task The task to be marked as completed
+     */
     public void unmarkTask(int index) {
         printLine();
         this.tasklist.get(index - 1).uncomplete();
@@ -49,6 +71,10 @@ public class TaskList {
         printLine();
     }
 
+    /**
+     * Returns the list of tasks
+     * @return An ArrayList of type Task
+     */
     public ArrayList<Task> getTasks() {
         return this.tasklist;
     }
