@@ -6,12 +6,26 @@ import exception.DukeException;
 import exception.FormatException;
 import exception.NoInputException;
 
+/**
+ * Task class is used to represent a task in Duke.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Abstract method toFileString is used to convert the task to string 
+     * for storage in file with Storage class.
+     * @return The file string representation of the task.
+     */
     public abstract String toFileString();
 
+    /**
+     * Static method fromFileString is used to convert a string from file
+     * to a task.
+     * @param s The file string representation of the task.
+     * @return The UI version of the task string.
+     */
     public static Task fromFileString(String s) {
         String[] parts = s.split("\\|");
         String type = parts[0];
@@ -36,11 +50,22 @@ public abstract class Task {
         return task;
     }
 
+    /**
+     * Constructor for Task.
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Static method of is used to create a task from a string 
+     * for giving task creation instructions.
+     * @param s User's instruction for task creation.
+     * @return The task object.
+     * @throws DukeException If the instruction is of wrong format.
+     */
 
     public static Task of(String s) throws DukeException {
         s = s.trim();
@@ -83,16 +108,26 @@ public abstract class Task {
         }
     }
 
-
-
+    /**
+     * Method getStatusIcon is used to get the status icon of the task.
+     * @return The status icon of the task. "X" for done task, and " " for undone task.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Method setIsDone is used to set the status of the task.
+     * @param val The status of the task.
+     */
     public void setIsDone(boolean val) {
         isDone = val;
     }
 
+    /**
+     * Method isDone is used to get the status of the task completion.
+     * @return The status of the task completion.
+     */
     public boolean isDone() {
         return isDone;
     }
@@ -103,10 +138,19 @@ public abstract class Task {
     }
 
     public static class Todo extends Task {
+        /**
+         * Constructor for Todo.
+         * @param description The description of the todo task.
+         */
         public Todo(String description) {
             super(description);
         }
 
+        /**
+         * Method toFileString is used to convert the todo task to string 
+         * for storage in file with Storage class.
+         * @return The file string representation of the todo task.
+         */
         @Override
         public String toFileString() {
             return String.format("T|%d|%s", isDone ? 1 : 0, description);
@@ -121,11 +165,21 @@ public abstract class Task {
 
     public static class Deadline extends Task {
         String by;
+        /**
+         * Constructor for Deadline.
+         * @param description The description of the deadline task.
+         * @param by The deadline of the deadline task.
+         */
         public Deadline(String description, String by) {
             super(description);
             this.by = by;
         }
 
+        /**
+         * Method toFileString is used to convert the deadline task to string 
+         * for storage in file with Storage class.
+         * @return The file string representation of the deadline task.
+         */
         @Override
         public String toFileString() {
             return String.format("D|%d|%s|%s", isDone ? 1 : 0, description, by);
@@ -139,14 +193,25 @@ public abstract class Task {
     }
 
     public static class Event extends Task {
-        private String from;
-        private String to;
+        String from;
+        String to;
+        /**
+         * Constructor for Event.
+         * @param description The description of the event task.
+         * @param from The start time of the event task.
+         * @param to The end time of the event task.
+         */
         public Event(String description, String from, String to) {
             super(description);
             this.from = from;
             this.to = to;
         }
 
+        /**
+         * Method toFileString is used to convert the event task to string 
+         * for storage in file with Storage class.
+         * @return The file string representation of the event task.
+         */
         @Override
         public String toFileString() {
             return String.format("E|%d|%s|%s|%s", isDone ? 1 : 0, description, from, to);

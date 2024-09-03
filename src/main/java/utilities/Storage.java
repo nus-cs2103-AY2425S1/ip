@@ -10,11 +10,19 @@ import task.TaskList;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for Storage.
+     * @param filePath The path to the file where the tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public TaskList load() throws DukeException {
+    /**
+     * Method to load the tasks from text file.
+     * @return The task list.
+     */
+    public TaskList load() {
         // create a new file if the file does not exist
         File file = new File(filePath);
         if (!file.exists()) {
@@ -39,6 +47,10 @@ public class Storage {
         return new TaskList(tasks);
     }
 
+    /**
+     * Method to save the tasks to text file.
+     * @param taskList The task list to be saved.
+     */
     public void save(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : taskList) {
