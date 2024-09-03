@@ -4,11 +4,28 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code Storage} class handles the loading and saving of tasks to a file.
+ * It supports the serialization and deserialization of tasks in the specific format.
+ */
 public class Storage {
     protected String filePath;
+    /**
+     * Constructs a {@code Storage} object with the specified file path.
+     *
+     * @param filePath The path of the file to load from or save to.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+    /**
+     * Loads the tasks from the file specified by {@code filePath}.
+     * If the file does not exist, a new file is created.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws IOException If an I/O error occurs during file reading.
+     * @throws CorruptedFileException If the file content is invalid or corrupted.
+     */
     public List<Task> load() throws IOException, CorruptedFileException {
         List<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
@@ -62,6 +79,12 @@ public class Storage {
         }
         return taskList;
     }
+    /**
+     * Saves the given list of tasks to the file specified by {@code filePath}.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws IOException If an I/O error occurs during file writing.
+     */
     public void save(List<Task> tasks) throws IOException {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
