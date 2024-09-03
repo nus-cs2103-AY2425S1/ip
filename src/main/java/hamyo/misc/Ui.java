@@ -9,6 +9,14 @@ import hamyo.tasks.Task;
  */
 public class Ui {
 
+    public static final String line = "___________________________________________"
+        + "_________________________________________________";
+    public static final String logo = "$$   $$   $$$$    $$$$ $$$$   $$   $$  $$$$$$\n"
+        + "$$   $$  $$  $$  $$  $$$  $$  $$   $$  $$  $$\n"
+        + "$$$$$$$  $$$$$$  $$  $$$  $$  $$$$$$$  $$  $$\n"
+        + "$$   $$  $$  $$  $$  $$$  $$       $$  $$  $$\n"
+        + "$$   $$  $$  $$  $$  $$$  $$  $$$$$$   $$$$$$";
+
     /**
      * Pushes greeting text to users' terminal.
      */
@@ -32,19 +40,14 @@ public class Ui {
      * Pushes a break line to users' terminal, to segment different commands.
      */
     public static void printLine() {
-        System.out.println("___________________________________________"
-                + "_________________________________________________");
+        System.out.println(line);
     }
 
     /**
      * Pushes Hamyo logo to users' terminal.
      */
     private static void printLogo() {
-        System.out.println("$$   $$   $$$$    $$$$ $$$$   $$   $$  $$$$$$\n"
-                + "$$   $$  $$  $$  $$  $$$  $$  $$   $$  $$  $$\n"
-                + "$$$$$$$  $$$$$$  $$  $$$  $$  $$$$$$$  $$  $$\n"
-                + "$$   $$  $$  $$  $$  $$$  $$       $$  $$  $$\n"
-                + "$$   $$  $$  $$  $$  $$$  $$  $$$$$$   $$$$$$");
+        System.out.println(logo);
     }
 
     /**

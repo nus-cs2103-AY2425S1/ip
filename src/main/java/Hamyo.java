@@ -1,3 +1,5 @@
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 import hamyo.misc.HamyoException;
@@ -16,7 +18,7 @@ public class Hamyo {
     private final Ui ui;
     private final Storage storage;
     private final TaskList tasks;
-    private boolean active;
+    private boolean isActive;
 
     /**
      * Constructor of Hamyo instance. Consists of Ui for user interactions,
@@ -26,7 +28,7 @@ public class Hamyo {
     public Hamyo() {
         this.ui = new Ui();
         this.tasks = new TaskList();
-        this.active = true;
+        this.isActive = true;
         this.storage = new Storage("./savedTasks.txt");
 
         this.ui.greet();
@@ -42,9 +44,9 @@ public class Hamyo {
             Scanner scanner = new Scanner(System.in);
             storage.loadData(this.tasks);
 
-            while (this.active) {
+            while (this.isActive) {
                 try {
-                    this.active = Parser.parse(scanner.nextLine(), this.tasks);
+                    this.isActive = Parser.parse(scanner.nextLine(), this.tasks);
                     storage.saveData(this.tasks);
                 } catch (HamyoException e) {
                     Ui.printException(e);
@@ -55,6 +57,40 @@ public class Hamyo {
         } catch (HamyoException e) {
             Ui.printException(e);
         }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        if (!this.isActive) {
+            return "Hamyo was terminated! Please relaunch.";
+        }
+
+        // Create a stream to hold the output.
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+
+        PrintStream old = System.out;
+        System.setOut(printStream);
+
+        try {
+            storage.loadData(this.tasks);
+            this.isActive = Parser.parse(input, this.tasks);
+            storage.saveData(this.tasks);
+            if (!this.isActive) {
+                ui.terminate();
+            }
+        } catch (HamyoException e) {
+            Ui.printException(e);
+        }
+
+        System.out.flush();
+        System.setOut(old);
+
+        System.out.print(outputStream);
+        return outputStream.toString().split(
+                "\n" + Ui.line)[0];
     }
 
     /**
