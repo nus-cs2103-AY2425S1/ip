@@ -22,9 +22,9 @@ import java.util.Scanner;
  * and update the file with the current task list.
  */
 public class Storage {
+    private DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
     private String directoryPath;
     private String filePath;
-    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     /**
      * Constructor for the Storage class.
