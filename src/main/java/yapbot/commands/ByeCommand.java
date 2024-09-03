@@ -14,6 +14,7 @@ public class ByeCommand extends Command {
         try {
             storage.save(tasks.saveTasks());
             ui.showShutdownMessage();
+
             return true;
         } catch (IOException e) {
             throw new YapBotException("Shutting down...\nError, failed to save tasks.\nYapBot process terminated.");

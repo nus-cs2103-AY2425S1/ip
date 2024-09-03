@@ -29,14 +29,17 @@ public class Deadline extends Task {
 
         LocalDateTime deadline;
 
+        // Converts string to LocalDateTime
         if (deadlineStr.contains("AM") | deadlineStr.contains("PM")) {
             if (deadlineStr.contains("/")) {
+                // Date and Time
                 deadline = LocalDateTime.parse(deadlineStr, DATETIME_FORMATTER);
             } else {
+                //Time only, sets date to the day's date
                 deadline = LocalTime.parse(deadlineStr, TIME_FORMATTER).atDate(LocalDate.now());
             }
-
         } else {
+            // Date only, set time to default to 8am
             deadline = LocalDate.parse(deadlineStr, DATE_FORMATTER).atTime(8, 0);
         }
 
@@ -63,8 +66,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("ha dd MMM " +
-                "yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadline.format(OUTPUT_FORMATTER) + ")";
     }
 
 }

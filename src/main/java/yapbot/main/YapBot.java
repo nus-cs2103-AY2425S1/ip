@@ -7,9 +7,7 @@ import yapbot.util.Storage;
 import yapbot.util.TaskList;
 import yapbot.util.Ui;
 
-
 import java.time.format.DateTimeParseException;
-
 
 /**
  * Main class to start YapBot.
@@ -26,9 +24,9 @@ public class YapBot {
     }
 
     public void run() {
-
         ui.welcomeUser();
 
+        // Tries to load up tasks from hard drive
         try {
             this.taskList = new TaskList(storage.load());
         } catch (YapBotException e) {
@@ -45,11 +43,13 @@ public class YapBot {
                 boolean isSuccess = c.execute(taskList, ui, storage);
 
             } catch (NumberFormatException e) {
+                // Handles the case where user tries to specify task using 'one' instead of '1'
                 ui.printError("Error, Natural Language Processing Module offline...\nSpecify "
                         + "Task number instead (eg. \"1\", \"2\").");
             } catch (YapBotException e) {
                 ui.printError(e.getMessage());
             } catch (DateTimeParseException e) {
+                // Handles the case where the user inputs date and time in invalid format
                 ui.printError("Error, Dynamic DateTime Module offline."
                         + "\nDate & Time should be one of these formats:"
                         + "\n  Date & Time - \"5pm 2024/09/01\""

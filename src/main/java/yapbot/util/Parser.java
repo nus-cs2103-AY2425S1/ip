@@ -1,6 +1,15 @@
 package yapbot.util;
 
-import yapbot.commands.*;
+import yapbot.commands.ByeCommand;
+import yapbot.commands.Command;
+import yapbot.commands.DeadlineCommand;
+import yapbot.commands.DeleteCommand;
+import yapbot.commands.EventCommand;
+import yapbot.commands.ListCommand;
+import yapbot.commands.MarkCommand;
+import yapbot.commands.UnmarkCommand;
+import yapbot.commands.ToDoCommand;
+
 import yapbot.exceptions.YapBotException;
 
 public class Parser {
@@ -32,7 +41,6 @@ public class Parser {
 
             case "list":
                 return new ListCommand();
-
 
             case "mark":
                 return new MarkCommand(commandDetails);

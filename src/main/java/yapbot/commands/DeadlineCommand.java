@@ -27,6 +27,8 @@ public class DeadlineCommand extends Command {
         }
 
         String taskName = taskDetails.substring(0, taskDetails.indexOf("/by")).strip();
+
+        // Changes to upper case to align with date time formatter
         String deadlineStr = taskDetails.substring(taskDetails.indexOf("/by") + 3).strip().toUpperCase();
 
         Task task = new Deadline(taskName, deadlineStr);

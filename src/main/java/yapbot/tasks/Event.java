@@ -41,24 +41,27 @@ public class Event extends Task {
         LocalDateTime from;
         LocalDateTime to;
 
+        // converts string to LocalDateTime for "from"
         if (fromStr.contains("AM") | fromStr.contains("PM")) {
             if (fromStr.contains("/")) {
+                // Date and Time
                 from = LocalDateTime.parse(fromStr, DATETIME_FORMATTER);
             } else {
+                //Time only, sets date to the day's date
                 from = LocalTime.parse(fromStr, TIME_FORMATTER).atDate(LocalDate.now());
             }
-
         } else {
+            // Date only, set time to default to 8am
             from = LocalDate.parse(fromStr, DATE_FORMATTER).atTime(8,0);
         }
 
+        // same as above but for "to" field instead
         if (toStr.contains("AM") | toStr.contains("PM")) {
             if (toStr.contains("/")) {
                 to = LocalDateTime.parse(toStr, DATETIME_FORMATTER);
             } else {
                 to= LocalTime.parse(toStr, TIME_FORMATTER).atDate(LocalDate.now());
             }
-
         } else {
             to = LocalDate.parse(toStr, DATE_FORMATTER).atTime(8, 0);
         }
@@ -89,7 +92,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ha dd MMM yyyy");
-        return "[E]" + super.toString() + " (From: " + this.from.format(formatter) + " To: " + this.to.format(formatter) + ")";
+        return "[E]" + super.toString() +
+                " (From: " + this.from.format(OUTPUT_FORMATTER)
+                + " To: " + this.to.format(OUTPUT_FORMATTER)
+                + ")";
     }
 }

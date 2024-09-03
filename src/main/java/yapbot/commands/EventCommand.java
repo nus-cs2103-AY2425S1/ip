@@ -47,16 +47,13 @@ public class EventCommand extends Command {
         String fromStr;
         String toStr;
 
-        // Checks order of /from and /to
+        // Checks order of /from and /to and changes to upper case to align with date time formatter
         if (toIndex > fromIndex) {
-            fromStr =
-                    taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5, taskDeadlines.indexOf("/to")).strip()
-                            .toUpperCase();
-            toStr = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3).strip().toUpperCase();
+            fromStr = taskDeadlines.substring(fromIndex + 5, toIndex).strip().toUpperCase();
+            toStr = taskDeadlines.substring(toIndex + 3).strip().toUpperCase();
         } else {
-            toStr = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3, taskDeadlines.indexOf("/from")).strip()
-                    .toUpperCase();
-            fromStr = taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5).strip().toUpperCase();
+            toStr = taskDeadlines.substring(toIndex + 3, fromIndex).strip().toUpperCase();
+            fromStr = taskDeadlines.substring(fromIndex + 5).strip().toUpperCase();
         }
 
         Task task = new Event(taskName, fromStr, toStr);

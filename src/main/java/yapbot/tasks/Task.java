@@ -12,10 +12,15 @@ public class Task {
     private String description;
     private boolean isDone;
 
+    // Formats used for parsing of date and time from user input, locale is explicity set to en_sg for compatibility
     private static final Locale LOCALE = new Locale("en_sg");
-    protected static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("ha yyyy/MM/dd", LOCALE);
+    protected static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("ha yyyy/MM/dd",
+            LOCALE);
     protected static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd", LOCALE);
     protected static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("ha", LOCALE);
+
+    // Format for displaying date and time to user
+    protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("ha dd MMM yyyy", LOCALE);
 
     /**
      * Returns a Task instance.

@@ -1,10 +1,7 @@
 package yapbot.util;
 
 import yapbot.exceptions.YapBotException;
-import yapbot.tasks.Deadline;
-import yapbot.tasks.Event;
 import yapbot.tasks.Task;
-import yapbot.tasks.ToDo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,7 +34,6 @@ public class TaskList {
      */
     public void addTask(Task task) throws YapBotException {
         this.storedTasks.add(task);
-
     }
 
     /**
@@ -49,6 +45,7 @@ public class TaskList {
         if (storedTasks.isEmpty()) {
             throw new YapBotException("Error, no Tasks found in database.");
         }
+
         StringBuilder result = new StringBuilder();
         Iterator<Task> iterateStored = storedTasks.iterator();
 
@@ -59,10 +56,13 @@ public class TaskList {
                     .append(".")
                     .append(iterateStored.next())
                     .append("\n");
+
             index++;
         }
 
+        // Deletes the extra newline character at the end of the result string
         result.deleteCharAt(result.length() - 1);
+
         return result.toString();
     }
 

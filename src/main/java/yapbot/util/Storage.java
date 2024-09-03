@@ -26,6 +26,8 @@ public class Storage {
 
     public ArrayList<Task> load() throws YapBotException {
         try {
+
+            // Creates the file if it does not exist
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -85,10 +87,12 @@ public class Storage {
                         break;
                     }
 
+                    // Handles the case where the tasktype may not exist due to file corruption
                     default: {
                         this.file.delete();
 
                         this.file.createNewFile();
+
                         throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
                                 + "\nYapBot will execute without prior data.");
                     }
@@ -97,6 +101,7 @@ public class Storage {
 
             }
 
+            s.close();
             return result;
         } catch (FileNotFoundException e) {
             return new ArrayList<>();
@@ -104,12 +109,16 @@ public class Storage {
             throw new YapBotException("Error, save file could not be created."
                     + "\nYour tasks from this session will not be saved.");
         } catch (NumberFormatException | DateTimeParseException e) {
+            // Covers parsing errors due to file corruption
+
             this.file.delete();
+
             try {
                 this.file.createNewFile();
             } catch (IOException ignored) {
-
+                // IOException would have been thrown already if the file cannot be created.
             }
+
             throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
                     + "\nYapBot will execute without prior data.");
         }
@@ -117,11 +126,9 @@ public class Storage {
 
     public boolean save(String saveableTasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filepath);
-
         fileWriter.write(saveableTasks);
-
         fileWriter.close();
-        return true;
 
+        return true;
     }
 }

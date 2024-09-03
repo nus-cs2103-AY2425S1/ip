@@ -18,6 +18,7 @@ public class ToDoCommand extends Command {
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
         Task task = new ToDo(taskDetails);
         tasks.addTask(task);
+
         String successMessage = "Adding Task...\nSuccess\nTask added to database:\n" + "  "
                 + task + "\n" + "Total tasks: " + tasks.size();
         ui.printOutput(successMessage);
