@@ -1,14 +1,18 @@
 package duck.storage;
 
-import duck.command.InvalidCommandException;
-import duck.task.*;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duck.command.InvalidCommandException;
+import duck.task.Deadline;
+import duck.task.Event;
+import duck.task.Task;
+import duck.task.TaskList;
+import duck.task.ToDo;
 
 /**
  * The Storage class handles the loading and saving of tasks to and from a file.
@@ -44,10 +48,10 @@ public class Storage {
                 String line = fileScanner.nextLine();
                 String[] parts = line.split(" \\| ");
                 Task task = switch (parts[0]) {
-                    case "T" -> new ToDo(parts[2]);
-                    case "D" -> new Deadline(parts[2], LocalDate.parse(parts[3]));
-                    case "E" -> new Event(parts[2], parts[3], parts[4]);
-                    default -> throw new InvalidCommandException("Invalid task type in file");
+                case "T" -> new ToDo(parts[2]);
+                case "D" -> new Deadline(parts[2], LocalDate.parse(parts[3]));
+                case "E" -> new Event(parts[2], parts[3], parts[4]);
+                default -> throw new InvalidCommandException("Invalid task type in file");
                 };
                 if (parts[1].equals("1")) {
                     task.mark();

@@ -1,6 +1,13 @@
 package duck.parser;
 
-import duck.command.*;
+import duck.command.Command;
+import duck.command.DeleteCommand;
+import duck.command.FindCommand;
+import duck.command.InvalidCommandException;
+import duck.command.ListCommand;
+import duck.command.MarkCommand;
+import duck.command.TaskCommand;
+import duck.command.UnmarkCommand;
 
 /**
  * Parser parses command inputs to determine the type of command
@@ -18,13 +25,13 @@ public class Parser {
     public static Command parse(String fullCommand) throws InvalidCommandException {
         String commandType = Parser.getCommandType(fullCommand);
         return switch (commandType) {
-            case "todo", "deadline", "event" -> new TaskCommand(fullCommand, commandType);
-            case "mark" -> new MarkCommand(fullCommand);
-            case "unmark" -> new UnmarkCommand(fullCommand);
-            case "delete" -> new DeleteCommand(fullCommand);
-            case "list" -> new ListCommand(fullCommand);
-            case "find" -> new FindCommand(fullCommand);
-            default -> throw new InvalidCommandException("Invalid command: " + commandType);
+        case "todo", "deadline", "event" -> new TaskCommand(fullCommand, commandType);
+        case "mark" -> new MarkCommand(fullCommand);
+        case "unmark" -> new UnmarkCommand(fullCommand);
+        case "delete" -> new DeleteCommand(fullCommand);
+        case "list" -> new ListCommand(fullCommand);
+        case "find" -> new FindCommand(fullCommand);
+        default -> throw new InvalidCommandException("Invalid command: " + commandType);
         };
     }
 

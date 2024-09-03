@@ -1,9 +1,12 @@
 package duck.command;
 
+import duck.storage.Storage;
 import duck.task.TaskList;
 import duck.ui.Ui;
-import duck.storage.Storage;
 
+/**
+ * Represents a command to find a task from the task list.
+ */
 public class FindCommand implements Command {
     private final String fullCommand;
 

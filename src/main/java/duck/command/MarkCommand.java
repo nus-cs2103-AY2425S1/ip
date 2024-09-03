@@ -1,8 +1,8 @@
 package duck.command;
 
+import duck.storage.Storage;
 import duck.task.TaskList;
 import duck.ui.Ui;
-import duck.storage.Storage;
 
 /**
  * Represents a command to mark a task from the task list.
