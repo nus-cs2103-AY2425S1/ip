@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 import yapper.exception.YapperException;
 
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    private LocalDateTime by;
 
     public Deadline(String description, String by) throws YapperException {
         super(description);

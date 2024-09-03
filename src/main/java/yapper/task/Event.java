@@ -6,8 +6,8 @@ import java.time.format.DateTimeParseException;
 import yapper.exception.YapperException;
 
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     public Event(String description, String from, String to) throws YapperException {
         super(description);
