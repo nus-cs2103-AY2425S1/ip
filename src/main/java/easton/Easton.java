@@ -98,7 +98,7 @@ public class Easton {
         new Easton("task.csv").run();
     }
 
-    private void changeTaskStatus(String input, boolean isDone, String message) {
+    public void changeTaskStatus(String input, boolean isDone, String message) {
         try {
             int index = getIndexFromInput(input);
             Task task = tasks.get(index - 1);
@@ -111,7 +111,7 @@ public class Easton {
         }
     }
 
-    private void deleteTask(String input) {
+    public void deleteTask(String input) {
         try {
             int index = getIndexFromInput(input);
             Task task = tasks.remove(index - 1);
@@ -124,7 +124,7 @@ public class Easton {
         }
     }
 
-    private int getIndexFromInput(String input) throws InvalidIndexException, EmptyDescriptionException {
+    public int getIndexFromInput(String input) throws InvalidIndexException, EmptyDescriptionException {
         int index;
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length != 2) {
@@ -173,7 +173,7 @@ public class Easton {
         return new Deadline(content[0], content[1]);
     }
 
-    private static Event createEvent(String input) throws EmptyDescriptionException,
+    public static Event createEvent(String input) throws EmptyDescriptionException,
             InvalidFormatException,
             DateTimeFormatException {
         String[] splitInput = input.split(" ", 2);
@@ -189,7 +189,7 @@ public class Easton {
         return new Event(content[0], content[1], content[2]);
     }
 
-    private static Action getActionFromInput(String input) throws IllegalActionException {
+    public static Action getActionFromInput(String input) throws IllegalActionException {
         String action = input.split(" ", 2)[0];
         try {
             return Action.valueOf(action.toUpperCase());
@@ -198,14 +198,14 @@ public class Easton {
         }
     }
 
-    private void addTask(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
         Ui.displayText("Got it. I've added this task:");
         ui.show(task);
         Ui.displayText("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private ArrayList<Task> retrieveTasks() {
+    public ArrayList<Task> retrieveTasks() {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         ArrayList<String> records = new ArrayList<>();
         Task task;
@@ -251,7 +251,7 @@ public class Easton {
         return taskArrayList;
     }
 
-    private void saveTasks() {
+    public void saveTasks() {
         ArrayList<String> records = new ArrayList<>();
 
         for (Task task : tasks) {
