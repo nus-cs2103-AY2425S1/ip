@@ -14,7 +14,7 @@ import count.exception.IncorrectFormatException;
  */
 public class Count {
     private TaskList ls;
-    private boolean on;
+    private boolean isOn;
     private Scanner sc;
     private UI ui;
     private Storage storage;
@@ -25,7 +25,7 @@ public class Count {
      * @param filePath String filePath in which Count will read and save to
      */
     public Count(String filePath) {
-        this.on = true;
+        this.isOn = true;
         this.sc = new Scanner(System.in);
         this.ui = new UI();
         this.storage = new Storage(filePath);
@@ -49,23 +49,35 @@ public class Count {
     private void start() {
         ui.greet();
 
-        while (this.on) {
+        while (this.isOn) {
             String command = sc.nextLine();
             try {
                 Action curr = parser.parse(command);
-                String message = curr.run();
                 if (curr instanceof Deactivate) {
-                    this.on = false;
+                    this.isOn = false;
                     this.sc.close();
                 }
-
-                ui.reply(message);
             } catch (CountException e) {
                 ui.reply(e.getMessage());
             }
         }
     }
 
+    /**
+     * Gets response from the input to be sent to gui
+     * @param input to be parsed
+     * @return String to be shown to the user
+     */
+    public String getResponse(String input) {
+        String response = "";
+        try {
+            Action curr = parser.parse(input);
+            response = curr.run();
+        } catch (CountException e) {
+            response = e.getMessage();
+        }
+        return response;
+    }
     public static void main(String[] args) {
         Count c = new Count("./Count.txt");
         c.start();

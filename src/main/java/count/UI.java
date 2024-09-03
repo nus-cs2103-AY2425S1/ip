@@ -22,17 +22,17 @@ public class UI {
      * The greet method creates a new Greet object and runs it,
      * printing the String returned like how Count would say it
      */
-    public void greet() {
+    public String greet() {
         Greet welcome = new Greet();
-        reply(welcome.run());
+        return welcome.run();
     }
 
     /**
      * The farewell method creates a new Deactivate object and runs it,
      * printing the String returned like how Count would say it
      */
-    public void farewell() {
+    public String farewell() {
         Deactivate d = new Deactivate();
-        reply(d.run());
+        return d.run();
     }
 }
