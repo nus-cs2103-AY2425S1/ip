@@ -9,8 +9,7 @@ import applemazer.Ui;
  */
 public class ByeCommand extends Command {
     /**
-     * Does not do anything as the purpose of the "bye" command is to set the processing state to false
-     * to shut down the chatbot.
+     * Executes the "bye" command by returning the farewell message.
      *
      * @param tasks   The task list to use if necessary.
      * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
@@ -19,7 +18,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
-        return "";
+        return ui.farewell();
     }
 
     /**

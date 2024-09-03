@@ -1,13 +1,19 @@
 package gui;
 
 import applemazer.Applemazer;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 /**
  * Controller for the main GUI.
@@ -35,12 +41,13 @@ public class MainWindow extends AnchorPane {
     /** Injects the Applemazer instance */
     public void setApplemazer(Applemazer applemazer) {
         this.applemazer = applemazer;
+        dialogContainer.getChildren().add(
+                DialogBox.getApplemazerDialog(applemazer.getUi().greeting(), applemazerImage)
+        );
+        scrollPane.setBackground(new Background(new BackgroundFill(Color.HOTPINK, CornerRadii.EMPTY, Insets.EMPTY)));
+        dialogContainer.setBackground(new Background(new BackgroundFill(Color.HOTPINK, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -50,5 +57,25 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getApplemazerDialog(response, applemazerImage)
         );
         userInput.clear();
+
+        if (applemazer.shouldExit()) {
+            AtomicInteger countdownTime = new AtomicInteger(3);
+            Timer timer = new Timer();
+            TimerTask countdown = new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(() -> {
+                        if (countdownTime.get() > 0) {
+                            dialogContainer.getChildren().add(DialogBox.getApplemazerDialog("Shutting down in " + countdownTime.getAndDecrement() + "...", applemazerImage));
+                        } else {
+                            timer.cancel();
+                            Platform.exit();
+                        }
+                    });
+                }
+            };
+
+            timer.scheduleAtFixedRate(countdown, 700, 1000);
+        }
     }
 }

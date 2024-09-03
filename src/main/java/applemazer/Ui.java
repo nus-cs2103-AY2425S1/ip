@@ -14,17 +14,15 @@ public class Ui {
     /**
      * Greeting message printed when starting up the chatbot.
      */
-    public void greeting() {
-        String greeting = "Hello! I'm Applemazer.\nWhat can I do for you?\n";
-        System.out.println(greeting);
+    public String greeting() {
+        return "Hello! I'm Applemazer.\nWhat can I do for you?\n";
     }
 
     /**
      * Farewell message printed when shutting down the chatbot.
      */
-    public void farewell() {
-        String farewell = "Bye. Hope to see you again soon!";
-        System.out.println(farewell);
+    public String farewell() {
+        return "Bye. Hope to see you again soon!";
     }
 
     public String getFullTaskListString(TaskList tasks) {
@@ -34,6 +32,7 @@ public class Ui {
             Task task = tasks.get(i);
             sb.append(i + 1).append(". ").append(task.getStatusIcon()).append(task).append("\n");
         }
+        sb.append("\n");
         return sb.toString();
     }
 

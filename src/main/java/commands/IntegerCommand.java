@@ -59,7 +59,7 @@ public class IntegerCommand extends Command {
                 int size = tasks.size();
                 return String.format("""
                                      You currently have %d tasks.
-                                     Please enter a number between 1 and %d.
+                                     Please enter a number between 1 and %d.\n
                                      """, size, size);
             }
         } catch (IllegalStateException e) {
