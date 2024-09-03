@@ -1,19 +1,20 @@
 package arts;
 
+import java.time.format.DateTimeFormatter;
+
+import arts.command.AddDeadlineCommand;
+import arts.command.AddEventCommand;
+import arts.command.AddTodoCommand;
+import arts.command.DeleteCommand;
+import arts.command.FindCommand;
+import arts.command.MarkCommand;
+import arts.command.UnmarkCommand;
+import arts.enums.CommandType;
+import arts.task.TaskList;
 import arts.util.Parser;
 import arts.util.Storage;
 import arts.util.Ui;
-import arts.task.TaskList;
-import arts.enums.CommandType;
-import arts.command.AddDeadlineCommand;
-import arts.command.AddEventCommand;
-import arts.command.MarkCommand;
-import arts.command.UnmarkCommand;
-import arts.command.DeleteCommand;
-import arts.command.AddTodoCommand;
-import arts.command.FindCommand;
 
-import java.time.format.DateTimeFormatter;
 
 /**
  * The Arts class is the main entry point for the Arts application.
@@ -64,36 +65,36 @@ public class Arts {
                 String[] parts = parser.parseArguments(input);
 
                 switch (command) {
-                    case BYE:
-                        ui.showGoodbye();
-                        isExit = true;
-                        break;
-                    case LIST:
-                        ui.showMessage(listTasks());
-                        break;
-                    case MARK:
-                        new MarkCommand(tasks, storage, ui, parts[1]).execute();
-                        break;
-                    case UNMARK:
-                        new UnmarkCommand(tasks, storage, ui, parts[1]).execute();
-                        break;
-                    case DELETE:
-                        new DeleteCommand(tasks, storage, ui, parts[1]).execute();
-                        break;
-                    case TODO:
-                        new AddTodoCommand(tasks, storage, ui, parts[1]).execute();
-                        break;
-                    case DEADLINE:
-                        new AddDeadlineCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
-                        break;
-                    case EVENT:
-                        new AddEventCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
-                        break;
-                    case FIND:
-                        new FindCommand(tasks, ui, parts[1]).execute();
-                        break;
-                    default:
-                        throw new ArtsException("I'm sorry, but I don't know what that means.");
+                case BYE:
+                    ui.showGoodbye();
+                    isExit = true;
+                    break;
+                case LIST:
+                    ui.showMessage(listTasks());
+                    break;
+                case MARK:
+                    new MarkCommand(tasks, storage, ui, parts[1]).execute();
+                    break;
+                case UNMARK:
+                    new UnmarkCommand(tasks, storage, ui, parts[1]).execute();
+                    break;
+                case DELETE:
+                    new DeleteCommand(tasks, storage, ui, parts[1]).execute();
+                    break;
+                case TODO:
+                    new AddTodoCommand(tasks, storage, ui, parts[1]).execute();
+                    break;
+                case DEADLINE:
+                    new AddDeadlineCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
+                    break;
+                case EVENT:
+                    new AddEventCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
+                    break;
+                case FIND:
+                    new FindCommand(tasks, ui, parts[1]).execute();
+                    break;
+                default:
+                    throw new ArtsException("I'm sorry, but I don't know what that means.");
                 }
             } catch (ArtsException e) {
                 ui.showError(e.getMessage());

@@ -1,21 +1,22 @@
 package arts.util;
 
-import arts.ArtsException;
-import arts.task.Task;
-import arts.task.Todo;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import arts.ArtsException;
+import arts.task.Task;
+import arts.task.Todo;
 
 /**
  * Test class for the Storage class.
- * This class contains unit tests for the methods in the Storage class, verifying file storage and retrieval functionality.
+ * This class contains unit tests for the methods in the Storage class,
+ * verifying file storage and retrieval functionality.
  */
 public class StorageTest {
 
@@ -60,6 +61,7 @@ public class StorageTest {
         ArrayList<Task> loadedTasks = storage.load();
 
         assertEquals(1, loadedTasks.size(), "There should be one task loaded.");
-        assertEquals(task.toFileFormat(), loadedTasks.get(0).toFileFormat(), "The loaded task should match the saved task.");
+        assertEquals(task.toFileFormat(), loadedTasks.get(0).toFileFormat(),
+                "The loaded task should match the saved task.");
     }
 }

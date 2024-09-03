@@ -1,19 +1,19 @@
 package arts.command;
 
-import arts.task.TaskList;
-import arts.task.Task;
-import arts.task.Todo;
-import arts.util.Storage;
-import arts.util.Ui;
-import arts.ArtsException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import arts.ArtsException;
+import arts.task.Task;
+import arts.task.TaskList;
+import arts.task.Todo;
+import arts.util.Storage;
+import arts.util.Ui;
 
 /**
  * The DeleteCommandTest class contains unit tests for the DeleteCommand class.
@@ -53,7 +53,8 @@ public class DeleteCommandTest {
         command.execute();
 
         assertEquals(1, tasks.size(), "Task list should have one task after deletion.");
-        assertEquals("Noted. I've removed this task:\n [T][ ] Read a book\nNow you have 1 task in the list.", ui.getLastMessage());
+        assertEquals("Noted. I've removed this task:\n [T][ ] Read a book\nNow you have 1 task in the list.",
+                ui.getLastMessage());
     }
 
     /**
@@ -66,7 +67,8 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand(tasks, storage, ui, taskIndex);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("Invalid task index.", exception.getMessage(), "Exception message should indicate invalid task index.");
+        assertEquals("Invalid task index.", exception.getMessage(),
+                "Exception message should indicate invalid task index.");
     }
 
     /**
@@ -79,7 +81,8 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand(tasks, storage, ui, taskIndex);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("Invalid task index.", exception.getMessage(), "Exception message should indicate invalid task index.");
+        assertEquals("Invalid task index.", exception.getMessage(),
+                "Exception message should indicate invalid task index.");
     }
 
     /**

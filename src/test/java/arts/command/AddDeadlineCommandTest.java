@@ -1,19 +1,19 @@
 package arts.command;
 
-import arts.task.TaskList;
-import arts.util.Storage;
-import arts.util.Ui;
-import arts.ArtsException;
-import arts.task.Task;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import arts.ArtsException;
+import arts.task.Task;
+import arts.task.TaskList;
+import arts.util.Storage;
+import arts.util.Ui;
 
 /**
  * The AddDeadlineCommandTest class contains unit tests for the AddDeadlineCommand class.
@@ -56,8 +56,8 @@ public class AddDeadlineCommandTest {
         command.execute();
 
         assertEquals(1, tasks.size(), "Task list should have one task.");
-        assertEquals("Got it. I've added this task:\n " + tasks.getTask(0) +
-                "\nNow you have 1 task in the list.", ui.getLastMessage());
+        assertEquals("Got it. I've added this task:\n " + tasks.getTask(0)
+                + "\nNow you have 1 task in the list.", ui.getLastMessage());
     }
 
     /**
@@ -70,7 +70,8 @@ public class AddDeadlineCommandTest {
         AddDeadlineCommand command = new AddDeadlineCommand(tasks, storage, ui, details, formatters);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("The deadline must have a /by date.", exception.getMessage(), "Exception message should indicate missing /by date.");
+        assertEquals("The deadline must have a /by date.", exception.getMessage(),
+                "Exception message should indicate missing /by date.");
     }
 
     /**
@@ -83,7 +84,8 @@ public class AddDeadlineCommandTest {
         AddDeadlineCommand command = new AddDeadlineCommand(tasks, storage, ui, details, formatters);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("Invalid date format. Please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.", exception.getMessage(), "Exception message should indicate invalid date format.");
+        assertEquals("Invalid date format. Please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.",
+                exception.getMessage(), "Exception message should indicate invalid date format.");
     }
 
     /**

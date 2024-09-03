@@ -1,8 +1,10 @@
 package arts.task;
 
-import arts.ArtsException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import arts.ArtsException;
+
 
 /**
  * Represents an abstract task with a description and completion status.
@@ -81,20 +83,20 @@ public abstract class Task {
         Task task;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         switch (type) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
-                task = new Deadline(description, by);
-                break;
-            case "E":
-                LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
-                LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
-                task = new Event(description, from, to);
-                break;
-            default:
-                throw new ArtsException("Unknown task type.");
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
+            LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
+            task = new Event(description, from, to);
+            break;
+        default:
+            throw new ArtsException("Unknown task type.");
         }
 
         if (isDone) {

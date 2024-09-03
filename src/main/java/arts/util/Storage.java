@@ -1,8 +1,5 @@
 package arts.util;
 
-import arts.ArtsException;
-import arts.task.Task;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,6 +7,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import arts.ArtsException;
+import arts.task.Task;
 
 /**
  * The Storage class handles the loading and saving of tasks to and from a file.

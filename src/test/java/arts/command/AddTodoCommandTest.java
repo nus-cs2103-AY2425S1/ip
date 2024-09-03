@@ -1,18 +1,18 @@
 package arts.command;
 
-import arts.task.TaskList;
-import arts.util.Storage;
-import arts.util.Ui;
-import arts.ArtsException;
-import arts.task.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import arts.ArtsException;
+import arts.task.Task;
+import arts.task.TaskList;
+import arts.util.Storage;
+import arts.util.Ui;
 
 /**
  * The AddTodoCommandTest class contains unit tests for the AddTodoCommand class.
@@ -50,8 +50,8 @@ public class AddTodoCommandTest {
         command.execute();
 
         assertEquals(1, tasks.size(), "Task list should have one task.");
-        assertEquals("Got it. I've added this task:\n " + tasks.getTask(0) +
-                "\nNow you have 1 task in the list.", ui.getLastMessage());
+        assertEquals("Got it. I've added this task:\n " + tasks.getTask(0)
+                + "\nNow you have 1 task in the list.", ui.getLastMessage());
     }
 
     /**
@@ -64,7 +64,8 @@ public class AddTodoCommandTest {
         AddTodoCommand command = new AddTodoCommand(tasks, storage, ui, description);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("The description of a todo cannot be empty.", exception.getMessage(), "Exception message should indicate empty description.");
+        assertEquals("The description of a todo cannot be empty.", exception.getMessage(),
+                "Exception message should indicate empty description.");
     }
 
     /**
@@ -77,7 +78,8 @@ public class AddTodoCommandTest {
         AddTodoCommand command = new AddTodoCommand(tasks, storage, ui, description);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("The description of a todo cannot be empty.", exception.getMessage(), "Exception message should indicate empty description.");
+        assertEquals("The description of a todo cannot be empty.", exception.getMessage(),
+                "Exception message should indicate empty description.");
     }
 
     /**

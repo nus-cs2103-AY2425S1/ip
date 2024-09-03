@@ -1,19 +1,19 @@
 package arts.command;
 
-import arts.task.TaskList;
-import arts.task.Task;
-import arts.task.Todo;
-import arts.util.Storage;
-import arts.util.Ui;
-import arts.ArtsException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import arts.ArtsException;
+import arts.task.Task;
+import arts.task.TaskList;
+import arts.task.Todo;
+import arts.util.Storage;
+import arts.util.Ui;
 
 /**
  * The MarkCommandTest class contains unit tests for the MarkCommand class.
@@ -65,7 +65,8 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand(tasks, storage, ui, taskIndex);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("Invalid task index.", exception.getMessage(), "Exception message should indicate invalid task index.");
+        assertEquals("Invalid task index.", exception.getMessage(),
+                "Exception message should indicate invalid task index.");
     }
 
     /**
@@ -78,7 +79,8 @@ public class MarkCommandTest {
         MarkCommand command = new MarkCommand(tasks, storage, ui, taskIndex);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("Invalid task index.", exception.getMessage(), "Exception message should indicate invalid task index.");
+        assertEquals("Invalid task index.", exception.getMessage(),
+                "Exception message should indicate invalid task index.");
     }
 
     /**

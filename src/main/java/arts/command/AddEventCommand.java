@@ -1,13 +1,14 @@
 package arts.command;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import arts.ArtsException;
 import arts.task.Event;
 import arts.task.TaskList;
 import arts.util.Storage;
 import arts.util.Ui;
-import arts.ArtsException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a command to add an event task to the task list.
@@ -29,7 +30,8 @@ public class AddEventCommand implements Command {
      * @param details The details of the task to be added.
      * @param inputFormatters An array of date formatters for parsing the event dates.
      */
-    public AddEventCommand(TaskList tasks, Storage storage, Ui ui, String details, DateTimeFormatter[] inputFormatters) {
+    public AddEventCommand(TaskList tasks, Storage storage, Ui ui, String details,
+                           DateTimeFormatter[] inputFormatters) {
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
@@ -53,8 +55,9 @@ public class AddEventCommand implements Command {
         LocalDateTime eventToDate = parseDate(eventParts[2]);
         tasks.addTask(new Event(eventParts[0], eventFromDate, eventToDate));
         storage.save(tasks.getTasks());
-        ui.showMessage("Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1) +
-                "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks") + " in the list.");
+        ui.showMessage("Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1)
+                + "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks")
+                + " in the list.");
     }
 
     /**

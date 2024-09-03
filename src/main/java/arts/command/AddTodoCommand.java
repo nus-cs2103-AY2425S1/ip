@@ -1,10 +1,10 @@
 package arts.command;
 
+import arts.ArtsException;
 import arts.task.TaskList;
 import arts.task.Todo;
 import arts.util.Storage;
 import arts.util.Ui;
-import arts.ArtsException;
 
 /**
  * Represents a command to add a todo task to the task list.
@@ -44,7 +44,8 @@ public class AddTodoCommand implements Command {
         }
         tasks.addTask(new Todo(description));
         storage.save(tasks.getTasks());
-        ui.showMessage("Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1) +
-                "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks") + " in the list.");
+        ui.showMessage("Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1)
+                + "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks")
+                + " in the list.");
     }
 }

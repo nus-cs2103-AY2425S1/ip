@@ -1,10 +1,10 @@
 package arts.command;
 
+import arts.ArtsException;
+import arts.task.Task;
 import arts.task.TaskList;
 import arts.util.Storage;
 import arts.util.Ui;
-import arts.ArtsException;
-import arts.task.Task;
 
 /**
  * Represents a command to mark a task as done in the task list.
