@@ -1,3 +1,9 @@
+package voidcat.storage;
+
+import voidcat.task.*;
+import voidcat.exception.VoidException;
+import voidcat.ui.Ui;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,7 +32,7 @@ public class Storage {
                     }
                 }
                 if (tasks.isEmpty()) {
-                    Ui.showMessageAndLines("No saved tasks found yet! Task list is empty.\n\tStart adding tasks and track them!");
+                    Ui.showMessageAndLines("No saved tasks found yet! voidcat.task.Task list is empty.\n\tStart adding tasks and track them!");
                 }
             }
         } else {
@@ -54,7 +60,7 @@ public class Storage {
                 if (!file.createNewFile()) {
                     throw new VoidException("Error in creating file!");
                 } else {
-                    Ui.showMessageAndLines("No saved tasks found yet! Task list is empty.\n\tStart adding tasks and track them!");
+                    Ui.showMessageAndLines("No saved tasks found yet! voidcat.task.Task list is empty.\n\tStart adding tasks and track them!");
                 }
             }
         } catch (IOException e) {
