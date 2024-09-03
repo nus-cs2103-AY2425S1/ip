@@ -16,7 +16,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws AiException {
+    public String execute(TaskList tasks, Ui ui) throws AiException {
         if (i < 0 || i >= tasks.size()) {
             throw new AiException("Hey hey!! The task doesn't exist... can't be removed >....<\n"
                     + "You might wanna try a valid number between 0 to " + tasks.size() + "\n");
@@ -24,9 +24,10 @@ public class DeleteCommand extends Command {
 
         Task temp = tasks.get(i);
         tasks.delete(i);
-        System.out.println("Gotchyaa, task removed!!\n");
-        System.out.println(temp + "\n");
-        System.out.println("You have " + tasks.size() + " tasks in your list :p\n");
+
+        return "Gotchyaa, task removed!!\n"
+                + temp + "\n"
+                + String.format("You have %d tasks in your list :p\n", tasks.size());
     }
 
     @Override

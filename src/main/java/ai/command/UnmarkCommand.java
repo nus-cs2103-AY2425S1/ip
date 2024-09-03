@@ -16,7 +16,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws AiException {
+    public String execute(TaskList tasks, Ui ui) throws AiException {
         if (i < 0 || i >= tasks.size()) {
             throw new AiException("Hey hey!! The task doesn't exist...\n"
                     + "You might wanna try a valid number between 0 to " + tasks.size() + "\n");
@@ -24,8 +24,8 @@ public class UnmarkCommand extends Command {
 
         Task temp = tasks.get(i);
         temp.unmark();
-        System.out.println("Donzo, task unmarked! Let me know if you need anything else :3");
-        System.out.println(temp + "\n");
+        return "Donzo, task unmarked! Let me know if you need anything else :3"
+                + temp + "\n";
     }
 
     @Override

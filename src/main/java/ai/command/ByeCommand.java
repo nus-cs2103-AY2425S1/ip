@@ -9,8 +9,8 @@ import ai.exception.AiException;
  */
 public class ByeCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui) throws AiException {
-        ui.showGoodbye();
+    public String execute(TaskList tasks, Ui ui) throws AiException {
+        return ui.showGoodbye();
     }
 
     @Override

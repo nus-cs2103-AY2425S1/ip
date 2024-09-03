@@ -9,15 +9,15 @@ import ai.Ui;
  * Executes the command that prints out the tasks that are due on the user specified date.
  */
 public class DueCommand extends Command {
-    LocalDate date;
+    private LocalDate date;
 
     public DueCommand(String arguments) {
         this.date = LocalDate.parse(arguments);
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        tasks.isDue(date);
+    public String execute(TaskList tasks, Ui ui) {
+        return tasks.isDue(date);
     }
 
     @Override
