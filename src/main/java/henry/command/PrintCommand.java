@@ -14,21 +14,20 @@ public class PrintCommand extends Command {
      *
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
-     * @param ui instance of a Ui class that interacts with the user
+     * @param ui instance of an Ui class that interacts with the user
      */
-    public void execute(TaskList taskList, Ui ui) throws HenryException {
+    public String execute(TaskList taskList, Ui ui) throws HenryException {
         //check if there is any task to print
         int numOfTasks = taskList.getTasks().size();
         if (numOfTasks == 0) {
             throw new HenryException("You do not have any tasks!");
         }
-        System.out.println("\nHere are the tasks in your list:");
+        StringBuilder string = new StringBuilder("\nHere are the tasks in your list:\n");
         for (int i = 0; i < numOfTasks; i++) {
-            System.out.println(i + 1
-                    + "."
-                    + taskList.getTasks().get(i).toString());
+            string.append(i + 1).append(".").append(taskList.getTasks().get(i)
+                    .toString()).append("\n");
         }
-        System.out.println();
+        return string.toString();
     }
 
 }

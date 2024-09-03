@@ -22,13 +22,14 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Adds new task into the array of tasks recorded and split them into todo, event and deadline
+     * Returns a string telling user that task is added
      *
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
      * @param ui instance of a Ui class that interacts with the user
+     * @return statement telling user that task is added
      */
-    public void execute(TaskList taskList, Ui ui) throws HenryException {
+    public String execute(TaskList taskList, Ui ui) throws HenryException {
         int numOfTasks = taskList.getTasks().size();
         String[] words = this.input.split(" ");
         String task = words[0].toLowerCase();
@@ -76,12 +77,12 @@ public class AddCommand extends Command {
                     + " \"" + "deadline" + "\" or"
                     + " \"" + "event" + "\"");
         }
-        System.out.println("\nGot it. I've added this task:\n"
+        return "\nGot it. I've added this task:\n"
                 + taskList.getTasks().get(numOfTasks).toString()
                 + "\nNow you have "
                 + (numOfTasks + 1)
                 + (numOfTasks + 1 <= 1 ? " task" : " tasks")
-                + " in the list.\n");
+                + " in the list.\n";
     }
 
     /**

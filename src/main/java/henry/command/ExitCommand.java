@@ -15,13 +15,14 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Ends the chat
+     * Returns an empty line
      *
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
      * @param ui instance of a Ui class that interacts with the user
+     * @return an empty line
      */
-    public void execute(TaskList taskList, Ui ui) throws HenryException {
-        System.out.println();
+    public String execute(TaskList taskList, Ui ui) throws HenryException {
+        return ui.bye();
     }
 }

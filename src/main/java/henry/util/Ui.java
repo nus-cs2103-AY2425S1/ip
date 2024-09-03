@@ -1,38 +1,29 @@
 package henry.util;
 
-import java.util.Scanner;
-
 /**
  * Deals with interactions with the user
  */
 public class Ui {
-    private Scanner scanner = new Scanner(System.in);
+
     /**
-     * Prints greetings
+     * Returns a hi statement
      *
+     * @return a hi statement
      */
-    public void greetings() {
+    public String greetings() {
         String greetings = "Hello! I'm Henry\n"
                 + "What can I do for you?\n";
-        System.out.println(greetings);
+        return greetings;
     }
 
     /**
-     * Prints exit
+     * Returns an exit statement
      *
+     * @return an exit statement
      */
-    public void bye() {
+    public String bye() {
         String bye = "Bye. Hope to see you again soon!";
-        System.out.println(bye);
-    }
-
-    /**
-     * Returns user input
-     *
-     * @return user input
-     */
-    public String readCommand() {
-        return scanner.nextLine();
+        return bye;
     }
 
     /**

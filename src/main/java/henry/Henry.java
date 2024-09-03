@@ -1,10 +1,12 @@
 package henry;
 
 import henry.command.Command;
+import henry.gui.Main;
 import henry.util.Parser;
 import henry.util.Storage;
 import henry.util.TaskList;
 import henry.util.Ui;
+import javafx.application.Application;
 
 /**
  * a Personal Assistant Chatbot that helps a person
@@ -33,26 +35,20 @@ public class Henry {
     }
 
     /**
-     * Runs the chat program
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        ui.greetings();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui);
-                c.save(tasks, storage);
-                isExit = c.isExit();
-            } catch (HenryException e) {
-                System.out.println("\nSorry! " + e.getMessage() + "\n");
-            }
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String response = c.execute(tasks, ui);
+            c.save(tasks, storage);
+            return response;
+        } catch (HenryException e) {
+            return "\nSorry! " + e.getMessage() + "\n";
         }
-        ui.bye();
     }
 
     public static void main(String[] args) {
-        new Henry("./data/Henry.txt").run();
+        Application.launch(Main.class, args);
     }
 }

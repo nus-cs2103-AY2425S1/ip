@@ -16,13 +16,15 @@ public class ChangeStatusCommand extends Command {
     }
 
     /**
-     * Changes status of task
+     * Returns a string telling user that the status has been changed
      *
      * @param taskList instance of a TaskList class that contains
      *                 an array of tasks
      * @param ui instance of a Ui class that interacts with the user
+     * @return a string telling user that task is marked or unmarked
+     *                 depending on user input
      */
-    public void execute(TaskList taskList, Ui ui) throws HenryException {
+    public String execute(TaskList taskList, Ui ui) throws HenryException {
         int numOfTasks = taskList.getTasks().size();
         //check for invalid number
         try {
@@ -45,18 +47,18 @@ public class ChangeStatusCommand extends Command {
                     throw new HenryException("The task is already marked!");
                 }
                 task.mark();
-                System.out.println("\nNice! I've marked this task as done:\n"
+                return "\nNice! I've marked this task as done:\n"
                         + task.toString()
-                        + "\n");
+                        + "\n";
             } else {
                 //check if task is already unmarked
                 if (!task.isDone()) {
                     throw new HenryException("The task is already unmarked!");
                 }
                 task.unmark();
-                System.out.println("\nOK, I've marked this task as not done yet:\n"
+                return "\nOK, I've marked this task as not done yet:\n"
                         + task.toString()
-                        + "\n");
+                        + "\n";
             }
         } catch (NumberFormatException e) {
             throw new HenryException("This is not a number!!");
