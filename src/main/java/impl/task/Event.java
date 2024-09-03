@@ -1,12 +1,13 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+package main.java.impl.task;
 
-import main.DateTime;
+import java.time.LocalDate;
+
+import main.java.impl.utils.DateTime;
 
 public class Event extends Task {
     private static final String TYPE = "E";
-    private LocalDate from;
-    private LocalDate to;
+    private final LocalDate from;
+    private final LocalDate to;
 
     public Event(String description, String from, String to) {
         super(description);
@@ -20,7 +21,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String toStorage() {
-        return TYPE + "|" + super.toStorage() + "|" + from + "|" + to;
+    public String serialize() {
+        return TYPE + "|" + super.serialize() + "|" + from + "|" + to;
     }
 }

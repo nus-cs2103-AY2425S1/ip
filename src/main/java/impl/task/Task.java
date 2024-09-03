@@ -1,5 +1,9 @@
-public class Task {
-    private String description;
+package main.java.impl.task;
+
+import main.java.interfaces.AbstractTask;
+
+public class Task implements AbstractTask {
+    private final String description;
     private boolean isDone;
 
     public Task(String description) {
@@ -20,7 +24,7 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public String toStorage() {
+    public String serialize() {
         return this.getStatusIcon() + "|" + this.description;
     }
 

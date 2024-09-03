@@ -1,3 +1,5 @@
+package main.java.impl.task;
+
 public class ToDo extends Task{
     private static final String TYPE = "T";
 
@@ -11,8 +13,8 @@ public class ToDo extends Task{
     }
 
     @Override
-    public String toStorage() {
-        return TYPE + "|" + super.toStorage();
+    public String serialize() {
+        return TYPE + "|" + super.serialize();
     }
 
     

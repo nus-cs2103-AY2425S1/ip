@@ -1,12 +1,12 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+package main.java.impl.task;
 
-import main.DateTime;
+import java.time.LocalDate;
+
+import main.java.impl.utils.DateTime;
 
 public class Deadline extends Task {
     private static final String TYPE = "D";
-    private LocalDate by;
-    
+    private final LocalDate by;
 
     public Deadline(String description, String by) {
         super(description);
@@ -19,7 +19,7 @@ public class Deadline extends Task {
     }
     
     @Override
-    public String toStorage() {
-        return TYPE + "|" + super.toStorage() + "|" + by;
+    public String serialize() {
+        return TYPE + "|" + super.serialize() + "|" + by;
     }
 }
