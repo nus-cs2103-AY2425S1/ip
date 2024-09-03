@@ -358,6 +358,12 @@ public class Easton {
         storage.save(records);
     }
 
+    /**
+     * Finds tasks with a matching keyword in their description.
+     *
+     * @param input Input from the prompt.
+     * @throws EmptyDescriptionException If the body of the prompt is empty.
+     */
     public void findTasks(String input) throws EmptyDescriptionException {
         ArrayList<Task> result = new ArrayList<>();
         String[] splitInput = input.stripLeading()
