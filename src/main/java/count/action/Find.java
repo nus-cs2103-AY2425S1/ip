@@ -3,17 +3,15 @@ package count.action;
 import java.util.ArrayList;
 
 import count.TaskList;
-
 import count.task.Task;
 
-import count.exception.CountException;
 
 /**
  * The find class finds tasks that contain the key passed to it
  */
 public class Find extends Action {
-    TaskList ls;
-    String key;
+    private TaskList ls;
+    private String key;
 
     /**
      * Constructor for Find

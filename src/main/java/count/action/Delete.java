@@ -1,17 +1,16 @@
 package count.action;
 
 import count.TaskList;
-
+import count.exception.CountException;
 import count.task.Task;
 
-import count.exception.CountException;
 
 /**
  * The Delete class is used to add tasks to the TaskList
  */
 public class Delete extends Action {
-    TaskList ls;
-    int index;
+    private TaskList ls;
+    private int index;
 
     /**
      * Constructor for Delete
@@ -33,9 +32,11 @@ public class Delete extends Action {
         try {
             Task taskRemoved = ls.getList().get(this.index - 1);
             ls.getList().remove(this.index - 1);
-            return "Got it, I have removed this task from the list:\n" + taskRemoved.toString() + "\nYou now have " + ls.getList().size() + " task(s) in your list";
+            return "Got it, I have removed this task from the list:\n"
+                    + taskRemoved.toString() + "\nYou now have " + ls.getList().size() + " task(s) in your list";
         } catch (IndexOutOfBoundsException e) {
-            throw new CountException("Invalid list index chosen! Choose a number from 1 to " + ls.getList().size() + "\nType 'help' to see correct formatting examples");
+            throw new CountException("Invalid list index chosen! Choose a number from 1 to " + ls.getList().size()
+                    + "\nType 'help' to see correct formatting examples");
         }
     }
 }

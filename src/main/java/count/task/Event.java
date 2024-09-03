@@ -1,7 +1,6 @@
 package count.task;
 
 import java.time.LocalDate;
-
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -43,6 +42,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startTime.format(outputFormat) + " to: " + this.endTime.format(outputFormat) + ")";
+        return "[E]" + super.toString() + " (from: " + this.startTime.format(outputFormat)
+                + " to: " + this.endTime.format(outputFormat) + ")";
     }
 }

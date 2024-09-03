@@ -2,21 +2,18 @@ package count;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import java.time.LocalDate;
-
 import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.PatternSyntaxException;
 
+import count.exception.IncorrectFormatException;
 import count.task.Deadline;
 import count.task.Event;
 import count.task.Task;
 import count.task.ToDo;
 
-import count.exception.IncorrectFormatException;
 
 
 /**
@@ -43,7 +40,7 @@ public class Storage {
     /**
      * The load method checks if there is any Count.txt files in the specified file path
      * It will then read the file and add the Tasks to an ArrayList to return.
-     * @return ArrayList<Task> with Tasks read from Count.txt
+     * @return ArrayList&lt;Task&gt; with Tasks read from Count.txt
      * @throws IncorrectFormatException if the String format of the read file does not match the format reader
      * @throws FileNotFoundException if no Count.txt file can be found
      */
@@ -75,23 +72,23 @@ public class Storage {
                     break;
                 case "E":
                     String[] eventInfo = desc.split(" \\(from: ", 2);
-                    String[] eventTimeInfo = eventInfo[1].split(" to: ",2);
+                    String[] eventTimeInfo = eventInfo[1].split(" to: ", 2);
                     LocalDate fromTime = LocalDate.parse(eventTimeInfo[0], readerFormat);
                     LocalDate toTime = LocalDate.parse(eventTimeInfo[1].substring(0, eventTimeInfo[1].length() - 1),
                             readerFormat);
                     listOfTasksRead.add(new Event(eventInfo[0], toTime, fromTime, isComplete));
                     break;
                 default:
-                    throw new IncorrectFormatException("Incorrect format for Task types" +
-                            " scanned in count.Count.txt!");
+                    throw new IncorrectFormatException("Incorrect format for Task types"
+                            + " scanned in count.Count.txt!");
                 }
 
             } catch (StringIndexOutOfBoundsException e) {
-                throw new IncorrectFormatException("Incorrect format for Task types " +
-                        "scanned in count.Count.txt!");
+                throw new IncorrectFormatException("Incorrect format for Task types "
+                        + "scanned in count.Count.txt!");
             } catch (PatternSyntaxException e) {
-                throw new IncorrectFormatException("Incorrect format for Task description" +
-                        " scanned in count.Count.txt!");
+                throw new IncorrectFormatException("Incorrect format for Task description"
+                        + " scanned in count.Count.txt!");
             }
 
         }

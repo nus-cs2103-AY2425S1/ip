@@ -6,7 +6,7 @@ import count.TaskList;
  * The Delete class is used to list all the Tasks in the TaskList
  */
 public class ListReply extends Action {
-    TaskList ls;
+    private TaskList ls;
 
     /**
      * Constructor for ListReply
@@ -23,7 +23,7 @@ public class ListReply extends Action {
     @Override
     public String run() {
         String ans = "Here are the tasks in your list:\n";
-        for (int i = 0 ; i < ls.getList().size() ; i++) {
+        for (int i = 0; i < ls.getList().size(); i++) {
             if (i != ls.getList().size() - 1) {
                 ans += (i + 1) + "." + ls.getList().get(i).toString() + "\n";
             } else {

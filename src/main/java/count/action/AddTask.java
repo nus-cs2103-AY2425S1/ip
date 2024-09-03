@@ -1,15 +1,14 @@
 package count.action;
 
 import count.TaskList;
-
 import count.task.Task;
 
 /**
  * The AddTask class is used to add tasks to the TaskList
  */
 public class AddTask extends Action {
-    TaskList ls;
-    Task task;
+    private TaskList ls;
+    private Task task;
 
     /**
      * Constructor for AddTask
@@ -29,6 +28,7 @@ public class AddTask extends Action {
     @Override
     public String run() {
         ls.getList().add(this.task);
-        return "Added the following task:\n" + this.task.toString() +"\nYou now have " + ls.getList().size() + " task(s) in your list";
+        return "Added the following task:\n" + this.task.toString()
+                + "\nYou now have " + ls.getList().size() + " task(s) in your list";
     }
 }

@@ -1,11 +1,10 @@
 package count.action;
 
-import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 
 import count.TaskList;
-
 import count.exception.CountException;
 
 /**
@@ -13,8 +12,8 @@ import count.exception.CountException;
  * in the Count object's filePath
  */
 public class Save extends Action {
-    TaskList ls;
-    String filePath;
+    private TaskList ls;
+    private String filePath;
 
     /**
      * Constructor for Save

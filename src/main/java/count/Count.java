@@ -1,12 +1,10 @@
 package count;
 
 import java.io.FileNotFoundException;
-
 import java.util.Scanner;
 
 import count.action.Action;
 import count.action.Deactivate;
-
 import count.exception.CountException;
 import count.exception.IncorrectFormatException;
 

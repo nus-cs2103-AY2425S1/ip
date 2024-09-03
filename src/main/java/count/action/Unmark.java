@@ -1,15 +1,14 @@
 package count.action;
 
 import count.TaskList;
-
 import count.exception.CountException;
 
 /**
  * The Unmark class is used to mark the specified task as incomplete
  */
 public class Unmark extends Action {
-    TaskList ls;
-    int index;
+    private TaskList ls;
+    private int index;
 
     /**
      * Constructor for Unmark
@@ -32,7 +31,8 @@ public class Unmark extends Action {
             ls.getList().get(this.index - 1).setCompletion(false);
             return "No problem, I have marked this task as incomplete:\n" + ls.getList().get(this.index - 1).toString();
         } catch (IndexOutOfBoundsException e) {
-            throw new CountException("Invalid list index chosen! Choose a number from 1 to " + ls.getList().size() + "\nType 'help' to see correct formatting examples");
+            throw new CountException("Invalid list index chosen! Choose a number from 1 to " + ls.getList().size()
+                    + "\nType 'help' to see correct formatting examples");
         }
     }
 }
