@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Bro bro = new Bro();
+    private final Bro bro = new Bro();
 
     @Override
     public void start(Stage stage) {

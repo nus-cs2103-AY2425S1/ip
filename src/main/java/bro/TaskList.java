@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class TaskList {
     private static final ArrayList<Task> list = new ArrayList<>();
-    private Ui ui;
-    private Parser parser;
+    private final Ui ui;
+    private final Parser parser;
 
     public TaskList(Ui ui, Parser parser) {
         this.ui = ui;
@@ -13,87 +13,95 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as done based on its index in the list and prints a confirmation message.
+     * Marks a task as done based on its index in the list and returns a confirmation message.
      *
      * @param i The 1-based index of the task to mark as done.
+     * @return A confirmation message stating the task is marked.
      */
-    public void markTask(int i) {
+    public String markTask(int i) {
         list.get(i - 1).mark();
-        ui.printMark(i, this);
+        return ui.printMark(i, this);
     }
 
     /**
-     * Marks a task as not done based on its index in the list and prints a confirmation message.
+     * Marks a task as not done based on its index in the list and returns a confirmation message.
      *
      * @param i The 1-based index of the task to mark as not done.
+     * @return A confirmation message stating the task is unmarked.
      */
-    public void unmarkTask(int i) {
+    public String unmarkTask(int i) {
         list.get(i - 1).unmark();
-        ui.printUnmark(i, this);
+        return ui.printUnmark(i, this);
     }
 
     /**
-     * Deletes a task from the list based on its index and prints a confirmation message.
+     * Deletes a task from the list based on its index and returns a confirmation message.
      *
      * @param i The 1-based index of the task to delete.
+     * @return A confirmation message stating the task is deleted.
      */
-    public void deleteTask(int i) {
-        ui.printDelete(i, this);
+    public String deleteTask(int i) {
+        String s = ui.printDelete(i, this);
         list.remove(i - 1);
+        return s;
     }
 
     /**
-     * Finds and prints tasks that contain a specific keyword.
+     * Finds and returns a message with tasks that contain a specific keyword.
      *
      * @param word The keyword to search for in the tasks list.
+     * @return Message with all tasks that contain the keyword.
      */
-    public void findTasks(String word) {
-        ui.printByWord(this, word);
+    public String findTasks(String word) {
+        return ui.printByWord(this, word);
     }
 
     /**
-     * Adds a new Todo task to the list and prints a confirmation message.
+     * Adds a new Todo task to the list and returns a confirmation message.
      *
      * @param s The description of the Todo task.
      * @throws BroException If the description is empty.
+     * @return The confirmation message that Todo task is added.
      */
-    public void addTodo(String s) throws BroException {
+    public String addTodo(String s) throws BroException {
         if (s.trim().isEmpty()) {
             throw new BroException("Please provide the name of the task!!!");
         }
         Task curr = new Todo(s.trim());
         list.add(curr);
-        ui.printStatus(curr, list.size());
+        return ui.printStatus(curr, list.size());
     }
 
     /**
-     * Adds a new Deadline task to the list by parsing the input string and prints a confirmation message.
+     * Adds a new Deadline task to the list by parsing the input string and returnd a confirmation message.
      *
      * @param s The description and deadline of the task, expected to contain "/by".
      * @throws BroException If the description is empty or does not contain "/by".
+     * @return The confirmation message that Deadline task is added.
      */
-    public void addDeadline(String s) throws BroException {
+    public String addDeadline(String s) throws BroException {
         if (s.trim().isEmpty()) {
             throw new BroException("Please provide the name of the task!!!");
         } else if (!s.contains(" /by ")) {
-            throw new BroException("Please include \"/by\" in bro.Deadline!!!");
+            throw new BroException("Please include \"/by\" in description!!!");
         }
-        parser.parseDeadline(s, this);
+        return parser.parseDeadline(s, this);
     }
 
     /**
-     * Adds a new Event task to the list by parsing the input string and prints a confirmation message.
+     * Adds a new Event task to the list by parsing the input string and returns a confirmation message.
      *
      * @param s The description and time period of the event, expected to contain "/from" and "/to".
      * @throws BroException If the description is empty or does not contain both "/from" and "/to".
+     * @return The confirmation message that Event task is added.
      */
-    public void addEvent(String s) throws BroException {
+    public String addEvent(String s) throws BroException {
         if (s.trim().isEmpty()) {
             throw new BroException("Please provide the name of the task!!!");
         } else if (!s.contains(" /from ") || !s.contains(" /to ")) {
-            throw new BroException("Please include \"/from\" and \"/to\" in bro.Event!!!");
+            throw new BroException("Please include \"/from\" and \"/to\" in description!!!");
         }
-        parser.parseEvent(s, this);
+        return parser.parseEvent(s, this);
     }
 
     /**

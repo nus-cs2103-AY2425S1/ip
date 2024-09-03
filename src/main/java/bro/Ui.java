@@ -4,81 +4,84 @@ public class Ui {
     static final String line = "   ______________________________________________________\n";
 
     /**
-     * Prints the status of the task being added, including the task details and the current total count of tasks.
+     * Returns the status of the task being added, including the task details and the current total count of tasks.
      *
      * @param t The task that has been added.
      * @param i The total number of tasks currently in the list.
+     * @return The status of the TaskList
      */
-    public void printStatus(Task t, int i) {
-        System.out.println(line + "   Got it. I've added this task:");
-        System.out.println("   " + t);
-        System.out.printf("   Now you have %d tasks in the list\n%s", i, line);
+    public String printStatus(Task t, int i) {
+        return "   Got it. I've added this task:\n" +
+                "   " + t + "\n" +
+        "   Now you have " + i + " tasks in the list\n";
     }
 
     /**
-     * Prints a welcome message to the user.
+     * @return A welcome message to the user.
      */
-    public void printWelcome() {
-        System.out.println(Ui.line + "   Hello! I'm Bro\n   What can I do for you?\n" + line);
+    public String printWelcome() {
+        return "   Hello! I'm Bro\n   What can I do for you?\n";
     }
 
     /**
-     * Prints the list of tasks currently stored, with each task numbered sequentially.
+     * Returns the list of tasks currently stored, with each task numbered sequentially.
      *
      * @param tasks The TaskList object containing all tasks to be printed.
+     * @return List of tasks currently stored
      */
-    public void printList(TaskList tasks) {
+    public String printList(TaskList tasks) {
         int len = tasks.size();
-        System.out.print(line + "   Here are the tasks in your list:\n");
+        StringBuilder output = new StringBuilder("   Here are the tasks in your list:\n");
         for (int i = 0; i < len; i++) {
-            System.out.printf("   %d.%s\n", i + 1, tasks.get(i));
+            output.append(String.format("   %d.%s\n", i + 1, tasks.get(i)));
         }
-        System.out.print(line);
+        return output.toString();
     }
 
     /**
-     * Prints tasks from the given task list that contain a specified keyword.
+     * Returns String of tasks from the given task list that contain a specified keyword.
      *
      * @param tasks The list of tasks to search through.
      * @param s The keyword to search for in the task descriptions.
+     * @return String of all tasks that contain a specific keyword
      */
-    public void printByWord(TaskList tasks, String s) {
-        System.out.print(line + "   Here are the matching tasks in your list:\n");
+    public String printByWord(TaskList tasks, String s) {
+        StringBuilder output = new StringBuilder("   Here are the matching tasks in your list:\n");
         int len = tasks.size();
         int count = 1;
         for (int i = 0; i < len; i++) {
             if (tasks.get(i).toString().contains(s)) {
-                System.out.printf("   %d.%s\n", count, tasks.get(i));
+                output.append(String.format("   %d.%s\n", count, tasks.get(i)));
                 count++;
             }
         }
-        System.out.println(line);
+        return output.toString();
     }
 
     /**
-     * Prints a default message when the user's input is not recognized or understood.
+     * @return A default message when the user's input is not recognized or understood.
      */
-    public void printDefault() {
-        System.out.println(line + "   Well, what are u trying to do here? " +
-                "I don't quite understand :(\n" + line);
+    public String printDefault() {
+        return "   Well, what are u trying to do here? " +
+                "I don't quite understand :(\n";
     }
 
     /**
-     * Prints an error message indicating the expected input format for commands that require a number.
+     * @return An error message indicating the expected input format for commands that require a number.
      */
-    public void printErrorFormat() {
-        System.out.println(line + "   Please input a number after mark, " +
-                "unmark or delete!!!\n" + line);
+    public String printErrorFormat() {
+        return "   Please input a number after mark, " +
+                "unmark or delete!!!\n";
     }
 
     /**
-     * Prints an error message when the user inputs a number outside the valid range of task indices.
+     * @return An error message when the user inputs a number outside the valid range of task indices.
      *
      * @param i The total number of tasks in the list, used to inform the user of the valid range.
      */
-    public void printErrorSize(int i) {
-        System.out.println(line + "   Input a valid number");
-        System.out.printf("   You only have %d tasks in the list\n%s", i, line);
+    public String printErrorSize(int i) {
+        return "   Input a valid number\n" +
+        "   You only have " + i + " tasks in the list\n";
     }
 
     /**
@@ -89,36 +92,39 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating that a specified task has been marked as done.
+     * Returns a message indicating that a specified task has been marked as done.
      *
      * @param i      The index of the task in the list that has been marked as done.
      * @param tasks  The TaskList object containing all tasks, used to access the specific task.
+     * @return A confirmation message
      */
-    public void printMark(int i, TaskList tasks) {
-        System.out.print(line + "   Nice! I've marked this task as done:\n"
-                + "   " + tasks.get(i - 1) + "\n" + line);
+    public String printMark(int i, TaskList tasks) {
+        return "   Nice! I've marked this task as done:\n"
+                + "   " + tasks.get(i - 1) + "\n";
     }
 
     /**
-     * Prints a message indicating that a specified task has been marked as not done.
+     * Returns a message indicating that a specified task has been marked as not done.
      *
      * @param i      The index of the task in the list that has been unmarked.
      * @param tasks  The TaskList object containing all tasks, used to access the specific task.
+     * @return A confirmation message
      */
-    public void printUnmark(int i, TaskList tasks) {
-        System.out.print(line + "   OK, I've marked this task as not done yet:\n"
-                + "   " + tasks.get(i - 1) + "\n" + line);
+    public String printUnmark(int i, TaskList tasks) {
+        return "   OK, I've marked this task as not done yet:\n"
+                + "   " + tasks.get(i - 1) + "\n";
     }
 
     /**
-     * Prints a message indicating that a specified task has been deleted from the list.
+     * Returns a message indicating that a specified task has been deleted from the list.
      *
      * @param i      The index of the task in the list that has been deleted.
      * @param tasks  The TaskList object containing all tasks, used to access the specific task.
+     * @return A confirmation message
      */
-    public void printDelete(int i, TaskList tasks) {
-        System.out.println(line + "   Noted. I've removed this task:");
-        System.out.println("   " + tasks.get(i - 1));
-        System.out.printf("   Now you have %d tasks in the list\n%s", tasks.size() - 1, line);
+    public String printDelete(int i, TaskList tasks) {
+        return "   Noted. I've removed this task:\n" +
+        "   " + tasks.get(i - 1) + "\n" +
+        String.format("   Now you have %d tasks in the list\n", tasks.size() - 1);
     }
 }
