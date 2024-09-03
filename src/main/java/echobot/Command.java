@@ -1,9 +1,14 @@
 package echobot;
-import echobot.task.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import echobot.task.Deadline;
+import echobot.task.Event;
+import echobot.task.Task;
+import echobot.task.TaskList;
+import echobot.task.Todo;
 
 /**
  * Represents a command issued by the user.
@@ -50,69 +55,69 @@ public class Command {
      */
     public void run() {
         switch (this.command) {
-            case "bye":
-                break;
-            case "list":
-                listTasks();
-                break;
-            case "mark": {
-                handleMarkCommand(inputParts);
+        case "bye":
+            break;
+        case "list":
+            listTasks();
+            break;
+        case "mark": {
+            handleMarkCommand(inputParts);
+            Storage.saveTasksToFile(tasks);
+            break;
+        }
+        case "unmark": {
+            handleUnmarkCommand(inputParts);
+            Storage.saveTasksToFile(tasks);
+            break;
+        }
+        case "todo": {
+            handleTodoCommand(inputParts);
+            Storage.saveTasksToFile(tasks);
+            break;
+        }
+        case "deadline": {
+            try {
+                handleDeadlineCommand(inputParts);
                 Storage.saveTasksToFile(tasks);
-                break;
-            }
-            case "unmark": {
-                handleUnmarkCommand(inputParts);
-                Storage.saveTasksToFile(tasks);
-                break;
-            }
-            case "todo": {
-                handleTodoCommand(inputParts);
-                Storage.saveTasksToFile(tasks);
-                break;
-            }
-            case "deadline": {
-                try {
-                    handleDeadlineCommand(inputParts);
-                    Storage.saveTasksToFile(tasks);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" " + e.getMessage());
-                    System.out.println(" Please enter date in the format dd/MM/yyyy?");
-                    System.out.println("____________________________________________________________");
-                }
-                break;
-            }
-            case "event": {
-                try {
-                    handleEventCommand(inputParts);
-                    Storage.saveTasksToFile(tasks);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" " + e.getMessage());
-                    System.out.println(" Please enter date in the format dd/MM/yyyy?");
-                    System.out.println("____________________________________________________________");
-                }
-                break;
-            }
-            case "delete": {
-                handleDeleteCommand(inputParts);
-                Storage.saveTasksToFile(tasks);
-                break;
-            }
-            case "findbydate": {
-                handleFindByDateCommand(inputParts);
-                Storage.saveTasksToFile(tasks);
-                break;
-            }
-            case "find" : {
-                handleFindCommand(inputParts);
-                break;
-            }
-            default:
+            } catch (IllegalArgumentException e) {
                 System.out.println("____________________________________________________________");
-                System.out.println(" I'm sorry, I don't recognize that command.");
+                System.out.println(" " + e.getMessage());
+                System.out.println(" Please enter date in the format dd/MM/yyyy?");
                 System.out.println("____________________________________________________________");
-                break;
+            }
+            break;
+        }
+        case "event": {
+            try {
+                handleEventCommand(inputParts);
+                Storage.saveTasksToFile(tasks);
+            } catch (IllegalArgumentException e) {
+                System.out.println("____________________________________________________________");
+                System.out.println(" " + e.getMessage());
+                System.out.println(" Please enter date in the format dd/MM/yyyy?");
+                System.out.println("____________________________________________________________");
+            }
+            break;
+        }
+        case "delete": {
+            handleDeleteCommand(inputParts);
+            Storage.saveTasksToFile(tasks);
+            break;
+        }
+        case "findbydate": {
+            handleFindByDateCommand(inputParts);
+            Storage.saveTasksToFile(tasks);
+            break;
+        }
+        case "find": {
+            handleFindCommand(inputParts);
+            break;
+        }
+        default:
+            System.out.println("____________________________________________________________");
+            System.out.println(" I'm sorry, I don't recognize that command.");
+            System.out.println("____________________________________________________________");
+            break;
         }
     }
 
@@ -281,8 +286,7 @@ public class Command {
                     System.out.println(" Oops! That task number doesn't exist.");
                     System.out.println("____________________________________________________________");
                 }
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Please enter an item number to delete!");
                 System.out.println("____________________________________________________________");
             }
@@ -302,17 +306,19 @@ public class Command {
             return;
         }
 
-        String dateString = inputParts[1];  // Assuming the date is the second element
+        String dateString = inputParts[1]; // Assuming the date is the second element
         try {
             LocalDate queryDate = LocalDate.parse(dateString);
-            System.out.println("Tasks occurring on " + queryDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+            System.out.println("Tasks occurring on "
+                    + queryDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
             boolean hasTasks = false;
             int i = 0;
             for (Task task : tasks.getTasks()) {
-                if (task instanceof Deadline && ((Deadline) task).by.equals(queryDate)) {
-                    System.out.println(" " + i + ". "+ task);
+                if (task instanceof Deadline && ((Deadline) task).getBy().equals(queryDate)) {
+                    System.out.println(" " + i + ". " + task);
                     hasTasks = true;
-                } else if (task instanceof Event && (((Event) task).from.equals(queryDate) || ((Event) task).to.equals(queryDate))) {
+                } else if (task instanceof Event && (((Event) task).getFrom().equals(queryDate)
+                        || ((Event) task).getTo().equals(queryDate))) {
                     System.out.println(task);
                     hasTasks = true;
                 }

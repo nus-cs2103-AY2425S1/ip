@@ -11,7 +11,7 @@ import java.util.List;
  * Inherits from the Task class and includes the due date for the task.
  */
 public class Deadline extends Task {
-    public LocalDate by;
+    private final LocalDate by;
 
     /**
      * Constructs a Deadline task with a description and a due date.
@@ -75,5 +75,9 @@ public class Deadline extends Task {
     @Override
     public String toFileFormat() {
         return "D | " + super.toFileFormat() + " | " + by;
+    }
+
+    public LocalDate getBy() {
+        return this.by;
     }
 }

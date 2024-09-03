@@ -25,7 +25,6 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
-    
     /**
      * Returns a string representation of the todo task in a format suitable for saving to a file.
      * The format is "T | isDone | description", where T denotes the todo task type.

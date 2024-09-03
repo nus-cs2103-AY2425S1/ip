@@ -1,15 +1,20 @@
 package echobot;
-import echobot.task.*;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.File;
+
+import echobot.task.Deadline;
+import echobot.task.Event;
+import echobot.task.Task;
+import echobot.task.TaskList;
+import echobot.task.Todo;
 
 /**
  * Handles the storage of tasks by reading from and writing to a file.
@@ -101,17 +106,17 @@ public class Storage {
         String[] parts = line.split(" \\| ");
         Task task = null;
         switch (parts[0]) {
-            case "T":
-                task = new Todo(parts[2]);
-                break;
-            case "D":
-                task = new Deadline(parts[2], parts[3]);
-                break;
-            case "E":
-                task = new Event(parts[2], parts[3], parts[4]);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown task type");
+        case "T":
+            task = new Todo(parts[2]);
+            break;
+        case "D":
+            task = new Deadline(parts[2], parts[3]);
+            break;
+        case "E":
+            task = new Event(parts[2], parts[3], parts[4]);
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown task type");
         }
         if (parts[1].equals("1")) {
             task.markAsDone();

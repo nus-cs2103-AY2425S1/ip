@@ -1,13 +1,26 @@
 package echobot;
 
-import echobot.task.*;
-import org.junit.jupiter.api.*;
-import java.io.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import echobot.task.Deadline;
+import echobot.task.Event;
+import echobot.task.TaskList;
+import echobot.task.Todo;
 
 class StorageTest {
 
@@ -70,6 +83,7 @@ class StorageTest {
         Storage.loadTasksFromFile(loadedTasks);
 
         assertEquals(3, loadedTasks.size(), "Should load the correct number of tasks");
-        assertTrue(loadedTasks.getTasks().get(0).toString().contains("Test Todo"), "The first task description should match");
+        assertTrue(loadedTasks.getTasks().get(0)
+                .toString().contains("Test Todo"), "The first task description should match");
     }
 }
