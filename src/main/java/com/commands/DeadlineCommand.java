@@ -1,14 +1,14 @@
 package com.commands;
 
-import com.nimbus.InvalidArgumentException;
-import com.nimbus.Storage;
-import com.nimbus.TaskList;
-import com.nimbus.Ui;
-import com.nimbus.Deadline;
-import com.nimbus.Task;
-
 import static com.nimbus.Parser.getDescription;
 import static com.nimbus.Parser.readOption;
+
+import com.nimbus.Deadline;
+import com.nimbus.InvalidArgumentException;
+import com.nimbus.Storage;
+import com.nimbus.Task;
+import com.nimbus.TaskList;
+import com.nimbus.Ui;
 
 public class DeadlineCommand extends Command {
     private final String argument;
