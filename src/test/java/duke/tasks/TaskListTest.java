@@ -1,6 +1,7 @@
 package duke.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -191,5 +192,61 @@ class TaskListTest {
         TaskList taskList = TaskList.getInstance();
         DukeException e = assertThrows(DukeException.class, () -> taskList.unmark("1"));
         assertEquals("List is empty, no tasks to unmark.", e.getMessage());
+    }
+
+    /**
+     * Tests the file switching functionality.
+     */
+    @Test
+    void testFileSwitching() throws DukeException {
+        TaskList taskList = TaskList.getInstance();
+        Storage storage = Storage.getInstance();
+
+        // Add a task to the default file
+        taskList.createTask("todo", "Default file task");
+        newOut.reset();
+
+        // Switch to a new file
+        storage.changeFile("newfile");
+        taskList.printTaskList();
+        assertEquals("Switched to file: newfile_test.txt\n" + "List is currently empty.", newOut.toString().trim());
+        newOut.reset();
+
+        // Add a task to the new file
+        taskList.createTask("todo", "New file task");
+        newOut.reset();
+
+        // Switch back to the default file
+        storage.changeFile("duke");
+        taskList.printTaskList();
+        assertTrue(newOut.toString().contains("1. [T][ ] Default file task"));
+        assertFalse(newOut.toString().contains("New file task"));
+        newOut.reset();
+
+        // Switch back to the new file
+        storage.changeFile("newfile");
+        taskList.printTaskList();
+        assertTrue(newOut.toString().contains("1. [T][ ] New file task"));
+        assertFalse(newOut.toString().contains("Default file task"));
+        newOut.reset();
+
+        // Add another task to the new file
+        taskList.createTask("deadline", "New file deadline /by 2024-08-23 1200");
+        newOut.reset();
+
+        // Switch to the default file and verify it's unchanged
+        storage.changeFile("duke");
+        taskList.printTaskList();
+        assertTrue(newOut.toString().contains("1. [T][ ] Default file task"));
+        assertFalse(newOut.toString().contains("New file task"));
+        assertFalse(newOut.toString().contains("New file deadline"));
+        newOut.reset();
+
+        // Switch back to the new file and verify both tasks are there
+        storage.changeFile("newfile");
+        taskList.printTaskList();
+        assertTrue(newOut.toString().contains("1. [T][ ] New file task"));
+        assertTrue(newOut.toString().contains("2. [D][ ] New file deadline (by: Aug 23 2024 12:00)"));
+        assertFalse(newOut.toString().contains("Default file task"));
     }
 }

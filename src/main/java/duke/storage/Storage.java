@@ -92,10 +92,6 @@ public class Storage {
      * @param fileName The name of the new file to use (without .txt extension)
      */
     public void changeFile(String fileName) {
-        if (isTestMode) {
-            System.out.println("Cannot change file in test mode.");
-            return;
-        }
         saveData();
         currentFile = fileName;
         readData();
