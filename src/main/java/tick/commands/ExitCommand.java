@@ -8,6 +8,7 @@ import tick.ui.Ui;
  * Represents a command to exit the program.
  */
 public class ExitCommand extends Command {
+    private CommandType type = CommandType.BYE;
 
     /**
      * Exits the program.

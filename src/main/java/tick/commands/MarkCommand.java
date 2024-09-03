@@ -11,6 +11,7 @@ import tick.ui.Ui;
  */
 public class MarkCommand extends Command {
     private int toMark;
+    private CommandType type = CommandType.MARK;
 
     /**
      * Constructs a MarkCommand with index of task to be marked as done.

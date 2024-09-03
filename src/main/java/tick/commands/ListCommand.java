@@ -8,6 +8,7 @@ import tick.ui.Ui;
  * Represents a command to list all tasks in the task list.
  */
 public class ListCommand extends Command {
+    private CommandType type = CommandType.LIST;
 
     /**
      * List all tasks in the task list.

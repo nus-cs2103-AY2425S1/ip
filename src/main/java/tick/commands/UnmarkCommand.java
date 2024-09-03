@@ -11,6 +11,7 @@ import tick.ui.Ui;
  */
 public class UnmarkCommand extends Command {
     private int toUnmark;
+    private CommandType type = CommandType.UNMARK;
 
     /**
      * Construct a UnmarkCommand with index of task to unmark.
