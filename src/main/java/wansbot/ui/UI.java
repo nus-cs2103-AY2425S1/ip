@@ -83,7 +83,7 @@ public class UI {
         System.out.println(HR + "\nWans:"
                 + "\nHere are your tasks!\n"
                 + taskList.toString());
-        System.out.println("You have " + taskList.numOfTasks() + " tasks!"+"\n"+HR);
+        System.out.println("You have " + taskList.numOfTasks() + " tasks!" + "\n" + HR);
     }
 
     /**
@@ -226,7 +226,7 @@ public class UI {
             System.out.println(HR + "\nWans:"
                     + "\nHere are your matching tasks!\n"
                     + tasklist.toString());
-            System.out.println("You have " + tasklist.numOfTasks() + " tasks!"+"\n"+HR);
+            System.out.println("You have " + tasklist.numOfTasks() + " tasks!" + "\n" + HR);
         }
     }
 
