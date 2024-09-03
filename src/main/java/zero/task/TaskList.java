@@ -1,8 +1,7 @@
 package zero.task;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
 import zero.exception.ZeroException;
 
 public class TaskList {
@@ -27,23 +26,9 @@ public class TaskList {
         return item;
     }
 
-    public void markTask(int index) throws ZeroException {
-        validateIndex(index);
-        tasks.get(index).markAsDone();
-    }
-
-    public void unmarkTask(int index) throws ZeroException {
-        validateIndex(index);
-        tasks.get(index).markAsNotDone();
-    }
-
     public Task getTask(int index) throws ZeroException {
         validateIndex(index);
         return tasks.get(index);
-    }
-
-    public List<Task> getTaskList() {
-        return Collections.unmodifiableList(tasks);
     }
 
     public int getSize() {

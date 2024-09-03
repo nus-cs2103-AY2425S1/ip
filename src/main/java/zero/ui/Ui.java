@@ -1,12 +1,13 @@
 package zero.ui;
 
 import java.util.Scanner;
+
 import zero.exception.ZeroException;
 import zero.task.Task;
 import zero.task.TaskList;
 
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
     private boolean isDone = false;
 
     public Ui() {

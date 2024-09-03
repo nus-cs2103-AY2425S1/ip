@@ -8,9 +8,9 @@ import zero.util.Storage;
 
 public class Zero {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Zero(String filePath) {
         ui = new Ui();
