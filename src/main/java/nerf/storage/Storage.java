@@ -70,7 +70,7 @@ public class Storage {
      * 
      * @param taskList list of task in string format.
      */
-    public void save(List<String> taskList){
+    public void save(List<String> taskList) {
         try (FileWriter fileWriter = new FileWriter(getFullPath())) {
             for (String i:taskList){
                 fileWriter.write(i+"\n");

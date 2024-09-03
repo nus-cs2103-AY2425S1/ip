@@ -10,20 +10,20 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
     }
-    public Task(String description,boolean status) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = status;
+        this.isDone = isDone;
     }
 
     /** 
-     * Set task completion to true.
+     * Sets task completion to true.
      */
     public void setDone() {
         this.isDone = true;
     }
 
     /** 
-     * Set task completion to false.
+     * Sets task completion to false.
      */
     public void setUndone() {
         this.isDone = false;
@@ -36,7 +36,7 @@ public abstract class Task {
      * @param keyword to check.
      * @return true if keyword in description.
      */
-    public boolean matchSearch(String keyword) {
+    public boolean isKeywordMatched(String keyword) {
         return this.description.contains(keyword);
     }
 
@@ -45,7 +45,7 @@ public abstract class Task {
     }
 
     /**
-     * Return format for saving to file.
+     * Returns format for saving to file.
      * 
      * @return string format of task.
      */
@@ -54,7 +54,7 @@ public abstract class Task {
     }
 
     /**
-     * Return format for printing.
+     * Returns format for printing.
      * 
      * @return string format of task.
      */

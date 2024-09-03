@@ -41,7 +41,8 @@ public class Parser {
     }
 
     /**
-     * Return the date as string in the requested format.
+     * Returns the date as string in the requested format.
+     * 
      * @param date the date object representation.
      * @param save boolean for toggling string pattern.
      * @return the requested string representation of date.

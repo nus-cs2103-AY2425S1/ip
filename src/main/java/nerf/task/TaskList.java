@@ -16,7 +16,6 @@ public class TaskList {
     /**
      * Default constructor if save file is unable to read.
      */
-
     public TaskList() {
         this.listings = new ArrayList<>();
     }
@@ -47,7 +46,7 @@ public class TaskList {
     }
 
     /**
-     * Print current list of tasks.
+     * Prints current list of tasks.
      * 
      * @return list of tasks.
      */
@@ -60,7 +59,7 @@ public class TaskList {
     }
 
     /**
-     * Set task completion on specified task.
+     * Sets task completion on specified task.
      * 
      * @param input specific index of task.
      * @return Mark task confirmation.
@@ -82,7 +81,7 @@ public class TaskList {
     }
 
     /**
-     * Unset task completion on specified task.
+     * Unsets task completion on specified task.
      * 
      * @param input specific index of task.
      * @return unmark task confirmation.
@@ -104,7 +103,7 @@ public class TaskList {
     }
 
     /**
-     * Filter and find task based on keyword.
+     * Filters task based on keyword.
      * 
      * @param input keyword to filter by.
      * @return list of filtered task.
@@ -113,7 +112,7 @@ public class TaskList {
         String keyword = input.substring(4).trim();
         List<Task> filteredList = new ArrayList<>();
         for (Task i : this.listings) {
-            if (i.matchSearch(keyword)) {
+            if (i.isKeywordMatched(keyword)) {
                 filteredList.add(i);
             }
         }
@@ -126,7 +125,7 @@ public class TaskList {
     }
 
     /**
-     * Add new task to list.
+     * Adds new task to list.
      * 
      * @param input Task object to be added.
      * @return task added confirmation.
@@ -142,7 +141,7 @@ public class TaskList {
     }
 
     /**
-     * Convert given string to Todo object.
+     * Converts given string to Todo object.
      * 
      * @param input string command.
      * @return task added confirmation.
@@ -158,7 +157,7 @@ public class TaskList {
     }
 
     /**
-     * Convert given string to Deadline object.
+     * Converts given string to Deadline object.
      * 
      * @param input string command.
      * @return task added confirmation.
@@ -180,7 +179,7 @@ public class TaskList {
     }
 
     /**
-     * Convert given string to Event object.
+     * Converts given string to Event object.
      * 
      * @param input string command.
      * @return task added confirmation.
@@ -209,7 +208,7 @@ public class TaskList {
     }
 
     /**
-     * Delete specific task.
+     * Deletes specific task.
      * 
      * @param input specific index of task.
      * @return task deletion confirmation.
@@ -232,7 +231,7 @@ public class TaskList {
     }
 
     /**
-     * Return list of Task as strings ready to be saved to file.
+     * Returns list of Task as strings ready to be saved to file.
      * 
      * @return list of tasks as strings.
      */

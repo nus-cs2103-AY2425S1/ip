@@ -18,8 +18,8 @@ public class Deadlines extends Task {
         this.dueDate = dueDate;
     }
 
-    public Deadlines(String description, boolean status, LocalDate dueDate) {
-        super(description, status);
+    public Deadlines(String description, boolean isDone, LocalDate dueDate) {
+        super(description, isDone);
         if (dueDate == null) {
             throw new IllegalArgumentException("Due date cannot be null");
         }
@@ -28,7 +28,7 @@ public class Deadlines extends Task {
 
     
     /**
-     * Return format for saving to file.
+     * Returns format for saving to file.
      * 
      * @return string format of task.
      */
@@ -38,7 +38,7 @@ public class Deadlines extends Task {
     }
 
     /**
-     * Return format for printing.
+     * Returns format for printing.
      * 
      * @return string format of task.
      */

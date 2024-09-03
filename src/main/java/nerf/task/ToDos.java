@@ -7,12 +7,12 @@ public class ToDos extends Task{
     public ToDos(String description) {
         super(description);
     }
-    public ToDos(String description, boolean status) {
-        super(description, status);
+    public ToDos(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     /**
-     * Return format for saving to file.
+     * Returns format for saving to file.
      * 
      * @return string format of task.
      */
@@ -22,7 +22,7 @@ public class ToDos extends Task{
     }
 
     /**
-     * Return format for printing.
+     * Returns format for printing.
      * 
      * @return string format of task.
      */

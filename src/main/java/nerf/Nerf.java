@@ -15,7 +15,7 @@ public class Nerf {
     private final TaskList taskList;
     
     /**
-     * Provide the save file name and run main loop.
+     * Provides the save file name and run main loop.
      * 
      * @param args command line parameters.
      */
@@ -24,7 +24,7 @@ public class Nerf {
     }
 
     /**
-     * Initialise variables and load in the given save file.
+     * Initializes variables and load in the given save file.
      * 
      * @return string format of task.
      */
