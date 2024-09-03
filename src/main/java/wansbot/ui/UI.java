@@ -18,15 +18,14 @@ public class UI {
     /**
      * Method that displays Bot message when bot first starts.
      */
-    public void introduceToUser() {
+    public String introduceToUser() {
         String logo = "                 __"
                 + "\n|  |  /\\  |\\ | /__` "
                 + "\n|/\\| /~~\\ | \\| .__/\n";
 
-        System.out.println(HR + "\nWans:\n"
-                + "Hey, I'm\n"
+        return "Hey, I'm\n"
                 + logo
-                + "\nCan I help? (I can only manage a todo list so...)\n" + HR);
+                + "\nCan I help? (I can only manage a todo list so...)\n";
     }
 
     /**

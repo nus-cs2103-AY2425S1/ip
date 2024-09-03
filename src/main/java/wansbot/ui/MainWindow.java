@@ -25,15 +25,15 @@ public class MainWindow extends AnchorPane {
     private WansBot wansBot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/daUser.png"));
-    private Image wansImage = new Image(this.getClass().getResourceAsStream("/images/daDuke.png"));
+    private Image wansImage = new Image(this.getClass().getResourceAsStream("/images/daWansBot.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(WansBot w) {
+    /** Injects the WansBot instance */
+    public void setWansBot(WansBot w) {
         wansBot = w;
     }
 

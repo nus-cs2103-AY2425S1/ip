@@ -2,6 +2,7 @@ package wansbot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
 import java.util.Scanner;
 
 import wansbot.storage.Storage;
@@ -14,7 +15,7 @@ import wansbot.tasks.Todos;
 import wansbot.ui.UI;
 
 /**
- * Main class in the package which has all the logic of the Bot.
+ * wansbot.Main class in the package which has all the logic of the Bot.
  */
 public class WansBot {
     private static TaskList userTaskList = new TaskList();

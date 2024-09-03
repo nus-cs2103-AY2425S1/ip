@@ -9,6 +9,10 @@ repositories {
     mavenCentral()
 }
 
+application {
+    mainClass.set("wansbot.Launcher")
+}
+
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
@@ -42,16 +46,12 @@ test {
     }
 }
 
-application {
-    mainClass.set("Launcher")
-}
-
 shadowJar {
     archiveBaseName = "wansbot"
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }
 
