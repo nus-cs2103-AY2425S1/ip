@@ -1,10 +1,10 @@
-package Hamyo.Tasks;
-
-import Hamyo.Misc.HamyoException;
+package hamyo.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import hamyo.misc.HamyoException;
 
 /**
  * Represents a Task that occurs between two specified Date/ Time throughout
@@ -60,12 +60,12 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String fromString = this.fromDateTime != null ?
-            this.fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + "HRS":
-            this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        String toString = this.toDateTime != null ?
-            this.toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))  + "HRS":
-            this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String fromString = this.fromDateTime != null
+            ? this.fromDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + "HRS"
+            : this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String toString = this.toDateTime != null
+            ? this.toDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + "HRS"
+            : this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return "[E] " + super.toString() + " (from: " + fromString + " to: " + toString + ")";
     }
 
@@ -77,12 +77,12 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        String fromString = this.fromDateTime != null ?
-            this.fromDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")):
-            this.fromDate.toString();
-        String toString = this.toDateTime != null ?
-            this.toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) :
-            this.toDate.toString();
+        String fromString = this.fromDateTime != null
+            ? this.fromDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+            : this.fromDate.toString();
+        String toString = this.toDateTime != null
+            ? this.toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+            : this.toDate.toString();
         return "E" + " | " + super.toFileFormat() + " | " + fromString + " | " + toString;
     }
 
@@ -94,6 +94,8 @@ public class Event extends Task {
      */
     @Override
     public boolean occursToday(LocalDate date) {
-        return (date.isAfter(this.fromDate) && date.isBefore(this.toDate)) || date.isEqual(this.fromDate) || date.isEqual(this.toDate);
+        return (date.isAfter(this.fromDate) && date.isBefore(this.toDate))
+                || date.isEqual(this.fromDate)
+                || date.isEqual(this.toDate);
     }
 }

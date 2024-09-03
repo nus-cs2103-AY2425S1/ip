@@ -1,11 +1,11 @@
-package Hamyo.Tasks;
-
-import Hamyo.Misc.HamyoException;
-import Hamyo.Misc.UI;
+package hamyo.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import hamyo.misc.HamyoException;
+import hamyo.misc.Ui;
 
 /**
  * Represents the list of users' tasks. Provides operations to add/delete etc.
@@ -29,7 +29,7 @@ public class TaskList extends ArrayList<Task> {
      *             (e.g. " apple", " banana /from 2002-09-18).
      * @throws HamyoException If the command is incomplete/invalid.
      */
-    public void addTask (TaskType taskType, String task) throws HamyoException {
+    public void addTask(TaskType taskType, String task) throws HamyoException {
         if (taskType.equals(TaskType.TODO)) {
             if (task.length() <= 1) {
                 throw new HamyoException("Usage: todo [task description]");
@@ -56,7 +56,7 @@ public class TaskList extends ArrayList<Task> {
             }
             this.add(new Event(split));
         }
-        UI.printAddTask(this.get(this.size() - 1), this.size());
+        Ui.printAddTask(this.get(this.size() - 1), this.size());
     }
 
     /**
@@ -76,7 +76,7 @@ public class TaskList extends ArrayList<Task> {
             }
             Task deletedTask = this.remove(index);
 
-            UI.printDeleteTask(deletedTask, this.size());
+            Ui.printDeleteTask(deletedTask, this.size());
         } catch (NumberFormatException e) {
             throw new HamyoException("Usage: delete [index]");
         }
@@ -94,7 +94,7 @@ public class TaskList extends ArrayList<Task> {
             tasksList.append(i).append(". ").append(this.get(i - 1).toString());
         }
 
-        UI.printListTasks(tasksList.toString());
+        Ui.printListTasks(tasksList.toString());
     }
 
     /**
@@ -119,7 +119,7 @@ public class TaskList extends ArrayList<Task> {
                 }
             }
 
-            UI.printListTasksByDate(tasksList.toString(), date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+            Ui.printListTasksByDate(tasksList.toString(), date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         } catch (Exception e) {
             throw new HamyoException("Usage: listDate yyyy-MM-dd.");
         }
@@ -133,22 +133,22 @@ public class TaskList extends ArrayList<Task> {
      */
     public void listTasksByKeyword(String str) throws HamyoException {
         try {
-        if (str.length() <= 1) {
-            throw new HamyoException("Usage: find [index]");
-        }
-        String keyword = str.substring(1);
-        StringBuilder tasksList = new StringBuilder();
-        int counter = 1;
-        for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).toString().toLowerCase().contains(keyword.toLowerCase())) {
-            if (!tasksList.isEmpty()) {
-                tasksList.append("\n");
+            if (str.length() <= 1) {
+                throw new HamyoException("Usage: find [index]");
             }
-            tasksList.append(counter++).append(". ").append(this.get(i).toString());
+            String keyword = str.substring(1);
+            StringBuilder tasksList = new StringBuilder();
+            int counter = 1;
+            for (Task task : this) {
+                if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                    if (!tasksList.isEmpty()) {
+                        tasksList.append("\n");
+                    }
+                    tasksList.append(counter++).append(". ").append(task);
+                }
             }
-        }
 
-        UI.printListTasksByKeyword(tasksList.toString(), keyword);
+            Ui.printListTasksByKeyword(tasksList.toString(), keyword);
         } catch (Exception e) {
             throw new HamyoException("Usage: listDate yyyy-MM-dd.");
         }

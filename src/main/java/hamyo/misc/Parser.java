@@ -1,7 +1,7 @@
-package Hamyo.Misc;
+package hamyo.misc;
 
-import Hamyo.Tasks.TaskList;
-import Hamyo.Tasks.TaskType;
+import hamyo.tasks.TaskList;
+import hamyo.tasks.TaskType;
 
 /**
  * Deals with making sense of the user command.
@@ -17,7 +17,7 @@ public class Parser {
      * @param fullCommand The full command/ input given by the user.
      * @param tasks The list of the users' tasks.
      * @return false if the user command ("bye") terminates the chatbot, true
-     * otherwise. false: application terminates, true: application continues.
+     *     otherwise. false: application terminates, true: application continues.
      */
     public static boolean parse(String fullCommand, TaskList tasks) {
         String commandType = fullCommand.split(" ")[0];
@@ -57,9 +57,8 @@ public class Parser {
                 throw new HamyoException("Invalid Command!");
             }
         } catch (HamyoException e) {
-            UI.printException(e);
+            Ui.printException(e);
         }
         return true;
     }
-
 }

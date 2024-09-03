@@ -1,11 +1,10 @@
-import Hamyo.Misc.HamyoException;
-import Hamyo.Misc.Parser;
-import Hamyo.Misc.UI;
-import Hamyo.Misc.Storage;
-
-import Hamyo.Tasks.TaskList;
-
 import java.util.Scanner;
+
+import hamyo.misc.HamyoException;
+import hamyo.misc.Parser;
+import hamyo.misc.Storage;
+import hamyo.misc.Ui;
+import hamyo.tasks.TaskList;
 
 /**
  * Main class of the Hamyo Chatbot.
@@ -14,18 +13,18 @@ import java.util.Scanner;
  */
 public class Hamyo {
 
-    private final UI ui;
+    private final Ui ui;
     private final Storage storage;
     private final TaskList tasks;
     private boolean active;
 
     /**
-     * Constructor of Hamyo instance. Consists of UI for user interactions,
+     * Constructor of Hamyo instance. Consists of Ui for user interactions,
      * TaskList to store users' tasks, Storage to load and save users' list of
      * tasks.
      */
     public Hamyo() {
-        this.ui = new UI();
+        this.ui = new Ui();
         this.tasks = new TaskList();
         this.active = true;
         this.storage = new Storage("./savedTasks.txt");
@@ -48,13 +47,13 @@ public class Hamyo {
                     this.active = Parser.parse(scanner.nextLine(), this.tasks);
                     storage.saveData(this.tasks);
                 } catch (HamyoException e) {
-                    UI.printException(e);
+                    Ui.printException(e);
                 }
             }
             ui.terminate();
             scanner.close();
         } catch (HamyoException e) {
-            UI.printException(e);
+            Ui.printException(e);
         }
     }
 

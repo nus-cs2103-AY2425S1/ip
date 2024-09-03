@@ -1,12 +1,15 @@
-package Hamyo.Tasks;
+package hamyo.tasks;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import Hamyo.Misc.HamyoException;
-import static org.junit.jupiter.api.Assertions.*;
+
+import hamyo.misc.HamyoException;
 
 public class TaskListTest {
     @Test
-    public void testAddTask () throws HamyoException {
+    public void testAddTask() throws HamyoException {
         TaskList taskList = new TaskList();
 
         // Test Case 1: Empty Array.
@@ -32,7 +35,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testDeleteTask () throws HamyoException {
+    public void testDeleteTask() throws HamyoException {
         TaskList taskList = new TaskList();
         taskList.addTask(TaskType.TODO, " apple");
         taskList.addTask(TaskType.DEADLINE, " banana /by 2002-09-18");
@@ -74,9 +77,9 @@ public class TaskListTest {
 
         // Test Case 3: Mark marked task.
         try {
-        taskList.markTask(" 1");
+            taskList.markTask(" 1");
         } catch (Exception e) {
-        assertEquals("This task was already marked as completed!", e.getMessage());
+            assertEquals("This task was already marked as completed!", e.getMessage());
         }
         assertEquals("[T] [X] apple", taskList.get(0).toString());
     }
@@ -99,9 +102,9 @@ public class TaskListTest {
 
         // Test Case 4: Unmark unmarked task.
         try {
-        taskList.unmarkTask(" 1");
+            taskList.unmarkTask(" 1");
         } catch (Exception e) {
-        assertEquals("This task was already marked as incomplete!", e.getMessage());
+            assertEquals("This task was already marked as incomplete!", e.getMessage());
         }
         assertEquals("[T] [ ] apple", taskList.get(0).toString());
     }
