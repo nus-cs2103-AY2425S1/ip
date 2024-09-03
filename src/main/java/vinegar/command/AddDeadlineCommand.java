@@ -1,3 +1,13 @@
+package vinegar.command;
+
+import vinegar.storage.Storage;
+import vinegar.ui.Ui;
+import vinegar.VinegarException;
+import vinegar.Validator;
+import vinegar.TaskList;
+import vinegar.task.Task;
+import vinegar.task.Deadline;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

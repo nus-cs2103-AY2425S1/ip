@@ -1,3 +1,13 @@
+package vinegar.command;
+
+import vinegar.TaskList;
+import vinegar.Validator;
+import vinegar.VinegarException;
+import vinegar.storage.Storage;
+import vinegar.task.Task;
+import vinegar.task.Todo;
+import vinegar.ui.Ui;
+
 import java.io.IOException;
 
 public class AddTodoCommand extends Command {

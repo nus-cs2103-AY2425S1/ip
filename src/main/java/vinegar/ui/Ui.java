@@ -1,7 +1,12 @@
+package vinegar.ui;
+
+import vinegar.TaskList;
+import vinegar.task.Task;
+
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public Ui() {
         scanner = new Scanner(System.in);
@@ -13,7 +18,7 @@ public class Ui {
 
     public void showWelcome() {
         System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Vinegar\n" + "What Can I do for you?");
+        System.out.println("Hello! I'm vinegar.Vinegar\n" + "What Can I do for you?");
         System.out.println("____________________________________________________________");
     }
 

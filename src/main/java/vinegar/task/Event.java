@@ -1,3 +1,5 @@
+package vinegar.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -14,6 +16,11 @@ public class Event extends Task {
         this.to = LocalDateTime.parse(to, inputFormatter);
     }
 
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
 
     @Override
     public String toString() {
