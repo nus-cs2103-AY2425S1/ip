@@ -1,5 +1,10 @@
 package fanny;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import fanny.command.Command;
 import fanny.parser.Parser;
 import fanny.storage.Storage;
@@ -72,6 +77,29 @@ public class Fanny {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Fanny heard: " + input;
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(outputStream);
+        PrintStream old = System.out;
+
+        try {
+            System.setOut(ps);
+            Command c = Parser.parse(input);
+            c.actionable(tasks, ui);
+
+            String capturedOutput = outputStream.toString();
+
+            String filteredOutput = Arrays.stream(capturedOutput.split(System.lineSeparator()))
+                    .filter(line -> !line.matches("[-_]+"))
+                    .collect(Collectors.joining(System.lineSeparator()));
+
+            return filteredOutput;
+        } catch (FannyException e) {
+            return e.getMessage();
+        } finally {
+            System.out.flush();
+            System.setOut(old);
+        }
     }
+
 }
