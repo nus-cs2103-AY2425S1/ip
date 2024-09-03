@@ -20,15 +20,6 @@ public abstract class Task {
         return (isDone ? "[X]" : "[ ]"); // if task is done, mark with X
     }
 
-    public void addTaskMessage(ArrayList<Task> tasks) {
-        tasks.add(this);
-        System.out.printf("\t%s%n", "------------------------------------------------------------------");
-        System.out.printf("\t%s%n", "Got it. I've added this task:");
-        System.out.printf("\t\t%s%n", this);
-        System.out.printf("\t%s%n", "Now you have " + tasks.size() + " tasks in the list.");
-        System.out.printf("\t%s%n", "------------------------------------------------------------------");
-    }
-
     public abstract String getTaskType();
 
     public String toSaveFormat() {
