@@ -1,4 +1,4 @@
-package Hamyo.Tasks;
+package hamyo.tasks;
 
 /**
  * Represents a Task that has no Deadline or Event.

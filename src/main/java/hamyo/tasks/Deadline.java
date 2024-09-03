@@ -1,10 +1,10 @@
-package Hamyo.Tasks;
-
-import Hamyo.Misc.HamyoException;
+package hamyo.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import hamyo.misc.HamyoException;
 
 /**
  * Represents a Task that has to be completed before a specified Deadline.
@@ -48,9 +48,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String deadlineString = this.deadlineDateTime != null ?
-            this.deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + "HRS":
-            this.deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String deadlineString = this.deadlineDateTime != null
+            ? this.deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + "HRS"
+            : this.deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return "[D] " + super.toString() + " (by: " + deadlineString + ")";
     }
 
@@ -62,9 +62,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        String deadlineString = this.deadlineDateTime != null ?
-            this.deadlineDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) :
-            this.deadlineDate.toString();
+        String deadlineString = this.deadlineDateTime != null
+            ? this.deadlineDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+            : this.deadlineDate.toString();
         return "D" + " | " + super.toFileFormat() + " | " + deadlineString;
     }
 
@@ -77,5 +77,4 @@ public class Deadline extends Task {
     @Override public boolean occursToday(LocalDate date) {
         return date.isEqual(this.deadlineDate);
     }
-    
 }

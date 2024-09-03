@@ -1,4 +1,4 @@
-package Hamyo.Tasks;
+package hamyo.tasks;
 
 /**
  * Represents the possible types of Tasks in the Hamyo chatbot.

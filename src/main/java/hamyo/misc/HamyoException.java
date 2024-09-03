@@ -1,4 +1,4 @@
-package Hamyo.Misc;
+package hamyo.misc;
 
 /**
  * Represents a throwable for when the Hamyo chatbot encounters issues, such as
@@ -6,7 +6,7 @@ package Hamyo.Misc;
  *
  * @author Han Yu
  */
-public class HamyoException extends Exception{
+public class HamyoException extends Exception {
 
     /**
      * Constructor for HamyoException instance. Created when Hamyo chatbot
@@ -27,5 +27,4 @@ public class HamyoException extends Exception{
     public String toString() {
         return "Oh No! " + this.getMessage();
     }
-    
 }

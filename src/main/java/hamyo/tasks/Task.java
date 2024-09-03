@@ -1,9 +1,9 @@
-package Hamyo.Tasks;
-
-import Hamyo.Misc.HamyoException;
-import Hamyo.Misc.UI;
+package hamyo.tasks;
 
 import java.time.LocalDate;
+
+import hamyo.misc.HamyoException;
+import hamyo.misc.Ui;
 
 /**
  * Represents a Task.
@@ -28,37 +28,37 @@ public class Task {
     /**
      * Marks a task if it was unmarked.
      *
-     * @param showText Print UI for mark onto terminal if true.
+     * @param showText Print Ui for mark onto terminal if true.
      * @throws HamyoException If task was already marked.
      */
     public void mark(boolean showText) throws HamyoException {
         if (!marked) {
             marked = true;
             if (showText) {
-                UI.markTask(this);
+                Ui.markTask(this);
             }
         } else {
             throw new HamyoException("This task was already marked as completed!");
         }
     }
-  
+
     /**
      * Unmarks a task if it was marked.
      *
-     * @param showText Print UI for unmark onto terminal if true.
+     * @param showText Print Ui for unmark onto terminal if true.
      * @throws HamyoException If task was already unmarked.
      */
     public void unmark(boolean showText) throws HamyoException {
         if (this.marked) {
             marked = false;
             if (showText) {
-                UI.unmarkTask(this);
+                Ui.unmarkTask(this);
             }
         } else {
             throw new HamyoException("This task was already marked as incomplete!");
         }
     }
-    
+
     /**
      * Converts the Task representation to a standardised format for the
      * printing of TaskList.

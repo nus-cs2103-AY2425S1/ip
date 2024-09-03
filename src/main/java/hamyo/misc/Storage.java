@@ -1,15 +1,15 @@
-package Hamyo.Misc;
-
-import Hamyo.Tasks.Deadline;
-import Hamyo.Tasks.Event;
-import Hamyo.Tasks.Task;
-import Hamyo.Tasks.TaskList;
-import Hamyo.Tasks.ToDo;
+package hamyo.misc;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import hamyo.tasks.Deadline;
+import hamyo.tasks.Event;
+import hamyo.tasks.Task;
+import hamyo.tasks.TaskList;
+import hamyo.tasks.ToDo;
 
 /**
  * Deals with loading tasks from the file and saving tasks in the file.
@@ -38,7 +38,7 @@ public class Storage {
             }
             this.file = tempFile;
         } catch (IOException e) {
-            UI.printException(e);
+            Ui.printException(e);
         }
     }
 
@@ -85,7 +85,7 @@ public class Storage {
             throw new HamyoException(e.getMessage());
         }
     }
-       
+
     /**
      * Saves tasks from the list of tasks into the file of the specified path.
      *
@@ -105,5 +105,4 @@ public class Storage {
             throw new HamyoException(e.getMessage());
         }
     }
-    
 }
