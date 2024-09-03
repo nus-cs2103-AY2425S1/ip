@@ -17,6 +17,7 @@ public class ToDo extends Task {
   public String toFileFormat() {
     return "T | " + (this.getBooleanStatus() ? "1" : "0") + " | " + this.getTask();
   }
+
   @Override
   public String toString() {
     return "[T] " + super.toString();

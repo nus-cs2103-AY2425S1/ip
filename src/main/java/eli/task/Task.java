@@ -58,7 +58,7 @@ public abstract class Task {
 
   @Override
   public String toString() {
-    return getStatus() + " " + task; // [X] read book
+    return getStatus() + " " + task;
   }
 
 }

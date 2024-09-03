@@ -38,10 +38,7 @@ public class TaskList {
    *
    * @param task The task to add.
    */
-  public void addTask(Task task) throws EmptyDescriptionException, UnknownCommandException {
-    // todo borrow book
-    // deadline return book /by Sunday
-    // event project meeting /from Mon 2pm /to 4pm
+  public void addTask(Task task) {
     if (tasks.size() < 100) {
       tasks.add(task);
       System.out.println("____________________________________________________________");
@@ -52,9 +49,6 @@ public class TaskList {
       System.out.println("Task list is full!!!");
     }
   }
-
-
-
 
   /**
    * Lists a task from the task list.
