@@ -44,7 +44,9 @@ public class Parser {
                 handleDeadline(tasks, fullCommand, ui);
             } else if (fullCommand.startsWith("event")) {
                 handleEvent(tasks, fullCommand, ui);
-            } else {
+            } else if (fullCommand.startsWith("find")) {
+                handleFind(tasks, fullCommand, ui);
+            }   else {
                 throw new ZeroException("分かりません");
             }
         } catch (ZeroException e) {
@@ -194,5 +196,16 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new ZeroException("Invalid date/time format. Please use 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.");
         }
+    }
+
+    private static void handleFind(TaskList tasks, String input, Ui ui) throws ZeroException {
+
+        try {
+            String keyword = input.substring(5);
+            ui.listMatchingTasks(tasks, keyword);
+        } catch (Exception e) {
+            throw new ZeroException("Invalid find parameters");
+        }
+
     }
 }

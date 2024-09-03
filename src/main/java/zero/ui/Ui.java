@@ -133,6 +133,19 @@ public class Ui {
         showLine();
     }
 
+    public void listMatchingTasks(TaskList tasks, String keyword) throws ZeroException {
+        int count = 1;
+        showLine();
+        System.out.println(" Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.getSize(); i++) {
+            if (tasks.getTask(i).getDescription().contains(keyword)) {
+                System.out.println((count) + ". " + tasks.getTask(i));
+                count++;
+            }
+        }
+        showLine();
+    }
+
     public boolean isDone() {
         return this.isDone;
     }
