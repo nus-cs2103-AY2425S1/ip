@@ -1,12 +1,12 @@
-/**
- * Represents a Task which is an Event.
- */
 package pixy.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Task which is an Event.
+ */
 public class Event extends Task {
 
     /** From time of the task. */

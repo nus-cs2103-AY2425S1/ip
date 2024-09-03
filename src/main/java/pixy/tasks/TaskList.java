@@ -1,11 +1,11 @@
-/**
- * Represents the list of tasks inputted by the user.
- */
 package pixy.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the list of tasks inputted by the user.
+ */
 public class TaskList {
 
     /** List of Tasks */
@@ -54,6 +54,12 @@ public class TaskList {
         tasks.remove(task);
     }
 
+    /**
+     * Returns a List of Tasks which match the description.
+     *
+     * @param description The description inputted by user.
+     * @return List of Tasks having the specified description in their description.
+     */
     public List<Task> find(String description) {
         List<Task> matchedTasks = new ArrayList<>();
         for (Task task : tasks) {

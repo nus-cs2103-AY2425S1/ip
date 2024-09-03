@@ -1,12 +1,12 @@
-/**
- * Represents a Task object with a specified due date and time.
- */
 package pixy.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Task object with a specified due date and time.
+ */
 public class Deadlines extends Task {
 
     /** Due date of the given Task*/

@@ -1,14 +1,18 @@
-/**
- * Parses the user commands and executes respective actions.
- */
 package pixy.parser;
 
 import java.util.List;
 
 import pixy.PixyExceptions;
-import pixy.tasks.*;
+import pixy.tasks.Deadlines;
+import pixy.tasks.Event;
+import pixy.tasks.Task;
+import pixy.tasks.TaskList;
+import pixy.tasks.ToDos;
 import pixy.ui.Ui;
 
+/**
+ * Parses the user commands and executes respective actions.
+ */
 public class Parser {
 
     /**
@@ -47,16 +51,16 @@ public class Parser {
             } else if (command.startsWith("find")) {
                 String description = command.substring(5);
                 if (description.isEmpty()) {
-                    throw new PixyExceptions("OOPS! Cannot complete find. " +
-                            "Incomplete command.");
+                    throw new PixyExceptions("OOPS! Cannot complete find. "
+                            + "Incomplete command.");
                 }
                 List<Task> matchedTasks = tasks.find(description);
                 ui.showMatchedTasks(matchedTasks);
             } else if (command.startsWith("todo ")) {
                 String description = command.substring(5);
                 if (description.isEmpty()) {
-                    throw new PixyExceptions("OOPS!!! The description of a " +
-                            "todo cannot be empty.");
+                    throw new PixyExceptions("OOPS!!! The description of a "
+                            + "todo cannot be empty.");
                 }
                 Task todo = new ToDos(description);
                 tasks.add(todo);
@@ -64,8 +68,8 @@ public class Parser {
             } else if (command.startsWith("deadline ")) {
                 String[] parts = command.substring(9).split(" /by");
                 if (parts.length != 2) {
-                    throw new PixyExceptions("OOPS!!! The description of a deadline is " +
-                            "not in the correct format.");
+                    throw new PixyExceptions("OOPS!!! The description of a deadline is "
+                            + "not in the correct format.");
                 }
                 Task deadline = new Deadlines(parts[0], parts[1]);
                 tasks.add(deadline);
@@ -73,8 +77,8 @@ public class Parser {
             } else if (command.startsWith("event ")) {
                 String[] parts = command.substring(6).split(" /from | /to");
                 if (parts.length != 3) {
-                    throw new PixyExceptions("OOPS!!! The description of an event is not " +
-                            "in the correct format.");
+                    throw new PixyExceptions("OOPS!!! The description of an event is not "
+                            + "in the correct format.");
                 }
                 Task event = new Event(parts[0], parts[1], parts[2]);
                 tasks.add(event);

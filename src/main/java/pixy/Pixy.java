@@ -1,15 +1,16 @@
-/**
- * Represents the task manager chatbot Pixy.
- */
 package pixy;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 import pixy.parser.Parser;
 import pixy.storage.Storage;
 import pixy.tasks.TaskList;
 import pixy.ui.Ui;
-import java.io.IOException;
-import java.util.Scanner;
 
+/**
+ * Represents the task manager chatbot Pixy.
+ */
 public class Pixy {
 
     /** List of tasks */
