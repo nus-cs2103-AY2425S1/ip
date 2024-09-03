@@ -49,6 +49,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String userText = userInput.getText();
 
+        assert userText != null : "User input text should not be null";
+        
         // Display user input
         dialogContainer.getChildren().add(DialogBox.getUserDialog(userText, userImage));
 

@@ -22,6 +22,8 @@ public class Diego {
      * @param filePath The file path where tasks are stored.
      */
     public Diego(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
+        
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();

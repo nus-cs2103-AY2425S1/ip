@@ -46,6 +46,9 @@ public class Storage {
      * @throws FileNotFoundException If the file cannot be found.
      */
     public ArrayList<Task> load() throws FileNotFoundException {
+        
+        assert this.filePath != null && !this.filePath.isEmpty() : "File path should not be null or empty";
+
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         Scanner scanner = new Scanner(file);
@@ -89,6 +92,7 @@ public class Storage {
      * @param tasks The task list to be saved.
      */
     public void save(TaskList tasks) {
+        assert tasks != null : "TaskList to save should not be null";
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks.getAll()) {
                 writer.write(task.toFileFormat() + System.lineSeparator());
