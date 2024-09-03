@@ -8,6 +8,7 @@ import UI.BotException;
 /**
  * The Bob class is the main entry point for the Bob application.
  * It initializes the user interface and storage, and processes user input in a loop.
+ * Hello!!
  */
 public class Bob {
 
