@@ -19,7 +19,7 @@ public class Chobo {
         storage = new Storage(FILE_PATH);
         taskList = new TaskList(storage.loadTasks());
     }
-    
+
     /**
      * Run.
      */
