@@ -26,6 +26,20 @@ public class TaskList {
         return listString.toString();
     }
 
+    public void find(String toFind) {
+        List<Task> taskList = new ArrayList<>();
+        for (Task task : tasks) {
+
+            String des = task.getTaskDes();
+            if (Parser.isPresent(des, toFind)) {
+                taskList.add(task);
+            }
+        }
+        Ui.showClassFound(taskList);
+    }
+
+
+
     public  String listToString() {
         StringBuilder listString = new StringBuilder();
         int count = 1;
@@ -107,6 +121,7 @@ public class TaskList {
         this.tasks.add(todo);
         return todo;
     }
+
 
     public int size() {
         return tasks.size();

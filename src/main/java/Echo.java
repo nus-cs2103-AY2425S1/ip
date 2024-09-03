@@ -40,39 +40,43 @@ public class Echo {
 
             try {
                 switch (command) {
-                    case "bye":
-                        storage.save(tasks.getTasks());
-                        ui.showGoodbyeMessage();
-                        return;
-                    case "list":
-                        ui.showTaskList(tasks.getTasks());
-                        break;
-                    case "mark":
-                        tasks.markTask(Integer.parseInt(parts[1]));
-                        ui.showMarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
-                        break;
-                    case "unmark":
-                        tasks.unmarkTask(Integer.parseInt(parts[1]));
-                        ui.showUnmarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
-                        break;
-                    case "todo":
-                        Task todo = tasks.addTodo(parts[1]);
-                        ui.showTaskAdded(todo, tasks.getTasks().size());
-                        break;
-                    case "deadline":
-                        Deadline deadline = tasks.addDeadline(parts[1]);
-                        ui.showTaskAdded(deadline, tasks.getTasks().size());
-                        break;
-                    case "event":
-                        Events event = tasks.addEvent(parts[1]);
-                        ui.showTaskAdded(event, tasks.getTasks().size());
-                        break;
-                    case "delete":
-                        Task removedTask = tasks.deleteTask(Integer.parseInt(parts[1]));
-                        ui.showTaskRemoved(removedTask, tasks.getTasks().size());
-                        break;
-                    default:
-                        ui.showErrorMessage("I'm sorry, but I don't know what that means :-(");
+                case "bye":
+                    storage.save(tasks.getTasks());
+                    ui.showGoodbyeMessage();
+                    return;
+                case "list":
+                    ui.showTaskList(tasks.getTasks());
+                    break;
+                case "mark":
+                    tasks.markTask(Integer.parseInt(parts[1]));
+                    ui.showMarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
+                    break;
+                case "unmark":
+                    tasks.unmarkTask(Integer.parseInt(parts[1]));
+                    ui.showUnmarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
+                    break;
+                case "todo":
+                    Task todo = tasks.addTodo(parts[1]);
+                    ui.showTaskAdded(todo, tasks.getTasks().size());
+                    break;
+                case "deadline":
+                    Deadline deadline = tasks.addDeadline(parts[1]);
+                    ui.showTaskAdded(deadline, tasks.getTasks().size());
+                    break;
+                case "event":
+                    Events event = tasks.addEvent(parts[1]);
+                    ui.showTaskAdded(event, tasks.getTasks().size());
+                    break;
+                case "delete":
+                    Task removedTask = tasks.deleteTask(Integer.parseInt(parts[1]));
+                    ui.showTaskRemoved(removedTask, tasks.getTasks().size());
+                    break;
+                case "find":
+                    String toFind = parts[1];
+                    tasks.find(toFind);
+                    break;
+                default:
+                    ui.showErrorMessage("I'm sorry, but I don't know what that means :-(");
                 }
             } catch (EchoException | IOException e) {
                 ui.showErrorMessage(e.getMessage());

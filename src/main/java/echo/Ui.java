@@ -9,6 +9,12 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    public static void showClassFound(List<Task> tasks) {
+        for(int i = 0; i < tasks.size(); i++) {
+            System.out.println(i + tasks.get(i).toString());
+        }
+    }
+
     public String readCommand() {
         return scanner.nextLine().trim().toLowerCase();
     }

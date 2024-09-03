@@ -1,4 +1,7 @@
 package echo;
+
+import java.util.Objects;
+
 public class Parser {
     public static String[] parseCommand(String input) {
         return input.split(" ", 2);
@@ -27,5 +30,15 @@ public class Parser {
 
     public static String parseEventDes(String part) {
         return part.split(" /from ")[0];
+    }
+
+    public static boolean isPresent(String des, String toFind) {
+        String[] parts = des.split(" ");
+        for(int i = 0; i < parts.length; i++){
+            if(Objects.equals(parts[i].toLowerCase(), toFind)){
+                return true;
+            }
+        }
+        return false;
     }
 }
