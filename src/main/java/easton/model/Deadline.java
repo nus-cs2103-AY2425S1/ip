@@ -5,10 +5,21 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import easton.DateTimeFormatException;
-
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
+
     private LocalDateTime by;
 
+    /**
+     * Constructs a new deadline task with the specified description, date & time by.
+     * If the date & time format is wrong, an exception is thrown.
+     *
+     * @param description Description of the task.
+     * @param by Date & time the task is due by.
+     * @throws DateTimeFormatException If the date & time indicated is in the wrong format.
+     */
     public Deadline(String description, String by) throws DateTimeFormatException {
         super(description);
         try {

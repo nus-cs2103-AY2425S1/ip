@@ -6,12 +6,23 @@ import java.time.format.DateTimeParseException;
 
 import easton.DateTimeFormatException;
 
-
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
 
     private LocalDateTime from;
     private LocalDateTime to;
 
+    /**
+     * Constructs a new event task with the specified description, date & time from and to.
+     * If the date & time format is wrong, an exception is thrown.
+     *
+     * @param description Description of the task.
+     * @param from Date & time the task begins.
+     * @param to Date & time the task ends.
+     * @throws DateTimeFormatException If the date & time indicated is in the wrong format.
+     */
     public Event(String description, String from, String to) throws DateTimeFormatException {
         super(description);
         try {

@@ -9,14 +9,23 @@ import easton.model.Task;
 import easton.model.ToDo;
 import easton.view.Ui;
 
+/**
+ * Represents the chatbot, easton.
+ */
 public class Easton {
 
     private ArrayList<Task> tasks = new ArrayList<>();
     private Storage storage;
     private Ui<Task> ui;
 
+    /**
+     * Constructs an instance of the chatbot.
+     *
+     * @param fileName Name of the file storing the records.
+     */
     public Easton(String fileName) {
         try {
+
             storage = new Storage(fileName);
         } catch (IOException e) {
             Ui.displayText("Cannot connect to the storage.");
@@ -26,6 +35,9 @@ public class Easton {
         ui = new Ui<>();
     }
 
+    /**
+     * Executes the chatbot to run.
+     */
     public void run() {
         Ui.welcome();
         boolean isFinished = false;
@@ -96,11 +108,23 @@ public class Easton {
 
     }
 
+
+    /**
+     * Executes the program to start.
+     * @param args Environment arguments.
+     */
     public static void main(String[] args) {
         new Easton("task.csv").run();
     }
 
-    private void changeTaskStatus(String input, boolean isDone, String message) {
+    /**
+     * Changes the status of a given task.
+     *
+     * @param input Input from the prompt.
+     * @param isDone Is the task done.
+     * @param message Message displayed to the user interface.
+     */
+    public void changeTaskStatus(String input, boolean isDone, String message) {
         try {
             int index = getIndexFromInput(input);
             Task task = tasks.get(index - 1);
@@ -113,7 +137,12 @@ public class Easton {
         }
     }
 
-    private void deleteTask(String input) {
+    /**
+     * Deletes a task.
+     *
+     * @param input Input from the prompt.
+     */
+    public void deleteTask(String input) {
         try {
             int index = getIndexFromInput(input);
             Task task = tasks.remove(index - 1);
@@ -126,7 +155,16 @@ public class Easton {
         }
     }
 
-    private int getIndexFromInput(String input) throws InvalidIndexException, EmptyDescriptionException {
+    /**
+     * Returns the index from the input by the user.
+     * If the index does not exist, an exception is thrown.
+     *
+     * @param input Input from the prompt.
+     * @return Index that exist in the task list.
+     * @throws InvalidIndexException If the index does not exist in the task list.
+     * @throws EmptyDescriptionException If the body of the prompt is empty.
+     */
+    public int getIndexFromInput(String input) throws InvalidIndexException, EmptyDescriptionException {
         int index;
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length != 2) {
@@ -146,6 +184,14 @@ public class Easton {
         }
     }
 
+    /**
+     * Creates a todo task from the input.
+     * If the body of the input is empty, an exception is thrown.
+     *
+     * @param input Input from the prompt.
+     * @return A new todo task.
+     * @throws EmptyDescriptionException If the body of the prompt is empty.
+     */
     public static ToDo createToDo(String input) throws EmptyDescriptionException {
         String[] splitInput = input.stripLeading()
                 .stripTrailing()
@@ -157,6 +203,16 @@ public class Easton {
         }
     }
 
+    /**
+     * Creates a deadline task from the input.
+     * If the body of the input is empty or the format is invalid, an exception is thrown.
+     *
+     * @param input Input from the prompt.
+     * @return A new deadline task.
+     * @throws EmptyDescriptionException If the body of the prompt is empty.
+     * @throws InvalidFormatException If the body is in the incorrect format.
+     * @throws DateTimeFormatException If the date & time indicated is in the wrong format.
+     */
     public static Deadline createDeadline(String input) throws EmptyDescriptionException,
             InvalidFormatException,
             DateTimeFormatException {
@@ -175,7 +231,17 @@ public class Easton {
         return new Deadline(content[0], content[1]);
     }
 
-    private static Event createEvent(String input) throws EmptyDescriptionException,
+    /**
+     * Creates an event task from the input.
+     * If the body of the input is empty or the format is invalid, an exception is thrown.
+     *
+     * @param input Input from the prompt.
+     * @return A new event task.
+     * @throws EmptyDescriptionException If the body of the prompt is empty.
+     * @throws InvalidFormatException If the body is in the incorrect format.
+     * @throws DateTimeFormatException If the date & time indicated is in the wrong format.
+     */
+    public static Event createEvent(String input) throws EmptyDescriptionException,
             InvalidFormatException,
             DateTimeFormatException {
         String[] splitInput = input.split(" ", 2);
@@ -191,7 +257,15 @@ public class Easton {
         return new Event(content[0], content[1], content[2]);
     }
 
-    private static Action getActionFromInput(String input) throws IllegalActionException {
+    /**
+     * Returns an action that can be done/exist.
+     * If the action cannot be handled, an exception is thrown.
+     *
+     * @param input Input from the prompt.
+     * @return A valid action.
+     * @throws IllegalActionException If the action given cannot be done.
+     */
+    public static Action getActionFromInput(String input) throws IllegalActionException {
         String action = input.split(" ", 2)[0];
         try {
             return Action.valueOf(action.toUpperCase());
@@ -200,14 +274,24 @@ public class Easton {
         }
     }
 
-    private void addTask(Task task) {
+    /**
+     * Adds a given task to the list.
+     *
+     * @param task Task
+     */
+    public void addTask(Task task) {
         tasks.add(task);
         Ui.displayText("Got it. I've added this task:");
         ui.show(task);
         Ui.displayText("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private ArrayList<Task> retrieveTasks() {
+    /**
+     * Retrieves the tasks from the given file/storage.
+     *
+     * @return A list of tasks.
+     */
+    public ArrayList<Task> retrieveTasks() {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         ArrayList<String> records = new ArrayList<>();
         Task task;
@@ -253,7 +337,10 @@ public class Easton {
         return taskArrayList;
     }
 
-    private void saveTasks() {
+    /**
+     * Saves the tasks to the file/storage.
+     */
+    public void saveTasks() {
         ArrayList<String> records = new ArrayList<>();
 
         for (Task task : tasks) {
