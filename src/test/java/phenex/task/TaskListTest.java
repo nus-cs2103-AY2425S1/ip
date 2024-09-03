@@ -6,8 +6,14 @@ import phenex.exception.PhenexException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Unit tests for the TaskList class.
+ */
 public class TaskListTest {
 
+    /**
+     * Tests that a phenex exception is thrown for inputting an invalid index when marking task.
+     */
     @Test
     public void invalid_index_phenexExceptionThrown() {
         TaskList taskList = new TaskList();
@@ -22,6 +28,9 @@ public class TaskListTest {
         }
     }
 
+    /**
+     * Tests that adding a valid task works properly.
+     */
     @Test
     public void add_task_success() {
         TaskList taskList = new TaskList();
