@@ -1,5 +1,5 @@
-package myapp.blacknut;
-import myapp.blacknut.BlacknutExceptions.IncorrectFormatException;
+package blacknut.ui;
+import blacknut.ui.BlacknutExceptions.IncorrectFormatException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

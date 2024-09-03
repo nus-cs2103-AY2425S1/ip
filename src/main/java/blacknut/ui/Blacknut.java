@@ -1,12 +1,12 @@
-package myapp.blacknut;
+package blacknut.ui;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import myapp.blacknut.BlacknutExceptions.InvalidCommandException;
-import myapp.blacknut.BlacknutExceptions.EmptyDescriptionException;
-import myapp.blacknut.BlacknutExceptions.InvalidTaskNumberException;
-import myapp.blacknut.BlacknutExceptions.IncorrectFormatException;
+import blacknut.ui.BlacknutExceptions.InvalidCommandException;
+import blacknut.ui.BlacknutExceptions.EmptyDescriptionException;
+import blacknut.ui.BlacknutExceptions.InvalidTaskNumberException;
+import blacknut.ui.BlacknutExceptions.IncorrectFormatException;
 import java.io.File;
 
 public class Blacknut {
