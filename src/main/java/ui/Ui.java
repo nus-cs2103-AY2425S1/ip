@@ -1,26 +1,26 @@
-package UI;
+package ui;
 
 import exception.JadeException;
 import task.*;
+import parser.Parser;
 
 import java.util.Scanner;
-import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
 
 /**
  * Handles user interaction and input for the Jade application.
  */
-public class UI {
+public class Ui {
     public static final String INDENT = "     "; // 5 spaces for indentation
     public static final String TOP_LINE = "    " + "_".repeat(60) + "\n";
     public static final String BOT_LINE = "\n" + "    " + "_".repeat(60);
     public static final String GREET = INDENT + "Hello! I'm Jade!\n"
             + INDENT + "What can I do for you?";
     public static final String EXIT = INDENT + "Bye. Hope to see you again soon!";
-    public static final String LIST_MESSAGE = INDENT + "Here are the tasks in your list:";
+
     private final TaskManager taskManager;
     private final Scanner sc;
+    private final Parser parser;
     private String message;
 
     /**
@@ -28,9 +28,10 @@ public class UI {
      *
      * @param taskManager The TaskManager to interact with.
      */
-    public UI(TaskManager taskManager) {
+    public Ui(TaskManager taskManager) {
         this.taskManager = taskManager;
         this.sc = new Scanner(System.in);
+        this.parser = new Parser();
     }
 
     /**
@@ -67,16 +68,11 @@ public class UI {
     }
 
     private void displayTaskList() {
-        System.out.println(TOP_LINE + LIST_MESSAGE);
+        StringBuilder message = new StringBuilder(INDENT + "Here are the tasks in your list:");
         for (int i = 0; i < taskManager.getTaskCount(); i++) {
-            if (i < taskManager.getTaskCount() - 1) {
-                System.out.println(INDENT + (i + 1) + "." + taskManager.getTask(i));
-            } else {
-                // last task
-                System.out.println(INDENT + (i + 1) + "." + taskManager.getTask(i)
-                        + BOT_LINE);
-            }
+            message.append("\n" + INDENT).append(i + 1).append(".").append(taskManager.getTask(i));
         }
+        System.out.println(TOP_LINE + message + BOT_LINE);
     }
 
     private void handleMarkCommand(String command, boolean isDone) {
@@ -110,70 +106,14 @@ public class UI {
     }
 
     private void handleTaskCommand(String command) {
-        Task newTask = parseTask(command);
-        if (newTask != null) {
-            taskManager.addTask(newTask);
-            displayTaskAddedMessage(newTask);
-        }
-    }
-
-    private Task parseTask(String command) {
         try {
-            if (command.startsWith("todo")) {
-                if (command.substring(4).trim().isEmpty()) {
-                    throw new JadeException("The todo task cannot be empty!");
-                }
-                return new Todo(command.substring(5));
-            } else if (command.startsWith("deadline")) {
-                if (command.substring(8).trim().isEmpty()) {
-                    throw new JadeException("The deadline task cannot be empty!");
-                }
-                return parseDeadline(command);
-            } else if (command.startsWith("event")) {
-                if (command.substring(5).trim().isEmpty()) {
-                    throw new JadeException("The event task cannot be empty!");
-                }
-                return parseEvent(command);
+            Task newTask = parser.parseTaskCommand(command);
+            if (newTask != null) {
+                taskManager.addTask(newTask);
+                displayTaskAddedMessage(newTask);
             }
         } catch (JadeException e) {
             displayErrorMessage(e.getMessage());
-        }
-        return null;
-    }
-
-    private Task parseDeadline(String command) throws JadeException {
-        String[] parts = command.substring(9).split(" /by ", 2);
-        if (parts.length < 2) {
-            throw new JadeException("Please provide a deadline in the format:\n"
-                    + INDENT + "  " + "deadline <task> /by <time>");
-        } else {
-            try {
-                return new Deadline(parts[0], parts[1]);
-            } catch (DateTimeParseException e) {
-                throw new JadeException("Please use yyyy-MM-dd HHmm format for time.\n"
-                        + INDENT + "  " + "eg. 2024-12-25 2130");
-            }
-        }
-    }
-
-    private Task parseEvent(String command) throws JadeException {
-        String[] parts = command.substring(6).split(" /from ", 2);
-        if (parts.length < 2) {
-            throw new JadeException("Please provide an event in the format:\n"
-                    + INDENT + "  " + "event <task> /from <time>");
-        } else {
-            String[] timeParts = parts[1].split(" /to ", 2);
-            if (timeParts.length < 2) {
-                throw new JadeException("Please provide an end time in the format:\n"
-                        + INDENT + "  " + "event <task> /from <start time> /to <end time>");
-            } else {
-                try {
-                    return new Event(parts[0], timeParts[0], timeParts[1]);
-                } catch (DateTimeParseException e) {
-                    throw new JadeException("Please use yyyy-MM-dd HHmm format for time.\n"
-                            + INDENT + "  " + "eg. 2024-12-25 2130");
-                }
-            }
         }
     }
 

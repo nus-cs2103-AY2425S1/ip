@@ -1,8 +1,8 @@
 package task;
 
-import storage.Storage;
-import UI.UI;
 import exception.JadeException;
+import storage.Storage;
+import ui.Ui;
 
 import java.util.ArrayList;
 
@@ -84,7 +84,7 @@ public class TaskManager {
                 matchingTasks.add(task);
             }
         }
-        UI.showMatchingTasks(matchingTasks);
+        Ui.showMatchingTasks(matchingTasks);
     }
 
     /**

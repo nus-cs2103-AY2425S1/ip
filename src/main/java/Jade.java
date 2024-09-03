@@ -1,6 +1,6 @@
-import UI.UI;
 import storage.Storage;
 import task.TaskManager;
+import ui.Ui;
 
 /**
  * The main entry point for the Jade application.
@@ -18,7 +18,7 @@ public class Jade {
     public static void main(String[] args) {
         Storage storage = new Storage(FILE_PATH);
         TaskManager taskManager = new TaskManager(storage);
-        UI ui = new UI(taskManager);
+        Ui ui = new Ui(taskManager);
         ui.run();
     }
 }
