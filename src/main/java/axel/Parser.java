@@ -41,6 +41,7 @@ public class Parser {
             throw new UnrecognisedCommandException();
         }
     }
+<<<<<<< HEAD
     /**
      * Parses the task index from the user's input command.
      * The index is extracted and adjusted to be zero-based.
@@ -49,6 +50,9 @@ public class Parser {
      * @return The zero-based index of the task.
      * @throws AxelException If the task number is not a valid integer.
      */
+=======
+
+>>>>>>> branch-A-CodingStandard
     private static int parseTaskIndex(String command) throws AxelException {
         try {
             return Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;

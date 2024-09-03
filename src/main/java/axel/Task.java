@@ -18,6 +18,7 @@ public abstract class Task {
         this.taskName = taskName;
         this.isDone = false;
     }
+<<<<<<< HEAD
     /**
      * Returns the description of the task.
      *
@@ -59,6 +60,27 @@ public abstract class Task {
      *
      * @return A formatted string representation of the task
      */
+=======
+
+    public String getTaskName() {
+        return this.taskName;
+    }
+
+    public abstract String toFileFormat();
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void markAsNotDone() {
+        this.isDone = false;
+    }
+
+>>>>>>> branch-A-CodingStandard
     @Override
     public String toString() {
         return (this.isDone ? "[X] " : "[ ] ") + this.taskName;

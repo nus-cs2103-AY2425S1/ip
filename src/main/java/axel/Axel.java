@@ -12,6 +12,7 @@ public class Axel {
      * The path to the file where tasks are stored.
      */
     private static final String FILE_PATH = "./data/axel.txt";
+<<<<<<< HEAD
     /**
      * The storage handler that manages reading from and writing to the task file.
      */
@@ -31,6 +32,15 @@ public class Axel {
      *
      * @param filePath The path to the file where tasks are stored.
      */
+=======
+
+    protected Storage storage;
+
+    private TaskList tasks;
+
+    protected Ui ui;
+
+>>>>>>> branch-A-CodingStandard
     public Axel(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -41,11 +51,15 @@ public class Axel {
             tasks = new TaskList();
         }
     }
+<<<<<<< HEAD
     /**
      * Starts the main loop of the application.
      * Continuously reads user commands, processes them, and executes the corresponding actions
      * until the user issues a command to exit the application.
      */
+=======
+
+>>>>>>> branch-A-CodingStandard
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -61,12 +75,16 @@ public class Axel {
         }
         ui.showGoodbye();
     }
+<<<<<<< HEAD
     /**
      * The entry point of the application.
      * Initializes the application and starts the main loop.
      *
      * @param args Command-line arguments passed to the application (not used).
      */
+=======
+
+>>>>>>> branch-A-CodingStandard
     public static void main(String[] args) {
         new Axel(FILE_PATH).run();
     }

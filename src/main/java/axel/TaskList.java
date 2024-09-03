@@ -10,6 +10,7 @@ import java.util.List;
 public class TaskList {
     /** The list of tasks. */
     protected List<Task> tasks;
+<<<<<<< HEAD
     /**
      * Constructs a {@code TaskList} with the specified initial list of tasks.
      *
@@ -38,11 +39,27 @@ public class TaskList {
      *
      * @param index The index of the task to be removed
      */
+=======
+
+    public TaskList(List<Task> tasks) {
+        this.tasks = new ArrayList<>(tasks);
+    }
+
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+>>>>>>> branch-A-CodingStandard
     public void removeTask(int index) {
         if (index >= 0 && index < tasks.size()) {
             tasks.remove(index);
         }
     }
+<<<<<<< HEAD
     /**
      * Retrieves the task at the specified index.
      *
@@ -65,6 +82,17 @@ public class TaskList {
      *
      * @return The number of tasks
      */
+=======
+
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+>>>>>>> branch-A-CodingStandard
     public int size() {
         return tasks.size();
     }

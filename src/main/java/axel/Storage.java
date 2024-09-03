@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Storage {
     protected String filePath;
+<<<<<<< HEAD
     /**
      * Constructs a {@code Storage} object with the specified file path.
      *
@@ -26,6 +27,13 @@ public class Storage {
      * @throws IOException If an I/O error occurs during file reading.
      * @throws CorruptedFileException If the file content is invalid or corrupted.
      */
+=======
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+>>>>>>> branch-A-CodingStandard
     public List<Task> load() throws IOException, CorruptedFileException {
         List<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
@@ -79,12 +87,16 @@ public class Storage {
         }
         return taskList;
     }
+<<<<<<< HEAD
     /**
      * Saves the given list of tasks to the file specified by {@code filePath}.
      *
      * @param tasks The list of tasks to be saved.
      * @throws IOException If an I/O error occurs during file writing.
      */
+=======
+
+>>>>>>> branch-A-CodingStandard
     public void save(List<Task> tasks) throws IOException {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
