@@ -12,11 +12,22 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class is responsible to manage tasks.
+ * It reads tasks from and writes tasks to a file.
+ */
 public class Storage {
     File filePath;
     Scanner scanner;
     TaskList taskList;
 
+    /**
+     * Constructs a Storage object and initializes the file for reading and writing
+     * tasks.
+     * Creates the directories and file if they do not exist.
+     * 
+     * @param filePathString The path to the file to store tasks.
+     */
     public Storage(String filePathString) {
         try {
             File dir = new File(filePathString.split("/gallium.txt")[0]);
@@ -30,6 +41,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file into an ArrayList of Task objects.
+     * Parses the task descriptions and creates Task objects based on their
+     * prefixes.
+     * 
+     * @param ui The UI instance used for printing out messages.
+     * @return An ArrayList of Task objects.
+     */
     public ArrayList<Task> load(Ui ui) {
         ArrayList<Task> taskArrayList = new ArrayList<Task>();
         this.taskList = new TaskList(taskArrayList);
@@ -55,10 +74,16 @@ public class Storage {
         return taskArrayList;
     }
 
+    /**
+     * Writes the current list of tasks to the file.
+     * 
+     * @param ui The UI instance used for showing error messages if an IOException
+     *           occurs.
+     */
     public void writeFile(Ui ui) {
         StringBuilder listStringBuilder = new StringBuilder();
         for (int i = 1; i < Task.count; i++) {
-            Task task = taskList.get(i - 1);
+            Task task = taskList.getTask(i - 1);
             listStringBuilder.append(task.toString()).append("\n");
         }
         String listString = listStringBuilder.toString();

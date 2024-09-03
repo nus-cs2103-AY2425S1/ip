@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
 
+/**
+ * Represents an Event task.
+ */
 public class Event extends Task {
 
     protected String desc;
@@ -17,6 +20,14 @@ public class Event extends Task {
     protected String toDate;
     protected String toTime;
 
+    /**
+     * Constructs an Event task with a description.
+     * 
+     * @param description The description of the Event task, which has its start and
+     *                    end dates and times.
+     * @throws ParseException         If there is an error parsing the time.
+     * @throws DateTimeParseException If there is an error parsing the date.
+     */
     public Event(String description) throws ParseException {
         super(description);
         try {
@@ -65,16 +76,33 @@ public class Event extends Task {
 
     }
 
+    /**
+     * Returns a string representation of the Event task.
+     * 
+     * @return A string representation of the Event task in the format "[E][X/
+     *         ][description] (from: startDate, startTime to: endDate, endTime)".
+     */
+    @Override
     public String toString() {
         return "[E]" + this.getStatusIcon() + this.desc + " (from: " +
                 this.fromDate + ", " + this.fromTime + " to: " +
                 this.toDate + ", " + this.toTime + ")";
     }
 
+    /**
+     * Returns the from date of the Event task.
+     * 
+     * @return The from date of the Event task.
+     */
     public String getFromDate() {
         return this.fromDate;
     }
 
+    /**
+     * Returns the to date of the Event task.
+     * 
+     * @return The to date of the Event task.
+     */
     public String getToDate() {
         return this.toDate;
     }

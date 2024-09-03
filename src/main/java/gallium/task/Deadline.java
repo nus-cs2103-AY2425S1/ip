@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
 
+/**
+ * Represents a Deadline task.
+ */
 public class Deadline extends Task {
 
     protected String desc;
@@ -14,6 +17,15 @@ public class Deadline extends Task {
     protected String date;
     protected String time;
 
+    /**
+     * Constructs a Deadline task with a description.
+     * The description is parsed to extract the task's description, due date, and
+     * time.
+     * 
+     * @param description The description of the Deadline task.
+     * @throws ParseException         If there is an error parsing the time.
+     * @throws DateTimeParseException If there is an error parsing the date.
+     */
     public Deadline(String description) throws ParseException {
         super(description);
         try {
@@ -48,15 +60,32 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns a string representation of the Deadline task.
+     * 
+     * @return A string representation of the Deadline task in the format "[D][X/
+     *         ][description] (by: date, time)".
+     */
+    @Override
     public String toString() {
         return "[D]" + this.getStatusIcon() + this.desc + " (by: "
                 + this.date + ", " + this.time + ")";
     }
 
+    /**
+     * Returns the due date of the Deadline task.
+     * 
+     * @return The date.
+     */
     public String getDate() {
         return this.date;
     }
 
+    /**
+     * Returns the due time of the Deadline task.
+     * 
+     * @return The time.
+     */
     public String getTime() {
         return this.time;
     }
