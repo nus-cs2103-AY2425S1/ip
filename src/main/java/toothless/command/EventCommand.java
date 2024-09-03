@@ -8,11 +8,11 @@ import toothless.exceptions.ToothlessExceptions;
 import toothless.task.Event;
 import toothless.ui.Ui;
 
-public class EventsCommand extends Command {
+public class EventCommand extends Command {
 
     private String description;
 
-    public EventsCommand(String description) {
+    public EventCommand(String description) {
         this.description = description;
     }
     @Override

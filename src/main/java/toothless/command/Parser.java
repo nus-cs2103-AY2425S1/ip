@@ -18,8 +18,9 @@ public class Parser {
      * @return the CommandType based on the user input
      */
     public static Command getCommandType(String command) {
-        CommandType commandType = CommandType.UNKNOWN;
-        String[] splitCommand = command.split(" ", 2);
+        CommandType commandType;
+        String trimmedCommand = command.trim();
+        String[] splitCommand = trimmedCommand.split(" ", 2);
         String description = splitCommand.length < 2? "" : splitCommand[1];
 
         switch (splitCommand[0]) {
@@ -58,7 +59,7 @@ public class Parser {
         case DEADLINE:
             return new DeadlineCommand(description);
         case EVENT:
-            return new EventsCommand(description);
+            return new EventCommand(description);
         case LIST:
             return new ListCommand();
         case MARK:

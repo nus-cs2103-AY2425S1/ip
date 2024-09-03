@@ -17,7 +17,7 @@ public class MarkUndoneCommand extends Command {
         @Override
         public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
             if(description.isEmpty()) {
-                throw new MissingIndexExceptions("mark", "mark <index>");
+                throw new MissingIndexExceptions("unmark", "unmark <index>");
             }
             int markIndex = Integer.parseInt(description);
             taskList.markUndone(markIndex);
