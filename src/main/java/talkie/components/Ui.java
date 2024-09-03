@@ -19,14 +19,10 @@ public class Ui {
      * Enum representing different types of messages used by the {@code Ui} class.
      */
     public enum MessageType {
-        HORIZONTAL_LINE("-------------------------------------------------------------------"),
-        WELCOME_MESSAGE(HORIZONTAL_LINE.message + "\n"
-                + "Hello! I'm Talkie, your friendly ChatBot.\n"
-                + "What can I do for you?\n"
-                + HORIZONTAL_LINE.message + "\n"),
-        BYE_MESSAGE(HORIZONTAL_LINE.message + "\n"
-                + "Bye. Hope to see you again soon!\n"
-                + HORIZONTAL_LINE.message + "\n");
+        WELCOME_MESSAGE( "Hello! I'm Talkie, your friendly ChatBot.\n"
+                + "What can I do for you?\n"),
+
+        BYE_MESSAGE("Bye. Hope to see you again soon!\n");
 
         private final String message;
 
@@ -81,10 +77,7 @@ public class Ui {
      * Displays a message indicating that the date/time format is incorrect.
      */
     public String wrongDateTimeFormatMessage() {
-        String message = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                + "Please enter the time in the format of <yyyy-MM-dd HHmm>!\n"
-                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
-        return message;
+        return "Please enter the time in the format of <yyyy-MM-dd HHmm>!\n";
     }
 
     /**
@@ -95,11 +88,10 @@ public class Ui {
      */
     public String addMessage(Task t, int taskListSize) {
         String taskWord = (taskListSize > 1) ? "tasks" : "task";
-        String finalMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                + "Got it. I've added this task:\n"
+        String finalMessage = "Got it. I've added this task:\n"
                 + "  " + t + "\n"
-                + "Now you have " + taskListSize + " " + taskWord + " in the list.\n"
-                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
+                + "Now you have " + taskListSize + " " + taskWord + " in the list.\n";
+
        return finalMessage;
     }
 
@@ -111,11 +103,10 @@ public class Ui {
      */
     public String deleteMessage(Task t, int taskListSize) {
         String taskWord = (taskListSize > 1) ? "tasks" : "task";
-        String doneMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                + "Noted! I've removed this task:\n"
+        String doneMessage = "Noted! I've removed this task:\n"
                 + "  " + t + "\n"
-                + "Now you have " + taskListSize + " " + taskWord + " in the list.\n"
-                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
+                + "Now you have " + taskListSize + " " + taskWord + " in the list.\n";
+
         return doneMessage;
     }
 
@@ -132,11 +123,9 @@ public class Ui {
             listMessage += description;
         }
 
-        String finalMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                + "Here are the tasks in your list:\n"
-                + listMessage
-                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
-       return finalMessage;
+        String finalMessage = "Here are the tasks in your list:\n" + listMessage;
+
+        return finalMessage;
     }
 
     /**
@@ -145,10 +134,9 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public String markMessage(Task task) {
-        String doneMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                + "Nice! I've marked this task as done:\n"
-                + " " + task + "\n"
-                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
+        String doneMessage = "Nice! I've marked this task as done:\n"
+                + " " + task + "\n";
+
         return doneMessage;
     }
 
@@ -158,10 +146,9 @@ public class Ui {
      * @param task The task that was marked as not done.
      */
     public String unMarkMessage(Task task) {
-        String undoneMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                + "OK, I've marked this task as not done yet:\n"
-                + " " + task + "\n"
-                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
+        String undoneMessage = "OK, I've marked this task as not done yet:\n"
+                + " " + task + "\n";
+
         return undoneMessage;
     }
 
@@ -187,10 +174,7 @@ public class Ui {
      */
     public String findTasks(TaskList tasks, String keyword) {
         if (tasks.isEmpty()) {
-            String emptyMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                    + "There are no tasks in your list! \n"
-                    + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
-            System.out.println(emptyMessage);
+            return "There are no tasks in your list! \n";
         }
 
         TaskList searchedList = new TaskList();
@@ -202,10 +186,7 @@ public class Ui {
         }
 
         if (searchedList.isEmpty()) {
-            String noTaskMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                    + "There are no tasks found in your list! \n"
-                    + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
-            System.out.println(noTaskMessage);
+            return "There are no tasks found in your list! \n";
         }
 
         StringBuilder searchedListMessage = new StringBuilder();
@@ -215,10 +196,9 @@ public class Ui {
             searchedListMessage.append(description);
         }
 
-        String finalMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                + "Here are the matching tasks in your list:\n"
-                + searchedListMessage
-                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
+        String finalMessage = "Here are the matching tasks in your list:\n"
+                + searchedListMessage;
+
         return finalMessage;
     }
 

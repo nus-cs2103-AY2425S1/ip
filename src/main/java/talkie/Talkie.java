@@ -16,6 +16,7 @@ import talkie.task.TaskList;
  */
 public class Talkie {
 
+    private static String filePath = "./data/talkie.Talkie.txt";
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
@@ -27,11 +28,10 @@ public class Talkie {
      * initializes an empty task list. Handles any exceptions related to loading data.
      * </p>
      *
-     * @param filePath The path to the file where tasks are stored.
      */
-    public Talkie(String filePath) {
+    public Talkie() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(Talkie.filePath);
         try {
             tasks = new TaskList(this.storage.loadData());
         } catch (TalkieException e) {
@@ -82,6 +82,6 @@ public class Talkie {
      */
     public static void main(String[] args) {
         // Start of talkie.Talkie
-        new Talkie("./data/talkie.Talkie.txt").runTalkie();
+        new Talkie().runTalkie();
     }
 }
