@@ -12,7 +12,7 @@ public class Task {
     }
 
     public String getStatus() {
-        return (isDone ? "[X]" : "[ ]");
+        return (isDone ? "X" : " ");
     }
 
     public String getDesc() {
@@ -21,6 +21,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return getStatus() + " " + desc;
+        return String.format("[%s] %s", getStatus(), desc);
     }
 }
