@@ -1,28 +1,25 @@
 package gui;
 
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-
 
 /**
  * Represents a Dialog Box in Main application
  */
 public class DialogBox extends HBox {
-    private static final Color USER_COLOR = Color.rgb(209, 211, 164, 0.9);
-    private static final Color TALKER_COLOR = Color.rgb(164, 176, 211, 0.9);
+    @FXML
     private Label text;
+    @FXML
     private ImageView displayPicture;
 
     /**
@@ -30,46 +27,51 @@ public class DialogBox extends HBox {
      * @param s String text to be displayed
      * @param i Image representing user associated with DialogBox
      */
-    public DialogBox(String s, Image i) {
-        text = new Label(s);
-        displayPicture = new ImageView(i);
-        style();
-        this.getChildren().addAll(text, displayPicture);
-    }
-    private void style() {
-        text.setWrapText(true);
-        Circle c = new Circle(50.0, 50.0, 50.0);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
-        displayPicture.setClip(c);
-        text.setPadding(new Insets(5.0));
-        this.setAlignment(Pos.TOP_RIGHT);
-        this.setPadding(new Insets(5.0));
-        this.setSpacing(5.0);
-    }
-    private void setUserColor() {
-        this.text.setBackground(
-                new Background(new BackgroundFill(USER_COLOR, new CornerRadii(3.0), Insets.EMPTY)));
-    }
-    private void setTalkerColor() {
-        this.text.setBackground(
-                new Background(new BackgroundFill(TALKER_COLOR, new CornerRadii(3.0), Insets.EMPTY)));
+    private DialogBox(String s, Image i) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        text.setText(s);
+        displayPicture.setImage(i);
     }
     private void flip() {
-        this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
         this.getChildren().setAll(tmp);
+        this.setAlignment(Pos.TOP_LEFT);
+        text.getStyleClass().add("reply-label");
+    }
+    private void changeDialogStyle(String commandType) {
+        switch(commandType) {
+        case "AddCommand":
+            text.getStyleClass().add("add-label");
+            break;
+        case "DeleteCommand":
+            text.getStyleClass().add("delete-label");
+            break;
+        case "MarkCommand":
+            text.getStyleClass().add("marked-label");
+            break;
+        case "UnmarkCommand":
+            text.getStyleClass().add("unmarked-label");
+            break;
+        default:
+            // Do nothing
+        }
     }
     public static DialogBox getUserDialog(String s, Image i) {
         DialogBox db = new DialogBox(s, i);
-        db.setUserColor();
         return db;
     }
-    public static DialogBox getTalkerDialog(String s, Image i) {
+    public static DialogBox getTalkerDialog(String s, Image i, String commandType) {
         DialogBox db = new DialogBox(s, i);
         db.flip();
-        db.setTalkerColor();
+        db.changeDialogStyle(commandType);
         return db;
     }
 }
