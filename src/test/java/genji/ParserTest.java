@@ -1,16 +1,20 @@
 package genji;
 
-import java.time.LocalDateTime;
 import genji.command.AddCommand;
-import genji.task.Deadline;
 import genji.task.TaskList;
 import genji.task.ToDo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * A test class to test parser class
+ */
 public class ParserTest {
 
+    /**
+     * Tests if parse method deals with invalid command properly
+     */
     @Test
     public void testInvalidCommand() {
         try {
@@ -21,11 +25,19 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Tests if parse method deals with valid command properly
+     * @throws GenjiException Not expected to be thrown
+     */
     @Test
     public void testByeCommand() throws GenjiException{
         assertEquals(true, Parser.parse("bye").isExit());
     }
 
+    /**
+     * Tests if parse method deals with invalid date input properly
+     * Inputs an invalid command about event task
+     */
     @Test
     public void testInvalidDate() {
         try {
@@ -38,6 +50,11 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Tests if parse method deals with adding deadline properly
+     * Parses and executes a add command and compare whether it is correct
+     * @throws GenjiException Not expected to be thrown
+     */
     @Test
     public void testAddDeadline() throws GenjiException{
         TaskList t = new TaskList();
@@ -47,6 +64,12 @@ public class ParserTest {
         assertEquals("[D][ ] test (by: Sep 03 2024 11:00)", t.get(0).toString());
     }
 
+    /**
+     * Tests if parse method deals with deleting task properly
+     * Adds some tasks to list and then parses and execute the delete command
+     * Compare if the task is deleted properly
+     * @throws GenjiException Not expected to be thrown
+     */
     @Test
     public void testDeleteCommand() throws GenjiException{
         TaskList t = new TaskList();

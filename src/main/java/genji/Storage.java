@@ -13,13 +13,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * A class to store tasks and load when start
+ */
 public class Storage {
    private String filePath;
 
+    /**
+     * Constructor of Storage class
+     * @param filePath place to store and load the list
+     */
    public Storage(String filePath) {
        this.filePath = filePath;
    }
 
+
+    /**
+     * Loads the list in the .txt file
+     * Creates the file if it is not existed
+     * @return The task list stored in the .txt file
+     */
     public TaskList loadList() {
        TaskList list = new TaskList();
        try {
@@ -67,6 +80,11 @@ public class Storage {
     return list;
    }
 
+
+    /**
+     * Saves task list to the file
+     * @param list list to be saved
+     */
     public void saveList(TaskList list){
         try {
             FileWriter fw = new FileWriter(filePath);
