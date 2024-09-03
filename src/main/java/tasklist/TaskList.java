@@ -21,12 +21,15 @@ public class TaskList {
      */
     public static String checkList(List<Task> items, Scanner scanner) {
         int index = 1;
+        StringBuilder sbr = new StringBuilder("Here are the tasks in your list: \n");
         System.out.println("Here are the tasks in your list:");
         for (Task item : items) {
             System.out.println(index + "." + item);
+            sbr.append(index + "." + item + "\n");
             index++;
         }
-        return scanner.nextLine();
+        //return scanner.nextLine();
+        return sbr.toString();
     }
 
     /**
@@ -46,13 +49,17 @@ public class TaskList {
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.getDes());
             System.out.println("____________________________________________________________");
-            return scanner.nextLine();
+            //return scanner.nextLine();
+            return "Nice! I've marked this task as done:\n" +
+                    "[" + markingTask.getStatusIcon() + "] " + markingTask.getDes() + "\n";
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
-            return scanner.nextLine();
+            //return scanner.nextLine();
+            return "Might want to reconsider your action. Please Try Again";
         } catch (NumberFormatException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
-            return scanner.nextLine();
+            //return scanner.nextLine();
+            return "Might want to reconsider your action. Please Try Again";
         }
     }
 
@@ -73,13 +80,17 @@ public class TaskList {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.getDes());
             System.out.println("____________________________________________________________");
-            return scanner.nextLine();
+            //return scanner.nextLine();
+            return "OK, I've marked this task as not done yet:\n" +
+                    "[" + markingTask.getStatusIcon() + "] " + markingTask.getDes() + "\n";
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
-            return scanner.nextLine();
+            //return scanner.nextLine();
+            return "Might want to reconsider your action. Please Try Again";
         } catch (NumberFormatException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
-            return scanner.nextLine();
+            //return scanner.nextLine();
+            return "Might want to reconsider your action. Please Try Again";
         }
     }
 
@@ -101,10 +112,14 @@ public class TaskList {
             System.out.println(taskToDelete);
             System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
             System.out.println("____________________________________________________________");
-            return scanner.nextLine();
+            //return scanner.nextLine();
+            return "Noted. I've removed this task:\n" +
+                    taskToDelete + "\n" +
+                    "Now you have " + Task.taskCount + " tasks in the list.\n";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Might want to reconsider your action. Please Try Again");
-            return scanner.nextLine();
+            System.out.println("Pick an appropriate number. Please Try Again");
+            //return scanner.nextLine();
+            return "Pick an appropriate number. Please Try Again";
         }
     }
 
@@ -116,9 +131,12 @@ public class TaskList {
      * @param scanner the scanner object to read next line of input
      * @return returns the next input command by user
      */
+
+    // Deal with incorrect inputs todo <space> does not terminate
     public static String addingToDo(String input, List<Task> items, Scanner scanner) throws TheOrangeRatchetCatException {
         if (input.isEmpty()) {
-            throw new TheOrangeRatchetCatException("You can't do Nothing!");
+            //throw new TheOrangeRatchetCatException("You can't do Nothing!");
+            return "You can't Do Nothing";
         }
         Task nextTask = new ToDo(input);
         System.out.println("____________________________________________________________");
@@ -127,7 +145,10 @@ public class TaskList {
         System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
         items.add(nextTask);
-        return scanner.nextLine();
+        //return scanner.nextLine();
+        return "Got it. I've added this task:\n" +
+                nextTask + "\n" +
+                "Now you have " + Task.taskCount + " tasks in the list.\n";
     }
 
     /**
@@ -144,24 +165,27 @@ public class TaskList {
         // The description is the first part after removing the word "deadline"
         String taskDescription = parts[0].replace("deadline", "").trim();
         if (taskDescription.isEmpty()) {
-            throw new TheOrangeRatchetCatException("You can't do Nothing!");
+            //throw new TheOrangeRatchetCatException("You can't do Nothing!");
+            return "Adding a deadline follows a specific format : deadline <taskDescription> /by<YYYY>-<MM>-<DD>";
         }
         // The "by" part is the second part, if it exists
         String date = parts.length > 1 ? parts[1].trim() : "";
-        /*String time = date.substring(10).trim();
-        System.out.println(time);*/
+        System.out.println("Date is: " + date);
         LocalDate dateBy;
 
         try { // Utilises LocalDate static method to parse input
             dateBy = LocalDate.parse(date); // Could throw a DateTimeParseException
             //System.out.println(dateBy);
         } catch (DateTimeParseException e) {
+            System.out.println("1231");
             System.out.println("The deadline follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!");
-            return scanner.nextLine();
+            //return scanner.nextLine();
+            return "The deadline follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!";
         }
 
         if (date.isEmpty()) {
-            throw new TheOrangeRatchetCatException("You need to provide a deadline!");
+            //throw new TheOrangeRatchetCatException("You need to provide a deadline!");
+            return "Adding a deadline follows a specific format : deadline <taskDescription> /by<YYYY>-<MM>-<DD>";
         }
         // If task added successfully, the program will reach here!
         Task nextTask = new Deadline(taskDescription, dateBy);
@@ -171,7 +195,10 @@ public class TaskList {
         System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
         items.add(nextTask);
-        return scanner.nextLine();
+        //return scanner.nextLine();
+        return  "Got it. I've added this task:\n"
+                + nextTask + "\n"
+                + "Now you have " + Task.taskCount + " tasks in the list.\n";
     }
 
     /**
@@ -188,7 +215,7 @@ public class TaskList {
         // The taskDescription is the first part after removing the word "event"
         String taskDescription = parts[0].replace("event", "").trim();
         if (taskDescription.isEmpty()) {
-            throw new TheOrangeRatchetCatException("You can't do Nothing!");
+            throw new TheOrangeRatchetCatException("You can't do Nothing! Correct input format for adding event: event <Task> /from <input> /to <input>");
         }
         // Further split the remaining part by "/to"
         String[] dateParts = parts[1].split("/to");
@@ -204,7 +231,8 @@ public class TaskList {
             fromLocalDate = LocalDate.parse(fromDate);
         } catch (DateTimeParseException e) {
             System.out.println("The event follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!");
-            return scanner.nextLine();
+            //return scanner.nextLine();
+            return "The event follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!";
         }
 
         if (toDate.isEmpty()) {
@@ -217,7 +245,10 @@ public class TaskList {
         System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
         items.add(nextTask);
-        return scanner.nextLine();
+        //return scanner.nextLine();
+        return "Got it. I've added this task:\n" +
+                nextTask + "\n" +
+                "Now you have " + Task.taskCount + " tasks in the list.\n";
     }
 
     /**
@@ -228,15 +259,21 @@ public class TaskList {
      * @param scanner the scanner object to read next line of input
      * @return returns the next input command by user
      */
+    // Make sure you deal with incorrect inputs, couldn't load => on 2024-08
     public static String activitiesOnThisDate(LocalDate date, List<Task> items, Scanner scanner) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks that occur at this date: " + date.toString());
+        if (date.toString().isEmpty()) {
+            return "You need to specify a date!";
+        }
+        StringBuilder sbr = new StringBuilder("Here are the tasks that occur at this date: " + date + "\n");
         int index = 1;
         for (Task task : items) {
             if (task instanceof Deadline) {
                 LocalDate byDate = ((Deadline) task).getDeadlineDate();
                 if (byDate.isAfter(date)) {
                     System.out.println(index + "." + task);
+                    sbr.append(index + "." + task + "\n");
                     index++;
                 }
             } else if (task instanceof Event) {
@@ -244,12 +281,14 @@ public class TaskList {
                 LocalDate toDate = ((Event) task).getToDur();
                 if (fromDate.isBefore(date) && toDate.isAfter(date)) {
                     System.out.println(index + "." + task);
+                    sbr.append(index + "." + task + "\n");
                     index++;
                 }
             }
         }
         System.out.println("____________________________________________________________");
-        return scanner.nextLine();
+        //return scanner.nextLine();
+        return sbr.toString();
     }
 
     /**
@@ -263,18 +302,23 @@ public class TaskList {
     public static String find(String input, List<Task> items, Scanner scanner) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the matching tasks in your list:");
+        StringBuilder sbr = new StringBuilder("Here are the matching tasks in your list:\n");
         int index = 1;
         for (Task task : items) {
             if (task.getDes().contains(input)) {
                 System.out.println(index + "." + task);
+                sbr.append(index + "." + task + "\n");
                 index++;
             }
         }
         if (index == 1) {
             System.out.println("Looks Like there's no task with taskDescription that contains " + "'" + input + "'");
             System.out.println("Try Looking for something else!");
+            return "Looks like there's no task with taskDescription that contains '" + input + "'\n" +
+                    "Try looking for something else!";
         }
         System.out.println("____________________________________________________________");
-        return scanner.nextLine();
+        //return scanner.nextLine();
+        return sbr.toString();
     }
 }

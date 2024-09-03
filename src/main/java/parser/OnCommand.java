@@ -11,12 +11,12 @@ public class OnCommand implements Command {
     @Override
     public String execute(String input,List<Task> items, Scanner scanner) {
         try {
-            //LocalDate localDate = LocalDate.parse(scanner.nextLine().substring(2).trim());
             LocalDate localDate = LocalDate.parse(input.substring(2).trim());
             return TaskList.activitiesOnThisDate(localDate, items, scanner);
         } catch (DateTimeParseException e) {
             System.out.println("The date follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!");
-            return scanner.nextLine();
+            //return scanner.nextLine();
+            return "The date follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!";
         }
     }
 }

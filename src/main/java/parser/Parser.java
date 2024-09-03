@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Parser {
 
-    private static final Map<String, Command> commands = new HashMap<>();
+    public static final Map<String, Command> commands = new HashMap<>();
 
     // Implement a new command "many"
     // input command looks something like =>
@@ -33,6 +33,9 @@ public class Parser {
         commands.put("find", new FindCommand());
         commands.put("on", new OnCommand());
     }
+
+    // To initialise all the commands inside the map
+    public static void initialiseMap() {}
 
     public static void ratchetCatBot(List<Task> items) {
         Ui.sayWelcome();
