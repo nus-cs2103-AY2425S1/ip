@@ -82,4 +82,17 @@ public class TaskList {
 
         return s.toString();
     }
+
+    protected String search(String query) {
+        ArrayList<String> matchingTasks = new ArrayList<>();
+
+        for (int i = 0; i < getNumberOfTasks(); i++) {
+            Task task = getTask(i);
+            if (task.getDescription().toLowerCase().contains(query)) {
+                matchingTasks.add((i + 1) + ". " + task);
+            }
+        }
+
+        return String.join("\n\t", matchingTasks);
+    }
 }

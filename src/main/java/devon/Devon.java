@@ -15,7 +15,7 @@ public class Devon {
     private Ui ui = new Ui();
 
     private enum Command {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN;
 
         public static Command fromStringToEnum(String command) {
             try {
@@ -80,6 +80,9 @@ public class Devon {
                         break;
                     case DELETE:
                         deleteAction(input);
+                        break;
+                    case FIND:
+                        findAction(input);
                         break;
                     default:
                         unknownAction();
@@ -159,6 +162,12 @@ public class Devon {
             throw new DevonInvalidTaskNumberException();
         }
         deleteTask(taskIndex);
+    }
+
+    private void findAction(String input) {
+        String keyword = parser.extractContent(input).toLowerCase();
+        String results = tasks.search(keyword);
+        ui.displayText("Here are the matching tasks in your list:\n\t" + results);
     }
 
     private void unknownAction() throws DevonUnknownCommandException {
