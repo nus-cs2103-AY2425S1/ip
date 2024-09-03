@@ -63,7 +63,7 @@ public class Phenex {
         return "Duke heard: " + input;
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         String home = System.getProperty("user.home");
         Path filePath = Paths.get(home, "Downloads", "CS2103T_AY2425", "iP", "data", "phenex.txt");
         Phenex phenex = new Phenex(filePath);
