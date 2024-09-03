@@ -12,8 +12,8 @@ import mahesh.util.MaheshException;
  */
 public class Deadline extends Task {
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-    private static final DateTimeFormatter DATE_STRING_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm:ss");
+    private static DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static DateTimeFormatter dateStringFormatter = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm:ss");
 
     /**
      * The due date/time of the deadline.
@@ -51,7 +51,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DATE_STRING_FORMATTER) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(dateStringFormatter) + ")";
     }
 
     /**
@@ -88,9 +88,12 @@ public class Deadline extends Task {
                 token = tokenizedInput.nextToken();
                 by.append(token).append(" ");
             }
-            return new Deadline(description.toString().trim(), LocalDateTime.parse(by.toString().trim(), DATE_FORMATTER));
+            return new Deadline(description.toString().trim(),
+                LocalDateTime.parse(by.toString().trim(), dateFormatter));
         } catch (Exception err) {
-            throw new MaheshException("Please follow the given format: deadline <deadline_desc> /by yyyy-mm-ddTHH:mm:ss");
+            throw new MaheshException(
+                "Please follow the given format: deadline <deadline_desc> /by yyyy-mm-ddTHH:mm:ss"
+            );
         }
     }
 }

@@ -1,8 +1,8 @@
 package mahesh.command;
 
 import mahesh.task.Task;
-import mahesh.util.TaskList;
 import mahesh.util.Storage;
+import mahesh.util.TaskList;
 
 /**
  * Represents a command to add a task to the TaskList and update the Storage.
@@ -41,5 +41,4 @@ public class AddCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
 }

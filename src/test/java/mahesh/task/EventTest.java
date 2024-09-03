@@ -1,16 +1,18 @@
 package mahesh.task;
 
-import java.util.StringTokenizer;
-import org.junit.jupiter.api.Test;
-
-import mahesh.util.MaheshException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.StringTokenizer;
+
+import org.junit.jupiter.api.Test;
+
+import mahesh.util.MaheshException;
+
+
 public class EventTest {
-    
+
     @Test
     public void testParseEvent() {
         String input = "event Party /from 2024-08-26T18:00:00 /to 2024-08-26T22:00:00";
@@ -25,7 +27,8 @@ public class EventTest {
         }
     }
 
-    @Test void testParseEventWithIncompleteInput() {
+    @Test
+    public void testParseEventWithIncompleteInput() {
         String input = "event Gaming /from";
         StringTokenizer tokenizer = new StringTokenizer(input);
         tokenizer.nextToken();
@@ -35,7 +38,8 @@ public class EventTest {
         });
     }
 
-    @Test void testParseEventWithIncorrectInput() {
+    @Test
+    public void testParseEventWithIncorrectInput() {
         String input = "event Gaming /from 26th Aug 2024, 18:00:00 /to 26th Aug 2024, 22:00:00";
         StringTokenizer tokenizer = new StringTokenizer(input);
         tokenizer.nextToken();

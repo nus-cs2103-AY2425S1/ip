@@ -57,7 +57,13 @@ public class Storage {
                         list.add(new Deadline(dataItem[2], LocalDateTime.parse(dataItem[3]), isDone));
                         break;
                     case "E":
-                        list.add(new Event(dataItem[2], LocalDateTime.parse(dataItem[3]), LocalDateTime.parse(dataItem[4]), isDone));
+                        list.add(
+                            new Event(
+                                dataItem[2],
+                                LocalDateTime.parse(dataItem[3]),
+                                LocalDateTime.parse(dataItem[4]), isDone
+                            )
+                        );
                         break;
                     default:
                         isCorrupted = true;
@@ -79,6 +85,7 @@ public class Storage {
 
     /**
      * Updates the task data in the file with the current TaskList.
+     * If the file does not exist, it creates a new file.
      *
      * @param list the TaskList containing the tasks to be saved to the file
      */

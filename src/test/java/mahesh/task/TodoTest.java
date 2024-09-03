@@ -1,17 +1,17 @@
 package mahesh.task;
 
-import java.util.StringTokenizer;
-import org.junit.jupiter.api.Test;
-
-import mahesh.util.MaheshException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.StringTokenizer;
+
+import org.junit.jupiter.api.Test;
+
+import mahesh.util.MaheshException;
 
 public class TodoTest {
-    
+
     @Test
     public void testParseTodo() {
         String input = "todo Buy milk";

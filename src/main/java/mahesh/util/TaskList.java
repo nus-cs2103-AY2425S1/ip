@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import mahesh.task.Task;
 
 /**
- * Manages a list of tasks, providing methods to add, delete, mark, unmark, and print tasks.
+ * Represents a list of tasks.
+ * Provides methods to add, delete, mark, unmark, find, and print tasks.
  */
 public class TaskList {
     private ArrayList<Task> list;
@@ -20,7 +21,7 @@ public class TaskList {
     /**
      * Constructs a TaskList with the specified list of tasks.
      *
-     * @param list the ArrayList of tasks to initialize the TaskList with
+     * @param list the list of tasks to initialize the TaskList with
      */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
@@ -29,7 +30,7 @@ public class TaskList {
     /**
      * Adds a task to the list and increments the task count.
      *
-     * @param task The task to be added to the list.
+     * @param task the task to be added to the list
      */
     public void addToList(Task task) {
         this.list.add(task);
@@ -39,8 +40,8 @@ public class TaskList {
     /**
      * Deletes a task from the list at the specified index and decrements the task count.
      *
-     * @param index The index of the task to be removed from the list.
-     * @throws IndexOutOfBoundsException If the index is out of range (index < 0 || index >= size()).
+     * @param index the index of the task to be removed from the list
+     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public void deleteFromList(int index) {
         try {
@@ -53,10 +54,10 @@ public class TaskList {
     }
 
     /**
-     * Marks the task at the specified index as done and prints a confirmation message.
-     * If the index is out of bounds, prints an error message.
+     * Marks a task as done at the specified index.
      *
      * @param index the index of the task to be marked as done
+     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public void markTaskAsDone(int index) {
         try {
@@ -69,10 +70,10 @@ public class TaskList {
     }
 
     /**
-     * Unmarks the task at the specified index as done and prints a confirmation message.
-     * If the index is out of bounds, prints an error message.
+     * Unmarks a task as done at the specified index.
      *
      * @param index the index of the task to be unmarked as done
+     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public void unmarkTaskAsDone(int index) {
         try {
@@ -84,6 +85,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks in the list that match the given search term.
+     * Prints the matching tasks or an error message if no matches are found.
+     *
+     * @param searchTerm the term to search for in the task descriptions
+     */
     public void findTaskInList(String searchTerm) {
         if (this.list.size() == 0) {
             Ui.printEmptyListErr();
@@ -94,13 +101,12 @@ public class TaskList {
         for (Task task : this.list) {
             if (task.toString().substring(7).contains(searchTerm)) {
                 count++;
-                result.append(count + "." + task + "\n");
+                result.append(count).append(".").append(task).append("\n");
             }
         }
         if (count == 0) {
             System.out.println("No matching tasks found!");
             Ui.printDivider();
-            return;
         } else {
             System.out.println("Here are the matching tasks in your list:");
             System.out.print(result);
@@ -109,7 +115,7 @@ public class TaskList {
     }
 
     /**
-     * Prints all tasks in the list. Prints error message if the list is empty.
+     * Prints all tasks in the list. Prints an error message if the list is empty.
      */
     public void printList() {
         if (this.list.size() == 0) {
@@ -119,7 +125,9 @@ public class TaskList {
         System.out.println("Here are the tasks in your list:");
         int count = 1;
         for (Task task : this.list) {
-            if (task == null) break;
+            if (task == null) {
+                break;
+            }
             System.out.println(count++ + "." + task);
         }
         Ui.printDivider();
@@ -127,13 +135,15 @@ public class TaskList {
 
     /**
      * Converts the TaskList to a string format suitable for saving to a file.
+     * The format includes the type indicator, completion status, description,
+     * and any additional task-specific information.
      *
      * @return a string representation of the TaskList for file storage
      */
     public String toFileData() {
         StringBuilder fileData = new StringBuilder();
         for (Task task : list) {
-            fileData.append(task.toFileEntry() + System.lineSeparator());
+            fileData.append(task.toFileEntry()).append(System.lineSeparator());
         }
         return fileData.toString();
     }

@@ -41,7 +41,7 @@ public class Mahesh {
         TaskList list = store.retrieveData();
         Scanner scan = new Scanner(System.in);
         boolean exit = false;
-        
+
         while (!exit) {
             String originalInput = scan.nextLine();
             Parser parserObj = new Parser(list, store);

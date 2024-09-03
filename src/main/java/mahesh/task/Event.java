@@ -12,8 +12,9 @@ import mahesh.util.MaheshException;
  */
 public class Event extends Task {
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-    private static final DateTimeFormatter DATE_STRING_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm:ss");
+    private static DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static DateTimeFormatter dateStringFormatter = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm:ss");
+
     /**
      * The start time of the event.
      */
@@ -58,7 +59,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + from.format(DATE_STRING_FORMATTER) + " to: " + to.format(DATE_STRING_FORMATTER) + ")";
+        return "[E]" + super.toString() + "(from: " + from.format(dateStringFormatter)
+            + " to: " + to.format(dateStringFormatter) + ")";
     }
 
     /**
@@ -101,11 +103,13 @@ public class Event extends Task {
                 token = tokenizedInput.nextToken();
                 to.append(token).append(" ");
             }
-            return new Event(description.toString().trim(), 
-                LocalDateTime.parse(from.toString().trim(), DATE_FORMATTER), 
-                LocalDateTime.parse(to.toString().trim(), DATE_FORMATTER));
+            return new Event(description.toString().trim(),
+                LocalDateTime.parse(from.toString().trim(), dateFormatter),
+                LocalDateTime.parse(to.toString().trim(), dateFormatter));
         } catch (Exception err) {
-            throw new MaheshException("Please follow the given format: event <event_desc> /from yyyy-mm-ddTHH:mm:ss /to yyyy-mm-ddTHH:mm:ss");
+            throw new MaheshException(
+                "Please follow the given format: event <event_desc> /from yyyy-mm-ddTHH:mm:ss /to yyyy-mm-ddTHH:mm:ss"
+            );
         }
     }
 }
