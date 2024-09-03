@@ -23,9 +23,10 @@ public class Storage {
         if (!DIRECTORY.exists()) {
             DIRECTORY.mkdirs();
         }
+
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             for (Task task : toDoList) {
-                writer.write(task.toFileFormat() + System.lineSeparator());
+                writer.write(task.convertToFileFormat() + System.lineSeparator());
             }
         } catch (IOException e) {
             System.out.println("oops! an error occurred while saving tasks: " + e.getMessage());
@@ -37,6 +38,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 List<String> properties = List.of(line.split(" \\| "));
+
                 if (Objects.equals(properties.get(0), "T")) {
                     ToDoTask task = new ToDoTask(properties.get(2));
                     if (Objects.equals(properties.get(1), "1")) {

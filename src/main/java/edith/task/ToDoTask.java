@@ -6,15 +6,15 @@ public class ToDoTask extends Task {
     }
 
     @Override
-    public String toFileFormat() {
+    public String convertToFileFormat() {
         String divider = " | ";
-        String status = this.getStatus() ? "1" : "0";
+        String status = this.getCompletionStatus() ? "1" : "0";
         return "T" + divider + status + divider + this.getTaskName();
     }
 
     @Override
     public String toString() {
-        if (this.getStatus()) {
+        if (this.getCompletionStatus()) {
             return "[T][X] " + this.getTaskName();
         } else {
             return "[T][ ] " + this.getTaskName();

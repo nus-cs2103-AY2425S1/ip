@@ -2,37 +2,37 @@ package edith.task;
 
 public abstract class Task {
     private String taskName;
-    private boolean status; // false for undone, true for done
+    private boolean isCompleted; // false for undone, true for done
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.status = false;
+        this.isCompleted = false;
     }
 
     public void check() { // mark task as completed
-        this.status = true;
+        this.isCompleted = true;
     }
 
     public void uncheck() { // unmark task as completed
-        this.status = false;
+        this.isCompleted = false;
     }
 
     public String getTaskName() {
         return this.taskName;
     }
 
-    public boolean getStatus() {
-        return this.status;
+    public boolean getCompletionStatus() {
+        return this.isCompleted;
     }
 
     @Override
     public String toString() {
-        if (this.status) {
+        if (this.isCompleted) {
             return "[X] " + this.taskName;
         } else {
             return "[ ] " + this.taskName;
         }
     }
 
-    public abstract String toFileFormat();
+    public abstract String convertToFileFormat();
 }

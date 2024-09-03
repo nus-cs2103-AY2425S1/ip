@@ -13,7 +13,7 @@ public class ToDoList {
         Storage.saveTasks(toDoList);
     }
 
-    public void mark(int taskNumber) throws InvalidTaskNumberException {
+    public void markTaskAsCompleted(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber > toDoList.size() || taskNumber < 1) {
             throw new InvalidTaskNumberException();
         }
@@ -21,7 +21,7 @@ public class ToDoList {
         Storage.saveTasks(toDoList);
     }
 
-    public void unmark(int taskNumber) throws InvalidTaskNumberException {
+    public void unmarkTaskAsCompleted(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber > toDoList.size() || taskNumber < 1) {
             throw new InvalidTaskNumberException();
         }
@@ -36,7 +36,7 @@ public class ToDoList {
         return toDoList.get(taskNumber - 1).toString();
     }
 
-    public int getNumberofTasks() {
+    public int getNumberOfTasks() {
         return this.toDoList.size();
     }
 

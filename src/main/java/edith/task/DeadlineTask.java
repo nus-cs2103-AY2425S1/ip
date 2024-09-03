@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DeadlineTask extends Task {
+
     private String deadline;
 
     public DeadlineTask(String taskName, String deadline) {
@@ -24,15 +25,15 @@ public class DeadlineTask extends Task {
     }
 
     @Override
-    public String toFileFormat() {
+    public String convertToFileFormat() {
         String divider = " | ";
-        String status = this.getStatus() ? "1" : "0";
+        String status = this.getCompletionStatus() ? "1" : "0";
         return "D" + divider + status + divider + this.getTaskName() + divider + this.deadline;
     }
 
     @Override
     public String toString() {
-        if (this.getStatus()) {
+        if (this.getCompletionStatus()) {
             return "[D][X] " + this.getTaskName() + " (by: " + this.deadline + ")";
         } else {
             return "[D][ ] " + this.getTaskName() + " (by: " + this.deadline + ")";
