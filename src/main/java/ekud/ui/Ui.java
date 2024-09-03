@@ -1,4 +1,4 @@
-package ekud.components;
+package ekud.ui;
 
 import java.util.Scanner;
 import java.util.stream.Stream;

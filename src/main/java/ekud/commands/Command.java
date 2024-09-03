@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 import ekud.components.Storage;
 import ekud.components.TaskList;
-import ekud.components.Ui;
 import ekud.exceptions.EkudException;
+import ekud.ui.Ui;
 
 /**
  * Represents commands made by the user.

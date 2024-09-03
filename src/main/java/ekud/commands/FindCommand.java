@@ -2,9 +2,9 @@ package ekud.commands;
 
 import ekud.components.Storage;
 import ekud.components.TaskList;
-import ekud.components.Ui;
 import ekud.exceptions.EkudException;
 import ekud.task.Task;
+import ekud.ui.Ui;
 
 /**
  * Represents a {@link Command} that can find tasks in some {@link TaskList}

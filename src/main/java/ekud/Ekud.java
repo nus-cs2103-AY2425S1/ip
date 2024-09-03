@@ -6,8 +6,8 @@ import ekud.commands.Command;
 import ekud.components.Parser;
 import ekud.components.Storage;
 import ekud.components.TaskList;
-import ekud.components.Ui;
 import ekud.exceptions.EkudException;
+import ekud.ui.Ui;
 
 /**
  * The Ekud class represents an instance of the EKuD chat robot that takes in user input
