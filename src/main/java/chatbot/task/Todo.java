@@ -20,7 +20,7 @@ public class Todo extends Task {
      * @param name Name of Todo
      * @param isDone Boolean value representing whether the task has been marked as completed
      */
-    public Todo(String name, boolean isDone)  {
+    public Todo(String name, boolean isDone) {
         super(name, isDone);
     }
 

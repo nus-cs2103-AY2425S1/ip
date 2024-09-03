@@ -1,12 +1,15 @@
 package chatbot;
 
-import chatbot.exception.InvalidIndexException;
-import chatbot.task.Task;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import chatbot.exception.InvalidIndexException;
+import chatbot.task.Task;
 
 public class TaskListTest {
     @Test
@@ -17,7 +20,7 @@ public class TaskListTest {
         TaskList tl = new TaskList(input);
         try {
             assertEquals(tl.get(0), task);
-        } catch(InvalidIndexException e) {
+        } catch (InvalidIndexException e) {
             fail();
         }
     }
@@ -28,10 +31,9 @@ public class TaskListTest {
         TaskStub task = new TaskStub();
         input.add(task);
         TaskList tl = new TaskList(input);
-        assertThrows(InvalidIndexException.class,
-                () -> {
-                    tl.get(-1);
-                });
+        assertThrows(InvalidIndexException.class, () -> {
+            tl.get(-1);
+        });
     }
 
     @Test
@@ -40,10 +42,9 @@ public class TaskListTest {
         TaskStub task = new TaskStub();
         input.add(task);
         TaskList tl = new TaskList(input);
-        assertThrows(InvalidIndexException.class,
-                () -> {
-                    tl.mark(-1, true);
-                });
+        assertThrows(InvalidIndexException.class, () -> {
+            tl.mark(-1, true);
+        });
     }
 
     @Test
@@ -57,9 +58,8 @@ public class TaskListTest {
         } catch (InvalidIndexException e) {
             fail();
         }
-        assertThrows(InvalidIndexException.class,
-                () -> {
-                    tl.get(0);
-                });
+        assertThrows(InvalidIndexException.class, () -> {
+            tl.get(0);
+        });
     }
 }

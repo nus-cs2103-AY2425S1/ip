@@ -1,11 +1,11 @@
 package chatbot.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test
@@ -14,7 +14,7 @@ public class EventTest {
         LocalDateTime from = LocalDateTime.parse("2020-10-10 10:10", formatter);
         LocalDateTime to = LocalDateTime.parse("2020-10-10 11:11", formatter);
         Event event = new Event("test", from, to);
-        assertEquals(event.encode(),"E|0|test|2020-10-10T10:10|2020-10-10T11:11");
+        assertEquals(event.encode(), "E|0|test|2020-10-10T10:10|2020-10-10T11:11");
     }
 
     @Test
@@ -23,6 +23,6 @@ public class EventTest {
         LocalDateTime from = LocalDateTime.parse("2020-10-10 10:10", formatter);
         LocalDateTime to = LocalDateTime.parse("2020-10-10 11:11", formatter);
         Event event = new Event("test", from, to, true);
-        assertEquals(event.encode(),"E|1|test|2020-10-10T10:10|2020-10-10T11:11");
+        assertEquals(event.encode(), "E|1|test|2020-10-10T10:10|2020-10-10T11:11");
     }
 }

@@ -1,9 +1,9 @@
 package chatbot;
 
+import java.util.ArrayList;
+
 import chatbot.exception.InvalidIndexException;
 import chatbot.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * Represents the task list, and contains methods that manipulate the task list

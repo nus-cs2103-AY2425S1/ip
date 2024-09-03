@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
     /** Date time that the event starts */
-    LocalDateTime from;
+    private LocalDateTime from;
     /** Date time that the event ends */
-    LocalDateTime to;
+    private LocalDateTime to;
 
     /**
      * Overloaded constructor for the Event class, taking in 4 arguments

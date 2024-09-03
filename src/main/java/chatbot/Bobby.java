@@ -14,9 +14,9 @@ public class Bobby {
     /** Storage class encapsulated by Bobby */
     private Storage storage;
     /** String constant representing the directory path of the file */
-    private static final String DIR_PATH = "./data/";
+    private final static String DIR_PATH = "./data/";
     /** String constant representing the name of the file */
-    private static final String FILE_NAME = "tasks.txt";
+    private final static String FILE_NAME = "tasks.txt";
 
     /**
      * Constructor for the Bobby class

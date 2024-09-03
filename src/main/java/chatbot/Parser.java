@@ -1,15 +1,22 @@
 package chatbot;
 
-import chatbot.exception.*;
-import chatbot.task.Deadline;
-import chatbot.task.Event;
-import chatbot.task.Task;
-import chatbot.task.Todo;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import chatbot.exception.DeadlineArgsException;
+import chatbot.exception.EmptyArgsException;
+import chatbot.exception.EventArgsException;
+import chatbot.exception.InputException;
+import chatbot.exception.InvalidCommandException;
+import chatbot.exception.MissingDeadlineByException;
+import chatbot.exception.MissingEventFromException;
+import chatbot.exception.MissingEventToException;
+import chatbot.task.Deadline;
+import chatbot.task.Event;
+import chatbot.task.Task;
+import chatbot.task.Todo;
 
 /**
  * Represents the parser, converting strings into chatbot instructions
@@ -29,10 +36,10 @@ public class Parser {
         boolean isDone = Integer.parseInt(tokens[1]) == 1;
         String title = tokens[2];
         return switch (tokens[0]) {
-            case "T" -> new Todo(title, isDone);
-            case "D" -> new Deadline(title, LocalDateTime.parse(tokens[3]), isDone);
-            case "E" -> new Event(title, LocalDateTime.parse(tokens[3]), LocalDateTime.parse(tokens[4]), isDone);
-            default -> throw new IOException();
+        case "T" -> new Todo(title, isDone);
+        case "D" -> new Deadline(title, LocalDateTime.parse(tokens[3]), isDone);
+        case "E" -> new Event(title, LocalDateTime.parse(tokens[3]), LocalDateTime.parse(tokens[4]), isDone);
+        default -> throw new IOException();
         };
     }
 
