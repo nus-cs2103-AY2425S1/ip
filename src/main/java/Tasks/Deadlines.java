@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadlines extends Task {
     private LocalDateTime deadlineInfo;
-    private static final DateTimeFormatter PATTERN_READ = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter PATTERN_DISPLAY = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter PATTERN_READ = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Deadlines(String name, String details) {
         super(name);

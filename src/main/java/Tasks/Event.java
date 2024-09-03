@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     private LocalDateTime startPeriod;
     private LocalDateTime endPeriod;
-    private static final DateTimeFormatter PATTERN_READ = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter PATTERN_DISPLAY = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter PATTERN_READ = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Event(String name, String startDetails, String endDetails) {
         super(name);
@@ -25,7 +25,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " from: " + this.startPeriod.format(PATTERN_DISPLAY) + 
-                " to: " + this.endPeriod.format(PATTERN_DISPLAY);
+        return "[E]" + super.toString() + " from: " + this.startPeriod.format(PATTERN_DISPLAY)
+                + " to: " + this.endPeriod.format(PATTERN_DISPLAY);
     }
 }

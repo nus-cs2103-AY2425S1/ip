@@ -32,7 +32,7 @@ public class UI {
     public static void greetUserOnEntry() {
         System.out.println("Hello! I'm Peter!\nWhat can I do for you?\n");
     }
-    
+
     public static void updateUserOnExit() {
         System.out.println("\nBye, hope to see you again soon!");
     }

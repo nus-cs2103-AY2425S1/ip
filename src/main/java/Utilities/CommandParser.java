@@ -1,16 +1,16 @@
 package utilities;
 
-import java.time.format.DateTimeParseException;
-
-import tasks.Task;
-import tasks.Deadlines;
-import tasks.Event;
-import tasks.TaskTypes;
-import tasks.ToDos;
-
 import exceptions.BadDescriptionException;
 import exceptions.DateTimeException;
 import exceptions.UnknownCommandException;
+
+import java.time.format.DateTimeParseException;
+
+import tasks.Deadlines;
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskTypes;
+import tasks.ToDos;
 
 public class CommandParser {
     /**
@@ -19,7 +19,7 @@ public class CommandParser {
      *
      * @param input String command for processing.
      * @param tl TaskList class for maintaining tasks.
-     * @param s Storage class for writing to files.
+     * @param store Storage class for writing to files.
      * @return Boolean value for termination of program.
      */
     public static boolean canParseCommand(String input, TaskList tl, Storage store) {
