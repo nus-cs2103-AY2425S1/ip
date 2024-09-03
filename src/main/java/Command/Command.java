@@ -26,18 +26,10 @@ public abstract class Command {
      * @param list TaskList to be used if required.
      * @param ui Ui to be used if required.
      * @param storage Storage to be used if required.
+     * @return Execution result of the command as String.
      * @throws BlitzException If error occurs.
      */
-    public abstract void execute(TaskList list, Ui ui, Storage storage) throws BlitzException;
-
-    /**
-     * Checks if this Command object's command is "bye".
-     *
-     * @return True if the command is "bye", false otherwise.
-     */
-    public boolean isExit() {
-        return this.command.equalsIgnoreCase("bye");
-    }
+    public abstract String execute(TaskList list, Ui ui, Storage storage) throws BlitzException;
 
     /**
      * Compares two Command objects and determines if they are equal.

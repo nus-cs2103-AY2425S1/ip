@@ -32,10 +32,11 @@ public class CommandUnmark extends Command {
      * @param list TaskList to be used if required.
      * @param ui Ui to be used if required.
      * @param storage Storage to be used if required.
+     * @return Execution result of the command as String.
      * @throws BlitzException If I/O error occurs, TaskList is empty or parameters are invalid.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         try {
             int ind = Integer.parseInt(this.param) - 1;
 
@@ -46,13 +47,11 @@ public class CommandUnmark extends Command {
             Task task = list.getTask(ind);
             task.setDone(false);
 
-            String[] toPrint = {
-                "Ok, I've marked this task as not done yet:",
-                "  [" + task.getType() + "]" + "[ ] " + task
-            };
+            String toPrint = "Ok, I've marked this task as not done yet\n:"
+                    + "  [" + task.getType() + "]" + "[ ] " + task;
 
             storage.writeAllToFile(list);
-            ui.printInDivider(toPrint);
+            return toPrint;
         } catch (IndexOutOfBoundsException e) {
             throw new BlitzIndexOutOfBoundsException();
         } catch (NumberFormatException e) {

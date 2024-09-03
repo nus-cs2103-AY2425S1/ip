@@ -32,10 +32,11 @@ public class CommandFind extends Command {
      * @param list TaskList to find the tasks containing the parameter.
      * @param ui Ui to print the required text.
      * @param storage Storage to be used if required.
+     * @return Execution result of the command as String.
      * @throws BlitzException If TaskList is empty or no matching item found.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         ArrayList<Task> allTasks = list.getAllTask();
         TaskList found = new TaskList(new ArrayList<>());
 
@@ -49,15 +50,14 @@ public class CommandFind extends Command {
             throw new BlitzEmptyTaskListException();
         }
 
-        String[] toPrint = new String[found.getSize() + 1];
-        toPrint[0] = "Here are the matching tasks in your list:";
+        String toPrint = "Here are the matching tasks in your list:\n";
 
         for (int i = 0; i < found.getSize(); i++) {
             Task curr = found.getTask(i);
-            toPrint[i + 1] = "    " + (i + 1) + ".[" + curr.getType() + "]"
-                    + "[" + (curr.getStatus() ? "X" : " ") + "] " + curr;
+            toPrint += "    " + (i + 1) + ".[" + curr.getType() + "]"
+                    + "[" + (curr.getStatus() ? "X" : " ") + "] " + curr + "\n";
         }
 
-        ui.printInDivider(toPrint);
+        return toPrint;
     }
 }

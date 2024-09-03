@@ -8,7 +8,7 @@ import task.Event;
 import task.Task;
 
 /**
- * Represents a "event" command in the Blitz application.
+ * Represents an "event" command in the Blitz application.
  */
 public class CommandEvent extends Command {
     private String[] params;
@@ -30,15 +30,16 @@ public class CommandEvent extends Command {
      * @param list TaskList to add the new Task.
      * @param ui Ui to print the required text.
      * @param storage Storage to write to the file to add the new Task.
+     * @return Execution result of the command as String.
      * @throws BlitzException If I/O error occurs.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         Task temp = new Event(params[0], "E", Task.convertStringToLocalDateTime(params[1]),
                 Task.convertStringToLocalDateTime(params[2]), false);
 
         list.addTask(temp);
         storage.writeOneToFile(temp);
-        ui.printTaskAddedWithDivider("E", list.getSize(), temp);
+        return ui.printTaskAdded("E", list.getSize(), temp);
     }
 }

@@ -26,24 +26,23 @@ public class CommandList extends Command {
      * @param list TaskList to get all the existing Task.
      * @param ui Ui to print the required text.
      * @param storage Storage to be used if required.
+     * @return Execution result of the command as String.
      * @throws BlitzException If TaskList is empty.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
-        //readFromFile();
+    public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         if (list.isEmpty()) {
             throw new BlitzEmptyTaskListException();
         }
 
-        String[] toPrint = new String[list.getSize() + 1];
-        toPrint[0] = "Here are the tasks in your list:";
+        String toPrint = "Here are the tasks in your list:\n";
 
         for (int i = 0; i < list.getSize(); i++) {
             Task curr = list.getTask(i);
-            toPrint[i + 1] = "    " + (i + 1) + ".[" + curr.getType() + "]"
-                    + "[" + (curr.isDone() ? "X" : " ") + "] " + curr;
+            toPrint += "    " + (i + 1) + ".[" + curr.getType() + "]"
+                    + "[" + (curr.isDone() ? "X" : " ") + "] " + curr + "\n";
         }
 
-        ui.printInDivider(toPrint);
+        return toPrint;
     }
 }

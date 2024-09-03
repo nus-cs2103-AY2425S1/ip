@@ -33,10 +33,8 @@ public class Storage {
      * @throws BlitzException If I/O error occurs.
      */
     public void writeOneToFile(Task task) throws BlitzException {
-        try {
-            FileWriter fw = new FileWriter(path, true);
+        try (FileWriter fw = new FileWriter(path, true)) {
             fw.write(task.getType().equals("Empty") ? "" : task.convertTaskToString());
-            fw.close();
         } catch (IOException e) {
             throw new BlitzIoException("Failed to write to database");
         }
@@ -49,10 +47,8 @@ public class Storage {
      * @throws BlitzException If I/O error occurs.
      */
     public void writeAllToFile(TaskList list) throws BlitzException {
-        try {
-            FileWriter fw = new FileWriter(path);
+        try (FileWriter fw = new FileWriter(path)) {
             fw.write("");
-            fw.close();
         } catch (IOException e) {
             throw new BlitzIoException("Failed to write to database");
         }
@@ -69,28 +65,18 @@ public class Storage {
     /**
      * Reads the file and returns the file content as a TaskList object.
      *
-     * @param ui Ui object that is used for printing errors if any.
      * @return TaskList object that containing the tasks read from the file.
-     * @throws BlitzException If I/O error or corrupted file content format.
      */
-    public TaskList readFromFile(Ui ui) {
+    public TaskList readFromFile() throws BlitzException {
         File f = new File(path);
         TaskList list = new TaskList(new ArrayList<>());
 
-        try {
-            Scanner s = new Scanner(f);
-
+        try (Scanner s = new Scanner(f)) {
             while (s.hasNext()) {
                 list.addTask(Task.convertStringToTask(s.nextLine()));
             }
         } catch (FileNotFoundException e) {
-            try {
-                writeAllToFile(new TaskList(new ArrayList<>()));
-            } catch (BlitzException e2) {
-                ui.printError(e2);
-            }
-        } catch (BlitzException e) {
-            ui.printError(e);
+            writeAllToFile(new TaskList(new ArrayList<>()));
         }
 
         return list;

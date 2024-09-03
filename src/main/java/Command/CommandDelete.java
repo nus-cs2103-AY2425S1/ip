@@ -32,10 +32,11 @@ public class CommandDelete extends Command {
      * @param list TaskList to delete the Task.
      * @param ui Ui to print the required text.
      * @param storage Storage to write to the file after removing the Task.
+     * @return Execution result of the command as String.
      * @throws BlitzException If I/O error occurs, TaskList is empty or parameters are invalid.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         try {
             int ind = Integer.parseInt(param) - 1;
 
@@ -46,12 +47,8 @@ public class CommandDelete extends Command {
             Task task = list.deleteTask(ind);
             storage.writeAllToFile(list);
 
-            String[] toPrint = {
-                "Noted. I've removed this task:",
-                "  [" + task.getType() + "]" + "[" + (task.isDone() ? "X" : " ") + "] " + task
-            };
-
-            ui.printInDivider(toPrint);
+            return "Noted. I've removed this task:\n"
+                    + "  [" + task.getType() + "]" + "[" + (task.isDone() ? "X" : " ") + "] " + task;
         } catch (IndexOutOfBoundsException e) {
             throw new BlitzIndexOutOfBoundsException();
         } catch (NumberFormatException e) {

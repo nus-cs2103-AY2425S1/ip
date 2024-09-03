@@ -32,10 +32,11 @@ public class CommandMark extends Command {
      * @param list TaskList to get the Task to be marked.
      * @param ui Ui to print the required text.
      * @param storage Storage to write to the file to update the marked Task.
+     * @return Execution result of the command as String.
      * @throws BlitzException If I/O error occurs, TaskList is empty or parameters are invalid.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         try {
             int ind = Integer.parseInt(this.param) - 1;
 
@@ -46,13 +47,11 @@ public class CommandMark extends Command {
             Task task = list.getTask(ind);
 
             task.setDone(true);
-            String[] toPrint = {
-                "Nice! I've marked this task as done:",
-                "  [" + task.getType() + "]" + "[X] " + task
-            };
+            String toPrint = "Nice! I've marked this task as done:\n"
+                    + "  [" + task.getType() + "]" + "[X] " + task;
 
             storage.writeAllToFile(list);
-            ui.printInDivider(toPrint);
+            return toPrint;
         } catch (IndexOutOfBoundsException e) {
             throw new BlitzIndexOutOfBoundsException();
         } catch (NumberFormatException e) {

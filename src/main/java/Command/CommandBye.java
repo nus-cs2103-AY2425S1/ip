@@ -18,8 +18,16 @@ public class CommandBye extends Command {
         super(command);
     }
 
-    public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
-        /* Do nothing */
+    /**
+     * Executes the command.
+     *
+     * @param list TaskList to be used if required.
+     * @param ui Ui to be used if required.
+     * @param storage Storage to be used if required.
+     * @return Execution result of the command as String.
+     */
+    public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
+        return "bye";
     }
 
 }

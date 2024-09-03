@@ -15,7 +15,7 @@ public class StorageTest {
     public void storageReadFromFile_existingFilename_returnTaskListObject() {
         try {
             assertEquals(new TaskList(new ArrayList<>(List.of(new Todo("test", "T", false)))),
-                    new Storage("./existent.txt").readFromFile(new Ui("", "")));
+                    new Storage("./existent.txt").readFromFile());
         } catch (Exception e) {
             fail();
         }
@@ -25,7 +25,7 @@ public class StorageTest {
     public void storageReadFromFile_nonExistingFilename_returnTaskListObject() {
         try {
             assertEquals(new TaskList(new ArrayList<>()),
-                    new Storage("./nonexistent.txt").readFromFile(new Ui("", "")));
+                    new Storage("./nonexistent.txt").readFromFile());
         } catch (Exception e) {
             fail();
         }

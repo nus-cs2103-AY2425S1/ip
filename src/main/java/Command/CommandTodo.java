@@ -30,14 +30,15 @@ public class CommandTodo extends Command {
      * @param list TaskList to add the new Task.
      * @param ui Ui to print the required text.
      * @param storage Storage to write to the file to add the new Task.
+     * @return Execution result of the command as String.
      * @throws BlitzException If I/O error occurs.
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         Task task = new Todo(this.param, "T", false);
 
         list.addTask(task);
         storage.writeOneToFile(task);
-        ui.printTaskAddedWithDivider("T", list.getSize(), task);
+        return ui.printTaskAdded("T", list.getSize(), task);
     }
 }
