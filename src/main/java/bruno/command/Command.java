@@ -1,5 +1,6 @@
 package bruno.command;
 
+import bruno.exceptions.BrunoException;
 import bruno.task.TaskList;
 
 /**
@@ -9,15 +10,15 @@ import bruno.task.TaskList;
  */
 public abstract class Command {
     private boolean isExit;
-    private TaskList tasks;
+    private TaskList taskList;
 
     /**
      * Constructs a Command with the specified task list.
      *
-     * @param tasks The task list associated with this command.
+     * @param taskList The task list associated with this command.
      */
-    public Command(TaskList tasks) {
-        this.tasks = tasks;
+    public Command(TaskList taskList) {
+        this.taskList = taskList;
         this.isExit = false;
     }
 
@@ -26,8 +27,8 @@ public abstract class Command {
      *
      * @return The task list.
      */
-    public TaskList getTasks() {
-        return this.tasks;
+    public TaskList getTaskList() {
+        return this.taskList;
     }
 
     /**
@@ -51,5 +52,7 @@ public abstract class Command {
      * Executes the command. This method must be implemented by subclasses to define
      * the specific behavior of each command.
      */
-    public abstract void execute();
+    public abstract void execute() throws BrunoException;
+    @Override
+    public abstract String toString();
 }

@@ -2,6 +2,7 @@ package bruno.command;
 
 import bruno.Ui;
 import bruno.exceptions.BrunoException;
+import bruno.task.Task;
 import bruno.task.TaskList;
 
 /**
@@ -10,6 +11,7 @@ import bruno.task.TaskList;
  */
 public class MarkCommand extends Command {
     private String taskNum;
+    private Task task;
 
     /**
      * Constructs a MarkCommand with the specified task list and task number.
@@ -20,7 +22,6 @@ public class MarkCommand extends Command {
     public MarkCommand(TaskList tasks, String taskNum) {
         super(tasks);
         this.taskNum = taskNum;
-
     }
 
     /**
@@ -28,11 +29,12 @@ public class MarkCommand extends Command {
      * If an error occurs during the process, an error message is printed.
      */
     @Override
-    public void execute() {
-        try {
-            getTasks().markTask(taskNum);
-        } catch (BrunoException e) {
-            Ui.printErrorMessage(e);
-        }
+    public void execute() throws BrunoException {
+        task = getTaskList().markTask(taskNum);
+    }
+
+    @Override
+    public String toString() {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 }

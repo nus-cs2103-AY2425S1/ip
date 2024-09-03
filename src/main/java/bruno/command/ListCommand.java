@@ -1,6 +1,7 @@
 package bruno.command;
 
 import bruno.Ui;
+import bruno.task.Task;
 import bruno.task.TaskList;
 
 /**
@@ -24,6 +25,15 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute() {
-        Ui.printList(getTasks().getTasks());
+
+    }
+
+    @Override
+    public String toString() {
+        String tasksAsString = "";
+        for (Task task : getTaskList().getTasks()) {
+            tasksAsString += task + "\n";
+        }
+        return "Here are the tasks in your list:\n" + tasksAsString;
     }
 }

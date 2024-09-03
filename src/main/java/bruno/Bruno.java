@@ -1,6 +1,7 @@
 package bruno;
 
 import bruno.command.Command;
+import bruno.exceptions.BrunoException;
 import bruno.task.TaskList;
 
 /**
@@ -17,6 +18,7 @@ public class Bruno {
     }
     private Storage storage;
     private TaskList tasks;
+    private String commandType;
 
     /**
      * Constructs a Bruno object. This constructor initializes Bruno's
@@ -33,27 +35,26 @@ public class Bruno {
         this.tasks = new TaskList(this.storage);
     }
 
-    public static void main(String[] args) {
-        Bruno bruno = new Bruno("src/main/data/", "src/main/data/bruno.txt");
-        bruno.run();
+    /**
+     * Default constructor to be used by JavaFX.
+     */
+    public Bruno() {
+        this("src/main/data/", "src/main/data/bruno.txt");
     }
 
-    /**
-     * Runs the Bruno chatbot. This method contains the main program loop
-     * for interacting with the user. It reads commands from the user,
-     * processes them through the Parser, and executes the appropriate commands.
-     * The loop continues until the exit command is given.
-     */
-    public void run() {
-        Ui.printGreetingMessage();
-        boolean isRunning = true;
-        while (isRunning) {
-            String userResponse = Ui.readCommand();
-            Command command = Parser.parse(userResponse, tasks);
-            if (command != null) {
-                command.execute();
-                isRunning = !command.isExit();
-            }
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input, tasks);
+            c.execute();
+            commandType = c.getClass().getSimpleName();
+            return c.toString();
+        } catch (BrunoException e) {
+            commandType = "Error";
+            return e.getMessage();
         }
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 }
