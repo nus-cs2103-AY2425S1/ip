@@ -24,14 +24,14 @@ public class TaskList {
     public String addTaskToString() {
         return """
                 I have added this task into the list for you and
-                that brings your total number of tasks to""" + " " + String.valueOf(Task.taskCount);
+                that brings your total number of tasks to""" + " " + String.valueOf(Task.getTaskCount());
     }
 
     public String addToDo(String description) {
         ToDo newToDo = new ToDo(description);
         tasks.add(newToDo);
-        return addTaskToString() + "\n" +
-                " ".repeat(5) + "[T] [ ] " + description + "\n"
+        return addTaskToString() + "\n"
+                + " ".repeat(5) + "[T] [ ] " + description + "\n"
                 + "\n"
                 + "You can use the command \"list\" to view your list of tasks :D";
     }

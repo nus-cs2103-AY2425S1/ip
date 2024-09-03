@@ -8,11 +8,11 @@ public class Winner {
         TaskList taskList = new TaskList();
         Storage.checkAndCreateFile();
         Storage.loadTasks(taskList.getTasks());
-        WinnerTaskBot(taskList);
+        winnerTaskBot(taskList);
         Storage.saveTasks(taskList.getTasks());
     }
 
-    static void WinnerTaskBot(TaskList taskList) {
+    static void winnerTaskBot(TaskList taskList) {
         Scanner scanner = new Scanner(System.in);
         Ui.winnerSaysHi();
 

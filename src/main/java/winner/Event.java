@@ -1,6 +1,6 @@
 package winner;
 
-public class Event extends Task{
+public class Event extends Task {
     protected String start;
     protected String end;
 
@@ -20,20 +20,24 @@ public class Event extends Task{
 
     @Override
     public String markDone() {
-        return super.markDone() + "\n" + " ".repeat(5) + "[E] [X] " + description + " (" + start + " - " + end + ")";
+        return super.markDone() + "\n"
+                + " ".repeat(5) + "[E] [X] " + description + " (" + start + " - " + end + ")";
     }
 
     @Override
     public String unmarkDone() {
-        return super.unmarkDone() + "\n" + " ".repeat(5) + "[E] [ ] " + description + " (" + start + " - " + end + ")";
+        return super.unmarkDone() + "\n"
+                + " ".repeat(5) + "[E] [ ] " + description + " (" + start + " - " + end + ")";
     }
 
     @Override
     public String deleteTask() {
         if (isDone) {
-            return super.deleteTask() + "\n" + " ".repeat(5) + "[E] [X] " + description + " (" + start + " - " + end + ")";
+            return super.deleteTask() + "\n"
+                    + " ".repeat(5) + "[E] [X] " + description + " (" + start + " - " + end + ")";
         }
-        return super.deleteTask() + "\n" + " ".repeat(5) + "[E] [ ] " + description + " (" + start + " - " + end + ")";
+        return super.deleteTask() + "\n"
+                + " ".repeat(5) + "[E] [ ] " + description + " (" + start + " - " + end + ")";
     }
 
 }

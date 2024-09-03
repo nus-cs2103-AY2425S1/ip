@@ -1,14 +1,18 @@
 package winner;
 
 public class Task {
+    private static int taskCount = 0;
     protected String description;
     protected boolean isDone;
-    static int taskCount = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         taskCount++;
+    }
+
+    public static int getTaskCount() {
+        return taskCount;
     }
 
     public String markDone() {
