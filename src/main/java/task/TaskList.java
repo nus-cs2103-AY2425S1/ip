@@ -37,20 +37,36 @@ public class TaskList {
      * Marks a particular task in the list.
      *
      * @param taskIndex Index of the task to be marked.
+     * @return True if able to mark, false otherwise.
      */
-    public void markTask(int taskIndex) {
+    public boolean markTask(int taskIndex) {
         Task task = this.tasks.get(taskIndex);
-        task.markAsDone();
+        boolean isSuccessful;
+        if (task.getStatusIcon() == 'X') {
+            isSuccessful = false; // Has been marked already
+        } else {
+            task.markAsDone();
+            isSuccessful = true;
+        }
+        return isSuccessful;
     }
 
     /**
      * Unmarks a particular task in the list.
      *
      * @param taskIndex Index of the task to be unmarked.
+     * @return True if able to unmark, false otherwise.
      */
-    public void unmarkTask(int taskIndex) {
+    public boolean unmarkTask(int taskIndex) {
         Task task = this.tasks.get(taskIndex);
-        task.markAsUndone();
+        boolean isSuccessful;
+        if (task.getStatusIcon() == ' ') {
+            isSuccessful = false; // Has not been marked yet
+        } else {
+            task.markAsUndone();
+            isSuccessful = true;
+        }
+        return isSuccessful;
     }
 
     /**
@@ -91,6 +107,7 @@ public class TaskList {
         return "[" + task.getTaskType() + "]"
                 + "[" + task.getStatusIcon() + "] "
                 + task.getDescription()
+                + " "
                 + task.getExtraInfo();
     }
 
@@ -117,5 +134,81 @@ public class TaskList {
                 + (totalTasks == 1
                 ? " task in the list."
                 : " tasks in the list.");
+    }
+
+    /**
+     * Lists the current tasks present, as a single string.
+     *
+     * @return String representing all current tasks.
+     */
+    public String listTasks() {
+        StringBuilder result = new StringBuilder();
+        int taskNumber = 1;
+        for (Task task : this.tasks) {
+            result.append(taskNumber)
+                    .append(". ")
+                    .append(this.getTaskDetails(task))
+                    .append('\n');
+            taskNumber++;
+        }
+
+        // If there are existing tasks
+        // Remove last newline from result, to prevent duplicate newline when displaying response
+        if (taskNumber > 1) {
+            result.deleteCharAt(result.length() - 1);
+        }
+        return result.toString();
+    }
+
+    /**
+     * Checks if description of task matches the keyword.
+     *
+     * @param description Task description.
+     * @param keyword Keyword.
+     * @return True if matches, false otherwise.
+     */
+    private boolean isDescriptionMatching(String description, String keyword) {
+        String[] words = description.split(" ");
+        for (String word : words) {
+            if (word.equals(keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Searches the task list for matching tasks.
+     *
+     * @param keyword Tasks must match this keyword.
+     * @return {@code String[]}
+     *      , first element is the matching tasks as a string
+     *      , second element is the number of matching tasks.
+     */
+    public String[] findMatchingTasks(String keyword) {
+        StringBuilder result = new StringBuilder();
+        int taskNumber = 1;
+
+        for (Task task : this.tasks) {
+            String description = task.getDescription();
+            if (isDescriptionMatching(description, keyword)) {
+                String taskDetails = this.getTaskDetails(task);
+                result.append(taskNumber)
+                        .append(". ")
+                        .append(taskDetails)
+                        .append('\n');
+                taskNumber++;
+            }
+        }
+
+        // If there are matching tasks
+        // Remove last newline from result, to prevent duplicate newline when displaying response
+        if (taskNumber > 1) {
+            result.deleteCharAt(result.length() - 1);
+        }
+
+        // After the iteration, if task number is for example 5
+        // Then, there are actually only 4 matching tasks
+        return new String[]{result.toString(), Integer.toString(taskNumber - 1)};
     }
 }

@@ -1,6 +1,5 @@
 package commands;
 
-import exceptions.BrockException;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
@@ -23,14 +22,12 @@ public class ListCommand extends Command {
      * {@inheritDoc}
      *
      * <p>
-     * Chatbot reads from save file, displaying all the existing tasks.
+     * Chatbot reads from task list, displaying all the existing tasks.
      * </p>
-     *
-     * @throws BrockException If save file is not found.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
-        String tasksString = storage.readFromFile();
+    public void execute(Ui ui, Storage storage, TaskList tasks) {
+        String tasksString = tasks.listTasks();
         int totalTasks = tasks.numTasks();
 
         String responseBody;

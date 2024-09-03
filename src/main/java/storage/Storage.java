@@ -51,22 +51,28 @@ public class Storage {
      * Creates a {@code ToDo} object corresponding to a todo task.
      *
      * @param taskBody String storing task description.
+     * @param taskStatus Character representing task status.
      * @return {@code ToDo} object created.
      */
-    private Task handleToDo(String taskBody) {
-        return new ToDo(taskBody);
+    private Task handleToDo(String taskBody, char taskStatus) {
+        Task todoTask = new ToDo(taskBody);
+        if (taskStatus == 'X') {
+            todoTask.markAsDone();
+        }
+        return todoTask;
     }
 
     /**
      * Creates a {@code Deadline} object corresponding to a deadline task.
      *
      * @param taskBody String storing task description and due datetime.
+     * @param taskStatus Character representing task status.
      * @return {@code Deadline} object created.
      * @throws BrockException If date and time are invalid when constructing object.
      *      (They should already be validated)
      */
-    private Task handleDeadline(String taskBody) throws BrockException {
-        String[] parts = taskBody.split("\\(by : ", 2);
+    private Task handleDeadline(String taskBody, char taskStatus) throws BrockException {
+        String[] parts = taskBody.split(" \\(by: ", 2);
         String description = parts[0];
 
         String dateTime = parts[1];
@@ -80,22 +86,28 @@ public class Storage {
                 : removeCloseBracket(dateTimeParts[1])
                 .replace(":", "");
 
+        Task deadlineTask;
         if (dueTimeString.isEmpty()) {
-            return new Deadline(description, dueDateString);
+            deadlineTask = new Deadline(description, dueDateString);
         } else {
-            return new Deadline(description, dueDateString, dueTimeString);
+            deadlineTask = new Deadline(description, dueDateString, dueTimeString);
         }
+        if (taskStatus == 'X') {
+            deadlineTask.markAsDone();
+        }
+        return deadlineTask;
     }
 
     /**
      * Creates an {code Event} object corresponding to an event task.
      *
      * @param taskBody String storing task description, as well as start and end datetime.
+     * @param taskStatus Character representing task status.
      * @return {@code Event} object created.
      * @throws BrockException If date and time are invalid when constructing object.
      *      (They should already be validated)
      */
-    private Task handleEvent(String taskBody) throws BrockException {
+    private Task handleEvent(String taskBody, char taskStatus) throws BrockException {
         String[] parts = taskBody.split(" \\(from: ", 2);
         String description = parts[0];
 
@@ -120,12 +132,17 @@ public class Storage {
                 : removeCloseBracket(endDateTimeParts[1])
                 .replace(":", "");
 
+        Task eventTask;
         if (startTimeString.isEmpty()) {
-            return new Event(description, startDateString, endDateString);
+            eventTask = new Event(description, startDateString, endDateString);
         } else {
-            return new Event(description, startDateString, startTimeString,
+            eventTask = new Event(description, startDateString, startTimeString,
                     endDateString, endTimeString);
         }
+        if (taskStatus == 'X') {
+            eventTask.markAsDone();
+        }
+        return eventTask;
     }
 
     /**
@@ -141,13 +158,14 @@ public class Storage {
 
         String taskDetails = taskComponents[1];
         char taskType = taskDetails.charAt(1);
+        char taskStatus = taskDetails.charAt(4);
         // Remove the [<type>][<status>]
         String taskBody = taskDetails.substring(7);
 
         return switch (taskType) {
-            case 'T' -> handleToDo(taskBody);
-            case 'D' -> handleDeadline(taskBody);
-            case 'E' -> handleEvent(taskBody);
+            case 'T' -> handleToDo(taskBody, taskStatus);
+            case 'D' -> handleDeadline(taskBody, taskStatus);
+            case 'E' -> handleEvent(taskBody, taskStatus);
             default -> throw new BrockException("Unrecognized task type!");
         };
     }
@@ -206,81 +224,6 @@ public class Storage {
 
         return new String[] {dirResult.toString(),
                 fileResult.toString()};
-    }
-
-    /**
-     * Reads from the save file, without excluding any task.
-     *
-     * @return The tasks read, as a single string.
-     * @throws BrockException If unable to find the save file.
-     */
-    public String readFromFile() throws BrockException {
-        // Use SB as it is a faster way to append strings
-        StringBuilder tasksString = new StringBuilder();
-        try {
-            Scanner s = new Scanner(SAVE_FILE);
-            while (s.hasNext()) {
-                tasksString.append(s.nextLine())
-                        .append('\n');
-            }
-        } catch (FileNotFoundException e) {
-            throw new BrockException("Unable to find and read from save file!");
-        }
-
-        if (!tasksString.isEmpty()) {
-            // Remove last new line character
-            // To prevent duplicates when displaying response
-            tasksString.deleteCharAt(tasksString.length() - 1);
-        }
-        return tasksString.toString();
-    }
-
-    /**
-     * Reads from the save file, excluding a particular task.
-     *
-     * @param exclusion Task number of the task to be excluded.
-     * @return The tasks read, as a single string.
-     * @throws BrockException If unable to find the save file.
-     */
-    public String readFromFile(int exclusion) throws BrockException {
-        // Use SB as it is a faster way to append strings
-        StringBuilder tasksString = new StringBuilder();
-        try {
-            Scanner s = new Scanner(SAVE_FILE);
-            int count = 1;
-            boolean hasSeenExclusion = false;
-            while (s.hasNext()) {
-                if (count == exclusion) {
-                    s.nextLine();
-                    count += 1;
-                    hasSeenExclusion = true;
-                    continue;
-                }
-                if (hasSeenExclusion) {
-                    // s.next() reads: "<task number>."
-                    // Remove the ., modify the task number, append to string builder
-                    String nextToken = s.next();
-                    String taskNumber = nextToken.substring(0, nextToken.length() - 1);
-                    int newTaskNumber = Integer.parseInt(taskNumber) - 1;
-                    tasksString.append(newTaskNumber)
-                            .append('.')
-                            .append(s.nextLine());
-                } else {
-                    tasksString.append(s.nextLine())
-                            .append('\n');
-                }
-                count += 1;
-            }
-        } catch (FileNotFoundException e) {
-            throw new BrockException("Unable to find and read from save file!");
-        }
-
-        if (!tasksString.isEmpty()) {
-            // Remove last new line character
-            // To prevent duplicates when displaying response
-            tasksString.deleteCharAt(tasksString.length() - 1);
-        }
-        return tasksString.toString();
     }
 
     /**

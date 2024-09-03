@@ -5,6 +5,7 @@ import commands.Command;
 import commands.DeadlineCommand;
 import commands.DeleteCommand;
 import commands.EventCommand;
+import commands.FindCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
 import commands.TodoCommand;
@@ -61,6 +62,8 @@ public class Parser {
         } else if (isCommand(command, "event")) {
             return new EventCommand(command);
 
+        } else if (isCommand(command, "find")) {
+            return new FindCommand(command);
         } else {
             throw new BrockException("Invalid command!");
         }

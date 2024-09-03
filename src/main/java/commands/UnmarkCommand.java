@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
      *
      * <p>
      * Chatbot checks if unmark command is valid.
-     * If so, it unmarks the associated task in {@code tasks}.
+     * If so, it unmarks the associated task in {@code tasks} and updates the save file.
      * Displays a response indicating it has successfully unmarked the task.
      * </p>
      *
@@ -36,10 +36,20 @@ public class UnmarkCommand extends Command {
         Utility.validateStatus(command, Utility.Action.UNMARK, tasks);
 
         int taskIndex = Utility.getTaskIndex(command);
-        tasks.unmarkTask(taskIndex);
+        boolean isSuccessful = tasks.unmarkTask(taskIndex);
+        if (!isSuccessful) {
+            ui.displayResponse("Task has not been marked yet!");
+            return;
+        }
+
         ui.displayResponse("OK, I've marked this task as not done yet:\n"
                 + "  "
                 + tasks.getTaskDetails(taskIndex));
+
+        // Update the save file
+        String tasksString = tasks.listTasks();
+        storage.writeToFile("", false);
+        storage.writeToFile(tasksString, true);
     }
 
     /**
