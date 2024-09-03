@@ -48,7 +48,7 @@ public class StorageTest {
     @Test
     public void testLoadFromCorruptedFile() throws IOException {
         Files.write(testFile.toPath(), "corrupted data".getBytes());
-        assertThrows(AxelException.class, () -> {
+        assertThrows(CorruptedFileException.class, () -> {
             storage.load();
         });
     }

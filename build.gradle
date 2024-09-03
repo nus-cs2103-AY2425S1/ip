@@ -5,6 +5,12 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'axel.Axel'
+
+shadowJar {
+    archiveFileName = 'Axel.jar'
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
