@@ -6,7 +6,7 @@ import gallium.main.TaskList;
 import gallium.main.Ui;
 
 public abstract class Command {
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws GalliumException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws GalliumException {
 
     }
 

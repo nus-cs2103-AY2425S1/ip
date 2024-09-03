@@ -10,12 +10,7 @@ public class Gallium {
     public Gallium(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        // try {
         taskList = new TaskList(storage.load(ui));
-        // } catch (GalliumException e) {
-        // ui.showLoadingError();
-        // taskList = new TaskList();
-        // }
     }
 
     public void run() {
