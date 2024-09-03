@@ -1,14 +1,15 @@
 package duck.command;
 
+import java.time.LocalDate;
+
+import duck.storage.Storage;
 import duck.task.Deadline;
 import duck.task.EmptyToDoException;
 import duck.task.Event;
 import duck.task.Task;
-import duck.task.ToDo;
 import duck.task.TaskList;
+import duck.task.ToDo;
 import duck.ui.Ui;
-import duck.storage.Storage;
-import java.time.LocalDate;
 
 /**
  * Represents a command to manage tasks such as ToDo, Deadline, and Event.
@@ -38,10 +39,10 @@ public class TaskCommand implements Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
         Task task = switch (commandType) {
-            case "todo" -> parseToDo(fullCommand);
-            case "deadline" -> parseDeadline(fullCommand);
-            case "event" -> parseEvent(fullCommand);
-            default -> throw new IllegalArgumentException("Invalid command type for tasks: " + commandType);
+        case "todo" -> parseToDo(fullCommand);
+        case "deadline" -> parseDeadline(fullCommand);
+        case "event" -> parseEvent(fullCommand);
+        default -> throw new IllegalArgumentException("Invalid command type for tasks: " + commandType);
         };
         list.add(task);
         ui.showAddTaskMessage(task, list);

@@ -36,7 +36,7 @@ public class Duck {
         while (true) {
             String command = ui.readCommand();
             if (command.equals("bye")) {
-                  break;
+                break;
             }
             try {
                 Command cmd = Parser.parse(command);
