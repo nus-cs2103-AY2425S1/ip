@@ -1,66 +1,91 @@
 package com.nimbus;
 
-import java.util.ArrayList;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-public class Ui {
-    static private String name;
+import java.io.IOException;
 
-    public Ui(String name) {
-        Ui.name = name;
+public class Ui extends Application {
+    private String name;
+    private String userImagePath;
+    private String botImagePath;
+    private static FXMLLoader fxmlLoader;
+    private static MainWindow MainWindowController;
+
+    @Override
+    public void init() {
+        Ui.fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindow.fxml"));
+        Parameters params = getParameters();
+        this.name = params.getRaw().get(0);
+        this.userImagePath = params.getRaw().get(1);
+        this.botImagePath = params.getRaw().get(2);
     }
 
-    private void printDash() {
-        System.out.println("____________________________________________________________");
-    }
+    @Override
+    public void start(Stage stage) {
+        try {
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
 
-    /**
-     * Print welcome message onto console
-     */
-    public void showWelcomeMessage() {
-        printDash();
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
-        printDash();
-    }
+            Ui.MainWindowController = Ui.fxmlLoader.<MainWindow>getController();
+            MainWindowController.initialize(userImagePath, botImagePath);
+            MainWindowController.setNimbus(new Nimbus("./data/data.txt", this));
 
-    /**
-     * Print goodbye message onto console
-     */
-    public void showGoodbyeMessage() {
-        printDash();
-        System.out.println("Bye. Hope to see you again soon!");
-        printDash();
-    }
-
-    /**
-     * Show all task onto console
-     * @param tasks tasks to be shown onto console
-     */
-    public void showAllTasks(TaskList tasks) {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); ++i) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     /**
-     * Show a newly added task onto console
-     * @param task task to be shown to console
-     * @param newSize number of task after adding the task
+     * Print welcome message onto window
      */
-    public void showAddedTask(Task task, int newSize) {
-        System.out.println("Got it. I've added this task:\n" + task);
-        System.out.println("Now you have " + newSize + " tasks in the list.");
+    public void showWelcomeMessage() {
+        Ui.MainWindowController.showBotMessage("Hello! I'm " + name + '\n' + "What can I do for you?");
     }
 
     /**
-     * Show a removed task onto console
+     * Print goodbye message onto window
+     */
+    public void showGoodbyeMessage() {
+        Ui.MainWindowController.showBotMessage("Bye. Hope to see you again soon!");
+    }
+
+    /**
+     * Show all task onto window
+     * @param tasks tasks to be shown onto window
+     */
+    public void showAllTasks(TaskList tasks) {
+        StringBuilder msg = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); ++i) {
+            msg.append((i + 1)).append(". ").append(tasks.get(i)).append('\n');
+        }
+        Ui.MainWindowController.showBotMessage(msg.toString());
+    }
+
+    /**
+     * Show a newly added task onto window
+     * @param task task to be shown to window
+     * @param newSize number of task after adding the task
+     */
+    public void showAddedTask(Task task, int newSize) {
+        Ui.MainWindowController.showBotMessage("Got it. I've added this task:\n" + task + '\n' +
+                "Now you have " + newSize + " tasks in the list.");
+    }
+
+    /**
+     * Show a removed task onto window
      * @param task task removed
      * @param newSize number of task after removing the task
      */
     public void showRemovedTask(Task task, int newSize) {
-        System.out.println("Noted. I've removed this task: " + task);
-        System.out.println("Now you have " + newSize + " tasks in the list.");
+        Ui.MainWindowController.showBotMessage("Noted. I've removed this task: " + task +
+                "\nNow you have " + newSize + " tasks in the list.");
     }
 
     /**
@@ -68,7 +93,7 @@ public class Ui {
      * @param task task that has been marked as done
      */
     public void showDoneTask(Task task) {
-        System.out.println("Nice! I've marked this task as done: " + task);
+       Ui.MainWindowController.showBotMessage("Nice! I've marked this task as done: " + task);
     }
 
     /**
@@ -76,14 +101,26 @@ public class Ui {
      * @param task task that has been marked as not done
      */
     public void showNotDoneTask(Task task) {
-        System.out.println("OK, I've marked this task as not done yet: " + task);
+        Ui.MainWindowController.showBotMessage("OK, I've marked this task as not done yet: " + task);
     }
 
     public void showFoundTask(TaskList tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+        StringBuilder msg = new StringBuilder("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); ++i) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            msg.append(i + 1).append(". ").append(tasks.get(i));
         }
+        Ui.MainWindowController.showBotMessage(msg.toString());
     }
 
+    public void showUserMessage(String msg) {
+        Ui.MainWindowController.showUserMessage(msg);
+    }
+
+    public void showError(String msg) {
+        Ui.MainWindowController.showBotMessage("Sorry, I didn't get that.\n" + msg);
+    }
+
+    public void stopGUI() {
+        Platform.exit();
+    }
 }
