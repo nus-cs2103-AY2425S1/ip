@@ -9,37 +9,17 @@ import kotori.taskList.TaskList;
 public class Ui {
 
     /**
-     * prints a line.
-     * */
-
-    public static void printLine() {
-        System.out.println("    ___________________________________________");
-    }
-
-    /**
-     * prints a message.
-     *
-     * @param input the message.
-     * */
-
-    public static void printMessage(String input) {
-        printLine();
-        System.out.println("    " + input);
-        printLine();
-    }
-
-    /**
      * prints some messages.
      *
      * @param inputs the messages.
      * */
 
-    public static void printMessages(String... inputs) {
-        printLine();
+    public static String printMessages(String... inputs) {
+        String result = "";
         for (String s : inputs) {
-            System.out.println("    " + s);
+            result += s + "\n";
         }
-        printLine();
+        return result;
     }
 
     /**
@@ -48,12 +28,12 @@ public class Ui {
      * @param list the list.
      * */
 
-    public static void printList(TaskList list) {
-        printLine();
+    public static String printList(TaskList list) {
+        String result = "";
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(String.format("    %s. %s",i + 1, list.get(i).toString()));
+            result += String.format("%s. %s\n",i + 1, list.get(i).toString());
         }
-        printLine();
+        return result;
     }
 
     /**
@@ -63,30 +43,25 @@ public class Ui {
      * @param inputs the messages to be included.
      * */
 
-    public static void printListWithMessages(TaskList list, String... inputs) {
-        printLine();
-        for (String s : inputs){
-            System.out.println("    " + s);
-        }
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(String.format("    %s. %s",i + 1, list.get(i).toString()));
-        }
-        printLine();
+    public static String printListWithMessages(TaskList list, String... inputs) {
+        return printMessages(inputs) + printList(list);
     }
 
     /**
      * prints a greeting.
      * */
 
-    public static void printGreeting() {
-        printMessage("Hello! I'm Kotori.\n    What can I do for you?");
+    public static String printGreeting() {
+
+        return "Hello! I'm Kotori.\nWhat can I do for you?\n";
     }
 
     /**
      * prints the exit message.
      */
 
-    public static void printExit() {
-        printMessage("Bye! Hope to see you again soon.");
+    public static String printExit() {
+
+        return "Bye! Hope to see you again soon.";
     }
 }

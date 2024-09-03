@@ -3,7 +3,7 @@ import kotori.storage.Storage;
 import kotori.taskList.IncorrectStateException;
 import kotori.taskList.TaskList;
 
-import static kotori.ui.Ui.printMessage;
+import static kotori.ui.Ui.printMessages;
 
 /**
  * This class represents a command trying to delete a
@@ -26,17 +26,17 @@ public class UnmarkCommand extends Command{
      * */
 
     @Override
-    public void execute() {
+    public String execute() {
         if (taskList.size() < index || index <= 0 ) {
-            printMessage("Sorry~ can not unmark that task because it does not exist");
+            return printMessages("Sorry~ can not unmark that task because it does not exist");
         } else {
             try {
                 taskList.unmark(index - 1);
-                printMessage(String.format("Alright, Job %s has been marked as not done!\n    %s",
-                        index, taskList.get(index - 1)));
                 this.storage.updateFile(taskList);
+                return printMessages(String.format("Alright, Job %s has been marked as not done!\n    %s",
+                        index, taskList.get(index - 1)));
             } catch (IncorrectStateException e) {
-                printMessage(e.getMessage());
+                return printMessages(e.getMessage());
             }
         }
     }

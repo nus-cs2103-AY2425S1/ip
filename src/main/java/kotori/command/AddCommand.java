@@ -6,7 +6,6 @@ import kotori.taskList.InvalidInputException;
 import kotori.taskList.MissingInformationException;
 import kotori.taskList.Task;
 import kotori.taskList.TaskList;
-import static kotori.ui.Ui.printMessage;
 import static kotori.ui.Ui.printMessages;
 
 /**
@@ -31,19 +30,19 @@ public class AddCommand extends Command{
      * */
 
     @Override
-    public void execute() {
+    public String execute() {
         try {
             Task task = Task.of(input);
             taskList.add(task);
-            printMessages(new String[]{"Got it. I've added this task:", task.toString(),
-                    String.format("Now you have %s tasks in the list", taskList.size())});
             storage.updateFile(taskList);
+            return printMessages(new String[]{"Got it. I've added this task:", task.toString(),
+                    String.format("Now you have %s tasks in the list", taskList.size())});
         } catch (MissingInformationException e) {
-            printMessages(e.getMessage());
+            return printMessages(e.getMessage());
         } catch (InvalidInputException e) {
-            printMessages(e.getMessage());
+            return printMessages(e.getMessage());
         } catch (DateTimeParseException e) {
-            printMessages("Sorry~ I can not recognize the time", "Please enter the time in the " +
+            return printMessages("Sorry~ I can not recognize the time", "Please enter the time in the " +
                     "YYYY-MM-DD format");
         }
     }

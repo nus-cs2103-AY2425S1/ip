@@ -3,8 +3,6 @@ package kotori.command;
 import kotori.storage.Storage;
 import kotori.taskList.Task;
 import kotori.taskList.TaskList;
-
-import static kotori.ui.Ui.printMessage;
 import static kotori.ui.Ui.printMessages;
 
 /**
@@ -28,14 +26,14 @@ public class DeleteCommand extends Command{
      * */
 
     @Override
-    public void execute() {
+    public String execute() {
         if (taskList.size() < index || index <= 0) {
-            printMessage("Sorry~ Can not delete this task as such task does not exist.");
+            return printMessages("Sorry~ Can not delete this task as such task does not exist.");
         } else {
             Task task = taskList.remove(index - 1);
-            printMessages(new String[]{"OK~. I've deleted this task:", task.toString(),
-                    String.format("Now you have %s tasks in the list", taskList.size())});
             storage.updateFile(taskList);
+            return printMessages(new String[]{"OK~. I've deleted this task:", task.toString(),
+                    String.format("Now you have %s tasks in the list", taskList.size())});
         }
     }
 

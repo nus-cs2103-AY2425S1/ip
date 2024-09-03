@@ -17,6 +17,8 @@ import kotori.ui.Ui;
 
 public class Storage {
     private File file;
+    private boolean isCorrupted = false;
+    private boolean hasFile = true;
 
     public Storage (String directoryName, String fileName) {
 
@@ -47,14 +49,21 @@ public class Storage {
                 throw new CorruptedFileException("");
             }
         } catch (FileNotFoundException e) {
-            Ui.printMessage("There is no existing memory so I create a new one~ ^_^");
+            hasFile = false;
             return new TaskList();
         } catch (CorruptedFileException e) {
-            Ui.printMessage("The memory file is corrupted so I create a new one~ ^_^");
+            isCorrupted = true;
             return new TaskList();
         }
     }
 
+    public boolean isCorrupted() {
+        return isCorrupted;
+    }
+
+    public boolean hasFile() {
+        return hasFile;
+    }
 
     /**
      * Update the hard disk file with the current TaskList.
@@ -74,7 +83,7 @@ public class Storage {
         Ui.printMessages("Sorry~ I can not find the storage file",
                 "Please ensure there is a file with path data/Kotori.Kotori.txt");
     } catch (IOException e) {
-        Ui.printMessage(String.format("There is something wrong about: %s", e.getMessage()));
+        Ui.printMessages(String.format("There is something wrong about: %s", e.getMessage()));
     }
 
 

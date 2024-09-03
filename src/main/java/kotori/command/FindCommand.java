@@ -1,8 +1,8 @@
 package kotori.command;
 
 import kotori.taskList.TaskList;
-import static kotori.ui.Ui.printMessage;
 import static kotori.ui.Ui.printListWithMessages;
+import static kotori.ui.Ui.printMessages;
 
 public class FindCommand extends Command{
     private TaskList taskList;
@@ -14,12 +14,12 @@ public class FindCommand extends Command{
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         TaskList result = taskList.findAll(target);
         if (taskList.isEmpty()) {
-            printMessage("Sorry~ There is no matching task");
+            return printMessages("Sorry~ There is no matching task");
         } else {
-            printListWithMessages(result, "These are(is) the task(s) that match the description");
+            return printListWithMessages(result, "These are(is) the task(s) that match the description");
         }
     }
 }

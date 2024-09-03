@@ -1,9 +1,9 @@
 package kotori.command;
+
 import kotori.storage.Storage;
 import kotori.taskList.IncorrectStateException;
 import kotori.taskList.TaskList;
-
-import static kotori.ui.Ui.printMessage;
+import static kotori.ui.Ui.printMessages;
 
 /**
  * This represents a command of trying to mark a task
@@ -26,16 +26,17 @@ public class MarkCommand extends Command{
      */
 
     @Override
-    public void execute() {
+    public String execute() {
         if (taskList.size() < index || index <= 0 ) {
-            printMessage("Sorry~ can not mark that task because it does not exist");
+            return printMessages("Sorry~ can not mark that task because it does not exist");
         } else {
             try {
                 taskList.mark(index - 1);
-                printMessage(String.format("Nice Job, Job %s has been marked as done!\n    %s",index, taskList.get(index - 1)));
                 storage.updateFile(taskList);
+                return printMessages(String.format("Nice Job, Job %s has been marked as done!\n    %s",
+                        index, taskList.get(index - 1)));
             } catch (IncorrectStateException e) {
-                printMessage(e.getMessage());
+                return printMessages(e.getMessage());
             }
         }
     }

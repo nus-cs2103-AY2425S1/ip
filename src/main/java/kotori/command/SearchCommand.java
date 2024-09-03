@@ -24,7 +24,7 @@ public class SearchCommand extends Command{
      * */
 
     @Override
-    public void execute() {
+    public String execute() {
         try {
             TaskList output = new TaskList();
             for (int i = 0; i < list.size(); i++) {
@@ -33,20 +33,14 @@ public class SearchCommand extends Command{
                 }
             }
             if (output.isEmpty()) {
-                Ui.printMessage(String.format("Great! You have no task related to this date %s", date));
+                return Ui.printMessages(String.format("Great! You have no task related to this date %s", date));
             } else {
-                Ui.printLine();
-                System.out.println(String.format("    These are the tasks related to this date %s", date));
-                for (int i = 0; i < output.size(); i++) {
-                    System.out.println("    " + output.get(i).toString());
-                }
-                Ui.printLine();
+                return Ui.printListWithMessages(output, String.format("These are the tasks related to this date %s",
+                        date));
             }
         } catch (DateTimeParseException e) {
-            Ui.printMessages("Sorry~ I can not recognize the time", "Please enter the time in the " +
+            return Ui.printMessages("Sorry~ I can not recognize the time", "Please enter the time in the " +
                     "YYYY-MM-DD format");
         }
-
-
     }
 }

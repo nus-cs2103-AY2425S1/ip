@@ -12,7 +12,7 @@ public class GreetCommand extends Command{
      * Activate the command and greet the user.
      * */
     @Override
-    public void execute() {
-        Ui.printGreeting();
+    public String execute() {
+        return Ui.printGreeting();
     }
 }

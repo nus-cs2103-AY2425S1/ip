@@ -33,8 +33,12 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Kotori kotori) {
+    public void setKotori(Kotori kotori) {
         this.kotori = kotori;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getKotoriDialog(kotori.getGreeting(), kotoriImage),
+                DialogBox.getKotoriDialog(kotori.getReadingStatus(), kotoriImage)
+        );
     }
 
     /**
@@ -47,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = kotori.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, kotoriImage)
+                DialogBox.getKotoriDialog(response, kotoriImage)
         );
         userInput.clear();
     }

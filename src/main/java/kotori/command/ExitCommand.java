@@ -17,7 +17,7 @@ public class ExitCommand extends Command{
     /**
      * Activates the command and exit the chatbot.
      * */
-    public void execute() {
-       printExit();
+    public String execute() {
+        return printExit();
    }
 }

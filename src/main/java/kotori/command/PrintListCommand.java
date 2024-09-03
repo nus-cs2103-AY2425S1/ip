@@ -20,7 +20,7 @@ public class PrintListCommand extends Command {
      * */
 
     @Override
-    public void execute() {
-        printList(taskList);
+    public String execute() {
+        return printList(taskList);
     }
 }

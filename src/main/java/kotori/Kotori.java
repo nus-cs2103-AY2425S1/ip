@@ -4,8 +4,11 @@ import kotori.command.Command;
 import kotori.command.ExitCommand;
 import kotori.command.GreetCommand;
 import kotori.parser.Parser;
+import kotori.storage.CorruptedFileException;
 import kotori.storage.Storage;
 import kotori.taskList.TaskList;
+
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -19,9 +22,11 @@ public class Kotori {
 
     public Kotori () {
         this.storage = new Storage("data", "Kotori.txt");
-        this.taskList = storage.load();
+        this.taskList = this.storage.load();
         this.parser = new Parser(storage, taskList);
     }
+
+
 
     /**
      * Let the bot start running.
@@ -46,8 +51,34 @@ public class Kotori {
         new Kotori().run();
     }
 
+    /**
+     * Return a string for Ui.
+     *
+     * @param input the input of user.
+     * @return The String for ui to output.
+     * */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        Command command = parser.parse(input);
+        return command.execute();
+    }
+
+    /**
+     * Return a string of reading status for Ui.
+     *
+     * @return The String for ui to output.
+     * */
+    public String getReadingStatus() {
+        if (!storage.hasFile()) {
+            return "There is no existing memory file so I create a new one for you~ ^_^\n";
+        } else if (storage.isCorrupted()) {
+            return "The memory file is corrupted so I create a new one for you~ ^_^\n";
+        } else {
+            return "I have read the memory file, use 'list' command to view current task list~ ^_^\n";
+        }
+    }
+
+    public String getGreeting() {
+        return new GreetCommand().execute();
     }
 }
 
