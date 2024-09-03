@@ -1,7 +1,5 @@
 package yapbot.util;
 
-import yapbot.exceptions.YapBotException;
-
 import java.util.Scanner;
 
 public class Ui {

@@ -20,20 +20,21 @@ public class YapBot {
     private Storage storage;
 
     public YapBot(String filepath) {
-        try {
-            this.ui = new Ui();
-            this.storage = new Storage(filepath);
-            this.taskList = new TaskList(storage.load());
-        } catch (YapBotException e) {
-            ui.printError(e.getMessage());
-            this.taskList = new TaskList();
-        }
+        this.ui = new Ui();
+        this.storage = new Storage(filepath);
+        this.taskList = new TaskList();
     }
 
     public void run() {
 
-
         ui.welcomeUser();
+
+        try {
+            this.taskList = new TaskList(storage.load());
+        } catch (YapBotException e) {
+            ui.printError(e.getMessage());
+        }
+
         boolean shouldExit = false;
 
         while (!shouldExit) {

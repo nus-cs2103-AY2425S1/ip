@@ -6,13 +6,9 @@ import yapbot.tasks.Event;
 import yapbot.tasks.Task;
 import yapbot.tasks.ToDo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
 
 public class TaskList {
     private ArrayList<Task> storedTasks;

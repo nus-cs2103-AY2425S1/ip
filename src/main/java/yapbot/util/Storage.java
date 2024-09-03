@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -20,23 +19,18 @@ public class Storage {
     private File file;
     private String filepath;
 
-    public Storage(String filepath) throws YapBotException {
-        try {
-            this.filepath = filepath;
-
-            this.file = new File(filepath);
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-        } catch (IOException e) {
-            throw new YapBotException("Error, save file could not be created."
-                    + "\nYour tasks from this session will not be saved.");
-        }
+    public Storage(String filepath) {
+        this.filepath = filepath;
+        this.file = new File(filepath);
     }
 
     public ArrayList<Task> load() throws YapBotException {
         try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+
             Scanner s = new Scanner(file);
             ArrayList<Task> result = new ArrayList<>();
 
