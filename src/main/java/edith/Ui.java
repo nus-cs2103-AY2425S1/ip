@@ -8,7 +8,8 @@ import edith.task.ToDoTask;
 import java.util.Objects;
 
 public class Ui {
-    private static final String HORIZONTAL = "____________________________________________________________";
+    private static final String HORIZONTAL = "______________________________________________________" +
+            "_________________________________________________";
     private static final String GREETING = " heyyy im edith!\n what can I do for you?";
     private static final String FAREWELL = " bye!! see you soon love <3";
     private static final String LINEBREAK = "\n";
@@ -32,6 +33,10 @@ public class Ui {
 
         else if (Objects.equals(command, "delete")) {
             delete(userInput, toDoList);
+        }
+
+        else if (Objects.equals(command, "find")) {
+            find(userInput, toDoList);
         }
 
         else {
@@ -147,11 +152,31 @@ public class Ui {
         }
     }
 
+    /**
+     * Finds tasks that match keyword(s) provided by user. Prints error if user does not input any keywords.
+     * @param userInput User input.
+     * @param toDoList List of user's current tasks.
+     */
+    public static void find(String userInput, ToDoList toDoList) {
+        try {
+            String keyword = Parser.getKeyword(userInput);
+            ToDoList tasksMatchingKeyword = toDoList.getListOfTasksMatchingKeyword(keyword);
+            if (tasksMatchingKeyword.getNumberofTasks() == 0) {
+                System.out.println(" there are no tasks matching the description you gave: " + keyword + " :(\n");
+            } else {
+                System.out.println(" here is a list of tasks matching the description you gave: " + keyword + LINEBREAK +
+                        tasksMatchingKeyword + LINEBREAK);
+            }
+        } catch (MissingKeywordException e) {
+            showError(e.getMessage());
+        }
+    }
+
     public static void showLine() {
         System.out.println(HORIZONTAL + LINEBREAK);
     }
 
     public static void showError(String errorMessage) {
-        System.out.println(errorMessage);
+        System.out.println(errorMessage + "\n");
     }
 }
