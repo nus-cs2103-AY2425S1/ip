@@ -55,7 +55,6 @@ public class Applemazer {
         Scanner sc = new Scanner(input + " ");
         Parser parser = new Parser(sc);
         String command = sc.next();
-        System.out.println(command);
         try {
             Command c = parser.parse(command);
             isProcessing = c.continueProcessing();
