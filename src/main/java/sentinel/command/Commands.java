@@ -1,10 +1,10 @@
 package sentinel.command;
 
-import sentinel.parser.Parser;
+import java.time.LocalDate;
+
 import sentinel.Sentinel;
 import sentinel.SentinelException;
-
-import java.time.LocalDate;
+import sentinel.parser.Parser;
 
 /**
  * Enumeration for Sentinel's commands. The enums contain the
