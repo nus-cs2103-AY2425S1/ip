@@ -4,12 +4,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Represents the abstract class Task
+ */
 public abstract class Task {
-    private String description;
-    private String taskType;
-    private boolean isDone;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH);
+    private final String description;
+    private final String taskType;
+    private boolean isDone;
 
+    /**
+     * Constructor for the class Task
+     * To be used in subclasses only
+     * @param description Description of the task
+     * @param taskType Represents the specific task type
+     * @param isDone Represents the completion status of the task
+     */
     public Task(String description, String taskType, boolean isDone) {
         this.description = description;
         this.isDone = isDone;

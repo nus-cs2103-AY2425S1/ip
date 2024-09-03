@@ -3,7 +3,13 @@ package casper;
 import exception.CasperBotException;
 import exception.CasperBotOutOfBoundsException;
 
+/**
+ * Represents the Ui class
+ */
 public class Ui {
+    /**
+     * Represents the enumeration of the various task commands
+     */
     public enum TaskCommand {
         MARK, UNMARK, DELETE;
     }
@@ -14,10 +20,14 @@ public class Ui {
     }
 
     public void greeting() {
-        System.out.println("Hello! I'm CasperBot.\n" +
-                "What can I do for you?");
+        System.out.println("Hello! I'm CasperBot.\n" + "What can I do for you?");
     }
 
+    /**
+     * Prints the response after a command from the user
+     * @param command The command that was executed
+     * @param task The task that was modified
+     */
     public void displayUpdateMessage(TaskCommand command, Task task) {
         switch (command) {
         case MARK:
@@ -28,6 +38,8 @@ public class Ui {
             break;
         case DELETE:
             System.out.println("Noted. I've removed this task:");
+            break;
+        default:
             break;
         }
         System.out.println("  " + task);
@@ -50,10 +62,13 @@ public class Ui {
     }
 
     public void addTaskMessage(Task task) {
-        System.out.println("Got it. I've added this task:\n" +
-                "  " + task);
+        System.out.println("Got it. I've added this task:\n" + "  " + task);
     }
 
+    /**
+     * Displays a message regarding how many tasks are in the task list
+     * @param length The length of the task list
+     */
     public void printTaskListLength(int length) {
         if (length == 1) {
             System.out.println("Now you have 1 task in the list.");
@@ -62,6 +77,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a message regarding how many matching tasks are in the task list
+     * @param taskList The task list where matches are checked for
+     * @throws CasperBotOutOfBoundsException
+     */
     public void printMatchedTasks(TaskList taskList) throws CasperBotOutOfBoundsException {
         if (taskList.isEmpty()) {
             System.out.println("There are no matches in your list.");

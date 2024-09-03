@@ -2,6 +2,9 @@ package casper;
 
 import java.util.HashMap;
 
+/**
+ * Represents the Parser class
+ */
 public class Parser {
     public Parser() {}
 
@@ -18,7 +21,7 @@ public class Parser {
         }
 
         // Split the string into two parts
-        String part1 = input.substring(0, firstSpaceIndex).trim();  // Before the first space
+        String part1 = input.substring(0, firstSpaceIndex).trim(); // Before the first space
         String part2 = input.substring(firstSpaceIndex + 1).trim(); // After the first space
 
         return new String[] { part1, part2 };

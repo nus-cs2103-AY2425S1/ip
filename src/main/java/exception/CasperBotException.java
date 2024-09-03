@@ -1,8 +1,11 @@
 package exception;
 
+/**
+ * The parent class for all CasperBotExceptions
+ */
 public class CasperBotException extends Exception {
     private String solution;
-    protected CasperBotException(String message,String solution) {
+    protected CasperBotException(String message, String solution) {
         super(message);
         this.solution = solution;
     }

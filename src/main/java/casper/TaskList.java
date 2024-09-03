@@ -1,10 +1,13 @@
 package casper;
 
-import exception.CasperBotOutOfBoundsException;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.CasperBotOutOfBoundsException;
+
+/**
+ * Represents the TaskList class
+ */
 public class TaskList {
     private final List<Task> taskList;
 

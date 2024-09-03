@@ -1,8 +1,5 @@
 package casper;
 
-import exception.CasperBotIOException;
-import exception.CasperBotOutOfBoundsException;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,9 +13,14 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 
+import exception.CasperBotIoException;
+import exception.CasperBotOutOfBoundsException;
+
+/**
+ * Represents the Storage class
+ */
 public class Storage {
     private final String filePath;
-    
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -28,13 +30,13 @@ public class Storage {
      * After opening file, it will parse the file contents to add them to the task list
      * If file does not exist, it will create a new file
      * @param taskList Task list where file contents will be added to
-     * @throws CasperBotIOException If there is an IOException while reading or opening the file
+     * @throws CasperBotIoException If there is an IOException while reading or opening the file
      */
-    public void openFile(TaskList taskList) throws CasperBotIOException {
+    public void openFile(TaskList taskList) throws CasperBotIoException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
-            while ((line = reader.readLine()) != null) {  // Read each line until end of file
+            while ((line = reader.readLine()) != null) { // Read each line until end of file
                 String[] values = line.split("\\|");
                 boolean isDone = Boolean.parseBoolean(values[1]);
                 String description = values[2];
@@ -51,6 +53,8 @@ public class Storage {
                     LocalDate end = LocalDate.parse(values[4]);
                     taskList.addTask(new Event(description, isDone, start, end));
                     break;
+                default:
+                    throw new CasperBotIoException();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -58,18 +62,18 @@ public class Storage {
                 File file = new File(filePath);
                 file.createNewFile();
             } catch (IOException ioException) {
-                throw new CasperBotIOException();
+                throw new CasperBotIoException();
             }
         } catch (IOException e) {
-            throw new CasperBotIOException();
+            throw new CasperBotIoException();
         }
     }
 
     /**
      * Write a task description to a file for persistent storage
-     * @throws CasperBotIOException f there is an IOException while writing to the file
+     * @throws CasperBotIoException f there is an IOException while writing to the file
      */
-    public void writeToFile(Task task) throws CasperBotIOException {
+    public void writeToFile(Task task) throws CasperBotIoException {
         try {
             FileWriter writer = new FileWriter(filePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
@@ -88,21 +92,23 @@ public class Storage {
                 Event event = (Event) task;
                 bufferedWriter.write("D|" + taskString + "|" + event.getStart() + "|" + event.getEnd());
                 break;
+            default:
+                throw new CasperBotIoException();
             }
             bufferedWriter.newLine();
             bufferedWriter.close();
         } catch (IOException e) {
-            throw new CasperBotIOException();
+            throw new CasperBotIoException();
         }
     }
 
     /**
      * Deletes a line in the file, specified by line number
      * @param line The line number to delete
-     * @throws CasperBotIOException If there is an IOException when handling the file (read/write)
+     * @throws CasperBotIoException If there is an IOException when handling the file (read/write)
      * @throws CasperBotOutOfBoundsException If the line number specified does not exist
      */
-    public void deleteFromFile(int line) throws CasperBotIOException, CasperBotOutOfBoundsException {
+    public void deleteFromFile(int line) throws CasperBotIoException, CasperBotOutOfBoundsException {
         try {
             Path path = Paths.get(filePath);
             List<String> lines = Files.readAllLines(path);
@@ -114,7 +120,7 @@ public class Storage {
             }
             Files.write(path, lines);
         } catch (IOException e) {
-            throw new CasperBotIOException();
+            throw new CasperBotIoException();
         }
     }
 
@@ -122,10 +128,10 @@ public class Storage {
      * Updates the file contents to mark or unmark the done status of a task
      * @param line The line to be updated
      * @param isDone Boolean value of whether the task is done or not
-     * @throws CasperBotIOException If there is an IOException when handling the file (read/write)
+     * @throws CasperBotIoException If there is an IOException when handling the file (read/write)
      * @throws CasperBotOutOfBoundsException If the line number specified does not exist
      */
-    public void updateDoneStatus(int line, boolean isDone) throws CasperBotIOException, CasperBotOutOfBoundsException {
+    public void updateDoneStatus(int line, boolean isDone) throws CasperBotIoException, CasperBotOutOfBoundsException {
         try {
             Path path = Paths.get(filePath);
             List<String> lines = Files.readAllLines(path);
@@ -142,7 +148,7 @@ public class Storage {
             }
             Files.write(path, lines);
         } catch (IOException e) {
-            throw new CasperBotIOException();
+            throw new CasperBotIoException();
         }
     }
 }

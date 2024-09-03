@@ -2,9 +2,20 @@ package casper;
 
 import java.time.LocalDate;
 
+/**
+ * Represents the Event task
+ */
 public class Event extends Task {
-    private LocalDate start;
-    private LocalDate end;
+    private final LocalDate start;
+    private final LocalDate end;
+
+    /**
+     * Constructor for the event task
+     * @param description Description of the event
+     * @param isDone Represents the completion status of the event
+     * @param start Start date of the event
+     * @param end End date of the event
+     */
     public Event(String description, boolean isDone, LocalDate start, LocalDate end) {
         super(description, "E", isDone);
         this.start = start;

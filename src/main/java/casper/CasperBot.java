@@ -1,17 +1,20 @@
 package casper;
 
-import exception.CasperBotException;
-import exception.CasperBotIOException;
-import exception.CasperBotInvalidCommandException;
-import exception.CasperBotInvalidDateException;
-import exception.CasperBotMissingInputException;
-import exception.CasperBotNumberFormatException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import exception.CasperBotException;
+import exception.CasperBotInvalidCommandException;
+import exception.CasperBotInvalidDateException;
+import exception.CasperBotIoException;
+import exception.CasperBotMissingInputException;
+import exception.CasperBotNumberFormatException;
+
+/**
+ * Represents the bot
+ */
 public class CasperBot {
     private enum CommandType {
         CREATE, TASK;
@@ -28,6 +31,10 @@ public class CasperBot {
     private final Storage storage;
     private final Parser parser;
 
+    /**
+     * Constructor for CasperBot
+     * @param filePath The file path of the local storage of the bot information
+     */
     public CasperBot(String filePath) {
         this.taskList = new TaskList();
         this.ui = new Ui();
@@ -44,11 +51,12 @@ public class CasperBot {
      */
     private void run() {
         try {
-            this.storage.openFile(this.taskList);this.ui.printLine();
+            this.storage.openFile(this.taskList);
+            this.ui.printLine();
             this.ui.greeting();
             this.ui.printLine();
             echo();
-        } catch (CasperBotIOException e) {
+        } catch (CasperBotIoException e) {
             this.ui.showErrorMessage(e);
         }
     }
@@ -66,15 +74,13 @@ public class CasperBot {
             try {
                 if (inputArray[0].equalsIgnoreCase("list")) {
                     this.ui.displayTaskList(taskList);
-                }
-                else if (inputArray[0].equalsIgnoreCase("find")) {
+                } else if (inputArray[0].equalsIgnoreCase("find")) {
                     if (inputArray[1].isBlank()) {
                         throw new CasperBotMissingInputException("keyword", "find");
                     }
                     TaskList matched = taskList.findMatchTasks(inputArray[1]);
                     this.ui.printMatchedTasks(matched);
-                }
-                else if (isValidCommand(inputArray[0], CommandType.TASK)) {
+                } else if (isValidCommand(inputArray[0], CommandType.TASK)) {
                     try {
                         int index = Integer.parseInt(inputArray[1]) - 1;
                         TaskCommand taskCommand = TaskCommand.valueOf(inputArray[0].trim().toUpperCase());
@@ -95,6 +101,8 @@ public class CasperBot {
                             this.storage.deleteFromFile(index);
                             this.ui.displayUpdateMessage(Ui.TaskCommand.DELETE, task);
                             break;
+                        default:
+                            throw new CasperBotInvalidCommandException();
                         }
                         if (taskCommand == TaskCommand.DELETE) {
                             this.ui.printTaskListLength(this.taskList.getNumberOfTasks());
@@ -102,8 +110,7 @@ public class CasperBot {
                     } catch (NumberFormatException e) {
                         throw new CasperBotNumberFormatException();
                     }
-                }
-                else if (isValidCommand(inputArray[0], CommandType.CREATE)) {
+                } else if (isValidCommand(inputArray[0], CommandType.CREATE)) {
                     HashMap<String, String> hashMap = new HashMap<>();
                     this.parser.parseBySlash(inputArray[1], hashMap);
                     CreateCommand command = CreateCommand.valueOf(inputArray[0].trim().toUpperCase());
@@ -154,13 +161,14 @@ public class CasperBot {
                             this.storage.writeToFile(newEvent);
                             this.ui.addTaskMessage(newEvent);
                             break;
+                        default:
+                            throw new CasperBotInvalidCommandException();
                         }
                         this.ui.printTaskListLength(this.taskList.getNumberOfTasks());
                     } catch (DateTimeParseException e) {
                         throw new CasperBotInvalidDateException();
                     }
-                }
-                else if (inputArray[0].equalsIgnoreCase("bye")) {
+                } else if (inputArray[0].equalsIgnoreCase("bye")) {
                     this.ui.exit();
                 } else {
                     throw new CasperBotInvalidCommandException();
@@ -179,7 +187,7 @@ public class CasperBot {
      *
      * @param command The string to be validated
      * @param commandType The type of command it should belong to (CREATE, TASK)
-     * @return
+     * @return True if it is a valid command, False otherwise
      */
     private static boolean isValidCommand(String command, CommandType commandType) {
         try {
@@ -190,6 +198,8 @@ public class CasperBot {
             case TASK:
                 TaskCommand.valueOf(command.trim().toUpperCase());
                 break;
+            default:
+                return false;
             }
             return true;
         } catch (IllegalArgumentException e) {
