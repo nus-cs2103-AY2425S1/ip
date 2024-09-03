@@ -151,10 +151,20 @@ public class Ui {
     }
 
     /**
-     * Prints an error message when there is an error creating a file.
+     * Prints a list of tasks that match a keyword.
      * 
-     * @param e The IOException that was thrown.
+     * @param tasks The tasks that match the keyword.
      */
+    public void printMatchingFind(String tasks) {
+        if (tasks.equals("")) {
+            printAnyMessage("Aw man no matching tasks :(");
+        } else {
+            System.out.println("    " + DIVIDER + "\n    Matching tasks in your list: ");
+            System.out.println(tasks);
+            System.out.println("\n    " + DIVIDER);
+        }
+    }
+
     public void showCreateFileError(IOException e) {
         printAnyMessage("Error creating file:" + e.getMessage());
     }

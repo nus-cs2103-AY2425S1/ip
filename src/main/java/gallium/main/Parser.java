@@ -5,6 +5,7 @@ import gallium.command.ByeCommand;
 import gallium.command.Command;
 import gallium.command.DateCommand;
 import gallium.command.DeleteCommand;
+import gallium.command.FindCommand;
 import gallium.command.ListCommand;
 import gallium.command.MarkCommand;
 
@@ -24,6 +25,7 @@ public class Parser {
     private static final String EVENT = "event";
     private static final String DELETE = "delete";
     private static final String DATE = "date";
+    private static final String FIND = "find";
 
     private Ui ui;
 
@@ -70,6 +72,8 @@ public class Parser {
                             return new DeleteCommand(message);
                         } else if (message.startsWith(DATE)) {
                             return new DateCommand(message);
+                        } else if (message.startsWith(FIND)) {
+                            return new FindCommand(message);
                         } else {
                             throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
                         }
