@@ -69,7 +69,7 @@ public abstract class Task {
                         "Warning: ekud.task.Task entry { %s } is missing required arguments or is"
                                 + "incorrectly formatted\nRemoving ekud.task entry...",
                         taskSaveString);
-            ui.printOutput(message);
+            ui.addToBuffer(message);
             return null;
         }
     }

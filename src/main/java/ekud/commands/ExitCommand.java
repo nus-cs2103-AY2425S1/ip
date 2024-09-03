@@ -12,7 +12,7 @@ import ekud.ui.Ui;
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.printGoodbye();
+        // does nothing
     }
 
     @Override

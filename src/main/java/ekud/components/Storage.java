@@ -61,7 +61,7 @@ public class Storage {
             assert (createdFile);
         } catch (IOException e) {
             String error = String.format("Oh no!! I could not create a save file for you\n  ERROR %s", e);
-            ui.printOutput(error);
+            ui.addToBuffer(error);
         }
     }
 
@@ -109,7 +109,7 @@ public class Storage {
                     Something went wrong when trying to load your save!
                       ERROR: %s""",
                     e);
-            ui.printOutput(error);
+            ui.addToBuffer(error);
         }
     }
 
@@ -130,7 +130,7 @@ public class Storage {
                     Oh no! I've encountered an error while trying to save your task!
                       ERROR: %s""",
                     e);
-            ui.printOutput(error);
+            ui.addToBuffer(error);
         }
     }
 
@@ -165,7 +165,7 @@ public class Storage {
                     Oh no!! I've encountered an error while remove your task from your save file!
                       ERROR: %s""",
                     e);
-            ui.printOutput(error);
+            ui.addToBuffer(error);
         }
     }
 
@@ -202,7 +202,7 @@ public class Storage {
                     Oh no!! I've encountered an error while trying to update the task in your save file!
                       ERROR: %s""",
                     e);
-            ui.printOutput(error);
+            ui.addToBuffer(error);
         }
     }
 }

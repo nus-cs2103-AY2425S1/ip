@@ -37,7 +37,7 @@ public class UnmarkCommand extends Command {
                 tasks.getTask(index),
                 tasks.getIncompleteCount(),
                 tasks.getCount());
-        ui.printOutput(message);
+        ui.addToBuffer(message);
 
         // update data file
         storage.updateTaskState(task, previousSaveState, ui);

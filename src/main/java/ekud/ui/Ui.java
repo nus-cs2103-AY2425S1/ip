@@ -1,75 +1,64 @@
 package ekud.ui;
 
-import java.util.Scanner;
-import java.util.stream.Stream;
-
 /**
  * Represents the UI of EKuD, responsible for outputting EKuD's responses and reading the user's input.
  *
  * @author uniqly
  * @see ekud.Ekud
  */
-public class Ui {
-    /** Line separator between outputs by EKuD and inputs by the user */
-    private static final String LINE_SEPARATOR =
-            "\t_____________________________________________________________";
-
-    /** Prefix appended to outputs by EKuD */
-    private final String prefix;
+public abstract class Ui {
+    /** Buffer of Strings to print as one output */
+    private final StringBuilder bufferedOutputs = new StringBuilder();
 
     /**
-     * Creates the ui using the input prefix.
+     * Clears the buffer.
+     */
+    public void clearBuffer() {
+        bufferedOutputs.setLength(0);
+    }
+
+    /**
+     * Adds input to output buffer.
      *
-     * @param prefix The prefix to be appended to EKuD's output.
+     * @param input The input to add to the buffer.
      */
-    public Ui(String prefix) {
-        this.prefix = prefix;
+    public void addToBuffer(String input) {
+        if (!bufferedOutputs.isEmpty()) { // add newline if more than one line in buffer
+            bufferedOutputs.append("\n");
+        }
+        bufferedOutputs.append(input);
     }
 
     /**
-     * Reads and returns the user's input from a given source.
+     * Returns {@link #bufferedOutputs} as one {@link String}.
      *
-     * @param sc The {@link Scanner} which is the source of the user's input.
-     * @return The user's input
+     * @return The combined output.
      */
-    public String readCommand(Scanner sc) {
-        System.out.println();
-        String command = sc.nextLine();
-        return command;
+    public String collectBuffer() {
+        String output = bufferedOutputs.toString();
+        clearBuffer();
+        return output;
     }
 
     /**
-     * Greets the user.
-     */
-    public void printGreeting() {
-        String greeting = "Hey! My name is EkuD!!\nYou can call me Eku-Chan!";
-        printLineSeparator();
-        printOutput(greeting);
-        printLineSeparator();
-    }
-
-    /**
-     * Says goodbye to the user.
-     */
-    public void printGoodbye() {
-        String goodbye = "I hope you enjoyed your stay!\nSee you next time! NOT!!";
-        printOutput(goodbye);
-    }
-
-    /**
-     * Prepends each line of a given input with the {@link Ui#prefix} and prints them sequentially.
+     * Reads user inputs, does something and returns a back the input as a {@link String}.
      *
-     * @param input The input {@link String}.
+     * @return The users input as a {@link String}.
      */
-    public void printOutput(String input) {
-        Stream<String> lines = input.lines();
-        lines.forEach(line -> System.out.printf("%s%s%n", prefix, line));
-    }
+    public abstract String readCommand();
 
     /**
-     * Prints the {@link Ui#LINE_SEPARATOR}.
+     * Outputs a greeting to the UI.
      */
-    public void printLineSeparator() {
-        System.out.println(LINE_SEPARATOR);
-    }
+    public abstract void printGreeting();
+
+    /**
+     * Outputs a goodbye message to the UI.
+     */
+    public abstract void printGoodbye();
+
+    /**
+     * Outputs buffer to the UI.
+     */
+    public abstract void printOutput();
 }

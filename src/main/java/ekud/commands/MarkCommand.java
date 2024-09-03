@@ -41,7 +41,7 @@ public class MarkCommand extends Command {
                         %s!""",
                 task,
                 listStatus);
-        ui.printOutput(message);
+        ui.addToBuffer(message);
 
         // update data file
         storage.updateTaskState(task, previousSaveState, ui);

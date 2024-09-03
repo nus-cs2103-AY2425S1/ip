@@ -53,7 +53,7 @@ public class DeleteCommand extends Command {
                 completeResponse,
                 removed,
                 listStatus);
-        ui.printOutput(message);
+        ui.addToBuffer(message);
 
         storage.deleteTask(removed, ui);
     }

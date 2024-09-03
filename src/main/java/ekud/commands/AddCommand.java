@@ -30,7 +30,7 @@ public class AddCommand extends Command {
                 task,
                 tasks.getIncompleteCount(),
                 tasks.getCount());
-        ui.printOutput(message);
+        ui.addToBuffer(message);
 
         storage.saveNewTask(task, ui);
     }
