@@ -3,6 +3,7 @@ package bitbot;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -91,7 +92,7 @@ public class Application {
                                     + "          ____________________________________");
                             break;
                         case "find":
-                            TaskHandling.handleFind(partsOfInput, arrayList);
+                            TaskHandling.handleFind(arrayList, Arrays.copyOfRange(partsOfInput, 1, partsOfInput.length));
                             break;
                         case "event":
                             // this is to check if the keyword is "event".
