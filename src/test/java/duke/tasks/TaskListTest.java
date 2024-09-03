@@ -1,6 +1,7 @@
 package duke.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -170,7 +171,7 @@ class TaskListTest {
         taskList.filter("book");
         assertTrue(newOut.toString().contains("Here are the matching tasks in your list:"));
         assertTrue(newOut.toString().contains("[T][ ] read book"));
-        assertTrue(!newOut.toString().contains("write report"));
+        assertFalse(newOut.toString().contains("write report"));
     }
 
     /**
@@ -191,5 +192,60 @@ class TaskListTest {
         TaskList taskList = TaskList.getInstance();
         DukeException e = assertThrows(DukeException.class, () -> taskList.unmark("1"));
         assertEquals("List is empty, no tasks to unmark.", e.getMessage());
+    }
+
+    /**
+     * Tests updating tasks in the TaskList.
+     */
+    @Test
+    void testUpdateTask() throws DukeException {
+        TaskList taskList = TaskList.getInstance();
+
+        taskList.createTask("todo", "read book");
+        taskList.createTask("deadline", "return book /by 2024-08-23 1200");
+        taskList.createTask("event", "project meeting /from 2024-08-23 1400 /to 2024-08-23 1600");
+        newOut.reset();
+
+        taskList.updateTask("1 deadline finish book /by 2024-09-01 1800");
+        String expected = "Got it. I've updated the task:\n"
+                + "[D][ ] finish book (by: Sept 1 2024 18:00)";
+        assertTrue(newOut.toString().contains(expected));
+        newOut.reset();
+
+        taskList.updateTask("2 event book return /from 2024-08-23 1100 /to 2024-08-23 1300");
+        expected = "Got it. I've updated the task:\n"
+                + "[E][ ] book return (from: Aug 23 2024 11:00 to: Aug 23 2024 13:00)";
+        assertTrue(newOut.toString().trim().contains(expected));
+        newOut.reset();
+
+        taskList.updateTask("3 todo reschedule project meeting");
+        expected = "Got it. I've updated the task:\n"
+                + "[T][ ] reschedule project meeting";
+        assertTrue(newOut.toString().trim().contains(expected));
+        newOut.reset();
+
+        DukeException e = assertThrows(DukeException.class, () -> taskList.updateTask("4 todo invalid task"));
+        assertEquals("Task index out of range.", e.getMessage());
+
+        e = assertThrows(DukeException.class, () -> taskList.updateTask("1 invalid_type some task"));
+        assertEquals("Invalid task type.", e.getMessage());
+
+        e = assertThrows(DukeException.class, () -> taskList.updateTask(
+                "1 deadline invalid date /by 2024-13-45 2500"));
+        assertEquals("Invalid date format.", e.getMessage());
+
+        e = assertThrows(DukeException.class, () -> taskList.updateTask("1 deadline invalid format"));
+        assertEquals("Invalid deadline format.", e.getMessage());
+
+        e = assertThrows(DukeException.class, () -> taskList.updateTask(
+                "1 event invalid format /from 2024-08-23 1400"));
+        assertEquals("Invalid event format.", e.getMessage());
+
+        newOut.reset();
+        taskList.printTaskList();
+        String finalList = newOut.toString().trim();
+        assertTrue(finalList.contains("[D][ ] finish book (by: Sept 1 2024 18:00)"));
+        assertTrue(finalList.contains("[E][ ] book return (from: Aug 23 2024 11:00 to: Aug 23 2024 13:00)"));
+        assertTrue(finalList.contains("[T][ ] reschedule project meeting"));
     }
 }

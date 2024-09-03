@@ -227,7 +227,7 @@ public class TaskList {
         String[] parts = input.trim().split("\\s+", 3);
         if (parts.length < 3) {
             throw new DukeException(
-                    "Invalid update format. Use: update [index] [task type] [description]");
+                    "Invalid update format.");
         }
 
         int index;
