@@ -4,6 +4,9 @@ import com.nimbus.Storage;
 import com.nimbus.TaskList;
 import com.nimbus.Ui;
 
+/**
+ * Remove a task
+ */
 public class RemoveCommand extends Command {
     private final int index;
 
@@ -13,7 +16,8 @@ public class RemoveCommand extends Command {
 
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) {
-        if (storage.removeTaskFromFileByIndex(index, tasks.size()))
+        if (storage.removeTaskFromFileByIndex(index, tasks.size())) {
             ui.showRemovedTask(tasks.remove(index), tasks.size());
+        }
     }
 }

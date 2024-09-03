@@ -7,9 +7,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage class handle the read and write file operation of a chatbot
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Create a new storage object
+     * @param path file path of the data to be stored
+     */
     public Storage(String path) {
         this.filePath = path;
         checkSavedFile();
@@ -32,17 +39,17 @@ public class Storage {
 
     /**
      * Read a command and its file format and return its Command object
-     * @param command, a command in its file format
-     * @return a Command object that identifies command
+     * @param command A command in its file format
+     * @return A Command object that identifies command
      */
     public static Task getTaskFromSavedCommand(String command) {
         String[] arr = command.split("\\|");
         boolean isDone = arr[1].equals("1");
         return switch (arr[0]) {
-            case "T" -> new Todo(arr[2], isDone);
-            case "D" -> new Deadline(arr[2], isDone, arr[3]);
-            case "E" -> new Event(arr[2], isDone, arr[3], arr[4]);
-            default -> null;
+        case "T" -> new Todo(arr[2], isDone);
+        case "D" -> new Deadline(arr[2], isDone, arr[3]);
+        case "E" -> new Event(arr[2], isDone, arr[3], arr[4]);
+        default -> null;
         };
     }
 
@@ -74,7 +81,7 @@ public class Storage {
      * @return true iff saved successfully
      */
     public boolean writeTaskToFile(Task task) {
-        try (FileWriter file = new FileWriter(filePath, true)){
+        try (FileWriter file = new FileWriter(filePath, true)) {
             file.write(task.toFileFormat());
             file.write(System.lineSeparator());
             return true;

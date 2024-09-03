@@ -1,5 +1,8 @@
 package com.nimbus;
 
+/**
+ * Todo is a task
+ */
 public class Todo extends Task {
 
     public Todo(String description) {

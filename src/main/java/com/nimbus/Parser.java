@@ -11,7 +11,10 @@ import com.commands.RemoveCommand;
 import com.commands.TodoCommand;
 import com.commands.UnmarkCommand;
 
-final public class Parser {
+/**
+ * A command parser for the chatbot
+ */
+public final class Parser {
 
 
     /**
@@ -88,16 +91,16 @@ final public class Parser {
      */
     public static Command parse(String line) throws InvalidCommandException, InvalidArgumentException {
         return switch (getCommandType(line)) {
-            case "list" -> new ListCommand();
-            case "remove" -> new RemoveCommand(getArgument(line));
-            case "mark" -> new MarkCommand(getArgument(line));
-            case "unmark" -> new UnmarkCommand(getArgument(line));
-            case "todo" -> new TodoCommand(getArgument(line));
-            case "deadline" -> new DeadlineCommand(getArgument(line));
-            case "event" -> new EventCommand(getArgument(line));
-            case "bye" -> new ByeCommand();
-            case "find" -> new FindCommand(getArgument(line));
-            default -> throw new InvalidCommandException(getCommandType(line));
+        case "list" -> new ListCommand();
+        case "remove" -> new RemoveCommand(getArgument(line));
+        case "mark" -> new MarkCommand(getArgument(line));
+        case "unmark" -> new UnmarkCommand(getArgument(line));
+        case "todo" -> new TodoCommand(getArgument(line));
+        case "deadline" -> new DeadlineCommand(getArgument(line));
+        case "event" -> new EventCommand(getArgument(line));
+        case "bye" -> new ByeCommand();
+        case "find" -> new FindCommand(getArgument(line));
+        default -> throw new InvalidCommandException(getCommandType(line));
         };
     }
 }

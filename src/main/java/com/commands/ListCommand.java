@@ -4,6 +4,9 @@ import com.nimbus.Storage;
 import com.nimbus.TaskList;
 import com.nimbus.Ui;
 
+/**
+ * List all task stored by chatbot
+ */
 public class ListCommand extends Command {
 
     @Override

@@ -2,11 +2,14 @@ package com.nimbus;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList is a container for Task
+ */
 public class TaskList {
-    ArrayList<Task> arr;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
-        arr = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -14,7 +17,7 @@ public class TaskList {
      * @param task task to be added
      */
     public void add(Task task) {
-        arr.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -23,7 +26,7 @@ public class TaskList {
      */
     public void add(TaskList tasks) {
         for (int i = 0; i < tasks.size(); ++i) {
-            arr.add(tasks.get(i));
+            this.tasks.add(tasks.get(i));
         }
     }
 
@@ -33,7 +36,7 @@ public class TaskList {
      * @return The task removed
      */
     public Task remove(int index) {
-        return arr.remove(index);
+        return tasks.remove(index);
     }
 
     /**
@@ -41,7 +44,7 @@ public class TaskList {
      * @param index index of the task
      */
     public void mark(int index) {
-        arr.get(index).setDone();
+        tasks.get(index).setDone();
     }
 
     /**
@@ -49,15 +52,15 @@ public class TaskList {
      * @param index index of the task
      */
     public void unmark(int index) {
-        arr.get(index).setNotDone();
+        tasks.get(index).setNotDone();
     }
 
     public int size() {
-        return arr.size();
+        return tasks.size();
     }
 
     public Task get(int index) {
-        return arr.get(index);
+        return tasks.get(index);
     }
 
     /**

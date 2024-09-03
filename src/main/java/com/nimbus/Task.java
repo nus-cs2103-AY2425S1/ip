@@ -1,5 +1,8 @@
 package com.nimbus;
 
+/**
+ * Task to be done
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -24,7 +27,7 @@ public abstract class Task {
     /**
      * Mark the task as not done
      */
-    public void setNotDone(){
+    public void setNotDone() {
         isDone = false;
     }
 

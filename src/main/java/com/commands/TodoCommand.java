@@ -2,9 +2,12 @@ package com.commands;
 
 import com.nimbus.Storage;
 import com.nimbus.TaskList;
-import com.nimbus.Ui;
 import com.nimbus.Todo;
+import com.nimbus.Ui;
 
+/**
+ * Add a new todo task to chatbot
+ */
 public class TodoCommand extends Command {
     private final String argument;
 

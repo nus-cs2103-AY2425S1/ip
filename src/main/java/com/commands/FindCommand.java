@@ -5,6 +5,9 @@ import com.nimbus.Storage;
 import com.nimbus.TaskList;
 import com.nimbus.Ui;
 
+/**
+ * Find all task with the specified keyword
+ */
 public class FindCommand extends Command {
     private final String keyword;
 

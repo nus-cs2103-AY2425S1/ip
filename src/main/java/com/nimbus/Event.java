@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+/**
+ * Event is a task with start time and end time
+ */
+public class Event extends Task {
     protected String from;
     protected String to;
 
@@ -12,19 +15,26 @@ public class Event extends Task{
         this(description, false, from, to);
     }
 
+    /**
+     * Create a new event
+     * @param description description of the event
+     * @param isDone True iff the event has been done
+     * @param from Start time of the event
+     * @param to End time of the event
+     */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
         try {
             LocalDate date = LocalDate.parse(from);
             this.from = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             this.from = from;
         }
 
         try {
             LocalDate date = LocalDate.parse(to);
             this.to = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             this.to = to;
         }
     }
@@ -40,8 +50,8 @@ public class Event extends Task{
     @Override
     public String toFileFormat() {
         String isDoneString = this.isDone ? "1" : "0";
-        return getTypeIcon().charAt(1) + "|" + isDoneString + "|" +
-                this.getDescription() + "|" + this.getFromDate() + "|" + this.getToDate();
+        return getTypeIcon().charAt(1) + "|" + isDoneString + "|"
+                + this.getDescription() + "|" + this.getFromDate() + "|" + this.getToDate();
     }
 
     @Override

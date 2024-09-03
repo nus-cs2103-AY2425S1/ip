@@ -1,6 +1,7 @@
 package com.nimbus;
 
-import com.sun.tools.javac.Main;
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,8 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.util.Objects;
 
 /**
  * Controller for the main GUI.
@@ -28,6 +27,11 @@ public class MainWindow extends AnchorPane {
     private Image botImage;
     private Nimbus bot;
 
+    /**
+     * Initialize MainWindow
+     * @param userImagePath file path of user icon
+     * @param botImagePath file path of bot icon
+     */
     @FXML
     public void initialize(String userImagePath, String botImagePath) {
         this.userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(userImagePath)));

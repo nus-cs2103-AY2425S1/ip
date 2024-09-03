@@ -4,16 +4,23 @@ import java.util.Scanner;
 
 import com.commands.ByeCommand;
 import com.commands.Command;
-import javafx.scene.image.Image;
 
+/**
+ * Nimbus is a chatbot
+ */
 public class Nimbus {
-    final private static String name = "Nimbus";
+    private static String name = "Nimbus";
 
     private final TaskList tasks;
     private boolean isRunning;
     private final Ui ui;
     private final Storage storage;
 
+    /**
+     * Create a new chatbot
+     * @param filePath file path of the data stored by the chatbot
+     * @param ui ui used for the chatbot to show message to user
+     */
     public Nimbus(String filePath, Ui ui) {
         this.ui = ui;
         this.storage = new Storage(filePath);
@@ -23,6 +30,10 @@ public class Nimbus {
         ui.showWelcomeMessage();
     }
 
+    /**
+     * Execute command with the chatbot
+     * @param command command to be executed
+     */
     public void executeCommand(String command) {
         try {
             ui.showUserMessage(command);
@@ -30,7 +41,7 @@ public class Nimbus {
             c.execute(ui, storage, tasks);
             if (c instanceof ByeCommand) {
                 isRunning = false;
-                ui.stopGUI();
+                ui.stopGraphicalUI();
             }
         } catch (InvalidCommandException | InvalidArgumentException e) {
             ui.showError(e.getMessage());
@@ -46,7 +57,7 @@ public class Nimbus {
         Scanner scanner = new Scanner(System.in);
         String line;
 
-        while(isRunning) {
+        while (isRunning) {
             line = scanner.nextLine();
             executeCommand(line);
         }

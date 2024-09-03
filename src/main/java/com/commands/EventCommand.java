@@ -1,14 +1,18 @@
 package com.commands;
 
-import com.nimbus.InvalidArgumentException;
-import com.nimbus.Storage;
-import com.nimbus.TaskList;
-import com.nimbus.Ui;
-import com.nimbus.Task;
-import com.nimbus.Event;
 import static com.nimbus.Parser.getDescription;
 import static com.nimbus.Parser.readOption;
 
+import com.nimbus.Event;
+import com.nimbus.InvalidArgumentException;
+import com.nimbus.Storage;
+import com.nimbus.Task;
+import com.nimbus.TaskList;
+import com.nimbus.Ui;
+
+/**
+ * Add a new event to chatbot
+ */
 public class EventCommand extends Command {
     private final String argument;
 

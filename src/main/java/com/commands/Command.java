@@ -5,7 +5,10 @@ import com.nimbus.Storage;
 import com.nimbus.TaskList;
 import com.nimbus.Ui;
 
-abstract public class Command {
+/**
+ * Command to be executed by chatbot
+ */
+public abstract class Command {
     /**
      * Execute the command
      * @param ui      The Ui used to display the result of the execution
