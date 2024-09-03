@@ -1,3 +1,5 @@
+package Tayoo;
+
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedWriter;
@@ -8,6 +10,12 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
+
+import Tayoo.Exception.DeleteTxtException;
+import Tayoo.Exception.ParserException;
+import Tayoo.Exception.TayooException;
+import Tayoo.Exception.UpdateTxtException;
+import Tayoo.Tasks.Task;
 
 // deal with loading, deleting and saving tasks to a .txt file
 public class Storage {
@@ -50,7 +58,7 @@ public class Storage {
         }
     }
 
-    public List<Task> readTxt() throws TayooException{
+    public List<Task> readTxt() throws TayooException {
         File f = new File(TASKLIST_FILEPATH);
         List<Task> taskArray = new ArrayList<>();
         try {
@@ -61,8 +69,8 @@ public class Storage {
                     String taskStr = s.nextLine();
                     Task taskToAdd = Parser.parseTask(taskStr);
                     taskArray.add(taskToAdd);
-                } catch (ParserError e) {
-                    //something
+                } catch (ParserException e) {
+                    return null;
                 }
             }
             s.close();
@@ -130,7 +138,7 @@ public class Storage {
         }
     }
 
-    public boolean createTxt() throws TayooException{
+    public boolean createTxt() throws TayooException {
         File f = new File(TASKLIST_FILEPATH);
         try {
             return f.createNewFile();

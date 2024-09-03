@@ -1,3 +1,8 @@
+package Tayoo;
+
+import Tayoo.Command.Command;
+import Tayoo.Exception.TayooException;
+
 public class Tayoo {
     private static final String NAME = "Tayoo";
     private Ui ui;
@@ -7,11 +12,11 @@ public class Tayoo {
     public Tayoo() {
         try {
             this.storage = new Storage();
+            this.ui = new Ui(NAME);
             if (storage.createTxt()) {
                 ui.printText("Creating a new tasklist.txt for you.");
             }
             this.tasks = new Tasklist(storage.readTxt());
-            this.ui = new Ui(NAME);
         } catch (TayooException e) {
             ui.printError(e.getMessage());
         }

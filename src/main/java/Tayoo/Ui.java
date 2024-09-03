@@ -1,3 +1,5 @@
+package Tayoo;
+
 import java.util.Scanner;
 
 // Ui class will deal with interactions with users, including input, output

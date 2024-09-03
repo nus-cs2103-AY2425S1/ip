@@ -1,3 +1,5 @@
+package Tayoo;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -7,13 +9,25 @@ import java.time.temporal.TemporalAccessor;
 import java.time.temporal.ChronoField;
 import java.util.Arrays;
 import java.util.Scanner;
+import Tayoo.Command.Command;
+import Tayoo.Command.AddTaskCommand;
+import Tayoo.Command.ExitCommand;
+import Tayoo.Command.DeleteTaskCommand;
+import Tayoo.Command.DeleteAllCommand;
+import Tayoo.Command.MarkTaskCommand;
+import Tayoo.Command.ListCommand;
+import Tayoo.Exception.ParserException;
+import Tayoo.Tasks.Deadline;
+import Tayoo.Tasks.Event;
+import Tayoo.Tasks.Task;
+import Tayoo.Tasks.ToDo;
 
 // Deal with making sense of the user commands
 public class Parser {
 
     private static final String[] exitCodes = {"EXIT", "BYE", "GOODBYE", "CLOSE", "QUIT"};
 
-    public static Command parseCommand(String command) throws ParserError {
+    public static Command parseCommand(String command) throws ParserException {
             String input = command.toUpperCase();
 
         if (Arrays.asList(exitCodes).contains(input)) {
@@ -30,17 +44,17 @@ public class Parser {
             try {
                 return new AddTaskCommand(new ToDo(command.substring(5).trim()));
             } catch (IndexOutOfBoundsException e) {
-                throw new ParserError("Add a description to your todo!");
+                throw new ParserException("Add a description to your todo!");
             }
         } else if (input.startsWith("DEADLINE")) {
             try {
                 int deadlineIndex = input.indexOf("/BY ");
                 if (deadlineIndex < 9) {
-                    throw new ParserError("Deadline format incorrect. Format: \"deadline [taskName] /by [deadline]\"." +
+                    throw new ParserException("Deadline format incorrect. Format: \"deadline [taskName] /by [deadline]\"." +
                             " Try again please");
                 }
                 if (deadlineIndex == 9) {
-                    throw new ParserError("I see the deadline but no task :(");
+                    throw new ParserException("I see the deadline but no task :(");
                 }
 
                 String taskTitle = command.substring(9, deadlineIndex - 1).trim();
@@ -54,7 +68,7 @@ public class Parser {
                 }
 
             } catch (IndexOutOfBoundsException e) {
-                throw new ParserError("You've made a fatal error! Report it to the developer or face eternal DOOM!!");
+                throw new ParserException("You've made a fatal error! Report it to the developer or face eternal DOOM!!");
             }
         } else if (input.startsWith("EVENT")) {
             try {
@@ -73,7 +87,7 @@ public class Parser {
                     return new AddTaskCommand(new Event(eventTitle, eventStart, eventEnd));
                 }
             } catch (IndexOutOfBoundsException e) {
-                throw new ParserError("Event format incorrect. Format: \"Event [taskName] /from [start] /to [end]\". " +
+                throw new ParserException("Event format incorrect. Format: \"Event [taskName] /from [start] /to [end]\". " +
                         "Try again please");
             }
         } else if (input.startsWith("DELETE") || input.startsWith("REMOVE")) {
@@ -85,17 +99,17 @@ public class Parser {
                 int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
                 return new DeleteTaskCommand(taskNumber);
             } catch (IndexOutOfBoundsException e) {
-                throw new ParserError("Hey, that task doesn't exist for me to delete!");
+                throw new ParserException("Hey, that task doesn't exist for me to delete!");
             } catch (NumberFormatException e) {
-                throw new ParserError("Hey, that's not a task number! Give me a number please!");
+                throw new ParserException("Hey, that's not a task number! Give me a number please!");
             }
         } else {
-            throw new ParserError("I'm not sure what that means :(");
+            throw new ParserException("I'm not sure what that means :(");
         }
     }
 
 
-    public static Task parseTask(String str) throws ParserError {
+    public static Task parseTask(String str) throws ParserException {
         Scanner scanner = new Scanner(str);
         scanner.useDelimiter("\\|");
         boolean isComplete;
@@ -134,7 +148,7 @@ public class Parser {
         default:
             //should not ever reach here
             scanner.close();
-            throw new ParserError("Reached end of parse task. Invalid task type: " + task);
+            throw new ParserException("Reached end of parse task. Invalid task type: " + task);
         }
     }
 

@@ -1,3 +1,5 @@
+package Tayoo.Tasks;
+
 public class Task {
     private boolean completed;
     private String title;

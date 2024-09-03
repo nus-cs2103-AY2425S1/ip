@@ -1,4 +1,11 @@
-public class DeleteAllCommand extends Command{
+package Tayoo.Command;
+
+import Tayoo.Storage;
+import Tayoo.Tasklist;
+import Tayoo.Ui;
+import Tayoo.Exception.TayooException;
+
+public class DeleteAllCommand extends Command {
 
     @Override
     public void execute(Tasklist tasklist, Ui ui, Storage storage) throws TayooException {

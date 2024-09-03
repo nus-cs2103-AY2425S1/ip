@@ -1,3 +1,5 @@
+package Tayoo.Exception;
+
 public class UpdateTxtException extends TayooException{
 
     public UpdateTxtException(String message) {
