@@ -57,6 +57,15 @@ public class AddCommand extends Command {
     }
 
     @Override
+    public String execute(TaskList tasks, Storage storage) {
+        tasks.add(task);
+        storage.save(tasks);
+        String msg = "Got it. I've added this task: \n  " + task + "\n"
+                + "Now you have " + tasks.length() + " tasks in the list. \n";
+        return msg;
+    }
+
+    @Override
     public boolean isExit() {
         return false;
     }

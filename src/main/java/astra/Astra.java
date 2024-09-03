@@ -48,6 +48,21 @@ public class Astra {
         ui.stop();
     }
 
+    /**
+     * Gets the response from the chatbot.
+     *
+     * @param input The input from the user.
+     * @return The response from the chatbot.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, storage);
+        } catch (AstraException e) {
+            return e.getMessage();
+        }
+    }
+
     public static void main(String[] args) {
         new Astra("./data").run();
     }

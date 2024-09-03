@@ -35,6 +35,15 @@ public class MarkCommand extends Command {
     }
 
     @Override
+    public String execute(TaskList tasks, Storage storage) throws AstraException {
+        Task t = tasks.markAsDone(index, asDone);
+        storage.save(tasks);
+        return asDone
+                ? " Nice! I've marked this task as done: \n  " + t + "\n"
+                : " OK, I've marked this task as not done yet: \n  " + t + "\n";
+    }
+
+    @Override
     public boolean isExit() {
         return false;
     }
