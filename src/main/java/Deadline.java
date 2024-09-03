@@ -1,15 +1,17 @@
+import java.time.LocalDate;
+
 public class Deadline extends Task {
     private String type = "D";
-    private String deadline;
+    private LocalDate deadline;
 
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline);
     }
 
     public Deadline(String description, String deadline, int status) {
         super(description, status);
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline);
     }
 
     public String getTaskInfo() {
@@ -21,6 +23,6 @@ public class Deadline extends Task {
     }
 
     public String getDeadline() {
-        return this.deadline;
+        return this.deadline.toString();
     }
 }

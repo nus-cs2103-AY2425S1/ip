@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -96,8 +98,8 @@ public class TaskList {
             throw new DukeException("Incorrect usage!");
         }
 
-        String desc = "";
-        String deadline = "";
+        String desc;
+        String deadline;
 
         //retrieve the description
         int ptr = 1;
@@ -130,12 +132,17 @@ public class TaskList {
             deadline = sb2.substring(0, sb2.length() - 1);
         }
 
+        try {
+            Task instance = new Deadline(desc, deadline);
+            tasks.add(instance);
 
-        Task instance = new Deadline(desc, deadline);
-        tasks.add(instance);
+            System.out.printf("Added: [D][%s] %s\n", instance.getStatusIcon(), instance.getTaskInfo());
+            System.out.printf("You now have %d task(s) in total.\n", tasks.size());
+        } catch (DateTimeParseException e) {
+            System.out.println("Please use the correct format: yyyy-mm-dd");
+            System.out.println("(Also check that you are entering a valid date!)");
+        }
 
-        System.out.printf("Added: [D][%s] %s\n", instance.getStatusIcon(), instance.getTaskInfo());
-        System.out.printf("You now have %d task(s) in total.\n", tasks.size());
     }
 
     public void addEventTask(String[] arguments) throws DukeException {
