@@ -1,3 +1,5 @@
+package sammy;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -5,7 +7,7 @@ public class Ui {
 
     public void showWelcomeMessage() {
         System.out.println(line);
-        System.out.println(" Hello! I'm Sammy.");
+        System.out.println(" Hello! I'm sammy.ui.sammy.Sammy.");
         System.out.println(" What can I do for you?");
         System.out.println(line);
     }

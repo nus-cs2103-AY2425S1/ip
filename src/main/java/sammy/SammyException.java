@@ -1,3 +1,5 @@
+package sammy;
+
 public class SammyException extends Exception {
     public SammyException(String message) {
         super(message);
@@ -16,8 +18,3 @@ class InvalidCommandException extends SammyException {
     }
 }
 
-class InvalidTaskNumberException extends SammyException {
-    public InvalidTaskNumberException() {
-        super("The task number provided is invalid.");
-    }
-}

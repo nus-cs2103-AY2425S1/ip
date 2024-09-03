@@ -1,3 +1,5 @@
+package sammy;
+
 import java.io.IOException;
 public class Sammy {
 
@@ -35,7 +37,7 @@ public class Sammy {
     }
 
     public static void main(String[] args) {
-        new Sammy("./data/Sammy.txt").run();
+        new Sammy("./data/sammy.ui.sammy.Sammy.txt").run();
     }
 }
 
