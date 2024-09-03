@@ -30,4 +30,9 @@ public class UnmarkCommand implements Command {
         task.undoTask();
         return "OK, I've marked this task as not done yet: \n" + task.toString();
     }
+
+    @Override
+    public String getSimpleName() {
+        return "UnmarkCommand";
+    }
 }

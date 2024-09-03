@@ -13,4 +13,9 @@ public class ClearlistCommand implements Command {
         tasks.clearList();
         return "Okay, the list has been cleared";
     }
+
+    @Override
+    public String getSimpleName() {
+        return "ClearlistCommand";
+    }
 }

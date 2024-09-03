@@ -52,4 +52,9 @@ public class EventCommand implements Command {
                 + "Now you have " + tasks.size()
                 + (tasks.size() > 1 ? " tasks " : " task ") + "in the list.";
     }
+
+    @Override
+    public String getSimpleName() {
+        return "EventCommand";
+    }
 }

@@ -32,4 +32,9 @@ public class MarkCommand implements Command {
         return "Nice! I've marked this task as done:\n" + task.toString()
                 + "\n now go back to work and stop eating the company's time";
     }
+
+    @Override
+    public String getSimpleName() {
+        return "MarkCommand";
+    }
 }
