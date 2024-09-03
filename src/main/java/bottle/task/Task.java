@@ -5,6 +5,10 @@ public abstract class Task {
     protected boolean isChecked;
     protected String taskDesc;
 
+    public String getTaskDesc() {
+        return taskDesc;
+    }
+
     public Task(String taskDesc) {
         this.taskDesc = taskDesc;
         this.isChecked = false;

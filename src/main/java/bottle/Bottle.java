@@ -1,6 +1,7 @@
 package bottle;
 
 import bottle.command.Command;
+import bottle.exception.BottleException;
 import bottle.task.*;
 
 import java.io.ByteArrayOutputStream;
@@ -20,9 +21,13 @@ public class Bottle {
     public void run() {
         ui.printWelcomeMsg();
         while (true) {
-            String input = ui.getInput();
-            Command command = parser.parseCommand(input);
-            command.execute(taskList, ui, storage);
+            try {
+                String input = ui.getInput();
+                Command command = parser.parseCommand(input);
+                command.execute(taskList, ui, storage);
+            } catch (BottleException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
     public static void main(String[] args) {
