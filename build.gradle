@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("lama.Launcher")
+    mainClass.set("lama.gui.Launcher")
 }
 
 checkstyle {

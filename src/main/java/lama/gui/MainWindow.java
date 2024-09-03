@@ -1,4 +1,4 @@
-package lama;
+package lama.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import lama.Lama;
+import lama.gui.DialogBox;
 
 /**
  * The MainWindow class serves as the controller for the main GUI of the application.

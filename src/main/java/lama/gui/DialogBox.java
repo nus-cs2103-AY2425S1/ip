@@ -1,4 +1,4 @@
-package lama;
+package lama.gui;
 
 import java.io.IOException;
 import java.util.Collections;

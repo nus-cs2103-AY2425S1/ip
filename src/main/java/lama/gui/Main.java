@@ -1,4 +1,4 @@
-package lama;
+package lama.gui;
 
 import java.io.IOException;
 
@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lama.Lama;
 
 /**
  * The Main class serves as the entry point for the JavaFX application.
