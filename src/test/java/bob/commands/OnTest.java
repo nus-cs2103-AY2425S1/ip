@@ -1,14 +1,14 @@
 package bob.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import bob.data.TaskList;
 import bob.tasks.DeadlineTask;
@@ -34,8 +34,8 @@ public class OnTest {
         LocalDateTime date = LocalDateTime.of(2024, 9, 15, 16, 30);
         taskList.add(new DeadlineTask("Task 1", date));
         onCommand.execute(taskList, null, null);
-        String expectedOutput = "Here are the tasks on 15/09/2024:\n" +
-                "1. [D][ ] Task 1 (by: 15 September 2024 4:30pm)";
+        String expectedOutput = "Here are the tasks on 15/09/2024:\n"
+                + "1. [D][ ] Task 1 (by: 15 September 2024 4:30pm)";
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
     }
 

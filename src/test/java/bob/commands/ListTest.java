@@ -1,10 +1,12 @@
 package bob.commands;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import bob.data.TaskList;
 import bob.tasks.TodoTask;
@@ -38,9 +40,9 @@ public class ListTest {
 
         listCommand.execute(taskList, null, null);
 
-        String expectedOutput = "Here are the tasks in your list:\n" +
-                "1. [T][ ] Task 1\n" +
-                "2. [T][ ] Task 2";
+        String expectedOutput = "Here are the tasks in your list:\n"
+                + "1. [T][ ] Task 1\n"
+                + "2. [T][ ] Task 2";
 
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
     }

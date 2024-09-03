@@ -1,12 +1,13 @@
 package bob.commands;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import bob.data.TaskList;
 public class EventTest {
@@ -29,9 +30,9 @@ public class EventTest {
     @Test
     public void execute_success() {
         eventCommand.execute(taskList, null, null);
-        String expectedOutput = "Got it. I've added this task:\n" +
-                "[E][ ] Task 1 (from: 15 September 2024 4:30pm to: 15 September 2024 7:30pm)\n" +
-                "Now you have 1 task in the list.";
+        String expectedOutput = "Got it. I've added this task:\n"
+                + "[E][ ] Task 1 (from: 15 September 2024 4:30pm to: 15 September 2024 7:30pm)\n"
+                + "Now you have 1 task in the list.";
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
     }
 }
