@@ -7,6 +7,14 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Represents the EDITH chatbot application.
+ * <p>
+ * The Edith class is responsible for initializing and running the chatbot. It handles user interactions,
+ * processes commands, and manages the task list. The application uses the Ui,
+ * Storage, TaskList, and Parser classes.
+ * </p>
+ */
 public class Edith {
     private final Ui ui;
     private final Storage storage;
