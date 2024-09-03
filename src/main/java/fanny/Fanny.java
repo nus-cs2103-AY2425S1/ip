@@ -1,5 +1,10 @@
 package fanny;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import fanny.command.Command;
 import fanny.parser.Parser;
 import fanny.storage.Storage;
@@ -22,6 +27,11 @@ public class Fanny {
     /** Handles the storing and loading of tasks */
     private Storage storage;
 
+    private static final String FILEPATH = "data/fanny.txt";
+
+    public Fanny() {
+        this(FILEPATH);
+    }
     /**
      * Constructs a new Fanny object with the specified file path for storage.
      *
@@ -62,4 +72,34 @@ public class Fanny {
     public static void main(String[] args) {
         new Fanny("./data/fanny.txt").run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(outputStream);
+        PrintStream old = System.out;
+
+        try {
+            System.setOut(ps);
+            Command c = Parser.parse(input);
+            c.actionable(tasks, ui);
+
+            String capturedOutput = outputStream.toString();
+
+            String filteredOutput = Arrays.stream(capturedOutput.split(System.lineSeparator()))
+                    .filter(line -> !line.matches("[-_]+"))
+                    .collect(Collectors.joining(System.lineSeparator()));
+
+            return filteredOutput;
+        } catch (FannyException e) {
+            return e.getMessage();
+        } finally {
+            System.out.flush();
+            System.setOut(old);
+        }
+    }
+
 }
