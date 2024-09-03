@@ -1,11 +1,11 @@
 package commands;
 
+import java.io.IOException;
+
 import exceptions.InputException;
 import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to unmark a task as not done in the task list.
@@ -14,6 +14,13 @@ import java.io.IOException;
 public class UnmarkCommand implements Command {
     private final int taskIndex;
 
+    /**
+     * Constructs an UnmarkCommand with the specified task index.
+     * This command is used to unmark a task (mark it as not done) in the task list.
+     *
+     * @param taskIndex the index of the task to be unmarked, as a string.
+     * @throws InputException if the task index is empty, or if the task index is not a valid number.
+     */
     public UnmarkCommand(String taskIndex) throws InputException {
         if (taskIndex.trim().isEmpty()) {
             throw new InputException("Please specify which task number to unmark.");

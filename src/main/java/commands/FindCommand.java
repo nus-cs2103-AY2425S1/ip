@@ -1,17 +1,18 @@
 package commands;
 
+
+import java.util.ArrayList;
+
 import storage.Storage;
 import storage.TaskList;
 import tasks.Task;
 import ui.Ui;
 
-import java.util.ArrayList;
-
 /**
  * The FindCommand class implements the Command interface and represents a command to find tasks
  * in the task list that contain a specific keyword.
  */
- public class FindCommand implements Command {
+public class FindCommand implements Command {
     private final String keyword;
 
     /**

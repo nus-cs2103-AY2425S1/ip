@@ -1,11 +1,11 @@
 package commands;
 
+import java.io.IOException;
+
 import exceptions.InputException;
 import storage.Storage;
 import storage.TaskList;
 import ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command that can be executed by the application.
@@ -14,8 +14,8 @@ import java.io.IOException;
 public interface Command {
     /**
      * Executes the command.
-     * This method performs the action associated with the command on the provided task list, using the UI for interaction
-     * and the storage for saving/loading tasks.
+     * This method performs the action associated with the command on the provided task list,
+     * using the UI for interaction and the storage for saving/loading tasks.
      *
      * @param tasks the task list on which the command is to be executed.
      * @param ui the UI used to interact with the user.

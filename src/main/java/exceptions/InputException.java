@@ -4,7 +4,7 @@ package exceptions;
  * Represents an exception that is thrown when there is an issue with the user's input.
  * This exception can be used to indicate errors such as invalid format or missing information in the input.
  */
-public class InputException extends Exception{
+public class InputException extends Exception {
 
     /**
      * Constructs a new InputException with no detail message.
