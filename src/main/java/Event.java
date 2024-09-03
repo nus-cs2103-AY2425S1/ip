@@ -1,28 +1,43 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
 
-    private String start;
-    private String end;
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
-    public Event(String name, String start, String end) {
+    public Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.start = start;
         this.end = end;
     }
 
-    public Event(String name, boolean status, String start, String end) {
+    public Event(String name, boolean status, LocalDateTime start, LocalDateTime end) {
         super(name, status);
         this.start = start;
         this.end = end;
     }
 
+    public LocalDateTime getStart() {
+        return this.start;
+    }
+
     @Override
     public String storeInFile() {
-        return String.format("T | %s | %s | %s-%s", super.storeInFile(), this.name, this.start, this.end);
+        String startingTime = (this.start != null) ? start.format(OUTPUT_FORMATTER) : "Invalid start date";
+        String endingTime = (this.end != null) ? end.format(OUTPUT_FORMATTER) : "Invalid end date";
+        return String.format("E | %s | %s | %s - %s", super.storeInFile(), this.name, startingTime, endingTime);
     }
 
     @Override
     public String toString() {
-        String desc = String.format("[E]%s (from: %s to: %s)", super.toString(), start, end);
-        return desc;
+        String formattedStart = (this.start != null) ? start.format(OUTPUT_FORMATTER) : "Invalid start date";
+        String formattedEnd = (this.end != null) ? end.format(OUTPUT_FORMATTER) : "Invalid end date";
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), formattedStart, formattedEnd);
     }
 }
