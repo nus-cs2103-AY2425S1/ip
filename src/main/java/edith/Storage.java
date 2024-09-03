@@ -14,11 +14,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * This class handles all storing and loading of tasks into user's hard drive.
+ */
 public class Storage {
 
     private static final String FILE_PATH = "./data/edith.txt";
     private static final File DIRECTORY = new File("./data");
 
+    /**
+     * Saves list of tasks into user's hard drive whenever the list is altered.
+     * @param toDoList ArrayList of Task
+     */
     public static void saveTasks(ArrayList<Task> toDoList) {
         if (!DIRECTORY.exists()) {
             DIRECTORY.mkdirs();
@@ -32,6 +39,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads list of tasks into ToDoList when Edith starts up. Creates a directory and a file if specified file is not
+     * found in user's hard drive. Prints error if the file's format cannot be deciphered.
+     * @param toDoList ArrayList of Task.
+     */
     public static void loadTasks(ToDoList toDoList) {
         try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
             while (scanner.hasNextLine()) {

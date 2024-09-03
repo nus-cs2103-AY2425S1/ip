@@ -9,12 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class handles all parsing of Strings into appropriate outputs.
+ */
 public class Parser {
 
     /**
      * Returns command to be executed.
-     * @param userInput to be deciphered
-     * @return string of command
+     * @param userInput User input to be deciphered.
+     * @return Command as a string.
      */
     public static String getCommand(String userInput) {
         List<String> userInputs = Arrays.asList(userInput.split(" "));
@@ -22,9 +25,9 @@ public class Parser {
     }
 
     /**
-     * Returns the task number based on userInput
-     * @param userInput to be deciphered
-     * @return task number as an integer
+     * Returns the task number based on userInput.
+     * @param userInput User input to be deciphered.
+     * @return task number as an integer.
      */
     public static int getTaskNumber(String userInput) throws MissingTaskNumberException {
         try {
@@ -36,6 +39,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns task details including task name and task deadline/duration.
+     * @param userInput User input to be deciphered.
+     * @param taskType Type of task (Todo, Deadline or Event).
+     * @return Task details in a string.
+     * @throws MissingTaskNameException When task name is not specified.
+     */
     public static String getTaskDetails(String userInput, String taskType) throws MissingTaskNameException {
         try {
             List<String> userInputs = Arrays.asList(userInput.split(taskType + " "));
@@ -45,6 +55,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns task name
+     * @param taskDetails Details of task in a string including task name and task deadline/duration if applicable.
+     * @param taskType Type of task (Todo, Deadline or Event).
+     * @return Task name in a string.
+     */
     public static String getTaskName(String taskDetails, String taskType) {
         List<String> userInputs;
         if (Objects.equals(taskType, "deadline")) {
@@ -55,6 +71,12 @@ public class Parser {
         return userInputs.get(0);
     }
 
+    /**
+     * Returns task deadline (only applicable to tasks of class DeadlineTask).
+     * @param taskDetails Details of task in a string including task name and task deadline.
+     * @return Task deadline in a string.
+     * @throws MissingDeadlineException When task deadline is not specified.
+     */
     public static String getTaskDeadline(String taskDetails) throws MissingDeadlineException {
         try {
             List<String> userInputs = Arrays.asList(taskDetails.split(" /by "));
@@ -64,6 +86,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns task deadline (only applicable to tasks of class EventTask).
+     * @param taskDetails Details of task in a string including task name and task duration.
+     * @return Task duration in a string.
+     * @throws MissingEventDurationException When task duration is not specified.
+     */
     public static String getTaskDuration(String taskDetails) throws MissingEventDurationException {
         try {
             List<String> userInputs = Arrays.asList(taskDetails.split(" /from "));
@@ -73,6 +101,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns task start date and/or time (only applicable to tasks of class EventTask).
+     * @param taskDuration Duration of task in a string including start and end date/time.
+     * @return Task start date and/or time in a string.
+     * @throws MissingEventDurationException When task duration is not specified.
+     */
     public static String getTaskStart(String taskDuration) throws MissingEventDurationException {
         try {
             List<String> userInputs = Arrays.asList(taskDuration.split(" /to "));
@@ -82,6 +116,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns task end date and/or time (only applicable to tasks of class EventTask).
+     * @param taskDuration Duration of task in a string including start and end date/time.
+     * @return Task end date and/or time in a string.
+     * @throws MissingEventDurationException When task duration is not specified.
+     */
     public static String getTaskEnd(String taskDuration) throws MissingEventDurationException {
         try {
             List<String> userInputs = Arrays.asList(taskDuration.split(" /to "));

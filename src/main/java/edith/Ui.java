@@ -7,12 +7,21 @@ import edith.task.ToDoTask;
 
 import java.util.Objects;
 
+/**
+ * This class handles all user inputs.
+ */
 public class Ui {
     private static final String HORIZONTAL = "____________________________________________________________";
     private static final String GREETING = " heyyy im edith!\n what can I do for you?";
     private static final String FAREWELL = " bye!! see you soon love <3";
     private static final String LINEBREAK = "\n";
 
+    /**
+     * Handles user input accordingly. List of commands: list, mark, unmark, todo, deadline, event, delete. Prints
+     * error message if user input is an invalid command.
+     * @param userInput User input.
+     * @param toDoList User's to-do list.
+     */
     public static void handleUserInput(String userInput, ToDoList toDoList) {
         String command = Parser.getCommand(userInput);
 
@@ -43,14 +52,26 @@ public class Ui {
         }
     }
 
+    /**
+     * Greets user when Edith first starts up.
+     */
     public static void greetUser() {
         System.out.println(HORIZONTAL + LINEBREAK + GREETING + LINEBREAK + HORIZONTAL);
     }
 
+    /**
+     * Bids farewell when user inputs "bye".
+     */
     public static void bidFarewell() {
         System.out.println(FAREWELL + LINEBREAK);
     }
 
+    /**
+     * Changes the task status of a task. Prints error message when task number is missing in user input or task number
+     * is invalid.
+     * @param userInput User input.
+     * @param toDoList User's to-do list.
+     */
     public static void changeTaskStatus(String userInput, ToDoList toDoList) {
         try {
             int taskNumber = Parser.getTaskNumber(userInput);
@@ -71,6 +92,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Adds task to user's to-do list. Prints error message if user input does not specify a task name.
+     * @param userInput User input.
+     * @param toDoList User's to-do list.
+     */
     public static void addTask(String userInput, ToDoList toDoList) {
         String taskType = Parser.getCommand(userInput);
         try {
@@ -92,6 +118,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Adds task of type ToDoTask to user's to-do list.
+     * @param taskName Task's name.
+     * @param toDoList User's to-do list.
+     */
     public static void addToDoTask(String taskName, ToDoList toDoList) {
         ToDoTask task = new ToDoTask(taskName);
         toDoList.add(task);
@@ -100,6 +131,12 @@ public class Ui {
                 " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + LINEBREAK);
     }
 
+    /**
+     * Adds task of type DeadlineTask to user's to-do list.
+     * @param taskDetails Task's details including task name and deadline.
+     * @param taskType Task's type: "deadline".
+     * @param toDoList User's to-do list.
+     */
     public static void addDeadlineTask(String taskDetails, String taskType, ToDoList toDoList) {
         try {
             String taskName = Parser.getTaskName(taskDetails, taskType);
@@ -114,6 +151,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Adds task of type EventTask to user's to-do list.
+     * @param taskDetails Task's details including task name and duration.
+     * @param taskType Task's type: "duration".
+     * @param toDoList User's to-do list.
+     */
     public static void addEventTask(String taskDetails, String taskType, ToDoList toDoList) {
         try {
             String taskName = Parser.getTaskName(taskDetails, taskType);
@@ -130,10 +173,19 @@ public class Ui {
         }
     }
 
+    /**
+     * Handles input of invalid commands.
+     * @throws InvalidCommandException When user input cannot be recognised.
+     */
     public static void otherCommand() throws InvalidCommandException {
         throw new InvalidCommandException();
     }
 
+    /**
+     * Deletes task from user's to-do list.
+     * @param userInput User input.
+     * @param toDoList User's to-do list.
+     */
     public static void delete(String userInput, ToDoList toDoList) {
         try {
             int taskNumber = Parser.getTaskNumber(userInput);
@@ -147,10 +199,17 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a horizontal line with a linebreak at the end.
+     */
     public static void showLine() {
         System.out.println(HORIZONTAL + LINEBREAK);
     }
 
+    /**
+     * Prints error message from exception thrown.
+     * @param errorMessage Error message from exception thrown.
+     */
     public static void showError(String errorMessage) {
         System.out.println(errorMessage);
     }
