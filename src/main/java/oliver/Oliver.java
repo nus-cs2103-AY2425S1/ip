@@ -11,6 +11,7 @@ public class Oliver {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private boolean isRunning = true;
 
     public Oliver(String filePath) {
         this.ui = new Ui();
@@ -25,35 +26,38 @@ public class Oliver {
     }
 
     public void run() {
-        ui.showWelcome();
-        while (true) {
+        System.out.println(ui.showWelcome());
+        while (this.isRunning) {
             String input = ui.readInput();
-            String command = Parser.parseCommand(input);
+            System.out.println(getResponse(input));
+        }
+    }
 
-            if (input.equalsIgnoreCase("bye")) {
-                storage.writeToFile(this.tasks);
-                ui.showBye();
-                ui.close();
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                ui.showList(this.tasks);
-            } else if (command.equalsIgnoreCase("mark")) {
-                handleMark(input);
-            } else if (command.equalsIgnoreCase("unmark")) {
-                handleUnmark(input);
-            } else if (command.equalsIgnoreCase("todo")) {
-                handleTodo(input);
-            } else if (command.equalsIgnoreCase("deadline")) {
-                handleDeadline(input);
-            } else if (command.equalsIgnoreCase("event")) {
-                handleEvent(input);
-            } else if (command.equalsIgnoreCase("delete")) {
-                handleDelete(input);
-            } else if (command.equalsIgnoreCase("find")) {
-                ui.showSearch(this.tasks, Parser.parseArgs(input));
-            } else {
-                System.out.println("\tInvalid command. Command was not recognised.");
-            }
+    public String getResponse(String input) {
+        String command = Parser.parseCommand(input);
+        if (input.equalsIgnoreCase("bye")) {
+            storage.writeToFile(this.tasks);
+            ui.close();
+            this.isRunning = false;
+            return ui.showBye();
+        } else if (input.equalsIgnoreCase("list")) {
+            return ui.showList(this.tasks);
+        } else if (command.equalsIgnoreCase("mark")) {
+            return handleMark(input);
+        } else if (command.equalsIgnoreCase("unmark")) {
+            return handleUnmark(input);
+        } else if (command.equalsIgnoreCase("todo")) {
+            return handleTodo(input);
+        } else if (command.equalsIgnoreCase("deadline")) {
+            return handleDeadline(input);
+        } else if (command.equalsIgnoreCase("event")) {
+            return handleEvent(input);
+        } else if (command.equalsIgnoreCase("delete")) {
+            return handleDelete(input);
+        } else if (command.equalsIgnoreCase("find")) {
+            return ui.showSearch(this.tasks, Parser.parseArgs(input));
+        } else {
+            return "\tInvalid command. Command was not recognised.";
         }
     }
 
@@ -65,19 +69,20 @@ public class Oliver {
      * Marks a task in the list as done.
      *
      * @param input the user input provided
+     * @return string representation of Oliver's response
      */
-    private void handleMark(String input) {
+    private String handleMark(String input) {
         try {
             int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
             if (index > tasks.getSize() - 1 || index < 0) {
-                ui.showOutOfRangeError();
+                return ui.showOutOfRangeError();
             } else {
-                ui.showMarked(tasks, index);
+                return ui.showMarked(tasks, index);
             }
         } catch (IndexOutOfBoundsException e) {
-            ui.showMissingArgsError();
+            return ui.showMissingArgsError();
         } catch (NumberFormatException e) {
-            ui.showInvalidArgsError();
+            return ui.showInvalidArgsError();
         }
     }
 
@@ -85,19 +90,20 @@ public class Oliver {
      * Marks a task in the list as not done.
      *
      * @param input the user input provided
+     * @return string representation of Oliver's response
      */
-    private void handleUnmark(String input) {
+    private String handleUnmark(String input) {
         try {
             int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
             if (index > tasks.getSize() - 1 || index < 0) {
-                ui.showOutOfRangeError();
+                return ui.showOutOfRangeError();
             } else {
-                ui.showUnmarked(tasks, index);
+                return ui.showUnmarked(tasks, index);
             }
         } catch (IndexOutOfBoundsException e) {
-            ui.showMissingArgsError();
+            return ui.showMissingArgsError();
         } catch (NumberFormatException e) {
-            ui.showInvalidArgsError();
+            return ui.showInvalidArgsError();
         }
     }
 
@@ -105,14 +111,15 @@ public class Oliver {
      * Adds a todo task to the list.
      *
      * @param input the user input provided
+     * @return string representation of Oliver's response
      */
-    private void handleTodo(String input) {
+    private String handleTodo(String input) {
         try {
             ToDo t = new ToDo(Parser.parseArgs(input));
             tasks.add(t);
-            ui.showAdd(t, tasks.getSize());
+            return ui.showAdd(t, tasks.getSize());
         } catch (IndexOutOfBoundsException e) {
-            ui.showMissingArgsError();
+            return ui.showMissingArgsError();
         }
     }
 
@@ -120,8 +127,9 @@ public class Oliver {
      * Adds a deadline task to the list.
      *
      * @param input the user input provided
+     * @return string representation of Oliver's response
      */
-    private void handleDeadline(String input) { // Date is required, time is optional
+    private String handleDeadline(String input) { // Date is required, time is optional
         try {
             String[] parts = input.split("/by ");
             String[] dateAndTime = parts[1].split(" ");
@@ -136,12 +144,12 @@ public class Oliver {
             String action = parts[0].trim();
             Deadline d = new Deadline(action.split(" ", 2)[1], dateTime);
             tasks.add(d);
-            ui.showAdd(d, tasks.getSize());
+            return ui.showAdd(d, tasks.getSize());
         } catch (IndexOutOfBoundsException e) {
-            ui.showMissingArgsError();
+            return ui.showMissingArgsError();
         } catch (DateTimeParseException e) {
-            System.out.println("\tInvalid date or time. Please enter the date and time in the following format: YYYY-MM-DD HHmm");
-            System.out.println("\tNote that date is required but time is optional.");
+            return "\tInvalid date or time. Please enter the date and time in the following format: " +
+                    "YYYY-MM-DD HHmm\n\tNote that date is required but time is optional.";
         }
     }
 
@@ -149,8 +157,9 @@ public class Oliver {
      * Adds an event task to the list.
      *
      * @param input the user input provided
+     * @return string representation of Oliver's response
      */
-    private void handleEvent(String input) { // Both date and time are required
+    private String handleEvent(String input) { // Both date and time are required
         try {
             String[] parts = input.split("/from |/to ");
             String action = parts[0].trim();
@@ -163,11 +172,11 @@ public class Oliver {
 
             Event e = new Event(action.split(" ", 2)[1], start, end);
             tasks.add(e);
-            ui.showAdd(e, tasks.getSize());
+            return ui.showAdd(e, tasks.getSize());
         } catch (IndexOutOfBoundsException e) {
-            ui.showMissingArgsError();
+            return ui.showMissingArgsError();
         } catch (DateTimeParseException e) {
-            System.out.println("\tInvalid date or time. Please enter the date and time in the following format: YYYY-MM-DD HHmm" + e);
+            return "\tInvalid date or time. Please enter the date and time in the following format: YYYY-MM-DD HHmm";
         }
     }
 
@@ -175,21 +184,23 @@ public class Oliver {
      * Deletes a task from the list.
      *
      * @param input the user input provided
+     * @return string representation of Oliver's response
      */
-    private void handleDelete(String input) {
+    private String handleDelete(String input) {
         try {
-            int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
+            int taskNum = Integer.parseInt(Parser.parseArgs(input));
+            int index = taskNum - 1;
             if (index > tasks.getSize() - 1 || index < 0) {
-                ui.showOutOfRangeError();
+                return ui.showOutOfRangeError();
             } else {
                 Task removedTask = tasks.get(index);
-                tasks.delete(index);
-                ui.showDelete(removedTask, tasks.getSize());
+                tasks.delete(taskNum);
+                return ui.showDelete(removedTask, tasks.getSize());
             }
         } catch (IndexOutOfBoundsException e) {
-            ui.showMissingArgsError();
+            return ui.showMissingArgsError();
         } catch (NumberFormatException e) {
-            ui.showInvalidArgsError();
+            return ui.showInvalidArgsError();
         }
     }
 }
