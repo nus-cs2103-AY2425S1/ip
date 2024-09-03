@@ -1,3 +1,10 @@
+package vinegar.command;
+
+import vinegar.TaskList;
+import vinegar.VinegarException;
+import vinegar.storage.Storage;
+import vinegar.ui.Ui;
+
 import java.io.IOException;
 
 public abstract class Command {

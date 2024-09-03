@@ -1,3 +1,12 @@
+package vinegar.command;
+
+import vinegar.TaskList;
+import vinegar.Validator;
+import vinegar.VinegarException;
+import vinegar.command.Command;
+import vinegar.storage.Storage;
+import vinegar.ui.Ui;
+
 import java.io.IOException;
 
 public class MarkCommand extends Command {

@@ -1,3 +1,12 @@
+package vinegar.command;
+
+import vinegar.TaskList;
+import vinegar.VinegarException;
+import vinegar.command.Command;
+import vinegar.storage.Storage;
+import vinegar.task.Task;
+import vinegar.ui.Ui;
+
 import java.io.IOException;
 
 public class DeleteCommand extends Command {

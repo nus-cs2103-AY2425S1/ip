@@ -1,3 +1,4 @@
+package vinegar;
 public class Validator {
 
     public static void validateParts(String[] parts, int expectedLength, String errorMessage) throws VinegarException {

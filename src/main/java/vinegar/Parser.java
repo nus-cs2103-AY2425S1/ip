@@ -1,3 +1,7 @@
+package vinegar;
+
+import vinegar.command.*;
+
 public class Parser {
     public static Command parse(String fullCommand) throws VinegarException {
         String[] inputParts = fullCommand.split(" ", 2);

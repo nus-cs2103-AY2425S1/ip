@@ -1,3 +1,10 @@
+package vinegar.storage;
+
+import vinegar.task.Deadline;
+import vinegar.task.Event;
+import vinegar.task.Task;
+import vinegar.task.Todo;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

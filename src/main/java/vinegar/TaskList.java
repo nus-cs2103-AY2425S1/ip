@@ -1,3 +1,7 @@
+package vinegar;
+
+import vinegar.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
