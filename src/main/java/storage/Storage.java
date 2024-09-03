@@ -1,9 +1,14 @@
 package storage;
 
-import tasks.Task;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import tasks.Task;
 
 /**
  * Handles the loading and saving of tasks from and to a file.
@@ -48,7 +53,7 @@ public class Storage {
                         taskList.add(task);
                     }
                 } catch (IllegalArgumentException e) {
-                    System.out.println("There are errors in your tasks.Task Data File. Contact the Admin for more info.");
+                    System.out.println("There are errors in your Task Data File. Contact the Admin for more info.");
                 }
             }
         } catch (IOException e) {
@@ -56,7 +61,7 @@ public class Storage {
         }
         return taskList;
     }
-    
+
     /**
      * Saves the task list to the file specified by filePath.
      * If the directory does not exist, it is created.

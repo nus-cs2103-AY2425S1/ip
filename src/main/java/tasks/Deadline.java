@@ -1,15 +1,15 @@
 package tasks;
 
-import exceptions.InputException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import exceptions.InputException;
 
 /**
  * Represents a Deadline task.
  * A Deadline task is a task with a description and a specific due date or time by which it should be completed.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     /** The due date or time of the deadline. */
     protected LocalDateTime by;
@@ -36,7 +36,8 @@ public class Deadline extends Task{
     @Override
     public Task createTask(String input) throws InputException {
         if (input.equalsIgnoreCase("deadline")) {
-            throw new InputException("To add a Deadline task, use the following format: deadline <task description> /by <DD/MM/YYYY HHmm>");
+            throw new InputException("To add a Deadline task, use the following format: deadline <task description>"
+                    + " /by <DD/MM/YYYY HHmm>");
         }
         String[] details = input.split(" /by ");
         if (details.length == 2) {
@@ -69,7 +70,8 @@ public class Deadline extends Task{
 
     /**
      * Returns a string representation of the Deadline task.
-     * The string includes a "[D]" prefix to indicate that it is a Deadline task, followed by the task status, description, and due date.
+     * The string includes a "[D]" prefix to indicate that it is a Deadline task,
+     * followed by the task status, description, and due date.
      *
      * @return a string representing the Deadline task.
      */

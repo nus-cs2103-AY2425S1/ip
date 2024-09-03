@@ -1,9 +1,9 @@
 package tasks;
 
-import exceptions.InputException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import exceptions.InputException;
 
 /**
  * Abstract class representing a generic Task.
@@ -12,15 +12,12 @@ import java.time.format.DateTimeFormatter;
  */
 public abstract class Task {
 
+    /** The formatter for parsing and formatting dates in this application. */
+    protected static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     /** The description of the task. */
     protected String description;
-
     /** The status of the task: true if done, false otherwise. */
     protected Boolean isDone;
-
-    /** The formatter for parsing and formatting dates in this application. */
-    protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
     /**
      * Constructs a new Task with the given description.
      * The task is initially not marked as done.
@@ -95,15 +92,15 @@ public abstract class Task {
             if (details.length != 4) {
                 throw new IllegalArgumentException("Invalid tasks.Deadline task format. Expected exactly 4 parts.");
             }
-            LocalDateTime by = LocalDateTime.parse(details[3], formatter);
+            LocalDateTime by = LocalDateTime.parse(details[3], FORMATTER);
             task = new Deadline(description, by);
             break;
         case "E":
             if (details.length != 5) {
                 throw new IllegalArgumentException("Invalid tasks.Event task format. Expected exactly 5 parts.");
             }
-            LocalDateTime from = LocalDateTime.parse(details[3], formatter);
-            LocalDateTime to = LocalDateTime.parse(details[4], formatter);
+            LocalDateTime from = LocalDateTime.parse(details[3], FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(details[4], FORMATTER);
             task = new Event(description, from, to);
             break;
         default:

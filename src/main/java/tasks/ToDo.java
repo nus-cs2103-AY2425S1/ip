@@ -6,7 +6,7 @@ import exceptions.InputException;
  * Represents a ToDo task.
  * A ToDo task is a simple task with a description but without any associated date or time.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Constructs a new ToDo task with the given description.
@@ -39,7 +39,8 @@ public class ToDo extends Task{
 
     /**
      * Returns a string representation of the ToDo task.
-     * The string includes a "[T]" prefix to indicate that it is a ToDo task, followed by the task status and description.
+     * The string includes a "[T]" prefix to indicate that it is a ToDo task,
+     * followed by the task status and description.
      *
      * @return a string representing the ToDo task.
      */

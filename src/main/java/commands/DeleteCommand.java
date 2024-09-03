@@ -1,12 +1,13 @@
 package commands;
 
+import java.io.IOException;
+
 import exceptions.InputException;
 import storage.Storage;
 import storage.TaskList;
 import tasks.Task;
 import ui.Ui;
 
-import java.io.IOException;
 
 /**
  * Represents a command to delete a task from the task list.

@@ -1,5 +1,6 @@
 package parser;
 
+// used '*' import as all items are imported
 import commands.*;
 import exceptions.InputException;
 

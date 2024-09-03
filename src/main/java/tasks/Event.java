@@ -1,9 +1,9 @@
 package tasks;
 
-import exceptions.InputException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import exceptions.InputException;
 
 /**
  * Represents an Event task.
@@ -42,7 +42,8 @@ public class Event extends Task {
     @Override
     public Task createTask(String input) throws InputException {
         if (input.equalsIgnoreCase("event")) {
-            throw new InputException("To add an tasks.Event, use: event <description> /from <DD/MM/YYYY HHmm> /to <DD/MM/YYYY HHmm>");
+            throw new InputException("To add an tasks.Event, use: event <description> /from <DD/MM/YYYY HHmm>"
+                    + " /to <DD/MM/YYYY HHmm>");
         }
         String[] details = input.split(" /from | /to ");
         if (details.length == 3) {
@@ -54,7 +55,8 @@ public class Event extends Task {
             }
             return new Event(description, from, to);
         } else {
-            throw new InputException("Invalid format. Use: event <description> /from <DD/MM/YYYY HHmm> /to <DD/MM/YYYY HHmm>");
+            throw new InputException("Invalid format. Use: event <description> /from <DD/MM/YYYY HHmm>"
+                    + " /to <DD/MM/YYYY HHmm>");
         }
     }
 
@@ -96,6 +98,7 @@ public class Event extends Task {
     @Override
     public String encode() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(formatter) + " | " + to.format(formatter);
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(formatter)
+                + " | " + to.format(formatter);
     }
 }
