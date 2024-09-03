@@ -1,6 +1,14 @@
 package waterfall;
 
-import waterfall.command.*;
+import waterfall.command.AddCommand;
+import waterfall.command.Command;
+import waterfall.command.DeleteCommand;
+import waterfall.command.ExitCommand;
+import waterfall.command.MarkCommand;
+import waterfall.command.SearchCommand;
+import waterfall.command.ShowTasksCommand;
+import waterfall.command.UnmarkCommand;
+import waterfall.command.UnrecognisedCommand;
 
 /**
  * The <code>Parser</code> class is responsible for interpreting user input and converting it

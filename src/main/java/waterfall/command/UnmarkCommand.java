@@ -5,7 +5,7 @@ import java.io.IOException;
 import waterfall.Storage;
 import waterfall.Ui;
 import waterfall.WaterfallException;
-import waterfall.task.*;
+import waterfall.task.TaskList;
 
 /**
  * Represents the <code>Command</code> object to unmark a <code>Task</code>
@@ -19,7 +19,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Constructs a command object to unmark task at specified index.
-     * @param index
+     * @param index index of the task to be unmarked.
      */
     public UnmarkCommand(int index) {
         this.index = index;

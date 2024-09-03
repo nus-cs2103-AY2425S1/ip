@@ -2,7 +2,7 @@ package waterfall.command;
 
 import waterfall.Storage;
 import waterfall.Ui;
-import waterfall.task.*;
+import waterfall.task.TaskList;
 
 /**
  * Represents the <code>Command</code> object to alert user when

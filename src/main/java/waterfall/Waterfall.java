@@ -1,9 +1,9 @@
 package waterfall;
 
+import java.io.IOException;
+
 import waterfall.command.Command;
 import waterfall.task.TaskList;
-
-import java.io.IOException;
 
 /**
  * Represents the main class for the Waterfall chatbot application.

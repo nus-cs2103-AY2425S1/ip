@@ -102,8 +102,8 @@ public class TaskList {
         for (int i = 0; i < num; i++) {
             Task task = tasks.get(i);
             if (task != null) {
-                String taskString = " ".repeat(indentSpace) +
-                        Integer.toString(i + 1) + "."
+                String taskString = " ".repeat(indentSpace)
+                        + Integer.toString(i + 1) + "."
                         + task.toString();
                 System.out.println(taskString);
             } else {

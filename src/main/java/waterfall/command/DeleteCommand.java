@@ -4,7 +4,8 @@ import java.io.IOException;
 
 import waterfall.Storage;
 import waterfall.Ui;
-import waterfall.task.*;
+import waterfall.task.Task;
+import waterfall.task.TaskList;
 
 /**
  * Represents the <code>Command</code> object to delete a <code>Task</code>
@@ -18,7 +19,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Constructs a command to delete task at specified index.
-     * @param index
+     * @param index index of the task to be deleted.
      */
     public DeleteCommand(int index) {
         this.index = index;
