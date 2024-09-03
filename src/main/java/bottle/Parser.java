@@ -6,8 +6,18 @@ import bottle.task.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+/**
+ * The type Parser.
+ */
 public class Parser {
 
+    /**
+     * Parse command command.
+     *
+     * @param input the input
+     * @return the command
+     */
     public Command parseCommand(String input) {
         try {
             if (input.equalsIgnoreCase("bye")) {
@@ -54,6 +64,13 @@ public class Parser {
         }
         return null;
     }
+
+    /**
+     * Parse task task.
+     *
+     * @param input the input
+     * @return the task
+     */
     public Task parseTask(String input) {
         String[] parts = input.split("\\|");
         Task task;
@@ -79,6 +96,12 @@ public class Parser {
     }
 
 
+    /**
+     * Parse date time local date time.
+     *
+     * @param dateTimeStr the date time str
+     * @return the local date time
+     */
     private static LocalDateTime parseDateTime(String dateTimeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {

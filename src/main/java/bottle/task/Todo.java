@@ -1,6 +1,14 @@
 package bottle.task;
 
+/**
+ * The type Todo.
+ */
 public class Todo extends Task {
+    /**
+     * Instantiates a new Todo.
+     *
+     * @param desc the desc
+     */
     public Todo(String desc) {
         super(desc);
     }
