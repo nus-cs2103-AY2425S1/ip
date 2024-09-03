@@ -95,9 +95,8 @@ public class TaskManager {
             file = new FileWriter(SAVE_FILE);
 
             StringBuilder output = new StringBuilder();
-
             for (Task task : taskList) {
-                output.append(task.toTaskString());
+                output.append(task.toTaskString()).append("\n");
             }
 
             file.write(output.toString());
