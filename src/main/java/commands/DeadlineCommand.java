@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 
 import applemazer.Storage;
 import applemazer.TaskList;
+import applemazer.Ui;
 import tasks.Deadline;
 import tasks.Task;
 
@@ -26,23 +27,26 @@ public class DeadlineCommand extends Command {
 
     /**
      * Executes the "deadline" command which adds a {@code Deadline} task to the task list.
+     *
      * @param tasks   The task list to use.
      * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
+     * @param ui The Ui object used to generate the string to print.
+     * @return The string to print.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         try {
             Task task = new Deadline(desc, deadline);
             tasks.add(task);
-            task.printTaskAddedMessage(tasks.size());
             storage.save();
+            return ui.getTaskAddedMessage(task, tasks.size());
         } catch (DateTimeException e) {
-            System.err.println("""
-                               OOPS!!! The description of deadline is wrong.
-                               Try 'deadline <description> /by <yyyy-mm-dd> <HHmm>'
-                                   'deadline <description> /by <dd/MM/yyyy> <HHmm>'.
-                               It is not necessary to input the time!
-                               """);
+            return """
+                   OOPS!!! The description of deadline is wrong.
+                   Try 'deadline <description> /by <yyyy-mm-dd> <HHmm>'
+                       'deadline <description> /by <dd/MM/yyyy> <HHmm>'.
+                       It is not necessary to input the time!
+                   """;
         }
     }
 

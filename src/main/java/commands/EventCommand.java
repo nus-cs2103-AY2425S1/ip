@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 
 import applemazer.Storage;
 import applemazer.TaskList;
+import applemazer.Ui;
 import tasks.Event;
 import tasks.Task;
 
@@ -31,23 +32,26 @@ public class EventCommand extends Command {
 
     /**
      * Executes the "event" command which adds an {@code Event} task to the task list.
+     *
      * @param tasks   The task list to use.
      * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
+     * @param ui The Ui object used to generate the string to print.
+     * @return The string to print.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         try {
             Task task = new Event(desc, from, to);
             tasks.add(task);
-            task.printTaskAddedMessage(tasks.size());
             storage.save();
+            return ui.getTaskAddedMessage(task, tasks.size());
         } catch (DateTimeException e) {
-            System.out.println("""
-                               OOPS!!! The description of event is wrong.
-                               Try 'event <description> /from <date1> /to <date2>'.
-                               <date> should be <yyyy-mm-dd> <HHmm> or <dd/MM/yyyy> <HHmm>.
-                               It is not necessary to input the time!
-                               """);
+            return """
+                   OOPS!!! The description of event is wrong.
+                   Try 'event <description> /from <date1> /to <date2>'.
+                   <date> should be <yyyy-mm-dd> <HHmm> or <dd/MM/yyyy> <HHmm>.
+                   It is not necessary to input the time!
+                   """;
         }
     }
 
