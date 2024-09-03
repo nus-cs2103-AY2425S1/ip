@@ -39,7 +39,7 @@ public class Ui {
     /**
      * Prints a list with the given messages.
      *
-     * @param list The list to be printed.
+     * @param list The list to be printed infront.
      * @param inputs the messages to be included.
      * */
 
