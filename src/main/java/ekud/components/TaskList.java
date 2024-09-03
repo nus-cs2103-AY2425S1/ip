@@ -1,10 +1,10 @@
 package ekud.components;
 
-import ekud.exceptions.EkudException;
-import ekud.task.Task;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import ekud.exceptions.EkudException;
+import ekud.task.Task;
 
 /**
  * Represents a list of {@link Task}.

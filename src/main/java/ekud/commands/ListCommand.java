@@ -1,9 +1,9 @@
 package ekud.commands;
 
 import ekud.components.Storage;
+import ekud.components.TaskList;
 import ekud.components.Ui;
 import ekud.task.Task;
-import ekud.components.TaskList;
 
 /**
  * Represents {@link Command} to list every {@link Task} in some {@link TaskList}.

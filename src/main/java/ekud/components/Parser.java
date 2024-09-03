@@ -1,10 +1,17 @@
 package ekud.components;
 
-import ekud.commands.*;
+import java.util.HashMap;
+
+import ekud.commands.AddCommand;
+import ekud.commands.Command;
+import ekud.commands.DeleteCommand;
+import ekud.commands.ExitCommand;
+import ekud.commands.FindCommand;
+import ekud.commands.ListCommand;
+import ekud.commands.MarkCommand;
+import ekud.commands.UnmarkCommand;
 import ekud.exceptions.EkudException;
 import ekud.task.Task;
-
-import java.util.HashMap;
 
 /**
  * The Parser of user inputs to {@link Command Commands}.

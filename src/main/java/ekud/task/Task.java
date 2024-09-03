@@ -1,10 +1,10 @@
 package ekud.task;
 
+import java.util.HashMap;
+
 import ekud.components.TaskList;
 import ekud.components.Ui;
 import ekud.exceptions.EkudException;
-
-import java.util.HashMap;
 
 /**
  * Represents a task. Each task minimally has a description and completion status.
