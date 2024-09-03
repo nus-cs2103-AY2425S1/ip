@@ -19,7 +19,8 @@ public enum CommandNames {
         try {
             return CommandNames.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new MaheshException(command + " is not a valid command. Use the \"bye\" command if you wish to exit the bot.");
+            throw new MaheshException(command + " is not a valid command. "
+            + "Use the \"bye\" command if you wish to exit the bot.");
         }
     }
 }
