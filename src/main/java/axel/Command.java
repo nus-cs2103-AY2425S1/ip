@@ -19,6 +19,7 @@ public interface Command {
      * @throws AxelException If an error occurs during command execution.
      */
     void execute(TaskList taskList, Ui ui, Storage storage) throws AxelException;
+
     /**
      * Determines if the command signals the application to exit.
      *
@@ -26,6 +27,7 @@ public interface Command {
      */
     boolean isExit();
 }
+
 /**
  * An abstract base class for commands.
  * Provides a default implementation for the {@code isExit} method,
@@ -37,20 +39,18 @@ abstract class CommandBase implements Command {
         return false;
     }
 }
+
 /**
  * Represents a command to add a new task to the task list.
  */
 class AddCommand extends CommandBase {
     protected Task task;
-<<<<<<< HEAD
+
     /**
      * Creates an {@code AddCommand} to add the specified task.
      *
      * @param task The task to be added to the task list.
      */
-=======
-
->>>>>>> branch-A-CodingStandard
     public AddCommand(Task task) {
         this.task = task;
     }
@@ -66,20 +66,18 @@ class AddCommand extends CommandBase {
         }
     }
 }
+
 /**
  * Represents a command to mark a task as done in the task list.
  */
 class MarkCommand extends CommandBase {
     protected int taskIndex;
-<<<<<<< HEAD
+
     /**
      * Creates a {@code MarkCommand} to mark the task at the specified index as done.
      *
      * @param taskIndex The index of the task to mark as done.
      */
-=======
-
->>>>>>> branch-A-CodingStandard
     public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
@@ -101,15 +99,12 @@ class MarkCommand extends CommandBase {
  */
 class UnmarkCommand extends CommandBase {
     protected int taskIndex;
-<<<<<<< HEAD
+
     /**
      * Creates an {@code UnmarkCommand} to unmark the task at the specified index as not done.
      *
      * @param taskIndex The index of the task to unmark as not done.
      */
-=======
-
->>>>>>> branch-A-CodingStandard
     public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
@@ -126,20 +121,18 @@ class UnmarkCommand extends CommandBase {
         }
     }
 }
+
 /**
  * Represents a command to delete a task from the task list.
  */
 class DeleteCommand extends CommandBase {
     protected int taskIndex;
-<<<<<<< HEAD
+
     /**
      * Creates a {@code DeleteCommand} to delete the task at the specified index.
      *
      * @param taskIndex The index of the task to delete.
      */
-=======
-
->>>>>>> branch-A-CodingStandard
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
@@ -156,6 +149,7 @@ class DeleteCommand extends CommandBase {
         }
     }
 }
+
 /**
  * Represents a command to list all tasks in the task list.
  */
@@ -165,6 +159,7 @@ class ListCommand extends CommandBase {
         ui.printTaskList(taskList.getTasks());
     }
 }
+
 /**
  * Represents a command to exit the application.
  */

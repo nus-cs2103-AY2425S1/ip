@@ -7,8 +7,10 @@ package axel;
 public abstract class Task {
     /** The description of the task. */
     protected String taskName;
+
     /** Indicates whether the task is completed. */
     protected boolean isDone;
+
     /**
      * Constructs a {@code Task} with the specified description.
      *
@@ -18,7 +20,7 @@ public abstract class Task {
         this.taskName = taskName;
         this.isDone = false;
     }
-<<<<<<< HEAD
+
     /**
      * Returns the description of the task.
      *
@@ -27,6 +29,7 @@ public abstract class Task {
     public String getTaskName() {
         return this.taskName;
     }
+
     /**
      * Returns a string representation of this task suitable for saving to a file.
      * Subclasses must implement this method to provide the specific file format.
@@ -34,6 +37,7 @@ public abstract class Task {
      * @return A string representation of the task in file format
      */
     public abstract String toFileFormat();
+
     /**
      * Checks if the task is completed.
      *
@@ -42,45 +46,27 @@ public abstract class Task {
     public boolean isDone() {
         return this.isDone;
     }
+
     /**
      * Marks the task as completed.
      */
     public void markAsDone() {
         this.isDone = true;
     }
+
     /**
      * Marks the task as not completed.
      */
     public void markAsNotDone() {
         this.isDone = false;
     }
+
     /**
      * Returns a string representation of the {@code Task}.
      * The format is: "[X] description" if the task is done, "[ ] description" if not done.
      *
      * @return A formatted string representation of the task
      */
-=======
-
-    public String getTaskName() {
-        return this.taskName;
-    }
-
-    public abstract String toFileFormat();
-
-    public boolean isDone() {
-        return this.isDone;
-    }
-
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void markAsNotDone() {
-        this.isDone = false;
-    }
-
->>>>>>> branch-A-CodingStandard
     @Override
     public String toString() {
         return (this.isDone ? "[X] " : "[ ] ") + this.taskName;

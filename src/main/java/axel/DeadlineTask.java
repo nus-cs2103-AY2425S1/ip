@@ -11,6 +11,7 @@ import java.util.Locale;
 public class DeadlineTask extends Task {
     /** The deadline for the task. */
     protected LocalDateTime by;
+
     /**
      * Constructs a {@code DeadlineTask} with the specified description and deadline.
      *
@@ -22,6 +23,7 @@ public class DeadlineTask extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.by = LocalDateTime.parse(by, formatter);
     }
+
     /**
      * Returns a string representation of the {@code DeadlineTask}.
      * The format is: "[D][status] (by: MMM d yyyy hh:mm a)".
@@ -35,6 +37,7 @@ public class DeadlineTask extends Task {
         String formattedDate = by.format(outputFormatter);
         return "[D]" + super.toString() + " (by: " + formattedDate.replace("am", "AM").replace("pm", "PM") + ")";
     }
+
     /**
      * Returns the string representation of this task suitable for saving to a file.
      * The format is: "D | [status] | [description] | [deadline]".

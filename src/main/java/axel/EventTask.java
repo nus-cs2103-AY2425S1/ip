@@ -11,8 +11,10 @@ import java.util.Locale;
 public class EventTask extends Task {
     /** The start time of the event. */
     protected LocalDateTime from;
+
     /** The end time of the event. */
     protected LocalDateTime to;
+
     /**
      * Constructs an {@code EventTask} with the specified description, start time, and end time.
      *
@@ -26,6 +28,7 @@ public class EventTask extends Task {
         this.from = LocalDateTime.parse(from, formatter);
         this.to = LocalDateTime.parse(to, formatter);
     }
+
     /**
      * Returns a string representation of the {@code EventTask}.
      * The format is: "[E][status] (from: MMM d yyyy hh:mm a to: MMM d yyyy hh:mm a)".
@@ -40,6 +43,7 @@ public class EventTask extends Task {
         String toFormatted = to.format(outputFormatter).replace("am", "AM").replace("pm", "PM");
         return "[E]" + super.toString() + " (from: " + fromFormatted + " to: " + toFormatted + ")";
     }
+
     /**
      * Returns the string representation of this task suitable for saving to a file.
      * The format is: "E | [status] | [description] | [start time] | [end time]".

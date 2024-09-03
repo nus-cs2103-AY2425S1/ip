@@ -5,7 +5,7 @@ package axel;
  * Inherits from {@link Task}.
  */
 public class ToDoTask extends Task {
-<<<<<<< HEAD
+
     /**
      * Constructs a {@code ToDoTask} with the specified task name.
      *
@@ -14,6 +14,7 @@ public class ToDoTask extends Task {
     public ToDoTask(String taskName) {
         super(taskName);
     }
+
     /**
      * Returns a string representation of the {@code ToDoTask}.
      * The format is: "[T][status]".
@@ -21,17 +22,11 @@ public class ToDoTask extends Task {
      *
      * @return A formatted string representation of the task
      */
-=======
-    public ToDoTask(String taskName) {
-        super(taskName);
-    }
-
->>>>>>> branch-A-CodingStandard
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
-<<<<<<< HEAD
+
     /**
      * Returns the string representation of this task suitable for saving to a file.
      * The format is: "T | [status] | [description]".
@@ -39,9 +34,6 @@ public class ToDoTask extends Task {
      *
      * @return A string representation of the task in file format
      */
-=======
-
->>>>>>> branch-A-CodingStandard
     @Override
     public String toFileFormat() {
         return "T | " + (isDone() ? "1" : "0") + " | " + getTaskName();

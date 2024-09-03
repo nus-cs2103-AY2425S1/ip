@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class TaskList {
     /** The list of tasks. */
     protected List<Task> tasks;
-<<<<<<< HEAD
+
     /**
      * Constructs a {@code TaskList} with the specified initial list of tasks.
      *
@@ -20,12 +20,14 @@ public class TaskList {
     public TaskList(List<Task> tasks) {
         this.tasks = new ArrayList<>(tasks);
     }
+
     /**
      * Constructs an empty {@code TaskList}.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
     /**
      * Adds a task to the task list.
      *
@@ -34,33 +36,19 @@ public class TaskList {
     public void addTask(Task task) {
         tasks.add(task);
     }
+
     /**
      * Removes the task at the specified index from the task list.
      * If the index is invalid, no action is taken.
      *
      * @param index The index of the task to be removed
      */
-=======
-
-    public TaskList(List<Task> tasks) {
-        this.tasks = new ArrayList<>(tasks);
-    }
-
-    public TaskList() {
-        this.tasks = new ArrayList<>();
-    }
-
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
-
->>>>>>> branch-A-CodingStandard
     public void removeTask(int index) {
         if (index >= 0 && index < tasks.size()) {
             tasks.remove(index);
         }
     }
-<<<<<<< HEAD
+
     /**
      * Retrieves the task at the specified index.
      *
@@ -70,6 +58,7 @@ public class TaskList {
     public Task getTask(int index) {
         return tasks.get(index);
     }
+
     /**
      * Returns a list of all tasks in the task list.
      *
@@ -78,22 +67,12 @@ public class TaskList {
     public List<Task> getTasks() {
         return tasks;
     }
+
     /**
      * Returns the number of tasks in the task list.
      *
      * @return The number of tasks
      */
-=======
-
-    public Task getTask(int index) {
-        return tasks.get(index);
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
->>>>>>> branch-A-CodingStandard
     public int size() {
         return tasks.size();
     }
