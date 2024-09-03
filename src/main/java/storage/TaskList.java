@@ -27,6 +27,13 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    public TaskList(Task ... tasks) {
+        this.tasks = new ArrayList<>();
+        for (Task task : tasks) {
+            this.tasks.add(task);
+        }
+    }
+
     /**
      * Adds a task to the task list.
      *
