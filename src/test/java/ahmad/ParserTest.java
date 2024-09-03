@@ -3,9 +3,9 @@ package ahmad;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import ahmad.exceptions.CommandInvalidException;
 import org.junit.jupiter.api.Test;
 
+import ahmad.exceptions.CommandInvalidException;
 
 public class ParserTest {
 

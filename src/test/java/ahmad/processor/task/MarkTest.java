@@ -1,8 +1,12 @@
 package ahmad.processor.task;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import ahmad.exceptions.AhmadException;
 import ahmad.exceptions.deadline.DeadlineEmptyNameException;
@@ -16,11 +20,12 @@ import ahmad.exceptions.mark.MarkInvalidArgsException;
 import ahmad.exceptions.mark.MarkInvalidNumberException;
 import ahmad.exceptions.todo.TodoEmptyNameException;
 import ahmad.response.Response;
-import org.junit.jupiter.api.Test;
 
 class MarkTest {
     @Test
-    public void validMarkTest() throws DeadlineInvalidTimeException, EventEmptyNameException, TodoEmptyNameException, DeadlineEmptyNameException, EventInvalidTimeException, EventInvalidArgsException, DeadlineInvalidArgsException {
+    public void validMarkTest() throws DeadlineInvalidTimeException, EventEmptyNameException, TodoEmptyNameException,
+            DeadlineEmptyNameException, EventInvalidTimeException, EventInvalidArgsException,
+            DeadlineInvalidArgsException {
         TaskList.addTask(Task.of(TaskType.Todo, "test"));
         try {
             Response response = Mark.process("mark 1");
