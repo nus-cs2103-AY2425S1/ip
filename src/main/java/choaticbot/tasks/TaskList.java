@@ -1,7 +1,7 @@
-package tasks;
+package choaticbot.tasks;
 
 import java.util.ArrayList;
-import static ui.Ui.printLine;
+import static choaticbot.ui.Ui.printLine;
 
 public class TaskList {
     private ArrayList<Task> tasklist;

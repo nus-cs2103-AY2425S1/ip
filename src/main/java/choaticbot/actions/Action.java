@@ -1,6 +1,6 @@
-package actions;
+package choaticbot.actions;
 
-import tasks.TaskList;
+import choaticbot.tasks.TaskList;
 
 abstract public class Action {
     public TaskList taskList;

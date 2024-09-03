@@ -1,4 +1,4 @@
-package tasks;
+package choaticbot.tasks;
 
 public class Events extends Task {
     private String start;

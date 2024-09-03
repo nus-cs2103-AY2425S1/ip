@@ -1,4 +1,4 @@
-package exceptions;
+package choaticbot.exceptions;
 
 public class UnknownActionException extends RuntimeException {
     public UnknownActionException(String msg) {

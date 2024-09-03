@@ -1,4 +1,4 @@
-package tasks;
+package choaticbot.tasks;
 
 public class ToDos extends Task {
 

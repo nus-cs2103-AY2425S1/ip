@@ -1,6 +1,6 @@
-package actions;
+package choaticbot.actions;
 
-import tasks.TaskList;
+import choaticbot.tasks.TaskList;
 
 public class Bye extends Action {
     public Bye(TaskList tasklist) {

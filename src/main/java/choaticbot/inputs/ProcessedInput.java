@@ -1,4 +1,4 @@
-package inputs;
+package choaticbot.inputs;
 
 public class ProcessedInput {
     public String action;

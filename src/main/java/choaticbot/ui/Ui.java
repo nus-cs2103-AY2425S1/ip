@@ -1,4 +1,4 @@
-package ui;
+package choaticbot.ui;
 
 public class Ui {
     public static void printText(String text) {

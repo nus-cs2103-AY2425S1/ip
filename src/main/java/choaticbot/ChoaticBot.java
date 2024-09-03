@@ -1,18 +1,20 @@
+package choaticbot;
+
 import java.util.Scanner;
 import java.io.*;
 import java.nio.file.*;
 
-import actions.ActionManager;
-import actions.Action;
-import inputs.InputProcessor;
-import inputs.ProcessedInput;
-import tasks.TaskList;
-import tasks.Task;
-import tasks.ToDos;
-import tasks.Deadlines;
-import tasks.Events;
+import choaticbot.actions.ActionManager;
+import choaticbot.actions.Action;
+import choaticbot.inputs.InputProcessor;
+import choaticbot.inputs.ProcessedInput;
+import choaticbot.tasks.TaskList;
+import choaticbot.tasks.Task;
+import choaticbot.tasks.ToDos;
+import choaticbot.tasks.Deadlines;
+import choaticbot.tasks.Events;
 
-import static ui.Ui.printText;
+import static choaticbot.ui.Ui.printText;
 
 public class ChoaticBot {
     public TaskList tasklist;

@@ -1,11 +1,11 @@
-package actions;
+package choaticbot.actions;
 
-import tasks.TaskList;
+import choaticbot.tasks.TaskList;
 
-public class Mark extends Action {
+public class Delete extends Action {
     public String details;
 
-    public Mark(TaskList taskList, String details) {
+    public Delete(TaskList taskList, String details) {
         super(taskList);
         this.details = details;
     }
@@ -13,7 +13,7 @@ public class Mark extends Action {
     @Override
     public void execute() {
         int index = Integer.parseInt(this.details);
-        this.taskList.markTask(index);
+        this.taskList.deleteTask(index);
     }
 }
 

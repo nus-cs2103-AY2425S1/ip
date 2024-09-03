@@ -1,4 +1,4 @@
-package tasks;
+package choaticbot.tasks;
 
 abstract public class Task {
     private String name;

@@ -1,6 +1,10 @@
-package actions;
+package choaticbot.actions;
 
-import tasks.*;
+import choaticbot.tasks.Task;
+import choaticbot.tasks.TaskList;
+import choaticbot.tasks.Deadlines;
+import choaticbot.tasks.Events;
+import choaticbot.tasks.ToDos;
 
 public class CreateTask extends Action{
     public String taskType;

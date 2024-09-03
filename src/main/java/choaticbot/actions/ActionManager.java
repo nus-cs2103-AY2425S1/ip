@@ -1,8 +1,8 @@
-package actions;
+package choaticbot.actions;
 
-import exceptions.UnknownActionException;
-import inputs.ProcessedInput;
-import tasks.TaskList;
+import choaticbot.exceptions.UnknownActionException;
+import choaticbot.inputs.ProcessedInput;
+import choaticbot.tasks.TaskList;
 
 public class ActionManager {
     public ActionManager() {};
