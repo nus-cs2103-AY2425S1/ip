@@ -38,7 +38,10 @@ public class UI {
      * Displays a separator line to the console.
      */
     public void showSeparator() {
-        System.out.println("--------------------------------------------------");
+        private static final DIVIDER = "--------------------------------------------------"
+        // Code
+        ...
+        System.out.println(DIVIDER);
     }
 
     /**
