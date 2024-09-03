@@ -30,14 +30,17 @@ public class EventCommand extends Command {
 
     /**
      * Executes the {@code EventCommand} by parsing the input to add a new event task to the task list.
-     * The event includes a description, start time, and end time.
-     * If the input is invalid, such as missing or incorrectly formatted date/time, appropriate exceptions are thrown.
+     * <p>
+     * The event task includes a description, start time, and end time. The input is expected to follow the format:
+     * <code>event description /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm</code>. If the input is missing any required
+     * components or if the date/time format is incorrect, appropriate exceptions are thrown.
+     * </p>
      *
-     * @param tasks   The task list containing all current tasks.
-     * @param ui      The UI component used to display messages to the user.
-     * @param storage The storage component used to save task data.
-     * @throws TalkieMissingArgumentException If the command is missing the required description,
-     *                                        start time, or end time.
+     * @param tasks   The {@code TaskList} containing all current tasks.
+     * @param ui      The {@code Ui} component used to display messages to the user.
+     * @param storage The {@code Storage} component used to save task data.
+     * @return A string containing a confirmation message about the added event or an error message if the input is invalid.
+     * @throws TalkieMissingArgumentException If the command is missing the required description, start time, or end time.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws TalkieMissingArgumentException {
@@ -49,6 +52,11 @@ public class EventCommand extends Command {
                 String details = parts[1]; // Rest of the input (e.g., description, from, to details)
                 String[] eventParts = details.split("/from | /to ");
 
+                if (eventParts.length < 3) {
+                    throw new TalkieMissingArgumentException(parts[0],
+                            "The 'description', 'from', and 'to' of event cannot be empty.");
+                }
+
                 String description = eventParts[0].trim();
                 String from = eventParts[1].trim();
                 String to = eventParts[2].trim();
@@ -58,7 +66,6 @@ public class EventCommand extends Command {
 
                 if (startTime.isAfter(endTime)) {
                     return "The end time must be after the start time!";
-
                 }
 
                 Task newEvent = new Event(description, startTime, endTime);

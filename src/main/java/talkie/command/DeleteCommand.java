@@ -27,11 +27,16 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the {@code DeleteCommand} by parsing the input to delete the specified task from the task list.
-     * If the input is invalid, such as a missing or incorrect task index, appropriate exceptions are thrown.
+     * <p>
+     * The command expects an index of the task to delete. The input should be in the format:
+     * <code>delete index</code>. If the index is missing, invalid, or the specified task does not exist,
+     * appropriate exceptions are thrown.
+     * </p>
      *
-     * @param tasks   The task list containing all current tasks.
-     * @param ui      The UI component used to display messages to the user.
-     * @param storage The storage component used to save task data.
+     * @param tasks   The {@code TaskList} containing all current tasks.
+     * @param ui      The {@code Ui} component used to display messages to the user.
+     * @param storage The {@code Storage} component used to save task data.
+     * @return A string containing a confirmation message about the deleted task or an error message if the input is invalid.
      * @throws TalkieMissingArgumentException  If the command is missing the required task index.
      * @throws TalkieNoTaskFoundException      If the task index specified does not exist in the task list.
      * @throws TalkieInvalidArgumentException  If the provided argument is not a valid integer.
@@ -45,9 +50,9 @@ public class DeleteCommand extends Command {
         if (temp.length == 1) {
             throw new TalkieMissingArgumentException(temp[0], "The 'delete' command requires an integer as argument");
 
-        // Check if user included the correct int argument
+            // Check if user included the correct integer argument
         } else if (this.isInteger(temp[1])) {
-            int index = Integer.parseInt(this.fullCommand.split(" ")[1]);
+            int index = Integer.parseInt(temp[1]);
 
             // Check if the task is in the list
             if (index <= tasks.size()) {

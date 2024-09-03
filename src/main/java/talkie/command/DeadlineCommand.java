@@ -32,13 +32,18 @@ public class DeadlineCommand extends Command {
     /**
      * Executes the {@code DeadlineCommand} by parsing the input to create a new {@code Deadline} task,
      * adding it to the task list, and displaying an appropriate message to the user.
-     * If the input is invalid, such as a missing description or an incorrectly formatted date/time,
-     * an appropriate error message is displayed.
+     * <p>
+     * The command expects a description and a deadline in the format:
+     * <code>deadline description /by yyyy-MM-dd HHmm</code>. If the description or deadline is missing,
+     * or if the date/time format is incorrect, appropriate exceptions are thrown, and error messages are displayed.
+     * </p>
      *
-     * @param tasks   The task list containing all current tasks.
-     * @param ui      The UI component used to display messages to the user.
-     * @param storage The storage component used to save task data.
-     * @throws TalkieMissingArgumentException If the command is missing a description or deadline.
+     * @param tasks   The {@code TaskList} containing all current tasks.
+     * @param ui      The {@code Ui} component used to display messages to the user.
+     * @param storage The {@code Storage} component used to save task data.
+     * @return A string containing a confirmation message about the added deadline task, or an error message if the
+     * input is invalid.
+     * @throws TalkieMissingArgumentException If the command is missing the required description or deadline.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws TalkieMissingArgumentException {
@@ -48,7 +53,7 @@ public class DeadlineCommand extends Command {
             if (parts.length == 2) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
-                String details = parts[1]; // rest of the input (eg. from, to details)
+                String details = parts[1]; // Rest of the input (e.g., description /by deadline details)
                 String[] deadlineParts = details.split("/by ");
                 String description = deadlineParts[0].trim();
                 String by = deadlineParts[1].trim();
@@ -66,6 +71,7 @@ public class DeadlineCommand extends Command {
             return ui.wrongDateTimeFormatMessage();
         }
     }
+
 
     /**
      * Indicates that this command does not terminate the application.

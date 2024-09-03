@@ -26,18 +26,26 @@ public class ToDoCommand extends Command {
 
     /**
      * Executes the {@code ToDoCommand} by creating a new ToDo task with the given description.
+     * <p>
+     * The method parses the command input to extract the task description and then creates a new ToDo task
+     * with the provided description. The task is added to the task list, and a confirmation message is generated
+     * to inform the user of the successful addition. If the description is missing, an exception is thrown.
+     * </p>
      *
      * @param tasks   The task list containing all current tasks.
      * @param ui      The UI component used to display messages to the user.
      * @param storage The storage component used to save task data.
-     * @throws TalkieMissingArgumentException If the description of the ToDo task is missing.
+     * @return A string containing a confirmation message about the newly added ToDo task, including the task details
+     *         and the updated size of the task list.
+     * @throws TalkieMissingArgumentException If the description of the ToDo task is missing, indicating that
+     *         the user did not provide a task description in the command input.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws TalkieMissingArgumentException {
         String[] parts = fullCommand.split(" ", 2); // Split into type and the rest of the input
 
         if (parts.length == 2) {
-            String details = parts[1]; // rest of the input (e.g., task description)
+            String details = parts[1]; // Rest of the input (e.g., task description)
             Task newToDo = new ToDo(details.trim());
             tasks.addTask(newToDo);
             return ui.addMessage(newToDo, tasks.size());

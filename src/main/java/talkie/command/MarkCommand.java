@@ -27,13 +27,21 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the {@code MarkCommand} by marking a specified task as done.
+     * <p>
+     * The method parses the command input to extract the task index and then marks the corresponding task in the
+     * task list as done. A confirmation message is generated to inform the user of the successful operation.
+     * If the index is not provided or is invalid, appropriate exceptions are thrown.
+     * </p>
      *
      * @param tasks   The task list containing all current tasks.
      * @param ui      The UI component used to display messages to the user.
      * @param storage The storage component used to save task data.
-     * @throws TalkieInvalidArgumentException If the argument provided is not a valid integer.
-     * @throws TalkieMissingArgumentException If no task index is provided.
-     * @throws TalkieNoTaskFoundException     If the specified task does not exist in the list.
+     * @return A string containing a confirmation message about the task being marked as done, including the
+     * task details.
+     * @throws TalkieInvalidArgumentException If the argument provided is not a valid integer or is not in the expected
+     * format.
+     * @throws TalkieMissingArgumentException If no task index is provided in the command input.
+     * @throws TalkieNoTaskFoundException     If the specified task index does not correspond to any task in the list.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage)
@@ -44,7 +52,7 @@ public class MarkCommand extends Command {
         if (temp.length == 1) {
             throw new TalkieMissingArgumentException(temp[0], "The 'mark' command requires an integer as argument");
 
-        // Check if the user included the correct integer argument
+            // Check if the user included the correct integer argument
         } else if (this.isInteger(temp[1])) {
             int index = Integer.parseInt(fullCommand.split(" ")[1]);
 

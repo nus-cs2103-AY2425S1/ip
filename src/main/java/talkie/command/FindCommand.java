@@ -31,17 +31,19 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the find command to search for tasks containing the specified keyword.
+     * Executes the {@code FindCommand} to search for tasks containing the specified keyword.
      * <p>
-     * Splits the command string to extract the keyword and checks if it is provided correctly. If valid, it uses the
-     * {@code Ui} component to display tasks matching the keyword. Throws exceptions for missing or invalid arguments.
+     * This method splits the command string to extract the keyword. It checks if the keyword is provided
+     * and valid. If so, it uses the {@code Ui} component to display tasks that match the keyword.
+     * If the keyword is missing or invalid, the method throws appropriate exceptions.
      * </p>
      *
-     * @param tasks The {@code TaskList} containing all the tasks to search within.
-     * @param ui The {@code Ui} component used to display search results.
-     * @param storage The {@code Storage} component (not used in this method but
-     *                included for method signature consistency).
-     * @throws TalkieMissingArgumentException If the keyword is not provided.
+     * @param tasks   The {@code TaskList} containing all the tasks to search within.
+     * @param ui      The {@code Ui} component used to display tasks matching the keyword.
+     * @param storage The {@code Storage} component (not used in this method but included for method
+     *                signature consistency).
+     * @return A string containing the search results, showing tasks that contain the specified keyword.
+     * @throws TalkieMissingArgumentException If the keyword is not provided in the command.
      * @throws TalkieInvalidArgumentException If the argument is not a valid string.
      */
     @Override
