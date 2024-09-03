@@ -20,7 +20,7 @@ public class Oliver {
         try {
             this.tasks = new TaskList(storage.loadData());
         } catch (IOException e) {
-            System.out.println("\tError occurred when reading data into list.");
+            System.out.println("Error occurred when reading data into list.");
             this.tasks = new TaskList();
         }
     }
@@ -57,7 +57,7 @@ public class Oliver {
         } else if (command.equalsIgnoreCase("find")) {
             return ui.showSearch(this.tasks, Parser.parseArgs(input));
         } else {
-            return "\tInvalid command. Command was not recognised.";
+            return "Invalid command. Command was not recognised.";
         }
     }
 
@@ -148,8 +148,8 @@ public class Oliver {
         } catch (IndexOutOfBoundsException e) {
             return ui.showMissingArgsError();
         } catch (DateTimeParseException e) {
-            return "\tInvalid date or time. Please enter the date and time in the following format: " +
-                    "YYYY-MM-DD HHmm\n\tNote that date is required but time is optional.";
+            return "Invalid date or time. Please enter the date and time in the following format: " +
+                    "YYYY-MM-DD HHmm\nNote that date is required but time is optional.";
         }
     }
 
@@ -176,7 +176,7 @@ public class Oliver {
         } catch (IndexOutOfBoundsException e) {
             return ui.showMissingArgsError();
         } catch (DateTimeParseException e) {
-            return "\tInvalid date or time. Please enter the date and time in the following format: YYYY-MM-DD HHmm";
+            return "Invalid date or time. Please enter the date and time in the following format: YYYY-MM-DD HHmm";
         }
     }
 

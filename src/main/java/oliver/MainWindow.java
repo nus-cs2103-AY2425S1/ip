@@ -26,15 +26,15 @@ public class MainWindow extends AnchorPane {
 
     private Oliver oliver;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image oliverImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/ducks.jpg"));
+    private Image oliverImage = new Image(this.getClass().getResourceAsStream("/images/oliver.jpeg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String greeting = "Hello! I'm Oliver.\nWhat can I do for you?";
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(greeting, oliverImage)
+                DialogBox.getOliverDialog(greeting, oliverImage)
         );
     }
 
@@ -53,13 +53,13 @@ public class MainWindow extends AnchorPane {
         String response = oliver.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, oliverImage)
+                DialogBox.getOliverDialog(response, oliverImage)
         );
         userInput.clear();
 
         if (input.equalsIgnoreCase("bye")) {
-            // Exit the application after 2.5 seconds of delay
-            PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
+            // Exit the application after 2 seconds of delay
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(event -> Platform.exit());
             delay.play();
         }

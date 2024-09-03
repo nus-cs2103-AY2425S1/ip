@@ -23,7 +23,7 @@ public class Ui {
      * @return string representation of the farewell message
      */
     public String showBye() {
-        return "\tBye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -142,7 +142,7 @@ public class Ui {
      * @return string representation of the error message
      */
     public String showMissingArgsError() {
-        return "\tMissing arguments for this command.";
+        return "Missing arguments for this command.";
     }
 
     /**
@@ -151,7 +151,7 @@ public class Ui {
      * @return string representation of the error message
      */
     public String showInvalidArgsError() {
-        return "\tInvalid arguments provided for this command.";
+        return "Invalid arguments provided for this command.";
     }
 
     /**
@@ -160,6 +160,6 @@ public class Ui {
      * @return string representation of the error message
      */
     public String showOutOfRangeError() {
-        return "\tNo such task exists. Task number out of range.";
+        return "No such task exists. Task number out of range.";
     }
 }
