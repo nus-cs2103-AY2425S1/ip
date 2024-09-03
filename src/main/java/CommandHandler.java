@@ -1,5 +1,7 @@
 package ip.derrick;
 
+import java.util.ArrayList;
+
 /**
  * Handles the commands that the user inputs and execute the corresponding outputs.
  */
@@ -80,7 +82,7 @@ public class CommandHandler {
             try {
                 tasks.addTodo(input);
                 storage.saveTasksToFile(tasks);
-            } catch (InvalidDescriptionException e) {
+            } catch (InvalidDescriptionException | DuplicateItemException e) {
                 System.out.println(e.getMessage());
             }
             break;
@@ -89,7 +91,7 @@ public class CommandHandler {
             try {
                 tasks.addDeadline(input);
                 storage.saveTasksToFile(tasks);
-            } catch (InvalidDescriptionException e) {
+            } catch (InvalidDescriptionException | DuplicateItemException e) {
                 System.out.println(e.getMessage());
             }
             break;
@@ -98,7 +100,7 @@ public class CommandHandler {
             try {
                 tasks.addEvent(input);
                 storage.saveTasksToFile(tasks);
-            } catch (InvalidDescriptionException e) {
+            } catch (InvalidDescriptionException | DuplicateItemException e) {
                 System.out.println(e.getMessage());
             }
             break;

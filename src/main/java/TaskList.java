@@ -72,7 +72,7 @@ public class TaskList {
      * @param input The input string containing the description of the todo task.
      * @throws InvalidDescriptionException If the description for the todo task is missing or invalid.
      */
-    public void addTodo(String input) throws InvalidDescriptionException {
+    public void addTodo(String input) throws InvalidDescriptionException, DuplicateItemException {
         Todo todo;
         try {
             todo = new Todo(input.split(" ", 2)[1]);
@@ -80,10 +80,20 @@ public class TaskList {
             throw new InvalidDescriptionException("You have not added any description for the todo task. "
                     + "Please try again.");
         }
+
+        for (Task item : this.tasks) {
+            if (todo.toString().equalsIgnoreCase(item.toString())) {
+                throw new DuplicateItemException("Warning : You already have this item in your list. \n "
+                        + item.toString());
+            }
+        }
+
         this.tasks.add(todo);
         System.out.println("Got it. I have added this todo.");
         System.out.println(todo);
         System.out.println("You have " + this.tasks.size() + " items in your list.");
+
+
 
     }
 
@@ -93,7 +103,7 @@ public class TaskList {
      * @param input The input string containing the description and deadline time for the deadline task.
      * @throws InvalidDescriptionException If the description or deadline time is missing or invalid.
      */
-    public void addDeadline(String input) throws InvalidDescriptionException {
+    public void addDeadline(String input) throws InvalidDescriptionException, DuplicateItemException {
         String time;
         String description;
 
@@ -112,6 +122,14 @@ public class TaskList {
         }
 
         Deadline deadline = new Deadline(description, time);
+
+        for (Task item : this.tasks) {
+            if (deadline.toString().equalsIgnoreCase(item.toString())) {
+                throw new DuplicateItemException("Warning : You already have this item in your list. \n "
+                        + item.toString());
+            }
+        }
+
         this.tasks.add(deadline);
         System.out.println("Got it. I have added this deadline.");
         System.out.println(deadline);
@@ -124,7 +142,7 @@ public class TaskList {
      * @param input The input string containing the description, start time, and end time for the event task.
      * @throws InvalidDescriptionException If the description, start time, or end time is missing or invalid.
      */
-    public void addEvent(String input) throws InvalidDescriptionException {
+    public void addEvent(String input) throws InvalidDescriptionException, DuplicateItemException {
         String start;
         String end;
         String description;
@@ -148,6 +166,12 @@ public class TaskList {
         }
 
         Event event = new Event(description, start, end);
+        for (Task item : this.tasks) {
+            if (event.toString().equalsIgnoreCase(item.toString())) {
+                throw new DuplicateItemException("Warning : You already have this item in your list. \n "
+                        + item.toString());
+            }
+        }
         this.tasks.add(event);
         System.out.println("Got it. I have added this event.");
         System.out.println(event);
