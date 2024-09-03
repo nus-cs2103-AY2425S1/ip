@@ -1,5 +1,6 @@
 package bottle;
 
+import bottle.command.*;
 import bottle.task.*;
 
 import java.time.LocalDateTime;
@@ -7,30 +8,51 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 public class Parser {
 
-    public void parseCommand(String input, TaskList taskList, Ui ui) {
+    public Command parseCommand(String input) {
         try {
             if (input.equalsIgnoreCase("bye")) {
-                ui.printByeMsg();
-                System.exit(0);
+                return new exitCommand();
             } else if (input.equalsIgnoreCase("list")) {
-                ui.printTaskList(taskList);
+                return new listCommand();
             } else if (input.startsWith("mark ")) {
-                markTask(taskList, input.substring(5), ui);
+                String taskIndexStr = input.substring(5);
+                int taskIndex = Integer.parseInt(taskIndexStr) - 1;
+                return new markCommand(taskIndex);
             } else if (input.startsWith("unmark ")) {
-                unMarkTask(taskList, input.substring(7), ui);
+                String taskIndexStr = input.substring(7);
+                int taskIndex = Integer.parseInt(taskIndexStr) - 1;
+                return new unMarkCommand(taskIndex);
             } else if (input.startsWith("todo ")) {
-                addTodoTask(taskList, input.substring(5), ui);
+                return new addTodoTask(input.substring(5));
             } else if (input.startsWith("deadline ")) {
-                addDeadlineTask(taskList, input.substring(9), ui);
+                String[] parts = input.split(" /by ");
+                if (parts.length != 2) {
+                    throw new IllegalArgumentException("OOPS!!! The deadline format is incorrect. Use: deadline <description> /by <dd/MM/yyyy HHmm>");
+                }
+                String description = parts[0];
+                LocalDateTime by = parseDateTime(parts[1]);
+                return new addDeadlineTask(description, by);
             } else if (input.startsWith("event ")) {
-                addEventTask(taskList, input.substring(6), ui);
+                String[] parts = input.split(" /from | /to ");
+                if (parts.length != 3) {
+                    throw new IllegalArgumentException("OOPS!!! The event format is incorrect. Use: event <description> /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>");
+                }
+                String description = parts[0];
+                LocalDateTime from = parseDateTime(parts[1]);
+                LocalDateTime to = parseDateTime(parts[2]);
+                return new addEventTask(description, from, to);
+            } else if (input.startsWith("delete ")){
+                String indexStr = input.substring(7);
+                int taskIndex = Integer.parseInt(indexStr) - 1;
+                return new DeleteCommand(taskIndex);
             } else {
                 throw new RuntimeException("OOPS!!! Something went wrong.");
             }
 
         } catch (RuntimeException e) {
-
+            System.out.println("Error parsing input" + e.getMessage());
         }
+        return null;
     }
     public Task parseTask(String input) {
         String[] parts = input.split("\\|");
@@ -56,33 +78,7 @@ public class Parser {
         }
     }
 
-    private static void markTask(TaskList taskList, String taskIndexStr, Ui ui) {
-        int taskIndex = Integer.parseInt(taskIndexStr) - 1;
-        taskList.markTask(taskIndex);
-        ui.printMark(taskList.getTask(taskIndex));
-    }
 
-    private static void unMarkTask(TaskList taskList, String taskIndexStr, Ui ui) {
-        int taskIndex = Integer.parseInt(taskIndexStr) - 1;
-        taskList.unMarkTask(taskIndex);
-        ui.printUnMark(taskList.getTask(taskIndex));
-    }
-
-    private static void addTodoTask(TaskList taskList, String description, Ui ui) {
-        taskList.addTodoTask(description);
-        ui.printTaskAddedMessage(taskList.getTaskList());
-    }
-
-
-    private static void addDeadlineTask(TaskList taskList, String input, Ui ui) {
-        taskList.addDeadlineTask(input);
-        ui.printTaskAddedMessage(taskList.getTaskList());
-    }
-
-    private static void addEventTask(TaskList taskList, String input, Ui ui) {
-        taskList.addEventTask(input);
-        ui.printTaskAddedMessage(taskList.getTaskList());
-    }
     private static LocalDateTime parseDateTime(String dateTimeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {

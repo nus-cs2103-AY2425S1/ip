@@ -1,5 +1,6 @@
 package bottle;
 
+import bottle.command.Command;
 import bottle.task.*;
 
 public class Bottle {
@@ -18,8 +19,8 @@ public class Bottle {
         ui.printWelcomeMsg();
         while (true) {
             String input = ui.getInput();
-            parser.parseCommand(input, taskList, ui);
-            storage.saveTasks(taskList.getTaskList());
+            Command command = parser.parseCommand(input);
+            command.execute(taskList, ui, storage);
         }
     }
     public static void main(String[] args) {
