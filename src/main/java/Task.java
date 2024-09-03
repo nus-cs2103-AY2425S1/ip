@@ -35,4 +35,5 @@ abstract public class Task {
     public String toFileFormat() {
         return name;
     }
+    abstract String creationResponse();
 }

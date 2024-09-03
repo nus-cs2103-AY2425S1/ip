@@ -39,6 +39,11 @@ public class Deadline extends Task{
         }
     }
 
+    public String creationResponse() {
+        return "Ok! I've added a new task with a deadline:\n" + this +
+                "\n";
+    }
+
     @Override
     public String toFileFormat() {
         return super.toFileFormat() + "," + endDate.toString() + System.lineSeparator();

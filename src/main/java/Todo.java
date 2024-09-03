@@ -17,6 +17,11 @@ public class Todo extends Task {
         }
     }
 
+    public String creationResponse() {
+        return "Ok! I've added a new todo task:\n" + this +
+                "\n";
+    }
+
     @Override
     public String toFileFormat() {
         return super.toFileFormat() + System.lineSeparator();
