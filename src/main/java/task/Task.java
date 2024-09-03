@@ -8,7 +8,7 @@ package task;
  */
 public abstract class Task {
     private String name = "new task";
-    private boolean status = false;
+    private boolean isDone = false;
 
     public Task(String name) {
         this.name = name;
@@ -18,20 +18,20 @@ public abstract class Task {
      * Marks task as completed.
      */
     public void markAsDone() {
-        this.status = true;
+        this.isDone = true;
     }
 
     /**
      * Marks task as incomplete.
      */
     public void markAsIncomplete() {
-        this.status = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
         return String.format("[%c] %s",
-                this.status
+                this.isDone
                         ? 'X'
                         : ' ',
                 this.name);

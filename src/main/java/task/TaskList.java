@@ -19,6 +19,7 @@ public class TaskList {
 
     /**
      * Adds Task to TaskList.
+     *
      * @param task Task object to be added to the ArrayLst.
      */
     public void addTask(Task task) {

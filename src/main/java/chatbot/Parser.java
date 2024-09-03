@@ -1,10 +1,5 @@
 package chatbot;
 
-import task.Deadline;
-import task.Event;
-import task.TaskList;
-import task.Todo;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -13,7 +8,11 @@ import java.time.format.ResolverStyle;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.time.format.ResolverStyle;
+
+import task.Deadline;
+import task.Event;
+import task.TaskList;
+import task.Todo;
 
 /**
  * Handles parsing of text representation of tasks

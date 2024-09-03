@@ -1,11 +1,17 @@
 package chatbot;
 
-import task.*;
-
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import task.Deadline;
+import task.Event;
+import task.InvalidInputException;
+import task.Task;
+import task.TaskIndexException;
+import task.TaskList;
+import task.Todo;
 
 
 /**
@@ -19,8 +25,8 @@ public class Bee {
         Storage storage = new Storage();
 
         // Checks if source text file is successfully opened
-        boolean isOpenFile = storage.readFromTaskListFile();
-        if (isOpenFile) {
+        boolean isFileOpen = storage.readFromTaskListFile();
+        if (isFileOpen) {
             // Parses input from saved text file
             Parser.parseFromTxtTaskList(storage.getScanner(), taskList);
 
@@ -35,8 +41,8 @@ public class Bee {
                     String next = sc.nextLine();
 
                     if (next.matches("bye.*")) {
-                        boolean saved = storage.writeToTaskListFile(taskList.parseTaskListToTxt());
-                        if (saved) {
+                        boolean isSaved = storage.writeToTaskListFile(taskList.parseTaskListToTxt());
+                        if (isSaved) {
                             Ui.printBtnLines("Bye~ Hope to see you again soon!");
                             break;
                         }
@@ -172,7 +178,7 @@ public class Bee {
                         }
 
                     } else if (next.matches("help")) {
-                        Ui.printBtnLines(Ui.help);
+                        Ui.printBtnLines(Ui.HELP);
                     } else {
                         // Throws exception when nothing, whitespaces, or no name is provided
                         throw new BeeException("Say something helpful.");

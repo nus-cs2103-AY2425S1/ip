@@ -20,7 +20,7 @@ public class Ui {
     /**
      * Prints out user guide.
      */
-    public static final String help = """
+    public static final String HELP = """
             There are three types of task, you can add them by typing:
                 todo <task name>
                 deadline <task name> /by <time>
