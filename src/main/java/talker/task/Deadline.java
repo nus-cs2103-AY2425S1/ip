@@ -3,6 +3,7 @@ package talker.task;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import talker.TalkerException;
 
 /**
@@ -10,13 +11,13 @@ import talker.TalkerException;
  */
 public class Deadline extends Task {
 
-    // deadline of Deadline task
-    private LocalDateTime by;
     // input formatter
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     // output formatter
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
 
+    // deadline of Deadline task
+    private LocalDateTime by;
     /**
      * Constructor for Deadline task
      *
@@ -63,7 +64,7 @@ public class Deadline extends Task {
      * @return String formatted by Task including deadline
      */
     @Override
-    public String getSaveFormat() {
+    public String getSaveFormat() throws TalkerException {
         return super.getSaveFormat() + " | " + by.format(INPUT_FORMAT);
     }
 

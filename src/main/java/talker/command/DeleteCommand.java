@@ -8,7 +8,7 @@ import talker.task.TaskList;
 /**
  * Represents a delete command to delete task from list
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     // string representing task number to be deleted
     private String[] parsed;

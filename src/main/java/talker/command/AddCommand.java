@@ -38,15 +38,18 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
         switch (taskType) {
-            case TODO:
-                list.createToDo(input, ui);
-                break;
-            case DEADLINE:
-                list.createDeadline(input, ui);
-                break;
-            case EVENT:
-                list.createEvent(input, ui);
-                break;
+        case TODO:
+            list.createToDo(input, ui);
+            break;
+        case DEADLINE:
+            list.createDeadline(input, ui);
+            break;
+        case EVENT:
+            list.createEvent(input, ui);
+            break;
+        default:
+            throw new TalkerException("Invalid task type");
         }
+
     }
 }

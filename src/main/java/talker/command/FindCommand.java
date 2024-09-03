@@ -10,7 +10,7 @@ import talker.task.TaskList;
  */
 public class FindCommand extends Command {
     // string representing keyword
-    String[] parsed;
+    private String[] parsed;
 
     public FindCommand(String[] parsed) {
         this.parsed = parsed;

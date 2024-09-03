@@ -1,11 +1,12 @@
 package talker;
 
-import org.junit.jupiter.api.Test;
-import talker.task.Deadline;
-import talker.task.Event;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import talker.task.Deadline;
+import talker.task.Event;
 
 public class ParserTest {
 
