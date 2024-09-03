@@ -2,7 +2,7 @@ package bob;
 
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.show(String.format("These are your tasks:\n%s", tasks));
+    public String execute(TaskList tasks, Storage storage) {
+        return String.format("These are your tasks:\n%s", tasks);
     }
 }

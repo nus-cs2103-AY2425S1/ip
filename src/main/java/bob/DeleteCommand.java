@@ -15,18 +15,19 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         try {
             Task task = tasks.remove(taskIndex);
             storage.save(tasks);
-            ui.show(String.format("""
+            return String.format("""
                     Oof. I have removed the requested task:
                     \t%s
-                    Now you have %s tasks in the list""", task, tasks.size()));
+                    Now you have %s tasks in the list""", task, tasks.size());
+
         } catch (IndexOutOfBoundsException e) {
-            ui.show("Hm, you don't seem to have that task");
+            return "Hm, you don't seem to have that task";
         } catch (IOException e) {
-            ui.show("I can't remember that for some reason T T");
+            return "I can't remember that for some reason T T";
         }
     }
 }
