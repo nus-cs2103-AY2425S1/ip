@@ -2,9 +2,7 @@ package quack.command;
 
 import quack.TaskList;
 import quack.Ui;
-
 import quack.exception.InvalidIndexException;
-
 import quack.tasks.Task;
 
 /**
@@ -29,13 +27,14 @@ public class DeleteTaskCommand extends Command {
 
     @Override
     public void execute() {
-        
+
         Command listCommand = new ListCommand(taskList, ui);
         listCommand.execute();
 
         String input = null;
 
         if (taskList.getLength() != 0) {
+
             try {
                 input = ui.requestIndexFromUser("delete");
                 // Convert the input into a integer
@@ -45,7 +44,7 @@ public class DeleteTaskCommand extends Command {
             } catch (NumberFormatException invalidIdxError) {
                 ui.printExceptionMessage(new InvalidIndexException(input));
             } catch (IndexOutOfBoundsException indexError) {
-               ui.printExceptionMessage(indexError);;
+                ui.printExceptionMessage(indexError);
             }
         }
     }

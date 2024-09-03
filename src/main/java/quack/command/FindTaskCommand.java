@@ -8,12 +8,12 @@ import quack.Ui;
  * similar to the description entered by the user.
  */
 public class FindTaskCommand extends Command {
-    
+
     /** List to store all tasks by Quack */
     private TaskList taskList;
     /** Ui to handle all user display interactions */
     private Ui ui;
-    
+
     /**
      * Creates a FindCommand object.
      * @param taskList A list that stores all the tasks tracked by Quack.
@@ -26,10 +26,9 @@ public class FindTaskCommand extends Command {
 
     @Override
     public void execute() {
-        
+
         String input = this.ui.requestSearchPrompt();
         TaskList filteredTask = taskList.filterTasks(input);
         ui.printSearchResult(filteredTask);
-
     }
 }

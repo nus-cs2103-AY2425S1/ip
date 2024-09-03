@@ -1,7 +1,6 @@
 package quack;
 
 import quack.command.Command;
-
 import quack.exception.InvalidCommandException;
 
 /**
@@ -21,7 +20,6 @@ public class Quack {
     /** Paser object to handle user inputs */
     private Paser paser;
 
-    
     /**
      * Creates a Quack chatbot object.
      */
@@ -69,7 +67,7 @@ public class Quack {
         ui.closeScanner();
     }
 
-    public static void main(String[] args) {    
+    public static void main(String[] args) {
         Quack bot = new Quack();
         bot.run();
     }

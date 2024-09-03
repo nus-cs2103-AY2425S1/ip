@@ -3,14 +3,14 @@ package quack.command;
 import java.io.IOException;
 
 import quack.Quack;
-import quack.TaskList;
 import quack.Storage;
+import quack.TaskList;
 
 /**
  * This class is responsible for handling the stopping of Quack.
  */
 public class ExitCommand extends Command {
-    
+
     /** Quack chatbot object */
     private Quack quack;
     /** To store all of the users tasks */
@@ -31,12 +31,12 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute () {
-        
+    public void execute() {
+
         try {
             storage.saveData(taskList);
-        } catch (IOException IOError){
-            System.out.println(IOError.getMessage());
+        } catch (IOException IoError) {
+            System.out.println(IoError.getMessage());
         } finally {
             quack.shutDown();
         }

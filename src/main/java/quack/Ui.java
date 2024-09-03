@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import quack.exception.InvalidIndexException;
 import quack.exception.InvalidTaskTypeException;
-
 import quack.tasks.Task;
 
 /**
@@ -12,19 +11,19 @@ import quack.tasks.Task;
  * for the Quack chatbot.
  */
 public class Ui {
-    
+
     /** String to print out the spacers between each command */
     private String spacer = "-".repeat(65);
     /** The name of the chatbot */
     private String botName = "Quack";
     /** The logo for Quack */
     private String logo =
-        "________                       __    \n" +
-        "\\_____  \\  __ _______    ____ |  | __\n" +
-        " /  / \\  \\|  |  \\__  \\ _/ ___\\|  |/ /\n" +
-        "/   \\_/.  \\  |  // __ \\\\  \\___|    < \n" +
-        "\\_____\\ \\_/____/(____  /\\___  >__|_ \\ \n" +
-        "       \\__>          \\/     \\/     \\/\n";
+        "________                       __    \n"
+        + "\\_____  \\  __ _______    ____ |  | __\n"
+        + " /  / \\  \\|  |  \\__  \\ _/ ___\\|  |/ /\n"
+        + "/   \\_/.  \\  |  // __ \\\\  \\___|    < \n"
+        + "\\_____\\ \\_/____/(____  /\\___  >__|_ \\ \n"
+        + "       \\__>          \\/     \\/     \\/\n";
 
     /** Farewell message for Quack */
     private String farewellMessage = "Bye. Hope to see you again soon!";
@@ -38,11 +37,11 @@ public class Ui {
         DEADLINE,
         EVENT
     }
-    
+
     /**
      * Creates a Ui object.
      */
-    public Ui () {
+    public Ui() {
 
     }
 
@@ -50,7 +49,7 @@ public class Ui {
      * Closes the scanner object.
      */
     public void closeScanner() {
-    
+
         this.scanner.close();
     }
 
@@ -75,7 +74,7 @@ public class Ui {
      * Prints the farewell message for Quack.
      */
     public void printFarewell() {
-    
+
         System.out.println(this.farewellMessage);
     }
 
@@ -103,7 +102,6 @@ public class Ui {
     public void printObject(Object obj) {
 
         System.out.println(obj.toString() + "\n" + this.spacer);
-       
     }
 
     /**
@@ -111,14 +109,14 @@ public class Ui {
      * @param filteredTaskList Filtered task list to be printed.
      */
     public void printSearchResult(TaskList filteredTaskList) {
-        
+
         if (filteredTaskList.getLength() == 0) {
             System.out.println("Im sorry. Seems like no tasks in the task list fits the description!");
         } else {
             System.out.println("Here are some tasks that I found that matches your description:");
             System.out.println(filteredTaskList.toString());
         }
-       
+
         System.out.println(this.spacer);
     }
 
@@ -129,7 +127,7 @@ public class Ui {
      * @param taskList A list that stores all the tasks tracked by Quack.
      */
     public void printUpdateSuccessfulMessage(Task task, String command, TaskList taskList) {
-        
+
         System.out.println("Success! I have " + command + "ed this task: " + task.toString() + "\n"
             + "You now have " + taskList.getLength() + " tasks in your list right now!\n" + this.spacer);
     }
@@ -165,13 +163,12 @@ public class Ui {
      * @return The index the user entered as an integer.
      * @throws InvalidIndexException If the index entered is invalid.
      */
-    public String requestIndexFromUser(String command){
+    public String requestIndexFromUser(String command) {
 
         System.out.println("Which task do you want to " + command + "? (Input the index of the task): ");
         String input = this.scanner.nextLine();
         System.out.println(this.spacer);
         return input;
-        
     }
 
     /**
@@ -179,7 +176,7 @@ public class Ui {
      * @return A string representation of the task type the user entered.
      * @throws InvalidTaskTypeException If the user inputs a invalid task type.
      */
-    public String requestTaskType() throws InvalidTaskTypeException{
+    public String requestTaskType() throws InvalidTaskTypeException {
 
         System.out.print("What is the type of task you would like to add: ");
         String input = this.scanner.nextLine();
@@ -204,7 +201,6 @@ public class Ui {
         String input = this.scanner.nextLine();
         System.out.println(this.spacer);
         return input;
-       
     }
 
     /**
@@ -231,7 +227,6 @@ public class Ui {
         String input = this.scanner.nextLine();
         System.out.println(this.spacer);
         return input;
-       
     }
 
     /**
@@ -240,7 +235,7 @@ public class Ui {
      * @throws InvalidTaskTypeException If the user inputs a invalid task type.
      */
     private void checkTaskType(String taskType) throws InvalidTaskTypeException {
-        
+
         String upperCasedTaskType = taskType.toUpperCase();
         for (TaskTypes tasktypes : TaskTypes.values()) {
             if (tasktypes.name().equals(upperCasedTaskType)) {
