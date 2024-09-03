@@ -1,11 +1,6 @@
 package PHambot.task;
 
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  * Represents a list of tasks.
@@ -87,5 +82,21 @@ public class TaskList {
             res = res + (i + 1) + ". " + tasks.get(i) + "\n";
         }
         return res;
+    }
+
+    /**
+     * Finds tasks that contain the specified keyword.
+     *
+     * @param keyword the keyword to search for.
+     * @return a list of tasks that contain the keyword.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getTaskName().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
     }
 }

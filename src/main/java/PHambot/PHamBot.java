@@ -9,12 +9,15 @@ import PHambot.utils.Utilities;
 
 import java.util.Scanner;
 
+/**
+ * Represents the main class of the PHamBot application.
+ */
 public class PHamBot {
     private static TaskList tasks;
     private static final String[] UserGreetings = {"Hello", "Hi", "What's up"};
 
     public static void main(String[] args) {
-        Greet();
+        greet();
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
         UserData data = new UserData();
@@ -37,12 +40,12 @@ public class PHamBot {
         }
     }
 
-    public static void Greet() {
+    public static void greet() {
         String greeting = "Hi! I'm PHamBot\nHappy to be of service to you today!";
         Utilities.OutlineMessage(greeting);
     }
 
-    public static void SayGoodbye() {
+    public static void sayGoodbye() {
         String goodbye = "Hope I was able to help\nGoodbye!";
         Utilities.OutlineMessage(goodbye);
     }

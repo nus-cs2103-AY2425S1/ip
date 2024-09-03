@@ -88,6 +88,9 @@ public class Parser {
             case DeleteCommand.COMMAND_WORD:
                 parsedCommand = new DeleteCommand(prepIndexedCommand(arguments));
                 break;
+            case FindCommand.COMMAND_WORD:
+                parsedCommand = new FindCommand(arguments);
+                break;
             default:
                 throw new UnknownCommandException("Unknown command");
             }
