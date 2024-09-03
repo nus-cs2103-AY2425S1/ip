@@ -20,6 +20,10 @@ public class DeleteCommand  extends Command {
 
     @Override
     public void execute() {
+        if (userInput.length() <= 7) {
+            return;
+        }
+
         int x = Integer.parseInt(userInput.substring(7).trim());
         int index = x - 1;
 
