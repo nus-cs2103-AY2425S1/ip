@@ -34,7 +34,7 @@ public class Ui {
     }
 
     public void showError(String message) {
-        System.out.println("OOPS!!! " + message);
+        System.out.println("NOT OK. " + message);
     }
 
     public void showTaskList(TaskList tasks) {

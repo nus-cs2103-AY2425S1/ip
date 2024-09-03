@@ -8,7 +8,8 @@ import susan.ui.Ui;
 import java.io.IOException;
 
 public abstract class Command {
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws SusanException, IOException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage)
+            throws SusanException, IOException;
 
     public boolean isExit() {
         return false;

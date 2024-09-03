@@ -14,11 +14,12 @@ public class Deadline extends Task {
      * Constructs a Deadline object with the specified description and deadline.
      *
      * @param description The description of the task.
-     * @param deadline The deadline of the task.
+     * @param deadline The deadline of the task in yyyy-MM-dd.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
-        this.by = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.by = by;
     }
 
     @Override

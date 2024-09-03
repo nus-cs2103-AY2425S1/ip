@@ -18,11 +18,11 @@ public class Event extends Task {
      * @param start The start time of the event.
      * @param end The end time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        this.from = LocalDateTime.parse(from, formatter);
-        this.to = LocalDateTime.parse(to, formatter);
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.from = from;
+        this.to = to;
     }
 
     @Override
