@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 package skd.task;
 import java.time.LocalDateTime;
+=======
+package task;
+
+import task.Task;
+
+import java.time.LocalDate;
+>>>>>>> ec24a2d9f9afe5e1fa72e4eb8c9a7e7a2c9d1127
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
