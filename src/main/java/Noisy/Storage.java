@@ -12,12 +12,14 @@ public class Storage {
     File file = new File("./data/duke.txt");
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
-        try ( Scanner scanner = new Scanner(file); ) {
+        try {
 
             if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
                 return tasks;
 
-            }
+            }Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] splitString = line.split("\\|");
@@ -28,8 +30,8 @@ public class Storage {
                         tasks.add(new Todo(splitString[1], Boolean.parseBoolean(splitString[2])));
                         break;
                     case "D":
-                        System.out.println("Adding task" + new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3])));
-                        tasks.add(new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3])));
+                        System.out.println("Adding task" + new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3].stripLeading())));
+                        tasks.add(new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3].stripLeading())));
                         break;
                     case "E":
                         tasks.add(new Event(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3]), parser.parseDate(splitString[4])));

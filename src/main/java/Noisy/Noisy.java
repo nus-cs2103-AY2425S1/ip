@@ -41,13 +41,14 @@ public class Noisy {
                         }
                         task = new Todo(input.split(" ", 2)[1], false);
                         break;
-                    case "Noisy.Deadline":
-                        String[] string = input.split(" ", 3);
-                        task = new Deadline(string[1], false, parser.parseDate(string[2]));
+                    case "Deadline":
+                        input = input.trim();
+                        String[] string = input.split(" ", 4);
+                        task = new Deadline(string[1], Boolean.parseBoolean(string[2]), parser.parseDate(string[3]));
                         break;
-                    case "Noisy.Event":
-                        String[] eventString = input.split(" ", 4);
-                        task = new Event(eventString[1], false, parser.parseDate(eventString[2]), parser.parseDate(eventString[3]));
+                    case "Event":
+                        String[] eventString = input.split(" ", 5);
+                        task = new Event(eventString[1], false, parser.parseDate(eventString[3]), parser.parseDate(eventString[4]));
                         break;
                     case "delete":
                         String[] deleteString = input.split(" ");

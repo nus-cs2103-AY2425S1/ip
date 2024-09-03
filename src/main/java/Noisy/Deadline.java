@@ -14,7 +14,7 @@ public class Deadline extends Task {
     @Override
     public String formatTask() {
         String status = isDone? "1" : "0";
-        return "D | " + this.description + " | " + status + " | " + this.description + " | " + this.deadline;
+        return "D | " + this.description + " | " + status + " | " + this.deadline;
     }
 
     @Override
