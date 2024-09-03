@@ -17,8 +17,7 @@ public class Storage {
 
     private static Storage storage;
     private static final String DATA_DIR = "data/";
-    private static final String DEFAULT_FILE = "duke.txt";
-    private static final String TEST_FILE = "duke_test.txt";
+    private static final String DEFAULT_FILE = "duke";
     private static boolean isTestMode = false;
     private static String currentFile = DEFAULT_FILE;
 
@@ -39,7 +38,7 @@ public class Storage {
      * Creates necessary directories and files if they don't exist.
      */
     public void readData() {
-        String fileName = isTestMode ? TEST_FILE : currentFile;
+        String fileName = getFullFileName();
         try {
             File filedir = new File(DATA_DIR);
             if (!filedir.exists()) {
@@ -66,7 +65,7 @@ public class Storage {
      * Writes the current TaskList data to the current file.
      */
     public void writeData() {
-        String fileName = isTestMode ? TEST_FILE : currentFile;
+        String fileName = getFullFileName();
         try {
             FileWriter filewriter = new FileWriter(DATA_DIR + fileName);
             ArrayList<Task> storage = TaskList.getInstance().getTaskList();
@@ -98,9 +97,9 @@ public class Storage {
             return;
         }
         saveData();
-        currentFile = fileName + ".txt";
+        currentFile = fileName;
         readData();
-        System.out.println("Switched to file: " + currentFile);
+        System.out.println("Switched to file: " + getFullFileName());
     }
 
     /**
@@ -110,6 +109,15 @@ public class Storage {
      */
     public String getCurrentFile() {
         return currentFile;
+    }
+
+    /**
+     * Gets the full file name including the appropriate extension.
+     *
+     * @return The full file name
+     */
+    private static String getFullFileName() {
+        return currentFile + (isTestMode ? "_test.txt" : ".txt");
     }
 
     /**
@@ -135,7 +143,7 @@ public class Storage {
      * Function to delete data file generated during tests.
      */
     private static void deleteTestFile() {
-        File testFile = new File(DATA_DIR + TEST_FILE);
+        File testFile = new File(DATA_DIR + getFullFileName());
         if (testFile.exists()) {
             boolean deleted = testFile.delete();
             if (!deleted) {
