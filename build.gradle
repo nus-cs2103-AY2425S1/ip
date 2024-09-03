@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("wansbot.WansBot")
+    mainClass.set("Launcher")
 }
 
 shadowJar {

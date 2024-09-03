@@ -208,6 +208,10 @@ public class WansBot {
         }
     }
 
+    public String getResponse(String input) {
+        return "Wans heard: " + input;
+    }
+
     /**
      * Finds the current tasks in userTaskList that contain the keyword and prints to console in a list.
      */
