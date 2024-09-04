@@ -24,7 +24,7 @@ public class FlyChat {
     }
 
     private static void start() {
-        storage.findSaveFile("./src/main/java/FlyChat/save.txt");
+        storage.findSaveFile("./save.txt");
         storage.loadSaveFile(taskList);
         ui.greetUser();
     }
