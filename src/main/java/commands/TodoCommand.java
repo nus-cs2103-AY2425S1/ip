@@ -1,12 +1,12 @@
 package commands;
 
+import java.util.ArrayList;
+
 import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.ToDoTask;
 import ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to add a to-do task to the task list.

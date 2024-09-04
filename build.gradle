@@ -32,6 +32,9 @@ shadowJar {
     archiveFileName = 'Primo.jar'
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
 
 application {
     mainClass.set("Primo")

@@ -30,8 +30,8 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String byeMessage = "\nEl Primo:\n" +
-                "Bye. Hope to see you again soon!";
+        String byeMessage = "\nEl Primo:\n"
+                + "Bye. Hope to see you again soon!";
         System.out.println(byeMessage);
     }
 }

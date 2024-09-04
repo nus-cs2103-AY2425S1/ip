@@ -1,7 +1,7 @@
 package tasks;
 
 public class ToDoTask extends Task {
-    private final String SYMBOL = "T";
+    private static final String SYMBOL = "T";
 
     public ToDoTask(String description) {
         super(description);

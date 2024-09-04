@@ -1,14 +1,22 @@
 package parser;
 
-import commands.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+import commands.ByeCommand;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.FindCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.TodoCommand;
+import commands.UnmarkCommand;
 import exception.PrimoException;
 import tasks.DeadlineTask;
 import tasks.EventTask;
 import tasks.ToDoTask;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.NoSuchElementException;
 
 /**
  * The Parser class is responsible for interpreting user commands and converting
@@ -51,8 +59,8 @@ public class Parser {
                     return type;
                 }
             }
-            throw new PrimoException("Invalid command!\n(Expected Commands: todo, deadline, event, mark, unmark, " +
-                    "delete, list, find, bye)\n");
+            throw new PrimoException("Invalid command!\n(Expected Commands: todo, deadline, event, mark, unmark, "
+                    + "delete, list, find, bye)\n");
         }
     }
 
@@ -118,8 +126,8 @@ public class Parser {
                 dueTime = "";
             }
             if (dueTime.isEmpty()) {
-                throw new PrimoException("deadline time empty or wrong formatting! Expected deadline <string> " +
-                        "/by YYYY-MM-DD");
+                throw new PrimoException("deadline time empty or wrong formatting! Expected deadline <string> "
+                        + "/by YYYY-MM-DD");
             }
             DeadlineTask newDeadlineTask = new DeadlineTask(deadlineDescription, parsedDate);
             return new DeadlineCommand(newDeadlineTask);
@@ -144,7 +152,8 @@ public class Parser {
                 from = "";
             }
             if (from.isEmpty()) {
-                throw new PrimoException("'From' parameter empty or wrong formatting! Expected event /from YYYY-MM-DD /to YYYY-MM-DD");
+                throw new PrimoException("'From' parameter empty or wrong formatting! Expected event "
+                        + "/from YYYY-MM-DD /to YYYY-MM-DD");
             }
             String to = fullCommand.substring(eventFinalIndex + 3).trim();
             try {
@@ -172,7 +181,8 @@ public class Parser {
                 throw new PrimoException("Poor formatting! Expecting find <string>");
             }
             return new FindCommand(wordToFind);
+        default:
+            return null; // should not reach here if exception handling is correct
         }
-        return null; // should not reach here if exception handling is correct
     }
 }

@@ -1,14 +1,14 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import commands.Command;
 import exception.PrimoException;
 import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * The Primo class is the entry point for the task management application.
