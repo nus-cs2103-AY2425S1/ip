@@ -8,9 +8,11 @@ import java.io.IOException;
 
 /**
  * Represents a general command that can be issued by the user.
+ * <p>
  * The command is not processed until
  * {@link #execute(TaskList, TaskFileManager, UserInterface)}
  * is called.
+ * </p>
  */
 public abstract class Command {
     /**
