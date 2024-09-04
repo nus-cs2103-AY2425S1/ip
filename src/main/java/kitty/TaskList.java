@@ -3,16 +3,15 @@ package kitty;
 import kitty.tasks.Task;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<Task>(100);
 
     public int addTask(Task task) {
-        return tasks.add(task)? tasks.size() : -1;
+        return tasks.add(task) ? tasks.size() : -1;
     }
 
-    public String deleteTask(int index) throws IndexOutOfBoundsException{
+    public String deleteTask(int index) throws IndexOutOfBoundsException {
         String str = "";
         Task tmp = tasks.get(index - 1);
         String note = tmp.toString();
@@ -21,13 +20,13 @@ public class TaskList {
         return str;
     }
 
-    public Task markDone(int index) throws IndexOutOfBoundsException{
+    public Task markDone(int index) throws IndexOutOfBoundsException {
         Task tmp = tasks.get(index - 1);
         tmp.mark();
         return tmp;
     }
 
-    public Task markUndone(int index) throws IndexOutOfBoundsException{
+    public Task markUndone(int index) throws IndexOutOfBoundsException {
         Task tmp = tasks.get(index - 1);
         tmp.unmark();
         return tmp;
@@ -48,12 +47,15 @@ public class TaskList {
         return str.toString();
     }
 
-    public void list() {
+    public String list() {
         int count = 1;
         Task[] tmp = new Task[0];
+        StringBuilder message = new StringBuilder();
         for (Task item: tasks.toArray(tmp)) {
-            System.out.println(count++ + "." + item);
+            message.append(count++).append(".").append(item).append("\n");
         }
+        System.out.println(message.toString());
+        return message.toString();
     }
 
     public ArrayList<Task> getTasks() {

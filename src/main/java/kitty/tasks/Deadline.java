@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Provides the skeleton for a kind of tasks.Task named tasks.Deadline.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private final LocalDateTime by;
     public Deadline(String name, LocalDateTime by) {
         super(name.trim());
@@ -15,7 +15,8 @@ public class Deadline extends Task{
 
     @Override
     public String getTaskData() {
-        return String.format("D" + super.getTaskData() + deli + by.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")) + "\n");
+        return String.format("D" + super.getTaskData() + deli
+                + by.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")) + "\n");
     }
 
     @Override

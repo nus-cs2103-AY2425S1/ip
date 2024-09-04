@@ -3,7 +3,7 @@ package kitty.command;
 import kitty.TaskList;
 import kitty.Ui;
 
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private String keyword;
     public FindCommand(Ui ui, TaskList tasks, String keyword) {
         super(ui, tasks);
@@ -11,8 +11,8 @@ public class FindCommand extends Command{
     }
 
     @Override
-    public void run() {
+    public String run() {
         String msg = tasks.findTask(keyword);
-        ui.showFindTask(msg);
+        return ui.showFindTask(msg);
     }
 }

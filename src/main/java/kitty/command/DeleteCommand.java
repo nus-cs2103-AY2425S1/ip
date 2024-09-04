@@ -6,7 +6,7 @@ import kitty.Ui;
 
 import java.io.IOException;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private int index;
     private Storage storage;
 
@@ -17,13 +17,13 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    public void run() throws IndexOutOfBoundsException{
+    public String run() throws IndexOutOfBoundsException {
         try {
             String msg = tasks.deleteTask(index);
             storage.rewriteFile(tasks.getData());
-            ui.showDeleteTaskMessage(msg);
+            return ui.showDeleteTaskMessage(msg);
         } catch (IOException e) {
-            ui.showErrorMessage("File writing unsuccessful.\n"
+            return ui.showErrorMessage("File writing unsuccessful.\n"
                     + "File deletion is not updated to hard disk.");
         }
     }
