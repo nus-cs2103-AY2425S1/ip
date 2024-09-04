@@ -7,33 +7,28 @@ import nimbus.task.Task;
 import nimbus.task.TodoTask;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Storage {
     private static String filepath;
-    private String dirpath = "src/main/data";
     private final Logger logger = Logger.getLogger(Nimbus.class.getName());
     private static final Logger staticLogger = Logger.getLogger(Nimbus.class.getName());
 
     public Storage(String filepath) {
-        Storage.filepath = filepath;
+        this.filepath = filepath;
     }
 
     public void createFile() {
         try {
-            File directory = new File(dirpath);
-            if (!directory.exists()) {
-                directory.mkdir();
-            }
-
             File file = new File(filepath);
             if (!file.exists()) {
                 file.createNewFile();
             }
         } catch (IOException ex) {
-            logger.log(Level.WARNING, "IO Exception found, no such dirpath or filepath");
+            logger.log(Level.WARNING, "IO Exception found, no such filepath");
         }
     }
 

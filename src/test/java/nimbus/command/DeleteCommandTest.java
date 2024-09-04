@@ -38,4 +38,15 @@ public class DeleteCommandTest {
         new DeleteCommand(userInput, taskList).execute();
         assertEquals(2,taskList.getTaskList().size());
     }
+
+    @Test
+    public void testDeleteCommandOutOfRange() {
+        TaskList taskList = new TaskList();
+        new AddCommand("todo Tutorial", taskList).execute();
+        new AddCommand("deadline Tutorial /by 22/8/2024 1800", taskList).execute();
+
+        String userInput = "delete 3";
+        new DeleteCommand(userInput, taskList).execute();
+        assertEquals(2,taskList.getTaskList().size());
+    }
 }

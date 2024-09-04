@@ -22,6 +22,6 @@ public class Nimbus {
 
     public static void main(String[] args)
             throws IOException, WrongDateTimeFormatException {
-        new Nimbus("src/main/data/nimbus.txt").run();
+        new Nimbus("src/main/nimbus.txt").run();
     }
 }
