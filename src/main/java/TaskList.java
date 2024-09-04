@@ -169,7 +169,8 @@ public class TaskList {
 //                System.out.println(x);
 //            }
             if (!inputWords[Arrays.asList(inputWords).indexOf("/from") + 3].equals("/to")) {
-                throw new InvalidTaskException("Invalid use of event format. Should be  '<description> /from <day> <start time>'");
+                throw new InvalidTaskException("Invalid use of event format."
+                        + "Should be  '<description> /from <day> <start_time> /to <end_time>'");
             }
             String day = inputWords[Arrays.asList(inputWords).indexOf("/from") + 1];
             String startTime = inputWords[Arrays.asList(inputWords).indexOf("/from") + 2];
@@ -223,12 +224,12 @@ public class TaskList {
                 if (subString2.length == 0) {
                     throw new InvalidTaskException("OOPS!!! The event description cannot be empty.");
                 }
-                throw new InvalidTaskException("Invalid use of event format. Should be  '<description> /from <day> <start time> /to <end time>'");
+                throw new InvalidTaskException("Invalid use of event format. Should be  '<description> /from <day> <start_time> /to <end_time>'");
             }
 
             String[] subString3 = subString2[1].split("/to");
             if (subString3.length <= 1) {
-                throw new InvalidTaskException("Invalid use of event format. Should be '<description> /from <day> <start time> /to <end time>'.");
+                throw new InvalidTaskException("Invalid use of event format. Should be '<description> /from <day> <start_time> /to <end_time>'.");
             }
             if (subString3[0].trim().isEmpty()) {
                 throw new InvalidTaskException("OOPS!!! The start time for the event cannot be empty.");
@@ -264,7 +265,7 @@ public class TaskList {
             }
             String[] subString1 = separateKeyword[1].split("/by");
             if (subString1.length <= 1) {
-                throw new InvalidTaskException("Invalid use of deadline. Should be '... /by ...'.");
+                throw new InvalidTaskException("Invalid use of deadline. Should be '<event> /by <date>'.");
             }
             return subString1[0].trim();
         case "event":
@@ -276,7 +277,8 @@ public class TaskList {
                 if (subString2.length == 0) {
                     throw new InvalidTaskException("OOPS!!! The event description cannot be empty.");
                 }
-                throw new InvalidTaskException("Invalid use of event format. Should be  '<description> /from <day> <start time>'");
+                throw new InvalidTaskException("Invalid use of event format."
+                        + "Should be  '<description> /from <day> <start_time> /to <end_time>'");
             }
             return subString2[0].trim();
 
