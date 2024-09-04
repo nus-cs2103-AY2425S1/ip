@@ -56,6 +56,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Sets up bot's greeting when application is first opened.
+     */
     public void greeting() {
         String greeting = lbot.getGreeting();
         dialogContainer.getChildren().add(DialogBox.getLBotDialog(greeting, lbotImage));

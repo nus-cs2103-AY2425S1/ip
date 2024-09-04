@@ -1,5 +1,7 @@
 package lbot.gui;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,7 +10,7 @@ import javafx.stage.Stage;
 import lbot.LBot;
 import lbot.gui.controllers.MainWindow;
 
-import java.io.IOException;
+
 
 /**
  * A GUI for LBot using FXML.
@@ -25,7 +27,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             MainWindow mw = fxmlLoader.<MainWindow>getController();
-            mw.setLBot(lbot);// inject the LBot instance
+            mw.setLBot(lbot); // inject the LBot instance
             mw.greeting();
             stage.show();
 
@@ -33,6 +35,4 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
-
 }

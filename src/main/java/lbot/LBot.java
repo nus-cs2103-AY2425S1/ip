@@ -1,9 +1,6 @@
 package lbot;
 
-import java.util.Scanner;
-
 import lbot.command.Command;
-import lbot.exception.ExecuteCommandException;
 import lbot.exception.FileException;
 import lbot.exception.LBotException;
 import lbot.helper.Parser;
@@ -41,13 +38,6 @@ public class LBot {
             tasks = new TaskList();
         }
     }
-
-//    /**
-//     * Main class of LBot.
-//     */
-//    public static void main(String[] args) {
-//        new LBot("data/tasks.txt").run();
-//    }
 
     //===============================================================
     // JavaFX related methods
