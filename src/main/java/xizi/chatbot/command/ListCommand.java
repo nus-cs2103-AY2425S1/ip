@@ -1,11 +1,11 @@
 package xizi.chatbot.command;
 
+import java.util.List;
+
 import xizi.chatbot.Storage;
+import xizi.chatbot.Ui;
 import xizi.chatbot.task.Task;
 import xizi.chatbot.task.TaskList;
-import xizi.chatbot.Ui;
-
-import java.util.List;
 
 /**
  * Represents a command to list all tasks currently in the task list.

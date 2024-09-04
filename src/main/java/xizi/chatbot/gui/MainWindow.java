@@ -1,5 +1,7 @@
 package xizi.chatbot.gui;
 
+import java.util.Objects;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import xizi.chatbot.Xizi;
 
-import java.util.Objects;
 
 /**
  * Controller for the main GUI.
@@ -27,8 +28,13 @@ public class MainWindow extends AnchorPane {
 
     private Xizi xizi;
 
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/tea.png")));
-    private final Image xiziImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/wine.png")));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/tea.png")));
+    private final Image xiziImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/wine.png")));
+    /**
+     * Initializes the main window.
+     */
 
     @FXML
     public void initialize() {

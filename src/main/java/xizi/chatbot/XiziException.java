@@ -4,7 +4,7 @@ package xizi.chatbot;
  * Represents a custom exception for the Xizi application.
  * This exception is thrown to indicate errors or issues related to user commands and application logic.
  */
-public class XiziException extends Exception{
+public class XiziException extends Exception {
     /**
      * Constructs a new {@code XiziException} with the specified detail message.
      *

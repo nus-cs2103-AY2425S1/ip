@@ -1,8 +1,9 @@
 package xizi.chatbot;
 
-import java.util.Scanner;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
+
 
 /**
  * Represents the user interface of the chatbot, handling all interactions with the user.
@@ -100,7 +101,6 @@ public class Ui {
     public void printMessage(String message) {
         out.println(message);
     }
-    
     /**
      * Displays a help message with command descriptions and examples.
      */

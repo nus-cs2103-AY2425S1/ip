@@ -1,5 +1,10 @@
 package xizi.chatbot;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import xizi.chatbot.command.ByeCommand;
 import xizi.chatbot.command.Command;
 import xizi.chatbot.command.CommandType;
@@ -15,11 +20,6 @@ import xizi.chatbot.command.TodoCommand;
 import xizi.chatbot.command.UnmarkCommand;
 import xizi.chatbot.task.TaskList;
 
-import java.io.IOException;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The {@code Parser} class provides utility methods for parsing user input,
@@ -49,7 +49,8 @@ public class Parser {
      */
     public static void validateTaskNumber(int taskNumber, TaskList actions) throws XiziException {
         if (taskNumber < 0 || taskNumber >= actions.getSize()) {
-            throw new XiziException("The task number does not exist. You have " + actions.getSize() + " tasks in total.");
+            throw new XiziException("The task number does not exist. You have "
+                    + actions.getSize() + " tasks in total.");
         }
     }
 
@@ -88,7 +89,8 @@ public class Parser {
         case FIND:
             return new FindCommand(userInput);
         default:
-            throw new XiziException("Sorry, I didn't understand that command. Type help for all available commands and format.");
+            throw new XiziException("Sorry, I didn't understand that command."
+                    + "Type help for all available commands and format.");
         }
     }
 

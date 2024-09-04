@@ -1,4 +1,7 @@
 package xizi.chatbot.gui;
+
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -6,9 +9,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import xizi.chatbot.Xizi;
 
-import java.io.IOException;
 
 //https://openjfx.io/javadoc/17/javafx.controls/javafx/scene/control/package-summary.html
+/**
+ * Serves as the main class to load and start the application.
+ */
 public class XiziApp extends Application {
 
     private Xizi xizi = new Xizi("data/xizi.txt");
@@ -20,7 +25,7 @@ public class XiziApp extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setXizi(xizi);  // inject the Xizi instance
+            fxmlLoader.<MainWindow>getController().setXizi(xizi); // inject the Xizi instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

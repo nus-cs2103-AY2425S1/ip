@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter;
  * and includes additional information about the deadline.
  */
 public class Deadline extends Task {
-    protected LocalDateTime ddl;
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    protected LocalDateTime ddl;
 
     /**
      * Constructs a {@code Deadline} task with the specified description and deadline.
@@ -23,7 +23,7 @@ public class Deadline extends Task {
         this.ddl = deadline;
     }
 
-    public LocalDateTime getDdl(){
+    public LocalDateTime getDdl() {
         return this.ddl;
     }
 
@@ -39,7 +39,7 @@ public class Deadline extends Task {
      * @return A string in the file format to save the task.
      */
     @Override
-    public String toFileFormat(){
+    public String toFileFormat() {
         return String.format("D | %d | %s | %s", this.isDone ? 1 : 0, this.name, this.ddl.format(OUTPUT_DATE_FORMAT));
     }
 

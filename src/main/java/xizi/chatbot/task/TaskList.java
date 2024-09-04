@@ -18,7 +18,7 @@ public class TaskList {
     /**
      * Constructs an empty {@code TaskList}.
      */
-    public TaskList(){
+    public TaskList() {
         this.items = new ArrayList<>();
         this.size = 0;
     }
@@ -28,7 +28,7 @@ public class TaskList {
      *
      * @param tasks The list of tasks to initialize the {@code TaskList} with.
      */
-    public TaskList(List<Task> tasks){
+    public TaskList(List<Task> tasks) {
         this.items = tasks;
         this.size = tasks.size();
     }
@@ -43,11 +43,11 @@ public class TaskList {
         this.size += 1;
     }
 
-    public int getSize(){
+    public int getSize() {
         return this.size;
     }
 
-    public List<Task> getItems(){
+    public List<Task> getItems() {
         return this.items;
     }
 
@@ -70,7 +70,7 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      * @return A string representation of the marked task.
      */
-    public String markTask(int index){
+    public String markTask(int index) {
         Task task = this.items.get(index);
         task.markDone();
         return task.toString();
@@ -82,7 +82,7 @@ public class TaskList {
      * @param index The index of the task to be unmarked.
      * @return A string representation of the unmarked task.
      */
-    public String unmarkTask(int index){
+    public String unmarkTask(int index) {
         Task task = this.items.get(index);
         task.unmark();
         return task.toString();

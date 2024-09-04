@@ -6,15 +6,15 @@ package xizi.chatbot.task;
  * Specific types of tasks should extend this class and implement the {@link #toFileFormat()} method.
  */
 public abstract class Task {
-    String name;
-    boolean isDone;
+    protected String name;
+    protected boolean isDone;
 
     /**
      * Constructs a {@code Task} with the specified name and initializes it as not done.
      *
      * @param command The name or description of the task.
      */
-    Task(String command){
+    Task(String command) {
         this.name = command;
         this.isDone = false;
     }
@@ -28,30 +28,30 @@ public abstract class Task {
      *
      * @param isDone {@code true} if the task is done, {@code false} otherwise.
      */
-    void setDone(boolean isDone){
+    void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 
     /**
      * Marks the task as done.
      */
-    public void markDone(){
+    public void markDone() {
         this.isDone = true;
     }
 
     /**
      * Unmarks the task, setting its status to not done.
      */
-    public void unmark(){
+    public void unmark() {
         this.isDone = false;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder stringbuilder = new StringBuilder();
-        if (this.isDone){
+        if (this.isDone) {
             stringbuilder.append("[X] ");
-        }else{
+        } else {
             stringbuilder.append("[ ] ");
         }
         stringbuilder.append(this.name);

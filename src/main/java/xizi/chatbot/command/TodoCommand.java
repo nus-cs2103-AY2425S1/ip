@@ -1,5 +1,8 @@
 package xizi.chatbot.command;
 
+import java.io.IOException;
+import java.util.regex.Matcher;
+
 import xizi.chatbot.Storage;
 import xizi.chatbot.Ui;
 import xizi.chatbot.XiziException;
@@ -7,8 +10,6 @@ import xizi.chatbot.task.Task;
 import xizi.chatbot.task.TaskList;
 import xizi.chatbot.task.Todo;
 
-import java.util.regex.Matcher;
-import java.io.IOException;
 
 /**
  * Represents a command to add a new todo task to the task list.

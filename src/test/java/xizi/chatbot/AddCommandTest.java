@@ -1,14 +1,19 @@
 package xizi.chatbot;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import xizi.chatbot.command.Command;
 import xizi.chatbot.command.DeadlineCommand;
 import xizi.chatbot.command.TodoCommand;
 import xizi.chatbot.task.Deadline;
 import xizi.chatbot.task.TaskList;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for various task addition commands in the application.
@@ -22,7 +27,8 @@ public class AddCommandTest {
 
     /**
      * Sets up the necessary objects before each test.
-     * Initializes an empty {@link TaskList}, a {@link Ui}, and a {@link Storage} object with the file path "./data/xizi.txt".
+     * Initializes an empty {@link TaskList}, a {@link Ui}, and a {@link Storage}
+     * object with the file path "./data/xizi.txt".
      */
     @BeforeEach
     public void setUp() {
@@ -74,7 +80,8 @@ public class AddCommandTest {
             addCommand.execute(tasks, storage, ui);
         });
 
-        assertTrue(exception.getMessage().contains("Sorry, I didn't understand that command. Type help for all available commands and format."));
+        assertTrue(exception.getMessage().contains("Sorry, I didn't understand that command. "
+                + "Type help for all available commands and format."));
     }
 
 

@@ -1,17 +1,22 @@
 package xizi.chatbot;
 
-import org.junit.jupiter.api.Test;
-import xizi.chatbot.task.Deadline;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import xizi.chatbot.task.Deadline;
+
+
 
 /**
  * Unit tests for the {@link Deadline} class.
- * This class tests the functionality related to creating deadlines, formatting them for output, and handling invalid dates.
+ * This class tests the functionality related to creating deadlines.
  */
 public class DeadlineTest {
 
@@ -77,7 +82,8 @@ public class DeadlineTest {
         String invalidDateString = "32/12/2023 1800";
 
         Exception exception = assertThrows(DateTimeParseException.class, () -> {
-            LocalDateTime invalidDeadline = LocalDateTime.parse(invalidDateString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            LocalDateTime invalidDeadline = LocalDateTime.parse(invalidDateString,
+                    DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
             new Deadline("Submit assignment", invalidDeadline);
         });
 

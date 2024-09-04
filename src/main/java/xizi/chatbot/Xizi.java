@@ -1,18 +1,14 @@
-package xizi.chatbot;//https://nus-cs2103-ay2425s1.github.io/website/admin/standardsAndConventions.html
+package xizi.chatbot;
+//https://nus-cs2103-ay2425s1.github.io/website/admin/standardsAndConventions.html
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.List;
 
 import xizi.chatbot.command.Command;
 import xizi.chatbot.task.Task;
 import xizi.chatbot.task.TaskList;
-
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.io.IOException;
 
 /**
  * The main class for the Xizi chatbot application. This class handles the initialization and
@@ -112,14 +108,16 @@ public class Xizi {
             // Execute the command
             command.execute(actions, storage, ui);
 
-            ps.flush();  // Ensure all data is written to the ByteArrayOutputStream
+            ps.flush(); // Ensure all data is written to the ByteArrayOutputStream
             return byteStream.toString().trim();
         } catch (XiziException | IOException e) {
             return e.getMessage(); // Return the error message as the response
         }
     }
-
-    public String returnWelcomeString (){
+    /**
+     * Returns the welcomes message as a string to the GUI.
+     */
+    public String returnWelcomeString() {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(byteStream);
         ui.setOutput(ps);

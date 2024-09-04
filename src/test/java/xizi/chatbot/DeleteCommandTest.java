@@ -1,12 +1,16 @@
 package xizi.chatbot;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import xizi.chatbot.command.DeleteCommand;
 import xizi.chatbot.task.TaskList;
 import xizi.chatbot.task.Todo;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the {@link DeleteCommand} class.
@@ -20,7 +24,7 @@ public class DeleteCommandTest {
 
     /**
      * Sets up the necessary objects before each test.
-     * Initializes an empty {@link TaskList}, a {@link Ui}, and a {@link Storage} object with the file path "testData.txt".
+     * Initializes an empty {@link TaskList}, a {@link Ui}, and a {@link Storage} object.
      * Adds a default task to the task list for testing purposes.
      */
     @BeforeEach

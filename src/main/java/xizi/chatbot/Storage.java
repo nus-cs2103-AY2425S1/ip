@@ -1,25 +1,22 @@
-package xizi.chatbot;// Do not use wildcard imports
+package xizi.chatbot;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import xizi.chatbot.task.Deadline;
 import xizi.chatbot.task.Event;
 import xizi.chatbot.task.Task;
 import xizi.chatbot.task.Todo;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 
@@ -80,7 +77,8 @@ public class Storage {
      */
     private static Task getTask(String line) throws XiziException {
         String[] parts = line.split(" \\| ");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"); // same as output format in xizi class
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
+        // same as output format in xizi class
         Task task;
         switch (parts[0]) {
         case "T":

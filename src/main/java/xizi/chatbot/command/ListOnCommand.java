@@ -1,16 +1,17 @@
 package xizi.chatbot.command;
 
-import xizi.chatbot.task.Deadline;
-import xizi.chatbot.task.Event;
-import xizi.chatbot.XiziException;
+import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+
 import xizi.chatbot.Parser;
-import xizi.chatbot.task.TaskList;
 import xizi.chatbot.Storage;
 import xizi.chatbot.Ui;
+import xizi.chatbot.XiziException;
+import xizi.chatbot.task.Deadline;
+import xizi.chatbot.task.Event;
 import xizi.chatbot.task.Task;
+import xizi.chatbot.task.TaskList;
 
-import java.util.regex.Matcher;
-import java.time.LocalDateTime;
 
 /**
  * Represents a command to list all tasks that are scheduled on a specific date and time.
@@ -29,7 +30,7 @@ public class ListOnCommand implements Command {
     public ListOnCommand(String userInput) throws XiziException {
         Matcher matcher = CommandType.LIST_ON.matcher(userInput);
         if (matcher.matches()) {
-            String dateTimeStr =  matcher.group(1);
+            String dateTimeStr = matcher.group(1);
             this.date = Parser.parseDateTime(dateTimeStr);
         } else {
             throw new XiziException("Invalid list on command format. Use: list on <date>");
@@ -53,11 +54,10 @@ public class ListOnCommand implements Command {
             for (Task task : actions.getItems()) {
                 if (task instanceof Event) {
                     Event event = (Event) task;
-                    if ((event.getFrom().isBefore(date) || event.getFrom().equals(date))&&
-                                (event.getTo().isAfter(date) || event.getTo().equals(date))) {
-                            ui.printMessage(event.toString());
-                            hasTasksFound = true;
-                        }
+                    if ((event.getFrom().isBefore(date) || event.getFrom().equals(date))
+                            && (event.getTo().isAfter(date) || event.getTo().equals(date))) {
+                        ui.printMessage(event.toString());
+                        hasTasksFound = true;
                     } else if (task instanceof Deadline) {
                         Deadline deadline = (Deadline) task;
                         if (deadline.getDdl().equals(date)) {
@@ -66,9 +66,10 @@ public class ListOnCommand implements Command {
                         }
                     }
                 }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         if (!hasTasksFound) {
             ui.printMessage("No tasks found on this date.");

@@ -8,11 +8,10 @@ import java.time.format.DateTimeFormatter;
  * This class extends the {@link Task} class and includes start and end times for the event.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
+    protected LocalDateTime from;
+    protected LocalDateTime to;
     /**
      * Constructs an {@code Event} task with the specified description, start time, and end time.
      *
@@ -26,17 +25,18 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public LocalDateTime getFrom(){
+    public LocalDateTime getFrom() {
         return this.from;
     }
 
-    public LocalDateTime getTo(){
+    public LocalDateTime getTo() {
         return this.to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_DATE_FORMAT) + " to: " + to.format(OUTPUT_DATE_FORMAT) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + from.format(OUTPUT_DATE_FORMAT) + " to: " + to.format(OUTPUT_DATE_FORMAT) + ")";
     }
 
     /**
@@ -47,7 +47,9 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        return String.format("E | %d | %s | %s | %s", this.isDone ? 1 : 0, this.name, this.from.format(OUTPUT_DATE_FORMAT), this.to.format(OUTPUT_DATE_FORMAT));
+        return String.format("E | %d | %s | %s | %s",
+                this.isDone ? 1 : 0,
+                this.name, this.from.format(OUTPUT_DATE_FORMAT), this.to.format(OUTPUT_DATE_FORMAT));
     }
 
 
