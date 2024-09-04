@@ -1,12 +1,15 @@
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
-    -fx-border-color: #d55e00;
-    -fx-border-width: 2px;
+    -fx-background-color: #e2e8f0;
+    -fx-border-color: #475569;
+    -fx-border-width: 1px;
     -fx-background-radius: 1em;
     -fx-border-radius: 1em;
+    -fx-font: bold 1.25em "Noto Sans";
 }
 
 .reply-label {
+    -fx-background-color: #bbf7d0;
+    -fx-border-color: #22c55e;
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
 }
@@ -23,9 +26,4 @@
     -fx-rotate: 0;
     -fx-border-radius: 100%;
     -fx-background-radius: 50px;
-}
-
-.reply-label {
-    -fx-background-radius: 1em 1em 1em 0;
-    -fx-border-radius: 1em 1em 1em 0;
 }

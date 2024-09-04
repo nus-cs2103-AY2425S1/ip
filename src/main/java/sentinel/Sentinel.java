@@ -135,10 +135,13 @@ public class Sentinel {
     ////////////// SENTINEL METHODS START //////////////
     /**
      * Makes Sentinel say a greeting message.
+     *
+     * @return Greeting message.
      */
-    public void greet() {
+    public String greet() {
         String greetMessage = "Greetings! I'm Sentinel. \n" + "What can I do for you?";
         say(greetMessage);
+        return(greetMessage);
     }
 
     /**
@@ -216,17 +219,15 @@ public class Sentinel {
      * Makes Sentinel respond to an input.
      */
     public String getResponse(String input) {
-        String userInput = input;
-
-        if (!userInput.equals("bye")) {
-            String[] parsedCommands = userInput.split("\\s+");
+        if (!input.equals("bye")) {
+            String[] parsedCommands = input.split("\\s+");
 
             // Check if command exists, if so, run the command
             if (Commands.getCommand(parsedCommands[0]) == null) {
                 ui.showError("Invalid command broski");
             } else {
                 try {
-                    Commands.getCommand(parsedCommands[0]).run(this, userInput);
+                    Commands.getCommand(parsedCommands[0]).run(this, input);
                 } catch (SentinelException exception) {
                     ui.showError(exception.getMessage());
                 }
