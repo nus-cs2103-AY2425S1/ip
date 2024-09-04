@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a task of type "Deadline" in the DGPT application.
+ * Represents a task of type "Deadline" in the Dgpt application.
  * <p>
  * A {@code Deadline} is a type of {@code Task} that has a specific due date.
  * It is characterized by its description, which is inherited from the {@code Task} class.

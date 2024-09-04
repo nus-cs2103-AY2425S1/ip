@@ -1,8 +1,5 @@
 package dgpt;
 
-import dgpt.exception.DgptFileNotFoundException;
-import dgpt.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,9 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import dgpt.exception.DgptFileNotFoundException;
+import dgpt.task.Deadline;
+import dgpt.task.Event;
+import dgpt.task.Task;
+import dgpt.task.TaskList;
+import dgpt.task.ToDo;
+
+
+
 /**
  * The Storage class is responsible for handling reading from and writing to
- * the file system for the DGPT application. It manages loading and saving
+ * the file system for the Dgpt application. It manages loading and saving
  * tasks from/to a specified file path.
  */
 public class Storage {

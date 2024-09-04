@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a task of type "Event" in the DGPT application.
+ * Represents a task of type "Event" in the Dgpt application.
  * <p>
  * A {@code Event} is a type of {@code Task} that has a specific start time and end time.
  * It is characterized by its description, which is inherited from the {@code Task} class.
@@ -44,7 +44,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.getFromTime() + " to: " +
-                this.getToTime() + ")";
+        return "[E]" + super.toString() + " (from: " + this.getFromTime() + " to: "
+                + this.getToTime() + ")";
     }
 }

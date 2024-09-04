@@ -1,7 +1,7 @@
 package dgpt.task;
 
 /**
- * Represents a task of type "ToDo" in the DGPT application.
+ * Represents a task of type "ToDo" in the Dgpt application.
  * <p>
  * A {@code ToDo} is a type of {@code Task} that does not have a specific deadline or time range.
  * It is characterized by its description, which is inherited from the {@code Task} class.

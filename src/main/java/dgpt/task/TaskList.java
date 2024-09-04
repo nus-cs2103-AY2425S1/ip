@@ -1,16 +1,11 @@
 package dgpt.task;
 
-import dgpt.task.Deadline;
-import dgpt.task.Event;
-import dgpt.task.Task;
-import dgpt.task.ToDo;
-
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Manages a list of tasks in the DGPT application.
+ * Manages a list of tasks in the Dgpt application.
  * <p>
  * The {@code TaskList} class provides methods for adding, marking, unmarking, deleting, and retrieving tasks.
  * Tasks can be of different types, including {@code ToDo}, {@code Deadline}, and {@code Event}.
