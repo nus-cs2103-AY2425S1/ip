@@ -6,11 +6,19 @@ import java.time.LocalDate;
  * Represent tasks with deadlines
  */
 public class DeadlineTask extends Task {
+    /**
+     * Initialises a Deadline Task object
+     * @param description description of the task
+     * @param isDone if the event is done
+     */
     public DeadlineTask(String description, boolean isDone) {
-
         super(description, isDone);
     }
 
+    /**
+     * Initialises a Deadline task object and set the isDone to false
+     * @param description
+     */
     public DeadlineTask(String description) {
 
         super(description);

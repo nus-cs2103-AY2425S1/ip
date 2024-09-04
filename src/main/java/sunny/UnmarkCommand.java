@@ -2,7 +2,10 @@ package sunny;
 
 import java.util.List;
 
-public class UnmarkCommand extends Command{
+/**
+ * Marks the corresponding task as undone
+ */
+public class UnmarkCommand extends Command {
     private String s = "";
     @Override
     public String runCommand(List<Task> ls, String m) {

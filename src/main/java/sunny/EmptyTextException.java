@@ -1,5 +1,9 @@
 package sunny;
-public class EmptyTextException extends Exception{
+
+/**
+ * Returns exception message when user did not give an input
+ */
+public class EmptyTextException extends Exception {
     public EmptyTextException() {
         super("Please specify a task");
     }

@@ -50,8 +50,8 @@ public class Storage {
         try {
             Files.write(Paths.get(filePath), str.getBytes());
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, please create new file with file path: " +
-                    "/Users/jerryyou/ip/taskslist.txt");
+            System.out.println("File not found, please create new file with file path: "
+                    + "/Users/jerryyou/ip/taskslist.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,8 +70,8 @@ public class Storage {
                 ls.add(t);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, please create new file with file path: " +
-                    "/Users/jerryyou/ip/taskslist.txt");
+            System.out.println("File not found, please create new file with file path: "
+                    + "/Users/jerryyou/ip/taskslist.txt");
         } catch (Exception e) {
             e.printStackTrace();
         }

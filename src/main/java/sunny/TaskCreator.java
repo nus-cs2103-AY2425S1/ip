@@ -12,7 +12,7 @@ public class TaskCreator {
      * @return One of the tasks class: todo deadline event
      * @throws Exception if message does not fit the standard
      */
-    public static Task create(String message) throws Exception{
+    public static Task create(String message) throws Exception {
         if (Objects.equals(message, null)) {
             throw new EmptyTextException();
         }
