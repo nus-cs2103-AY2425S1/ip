@@ -24,12 +24,12 @@ public class Ui {
 
     /**
      * Prints out the tasks in the task list line by line. The starting index of the printed list is 1.
-     * @param taskList List of tasks currently.
+     * @param tasks List of tasks currently.
      */
-    public void list(TaskList taskList) {
+    public void list(TaskList tasks) {
         System.out.println("!plans:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i + 1 + ". " + taskList.get(i));
+        for (int i = 0; i < tasks.getSize(); i++) {
+            System.out.println(i + 1 + ". " + tasks.getTask(i));
         }
     }
 
@@ -45,36 +45,36 @@ public class Ui {
     /**
      * Prints out the default message if command is not recognised.
      */
-    public void unknownCommand() {
-        System.out.println("fence is programmed to track your tasks and has long lost all ability " +
-                "to do other things ");
+    public void printUnknownCommand() {
+        System.out.println("fence is programmed to track your tasks and has long lost all ability "
+                + "to do other things ");
     }
 
     /**
      * Prints out the error message for an input with invalid format.
      */
-    public void missingFieldError() {
+    public void printMissingFieldError() {
         System.out.println("doing nothing (field missing/invalid format)");
     }
 
     /**
      * Prints out the error message for a date with invalid format.
      */
-    public void invalidDateError() {
+    public void printInvalidDateError() {
         System.out.println("fence only understands yyyy-mm-dd");
     }
 
     /**
      * Prints out the error message for a number with invalid format.
      */
-    public void invalidNumberError() {
+    public void printInvalidNumberError() {
         System.out.println("fence has only learnt numerical integers");
     }
 
     /**
      * Prints out the error message for a data file with invalid format.
      */
-    public void loadingError() {
+    public void printLoadingError() {
         System.out.println("Data file corrupted");
     }
 

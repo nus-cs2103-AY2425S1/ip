@@ -4,6 +4,7 @@ package fence.task;
  * Represents an event task which contains a description, start time and end time.
  */
 public class Event extends Task {
+
     private String from;
     private String to;
 

@@ -1,14 +1,15 @@
 package fence;
 
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 import fence.parser.Parser;
 import fence.storage.Storage;
 import fence.task.Task;
 import fence.tasklist.TaskList;
 import fence.ui.Ui;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Fence {
 
@@ -24,7 +25,7 @@ public class Fence {
         try {
             tasks = new TaskList(storage.read(parser));
         } catch (NoSuchElementException e) {
-            ui.loadingError();
+            ui.printLoadingError();
             tasks = new TaskList(new ArrayList<>());
         }
     }
@@ -46,33 +47,33 @@ public class Fence {
                     Task task = parser.getTask();
                     tasks.add(task);
                     ui.add(task);
-                    ui.count(tasks.size());
+                    ui.count(tasks.getSize());
                     storage.saveAppend(task);
                 } else if (commandType.equals("mark")) {
                     int index = parser.getIndex();
                     tasks.mark(index);
-                    ui.mark(tasks.get(index - 1));
+                    ui.mark(tasks.getTask(index - 1));
                     storage.saveRewrite(tasks);
                 } else if (commandType.equals("unmark")) {
                     int index = parser.getIndex();
                     tasks.unmark(index);
-                    ui.unmark(tasks.get(index - 1));
+                    ui.unmark(tasks.getTask(index - 1));
                     storage.saveRewrite(tasks);
                 } else if (commandType.equals("delete")) {
                     int index = parser.getIndex();
-                    ui.delete(tasks.get(index - 1));
+                    ui.delete(tasks.getTask(index - 1));
                     tasks.delete(index);
-                    ui.count(tasks.size());
+                    ui.count(tasks.getSize());
                     storage.saveRewrite(tasks);
                 } else {
-                    ui.unknownCommand();
+                    ui.printUnknownCommand();
                 }
             } catch (NoSuchElementException e) {
-                ui.missingFieldError();
+                ui.printMissingFieldError();
             } catch (DateTimeParseException e) {
-                ui.invalidDateError();
+                ui.printInvalidDateError();
             } catch (NumberFormatException e) {
-                ui.invalidNumberError();
+                ui.printInvalidNumberError();
             }
         }
     }

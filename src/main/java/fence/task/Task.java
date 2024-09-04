@@ -4,6 +4,7 @@ package fence.task;
  * Represents a general task which contains a description.
  */
 public class Task {
+
     private String description;
     private boolean isDone;
 

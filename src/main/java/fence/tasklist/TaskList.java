@@ -1,7 +1,8 @@
 package fence.tasklist;
 
-import fence.task.Task;
 import java.util.ArrayList;
+
+import fence.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -23,7 +24,7 @@ public class TaskList {
      * @param i Index of task.
      * @return Task at index i.
      */
-    public Task get(int i) {
+    public Task getTask(int i) {
         return items.get(i);
     }
 
@@ -31,7 +32,7 @@ public class TaskList {
      * Returns the number of elements in the list.
      * @return Size of the task list.
      */
-    public int size() {
+    public int getSize() {
         return items.size();
     }
 
@@ -48,7 +49,7 @@ public class TaskList {
      * @param i Index of the task as given by the list printed by {@link fence.ui.Ui#list(TaskList)}.
      */
     public void mark(int i) {
-        Task task = items.get(i-1);
+        Task task = items.get(i - 1);
         task.complete();
     }
 
@@ -57,7 +58,7 @@ public class TaskList {
      * @param i Index of the task as given by the list printed by {@link fence.ui.Ui#list(TaskList)}.
      */
     public void unmark(int i) {
-        Task task = items.get(i-1);
+        Task task = items.get(i - 1);
         task.undo();
     }
 

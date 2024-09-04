@@ -1,12 +1,13 @@
 package fence.parser;
 
+import java.time.LocalDate;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
+
 import fence.task.Deadline;
 import fence.task.Event;
 import fence.task.Task;
 import fence.task.Todo;
-import java.time.LocalDate;
-import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
 
 public class Parser {
 
@@ -19,56 +20,56 @@ public class Parser {
         String status = st.nextToken();
         boolean isDone = status.equals("(DONE)");
         if (firstWord.equals("TODO")) {
-            String desc = st.nextToken();
+            String description = st.nextToken();
             while (st.hasMoreTokens()) {
-                desc = desc + " " + st.nextToken();
+                description = description + " " + st.nextToken();
             }
-            taskResult = new Todo(desc);
+            taskResult = new Todo(description);
         } else if (firstWord.equals("DEADLINE")) {
-            String desc = st.nextToken();
+            String description = st.nextToken();
             String by = "";
-            boolean descDone = false;
+            boolean hasCompleteDescription = false;
             while (st.hasMoreTokens()) {
                 String nextWord = st.nextToken();
                 if (nextWord.equals("/by")) {
-                    descDone = true;
+                    hasCompleteDescription = true;
                     by = st.nextToken();
                     continue;
                 }
-                if (descDone) {
+                if (hasCompleteDescription) {
                     by = by + " " + nextWord;
                 } else {
-                    desc = desc + " " + nextWord;
+                    description = description + " " + nextWord;
                 }
             }
-            taskResult = new Deadline(desc, LocalDate.parse(by));
+            taskResult = new Deadline(description, LocalDate.parse(by));
         } else if (firstWord.equals("EVENT")) {
-            String desc = st.nextToken();
+            String description = st.nextToken();
             String from = "";
             String to = "";
-            boolean descDone = false;
-            boolean fromDone = false;
+            boolean hasCompleteDescription = false;
+            boolean hasCompleteFrom = false;
             while (st.hasMoreTokens()) {
                 String nextWord = st.nextToken();
                 if (nextWord.equals("/from")) {
-                    descDone = true;
+                    hasCompleteDescription = true;
                     from = st.nextToken();
                     continue;
                 }
                 if (nextWord.equals("/to")) {
-                    fromDone = true;
+                    hasCompleteFrom = true;
                     to = st.nextToken();
                     continue;
                 }
-                if (fromDone) {
+                if (hasCompleteFrom) {
                     to = to + " " + nextWord;
-                } else if (descDone) {
+                } else if (hasCompleteDescription) {
                     from = from + " " + nextWord;
                 } else {
-                    desc = desc + " " + nextWord;
+                    description = description + " " + nextWord;
                 }
             }
-            taskResult = new Event(desc, from, to);
+            taskResult = new Event(description, from, to);
         }
         if (isDone) {
             taskResult.complete();
@@ -84,73 +85,73 @@ public class Parser {
         } else if (command.equals("list")) {
             return "list";
         } else if (firstWord.equals("todo")) {
-            String desc = st.nextToken();
+            String description = st.nextToken();
             while (st.hasMoreTokens()) {
-                desc = desc + " " + st.nextToken();
+                description = description + " " + st.nextToken();
             }
-            taskResult = new Todo(desc);
+            taskResult = new Todo(description);
             return "task";
         } else if (firstWord.equals("deadline")) {
-            String desc = st.nextToken();
-            if (desc.equals("/by")) {
+            String description = st.nextToken();
+            if (description.equals("/by")) {
                 throw new NoSuchElementException();
             }
             String by = "";
-            boolean descDone = false;
+            boolean hasCompleteDescription = false;
             while (st.hasMoreTokens()) {
                 String nextWord = st.nextToken();
                 if (nextWord.equals("/by")) {
-                    descDone = true;
+                    hasCompleteDescription = true;
                     by = st.nextToken();
                     continue;
                 }
-                if (descDone) {
+                if (hasCompleteDescription) {
                     by = by + " " + nextWord;
                 } else {
-                    desc = desc + " " + nextWord;
+                    description = description + " " + nextWord;
                 }
             }
-            if (!descDone) {
+            if (!hasCompleteDescription) {
                 throw new NoSuchElementException();
             }
-            taskResult = new Deadline(desc, LocalDate.parse(by));
+            taskResult = new Deadline(description, LocalDate.parse(by));
             return "task";
         } else if (firstWord.equals("event")) {
-            String desc = st.nextToken();
-            if (desc.equals("/to") || desc.equals("/from")) {
+            String description = st.nextToken();
+            if (description.equals("/to") || description.equals("/from")) {
                 throw new NoSuchElementException();
             }
             String from = "";
             String to = "";
-            boolean descDone = false;
-            boolean fromDone = false;
+            boolean hasCompleteDescription = false;
+            boolean hasCompleteFrom = false;
             while (st.hasMoreTokens()) {
                 String nextWord = st.nextToken();
                 if (nextWord.equals("/from")) {
-                    descDone = true;
+                    hasCompleteDescription = true;
                     from = st.nextToken();
                     continue;
                 }
                 if (nextWord.equals("/to")) {
-                    if (!descDone) {
+                    if (!hasCompleteDescription) {
                         throw new NoSuchElementException();
                     }
-                    fromDone = true;
+                    hasCompleteFrom = true;
                     to = st.nextToken();
                     continue;
                 }
-                if (fromDone) {
+                if (hasCompleteFrom) {
                     to = to + " " + nextWord;
-                } else if (descDone) {
+                } else if (hasCompleteDescription) {
                     from = from + " " + nextWord;
                 } else {
-                    desc = desc + " " + nextWord;
+                    description = description + " " + nextWord;
                 }
             }
-            if (!(descDone && fromDone)) {
+            if (!(hasCompleteDescription && hasCompleteFrom)) {
                 throw new NoSuchElementException();
             }
-            taskResult = new Event(desc, from, to);
+            taskResult = new Event(description, from, to);
             return "task";
         } else if (firstWord.equals("mark")) {
             intResult = Integer.parseInt(st.nextToken());
