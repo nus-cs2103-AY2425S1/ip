@@ -25,12 +25,12 @@ public class UnmarkCommand extends Command {
      * @param storage Loads list of tasks from file and writes tasks to the bestie.txt file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index >= 0 && this.index < tasks.size()) {
             tasks.getTask(this.index).markUndone();
-            ui.showTaskUnmarked(tasks.getTask(this.index));
+            return ui.showTaskUnmarked(tasks.getTask(this.index));
         } else {
-            ui.showIndexOutOfBoundsMessage(this.index, tasks);
+            return ui.showIndexOutOfBoundsMessage(this.index, tasks);
         }
     }
 }
