@@ -10,7 +10,7 @@ import tohru.ui.Ui;
  */
 public class DeleteCommand extends Command {
 
-    /** Prefix used to invoke the delete command */
+    /** Prefix used to invoke the delete command. */
     public static final String COMMAND_PREFIX = "delete";
 
     /**
@@ -45,8 +45,7 @@ public class DeleteCommand extends Command {
 
         list.deleteItem(itemIndex);
 
-        ui.showText("Alright! I have removed this task from list:");
-        ui.showText(storedItemStatus);
+        ui.showText("Alright! I have removed this task from list:", storedItemStatus);
 
         store.saveTodoList(list.getTodoList());
 

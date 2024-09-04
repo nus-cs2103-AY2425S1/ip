@@ -124,7 +124,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_unknownCommand_failure() {
+    public void parse_unknownCommand_exceptionThrown() {
         String prompt = "unknown";
 
         TohruException e = assertThrowsExactly(TohruException.class, () -> {

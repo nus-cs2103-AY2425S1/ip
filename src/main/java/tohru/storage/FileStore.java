@@ -61,8 +61,8 @@ public class FileStore {
 
                 String entryStatusString = entryStringSplit[1].trim();
                 // Check if the status of the to-do entry is valid
-                if (entryStatusString.isEmpty() || !entryStatusString.equalsIgnoreCase("true")
-                        && !entryStatusString.equalsIgnoreCase("false")) {
+                if (entryStatusString.isEmpty() || !entryStatusString.equals("true")
+                        && !entryStatusString.equals("false")) {
                     errorEntriesCount++;
                     continue;
                 }

@@ -13,7 +13,7 @@ import tohru.ui.Ui;
  */
 public class FindCommand extends Command {
 
-    /** Prefix used to invoke the find command */
+    /** Prefix used to invoke the find command. */
     public static final String COMMAND_PREFIX = "find";
 
     /**
@@ -37,11 +37,12 @@ public class FindCommand extends Command {
 
         ArrayList<TodoItem> filteredItems = list.filter(super.arguments);
 
-        ui.showText(String.format("Here are the %d matching tasks in your list:", filteredItems.size()));
+        String[] filteredItemsListString = new String[filteredItems.size()];
         for (int i = 0; i < filteredItems.size(); i++) {
-            ui.showText(String.format("%d. %s", i + 1, filteredItems.get(i)));
+            filteredItemsListString[i] = String.format("%d. %s", i + 1, filteredItems.get(i));
         }
-
+        ui.showText(String.format("Here are the %d matching tasks in your list:", filteredItems.size()),
+                String.join(System.lineSeparator(), filteredItemsListString));
     }
 
 }

@@ -7,16 +7,16 @@ import java.time.format.DateTimeParseException;
 import tohru.exception.TohruException;
 
 /**
- * Parser represents the parsing of input prompt and determine which command to execute
+ * Parser represents the parsing of input prompt and determine which command to execute.
  */
 public class Parser {
 
     /**
-     * Parse the giving input and determine the corresponding commands
+     * Parse the giving input and determine the corresponding commands.
      *
-     * @param prompt The input from the user
-     * @return A command object representing the operation requested by the user
-     * @throws TohruException When an invalid command is passed in
+     * @param prompt The input from the user.
+     * @return A command object representing the operation requested by the user.
+     * @throws TohruException When an invalid command is passed in.
      */
     public static Command parse(String prompt) throws TohruException {
 
@@ -53,12 +53,12 @@ public class Parser {
     }
 
     /**
-     * Helper function to parse the datetime string passed in with the provided formatter
+     * Helper function to parse the datetime string passed in with the provided formatter.
      *
-     * @param datetimeString The datetime string to be parsed
-     * @param formatter The format used to parse the datetime string
-     * @return A LocalDateTime object with the parsed date and time
-     * @throws TohruException When the datetime string does not follow the format specified
+     * @param datetimeString The datetime string to be parsed.
+     * @param formatter The format used to parse the datetime string.
+     * @return A LocalDateTime object with the parsed date and time.
+     * @throws TohruException When the datetime string does not follow the format specified.
      */
     public static LocalDateTime parseDateTimeString(String datetimeString, DateTimeFormatter formatter)
             throws TohruException {

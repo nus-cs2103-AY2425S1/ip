@@ -12,6 +12,7 @@ import tohru.exception.TohruException;
 import tohru.storage.FileStore;
 import tohru.storage.FileStoreStub;
 import tohru.task.TodoList;
+import tohru.ui.Tui;
 import tohru.ui.Ui;
 
 public class AddEventCommandTest {
@@ -22,7 +23,7 @@ public class AddEventCommandTest {
 
     @BeforeAll
     static void initAll() {
-        ui = new Ui();
+        ui = new Tui();
         store = new FileStoreStub();
     }
 

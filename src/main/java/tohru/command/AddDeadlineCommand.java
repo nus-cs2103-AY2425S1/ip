@@ -13,7 +13,7 @@ import tohru.ui.Ui;
  */
 public class AddDeadlineCommand extends Command {
 
-    /** Prefix used to invoke the add deadline command */
+    /** Prefix used to invoke the add deadline command. */
     public static final String COMMAND_PREFIX = "deadline";
 
     /**
@@ -57,10 +57,9 @@ public class AddDeadlineCommand extends Command {
         DeadlineItem newDeadline = new DeadlineItem(deadlineContent, deadline);
         list.addItem(newDeadline);
 
-        ui.showText("Added deadline entry:");
-        ui.showText(newDeadline.toString());
-
-        ui.showText(String.format("There are now %d total entries", list.getTotal()));
+        ui.showText("Added deadline entry:",
+                newDeadline.toString(),
+                String.format("There are now %d total entries", list.getTotal()));
 
         store.saveTodoList(list.getTodoList());
 

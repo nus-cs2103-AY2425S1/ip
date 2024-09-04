@@ -10,7 +10,7 @@ import tohru.ui.Ui;
  */
 public class UnmarkCommand extends Command {
 
-    /** Prefix used to invoke the mark command */
+    /** Prefix used to invoke the mark command. */
     public static final String COMMAND_PREFIX = "unmark";
 
     /**
@@ -43,8 +43,8 @@ public class UnmarkCommand extends Command {
 
         list.markIncomplete(itemIndex);
 
-        ui.showText("Alright! I have set this task as not done:");
-        ui.showText(list.getItemStatus(itemIndex));
+        ui.showText("Alright! I have set this task as not done:",
+                list.getItemStatus(itemIndex));
 
         store.saveTodoList(list.getTodoList());
 
