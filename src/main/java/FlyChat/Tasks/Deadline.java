@@ -28,7 +28,7 @@ public class Deadline extends Task {
      */
     public static Deadline createNewDeadline(String description, String deadlineText, boolean isMarked) throws InputMismatchException {
         if (description.equals("")) {
-            throw new InputMismatchException("Please ensure that input contains description");
+            throw new InputMismatchException("Please ensure that input contains a description TT");
         }
 
         try {
