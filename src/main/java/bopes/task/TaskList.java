@@ -75,6 +75,21 @@ public class TaskList {
     }
 
     /**
+     * Returns a string representation of all tasks in the task list.
+     * Each task is included with its index (1-based) and description.
+     *
+     * @return a string representing the list of tasks
+     */
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            result.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
+        }
+        return result.toString().trim(); // Remove the trailing newline
+    }
+
+    /**
      * Checks if the task list is empty.
      *
      * @return true if the task list is empty, false otherwise

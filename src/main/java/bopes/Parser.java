@@ -30,17 +30,33 @@ public class Parser {
 
         switch (commandType) {
         case "bye":
-            return handleByeCommand();  // Handle the "bye" command to exit the application
-        case "find":
-            return handleFindCommand(commandWords[1], tasks);
+            return handleByeCommand();  // Handle the "bye" command to display message and exit
         case "list":
-            return tasks.toString(); // Assuming `toString` returns the list of tasks
+            return tasks.toString(); // The `list` command doesn't need any arguments
+        case "find":
+            if (commandWords.length > 1) {
+                return handleFindCommand(commandWords[1], tasks);
+            } else {
+                throw new BopesException("The 'find' command requires a keyword.");
+            }
         case "mark":
-            return handleMarkCommand(commandWords[1], tasks, storage);
+            if (commandWords.length > 1) {
+                return handleMarkCommand(commandWords[1], tasks, storage);
+            } else {
+                throw new BopesException("The 'mark' command requires a task index.");
+            }
         case "unmark":
-            return handleUnmarkCommand(commandWords[1], tasks, storage);
+            if (commandWords.length > 1) {
+                return handleUnmarkCommand(commandWords[1], tasks, storage);
+            } else {
+                throw new BopesException("The 'unmark' command requires a task index.");
+            }
         case "delete":
-            return handleDeleteCommand(commandWords[1], tasks, storage);
+            if (commandWords.length > 1) {
+                return handleDeleteCommand(commandWords[1], tasks, storage);
+            } else {
+                throw new BopesException("The 'delete' command requires a task index.");
+            }
         default:
             return handleAddTaskCommand(fullCommand, tasks, storage);
         }
