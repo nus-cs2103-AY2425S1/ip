@@ -1,5 +1,8 @@
 package joe;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import joe.command.Command;
 import joe.task.TaskList;
 
@@ -51,6 +54,25 @@ public class Joe {
             } finally {
                 ui.printDivider();
             }
+        }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(baos);
+        PrintStream originalOut = System.out;
+        System.setOut(printStream);
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (JoeException e) {
+            ui.printError(e.getMessage());
+        } finally {
+            System.setOut(originalOut);
+            return baos.toString();
         }
     }
 

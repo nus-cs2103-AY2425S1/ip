@@ -22,7 +22,8 @@ class ParserTest {
 
     @Test
     void testEmptyInput() {
-        assertThrows(JoeException.class, () -> Parser.parse(""), "\tOOPS! You did not enter anything");
+        assertThrows(JoeException.class, () -> Parser.parse(""),
+                "\tOOPS! You did not enter anything");
     }
 
     @Test
@@ -51,7 +52,8 @@ class ParserTest {
 
     @Test
     void testTodoCommandEmptyDescription() {
-        assertThrows(JoeException.class, () -> Parser.parse("todo"), "OOPS!!! The description of a todo cannot be empty.");
+        assertThrows(JoeException.class, () -> Parser.parse("todo"),
+                "OOPS!!! The description of a todo cannot be empty.");
     }
 
     @Test
@@ -63,24 +65,28 @@ class ParserTest {
 
     @Test
     void testDeadlineCommandMissingBy() {
-        assertThrows(JoeException.class, () -> Parser.parse("deadline submit report"), "Oops! Try adding it like this: deadline {task description} /by {duedate}");
+        assertThrows(JoeException.class, () -> Parser.parse("deadline submit report"),
+                "Oops! Try adding it like this: deadline {task description} /by {duedate}");
     }
 
     @Test
     void testDeadlineCommandInvalidDate() {
-        assertThrows(JoeException.class, () -> Parser.parse("deadline submit report /by 2024/09/10"), "Please enter a date with the format yyyy-mm-dd");
+        assertThrows(JoeException.class, () -> Parser.parse("deadline submit report /by 2024/09/10"),
+                "Please enter a date with the format yyyy-mm-dd");
     }
 
     @Test
     void testEventCommandValidInput() {
         Command command = Parser.parse("event project meeting /from 2024-09-01 /to 2024-09-02");
         assertInstanceOf(EventCommand.class, command);
-        assertEquals(new EventCommand("project meeting", LocalDate.of(2024, 9, 1), LocalDate.of(2024, 9, 2)), command);
+        assertEquals(new EventCommand("project meeting", LocalDate.of(2024, 9, 1), LocalDate.of(2024, 9, 2)),
+                command);
     }
 
     @Test
     void testEventCommandMissingFrom() {
-        assertThrows(JoeException.class, () -> Parser.parse("event project meeting"), "Oops! Let's try again with this format: event {task description} /from {start date} /to {end date}");
+        assertThrows(JoeException.class, () -> Parser.parse("event project meeting"),
+                "Oops! Let's try again with this format: event {task description} /from {start date} /to {end date}");
     }
 
     @Test
@@ -103,7 +109,7 @@ class ParserTest {
 
     @Test
     void testFindCommandInvalidInput() {
-        assertThrows(JoeException.class, () -> Parser.parse("find book title"), "Find currently only supports a single word query");
+        assertThrows(JoeException.class, () -> Parser.parse("find book title"),
+                "Find currently only supports a single word query");
     }
 }
-
