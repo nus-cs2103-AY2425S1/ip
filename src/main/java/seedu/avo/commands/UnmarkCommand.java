@@ -11,11 +11,12 @@ public class UnmarkCommand extends Command {
         this.manager = manager;
     }
     @Override
-    public void execute(String userInput) throws AvoException {
+    public CommandResult execute(String userInput) throws AvoException {
         String[] inputs = userInput.split(" ");
         if (inputs.length < 2) {
             throw new AvoException("OOPS!!! The task number cannot be empty.");
         }
-        manager.unCompleteTask(Integer.parseInt(inputs[1]) - 1);
+        String message = manager.unCompleteTask(Integer.parseInt(inputs[1]) - 1);
+        return new CommandResult(message);
     }
 }

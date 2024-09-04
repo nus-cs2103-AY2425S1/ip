@@ -12,11 +12,12 @@ public class SearchNameCommand extends Command {
         this.manager = manager;
     }
     @Override
-    public void execute(String userInput) throws AvoException {
+    public CommandResult execute(String userInput) throws AvoException {
         String[] inputs = userInput.split(" ", 2);
         if (inputs.length < 2) {
             throw new AvoException("OOPS!!! The date cannot be empty.");
         }
-        manager.getTasksByName(inputs[1]);
+        String message = manager.getTasksByName(inputs[1]);
+        return new CommandResult(message);
     }
 }

@@ -15,12 +15,13 @@ public class DeadlineCommand extends Command {
         this.manager = manager;
     }
     @Override
-    public void execute(String userInput) throws AvoException {
+    public CommandResult execute(String userInput) throws AvoException {
         String[] inputs = userInput.split("deadline |/by ");
         if (inputs.length < 3) {
             throw new AvoException("OOPS!!! The description of a deadline cannot be empty.");
         }
         LocalDateTime dueDate = DateTime.parseWithTime("2024-09-09 18:00");
-        manager.addTask(new Deadline(inputs[1].trim(), dueDate));
+        String message = manager.addTask(new Deadline(inputs[1].trim(), dueDate));
+        return new CommandResult(message);
     }
 }

@@ -14,12 +14,13 @@ public class SearchDateCommand extends Command {
         this.manager = manager;
     }
     @Override
-    public void execute(String userInput) throws AvoException {
+    public CommandResult execute(String userInput) throws AvoException {
         String[] inputs = userInput.split(" ");
         if (inputs.length < 2) {
             throw new AvoException("OOPS!!! The date cannot be empty.");
         }
         LocalDate searchDate = DateTime.parseWithoutTime(inputs[1]);
-        manager.getTasksByDate(searchDate);
+        String message = manager.getTasksByDate(searchDate);
+        return new CommandResult(message);
     }
 }
