@@ -3,7 +3,6 @@ package shoai;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import shoai.TaskList;
-import shoai.Ui;
 import shoai.Storage;
 import shoai.Task;
 import shoai.Todo;
@@ -24,21 +23,24 @@ public class Parser {
      *
      * @param fullCommand The full command string from the user.
      * @param tasks The TaskList to operate on.
-     * @param ui The Ui instance for user interaction.
      * @param storage The Storage instance for saving/loading tasks.
-     * @return true if the command is "bye" and the application should exit, false otherwise.
+     * @return The response string from the executed command or null if the application should exit.
      * @throws ShoAIException If there is an error processing the command.
      */
-    public boolean parse(String fullCommand, TaskList tasks, Ui ui, Storage storage) throws ShoAIException {
+    public String parse(String fullCommand, TaskList tasks, Storage storage) throws ShoAIException {
         String[] words = fullCommand.split(" ", 2);
         String command = words[0];
+        StringBuilder response = new StringBuilder();
 
         switch (command) {
             case "bye":
-                ui.showExitMessage();
-                return true; // Exit the loop
+                response.append("Bye. Hope to see you again soon!");
+                return response.toString(); // Indicate that the application should exit
             case "list":
-                ui.showTaskList(tasks);
+                response.append("Here are the tasks in your list:\n");
+                for (int i = 0; i < tasks.size(); i++) {
+                    response.append((i + 1) + "." + tasks.get(i) + "\n");
+                }
                 break;
             case "mark":
                 if (words.length < 2) {
@@ -47,7 +49,7 @@ public class Parser {
                 int markIndex = Integer.parseInt(words[1]) - 1;
                 Task taskToMark = tasks.getTask(markIndex);
                 taskToMark.markAsDone();
-                ui.showTaskMarked(taskToMark);
+                response.append("Nice! I've marked this task as done:\n").append(taskToMark);
                 storage.saveTasks(tasks.getAllTasks());
                 break;
             case "unmark":
@@ -57,7 +59,7 @@ public class Parser {
                 int unmarkIndex = Integer.parseInt(words[1]) - 1;
                 Task taskToUnmark = tasks.getTask(unmarkIndex);
                 taskToUnmark.markAsNotDone();
-                ui.showTaskUnmarked(taskToUnmark);
+                response.append("OK, I've marked this task as not done yet:\n").append(taskToUnmark);
                 storage.saveTasks(tasks.getAllTasks());
                 break;
             case "todo":
@@ -66,7 +68,8 @@ public class Parser {
                 }
                 Task newTodo = new Todo(words[1]);
                 tasks.addTask(newTodo);
-                ui.showTaskAdded(newTodo, tasks.size());
+                response.append("Got it. I've added this task:\n").append(newTodo);
+                response.append("\nNow you have ").append(tasks.size()).append(" task").append(tasks.size() > 1 ? "s" : "").append(" in the list.");
                 storage.saveTasks(tasks.getAllTasks());
                 break;
             case "deadline":
@@ -80,7 +83,8 @@ public class Parser {
                 LocalDate deadlineDate = LocalDate.parse(deadlineParts[1].trim(), DATE_FORMAT);
                 Task newDeadline = new Deadline(deadlineParts[0], deadlineDate);
                 tasks.addTask(newDeadline);
-                ui.showTaskAdded(newDeadline, tasks.size());
+                response.append("Got it. I've added this task:\n").append(newDeadline);
+                response.append("\nNow you have ").append(tasks.size()).append(" task").append(tasks.size() > 1 ? "s" : "").append(" in the list.");
                 storage.saveTasks(tasks.getAllTasks());
                 break;
             case "event":
@@ -99,7 +103,8 @@ public class Parser {
                 LocalDate toDate = LocalDate.parse(timeParts[1].trim(), DATE_FORMAT);
                 Task newEvent = new Event(eventParts[0], fromDate, toDate);
                 tasks.addTask(newEvent);
-                ui.showTaskAdded(newEvent, tasks.size());
+                response.append("Got it. I've added this task:\n").append(newEvent);
+                response.append("\nNow you have ").append(tasks.size()).append(" task").append(tasks.size() > 1 ? "s" : "").append(" in the list.");
                 storage.saveTasks(tasks.getAllTasks());
                 break;
             case "delete":
@@ -108,7 +113,8 @@ public class Parser {
                 }
                 int deleteIndex = Integer.parseInt(words[1]) - 1;
                 Task removedTask = tasks.removeTask(deleteIndex);
-                ui.showTaskDeleted(removedTask, tasks.size());
+                response.append("Noted. I've removed this task:\n").append(removedTask);
+                response.append("\nNow you have ").append(tasks.size()).append(" task").append(tasks.size() > 1 ? "s" : "").append(" in the list.");
                 storage.saveTasks(tasks.getAllTasks());
                 break;
             case "find":
@@ -116,26 +122,35 @@ public class Parser {
                     throw new ShoAIException("The find command requires a keyword.");
                 }
                 String keyword = words[1];
-                findTasks(keyword, tasks, ui);
+                response.append(findTasks(keyword, tasks));
                 break;
             default:
                 throw new ShoAIException("Sorry, I don't understand that command.");
         }
 
-        return false; // Continue the loop for other commands
+        return response.toString(); // Return the accumulated response
     }
 
     /**
-     * Finds tasks containing the given keyword and displays them.
+     * Finds tasks containing the given keyword and returns the results as a string.
      *
      * @param keyword The keyword to search for.
      * @param tasks The TaskList to search in.
-     * @param ui The Ui instance for user interaction.
+     * @return The response string with the search results.
      */
-    private void findTasks(String keyword, TaskList tasks, Ui ui) {
-        ui.showFindResults(tasks, keyword);
+    private String findTasks(String keyword, TaskList tasks) {
+        StringBuilder response = new StringBuilder();
+        ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+        response.append("Here are the matching tasks in your list:\n");
+        if (matchingTasks.isEmpty()) {
+            response.append("No tasks found matching the keyword: ").append(keyword);
+        } else {
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                response.append((i + 1) + "." + matchingTasks.get(i) + "\n");
+            }
+        }
+        return response.toString();
     }
-
 
     /**
      * Converts a Task object to a string representation suitable for file storage.
@@ -170,28 +185,30 @@ public class Parser {
      * Converts a string representation from file storage back to a Task object.
      *
      * @param fileString The string representation of a Task object.
-     * @return The corresponding Task object.
+     * @return The Task object.
+     * @throws ShoAIException If the string representation is invalid.
      */
-    public static Task fileStringToTask(String fileString) {
+    public static Task fileStringToTask(String fileString) throws ShoAIException {
         String[] parts = fileString.split(" \\| ");
-        Task task = null;
-        switch (parts[0]) {
+        if (parts.length < 3) {
+            throw new ShoAIException("Invalid task format.");
+        }
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+        switch (type) {
             case "T":
-                task = new Todo(parts[2]);
-                break;
+                return new Todo(description);
             case "D":
                 LocalDate deadlineDate = LocalDate.parse(parts[3], DATE_FORMAT);
-                task = new Deadline(parts[2], deadlineDate);
-                break;
+                return new Deadline(description, deadlineDate);
             case "E":
-                LocalDate eventFromDate = LocalDate.parse(parts[3], DATE_FORMAT);
-                LocalDate eventToDate = LocalDate.parse(parts[4], DATE_FORMAT);
-                task = new Event(parts[2], eventFromDate, eventToDate);
-                break;
+                LocalDate eventFrom = LocalDate.parse(parts[3], DATE_FORMAT);
+                LocalDate eventTo = LocalDate.parse(parts[4], DATE_FORMAT);
+                return new Event(description, eventFrom, eventTo);
+            default:
+                throw new ShoAIException("Unknown task type: " + type);
         }
-        if (task != null && parts[1].equals("1")) {
-            task.markAsDone();
-        }
-        return task;
     }
 }
