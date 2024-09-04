@@ -29,14 +29,15 @@ public class DeleteCommand implements Command {
      * @param tasks The task list from which the task will be deleted.
      * @param ui The UI that will display the task deletion to the user.
      * @param storage The storage where the updated task list will be saved.
+     * @return A message indicating the task has been successfully deleted.
      * @throws GavinException If the task cannot be found or deleted.
      * @throws IOException If there is an error saving the updated task list to storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GavinException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws GavinException, IOException {
         Task task = tasks.deleteTask(index);
-        ui.showDeletedTask(task, tasks.size());
         storage.save(tasks.getTasks());
+        return ui.showDeletedTask(task, tasks.size());
     }
 
     /**

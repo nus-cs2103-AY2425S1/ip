@@ -1,158 +1,165 @@
 package gavinchatbot.util;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import gavinchatbot.task.Task;
 import gavinchatbot.task.TaskList;
+import javafx.scene.layout.VBox;
 
 /**
  * Handles the user interface of the GavinChatBot application.
  */
 public class Ui {
+    private VBox dialogContainer;
 
+    public Ui(VBox dialogContainer) {
+        this.dialogContainer = dialogContainer;
+    }
     /**
-     * Displays a welcome message to the user.
+     * Returns a welcome message to the user.
      */
-    public void showWelcome() {
-        String horizontalLine = "___________________________________________________________________________________\n";
-        System.out.println(horizontalLine);
-        System.out.println("Hello! I'm Gavin's Chat Bot!\n");
-        System.out.println("What can I do for you?\n");
-        System.out.println(horizontalLine);
+    public String showWelcome() {
+        String horizontalLine = "_________________________________________________________________________________\n";
+        return horizontalLine
+                + "Hello! I'm Gavin's Chat Bot!\n"
+                + "What can I do for you?\n"
+                + horizontalLine;
     }
 
     /**
-     * Displays a goodbye message to the user.
+     * Returns a goodbye message to the user.
      */
-    public void showGoodbye() {
-        String horizontalLine = "___________________________________________________________________________________\n";
-        System.out.println(horizontalLine);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(horizontalLine);
+    public String showGoodbye() {
+        String horizontalLine = "_________________________________________________________________________________\n";
+        return horizontalLine
+                + "Bye. Hope to see you again soon!\n"
+                + horizontalLine;
     }
 
     /**
-     * Displays the list of tasks to the user.
+     * Returns the list of tasks as a formatted string to the user.
      *
      * @param tasks The list of tasks.
+     * @return The formatted list of tasks.
      * @throws GavinException If there is an error while retrieving the tasks.
      */
-    public void showList(TaskList tasks) throws GavinException {
-        String horizontalLine = "___________________________________________________________________________________\n";
-        System.out.println(horizontalLine);
-        System.out.println("Here are the tasks in your list:");
+    public String showList(TaskList tasks) throws GavinException {
+        String horizontalLine = "_________________________________________________________________________________\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append(horizontalLine);
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.getTask(i));
+            sb.append((i + 1) + ". " + tasks.getTask(i) + "\n");
         }
-        System.out.println(horizontalLine);
+        sb.append(horizontalLine);
+        return sb.toString();
     }
 
     /**
-     * Displays a message indicating that a task has been marked as done.
+     * Returns a message indicating that a task has been marked as done.
      *
      * @param task The task that was marked as done.
+     * @return The formatted message.
      * @throws GavinException If there is an error while marking the task.
      */
-    public void showMarkedTask(Task task) throws GavinException {
-        String horizontalLine = "___________________________________________________________________________________\n";
-        System.out.println(horizontalLine);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(" " + task);
-        System.out.println(horizontalLine);
-
+    public String showMarkedTask(Task task) throws GavinException {
+        String horizontalLine = "_________________________________________________________________________________\n";
+        return horizontalLine
+                + "Nice! I've marked this task as done:\n"
+                + " " + task + "\n"
+                + horizontalLine;
     }
 
     /**
-     * Displays a message indicating that a task has been unmarked (marked as not done).
+     * Returns a message indicating that a task has been unmarked (marked as not done).
      *
      * @param task The task that was unmarked.
+     * @return The formatted message.
      * @throws GavinException If there is an error while unmarking the task.
      */
-    public void showUnmarkedTask(Task task) throws GavinException {
-        String horizontalLine = "___________________________________________________________________________________\n";
-        System.out.println(horizontalLine);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(" " + task);
-        System.out.println(horizontalLine);
-
+    public String showUnmarkedTask(Task task) throws GavinException {
+        String horizontalLine = "_________________________________________________________________________________\n";
+        return horizontalLine
+                + "OK, I've marked this task as not done yet:\n"
+                + " " + task + "\n"
+                + horizontalLine;
     }
 
     /**
-     * Displays a message indicating that a task has been added to the list.
+     * Returns a message indicating that a task has been added to the list.
      *
      * @param task The task that was added.
      * @param size The current size of the task list.
+     * @return The formatted message.
      * @throws GavinException If there is an error while adding the task.
      */
-    public void showAddedTask(Task task, int size) throws GavinException {
-        String horizontalLine = "___________________________________________________________________________________\n";
-        System.out.println(horizontalLine);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(" " + task);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println(horizontalLine);
+    public String showAddedTask(Task task, int size) throws GavinException {
+        String horizontalLine = "_________________________________________________________________________________\n";
+        return horizontalLine
+                + "Got it. I've added this task:\n"
+                + " " + task + "\n"
+                + "Now you have " + size + " tasks in the list.\n"
+                + horizontalLine;
     }
 
     /**
-     * Displays a message indicating that a task has been deleted from the list.
+     * Returns a message indicating that a task has been deleted from the list.
      *
      * @param task The task that was deleted.
      * @param size The current size of the task list.
+     * @return The formatted message.
      */
-    public void showDeletedTask(Task task, int size) {
-        String horizontalLine = "___________________________________________________________________________________\n";
-        System.out.println(horizontalLine);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println(horizontalLine);
+    public String showDeletedTask(Task task, int size) {
+        String horizontalLine = "_________________________________________________________________________________\n";
+        return horizontalLine
+                + "Noted. I've removed this task:\n"
+                + "  " + task + "\n"
+                + "Now you have " + size + " tasks in the list.\n"
+                + horizontalLine;
     }
 
     /**
-     * Displays an error message to the user.
+     * Returns an error message to the user.
      *
      * @param message The error message to display.
+     * @return The formatted error message.
      */
-    public void showError(String message) {
-        String horizontalLine = "___________________________________________________________________________________\n";
-        System.out.println(horizontalLine);
-        System.out.println("!!!ERROR!!! " + message);
-        System.out.println(horizontalLine);
+    public String showError(String message) {
+        String horizontalLine = "_________________________________________________________________________________\n";
+        return horizontalLine
+                + "!!!ERROR!!! " + message + "\n"
+                + horizontalLine;
     }
 
     /**
-     * Displays an error message when there is an issue loading tasks from a file.
-     */
-    public void showLoadingError() {
-        String horizontalLine = "___________________________________________________________________________________\n";
-        System.out.println(horizontalLine);
-        System.out.println("Error loading tasks from file. Starting with an empty task list.");
-        System.out.println(horizontalLine);
-    }
-
-    /**
-     * Displays tasks in the list that match the user task input.
+     * Returns an error message when there is an issue loading tasks from a file.
      *
+     * @param message The specific loading error message.
+     * @return The formatted loading error message.
      */
-    public void showFoundTasks(ArrayList<Task> tasks) {
-        String horizontalLine = "___________________________________________________________________________________\n";
-        System.out.println(horizontalLine);
-        System.out.println("Here are the matching tasks in your list:");
+    public String showLoadingError(String message) {
+        String horizontalLine = "_________________________________________________________________________________\n";
+        return horizontalLine
+                + "Error loading tasks from file: " + message + "\n"
+                + horizontalLine;
+    }
+    /**
+     * Returns tasks in the list that match the user task input as a formatted string.
+     *
+     * @param tasks The list of found tasks.
+     * @return The formatted list of found tasks.
+     */
+    public String showFoundTasks(ArrayList<Task> tasks) {
+        String horizontalLine = "_________________________________________________________________________________\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append(horizontalLine);
+        sb.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            sb.append((i + 1) + ". " + tasks.get(i) + "\n");
         }
-        System.out.println(horizontalLine);
+        sb.append(horizontalLine);
+        return sb.toString();
     }
 
-    /**
-     * Reads and returns a command input by the user.
-     *
-     * @return The command input by the user.
-     */
-    public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
+    // Removed the readCommand() method as input is now handled via the GUI.
 }

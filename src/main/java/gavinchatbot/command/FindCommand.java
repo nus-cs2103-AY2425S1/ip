@@ -30,10 +30,11 @@ public class FindCommand implements Command {
      * @param tasks   The list of tasks to search through.
      * @param ui      The UI object used to display the found tasks.
      * @param storage The Storage object used for saving/loading tasks (not used in this command).
+     * @return A message listing the found tasks.
      * @throws GavinException If an error occurs while executing the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GavinException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws GavinException {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.getTask(i);
@@ -41,7 +42,7 @@ public class FindCommand implements Command {
                 foundTasks.add(task);
             }
         }
-        ui.showFoundTasks(foundTasks);
+        return ui.showFoundTasks(foundTasks);
     }
 
     /**

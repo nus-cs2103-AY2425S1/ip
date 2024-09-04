@@ -8,60 +8,46 @@ import gavinchatbot.util.GavinException;
 import gavinchatbot.util.Parser;
 import gavinchatbot.util.Storage;
 import gavinchatbot.util.Ui;
+import javafx.scene.layout.VBox;
 
 /**
- * The main class for Gavin's Chat Bot application.
- * This class handles the initialization of the application and the main logic for running the chatbot.
+ * Represents the main chatbot class.
  */
 public class GavinChatBot {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private Parser parser;
 
     /**
-     * Constructs a GavinChatBot object and initializes the necessary components.
+     * Constructs a new GavinChatBot.
      *
-     * @param filePath The file path where the tasks will be stored and loaded from.
+     * @param filePath The file path where the tasks are stored.
+     * @param dialogContainer The VBox to be used in the UI.
      */
-    public GavinChatBot(String filePath) {
-        ui = new Ui();
+    public GavinChatBot(String filePath, VBox dialogContainer) {
+        ui = new Ui(dialogContainer);
         storage = new Storage(filePath);
-        parser = new Parser();
 
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
-            ui.showLoadingError();
             tasks = new TaskList();
+            ui.showLoadingError("Failed to load tasks from file: " + e.getMessage());
         }
     }
 
     /**
-     * Runs the chatbot, showing a welcome message and processing user commands until the exit command is issued.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (GavinException | IOException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * The main method that starts the GavinChatBot application.
+     * Processes the input from the user and returns the response from the chatbot.
      *
-     * @param args Command line arguments, not used in this application.
+     * @param input The user's input.
+     * @return The chatbot's response.
      */
-    public static void main(String[] args) {
-        new GavinChatBot("data/duke.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command command = new Parser().parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (GavinException | IOException e) {
+            return ui.showError("Error: " + e.getMessage());
+        }
     }
 }
-

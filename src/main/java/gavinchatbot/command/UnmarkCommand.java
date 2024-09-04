@@ -2,6 +2,7 @@ package gavinchatbot.command;
 
 import java.io.IOException;
 
+import gavinchatbot.task.Task;
 import gavinchatbot.task.TaskList;
 import gavinchatbot.util.GavinException;
 import gavinchatbot.util.Storage;
@@ -28,14 +29,16 @@ public class UnmarkCommand implements Command {
      * @param tasks The task list containing the task to be unmarked.
      * @param ui The UI that will display the unmarked task.
      * @param storage The storage that will save the updated task list.
+     * @return A message indicating the task has been successfully unmarked.
      * @throws GavinException If the task index is invalid or an error occurs during unmarking.
      * @throws IOException If an error occurs while saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GavinException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws GavinException, IOException {
+        Task task = tasks.getTask(index);
         tasks.unmarkTask(index);
-        ui.showUnmarkedTask(tasks.getTask(index));
         storage.save(tasks.getTasks());
+        return ui.showUnmarkedTask(tasks.getTask(index));
     }
 
     /**

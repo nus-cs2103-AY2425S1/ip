@@ -2,6 +2,7 @@ package gavinchatbot.command;
 
 import java.io.IOException;
 
+import gavinchatbot.task.Task;
 import gavinchatbot.task.TaskList;
 import gavinchatbot.util.GavinException;
 import gavinchatbot.util.Storage;
@@ -28,19 +29,21 @@ public class MarkCommand implements Command {
      * @param tasks The task list containing the task to be marked.
      * @param ui The UI that will display the marked task.
      * @param storage The storage that will save the updated task list.
+     * @return A message indicating the task has been successfully marked as done.
      * @throws GavinException If the task index is invalid or an error occurs during marking.
      * @throws IOException If an error occurs while saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GavinException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws GavinException, IOException {
         try {
+            Task task = tasks.getTask(index);
             tasks.markTask(index);
-            ui.showMarkedTask(tasks.getTask(index));
             storage.save(tasks.getTasks());
+            return ui.showMarkedTask(tasks.getTask(index));
         } catch (GavinException e) {
-            ui.showError("An error occurred: " + e.getMessage());
+            return "An error occurred: " + e.getMessage();
         } catch (IOException e) {
-            ui.showError("An error occurred while saving: " + e.getMessage());
+            return "An error occurred while saving: " + e.getMessage();
         }
     }
 

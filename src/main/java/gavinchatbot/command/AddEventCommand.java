@@ -36,15 +36,17 @@ public class AddEventCommand implements Command {
      * @param tasks The task list to add the event to.
      * @param ui The UI that will show the output to the user.
      * @param storage The storage where the task list is saved.
+     * @return A message indicating the event has been successfully added.
      * @throws GavinException If there is an error during the execution.
      * @throws IOException If there is an error saving the task list to storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GavinException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws GavinException, IOException {
         Task task = new Event(description, from, to);
         tasks.addTask(task);
-        ui.showAddedTask(task, tasks.size());
         storage.save(tasks.getTasks());
+        return ui.showAddedTask(task, tasks.size());
+
     }
 
     /**

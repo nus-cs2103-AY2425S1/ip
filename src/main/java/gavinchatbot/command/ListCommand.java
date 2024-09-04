@@ -16,14 +16,15 @@ public class ListCommand implements Command {
      * @param tasks The task list containing tasks to be displayed.
      * @param ui The UI that will display the list of tasks.
      * @param storage The storage (not used in this command).
+     * @return A string containing the list of tasks or an error message.
      * @throws GavinException If there is an error displaying the list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GavinException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws GavinException {
         try {
-            ui.showList(tasks);
+            return ui.showList(tasks);
         } catch (GavinException e) {
-            ui.showError(e.getMessage());
+            return "An error occurred while displaying the list: " + e.getMessage();
         }
     }
 
