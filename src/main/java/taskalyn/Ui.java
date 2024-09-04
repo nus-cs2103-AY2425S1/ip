@@ -22,9 +22,9 @@ public class Ui {
     }
 
     public String readCommand() {
-        if (scanner.hasNextLine()) {
+        try {
             return scanner.nextLine().trim();
-        } else {
+        } catch (NoSuchElementException e) {
             return "unknown command";
         }
     }
