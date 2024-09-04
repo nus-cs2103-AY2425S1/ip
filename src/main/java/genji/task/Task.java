@@ -31,6 +31,10 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Get the name of task
+     * @return Name of task
+     */
     public String getName() {
         return this.name;
     }

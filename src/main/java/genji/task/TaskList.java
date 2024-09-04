@@ -108,6 +108,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Find tasks in the list that contains specific word
+     * @param taskDescription Word to be searched
+     * @return Task list that contains the specific taskDescription word
+     */
     public TaskList findTask(String taskDescription) {
         TaskList result = new TaskList();
         for (Task t : taskList) {
