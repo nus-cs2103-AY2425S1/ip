@@ -1,6 +1,6 @@
 package nimbus.ui;
 
-import nimbus.exception.*;
+import nimbus.exception.WrongDateTimeFormatException;
 
 import java.io.IOException;
 import java.util.Scanner;
