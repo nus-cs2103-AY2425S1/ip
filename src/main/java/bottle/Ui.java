@@ -13,13 +13,13 @@ public class Ui {
     /**
      * The constant lineBreak.
      */
-    final static String lineBreak = "\n____________________________________________________________\n";
+    static final String LINE_BREAK = "\n____________________________________________________________\n";
     /**
      * The Welcome msg.
      */
     private final String welcomeMsg =
-            " Hello! I'm bottle.Bottle\n" +
-                    " What can I do for you?";
+            " Hello! I'm bottle.Bottle\n"
+                    + " What can I do for you?";
     /**
      * The Bye msg.
      */
@@ -27,7 +27,7 @@ public class Ui {
     /**
      * The Scanner.
      */
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     /**
      * Print with break.
@@ -35,7 +35,7 @@ public class Ui {
      * @param str the str
      */
     public void printWithBreak(String str) {
-        System.out.println(lineBreak + str + lineBreak);
+        System.out.println(LINE_BREAK + str + LINE_BREAK);
     }
 
     /**
@@ -76,8 +76,8 @@ public class Ui {
      * @param taskList the task list
      */
     public void printTaskAddedMessage(ArrayList<Task> taskList) {
-        printWithBreak("Got it. I've added this task:\n   " + taskList.get(taskList.size() - 1) +
-                "\nNow you have " + taskList.size() + " tasks in the list.");
+        printWithBreak("Got it. I've added this task:\n   " + taskList.get(taskList.size() - 1)
+                + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
 
     /**
@@ -105,8 +105,8 @@ public class Ui {
      * @param task     the task
      */
     public void printDeleteMsg(ArrayList<Task> taskList, Task task) {
-        printWithBreak("Got it. I've removd this task:\n   " + task +
-                "\nNow you have " + taskList.size() + " tasks in the list.");
+        printWithBreak("Got it. I've removd this task:\n   " + task
+                + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
 
 }

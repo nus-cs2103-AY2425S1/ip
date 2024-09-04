@@ -5,9 +5,20 @@ import bottle.Ui;
 import bottle.task.Task;
 import bottle.task.TaskList;
 
+/**
+ * The type Delete command.
+ */
 public class DeleteCommand extends Command {
+    /**
+     * The Task index.
+     */
     private final int taskIndex;
 
+    /**
+     * Instantiates a new Delete command.
+     *
+     * @param taskIndex the task index
+     */
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
