@@ -1,9 +1,9 @@
-package prince.util;
+package main.util;
 
 import java.util.Scanner;
 
-import prince.tasks.Task;
-import prince.tasks.TaskList;
+import main.tasks.Task;
+import main.tasks.TaskList;
 
 /**
  * Ui deals with interactions with the user by displaying the relevant information.

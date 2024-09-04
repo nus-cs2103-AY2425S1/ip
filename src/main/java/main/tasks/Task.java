@@ -1,4 +1,4 @@
-package prince.tasks;
+package main.tasks;
 
 /**
  * Task is a class that represents tasks that a user may input.

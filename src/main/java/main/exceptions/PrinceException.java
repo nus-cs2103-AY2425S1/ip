@@ -1,4 +1,4 @@
-package prince.exceptions;
+package main.exceptions;
 
 /**
  * PrinceException is a custom exception.

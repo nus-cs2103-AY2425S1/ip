@@ -1,19 +1,21 @@
-package prince;
+package main;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import prince.command.Command;
-import prince.exceptions.PrinceException;
-import prince.tasks.TaskList;
-import prince.util.Parser;
-import prince.util.Storage;
-import prince.util.Ui;
+import main.command.Command;
+import main.exceptions.PrinceException;
+import main.tasks.TaskList;
+import main.util.Parser;
+import main.util.Storage;
+import main.util.Ui;
 
 /**
  * Prince is a chatbot that interacts with users.
  */
 public class Prince {
+    private static final Path FILE_PATH = Paths.get("data", "storage.txt");
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -22,9 +24,9 @@ public class Prince {
      * A constructor for Prince.
      * @param filePath Path that represents a relative path to the storage file.
      */
-    public Prince(Path filePath) {
+    public Prince() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.loadFromFile());
         } catch (PrinceException e) {
@@ -54,7 +56,12 @@ public class Prince {
         }
     }
 
-    public static void main(String[] args) {
-        new Prince(Paths.get("data", "storage.txt")).run();
+    /**
+     * Return a string containing Prince's response to the user's input
+     * @param input Input by the user.
+     * @return Prince's response to the user.
+     */
+    public String getResponse(String input) {
+        return "Prince heard: " + input;      
     }
 }

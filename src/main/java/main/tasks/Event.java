@@ -1,4 +1,4 @@
-package prince.tasks;
+package main.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,20 +6,23 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Deadline represents a deadline task and is a subclass of the Task class.
+ * Event represents an event task and is a subclass of the Task class.
  */
-public class Deadline extends Task {
+public class Event extends Task {
 
-    private String by;
+    private String from;
+    private String to;
 
     /**
-     * A constructor for Deadline.
-     * @param description Description of the task as inputted by the user.
-     * @param by Date and/ or time representing the end of the event.
+     * A constructor for Event.
+     * @param description Description of the event as inputted by the user.
+     * @param from        Date and/ or time representing the start of the event.
+     * @param to          Date and/or time representing the end of the event.
      */
-    public Deadline(String description, String by) {
+    public Event(String description, String from, String to) {
         super(description);
-        this.by = by;
+        this.from = from;
+        this.to = to;
     }
 
     /**
@@ -78,11 +81,12 @@ public class Deadline extends Task {
 
     @Override
     public String toFileFormat() {
-        return "D .. " + super.toFileFormat() + " .. " + this.by;
+        return "E .. " + super.toFileFormat() + " .. " + this.from + " .. " + this.to;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + formatDate(this.by) + ")";
+        return "[E]" + super.toString() + " (from: " + formatDate(this.from)
+                + " to: " + formatDate(this.to) + ")";
     }
 }

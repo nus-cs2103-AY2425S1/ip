@@ -1,8 +1,8 @@
-package prince.command;
+package main.command;
 
-import prince.tasks.TaskList;
-import prince.util.Storage;
-import prince.util.Ui;
+import main.tasks.TaskList;
+import main.util.Storage;
+import main.util.Ui;
 
 /**
  * Command that lists out tasks written into storage.

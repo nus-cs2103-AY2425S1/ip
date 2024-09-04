@@ -1,10 +1,10 @@
-package prince.command;
+package main.command;
 
-import prince.exceptions.PrinceException;
-import prince.tasks.Event;
-import prince.tasks.TaskList;
-import prince.util.Storage;
-import prince.util.Ui;
+import main.exceptions.PrinceException;
+import main.tasks.Event;
+import main.tasks.TaskList;
+import main.util.Storage;
+import main.util.Ui;
 
 /**
  * Creates an event task.
