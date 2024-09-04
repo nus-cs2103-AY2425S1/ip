@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javafx.application.Application;
+
 import rainy.rainyexceptions.InvalidIndexException;
 import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
 import rainy.tasks.TaskTracker;
@@ -29,6 +31,7 @@ public class Rainy {
      */
     public static void main(String[] args) throws InvalidIndexException, InvalidMarkAndUnmarkException, IOException {
         // Initialize UI, Storage, and TaskTracker, Parser, and File objects
+        Application.launch(Main.class, args);
         UI ui = new UI();
         Storage storage = new Storage();
         ui.welcomeMessage();
