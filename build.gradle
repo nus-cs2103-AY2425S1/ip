@@ -32,7 +32,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "froggy"
+    archiveBaseName = "Froggy"
     archiveClassifier = null
 }
 
