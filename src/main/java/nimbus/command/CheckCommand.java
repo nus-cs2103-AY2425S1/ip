@@ -12,15 +12,35 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * CheckCommand class is a subclass of Command
+ * It is able to check for tasks due on a particular day
+ */
+
+
 public class CheckCommand extends Command {
     private String userInput;
     private ArrayList<Task> tasks;
+
+    /**
+     * Creates an CheckCommand Object where taskInput is the task description
+     * Obtains the arraylist from taskList
+     *
+     * @param userInput user input is the date user wants to see which tasks is due on that day
+     * @param taskList taskList object that is passed in
+     */
 
     public CheckCommand(String userInput, TaskList taskList) {
             super(userInput, taskList);
             this.userInput = userInput;
             this.tasks = taskList.getTaskList();
     }
+
+    /**
+     * prints out the list of tasks due on date provided
+     *
+     * @throws WrongDateTimeFormatException
+     */
 
     @Override
     public void execute() throws WrongDateTimeFormatException {

@@ -12,14 +12,28 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Handles the writing and retrieving of data from text file
+ */
+
 public class Storage {
     private static String filepath;
     private final Logger logger = Logger.getLogger(Nimbus.class.getName());
     private static final Logger staticLogger = Logger.getLogger(Nimbus.class.getName());
 
+    /**
+     * Creates a storage object with filepath provided
+     *
+     * @param filepath where the file should be stored
+     */
+
     public Storage(String filepath) {
         this.filepath = filepath;
     }
+
+    /**
+     * Creates the file if file is not present
+     */
 
     public void createFile() {
         try {
@@ -31,6 +45,12 @@ public class Storage {
             logger.log(Level.WARNING, "IO Exception found, no such filepath");
         }
     }
+
+    /**
+     * Loads the file from the text file
+     *
+     * @param taskList target tasklist where tasks are loaded into
+     */
 
     public void loadFile(TaskList taskList) {
         try {
@@ -116,6 +136,13 @@ public class Storage {
             logger.log(Level.SEVERE, e.getMessage(), e);
         }
     }
+
+    /**
+     * Updates the file when user wants to exit the chatbot
+     *
+     * @param taskArrayList arraylist containing tasks in tasklist object
+     * @throws IOException if file is not found
+     */
 
     public static void updateFile(ArrayList<Task> taskArrayList) throws IOException {
         try (PrintWriter printWriter = new PrintWriter(new FileWriter(filepath))) {
