@@ -1,7 +1,11 @@
 package bopes.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import bopes.exception.BopesException;
 
 /**
  * The Event class represents a task that occurs within a specific time range.
@@ -20,15 +24,44 @@ public class Event extends Task {
      * @param isDone      the completion status of the event
      * 
      * @throws IllegalArgumentException if the end time is before the start time
+     * @throws BopesException if the date-time format is invalid
      */
-    public Event(String description, String start, String end, boolean isDone) {
+    public Event(String description, String start, String end, boolean isDone) throws BopesException {
         super(description, isDone);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
-        this.start = LocalDateTime.parse(start.toLowerCase(), formatter);
-        this.end = LocalDateTime.parse(end.toLowerCase(), formatter);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
 
-        if (this.end.isBefore(this.start)) {
-            throw new IllegalArgumentException("End time must be after start time.");
+        try {
+            // Handle start time
+            if (start.trim().length() == 10) { // Length of "dd/MM/yyyy" is 10
+                LocalDate startDate = LocalDate.parse(start.trim(), dateFormatter);
+                if (startDate.equals(LocalDate.now())) {
+                    this.start = LocalDateTime.now(); // Set to current time if it's today
+                } else {
+                    this.start = startDate.atTime(0, 0); // Default to midnight
+                }
+            } else {
+                this.start = LocalDateTime.parse(start.toLowerCase(), dateTimeFormatter);
+            }
+
+            // Handle end time
+            if (end.trim().length() == 10) { // Length of "dd/MM/yyyy" is 10
+                LocalDate endDate = LocalDate.parse(end.trim(), dateFormatter);
+                if (endDate.equals(LocalDate.now())) {
+                    this.end = LocalDateTime.now(); // Set to current time if it's today
+                } else {
+                    this.end = endDate.atTime(0, 0); // Default to midnight
+                }
+            } else {
+                this.end = LocalDateTime.parse(end.toLowerCase(), dateTimeFormatter);
+            }
+
+            // Check if the end time is before the start time
+            if (this.end.isBefore(this.start)) {
+                throw new IllegalArgumentException("End time must be after start time.");
+            }
+        } catch (DateTimeParseException e) {
+            throw new BopesException("Error: Invalid date/time format. Please use the format 'dd/MM/yyyy hh:mm a'.");
         }
     }
 
@@ -40,7 +73,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd/MMM/yyyy hh:mm a");
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
         return "[E]" + super.toString() + " (from: " + this.start.format(outputFormat) + " to: " + this.end.format(outputFormat) + ")";
     }
 
@@ -52,7 +85,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
+        DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
         return "E | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.start.format(fileFormat) + " | " + this.end.format(fileFormat);
     }
 }

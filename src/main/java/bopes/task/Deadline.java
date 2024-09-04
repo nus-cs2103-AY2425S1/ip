@@ -2,6 +2,9 @@ package bopes.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import bopes.exception.BopesException;
 
 /**
  * The Deadline class represents a task with a specific deadline.
@@ -16,11 +19,19 @@ public class Deadline extends Task {
      * @param description the description of the task
      * @param by          the deadline of the task in the format "dd/MM/yyyy hh:mm a"
      * @param isDone      the completion status of the task
+     * @throws BopesException if the deadline format is invalid
      */
-    public Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, String by, boolean isDone) throws BopesException {
         super(description, isDone);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
-        this.by = LocalDateTime.parse(by.toLowerCase(), formatter);
+        try {
+            if (by.trim().length() == 10) {  // Length of "dd/MM/yyyy" is 10
+                by = by + " 12:00 am";  // Default to midnight if time is not provided
+            }
+            this.by = LocalDateTime.parse(by.toLowerCase(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new BopesException("Error: Invalid date/time format. Please use the format 'dd/MM/yyyy hh:mm a'.");
+        }
     }
 
     /**
@@ -31,7 +42,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd/MMM/yyyy hh:mm a");
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
         return "[D]" + super.toString() + " (by: " + by.format(outputFormat) + ")";
     }
 
@@ -43,7 +54,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
+        DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
         return "D | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.by.format(fileFormat);
     }
 }
