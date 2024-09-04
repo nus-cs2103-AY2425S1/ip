@@ -33,7 +33,7 @@ public class TaskList {
         String[] texts = {
             "Task has been added:",
             "  " + task,
-            "A total of " + getSize() + " " + taskPlural() + " are on the list."
+            "A total of " + getSize() + " " + pluralise() + " are on the list."
         };
         writeToFile();
         return Ui.wrapText(texts);
@@ -44,7 +44,7 @@ public class TaskList {
      *
      * @return a string representing "task" or "tasks"
      */
-    public String taskPlural() {
+    public String pluralise() {
         String taskMessage = "task";
         if (getSize() != 1) {
             taskMessage += "s";
@@ -77,7 +77,7 @@ public class TaskList {
     public String listTasks() {
         StringBuilder sb = new StringBuilder();
         sb.append(Ui.showLine());
-        String header = String.format("You currently have %d %s\n", getSize(), taskPlural());
+        String header = String.format("You currently have %d %s\n", getSize(), pluralise());
         sb.append(header);
         for (int i = 1; i <= getSize(); i++) {
             String temp = i + "." + getTask(i - 1) + "\n";
@@ -106,7 +106,7 @@ public class TaskList {
         String[] texts = {
             "The following task has been removed form the list:",
             "  " + task,
-            "A total of " + getSize() + " " + taskPlural() + " are still left."
+            "A total of " + getSize() + " " + pluralise() + " are still left."
         };
         return Ui.wrapText(texts);
     }
