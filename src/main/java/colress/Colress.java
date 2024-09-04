@@ -22,9 +22,9 @@ public final class Colress {
      * @param filePath A string representing the relative filepath for the text file containing the tasks.
      */
     public Colress(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        taskList = new TaskList();
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.taskList = new TaskList();
     }
 
     /**
@@ -39,23 +39,36 @@ public final class Colress {
      * In the loop, Ui object processes the input, then the Storage object writes any changes to the list of tasks
      * to the text file.
      */
-    public void run() {
+
+    public String greetUser() {
+        return ui.welcome();
+    }
+
+    public String loadTasks() {
         try {
-            ui.welcome();
-            ui.printLoadTaskStatus(storage.loadTasks(taskList));
-            ui.printTasks(taskList, "list");
-            while (!ui.getHasCalledExitCommand()) {
-                ui.processInput(taskList);
-                storage.writeToTaskFile(taskList);
-            }
+            return ui.printLoadTaskStatus(storage.loadTasks(taskList));
         } catch (FileCorruptedException e) {
-            ui.print(String.valueOf(e));
+            return e.getMessage();
         } catch (IOException e) {
-            e.printStackTrace();
+            return "There is an error. Try again.";
+        }
+    }
+
+    public String getTasks() {
+        return ui.printTasks(taskList);
+    }
+
+    public String getResponse(String input) {
+        try {
+            String result = ui.processInput(input, taskList);
+            storage.writeToTaskFile(taskList);
+            return result;
+        } catch (IOException e) {
+            return "There is an error. Try again.";
         }
     }
 
     public static void main(String[] args) {
-        new Colress("task.txt").run();
+        System.out.println("Running Colress...");
     }
 }
