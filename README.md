@@ -23,10 +23,10 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    Hello from kita!!
    ```
 
-
-
 ## Gradle Commands
+
 - **Note:** Gradle automatically saves plugins and dependencies into a global home folder cache `~/.gradle/caches`
+  
   - These are all automatically downloaded the first time you run/build/test
 
 - **<u>Run Script</u>**
@@ -54,13 +54,15 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
     ```
 
 - **<u>Style Check </u>**
+  
   - Style files are in `config/checkstyle`
   - ```
     .\gradlew checkstyleMain checkstyleTest <name of style file>
     ```
 
 - **<u>Style Format</u>**
-    - We use `Spotless` for auto-formatting, though it does not follow the CS2103T style exactly
-    - ```
-      .\gradlew applySpotless
-      ```
+  
+  - We use `Spotless` for auto-formatting, though it does not follow the CS2103T style exactly
+  - ```
+    .\gradlew spotlessApply
+    ```

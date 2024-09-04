@@ -25,11 +25,23 @@ public class Commands {
     }
 
     /**
-     * Prints a standard divider line
-     * @returns void
+     * Appends to a given StringBuilder and also prints the output
+     * @param sb
+     * @param inputStr
      */
-    public void printLine() {
-        System.out.println("____________________________________________________________\n");
+    private void printAndAppend(StringBuilder sb, String inputStr) {
+        sb.append(inputStr + "\n");
+        System.out.println(inputStr);
+    }
+
+    /**
+     * Prints a standard divider line
+     * @returns The output string for the GUI
+     */
+    public String printLine() {
+        StringBuilder output = new StringBuilder();
+        printAndAppend(output, "____________________________________________________________");
+        return output.toString();
     }
 
     /**
@@ -37,14 +49,16 @@ public class Commands {
      * Also writes to Storage
      *
      * @param newTask Task to add
-     * @returns void
+     * @returns The output string for the GUI
      */
-    public void addTask(Task newTask) throws IOException {
+    public String addTask(Task newTask) throws IOException {
         this.tasks.addTask(newTask);
         saveSystem.writeTasksToFile(this.tasks.getAllTasks());
-        System.out.println("Got it. I've added this task: ");
-        System.out.println("  " + newTask);
-        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
+        StringBuilder output = new StringBuilder();
+        printAndAppend(output, "Got it. I've added this task: ");
+        printAndAppend(output, "  " + newTask);
+        printAndAppend(output, "Now you have " + this.tasks.size() + " tasks in the list.");
+        return output.toString();
     }
 
     /**
@@ -52,9 +66,9 @@ public class Commands {
      * Also writes to Storage
      *
      * @param eventMatcher The Matcher object used to match the "event" creation
-     * @returns void
+     * @returns The output string for the GUI
      */
-    public void createEvent(Matcher eventMatcher) throws IOException {
+    public String createEvent(Matcher eventMatcher) throws IOException {
         String from = eventMatcher.group("from");
         String to = eventMatcher.group("to");
         if (from == null) {
@@ -62,7 +76,7 @@ public class Commands {
             to = eventMatcher.group("to2");
         }
         Task newTask = new Event(eventMatcher.group("name"), from, to);
-        this.addTask(newTask);
+        return this.addTask(newTask);
     }
 
     /**
@@ -70,11 +84,11 @@ public class Commands {
      * Also writes to Storage
      *
      * @param deadlineMatcher The Matcher object used to match the "deadline" creation
-     * @returns void
+     * @returns The output string for the GUI
      */
-    public void createDeadline(Matcher deadlineMatcher) throws IOException {
+    public String createDeadline(Matcher deadlineMatcher) throws IOException {
         Task newTask = new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2));
-        this.addTask(newTask);
+        return this.addTask(newTask);
     }
 
     /**
@@ -82,11 +96,11 @@ public class Commands {
      * Also writes to Storage
      *
      * @param todoMatcher The Matcher object used to match the "todo" creation
-     * @returns void
+     * @returns The output string for the GUI
      */
-    public void createToDo(Matcher todoMatcher) throws IOException {
+    public String createToDo(Matcher todoMatcher) throws IOException {
         Task newTask = new ToDo(todoMatcher.group(1));
-        this.addTask(newTask);
+        return this.addTask(newTask);
     }
 
     /**
@@ -94,9 +108,9 @@ public class Commands {
      * Also writes to Storage
      *
      * @param command The String command that was entered in the form of "mark `task_id`"
-     * @returns void
+     * @returns The output string for the GUI
      */
-    public void mark(String command) throws IOException {
+    public String mark(String command) throws IOException {
         String[] splitCommand = command.split(" ");
         if (splitCommand.length <= 1) {
             throw new KitaMissingIndex();
@@ -104,9 +118,11 @@ public class Commands {
 
         int numberToMark = Integer.parseInt(splitCommand[1]);
         Task theTask = this.tasks.setTaskCompleted(numberToMark - 1, true);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + theTask);
+        StringBuilder output = new StringBuilder();
+        printAndAppend(output,"Nice! I've marked this task as done:");
+        printAndAppend(output,"  " + theTask);
         this.saveSystem.writeTasksToFile(this.tasks.getAllTasks());
+        return output.toString();
     }
 
     /**
@@ -114,9 +130,9 @@ public class Commands {
      * Also writes to Storage
      *
      * @param command The String command that was entered in the form of "unmark `task_id`"
-     * @returns void
+     * @returns The output string for the GUI
      */
-    public void unmark(String command) throws IOException {
+    public String unmark(String command) throws IOException {
         String[] splitCommand = command.split(" ");
         if (splitCommand.length <= 1) {
             throw new KitaMissingIndex();
@@ -124,9 +140,11 @@ public class Commands {
 
         int numberToMark = Integer.parseInt(splitCommand[1]);
         Task theTask = this.tasks.setTaskCompleted(numberToMark - 1, false);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + theTask);
+        StringBuilder output = new StringBuilder();
+        printAndAppend(output,"OK, I've marked this task as not done yet:");
+        printAndAppend(output,"  " + theTask);
         saveSystem.writeTasksToFile(this.tasks.getAllTasks());
+        return output.toString();
     }
 
     /**
@@ -134,9 +152,9 @@ public class Commands {
      * Also writes to Storage
      *
      * @param command The String command that was entered in the form of "delete `task_id`"
-     * @returns void
+     * @returns The output string for the GUI
      */
-    public void delete(String command) throws IOException {
+    public String delete(String command) throws IOException {
         String[] splitCommand = command.split(" ");
         if (splitCommand.length <= 1) {
             throw new KitaMissingIndex();
@@ -144,55 +162,65 @@ public class Commands {
 
         int numberToDelete = Integer.parseInt(splitCommand[1]);
         Task theTask = this.tasks.removeTask(numberToDelete - 1);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + theTask);
+        StringBuilder output = new StringBuilder();
+        printAndAppend(output,"Noted. I've removed this task:");
+        printAndAppend(output,"  " + theTask);
+        printAndAppend(output,"Now you have " + this.tasks.size() + " tasks in the list.");
         saveSystem.writeTasksToFile(this.tasks.getAllTasks());
-        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
+        return output.toString();
     }
 
     /**
      * Lists all tasks out
      *
-     * @returns void
+     * @returns The output string for the GUI
      */
-    public void list() {
-        System.out.println("Here are the tasks in your list:");
-        System.out.println(this.tasks);
+    public String list() {
+        StringBuilder output = new StringBuilder();
+        printAndAppend(output,"Here are the tasks in your list:");
+        printAndAppend(output, this.tasks.toString());
+        return output.toString();
     }
 
     /**
      * Prints the hello message
      *
-     * @returns void
+     * @returns The output string for the GUI
      */
-    public void hello() {
+    public String hello() {
+        StringBuilder output = new StringBuilder();
         this.printLine();
-        System.out.println(" Hello! I'm Kita!");
-        System.out.println(" What can I do for you?");
+        printAndAppend(output," Hello! I'm Kita!");
+        printAndAppend(output," What can I do for you?");
         this.printLine();
+        return output.toString();
     }
 
     /**
      * Prints the bye message
      *
-     * @returns void
+     * @returns The output string for the GUI
      */
-    public void bye() {
-        System.out.println(" Bye. Hope to see you again soon!\n");
+    public String bye() {
+        StringBuilder output = new StringBuilder();
+        printAndAppend(output," Bye. Hope to see you again soon!\n");
         this.printLine();
+        return output.toString();
     }
 
     /**
      * Prints the list of tasks that match the string query
      *
      * @param command The "find" command in the form of "find `query`"
-     * @returns void
+     * @returns The output string for the GUI
      */
-    public void find(String command) {
+    public String find(String command) {
+        StringBuilder output = new StringBuilder();
         String[] splitCommand = command.split(" ");
 
-        System.out.println("Here are the matching tasks in your list:");
+        printAndAppend(output,"Here are the matching tasks in your list:");
         TaskList foundTasks = this.tasks.find(splitCommand[1]);
-        System.out.println(foundTasks);
+        printAndAppend(output, foundTasks.toString());
+        return output.toString();
     }
 }
