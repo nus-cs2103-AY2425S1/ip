@@ -47,12 +47,8 @@ public class Database {
         return Files.readAllLines(FILE_PATH);
     }
 
-    public int getDatabaseSize() {
-        try {
-            List<String> txtLines = readFromDatabase();
-            return txtLines.size();
-        } catch (IOException e) {
-            System.out.println("Error checking Database Size: " + e.getMessage());
-        }
+    public int getDatabaseSize() throws IOException {
+        List<String> txtLines = readFromDatabase();
+        return txtLines.size();
     }
 }
