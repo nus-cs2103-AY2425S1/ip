@@ -26,15 +26,15 @@ public class Alexer {
 
     private final Prompter prompter;
 
+    public static Alexer getInstance() {
+        return alexer;
+    }
+
     public Alexer() {
         alexer = this;
         scanner = new Scanner(System.in);
         tasks = new TaskManager();
         prompter = new Prompter();
-    }
-
-    public Alexer getInstance() {
-        return alexer;
     }
 
     public void printTasks() {
