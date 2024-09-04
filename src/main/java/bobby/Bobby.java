@@ -105,6 +105,13 @@ public class Bobby {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Bobby heard: " + input;
+    }
+
+    /**
      * The main method that serves as the entry point of the application.
      * It creates a new instance of {@code Bobby} and runs the application.
      *
