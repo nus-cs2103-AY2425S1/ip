@@ -1,3 +1,9 @@
+package lawrence.database;
+
+import lawrence.parser.InputSource;
+import lawrence.parser.TaskParser;
+import lawrence.task.Task;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -36,7 +42,7 @@ public class TaskFileManager {
         while(sc.hasNext()) {
             try {
                 String taskString = sc.nextLine();
-                tasks.add(TaskFactory.createTask(taskString, InputSource.FILE));
+                tasks.add(TaskParser.createTask(taskString, InputSource.FILE));
             } catch (IllegalArgumentException | DateTimeParseException e) {
                 // Task contains faulty information in file, just skip
             }

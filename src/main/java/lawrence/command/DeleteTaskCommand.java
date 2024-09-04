@@ -1,3 +1,10 @@
+package lawrence.command;
+
+import lawrence.database.TaskFileManager;
+import lawrence.task.Task;
+import lawrence.task.TaskList;
+import lawrence.ui.UserInterface;
+
 import java.io.IOException;
 
 public class DeleteTaskCommand extends Command {
@@ -22,7 +29,7 @@ public class DeleteTaskCommand extends Command {
 
             ui.showMessage(String.format("Task:%n%s%nhas been deleted.", deletedTask));
         } catch (NumberFormatException e) {
-            ui.showMessage("Please specify a number to select a task.");
+            ui.showMessage("Please specify an integer to select a task.");
         } catch (IllegalArgumentException | IllegalStateException e) {
             ui.showMessage(String.format("%s Please try again.", e.getMessage()));
         } catch (IOException e) {

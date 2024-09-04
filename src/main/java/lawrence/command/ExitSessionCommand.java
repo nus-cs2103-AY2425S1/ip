@@ -1,3 +1,9 @@
+package lawrence.command;
+
+import lawrence.database.TaskFileManager;
+import lawrence.task.TaskList;
+import lawrence.ui.UserInterface;
+
 public class ExitSessionCommand extends Command {
     public ExitSessionCommand() {
        // Empty constructor

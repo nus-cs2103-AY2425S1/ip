@@ -1,3 +1,13 @@
+package lawrence.command;
+
+import lawrence.database.TaskFileManager;
+import lawrence.parser.InputSource;
+import lawrence.parser.TaskParser;
+import lawrence.task.Task;
+import lawrence.task.TaskList;
+import lawrence.ui.UserInterface;
+import lawrence.utils.DateParser;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
@@ -9,7 +19,7 @@ public class AddTaskCommand extends Command {
     @Override
     public void execute(TaskList taskList, TaskFileManager manager, UserInterface ui) {
         try {
-            Task t = TaskFactory.createTask(input, InputSource.USER);
+            Task t = TaskParser.createTask(input, InputSource.USER);
             taskList.addTask(t);
             saveTasks(taskList, manager);
 
@@ -22,7 +32,7 @@ public class AddTaskCommand extends Command {
         } catch (DateTimeParseException e) {
             ui.showMessage(
                     String.format("Invalid date and/or time provided. DateTime should be in the format: %s",
-                            DateUtils.USER_INPUT_FORMAT_STRING));
+                            DateParser.USER_INPUT_FORMAT_STRING));
         } catch (IllegalArgumentException e) {
             ui.showMessage(e.getMessage());
         } catch (IOException e) {

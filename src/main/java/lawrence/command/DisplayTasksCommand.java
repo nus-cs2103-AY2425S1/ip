@@ -1,3 +1,9 @@
+package lawrence.command;
+
+import lawrence.database.TaskFileManager;
+import lawrence.task.TaskList;
+import lawrence.ui.UserInterface;
+
 public class DisplayTasksCommand extends Command {
     public DisplayTasksCommand() {
         // Empty constructor

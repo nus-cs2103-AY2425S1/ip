@@ -1,3 +1,7 @@
+package lawrence.task;
+
+import lawrence.task.Task;
+
 public class Todo extends Task {
 
     public Todo(String description) {

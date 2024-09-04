@@ -1,3 +1,7 @@
+package lawrence.task;
+
+import lawrence.utils.DateParser;
+
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
@@ -15,13 +19,13 @@ public class Deadline extends Task {
     public String toSaveFormat() {
         return String.format("D | %s | %s",
                 super.toSaveFormat(),
-                DateUtils.toOutputString(by));
+                DateParser.toOutputString(by));
     }
 
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)",
                 super.toString(),
-                DateUtils.toOutputString(by));
+                DateParser.toOutputString(by));
     }
 }

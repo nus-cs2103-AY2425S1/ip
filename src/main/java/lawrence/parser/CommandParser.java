@@ -1,4 +1,16 @@
-public class CommandFactory {
+package lawrence.parser;
+
+
+import lawrence.command.Command;
+import lawrence.command.CommandType;
+import lawrence.command.DisplayTasksCommand;
+import lawrence.command.ExitSessionCommand;
+import lawrence.command.CompleteTaskCommand;
+import lawrence.command.UncompleteTaskCommand;
+import lawrence.command.DeleteTaskCommand;
+import lawrence.command.AddTaskCommand;
+
+public class CommandParser {
     public static Command createCommand(String input) throws IllegalArgumentException {
         // Parse command at start of the line
         String[] inputComponents = input.split(" ", 2);

@@ -1,3 +1,5 @@
+package lawrence.ui;
+
 public class UserInterface {
     private String name;
     public UserInterface(String name) {
