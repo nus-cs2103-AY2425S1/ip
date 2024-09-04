@@ -41,11 +41,12 @@ public class EventCommand implements Command {
      * @param storage the storage used to save the updated task list
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         Events task = new Events(name, taskList.size(), from, to);
         taskList.add(task);
-        ui.showTaskAdded(task, taskList.size());
+        String ret = ui.showTaskAdded(task, taskList.size());
         storage.saveToFile(taskList.toArr());
+        return ret;
 
     }
 }

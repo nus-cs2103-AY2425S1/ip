@@ -27,12 +27,12 @@ public class ToDoCommand implements Command {
      * @param storage the storage object used to save the updated task list to the file
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         ToDo task = new ToDo(name, taskList.size());
         taskList.add(task);
-        ui.showTaskAdded(task, taskList.size());
+        String s = ui.showTaskAdded(task, taskList.size());
         storage.saveToFile(taskList.toArr());
-
+        return s;
     }
 }
 

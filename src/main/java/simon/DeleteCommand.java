@@ -28,10 +28,11 @@ public class DeleteCommand implements Command {
      * @param storage the storage used to save the updated task list
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         Task task = taskList.pop(index);
-        ui.showTaskDeleted(task, taskList.size());
+        String s = ui.showTaskDeleted(task, taskList.size());
         storage.saveToFile(taskList.toArr());
+        return s;
 
     }
 }

@@ -8,20 +8,40 @@ public class Task {
     //public Integer number;
     private Boolean completed;
     private Integer number;
-
+    /**
+     * Creates a Task with the specified name and number.
+     *
+     * @param name The name of the task.
+     * @param number The number associated with the task.
+     */
     public Task(String name, int number) {
         this.name = name;
         this.completed = false;
         this.number = number;
     }
+    /**
+     * Returns the name of the task.
+     *
+     * @return The name of the task.
+     */
     public String getName1() {
         return this.name;
     }
-
+    /**
+     * Returns whether the task is completed.
+     *
+     * @return {@code true} if the task is completed, {@code false} otherwise.
+     */
     public Boolean getCompleted() {
         return this.completed;
     }
-
+    /**
+     * Returns the number associated with the task.
+     *
+     * This method is private and is intended to be used only within the class.
+     *
+     * @return The number associated with the task.
+     */
     private int getNumber1() {
         return this.number;
     }

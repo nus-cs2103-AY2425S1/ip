@@ -11,5 +11,5 @@ public interface Command {
      * @param ui the user interface to interact with the user
      * @param storage the storage to save or retrieve data
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage);
+    public String execute(TaskList taskList, Ui ui, Storage storage);
 }

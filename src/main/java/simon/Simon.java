@@ -1,5 +1,6 @@
 package simon;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -37,7 +38,7 @@ public class Simon {
      */
     public void run() {
         //...
-        ui.showWelcome();;
+        ui.showWelcome();
         Scanner sc = new Scanner(System.in);
         String input;
         storage.load();
@@ -65,7 +66,40 @@ public class Simon {
     public static void main(String[] args) {
         new Simon("tasks.txt").run();
     }
+    /*public String getResponse(String input) {
+        return "Simon heard1: " + input;
+    }
+    */
+    public String getResponse(String input) {
+        boolean isExit = false;
+        String response = "";
 
+        if (Objects.equals(input, "bye")) {
+            response = "Goodbye! The application will now close.";
+            isExit = true;
+        } else {
+            try {
+                String fullCommand = ui.readCommand(input);
+                Command command = Parser.parse(fullCommand);
+                response = command.execute(tasks, ui, storage);
+            } catch (Exception e) {
+                response = "There was an error with your input. Please try using one of the pre-defined formats.";
+            }
+        }
+
+        if (isExit) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(1000); // Delay for 1 second to allow the user to see the message
+                } catch (InterruptedException ignored) {
+                    System.out.println(ignored.getMessage());
+                }
+                System.exit(0); // Exit the application
+            }).start();
+        }
+
+        return response;
+    }
 
 
 

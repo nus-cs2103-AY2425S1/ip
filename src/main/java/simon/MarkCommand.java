@@ -26,13 +26,15 @@ public class MarkCommand implements Command {
      * @param storage the storage used to save the updated task list
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.markTask(mark, index);
+        String s;
         if (mark) {
-            ui.showTaskMarked(taskList.get(index));
+            s = ui.showTaskMarked(taskList.get(index));
         } else {
-            ui.showTaskUnmarked(taskList.get(index));
+            s = ui.showTaskUnmarked(taskList.get(index));
         }
         storage.saveToFile(taskList.toArr());
+        return s;
     }
 }
