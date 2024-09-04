@@ -18,6 +18,10 @@ class TaskList {
     int size() {
         return this.todoList.size();
     }
+
+    boolean isEmpty() {
+        return this.todoList.size() == 0;
+    }
     
     Task add(String task) {
         Todo newTask = new Todo(task);
@@ -58,6 +62,16 @@ class TaskList {
         taskToMark.unmark();
         this.todoList.set(index, taskToMark);
         return taskToMark;
+    }
+
+    TaskList find(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (Task t : this.todoList) {
+            if (t.getDescription().contains(keyword)) {
+                matchTasks.add(t);
+            }
+        }
+        return matchingTasks;
     }
 
     String list() {

@@ -27,6 +27,14 @@ class YnchUi {
         System.out.println("Meow! I've marked this task as not done yet: \n" + task);
     }
 
+    void printFind(TaskList tasks) {
+        if (tasks.isEmpty) {
+            System.out.println("Meow! I can't find anything matching your search :(");
+        } else {
+            System.out.println("Meow! Here are the matching tasks in your list: \n" + tasks.list());
+        }
+    }
+
     void greet() {
         System.out.println("Meow! I'm YNCH. What can I do for you?");
     }
