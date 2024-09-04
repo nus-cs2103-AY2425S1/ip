@@ -7,6 +7,13 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
+    public TaskList(Task... args) {
+        this.tasks = new ArrayList<Task>();
+        for (Task task : args) {
+            this.add(task);
+        }
+    }
+
     public void add(Task t) {
         this.tasks.add(t);
     }

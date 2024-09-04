@@ -1,9 +1,8 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Storage {
     private final File filePath;
@@ -11,8 +10,23 @@ public class Storage {
         this.filePath = new File(filePath);
         createFile();
     }
-    public TaskList load() {
-        return new TaskList();
+    public Task[] load() {
+        try {
+            ArrayList<Task> tasks = new ArrayList<Task>();
+            Scanner scanner = new Scanner(this.filePath);
+            while (scanner.hasNext()) {
+                String line =scanner.nextLine();
+                if (line.isEmpty()){
+                    continue;
+                }
+                tasks.add(Parser.loadTask(line));
+            }
+            return tasks.toArray(new Task[0]);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+            return new Task[0];
+        }
+
     }
 
     private void createFile() {

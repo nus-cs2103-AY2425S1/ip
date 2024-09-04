@@ -13,7 +13,7 @@ public class Diomon {
         Storage storage = new Storage("data/data.txt");
         commands = new Commands();
         Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
+        TaskList taskList = new TaskList(storage.load());
         greeting();
         while (true) {
             String input = scanner.nextLine();

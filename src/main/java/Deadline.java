@@ -1,13 +1,17 @@
 public class Deadline extends Task{
+    public static final String TYPEICON = "D";
     private String deadline;
     public Deadline(String task, String by) {
         super(task);
         this.deadline = by;
     }
-
+    public Deadline(boolean complete, String description, String deadline) {
+        super(complete, description);
+        this.deadline = deadline;
+    }
     @Override
     public String getTypeIcon() {
-        return "D";
+        return TYPEICON;
     }
 
     @Override
