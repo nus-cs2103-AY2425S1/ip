@@ -1,12 +1,11 @@
-import java.io.FileNotFoundException;
+package meerkatpack;
+
 import java.io.IOException;
 
 public class Parser {
 
     private static TaskList taskList;
     private static Ui ui;
-    private final String STORAGEFILEPATH = "Meerkat.txt";
-
 
     public Parser() {
         this.taskList = new TaskList();

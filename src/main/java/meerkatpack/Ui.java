@@ -1,3 +1,5 @@
+package meerkatpack;
+
 public class Ui {
 
     private String lines = "____________________________________________________________";

@@ -3,3 +3,5 @@ t,u,buy 1
 t,u,buy 3
 d,u,buy apples,tomorrow
 t,u,buy 5
+t,u,eat qijun
+t,u,deadline attend /by 2025-10-10 1900

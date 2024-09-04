@@ -1,3 +1,5 @@
+package meerkatpack;
+
 public class Deadline extends Task {
     private String duedate;
     public Deadline(String name, String duedate) {
