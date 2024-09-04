@@ -1,19 +1,20 @@
 package chatterbox;
 
-
-import java.sql.Array;
-import java.util.*;
-
 import java.io.FileNotFoundException;
-import java.util.stream.Collectors;
 import java.nio.file.Paths;
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
-import tasks.*;
 import chatterboxexceptions.ChatterboxExceptions;
 import parser.Parser;
 import storage.Storage;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 import ui.UI;
 
 /**
@@ -31,13 +32,13 @@ public class Chatterbox {
      * @param filepath contains the history of tasks
      */
     public Chatterbox(String filepath) {
-        this.ui =  new UI();
+        this.ui = new UI();
         this.parser = new Parser();
         this.storage = new Storage(filepath);
         ArrayList<Task> loaded = new ArrayList<>();
         try {
             loaded = storage.load(parser);
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("Error: No history file found at path");
         }
 
@@ -51,7 +52,7 @@ public class Chatterbox {
      * Initiates Chatterbox with no prior history
      */
     public Chatterbox() {
-        this.ui =  new UI();
+        this.ui = new UI();
         this.parser = new Parser();
         this.storage = new Storage();
 
@@ -74,8 +75,8 @@ public class Chatterbox {
         }
 
         /**
-         * used to retrieve the users task list
-         * @return an ArrayList<Task>
+         * gets the userTasks of TaskList object
+         * @return an ArrayList userTasks
          */
         public ArrayList<Task> getTasks() {
             return userTasks;
@@ -102,7 +103,7 @@ public class Chatterbox {
             return userTasks.get(index);
         }
 
-        public Todo addTodo(String desc) throws ChatterboxExceptions.ChatterBoxNoInput{
+        public Todo addTodo(String desc) throws ChatterboxExceptions.ChatterBoxNoInput {
             Todo nextTodo = new Todo(desc);
             userTasks.add(nextTodo);
             return nextTodo;
@@ -120,7 +121,8 @@ public class Chatterbox {
             return nextDead;
         }
 
-        public Event addEvent(String desc, String startDate, String endDate) throws ChatterboxExceptions.ChatterBoxNoInput {
+        public Event addEvent(String desc, String startDate, String endDate)
+                throws ChatterboxExceptions.ChatterBoxNoInput {
             Event nextEve = new Event(desc, startDate, endDate);
             userTasks.add(nextEve);
             return nextEve;
@@ -134,7 +136,8 @@ public class Chatterbox {
          * @return the created event
          * @throws ChatterboxExceptions.ChatterBoxNoInput if no description was found
          */
-        public Event addEvent(String desc, LocalDateTime startDate, LocalDateTime endDate) throws ChatterboxExceptions.ChatterBoxNoInput {
+        public Event addEvent(String desc, LocalDateTime startDate, LocalDateTime endDate)
+                throws ChatterboxExceptions.ChatterBoxNoInput {
             Event nextEve = new Event(desc, startDate, endDate);
             userTasks.add(nextEve);
             return nextEve;
@@ -190,7 +193,9 @@ public class Chatterbox {
     }
 
 
-
+    /**
+     * Runs the Chatterbox program
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
 
@@ -270,18 +275,21 @@ public class Chatterbox {
                         response = response.trim();
                         int delIndex = parser.extractNum(response) - 1;
                         ui.delTaskMsg(tasks.deleteTask(delIndex), tasks.size());
-                         break;
+                        break;
 
-                        case FIND:
-                            String keywords = parser.parseFind(response).trim();
+                    case FIND:
+                        String keywords = parser.parseFind(response).trim();
 
-                            ArrayList<Task> matching = tasks.findTasks(keywords);
-                            ui.displaySearch(matching);
-                            break;
+                        ArrayList<Task> matching = tasks.findTasks(keywords);
+                        ui.displaySearch(matching);
+                        break;
 
-                        case INVALID:
-                            ChatterboxExceptions.checkMessage(response);
-                            break;
+                    case INVALID:
+                        ChatterboxExceptions.checkMessage(response);
+                        break;
+                    default:
+                        ChatterboxExceptions.checkMessage(response);
+                        break;
 
                     }
                     storage.saveHistory(tasks.getTasks());
@@ -297,7 +305,8 @@ public class Chatterbox {
 
     public static void main(String[] args) {
 
-        Chatterbox myChat = new Chatterbox(Paths.get(System.getProperty("user.dir"),"data" , "command1.txt").toString());
+        Chatterbox myChat = new Chatterbox(
+                Paths.get(System.getProperty("user.dir"), "data" , "command1.txt").toString());
         myChat.run();
 
 

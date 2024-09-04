@@ -8,7 +8,7 @@ public class ChatterboxExceptions {
      * basic ChatterboxError class
      */
     public static class ChatterBoxError extends Exception {
-        public ChatterBoxError (String message) {
+        public ChatterBoxError(String message) {
             super(message);
         }
     }
@@ -17,7 +17,7 @@ public class ChatterboxExceptions {
      * Exception class for missing input
      */
     public static class ChatterBoxNoInput extends ChatterBoxError {
-        public ChatterBoxNoInput (String message) {
+        public ChatterBoxNoInput(String message) {
             super(message);
         }
     }
@@ -26,7 +26,7 @@ public class ChatterboxExceptions {
      * Exception class for unknown commands
      */
     public static class ChatterBoxUnknownCommand extends ChatterBoxError {
-        public ChatterBoxUnknownCommand (String message) {
+        public ChatterBoxUnknownCommand(String message) {
             super(message);
         }
     }
@@ -39,6 +39,12 @@ public class ChatterboxExceptions {
             super("Missing parameter: " + para);
         }
     }
+
+    /**
+     * Checks the message if there is an unknown command
+     * @param msg with the first word of unknown command
+     * @throws ChatterBoxUnknownCommand if not recognized
+     */
     public static void checkMessage(String msg) throws ChatterBoxUnknownCommand{
         System.out.println("message is " + msg);
         throw new ChatterBoxUnknownCommand("Error: Unknown command");
