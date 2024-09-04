@@ -18,14 +18,18 @@ public interface Ui {
     void closeInput();
 
     /**
-     * Prints text output from commands.
+     * Prints text messages from commands.
+     *
+     * @param texts Messages to be displayed.
      */
-    void showText(String ...text);
+    void showText(String ...texts);
 
     /**
-     * Prints errors from commands.
+     * Prints error messages from commands.
+     *
+     * @param errors Error messages to be displayed.
      */
-    void showError(String ...error);
+    void showError(String ...errors);
 
     /**
      * Prints dividers.

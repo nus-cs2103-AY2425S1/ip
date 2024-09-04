@@ -1,4 +1,5 @@
 .label {
+    -fx-font: 16px "Arial";
     -fx-background-color: #FCFFEB;
     -fx-background-radius: 1em 0 1em 1em;
     -fx-border-radius: 1em 0 1em 1em;

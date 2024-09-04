@@ -87,13 +87,15 @@ public class FxAdapter implements Ui {
     }
 
     /**
-     * Prints text output from commands.
+     * Displays text messages from commands.
+     *
+     * @param texts Messages to be displayed.
      */
-    public void showText(String ...text) {
+    public void showText(String ...texts) {
         if (dialogContainer == null) {
-            infoPreWindowMessages.addAll(Arrays.asList(text));
+            infoPreWindowMessages.addAll(Arrays.asList(texts));
         } else {
-            String joinedMessage = String.join(System.lineSeparator(), text);
+            String joinedMessage = String.join(System.lineSeparator(), texts);
             dialogContainer.getChildren().addAll(
                     DialogBox.getChatbotDialog(joinedMessage, false)
             );
@@ -102,13 +104,15 @@ public class FxAdapter implements Ui {
     }
 
     /**
-     * Prints errors from commands.
+     * Displays error messages from commands.
+     *
+     * @param errors Error messages to be displayed.
      */
-    public void showError(String ...error) {
+    public void showError(String ...errors) {
         if (dialogContainer == null) {
-            errorPreWindowMessages.addAll(Arrays.asList(error));
+            errorPreWindowMessages.addAll(Arrays.asList(errors));
         } else {
-            String joinedMessage = String.join(System.lineSeparator(), error);
+            String joinedMessage = String.join(System.lineSeparator(), errors);
             dialogContainer.getChildren().addAll(
                     DialogBox.getChatbotDialog(joinedMessage, true)
             );
