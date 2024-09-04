@@ -1,6 +1,6 @@
-package Gui;
+package gui;
 
-import Frameworks.Will;
+import base.Will;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

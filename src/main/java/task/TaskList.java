@@ -1,6 +1,6 @@
-package Task;
+package task;
 
-import Utilities.Ui;
+import utility.Ui;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class TaskList {
             tasks.get(index - 1).markDone();
             ui.markTask(tasks, index, true);
         } else {
-            ui.noTask();
+            ui.printNoTask();
         }
     }
 
@@ -42,7 +42,7 @@ public class TaskList {
             tasks.get(index - 1).markNotDone();
             ui.markTask(tasks, index, false);
         } else {
-            ui.noTask();
+            ui.printNoTask();
         }
     }
 
@@ -57,7 +57,7 @@ public class TaskList {
             Task removedTask = tasks.remove(index - 1);
             ui.alterTask(tasks, removedTask, false);
         } else {
-            ui.noTask();
+            ui.printNoTask();
         }
 
     }
@@ -95,7 +95,7 @@ public class TaskList {
                 foundTasks.add((i + 1) + ". " + tasks.get(i));
             }
         }
-        ui.foundTask(foundTasks);
+        ui.printFoundTasks(foundTasks);
     }
 
 

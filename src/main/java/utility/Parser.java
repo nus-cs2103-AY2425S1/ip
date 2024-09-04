@@ -1,8 +1,8 @@
-package Utilities;
+package utility;
 
-import Task.Task;
-import Task.TaskType;
-import Task.TaskList;
+import task.Task;
+import task.TaskType;
+import task.TaskList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +29,7 @@ public class Parser {
     public Boolean parseCommand(ArrayList<Task> tasks, String userInput, TaskList taskList, Ui ui, Parser dateTimeParser){
 
         if (Objects.equals(userInput, "bye")) {
-            ui.endMsg();
+            ui.printEnd();
             Storage storage = new Storage();
             storage.save(tasks);
             return true;
@@ -45,7 +45,7 @@ public class Parser {
                 int taskNumber = Integer.parseInt(userInput.substring(5).trim());
                 taskList.markTask(tasks, taskNumber);
             }catch(StringIndexOutOfBoundsException | NumberFormatException e){
-                ui.blankMsg("number");
+                ui.printError("number");
             }
             return false;
         }
@@ -55,7 +55,7 @@ public class Parser {
                 int taskNumber = Integer.parseInt(userInput.substring(7).trim());
                 taskList.unmarkTask(tasks, taskNumber);
             }catch(StringIndexOutOfBoundsException | NumberFormatException e){
-                ui.blankMsg("number");
+                ui.printError("number");
             }
             return false;
         }
@@ -65,7 +65,7 @@ public class Parser {
                 int taskNumber = Integer.parseInt(userInput.substring(7).trim());
                 taskList.deleteTask(tasks, taskNumber);
             }catch(StringIndexOutOfBoundsException | NumberFormatException e){
-                ui.blankMsg("number");
+                ui.printError("number");
             }
             return false;
         }
@@ -76,10 +76,10 @@ public class Parser {
                 if(!desc.isEmpty()){
                     taskList.addTask(tasks, TaskType.TODO, desc);
                 }else{
-                    ui.blankMsg("todo");
+                    ui.printError("todo");
                 }
             }catch(StringIndexOutOfBoundsException e){
-                ui.blankMsg("todo");
+                ui.printError("todo");
             }
             return false;
         }
@@ -91,10 +91,10 @@ public class Parser {
                 if(!desc.isEmpty()){
                     taskList.addTask(tasks, TaskType.DEADLINE, desc, dateTimeParser.parseDateTime(parts[1].trim()));
                 }else{
-                    ui.blankMsg("deadline");
+                    ui.printError("deadline");
                 }
             }catch(StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e){
-                ui.blankMsg("deadline");
+                ui.printError("deadline");
             }
             return false;
         }
@@ -106,10 +106,10 @@ public class Parser {
                 if(!desc.isEmpty()){
                     taskList.addTask(tasks, TaskType.EVENT, desc, dateTimeParser.parseDateTime(parts[1].trim()), dateTimeParser.parseDateTime(parts[2].trim()));
                 }else{
-                    ui.blankMsg("event");
+                    ui.printError("event");
                 }
             }catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e){
-                ui.blankMsg("event");
+                ui.printError("event");
             }
             return false;
         }
@@ -120,13 +120,13 @@ public class Parser {
                 String keyword = userInput.substring(5).trim();
                 taskList.findTask(tasks, keyword);
             }catch(StringIndexOutOfBoundsException e){
-                ui.blankMsg("keyword");
+                ui.printError("keyword");
             }
             return false;
         }
 
 
-        ui.defaultMsg();
+        ui.printDefault();
         return false;
     }
 
@@ -279,7 +279,7 @@ public class Parser {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(dateTimeStr, formatter);
         } catch (DateTimeParseException | NullPointerException e) {
-            new Ui().invalidDateMsg();
+            new Ui().printInvalidDate();
             return null;
         }
     }

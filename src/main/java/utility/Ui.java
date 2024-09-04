@@ -1,6 +1,6 @@
-package Utilities;
+package utility;
 
-import Task.Task;
+import task.Task;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class Ui {
     /**
      * Displays a message indicating that no tasks were found.
      */
-    public void noTask() {
+    public void printNoTask() {
         System.out.println("_____________________________________");
         System.out.println("No Task Found");
         System.out.println("_____________________________________");
@@ -68,7 +68,7 @@ public class Ui {
     /**
      * Displays a default message when the user input is not recognized.
      */
-    public void defaultMsg() {
+    public void printDefault() {
         System.out.println("_____________________________________");
         System.out.println("I'm sorry, but I don't know what that means");
         System.out.println("_____________________________________");
@@ -77,7 +77,7 @@ public class Ui {
     /**
      * Displays a farewell message when the user exits the application.
      */
-    public void endMsg() {
+    public void printEnd() {
         System.out.println("_____________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("_____________________________________");
@@ -88,7 +88,7 @@ public class Ui {
      *
      * @param logo The name or logo of the application.
      */
-    public void greetMsg(String logo) {
+    public void printGreetings(String logo) {
         System.out.println("Hello! I'm " + logo);
         System.out.println("What can I do for you?");
         System.out.println("_____________________________________");
@@ -99,7 +99,7 @@ public class Ui {
      *
      * @param type The type of the task (e.g., "todo", "number").
      */
-    public void blankMsg(String type) {
+    public void printError(String type) {
         System.out.println("_____________________________________");
         switch (type) {
         case "todo":
@@ -121,7 +121,7 @@ public class Ui {
     /**
      * Displays a message indicating that the provided date and time format is invalid.
      */
-    public void invalidDateMsg() {
+    public void printInvalidDate() {
         System.out.println("_____________________________________");
         System.out.println("Invalid date and time format. Please use the format 'd/M/yyyy HHmm'.");
         System.out.println("_____________________________________");
@@ -132,7 +132,7 @@ public class Ui {
      *
      * @param foundTasks The list of tasks that match the search keyword.
      */
-    public void foundTask(ArrayList<String> foundTasks){
+    public void printFoundTasks(ArrayList<String> foundTasks){
         System.out.println("_____________________________________");
 
         if (foundTasks.isEmpty()){

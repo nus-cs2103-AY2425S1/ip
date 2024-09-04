@@ -1,10 +1,10 @@
-package Frameworks;
+package base;
 
-import Task.Task;
-import Task.TaskList;
-import Utilities.Parser;
-import Utilities.Storage;
-import Utilities.Ui;
+import task.Task;
+import task.TaskList;
+import utility.Parser;
+import utility.Storage;
+import utility.Ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -51,17 +51,16 @@ public class Will {
 
         String logo = "WILL";
         Ui ui = new Ui();
-        ui.greetMsg(logo);
+        ui.printGreetings(logo);
 
         Scanner scanner = new Scanner(System.in);
 
         TaskList taskList = new TaskList();
-        Parser dateTimeParser = new Parser();
         Parser parser = new Parser();
 
         while (true) {
             String userInput = scanner.nextLine();
-            if (parser.parseCommand(tasks, userInput, taskList, ui, dateTimeParser)){
+            if (parser.parseCommand(tasks, userInput, taskList, ui, parser)){
                 break;
             }
         }

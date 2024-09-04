@@ -1,9 +1,9 @@
-package Utilities;
+package utility;
 
-import Task.Deadline;
-import Task.Event;
-import Task.Task;
-import Task.ToDo;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 import java.io.*;
 import java.time.format.DateTimeFormatter;

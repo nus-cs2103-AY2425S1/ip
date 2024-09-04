@@ -1,15 +1,10 @@
-import Task.Task;
-import Task.TaskList;
-import Task.ToDo;
-import Task.Deadline;
-import Task.Event;
-import Utilities.Parser;
-import Utilities.Storage;
-import Utilities.Ui;
+import task.Task;
+import task.ToDo;
+import task.Deadline;
+import task.Event;
+import utility.Parser;
+import utility.Storage;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
