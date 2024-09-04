@@ -8,8 +8,6 @@ public class Event extends Task {
 
     private LocalDateTime startLocalDateTime;
     private LocalDateTime endLocalDateTime;
-    private String start;
-    private String end;
 
     public Event(String input, String start, String end) {
         super(input);
