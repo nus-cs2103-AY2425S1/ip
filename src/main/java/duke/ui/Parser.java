@@ -28,7 +28,7 @@ public class Parser {
             case "list":
                 if (storage.size()>0) System.out.println(storage);
                 else System.out.println("it's empty... what do u want me to list? :(");
-                    break;
+                break;
             case "bye":
                 System.out.println("It's finally over... *yawn*\nI'm heading to bed\nExiting the program...");
                 break;

@@ -1,10 +1,5 @@
 package duke.additionalparsers;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,7 +8,27 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
+/**
+ * This class is responsible for handling the reading and parsing of tasks from the data.txt file.
+ */
 public class DataParser {
+    /**
+     * Reads tasks from a specified file and returns them as an ArrayList.
+     * <p>
+     * Each line in the file is parsed into a {@link Task} object.
+     * If a task is successfully parsed and is considered "real" (as determined by {@link Task#isReal()}),
+     * it is added to the returned list. Tasks that cannot be parsed or are not "real" are skipped.
+     * </p>
+     *
+     * @param filePath the path to the file containing the tasks
+     * @return an {@link ArrayList} of {@link Task} objects read from the file
+     * @throws IOException if an error occurs while reading the file
+     */
     public static ArrayList<Task> readTasksFromFile(Path filePath) {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -53,11 +68,11 @@ public class DataParser {
             setCompletionStatus(deadline, deadlineMatcher.group(1));
             return deadline;
         } else if (eventMatcher.matches()) {
-            Event event = new Event(eventMatcher.group(2) + " /from " + eventMatcher.group(3) + " /to " + eventMatcher.group(4));
+            Event event = new Event(eventMatcher.group(2) + " /from "
+                    + eventMatcher.group(3) + " /to " + eventMatcher.group(4));
             setCompletionStatus(event, eventMatcher.group(1));
             return event;
         }
-
         return null;
     }
     private static void setCompletionStatus(Task task, String status) {

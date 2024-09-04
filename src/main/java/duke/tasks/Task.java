@@ -3,7 +3,6 @@ public class Task {
     public String task;
     private boolean isDone;
 
-
     public Task(String s){
         task = s;
         isDone = false;
@@ -14,6 +13,8 @@ public class Task {
     public void uncomplete(){
         isDone = false;
     }
+
+    @Override
     public String toString() {
         String status;
         if(isDone) {
@@ -23,6 +24,10 @@ public class Task {
             status = "[ ] ";
         }
         return status + task;
+    }
+
+    public String getTask() {
+        return this.task;
     }
     public boolean isReal(){
         return task != "";

@@ -1,20 +1,36 @@
 package duke.tasks;
 
-import duke.ui.Notgpt;
-import duke.additionalparsers.DataParser;
-
-import java.util.ArrayList;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+
+import duke.additionalparsers.DataParser;
+import duke.ui.Notgpt;
+
+/**
+ * The {@code Storage} class manages the storage, retrieval, and manipulation of tasks.
+ * <p>
+ * Tasks are stored in a text file, and this class provides methods for creating,
+ * modifying, and deleting tasks. The tasks are loaded from a file on initialization
+ * and saved back to the file whenever they are modified.
+ * </p>
+ */
 public class Storage {
     private ArrayList<Task> store = new ArrayList<>();
     private Path filePath = Paths.get(".", "data", "data.txt");
+
+    /**
+     * Constructs a {@code Storage} object and initializes it by loading tasks from the specified file.
+     * <p>
+     * If the file exists, tasks are read from it. If not, a new file is created. The tasks are stored in an
+     * {@link ArrayList} and can be manipulated through various methods provided by this class.
+     * </p>
+     */
     public Storage() {
         try {
             Files.createDirectories(filePath.getParent());
-
             if (Files.exists(filePath)) {
                 this.store = DataParser.readTasksFromFile(filePath);
                 System.out.println("Data found and loaded from: " + filePath.toAbsolutePath());
@@ -83,7 +99,7 @@ public class Storage {
         String thing = "";
         int j = 1;
         for(int i = 0; i<store.size(); i++){
-            if (store.get(i).task.contains(s)) {
+            if (store.get(i).getTask().contains(s)) {
                 thing += j + ". " + store.get(i).toString() + "\n";
                 j++;
             }

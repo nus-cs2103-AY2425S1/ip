@@ -1,12 +1,30 @@
 package duke.tasks;
 import duke.additionalparsers.DateParser;
 
+/**
+ * Represents an event task that occurs within a specific time frame.
+ * <p>
+ * An event has a description, a start time, and an end time. The start and end times
+ * are specified using the "/from" and "/to" keywords, respectively, within the input string.
+ * </p>
+ */
 public class Event extends Task {
     private String from;
     private String to;
 
-    DateParser dateParser = new DateParser();
+    private DateParser dateParser = new DateParser();
 
+    /**
+     * Constructs an {@code Event} object from a string input.
+     * <p>
+     * The input string is expected to contain a task description followed by
+     * a "from" time and a "to" time, separated by the "/" character.
+     * </p>
+     *
+     * @param s the string containing the task description and time information
+     * @throws IllegalArgumentException if the input string is invalid, missing the task description,
+     *                                  or missing the "/from" or "/to" {@link String}.
+     */
     public Event(String s) {
         super(s.split(" /")[0].trim());
         String[] parts = s.split(" /");
@@ -28,7 +46,8 @@ public class Event extends Task {
         }
 
         if (parts[0].trim().isEmpty() || from == null || to == null) {
-            throw new IllegalArgumentException("Duke.Tasks.Event must include both task description and 'from' and 'to' times and not include extra \"/\"");
+            throw new IllegalArgumentException("Duke.Tasks.Event must include both task description and 'from' "
+                    + "and 'to' times and not include extra \"/\"");
         }
     }
 
