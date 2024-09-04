@@ -36,7 +36,7 @@ public abstract class Command {
      * @param storage The storage component to save or load data.
      * @throws BeeBooExceptions If an error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BeeBooExceptions;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws BeeBooExceptions;
 
     /**
      * Returns whether the command is an exit command.
@@ -44,4 +44,5 @@ public abstract class Command {
      * @return true if the command should terminate the chatbot, false otherwise.
      */
     public abstract boolean isExit();
+
 }

@@ -26,10 +26,11 @@ public class ExitCommand extends Command {
      * @throws NoDescriptionException  If a task is missing a description during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException, NoDescriptionException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException, NoDescriptionException {
         ui.close();
-        ui.byeMessageMessage();
+        return ui.byeMessageMessage();
     }
+
 
     /**
      * Determines if this command is an exit command.

@@ -38,28 +38,25 @@ public class AddCommand extends Command {
      * @throws NoDescriptionException If the task description is missing.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException, NoDescriptionException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException, NoDescriptionException {
         switch(type) {
         case "e":
             Events event = Events.createEvent(command);
             tasks.addList(event);
-            ui.addList(event, tasks.getSize());
             storage.saveItem(tasks);
-            break;
+            return ui.addList(event, tasks.getSize());
         case "t":
             ToDos todo = ToDos.createToDo(command);
             tasks.addList(todo);
-            ui.addList(todo, tasks.getSize());
             storage.saveItem(tasks);
-            break;
+            return ui.addList(todo, tasks.getSize());
         case "d":
             Deadlines deadline = Deadlines.createDeadline(command);
             tasks.addList(deadline);
-            ui.addList(deadline, tasks.getSize());
             storage.saveItem(tasks);
-            break;
+            return ui.addList(deadline, tasks.getSize());
         default:
-            break;
+            return "";
         }
     }
 

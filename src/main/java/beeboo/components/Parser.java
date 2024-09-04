@@ -24,13 +24,17 @@ public class Parser {
      */
     public static Command parseCommand(String command) throws InvalidCommandException {
         command = command.trim();
-        if (command.equals("list")) {
-            return new ListCommand();
-        }
-        if (command.equals("bye")) {
-            return new ExitCommand();
-        }
         int index = command.indexOf(' ');
+        if (index == -1) {
+            switch (command) {
+            case "list":
+                return new ListCommand();
+            case "bye":
+                return new ExitCommand();
+            default:
+                throw new InvalidCommandException();
+            }
+        }
         String commandWord = command.substring(0, index).trim();
         String rest = command.substring(index).trim();
         switch (commandWord) {

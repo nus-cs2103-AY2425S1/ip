@@ -66,6 +66,9 @@ public class Events extends Tasks {
      */
     public static Events createEvent(String text) throws InvalidDateException, NoDescriptionException {
         int descriptionEnd = text.indexOf('/');
+        if (descriptionEnd == -1) {
+            throw new InvalidDateException(text);
+        }
         String description = text.substring(0, descriptionEnd).trim();
 
         if (descriptionEnd == -1 || description.isEmpty()) {

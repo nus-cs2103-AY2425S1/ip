@@ -7,25 +7,30 @@ import beeboo.components.TaskList;
 import beeboo.components.Ui;
 import beeboo.exception.BeeBooExceptions;
 import beeboo.exception.InvalidCommandException;
+import javafx.scene.image.Image;
 
 /**
- * The {@code BeeBoo} class represents the main application logic for the BeeBoo task management
+ * The BeeBoo class represents the main application logic for the BeeBoo task management
  * system. It handles initialization, user interactions, command processing, and task management.
  */
-public class BeeBoo {
+public class Beeboo {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    private static final String FILE_PATH = "./data/beeboo.txt";
+
+    private static Image beebooImage = new Image(Beeboo.class.getResourceAsStream("/images/Beeboo.jpg"));
+
     /**
-     * Constructs a beeboo instance with the specified file path for storage.
+     * Constructs a BeeBoo instance with the specified file path for storage.
      * Initializes the user interface, storage, and task list. If loading the tasks fails,
      * an empty task list is created.
      *
      * @param filePath the path to the file where tasks are stored
      */
-    public BeeBoo(String filePath) {
+    public Beeboo(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -61,12 +66,28 @@ public class BeeBoo {
     }
 
     /**
-     * The entry point of the BeeBoo application. Creates a new {@code BeeBoo} instance with a
-     * default file path for storage and starts the application.
+     * Generates a response for the user's chat message.
      *
-     * @param args command-line arguments
+     * @param input the user's input message
+     * @return the response from BeeBoo
      */
-    public static void main(String[] args) {
-        new BeeBoo("./data/beeboo.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parseCommand(input);
+            return c.execute(tasks, ui, storage);
+        } catch (InvalidCommandException e) {
+            return "Invalid Command! Me no understand";
+        } catch (BeeBooExceptions e) {
+            return e.toString();
+        }
+    }
+
+    /**
+     * Returns the image used for BeeBoo's avatar.
+     *
+     * @return BeeBoo's image
+     */
+    public static Image getBeebooImage() {
+        return beebooImage;
     }
 }

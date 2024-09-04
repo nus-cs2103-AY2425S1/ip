@@ -29,7 +29,7 @@ public class FindCommand extends Command {
      * @throws InvalidIndexException if index is < 0 or is more than the size of tasklist
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BeeBooExceptions {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BeeBooExceptions {
         String list = "Here are the matching results: \n";
         for (int i = 0; i < tasks.getSize(); i++) {
             Tasks task = tasks.get(i);
@@ -38,8 +38,7 @@ public class FindCommand extends Command {
             }
         }
 
-        ui.produceList(list);
-
+        return ui.produceList(list);
     }
 
     @Override

@@ -15,8 +15,8 @@ public class ListCommand extends Command {
      * @param storage storage function of the chatbot
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.produceList(tasks.produceList());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.produceList(tasks.produceList());
     }
 
     /**
