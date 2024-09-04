@@ -6,7 +6,7 @@ plugins {
 }
 
 application {
-    mainClass.set("quack.Quack")
+    mainClass.set("quack.gui.Launcher")
 }
 
 checkstyle {

@@ -67,6 +67,10 @@ public class Quack {
         ui.closeScanner();
     }
 
+    public String getResponse(String input) {
+        return "Nigga no!";
+    }
+
     public static void main(String[] args) {
         Quack bot = new Quack();
         bot.run();

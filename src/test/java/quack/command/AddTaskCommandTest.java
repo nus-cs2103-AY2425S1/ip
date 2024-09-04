@@ -93,7 +93,7 @@ public class AddTaskCommandTest {
             + "-".repeat(65) + "\n"
             + "When is the end date for the EVENT task (Format: DD/MM/YYYY HH:MM:SS): \n"
             + "-".repeat(65) + "\n"
-            + "Im sorry but the date input is invalid ensure that it is in this format: DD/MM/YYYY HH:MM:SS\n"
+            + "Im sorry but the date input is invalid, ensure that it is in this format: DD/MM/YYYY HH:MM:SS\n"
             + "-".repeat(65) + "\n";
 
         String actual = actualOutput.toString().replaceAll("\r", "");

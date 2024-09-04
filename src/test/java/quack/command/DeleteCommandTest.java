@@ -61,7 +61,7 @@ public class DeleteCommandTest {
             + "2. [E][X] Dummy 2 (From: 01/01/2024 10:59:30 To: 10/01/2024 14:00:59)\n"
             + "3. [D][ ] Dummy 3 (Due by: 10/01/2024 14:00:59)\n"
             + "-".repeat(65) + "\n"
-            + "Which task do you want to delete? (Input the index of the task): "
+            + "Which task do you want to delete? (Input the index of the task): \n"
             + "-".repeat(65) + "\n"
             + "Success! I have deleteed this task: [T][ ] Dummy 1\n"
             + "You now have 2 tasks in your list right now!\n"
@@ -95,7 +95,7 @@ public class DeleteCommandTest {
             + "2. [E][X] Dummy 2 (From: 01/01/2024 10:59:30 To: 10/01/2024 14:00:59)\n"
             + "3. [D][ ] Dummy 3 (Due by: 10/01/2024 14:00:59)\n"
             + "-".repeat(65) + "\n"
-            + "Which task do you want to delete? (Input the index of the task): "
+            + "Which task do you want to delete? (Input the index of the task): \n"
             + "-".repeat(65) + "\n"
             + "Oops looks like the index: 10 entered is out of bounds!\n"
             + "-".repeat(65) + "\n";
