@@ -27,7 +27,7 @@ public class TaskList {
             this.tasks.get(index - 1).markAsDone();
         } else {
             throw new LeBronException("Thats out of bounds bro");
-        } 
+        }
     }
 
     public void unmarkTask(int index) throws LeBronException {
@@ -54,5 +54,4 @@ public class TaskList {
         }
     }
 
-    
 }

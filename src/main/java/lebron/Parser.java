@@ -2,7 +2,6 @@ package lebron;
 
 import java.time.LocalDate;
 
-
 public class Parser {
 
     public Command parse(String userInput) throws LeBronException {
@@ -23,6 +22,9 @@ public class Parser {
         case "unmark":
             index = Integer.parseInt(words[1]);
             return new UnmarkCommand(index);
+        case "find":
+            String keyword = words[1];
+            return new FindCommand(keyword);
         case "todo":
             ToDos todo = new ToDos(words[1].trim());
             return new AddCommand(todo);
@@ -45,7 +47,6 @@ public class Parser {
                 Event event = new Event(taskDescription, start, end);
                 return new AddCommand(event);
             }
-
         default:
             throw new LeBronException("What do you mean bro?");
         }

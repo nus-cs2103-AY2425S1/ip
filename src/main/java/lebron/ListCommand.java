@@ -14,8 +14,8 @@ public class ListCommand extends Command {
      * @throws LeBronException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws LeBronException {
-        ui.showTaskList(taskList);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws LeBronException {
+        return ui.showTaskList(taskList);
     }
-    
+
 }

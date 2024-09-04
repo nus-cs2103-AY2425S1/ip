@@ -1,82 +1,56 @@
 package lebron;
 
-import java.util.Scanner;
-
-
 public class Ui {
 
-    Scanner scanner;
-
-    public Ui() {
-        this.scanner = new Scanner(System.in);
+    public String showLoadingError() {
+        return "There was an error in loading the chatbot";
     }
 
-    public void showLine() {
-        System.out.println("------------------------");
+    public String showWelcomeMessage() {
+        return "Wassup! I'm lebron";
     }
 
-    public void showLoadingError() {
-        System.out.println("There was an error in loading the chatbot");
+    public String showGoodbyeMessage() {
+        return "Bye! I'm leaving now.";
     }
 
-    public void showWelcomeMessage() {
-        this.showLine();
-        System.out.println("Wassup! I'm lebron");
-        System.out.println("What can I do for you?");
-        this.showLine();
+    public String showTaskAdded(Task task, int size) {
+        String taskDetails = "Gotchu, added the task: \n" + task.toString();
+        String taskCount = String.format("Now you have %d tasks in the list", size);
+        return taskDetails + "\n" + taskCount;
     }
 
-    public String getUserCommand() {
-        return scanner.nextLine();
+    public String showTaskDeleted(Task task) {
+        return "Alright bro, I've deleted that task.\n" + task.toString();
     }
 
-    public void showGoodbyeMessage() {
-        System.out.println("Bye! I'm leaving now.");
-        this.showLine();
+    public String showTaskMarked(Task task) {
+        return "Alright bro, I've marked that task\n" + task.toString();
     }
 
-    public void showTaskAdded(Task task, int size) {
-        System.out.println("Gotchu, added the task: ");
-        System.out.println(task.toString());
-        System.out.println(String.format("Now you have %d tasks in the list", size));
-        this.showLine();
+    public String showTaskUnmarked(Task task) {
+        return "Alright bro, I've unmarked that task\n" + task.toString();
     }
 
-    public void showTaskDeleted(Task task) {
-        System.out.println("Alright bro, I've deleted that task.");
-        System.out.println(task.toString());
-        this.showLine();
-    }
-
-    public void showTaskMarked(Task task) {
-        System.out.println("Alright bro, I've marked that task");
-        System.out.println(task.toString());
-        this.showLine();
-    }
-
-    public void showTaskUnmarked(Task task) {
-        System.out.println("Alright bro, I've unmarked that task");
-        System.out.println(task.toString());
-        this.showLine();
-    }
-
-    public void showTaskList(TaskList taskList) throws LeBronException {
+    public String showTaskList(TaskList taskList) throws LeBronException {
+        StringBuilder result = new StringBuilder();
         for (int i = 1; i <= taskList.size(); i++) {
             Task task = taskList.getTask(i);
-            System.out.println(String.format("%d. %s", i, task.toString()));
+            result.append(String.format("%d. %s\n", i, task.toString()));
         }
-        this.showLine();
+        return result.toString();
     }
 
-    public void showMatchingTasks(TaskList taskList, String keyword) throws LeBronException {
-        System.out.println("Here's what I've got bro");
-        this.showLine();
+    public String showMatchingTasks(TaskList taskList, String keyword) throws LeBronException {
+        StringBuilder result = new StringBuilder();
+        result.append("Here's what I've got bro\n");
         for (int i = 1; i <= taskList.size(); i++) {
             Task task = taskList.getTask(i);
             if (task.getDescription().contains(keyword)) {
-                System.out.println(String.format("%d. %s", i, task.toString()));
+                result.append(String.format("%d. %s\n", i, task.toString()));
             }
         }
-        this.showLine();
+        return result.toString();
     }
+
 }

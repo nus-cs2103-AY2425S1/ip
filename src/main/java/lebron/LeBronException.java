@@ -1,11 +1,11 @@
 package lebron;
 
 /**
- * Custom exception class for the LeBron application.
- * Used to handle specific errors related to the application.
+ * Custom exception class for the LeBron application. Used to handle specific
+ * errors related to the application.
  */
 public class LeBronException extends Exception {
-    
+
     /**
      * Creates a new LeBronException with the given error message.
      *
@@ -14,5 +14,5 @@ public class LeBronException extends Exception {
     public LeBronException(String message) {
         super(message);
     }
-    
+
 }
