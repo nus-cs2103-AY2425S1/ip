@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import easton.DateTimeFormatException;
+import easton.exception.DateTimeFormatException;
 
 /**
  * Represents an event task.

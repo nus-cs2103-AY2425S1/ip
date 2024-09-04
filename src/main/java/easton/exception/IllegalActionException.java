@@ -1,4 +1,4 @@
-package easton;
+package easton.exception;
 
 /**
  * Exception for an invalid action.

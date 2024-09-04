@@ -1,4 +1,4 @@
-package easton;
+package easton.exception;
 
 /**
  * Exception for incorrect date & time format.
