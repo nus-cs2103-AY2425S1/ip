@@ -1,4 +1,4 @@
-package bobby;
+package bobby.tasks;
 
 /**
  * The Task class represents how a general task will look like.

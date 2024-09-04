@@ -1,4 +1,4 @@
-package bobby;
+package bobby.utils;
 
 import bobby.exception.BobbyException;
 import bobby.exception.UnknownCommandException;

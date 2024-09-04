@@ -1,5 +1,9 @@
-package bobby;
+package bobby.utils;
 
+import bobby.tasks.Deadline;
+import bobby.tasks.Event;
+import bobby.tasks.Task;
+import bobby.tasks.Todo;
 import bobby.exception.BobbyException;
 import bobby.exception.EmptyDescriptionException;
 
@@ -54,41 +58,24 @@ public class Storage {
         case "T":
             Task t = Todo.createTodo("todo" + lineParts[2]);
             if (lineParts[1].equals("X")) {
-                t.indIncomplete();
+                t.indComplete();
             }
             listOfTasks.add(t);
             break;
         case "D":
             Task d = Deadline.createDeadline("deadline" + lineParts[2] + " " + lineParts[3]);
             if (lineParts[1].equals("X")) {
-                d.indIncomplete();
+                d.indComplete();
             }
             listOfTasks.add(d);
             break;
         case "E":
             Task e = Event.createEvent("event " + lineParts[2] + " " + lineParts[3]);
             if (lineParts[1].equals("X")) {
-                e.indIncomplete();
+                e.indComplete();
             }
             listOfTasks.add(e);
             break;
-        }
-    }
-
-    /**
-     * Loads the data from the file to Bobby.
-     *
-     * @param listOfTasks The list of tasks in Bobby.
-     */
-    public void loadData(ArrayList<Task> listOfTasks) throws BobbyException {
-        File f = new File(this.filePath);
-        try {
-            Scanner s = new Scanner(f);
-            while (s.hasNextLine()) {
-                processFileLines(listOfTasks, s.nextLine());
-            }
-        } catch (FileNotFoundException e) {
-           throw new BobbyException("The file cannot be found, please check again.");
         }
     }
 
@@ -113,6 +100,4 @@ public class Storage {
             return tasks;
         }
     }
-
-
 }
