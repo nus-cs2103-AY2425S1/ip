@@ -22,14 +22,14 @@ public class DeleteCommand extends Command {
      * @throws InvalidIndexException if index is < 0 or is more than the size of tasklist
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
         int index = Integer.parseInt(command);
         if (index < 0 || index > tasks.getSize()) {
             throw new InvalidIndexException("Invalid index");
         }
         Tasks removed = tasks.deleteItem(index - 1);
-        ui.deleteItemMessage(removed, tasks.getSize());
         storage.saveItem(tasks);
+        return ui.deleteItemMessage(removed, tasks.getSize());
     }
 
     /**

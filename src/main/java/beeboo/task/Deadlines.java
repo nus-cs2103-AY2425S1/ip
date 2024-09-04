@@ -51,6 +51,9 @@ public class Deadlines extends Tasks {
      */
     public static Deadlines createDeadline(String text) throws NoDescriptionException, InvalidDateException {
         int descriptionEnd = text.indexOf('/');
+        if (descriptionEnd == -1) {
+            throw new InvalidDateException(text);
+        }
         String description = text.substring(0, descriptionEnd).trim();
 
         if (descriptionEnd == -1 || description.isEmpty()) {

@@ -5,7 +5,6 @@ import java.util.Scanner;
 import beeboo.exception.BeeBooExceptions;
 import beeboo.task.Tasks;
 
-
 /**
  * The Ui class handles interactions with the user by displaying messages and processing user input.
  */
@@ -20,48 +19,54 @@ public class Ui {
     }
 
     /**
-     * Displays a message indicating that a task has been marked as done.
+     * Returns a message indicating that a task has been marked as done.
      *
      * @param task the task that has been marked as done
+     * @return a message indicating the task is marked as done
      */
-    public void markDoneMessage(Tasks task) {
-        chatBox("Nice! I've marked this task as done:\n" + task);
+    public String markDoneMessage(Tasks task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
-     * Displays a message indicating that a task has been marked as not done.
+     * Returns a message indicating that a task has been marked as not done.
      *
      * @param task the task that has been marked as not done
+     * @return a message indicating the task is marked as not done
      */
-    public void unmarkDoneMessage(Tasks task) {
-        chatBox("OK, I've marked this task as not done yet:\n" + task);
+    public String unmarkDoneMessage(Tasks task) {
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**
-     * Displays a message indicating that a task has been deleted and shows the number of remaining tasks.
+     * Returns a message indicating that a task has been deleted and shows the number of remaining tasks.
      *
      * @param task the task that has been removed
      * @param size the number of tasks left in the list
+     * @return a message indicating the task has been deleted
      */
-    public void deleteItemMessage(Tasks task, int size) {
-        chatBox("Ok I have removed the following item\n" + task
-                + "\n" + "You have " + size + " tasks left");
+    public String deleteItemMessage(Tasks task, int size) {
+        return "Ok I have removed the following item\n" + task
+                + "\n" + "You have " + size + " tasks left";
     }
 
     /**
-     * Displays a message indicating that there is no data available and a new TaskList is being created.
+     * Returns a message indicating that there is no data available and a new TaskList is being created.
+     *
+     * @return a message indicating there is no data available
      */
-    public void loadingError() {
-        chatBox("You don't have any data right now. Let me create a new TaskList");
+    public String loadingError() {
+        return "You don't have any data right now. Let me create a new TaskList";
     }
 
     /**
-     * Displays the list of tasks.
+     * Returns the list of tasks as a string.
      *
      * @param list the string representation of the task list
+     * @return the list of tasks
      */
-    public void produceList(String list) {
-        chatBox(list);
+    public String produceList(String list) {
+        return list;
     }
 
     /**
@@ -83,36 +88,42 @@ public class Ui {
     }
 
     /**
-     * Displays a message indicating that a task has been added to the list and shows the number of tasks.
+     * Returns a message indicating that a task has been added to the list and shows the number of tasks.
      *
      * @param task the task that has been added
      * @param size the number of tasks in the list
+     * @return a message indicating the task has been added
      */
-    public void addList(Tasks task, int size) {
-        chatBox("added: " + task + "\n" + "You have " + size + " tasks in the list");
+    public String addList(Tasks task, int size) {
+        return "added: " + task + "\n" + "You have " + size + " tasks in the list";
     }
 
     /**
-     * Displays a welcome message when the application starts.
+     * Returns a welcome message when the application starts.
+     *
+     * @return a welcome message
      */
-    public void showWelcomeMessage() {
-        chatBox("Hello! I'm BeeBoo\nWhat can I do for you?");
+    public String showWelcomeMessage() {
+        return "Hello! I'm BeeBoo\nWhat can I do for you?";
     }
 
     /**
-     * Displays a farewell message when the user exits the application.
+     * Returns a farewell message when the user exits the application.
+     *
+     * @return a farewell message
      */
-    public void byeMessageMessage() {
-        chatBox("Bye. Hope to see you again soon!");
+    public String byeMessageMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Displays an error message based on the provided exception.
+     * Returns an error message based on the provided exception.
      *
      * @param e the exception containing the error message
+     * @return the error message
      */
-    public void showError(BeeBooExceptions e) {
-        chatBox(e.toString());
+    public String showError(BeeBooExceptions e) {
+        return e.toString();
     }
 
     /**

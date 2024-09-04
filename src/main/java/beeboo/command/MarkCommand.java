@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
      * @throws InvalidIndexException if index is < 0 or is more than the size of tasklist
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
         int index = Integer.parseInt(command);
         if (index < 0 || index > tasks.getSize()) {
             throw new InvalidIndexException("Invalid index");
@@ -39,19 +39,18 @@ public class MarkCommand extends Command {
         switch(type) {
         case "m":
             Tasks done = tasks.markDone(index - 1);
-            ui.markDoneMessage(done);
             storage.saveItem(tasks);
-            break;
+            return ui.markDoneMessage(done);
         case "u":
             Tasks undone = tasks.unmarkDone(index - 1);
-            ui.unmarkDoneMessage(undone);
             storage.saveItem(tasks);
-            break;
+            return ui.unmarkDoneMessage(undone);
         default:
-            break;
+            return "";
         }
 
     }
+
 
     /**
      * @return true if is exit command false if not exit command
