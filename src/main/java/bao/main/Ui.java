@@ -7,7 +7,6 @@ import java.util.Scanner;
  * Contains methods to display messages and read user input.
  */
 public class Ui {
-    private Scanner scanner;
     private static String baoHappy =
             "     ___\n"
                     + "   /     \\\n"
@@ -22,6 +21,7 @@ public class Ui {
                     + " |  T   T  |\n"
                     + " |    ^    |\n"
                     + " \\________/\n";
+    private Scanner scanner;
 
     /**
      * Constructs a new Ui object that initializes a scanner to read user input.

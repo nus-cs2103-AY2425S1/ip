@@ -1,7 +1,8 @@
 package bao.task;
 
-import bao.main.Bao;
 import java.time.LocalDateTime;
+
+import bao.main.Bao;
 
 /**
  * The Event class represents a task that occurs within a specific period of time.

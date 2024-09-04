@@ -1,12 +1,13 @@
 package bao.main;
 
-import bao.task.Task;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import bao.task.Task;
 
 /**
  * The Storage class reads from and writes to the storage file which contains the list of tasks.
@@ -20,7 +21,7 @@ public class Storage {
      *
      * @param filePath Path of the file used for storing tasks.
      */
-    public Storage (String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 

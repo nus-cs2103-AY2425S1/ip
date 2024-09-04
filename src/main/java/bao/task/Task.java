@@ -1,7 +1,8 @@
 package bao.task;
 
-import bao.main.Bao;
 import java.time.LocalDateTime;
+
+import bao.main.Bao;
 
 /**
  * The Task class represents a task with a description and a completion status.

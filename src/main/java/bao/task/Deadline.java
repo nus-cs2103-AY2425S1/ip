@@ -1,7 +1,8 @@
 package bao.task;
 
-import bao.main.Bao;
 import java.time.LocalDateTime;
+
+import bao.main.Bao;
 
 /**
  * The Deadline class represents a task that has a specific deadline.
