@@ -107,4 +107,24 @@ public class Ui {
         }
         return sb.toString().trim();
     }
+
+    /**
+     * Shows tasks that are due within the next week.
+     *
+     * @param tasks The task list that contains tasks due soon.
+     * @return A string listing the tasks due within the week.
+     */
+    public String showUpcomingWeekTasks(TaskList tasks, int days) {
+        if (tasks.size() == 0) {
+            return "No tasks are due within the next " + days + " days.";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks due within the next 7 days:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
 }
+

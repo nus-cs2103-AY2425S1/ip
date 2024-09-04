@@ -2,6 +2,7 @@ package Tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -105,4 +106,26 @@ public class Deadline extends Task {
                     + " | " + deadlineDate.format(DATE_FORMATS_WITHOUT_TIME.get(0));
         }
     }
+
+    /**
+     * Checks if the task is due within the next specified number of days.
+     * This is a default implementation that does nothing for tasks without deadlines/events.
+     *
+     * @param days The number of days to check for upcoming deadlines.
+     * @return false by default for tasks with no due date.
+     */
+    @Override
+    public boolean isDueWithinDays(int days) {
+        LocalDateTime now = LocalDateTime.now();
+
+        if (hasTime) {
+            long difference = now.until(deadlineDateTime, ChronoUnit.DAYS);
+            return difference >= 0 && difference <= days;
+        } else {
+            LocalDate today = now.toLocalDate();
+            long difference = today.until(deadlineDate, ChronoUnit.DAYS);
+            return difference >= 0 && difference <= days;
+        }
+    }
+
 }

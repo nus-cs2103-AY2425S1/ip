@@ -1,5 +1,8 @@
 package Tasks;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * Represents an abstract task with a description and completion status.
  */
@@ -49,6 +52,17 @@ public abstract class Task {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Checks if the task is due within the next specified number of days.
+     * This is a default implementation that does nothing for tasks without deadlines/events.
+     *
+     * @param days The number of days to check for upcoming deadlines.
+     * @return false by default for tasks with no due date.
+     */
+    public boolean isDueWithinDays(int days) {
+        return false;
     }
 
     /**

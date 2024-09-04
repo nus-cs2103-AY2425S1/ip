@@ -39,4 +39,13 @@ public class Event extends Task {
     public String toFileFormat() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start + " | " + end;
     }
+
+    /**
+     * Checks if the task is due within the next specified number of days.
+     * This is a default implementation that does nothing for tasks without deadlines/events.
+     *
+     * @param days The number of days to check for upcoming deadlines.
+     * @return false by default for tasks with no due date.
+     */
+
 }
