@@ -2,23 +2,22 @@
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
-## Setting up in Intellij
+# LBot
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+> Your personal dedicated hyper assistant 
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+LBot has the following functionalities:
+- text-based
+- easy to learn
+- if it doesn't work? It's called LBot for a reason ;)
+
+All you need to do is:
+1. Download the **latest jar** from [here](https://github.com/ghos7ie/ip/releases).
+2. Run it.
+3. Add your tasks.
+4. And LBot will manage the rest for you :)
+
+Features:
+- [x] Managing tasks
+- [ ] Managing deadlines (coming soon?)
+- [ ] Reminders (~coming probably never😉~)
