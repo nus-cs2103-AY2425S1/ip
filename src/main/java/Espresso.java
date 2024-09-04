@@ -1,17 +1,17 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Espresso {
-    private Task[] tasks ;
+    private ArrayList<Task> tasks ;
     private int count;
 
     public Espresso() {
-        tasks = new Task[100];
+        tasks = new ArrayList<>();
         count = 0;
     }
 
     void addToList(String str) {
         Task task = null;
         try {
-            if (count < tasks.length) {
                 if (str.startsWith("todo")) {
                     String status = str.substring(4).trim();
                     if (status.isEmpty())
@@ -30,13 +30,10 @@ public class Espresso {
                         throw new IllegalArgumentException("Description of event task is required");
                     String split2[] = split1[1].split(" /to ");
                     task = new eventTask(status, split2[0].trim(), split2[1].trim());
-                }else {
+                } else {
                     throw new IllegalArgumentException("Random Input! I don't know what that means :(");
                 }
-            }
-            else
-                throw new IllegalArgumentException("Task list is full");
-            tasks[count] = task;
+            tasks.add(task);
             System.out.println("____________________________________________________________");
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + task);
@@ -54,11 +51,24 @@ public class Espresso {
         }
     }
 
+    void deleteTask(int position) {
+        System.out.println("____________________________________________________________");
+        Task rem = tasks.remove(position);
+        count--;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(" " + rem);
+        if (count == 1)
+            System.out.println("Now you have " + count + " task in the list.");
+        else
+            System.out.println("Now you have " + count + " tasks in the list.");
+        System.out.println("_________________________________________");
+    }
+
     void printList() {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < count; i++) {
             int num = i + 1;
-            System.out.println(num + ". " + tasks[i]);
+            System.out.println(num + ". " + tasks.get(i));
         }
         System.out.println("____________________________________________________________");
     }
@@ -88,6 +98,10 @@ public class Espresso {
                 unmarkTask(pos - 1);
             }else if (str.equals("list")) {
                 printList();
+            } else if (str.startsWith("delete ")) {
+                String extractNum = str.substring(str.indexOf(' ') + 1).trim();
+                int pos = Integer.valueOf(extractNum);
+                deleteTask(pos - 1);
             }
             else {
                 addToList(str);
@@ -98,9 +112,9 @@ public class Espresso {
     void markTask(int position) {
         System.out.println("_________________________________________");
         if (position >= 0 && position < count) {
-            tasks[position].mark();
+            tasks.get(position).mark();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + tasks[position]);
+            System.out.println("  " + tasks.get(position));
             System.out.println("_________________________________________");
         } else {
             System.out.println("Invalid task number.");
@@ -110,9 +124,9 @@ public class Espresso {
     private void unmarkTask(int position) {
         System.out.println("_________________________________________");
         if (position >= 0 && position < count) {
-            tasks[position].unmark();
+            tasks.get(position).unmark();
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + tasks[position]);
+            System.out.println("  " + tasks.get(position));
             System.out.println("_________________________________________");
         } else {
             System.out.println("Invalid task number.");
