@@ -1,15 +1,19 @@
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class Rizz {
-    private Scanner input = new Scanner(System.in);
-    private ArrayList<Task> arrList = new ArrayList<>();
+    private final Scanner input = new Scanner(System.in);
+    private final ArrayList<Task> arrList = new ArrayList<>();
     Path dataFilePath = Path.of("./data/rizz.txt");
     boolean isNotDone = false;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
 
     public void saveTasks(TaskList taskList) {
@@ -31,7 +35,7 @@ public class Rizz {
             Files.writeString(dataFilePath, builder.toString());
 
         } catch (IOException e) {
-            System.out.println("OOPS!!! There was an error saving the tasks.");
+            System.out.println("There was an error saving the tasks.");
         }
     }
 
@@ -52,7 +56,7 @@ public class Rizz {
                     System.out.println("Tasks loaded successfully!");
                 }
             } catch (IOException e) {
-                System.out.println("OOPS!!! There was an error loading the tasks.");
+                System.out.println("There was an error loading the tasks.");
             }
         } else {
             System.out.println("No saved tasks found. Starting with an empty list.");
@@ -69,14 +73,19 @@ public class Rizz {
             case "T":
                 return new ToDo(text, isDone);
             case "D":
-                String by = parts[3];
-                return new Deadline(text, by, isDone);
+                try {
+                    LocalDateTime time = LocalDateTime.parse(parts[3], formatter);
+                    return new Deadline(text, time, isDone);
+                } catch (DateTimeParseException e) {
+                    System.out.println("\t The date/time format is incorrect. Please use yyyy-MM-dd HHmm.");
+                    return null;
+                }
             case "E":
                 String from = parts[3];
                 String to = parts[4];
                 return new Event(text, from, to, isDone);
             default:
-                System.out.println("OOPS!!! Unknown task type: " + taskType);
+                System.out.println("Unknown task type: " + taskType);
                 return null;
         }
     }
@@ -95,7 +104,7 @@ public class Rizz {
 
     private void exit() {
         String str =  "\t____________________________________________________________\n" +
-                "\tBye. Hope to see you again soon!\n" +
+                "\tBye! Hope to see you again soon!\n" +
                 "\t____________________________________________________________\n";
         System.out.println(str);
     }
@@ -149,7 +158,7 @@ public class Rizz {
                     int index = Integer.parseInt(textInput.split(" ")[1].trim());
                     this.markTask(index);
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    System.out.println("\tOOPS!!! The mark command is missing an index or has an invalid index.");
+                    System.out.println("\t The mark command is missing an index or has an invalid index.");
                 }
 
             } else if (textInput.startsWith("unmark ")) {
@@ -157,31 +166,38 @@ public class Rizz {
                     int index = Integer.parseInt(textInput.split(" ")[1].trim());
                     this.unmarkTask(index);
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    System.out.println("\tOOPS!!! The unmark command is missing an index or has an invalid index.");
+                    System.out.println("\t The unmark command is missing an index or has an invalid index.");
                 }
 
             } else if (textInput.startsWith("todo ")) {
                 String description = textInput.substring(5).trim();
                 if (description.isEmpty()) {
-                    System.out.println("\tOOPS!!! The todo details cannot be empty / incorrectly formatted.");
+                    System.out.println("\t The todo details cannot be empty / incorrectly formatted.");
                 } else {
                     this.addToDo(description);
                 }
 
             } else if (textInput.startsWith("deadline ")) {
-                String[] parts = textInput.substring(9).split("/by", 2);
-                if (parts.length < 2 || parts[0].trim().isEmpty()) {
-                    System.out.println("\tOOPS!!! The deadline's details cannot be empty / incorrectly formatted.");
-                } else {
-                    String description = parts[0].trim();
-                    String by = parts[1].trim();
-                    this.addDeadline(description, by);
+
+                try {
+                    String[] parts = textInput.substring(9).split("/by", 2);
+                    if (parts.length < 2 || parts[0].trim().isEmpty()) {
+                        System.out.println("\t The deadline's details cannot be empty / incorrectly formatted.");
+                    } else {
+                        String description = parts[0].trim();
+                        String by = parts[1].trim();
+
+                        LocalDateTime byDateTime = LocalDateTime.parse(by, formatter);
+                        this.addDeadline(description, byDateTime);
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("\t The date/time format is incorrect. Please use yyyy-MM-dd HHmm.");
                 }
 
             } else if (textInput.startsWith("event ")) {
                 String[] parts = textInput.substring(6).split("/from|/to", 3);
                 if (parts.length < 3 || parts[0].trim().isEmpty()) {
-                    System.out.println("\tOOPS!!! The event's details cannot be empty / incorrectly formatted.");
+                    System.out.println("\t The event's details cannot be empty / incorrectly formatted.");
                 } else {
                     String description = parts[0].trim();
                     String from = parts[1].trim();
@@ -193,10 +209,10 @@ public class Rizz {
                         int index = Integer.parseInt(textInput.split(" ")[1].trim());
                         this.deleteTask(index);
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                        System.out.println("\tOOPS!!! The deletion command is empty / incorrectly formatted.");
+                        System.out.println("\t The deletion command is empty / incorrectly formatted.");
                     }
             } else {
-                System.out.println("\tOOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("\t I'm sorry, but I don't know what that means :-(");
             }
 
             this.saveTasks(new TaskList(arrList));
@@ -215,8 +231,8 @@ public class Rizz {
         System.out.printf("\tYou have %d tasks in the list.\n", this.arrList.size());
     }
 
-    private void addDeadline(String text, String time) {
-        this.arrList.add(new Deadline(text, time, isNotDone));
+    private void addDeadline(String text, LocalDateTime by) {
+        this.arrList.add(new Deadline(text, by, isNotDone));
         System.out.println("\tadded deadline: " + text);
         System.out.printf("\tYou have %d tasks in the list.\n", this.arrList.size());
     }
