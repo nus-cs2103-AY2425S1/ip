@@ -1,7 +1,6 @@
 package task;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Represents a task list with a list of tasks.

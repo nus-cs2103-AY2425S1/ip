@@ -39,9 +39,6 @@ public class Storage {
             this.sc = new Scanner(file);
             return true;
         } catch (IOException e) {
-            System.out.println(
-                    "cannot initialise new task list on local disk, " +
-                            "please restart.");
             return false;
         }
     }
@@ -65,9 +62,6 @@ public class Storage {
             fw.close();
             return true;
         } catch (IOException e) {
-            System.out.println(
-                    "cannot initialise new task list on local disk, " +
-                            "please restart.");
             return false;
         }
     }

@@ -1,9 +1,9 @@
 package task;
 
-import chatbot.Parser;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import chatbot.Parser;
 
 /**
  * A class representing individual tasks
@@ -12,8 +12,15 @@ import java.time.format.DateTimeParseException;
  * @author celeschai
  */
 public class Deadline extends Task {
-    private LocalDateTime deadline;
+    private final LocalDateTime deadline;
 
+    /**
+     * Instantiates new DeadLine object.
+     *
+     * @param name Task name.
+     * @param deadline Deadline date-time in string format.
+     * @throws DateTimeParseException If date-time string is in incorrect format.
+     */
     public Deadline(String name, String deadline) throws DateTimeParseException {
         super(name);
         this.deadline = Parser.parseStringToDateTime(deadline);

@@ -15,6 +15,8 @@ public class BeeException extends Exception {
      * @param msg Error message to be shown.
      */
     public BeeException(String msg) {
-        super("Hey!!! " + msg + "\nType 'help' to see what you can do.");
+        super("Hey!!! "
+                + msg
+                + "\nType 'help' to see what you can do.");
     }
 }
