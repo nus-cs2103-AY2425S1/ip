@@ -23,7 +23,8 @@ public class TaskFileManager {
     private final File file;
 
     /**
-     * Default constructor.
+     * Default constructor. The {@link Path} instance provided can be a
+     * relative or absolute path.
      *
      * @param path the path to the text file used to store tasks
      */

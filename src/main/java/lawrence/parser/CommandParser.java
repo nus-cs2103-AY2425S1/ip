@@ -1,6 +1,5 @@
 package lawrence.parser;
 
-
 import lawrence.command.Command;
 import lawrence.command.CommandType;
 import lawrence.command.DisplayTasksCommand;
@@ -10,8 +9,27 @@ import lawrence.command.UncompleteTaskCommand;
 import lawrence.command.DeleteTaskCommand;
 import lawrence.command.AddTaskCommand;
 
+/**
+ * This class is used to make sense of text input by the user.
+ * <p>
+ * The commands are translated from text into their relevant command object
+ * counterparts as specified in {@link CommandType}.
+ * </p>
+ */
 public class CommandParser {
-    public static Command createCommand(String input) {
+    /**
+     * Converts the provided input string into a relevant {@link Command} object.
+     * <p>
+     * The commands available are as specified in {@link CommandType} and are exhaustive.
+     * Any input that cannot be properly passed into a Command instance will result in
+     * an {@link IllegalArgumentException}.
+     *
+     * </p>
+     * @param input                     the string containing a command to be parsed
+     * @return                          a {@link Command} object
+     * @throws IllegalArgumentException if the input cannot be parsed into a known command
+     */
+    public static Command createCommand(String input) throws IllegalArgumentException {
         if (input.isEmpty()) {
             throw new IllegalArgumentException("Command input cannot be empty!");
         }
