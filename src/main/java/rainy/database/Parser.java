@@ -38,21 +38,23 @@ public class Parser {
         return this.splitByTask;
     }
 
+    /**
+     * Splits the user input two ways. The first using the space character as delimiter, and the second using the
+     * slash character.
+     * Retrieves the first word of user input and matches it with the words mark, unmark, or delete.
+     * This method then looks for the second word of user input, and tries to parse it as an <code>Integer</code>
+     * representing the task number.
+     * Failing which, this method throws an NumberFormatException. This method then assigns count the value of -1.
+     * If the length of the array split using the space character delimiter is not 2 when mark,
+     * unmark, or delete is detected
+     * as the first word, count will be assigned -1 too.
+     * If the above conditions are not satisfied, then the user input is valid for the mark, unmark, and delete actions.
+     *
+     * @param userInput               This parameter represents each user input.
+     * @throws NumberFormatException  This method catches the exception when a <code>String</code> cannot be
+     *                                converted into an <code>Integer</code>.
+     */
     public void firstInput(String userInput) {
-        /**
-         * Splits the user input two ways. The first using the space character as delimiter, and the second using the
-         * slash character.
-         * Retrieves the first word of user input and matches it with the words mark, unmark, or delete.
-         * This method then looks for the second word of user input, and tries to parse it as an <code>Integer</code>
-         * representing the task number.
-         * Failing which, this method throws an NumberFormatException. This method then assigns count the value of -1.
-         * If the length of the array split using the space character delimiter is not 2 when mark, unmark, or delete is detected
-         * as the first word, count will be assigned -1 too.
-         * If the above conditions are not satisfied, then the user input is valid for the mark, unmark, and delete actions.
-         *
-         * @param userInput               This parameter represents each user input.
-         * @throws NumberFormatException  This method catches the exception when a <code>String</code> cannot be converted into an <code>Integer</code>.
-         */
         this.input = userInput.split(" ");
         this.splitByTask = userInput.split("/");
         this.message = this.input[0];
@@ -78,17 +80,20 @@ public class Parser {
                 ? "" : inputTask.split("find ")[1];
     }
 
+    /**
+     * Represents a <code>String</code> object as an <code>Instructions</code> object.
+     *
+     * @param newMessage                 This method converts the first word of user input into an
+     *                                   <code>Instructions</code> object.
+     * @throws IllegalArgumentException  When a user input is not found under <code>Instructions</code> enum,
+     *                                   this method catches an IllegalArgumentException and assigns it
+     *                                   Instructions.INVALID.
+     */
     public Instructions enumOperator(String newMessage) {
-        /**
-         * Represents a <code>String</code> object as an <code>Instructions</code> object.
-         *
-         * @param newMessage                 This method converts the first word of user input into an <code>Instructions</code> object.
-         * @throws IllegalArgumentException  When a user input is not found under <code>Instructions</code> enum, this method catches an IllegalArgumentException and assigns it Instructions.INVALID.
-         */
         Instructions instruction;
         try {
             instruction = Instructions.valueOf(newMessage.toUpperCase());
-        } catch(Exception e) {
+        } catch (Exception e) {
             instruction = Instructions.INVALID;
         }
         return instruction;

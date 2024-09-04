@@ -1,10 +1,11 @@
 package rainy.tasks;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
 import rainy.rainyexceptions.InvalidIndexException;
 import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskTrackerTest {
 
@@ -50,9 +51,9 @@ public class TaskTrackerTest {
         newTask.sortList();
         String tempString = newTask.getList();
         assertEquals("Here are your tasks!!! Remember to complete them!!!" + "\n"
-            + "1. [ ] [E] project meeting (Aug 19 2024 from 18:00 to 20:00)" + "\n" +
-                "2. [ ] [D] homework (by Sep 12 2024 19:45)" + "\n" +
-                    "3. [ ] [T] borrow book", tempString);
+            + "1. [ ] [E] project meeting (Aug 19 2024 from 18:00 to 20:00)" + "\n"
+                + "2. [ ] [D] homework (by Sep 12 2024 19:45)" + "\n"
+                    + "3. [ ] [T] borrow book", tempString);
     }
 
     @Test
@@ -67,6 +68,5 @@ public class TaskTrackerTest {
         } catch (InvalidIndexException e) {
             assertEquals("You have entered an invalid task number! Please try again.", e.getMessage());
         }
-
     }
 }

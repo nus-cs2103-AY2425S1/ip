@@ -1,9 +1,7 @@
 package rainy.rainyexceptions;
-import rainy.database.*;
-import rainy.tasks.*;
 
 /**
- *Occurs when user issues an invalid task number.
+ * Occurs when user issues an invalid task number.
  */
 public class InvalidIndexException extends Exception {
 

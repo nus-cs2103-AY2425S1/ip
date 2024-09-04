@@ -27,7 +27,7 @@ public class Deadline extends Task {
     /**
      * Represents the task in a readable format. If the deadline is read from an existing file, it is directly read into
      * name of the deadline. Else, this method does additional formatting to represent the date in a standard format.
-     *{@code
+     * {@code
      * Deadline deadline = new Deadline("return book", "02-12/2024", "1800");
      * System.out.println(deadline);
      *
@@ -42,10 +42,11 @@ public class Deadline extends Task {
             this.compareDate = LocalDate.parse(this.endDate.substring(0, 10));
             String newDate = this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             String newTime = LocalTime.parse(this.endDate.substring(11, 13) + ":"
-                    + this.endDate.substring(13,15)).format(DateTimeFormatter.ofPattern("HH:mm"));
+                    + this.endDate.substring(13, 15)).format(DateTimeFormatter.ofPattern("HH:mm"));
             return "[D] " + super.getName() + " (by " + newDate + " " + newTime + ")";
         } catch (Exception e) {
-            this.compareDate = LocalDate.parse(this.endDate.substring(3, 13), DateTimeFormatter.ofPattern("MMM d yyyy"));
+            this.compareDate = LocalDate.parse(this.endDate.substring(3, 13),
+                    DateTimeFormatter.ofPattern("MMM d yyyy"));
             String newDate = this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             String secondDate = this.endDate.substring(14, 19);
             return "[D] " + super.getName() + " (" + "by " + newDate + " " + secondDate + ")";

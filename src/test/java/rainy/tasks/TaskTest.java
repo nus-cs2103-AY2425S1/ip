@@ -1,10 +1,11 @@
 package rainy.tasks;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import rainy.rainyexceptions.InvalidIndexException;
-import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
+
 
 public class TaskTest {
 
