@@ -53,4 +53,8 @@ public class Bibi {
         // Insert path to saveFile
         new Bibi("data/list.txt").run();
     }
+
+    public String getResponse(String input) {
+        return "Bibi: " + input;
+    }
 }
