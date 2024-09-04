@@ -48,14 +48,45 @@ public class Bing {
                     System.out.println("Invalid Input.\n");
                 }
 
-            } else {
-                Task temp = new Task(input);
+            } else if (input.startsWith("todo")) {
+                Task temp = new ToDo(input.substring(5));
                 tasks.add(temp);
                 System.out.println("______________________________\n"
-                        + "Added: "+ input + "\n"
+                        + "Added the task:\n"
+                        + temp.toString() + "\n"
+                        + "Total tasks - " + tasks.size() + "\n"
                         + "______________________________\n");
+
+            } else if (input.startsWith("deadline ")) {
+                String[] segments = input.substring(9).split(" /by ");
+                Task temp = new Deadline(segments[0],segments[1]);
+                tasks.add(temp);
+                System.out.println("______________________________\n"
+                        + "Added the task:\n"
+                        + temp.toString() + "\n"
+                        + "Total tasks - " + tasks.size() + "\n"
+                        + "______________________________\n");
+            } else if (input.startsWith("event ")) {
+                String[] segments = input.substring(6).split(" /from ");
+                String[] segments2 = segments[1].split(" /to ");
+                Task temp = new Event(segments[0],segments2[0],segments2[1]);
+                tasks.add(temp);
+                System.out.println("______________________________\n"
+                        + "Added the task:\n"
+                        + temp.toString() + "\n"
+                        + "Total tasks - " + tasks.size() + "\n"
+                        + "______________________________\n");
+
+            } else {
+                System.out.println("Invalid Input.\n");
+                //Task temp = new Task(input);
+                //tasks.add(temp);
+                //System.out.println("______________________________\n"
+                //       + "Added: "+ input + "\n"
+                //       + "______________________________\n");
             }
         }
     }
 }
+
 

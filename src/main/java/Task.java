@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String info;
     private boolean isDone;
 
@@ -7,6 +7,9 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getInfo() {
+        return info;
+    }
     public String getStatus() {
         if (isDone) {
             return "X";
@@ -20,7 +23,5 @@ public class Task {
     public void setToUndone() {
         this.isDone = false;
     }
-    public String toString() {
-        return "["+getStatus()+"] "+info;
-    }
+    public abstract String toString();
 }
