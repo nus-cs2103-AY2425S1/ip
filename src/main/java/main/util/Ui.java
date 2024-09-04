@@ -1,7 +1,5 @@
 package main.util;
 
-import java.util.Scanner;
-
 import main.tasks.Task;
 import main.tasks.TaskList;
 
@@ -10,36 +8,34 @@ import main.tasks.TaskList;
  */
 public class Ui {
 
-    private static final String LINE = "    ___________________________________________";
-    private Scanner sc;
+    private StringBuilder builder;
 
     /**
      * A constructor for the Ui class.
      */
     public Ui() {
-        sc = new Scanner(System.in);
+        builder = new StringBuilder();
     }
 
-    public void showLine() {
-        System.out.println(LINE);
+    public void resetBuilder() {
+        builder.setLength(0);
+    }
+
+    public String getBuilder() {
+        return builder.toString();
+    }
+
+    private void append(String input) {
+        builder.append(input);
     }
 
     /**
      * Displays welcome message to user.
      */
     public void showWelcome() {
-        showLine();
-        System.out.println("    Hello! I'm Prince :p");
-        System.out.println("    What can I do for you?");
-        showLine();
-    }
-
-    /**
-     * Moves the scanner to the next line.
-     * @return User input.
-     */
-    public String readInput() {
-        return sc.nextLine();
+        String helloString = "Hello! I'm Prince :p\n";
+        String questionString = "What can I do for you?\n";
+        append(String.format(helloString + questionString));
     }
 
     /**
@@ -47,15 +43,20 @@ public class Ui {
      * @param taskList List of tasks.
      */
     public void showTaskList(TaskList taskList) {
-        System.out.println("    Here are the tasks in your list:");
-        int length = taskList.size();
-        // print the list of inputs
-        for (int i = 0; i < length; i++) {
-            Task task = taskList.get(i);
-            // formatting for numbering of list
-            int listNum = i + 1;
-            String numDot = listNum + ".";
-            System.out.println("    " + numDot + task.toString());
+        if (taskList.isEmpty()) {
+            append("There are no tasks in the list!\n");
+        } else {
+            String taskGreetingString = "Here are the tasks in your list:\n";
+            builder.append(taskGreetingString);
+            int length = taskList.size();
+            for (int i = 0; i < length; i++) {
+                Task task = taskList.get(i);
+                // formatting for numbering of list
+                int listNum = i + 1;
+                String numDot = listNum + ".";
+                String formatted = numDot + task.toString() + "\n";
+                builder.append(formatted);
+            }
         }
     }
 
@@ -64,36 +65,41 @@ public class Ui {
      * @param taskList List of tasks.
      */
     public void showMatchingTaskList(TaskList taskList) {
-        System.out.println("    Here are the matching tasks in your list:");
-        int length = taskList.size();
-        // print the list of inputs
-        for (int i = 0; i < length; i++) {
-            Task task = taskList.get(i);
-            // formatting for numbering of list
-            int listNum = i + 1;
-            String numDot = listNum + ".";
-            System.out.println("    " + numDot + task.toString());
+        if (taskList.isEmpty()) {
+            append("There are no matching tasks in the list!\n");
+        } else {
+            String taskGreetingString = "Here are the matching tasks in your list:\n";
+            builder.append(taskGreetingString);
+            int length = taskList.size();
+            for (int i = 0; i < length; i++) {
+                Task task = taskList.get(i);
+                // formatting for numbering of list
+                int listNum = i + 1;
+                String numDot = listNum + ".";
+                String formatted = numDot + task.toString() + "\n";
+                builder.append(formatted);
+            }
         }
     }
 
     public void showNoMatchingTasks() {
-        System.out.println("    " + "There are no tasks that match your keyword!");
+        append("There are no tasks that match your keyword!\n");
     }
 
     public void showError(String msg) {
-        System.out.println(msg);
+        append(msg + "\n");
     }
 
     public void showLoadingError() {
-        System.out.println("Error loading tasks from storage!");
+        append("Error loading tasks from storage!\n");
     }
 
     public void showAdd() {
-        System.out.println("    Got it. I've added this task:");
+        append("Got it. I've added this task:\n");
     }
 
     public void showTaskToString(Task task) {
-        System.out.println("      " + task.toString());
+        append(task.toString() + "\n");
     }
 
     /**
@@ -101,20 +107,23 @@ public class Ui {
      * @param taskList List of tasks.
      */
     public void showNumberOfTasks(TaskList taskList) {
-        System.out.println("    Now you have " + taskList.size()
-                    + " tasks in the list.");
+        append(taskList.size() + " tasks in the list.\n");
     }
 
     public void showDelete() {
-        System.out.println("    Noted. I've removed this task:");
+        append("Noted. I've removed this task:\n");
     }
 
-    /**
-     * Closes the scanner.
-     */
+    public void showMark() {
+        append("Nice! I've marked this task as done:\n");
+    }
+
+    public void showUnmark() {
+        append("OK, I've marked this task as not done yet:\n");
+    }
+
     public void showBye() {
-        sc.close();
-        System.out.println("Bye. Hope to see you again soon!");
+        append("Bye. Hope to see you again soon!\n");
     }
 
 }
