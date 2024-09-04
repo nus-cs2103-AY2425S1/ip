@@ -30,7 +30,7 @@ public class Storage {
 
     /**
      * Creates a new Storage at the given filepath.
-     * @param filepath Filepath of file.
+     * @param filepath Filepath of file. Format: folder1/folder2/.../filename
      */
     public Storage(String filepath) {
         this.filepath = filepath;
@@ -59,13 +59,24 @@ public class Storage {
         return tasks;
     }
 
+
+    /**
+     * Loads the task file. If it does not exist, creates the file.
+     * @return file specified by filepath
+     * @throws IOException
+     */
     private File loadTaskFile() throws IOException {
         //create filepath if it does not exist
-        if (!Files.exists(Paths.get("./data/"))) {
-            new File("./data/").mkdirs();
+        String[] paths = filepath.split("/");
+        StringBuilder fullPath = new StringBuilder("./");
+        for (int i = 0; i < paths.length - 1; i++) {
+            fullPath.append(paths[i]).append("/");
+        }
+        if (!Files.exists(Paths.get(fullPath.toString()))) {
+            new File(fullPath.toString()).mkdirs();
         }
 
-        File file = new File("./data/tasks.txt");
+        File file = new File(filepath);
 
         //create file if it does not exist
         file.createNewFile();
