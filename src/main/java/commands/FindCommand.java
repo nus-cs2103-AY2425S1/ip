@@ -1,11 +1,11 @@
 package commands;
 
+import java.util.ArrayList;
+
 import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to find and list tasks containing a specific word in their description.
@@ -37,12 +37,15 @@ public class FindCommand extends Command {
 
     /**
      * Executes the command to find and list tasks that contain the specified keyword.
-     * It retrieves the tasks from the {@code TaskList}, filters them based on the keyword, and prints the matching tasks to the console.
+     * It retrieves the tasks from the {@code TaskList}, filters them based on the keyword,
+     * and prints the matching tasks to the console.
      * It also prints a header message to indicate that the filtered task list is being displayed.
      *
      * @param tasks  The {@code TaskList} containing the tasks to be filtered and listed.
-     * @param ui     The {@code Ui} object used for interaction with the user (not used in this command but required by the method signature).
-     * @param storage The {@code Storage} object used for persisting tasks (not used in this command but required by the method signature).
+     * @param ui     The {@code Ui} object used for interaction with the user (not used in this command but
+     *         required by the method signature).
+     * @param storage The {@code Storage} object used for persisting tasks (not used in this command but
+     *         required by the method signature).
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

@@ -1,12 +1,5 @@
 package storage;
 
-import exception.PrimoException;
-import tasks.DeadlineTask;
-import tasks.EventTask;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.ToDoTask;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,6 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import exception.PrimoException;
+import tasks.DeadlineTask;
+import tasks.EventTask;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.ToDoTask;
 
 /**
  * The Storage class handles the loading and saving of tasks from/to a file.
@@ -85,6 +85,8 @@ public class Storage {
                     }
                     list.add(newEventTask);
                     break;
+                default:
+                    return null; // should not reach here if exception handling is correct
                 }
             }
             return list.toArray(new Task[0]);

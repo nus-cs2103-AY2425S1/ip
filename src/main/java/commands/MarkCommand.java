@@ -1,12 +1,12 @@
 package commands;
 
+import java.util.ArrayList;
+
 import exception.PrimoException;
 import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to mark a task as done in the task list.

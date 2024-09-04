@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class EventTask extends Task {
-    private final String SYMBOL = "E";
+    private static final String SYMBOL = "E";
     private String from;
     private String to;
     private LocalDate fromDate;

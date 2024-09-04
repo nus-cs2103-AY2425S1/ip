@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DeadlineTask extends Task {
-    private final String SYMBOL = "D";
+    private static final String SYMBOL = "D";
     private String dueTime;
     private LocalDate date;
 

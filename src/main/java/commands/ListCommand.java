@@ -1,11 +1,11 @@
 package commands;
 
+import java.util.ArrayList;
+
 import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to display the list of the tasks.
