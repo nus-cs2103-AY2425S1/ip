@@ -4,6 +4,11 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 repositories {
     mavenCentral()
 }
@@ -28,14 +33,24 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("streams.streams")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "streams"
     archiveClassifier = null
 }
 
 run{
     standardInput = System.in
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'streams.streams'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    archiveBaseName = 'streams'
 }
