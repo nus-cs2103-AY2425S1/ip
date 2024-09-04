@@ -8,7 +8,6 @@ import java.util.Locale;
 
 public class Deadline extends Task {
 
-    //private String deadline;
     private LocalDateTime localDateTime;
 
     public Deadline(String input, String deadline) {
