@@ -17,7 +17,7 @@ import seedu.avo.ui.AppUI;
 public class Avo {
     private final AppUI ui;
     private final CommandParser parser;
-    private Avo(AppUI ui, CommandParser parser) {
+    public Avo(AppUI ui, CommandParser parser) {
         this.ui = ui;
         this.parser = parser;
     }
@@ -53,5 +53,8 @@ public class Avo {
         chatBot.start();
         chatBot.run();
         chatBot.stop();
+    }
+    public String getResponse(String input) {
+        return "Avo heard: " + input;
     }
 }
