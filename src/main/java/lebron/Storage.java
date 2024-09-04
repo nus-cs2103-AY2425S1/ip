@@ -35,21 +35,21 @@ public class Storage {
 
             Task task;
             switch (type) {
-                case "T":
-                    task = new ToDos(parts[2].trim());
-                    break;
-                case "D":
-                    LocalDate date = LocalDate.parse(parts[3].trim());
-                    task = new Deadlines(parts[2].trim(), date);
-                    break;
-                case "E":
-                    String[] startEnd = parts[3].split("to");
-                    LocalDate start = LocalDate.parse(startEnd[0].trim());
-                    LocalDate end = LocalDate.parse(startEnd[1].trim());
-                    task = new Event(parts[2].trim(), start, end);
-                    break;
-                default:
-                    continue;
+            case "T":
+                task = new ToDos(parts[2].trim());
+                break;
+            case "D":
+                LocalDate date = LocalDate.parse(parts[3].trim());
+                task = new Deadlines(parts[2].trim(), date);
+                break;
+            case "E":
+                String[] startEnd = parts[3].split("to");
+                LocalDate start = LocalDate.parse(startEnd[0].trim());
+                LocalDate end = LocalDate.parse(startEnd[1].trim());
+                task = new Event(parts[2].trim(), start, end);
+                break;
+            default:
+                continue;
             }
 
             if (isDone) {
@@ -75,10 +75,12 @@ public class Storage {
                 fw.write(taskString + "\n");
             }
         } catch (IOException ex) {
+            System.out.println(ex);
         } finally {
             try {
                 fw.close();
             } catch (IOException ex) {
+                System.out.println(ex);
             }
         }
     }
