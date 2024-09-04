@@ -1,5 +1,6 @@
 package momo.command;
 
+import momo.Ui;
 import momo.exception.InvalidCommandException;
 import momo.Storage;
 import momo.StorageException;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
  * user to submit a proper input
  */
 public class EventCommand extends AddCommand {
-    public static void run(String input, Storage storage, TaskList tasks) throws InvalidCommandException,
+    public static void run(String input, Storage storage, TaskList tasks, Ui ui) throws InvalidCommandException,
             StorageException {
         try {
             String desc = input.substring(5).trim();
@@ -39,8 +40,8 @@ public class EventCommand extends AddCommand {
             Task event = new Event(task, LocalDate.parse(from), LocalDate.parse(to), false);
             tasks.addTask(event);
             addToStorage(storage, event);
-            printTaskAdded(event);
-            System.out.printf("Now you have %d task(s) in the list%n", tasks.getCount());
+            printTaskAdded(event, ui);
+            ui.printDialogue(String.format("Now you have %d task(s) in the list%n", tasks.getCount()));
 
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("You better format your event properly or else [REDACTED]");

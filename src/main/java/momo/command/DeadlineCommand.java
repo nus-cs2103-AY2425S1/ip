@@ -1,5 +1,6 @@
 package momo.command;
 
+import momo.Ui;
 import momo.exception.InvalidCommandException;
 import momo.Storage;
 import momo.StorageException;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
  * If user input is not properly formatted it throws a {@link InvalidCommandException}
  */
 public class DeadlineCommand extends AddCommand {
-    public static void run(String input, Storage storage, TaskList tasks) throws InvalidCommandException,
+    public static void run(String input, Storage storage, TaskList tasks, Ui ui) throws InvalidCommandException,
             StorageException {
 
         try {
@@ -34,8 +35,8 @@ public class DeadlineCommand extends AddCommand {
             Task deadline = new Deadline(task, LocalDate.parse(by), false);
             tasks.addTask(deadline);
             addToStorage(storage, deadline);
-            printTaskAdded(deadline);
-            System.out.printf("Now you have %d task(s) in the list%n", tasks.getCount());
+            printTaskAdded(deadline, ui);
+            ui.printDialogue(String.format("Now you have %d task(s) in the list%n", tasks.getCount()));
 
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("You better format your deadline properly or else [REDACTED]");
