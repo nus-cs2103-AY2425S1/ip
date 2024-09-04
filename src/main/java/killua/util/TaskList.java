@@ -113,10 +113,13 @@ public class TaskList {
     /**
      * Prints all tasks in the task list with their respective index.
      */
-    public void printTasks() {
+    public String getTasksString() {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.printf("%d.%s%n", i + 1, task);
+            sb.append(String.format("%d.%s%n", i + 1, task));
         }
+        return sb.toString();
     }
+
 }

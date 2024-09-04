@@ -22,7 +22,7 @@ public abstract class Command {
      * @throws KilluaException If there is an error in the execution related to task handling.
      * @throws IOException If there is an error in reading or writing to storage.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException;
 
     /**
      * Checks if this command signals the application to exit.

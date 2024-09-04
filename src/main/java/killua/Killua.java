@@ -2,6 +2,7 @@ package killua;
 
 import java.io.IOException;
 
+import javafx.stage.Stage;
 import killua.command.Command;
 import killua.parser.Parser;
 import killua.storage.Storage;
@@ -18,6 +19,7 @@ public class Killua {
 
     private static final String FILE_PATH = "./data/tasks.txt";
     private final Storage storage;
+    private final Stage stage;
     private TaskList tasks;
     private final Ui ui;
 
@@ -26,43 +28,36 @@ public class Killua {
      *
      * @param filePath The path to the file where tasks are stored.
      */
-    public Killua(String filePath) {
+    public Killua(String filePath, Stage stage) {
+        this.stage = stage;
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = storage.load();
         } catch (IOException e) {
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
     /**
-     * Starts the Killua application. It displays a welcome message, reads user commands,
-     * parses and executes them, and continues until an exit command is received.
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        ui.showWelcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String commandStr = ui.readCommand();
-                Command command = Parser.parseCommand(commandStr);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (KilluaException | IOException e) {
-                ui.showError(e.getMessage());
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parseCommand(input);
+            if (c.isExit()) {
+                stage.close();
             }
+            return c.execute(tasks, ui, storage);
+        } catch (KilluaException | IOException e) {
+            return e.getMessage();
         }
     }
 
     /**
-     * The main entry point for the Killua application.
-     * It initializes the Killua instance with the default file path and starts the application.
-     *
-     * @param args Command line arguments.
+     * Generates a welcome message.
      */
-    public static void main(String[] args) {
-        new Killua(FILE_PATH).run();
+    public String welcomeUser() {
+        return ui.welcomeUser();
     }
 }
