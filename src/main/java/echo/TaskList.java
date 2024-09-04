@@ -4,18 +4,37 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The TaskList class manages a list of tasks, including adding, deleting, and marking tasks as done or undone.
+ */
 public class TaskList {
     List<Task> tasks;
+
+    /**
+     * Constructs a TaskList object with an existing list of tasks. from Storage.load()
+     *
+     * @param tasks The list of tasks to be managed.
+     * @throws EchoException       If there is an error related to task management.
+     * @throws FileNotFoundException If the file containing tasks is not found.
+     */
     public TaskList(List<Task> tasks) throws EchoException, FileNotFoundException {
         this.tasks = tasks;
 
     }
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Converts the list of tasks to a string in a format suitable for saving to a file.
+     *
+     * @param tasks The list of tasks to convert to a string.
+     * @return A string representation of the list of tasks.
+     */
     public static String listToString(List<Task> tasks) {
         StringBuilder listString = new StringBuilder();
         int count = 1;
@@ -25,6 +44,7 @@ public class TaskList {
         }
         return listString.toString();
     }
+
 
     public void find(String toFind) {
         List<Task> taskList = new ArrayList<>();
@@ -40,6 +60,12 @@ public class TaskList {
 
 
 
+    /**
+     * Converts the current list of tasks to a string in a format suitable for saving to a file.
+     *
+     * @return A string representation of the current list of tasks.
+     */
+
     public  String listToString() {
         StringBuilder listString = new StringBuilder();
         int count = 1;
@@ -51,6 +77,13 @@ public class TaskList {
     }
 
 
+    /**
+     * Deletes a task from the list based on the task number.
+     *
+     * @param num The task number to be deleted.
+     * @return The task that was deleted.
+     * @throws EchoException If the task number is invalid.
+     */
     public Task deleteTask( int num) throws EchoException {
         try {
 
@@ -66,6 +99,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done based on the task number.
+     *
+     * @param index The task number to be marked as done.
+     * @throws EchoException If the task number is invalid.
+     */
     public void markTask(int index) throws EchoException {
         if (index > 0 && index <= tasks.size()) {
             Task doneTask = tasks.get(index - 1);
@@ -75,6 +114,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a task as undone based on the task number.
+     *
+     * @param index The task number to be unmarked as undone.
+     * @throws EchoException If the task number is invalid.
+     */
     public void unmarkTask(int index) throws EchoException {
         if (index > 0 && index <= tasks.size()) {
             Task undoneTask = tasks.get(index - 1);
@@ -84,15 +129,35 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Retrieves a task from the list based on the task number.
+     *
+     * @param index The task number to retrieve.
+     * @return The task corresponding to the specified task number.
+     */
     public Task getTask(int index) {
         return tasks.get(index - 1);
     }
 
+    /**
+     * Returns the list of tasks managed by this TaskList.
+     *
+     * @return The list of tasks.
+     */
     public List<Task> getTasks() {
         return tasks;
     }
 
 
+    /**
+     * Adds a Deadline task to the list based on the input string.
+     *
+     * @param input The input string containing the task description and deadline.
+     * @return The Deadline task that was added.
+     * @throws EchoException         If the input format is incorrect.
+     * @throws DateTimeParseException If the deadline format is invalid.
+     */
     public Deadline addDeadline( String input) throws EchoException, DateTimeParseException {
         String[] details = input.split(" /by ", 2);
         if (details.length == 2) {
@@ -106,6 +171,15 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Adds an Events task to the list based on the input string.
+     *
+     * @param input The input string containing the task description and event time.
+     * @return The Events task that was added.
+     * @throws EchoException         If the input format is incorrect.
+     * @throws DateTimeParseException If the event time format is invalid.
+     */
     public Events addEvent( String input) throws EchoException, DateTimeParseException {
         String eventDes = Parser.parseEventDes(input);
         String[] times = Parser.parseEventTime(input);
@@ -115,7 +189,12 @@ public class TaskList {
 
     }
 
-
+    /**
+     * Adds a Todo task to the list based on the task description.
+     *
+     * @param taskDescription The description of the task.
+     * @return The Todo task that was added.
+     */
     public Todo addTodo(String taskDescription) {
         Todo todo = new Todo(taskDescription);
         this.tasks.add(todo);
@@ -123,6 +202,11 @@ public class TaskList {
     }
 
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The size of the task list.
+     */
     public int size() {
         return tasks.size();
     }
