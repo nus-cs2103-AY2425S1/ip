@@ -24,6 +24,10 @@ class Task {
         this.isDone = false;
     }
 
+    String getDescription() {
+        return this.task;
+    }
+
     public String toString() {
         if (this.isDone) {
             return "[X] " + this.task;
