@@ -1,10 +1,9 @@
-package TrackBot.commands;
+package trackbot.commands;
 
-import TrackBot.TrackBotException;
-import TrackBot.TrackBotStorage;
-import TrackBot.task.Task;
-import TrackBot.task.TrackList;
-import TrackBot.ui.Ui;
+import trackbot.TrackBotException;
+import trackbot.TrackBotStorage;
+import trackbot.task.TrackList;
+import trackbot.ui.Ui;
 
 /**
  * Deletes a task from the task list.

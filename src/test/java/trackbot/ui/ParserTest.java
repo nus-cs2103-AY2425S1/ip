@@ -1,16 +1,16 @@
-package TrackBot.ui;
+package trackbot.ui;
 
-import TrackBot.TrackBotException;
-import TrackBot.commands.AddCommand;
-import TrackBot.commands.Command;
-import TrackBot.commands.DeleteCommand;
-import TrackBot.commands.ExitCommand;
-import TrackBot.commands.ListCommand;
-import TrackBot.commands.MarkCommand;
-import TrackBot.commands.UnmarkCommand;
-import TrackBot.task.Deadline;
-import TrackBot.task.Event;
-import TrackBot.task.ToDo;
+import trackbot.TrackBotException;
+import trackbot.commands.AddCommand;
+import trackbot.commands.Command;
+import trackbot.commands.DeleteCommand;
+import trackbot.commands.ExitCommand;
+import trackbot.commands.ListCommand;
+import trackbot.commands.MarkCommand;
+import trackbot.commands.UnmarkCommand;
+import trackbot.task.Deadline;
+import trackbot.task.Event;
+import trackbot.task.ToDo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

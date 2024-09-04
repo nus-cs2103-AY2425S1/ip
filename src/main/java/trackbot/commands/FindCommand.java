@@ -1,15 +1,18 @@
-package TrackBot.commands;
-
-import TrackBot.TrackBotException;
-import TrackBot.TrackBotStorage;
-import TrackBot.task.Task;
-import TrackBot.task.TrackList;
-import TrackBot.ui.Ui;
+package trackbot.commands;
 
 import java.util.List;
 
-public class FindCommand extends Command{
-    private String keyword;
+import trackbot.TrackBotException;
+import trackbot.TrackBotStorage;
+import trackbot.task.Task;
+import trackbot.task.TrackList;
+import trackbot.ui.Ui;
+
+/**
+ * Command to find task given keyword
+ */
+public class FindCommand extends Command {
+    private final String keyword;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;

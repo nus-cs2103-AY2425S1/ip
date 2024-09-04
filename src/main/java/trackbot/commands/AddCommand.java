@@ -1,10 +1,10 @@
-package TrackBot.commands;
+package trackbot.commands;
 
-import TrackBot.task.Task;
-import TrackBot.TrackBotException;
-import TrackBot.TrackBotStorage;
-import TrackBot.task.TrackList;
-import TrackBot.ui.Ui;
+import trackbot.TrackBotException;
+import trackbot.TrackBotStorage;
+import trackbot.task.Task;
+import trackbot.task.TrackList;
+import trackbot.ui.Ui;
 
 /**
  * Adds a task to the task list.

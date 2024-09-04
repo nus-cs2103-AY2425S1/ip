@@ -1,7 +1,6 @@
-package TrackBot.task;
+package trackbot.task;
 
-import TrackBot.task.Task;
-import TrackBot.ui.Parser;
+import trackbot.ui.Parser;
 
 /**
  * Event task with a start and end time.

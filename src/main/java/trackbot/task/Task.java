@@ -1,18 +1,11 @@
-package TrackBot.task;
+package trackbot.task;
 
 /**
- * An abstract class for all the tasks in TrackBot.
+ * An abstract class for all the tasks in trackbot.
  */
 public abstract class Task {
     protected String desc;
     protected boolean isDone;
-
-    /**
-     * Abstract method to return the string representation of the task for storage.
-     *
-     * @return A formatted string for storage.
-     */
-    public abstract String toStorageFormat();
 
     /**
      * Constructs a Task with the specified description.
@@ -23,6 +16,13 @@ public abstract class Task {
         this.desc = desc;
         this.isDone = false;
     }
+
+    /**
+     * Abstract method to return the string representation of the task for storage.
+     *
+     * @return A formatted string for storage.
+     */
+    public abstract String toStorageFormat();
 
     /**
      * Marks the task as done.

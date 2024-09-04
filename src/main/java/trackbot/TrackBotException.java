@@ -1,7 +1,7 @@
-package TrackBot;
+package trackbot;
 
 /**
- * Custom exception class for handling errors in TrackBot.
+ * Custom exception class for handling errors in trackbot.
  */
 public class TrackBotException extends Exception {
 

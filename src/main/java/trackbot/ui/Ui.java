@@ -1,4 +1,4 @@
-package TrackBot.ui;
+package trackbot.ui;
 
 /**
  * Ui Handles user interface interactions and
@@ -10,7 +10,7 @@ public class Ui {
      */
     public void showWelcome() {
         System.out.println("************************************************************");
-        System.out.println("Hello from TrackBot.TrackBot!\n" + "How may I assist you?");
+        System.out.println("Hello from trackbot.trackbot!\n" + "How may I assist you?");
     }
 
     /**

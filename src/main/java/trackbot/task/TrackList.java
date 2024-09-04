@@ -1,15 +1,15 @@
-package TrackBot.task;
-
-import TrackBot.TrackBotException;
-import TrackBot.TrackBotStorage;
+package trackbot.task;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import trackbot.TrackBotException;
+import trackbot.TrackBotStorage;
+
 /**
- * A list of tasks loaded from TrackBot Storage.
+ * A list of tasks loaded from trackbot Storage.
  */
 public class TrackList {
     private List<Task> list;

@@ -1,6 +1,6 @@
-package TrackBot.task;
+package trackbot.task;
 
-import TrackBot.ui.Parser;
+import trackbot.ui.Parser;
 
 /**
  * Deadline task with deadline.

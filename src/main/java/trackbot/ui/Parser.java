@@ -1,19 +1,4 @@
-package TrackBot.ui;
-
-
-import TrackBot.TrackBotException;
-import TrackBot.commands.AddCommand;
-import TrackBot.commands.Command;
-import TrackBot.commands.DeleteCommand;
-import TrackBot.commands.ExitCommand;
-import TrackBot.commands.FindCommand;
-import TrackBot.commands.ListCommand;
-import TrackBot.commands.MarkCommand;
-import TrackBot.commands.UnmarkCommand;
-import TrackBot.task.Deadline;
-import TrackBot.task.Event;
-import TrackBot.task.Task;
-import TrackBot.task.ToDo;
+package trackbot.ui;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,8 +6,22 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
+import trackbot.TrackBotException;
+import trackbot.commands.AddCommand;
+import trackbot.commands.Command;
+import trackbot.commands.DeleteCommand;
+import trackbot.commands.ExitCommand;
+import trackbot.commands.FindCommand;
+import trackbot.commands.ListCommand;
+import trackbot.commands.MarkCommand;
+import trackbot.commands.UnmarkCommand;
+import trackbot.task.Deadline;
+import trackbot.task.Event;
+import trackbot.task.Task;
+import trackbot.task.ToDo;
+
 /**
- * Parses user inputs and translate them into commands to be executed by TrackBot.
+ * Parses user inputs and translate them into commands to be executed by trackbot.
  * The Parser class provides utility methods for parsing tasks from storage for display
  * and validating date formats.
  */
@@ -153,38 +152,38 @@ public class Parser {
         LocalDate date;
         LocalDateTime dateTime;
         // Match dates in the format "YYYY-MM-DD"
-        String regex_y = "^([0-9]{4})-([0-9]{2})-([0-9]{2})$";
+        String regexYear = "^([0-9]{4})-([0-9]{2})-([0-9]{2})$";
         // Match dates in the format "MM-DD-YYYY"
-        String regex_m = "^(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])-([0-9]{4})$";
+        String regexMonth = "^(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])-([0-9]{4})$";
         // Match dates in the format "DD-MM-YYYY"
-        String regex_d1 = "^(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-([0-9]{4})$";
+        String regexDay1 = "^(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-([0-9]{4})$";
         // Match dates in the format "DD-MMM-YYYY"
-        String regex_d2 = "^(0?[1-9]|[12][0-9]|3[01])-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-([0-9]{4})$";
+        String regexDay2 = "^(0?[1-9]|[12][0-9]|3[01])-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-([0-9]{4})$";
         // Match dates in the format "YYYY-MM-DD HH:MM"
-        String regex_t1 = "^([0-9]{4})-([0-9]{2})-([0-9]{2})\\s((2[0-3])|([0-1][0-9])):[0-5][0-9]$";
+        String regexTime = "^([0-9]{4})-([0-9]{2})-([0-9]{2})\\s((2[0-3])|([0-1][0-9])):[0-5][0-9]$";
 
         try {
             // Reformat as date only
-            if (Pattern.matches(regex_y, time)) {
+            if (Pattern.matches(regexYear, time)) {
                 date = LocalDate.parse(time);
                 time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
                 return time;
             }
 
-            if (Pattern.matches(regex_m, time)) {
+            if (Pattern.matches(regexMonth, time)) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
                 date = LocalDate.parse(time, formatter);
                 time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
                 return time;
             }
 
-            if (Pattern.matches(regex_d1, time)) {
+            if (Pattern.matches(regexDay1, time)) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 date = LocalDate.parse(time, formatter);
                 time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
                 return time;
             }
-            if (Pattern.matches(regex_d2, time)) {
+            if (Pattern.matches(regexDay2, time)) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
                 date = LocalDate.parse(time, formatter);
                 time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
@@ -192,7 +191,7 @@ public class Parser {
             }
 
             // Reformat as date and time only
-            if (Pattern.matches(regex_t1, time)) {
+            if (Pattern.matches(regexTime, time)) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 dateTime = LocalDateTime.parse(time, formatter);
                 time = dateTime.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT));

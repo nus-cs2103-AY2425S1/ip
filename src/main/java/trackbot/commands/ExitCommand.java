@@ -1,11 +1,11 @@
-package TrackBot.commands;
+package trackbot.commands;
 
-import TrackBot.TrackBotStorage;
-import TrackBot.task.TrackList;
-import TrackBot.ui.Ui;
+import trackbot.TrackBotStorage;
+import trackbot.task.TrackList;
+import trackbot.ui.Ui;
 
 /**
- * Command to exit TrackBot
+ * Command to exit trackbot
  */
 public class ExitCommand extends Command {
     @Override
@@ -14,7 +14,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Set boolean isExit to true to exit TrackBot
+     * Set boolean isExit to true to exit trackbot
      *
      * @return true
      */

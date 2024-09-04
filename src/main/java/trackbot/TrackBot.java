@@ -1,15 +1,17 @@
-package TrackBot;
-
-import TrackBot.commands.Command;
-import TrackBot.task.TrackList;
-import TrackBot.ui.Parser;
-import TrackBot.ui.Ui;
+package trackbot;
 
 import java.io.IOException;
 import java.util.Scanner;
 
+import trackbot.commands.Command;
+import trackbot.task.TrackList;
+import trackbot.ui.Parser;
+import trackbot.ui.Ui;
+
+
+
 /**
- * The main class for TrackBot.
+ * The main class for trackbot.
  * This class initializes the storage, tasks list, parser and UI.
  * It also contains the main loop to handle user commands.
  */
@@ -20,7 +22,7 @@ public class TrackBot {
     private final Parser parser;
 
     /**
-     * Constructs a TrackBot object and initializes storage, tasks list, UI, and parser.
+     * Constructs a trackbot object and initializes storage, tasks list, UI, and parser.
      *
      * @param filePath The file path to the storage file.
      */
@@ -40,7 +42,7 @@ public class TrackBot {
 
 
     /**
-     * Runs TrackBot, stays in the loop until user input exit command.
+     * Runs trackbot, stays in the loop until user input exit command.
      * Checks user input and executes command.
      */
     public void run() {
@@ -61,9 +63,8 @@ public class TrackBot {
 
         scanner.close();
     }
-    
     public static void main(String[] args) {
-        String filePath = "src/main/java/TrackBot/data/TrackBot.txt";
+        String filePath = "src/main/java/trackbot/data/trackbot.txt";
         new TrackBot(filePath).run();
     }
 }

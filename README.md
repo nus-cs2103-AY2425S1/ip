@@ -1,11 +1,11 @@
 # TRACKBOT
 
-My TrackBot project :D
+My trackbot project :D
 
 > “If debugging is the process of removing software bugs, then programming must be the process of putting them in.”
 ― Edsger W. Dijkstra ([source](https://www.goodreads.com/quotes/1271018-if-debugging-is-the-process-of-removing-software-bugs-then)).
 
-TrackBot frees your mind of having to remember things you need to do. It's,
+trackbot frees your mind of having to remember things you need to do. It's,
 - text-based
 - easy to learn
 - FAST SUPER FAST to use

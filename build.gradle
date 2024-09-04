@@ -29,11 +29,11 @@ test {
 }
 
 application {
-    mainClass.set("TrackBot.TrackBot")
+    mainClass.set("trackbot.trackbot")
 }
 
 shadowJar {
-    archiveBaseName = "TrackBot"
+    archiveBaseName = "trackbot"
     archiveClassifier = null
 }
 

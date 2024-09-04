@@ -1,7 +1,4 @@
-package TrackBot;
-
-import TrackBot.task.Task;
-import TrackBot.ui.Parser;
+package trackbot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,14 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import trackbot.task.Task;
+import trackbot.ui.Parser;
+
 /**
- * Handles file storage for TrackBot.
+ * Handles file storage for trackbot.
  * This class manages reading and writing tasks to a file, and ensures the
  * file and directories are created when needed.
  */
 public class TrackBotStorage {
-    String filePath;
-    File file;
+    private final String filePath;
+    private final File file;
 
     /**
      * Constructs a TrackBotStorage object for a specified file path.

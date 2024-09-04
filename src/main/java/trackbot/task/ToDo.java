@@ -1,4 +1,4 @@
-package TrackBot.task;
+package trackbot.task;
 
 /**
  * ToDo task with only a description.

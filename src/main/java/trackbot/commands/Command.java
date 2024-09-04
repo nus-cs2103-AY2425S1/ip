@@ -1,13 +1,12 @@
-package TrackBot.commands;
+package trackbot.commands;
 
-import TrackBot.TrackBotException;
-import TrackBot.TrackBotStorage;
-import TrackBot.task.Task;
-import TrackBot.task.TrackList;
-import TrackBot.ui.Ui;
+import trackbot.TrackBotException;
+import trackbot.TrackBotStorage;
+import trackbot.task.TrackList;
+import trackbot.ui.Ui;
 
 /**
- * An abstract class for all the commands in TrackBot.
+ * An abstract class for all the commands in trackbot.
  */
 public abstract class Command {
 
@@ -16,15 +15,15 @@ public abstract class Command {
      *
      * @param trackList List to operate command on.
      * @param ui UI which interacts with user.
-     * @param storage TrackBot storage to store data.
+     * @param storage trackbot storage to store data.
      * @throws TrackBotException If any error occurs while executing the command.
      */
     public abstract void execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException;
 
     /**
-     * Boolean function to exit TrackBot.
+     * Boolean function to exit trackbot.
      *
-     * @return true If user want to exit TrackBot.
+     * @return true If user want to exit trackbot.
      */
     public boolean isExit() {
         return false;
