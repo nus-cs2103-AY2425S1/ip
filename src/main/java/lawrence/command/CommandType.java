@@ -19,6 +19,7 @@ public enum CommandType {
      * <p>
      * The input string is converted into lowercase for greater input flexibility.
      * </p>
+     *
      * @param command the string containing an enum value
      */
     private CommandType(String command) {
@@ -27,6 +28,7 @@ public enum CommandType {
 
     /**
      * Returns the command type as a string.
+     *
      * @return a string of the command type
      */
     public String getCommandType() {
