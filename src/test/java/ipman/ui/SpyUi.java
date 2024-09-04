@@ -1,10 +1,14 @@
 package ipman.ui;
 
-import ipman.commands.Command;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import ipman.commands.Command;
+
+/**
+ * Represents a Ui that records all messages that was sent. Cannot read any
+ * messages.
+ */
 public class SpyUi implements Ui {
     private final List<String> record = new ArrayList<>();
 

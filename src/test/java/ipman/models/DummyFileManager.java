@@ -1,5 +1,8 @@
 package ipman.models;
 
+/**
+ * Represents a file manager that does nothing
+ */
 public class DummyFileManager extends TasksFileManager {
     public DummyFileManager() {
         super("");

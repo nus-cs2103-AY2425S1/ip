@@ -1,13 +1,14 @@
 package ipman.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import ipman.models.DummyFileManager;
 import ipman.models.TaskList;
 import ipman.models.ToDo;
 import ipman.ui.SpyUi;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DeleteCommandTest {
     @Test
