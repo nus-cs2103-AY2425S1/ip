@@ -57,11 +57,22 @@ public class Task {
     }
 
     /**
+<<<<<<< HEAD
      * Changes the string format to file format to store the task in the text file
      *
      * @return a string to be stored in text file
      */
 
+=======
+     * Gets task name
+     * @return String of task name
+     */
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+>>>>>>> branch-Level-9
     public String toFileFormat() {
         return this.taskName;
     }
