@@ -1,4 +1,4 @@
-package momo;
+package momo.exception;
 
 /**
  * Exception representation for unexpected general chatbot exceptions
