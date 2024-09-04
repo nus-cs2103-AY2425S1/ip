@@ -8,8 +8,9 @@ import utility.Parser;
 import utility.Storage;
 import utility.TaskList;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /** Main class of the application. */
 public class Luke {
@@ -28,18 +29,6 @@ public class Luke {
         this.parser = new Parser();
         this.taskList = new TaskList(this.storage);
         this.ui = new Ui();
-    }
-
-    public void saveTasks() throws IOException {
-        taskList.save(storage);
-    }
-
-    public void addTask(Task task) {
-        taskList.addTask(task);
-    }
-
-    public ArrayList<Task> getTasks() {
-        return taskList.getTasks();
     }
 
     /** Runs the Luke application */
