@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
 class Task {
     String task;
     boolean isDone;
@@ -33,6 +37,19 @@ class Task {
             return "1/" + this.task;
         } else {
             return "0/" + this.task;
+        }
+    }
+
+    LocalDate stringToDate(String dateString) {
+        // assume dateString is in valid form yyyy-mm-dd
+        dateString = dateString.strip();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate date = LocalDate.parse(dateString, dateFormat);
+            return date;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
