@@ -1,6 +1,10 @@
 package hoshi.gui;
 
+import java.util.Objects;
+
 import hoshi.Hoshi;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,8 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
+import javafx.util.Duration;
+
 
 /**
  * Controller for the Hoshi's main GUI.
@@ -35,7 +39,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Hoshi instance */
+    /**
+     * Injects the Hoshi instance
+     */
     public void setHoshi(Hoshi d) {
         hoshi = d;
     }
@@ -53,6 +59,15 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, hoshiImage)
         );
         userInput.clear();
+
+        if (Objects.equals(response, "Bye, Hope to see you again soon! \n")) {
+
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            // instruct to exit the application after the delay
+            delay.setOnFinished(event -> Platform.exit());
+            // start the delay
+            delay.play();
+        }
     }
 
 }
