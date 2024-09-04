@@ -77,7 +77,7 @@ public class TaskList {
     public String listTasks() {
         StringBuilder sb = new StringBuilder();
         sb.append(Ui.showLine());
-        String header = "Your task list currently has " + getSize() + " tasks\n";
+        String header = String.format("You currently have %d %s\n", getSize(), taskPlural());
         sb.append(header);
         for (int i = 1; i <= getSize(); i++) {
             String temp = i + "." + getTask(i - 1) + "\n";
