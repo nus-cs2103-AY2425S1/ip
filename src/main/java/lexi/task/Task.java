@@ -41,13 +41,15 @@ public class Task {
     }
 
     /**
-     * Checks if the task name contains the specified query string.
+     * Checks if the task name contains a word that exactly matches the specified query string.
+     * Only full words will be matched, e.g., "Han" will not match "Hans".
      *
-     * @param query The string to search for within the task name.
-     * @return {@code true} if the task name contains the query string, {@code false} otherwise.
+     * @param query The string to search for as a whole word within the task name.
+     * @return {@code true} if the task name contains a word that exactly matches the query, {@code false} otherwise.
      */
-    public boolean containsQuery(String query) {
-        return taskName.contains(query);
+    public boolean containsExactWord(String query) {
+        String pattern = "\\b" + query + "\\b";
+        return taskName.matches(".*" + pattern + ".*");
     }
 
     /**

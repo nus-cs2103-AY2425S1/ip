@@ -13,6 +13,7 @@ import lexi.ui.Ui;
 public class MarkCommand extends Command {
     private final int taskNumber;
     private final boolean isMark;
+    private String response;
 
     /**
      * Constructs a MarkCommand with the specified task number and marking status.
@@ -63,7 +64,7 @@ public class MarkCommand extends Command {
         }
         taskToBeMarked.setDone(false);
         tasks.updateTask(taskToBeMarked, this.taskNumber);
-        ui.showUnmarkMessage(taskToBeMarked);
+        response = ui.showUnmarkMessage(taskToBeMarked);
     }
 
     /**
@@ -81,7 +82,7 @@ public class MarkCommand extends Command {
         }
         taskToBeMarked.setDone(true);
         tasks.updateTask(taskToBeMarked, this.taskNumber);
-        ui.showMarkMessage(taskToBeMarked);
+        response = ui.showMarkMessage(taskToBeMarked);
     }
 
     /**
@@ -92,5 +93,10 @@ public class MarkCommand extends Command {
     @Override
     public String getCommandName() {
         return "MARK";
+    }
+
+    @Override
+    public String getString() {
+        return response;
     }
 }

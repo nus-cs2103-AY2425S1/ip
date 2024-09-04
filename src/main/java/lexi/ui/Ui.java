@@ -4,6 +4,7 @@ import lexi.task.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 /**
  * Handles all interactions with the user.
@@ -29,18 +30,8 @@ public class Ui {
     /**
      * Displays a goodbye message when the user exits the application.
      */
-    public void showBye() {
-        System.out.println(" Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Reads a command input by the user.
-     *
-     * @return The command entered by the user.
-     */
-    public String readCommand() {
-        Scanner userInput = new Scanner(System.in);
-        return userInput.nextLine();
+    public String showBye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -49,10 +40,10 @@ public class Ui {
      * @param task The task that was added.
      * @param taskSize The total number of tasks in the list after adding this task.
      */
-    public void showAddMessage(Task task, int taskSize) {
-        System.out.println(" Got it. I've added this task:");
-        System.out.printf("   %s%n", task);
-        System.out.printf(" Now you have %d task%s in the list.%n", taskSize, taskSize == 1 ? "" : "s");
+    public String showAddMessage(Task task, int taskSize) {
+        return "Got it. I've added this task:\n"
+                + String.format("   %s%n", task)
+                + String.format("Now you have %d task%s in the list.%n", taskSize, taskSize == 1 ? "" : "s");
     }
 
     /**
@@ -61,10 +52,11 @@ public class Ui {
      * @param task The task that was deleted.
      * @param taskSize The total number of tasks remaining in the list after deleting this task.
      */
-    public void showDeleteMessage(Task task, int taskSize) {
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.printf("Now you have %d tasks in the list.%n", taskSize);
+    public String showDeleteMessage(Task task, int taskSize) {
+        return "Noted. I've removed this task:\n"
+                + task
+                + "\n"
+                + String.format("Now you have %d tasks in the list.%n", taskSize);
     }
 
     /**
@@ -79,9 +71,9 @@ public class Ui {
      *
      * @param taskToBeMarked The task that was marked as done.
      */
-    public void showMarkMessage(Task taskToBeMarked) {
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + taskToBeMarked);
+    public String showMarkMessage(Task taskToBeMarked) {
+        return "Nice! I've marked this task as done:\n"
+                + "  " + taskToBeMarked;
     }
 
     /**
@@ -89,9 +81,9 @@ public class Ui {
      *
      * @param taskToBeMarked The task that was unmarked.
      */
-    public void showUnmarkMessage(Task taskToBeMarked) {
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + taskToBeMarked);
+    public String showUnmarkMessage(Task taskToBeMarked) {
+        return "OK, I've marked this task as not done yet:\n"
+                + "  " + taskToBeMarked;
     }
 
     /**
@@ -99,15 +91,17 @@ public class Ui {
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void showListOfTasks(ArrayList<Task> tasks) {
+    public String showListOfTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("You have no tasks in your list!");
+            return "You have no tasks in your list!";
         } else {
-            System.out.println(" Here are the tasks in your list:");
+            StringBuilder response = new StringBuilder();
+            response.append(" Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
                 Task currTask = tasks.get(i);
-                System.out.printf("  %d. %s%n", i + 1, currTask);
+                response.append(String.format("  %d. %s%n", i + 1, currTask));
             }
+            return response.toString();
         }
     }
 
@@ -116,12 +110,13 @@ public class Ui {
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void showListOfMatchingTasks(ArrayList<Task> tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String showListOfMatchingTasks(ArrayList<Task> tasks) {
+        StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task currtask = tasks.get(i);
-            System.out.printf("  %d. %s%n", i + 1, currtask);
+            response.append(String.format("  %d. %s%n", i + 1, currtask));
         }
+        return response.toString();
     }
 
     /**
@@ -129,7 +124,7 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return "Error: " + message;
     }
 }

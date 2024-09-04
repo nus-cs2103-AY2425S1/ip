@@ -12,6 +12,7 @@ import lexi.ui.Ui;
  */
 public class DeleteCommand extends Command {
     private final int taskNumber;
+    private String response;
 
     /**
      * Constructs a DeleteCommand with the specified task number.
@@ -37,7 +38,7 @@ public class DeleteCommand extends Command {
             throw new LexiException("You can't delete a task that doesn't exist");
         }
         Task removedTask = tasks.deleteTask(taskNumber - 1);
-        ui.showDeleteMessage(removedTask, tasks.getSize());
+        response = ui.showDeleteMessage(removedTask, tasks.getSize());
         storage.updateStorage(tasks.getTasks());
     }
 
@@ -49,5 +50,10 @@ public class DeleteCommand extends Command {
     @Override
     public String getCommandName() {
         return "DELETE";
+    }
+
+    @Override
+    public String getString() {
+        return response;
     }
 }
