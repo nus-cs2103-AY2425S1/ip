@@ -3,9 +3,11 @@ package tohru.ui;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import tohru.Tohru;
 
 /**
@@ -78,7 +80,10 @@ public class FxAdapter implements Ui {
      * Closes the chatbot application.
      */
     public void closeInput() {
-        Platform.exit();
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(e -> Platform.exit());
+        delay.play();
+
     }
 
     /**

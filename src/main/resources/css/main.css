@@ -4,27 +4,26 @@
 
 .text-field {
     -fx-background-color: #FAFAC6;
-    -fx-font: 24px Thin "Arial";
+    -fx-font: 24px "Arial" lighter;
     -fx-background-radius: 0.5em 0 0 0.5em;
     -fx-border-radius: 0.5em 0 0 0.5em;
-
 }
 
 .button {
     -fx-background-color: #FECDAA;
-    -fx-font: Thin 24px "Arial";
+    -fx-font: 24px "Arial" lighter;
     -fx-background-radius: 0 0.5em 0.5em 0;
     -fx-border-radius: 0 0.5em 0.5em 0;
 }
 
 .button:hover {
     -fx-background-color: #FEC49A;
-    -fx-font: Thin 24px "Arial";
+    -fx-font: 24px "Arial" lighter;
 }
 
 .button:pressed {
     -fx-background-color: #FEB886;
-    -fx-font: Thin 24px "Arial";
+    -fx-font: 24px "Arial" lighter;
 }
 
 .scroll-pane,
@@ -33,7 +32,8 @@
 }
 
 .scroll-bar {
-    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    /* Change width of scroll bar. */
+    -fx-font-size: 10px;
     -fx-background-color: main-color;
 }
 

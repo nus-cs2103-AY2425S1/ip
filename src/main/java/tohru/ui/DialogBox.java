@@ -64,23 +64,23 @@ public class DialogBox extends HBox {
     /**
      * Represents a chat message sent by the user.
      *
-     * @param s Message written by user.
+     * @param message Message written by user.
      * @return A DialogBox instance with the user's profile picture.
      */
-    public static DialogBox getUserDialog(String s) {
+    public static DialogBox getUserDialog(String message) {
         Image userImage = new Image(DialogBox.class.getResourceAsStream("/images/Kobayashi.jpg"));
-        return new DialogBox(s, userImage);
+        return new DialogBox(message, userImage);
     }
 
     /**
      * Represents a chat message sent by the chatbot.
      *
-     * @param s Message written by chatbot.
+     * @param message Message written by chatbot.
      * @return A DialogBox instance with the chatbot's profile picture.
      */
-    public static DialogBox getChatbotDialog(String s, boolean isError) {
-        Image chatImage = new Image(DialogBox.class.getResourceAsStream("/images/Tohru.jpg"));
-        var db = new DialogBox(s, chatImage);
+    public static DialogBox getChatbotDialog(String message, boolean isError) {
+        Image chatbotImage = new Image(DialogBox.class.getResourceAsStream("/images/Tohru.jpg"));
+        var db = new DialogBox(message, chatbotImage);
         db.flip();
         db.tintReply(isError);
         return db;
