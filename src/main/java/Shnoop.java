@@ -1,10 +1,16 @@
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 public class Shnoop {
     private boolean completion = false;
     private String mode;
-    private ArrayList<Task> tasks;
+    private static ArrayList<Task> tasks;
+    private static java.nio.file.Path path;
     private int arrPointer;
     private String[] quotes;
     public enum TaskTypes {
@@ -214,7 +220,7 @@ public class Shnoop {
      * @return String action code.
      */
     public String parseInput(String input) throws UndefinedTaskException, IncompleteEventOrDeadlineException,
-            EmptyDescriptionException, UnmarkableArrayException, IndexOutOfBoundsException {
+            EmptyDescriptionException, UnmarkableArrayException, IndexOutOfBoundsException, IOException {
         switch (mode) {
 
         // For Level-1 echo mode.
@@ -249,6 +255,14 @@ public class Shnoop {
             switch (input) {
 
             case "bye":
+            clearFile(path.toString());
+            for (int i = 0; i < tasks.size(); i ++) {
+                try {
+                    writeToFile(tasks.get(i).toUString() + "\n");
+                } catch (IOException e) {
+                    System.out.println("Something went wrong when trying to writeToFile: " + e.getMessage());
+                }
+            }
                 System.out.println("\n✿ Shnoop ✿: I'll check ya later, cause you represent. "
                         + "Don't worry we got it on lock. ♡");
                 completion = true;
@@ -288,7 +302,7 @@ public class Shnoop {
 
                     addTask(newTask);
                     System.out.println("✿ Shnoop ✿: " + x + " I'll add that in for ya. \nTask Added: " + newTask);
-                    System.out.println("✿ Shnoop ✿: You've got " + arrPointer + " doggy-dogs on the stereo.");
+                    System.out.println("✿ Shnoop ✿: You've got " + tasks.size() + " doggy-dogs on the stereo.");
                     return "add_task";
                 } catch (EmptyDescriptionException e) {
                     throw new EmptyDescriptionException();
@@ -322,21 +336,120 @@ public class Shnoop {
         return completion;
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String input;
-        Shnoop shnoop = new Shnoop("todo");
+    private static Task readFileToTask(String line) throws EmptyDescriptionException, ImproperFileTypeException {
+        boolean taskIsCompleted = false;
+        if (line.substring(0, 1).equals("1")) {
+            taskIsCompleted = true;
+        } else if (!(line.substring(0,1).equals("0"))) {
+            throw new ImproperFileTypeException();
+        }
+        String taskType = line.substring(1, 4);
+        String desc;
+        switch (taskType) {
+        case ("001"):
+            // Todo
+            return new Todo(line.substring(4, line.length()), taskIsCompleted);
+        case ("002"):
+            // Event
+            desc = line.substring(4, line.indexOf("/from/"));
+            String from = line.substring(line.indexOf("/from/") + 6, line.indexOf("/to/"));
+            String to = line.substring(line.indexOf("/to/") + 4, line.length());
+            return new Event(desc, from, to, taskIsCompleted);
+        case ("003"):
+            // Deadline
+            desc = line.substring(4, line.indexOf("/by/"));
+            String by = line.substring(line.indexOf("/by/") + 4, line.length());
+            return new Deadline(desc, by, taskIsCompleted);
+        }
+        return null;
+    }
 
-        shnoop.startIntroSpeech();
+    // @@author CS2103T Website
+    // Reused from https://nus-cs2103-ay2425s1.github.io/website/schedule/week3/topics.html
+    // With minor modifications
+    private static void writeToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(path.toString() + "/shnoopstorage.txt", true);
+        fw.write(textToAdd);
+        fw.close();
+    }
 
-        while (!shnoop.isCompleted()) {
-            input = scanner.nextLine();
-            try {
-                String result = shnoop.parseInput(input);
-            } catch (UndefinedTaskException | IncompleteEventOrDeadlineException | EmptyDescriptionException
-                    | UnmarkableArrayException e) {
-                System.out.println(e.getMessage());
+    private static void loadFileContents(String path) throws FileNotFoundException {
+        File f = new File(path); // create a File for the given file path
+        try (Scanner s = new Scanner(f)) {
+            while (s.hasNext()) {
+                try {
+                    tasks.add(readFileToTask(s.nextLine()));
+                } catch (EmptyDescriptionException | ImproperFileTypeException e) {
+                    e.printStackTrace();
+                }
             }
+        }
+    }
+    // @@author CS2103T Website
+
+    public static void clearFile(String path) throws IOException {
+        FileWriter fw = new FileWriter(path.toString() + "/shnoopstorage.txt", false);
+        fw.write("");
+        fw.close();
+    }
+
+    public static void main(String[] args) {
+        // @@author Steve Hills
+        // Reused from https://www.sghill.net/2014/how-do-i-make-cross-platform-file-paths-in-java/
+        // with minor modifications
+        String home = System.getProperty("user.home");
+        path = java.nio.file.Paths.get(home, "my", "apps", "dir");
+        boolean directoryExists = java.nio.file.Files.exists(path);
+        // @@author Steve Hills
+
+        if (!directoryExists) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // TODO handle the exception
+                throw new RuntimeException(e);
+            }
+        }
+
+        File file = new File(path.toFile(), "shnoopstorage.txt");
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                // TODO handle the exception
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        try (Scanner scanner = new Scanner(System.in)) {
+            String input;
+            Shnoop shnoop = new Shnoop("todo");
+
+            shnoop.startIntroSpeech();
+
+            // Load data up
+            try { 
+                loadFileContents(path.toString() + "/shnoopstorage.txt");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            while (!shnoop.isCompleted()) {
+                input = scanner.nextLine();
+                try {
+                    String result = shnoop.parseInput(input);
+                } catch (UndefinedTaskException | IncompleteEventOrDeadlineException | EmptyDescriptionException |
+                         UnmarkableArrayException | IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 }
