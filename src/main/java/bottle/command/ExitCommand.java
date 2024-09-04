@@ -4,7 +4,10 @@ import bottle.Storage;
 import bottle.Ui;
 import bottle.task.TaskList;
 
-public class exitCommand extends Command {
+/**
+ * The type Exit command.
+ */
+public class ExitCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {

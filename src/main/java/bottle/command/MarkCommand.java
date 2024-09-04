@@ -4,10 +4,21 @@ import bottle.Storage;
 import bottle.Ui;
 import bottle.task.TaskList;
 
-public class markCommand extends Command {
+/**
+ * The type Mark command.
+ */
+public class MarkCommand extends Command {
+    /**
+     * The Task index.
+     */
     private final int taskIndex;
 
-    public markCommand(int taskIndex) {
+    /**
+     * Instantiates a new Mark command.
+     *
+     * @param taskIndex the task index
+     */
+    public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 

@@ -1,24 +1,31 @@
 package bottle.command;
 
-import java.time.LocalDateTime;
-
 import bottle.Storage;
 import bottle.Ui;
-import bottle.task.Deadline;
 import bottle.task.TaskList;
+import bottle.task.Todo;
 
-public class addDeadlineTask extends Command {
+/**
+ * The type Add todo task.
+ */
+public class AddTodoTask extends Command {
+    /**
+     * The Description.
+     */
     private final String description;
-    private final LocalDateTime by;
 
-    public addDeadlineTask(String description, LocalDateTime by) {
+    /**
+     * Instantiates a new Add todo task.
+     *
+     * @param description the description
+     */
+    public AddTodoTask(String description) {
         this.description = description;
-        this.by = by;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.addTask(new Deadline(description, by));
+        taskList.addTask(new Todo(description));
         ui.printTaskAddedMessage(taskList.getTaskList());
         storage.saveTasks(taskList.getTaskList());
     }

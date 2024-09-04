@@ -4,10 +4,21 @@ import bottle.Storage;
 import bottle.Ui;
 import bottle.task.TaskList;
 
-public class unMarkCommand extends Command {
+/**
+ * The type Un mark command.
+ */
+public class UnMarkCommand extends Command {
+    /**
+     * The Task index.
+     */
     private final int taskIndex;
 
-    public unMarkCommand(int taskIndex) {
+    /**
+     * Instantiates a new Un mark command.
+     *
+     * @param taskIndex the task index
+     */
+    public UnMarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 

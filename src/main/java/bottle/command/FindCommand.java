@@ -5,10 +5,21 @@ import bottle.Ui;
 import bottle.task.Task;
 import bottle.task.TaskList;
 
-public class findCommand extends Command{
+/**
+ * The type Find command.
+ */
+public class FindCommand extends Command {
+    /**
+     * The Filter string.
+     */
     private final String filterString;
 
-    public findCommand(String filterString) {
+    /**
+     * Instantiates a new Find command.
+     *
+     * @param filterString the filter string
+     */
+    public FindCommand(String filterString) {
         this.filterString = filterString;
     }
     @Override
