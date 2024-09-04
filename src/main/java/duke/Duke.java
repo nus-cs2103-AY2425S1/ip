@@ -26,12 +26,19 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
+        assert ui != null : "UI should be initialized";
+
         storage = new Storage(FILE_PATH);
+        assert storage != null : "Storage should be initialized";
+
         try {
             tasks = new TaskList(storage.load());
+            assert tasks != null : "Tasks should be loaded properly";
+
         } catch (IOException e) {
             ui.showError("Error loading tasks: " + e.getMessage());
             tasks = new TaskList();
+            assert tasks != null : "Tasks should be initialized even on loading failure";
         }
     }
 
@@ -46,7 +53,11 @@ public class Duke {
         while (isRunning) {
             try {
                 String input = ui.readCommand();
+                assert input != null && !input.trim().isEmpty() : "Input should not be null or empty";
+
                 Command command = Parser.parse(input);
+                assert command != null : "Parser should return a valid command"; 
+
                 command.execute(tasks, ui, storage);
                 isRunning = !command.isExit();
             } catch (EmptyDescriptionException | UnknownCommandException e) {
@@ -58,9 +69,12 @@ public class Duke {
     }
 
     public String getResponse(String input) {
+        assert input != null : "Input should not be null";
         try {
             // Parse and execute the command
             Command command = Parser.parse(input);
+            assert command != null : "Parser should return a valid command";
+            
             command.execute(tasks, ui, storage);
             return ui.getLastResponse(); // Assuming `Ui` captures the last response
         } catch (EmptyDescriptionException | UnknownCommandException e) {
@@ -78,6 +92,8 @@ public class Duke {
     // Add this method to check if Duke is running, adjust logic as necessary
     public boolean isRunning() {
         // Example logic, adjust as needed based on your application's requirements
+        boolean running = true;
+        assert running : "Duke should be running";
         return true;  // Assume Duke is always running for now
     }
     /**
