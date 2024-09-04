@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 public class Storage {
     private ArrayList<Task> store = new ArrayList<>();
-    Path filePath = Paths.get(".", "data", "data.txt");
+    private Path filePath = Paths.get(".", "data", "data.txt");
     public Storage() {
         try {
             Files.createDirectories(filePath.getParent());
