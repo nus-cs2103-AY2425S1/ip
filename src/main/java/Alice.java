@@ -29,16 +29,28 @@ public class Alice {
 
     public static void main(String[] args) {
         // create instance of Alice with loaded tasks
-        new Alice("data.txt").run();
+        new Alice("data.txt").start();
     }
 
     /**
      * Starts the program.
+     *
+     * @return the welcome message.
      */
-    public void run() {
-        ui.showWelcome();
-        ui.getInput();
-        ui.exitMessage();
-        storage.saveTasks(tasks);
+    public String start() {
+        return ui.showWelcomeMessage();
+    }
+
+    /**
+     * Returns Alice's response to the given input.
+     *
+     * @param input the user's input.
+     * @return Alice's response.
+     */
+    public String response(String input) {
+        if (input.equals("bye")) {
+            storage.saveTasks(tasks);
+        }
+        return ui.handleUserInput(input);
     }
 }

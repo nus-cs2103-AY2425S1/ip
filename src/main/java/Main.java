@@ -19,7 +19,9 @@ public class Main extends Application {
             AnchorPane anchorPane = fxmlLoader.load();
             Scene scene = new Scene(anchorPane);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setAlice(alice);
+            MainWindow window = fxmlLoader.getController();
+            window.setAlice(alice);
+            window.start();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

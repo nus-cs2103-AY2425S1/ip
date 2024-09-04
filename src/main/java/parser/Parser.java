@@ -2,6 +2,7 @@ package parser;
 
 import commands.Command;
 import exceptions.AliceException;
+import exceptions.FormatException;
 import exceptions.MissingArgumentException;
 import storage.TaskList;
 import tasks.Task;
@@ -12,7 +13,6 @@ import ui.Ui;
  * by activating TaskList and Ui.
  */
 public class Parser {
-    private boolean isBye;
     private final TaskList list;
     private final Ui ui;
 
@@ -23,7 +23,6 @@ public class Parser {
      * @param ui the ui for printing output to the terminal.
      */
     public Parser(TaskList list, Ui ui) {
-        isBye = false;
         this.list = list;
         this.ui = ui;
     }
@@ -32,56 +31,46 @@ public class Parser {
      * Parses user input, breaking down actions by commands.
      *
      * @param input the string to be parsed.
+     * @return response of Alice.
      * @throws AliceException if command is invalid, or if task number is invalid, or if task is missing arguments.
      */
-    public void parse(String input) throws AliceException {
+    public String parse(String input) throws AliceException {
         String[] result = input.split(" ", 2);
         Command command = Command.stringToCommand(result[0]);
-        Task addedTask = new Task("");
+        Task addedTask;
 
         switch (command) {
         case BYE:
-            isBye = true;
-            break;
+            return ui.showExitMessage();
         case LIST:
-            ui.printListedTasks(list.listTasks(), list.getSize());
-            break;
+            return ui.getListedTasks(list.listTasks(), list.getSize());
         case MARK:
             int taskNumber;
             try {
                 taskNumber = Integer.parseInt(result[1]);
             } catch (NumberFormatException e) {
-                System.out.println(result[1] + " is not a number!");
-                System.out.println("------------------------------------------");
-                break;
+                throw new FormatException(result[1]);
             }
             Task markTask = list.markTask(taskNumber);
-            ui.printHandleTaskMessage(markTask, "mark");
-            break;
+            return ui.getHandleTaskMessage(markTask, "mark");
         case UNMARK:
             int taskNum;
             try {
                 taskNum = Integer.parseInt(result[1]);
             } catch (NumberFormatException e) {
-                System.out.println(result[1] + " is not a number!");
-                System.out.println("------------------------------------------");
-                break;
+                throw new FormatException(result[1]);
             }
             Task unmarkTask = list.unmarkTask(taskNum);
-            ui.printHandleTaskMessage(unmarkTask, "unmark");
-            break;
+            return ui.getHandleTaskMessage(unmarkTask, "unmark");
         case DELETE:
             int taskNo;
             try {
                 taskNo = Integer.parseInt(result[1]);
             } catch (NumberFormatException e) {
-                System.out.println(result[1] + " is not a number!");
-                System.out.println("------------------------------------------");
-                break;
+                throw new FormatException(result[1]);
             }
             Task task = list.deleteTask(taskNo);
-            ui.printHandleTaskMessage(task, "delete", list.getSize());
-            break;
+            return ui.getHandleTaskMessage(task, "delete", list.getSize());
         case TODO:
             // result[1] contains description
             if (result.length != 2) {
@@ -116,21 +105,12 @@ public class Parser {
             addedTask = list.addTask(Command.EVENT, eventInfo);
             break;
         case FIND:
-            ui.printFilteredTasks(list.findTasks(result[1]));
-            break;
+            return ui.getFilteredTasks(list.findTasks(result[1]));
         default:
             throw new AliceException(input);
         }
-        if (command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT) {
-            ui.printHandleTaskMessage(addedTask, "add", list.getSize());
-        }
-    }
 
-    /**
-     * Returns whether the command is "bye".
-     * @return isBye
-     */
-    public boolean isBye() {
-        return this.isBye;
+        // prints task messages for todos, deadlines, and events
+        return ui.getHandleTaskMessage(addedTask, "add", list.getSize());
     }
 }
