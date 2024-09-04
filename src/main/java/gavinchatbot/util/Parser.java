@@ -59,11 +59,21 @@ public class Parser {
             return new FindCommand(find);
         } else {
             throw new GavinException("Invalid input!!! \n"
+                    + "\n"
                     + "To add a new task, please start with 'todo', 'deadline', or 'event'. \n"
+                    + "\n"
                     + "For deadlines, enter the task, followed with '/by YYYY-MM-DD'. \n"
+                    + "\n"
                     + "To view the list of tasks, please type 'list'. \n"
+                    + "\n"
+                    + "To search for tasks in the TaskList that contain the keyword, \n"
+                    + "\n"
+                    + "please type find, followed by the keyword"
+                    + "\n"
                     + "To mark/unmark the tasks, please type 'mark' or 'unmark' , followed by the index of the task. \n"
+                    + "\n"
                     + "To delete an existing task, please type 'delete' , followed by the index of the task. \n"
+                    + "\n"
                     + "To exit, please type 'bye'. ");
         }
     }
