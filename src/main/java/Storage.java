@@ -62,7 +62,8 @@ public class Storage {
                         task = new Deadline(taskComponents[2], LocalDate.parse(taskComponents[3]));
                         break;
                     case "E":
-                        task = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
+                        task = new Event(taskComponents[2], LocalDate.parse(taskComponents[3]),
+                                LocalDate.parse(taskComponents[4]));
                         break;
                     default:
                         break;
