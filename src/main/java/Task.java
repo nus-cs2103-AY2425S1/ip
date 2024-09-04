@@ -12,8 +12,12 @@ public abstract class Task {
         this.status = status;
     }
 
-    // mark as donw
-    public void isDone() {
+    public boolean isDone() {
+        return this.status;
+    }
+
+    // mark as done
+    public void markDone() {
         this.status = true;
     }
 
