@@ -38,8 +38,6 @@ public class Event extends Task {
         LocalDateTime endLocalDateTime = LocalDateTime.of(endLocalDate, endLocalTime);
         this.endLocalDateTime = endLocalDateTime;
 
-        this.start = start;
-        this.end = end;
     }
 
     @Override
