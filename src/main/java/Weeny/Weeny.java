@@ -8,17 +8,9 @@ import weeny.task.TaskList;
 import weeny.task.Task;
 import weeny.storage.Storage;
 import weeny.parser.Parser;
-import weeny.ui.DialogBox;
+import weeny.ui.WeenyGui;
 
-import javafx.scene.image.Image;
-import javafx.scene.layout.Region;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
@@ -28,19 +20,10 @@ import javafx.stage.Stage;
  * Manages user commands and handles tasks.
  */
 public class Weeny extends Application {
-
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
     private final Parser parser;
-
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     public Weeny() {
         ui = new Ui(); // UI for user interactions
@@ -58,87 +41,23 @@ public class Weeny extends Application {
         }
     }
 
-
     @Override
     public void start(Stage stage) {
-        ScrollPane scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        stage.setTitle("Duke");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        dialogContainer.getChildren().addAll(
-                DialogBox.getWeenyDialog(ui.showWelcomeMessage(), userImage)
-        );
-
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-
-        Scene scene = new Scene(mainLayout);
-        stage.setScene(scene);
-        stage.show();
+        WeenyGui weenyGui = new WeenyGui(this);
+        weenyGui.start(stage);
     }
 
-    private void handleUserInput() {
-        String userText = userInput.getText();
-        String weenyText = main(userText);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getWeenyDialog(weenyText, dukeImage)
-        );
-        userInput.clear();
-    }
 
     /**
      * Starts the Weeny application.
      * Initializes UI, storage, parser, and task list. Processes user commands.
      *
-     * @param args Command-line arguments (not used).
+     * @param input Command-line arguments (not used).
      */
-    public String main(String args) {
+    public String executeWeeny(String input) {
 
         boolean isFarewell = false;
-
         while (!isFarewell) {
-            String input = args;
             String command = parser.extractFirstWord(input);
 
             try {
@@ -202,17 +121,8 @@ public class Weeny extends Application {
                 return ui.showError(e.getMessage());
             }
         }
-        if (isFarewell == true) {
-            storage.saveTask("./Data/TaskList.txt", taskList.getTasks());
-        }
+        storage.saveTask("./Data/TaskList.txt", taskList.getTasks());
         return ui.showGoodbyeMessage();
-    }
-
-    /**
-     * Prints a separator line.
-     */
-    public static String stringLine() {
-        return "______________________________________________\n";
     }
 
     /**
