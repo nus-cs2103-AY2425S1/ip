@@ -88,6 +88,8 @@ public class Parser {
             System.out.println(ui.bye());
             this.isOver = true;
             break;
+        default:
+            throw new CommandNotFoundException(command);
         }
     }
 
@@ -97,6 +99,6 @@ public class Parser {
      * @return a boolean value depending on the command of the user
      */
     public boolean isOver() {
-            return this.isOver;
+        return this.isOver;
     }
 }
