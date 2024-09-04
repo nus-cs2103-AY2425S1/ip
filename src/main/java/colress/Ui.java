@@ -8,6 +8,7 @@ import java.util.Objects;
 import colress.command.AddCommand;
 import colress.command.Command;
 import colress.command.DateCommand;
+import colress.exception.EmptyInputException;
 import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
 
@@ -15,8 +16,6 @@ import colress.exception.UnknownTaskTypeException;
  * Represents the Ui of the Colress chatbot.
  */
 public final class Ui {
-    public static final String MESSAGE_FILE_CREATED_CONFIRMATION = "New task list file created.";
-    public static final String MESSAGE_FILE_EXISTS_CONFIRMATION = "Task list file exists. Retrieving file.";
     public static final String MESSAGE_GREETING = "Hello. My name is Colress.\n"
             + "What brings you here?";
     public static final String MESSAGE_LIST_EMPTY = "Your list is empty.";
@@ -33,7 +32,8 @@ public final class Ui {
     public static final String PROMPT_EVENT_START_TIME = "Enter the starting time of the event (in the form hh:mm).";
     public static final String PROMPT_KEYWORD = "Enter the keyword to find in the list.";
     public static final String PROMPT_TASK_DESCRIPTION = "Enter the description of the task.";
-    public static final String PROMPT_TASK_NUMBER = "Enter the task number.";
+    public static final String PROMPT_TASK_NUMBER = "Enter the task number."
+            + "You can enter multiple numbers with spaces between them";
     public static final String PROMPT_TASK_TYPE = "Enter the type of task you wish to add to your list.";
     private final Parser parser;
     private Status status;
@@ -109,6 +109,13 @@ public final class Ui {
     }
 
     /**
+     * Cancels current command and sets UI to receive another command.
+     */
+    public void processCancel() {
+        setStatus(Status.COMMAND);
+    }
+
+    /**
      * If the given TaskList is empty, return an empty list message.
      * Otherwise, set status of the UI to expect a keyword for the user's next input and returns a prompt to the user
      * for a keyword to find in the list of tasks.
@@ -123,13 +130,18 @@ public final class Ui {
 
     /**
      * Stores the keyword given by the user in the FindCommand Object and then executes the command.
-     *
+     * The method catches an EmptyInputException if user input is empty, and returns an error message to the user.
      * @param input The user input.
      * @param taskList The TaskList to print the list of tasks from.
      */
     public String processKeyword(String input, TaskList taskList) {
-        currCommand.initialise(input);
-        return currCommand.execute(this, taskList);
+        try {
+            input = parser.getString(input);
+            currCommand.initialise(input);
+            return currCommand.execute(this, taskList);
+        } catch (EmptyInputException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -178,24 +190,30 @@ public final class Ui {
      * Parses the user input using the Parser Object, and stores the task description given by the user in the
      * AddCommand Object. Checks the type of task to be added. If task type is a to-do, then call the AddCommand's
      * execute method. Else, return a prompt to the user for a date of the deadline or event.
+     * The method catches an EmptyInputException if user input is empty, and returns an error message to the user.
      *
      * @param input The user input.
      * @param taskList The TaskList to add the task to.
      */
     public String processDescription(String input, TaskList taskList) {
-        // A typecast is required here because not all command objects have the getTaskType method.
-        // The only command that will lead to this method being called is the AddCommand command.
-        // Therefore, this is a safe typecast.
-        AddCommand c = (AddCommand) currCommand;
-        c.initialise(input);
-        TaskType currTaskType = c.getTaskType();
-        switch (currTaskType) {
-        case TODO:
-            return c.execute(this, taskList);
-        case DEADLINE, EVENT:
-            return promptDate(currTaskType, taskList);
-        default:
-            return "There is an error. Try again.";
+        try {
+            // A typecast is required here because not all command objects have the getTaskType method.
+            // The only command that will lead to this method being called is the AddCommand command.
+            // Therefore, this is a safe typecast.
+            AddCommand c = (AddCommand) currCommand;
+            input = parser.getString(input);
+            c.initialise(input);
+            TaskType currTaskType = c.getTaskType();
+            switch (currTaskType) {
+            case TODO:
+                return c.execute(this, taskList);
+            case DEADLINE, EVENT:
+                return promptDate(currTaskType, taskList);
+            default:
+                return "There is an error. Try again.";
+            }
+        } catch (EmptyInputException e) {
+            return e.getMessage();
         }
     }
 
@@ -318,13 +336,14 @@ public final class Ui {
      */
     public String processTaskNumber(String input, TaskList taskList) {
         try {
-            int result = parser.getTaskNumber(input);
-            if (taskList.isOutOfBounds(result)) {
-                return MESSAGE_NOT_A_VALID_NUMBER_ERROR;
-            } else {
-                currCommand.initialise(result);
-                return currCommand.execute(this, taskList);
+            int[] result = parser.getTaskNumber(input);
+            for (int i: result) {
+                if (taskList.isOutOfBounds(i)) {
+                    return MESSAGE_NOT_A_VALID_NUMBER_ERROR;
+                }
             }
+            currCommand.initialise(result);
+            return currCommand.execute(this, taskList);
         } catch (NumberFormatException e) {
             return MESSAGE_NOT_A_VALID_NUMBER_ERROR;
         }

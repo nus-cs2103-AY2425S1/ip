@@ -24,7 +24,7 @@ public class ListCommand extends Command {
     }
     public void initialise(TaskType input) {
     }
-    public void initialise(int input) {
+    public void initialise(int... input) {
     }
     public void initialise(LocalDate input) {
     }

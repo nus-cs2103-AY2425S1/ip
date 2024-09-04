@@ -25,8 +25,8 @@ public final class TaskList {
     public boolean isOutOfBounds(int x) {
         return x > tasks.size();
     }
-    private String getCurrTask(int taskNumber) {
-        return taskNumber + ". " + tasks.get(taskNumber - 1);
+    private String getCurrTask(int index) {
+        return String.format("\n%d. " + tasks.get(index), index + 1);
     }
 
     /**
@@ -36,7 +36,7 @@ public final class TaskList {
      */
     public String addTask(Task task) {
         tasks.add(task);
-        return getCurrTask(tasks.size());
+        return getCurrTask(tasks.size() - 1);
     }
 
     /**
@@ -44,11 +44,15 @@ public final class TaskList {
      *
      * @return A string representation of the task that was marked done.
      */
-    public String checkTask(int taskNumber) {
+    public String checkTask(int... taskNumbers) {
         try {
-            Task task = tasks.get(taskNumber - 1);
-            task.check();
-            return getCurrTask(taskNumber);
+            String result = "";
+            for (int i: taskNumbers) {
+                Task task = tasks.get(i - 1);
+                task.check();
+                result += getCurrTask(i - 1);
+            }
+            return result;
         } catch (IndexOutOfBoundsException e) {
             return "";
         }
@@ -59,11 +63,15 @@ public final class TaskList {
      *
      * @return A string representation of the task that was marked not done.
      */
-    public String uncheckTask(int taskNumber) {
+    public String uncheckTask(int... taskNumbers) {
         try {
-            Task task = tasks.get(taskNumber - 1);
-            task.uncheck();
-            return getCurrTask(taskNumber);
+            String result = "";
+            for (int i: taskNumbers) {
+                Task task = tasks.get(i - 1);
+                task.uncheck();
+                result += getCurrTask(i - 1);
+            }
+            return result;
         } catch (IndexOutOfBoundsException e) {
             return "";
         }
@@ -72,9 +80,11 @@ public final class TaskList {
     /**
      * Facilitates removing the Task object that corresponds to the provided task number.
      */
-    public void deleteTask(int taskNumber) {
+    public void deleteTask(int... taskNumbers) {
         try {
-            tasks.remove(taskNumber - 1);
+            for (int i: taskNumbers) {
+                tasks.remove(i - 1);
+            }
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -90,7 +100,7 @@ public final class TaskList {
         }
 
         for (int i = 0; i < tasks.size(); i++) {
-            result += String.format("\n%d. " + tasks.get(i), i + 1);
+            result += getCurrTask(i);
         }
         return "Here is your list:" + result;
     }
@@ -109,7 +119,7 @@ public final class TaskList {
                 if (!currTask.fallsOnDate(date)) {
                     continue;
                 }
-                result += String.format("\n%d. " + tasks.get(i), i + 1);
+                result += getCurrTask(i);
             }
         }
 
@@ -133,7 +143,7 @@ public final class TaskList {
                 if (!currTask.containsInDescription(keyword)) {
                     continue;
                 }
-                result += String.format("\n%d. " + tasks.get(i), i + 1);
+                result += getCurrTask(i);
             }
         }
 

@@ -11,9 +11,9 @@ import colress.Ui;
  * Represents the check command that marks a task in the list of tasks as done.
  */
 public final class CheckCommand extends Command {
-    private int taskNumber;
+    private int[] taskNumbers;
     public CheckCommand() {
-        super("Sure. I have marked this task on your list as done:\n");
+        super("Sure. I have marked this task on your list as done:");
     }
 
     @Override
@@ -21,8 +21,8 @@ public final class CheckCommand extends Command {
         return ui.promptTaskNumber(taskList);
     }
 
-    public void initialise(int input) {
-        this.taskNumber = input;
+    public void initialise(int... input) {
+        this.taskNumbers = input;
     }
 
     public void initialise(String input) {
@@ -41,6 +41,6 @@ public final class CheckCommand extends Command {
     @Override
     public String execute(Ui ui, TaskList taskList) {
         return ui.printConfirmationMessage(taskList,
-                getSuccessfulExecutionMessage() + taskList.checkTask(taskNumber));
+                getSuccessfulExecutionMessage() + taskList.checkTask(taskNumbers));
     }
 }

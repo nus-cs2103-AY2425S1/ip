@@ -13,12 +13,21 @@ import colress.command.ExitCommand;
 import colress.command.FindCommand;
 import colress.command.ListCommand;
 import colress.command.UncheckCommand;
+import colress.exception.EmptyInputException;
 import colress.exception.UnknownCommandException;
 
 /**
  * Represents the Parser of the Ui of the Colress chatbot.
  */
 public final class Parser {
+    public static final String COMMAND_ADD = "add";
+    public static final String COMMAND_CHECK = "check";
+    public static final String COMMAND_DATE = "date";
+    public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_EXIT = "bye";
+    public static final String COMMAND_FIND = "find";
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_UNCHECK = "uncheck";
     public Parser() {}
 
     /**
@@ -27,21 +36,21 @@ public final class Parser {
      */
     public Command getCommand(String input) throws UnknownCommandException {
         switch (input.toLowerCase()) {
-        case "add":
+        case COMMAND_ADD:
             return new AddCommand();
-        case "check":
+        case COMMAND_CHECK:
             return new CheckCommand();
-        case "date":
+        case COMMAND_DATE:
             return new DateCommand();
-        case "delete":
+        case COMMAND_DELETE:
             return new DeleteCommand();
-        case "bye":
+        case COMMAND_EXIT:
             return new ExitCommand();
-        case "find":
+        case COMMAND_FIND:
             return new FindCommand();
-        case "list":
+        case COMMAND_LIST:
             return new ListCommand();
-        case "uncheck":
+        case COMMAND_UNCHECK:
             return new UncheckCommand();
         default:
             throw new UnknownCommandException();
@@ -76,7 +85,19 @@ public final class Parser {
      * Takes an input and returns the corresponding task number.
      * Throws a NumberFormatException if a number is not detected.
      */
-    public int getTaskNumber(String input) throws NumberFormatException {
-        return Integer.parseInt(input);
+    public int[] getTaskNumber(String input) throws NumberFormatException {
+        String[] inputs = input.split(" ");
+        int[] result = new int[inputs.length];
+        for (int i = 0; i < inputs.length; i++) {
+            result[i] = Integer.parseInt(inputs[i]);
+        }
+        return result;
+    }
+
+    public String getString(String input) throws EmptyInputException {
+        if (input.isEmpty()) {
+            throw new EmptyInputException();
+        }
+        return input;
     }
 }
