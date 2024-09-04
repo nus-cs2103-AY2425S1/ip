@@ -1,4 +1,4 @@
-package task;
+package maga.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

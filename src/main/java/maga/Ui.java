@@ -1,6 +1,7 @@
-import task.TaskList;
+package maga;
 
-import java.time.format.DateTimeParseException;
+import maga.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {

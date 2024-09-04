@@ -1,4 +1,4 @@
-package task;
+package maga.task;
 import java.io.*;
 
 public class TaskManager {

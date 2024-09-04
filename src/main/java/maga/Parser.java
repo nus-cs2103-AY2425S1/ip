@@ -1,4 +1,6 @@
-import task.TaskList;
+package maga;
+
+import maga.task.TaskList;
 
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -14,7 +16,7 @@ public class Parser {
 
     public void handleInput(String input) {
         while(!input.equalsIgnoreCase("bye")) {
-            // display task list
+            // display maga.task list
             input = input.toLowerCase();
             if(input.equals("list")) {
                 taskList.printTasks();
@@ -47,7 +49,7 @@ public class Parser {
                 try {
                     tempInt = Integer.parseInt(descrip);
                 } catch (Exception NumberFormatException) {
-                    System.out.println("You can only delete a task number! No one calls amendments by their names!!");
+                    System.out.println("You can only delete a maga.task number! No one calls amendments by their names!!");
                     input = scanner.nextLine();
                     continue;
                 }

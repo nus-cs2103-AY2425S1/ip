@@ -1,4 +1,4 @@
-package task;
+package maga.task;
 
 public class TodoTask extends Task {
     public TodoTask(String description) {

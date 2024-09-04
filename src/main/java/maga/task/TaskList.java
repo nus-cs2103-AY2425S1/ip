@@ -1,4 +1,4 @@
-package task;
+package maga.task;
 
 public class TaskList {
     private final Task[] taskList;
@@ -28,13 +28,13 @@ public class TaskList {
         Task tempTask = taskList[taskNumber];
         try {
             taskCount--;
-            System.out.print("I've deleted this task:\n" + tempTask.getTaskType() + tempTask.getStatusIcon() +
-                    tempTask.getDescription() + "\nYou have " + taskCount + " task(s) now!\n");
+            System.out.print("I've deleted this maga.task:\n" + tempTask.getTaskType() + tempTask.getStatusIcon() +
+                    tempTask.getDescription() + "\nYou have " + taskCount + " maga.task(s) now!\n");
             for (int i = taskCount; i < taskList.length - 2; i++) {
                 taskList[i] = taskList[i + 1];
             }
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid task specified!");
+            System.out.println("Invalid maga.task specified!");
             taskCount++;
         }
     }
@@ -42,7 +42,7 @@ public class TaskList {
     public void markTask(int taskNumber) {
         Task temp = taskList[taskNumber];
         if (temp == null) {
-            System.out.println("You're trying to mark a task that DOESN'T EXIST, like bad people on JAN 6. " +
+            System.out.println("You're trying to mark a maga.task that DOESN'T EXIST, like bad people on JAN 6. " +
                     "Some of the kindest and most lovely souls I've met");
         } else {
             temp.markAsDone();
@@ -58,7 +58,7 @@ public class TaskList {
                     " I'm president: NOT HERE!");
         } else {
             temp.markAsUndone();
-            System.out.println("Here's the task promised but not completed, just like the DEMS\n");
+            System.out.println("Here's the maga.task promised but not completed, just like the DEMS\n");
             System.out.println(temp.getStatusIcon() + temp.getDescription());
         }
     }
@@ -90,8 +90,8 @@ public class TaskList {
         try {
             taskList[taskCount] = task;
             taskCount++;
-            System.out.println("Another task for the American people added:\n" + task.getTaskType()
-                    + task.getStatusIcon() + task.getDescription() + "\nYou have " + taskCount + " task(s) now!");
+            System.out.println("Another maga.task for the American people added:\n" + task.getTaskType()
+                    + task.getStatusIcon() + task.getDescription() + "\nYou have " + taskCount + " maga.task(s) now!");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Tasklist is full!");
         }
@@ -101,8 +101,8 @@ public class TaskList {
         try {
             taskList[taskCount] = task;
             taskCount++;
-            System.out.println("Another task for the American people added:\n" + task.getTaskType()
-                    + task.getStatusIcon() + task.getDescription() + "\nYou have " + taskCount + " task(s) now!");
+            System.out.println("Another maga.task for the American people added:\n" + task.getTaskType()
+                    + task.getStatusIcon() + task.getDescription() + "\nYou have " + taskCount + " maga.task(s) now!");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Tasklist is full!");
         }

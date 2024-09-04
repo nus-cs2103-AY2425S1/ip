@@ -1,5 +1,7 @@
-import task.TaskList;
-import task.TaskManager;
+package maga;
+
+import maga.task.TaskList;
+import maga.task.TaskManager;
 
 public class Maga {
 

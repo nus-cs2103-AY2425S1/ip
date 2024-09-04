@@ -1,4 +1,4 @@
-package task;
+package maga.task;
 
 public abstract class Task {
     protected String description;
@@ -10,7 +10,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X] " : "[ ] "); // mark done task with X
+        return (isDone ? "[X] " : "[ ] "); // mark done maga.task with X
     }
 
     public void markAsDone() {
