@@ -1,4 +1,4 @@
-package FlyChat.Core;
+package flychat.core;
 
 import java.io.BufferedWriter;
 import java.io.File;

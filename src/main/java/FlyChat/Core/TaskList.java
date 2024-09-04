@@ -1,13 +1,13 @@
-package FlyChat.Core;
+package flychat.core;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
-import FlyChat.Tasks.Deadline;
-import FlyChat.Tasks.Event;
-import FlyChat.Tasks.Task;
-import FlyChat.Tasks.Todo;
+import flychat.tasks.Deadline;
+import flychat.tasks.Event;
+import flychat.tasks.Task;
+import flychat.tasks.Todo;
 
 public class TaskList {
     private ArrayList<Task> storageList;
@@ -23,7 +23,7 @@ public class TaskList {
             try {
                 Todo newToDo = Todo.createNewTodo(parser.getTaskDescription(inputString), false);
                 addToList(newToDo);
-                return "Task added:\n  " + newToDo + "\nNow you have " + storageList.size() 
+                return "Task added:\n  " + newToDo + "\nNow you have " + storageList.size()
                         + " tasks in the list. HAVE FUN ^o^";
             } catch(InputMismatchException e) {
                 return "Please ensure your todo has a description TT";
@@ -34,18 +34,18 @@ public class TaskList {
                 Event newEvent = Event.createNewEvent(parser.getTaskDescription(inputString), parser.getEventStartTime(inputString)
                         , parser.getEventEndTime(inputString), false);
                 addToList(newEvent);
-                return "Task added:\n  " + newEvent + "\nNow you have " + storageList.size() 
+                return "Task added:\n  " + newEvent + "\nNow you have " + storageList.size()
                         + " tasks in the list. HAVE FUN ^o^";
             } catch(InputMismatchException e) {
                 return "Please ensure your event has a description, a start and end time TT";
             }
-            
+
         } else {    /* remaining case is deadline task cases */
             try {
-                Deadline newDeadline = Deadline.createNewDeadline(parser.getTaskDescription(inputString), 
+                Deadline newDeadline = Deadline.createNewDeadline(parser.getTaskDescription(inputString),
                         parser.getDeadlineEndDate(inputString), false);
                 addToList(newDeadline);
-                return "Task added:\n  " + newDeadline + "\nNow you have " + storageList.size() 
+                return "Task added:\n  " + newDeadline + "\nNow you have " + storageList.size()
                         + " tasks in the list. HAVE FUN ^o^";
             } catch(InputMismatchException e) {
                 return e.getMessage();
@@ -77,14 +77,38 @@ public class TaskList {
     public String deleteTask(int index) throws IndexOutOfBoundsException{
         Task targetTask = storageList.get(index - 1);
         storageList.remove(targetTask);
-        return "Task removed:\n  " + targetTask + "\nNow you have " + storageList.size() 
+        return "Task removed:\n  " + targetTask + "\nNow you have " + storageList.size()
                 + " tasks in the list. SOLDIER ON! ^o^";
+    }
+
+    /**
+     * Finds tasks that contain the corresponding key word in their descriptions.
+     *
+     * @param keyWord
+     * @return String announcing results of the search.
+     */
+    public String find(String keyWord) {
+        int counter = 1;
+        String finalString = "Here are the matching tasks in your list:\n";
+
+        if (keyWord.equals("")) {
+            return finalString;
+        }
+
+        for (Task t : storageList) {
+            if (t.getDescription().contains(keyWord)) {
+                finalString += counter + ". " + t.toString() + "\n";
+                counter++;
+            }
+        }
+
+        return finalString;
     }
 
     public void addTaskFromFile(String str) throws IOException {
         boolean isCompleted = false;
         isCompleted = parser.checkTaskCompletedFromFile(str);
-        
+
         //format the task string properly using regex
         if (parser.getTaskTypeFromFile(str).equals("[T]")){
             //To-do case
@@ -102,7 +126,7 @@ public class TaskList {
             throw new IOException("Save file has been corrupted. Save progress will be reset");
         }
     }
-    
+
     public String formatSaveString() {
         String saveString = "";
         for (Task t : storageList) {

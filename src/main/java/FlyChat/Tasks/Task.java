@@ -1,4 +1,4 @@
-package FlyChat.Tasks;
+package flychat.tasks;
 
 /**
  * Represents the Tasks of the user.
@@ -9,7 +9,7 @@ public class Task {
 
     /**
      * Constructs a new Task object.
-     * 
+     *
      * @param description
      */
     public Task(String description) {
@@ -34,11 +34,15 @@ public class Task {
     /**
      * Generates a string containing the info for the task object in the
      * appropriate format for saving into the save file..
-     * 
+     *
      * @return Formatted string to be saved to the save file.
      */
     public String formatStringForSaving() {
         return toString();
+    }
+
+    public String getDescription() {
+        return text;
     }
 
     @Override

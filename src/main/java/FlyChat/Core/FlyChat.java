@@ -1,4 +1,4 @@
-package FlyChat.Core;
+package flychat.core;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -13,7 +13,7 @@ public class FlyChat {
     private static TaskList taskList = new TaskList();
     private static Parser parser = new Parser();
     private static boolean isChatOperational;
-    
+
     /**
      * Runs the FlyChat application.
      */
@@ -70,7 +70,7 @@ public class FlyChat {
                         ui.announceString("Please ensure that you typed the correct task number");
                     }
                 //when user types todo/deadline/event at the start, a new corresponding task is created
-                } else if (parser.parseCommand(inputString).equals("todo") 
+                } else if (parser.parseCommand(inputString).equals("todo")
                         || parser.parseCommand(inputString).equals("deadline")
                         || parser.parseCommand(inputString).equals("event")) {
                     ui.announceString(taskList.addTask(inputString));
@@ -81,6 +81,8 @@ public class FlyChat {
                     } catch (IndexOutOfBoundsException e) {
                         ui.announceString("Please ensure that you typed the correct task number");
                     }
+                } else if (parser.parseCommand(inputString).equals("find")) {
+                    ui.announceString(taskList.find(parser.getKeyWord(inputString)));
                 } else {
                     throw new InputMismatchException("Invalid input command");
                 }
@@ -92,6 +94,6 @@ public class FlyChat {
             System.out.println("Failed to scan input");
             throw new IOException("Failed to scan input");
         }
-        
+
     }
 }
