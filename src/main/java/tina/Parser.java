@@ -22,6 +22,7 @@ public class Parser {
      *
      * @param input The user input command for creating a task.
      * @param tasks The <code>TaskList</code> to which the parsed task will be added.
+     * @return A message confirming the task has been added to the <code>TaskList</code>.
      * @throws TinaException if the command is invalid or the description is missing.
      */
     private static String parseTask(String input, TaskList tasks) throws TinaException {
@@ -54,6 +55,7 @@ public class Parser {
      *
      * @param input The user input command.
      * @param tasks The <code>TaskList</code> on which the command will be executed.
+     * @return The result of the command, such as a confirmation message or a list of tasks.
      * @throws TinaException if the command is invalid, the index is missing, or the index format is incorrect.
      */
     public static String parseInput(String input, TaskList tasks) throws TinaException {
