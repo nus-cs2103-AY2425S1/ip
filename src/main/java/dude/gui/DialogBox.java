@@ -1,4 +1,4 @@
-package dude;
+package dude.gui;
 
 import java.io.IOException;
 import java.util.Collections;

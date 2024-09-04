@@ -1,7 +1,8 @@
-package dude;
+package dude.gui;
 
 import java.io.IOException;
 
+import dude.Dude;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -1,5 +1,6 @@
-package dude;
+package dude.gui;
 
+import dude.gui.Main;
 import javafx.application.Application;
 
 /**
