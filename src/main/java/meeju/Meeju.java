@@ -6,9 +6,11 @@ package meeju;
 public class Meeju {
 
     private static final String LINE_BREAK = "____________________________________________________________";
-    public static void main(String[] args) {
-        UserInteraction userInteraction = new UserInteraction();
 
+    private Storage storage = new Storage();
+    private TaskList taskList = new TaskList(storage);
+    private Parser parser = new Parser();
+    public static void main(String[] args) {
 
         String logo = " __  __ _____ _____    _ _   _\n"
                 + "|  \\/  | ____| ____|  | | | | |\n"
@@ -16,15 +18,9 @@ public class Meeju {
                 + "| |  | | |___| |__| |_| | |_| |\n"
                 + "|_|  |_|_____|_____\\___/ \\___/";
 
+    }
 
-
-        System.out.println(logo + "\n\t Meow!");
-        System.out.println(LINE_BREAK);
-        System.out.println(" Hello! I'm Meeju\n"
-                + " What can I do for you?");
-        System.out.println(LINE_BREAK);
-        userInteraction.interact();
-        GoodByeMessage.goodByeMessage();
-        System.out.println(Meeju.LINE_BREAK);
+    public String getResponse(String instruction) {
+        return parser.parse(taskList, instruction);
     }
 }

@@ -10,8 +10,9 @@ public class GoodByeMessage {
      * Prints out goodbye message before application terminates
      *
      */
-    public static void goodByeMessage() {
-        System.out.println(" Bye. Hope to see you again soon!");
+
+    public static String goodByeMessage() {
+        return " Bye. Hope to see you again soon!";
 
     }
 }
