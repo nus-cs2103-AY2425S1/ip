@@ -32,7 +32,7 @@ public class Kira {
         String line = "____________________________________________________________\n";
 
         System.out.println(line +
-                " Hello! I'm Kira.Kira\n" +
+                " Hello! I'm Kira\n" +
                 " What can I do for you?\n" +
                 line);
 
