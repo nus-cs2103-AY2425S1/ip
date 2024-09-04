@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
 
     private Colress colress;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private final Image colressImage = new Image(this.getClass().getResourceAsStream("/images/Colress.png"));
 
     @FXML
@@ -37,8 +37,7 @@ public class MainWindow extends AnchorPane {
         colress = c;
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(colress.greetUser(), colressImage),
-                DialogBox.getDukeDialog(colress.loadTasks(), colressImage),
-                DialogBox.getDukeDialog(colress.getTasks(), colressImage)
+                DialogBox.getDukeDialog(colress.loadTasks(), colressImage)
         );
     }
 

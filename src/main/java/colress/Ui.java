@@ -53,20 +53,6 @@ public final class Ui {
         return MESSAGE_GREETING;
     }
 
-    /**
-     * Prints a message to the user that reflects whether a new file has been created or if an existing file exists and
-     * tasks have been loaded.
-     *
-     * @param hasCreatedNewFile A boolean argument that reflects whether a new file has been created.
-     */
-    public String printLoadTaskStatus(boolean hasCreatedNewFile) {
-        if (hasCreatedNewFile) {
-            return MESSAGE_FILE_CREATED_CONFIRMATION;
-        } else {
-            return MESSAGE_FILE_EXISTS_CONFIRMATION;
-        }
-    }
-
     public void setStatus(Status status) {
         this.status = status;
     }

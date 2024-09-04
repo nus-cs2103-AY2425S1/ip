@@ -90,14 +90,12 @@ public final class Storage {
     }
 
     /**
-     * Facilitates loading the task from the file to the provided TaskList object, and returns a boolean that reflects
-     * whether a new file has been created or if there is an existing file.
+     * Facilitates loading the task from the file to the provided TaskList object.
      * The method throws a FileCorruptedException if there are error reading the file.
      */
-    public boolean loadTasks(TaskList taskList) throws IOException, FileCorruptedException {
-        boolean createdNewFile = taskFile.createNewFile();
+    public void loadTasks(TaskList taskList) throws IOException, FileCorruptedException {
+        taskFile.createNewFile();
         repopulateTasks(taskList);
-        return createdNewFile;
     }
 
     private void initialiseFileWriter() throws IOException {

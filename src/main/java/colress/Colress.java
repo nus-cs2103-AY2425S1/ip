@@ -46,7 +46,8 @@ public final class Colress {
 
     public String loadTasks() {
         try {
-            return ui.printLoadTaskStatus(storage.loadTasks(taskList));
+            storage.loadTasks(taskList);
+            return getTasks();
         } catch (FileCorruptedException e) {
             return e.getMessage();
         } catch (IOException e) {

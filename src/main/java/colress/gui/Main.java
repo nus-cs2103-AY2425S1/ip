@@ -6,6 +6,7 @@ import colress.Colress;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -22,7 +23,13 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Colress");
             stage.setScene(scene);
+            stage.setMinHeight(300);
+            stage.setMinWidth(450);
+
+            Image image = new Image("/images/Colress.png");
+            stage.getIcons().add(image);
             fxmlLoader.<MainWindow>getController().setColress(colress);
             stage.show();
         } catch (IOException e) {
