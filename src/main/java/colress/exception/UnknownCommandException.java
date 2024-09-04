@@ -15,7 +15,8 @@ public class UnknownCommandException extends Exception {
                 list: print out your list of tasks.
                 date: print out deadlines and events that occur on a specified date.
                 find: print out tasks that contain a specified keyword.
-                bye: bid me farewell."""
+                bye: bid me farewell.
+                Please try again."""
         );
     }
 }

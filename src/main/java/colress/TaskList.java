@@ -92,12 +92,7 @@ public final class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             result += String.format("\n%d. " + tasks.get(i), i + 1);
         }
-
-        if (result.isEmpty()) {
-            return result;
-        } else {
-            return "Here is your list:" + result;
-        }
+        return "Here is your list:" + result;
     }
 
     /**

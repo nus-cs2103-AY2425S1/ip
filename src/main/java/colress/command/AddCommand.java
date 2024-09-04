@@ -49,7 +49,8 @@ public final class AddCommand extends Command {
         }
     }
 
-    public void initialise(int input) {}
+    public void initialise(int input) {
+    }
 
     public TaskType getTaskType() {
         return taskType;

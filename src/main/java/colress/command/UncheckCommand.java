@@ -25,10 +25,14 @@ public final class UncheckCommand extends Command {
         this.taskNumber = input;
     }
 
-    public void initialise(String input) {}
-    public void initialise(TaskType input) {}
-    public void initialise(LocalDate input) {}
-    public void initialise(LocalTime input) {}
+    public void initialise(String input) {
+    }
+    public void initialise(TaskType input) {
+    }
+    public void initialise(LocalDate input) {
+    }
+    public void initialise(LocalTime input) {
+    }
 
     /**
      * Facilitates marking a task in the provided TaskList as not done, using the provided Ui object to receive input

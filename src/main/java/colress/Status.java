@@ -1,5 +1,8 @@
 package colress;
 
+/**
+ * Enumeration for the various statuses the Colress UI can have.
+ */
 public enum Status {
     COMMAND,
     TASKTYPE,
@@ -8,5 +11,6 @@ public enum Status {
     STARTTIME,
     ENDTIME,
     TASKNUMBER,
-    KEYWORD
+    KEYWORD,
+    WRITE
 }

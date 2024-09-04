@@ -21,11 +21,16 @@ public final class ExitCommand extends Command {
         return execute(ui, taskList);
     }
 
-    public void initialise(String input) {}
-    public void initialise(TaskType input) {}
-    public void initialise(int input) {}
-    public void initialise(LocalDate input) {}
-    public void initialise(LocalTime input) {}
+    public void initialise(String input) {
+    }
+    public void initialise(TaskType input) {
+    }
+    public void initialise(int input) {
+    }
+    public void initialise(LocalDate input) {
+    }
+    public void initialise(LocalTime input) {
+    }
 
     /**
      * Facilitates exiting the program by calling the exit method of the provided Ui object. The provided TaskList

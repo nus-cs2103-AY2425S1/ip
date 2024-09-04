@@ -25,10 +25,14 @@ public final class DeleteCommand extends Command {
         this.taskNumber = input;
     }
 
-    public void initialise(String input) {}
-    public void initialise(TaskType input) {}
-    public void initialise(LocalDate input) {}
-    public void initialise(LocalTime input) {}
+    public void initialise(String input) {
+    }
+    public void initialise(TaskType input) {
+    }
+    public void initialise(LocalDate input) {
+    }
+    public void initialise(LocalTime input) {
+    }
 
     /**
      * Facilitates removing a task from the provided TaskList, using the provided Ui object to receive input

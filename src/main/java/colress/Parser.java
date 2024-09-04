@@ -49,7 +49,7 @@ public final class Parser {
     }
 
     /**
-     * Reads user input and returns the corresponding task type.
+     * Takes an input and returns the corresponding task type.
      * Throws an UnknownTaskTypeException if an invalid task type is detected.
      */
     public TaskType getTaskType(String input) throws IllegalArgumentException {
@@ -57,7 +57,7 @@ public final class Parser {
     }
 
     /**
-     * Reads user input and returns the corresponding LocalDate object.
+     * Takes an input and returns the corresponding LocalDate object.
      * Throws a DateTimeParseException if an invalid task type is detected.
      */
     public LocalDate readDate(String input) throws DateTimeParseException {
@@ -65,7 +65,7 @@ public final class Parser {
     }
 
     /**
-     * Reads user input and returns the corresponding LocalTime object.
+     * Takes an input and returns the corresponding LocalTime object.
      * Throws a DateTimeParseException if an invalid task type is detected.
      */
     public LocalTime readTime(String input) throws DateTimeParseException {
@@ -73,10 +73,10 @@ public final class Parser {
     }
 
     /**
-     * Reads user input and returns the corresponding task number.
+     * Takes an input and returns the corresponding task number.
      * Throws a NumberFormatException if a number is not detected.
      */
-    public int getTaskNumber(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
+    public int getTaskNumber(String input) throws NumberFormatException {
         return Integer.parseInt(input);
     }
 }

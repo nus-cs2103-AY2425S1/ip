@@ -20,11 +20,16 @@ public class ListCommand extends Command {
         return execute(ui, taskList);
     }
 
-    public void initialise(String input) {}
-    public void initialise(TaskType input) {}
-    public void initialise(int input) {}
-    public void initialise(LocalDate input) {}
-    public void initialise(LocalTime input) {}
+    public void initialise(String input) {
+    }
+    public void initialise(TaskType input) {
+    }
+    public void initialise(int input) {
+    }
+    public void initialise(LocalDate input) {
+    }
+    public void initialise(LocalTime input) {
+    }
 
     /**
      * Facilitates listing all tasks in the provided TaskList object, and using the provided Ui object to print the

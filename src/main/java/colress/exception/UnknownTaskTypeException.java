@@ -10,7 +10,8 @@ public class UnknownTaskTypeException extends Exception {
                 Here are the task types I recognise:
                 todo: add a new task item to your list.
                 deadline: add a new task item with a deadline to your list.
-                event: add a new event to your list."""
+                event: add a new event to your list.
+                Please try again."""
         );
     }
 }

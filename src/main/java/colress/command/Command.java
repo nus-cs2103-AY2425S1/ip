@@ -22,7 +22,6 @@ public abstract class Command {
     }
 
     public abstract String start(Ui ui, TaskList taskList);
-
     public abstract void initialise(String input);
     public abstract void initialise(TaskType input);
     public abstract void initialise(int input);

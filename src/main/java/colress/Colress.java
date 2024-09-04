@@ -61,7 +61,9 @@ public final class Colress {
     public String getResponse(String input) {
         try {
             String result = ui.processInput(input, taskList);
-            storage.writeToTaskFile(taskList);
+            if (ui.getStatus() == Status.WRITE) {
+                storage.writeToTaskFile(taskList);
+            }
             return result;
         } catch (IOException e) {
             return "There is an error. Try again.";
