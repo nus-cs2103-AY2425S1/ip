@@ -4,6 +4,13 @@ import ipman.models.Task;
 import ipman.models.TaskList;
 import ipman.ui.Ui;
 
+/**
+ * Deletes a <code>Task</code> inside <code>Context</code>'s
+ * <code>TaskList</code>
+ * @see Task
+ * @see Context
+ * @see TaskList
+ */
 public class DeleteCommand implements Command {
     private final int taskIndex;
 
