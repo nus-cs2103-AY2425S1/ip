@@ -1,17 +1,27 @@
-package chatbot.views;
+package chatbot;
+
+import java.io.IOException;
 
 import chatbot.logic.Bobby;
+import chatbot.views.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
+/**
+ * Represents the chatbot application
+ */
 public class Main extends Application {
+    /** Represents the chatbot logic */
     private Bobby bobby = new Bobby();
 
+    /**
+     * Sets the appropriate scene and shows the stage
+     *
+     * @param stage the primary stage for this application
+     */
     @Override
     public void start(Stage stage) {
         try {

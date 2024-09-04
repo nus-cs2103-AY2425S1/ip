@@ -46,13 +46,17 @@ public class TaskList {
     }
 
     /**
-     * Prints the string representation of the Task List
+     * Lists the task list out
+     *
+     * @return the String representation of the task list
      */
-    public void listTasks() {
-        System.out.println("Here are the tasks in your list: ");
+    public String listTasks() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + ". " + tasks.get(i));
+            sb.append(i + 1 + ". " + tasks.get(i) + "\n");
         }
+        return sb.toString();
     }
 
     /**
@@ -60,44 +64,53 @@ public class TaskList {
      *
      * @param idx Index of the task to be modified
      * @param state Boolean value representing whether the task is complete
+     * @return The bot's response to marking a task
      * @throws InvalidIndexException Exception thrown if the index specified is invalid
      */
-    public void mark(int idx, boolean state) throws InvalidIndexException {
+    public String mark(int idx, boolean state) throws InvalidIndexException {
         this.get(idx).setIsDone(state);
+        StringBuilder sb = new StringBuilder();
         if (state) {
-            System.out.println("Nice! I've marked this task as done: ");
+            sb.append("Nice! I've marked this task as done:\n");
         } else {
-            System.out.println("Ok, I've marked this task as not done yet: ");
+            sb.append("Ok, I've marked this task as not done yet:\n");
         }
-        System.out.println(this.get(idx));
+        sb.append(this.get(idx) + "\n");
+        return sb.toString();
     }
 
     /**
      * Removes a task from the task list
      *
      * @param idx Index of the task to be removed
+     * @return The bot's response to removing a task
      * @throws InvalidIndexException Exception thrown if the index specified is invalid
      */
-    public void remove(int idx) throws InvalidIndexException {
+    public String remove(int idx) throws InvalidIndexException {
         if (idx >= this.tasks.size() || idx < 0) {
             throw new InvalidIndexException();
         }
         Task deleted = this.tasks.remove(idx);
-        System.out.println("Got it. I've removed this task: ");
-        System.out.println(deleted);
-        System.out.println("Now you have " + this.tasks.size() + " tasks in the list");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it. I've removed this task:\n");
+        sb.append(deleted + "\n");
+        sb.append("Now you have " + this.tasks.size() + " tasks in the list\n");
+        return sb.toString();
     }
 
     /**
      * Adds a task to back of the task list
      *
      * @param newTask Task to be added to the task list
+     * @return The bot's response to adding a task
      */
-    public void add(Task newTask) {
+    public String add(Task newTask) {
         this.tasks.add(newTask);
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(newTask);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it. I've added this task:\n");
+        sb.append(newTask);
+        sb.append("Now you have " + tasks.size() + " tasks in the list\n");
+        return sb.toString();
     }
 
     /**
@@ -105,14 +118,17 @@ public class TaskList {
      * Query is not strict, so it does not consider capitalisation
      *
      * @param query String containing the user's query
+     * @return The bot's response to attempting a query
      */
-    public void find(String query) {
-        System.out.println("Here are the tasks matching your query:");
+    public String find(String query) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks matching your query:\n");
         for (int i = 0; i < this.tasks.size(); i++) {
             Task task = this.tasks.get(i);
             if (task.getName().toLowerCase().contains(query.toLowerCase())) {
-                System.out.println(i + 1 + ". " + task);
+                sb.append(i + 1 + ". " + task + "\n");
             }
         }
+        return sb.toString();
     }
 }

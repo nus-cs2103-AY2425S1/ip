@@ -49,58 +49,61 @@ public class Parser {
      * @param s User's instruction string
      * @param taskList TaskList object as encapsulated by the Bobby class
      * @param storage Storage object as encapsulated by the Bobby class
-     * @param ui Ui object as encapsulated by the Bobby class
+     * @return A string representation of the chatbot's reply to the command
      * @throws InputException Exception thrown if instruction is not of the correct format
      */
-    public static void processInput(String s, TaskList taskList, Storage storage, Ui ui) throws InputException {
+    public static String processInput(String s, TaskList taskList, Storage storage) throws InputException {
         String[] inputArr = s.split(" ", 2);
         String command = inputArr[0];
         switch (command) {
         case "bye" -> {
-            ui.endRun();
-            System.out.println("Bye. Hope to see you again soon!");
+            return "Bye. Hope to see you again soon!";
         }
         case "list" -> {
-            taskList.listTasks();
+            return taskList.listTasks();
         }
         case "mark" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
             int idx = Integer.parseInt(inputArr[1]) - 1;
-            taskList.mark(idx, true);
+            String str = taskList.mark(idx, true);
             storage.writeToFile(taskList);
+            return str;
         }
         case "unmark" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
             int idx = Integer.parseInt(inputArr[1]) - 1;
-            taskList.mark(idx, false);
+            String str = taskList.mark(idx, false);
             storage.writeToFile(taskList);
+            return str;
         }
         case "find" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
             String query = inputArr[1];
-            taskList.find(query);
+            return taskList.find(query);
         }
         case "delete" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
             int idx = Integer.parseInt(inputArr[1]) - 1;
-            taskList.remove(idx);
+            String str = taskList.remove(idx);
             storage.writeToFile(taskList);
+            return str;
         }
         case "todo" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
                 throw new EmptyArgsException();
             }
             Task newTask = new Todo(inputArr[1]);
-            taskList.add(newTask);
+            String str = taskList.add(newTask);
             storage.writeToFile(taskList);
+            return str;
         }
         case "deadline" -> {
             if (inputArr.length == 1 || inputArr[1].trim().isEmpty()) {
@@ -121,11 +124,11 @@ public class Parser {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 Task newTask = new Deadline(name, LocalDateTime.parse(deadline, formatter));
-                taskList.add(newTask);
+                String str = taskList.add(newTask);
                 storage.writeToFile(taskList);
+                return str;
             } catch (DateTimeParseException e) {
-                System.out.println(
-                        "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format");
+                return "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format";
             }
         }
         case "event" -> {
@@ -156,11 +159,11 @@ public class Parser {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 Task newTask = new Event(name, LocalDateTime.parse(from, formatter),
                         LocalDateTime.parse(to, formatter));
-                taskList.add(newTask);
+                String str = taskList.add(newTask);
                 storage.writeToFile(taskList);
+                return str;
             } catch (DateTimeParseException e) {
-                System.out.println(
-                        "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format");
+                return "Error: Unable to parse datetime. Enter date time in yyyy-MM-dd HH:mm format";
             }
         }
         default -> throw new InvalidCommandException();
