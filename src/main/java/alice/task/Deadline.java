@@ -13,6 +13,11 @@ import alice.parser.TaskParser;
 public class Deadline extends Task {
     private LocalDateTime by;
 
+    /**
+     * Creates a deadline.
+     *
+     * @throws InvalidTaskException if the input line is invalid
+     */
     public Deadline(String line) throws InvalidTaskException {
         super(line);
 
@@ -43,6 +48,11 @@ public class Deadline extends Task {
         return String.format("{%s}", String.join(", ", keyValuePairs));
     }
 
+    /**
+     * Creates a task from a given JSON string.
+     *
+     * @param jsonString input string
+     */
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
         Map<String, String> arguments = TaskParser.parseJsonString(jsonString);
         String inputLine = String.format(

@@ -6,6 +6,7 @@ import alice.storage.TaskList;
 import alice.task.Task;
 import alice.ui.Ui;
 
+/** Command to find task. */
 public class FindTask extends Command {
     public FindTask(Ui ui, TaskList taskList) {
         super(ui, taskList);
@@ -13,7 +14,7 @@ public class FindTask extends Command {
 
     /**
      * Finds tasks which contain a given keyword.
-     * 
+     *
      * @param  line the input line from the user
      */
     @Override

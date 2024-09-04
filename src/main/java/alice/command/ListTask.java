@@ -6,6 +6,7 @@ import alice.storage.TaskList;
 import alice.task.Task;
 import alice.ui.Ui;
 
+/** Command to list tasks. */
 public class ListTask extends Command {
     public ListTask(Ui ui, TaskList taskList) {
         super(ui, taskList);
@@ -13,7 +14,7 @@ public class ListTask extends Command {
 
     /**
      * Lists current tasks.
-     * 
+     *
      * Input should be: list
      *
      * @param line the input line from the user

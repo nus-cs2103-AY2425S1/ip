@@ -12,6 +12,9 @@ public class TaskList {
     private final Storage storage;
     private List<Task> tasks;
 
+    /**
+     * Creates a list to manage tasks.
+     */
     public TaskList(Storage storage) {
         this.storage = storage;
         try {
@@ -23,7 +26,7 @@ public class TaskList {
 
     /**
      * Basic getter for tasks.
-     * 
+     *
      * @return the current list of tasks
      */
     public List<Task> getTasks() {
@@ -32,7 +35,7 @@ public class TaskList {
 
     /**
      * Adds task to list and saves to disk.
-     * 
+     *
      * @param  task        the task to add
      * @throws IOException if the tasks cannot be saved
      */
@@ -43,10 +46,10 @@ public class TaskList {
 
     /**
      * Deletes a task from the list and saves to disk.
-     * 
+     * \
      * @param  index       the 0-based index of the task to delete
-     * @throws IOException if the tasks cannot be saved
      * @return             the deleted task
+     * @throws IOException if the tasks cannot be saved
      */
     public Task deleteTask(int index) throws IOException {
         Task removedTask = tasks.remove(index);
@@ -56,10 +59,10 @@ public class TaskList {
 
     /**
      * Marks a task as complete and saves to disk.
-     * 
+     *
      * @param  index       the 0-based index of the task to mark
-     * @throws IOException if the tasks cannot be saved
      * @return             the marked task
+     * @throws IOException if the tasks cannot be saved
      */
     public Task markTask(int index) throws IOException {
         tasks.get(index).setCompletion(true);
@@ -69,10 +72,10 @@ public class TaskList {
 
     /**
      * Marks a task as incomplete and saves to disk.
-     * 
+     *
      * @param  index       the 0-based index of the task to unmark
-     * @throws IOException if the tasks cannot be saved
      * @return             the marked task
+     * @throws IOException if the tasks cannot be saved
      */
     public Task unmarkTask(int index) throws IOException {
         tasks.get(index).setCompletion(false);
@@ -82,10 +85,10 @@ public class TaskList {
 
     /**
      * Loads stored tasks from disk.
-     * 
-     * @throws IOException          if the stored file cannot be read
-     * @throws InvalidTaskException if there are errors in parsing the stored task
+     *
      * @return                      the list of stored tasks
+     * @throws InvalidTaskException if there are errors in parsing the stored task
+     * @throws IOException          if the stored file cannot be read
      */
     private List<Task> loadTasks() throws IOException, InvalidTaskException {
         return storage.loadTasks();
@@ -93,7 +96,7 @@ public class TaskList {
 
     /**
      * Finds tasks which contain a given keyword.
-     * 
+     *
      * @param  keyword the keyword to search for
      * @return         the tasks which contain the keyword
      */
@@ -109,7 +112,7 @@ public class TaskList {
 
     /**
      * Save tasks to disk to persist data.
-     * 
+     *
      * @throws IOException if the stored file cannot be written to
      */
     private void saveTasks() throws IOException {

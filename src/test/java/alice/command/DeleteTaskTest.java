@@ -1,9 +1,10 @@
 package alice.command;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
 
 import alice.storage.Storage;

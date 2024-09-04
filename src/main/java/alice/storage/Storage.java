@@ -17,6 +17,12 @@ public class Storage {
     private final String dataDirectoryPath;
     private final String tasksFileName;
 
+    /**
+     * Creates a storage class to manage read from/write to disk.
+     *
+     * @param dataDirectoryPath directory of stored logs
+     * @param tasksFileName     this is exactly what it sounds like
+     */
     public Storage(String dataDirectoryPath, String tasksFileName) {
         this.dataDirectoryPath = dataDirectoryPath;
         this.tasksFileName = tasksFileName;
@@ -24,10 +30,10 @@ public class Storage {
 
     /**
      * Loads stored tasks from disk.
-     * 
-     * @throws IOException          if the stored file cannot be read
-     * @throws InvalidTaskException if there are errors in parsing the stored task
+     *
      * @return                      the list of stored tasks
+     * @throws InvalidTaskException if there are errors in parsing the stored task
+     * @throws IOException          if the stored file cannot be read
      */
     public List<Task> loadTasks() throws IOException, InvalidTaskException {
         File dataDirectory = new File(dataDirectoryPath);
@@ -54,7 +60,7 @@ public class Storage {
 
     /**
      * Save tasks to disk to persist data.
-     * 
+     *
      * @throws IOException if the stored file cannot be written to
      */
     public void saveTasks(List<Task> tasks) throws IOException {

@@ -6,6 +6,7 @@ import alice.storage.TaskList;
 import alice.task.Task;
 import alice.ui.Ui;
 
+/** Command to mark task. */
 public class MarkTask extends Command {
     public MarkTask(Ui ui, TaskList taskList) {
         super(ui, taskList);
@@ -13,7 +14,7 @@ public class MarkTask extends Command {
 
     /**
      * Marks a task as complete.
-     * 
+     *
      * Input should be: mark &lt;task number&gt;
      *
      * @param line the input line from the user

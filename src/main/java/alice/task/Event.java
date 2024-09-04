@@ -14,6 +14,11 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
+    /**
+     * Creates an event.
+     *
+     * @throws InvalidTaskException if the input line is invalid`
+     */
     public Event(String line) throws InvalidTaskException {
         super(line);
 
@@ -53,6 +58,11 @@ public class Event extends Task {
         return String.format("{%s}", String.join(", ", keyValuePairs));
     }
 
+    /**
+     * Creates a task from a given JSON string.
+     *
+     * @param jsonString input string
+     */
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
         Map<String, String> arguments = TaskParser.parseJsonString(jsonString);
         String inputLine = String.format(

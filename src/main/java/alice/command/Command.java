@@ -3,6 +3,7 @@ package alice.command;
 import alice.storage.TaskList;
 import alice.ui.Ui;
 
+/** Commands for all actions. */
 public abstract class Command {
     /** Actions which the user can take. */
     private enum Action {
@@ -36,9 +37,9 @@ public abstract class Command {
      */
     public static Command fromInput(String line, Ui ui, TaskList taskList) throws IllegalArgumentException {
         String input = line.toUpperCase();
-        if (input.startsWith(Action.TODO.name()) ||
-            input.startsWith(Action.DEADLINE.name()) ||
-            input.startsWith(Action.EVENT.name())) {
+        if (input.startsWith(Action.TODO.name())
+                || input.startsWith(Action.DEADLINE.name())
+                || input.startsWith(Action.EVENT.name())) {
             return new AddTask(ui, taskList);
         }
 

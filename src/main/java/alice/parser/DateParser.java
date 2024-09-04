@@ -16,13 +16,13 @@ public class DateParser {
     /**
      * Parses a datetime in yyyy-MM-dd HH:mm, yyyy-MM-dd HHmm,
      * dd-MM-yyyy HH:mm or dd-MM-yyyy HHmm format.
-     * 
+     *
      * @param  dateString             the date string to parse
-     * @throws DateTimeParseException if the date string is not well=formed
      * @return                        the parsed LocalDateTime
+     * @throws DateTimeParseException if the date string is not well=formed
      */
     public static LocalDateTime parseDateString(String dateString) throws DateTimeParseException {
-        for (DateTimeFormatter formatter :  DATETIME_FORMATTERS) {
+        for (DateTimeFormatter formatter : DATETIME_FORMATTERS) {
             try {
                 return LocalDateTime.parse(dateString, formatter);
             } catch (DateTimeParseException exception) {
@@ -33,9 +33,9 @@ public class DateParser {
     }
 
     /**
-     * Converts a datetime to string 
+     * Converts a datetime to string
      * in yyyy-MM-dd HH:mm format.
-     * 
+     *
      * @param  datetime the datetime to convert
      * @return          the formatted datetime string
      */

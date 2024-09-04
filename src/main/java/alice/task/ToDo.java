@@ -8,6 +8,11 @@ import alice.parser.TaskParser;
 
 /** Basic task with no time constraints. */
 public class ToDo extends Task {
+    /**
+     * Creates a to-do and marks it as incomplete.
+     *
+     * @throws InvalidTaskException if the input line is invalid
+     */
     public ToDo(String line) throws InvalidTaskException {
         super(line);
     }
@@ -26,6 +31,11 @@ public class ToDo extends Task {
         return String.format("{%s}", String.join(", ", keyValuePairs));
     }
 
+    /**
+     * Creates a task from a given JSON string.
+     *
+     * @param jsonString input string
+     */
     public static Task fromJsonString(String jsonString) throws InvalidTaskException {
         Map<String, String> arguments = TaskParser.parseJsonString(jsonString);
         String inputLine = String.format("toDo %s", arguments.get("description"));

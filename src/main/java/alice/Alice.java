@@ -7,6 +7,7 @@ import alice.storage.Storage;
 import alice.storage.TaskList;
 import alice.ui.Ui;
 
+/** Handles input/event loop. */
 public class Alice {
     private static final String NAME = "Alice";
     private static final String DATA_DIRECTORY_PATH = "./data";
@@ -16,6 +17,9 @@ public class Alice {
     private final Storage storage;
     private final TaskList taskManager;
 
+    /**
+     * Creates an instance of the chatbot.
+     */
     public Alice() {
         this.ui = new Ui();
         this.storage = new Storage(DATA_DIRECTORY_PATH, TASKS_FILE_NAME);

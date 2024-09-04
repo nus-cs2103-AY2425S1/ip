@@ -10,6 +10,7 @@ import alice.task.Task;
 import alice.task.ToDo;
 import alice.ui.Ui;
 
+/** Command to add task. */
 public class AddTask extends Command {
     public AddTask(Ui ui, TaskList taskList) {
         super(ui, taskList);
@@ -18,14 +19,14 @@ public class AddTask extends Command {
     /**
      * Adds a task to the taskList.
      * Can be TODO, DEADLINE or EVENT.
-     * 
+     *
      * Input should be: &lt;task type&gt; &lt;description&gt; &lt;flags&gt;
      *
      * @param line the input line from the user
      */
     @Override
     public void execute(String line) {
-        Task.TaskType taskType = Task.TaskType.valueOf(line.split(" ")[0].toUpperCase());        
+        Task.TaskType taskType = Task.TaskType.valueOf(line.split(" ")[0].toUpperCase());
         Task task;
         try {
             switch (taskType) {

@@ -11,10 +11,10 @@ public class TaskParser {
      * Parses the description argument in a command.
      * This refers to the text after the command verb
      * but before the first slash flag argument.
-     * 
+     *
      * @param  line                     the input line from the user
-     * @throws IllegalArgumentException if the input line is not well-formed
      * @return                          the description
+     * @throws IllegalArgumentException if the input line is not well-formed
      */
     public static String parseDescription(String line) throws IllegalArgumentException {
         String[] tokens = line.split(" ", 2);
@@ -28,7 +28,7 @@ public class TaskParser {
     /**
      * Parses the slash flag arguments.
      * Each flag has a key and a value.
-     * 
+     *
      * @param  line the input line from the user
      * @return      the map of key-value pairs for each argument
      */
@@ -51,7 +51,7 @@ public class TaskParser {
 
     /**
      * Parses the key-value pairs from a JSON string.
-     * 
+     *
      * @param  jsonString the JSON string to parse
      * @return            the map of key-value pairs for each argument
      */
