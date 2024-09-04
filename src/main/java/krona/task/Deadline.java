@@ -9,8 +9,8 @@ import java.time.format.DateTimeParseException;
  * can input date and time.
  */
 public class Deadline extends Task {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected LocalDateTime dateTime;
-    protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * Contructs a new Deadline task.
@@ -34,6 +34,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
     }
 }

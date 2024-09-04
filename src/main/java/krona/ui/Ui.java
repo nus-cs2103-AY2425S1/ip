@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import javafx.application.Platform;
 import javafx.stage.Stage;
-
 import krona.task.TaskList;
 
 
@@ -58,7 +57,7 @@ public class Ui {
      * @param tasks The TaskList containing the tasks to be displayed.
      */
     public void showTaskList(TaskList tasks) {
-        StringBuilder message = new StringBuilder();  // StringBuilder to accumulate messages
+        StringBuilder message = new StringBuilder();
         if (tasks.isEmpty()) {
             message.append("Your list is currently empty.");
         } else {

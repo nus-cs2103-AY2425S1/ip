@@ -1,11 +1,11 @@
 package krona;
 
-import krona.command.*;
-import krona.task.*;
-import krona.storage.Storage;
-import krona.ui.Ui;
-import krona.parser.Parser;
+import krona.command.Command;
 import krona.exception.KronaException;
+import krona.parser.Parser;
+import krona.storage.Storage;
+import krona.task.TaskList;
+import krona.ui.Ui;
 
 /**
  * Main class for Krona chatbot

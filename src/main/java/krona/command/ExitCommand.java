@@ -1,11 +1,10 @@
 package krona.command;
 
-import krona.task.TaskList;
-import krona.ui.Ui;
-import krona.storage.Storage;
-
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
+import krona.storage.Storage;
+import krona.task.TaskList;
+import krona.ui.Ui;
 
 /**
  * Represents a command to exit the Krona chatbot.

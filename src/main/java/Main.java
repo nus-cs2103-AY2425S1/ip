@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import krona.Krona;
 
 /**
@@ -26,7 +25,7 @@ public class Main extends Application {
             stage.setMinWidth(417);
             MainWindow controller = fxmlLoader.getController();
             fxmlLoader.<MainWindow>getController().setKrona(krona);
-            controller.displayWelcomeMessage();// inject the Krona instance
+            controller.displayWelcomeMessage();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

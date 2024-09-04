@@ -9,9 +9,9 @@ import java.time.format.DateTimeParseException;
  * and time to an end date and time.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected LocalDateTime startDateTime;
     protected LocalDateTime endDateTime;
-    protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * Contructs a new Event task.
@@ -42,7 +42,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) +
-                " to: " + endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"))
+                + " to: " + endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
     }
 }

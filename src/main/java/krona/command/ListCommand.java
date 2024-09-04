@@ -1,8 +1,8 @@
 package krona.command;
 
+import krona.storage.Storage;
 import krona.task.TaskList;
 import krona.ui.Ui;
-import krona.storage.Storage;
 
 /**
  * Represents a command to list all tasks in the task list.

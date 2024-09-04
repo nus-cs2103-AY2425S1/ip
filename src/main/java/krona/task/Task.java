@@ -6,7 +6,7 @@ package krona.task;
  */
 public class Task {
     protected String description;
-    public boolean isDone;
+    private boolean isDone;
 
     /**
      * Constructs a Task with the specified description.
@@ -23,12 +23,16 @@ public class Task {
         return isDone;
     }
 
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void markDone() {
-        this.isDone = true;
+        this.setDone(true);
     }
 
     public void markNotDone() {

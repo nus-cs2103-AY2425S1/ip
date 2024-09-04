@@ -5,7 +5,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import krona.Krona;
 
 /**
@@ -36,7 +35,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    // Call this method after the krona instance is set
+    /**
+     * Call this method after the krona instance is set
+      */
     @FXML
     public void displayWelcomeMessage() {
         // Directly display the welcome message without using getCombinedMessage
