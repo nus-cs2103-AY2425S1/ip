@@ -1,0 +1,17 @@
+java.util.NoSuchElementException: No line found
+	at java.base/java.util.Scanner.nextLine(Scanner.java:1651)
+	at duke.ui.Parser.parse(Parser.java:21)
+	at duke.ui.Notgpt.main(Notgpt.java:47)
+java.lang.NullPointerException: text
+	at java.base/java.util.Objects.requireNonNull(Objects.java:233)
+	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:1951)
+	at java.base/java.time.LocalDate.parse(LocalDate.java:430)
+	at duke.additionalparsers.DateParser.giveDate(DateParser.java:31)
+	at duke.tasks.Event.<init>(Event.java:39)
+	at duke.tasks.Storage.event(Storage.java:82)
+	at duke.ui.Parser.parse(Parser.java:77)
+	at duke.ui.Notgpt.main(Notgpt.java:47)
+java.util.NoSuchElementException: No line found
+	at java.base/java.util.Scanner.nextLine(Scanner.java:1651)
+	at duke.ui.Parser.parse(Parser.java:21)
+	at duke.ui.Notgpt.main(Notgpt.java:47)

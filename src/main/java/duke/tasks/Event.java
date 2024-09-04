@@ -36,6 +36,10 @@ public class Event extends Task {
                 this.to = part.substring(3);
             }
         }
+        if (parts[0].trim().isEmpty() || from == null || to == null) {
+            throw new IllegalArgumentException("Events must include both task description and 'from' "
+                    + "and 'to' times and not include extra \"/\"");
+        }
         String toDate = dateParser.giveDate(to);
         if (toDate != null) {
             this.to = toDate;
@@ -45,10 +49,7 @@ public class Event extends Task {
             this.from = fromDate;
         }
 
-        if (parts[0].trim().isEmpty() || from == null || to == null) {
-            throw new IllegalArgumentException("Duke.Tasks.Event must include both task description and 'from' "
-                    + "and 'to' times and not include extra \"/\"");
-        }
+
     }
 
     @Override
