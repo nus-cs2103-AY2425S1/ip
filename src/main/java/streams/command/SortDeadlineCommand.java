@@ -10,7 +10,18 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a command to sort and display deadline tasks.
+ */
 public class SortDeadlineCommand extends Command {
+
+    /**
+     * Executes the sort deadline command, sorting and displaying deadline tasks.
+     *
+     * @param tasks The task list to sort and display from.
+     * @param ui The user interface to show the sorted tasks.
+     * @param storage The storage (not used in this command).
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> deadlineTasks = tasks.getTasks().stream()

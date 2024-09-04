@@ -10,7 +10,18 @@ import streams.util.Ui;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Represents a command to list tasks for the upcoming week.
+ */
 public class ListWeekCommand extends Command {
+
+    /**
+     * Executes the list week command, showing tasks for the next 7 days.
+     *
+     * @param tasks The task list to search in.
+     * @param ui The user interface to display the results.
+     * @param storage The storage (not used in this command).
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         LocalDate today = LocalDate.now();

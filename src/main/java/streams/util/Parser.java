@@ -10,9 +10,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input into commands.
+ */
 public class Parser {
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Parses the user input into a Command object.
+     *
+     * @param fullCommand The user's input string.
+     * @return A Command object based on the user's input.
+     * @throws StreamsException If the input is invalid or cannot be parsed.
+     */
     public static Command parse(String fullCommand) throws StreamsException {
         String[] parts = fullCommand.split(" ", 2);
         String commandType = parts[0].toLowerCase();
@@ -45,6 +55,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a deadline task from the user input.
+     *
+     * @param rest The part of the input string after the command word.
+     * @return An AddCommand for a DeadlineTask.
+     * @throws StreamsException If the input format is invalid.
+     */
     private static Command parseDeadline(String rest) throws StreamsException {
         String[] parts = rest.split(" /by ");
         if (parts.length != 2) {
@@ -60,6 +77,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an event task from the user input.
+     *
+     * @param rest The part of the input string after the command word.
+     * @return An AddCommand for an EventTask.
+     * @throws StreamsException If the input format is invalid.
+     */
     private static Command parseEvent(String rest) throws StreamsException {
         String[] parts = rest.split(" /from ");
         if (parts.length != 2) {

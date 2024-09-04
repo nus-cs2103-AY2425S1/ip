@@ -13,10 +13,20 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+
+/**
+ * Represents a command to list tasks on a specific date.
+ */
 public class ListDateCommand extends Command {
     private LocalDate date;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    /**
+     * Constructs a ListDateCommand with the specified date.
+     *
+     * @param dateString The date to list tasks for.
+     * @throws StreamsException If there's an error executing the command.
+     */
     public ListDateCommand(String dateString) throws StreamsException {
         try {
             this.date = LocalDate.parse(dateString, DATE_FORMATTER);
@@ -25,6 +35,13 @@ public class ListDateCommand extends Command {
         }
     }
 
+    /**
+     * Executes the list date command, showing tasks on the specified date.
+     *
+     * @param tasks The task list to search in.
+     * @param ui The user interface to display the results.
+     * @param storage The storage (not used in this command).
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> tasksOnDate = new ArrayList<>();

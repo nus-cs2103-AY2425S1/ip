@@ -12,14 +12,28 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Handles loading tasks from and saving tasks to a file.
+ */
 public class Storage {
     private static String FILE_PATH;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path of the file to store the tasks.
+     */
     public Storage(String filePath) {
         FILE_PATH = filePath;
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws StreamsException If there's an error reading the file.
+     */
     public ArrayList<Task> load() throws StreamsException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);
@@ -73,6 +87,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws StreamsException If there's an error writing to the file.
+     */
     public void save(ArrayList<Task> tasks) throws StreamsException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Task task : tasks) {
