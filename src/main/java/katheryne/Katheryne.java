@@ -30,6 +30,7 @@ public class Katheryne {
         k.run();
     }
 
+
     public void run() throws MissingInformationException {
         System.out.println(ui.getDivide());
         System.out.println(ui.getGreeting());
@@ -65,8 +66,8 @@ public class Katheryne {
                 } else if (commandWord.equals("find")) {
                     System.out.println(c.executeFind(str));
                 } else {
-                    throw new InvalidInputException("Katheryne: " +
-                            "I'm sorry, Katheryne is unable to comprehend your request.");
+                    String msg = "Katheryne: I'm sorry, Katheryne is unable to comprehend your request.";
+                    throw new InvalidInputException(msg);
                 }
                 storage.save(taskList);
             } catch (InvalidInputException e) {
@@ -74,7 +75,57 @@ public class Katheryne {
             }
         }
     }
+
+    public String getResponse(String userInput) throws MissingInformationException {
+        try {
+            Command c = new Command(ui, taskList);
+            String str = userInput;
+            String commandWord = ui.getCommand(str);
+            switch (commandWord) {
+                case "list" -> {
+                    return c.executeList();
+                }
+                case "mark" -> {
+                    storage.save(taskList);
+                    return c.executeMark(str);
+                }
+                case "unmark" -> {
+                    storage.save(taskList);
+                    return c.executeUnmark(str);
+                }
+                case "todo" -> {
+                    storage.save(taskList);
+                    return c.executeAddToDo(str);
+                }
+                case "event" -> {
+                    storage.save(taskList);
+                    return c.executeAddEvent(str);
+                }
+                case "deadline" -> {
+                    storage.save(taskList);
+                    return c.executeAddDeadline(str);
+                }
+                case "bye" -> {
+                    return ui.getBye();
+                }
+                case "delete" -> {
+                    storage.save(taskList);
+                    return c.executeDelete(str);
+                }
+                case "find" -> {
+                    return c.executeFind(str);
+                }
+                default -> {
+                    String msg = "I'm sorry, Katheryne is unable to comprehend your request.";
+                    throw new InvalidInputException(msg);
+                }
+            }
+        } catch (InvalidInputException e) {
+            return String.format("Katheryne: %s", e.getMessage());
+        }
+    }
 }
+
 
 
 
