@@ -47,37 +47,35 @@ public class Momo {
      */
     public void run() {
         ui.showGreeting();
-//        String input = ui.getUserInput().trim();
-//
-//        while (true) {
-//            try {
-//                CommandType command = Parser.parseInput(input);
-//                if (command == CommandType.BYE) {
-//                    ui.showFarewell();
-//                } else if (command == CommandType.LIST) {
-//                    ui.printList(tasks);
-//                } else if (command == CommandType.FIND) {
-//                    FindCommand.run(input, tasks);
-//                } else if (command == CommandType.MARK) {
-//                    MarkCommand.run(input, tasks, storage);
-//                } else if (command == CommandType.UNMARK) {
-//                    UnmarkCommand.run(input, tasks, storage);
-//                } else if (command == CommandType.DELETE) {
-//                    DeleteCommand.run(input, tasks, storage);
-//                } else {
-//                    if (command == CommandType.TODO) {
-//                        TodoCommand.run(input, storage, tasks);
-//                    } else if (command == CommandType.DEADLINE) {
-//                        DeadlineCommand.run(input, storage, tasks);
-//                    } else if (command == CommandType.EVENT) {
-//                        EventCommand.run(input, storage, tasks);
-//                    }
-//                }
-//            } catch (MomoException e) {
-//                System.out.println(e.getMessage());
-//            }
-//            input = ui.getUserInput();
-//        }
+    }
+
+    public void processCommand(String input, CommandType command) {
+
+        try {
+            if (command == CommandType.BYE) {
+                ui.showFarewell();
+            } else if (command == CommandType.LIST) {
+                ui.printList(tasks);
+            } else if (command == CommandType.FIND) {
+                FindCommand.run(input, tasks, ui);
+            } else if (command == CommandType.MARK) {
+                MarkCommand.run(input, tasks, storage, ui);
+            } else if (command == CommandType.UNMARK) {
+                UnmarkCommand.run(input, tasks, storage, ui);
+            } else if (command == CommandType.DELETE) {
+                DeleteCommand.run(input, tasks, storage, ui);
+            } else {
+                if (command == CommandType.TODO) {
+                    TodoCommand.run(input, storage, tasks, ui);
+                } else if (command == CommandType.DEADLINE) {
+                    DeadlineCommand.run(input, storage, tasks, ui);
+                } else if (command == CommandType.EVENT) {
+                    EventCommand.run(input, storage, tasks, ui);
+                }
+            }
+        } catch (MomoException e) {
+            ui.printDialogue(e.getMessage());
+        }
     }
 
     /**

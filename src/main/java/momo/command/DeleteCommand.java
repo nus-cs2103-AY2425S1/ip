@@ -1,5 +1,6 @@
 package momo.command;
 
+import momo.Ui;
 import momo.exception.InvalidCommandException;
 import momo.Storage;
 import momo.StorageException;
@@ -16,7 +17,7 @@ import static momo.Momo.FILE_PATH;
  * they do not include the deleted task anymore
  */
 public class DeleteCommand {
-    public static void run(String input, TaskList tasks, Storage storage) throws InvalidCommandException,
+    public static void run(String input, TaskList tasks, Storage storage, Ui ui) throws InvalidCommandException,
             StorageException {
         try {
             int index = Integer.parseInt(input.substring(6).trim()) - 1;
@@ -29,8 +30,8 @@ public class DeleteCommand {
 
             tasks.deleteTask(index);
 
-            System.out.println("Noted. I've removed this task:\n " + deletedTask);
-            System.out.printf("Now you have %d task(s) in the list%n", tasks.getCount());
+            ui.printDialogue("Noted. I've removed this task:\n " + deletedTask);
+            ui.printDialogue(String.format("Now you have %d task(s) in the list%n", tasks.getCount()));
             storage.RewriteTasksToFile(FILE_PATH, tasks.getTaskList());
 
         } catch (NumberFormatException e) {

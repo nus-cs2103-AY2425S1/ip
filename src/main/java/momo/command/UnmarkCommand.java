@@ -1,5 +1,6 @@
 package momo.command;
 
+import momo.Ui;
 import momo.exception.InvalidCommandException;
 import momo.Storage;
 import momo.StorageException;
@@ -27,7 +28,7 @@ public class UnmarkCommand {
      * @throws InvalidCommandException thrown when number is not in list or is improperly formatted
      * @throws StorageException        thrown when task is not rewritten to file successfully
      */
-    public static void run(String input, TaskList tasks, Storage storage) throws InvalidCommandException,
+    public static void run(String input, TaskList tasks, Storage storage, Ui ui) throws InvalidCommandException,
             StorageException {
 
         try {
@@ -40,7 +41,7 @@ public class UnmarkCommand {
             Task taskToUnmark = tasks.getTask(index);
             taskToUnmark.unmark();
 
-            System.out.println("Noted. I've unmarked this task:\n " + taskToUnmark);
+            ui.printDialogue("Noted... I've unmarked this task:\n " + taskToUnmark);
             storage.RewriteTasksToFile(FILE_PATH, tasks.getTaskList());
 
         } catch (NumberFormatException e) {
