@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("Meeks")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
