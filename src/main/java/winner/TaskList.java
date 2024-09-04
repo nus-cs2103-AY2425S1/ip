@@ -174,6 +174,12 @@ public class TaskList {
         return task.deleteTask();
     }
 
+    /**
+     * Finds tasks containing the keyword provided in the task list and returns a String listing the tasks found.
+     *
+     * @param keyword Keyword to search for.
+     * @return A String representation of all tasks containing the keyword in the list.
+     */
     public String findTasksWithKeyword(String keyword) {
         int counter = 1;
         StringBuilder list = new StringBuilder("\nHere are the tasks you are searching for: \n");
