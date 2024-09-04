@@ -1,2 +1,1 @@
-T | 0 | read books
-D | 0 | do homework  | Tuesday
+D | 0 | homework  | 2/12/2024 1800
