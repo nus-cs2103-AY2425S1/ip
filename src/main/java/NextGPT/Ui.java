@@ -16,20 +16,18 @@ public class Ui {
     /**
      * Prints opening message to user.
      */
-    public void openingMessage() {
-        String greeting = "_______________________________________________________\n" +
-                "Hello! I'm NextGPT and I'll be your assistant chatbot.\n" +
-                "What can I do for you today?\n" +
-                "_______________________________________________________\n";
-        System.out.println(greeting);
+    public String openingMessage() {
+        String greeting = "Hello! I'm NextGPT and I'll be your assistant chatbot.\n" +
+                "What can I do for you today?\n";
+        return greeting;
     }
 
     /**
      * Prints exit message to user.
      */
-    public void bye() {
+    public String bye() {
         this.sc.close();
-        System.out.println(line + "Bye. Hope to see you soon!\n" + line);
+        return  "Bye. Hope to see you soon!\n";
     }
 
     /**
@@ -37,8 +35,8 @@ public class Ui {
      *
      * @param task Task that was marked as done.
      */
-    public void mark(Task task) {
-        System.out.println(line + "Nice! I've marked this task as done:\n " + task + "\n" + line);
+    public String mark(Task task) {
+        return "Nice! I've marked this task as done:\n " + task + "\n";
     }
 
     /**
@@ -46,8 +44,8 @@ public class Ui {
      *
      * @param task Task that was marked as done.
      */
-    public void unmark(Task task) {
-        System.out.println(line + "Ok, I've marked this task as not done yet:\n " + task + "\n" + line);
+    public String unmark(Task task) {
+        return "Ok, I've marked this task as not done yet:\n " + task + "\n";
     }
 
 
@@ -57,11 +55,9 @@ public class Ui {
      * @param task Task that was marked as done.
      * @param listSize Size of task list remaining.
      */
-    public void delete(Task task, int listSize) {
-        System.out.println(line +
-                "Noted. I've removed this task from the list:\n " + task +
-                "\nNow you have " + listSize + " tasks in the list.\n" +
-                line);
+    public String delete(Task task, int listSize) {
+        return "Noted. I've removed this task from the list:\n " + task +
+                "\nNow you have " + listSize + " tasks in the list.\n";
     }
 
     /**
@@ -70,10 +66,9 @@ public class Ui {
      * @param task Task that was added to task list.
      * @param listSize Size of task list.
      */
-    public void addTask(Task task, int listSize) {
-        System.out.println(line + " added: " +
-                task + "\n Now you have " + listSize + " tasks in the list\n" +
-                line);
+    public String addTask(Task task, int listSize) {
+        return " added: " +
+                task + "\n Now you have " + listSize + " tasks in the list\n";
     }
 
     /**
@@ -81,22 +76,22 @@ public class Ui {
      *
      * @param taskList TaskList currently saved.
      */
-    public void showList(TaskList taskList) {
-        System.out.println(line);
+    public String showList(TaskList taskList) {
+        String list = "";
 
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i + 1 + "." + taskList.get(i));
+            list += i + 1 + "." + taskList.get(i) + "\n";
         }
 
-        System.out.println(line);
+        return list;
     }
 
     /**
      * Prints loading error message if there is no saved list locally.
      *
      */
-    public void showLoadingError() {
-        System.out.println("It seems like you do not have a saved task list. I will be creating an empty one for you.");
+    public String showLoadingError() {
+        return "It seems like you do not have a saved task list. I will be creating an empty one for you.";
     }
 
     /**
@@ -104,8 +99,8 @@ public class Ui {
      *
      * @param s Error message.
      */
-    public void showError(String s) {
-        System.out.println(line + s + "\n" + line);
+    public String showError(String s) {
+        return s + "\n";
     }
 
     /**

@@ -26,11 +26,11 @@ public class DeleteCommand extends Command{
      * @throws NextGPTException If error occurs while saving new task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NextGPTException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NextGPTException {
         try {
             Task deletedTask = tasks.remove(index);
-            ui.delete(deletedTask, tasks.size());
             storage.add_to_memory(tasks);
+            return ui.delete(deletedTask, tasks.size());
         } catch (IOException e) {
             throw new NextGPTException("There was an error saving the file. Please try again.");
         } catch (IndexOutOfBoundsException e) {

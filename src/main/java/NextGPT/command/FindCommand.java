@@ -22,7 +22,7 @@ public class FindCommand extends Command{
      * @param storage Not required.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public String execute(TaskList tasks, Ui ui, Storage storage){
         TaskList resultsFound = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
 
@@ -32,7 +32,7 @@ public class FindCommand extends Command{
                 resultsFound.add(foundTask);
             }
         }
-        ui.showList(resultsFound);
+        return ui.showList(resultsFound);
     }
 
     @Override

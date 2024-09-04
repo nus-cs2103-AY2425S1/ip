@@ -26,11 +26,12 @@ public class AddCommand extends Command{
      * @throws NextGPTException If error occurs while saving new task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NextGPTException{
-        tasks.add(todo);
-        ui.addTask(todo, tasks.size());
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NextGPTException{
+
         try {
+            tasks.add(todo);
             storage.add_to_memory(tasks);
+            return ui.addTask(todo, tasks.size());
         } catch(IOException e) {
             throw new NextGPTException("There was an error saving the file. Please try again.");
         }

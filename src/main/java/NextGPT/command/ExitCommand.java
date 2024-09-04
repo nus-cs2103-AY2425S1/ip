@@ -10,8 +10,8 @@ public class ExitCommand extends Command{
     /**
      * Notifies user with exit message.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.bye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.bye();
     }
 
     public boolean isExit() {

@@ -28,17 +28,19 @@ public class EditCommand extends Command{
      * @throws NextGPTException If error occurs while saving new task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NextGPTException{
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NextGPTException{
         try {
             Task task = tasks.get(index);
             if (isMark) {
                 task.mark();
-                ui.mark(task);
+                storage.add_to_memory(tasks);
+                return ui.mark(task);
             } else {
                 task.unmark();
-                ui.mark(task);
+                storage.add_to_memory(tasks);
+                return ui.mark(task);
             }
-            storage.add_to_memory(tasks);
+
         } catch (IndexOutOfBoundsException e) {
             throw new NextGPTException("Task list index is out of bounds!");
         } catch (IOException e) {

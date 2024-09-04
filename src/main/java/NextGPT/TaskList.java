@@ -1,8 +1,9 @@
 package NextGPT;
 import java.util.ArrayList;
 import java.util.Scanner;
-import NextGPT.task.Todo;
+
 import NextGPT.task.Deadline;
+import NextGPT.task.Todo;
 import NextGPT.task.Event;
 import NextGPT.task.Task;
 

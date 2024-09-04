@@ -12,7 +12,7 @@ public abstract class Command {
     /**
      * Executes the command based on its type, e.g. AddCommand, EditCommand, ExitCommand etc.
      */
-    public abstract void execute (TaskList tasks, Ui ui, Storage storage) throws NextGPTException;
+    public abstract String execute (TaskList tasks, Ui ui, Storage storage) throws NextGPTException;
 
     /**
      * Checks whether this is an ExitCommand.

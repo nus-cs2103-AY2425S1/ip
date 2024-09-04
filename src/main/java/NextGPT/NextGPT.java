@@ -49,7 +49,21 @@ public class NextGPT {
     /**
      * Run chatbot.
      */
-    public static void main(String[] args) {
-        new NextGPT("./data/tasks.txt").run();
+    //public static void main(String[] args) {
+    //    new NextGPT("./data/tasks.txt").run();
+    //}
+
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (NextGPTException e) {
+            return e.getMessage();
+        }
     }
+
 }
