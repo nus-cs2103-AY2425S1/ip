@@ -216,6 +216,12 @@ public class Alexer {
         }
     }
 
+    public void start() {
+        tasks.loadTasks();
+        greetUser();
+        promptLoop();
+    }
+
     public static void main(String[] args) {
         String logo = """
                      .     .                           
@@ -227,10 +233,8 @@ public class Alexer {
         System.out.println(logo);
         System.out.println(BREAK);
 
-        // create an instance of our bot
+        // create an instance of our chatbot
         Alexer alexer = new Alexer();
-        alexer.tasks.loadTasks();
-        alexer.greetUser();
-        alexer.promptLoop();
+        alexer.start();
     }
 }
