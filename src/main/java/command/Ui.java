@@ -1,5 +1,7 @@
 package command;
 
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +14,7 @@ import task.Task;
 public class Ui {
     private static final String LINE_SEPARATOR = "\t\t" + "_".repeat(50);
     private final Scanner scanner;
+
 
     /**
      * Constructs a new Ui object with a Scanner to read user input.
@@ -184,3 +187,4 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 }
+
