@@ -47,25 +47,6 @@ public class Ui {
     }
 
     /**
-     * Prints an error message when there is an error writing to the save file.
-     */
-    public void saveFileErrorMessage() {
-        printLine();
-        System.out.println("    there hath been a failure in saving your work");
-        printLine();
-    }
-
-    /**
-     * Prints an error message for when there is an error loading from the save file.
-     */
-    public void loadFileErrorMessage() {
-        printLine();
-        System.out.println("    there hath been a failure in loading your work\n"
-                + "    your list starts empty");
-        printLine();
-    }
-
-    /**
      * Prints a welcome message for users. Has a pretty ASCII logo.
      */
     public void welcomeMessage() {
@@ -105,34 +86,6 @@ public class Ui {
         System.out.println("      " + task.toString());
         printLine();
     }
-
-    /**
-     * Prints an error message that displays when a user accesses an index that is out of bound.
-     */
-    public void indexOutOfBoundsErrorMessage() {
-        printLine();
-        System.out.println("    Ain't no such task in the middle of these woods");
-        printLine();
-    }
-
-    /**
-     * Prints an error message when the user tries to mark an already done task as done.
-     */
-    public void alreadyDoneErrorMessage() {
-        printLine();
-        System.out.println("    So uh, the task is already done");
-        printLine();
-    }
-
-    /**
-     * Prints an error message when the user tries to mark an already undone task as undone.
-     */
-    public void alreadyUndoneErrorMessage() {
-        printLine();
-        System.out.println("    So uh, the task already is not done");
-        printLine();
-    }
-
 
     public void findByDescriptionMessage(List<Task> taskList) {
         printLine();
@@ -176,5 +129,17 @@ public class Ui {
         }
         printLine();
         System.out.println();
+    }
+
+    /**
+     * Prints the error message of the Elseption
+     * Method inspired by @prave1n and how his iP handled errors
+     *
+     * @param message Error message to be printed.
+     */
+    public void printErrorMessage(String message) {
+        printLine();
+        System.out.println("    " + message);
+        printLine();
     }
 }

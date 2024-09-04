@@ -34,7 +34,7 @@ public class TaskList {
         try {
             task = list.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new Elseption();
+            throw new Elseption("Ain't no such task in the middle of these woods");
         }
 
         return task;
@@ -64,7 +64,14 @@ public class TaskList {
     public boolean markTaskAsDone(int index) throws Elseption {
         Task task = getTask(index);
 
-        return task.markAsDone();
+        boolean isMarkedSuccessfully = task.markAsDone();
+
+        if (isMarkedSuccessfully) {
+            return true;
+
+        } else {
+            throw new Elseption("So uh, the task is already done");
+        }
     }
 
     /**
@@ -77,7 +84,14 @@ public class TaskList {
     public boolean unmarkTaskAsUndone(int index) throws Elseption {
         Task task = getTask(index);
 
-        return task.unmarkAsUndone();
+        boolean isUnmarkedSuccessfully = task.unmarkAsUndone();
+
+        if (isUnmarkedSuccessfully) {
+            return true;
+
+        } else {
+            throw new Elseption("So uh, the task already is not done");
+        }
     }
 
 
@@ -95,7 +109,7 @@ public class TaskList {
         try {
             task = list.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new Elseption();
+            throw new Elseption("Ain't no such task in the middle of these woods");
         }
 
         return task;
@@ -139,14 +153,13 @@ public class TaskList {
     }
 
     public List<Task> findByDescription(String input) {
-        ArrayList<Task> result = new ArrayList<>();
+        ArrayList<Task> foundTasks = new ArrayList<>();
 
         for (Task i : list) {
             if (i.descContains(input)) {
-                result.add(i);
+                foundTasks.add(i);
             }
         }
-        
-        return result;
+        return foundTasks;
     }
 }

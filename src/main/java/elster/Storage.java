@@ -46,7 +46,7 @@ public class Storage {
                 Task task = null;
                 String[] row = s.nextLine().split("\\|");
                 String taskType = row[0].strip();
-                Boolean isDone = row[1].strip().equals("0") ? false : true;
+                boolean isDone = !row[1].strip().equals("0");
                 String description = row[2].strip();
 
                 if (taskType.equals("T")) {
@@ -70,7 +70,8 @@ public class Storage {
             }
 
         } catch (IOException e) {
-            throw new Elseption();
+            throw new Elseption("    there hath been a failure in loading your work\n"
+                    + "    your list starts empty");
         }
     }
 
@@ -96,7 +97,7 @@ public class Storage {
             fw.close();
 
         } catch (IOException e) {
-            throw new Elseption();
+            throw new Elseption("there hath been a failure in saving your work");
         }
     }
 }
