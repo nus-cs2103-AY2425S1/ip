@@ -9,17 +9,29 @@ import dave.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * The main class for the Dave application, responsible for initializing components
+ * and running the main program loop.
+ */
 public class Dave {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Dave instance, initializing the user interface, task list, and storage components.
+     *
+     * @param filePath The file path where tasks will be stored and loaded from.
+     */
     public Dave(String filePath) {
         ui = new Ui();
         tasks = new TaskList();
         storage = new Storage(filePath, tasks);
     }
 
+    /**
+     * Runs the main program loop, accepting user commands and executing them until the user exits.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -37,13 +49,18 @@ public class Dave {
                 ui.showLine();
                 System.out.println("An error occurred while trying to write to the file: " + e.getMessage());
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 ui.showLine();
             }
         }
     }
 
+    /**
+     * The main entry point of the Dave application. It initializes the Dave instance
+     * with a specific file path and starts the program.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Dave("C:\\Users\\thamy\\OneDrive\\data\\daveData.txt").run();
     }

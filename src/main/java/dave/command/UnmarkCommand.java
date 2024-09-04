@@ -6,14 +6,30 @@ import dave.storage.Storage;
 import dave.ui.Ui;
 import java.io.IOException;
 
+/**
+ * Represents the command to unmark a task as not done in the task list.
+ * This command modifies the task's status to indicate it is not completed.
+ */
 public class UnmarkCommand extends Command {
     private final int taskIndex;
 
+    /**
+     * Constructs an {@code UnmarkCommand} with the specified task index.
+     *
+     * @param taskIndex The index of the task to be unmarked as not done (1-based index).
+     */
     public UnmarkCommand(int taskIndex) {
-
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Executes the command to unmark a task as not done in the task list.
+     * It updates the task's status, saves the updated task list to the storage, and provides feedback to the user.
+     *
+     * @param tasks   The {@code TaskList} containing the tasks.
+     * @param storage The {@code Storage} object to handle saving the updated task list.
+     * @param ui      The {@code Ui} object to handle user interaction.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) {
         try {
