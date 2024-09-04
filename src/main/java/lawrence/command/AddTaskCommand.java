@@ -15,7 +15,7 @@ import java.time.format.DateTimeParseException;
  * Represents the user command to create new tasks.
  */
 public class AddTaskCommand extends Command {
-    private final String input;
+    private String input;
 
     /**
      * Default constructor.
@@ -38,23 +38,23 @@ public class AddTaskCommand extends Command {
      * no new task will be created and the text file will not be updated.
      * </p>
      *
-     * @param taskList a list of tasks the command may operate
-     *                 on
-     * @param manager  a {@link TaskFileManager} instance that
-     *                 the command may use when saving changes
-     *                 made
-     * @param ui       a {@link UserInterface} instance to
-     *                 display possible messages to the user
+     * @param tasks a list of tasks the command may operate
+     *              on
+     * @param manager a {@link TaskFileManager} instance that
+     *                the command may use when saving changes
+     *                made
+     * @param ui a {@link UserInterface} instance to display
+     *           possible messages to the user
      */
     @Override
-    public void execute(TaskList taskList, TaskFileManager manager, UserInterface ui) {
+    public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
         try {
             Task t = TaskParser.createTask(input, InputSource.USER);
-            taskList.addTask(t);
-            saveTasks(taskList, manager);
+            tasks.addTask(t);
+            saveTasks(tasks, manager);
 
             // Format components of message to display
-            int numberOfTasks = taskList.getSize();
+            int numberOfTasks = tasks.getSize();
             String verb = numberOfTasks == 1 ? "is" : "are";
             String plural = numberOfTasks == 1 ? "" : "s";
             ui.showMessage(String.format("Alright, added task:%n%s%nto the list.%n"
@@ -62,7 +62,7 @@ public class AddTaskCommand extends Command {
         } catch (DateTimeParseException e) {
             ui.showMessage(
                     String.format("Invalid date and/or time provided. DateTime should be in the format: %s",
-                            DateParser.USER_INPUT_FORMAT_STRING));
+                            DateParser.FORMAT_STRING_FOR_USER_INPUT));
         } catch (IllegalArgumentException e) {
             ui.showMessage(e.getMessage());
         } catch (IOException e) {

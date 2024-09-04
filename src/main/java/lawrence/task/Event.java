@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
  * Represents a task that has a start time and an end time.
  */
 public class Event extends Task {
-    private final LocalDateTime  from;
-    private final LocalDateTime to;
+    private LocalDateTime  from;
+    private LocalDateTime to;
 
     /**
      * Constructor. Creates an {@link Event} object with the specified

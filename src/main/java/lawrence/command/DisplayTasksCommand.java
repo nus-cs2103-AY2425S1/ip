@@ -19,21 +19,21 @@ public class DisplayTasksCommand extends Command {
      * Displays all tasks present in the {@link TaskList} to the user.
      * If no tasks exist, a different message is displayed.
      *
-     * @param taskList a list of tasks the command may operate
-     *                 on
+     * @param tasks a list of tasks the command may operate
+     *              on
      * @param manager  a {@link TaskFileManager} instance that
      *                 the command may use when saving changes
      *                 made
-     * @param ui       a {@link UserInterface} instance to
-     *                 display possible messages to the user
+     * @param ui a {@link UserInterface} instance to display
+     *           possible messages to the user
      */
     @Override
-    public void execute(TaskList taskList, TaskFileManager manager, UserInterface ui) {
-        if (taskList.getSize() < 1) {
+    public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
+        if (tasks.getSize() < 1) {
             ui.showMessage("You have no tasks at the moment.");
             return;
         }
 
-        ui.showMessage(String.format("Here's your laundry list:%n%s", taskList));
+        ui.showMessage(String.format("Here's your laundry list:%n%s", tasks));
     }
 }

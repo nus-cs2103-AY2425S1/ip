@@ -18,13 +18,12 @@ public class TaskParser {
      * If the input source is unrecognised, an {@link IllegalStateException} is thrown.
      * </p>
      *
-     * @param input                     the string containing task information to be parsed
-     * @return                          a {@link Task} object
+     * @param input the string containing task information to be parsed
+     * @return a {@link Task} object
      * @throws IllegalArgumentException if the input is invalid
      * @throws IllegalStateException if the {@link InputSource} is not recognised
      */
-    public static Task createTask(
-            String input, InputSource source)
+    public static Task createTask(String input, InputSource source)
             throws IllegalArgumentException, IllegalStateException {
 
         if (input.isEmpty()) {

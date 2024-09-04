@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
  * file input into a {@link Task} object.
  */
 public class FileTaskCreator implements TaskCreator {
-    private static final int NUMBER_OF_TODO_PARAMETERS = 2;
     private static final int NUMBER_OF_DEADLINE_PARAMETERS = 3;
     private static final int NUMBER_OF_EVENT_PARAMETERS = 4;
+    private static final int NUMBER_OF_TODO_PARAMETERS = 2;
 
     /**
      * Converts a string input from a file containing task information
@@ -44,44 +44,19 @@ public class FileTaskCreator implements TaskCreator {
 
         Task t;
         switch (type) {
-        case TODO:
-            t = createTodoTask(inputComponents[1]);
-            break;
         case DEADLINE:
             t = createDeadlineTask(inputComponents[1]);
             break;
         case EVENT:
             t = createEventTask(inputComponents[1]);
             break;
+        case TODO:
+            t = createTodoTask(inputComponents[1]);
+            break;
         default:
             throw new IllegalArgumentException("Unknown task type: " + type);
         }
         return t;
-    }
-
-    /**
-     * Creates and returns a {@link Todo} object based on the
-     * input information provided.
-     *
-     * @param input a string containing information about the {@link Todo} object
-     * @return a {@link Todo} object
-     * @see Todo
-     */
-    private Todo createTodoTask(String input) {
-        String[] parameters = input.split(" \\| ", NUMBER_OF_TODO_PARAMETERS);
-
-        if (parameters.length != NUMBER_OF_TODO_PARAMETERS) {
-            throw new IllegalArgumentException(
-                    String.format("Unable to parse todo from file input. Expected %d parameters, got %d",
-                            NUMBER_OF_TODO_PARAMETERS,
-                            parameters.length));
-        }
-
-        // deconstruct array elements into their respective attributes
-        boolean isComplete = parameters[0].equals("1");
-        String description = parameters[1];
-
-        return new Todo(description, isComplete);
     }
 
     /**
@@ -137,5 +112,30 @@ public class FileTaskCreator implements TaskCreator {
         LocalDateTime to = DateParser.parseFileInputDate(parameters[3]);
 
         return new Event(description, isComplete, from, to);
+    }
+
+    /**
+     * Creates and returns a {@link Todo} object based on the
+     * input information provided.
+     *
+     * @param input a string containing information about the {@link Todo} object
+     * @return a {@link Todo} object
+     * @see Todo
+     */
+    private Todo createTodoTask(String input) {
+        String[] parameters = input.split(" \\| ", NUMBER_OF_TODO_PARAMETERS);
+
+        if (parameters.length != NUMBER_OF_TODO_PARAMETERS) {
+            throw new IllegalArgumentException(
+                    String.format("Unable to parse todo from file input. Expected %d parameters, got %d",
+                            NUMBER_OF_TODO_PARAMETERS,
+                            parameters.length));
+        }
+
+        // deconstruct array elements into their respective attributes
+        boolean isComplete = parameters[0].equals("1");
+        String description = parameters[1];
+
+        return new Todo(description, isComplete);
     }
 }

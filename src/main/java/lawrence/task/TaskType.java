@@ -4,11 +4,11 @@ package lawrence.task;
  * Represents the different tasks that can be handled by the chatbot.
  */
 public enum TaskType {
-    TODO("todo"),
     DEADLINE("deadline"),
-    EVENT("event");
+    EVENT("event"),
+    TODO("todo");
 
-    private final String taskType;
+    private String taskType;
 
     /** Default constructor.
      * <p>
@@ -17,12 +17,8 @@ public enum TaskType {
      *
      * @param type the string containing an enum value
      */
-    private TaskType(String type) {
+    TaskType(String type) {
         this.taskType = type.toLowerCase();
-    }
-
-    public String getTaskType() {
-        return taskType;
     }
 
     /**
@@ -46,5 +42,14 @@ public enum TaskType {
             }
         }
         throw new IllegalArgumentException("No task type found for input: " + input);
+    }
+
+    /**
+     * Returns the task type as a string.
+     *
+     * @return the task type as a string
+     */
+    public String getTaskType() {
+        return taskType;
     }
 }
