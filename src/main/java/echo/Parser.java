@@ -15,7 +15,7 @@ public class Parser {
             String[] times = details[1].split(" /to ", 2);
             if (times.length == 2) {
                 return times;
-            }else {
+            } else {
                 throw new EchoException("Please specify the task  deadline.");
             }
         } else {

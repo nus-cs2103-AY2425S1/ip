@@ -2,7 +2,7 @@ package echo;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class Events extends Task{
+public class Events extends Task {
 
     LocalDate start;
     LocalDate end;
@@ -14,12 +14,12 @@ public class Events extends Task{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[E] " + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 
     @Override
-    public String getAdd(){
+    public String getAdd() {
         return " /from " + start + " /to " + end;
     }
 
