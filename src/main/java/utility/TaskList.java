@@ -25,6 +25,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list of existing tasks.
+     *
      * @param t Is the task to be added.
      */
     public void addTask(Task t) {
