@@ -1,12 +1,9 @@
 package Arona;
 
+import java.nio.file.*;
 import java.util.Collections;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Stream;
-import java.nio.file.StandardOpenOption;
 
 public class Storage {
     private final String filepath;
@@ -25,8 +22,8 @@ public class Storage {
         try {
             Files.createFile(dataDir);
         } catch (Exception e) {
-            // If the exception isnt "file already exists", throw it
-            if (!e.getMessage().equals(".\\data.txt")) {
+            // If the exception isn't "file already exists", throw it
+            if (!(e instanceof FileAlreadyExistsException)) {
                 throw(e);
             }
         }
@@ -46,7 +43,8 @@ public class Storage {
         // Write data to file
         Files.write(dataDir, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
         for (int i = 0; i < taskList.size(); i++) {
-            Files.write(dataDir, Collections.singletonList(taskList.get(i).getStatusIcon() + taskList.get(i).getCategory() + " " + taskList.get(i)), StandardOpenOption.APPEND);
+            Files.write(dataDir, Collections.singletonList(taskList.get(i).getStatusIcon() + taskList.get(i).getCategory()
+                    + " " + taskList.get(i)), StandardOpenOption.APPEND);
         }
     }
 }

@@ -16,7 +16,17 @@ public class TaskList {
         return list.size();
     }
 
-    public Task get(int i) {
+    public Task get(int i) throws AronaException {
+        // Check if exist
+        if (i >= list.size()) {
+            throw new AronaException("Error! This task does not exist!");
+        }
+
+        // Check if negative
+        if (i < 0) {
+            throw new AronaException("Error! Please input a positive number.");
+        }
+
         return list.get(i);
     }
 
@@ -37,13 +47,13 @@ public class TaskList {
         list.add(new Events(data, fromDate, toDate));
     }
 
-    public Task remove(int i) {
-        Task task = list.get(i);
+    public Task remove(int i) throws AronaException {
+        Task task = get(i);
         list.remove(i);
         return task;
     }
 
-    public Task setStatus(int i, boolean status) {
+    public Task setStatus(int i, boolean status) throws AronaException {
         get(i).setStatus(status);
         return get(i);
     }
