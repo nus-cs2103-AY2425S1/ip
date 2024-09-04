@@ -2,6 +2,12 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle' // Add the CheckStyle plugin
+}
+
+checkstyle {
+    toolVersion = '10.2' // Use the version compatible with your configuration files
+    configFile = file('config/checkstyle/checkstyle.xml') // Point to your CheckStyle config file
 }
 
 group 'com.example'
