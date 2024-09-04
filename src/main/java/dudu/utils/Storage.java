@@ -1,32 +1,45 @@
 package dudu.utils;
 
-import dudu.exception.InvalidFormatException;
-import dudu.task.Deadline;
-import dudu.task.Event;
-import dudu.task.Task;
-import dudu.task.ToDo;
-
-import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import dudu.exception.InvalidFormatException;
+import dudu.task.Deadline;
+import dudu.task.Event;
+import dudu.task.Task;
+import dudu.task.ToDo;
+
+/**
+ * Represents the class that reads and updates the local file of tasks
+ */
 public class Storage {
     enum TaskType {
         T, D, E
     }
-    String filePath;
 
+    private String filePath;
 
+    /**
+     * Creates a storage instance
+     *
+     * @param filePath The file path of the local file that has existing tasks
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
 
     }
 
+    /**
+     * Reads the existing tasks from a local file at the stored file path
+     *
+     * @return The list of tasks currently in the local file
+     */
     public ArrayList<Task> load() {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
@@ -67,40 +80,43 @@ public class Storage {
         String content = input[2].trim();
         Task task = null;
         switch (type) {
-            case T:
-                if (!line.matches("^T \\| [01] \\| .+")) {
-                    throw new InvalidFormatException("Format should be T | [1/0] | [description]");
-                }
-                task = new ToDo(content);
-                break;
-            case D: {
-                if (!line.matches("^D \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}")) {
-                    throw new InvalidFormatException("Format should be D | [1/0] | [description] | yyyy-mm-dd");
-                }
-                String[] tmp = content.split("\\|");
-                String description = tmp[0].trim();
-                try {
-                    LocalDate date = LocalDate.parse(tmp[1].trim());
-                    task = new Deadline(description, date);
-                } catch (DateTimeParseException e) {
-                    System.out.println(e);
-                }
-                break;
-            } case E: {
-                if (!line.matches("^E \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2} \\| \\d{4}-\\d{2}-\\d{2}")) {
-                    throw new InvalidFormatException("Format should be E | [1/0] | [description] | yyyy-mm-dd | yyyy-mm-dd");
-                }
-                String[] tmp = content.split("\\|");
-                String description = tmp[0].trim();
-                try {
-                    LocalDate from = LocalDate.parse(tmp[1].trim());
-                    LocalDate to = LocalDate.parse(tmp[2].trim());
-                    task = new Event(description, from, to);
-                } catch (DateTimeParseException e) {
-                    System.out.println(e);
-                }
-                break;
+        case T:
+            if (!line.matches("^T \\| [01] \\| .+")) {
+                throw new InvalidFormatException("Format should be T | [1/0] | [description]");
             }
+            task = new ToDo(content);
+            break;
+        case D: {
+            if (!line.matches("^D \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}")) {
+                throw new InvalidFormatException("Format should be D | [1/0] | [description] | yyyy-mm-dd");
+            }
+            String[] tmp = content.split("\\|");
+            String description = tmp[0].trim();
+            try {
+                LocalDate date = LocalDate.parse(tmp[1].trim());
+                task = new Deadline(description, date);
+            } catch (DateTimeParseException e) {
+                System.out.println(e);
+            }
+            break;
+        } case E: {
+            if (!line.matches("^E \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2} \\| \\d{4}-\\d{2}-\\d{2}")) {
+                throw new InvalidFormatException("Format should be E | [1/0] | "
+                        + "[description] | yyyy-mm-dd | yyyy-mm-dd");
+            }
+            String[] tmp = content.split("\\|");
+            String description = tmp[0].trim();
+            try {
+                LocalDate from = LocalDate.parse(tmp[1].trim());
+                LocalDate to = LocalDate.parse(tmp[2].trim());
+                task = new Event(description, from, to);
+            } catch (DateTimeParseException e) {
+                System.out.println(e);
+            }
+            break;
+        }
+        default:
+            System.out.println("Something went wrong");
         }
         if (task != null) {
             if (marked) {
@@ -110,6 +126,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Rewrites to file to reflect any changes to the tasks
+     *
+     * @param taskList The TaskList instance containing the updated list of tasks
+     * @throws IOException If there is an error during saving the task to storage.
+     */
     public void rewriteFile(TaskList taskList) throws IOException {
         ArrayList<Task> tasks = taskList.getTasks();
         FileWriter fw = new FileWriter(this.filePath);

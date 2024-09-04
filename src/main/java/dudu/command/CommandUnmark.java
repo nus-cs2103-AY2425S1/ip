@@ -1,15 +1,17 @@
 package dudu.command;
 
-import dudu.command.Command;
+import java.io.IOException;
+
 import dudu.task.Task;
 import dudu.utils.Storage;
 import dudu.utils.TaskList;
 import dudu.utils.UI;
 
-import java.io.IOException;
-
+/**
+ * Represents a unmark task user command into the chatbot
+ */
 public class CommandUnmark extends Command {
-    int index;
+    private int index;
 
     /**
      * Constructs a CommandUnmark with the specified task.

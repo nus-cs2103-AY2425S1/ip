@@ -1,5 +1,8 @@
 package dudu.task;
 
+/**
+ * Represents an abstract class for a task
+ */
 public class Task {
 
     private boolean marked = false;

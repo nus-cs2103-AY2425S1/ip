@@ -1,7 +1,8 @@
 package dudu.task;
 
-import dudu.task.Task;
-
+/**
+ * Represents a to-do task
+ */
 public class ToDo extends Task {
 
     /**

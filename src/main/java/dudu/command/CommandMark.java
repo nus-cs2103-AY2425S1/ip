@@ -1,15 +1,17 @@
 package dudu.command;
 
-import dudu.command.Command;
+import java.io.IOException;
+
 import dudu.task.Task;
 import dudu.utils.Storage;
 import dudu.utils.TaskList;
 import dudu.utils.UI;
 
-import java.io.IOException;
-
+/**
+ * Represents a mark task user command into the chatbot
+ */
 public class CommandMark extends Command {
-    int index;
+    private int index;
 
     /**
      * Constructs a CommandMark with the specified task.
@@ -30,7 +32,7 @@ public class CommandMark extends Command {
      * @throws IOException If there is an error during saving the task to storage.
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws IOException  {
+    public void execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         Task markedTask = taskList.markTask(this.index);
         storage.rewriteFile(taskList);
         ui.markTask(markedTask);
