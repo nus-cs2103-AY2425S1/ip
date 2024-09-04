@@ -1,8 +1,3 @@
-/**
- * Loads and saves tasks into a file
- *
- */
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,16 +9,30 @@ import java.io.FileReader;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Handles the storage and retrieval of tasks from a specified file.
+ */
 class Storage {
     String filename;
     File file;
     Path filePath;
     
+    /**
+     * Constructs a Storage object with the specified file path and filename.
+     *
+     * @param filePath the directory path where the file is located
+     * @param filename the name of the file to be used for storage
+     */
     Storage(String filePath, String filename) {
         File file = new File(filename);
         this.filePath = Paths.get(filePath, filename);;
     }
 
+    /**
+     * Loads the task history from the specified file.
+     *
+     * @return a TaskList containing the tasks loaded from the file
+     */
     TaskList load() {
         ArrayList<Task> taskHistory = new ArrayList<Task>();
 
@@ -41,6 +50,11 @@ class Storage {
         return new TaskList(taskHistory);
     }
 
+    /**
+     * Saves the current task history to the specified file.
+     *
+     * @param taskHistory the TaskList containing tasks to be saved
+     */
     void save(TaskList taskHistory) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath.toFile()))) {
             writer.write(taskHistory.toSaveAsString());
@@ -50,6 +64,12 @@ class Storage {
         }
     }
 
+    /**
+     * Converts a string representation of a task into a Task object.
+     *
+     * @param string the string representation of the task
+     * @return the corresponding Task object
+     */
     Task stringToTask(String string) {
         // string will be in the format "D1/task description/[deadline or from]/[to]"
         String taskType = String.valueOf(string.charAt(0));
