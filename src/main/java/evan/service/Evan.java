@@ -1,4 +1,4 @@
-package evan.main;
+package evan.service;
 
 import evan.command.Command;
 import evan.exception.FileCreationException;

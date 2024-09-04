@@ -1,8 +1,8 @@
 package evan.command;
 
-import evan.main.Storage;
-import evan.main.TaskList;
-import evan.main.Ui;
+import evan.service.Storage;
+import evan.service.TaskList;
+import evan.service.Ui;
 
 /**
  * Represents a command that the chatbot can execute to list out the currently stored tasks.

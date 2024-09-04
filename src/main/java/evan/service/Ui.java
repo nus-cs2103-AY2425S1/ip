@@ -1,4 +1,4 @@
-package evan.main;
+package evan.service;
 
 import java.util.Scanner;
 

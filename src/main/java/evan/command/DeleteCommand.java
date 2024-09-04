@@ -1,9 +1,9 @@
 package evan.command;
 
 import evan.exception.NoSuchTaskException;
-import evan.main.Storage;
-import evan.main.TaskList;
-import evan.main.Ui;
+import evan.service.Storage;
+import evan.service.TaskList;
+import evan.service.Ui;
 
 /**
  * Represents a command that the chatbot can execute to delete a task.
