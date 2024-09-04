@@ -11,7 +11,7 @@ import colress.Ui;
  * Represents the delete command that removes a task from the list of tasks.
  */
 public final class DeleteCommand extends Command {
-    private int taskNumber;
+    private int[] taskNumbers;
     public DeleteCommand() {
         super("Got it. I have removed the task from your list.");
     }
@@ -21,8 +21,8 @@ public final class DeleteCommand extends Command {
         return ui.promptTaskNumber(taskList);
     }
 
-    public void initialise(int input) {
-        this.taskNumber = input;
+    public void initialise(int... input) {
+        this.taskNumbers = input;
     }
 
     public void initialise(String input) {
@@ -40,7 +40,7 @@ public final class DeleteCommand extends Command {
      */
     @Override
     public String execute(Ui ui, TaskList taskList) {
-        taskList.deleteTask(taskNumber);
+        taskList.deleteTask(taskNumbers);
         return ui.printConfirmationMessage(taskList, getSuccessfulExecutionMessage());
     }
 }
