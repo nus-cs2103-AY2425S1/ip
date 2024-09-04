@@ -1,18 +1,22 @@
 package velma;
 
-import velma.task.Task;
-import velma.task.TaskList;
-import velma.task.Deadline;
-import velma.task.Todo;
-import velma.task.Event;
-import velma.exception.VelmaException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
+import velma.exception.VelmaException;
+import velma.task.Deadline;
+import velma.task.Event;
+import velma.task.Task;
+import velma.task.TaskList;
+import velma.task.Todo;
+
+/**
+ * Velma class
+ */
 public class Velma {
     private static final String FILE_PATH = "./data/velma.txt";
     private Storage storage;
@@ -119,7 +123,8 @@ public class Velma {
                         throw new VelmaException("Sorry boss! Your deadline task needs a deadline!");
                     }
                     String description = parts[0];
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    DateTimeFormatter formatter = DateTimeFormatter
+                            .ofPattern("d/M/yyyy HHmm");
                     LocalDateTime deadline;
                     try {
                         deadline = LocalDateTime.parse(parts[1], formatter);
@@ -156,7 +161,8 @@ public class Velma {
                         try {
                             date = LocalDate.parse(dateString, dateFormatter);
                         } catch (DateTimeParseException e) {
-                            throw new VelmaException("Sorry boss! The date format is incorrect. Please use yyyy-MM-dd.");
+                            throw new VelmaException(
+                            "Sorry boss! The date format is incorrect. Please use yyyy-MM-dd.");
                         }
                         ui.showTasksOnDate(tasks.getTasks(), date);
                     } else {
@@ -209,7 +215,7 @@ public class Velma {
                     throw new VelmaException("Sorry boss! What are you talking about?");
                 }
             } catch (VelmaException e) {
-               ui.showError(e.getMessage());
+                ui.showError(e.getMessage());
             }
         }
     }

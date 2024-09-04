@@ -1,12 +1,13 @@
 package velma;
-
-import java.util.ArrayList;
-import velma.task.Task;
-import velma.task.TaskList;
-import velma.task.Event;
-import velma.task.Deadline;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
+import velma.task.Deadline;
+import velma.task.Task;
+
+/**
+ * Represents the user interface of Velma.
+ */
 public class Ui {
     /**
      * Prints welcome message when Velma is started.

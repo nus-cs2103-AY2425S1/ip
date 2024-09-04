@@ -1,10 +1,19 @@
 package velma.task;
 
+/**
+ * Event class
+ */
 public class Event extends Task {
 
     protected String startTime;
     protected String endTime;
 
+    /**
+     * Constructor for event class
+     * @param description
+     * @param startTime
+     * @param endTime
+     */
     public Event(String description, String startTime, String endTime) {
         super(description);
         this.startTime = startTime;
