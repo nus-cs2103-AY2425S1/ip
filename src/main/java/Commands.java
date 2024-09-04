@@ -132,7 +132,7 @@ public class Commands {
     public void unmark(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
-            System.out.printf("Task %d: [%s] has been unmarked", i, taskList.get(i - 1));
+            System.out.printf("Task %d: [%s] has been unmarked\n", i, taskList.get(i - 1));
             taskList.unmark( i- 1);
         } catch (NumberFormatException e) {
             System.out.println("Param given for unmarking a task is wrong, please try again");
