@@ -32,6 +32,18 @@ public abstract class Command {
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws PixelException;
 
     /**
+     * Executes the command and returns the response message.
+     *
+     * @param taskList the TaskList object that stores the tasks.
+     * @param ui       the Ui object for user interaction.
+     * @param storage  the Storage object for data persistence.
+     * @return the response message.
+     * @throws PixelException if there is an error executing the command.
+     */
+
+    public abstract String executeAndGetResponse(TaskList taskList, Ui ui, Storage storage) throws PixelException;
+
+    /**
      * Checks if the command should exit the application.
      *
      * @return true if the command should exit, false otherwise.

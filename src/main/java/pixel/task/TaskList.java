@@ -66,6 +66,12 @@ public class TaskList {
         return list.size();
     }
 
+    /**
+     * Returns a string representation of the TaskList.
+     *
+     * @param keyword the keyword to search for
+     * @return a string representation of the TaskList
+     */
     public TaskList findTasks(String keyword) {
         TaskList matchingTasks = new TaskList();
         for (int i = 0; i < list.size(); i++) {
