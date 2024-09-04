@@ -8,23 +8,27 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import fishman.exception.FishmanException;
+import fishman.exception.FishmanException.InvalidArgumentsException.ErrorType;
 import fishman.task.Deadline;
 import fishman.task.Event;
 import fishman.task.Task;
 import fishman.task.TaskList;
 import fishman.task.ToDo;
-
+import javafx.util.Pair;
 
 
 /**
  * The storage class is used to handle the storage of tasks to and from a save file.
  */
 public class Storage {
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
     private final Path filePath;
+    private List<String> errorMessages = new ArrayList<>();
 
 
     /**
@@ -79,12 +83,12 @@ public class Storage {
     private String toCsv(Task task) {
         StringBuilder sb = new StringBuilder();
         if (task instanceof ToDo) {
-            sb.append("T").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription());
+            sb.append("T").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription());
         } else if (task instanceof Deadline) {
-            sb.append("D").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|")
+            sb.append("D").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription()).append("|")
                             .append(((Deadline) task).getBy().format(DATE_TIME_FORMATTER));
         } else if (task instanceof Event) {
-            sb.append("E").append(task.getStatus() ? "|1" : "|0").append("|").append(task.getDescription()).append("|")
+            sb.append("E").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription()).append("|")
                             .append(((Event) task).getFrom().format(DATE_TIME_FORMATTER)).append("|")
                             .append(((Event) task).getTo().format(DATE_TIME_FORMATTER));
         }
@@ -99,55 +103,74 @@ public class Storage {
      * @throws FishmanException.InvalidArgumentsException If the file contains lines with invalid arguments.
      * @throws RuntimeException If an error occurs while reading the file.
      */
-    public TaskList load() throws FishmanException {
+    public Pair<TaskList, String> load() throws FishmanException {
         TaskList tasks = new TaskList();
+        errorMessages.clear();
 
         try {
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
-                String[] arguments = line.split("\\|", -1);
-                if (arguments.length < 3) {
-                    throw new FishmanException.InvalidArgumentsException(line);
-                }
-                String type = arguments[0];
-                boolean isDone = arguments[1].equals("1");
-                String description = arguments[2];
+                try {
+                    String[] arguments = line.split("\\|", -1);
+                    if (arguments.length < 3) {
+                        throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_ARGUMENTS, line);
+                    }
+                    String type = arguments[0].trim();
+                    String isDoneStr = arguments[1].trim();
+                    String description = arguments[2].trim();
 
-                switch (type) {
-                case "T":
-                    if (arguments.length != 3) {
-                        throw new FishmanException.InvalidArgumentsException(line);
+                    boolean isDone;
+                    if (isDoneStr.equalsIgnoreCase("true")) {
+                        isDone = true;
+                    } else if (isDoneStr.equalsIgnoreCase("false")) {
+                        isDone = false;
+                    } else {
+                        throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_IS_DONE, line);
                     }
-                    tasks.addTask(new ToDo(description, isDone));
-                    break;
-                case "D":
-                    if (arguments.length != 4) {
-                        throw new FishmanException.InvalidArgumentsException(line);
+
+                    switch (type) {
+                    case "T":
+                        if (arguments.length != 3 || description.isEmpty()) {
+                            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_TODO, line);
+                        }
+                        tasks.addTask(new ToDo(description, isDone));
+                        break;
+                    case "D":
+                        if (arguments.length != 4 || description.isEmpty()) {
+                            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_DEADLINE, line);
+                        }
+                        String deadline = arguments[3].trim();
+                        if (deadline.isEmpty()) {
+                            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_EVENT, line);
+                        }
+                        LocalDateTime deadlineDate = parseDateTime(deadline, line);
+                        tasks.addTask(new Deadline(description, isDone, deadlineDate));
+                        break;
+                    case "E":
+                        if (arguments.length != 5 || description.isEmpty()) {
+                            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_EVENT,line);
+                        }
+                        String from = arguments[3].trim();
+                        String to = arguments[4].trim();
+                        LocalDateTime fromDate = parseDateTime(from, line);
+                        LocalDateTime toDate = parseDateTime(to, line);
+                        tasks.addTask(new Event(description, isDone, fromDate, toDate));
+                        break;
+                    default:
+                        throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_TASK_TYPE, line);
                     }
-                    String deadline = arguments[3];
-                    LocalDateTime deadlineDate = parseDateTime(deadline);
-                    tasks.addTask(new Deadline(description, isDone, deadlineDate));
-                    break;
-                case "E":
-                    if (arguments.length != 5) {
-                        throw new FishmanException.InvalidArgumentsException(line);
-                    }
-                    String from = arguments[3];
-                    String to = arguments[4];
-                    LocalDateTime fromDate = parseDateTime(from);
-                    LocalDateTime toDate = parseDateTime(to);
-                    tasks.addTask(new Event(description, isDone, fromDate, toDate));
-                    break;
-                default:
-                    throw new FishmanException.InvalidArgumentsException("Empty line or unknown task type in line: "
-                                    + "<" + line + ">");
+                } catch (FishmanException e) {
+                    errorMessages.add(e.getMessage());
                 }
             }
-
         } catch (IOException e) {
             throw new RuntimeException("Error reading file: " + e.getMessage(), e);
         }
-        return tasks;
+
+        String combinedErrorMessage = errorMessages.isEmpty() ? null :
+                String.join("\n", errorMessages) + "\nInvalid data lines will be deleted on exit. Please re-enter the tasks in the correct format!";
+
+        return new Pair<>(tasks, combinedErrorMessage);
     }
 
     /**
@@ -160,11 +183,11 @@ public class Storage {
      * @throws FishmanException.InvalidArgumentsException If the input string does not match
      *      the expected date-time format.
      */
-    private static LocalDateTime parseDateTime(String dateTimeStr) throws FishmanException {
+    private static LocalDateTime parseDateTime(String dateTimeStr, String line) throws FishmanException {
         try {
             return LocalDateTime.parse(dateTimeStr, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new FishmanException.InvalidDateFormatException(dateTimeStr);
+            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_DATE_FORMAT, line);
         }
     }
 }

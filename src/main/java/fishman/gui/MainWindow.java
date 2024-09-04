@@ -31,12 +31,9 @@ public class MainWindow {
 
     public void setFishman(Fishman fishman) {
         this.fishman = fishman;
-        try {
-            fishman.loadTasks();
-        } catch (FishmanException e) {
-          showLoadErrors(e.getMessage());
-        } catch (Exception e) {
-            showLoadErrors("An unexpected error has occurred: " + e.getMessage());
+        String errorMessage = fishman.loadTasks();
+        if (errorMessage !=null) {
+            showLoadErrors(errorMessage);
         }
     }
 

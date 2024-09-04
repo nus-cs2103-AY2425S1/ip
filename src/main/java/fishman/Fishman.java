@@ -7,6 +7,7 @@ import fishman.utils.Parser;
 import fishman.utils.Storage;
 import fishman.utils.Ui;
 import javafx.application.Platform;
+import javafx.util.Pair;
 
 import java.util.concurrent.TimeUnit;
 
@@ -36,15 +37,14 @@ public class Fishman {
         }
     }
 
-    public void loadTasks() throws FishmanException {
+    public String loadTasks() {
         try {
-            tasks = storage.load();
-        } catch (FishmanException e) {
-            throw e;
+            Pair<TaskList, String> loadResult = storage.load();
+            tasks = loadResult.getKey();
+            return loadResult.getValue();
         } catch (Exception e) {
-            throw new FishmanException("Error");
+            return "An unexpected error has occurred: " + e.getMessage();
         }
-
     }
 
     public void saveTasks() throws FishmanException {
