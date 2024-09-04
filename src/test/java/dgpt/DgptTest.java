@@ -1,10 +1,10 @@
 package dgpt;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DGPTTest {
+import org.junit.jupiter.api.Test;
+
+public class DgptTest {
     @Test
     public void dummyTest() {
         assertEquals(2, 2);

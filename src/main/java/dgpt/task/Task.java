@@ -3,11 +3,11 @@ package dgpt.task;
 /**
  * Represents a generic task with a description and a completion status.
  * <p>
- * This class is an abstract base class for different types of tasks in the DGPT application.
+ * This class is an abstract base class for different types of tasks in the Dgpt application.
  * It provides methods for managing and representing the task's description and completion status.
  * </p>
  */
-abstract public class Task {
+public abstract class Task {
 
     protected String description;
     protected boolean isDone;

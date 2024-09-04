@@ -1,12 +1,12 @@
 package dgpt;
 
+import java.util.List;
+
 import dgpt.task.Task;
 import dgpt.task.TaskList;
 
-import java.util.List;
-
 /**
- * The Ui class is responsible for handling the user interface output for the DGPT application.
+ * The Ui class is responsible for handling the user interface output for the Dgpt application.
  * It contains methods to display various messages and information to the user.
  */
 
@@ -17,7 +17,7 @@ public class Ui {
      */
     public void showWelcome() {
         System.out.println("-----------------------");
-        System.out.println("DGPT> Hello! I'm DGPT");
+        System.out.println("Dgpt> Hello! I'm Dgpt");
         System.out.println("-----------------------");
     }
 
@@ -33,7 +33,7 @@ public class Ui {
      */
     public void showBye() {
         System.out.println("-----------------------");
-        System.out.println("DGPT> Bye. Hope to see you again soon!");
+        System.out.println("Dgpt> Bye. Hope to see you again soon!");
         System.out.println("-----------------------");
     }
 
@@ -99,7 +99,7 @@ public class Ui {
      */
     public void showMark(Task t) {
         System.out.println("-----------------------");
-        System.out.println("DGPT> Nice! I've marked this task as done: ");
+        System.out.println("Dgpt> Nice! I've marked this task as done: ");
         System.out.println(t.toString());
         System.out.println("-----------------------");
     }
@@ -111,7 +111,7 @@ public class Ui {
      */
     public void showUnmark(Task t) {
         System.out.println("-----------------------");
-        System.out.println("DGPT> OK, I've marked this task as not done yet:");
+        System.out.println("Dgpt> OK, I've marked this task as not done yet:");
         System.out.println(t.toString());
         System.out.println("-----------------------");
     }
@@ -124,7 +124,7 @@ public class Ui {
      */
     public void showDelete(Task t, int size) {
         System.out.println("-----------------------");
-        System.out.println("DGPT> OK, I've removed this task from the list:");
+        System.out.println("Dgpt> OK, I've removed this task from the list:");
         System.out.println(t.toString());
         System.out.printf("Now you have %d tasks in the list.%n", size);
         System.out.println("-----------------------");
@@ -138,7 +138,7 @@ public class Ui {
      */
     public void showTask(Task t, int size) {
         System.out.println("-----------------------");
-        System.out.println("DGPT> Got it. I've added this task:");
+        System.out.println("Dgpt> Got it. I've added this task:");
         System.out.println(t.toString());
         System.out.printf("Now you have %d tasks in the list.%n", size);
         System.out.println("-----------------------");

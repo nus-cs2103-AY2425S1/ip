@@ -1,26 +1,26 @@
 package dgpt;
 
+import java.io.IOException;
+import java.util.Scanner;
+
 import dgpt.exception.DgptFileNotFoundException;
 import dgpt.exception.IncorrectInputException;
 import dgpt.exception.TaskNotFoundException;
 import dgpt.task.TaskList;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 /**
- * The DGPT class represents a simple task management system.
+ * The Dgpt class represents a simple task management system.
  * It allows users to add tasks, mark them as done, unmark them, view the list of tasks, as well as find tasks using
  * keywords. It is able to save and load existing data using the local hard drive.
  */
-public class DGPT {
+public class Dgpt {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
-     * Constructs a DGPT instance with the specified file path for data storage and initialization.
+     * Constructs a Dgpt instance with the specified file path for data storage and initialization.
      * <p>
      * This constructor initializes the user interface (UI) and sets up the storage component.
      * It attempts to load existing tasks from the file into the task list. If the file is not found or an
@@ -31,7 +31,7 @@ public class DGPT {
      * @param filepath The path to the file where task data is stored. This file is used to load existing
      *                 tasks upon initialization.
      */
-    public DGPT(String filepath) {
+    public Dgpt(String filepath) {
         this.ui = new Ui();
         this.storage = new Storage(filepath);
         try {
@@ -42,7 +42,7 @@ public class DGPT {
         }
     }
 
-    public void run() {
+    private void run() {
         ui.showWelcome();
         Scanner scanner = new Scanner(System.in);
         boolean isActive = true;
@@ -82,6 +82,6 @@ public class DGPT {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        new DGPT("./data/dgpt.txt").run();
+        new Dgpt("./data/dgpt.txt").run();
     }
 }
