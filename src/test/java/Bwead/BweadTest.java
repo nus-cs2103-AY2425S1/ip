@@ -1,15 +1,16 @@
 package Bwead;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+
 
 public class BweadTest {
 
@@ -30,7 +31,7 @@ public class BweadTest {
         String[] lines = baos.toString().split(System.lineSeparator());
         String actual = lines[lines.length - 1];
 
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -40,7 +41,8 @@ public class BweadTest {
         ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(bais);
 
-        String expected = "Got it. I've added this task: [E][ ] project meeting (from: Oct 15 2019, 18.00 to: Oct 16 2019, 19.00)";
+        String expected = "Got it. I've added this task: [E][ ] project meeting (from: Oct 15 2019, 18.00 to:"
+                + " Oct 16 2019, 19.00)";
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(baos);
         System.setOut(printStream);
@@ -50,7 +52,7 @@ public class BweadTest {
         String[] lines = baos.toString().split(System.lineSeparator());
         String actual = lines[lines.length - 3];
 
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -70,7 +72,7 @@ public class BweadTest {
         String[] lines = baos.toString().split(System.lineSeparator());
         String actual = lines[lines.length - 2];
 
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -90,7 +92,7 @@ public class BweadTest {
         String[] lines = baos.toString().split(System.lineSeparator());
         String actual = lines[lines.length - 2];
 
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test

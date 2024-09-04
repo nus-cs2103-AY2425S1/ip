@@ -8,6 +8,11 @@ public class Todo extends Task {
     private boolean isDone;
     private String text;
 
+    /**
+     * Constructs a todo task using a name.
+     *
+     * @param text todo's task name.
+     */
     public Todo(String text) {
         super(text);
         this.text = text;
@@ -22,6 +27,11 @@ public class Todo extends Task {
         return this.text;
     }
 
+    /**
+     * Returns the string representation of a todo task.
+     *
+     * @return String representation of an todo task.
+     */
     public String toString() {
         String str = "";
         if (this.isDone) {

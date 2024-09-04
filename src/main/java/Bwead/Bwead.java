@@ -8,11 +8,10 @@ import java.io.IOException;
  */
 public class Bwead {
 
+    private static String name = "Bwead";
     private History history;
     private TaskList tasks;
     private Ui ui;
-
-    public static String name = "Bwead";
 
     /**
      * Constructs a Bwead instance using a file path which points to local file.
@@ -22,9 +21,9 @@ public class Bwead {
      *
      * @param filePath file path of the local file which will save tasks.
      * @throws IllegalArgumentException IOException when a failure occurs while performing read or write
-     * operations from the load() method.
+     *     operations from the load() method.
      */
-    public Bwead(String filePath) throws IOException{
+    public Bwead(String filePath) throws IOException {
         ui = new Ui();
         history = new History(filePath);
         try {
@@ -40,7 +39,7 @@ public class Bwead {
      * Starts the chatbot by calling ui.handleCommands() to handle the command inputs.
      *
      * @throws IOException when a failure occurs while performing read or write operations
-     * from the handleCommands() method.
+     *     from the handleCommands() method.
      */
     public void run() throws IOException {
         System.out.println("Hello from " + name + "!");
@@ -52,7 +51,7 @@ public class Bwead {
      *
      * @param args
      * @throws IOException when a failure occurs while performing read or write operations
-     * from the run() method.
+     *     from the run() method.
      */
     public static void main(String[] args) throws IOException {
         new Bwead("./src/main/java/Bwead/historyFile.txt").run();

@@ -1,11 +1,10 @@
 package Bwead;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
 
 /**
  * Takes in a command, and provides necessary information about the command
@@ -143,7 +142,7 @@ public class Parser {
         return Integer.valueOf(command.split(" ")[1]);
     }
 
-    public LocalTime getDeadlineTime() throws BweadException{
+    public LocalTime getDeadlineTime() throws BweadException {
         try {
             String dateTimeString = command.split("/by ")[1];
             String timeString = dateTimeString.substring(dateTimeString.length() - 4, dateTimeString.length());

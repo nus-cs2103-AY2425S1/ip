@@ -1,8 +1,8 @@
 package Bwead;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.IOException;
 
 /**
  * Handles input commands from the system and parses it using Parsers,
@@ -27,7 +27,7 @@ public class Ui {
      * @param taskList taskList with all the current tasks.
      * @param history handles saving the tasks locally.
      */
-    public void set (History history, TaskList taskList) {
+    public void set(History history, TaskList taskList) {
         this.history = history;
         this.taskList = taskList;
     }
@@ -83,13 +83,13 @@ public class Ui {
                     Task task = taskList.getCurrentList().get(toadd - 1);
                     task.setDone(true);
                     history.updateFile(taskList.getCurrentList());
-                    System.out.println("Nice! I've marked this task as done: " + task.text);
+                    System.out.println("Nice! I've marked this task as done: " + task.getText());
                 } else if (input.startsWith("unmark")) {
                     int toadd = parser.getTaskToMark();
                     Task task = taskList.getCurrentList().get(toadd - 1);
                     task.setDone(false);
                     history.updateFile(taskList.getCurrentList());
-                    System.out.println("OK, I've marked this task as not done yet: " + task.text);
+                    System.out.println("OK, I've marked this task as not done yet: " + task.getText());
                 } else if (input.startsWith("todo ")) {
                     String todoName = parser.getTodoName();
                     Todo task = new Todo(todoName);

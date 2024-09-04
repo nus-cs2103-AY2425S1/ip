@@ -1,6 +1,5 @@
 package Bwead;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -27,7 +26,7 @@ public class TaskList {
 
     /**
      * Returns the current list of tasks.
-     *=
+     *
      * @return ArrayList of tasks
      */
     public ArrayList<Task> getCurrentList() {

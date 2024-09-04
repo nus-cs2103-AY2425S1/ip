@@ -16,6 +16,10 @@ public class Event extends Task {
     private LocalTime startTime;
     private LocalTime endTime;
 
+    /**
+     * Constructs an Event task with a task name, start date, end date, start time, and end time.
+     *
+     */
     public Event(String text, LocalDate start, LocalDate end, LocalTime startTime, LocalTime endTime) {
         super(text);
         this.text = text;
@@ -33,6 +37,11 @@ public class Event extends Task {
         return this.text;
     }
 
+    /**
+     * Returns the string representation of an event task.
+     *
+     * @return String representation of an event.
+     */
     public String toString() {
         String str = "";
         if (isDone) {
@@ -41,8 +50,8 @@ public class Event extends Task {
             str = " ";
         }
         return "[E][" + str + "] " + text + "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", "
-                + startTime.format(DateTimeFormatter.ofPattern("HH.mm")) + " to: " +
-                end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", " +
-                endTime.format(DateTimeFormatter.ofPattern("HH.mm")) + ")";
+                + startTime.format(DateTimeFormatter.ofPattern("HH.mm")) + " to: "
+                + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", "
+                + endTime.format(DateTimeFormatter.ofPattern("HH.mm")) + ")";
     }
 }

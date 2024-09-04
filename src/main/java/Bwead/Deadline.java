@@ -14,6 +14,13 @@ public class Deadline extends Task {
     private LocalDate date;
     private LocalTime time;
 
+    /**
+     * Constructs a Deadline with its name, date, and time.
+     *
+     * @param text task name
+     * @param date the task's deadline date.
+     * @param time the task's deadline time.
+     */
     public Deadline(String text, LocalDate date, LocalTime time) {
         super(text);
         this.text = text;
@@ -30,6 +37,11 @@ public class Deadline extends Task {
         return this.text;
     }
 
+    /**
+     * Returns the string representation of a deadline task.
+     *
+     * @return String representation of a deadline.
+     */
     public String toString() {
         String str = "";
         if (isDone) {
@@ -37,7 +49,7 @@ public class Deadline extends Task {
         } else {
             str = " ";
         }
-        return "[D][" + str + "] " + text + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", " +
-                time.format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
+        return "[D][" + str + "] " + text + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", "
+                + time.format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
     }
 }
