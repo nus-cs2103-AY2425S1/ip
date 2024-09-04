@@ -14,7 +14,18 @@ import genji.task.Event;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A class to parse user's commands
+ */
 public class Parser {
+
+    /**
+     *Parses user's command into different types of commands
+     * Creates the task if the command ask to
+     * @param command user's input
+     * @return The corresponding command according to user's input
+     * @throws GenjiException When user's command is invalid
+     */
     public static Command parse(String command) throws GenjiException{
         if (command.equals("bye")) {
             return new ExitCommand();
@@ -114,7 +125,7 @@ public class Parser {
                 }
             }
         }
-        throw new GenjiException("Invalid command, try to start with \"todo\" \"deadline\"" +
+        throw new GenjiException("Invalid command, try to start with \"todo\" \"deadline\"\n" +
                 " \"event\", type \"list\" \"date\", or type \"bye\" to end");
     }
 }
