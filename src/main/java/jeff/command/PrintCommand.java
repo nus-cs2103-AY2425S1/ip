@@ -1,33 +1,44 @@
 package jeff.command;
 
-import jeff.Storage;
-import jeff.TaskList;
-import jeff.Ui;
-import jeff.exceptions.JEFFException;
-import jeff.task.Deadline;
-import jeff.task.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import jeff.Storage;
+import jeff.TaskList;
+import jeff.Ui;
+import jeff.exceptions.JeffException;
+import jeff.task.Deadline;
+import jeff.task.Task;
+
+/**
+ * Represents a command that prints tasks due on a specified date.
+ * This command is initialized with a date argument in the format "dd/MM/yyyy" and
+ * checks the task list for any deadlines that match this date.
+ */
 public class PrintCommand extends Command {
-    private String args;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private String args;
 
-
-    public PrintCommand(String args) throws JEFFException {
+    /**
+     * Constructs a {@code PrintCommand} with the specified date arguments.
+     * The date must be provided in the "dd/MM/yyyy" format to correctly parse and match tasks.
+     *
+     * @param args the date argument used to find tasks due on that specific date.
+     * @throws JeffException if {@code args} is empty, indicating that no date was provided.
+     */
+    public PrintCommand(String args) throws JeffException {
         super();
 
         if (args.isEmpty()) {
-            throw new JEFFException("You must provide a date after the command!");
+            throw new JeffException("You must provide a date after the command!");
         }
 
         this.args = args;
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JEFFException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         try {
             LocalDate date = LocalDate.parse(args, DATE_FORMATTER);
             System.out.println("Tasks due on " + date.format(DATE_FORMATTER) + ":");
@@ -46,7 +57,7 @@ public class PrintCommand extends Command {
                 System.out.println("No tasks due on this date.");
             }
         } catch (DateTimeParseException e) {
-            throw new JEFFException("Invalid date format! Please use 'DD/MM/YYYY'.");
+            throw new JeffException("Invalid date format! Please use 'DD/MM/YYYY'.");
         }
     }
 }

@@ -10,10 +10,10 @@ import java.util.Scanner;
  */
 public class Ui {
     // Reset
-    public static final String RESET = "\033[0m";  // Text Reset
+    public static final String RESET = "\033[0m"; // Text Reset
 
     // Regular Colors
-    public static final String RED = "\033[0;31m";     // RED
+    public static final String RED = "\033[0;31m"; // RED
 
     // UI Elements
     private static final String LINE = "--------------------------------------------";
@@ -30,7 +30,9 @@ public class Ui {
     // Scanner
     private static final Scanner sc = new Scanner(System.in); // Scanner object to detect user input
 
-
+    /**
+     * Displays a welcome message to the user at the start of the application.
+     */
     public void showWelcome() {
         System.out.println("Hello there!");
         System.out.println(LOGO);
@@ -41,7 +43,9 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    public void showMessage(String msg) {System.out.println(msg);}
+    public void showMessage(String msg) {
+        System.out.println(msg);
+    }
 
     public void showError(String error) {
         System.out.println(RED + "ERROR!" + RESET + " " + error);

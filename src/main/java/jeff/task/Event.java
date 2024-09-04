@@ -25,12 +25,12 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public String fromDateToString() {
+    private String fromDateToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return from.format(formatter);
     }
 
-    public String toDateToString() {
+    private String toDateToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return to.format(formatter);
     }
@@ -41,7 +41,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String saveAsCSV() {
-        return "E," + super.saveAsCSV() + "," + this.fromDateToString() + "," + this.toDateToString();
+    public String saveAsCsv() {
+        return "E," + super.saveAsCsv() + "," + this.fromDateToString() + "," + this.toDateToString();
     }
 }

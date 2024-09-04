@@ -1,8 +1,8 @@
 package jeff;
 
-import jeff.task.Task;
-
 import java.util.ArrayList;
+
+import jeff.task.Task;
 
 /**
  * Manages the list of tasks.

@@ -1,11 +1,5 @@
 package jeff;
 
-import jeff.exceptions.LineCorruptedException;
-import jeff.task.Deadline;
-import jeff.task.Event;
-import jeff.task.Task;
-import jeff.task.ToDo;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,6 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jeff.exceptions.LineCorruptedException;
+import jeff.task.Deadline;
+import jeff.task.Event;
+import jeff.task.Task;
+import jeff.task.ToDo;
+
 /**
  * Manages the loading and saving of tasks to a file.
  *
@@ -25,18 +25,18 @@ import java.util.Objects;
  */
 public class Storage {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private final String DIR_PATH;
-    private final String FILE_PATH;
+    private final String dirPath;
+    private final String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
      *
-     * @param DIR_PATH The path to the directory where tasks are stored.
-     * @param FILE_PATH The path to the file in DIR_PATH where tasks are stored.
+     * @param dirPath The path to the directory where tasks are stored.
+     * @param filePath The path to the file in dirPath where tasks are stored.
      */
-    public Storage(String DIR_PATH, String FILE_PATH) {
-        this.DIR_PATH = DIR_PATH;
-        this.FILE_PATH = FILE_PATH;
+    public Storage(String dirPath, String filePath) {
+        this.dirPath = dirPath;
+        this.filePath = filePath;
     }
 
     /**
@@ -46,7 +46,7 @@ public class Storage {
      */
     public ArrayList<Task> loadData() {
         // Check if the directory exists
-        Path file = this.checkDirectory(DIR_PATH, FILE_PATH);
+        Path file = this.checkDirectory(dirPath, filePath);
         // Read the file
         return this.readFile(file);
     }
@@ -75,37 +75,43 @@ public class Storage {
 
         // Load task into the current tasklist
         switch (parts[0]) {
-            case "T":
-                if (parts.length != 3) throw new LineCorruptedException("Incorrect Format");
-                taskList.add(new ToDo(parts[2]));
-                break;
-            case "D":
-                if (parts.length != 4) throw new LineCorruptedException("Incorrect Format");
-                try {
-                    taskList.add(
-                            new Deadline(parts[2],
-                                    LocalDateTime.parse(parts[3].trim(), DATE_TIME_FORMATTER)
-                            )
-                    );
-                } catch (DateTimeParseException e) {
-                    throw new LineCorruptedException("Incorrect date format at the file!");
-                }
-                break;
-            case "E":
-                if (parts.length != 5) throw new LineCorruptedException("Incorrect Format");
-                try {
-                    taskList.add(
-                            new Event(parts[2],
-                                    LocalDateTime.parse(parts[3].trim(), DATE_TIME_FORMATTER),
-                                    LocalDateTime.parse(parts[4].trim(), DATE_TIME_FORMATTER)
-                            )
-                    );
-                } catch (DateTimeParseException e) {
-                    throw new LineCorruptedException("Incorrect date format at the file!");
-                }
-                break;
-            default:
-                throw new LineCorruptedException("Unsupported task");
+        case "T":
+            if (parts.length != 3) {
+                throw new LineCorruptedException("Incorrect Format");
+            }
+            taskList.add(new ToDo(parts[2]));
+            break;
+        case "D":
+            if (parts.length != 4) {
+                throw new LineCorruptedException("Incorrect Format");
+            }
+            try {
+                taskList.add(
+                        new Deadline(parts[2],
+                                LocalDateTime.parse(parts[3].trim(), DATE_TIME_FORMATTER)
+                        )
+                );
+            } catch (DateTimeParseException e) {
+                throw new LineCorruptedException("Incorrect date format at the file!");
+            }
+            break;
+        case "E":
+            if (parts.length != 5) {
+                throw new LineCorruptedException("Incorrect Format");
+            }
+            try {
+                taskList.add(
+                        new Event(parts[2],
+                                LocalDateTime.parse(parts[3].trim(), DATE_TIME_FORMATTER),
+                                LocalDateTime.parse(parts[4].trim(), DATE_TIME_FORMATTER)
+                        )
+                );
+            } catch (DateTimeParseException e) {
+                throw new LineCorruptedException("Incorrect date format at the file!");
+            }
+            break;
+        default:
+            throw new LineCorruptedException("Unsupported task");
         }
         // check if the task is already completed
         if (Objects.equals(parts[1], "X")) {
@@ -115,7 +121,7 @@ public class Storage {
 
     private Path checkDirectory(String dirPath, String filePath) {
         // Check if directory does not exist
-        Path directory = Paths.get(DIR_PATH);
+        Path directory = Paths.get(dirPath);
         if (!Files.exists(directory)) {
             try {
                 Files.createDirectories(directory);
@@ -125,7 +131,7 @@ public class Storage {
         }
 
         // Check if file exists
-        Path file = Paths.get(FILE_PATH);
+        Path file = Paths.get(filePath);
         if (!Files.exists(file)) {
             try {
                 Files.createFile(file);
@@ -145,24 +151,33 @@ public class Storage {
      */
     public void saveTask(ArrayList<Task> taskList) {
         // write to the file the newly added task
-        String taskAsCSV = taskList.get(taskList.size() - 1).saveAsCSV();
+        String taskAsCsv = taskList.get(taskList.size() - 1).saveAsCsv();
         // try to append string to end of data file
         try {
-            Path file = Paths.get(FILE_PATH);
+            Path file = Paths.get(filePath);
             // Check if the file already has content
             boolean fileHasContent = Files.size(file) > 0;
             if (fileHasContent) {
-                Files.writeString(file, "\n" + taskAsCSV, StandardOpenOption.APPEND);
+                Files.writeString(file, "\n" + taskAsCsv, StandardOpenOption.APPEND);
             } else {
-                Files.writeString(file, taskAsCSV, StandardOpenOption.APPEND);
+                Files.writeString(file, taskAsCsv, StandardOpenOption.APPEND);
             }
         } catch (IOException e) {
             System.out.println("An error occurred saving the file");
         }
     }
 
+    /**
+     * Updates a specific line in a file with the CSV representation of a task from the task list.
+     * This method is designed to replace a single line, identified by a zero-based line number,
+     * with the updated task data. It handles file operations, ensuring that only the specified line is altered.
+     *
+     * @param taskList  the list of tasks, each capable of being saved in CSV format.
+     * @param lineNumber the zero-based index of the line in the file to update.
+     *                   This index must correspond to a valid position in the task list.
+     */
     public void updateSave(ArrayList<Task> taskList, int lineNumber) {
-        Path file = Paths.get(FILE_PATH);
+        Path file = Paths.get(filePath);
 
         try {
             // Read all lines from the file
@@ -170,7 +185,7 @@ public class Storage {
 
             // Update the specific line (lineNumber is zero-based)
             if (lineNumber >= 0 && lineNumber < lines.size()) {
-                lines.set(lineNumber, taskList.get(lineNumber).saveAsCSV());
+                lines.set(lineNumber, taskList.get(lineNumber).saveAsCsv());
             } else {
                 System.out.println("Invalid line number.");
                 return;
@@ -183,8 +198,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Replaces the entire content of the file with the CSV representation of each task in the task list.
+     * This method is used when a full update of the file is required, converting the entire list of tasks
+     * into their CSV format and writing them to the file, effectively replacing all previous content.
+     *
+     * @param taskList the list of tasks, each capable of being saved in CSV format.
+     */
     public void updateSave(ArrayList<Task> taskList) {
-        Path file = Paths.get(FILE_PATH);
+        Path file = Paths.get(filePath);
 
         try {
             // Create a list of strings to represent the updated file content
@@ -192,7 +214,7 @@ public class Storage {
 
             // Convert each task in the taskList to its CSV representation
             for (Task task : taskList) {
-                lines.add(task.saveAsCSV());
+                lines.add(task.saveAsCsv());
             }
 
             // Write the updated lines back to the file, replacing the entire content

@@ -28,7 +28,9 @@ public class Task {
         return (this.isDone) ? "X" : " ";
     }
 
-    public String getDescription() { return this.task; }
+    public String getDescription() {
+        return this.task;
+    }
 
     public String toString() {
         return "[" + this.getMark() + "] " + this.task;
@@ -42,7 +44,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String saveAsCSV() {
+    public String saveAsCsv() {
         return this.getMark() + "," + this.task;
     }
 }
