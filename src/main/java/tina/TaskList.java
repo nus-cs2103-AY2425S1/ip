@@ -30,13 +30,17 @@ public class TaskList {
      *
      * @param task The task to be added to the list.
      */
-    public String addTask(Task task) {
-        list.add(task);
-        storage.write(list);
-        String result = "Got it. I've added this task:\n"
-                + "  " + task.getDes() + "\n"
-                + String.format("Now you have %d tasks in the list.", list.size());
-        return result;
+    public String addTask(Task task) throws TinaException {
+        if (checkRepeat(task)) {
+            throw new TinaException("Task has already been added!");
+        } else {
+            list.add(task);
+            storage.write(list);
+            String result = "Got it. I've added this task:\n"
+                    + "  " + task.getDes() + "\n"
+                    + String.format("Now you have %d tasks in the list.", list.size());
+            return result;
+        }
     }
 
     /**
@@ -124,5 +128,14 @@ public class TaskList {
             }
         }
         return result.toString();
+    }
+    private boolean checkRepeat(Task task) {
+        String taskString = Parser.removeThirdChar(task.toString()); //to ignore whether task is marked
+        for (Task t : list) {
+            if (Parser.removeThirdChar(t.toString()).equals(taskString)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

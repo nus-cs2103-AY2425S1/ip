@@ -140,4 +140,7 @@ public class Parser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         return input.format(formatter);
     }
+    public static String removeThirdChar(String str) {
+        return str.substring(0, 2) + str.substring(3);
+    }
 }
