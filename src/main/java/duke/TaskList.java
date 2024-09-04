@@ -20,10 +20,8 @@ public class TaskList {
      * */
     public String add(Task t) {
         tasks[cmdNum] = t;
-        //Ui.printText("Got it. I've added this task:\n  " + get(cmdNum));
         String s = "Got it. I've added this task:\n  " + get(cmdNum);
         cmdNum++;
-        //Ui.printText("Now you have " + cmdNum + " tasks in the list.");
         s+="\nNow you have " + cmdNum + " tasks in the list.";
         return s;
     }
@@ -45,10 +43,8 @@ public class TaskList {
      * */
     public String delete(int n) {
         if (n >= cmdNum + 1) {
-            //throw new DuckException("There is no task with the given task number.");
             return "There is no task with the given task number.";
         }
-        //Ui.printText("Noted. I've removed this task:\n " + get(n - 1));
         String s = "Noted. I've removed this task:\n " + get(n - 1);
         ArrayList<Task> newCmds = new ArrayList<Task>(Arrays.asList(tasks));
         newCmds.remove(n - 1);
@@ -68,6 +64,11 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Returns list of all tasks in the list.
+     *
+     * @return String of all tasks in the list.
+     * */
     public String getAllTasks() {
         StringBuilder s = new StringBuilder("Here are the tasks in your list:");
         for (int n = 1; n <= cmdNum; n++) {
@@ -86,10 +87,8 @@ public class TaskList {
         if (num < cmdNum + 1) {
             get(num - 1).mark();
         } else {
-            //throw new DuckException("There is no task with the given task number.");
             return "There is no task with the given task number.";
         }
-        //Ui.printText("Nice! I've marked this task as done:\n " + get(num - 1));
         return "Nice! I've marked this task as done:\n " + get(num - 1);
     }
 
@@ -103,10 +102,8 @@ public class TaskList {
         if (num < cmdNum + 1) {
             get(num - 1).unmark();
         } else {
-            //throw new DuckException("There is no task with the given task number.");
             return "There is no task with the given task number.";
         }
-        //Ui.printText("OK, I've marked this task as not done yet:\n "+ get(num - 1));
         return "OK, I've marked this task as not done yet:\n "+ get(num - 1);
     }
 
@@ -126,10 +123,8 @@ public class TaskList {
             }
         }
         if (numOfFoundTasks == 0) {
-            //Ui.printText("No matching tasks in your list.");
             return "No matching tasks in your list.";
         } else {
-            //Ui.printText("Here are the matching tasks in your list:");
             StringBuilder s = new StringBuilder("Here are the matching tasks in your list:");
             for (int n = 1; n < numOfFoundTasks; n++) {
                 s.append("\n").append(n).append(". ").append(foundTasks[n - 1]);

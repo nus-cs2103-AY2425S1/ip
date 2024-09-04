@@ -17,7 +17,6 @@ public class Duck {
      * @throws DuckException if command given is not valid.
      */
     public String getResponse(String input) throws DuckException {
-        //return "Duke heard: " + input;
         return Parser.parseCommand(cmds, input);
     }
 }

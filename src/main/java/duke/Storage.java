@@ -84,7 +84,6 @@ public class Storage {
             FileWriter writer = new FileWriter(PATH);
             writer.write(n + "\n");
             for (int i = 0; i<n; i++) {
-                //System.out.println("Saved "+tasks[i].description);
                 writer.write(saveTask(tasks[i]) + "\n");
             }
             writer.close();
