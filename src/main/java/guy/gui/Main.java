@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private ThatOneGuy guy = new ThatOneGuy();
 
-    /*
+
     @Override
     public void start(Stage stage) {
         try {
@@ -31,5 +31,5 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-     */
+
 }

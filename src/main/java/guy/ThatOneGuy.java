@@ -25,9 +25,11 @@ public class ThatOneGuy {
      * Does so by initialising the ui/task list/storage, then reads data from storage.
      */
     public ThatOneGuy() {
+        isRunning = true;
         ui = new Ui();
         storage = new Storage();
         tm = new TaskManager();
+        this.parser = new Parser(new Scanner(System.in));
         storage.readData();
     }
 
@@ -67,9 +69,15 @@ public class ThatOneGuy {
      */
     private void keepGoing() {
         Parser p = new Parser(new Scanner(System.in));
-        boolean isActive = true;
-        while (isActive) {
-            isActive = p.cmd();
+        while (isRunning) {
+            isRunning = p.cmd();
         }
+    }
+
+    /**
+     * Accessor function to check if ThatOneGuy is running.
+     */
+    public boolean isRunning() {
+        return isRunning;
     }
 }

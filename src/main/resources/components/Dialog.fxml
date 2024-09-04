@@ -10,7 +10,7 @@
     <children>
         <Label fx:id="dialog" text="Label" wrapText="true" />
         <StackPane>
-            <ImageView fx:id="displayPicture" fitHeight="60" fitWidth="60" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="display" fitHeight="60" fitWidth="60" pickOnBounds="true" preserveRatio="true" />
         </StackPane>
     </children>
     <padding>

@@ -47,10 +47,10 @@ public class TaskManager {
             String type = line[0];
 
             Task task = switch(type) {
-                case "T" -> new ToDo(line[2]);
-                case "D" -> new Deadline(line[2], LocalDateTime.parse(line[3], dtf));
-                case "E" -> new Event(line[2], LocalDateTime.parse(line[3], dtf), LocalDateTime.parse(line[4], dtf));
-                default -> throw new GuyException("Why did you give me a file with an invalid line, you dingus...");
+            case "T" -> new ToDo(line[2]);
+            case "D" -> new Deadline(line[2], LocalDateTime.parse(line[3], dtf));
+            case "E" -> new Event(line[2], LocalDateTime.parse(line[3], dtf), LocalDateTime.parse(line[4], dtf));
+            default -> throw new GuyException("Why did you give me a file with an invalid line, you dingus...");
             };
 
             if (line[1].equals("1")) {
@@ -258,5 +258,12 @@ public class TaskManager {
                 System.out.printf("%d.%s\n", i + 1, matchingTasks.get(i).toString());
             }
         }
+    }
+
+    /**
+     * Deletes every task on the list.
+     */
+    public void clearTasks() {
+        tasks.clear();
     }
 }

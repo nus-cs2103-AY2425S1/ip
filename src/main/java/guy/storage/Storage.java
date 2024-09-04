@@ -16,6 +16,10 @@ import guy.tasks.TaskManager;
  */
 public class Storage {
     private static Storage storage;
+    private static final String DATA_DIR = "data/";
+    private static final String MAIN_FILE = "guy.txt";
+    private static final String TEST_FILE = "guy_test.txt";
+    private static boolean isTesting = false;
 
     /**
      * Retrieves the instance of the Storage class.
@@ -34,13 +38,14 @@ public class Storage {
      * Creates necessary directories and files if not present.
      */
     public void readData() {
+        String fileName = isTesting ? TEST_FILE : MAIN_FILE;
         try {
-            File dir = new File("data/");
+            File dir = new File(DATA_DIR);
             if (!dir.exists()) {
                 boolean created = dir.mkdir();
             }
 
-            File f = new File("data/guy.txt");
+            File f = new File(DATA_DIR + fileName);
             if (!f.exists()) {
                 boolean created = f.createNewFile();
             }
@@ -62,8 +67,9 @@ public class Storage {
      * Writes data from the TaskManager to the file system.
      */
     public void writeData() {
+        String fileName = isTesting ? TEST_FILE : MAIN_FILE;
         try {
-            FileWriter writer = new FileWriter("data/guy.txt");
+            FileWriter writer = new FileWriter(DATA_DIR + fileName);
             ArrayList<Task> tasks = TaskManager.getInstance().getTasks();
             for (Task task : tasks) {
                 writer.write(task.saveFormat() + "\n");
@@ -82,5 +88,35 @@ public class Storage {
         f.writeData();
     }
 
+    /**
+     * Loads a testing environment.
+     */
+    public static void startTest() {
+        isTesting = true;
+        TaskManager.getInstance().clearTasks();
+        getInstance().readData();
+    }
+
+    /**
+     * Shuts down a testing environment.
+     */
+    public static void stopTest() {
+        isTesting = false;
+        TaskManager.getInstance().clearTasks();
+        getInstance().readData();
+    }
+
+    /**
+     * Deletes the test file.
+     */
+    public static void wipeTest() {
+        File testFile = new File(DATA_DIR + TEST_FILE);
+        if (testFile.exists()) {
+            boolean isDeleted = testFile.delete();
+            if (!isDeleted) {
+                System.err.println("You really thought I could delete this file: " + testFile.getAbsolutePath());
+            }
+        }
+    }
 
 }
