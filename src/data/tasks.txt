@@ -1,6 +1,8 @@
-T | 0 | read
+T | 1 | read
 T | 0 | study
 T | 0 | run
-T | 0 | read
+T | 1 | read
 T | 0 | sleep
-D | 0 | study  | 12/3/2024 1500
+T | 0 | class
+D | 0 | assignment  | 12/12/2024 2359
+E | 0 | tedtalk  | 13/1/2024 1500 | 13/1/2024 1600

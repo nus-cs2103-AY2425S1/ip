@@ -41,10 +41,16 @@ public class Event extends Task {
      * @param eventEnd the end date and time of the event
      * @param isDone the status of the event
      */
-    public Event(String description, LocalDateTime eventStart, LocalDateTime eventEnd, boolean isDone) {
+    public Event(String description, String eventStart, String eventEnd, boolean isDone) throws ToothlessExceptions{
         super(description, isDone);
-        this.eventStart = eventStart;
-        this.eventEnd = eventEnd;
+        try {
+            this.eventStart = LocalDateTime.parse(eventStart.trim().replace("-","/"), INPUT_FORMATTER);
+            this.eventEnd = LocalDateTime.parse(eventEnd.trim().replace("-","/"), INPUT_FORMATTER);
+        } catch (Exception e) {
+            throw new ToothlessExceptions("Please enter a valid date and time\n" +
+                    "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n" +
+                    "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+        }
     }
 
     /**

@@ -38,9 +38,15 @@ public class Deadline extends Task {
      * @param deadline the deadline of the task
      * @param isDone the status of the deadline
      */
-    public Deadline(String description, LocalDateTime deadline, boolean isDone){
+    public Deadline(String description, String deadline, boolean isDone) throws ToothlessExceptions {
         super(description, isDone);
-        this.deadline = deadline;
+        try {
+            this.deadline = LocalDateTime.parse(deadline.trim().replace("-","/"), INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new ToothlessExceptions("Please enter a valid date and time\n" +
+                    "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n" +
+                    "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+        }
     }
 
     @Override

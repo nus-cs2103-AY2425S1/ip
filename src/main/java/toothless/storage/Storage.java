@@ -1,5 +1,6 @@
 package toothless.storage;
 
+import toothless.exceptions.ToothlessExceptions;
 import toothless.task.Deadline;
 import toothless.task.Event;
 import toothless.task.Task;
@@ -81,11 +82,19 @@ public class Storage {
                 return new ToDo(description, isDone);
             case "D":
                 String deadline = splitData[3];
-                return new Deadline(description, LocalDateTime.parse(deadline), isDone);
+                try {
+                    return new Deadline(description, deadline, isDone);
+                } catch (ToothlessExceptions e) {
+                    System.out.println(e.getMessage());
+                }
             case "E":
                 String eventStart = splitData[3];
                 String eventEnd = splitData[4];
-                return new Event(description, LocalDateTime.parse(eventStart), LocalDateTime.parse(eventEnd), isDone);
+                try {
+                    return new Event(description, eventStart, eventEnd, isDone);
+                } catch (ToothlessExceptions e) {
+                    System.out.println(e.getMessage());
+                }
             default:
                 return null;
         }
