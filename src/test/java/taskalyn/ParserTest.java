@@ -23,8 +23,8 @@ public class ParserTest {
         String expectedOutput = ("    ____________________________________________________________\n" +
                 "    Bye. Hope to see you again soon!\n" +
                 "    ____________________________________________________________")
-                .replaceAll("\\n|\\r\\n", System.getProperty("line.separator"));
-        assertEquals(expectedOutput.trim(), out.toString().trim());
+                .replaceAll("\\n|\\r\\n", System.lineSeparator());
+        assertEquals(expectedOutput.trim(), output.trim());
         System.setOut(null);
         System.setIn(null);
     }
