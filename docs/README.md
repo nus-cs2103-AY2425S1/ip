@@ -1,4 +1,4 @@
-# Jay User Guide
+# Jay.Jay User Guide
 
 // Update the title above to match the actual product name
 
