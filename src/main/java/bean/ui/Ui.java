@@ -1,140 +1,135 @@
 package bean.ui;
 
-import bean.task.Task;
-
 import java.util.List;
 import java.util.Scanner;
+import bean.task.Task;
 
 /**
  * The Ui class handles user interactions, including displaying messages and reading user input.
  */
 public class Ui {
-    private Scanner scanner;
+//    private Scanner scanner;
 
     /**
      * Initializes a new Ui instance.
      */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
+//    public Ui() {
+//        this.scanner = new Scanner(System.in);
+//    }
 
     /**
      * Reads and returns user input as a trimmed string.
      *
      * @return The user's input.
      */
-    public String getUserInput() {
-        return scanner.nextLine().trim();
-    }
+//    public String getUserInput() {
+//        return scanner.nextLine().trim();
+//    }
 
     /**
-     * Displays a greeting message to the user.
-     */
-    public void showGreeting() {
-        System.out.println("______________________________");
-        System.out.println("Hello! I'm bean.Bean");
-        System.out.println("What can I do for you?");
-        System.out.println("______________________________");
-    }
-
-    /**
-     * Displays a goodbye message to the user.
-     */
-    public void showGoodbye() {
-        System.out.println("______________________________");
-        System.out.println("Bye. Hope to see you again.");
-        System.out.println("______________________________");
-    }
-
-    /**
-     * Displays the list of tasks.
+     * Returns a greeting message.
      *
-     * @param tasks The list of tasks to display.
+     * @return The greeting message.
      */
-    public void showTasks(List<Task> tasks) {
-        System.out.println("______________________________");
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i <= tasks.size(); i++) {
-            System.out.println(i + "." + tasks.get(i - 1));
-        }
-        System.out.println("______________________________");
+    public String getGreeting() {
+        return "Hello! I'm Bean\nWhat can I do for you?";
     }
 
     /**
-     * Displays the list of matching tasks.
+     * Returns a goodbye message.
      *
-     * @param tasks The list of tasks to display.
+     * @return The goodbye message.
      */
-    public void showMatchingTasks(List<Task> tasks) {
-        System.out.println("______________________________");
-        System.out.println("Here are the matching tasks in your list:");
-        for (int i = 1; i <= tasks.size(); i++) {
-            System.out.println(i + "." + tasks.get(i - 1));
-        }
-        System.out.println("______________________________");
-    }
-
-    public void showTaskAdded(Task task, int numOfTasks) {
-        System.out.println("______________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
-        System.out.println("______________________________");
+    public String getGoodbye() {
+        return "Bye. Hope to see you again.";
     }
 
     /**
-     * Displays a message indicating that a task has been marked as completed.
+     * Returns the list of tasks formatted as a string.
+     *
+     * @param tasks The list of tasks.
+     * @return The formatted string of tasks.
+     */
+    public String getTasks(List<Task> tasks) {
+        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 1; i <= tasks.size(); i++) {
+            response.append(i).append(". ").append(tasks.get(i - 1)).append("\n");
+        }
+        return response.toString();
+    }
+
+    /**
+     * Returns the list of matching tasks formatted as a string.
+     *
+     * @param tasks The list of matching tasks.
+     * @return The formatted string of matching tasks.
+     */
+    public String getMatchingTasks(List<Task> tasks) {
+        StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 1; i <= tasks.size(); i++) {
+            response.append(i).append(". ").append(tasks.get(i - 1)).append("\n");
+        }
+        return response.toString();
+    }
+
+    /**
+     * Returns a message indicating that a task has been added.
+     *
+     * @param task       The task that was added.
+     * @param numOfTasks The number of tasks after addition.
+     * @return The formatted message.
+     */
+    public String getTaskAdded(Task task, int numOfTasks) {
+        return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task, numOfTasks);
+    }
+
+    /**
+     * Returns a message indicating that a task has been marked as completed.
      *
      * @param task The task that was marked as completed.
+     * @return The formatted message.
      */
-    public void showTaskMarked(Task task) {
-        System.out.println("______________________________");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        System.out.println("______________________________");
+    public String getTaskMarked(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
-     * Displays a message indicating that a task has been unmarked (set as not completed).
+     * Returns a message indicating that a task has been unmarked (set as not completed).
      *
      * @param task The task that was unmarked.
+     * @return The formatted message.
      */
-    public void showTaskUnmarked(Task task) {
-        System.out.println("______________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
-        System.out.println("______________________________");
+    public String getTaskUnmarked(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**
-     * Displays a message indicating that a task has been deleted.
+     * Returns a message indicating that a task has been deleted.
      *
-     * @param task The task that was deleted.
+     * @param task       The task that was deleted.
      * @param numOfTasks The number of tasks remaining after deletion.
+     * @return The formatted message.
      */
-    public void showTaskDeleted(Task task, int numOfTasks) {
-        System.out.println("______________________________");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
-        System.out.println("______________________________");
+    public String getTaskDeleted(Task task, int numOfTasks) {
+        return String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.", task, numOfTasks);
     }
 
     /**
-     * Displays an error message.
+     * Returns an error message.
      *
-     * @param message The error message to display.
+     * @param message The error message.
+     * @return The formatted error message.
      */
-    public void showError(String message) {
-        System.out.println("______________________________");
-        System.out.println(message);
-        System.out.println("______________________________");
+    public String getError(String message) {
+        return "Error: " + message;
     }
 
     /**
-     * Displays an error message indicating that there was an issue loading tasks.
+     * Returns an error message indicating that there was an issue loading tasks.
+     *
+     * @return The formatted error message.
      */
-    public void showLoadingError() {
-        showError("Error loading tasks.");
+    public String getLoadingError() {
+        return getError("Error loading tasks.");
     }
 }

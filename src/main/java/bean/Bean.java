@@ -9,12 +9,13 @@ import bean.task.Task;
 import bean.task.TodoTask;
 import bean.ui.Ui;
 
+import java.util.List;
+
+
 /**
  * The Bean class represents the main entry point of the application.
  * It handles the interaction between the user, the task list, and the storage.
  */
-import java.util.List;
-
 public class Bean {
 
     private Storage storage;
@@ -34,62 +35,63 @@ public class Bean {
         try {
             tasks = new TaskList(storage.load());
         } catch (Exception e) {
-            ui.showLoadingError();
+            System.out.println(ui.getLoadingError());
             tasks = new TaskList();
         }
     }
 
     /**
-     * Starts the conversation with the user, processes commands, and interacts with the task list.
+     * Processes the user input, executes commands, and returns the response string for the GUI.
+     *
+     * @param input The user's input command.
+     * @return The response string to be displayed in the GUI.
      */
-    public void startConversation() {
-        ui.showGreeting();
-        while (true) {
-            try {
-                String input = ui.getUserInput();
-                if (input.equals("bye")) {
-                    ui.showGoodbye();
-                    break;
-                }
-                Command command = parser.parseCommand(input);
-
-                switch (command.getType()) {
-
-                    case "list":
-                        ui.showTasks(tasks.getTasks());
-                        break;
-                    case "mark":
-                    case "unmark":
-                    case "delete":
-                        int index = Integer.parseInt(command.getDetails()) - 1;
-                        handleTaskOperation(command.getType(), index);
-                        break;
-                    case "todo":
-                        tasks.addTask(new TodoTask(command.getDetails()));
-                        ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
-                        break;
-                    case "deadline":
-                        String[] deadlineParts = command.getDetails().split(" /by ");
-                        tasks.addTask(new DeadlineTask(deadlineParts[0], deadlineParts[1]));
-                        ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
-                        break;
-                    case "event":
-                        String[] eventParts = command.getDetails().split(" /from | /to ");
-                        tasks.addTask(new EventTask(eventParts[0], eventParts[1], eventParts[2]));
-                        ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
-                        break;
-                    case "find":
-                        List<Task> foundTasks = tasks.findTasks(command.getDetails());
-                        ui.showMatchingTasks(foundTasks);
-                        break;
-                    default:
-                        ui.showError("Unknown command");
-                        break;
-                }
-                storage.save(tasks.getTasks());
-            } catch (Exception e) {
-                ui.showError(e.getMessage());
+    public String getResponse(String input) {
+        try {
+            if (input.equals("bye")) {
+                return ui.getGoodbye();
             }
+
+            Command command = parser.parseCommand(input);
+            switch (command.getType()) {
+            case "list":
+                return ui.getTasks(tasks.getTasks());
+
+            case "mark":
+            case "unmark":
+            case "delete":
+                int index = Integer.parseInt(command.getDetails()) - 1;
+                return handleTaskOperation(command.getType(), index);
+
+            case "todo":
+                Task todo = new TodoTask(command.getDetails());
+                tasks.addTask(todo);
+                storage.save(tasks.getTasks());
+                return ui.getTaskAdded(todo, tasks.size());
+
+            case "deadline":
+                String[] deadlineParts = command.getDetails().split(" /by ");
+                Task deadline = new DeadlineTask(deadlineParts[0], deadlineParts[1]);
+                tasks.addTask(deadline);
+                storage.save(tasks.getTasks());
+                return ui.getTaskAdded(deadline, tasks.size());
+
+            case "event":
+                String[] eventParts = command.getDetails().split(" /from | /to ");
+                Task event = new EventTask(eventParts[0], eventParts[1], eventParts[2]);
+                tasks.addTask(event);
+                storage.save(tasks.getTasks());
+                return ui.getTaskAdded(event, tasks.size());
+
+            case "find":
+                List<Task> foundTasks = tasks.findTasks(command.getDetails());
+                return ui.getMatchingTasks(foundTasks);
+
+            default:
+                return ui.getError("Unknown command");
+            }
+        } catch (Exception e) {
+            return ui.getError(e.getMessage());
         }
     }
 
@@ -100,11 +102,7 @@ public class Bean {
      * @return True if the index is valid, false otherwise.
      */
     private boolean isValidIndex(int index) {
-        if (index < 0 || index >= tasks.size()) {
-            ui.showError("bean.task.Task index is out of bounds.");
-            return false;
-        }
-        return true;
+        return index >= 0 && index < tasks.size();
     }
 
     /**
@@ -113,31 +111,28 @@ public class Bean {
      * @param commandType The type of operation to perform.
      * @param index The index of the task to operate on.
      */
-    private void handleTaskOperation(String commandType, int index) {
-        if (isValidIndex(index)) {
-            switch (commandType) {
-            case "mark":
-                tasks.markTask(index);
-                ui.showTaskMarked(tasks.getTask(index));
-                break;
-            case "unmark":
-                tasks.unmarkTask(index);
-                ui.showTaskUnmarked(tasks.getTask(index));
-                break;
-            case "delete":
-                Task removedTask = tasks.deleteTask(index);
-                ui.showTaskDeleted(removedTask, tasks.size());
-                break;
-            }
+    private String handleTaskOperation(String commandType, int index) {
+        if (!isValidIndex(index)) {
+            return ui.getError("Task index is out of bounds.");
         }
-    }
+        switch (commandType) {
+        case "mark":
+            tasks.markTask(index);
+            storage.save(tasks.getTasks());
+            return ui.getTaskMarked(tasks.getTask(index));
 
-    /**
-     * The main method that starts the application.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Bean("data/bean.txt").startConversation();
+        case "unmark":
+            tasks.unmarkTask(index);
+            storage.save(tasks.getTasks());
+            return ui.getTaskUnmarked(tasks.getTask(index));
+
+        case "delete":
+            Task removedTask = tasks.deleteTask(index);
+            storage.save(tasks.getTasks());
+            return ui.getTaskDeleted(removedTask, tasks.size());
+
+        default:
+            return ui.getError("Invalid operation.");
+        }
     }
 }
