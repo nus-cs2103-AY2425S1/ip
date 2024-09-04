@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 
 public class Parser {
 
-    public static Command parse(String command) {
+    public static Command parse(String command) throws SpikeException {
         try {
             String[] inputSplit = command.split(" ", 2);
             InputType inputType = parseInput(inputSplit[0]);

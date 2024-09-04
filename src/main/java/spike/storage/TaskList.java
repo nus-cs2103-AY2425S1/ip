@@ -1,5 +1,6 @@
 package spike.storage;
 
+import spike.exceptions.SpikeException;
 import spike.tasks.Task;
 import spike.tasks.Deadline;
 import spike.tasks.Event;
@@ -28,23 +29,27 @@ public class TaskList {
         return tasks.size();
     }
 
-    public String getTaskString(int index) {
+    public String getTaskString(int index) throws IndexOutOfBoundsException {
         return tasks.get(index).toString();
+    }
+
+    public String getTaskStatus(int index) throws IndexOutOfBoundsException {
+        return tasks.get(index).getStatusIcon();
     }
 
     public void addTask(Task task) {
         tasks.add(task);
     }
 
-    public Task deleteTask(int index) {
+    public Task deleteTask(int index) throws IndexOutOfBoundsException{
         return tasks.remove(index);
     }
 
-    public void markTaskDone(int index) {
+    public void markTaskDone(int index) throws IndexOutOfBoundsException{
         tasks.get(index).markAsDone();
     }
 
-    public void markTaskUndone(int index) {
+    public void markTaskUndone(int index) throws IndexOutOfBoundsException {
         tasks.get(index).markAsUndone();
     }
 

@@ -14,6 +14,11 @@ public class DeleteTaskCommand extends Command {
     }
 
     @Override
+    public String getCommandType() {
+        return "Delete Task";
+    }
+
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpikeException {
         try {
             Task task = tasks.deleteTask(taskIndex);

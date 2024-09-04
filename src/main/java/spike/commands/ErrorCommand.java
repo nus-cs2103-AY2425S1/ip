@@ -12,6 +12,11 @@ public class ErrorCommand extends Command {
     }
 
     @Override
+    public String getCommandType() {
+        return this.message;
+    }
+
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showExceptionMessage(message);
     }

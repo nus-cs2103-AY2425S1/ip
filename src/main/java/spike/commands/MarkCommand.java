@@ -13,6 +13,11 @@ public class MarkCommand extends Command {
     }
 
     @Override
+    public String getCommandType() {
+        return "Mark";
+    }
+
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpikeException {
         try {
             tasks.markTaskDone(taskIndex);

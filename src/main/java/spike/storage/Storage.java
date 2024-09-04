@@ -77,4 +77,13 @@ public class Storage {
         return loadedTasks;
     }
 
+    public void clearFile() throws SpikeException {
+        try {
+            FileWriter writer = new FileWriter(this.file, false);
+            writer.close();
+        } catch (IOException e) {
+            throw new SpikeException("An error occurred while clearing the file");
+        }
+    }
+
 }
