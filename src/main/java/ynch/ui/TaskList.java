@@ -22,6 +22,11 @@ class TaskList {
     boolean isEmpty() {
         return this.todoList.size() == 0;
     }
+
+    Task add(Task task) {
+        this.todoList.add(task);
+        return task;
+    }
     
     Task add(String task) {
         Todo newTask = new Todo(task);
@@ -68,7 +73,7 @@ class TaskList {
         TaskList matchingTasks = new TaskList();
         for (Task t : this.todoList) {
             if (t.getDescription().contains(keyword)) {
-                matchTasks.add(t);
+                matchingTasks.add(t);
             }
         }
         return matchingTasks;

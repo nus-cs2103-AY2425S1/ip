@@ -28,7 +28,7 @@ class YnchUi {
     }
 
     void printFind(TaskList tasks) {
-        if (tasks.isEmpty) {
+        if (tasks.isEmpty()) {
             System.out.println("Meow! I can't find anything matching your search :(");
         } else {
             System.out.println("Meow! Here are the matching tasks in your list: \n" + tasks.list());
