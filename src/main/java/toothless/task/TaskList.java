@@ -123,7 +123,7 @@ public class TaskList {
         }
 
         if (taskCount == 0) {
-            System.out.println("Oopsie! Seems like there are no quests that match your keyword.");
+            System.out.println("Oopsie! Seems like there are no quests that match your keyword!\n");
         }
 
         System.out.println("\n" + DIVIDER);
