@@ -35,6 +35,7 @@ public class Dude {
         storage = new Storage(filePath);
         taskList = new TaskList(storage.loadData());
         ui = new Ui();
+        isRunning = true;
     }
 
     /**
@@ -42,75 +43,76 @@ public class Dude {
      */
     public void start() {
         isRunning = true;
-        ui.showGreet();
+        ui.displayMessage(ui.showGreet());
 
         while (isRunning) {
-            try {
-                readAndReact();
-            } catch (DudeException e) {
-                ui.showError(e);
-            }
+            String input = ui.readCommand().strip();
+            ui.displayMessage(readAndReact(input));
         }
     }
 
     /**
      * Reads user input and reacts accordingly.
      *
-     * @throws DudeException If an error occurs during processing.
+     * @param input The user input string.
+     * @return The response message based on the processed input.
      */
-    public void readAndReact() throws DudeException {
-        String input = ui.readCommand().strip();
-        String taskDes = Parser.getDescription(input);
+    public String readAndReact(String input) {
+        try {
+            String taskDes = Parser.getDescription(input);
 
-        switch (Parser.getCommand(input)) {
-        case HI:
-            ui.showGreet();
-            break;
-        case BYE:
-            exit();
-            break;
-        case LIST:
-            ui.showList(taskList);
-            break;
-        case MARK:
-            mark(taskDes);
-            break;
-        case UNMARK:
-            unmark(taskDes);
-            break;
-        case DELETE:
-            delete(taskDes);
-            break;
-        case TODO:
-            addToDo(taskDes);
-            break;
-        case DEADLINE:
-            addDeadline(taskDes);
-            break;
-        case EVENT:
-            addEvent(taskDes);
-            break;
-        case FIND:
-            find(taskDes);
-            break;
-        default:
-            throw new DudeInvalidCommandException();
+            switch (Parser.getCommand(input)) {
+            case HI:
+                return greet();
+            case BYE:
+                return exit();
+            case LIST:
+                return ui.showList(taskList);
+            case MARK:
+                return mark(taskDes);
+            case UNMARK:
+                return unmark(taskDes);
+            case DELETE:
+                return delete(taskDes);
+            case TODO:
+                return addToDo(taskDes);
+            case DEADLINE:
+                return addDeadline(taskDes);
+            case EVENT:
+                return addEvent(taskDes);
+            case FIND:
+                return find(taskDes);
+            default:
+                throw new DudeInvalidCommandException();
+            }
+        } catch (DudeException e) {
+            return ui.showError(e);
         }
+    }
+
+    /**
+     * Greet the user.
+     *
+     * @return A greeting message.
+     */
+    public String greet() {
+        return ui.showGreet();
     }
 
     /**
      * Adds a new ToDo task to the task list.
      *
      * @param taskDes The task description.
+     * @return A message indicating the task has been added.
      * @throws DudeException If an error occurs during processing.
      */
-    public void addToDo(String taskDes) throws DudeException {
+    public String addToDo(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("todo");
         } else {
             Task newTask = new ToDo(taskDes);
             taskList.addTask(newTask);
-            ui.showAdd(newTask, taskList);
+            return ui.showAdd(newTask, taskList);
         }
     }
 
@@ -118,9 +120,10 @@ public class Dude {
      * Adds a new Deadline task to the task list.
      *
      * @param taskDes The task description.
+     * @return A message indicating the task has been added.
      * @throws DudeException If an error occurs during processing.
      */
-    public void addDeadline(String taskDes) throws DudeException {
+    public String addDeadline(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("deadline");
         } else {
@@ -139,7 +142,7 @@ public class Dude {
             LocalDateTime by = Parser.stringToDateTime(splitBy[1].strip());
             Task newTask = new Deadline(splitDes[0].strip(), by);
             taskList.addTask(newTask);
-            ui.showAdd(newTask, taskList);
+            return ui.showAdd(newTask, taskList);
         }
     }
 
@@ -147,9 +150,10 @@ public class Dude {
      * Adds a new Event task to the task list.
      *
      * @param taskDes The task description.
+     * @return A message indicating the task has been added.
      * @throws DudeException If an error occurs during processing.
      */
-    public void addEvent(String taskDes) throws DudeException {
+    public String addEvent(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("event");
         } else {
@@ -180,7 +184,7 @@ public class Dude {
 
             Task newTask = new Event(splitDes[0].strip(), from, to);
             taskList.addTask(newTask);
-            ui.showAdd(newTask, taskList);
+            return ui.showAdd(newTask, taskList);
         }
     }
 
@@ -188,48 +192,51 @@ public class Dude {
      * Marks a task in task list as completed.
      *
      * @param taskDes The task description.
+     * @return A message indicating the task has been marked as completed.
      * @throws DudeException If an error occurs during processing.
      */
-    public void mark(String taskDes) throws DudeException {
+    public String mark(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("mark");
         }
 
         int index = checkAndConvertNumber(taskDes);
 
-        ui.showMark(taskList.markTask(index));
+        return ui.showMark(taskList.markTask(index));
     }
 
     /**
      * Marks a task in task list as not completed.
      *
      * @param taskDes The task description.
+     * @return A message indicating the task has been marked as not completed.
      * @throws DudeException If an error occurs during processing.
      */
-    public void unmark(String taskDes) throws DudeException {
+    public String unmark(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("unmark");
         }
 
         int index = checkAndConvertNumber(taskDes);
 
-        ui.showUnmark(taskList.unmarkTask(index));
+        return ui.showUnmark(taskList.unmarkTask(index));
     }
 
     /**
      * Deletes a task from the task list.
      *
      * @param taskDes The task description.
+     * @return A message indicating the task has been deleted.
      * @throws DudeException If an error occurs during processing.
      */
-    public void delete(String taskDes) throws DudeException {
+    public String delete(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("delete");
         }
 
         int index = checkAndConvertNumber(taskDes);
 
-        ui.showDelete(taskList.deleteTask(index), taskList);
+        return ui.showDelete(taskList.deleteTask(index), taskList);
     }
 
     /**
@@ -259,10 +266,11 @@ public class Dude {
      * Finds tasks in the task list that match the provided description.
      *
      * @param taskDes The task description.
+     * @return A message listing the matching tasks.
      * @throws DudeNullDescriptionException If the provided task description is empty.
      * @throws DudeTaskNotFoundException If no tasks matching the description are found.
      */
-    public void find(String taskDes) throws DudeException {
+    public String find(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("find");
         }
@@ -272,18 +280,27 @@ public class Dude {
         if (filteredList.isEmpty()) {
             throw new DudeTaskNotFoundException();
         } else {
-            ui.showFind(filteredList);
+            return ui.showFind(filteredList);
         }
     }
 
     /**
      * Exits the application and saves data.
      */
-    public void exit() {
-        this.isRunning = false;
+    public String exit() {
+        isRunning = false;
         storage.saveData(taskList);
         ui.closeScanner();
-        ui.showBye();
+        return ui.showBye();
+    }
+
+    /**
+     * Checks if the Dude application is currently running.
+     *
+     * @return True if the Dude application is running, false otherwise.
+     */
+    public boolean isRunning() {
+        return isRunning;
     }
 
     public static void main(String[] args) {
