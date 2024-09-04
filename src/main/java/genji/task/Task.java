@@ -31,6 +31,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     /**
      * Formats the task's status into strings used for saving to file
      * @return The String to be saved

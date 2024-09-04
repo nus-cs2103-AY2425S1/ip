@@ -95,7 +95,7 @@ public class TaskList {
     public void checkDate(String date) {
         for (Task t : taskList) {
             if (t instanceof Deadline) {
-                Deadline temp  = (Deadline) t;
+                Deadline temp = (Deadline) t;
                 if (temp.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(date)) {
                     System.out.println(t);
                 }
@@ -106,5 +106,15 @@ public class TaskList {
                 }
             }
         }
+    }
+
+    public TaskList findTask(String taskDescription) {
+        TaskList result = new TaskList();
+        for (Task t : taskList) {
+            if (t.getName().contains(taskDescription)) {
+                result.add(t);
+            }
+        }
+        return result;
     }
 }

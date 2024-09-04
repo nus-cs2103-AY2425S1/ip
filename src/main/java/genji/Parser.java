@@ -1,13 +1,6 @@
 package genji;
 
-import genji.command.Command;
-import genji.command.MarkCommand;
-import genji.command.UnmarkCommand;
-import genji.command.AddCommand;
-import genji.command.DeleteCommand;
-import genji.command.DateCommand;
-import genji.command.ExitCommand;
-import genji.command.ListCommand;
+import genji.command.*;
 import genji.task.ToDo;
 import genji.task.Deadline;
 import genji.task.Event;
@@ -44,8 +37,6 @@ public class Parser {
                     return new MarkCommand(index);
                 } catch (NumberFormatException n) {
                     throw new GenjiException("Please input a integer after \"mark\"");
-                } catch (IndexOutOfBoundsException i) {
-                    throw new GenjiException("Please input a integer smaller than the number of tasks");
                 }
             }
         } else if (command.startsWith("unmark")) {
@@ -57,8 +48,6 @@ public class Parser {
                     return new UnmarkCommand(index);
                 } catch (NumberFormatException n) {
                     throw new GenjiException("Please input a integer after \"unmark\"");
-                } catch (IndexOutOfBoundsException i) {
-                    throw new GenjiException("Please input a integer smaller than the number of tasks");
                 }
             }
         } else if (command.startsWith("todo")) {
@@ -102,15 +91,13 @@ public class Parser {
             }
         } else if (command.startsWith("delete")) {
             if (command.length() < 8) {
-                System.out.println("No descriptions detected, try again");
+                throw new GenjiException("No descriptions detected, try again");
             } else {
                 try {
                     int index = Integer.parseInt(command.substring(7)) - 1;
                     return new DeleteCommand(index);
                 } catch (NumberFormatException n) {
                     throw new GenjiException("Please input a integer after \"delete\"");
-                } catch (IndexOutOfBoundsException i) {
-                    throw new GenjiException("Please input a integer smaller than the number of tasks");
                 }
             }
         } else if (command.startsWith("date")) {
@@ -123,6 +110,13 @@ public class Parser {
                 } catch (DateTimeParseException d) {
                     throw new GenjiException("Please provide date time in this format\"yyyy-mm-dd\"");
                 }
+            }
+        } else if (command.startsWith("find")) {
+            if (command.length() < 6) {
+                throw new GenjiException("No descriptions detected, try again");
+            } else {
+                String taskDescription = command.substring(5);
+                return new FindCommand(taskDescription);
             }
         }
         throw new GenjiException("Invalid command, try to start with \"todo\" \"deadline\"\n" +

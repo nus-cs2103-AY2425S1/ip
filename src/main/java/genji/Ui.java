@@ -75,10 +75,24 @@ public class Ui {
         System.out.println("Now you have " + list.size() + " tasks in the list");
     }
 
+<<<<<<< HEAD
     /**
      * Prints error message received
      * @param s The error message
      */
+=======
+    public void find(TaskList list) {
+        if (list.size() == 0){
+            System.out.println("No matching tasks in your list");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (Task t : list.getList()) {
+                System.out.println(t);
+            }
+        }
+    }
+
+>>>>>>> branch-Level-9
     public void showError(String s) {
         System.out.println(s);
     }
