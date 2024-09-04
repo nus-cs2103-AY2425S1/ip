@@ -28,6 +28,9 @@ public class FileStorage extends Storage {
      * @param dirPath The directory path where the storage file is located.
      */
     public FileStorage(String dirPath) {
+        // Check if dirPath is null
+        assert dirPath != null : "dirPath argument cannot be null";
+
         this.dirPath = dirPath;
 
         // Creates all folders if they do not exist

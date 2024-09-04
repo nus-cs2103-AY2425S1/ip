@@ -32,6 +32,9 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasklist) {
+        // Check if tasklist is null
+        assert tasklist != null : "tasklist argument cannot be null";
+
         List<Task> matches = new ArrayList<Task>();
 
         List<Task> tasks = tasklist.getTasks();
