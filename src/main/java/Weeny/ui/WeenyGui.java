@@ -1,10 +1,10 @@
 package weeny.ui;
 
-import javafx.fxml.FXMLLoader;
 import weeny.Weeny;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.Scene;
@@ -19,6 +19,7 @@ import java.io.IOException;
 
 
 public class WeenyGui extends AnchorPane {
+
 
     // Other class instances
     private final Ui ui = new Ui();
@@ -38,11 +39,6 @@ public class WeenyGui extends AnchorPane {
     @FXML
     private AnchorPane mainLayout;
 
-//    public WeenyGui(Weeny weenyApp) {
-//        this.weenyApp = weenyApp;
-//        userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-//        weenyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-//    }
 
     public WeenyGui() {
         this.weenyApp = new Weeny();
