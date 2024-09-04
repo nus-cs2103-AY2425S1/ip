@@ -24,13 +24,10 @@ public class Ui {
     }
 
     /**
-     * Displays the greeting message.
+     * Returns the greeting message.
      */
-    public void showGreet() {
-        System.out.println(LINE);
-        System.out.println("Hello! I'm " + BOT_NAME);
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
+    public String showGreet() {
+        return "Hello! I'm " + BOT_NAME + "\nWhat can I do for you?\n";
     }
 
     /**
@@ -43,107 +40,102 @@ public class Ui {
     }
 
     /**
-     * Displays the list of tasks currently in the TaskList.
+     * Returns the list of tasks currently in the TaskList.
      *
      * @param taskList The TaskList with list of tasks to display.
      */
-    public void showList(TaskList taskList) {
-        System.out.println(LINE);
-        System.out.println("Here are the tasks in your list:");
+    public String showList(TaskList taskList) {
+        StringBuilder s = new StringBuilder();
+        s.append("Here are the tasks in your list:\n");
 
         ArrayList<Task> tasks = taskList.getTasks();
         for (int i = 1; i <= taskList.getLength(); i++) {
-            System.out.println(i + "." + tasks.get(i - 1));
+            s.append(i + "." + tasks.get(i - 1) + '\n');
         }
 
-        System.out.println(LINE);
+        return s.toString();
     }
 
     /**
-     * Displays a message indicating that a task has been marked as done.
+     * Returns a message indicating that a task has been marked as done.
      *
      * @param task The task that has been marked as done.
      */
-    public void showMark(Task task) {
-        System.out.println(LINE);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        System.out.println(LINE);
+    public String showMark(Task task) {
+        return "Nice! I've marked this task as done:\n" + task + '\n';
     }
 
     /**
-     * Displays a message indicating that a task has been marked as not done.
+     * Returns a message indicating that a task has been marked as not done.
      *
      * @param task The task that has been marked as not done.
      */
-    public void showUnmark(Task task) {
-        System.out.println(LINE);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
-        System.out.println(LINE);
+    public String showUnmark(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task + '\n';
     }
 
     /**
-     * Displays a message indicating that a task has been added to the TaskList.
+     * Returns a message indicating that a task has been added to the TaskList.
      *
      * @param task The task that has been added.
      * @param taskList The TaskList containing the newly added task.
      */
-    public void showAdd(Task task, TaskList taskList) {
-        System.out.println(LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskList.getLength() + " tasks in the list.");
-        System.out.println(LINE);
+    public String showAdd(Task task, TaskList taskList) {
+        return "Got it. I've added this task:\n" + task
+                + "\nNow you have " + taskList.getLength() + " tasks in the list.\n";
     }
 
     /**
-     * Displays a message indicating that a task has been removed from the TaskList.
+     * Returns a message indicating that a task has been removed from the TaskList.
      *
      * @param task The task that has been removed.
      * @param taskList The TaskList after the task has been removed.
      */
-    public void showDelete(Task task, TaskList taskList) {
-        System.out.println(LINE);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + taskList.getLength() + " tasks in the list.");
-        System.out.println(LINE);
+    public String showDelete(Task task, TaskList taskList) {
+        return "Noted. I've removed this task:\n" + task
+                + "\nNow you have " + taskList.getLength() + " tasks in the list.\n";
     }
 
     /**
-     * Displays the filtered list of tasks that match the description.
+     * Returns the filtered list of tasks that match the description.
      *
      * @param filteredList The filtered list of tasks to display.
      */
-    public void showFind(ArrayList<Task> filteredList) {
-        System.out.println(LINE);
-        System.out.println("Here are the matching tasks in your list:");
+    public String showFind(ArrayList<Task> filteredList) {
+        StringBuilder s = new StringBuilder();
+        s.append("Here are the matching tasks in your list:\n");
 
         for (int i = 1; i <= filteredList.size(); i++) {
-            System.out.println(i + "." + filteredList.get(i - 1));
+            s.append(i + "." + filteredList.get(i - 1) + '\n');
         }
 
-        System.out.println(LINE);
+        return s.toString();
     }
 
     /**
-     * Displays an error message when a DudeException occurs.
+     * Returns an error message when a DudeException occurs.
      *
      * @param e The DudeException that occurred.
      */
-    public void showError(DudeException e) {
-        System.out.println(LINE);
-        System.out.println(e.getMessage());
-        System.out.println(LINE);
+    public String showError(DudeException e) {
+        return e.getMessage();
     }
 
     /**
-     * Displays a goodbye message.
+     * Returns a goodbye message.
      */
-    public void showBye() {
+    public String showBye() {
+        return "Bye. Hope to see you again soon!\n";
+    }
+
+    /**
+     * Displays a message in Text UI.
+     *
+     * @param message The message to display.
+     */
+    public void displayMessage(String message) {
         System.out.println(LINE);
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.print(message);
         System.out.println(LINE);
     }
 
