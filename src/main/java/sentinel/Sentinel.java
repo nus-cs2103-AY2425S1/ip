@@ -1,15 +1,13 @@
 package sentinel;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Scanner;
+
 import sentinel.command.Commands;
 import sentinel.storage.Storage;
 import sentinel.task.TaskList;
 import sentinel.ui.Ui;
-
-import java.io.IOException;
-
-import java.util.Scanner;
-
-import java.time.LocalDate;
 
 /**
  * Sentinel chatbot system.
@@ -35,7 +33,7 @@ public class Sentinel {
         // Load save file
         try {
             this.taskList = Storage.load();
-        } catch(IOException exception) {
+        } catch (IOException exception) {
             ui.showError("OOPS NO FILE???");
             this.taskList = new TaskList();
         }
@@ -48,8 +46,8 @@ public class Sentinel {
     public void outputTaskList() {
         isSearch = false;
 
-        say("Here are the list of your tasks \n" + this.taskList.toString() +
-            String.format("\n You have %d tasks in total.", this.taskList.getTotal()));
+        say("Here are the list of your tasks \n" + this.taskList.toString()
+                + String.format("\n You have %d tasks in total.", this.taskList.getTotal()));
     }
 
     /**
