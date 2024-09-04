@@ -8,6 +8,10 @@ public abstract class Task {
     private String taskName;
     private boolean isCompleted; // false for undone, true for done
 
+    /**
+     * Constructor for class Task. Sets completion status to default false.
+     * @param taskName Name of task
+     */
     public Task(String taskName) {
         this.taskName = taskName;
         this.isCompleted = false;

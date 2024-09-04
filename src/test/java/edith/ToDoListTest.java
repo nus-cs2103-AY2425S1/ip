@@ -1,14 +1,12 @@
 package edith;
 
-import edith.exception.InvalidTaskNumberException;
-import edith.exception.MissingEventDurationException;
-import edith.exception.MissingTaskNameException;
-import edith.task.ToDoTask;
-import org.junit.jupiter.api.Test;
-
-import static edith.ToDoList.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import edith.exception.InvalidTaskNumberException;
+import edith.task.ToDoTask;
 
 public class ToDoListTest {
 

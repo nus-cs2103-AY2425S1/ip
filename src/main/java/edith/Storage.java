@@ -1,10 +1,5 @@
 package edith;
 
-import edith.task.DeadlineTask;
-import edith.task.EventTask;
-import edith.task.Task;
-import edith.task.ToDoTask;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+
+import edith.task.DeadlineTask;
+import edith.task.EventTask;
+import edith.task.Task;
+import edith.task.ToDoTask;
 
 /**
  * This class handles all storing and loading of tasks into user's hard drive.
@@ -72,11 +72,11 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println(" psa: you currently do not have the file edith.txt under the data directory. i'll create" +
-                    "one for you right now!");
+            System.out.println(" psa: you currently do not have the file edith.txt under the data directory. "
+                    + "i'll create one for you right now!");
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(" oops!!! there's something wrong with edith.txt's format... please check it! for now," +
-                    "i will remove the tasks that have formatting issues.");
+            System.out.println(" oops!!! there's something wrong with edith.txt's format... please check it! for now,"
+                    + "i will remove the tasks that have formatting issues.");
         }
     }
 }

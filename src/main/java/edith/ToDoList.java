@@ -1,9 +1,9 @@
 package edith;
 
+import java.util.ArrayList;
+
 import edith.exception.InvalidTaskNumberException;
 import edith.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * This class stores tasks as an ArrayList.
@@ -23,8 +23,7 @@ public class ToDoList {
     /**
      * Marks specified task as completed.
      * @param taskNumber Task-to-be-marked's number
-     * @throws InvalidTaskNumberException When task number specified is < 1 or more than number of current tasks in
-     * list.
+     * @throws InvalidTaskNumberException When task number specified is < 1 or > number of current tasks in list.
      */
     public void markTaskAsCompleted(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber > toDoList.size() || taskNumber < 1) {
@@ -37,8 +36,7 @@ public class ToDoList {
     /**
      * Un-marks specified task as uncompleted.
      * @param taskNumber Task-to-be-unmarked's number
-     * @throws InvalidTaskNumberException When task number specified is < 1 or more than number of current tasks in
-     * list.
+     * @throws InvalidTaskNumberException When task number specified is < 1 or > number of current tasks in list.
      */
     public void unmarkTaskAsCompleted(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber > toDoList.size() || taskNumber < 1) {
@@ -52,8 +50,7 @@ public class ToDoList {
      * Getter for specified task.
      * @param taskNumber Task number.
      * @return Task at specified number in a string.
-     * @throws InvalidTaskNumberException When task number specified is < 1 or more than number of current tasks in
-     * list.
+     * @throws InvalidTaskNumberException When task number specified is < 1 or > number of current tasks in list.
      */
     public String getTask(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber > toDoList.size() || taskNumber < 1) {
@@ -73,8 +70,7 @@ public class ToDoList {
     /**
      * Deletes task from list.
      * @param taskNumber Task number to be deleted.
-     * @throws InvalidTaskNumberException When task number specified is < 1 or more than number of current tasks in
-     * list.
+     * @throws InvalidTaskNumberException When task number specified is < 1 or > number of current tasks in list.
      */
     public void delete(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber > toDoList.size() || taskNumber < 1) {

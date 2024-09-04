@@ -5,9 +5,12 @@ package edith.exception;
  * after naming the task.
  */
 public class MissingEventDurationException extends Exception {
+    /**
+     * Constructor for MissingEventDurationException
+     */
     public MissingEventDurationException() {
-        super(" oops! event duration cannot be empty. please enter a duration after the task type and name." +
-                " for example:\n\n" +
-                "      event cs2101 project meeting /from 4pm /to 7pm");
+        super(" oops! event duration cannot be empty. please enter a duration after the task type and name."
+                + " for example:\n\n"
+                + "      event cs2101 project meeting /from 4pm /to 7pm");
     }
 }
