@@ -69,14 +69,14 @@ public class Ui {
     /**
      * Returns list of tasks
      *
-     * @param list list of tasks to be printed
-     * @return string representing list of tasks
+     * @param tasks taks to be printed
+     * @return string representing tasks
      */
-    public String printTaskList(ArrayList<Task> list) {
+    public String printTaskList(Task... tasks) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < list.size(); i++) {
-            output.append(String.format("%d.%s\n", i + 1, list.get(i)));
+        for (int i = 0; i < tasks.length; i++) {
+            output.append(String.format("%d.%s\n", i + 1, tasks[i]));
         }
         return output.toString();
     }
@@ -154,17 +154,17 @@ public class Ui {
     /**
      * Returns list of tasks that have matching keyword
      *
-     * @param outputList list of tasks to be printed
+     * @param tasks list of tasks to be printed
      * @return String list of matching tasks
      */
-    public String printMatchingTasks(ArrayList<Task> outputList) throws TalkerException {
-        if (outputList.isEmpty()) {
+    public String printMatchingTasks(Task... tasks) throws TalkerException {
+        if (tasks.length == 0) {
             throw new TalkerException("No matching tasks found!");
         } else {
             StringBuilder output = new StringBuilder();
             output.append("Here are the matching tasks in your list:\n");
-            for (int i = 0; i < outputList.size(); i++) {
-                output.append(String.format("%d.%s\n", i + 1, outputList.get(i)));
+            for (int i = 0; i < tasks.length; i++) {
+                output.append(String.format("%d.%s\n", i + 1, tasks[i]));
             }
             return output.toString();
         }

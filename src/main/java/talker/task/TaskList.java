@@ -107,7 +107,7 @@ public class TaskList {
         if (list.isEmpty()) {
             throw new TalkerException("List is empty!");
         }
-        return ui.printTaskList(list);
+        return ui.printTaskList(list.toArray(new Task[0]));
     }
 
     /**
@@ -256,6 +256,6 @@ public class TaskList {
                 outputList.add(task);
             }
         }
-        return ui.printMatchingTasks(outputList);
+        return ui.printMatchingTasks(outputList.toArray(new Task[0]));
     }
 }
