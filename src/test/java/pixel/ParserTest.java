@@ -1,3 +1,5 @@
+package pixel;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,12 +11,6 @@ import pixel.command.DeleteCommand;
 import pixel.command.ExitCommand;
 import pixel.command.ListCommand;
 import pixel.command.MarkCommand;
-import pixel.command.PixelCommandEnum;
-import pixel.task.Deadline;
-import pixel.task.Event;
-import pixel.task.Todo;
-import pixel.Parser;
-import pixel.PixelException;
 
 /**
  * This class contains unit tests for the Parser class.
