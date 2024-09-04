@@ -33,7 +33,7 @@ public class Winde {
      * Constructs a Winde object with the default file path for storing history.
      */
 
-    Winde() {
+    public Winde() {
         ui = new Ui();
         history = new History();
         reminder = new Reminder(history.load());
@@ -74,6 +74,10 @@ public class Winde {
             }
         }
         currentCommand.exit(history, reminder, ui);
+    }
+
+    public String getResponse(String input) {
+        return "Winde heard: " + input;
     }
 }
 
