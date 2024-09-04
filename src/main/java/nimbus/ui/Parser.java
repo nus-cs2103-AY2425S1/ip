@@ -3,6 +3,7 @@ package nimbus.ui;
 import nimbus.command.AddCommand;
 import nimbus.command.CheckCommand;
 import nimbus.command.DeleteCommand;
+import nimbus.command.FindCommand;
 import nimbus.command.MarkCommand;
 import nimbus.command.UnmarkCommand;
 import nimbus.exception.WrongDateTimeFormatException;
