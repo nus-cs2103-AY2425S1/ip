@@ -20,10 +20,17 @@ public class TaskList {
         }
     }
 
+    /**
+     * @return integer of number of tasks in list
+     */
     public int size() {
         return list.size();
     }
 
+    /**
+     * @param  i  index of task to return
+     * @return Task object at index i
+     */
     public Task get(int i) throws AronaException {
         // Check if exist
         if (i >= list.size()) {
@@ -38,38 +45,73 @@ public class TaskList {
         return list.get(i);
     }
 
+    /**
+     * @return Task at largest index (ie most recently added task)
+     */
     public Task peek() {
         return list.get(list.size() - 1);
     }
 
+    /**
+     * Overloaded method, adds to do task
+     */
     public void add(String data) {
         list.add(new Todos(data));
     }
 
+    /**
+     * Overloaded method, adds deadline task
+     */
     public void add(String data, LocalDate byDate) {
         list.add(new Deadline(data, byDate));
 
     }
 
+    /**
+     * Overloaded method, adds event task
+     */
     public void add(String data, LocalDate fromDate, LocalDate toDate) {
         list.add(new Events(data, fromDate, toDate));
     }
 
+    /**
+     * Removes task at index i and returns the removed task
+     * @param  i  index of task to delete
+     * @return Task that was removed
+     */
     public Task remove(int i) throws AronaException {
         Task task = get(i);
         list.remove(i);
         return task;
     }
 
+    /**
+     * Removes set status of task at index i to true (done) or false (undone),
+     * no indicator to show if action had any real effect
+     * @param  i  index of task
+     * @param  status  the new status the task should be changed to
+     * @return Task that had status changed
+     */
     public Task setStatus(int i, boolean status) throws AronaException {
         get(i).setStatus(status);
         return get(i);
     }
 
+    /**
+     * Creates a new arraylist of tasks whose description contains (subset) the keyword,
+     * not case-sensitive, whitespace sensitive
+     * @param  keyword  string of keyword
+     * @return arraylist of filtered tasks
+     */
     public ArrayList<Task> filter(String keyword) {
-        return list.stream().filter(x -> x.toString().contains(keyword)).collect(Collectors.toCollection(ArrayList::new));
+        return list.stream().filter(x -> x.toString().toLowerCase().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * Adds a task to the task list by creating the appropriate task object
+     * @param  line  a line from data.txt in the format of task.toString
+     */
     private static void process(String line) {
         String[] data = line.split("]", 3);
 

@@ -23,9 +23,13 @@ public class Events extends Task {
         return "[E]";
     }
 
+    /**
+     * A variant of toString that returns a nicer human friendly date format
+     * @return String that looks like: [X][E] Event from 1 Aug 2024 to 11 Aug 2024
+     */
     public String toFriendlyString() {
-        return super.toString() + " (by: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
-                + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return super.toString() + " (by: " + from.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " to: "
+                + to.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
     }
 
     @Override

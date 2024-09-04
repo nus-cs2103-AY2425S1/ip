@@ -20,8 +20,12 @@ public class Deadline extends Task {
         return "[D]";
     }
 
+    /**
+     * A variant of toString that returns a nicer human friendly date format
+     * @return String that looks like: [X][D] Deadline by 9 Aug 2024
+     */
     public String toFriendlyString() {
-        return super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
     }
 
     @Override

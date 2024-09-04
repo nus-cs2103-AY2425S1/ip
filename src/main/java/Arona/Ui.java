@@ -3,6 +3,10 @@ package Arona;
 import java.util.ArrayList;
 
 public class Ui {
+
+    /**
+     * Handles all text outputs including AronaException
+     */
     public Ui() {}
 
     public void showGreeting() {
@@ -14,10 +18,17 @@ public class Ui {
         print("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Debug: method to print absolute location of data.txt file
+     */
     public void showStorage(Storage storage) {
         print(storage.getStorageLocation());
     }
 
+    /**
+     * Used for list command
+     * @param  taskList  a TaskList object containing the current instance's list
+     */
     public void showList(TaskList taskList) throws AronaException {
         if (taskList.size() == 0) {
             print("The task list is empty!");
@@ -28,6 +39,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Used for find command
+     * @param  taskList  an arraylist of filtered Task objects
+     */
     public void showFilterList(ArrayList<Task> taskList) throws AronaException {
         if (taskList.isEmpty()) {
             print("The task list is empty!");

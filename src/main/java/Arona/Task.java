@@ -4,6 +4,10 @@ public class Task {
     protected String description;
     protected boolean isDone; // True means task is done
 
+    /**
+     * Effectively an interface encapsulating generic task objects, should not be initialised
+     * @param  description  the name of the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

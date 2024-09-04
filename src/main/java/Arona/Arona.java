@@ -31,7 +31,7 @@ public class Arona {
      * <p>
      * 1. Scans for user input
      * <p>
-     * 2. Parses input
+     * 2. Parses input and process them
      * <p>
      * 3. Catch exceptions
      * <p>

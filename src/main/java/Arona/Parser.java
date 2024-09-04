@@ -140,13 +140,12 @@ public class Parser {
         else if (input.toLowerCase().startsWith("find ")) {
 
             // Extract and save keyword
-            String keyword = input.split("find", 2)[1].strip();
+            String keyword = input.split("find", 2)[1].strip().toLowerCase();
 
             // Check if empty
             if (keyword.isBlank()) {
                 throw new AronaException("Error! Please input a keyword");
             }
-
 
             // Process
             ArrayList<Task> filterTaskList = taskList.filter(keyword);
