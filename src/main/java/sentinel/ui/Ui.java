@@ -4,7 +4,7 @@ package sentinel.ui;
  * Ui for Sentinel chatbot.
  */
 public class Ui {
-    public static String MESSAGE_LINE = "---------------------------------------";
+    public static final String MESSAGE_LINE = "---------------------------------------";
 
     /**
      * Outputs a message on the screen

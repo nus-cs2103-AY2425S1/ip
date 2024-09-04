@@ -16,7 +16,7 @@ public enum Commands {
         /**
          * @inheritDoc
          *
-         * Command for listing all tasks.
+         *     Command for listing all tasks.
          */
         @Override
         public void run(Sentinel sentinel, String args) {
@@ -27,7 +27,7 @@ public enum Commands {
         /**
          * @inheritDoc
          *
-         * Command for marking tasks as done.
+         *     Command for marking tasks as done.
          */
         @Override
         public void run(Sentinel sentinel, String args) throws SentinelException {
@@ -49,7 +49,7 @@ public enum Commands {
         /**
          * @inheritDoc
          *
-         * Command for marking tasks as undone.
+         *     Command for marking tasks as undone.
          */
         @Override
         public void run(Sentinel sentinel, String args) throws SentinelException {
@@ -71,7 +71,7 @@ public enum Commands {
         /**
          * @inheritDoc
          *
-         * Command for adding todos.
+         *     Command for adding todos.
          */
         @Override
         public void run(Sentinel sentinel, String args) throws SentinelException {
@@ -88,7 +88,7 @@ public enum Commands {
         /**
          * @inheritDoc
          *
-         * Command for adding events.
+         *     Command for adding events.
          */
         @Override
         public void run(Sentinel sentinel, String args) throws SentinelException {
@@ -115,7 +115,7 @@ public enum Commands {
         /**
          * @inheritDoc
          *
-         * Command for adding deadlines.
+         *     Command for adding deadlines.
          */
         @Override
         public void run(Sentinel sentinel, String args) throws SentinelException {
@@ -141,7 +141,7 @@ public enum Commands {
         /**
          * @inheritDoc
          *
-         * Command for deleting tasks.
+         *     Command for deleting tasks.
          */
         @Override
         public void run(Sentinel sentinel, String args) throws SentinelException {
@@ -163,7 +163,7 @@ public enum Commands {
         /**
          * @inheritDoc
          *
-         * Command for finding tasks.
+         *     Command for finding tasks.
          */
         @Override
         public void run(Sentinel sentinel, String args) throws SentinelException {

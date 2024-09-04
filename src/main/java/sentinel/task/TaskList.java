@@ -1,9 +1,9 @@
 package sentinel.task;
 
-import sentinel.SentinelException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import sentinel.SentinelException;
 
 /**
  * Represents a list of tasks.
