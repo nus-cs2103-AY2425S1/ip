@@ -1,3 +1,5 @@
+import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,7 +7,6 @@ public class ChatGPT {
     private final static String NAME = "ChatGPT";
     private final static String LINE = "________________________________________________";
     private static ArrayList<Task> list = new ArrayList<Task>();
-    private static int taskAmt = 0;
     private enum Commands {
         BYE,
         LIST,
@@ -26,6 +27,7 @@ public class ChatGPT {
     }
     public static void main(String[] args) {
         Scanner userInput = new Scanner(System.in);
+        list = readData();
         sendGreeting();
         do {
             try {
@@ -43,7 +45,6 @@ public class ChatGPT {
 
                     Task newTask = new ToDos(input);
                     list.add(newTask);
-                    taskAmt++;
                     sendAddTaskMsg(newTask);
                     break;
 
@@ -55,7 +56,6 @@ public class ChatGPT {
                     newTask = new Deadlines(task, deadline);
 
                     list.add(newTask);
-                    taskAmt++;
                     sendAddTaskMsg(newTask);
                     break;
 
@@ -69,7 +69,6 @@ public class ChatGPT {
                     newTask = new Events(task, startDate, endDate);
 
                     list.add(newTask);
-                    taskAmt++;
                     sendAddTaskMsg(newTask);
                     break;
 
@@ -91,7 +90,6 @@ public class ChatGPT {
                     index = userInput.nextInt();
                     Task deletedTask = list.get(index-1);
                     list.remove(index-1);
-                    taskAmt--;
                     sendDeleteMsg(deletedTask);
                     break;
                 }
@@ -105,6 +103,7 @@ public class ChatGPT {
                         "\n\t Please try again with a valid command and inputs");
                 System.out.println("\t" + LINE);
             }
+            saveData();
         } while (true);
     }
 
@@ -125,7 +124,7 @@ public class ChatGPT {
         System.out.println("\t"+LINE);
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t  "+ task.toString());
-        System.out.println("\tNow you have " + taskAmt + " tasks in your list.");
+        System.out.println("\tNow you have " + list.size() + " tasks in your list.");
         System.out.println("\t"+LINE);
     }
 
@@ -133,20 +132,100 @@ public class ChatGPT {
         System.out.println("\t"+LINE);
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t  "+ task.toString());
-        System.out.println("\tNow you have " + taskAmt + " tasks in your list.");
+        System.out.println("\tNow you have " + list.size() + " tasks in your list.");
         System.out.println("\t"+LINE);
     }
 
     private static void printList() {
         System.out.println("\t"+LINE);
-        if (taskAmt == 0) {
+        if (list.size() == 0) {
             System.out.println("\tNothing has been added");
         } else {
             System.out.println("\tHere are the tasks in your list:");
         }
-        for (int i = 0; i < taskAmt; i++){
+        for (int i = 0; i < list.size(); i++){
             System.out.println("\t" + (i+1) + ". " + list.get(i).toString());
         }
         System.out.println("\t"+LINE);
+    }
+
+    private static ArrayList<Task> readData() {
+        File currentDir = new File(".");
+        File dataDir = new File (currentDir.getAbsolutePath() + "\\data");
+        File data = new File (dataDir.getAbsolutePath() + "\\data.txt");
+        ArrayList<Task> result = new ArrayList<>();
+
+        if (!dataDir.exists()) {
+            dataDir.mkdir();
+            return result;
+        }
+        if (!data.exists()) {
+            return result;
+        }
+
+        try {
+            Scanner fileReader = new Scanner(data);
+            while (fileReader.hasNext()) {
+                switch(Commands.getCommand(fileReader.next().toUpperCase())) {
+                case TODO:
+                    String input = fileReader.nextLine();
+
+                    Boolean isCompleted = input.split("\\|")[1].equals("1");
+                    String task = input.split("\\|")[2];
+
+                    Task newTask = new ToDos(task, isCompleted);
+                    result.add(newTask);
+                    break;
+
+                case DEADLINE:
+                    input = fileReader.nextLine();
+
+                    isCompleted = input.split("\\|")[1].equals("1");
+                    task = input.split("\\|")[2];
+                    String deadline = input.split("\\|")[3];
+
+                    newTask = new Deadlines(task, deadline, isCompleted);
+                    result.add(newTask);
+                    break;
+
+                case EVENT:
+                    input = fileReader.nextLine();
+                    isCompleted = input.split("\\|")[1].equals("1");
+                    task = input.split("\\|")[2];
+                    String startDate = input.split("\\|")[3];
+                    String endDate = input.split("\\|")[4];
+
+                    newTask = new Events(task, startDate, endDate, isCompleted);
+                    result.add(newTask);
+                    break;
+                }
+            }
+            return result;
+        } catch (IOException | NoSuchMethodException e) {
+            System.out.println("\t" + LINE);
+            System.out.println("\t!! There was a problem reading the file !!");
+            System.out.println("\tPlease fix the file and restart or start from scratch");
+            System.out.println("\t" + LINE);
+            return new ArrayList<>();
+        }
+    }
+
+    private static void saveData() {
+        File currentDir = new File(".");
+        File data = new File (currentDir.getAbsolutePath() + "\\data\\data.txt");
+        try {
+            data.createNewFile();
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(data));
+            for (int i = 0; i < list.size(); i++) {
+                fileWriter.write(list.get(i).toPrint());
+                fileWriter.newLine();
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("\t" + LINE);
+            System.out.println("\t!! There was a problem writing to the file !!");
+            System.out.println("\tPlease ensure the file directory exists.");
+            System.out.println("\t" + LINE);
+        }
     }
 }
