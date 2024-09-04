@@ -102,9 +102,9 @@ public class TaskListTest {
 
         // Act
         String actual = tasklist.findString("cat");
-        
+
         // Assert
-        assertEquals(expected, actual, 
+        assertEquals(expected, actual,
             String.format("Should find all task with substring \'cat\' (case insensitive)."));
     }
 }

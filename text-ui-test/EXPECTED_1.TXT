@@ -101,28 +101,28 @@
 
   ----------------------------------------------------------------------------------------------------
     [31mRoTodo.Error: Invalid Input
-      RoTodo can't read you mind, otherwise RoTodo's creator would be rich!
+      RoTodo can't read your mind, otherwise RoTodo's creator would be rich!
       RoTodo needs a task description[0m
     type 'help' to see guide
   ----------------------------------------------------------------------------------------------------
 
   ----------------------------------------------------------------------------------------------------
     [31mRoTodo.Error: Invalid Input
-      RoTodo can't read you mind, otherwise RoTodo's creator would be rich!
+      RoTodo can't read your mind, otherwise RoTodo's creator would be rich!
       RoTodo needs a task description and deadline[0m
     type 'help' to see guide
   ----------------------------------------------------------------------------------------------------
 
   ----------------------------------------------------------------------------------------------------
     [31mRo7o0OoODdDDdDDDoO0.o.oo >< .. . 3RR0rrre3rrr4rrrrrrrrrrrrrrrrr.rrr.r..r..r...r......r.r..........
-      RoTodo can't read you mind, otherwise RoTodo's creator would be rich!
+      RoTodo can't read your mind, otherwise RoTodo's creator would be rich!
       RoTodo needs a task description, from and to date/time[0m
     type 'help' to see guide
   ----------------------------------------------------------------------------------------------------
 
   ----------------------------------------------------------------------------------------------------
     [31mRo7o0OoODdDDdDDDoO0.o.oo >< .. . 3RR0rrre3rrr4rrrrrrrrrrrrrrrrr.rrr.r..r..r...r......r.r..........
-      RoTodo can't read you mind, otherwise RoTodo's creator would be rich!
+      RoTodo can't read your mind, otherwise RoTodo's creator would be rich!
       RoTodo needs a task description, from and to date/time[0m
     type 'help' to see guide
   ----------------------------------------------------------------------------------------------------

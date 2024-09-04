@@ -73,7 +73,7 @@ public class AddCommandTest {
     public void initialise_insufficientInputParams_throwsIncompleteInputException() {
         // Arrange
         String expected = "\u001B[31mRoTodo.Error: Invalid Input\n"
-            + "  RoTodo can't read you mind, otherwise "
+            + "  RoTodo can't read your mind, otherwise "
             + "RoTodo's creator would be rich!\n"
             + "  RoTodo needs a task description, from and to date/time"
             + "\u001B[0m\n" + "type 'help' to see guide";
