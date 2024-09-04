@@ -1,13 +1,19 @@
-import java.io.*;
+package trackie.storage;
+
+import trackie.tasks.Deadline;
+import trackie.tasks.Event;
+import trackie.tasks.Task;
+import trackie.tasks.Todo;
+import trackie.ui.TrackieException;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class TaskList {
     ArrayList<Task> tasks;
 
-    TaskList() {
+    public TaskList() {
         tasks = new ArrayList<>();
     }
 
@@ -67,7 +73,7 @@ public class TaskList {
         }
 
         if (sb2.isEmpty()) {
-            throw new TrackieException("Deadline cannot be empty!");
+            throw new TrackieException("Trackie.Deadline cannot be empty!");
         } else {
             deadline = sb2.substring(0, sb2.length() - 1);
         }

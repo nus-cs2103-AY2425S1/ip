@@ -1,3 +1,5 @@
+package trackie.tasks;
+
 public class Event extends Task {
     private String type = "E";
     private String start;

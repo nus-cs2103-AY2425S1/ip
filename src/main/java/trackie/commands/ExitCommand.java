@@ -1,3 +1,9 @@
+package trackie.commands;
+
+import trackie.storage.Storage;
+import trackie.storage.TaskList;
+import trackie.ui.Ui;
+
 public class ExitCommand extends Command {
 
     public ExitCommand() {
