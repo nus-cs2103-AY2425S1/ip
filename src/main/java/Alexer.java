@@ -26,12 +26,6 @@ public class Alexer {
         System.out.println(BREAK);
     }
 
-    public void printGoodbye() {
-        System.out.println(BREAK);
-        System.out.println(GOODBYE);
-        System.out.println(BREAK);
-    }
-
     public void printTasks() {
         System.out.println(BREAK);
         System.out.println("Sure thing! Here is your task list:\n");
@@ -44,9 +38,7 @@ public class Alexer {
     }
 
     public void greetUser() {
-        System.out.println(BREAK);
-        System.out.printf("Hello from %s, what can I do for you today?\n", NAME);
-        System.out.println(BREAK);
+        printResponse(String.format("Hello from %s, what can I do for you today?", NAME));
     }
 
     public void addTask(String taskDescription) {
@@ -175,7 +167,7 @@ public class Alexer {
 
         switch (command) {
         case "bye":
-            printGoodbye();
+            printResponse(GOODBYE);
             break;
         case "list":
             printTasks();
