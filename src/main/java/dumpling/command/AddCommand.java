@@ -4,7 +4,7 @@ import dumpling.DumplingException;
 import dumpling.Pair;
 import dumpling.task.Task;
 import dumpling.task.TaskList;
-import dumpling.Ui;
+import dumpling.Ui.Ui;
 import dumpling.Storage;
 import dumpling.Parser;
 
@@ -23,12 +23,17 @@ public class AddCommand extends Command {
         this.commandEnum = commandEnum;
     }
 
+    @Override
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        ui.echo(executeAndReturnLog(taskList, storage));
+    }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DumplingException {
-        Pair<Task, String> pair = Parser.add(this.userInput, this.commandEnum, tasks.getNumItems());
-        tasks.add(pair.getFirst());
-        ui.echo(pair.getSecond());
-        storage.save(tasks);
+    @Override
+    public String executeAndReturnLog(TaskList taskList, Storage storage) {
+        Pair<Task, String> pair = Parser.add(this.userInput, this.commandEnum, taskList.getNumItems());
+        taskList.add(pair.getFirst());
+        storage.save(taskList);
+        return pair.getSecond();
     }
 
     public boolean isExit() {

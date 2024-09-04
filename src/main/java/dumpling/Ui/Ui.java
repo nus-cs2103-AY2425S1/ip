@@ -1,10 +1,16 @@
-package dumpling;
+package dumpling.Ui;
+
+import dumpling.Dumpling;
+import dumpling.DumplingException;
 
 import java.util.Scanner;
 
 public class Ui {
 
     private static final String DIVIDER = "    ____________________________________________________________";
+    private static final String WELCOME_MESSAGE = "    Hello! I'm Dumpling\n" +
+            "    What can I do for you?";
+    private static final String EXIT_MESSAGE = "    Bye. Hope to see you again soon!";
 
     private Scanner scanner;
 
@@ -26,20 +32,25 @@ public class Ui {
 
     public void showWelcome() {
         this.showLine();
-        String greetingMessage = "    Hello! I'm Dumpling\n" +
-                "    What can I do for you?";
-        this.echo(greetingMessage);
+        this.echo(WELCOME_MESSAGE);
         this.showLine();
     }
 
     public void exit() {
-        String exitMessage = "    Bye. Hope to see you again soon!";
-        this.echo(exitMessage);
+        this.echo(EXIT_MESSAGE);
         this.scanner.close();
         this.showLine();
     }
 
     public void echo(String message) {
         System.out.println(message);
+    }
+
+    public String getWelcomeMessage() {
+        return WELCOME_MESSAGE;
+    }
+
+    public String getExitMessage() {
+        return EXIT_MESSAGE;
     }
 }
