@@ -8,6 +8,15 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event (String description, String from, String to, boolean done) throws EmptyDescriptionException {
+        super(description);
+        this.from = from;
+        this.to = to;
+        if (done) {
+            this.markTask();
+        }
+    }
+
     public Event (String str) throws IncompleteEventOrDeadlineException, EmptyDescriptionException {
         if (!str.contains("/from ") || !str.contains("/to ")) {
             throw new IncompleteEventOrDeadlineException();
@@ -28,5 +37,17 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " + from + "to: " + to + ")";
+    }
+
+    @Override
+    public String toUString() {
+        String s = super.toUString();
+        s += "002"; // Unique identifier for Event Tasktype
+        s += super.description;
+        s += "/from/";
+        s += from;
+        s += "/to/";
+        s += to;
+        return s;
     }
 }

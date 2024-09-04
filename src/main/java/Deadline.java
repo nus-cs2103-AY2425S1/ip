@@ -5,6 +5,14 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline (String description, String by, boolean done) throws EmptyDescriptionException {
+        super(description);
+        this.by = by;
+        if (done) {
+            this.markTask();
+        }
+    }
+
     /**
      * Constructs new Deadline task by extracting /by from the String
      *
@@ -30,5 +38,15 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D] " + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String toUString() {
+        String s = super.toUString();
+        s += "003"; // Unique identifier for Event Tasktype
+        s += super.description;
+        s += "/by/";
+        s += by;
+        return s;
     }
 }

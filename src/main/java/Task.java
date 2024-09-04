@@ -58,4 +58,19 @@ public class Task {
         return getTaskWithStatus();
     }
 
+    /**
+     * Returns unique ID style to be read into txt file.
+     * 
+     * @return String indicating Task's details per chosen style.
+     */
+    public String toUString() {
+        String s = "";
+        s += isDone ? "1" : "0";
+        return s;
+    }
+
+    protected static String getUniqueKey() {
+        return "VSKXYudfs8162JDRoa619dvkat$2ndu$(!%$(@^nhdisg!))";
+    }
+
 }
