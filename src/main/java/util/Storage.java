@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
+import exceptions.PrinceException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -36,14 +37,12 @@ public class Storage {
      * If storage is empty, then it returns an empty TaskList.
      * @return A TaskList.
      */
-    public TaskList loadFromFile() {
+    public TaskList loadFromFile() throws PrinceException {
         TaskList taskList = new TaskList();
-
         try {
             if (Files.notExists(filePath.getParent())) {
                 Files.createDirectories(filePath.getParent());
             }
-
             if (Files.notExists(filePath)) {
                 Files.createFile(filePath);
             }
@@ -106,7 +105,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new PrinceException(e.getMessage());
         }
         return taskList;
     }
@@ -118,11 +117,9 @@ public class Storage {
      */
     public void saveToFile(Task task, TaskList taskList) {
         try {
-
             if (Files.notExists(filePath.getParent())) {
                 Files.createDirectories(filePath.getParent());
             }
-
             if (Files.notExists(filePath)) {
                 Files.createFile(filePath);
             }
@@ -174,7 +171,6 @@ public class Storage {
             Files.delete(filePath);
             // move temp file to old file path
             Files.move(tempPath, filePath);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -221,7 +217,6 @@ public class Storage {
             Files.delete(filePath);
             // move temp file to old file path
             Files.move(tempPath, filePath);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -256,5 +251,4 @@ public class Storage {
             return -1;
         }
     }
-
 }

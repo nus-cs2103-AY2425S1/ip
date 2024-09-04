@@ -12,6 +12,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exceptions.PrinceException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.TaskList;
@@ -89,7 +90,7 @@ public class StorageTest {
     }
 
     @Test
-    public void loadFromFile_validTasks_success() throws IOException {
+    public void loadFromFile_validTasks_success() throws IOException, PrinceException {
         Todo todoTask = new Todo("play tennis");
         Deadline deadlineTask = new Deadline("watch movie", "9 july");
         taskList.add(todoTask);
