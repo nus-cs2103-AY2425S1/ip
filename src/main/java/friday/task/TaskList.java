@@ -55,14 +55,14 @@ public class TaskList {
      *
      * @param keyword The keyword to search for in the task descriptions.
      *                The search is case-insensitive and looks for exact matches of words in the description.
+     * @return The string representation of tasks in the task list matching the keyword.
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         if (keyword.trim().isEmpty()) {
-            System.out.println("\tPlease provide a keyword to search for.");
-            return;
+            return "Please provide a keyword to search for.";
         }
 
-        System.out.println("\tHere are the matching tasks in your list:");
+        String response = "Here are the matching tasks in your list:";
         boolean found = false;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -71,7 +71,7 @@ public class TaskList {
 
             for (String word : words) {
                 if (word.equals(keyword.toLowerCase())) {
-                    System.out.println("\t" + (i + 1) + "." + task);
+                    response += "\n" + (i + 1) + "." + task;
                     found = true;
                     break;
                 }
@@ -79,8 +79,10 @@ public class TaskList {
         }
 
         if (!found) {
-            System.out.println("\tNo matching tasks found.");
+            return "No matching tasks found.";
         }
+
+        return response;
     }
 
     /**

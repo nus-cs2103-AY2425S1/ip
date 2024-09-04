@@ -30,14 +30,15 @@ public class TodoCommand extends Command {
      * @param tasks   The task list to be modified by the command.
      * @param ui      The user interface for interacting with the user.
      * @param storage The storage for saving the task list.
+     * @return The string representation of adding a new task to the task list.
      * @throws IOException       If an input/output error occurs during execution.
      * @throws FridayException   If there is an error specific to the command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, FridayException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, FridayException {
         Task task = new Todo(description);
         tasks.addTask(task);
-        ui.showTaskAdded(task, tasks.getSize());
         storage.saveTasks(tasks.getTasks());
+        return ui.showTaskAdded(task, tasks.getSize());
     }
 }

@@ -15,9 +15,10 @@ public class HelpCommand extends Command {
      * @param tasks   The task list. Not used in this command.
      * @param ui      The user interface for interacting with the user.
      * @param storage The storage for saving the task list. Not used in this command.
+     * @return The string representation of a helpful list of commands.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showHelp();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showHelp();
     }
 }

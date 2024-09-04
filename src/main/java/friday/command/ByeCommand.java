@@ -16,10 +16,11 @@ public class ByeCommand extends Command {
      * @param tasks   The task list to be used by the command. Not used in this command.
      * @param ui      The user interface for interacting with the user.
      * @param storage The storage for saving the task list. Not used in this command.
+     * @return The string representation of the goodbye message to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showGoodbye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showGoodbye();
     }
 
     /**

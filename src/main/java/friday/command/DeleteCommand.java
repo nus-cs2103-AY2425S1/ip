@@ -34,18 +34,19 @@ public class DeleteCommand extends Command {
      * @param tasks   The task list to be modified by the command.
      * @param ui      The user interface for interacting with the user.
      * @param storage The storage for saving the task list.
+     * @return The string representation of deleting a task from the task list.
      * @throws IOException       If an input/output error occurs during execution.
      * @throws FridayException   If there is an error specific to the command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, FridayException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, FridayException {
         if (index > tasks.getSize() || index <= 0) {
-            throw new FridayException("\tInvalid input. It appears you are attempting to"
+            throw new FridayException("Invalid input. It appears you are attempting to"
                     + " access something that does not exist yet.");
         }
         Task task = tasks.getTasks().get(index - 1);
         tasks.deleteTask(index - 1);
-        ui.showTaskDeleted(task, tasks.getSize());
         storage.saveTasks(tasks.getTasks());
+        return ui.showTaskDeleted(task, tasks.getSize());
     }
 }
