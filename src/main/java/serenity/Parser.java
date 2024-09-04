@@ -65,7 +65,7 @@ public class Parser {
      * @return True if the command is bye.
      */
 
-    public static boolean isExit (String input) {
+    public static boolean isExit(String input) {
         return input.startsWith("bye");
     }
 

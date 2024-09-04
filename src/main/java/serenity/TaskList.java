@@ -142,7 +142,7 @@ public class TaskList {
 
     /**
      * Returns String representation of TaskList of matching tasks.
-     * Matching tasks are identified by the given keyword. 
+     * Matching tasks are identified by the given keyword.
      *
      * @param input keyword to search tasks for
      * @return String representation of TaskList of matching tasks
@@ -195,7 +195,7 @@ public class TaskList {
     public String toDataFormat() {
         String data = "";
         for (int i = 0; i < tasks.size(); i++) {
-            data += tasks.get(i).formatData() + "\n" ;
+            data += tasks.get(i).formatData() + "\n";
         }
         return data;
 
