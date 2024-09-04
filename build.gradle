@@ -32,6 +32,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = "spike.jar"
     archiveBaseName = "spike"
     archiveClassifier = null
 }
