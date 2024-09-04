@@ -1,4 +1,4 @@
-package puke.tasks;
+package puke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,9 +8,9 @@ import java.util.Objects;
  * Represents a deadline task with a description, completion status, and a due date.
  */
 public class Deadline extends Task {
-    private LocalDateTime by;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private LocalDateTime by; // Instance variable comes after static variables
 
     /**
      * Constructs a Deadline with the specified description, completion status, and due date.
@@ -22,7 +22,9 @@ public class Deadline extends Task {
     public Deadline(String description, boolean isDone, String by) {
         super(description);
         this.by = LocalDateTime.parse(by, inputFormatter);
-        if (isDone) markAsDone();
+        if (isDone) {
+            markAsDone();
+        }
     }
 
     /**
@@ -33,9 +35,15 @@ public class Deadline extends Task {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!super.equals(obj)) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
         Deadline deadline = (Deadline) obj;
         return Objects.equals(by, deadline.by);
     }
@@ -57,6 +65,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
+                + by.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 }

@@ -2,8 +2,8 @@ package puke.commands;
 
 import puke.exceptions.EmptyDescriptionException;
 import puke.exceptions.MissingTimeException;
-import puke.tasklist.TaskManager;
-import puke.ui.MessageBuilder;
+import puke.TaskList;
+import puke.message.MessageBuilder;
 
 /**
  * Command to add a new Deadline task.
@@ -33,13 +33,14 @@ public class AddDeadlineCommand extends Command {
 
     /**
      * Executes the add deadline command.
-     * This method adds a new deadline task to the task manager and sends a confirmation message using the message builder.
+     * This method adds a new deadline task to the task manager and sends a confirmation message
+     * using the message builder.
      *
-     * @param taskManager the task manager to add the task to.
+     * @param taskList the task manager to add the task to.
      * @param messageBuilder the message builder to send confirmation message.
      */
     @Override
-    public void execute(TaskManager taskManager, MessageBuilder messageBuilder) {
-        messageBuilder.sendMessage(taskManager.addTask("deadline", description, by));
+    public void execute(TaskList taskList, MessageBuilder messageBuilder) {
+        messageBuilder.sendMessage(taskList.addTask("deadline", description, by));
     }
 }

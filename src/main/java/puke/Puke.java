@@ -1,19 +1,15 @@
 package puke;
 
 import puke.exceptions.PukeException;
-import puke.handlers.InputManager;
-import puke.storage.Storage;
-import puke.tasklist.TaskManager;
-import puke.ui.MessageBuilder;
-import puke.ui.Ui;
+import puke.message.MessageBuilder;
 
 /**
  * The main class for the Puke application. Initializes and starts the user interface.
  */
 public class Puke {
     private MessageBuilder messageBuilder;
-    private TaskManager taskManager;
-    private InputManager inputManager;
+    private TaskList taskList;
+    private Parser parser;
     private Storage storage;
     private Ui ui;
 
@@ -23,9 +19,9 @@ public class Puke {
     public Puke() {
         this.messageBuilder = new MessageBuilder();
         this.storage = new Storage();
-        this.taskManager = new TaskManager(storage.loadTasks());
-        this.inputManager = new InputManager(taskManager, messageBuilder);
-        this.ui = new Ui(inputManager, messageBuilder);
+        this.taskList = new TaskList(storage.loadTasks());
+        this.parser = new Parser(taskList, messageBuilder);
+        this.ui = new Ui(parser, messageBuilder);
     }
 
     /**

@@ -1,4 +1,4 @@
-package puke.ui;
+package puke.message;
 
 /**
  * Handles the construction and display of messages to the user.

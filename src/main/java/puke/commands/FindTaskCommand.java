@@ -1,11 +1,11 @@
 package puke.commands;
 
-import puke.exceptions.PukeException;
-import puke.tasklist.TaskManager;
-import puke.tasks.Task;
-import puke.ui.MessageBuilder;
-
 import java.util.ArrayList;
+
+import puke.exceptions.PukeException;
+import puke.TaskList;
+import puke.task.Task;
+import puke.message.MessageBuilder;
 
 /**
  * Command to find tasks by searching for a keyword in the task description.
@@ -23,13 +23,13 @@ public class FindTaskCommand extends Command {
 
     /**
      * Executes the command to find tasks by keyword and sends the results using MessageBuilder.
-     * @param taskManager the TaskManager to search tasks in
+     * @param taskList the TaskList to search tasks in
      * @param messageBuilder the MessageBuilder to use for sending the output message
      * @throws PukeException if an error occurs during the execution of the command
      */
     @Override
-    public void execute(TaskManager taskManager, MessageBuilder messageBuilder) throws PukeException {
-        ArrayList<Task> foundTasks = taskManager.findTasks(keyword);
+    public void execute(TaskList taskList, MessageBuilder messageBuilder) throws PukeException {
+        ArrayList<Task> foundTasks = taskList.findTasks(keyword);
         messageBuilder.sendMessage(buildFindResult(foundTasks));
     }
 
