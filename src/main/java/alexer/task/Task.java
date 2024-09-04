@@ -1,3 +1,5 @@
+package alexer.task;
+
 public class Task {
     protected String description;
 

@@ -1,3 +1,5 @@
+package alexer;
+
 public class Prompter {
     private static final String BREAK = "____________________________________________________________";
 

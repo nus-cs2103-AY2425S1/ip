@@ -1,3 +1,9 @@
+package alexer;
+
+import alexer.command.Command;
+import alexer.command.CommandHandler;
+import alexer.task.*;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,6 +12,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * lexer (ˈleksər) - A computer program that performs lexical analysis.
+ * @author sayomaki
+ */
 public class Alexer {
     private static final String BREAK = "____________________________________________________________";
 
