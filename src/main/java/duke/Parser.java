@@ -179,6 +179,9 @@ public class Parser {
         case "list":
             ui.printList(taskList);
             break;
+        case "bye":
+            ui.bye();
+            break;
         case "todo":
             try {
                 Task todo = parseTodoCommand(command);

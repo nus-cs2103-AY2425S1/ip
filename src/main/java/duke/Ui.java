@@ -8,23 +8,32 @@ import java.util.ArrayList;
  */
 public class Ui {
 
-    public Ui() {
-    }
+    private Duke duke;
 
     /**
-     * Prints a greeting message to the user.
-     * This method is called when the application starts.
+     * Constructs a {@code Ui} instance with the specified Duke instance.
+     *
+     * @param duke The Duke instance used to manage application state and interactions.
      */
-    public void greet() {
-        System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
+    public Ui(Duke duke) {
+        this.duke = duke;
     }
 
     /**
-     * Prints a goodbye message to the user.
-     * This method is called when the user exits the application.
+     * Returns a greeting message from Duke.
+     *
+     * @return A string containing Duke's greeting message.
+     */
+    public String greet() {
+        return "Hello! I'm Duke\n" + "What can I do for you?";
+    }
+
+    /**
+     * Prints a goodbye message and sets Duke to offline mode.
      */
     public void bye() {
         System.out.println("Bye. Hope to see you again soon!");
+        this.duke.goOffline();
     }
 
     /**

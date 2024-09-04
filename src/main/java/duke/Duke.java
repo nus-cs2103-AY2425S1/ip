@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
@@ -12,47 +14,68 @@ public class Duke {
     private Storage storage;
     private Parser parser;
     private TaskList taskList;
+    private Boolean isOnline;
 
     /**
      * Constructs a new Duke instance.
      * Initializes the user interface, storage, parser, and task list.
      */
     public Duke() {
-        this.ui = new Ui();
+        this.ui = new Ui(this);
         this.storage = new Storage("data/", "duke.txt");
         this.parser = new Parser();
         this.taskList = new TaskList();
         this.storage.loadFile(this.taskList, this.parser);
+        this.isOnline = true;
     }
 
     /**
-     * Starts the Duke application. This method handles user input in a loop until
-     * the "bye" command is given, which ends the session.
-     */
-    public void run() {
-        this.ui.greet();
-        Scanner sc = new Scanner(System.in);
-        String command;
-        while (sc.hasNext()) {
-            command = sc.nextLine();
-            if ("bye".equals(command.split(" ", 2)[0])) {
-                this.ui.bye();
-                break;
-            }
-            this.parser.parseCommand(command, this.taskList, this.storage, this.ui);
-        }
-        sc.close();
-    }
-
-    /**
-     * The main method, which serves as the entry point for the Duke application.
-     * It initializes a new Duke instance and starts the application.
+     * Processes a command by parsing it and executing the appropriate actions.
+     * Captures and returns the output produced during the command execution.
      *
-     * @param args the command-line arguments (not used)
-     * @throws DukeException if an error occurs during the execution of Duke
+     * @param command The command to be processed.
+     * @return The output produced during the execution of the command.
      */
-    public static void main(String[] args) throws DukeException {
-        Duke duke = new Duke();
-        duke.run();
+    public String getResponse(String command) {
+        PrintStream originalOut = System.out;
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(outputStream);
+
+        System.setOut(ps);
+
+        try {
+            this.parser.parseCommand(command, this.taskList, this.storage, this.ui);
+        } finally {
+            System.setOut(originalOut);
+        }
+
+        return outputStream.toString();
     }
+
+    /**
+     * Checks if Duke is currently online.
+     *
+     * @return true if Duke is online; false otherwise.
+     */
+    public boolean isOnline() {
+        return isOnline;
+    }
+
+    /**
+     * Gets the greeting message from the user interface.
+     *
+     * @return The greeting message from Duke.
+     */
+    public String getGreeting() {
+        return this.ui.greet();
+    }
+
+    /**
+     * Sets Duke to offline mode, indicating that it is no longer active.
+     */
+    public void goOffline() {
+        this.isOnline = false;
+    }
+
 }
