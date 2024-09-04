@@ -1,6 +1,5 @@
 package dave.task;
 
-import java.io.IOException;
 
 /**
  * Represents a task that has a description and a completion status.

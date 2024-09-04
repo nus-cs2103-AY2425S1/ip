@@ -1,6 +1,8 @@
+import static org.junit.jupiter.api.Assertions.*;
+
+
 import org.junit.jupiter.api.Test;
 import dave.task.Todo;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TodoTest {
 

@@ -1,10 +1,12 @@
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import org.junit.jupiter.api.Test;
 import dave.task.Event;
 import dave.exceptions.InvalidDateTimeFormatException;
 import dave.exceptions.InvalidDescriptionException;
-import static org.junit.jupiter.api.Assertions.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 
 public class EventTest {
 
