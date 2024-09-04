@@ -13,12 +13,11 @@ public class EventCommand extends Command {
     /**
      * Adds items to list via method in storelist class
      *
+     * @return
      */
     @Override
-    public void execute() {
-        System.out.println(Ui.LINE);
-        storeList.addItem(userInput.substring(5), "event");
-        System.out.println(Ui.LINE);
+    public String execute() {
+        return storeList.addItem(userInput.substring(5), "event");
     }
 
     @Override

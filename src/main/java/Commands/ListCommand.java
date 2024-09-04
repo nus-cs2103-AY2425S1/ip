@@ -13,12 +13,11 @@ public class ListCommand extends Command {
     /**
      * Displays items in list via method in storelist class
      *
+     * @return
      */
     @Override
-    public void execute() {
-        System.out.println(Ui.LINE);
-        storeList.displayItems();
-        System.out.println(Ui.LINE);
+    public String execute() {
+        return storeList.displayItems();
     }
 
     @Override

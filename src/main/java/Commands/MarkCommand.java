@@ -16,13 +16,16 @@ public class MarkCommand extends Command {
      *
      */
     @Override
-    public void execute() throws InvalidIndexException {
+    public String execute() throws InvalidIndexException {
         // Split the string by spaces
         String[] words = userInput.split(" ");
         System.out.println(Ui.LINE);
         int itemNum = Integer.parseInt(words[1]);
-        storeList.markItem(itemNum);
-        System.out.println(Ui.LINE);
+
+        // Execute the mark item logic and get the result message
+        return storeList.markItem(itemNum);
+
+
     }
 
     @Override

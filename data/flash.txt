@@ -1,13 +1,3 @@
-D| | finish /by 2020-12-10 16:00
-D|X| task /by 2020-12-10
-D|X| project /by 2020-12-10
-D| | Finish homework /by 2024-09-01
-D| | Submit report /by 2024-09-01
-D| | Prepare presentation /by 2024-09-05
+D| | read book /by 2020-12-10
 T| | read book
-T| | read bojjn
-D| | fekjn /by 2020-04-05
 T| | read book
-T| | idwjed
-T| | hey
-E| | project meeting /from 16:00 /to 18:00 /on 2020-04-05

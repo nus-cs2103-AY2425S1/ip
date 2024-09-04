@@ -11,15 +11,15 @@ public class FindCommand extends Command {
 
     /**
      * Displays items in list with matching word via method in storelist class
+     *
+     * @return
      */
     @Override
-    public void execute() {
-        System.out.println(Ui.LINE);
+    public String execute() {
        
         String[] keywords = userInput.substring(4).trim().split("\\s+");
 
-        storeList.displayItemsWithWord(keywords);
-        System.out.println(Ui.LINE);
+        return storeList.displayItemsWithWord(keywords);
     }
 
     @Override
