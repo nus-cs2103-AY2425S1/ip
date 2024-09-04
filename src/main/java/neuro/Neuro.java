@@ -1,9 +1,9 @@
 package neuro;
 
+import java.io.FileNotFoundException;
+
 import neuro.command.Command;
 import neuro.task.TaskList;
-
-import java.io.FileNotFoundException;
 
 /**
  * The {@code Neuro} class is the main class for the Neuro Chatbot application.
@@ -14,6 +14,11 @@ public class Neuro {
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs a new Neuro object that initializes the user interface and storage.
+     *
+     * @param filePath The path to the save-file for Neuro
+     */
     public Neuro(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

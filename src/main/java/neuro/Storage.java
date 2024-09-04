@@ -1,7 +1,5 @@
 package neuro;
 
-import neuro.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,9 +8,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import neuro.task.Deadline;
+import neuro.task.Event;
+import neuro.task.Task;
+import neuro.task.TaskList;
+import neuro.task.Todo;
+
 /**
  * The {@code Storage} class handles the storage logic for the Neuro Chatbot.
- * It provides methods to load Neuro's save file data and to update it.
+ * It provides methods to load Neuro's save-file data and to update it.
  */
 public class Storage {
     private final String filePath;
