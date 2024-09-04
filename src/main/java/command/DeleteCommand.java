@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
             Task task = tasklist.delete(index);
 
             sb.append("Noted. I've removed this task:\n");
-            sb.append("  " + task);
+            sb.append("  " + task + "\n");
             sb.append("Now you have " + tasklist.size() + " tasks in the list.\n");
 
         } catch (TaskListOutOfBoundsException e) {
