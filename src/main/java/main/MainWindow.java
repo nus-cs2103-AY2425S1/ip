@@ -24,11 +24,16 @@ public class MainWindow extends AnchorPane {
     private Prince prince;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image princeImage = new Image(this.getClass().getResourceAsStream("/images/DaPrince.png"));
+    private Image princeImage = new Image(this.getClass().getResourceAsStream("/images/frogprince.png"));
 
+    /**
+     * Initialises the scrollPane for the GUI.
+     * Displays a welcome message to the user.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        showWelcome();
     }
 
     /** Injects the Prince instance */
@@ -37,7 +42,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Prince's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing
+     * Prince's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -46,8 +52,14 @@ public class MainWindow extends AnchorPane {
         String response = prince.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getPrinceDialog(response, princeImage)
-        );
+                DialogBox.getPrinceDialog(response, princeImage));
         userInput.clear();
+    }
+
+    @FXML
+    private void showWelcome() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getPrinceDialog("Hello! I'm Prince :p\nWhat can I do for you?\n",
+                        princeImage));
     }
 }
