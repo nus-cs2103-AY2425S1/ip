@@ -36,6 +36,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public boolean checkTaskname(String query) {
+        return this.description.contains(query);
+    }
+
     /**
      * Returns the string representation of the task that is parseable by YapBot.
      */

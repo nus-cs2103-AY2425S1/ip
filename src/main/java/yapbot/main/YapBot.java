@@ -53,8 +53,8 @@ public class YapBot {
                 ui.printError("Error, Dynamic DateTime Module offline."
                         + "\nDate & Time should be one of these formats:"
                         + "\n  Date & Time - \"5pm 2024/09/01\""
-                        + "\n  Date Only - \"2024/09/01\""
-                        + "\n  Time Only - \"5pm\"");
+                        + "\n  Date Only (Time defaults to 8am) - \"2024/09/01\""
+                        + "\n  Time Only (Date defaults to today) - \"5pm\"");
             }
         }
     }

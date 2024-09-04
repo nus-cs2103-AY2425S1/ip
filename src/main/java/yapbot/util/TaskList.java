@@ -133,6 +133,32 @@ public class TaskList {
         return task;
     }
 
+    public String getMatchingTasks(String query) {
+        Iterator<Task> tasks = this.storedTasks.iterator();
+
+        StringBuilder result = new StringBuilder();
+        int index = 1;
+
+        while (tasks.hasNext()) {
+            Task task = tasks.next();
+            if (task.checkTaskname(query)) {
+                result.append("  ")
+                        .append(index)
+                        .append(".")
+                        .append(task)
+                        .append("\n");
+                index++;
+            }
+        }
+
+        if (result.isEmpty()) {
+            return null;
+        } else {
+            result.deleteCharAt(result.length() - 1);
+            return result.toString();
+        }
+    }
+
     public int size() {
         return this.storedTasks.size();
     }
