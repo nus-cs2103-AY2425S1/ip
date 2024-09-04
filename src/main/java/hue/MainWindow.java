@@ -30,6 +30,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    
+
     /** Injects the Duke instance */
     public void setHue(Hue d) {
         hue = d;

@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws IOException, HueException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws IOException, HueException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task removedTask = tasks.remove(taskIndex);
             ui.showLine();
@@ -39,6 +39,7 @@ public class DeleteCommand extends Command {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
             storage.saveTasks(tasks);
+           return ui.showDeleteTask(removedTask, tasks.size());
         } else {
             throw new HueException("Task number is out of range.");
         }

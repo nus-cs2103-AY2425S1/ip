@@ -36,16 +36,21 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws IOException {
         Task newTask = new Deadline(description, by);
         tasks.add(newTask);
 
         ui.showLine();
+        /*
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + newTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
+         */
+
         storage.saveTasks(tasks);  // Save the updated task list
+        return ui.showAddTask(newTask, tasks.size());
+
     }
 }
 

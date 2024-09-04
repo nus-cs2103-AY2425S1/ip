@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Hue hue = new Hue();
+    private Hue hue = new Hue("data/Hue.txt");
 
     @Override
     public void start(Stage stage) {

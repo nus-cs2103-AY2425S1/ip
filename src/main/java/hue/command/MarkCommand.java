@@ -29,16 +29,17 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws HueException, IOException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws HueException, IOException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task task = tasks.get(taskIndex);
             task.markDone();
 
             ui.showLine();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + task);
+            String response = "Nice! I've marked this task as done:\n" +
+                    "  " + task;
 
             storage.saveTasks(tasks);
+            return response;
         } else {
             throw new HueException("Task number is out of range.");
         }

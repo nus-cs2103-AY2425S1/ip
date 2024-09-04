@@ -9,8 +9,8 @@ import hue.task.TaskList;
  */
 public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
-        ui.showGoodbye();
+    public String execute(TaskList tasks, UI ui, Storage storage) {
+        return ui.showGoodbye();
     }
 
     @Override

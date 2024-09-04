@@ -65,7 +65,12 @@ public class Hue {
     }
 
     public String getResponse(String input){
-        return "Hue heard: " + input;
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);  // Return the response from the executed command
+        } catch (HueException | IOException e) {
+            return e.getMessage();  // Return the error message as the response
+        }
     }
 
 

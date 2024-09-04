@@ -16,15 +16,21 @@ import hue.storage.Storage;
  */
 public abstract class Command {
     /**
-     * Executes the command with the given task list, UI, and storage.
+     * Executes the command based on the provided task list and other relevant parameters.
      *
-     * @param tasks   The task list to operate on.
-     * @param ui      The user interface to interact with.
-     * @param storage The storage to save tasks.
-     * @throws HueException If there is an error executing the command.
-     * @throws IOException  If there is an error saving tasks.
+     * This abstract method should be implemented by concrete subclasses of {@code Command}.
+     * Each subclass will define its own specific behavior for executing the command.
+     * The method typically interacts with the task list, user interface, and storage
+     * to perform the command's operation and return a result string to provide feedback.
+     *
+     * @param tasks The {@code TaskList} containing all the tasks. Used to retrieve or modify tasks as needed by the command.
+     * @param ui The {@code UI} instance used for interacting with the user, such as showing messages or errors.
+     * @param storage The {@code Storage} instance used for saving any changes to the task list.
+     * @return A string message indicating the result of the command execution.
+     * @throws IOException If there is an error during interactions with the storage, such as saving tasks.
+     * @throws HueException If there is an error related to the command execution, such as invalid parameters or task issues.
      */
-    public abstract void execute(TaskList tasks, UI ui, Storage storage) throws HueException, IOException;
+    public abstract String execute(TaskList tasks, UI ui, Storage storage) throws HueException, IOException;
 
     /**
      * Indicates if this command is an exit command.
