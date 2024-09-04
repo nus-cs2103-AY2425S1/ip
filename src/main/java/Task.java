@@ -2,17 +2,13 @@ public class Task {
     public final String description;
     public boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
         return (this.isDone ? "X" : " ");
-    }
-
-    public String getStatusBinary() {
-        return (this.isDone ? "1" : "0");
     }
 
     public void markAsDone() {

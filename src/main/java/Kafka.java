@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -65,11 +66,11 @@ public class Kafka {
     }
 
     public void getNewFile(String filePath) {
-        File file = new File(filePath);
+        File f = new File(filePath);
         try {
-            file.getParentFile().mkdirs();
-            if (!file.exists()) {
-                file.createNewFile();
+            f.getParentFile().mkdirs();
+            if (!f.exists()) {
+                f.createNewFile();
             }
         } catch (IOException e) {
             System.out.println("An error occurred while creating the file: " + e.getMessage());
@@ -87,8 +88,13 @@ public class Kafka {
         Scanner scanner = new Scanner(System.in);
         Kafka kafka = new Kafka();
         boolean isExitChat = false;
-        String filepath = "C:/Users/Nicholas/Downloads/Kafka.txt";
-        kafka.getNewFile(filepath);
+        String filePath = "C:/Users/Nicholas/Downloads/Kafka.txt";
+        try {
+            kafka.getNewFile(filePath);
+            KafkaTextReader.printFileContents(filePath, kafka.tasks);
+        } catch (FileNotFoundException e) {
+            System.out.println("  " + e.getMessage());
+        }
 
         System.out.println("  Hello from\n" + logo);
         kafka.greet();
@@ -106,23 +112,23 @@ public class Kafka {
                 } else if (userInput[0].equalsIgnoreCase("mark")) {
                     int taskNumber = Integer.parseInt(userInput[1]);
                     kafka.mark(taskNumber);
-                    KafkaTextWriter.writeToFile(filepath, kafka.tasks);
+                    KafkaTextWriter.writeToFile(filePath, kafka.tasks);
                 } else if (userInput[0].equalsIgnoreCase("unmark")) {
                     int taskNumber = Integer.parseInt(userInput[1]);
                     kafka.unmark(taskNumber);
-                    KafkaTextWriter.writeToFile(filepath, kafka.tasks);
+                    KafkaTextWriter.writeToFile(filePath, kafka.tasks);
                 } else if (userInput[0].equalsIgnoreCase("delete")) {
                     int taskNumber = Integer.parseInt(userInput[1]);
                     kafka.delete(taskNumber);
-                    KafkaTextWriter.writeToFile(filepath, kafka.tasks);
+                    KafkaTextWriter.writeToFile(filePath, kafka.tasks);
                 } else {
                     if (userInput[0].equalsIgnoreCase("todo")) {
                         if (userInput.length < 2) {
                             throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
                         }
-                        Task todo = new Todo(userInput[1]);
+                        Task todo = new Todo(userInput[1], false);
                         kafka.addTask(todo);
-                        KafkaTextWriter.writeToFile(filepath, kafka.tasks);
+                        KafkaTextWriter.writeToFile(filePath, kafka.tasks);
                     } else if (userInput[0].equalsIgnoreCase("deadline")) {
                         if (userInput.length < 2) {
                             throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
@@ -131,9 +137,9 @@ public class Kafka {
                         if (deadlineSplit.length < 2) {
                             throw new KafkaException("It appears the details for this deadline task are off. Let's give it another go, shall we?");
                         }
-                        Task deadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
+                        Task deadline = new Deadline(deadlineSplit[0], deadlineSplit[1], false);
                         kafka.addTask(deadline);
-                        KafkaTextWriter.writeToFile(filepath, kafka.tasks);
+                        KafkaTextWriter.writeToFile(filePath, kafka.tasks);
                     } else if (userInput[0].equalsIgnoreCase("event")) {
                         if (userInput.length < 2) {
                             throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
@@ -142,9 +148,9 @@ public class Kafka {
                         if (eventSplit.length < 3) {
                             throw new KafkaException("It appears the details for this event task are off. Let's give it another go, shall we?");
                         }
-                        Task event = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
+                        Task event = new Event(eventSplit[0], eventSplit[1], eventSplit[2], false);
                         kafka.addTask(event);
-                        KafkaTextWriter.writeToFile(filepath, kafka.tasks);
+                        KafkaTextWriter.writeToFile(filePath, kafka.tasks);
                     } else {
                         throw new KafkaException("Hmm... I'm not sure what you're getting at. Care to enlighten me?");
                     }
