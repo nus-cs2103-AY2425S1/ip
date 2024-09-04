@@ -1,13 +1,9 @@
-<<<<<<< HEAD
 package skd.task;
-=======
-package task;
 
->>>>>>> ec24a2d9f9afe5e1fa72e4eb8c9a7e7a2c9d1127
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-    protected TaskType taskType;
+    protected skd.task.TaskType taskType;
 
     /**
      * Creates a new task with the description and task type.
@@ -16,7 +12,7 @@ public abstract class Task {
      * @param description Description of the task.
      * @param taskType Type of the task.
      */
-    public Task(String description, TaskType taskType) {
+    public Task(String description, skd.task.TaskType taskType) {
         this.description = description;
         this.isDone = false;
         this.taskType = taskType;

@@ -1,16 +1,5 @@
 package skd;
-<<<<<<< HEAD
-=======
 
-import skd.Parser;
-import task.Task;
->>>>>>> ec24a2d9f9afe5e1fa72e4eb8c9a7e7a2c9d1127
-
-import skd.task.Deadline;
-import skd.task.Event;
-import skd.task.Task;
-import skd.task.ToDo;
-import skd.task.TaskType;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
