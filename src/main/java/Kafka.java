@@ -16,7 +16,7 @@ public class Kafka {
     }
 
     public void goodbye() {
-        String message = "  Farewell. I look forward to our next meeting, wherever destiny may lead us. ";
+        String message = "  Farewell. I look forward to our next meeting, wherever destiny may lead us.";
         System.out.println(message);
     }
 
