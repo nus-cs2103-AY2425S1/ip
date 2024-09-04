@@ -14,14 +14,14 @@ import matcha.task.Task;
  * Represents a Storage object that saves and loads tasks from a file.
  */
 public class Storage {
-    private static String FILE_PATH;
+    private static String filePath;
 
     /**
      * Constructor for Storage object.
      * @param filePath The file path to save and load tasks from.
      */
     public Storage(String filePath) {
-        Storage.FILE_PATH = filePath;
+        Storage.filePath = filePath;
     }
 
     /**
@@ -32,7 +32,7 @@ public class Storage {
      * @throws IOException If there is an error creating the file.
      */
     private static File initFile() throws IOException {
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
 
         if (!file.getParentFile().exists()) {
             //create directory if it does not exist
@@ -81,7 +81,7 @@ public class Storage {
     public void saveTasks(ArrayList<Task> tasks) throws MatchaException {
         try {
             File file = Storage.initFile();
-            FileWriter writer = new FileWriter(FILE_PATH);
+            FileWriter writer = new FileWriter(filePath);
 
             //write each task to file
             for (Task task : tasks) {
