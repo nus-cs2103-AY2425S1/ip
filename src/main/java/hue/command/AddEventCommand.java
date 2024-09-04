@@ -37,16 +37,20 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws IOException {
         Task newTask = new Event(description, from, to);
         tasks.add(newTask);
 
         ui.showLine();
+        /*
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + newTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
+         */
+
         storage.saveTasks(tasks);
+        return ui.showAddTask(newTask, tasks.size());
     }
 
 

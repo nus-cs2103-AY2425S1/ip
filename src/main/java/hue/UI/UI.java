@@ -13,11 +13,14 @@ public class UI {
     /**
      * Displays a welcoming message to the user
      */
-    public void showWelcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Hue");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+    public String showWelcome() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("____________________________________________________________\n");
+        sb.append("Hello! I'm Hue\n");
+        sb.append("What can I do for you?\n");
+        sb.append("____________________________________________________________");
+
+        return sb.toString();
     }
     /**
      * Reads a command input from the user.
@@ -28,22 +31,22 @@ public class UI {
         return scanner.nextLine();
     }
 
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String showLine() {
+        return "____________________________________________________________";
     }
     /**
      * Displays an error message to the user.
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
     /**
      * Displays a message indicating that the application is exiting.
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -51,11 +54,13 @@ public class UI {
      *
      * @param tasks The task list to be displayed.
      */
-    public void showTaskList(TaskList tasks) {
-        System.out.println("Here are the tasks in your list: ");
+    public String showTaskList(TaskList tasks) {
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the tasks in your list: \n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            response.append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
+        return response.toString();
     }
 
     /**
@@ -64,12 +69,60 @@ public class UI {
      * @param tasks The task list to be displayed.
      * @param keyword The keyword input by the user for the ArrayList to be filtered by
      */
-    public void showMatchingTasks(ArrayList<Task> tasks, String keyword) {
+    public String showMatchingTasks(ArrayList<Task> tasks, String keyword) {
         showLine();
-        System.out.println("Here are the tasks in your list that match the keyword \"" + keyword + "\": ");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list that match the keyword \"").append(keyword).append("\":\n");
+
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i+1) + "." + tasks.get(i));
+            sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
+
+        return sb.toString().trim();  // Trim to remove any trailing newline
+    }
+
+    /**
+     * Displays a message when a task is added to the task list.
+     *
+     * @param task The task that was added.
+     * @param taskListSize The current size of the task list.
+     * @return A string representing the success message.
+     */
+    public String showAddTask(Task task, int taskListSize) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it. I've added this task:\n");
+        sb.append("  ").append(task).append("\n");
+        sb.append("Now you have ").append(taskListSize).append(" task");
+
+        // Pluralize "tasks" if necessary
+        if (taskListSize != 1) {
+            sb.append("s");
+        }
+        sb.append(" in the list.");
+
+        return sb.toString();
+    }
+
+    /**
+     * Displays a message when a task is deleted from the task list.
+     *
+     * @param task The task that was deleted.
+     * @param taskListSize The current size of the task list after deletion.
+     * @return A string representing the success message.
+     */
+    public String showDeleteTask(Task task, int taskListSize) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Noted. I've removed this task:\n");
+        sb.append("  ").append(task).append("\n");
+        sb.append("Now you have ").append(taskListSize).append(" task");
+
+        // Pluralize "tasks" if necessary
+        if (taskListSize != 1) {
+            sb.append("s");
+        }
+        sb.append(" in the list.");
+
+        return sb.toString();
     }
 
 }

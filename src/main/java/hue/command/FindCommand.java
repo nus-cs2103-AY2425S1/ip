@@ -20,7 +20,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws HueException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws HueException {
         String keyword = this.input.substring(5).trim();
         if (keyword.isEmpty()) {
             throw new HueException("The keyword for the find command cannot be empty!");
@@ -34,9 +34,9 @@ public class FindCommand extends Command {
             }
         }
         if (result.isEmpty()) {
-            ui.showError("No tasks found that matches the keyword: " + keyword);
+            return ui.showError("No tasks found that matches the keyword: " + keyword);
         } else {
-            ui.showMatchingTasks(result, keyword);
+           return ui.showMatchingTasks(result, keyword);
         }
     }
 }

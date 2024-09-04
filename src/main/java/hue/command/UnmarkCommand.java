@@ -29,16 +29,17 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws IOException, HueException {
+    public String execute(TaskList tasks, UI ui, Storage storage) throws IOException, HueException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task task = tasks.get(taskIndex);
             task.unmarkDone();
 
             ui.showLine();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + task);
+            String response = "OK, I've marked this task as not done yet: \n" +
+                    " " + task;
 
             storage.saveTasks(tasks);
+            return response;
         } else {
             throw new HueException("Task number is out of range.");
         }
