@@ -10,6 +10,11 @@ public class Arona {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for the main class of Arona, instantiates ui, storage, and tasklist as objects to be passed within
+     * the programme
+     * @param  filePath  a relative filepath giving the location that data.txt should be stored in
+     */
     public Arona(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,6 +26,17 @@ public class Arona {
         }
     }
 
+    /**
+     * The main loop of the chatbot
+     * <p>
+     * 1. Scans for user input
+     * <p>
+     * 2. Parses input
+     * <p>
+     * 3. Catch exceptions
+     * <p>
+     * 4. Break loop when bye command is send
+     */
     public void run() {
         ui.showGreeting();
 

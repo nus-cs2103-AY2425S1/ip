@@ -5,6 +5,12 @@ import java.time.LocalDate;
 public class Parser {
     public Parser() {}
 
+    /**
+     * Handles processing of input by calling the necessary classes
+     * @param  storage  should only be initiated once at the start of the programme
+     * @param  taskList  should only be initiated once at the start of the programme
+     * @param  ui  should only be initiated once at the start of the programme
+     */
     public static void parse(String input, Storage storage, TaskList taskList, Ui ui) throws Exception {
 
         // Bye command
