@@ -27,6 +27,9 @@ public class Parser {
      * @throws OuiOuiBaguetteException If the command is invalid or any part of the parsing process fails.
      */
     public Command parseCommand(String cmd) throws OuiOuiBaguetteException {
+        // Check if cmd is null
+        assert cmd != null : "Command cannot be null";
+
         if (cmd.equals("bye")) {
             return new ByeCommand();
 
