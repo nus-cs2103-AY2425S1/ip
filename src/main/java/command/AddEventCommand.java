@@ -21,6 +21,11 @@ public class AddEventCommand extends Command {
      * @throws EventException If the date format is invalid.
      */
     public AddEventCommand(String desc, String start, String end) throws EventException {
+        // Check if desc and dates are null
+        assert desc != null : "Desc argument cannot be null";
+        assert start != null : "Start argumment cannot be null";
+        assert end != null : "End argument cannot be null";
+
         task = new Event(desc, start, end);
     }
 
@@ -33,6 +38,9 @@ public class AddEventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasklist) {
+        // Check if tasklist is null
+        assert tasklist != null : "tasklist argument cannot be null";
+
         tasklist.addTask(task);
 
         StringBuilder sb = new StringBuilder();
