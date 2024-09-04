@@ -3,6 +3,9 @@ package blacknut.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Ui class handles user interaction by displaying messages and reading input.
+ */
 class Ui {
     private static final String LOGO = " ____  _            _                _   \n"
             + "|  _ \\| |          | |              | |  \n"

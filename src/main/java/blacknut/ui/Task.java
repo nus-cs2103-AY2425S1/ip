@@ -4,27 +4,56 @@ import blacknut.ui.BlacknutExceptions.IncorrectFormatException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+
+/**
+ * The Task class represents a task with a description and a status of completion.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+
+    /**
+     * Constructs a Task object with the specified description.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon of the task.
+     *
+     * @return "X" if the task is done, otherwise " ".
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         isDone = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void markAsNotDone() {
         isDone = false;
     }
 
+
+    /**
+     * Converts a line from the file into a Task object.
+     *
+     * @param line The line from the file representing the task.
+     * @return The Task object represented by the line.
+     * @throws IncorrectFormatException If the line format is incorrect.
+     */
     public static Task fromFileFormat(String line) throws IncorrectFormatException {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
@@ -60,6 +89,11 @@ public class Task {
         return task;
     }
 
+    /**
+     * Converts the Task object to a string format suitable for saving to a file.
+     *
+     * @return The string representation of the Task for file storage.
+     */
     public String toFileFormat() {
         return this.getClass().getSimpleName().substring(0, 1) + " | " + (isDone ? "1" : "0") + " | " + description;
     }

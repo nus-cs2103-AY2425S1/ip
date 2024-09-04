@@ -5,13 +5,26 @@ import java.util.ArrayList;
 import blacknut.ui.BlacknutExceptions.IncorrectFormatException;
 
 
+/**
+ * The Storage class handles the loading and saving of tasks to and from a file.
+ */
 class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path where tasks will be saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     */
     public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -33,6 +46,12 @@ class Storage {
         return tasks;
     }
 
+
+    /**
+     * Saves the current list of tasks to the file specified by the file path.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) {
         try {
             File directory = new File("data");
