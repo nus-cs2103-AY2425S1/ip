@@ -8,109 +8,97 @@ import java.util.Scanner;
 
 public class Ui {
 
-    public void printLine() {
-        System.out.println("____________________________________________________________");
+    private StringBuilder output;
+
+    public Ui() {
+        this.output = new StringBuilder();
+    }
+
+    public void clearOutput() {
+        output.setLength(0); // Clears the output
+    }
+
+    public String getOutput() {
+        return output.toString(); // Returns the collected output
+    }
+
+    /*
+     * deprecated, since UI seperates texts now
+     */
+    private void appendLine() {
+        output.append("____________________________________________________________\n");
     }
 
     /**
      * Runs at the start to greet the user.
      */
     public void userGreet() {
-        printLine();
-        System.out.println("KIIIIIRYU-CHAN! It's ya old pal, Majima!");
-        System.out.println("What can I do fer ya?");
-        printLine();
+        //appendLine();
+        output.append("KIIIIIRYU-CHAN! It's ya old pal, Majima!\n");
+        output.append("What can I do fer ya?\n");
+        //appendLine();
     }
 
-    /**
-     * Prints itself as a prefix to an error.
-     */
     public void showError(String message) {
-        printLine();
-        System.out.println("Error: " + message);
-        printLine();
+        //appendLine();
+        output.append("Error: ").append(message).append("\n");
+        //appendLine();
     }
 
-    /**
-     * Prints out congratulations if there are no tasks, or the list of tasks otherwise.
-     */
     public void showTaskList(TaskList tasks) {
+        //appendLine();
         if (tasks.isEmpty()) {
-            printLine();
-            System.out.println("おめでとう, Kiryu-chan! There ain't nothing to do left!");
-            printLine();
-            return;
+            output.append("おめでとう, Kiryu-chan! There ain't nothing to do left!\n");
+        } else {
+            output.append("Here's whatcha gotta do, Kiryu-chan!\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+            }
         }
-        printLine();
-        System.out.println("Here's whatcha gotta do, Kiryu-chan!");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
-        }
-        printLine();
+        //appendLine();
     }
 
-    /**
-     * Prints to show the user that a task has been successfully added.
-     */
     public void showTaskAdded(Task task) {
-        printLine();
-        System.out.println("Understood, Kiryu-chan! This is goin' into the "
-                +  "list: " + task);
-        printLine();
+        //appendLine();
+        output.append("Understood, Kiryu-chan! This is goin' into the list: ").append(task).append("\n");
+        //appendLine();
     }
 
-    /**
-     * Prints to show the user that a task has been successfully deleted.
-     */
     public void showTaskDeleted(Task task) {
-        printLine();
-        System.out.println("Gotcha, Kiryu. Axin' this task off the list: "
-        + task);
-        printLine();
+        //appendLine();
+        output.append("Gotcha, Kiryu. Axin' this task off the list: ").append(task).append("\n");
+        //appendLine();
     }
 
-    /**
-     * Prints when the 'bye' command is called by the user.
-     */
     public void showGoodbye() {
-        printLine();
-        System.out.println("Bye bye! Don't keep me waiting fer too long now, ya hear?");
-        printLine();
+        //appendLine();
+        output.append("Bye bye! Don't keep me waiting fer too long now, ya hear?\n");
+        //appendLine();
     }
 
-    /**
-     * Prints to show the user that a task has been successfully marked.
-     */
     public void showTaskMarked(Task task) {
-        printLine();
-        System.out.println("Okay, I've gone ahead and marked that one fer ya.");
-        System.out.println("  " + task.toString());
-        printLine();
+        //appendLine();
+        output.append("Okay, I've gone ahead and marked that one fer ya.\n").append("  ").append(task).append("\n");
+        //appendLine();
     }
 
-    /**
-     * Prints to show the user that a task has been successfully unmarked.
-     */
     public void showTaskUnmarked(Task task) {
-        printLine();
-        System.out.println("Okay, I've gone ahead and unmarked that one fer ya.");
-        System.out.println("  " + task.toString());
-        printLine();
+        //appendLine();
+        output.append("Okay, I've gone ahead and unmarked that one fer ya.\n").append("  ").append(task).append("\n");
+        //appendLine();
     }
 
     public void showFoundTasks(List<Task> tasks, String keyword) {
+        //appendLine();
         if (tasks.isEmpty()) {
-            printLine();
-            System.out.println("Kiryu! There ain't no tasks matching that description!");
-            printLine();
+            output.append("Kiryu! There ain't no tasks matching that description!\n");
         } else {
-            printLine();
-            System.out.println("I found these tasks matching yer description:");
+            output.append("I found these tasks matching yer description:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i).toString());
+                output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
-            printLine();
         }
+        //appendLine();
     }
 
     public String readCommand() {
