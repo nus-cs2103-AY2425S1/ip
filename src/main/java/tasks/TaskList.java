@@ -22,14 +22,14 @@ public class TaskList {
      * Removes the task from the list of tasks.
      * @param index the index of the task in the list to be removed.
      */
-    public void removeTask(int index) {
+    public String removeTask(int index) {
         if (index >= 0 && index < taskList.size()) {
             Task deletedTask = taskList.get(index);
             taskList.remove(index);
-            System.out.print(String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.\n",
-                    deletedTask.getDescription(), taskList.size()));
+            return String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.\n",
+                    deletedTask.getDescription(), taskList.size());
         } else {
-            System.out.print("There is no such task number!");
+            return "There is no such task number!";
         }
     }
     /**
@@ -82,44 +82,46 @@ public class TaskList {
     /**
      * Prints the entire TaskList.
      */
-    public void printList() {
+    public String printList() {
         if (taskList.isEmpty()) {
-            System.out.print("No items in the list yet!\n");
+            return "No items in the list yet!\n";
         }
-        System.out.println("Here are the tasks in your list: \n");
+        String resultString = "Here are the tasks in your list: \n";
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             String response = String.format("%d. %s", i + 1, task.getDescription());
-            System.out.println(response);
+            resultString = resultString.concat("\n" + response);
         }
+        return resultString;
+
     }
     /**
      * Marks the indexed task as done.
      * @param index the index of the task in the list.
      */
-    public void mark(int index) {
+    public String mark(int index) {
         if (index >= 0 && index < taskList.size()) {
             Task t = taskList.get(index);
             t.markAsDone();
-            System.out.println(String.format("Nice I've marked this task as not done yet: \n%s %s",
-                    line(), t.getDescription()));
+            return String.format("Nice I've marked this task as not done yet: \n%s %s",
+                    line(), t.getDescription());
         } else {
-            System.out.println("Invalid Task Number.\n");
+            return "Invalid Task Number.\n";
         }
     }
     /**
      * Marks the indexed task as undone.
      * @param index the index of the task in the list.
      */
-    public void unmark(int index) {
+    public String unmark(int index) {
         if (index >= 0 && index < taskList.size()) {
             Task t = taskList.get(index);
             t.unMark();
             String response = String.format("%s", t.getDescription());
-            System.out.println("OK, I've marked this task as not done yet: \n"
-                    + line() + response);
+            return "OK, I've marked this task as not done yet: \n"
+                    + line() + response;
         } else {
-            System.out.println("Invalid Task Number.\n");
+            return "Invalid Task Number.\n";
         }
     }
     /**
@@ -142,7 +144,7 @@ public class TaskList {
      */
 
     public String line() {
-        return "____________________________________________________________\n";
+        return "_______________________________________________________\n";
 
     }
 }
