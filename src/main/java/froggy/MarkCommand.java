@@ -1,34 +1,36 @@
-package main.froggy;
+package froggy;
 
-public class DeleteCommand extends Command{
+public class MarkCommand extends Command{
 
     private String input;
 
-    public DeleteCommand(String input) {
+    public MarkCommand(String input) {
         this.input = input;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        if (input.length() <= 7) {
-            System.out.println("Error: Please enter the index of the task to be deleted.");
+        if (input.length() <= 5) {
+            System.out.println("Error: Please enter the index of the task to be marked.");
             ui.showLine();
         } else {
             try {
-                int index = Integer.parseInt(input.substring(7)) - 1;
+                int index = Integer.parseInt(input.substring(5)) - 1;
                 if (index >= 0 && index < taskList.getSize()) {
-                    System.out.println("Deleted the following task:");
+                    taskList.setDone(index, true);
+                    System.out.println("Marked the following task as done:");
                     taskList.printTask(index);
                     ui.showLine();
-                    taskList.removeTask(index);
                 } else {
                     System.out.println("Error: Invalid index. Please enter an index in range.");
                     ui.showLine();
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Error: Please enter a valid index after 'delete'.");
+                System.out.println("Error: Please enter a valid index after 'mark'.");
                 ui.showLine();
             }
         }
+        storage.saveTasks(taskList.getTasks());
     }
 
     @Override

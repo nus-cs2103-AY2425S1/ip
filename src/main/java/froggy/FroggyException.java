@@ -1,4 +1,4 @@
-package main.froggy;
+package froggy;
 
 public class FroggyException extends Exception{
     public FroggyException(String message) {

@@ -1,4 +1,4 @@
-package main.froggy;
+package froggy;
 
 /**
  * Parses user input
