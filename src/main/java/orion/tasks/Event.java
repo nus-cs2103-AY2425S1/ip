@@ -1,10 +1,10 @@
 package orion.tasks;
 
-import orion.exceptions.OrionException;
-import orion.exceptions.OrionInputException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
+
+import orion.exceptions.OrionException;
+import orion.exceptions.OrionInputException;
 
 /**
  * Represents an event with a start and end date.
@@ -35,7 +35,8 @@ public class Event extends Task {
      * @param body the description of the task
      * @param from the start date of the event as a string in the format "yyyy-mm-dd"
      * @param to the end date of the event as a string in the format "yyyy-mm-dd"
-     * @throws OrionException if the date strings cannot be parsed into {@code LocalDate} or if the start date is after the end date
+     * @throws OrionException if the date strings cannot be parsed into {@code LocalDate}
+     *     or if the start date is after the end date
      */
     public Event(String body, String from, String to) throws OrionException {
         super(body);
@@ -48,8 +49,8 @@ public class Event extends Task {
             this.start = start;
             this.end = end;
         } catch (DateTimeException e) {
-            throw new OrionInputException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>. " +
-                    "Please input valid dates in the correct format!");
+            throw new OrionInputException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>. "
+                    + "Please input valid dates in the correct format!");
         }
     }
 
@@ -85,7 +86,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s, to: %s)", super.toString(), getTimeString(this.start), getTimeString(this.end));
+        return String.format("[E]%s (from: %s, to: %s)", super.toString(),
+                getTimeString(this.start), getTimeString(this.end));
     }
 
     /**

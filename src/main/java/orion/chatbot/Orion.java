@@ -18,12 +18,12 @@ public class Orion {
     /**
      * The UI component responsible for handling user interaction.
      */
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * The storage component responsible for loading and saving tasks.
      */
-    private Storage storage;
+    private final Storage storage;
 
     /**
      * The task list that holds the tasks loaded from storage or created during runtime.
@@ -45,7 +45,7 @@ public class Orion {
 
         try {
             tasks = new TaskList(storage.loadTasks());
-            ui.printLoadTasks(tasks.getNoTasks());
+            ui.printWelcome(tasks.getNoTasks());
         } catch (OrionException e) {
             ui.printLoadingError();
             tasks = new TaskList();
