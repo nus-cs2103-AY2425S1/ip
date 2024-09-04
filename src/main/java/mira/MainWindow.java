@@ -33,6 +33,7 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(
                 DialogBox.getMiraDialog("Hello! I'm Mira\nWhat can I do for you?", miraImage)
         );
+        userInput.setPromptText("Type here...");
     }
 
     /**
