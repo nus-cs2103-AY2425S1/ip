@@ -32,18 +32,18 @@ public class Storage {
 
             Task task = null;
             switch (taskType) {
-                case "T":
-                    task = new ToDos(description);
-                    break;
-                case "D":
-                    String by = parts.length > 3 ? parts[3] : "";
-                    task = new Deadlines(description, by);
-                    break;
-                case "E":
-                    String from = parts.length > 3 ? parts[3] : "";
-                    String to = parts.length > 4 ? parts[4] : "";
-                    task = new Events(description, from, to);
-                    break;
+            case "T":
+                task = new ToDos(description);
+                break;
+            case "D":
+                String by = parts.length > 3 ? parts[3] : "";
+                task = new Deadlines(description, by);
+                break;
+            case "E":
+                String from = parts.length > 3 ? parts[3] : "";
+                String to = parts.length > 4 ? parts[4] : "";
+                task = new Events(description, from, to);
+                break;
             }
 
             if (task != null) {
@@ -58,10 +58,10 @@ public class Storage {
     }
 
     public void saveToFile(List<Task> record) throws IOException {
-        FileWriter fW = new FileWriter(filepath);
+        FileWriter fw = new FileWriter(filepath);
         for (Task task : record) {
-            fW.write(task.toSaveString() + System.lineSeparator()); // Found on StackOverflow
+            fw.write(task.toSaveString() + System.lineSeparator());
         }
-        fW.close();
+        fw.close();
     }
 }

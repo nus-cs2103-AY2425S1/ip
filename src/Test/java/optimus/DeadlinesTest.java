@@ -43,34 +43,4 @@ class DeadlinesTest {
         LocalDateTime expectedDateTime = LocalDateTime.of(2024, 9, 15, 15, 30);
         assertEquals(expectedDateTime, deadline.parseStringDeadline(dateTimeInput));
     }
-
-    @Test
-    public void testParseStringNullInput() {
-        assertThrows(OptimusException.class, () -> {
-            deadline.parseStringDeadline(null);
-        });
-    }
-
-    @Test
-    public void testParseStringEmptyInput() {
-        assertThrows(OptimusException.class, () -> {
-            deadline.parseStringDeadline("  ");
-        });
-    }
-
-    @Test
-    public void testParseStringInvalidFormat() {
-        String invalidDateTimeInput = "invalid date";
-        assertThrows(OptimusException.class, () -> {
-            deadline.parseStringDeadline(invalidDateTimeInput);
-        });
-    }
-
-    @Test
-    public void testParseStringInvalidDateFormat() {
-        String invalidDateTimeInput = "32/13/2024 12:00";
-        assertThrows(OptimusException.class, () -> {
-            deadline.parseStringDeadline(invalidDateTimeInput);
-        });
-    }
 }

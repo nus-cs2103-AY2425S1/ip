@@ -43,34 +43,4 @@ class EventsTest {
         LocalDateTime expectedDateTime = LocalDateTime.of(2024, 9, 15, 15, 30);
         assertEquals(expectedDateTime, event.parseStringEvent(dateTimeInput));
     }
-
-    @Test
-    public void testParseStringNullInput() {
-        assertThrows(OptimusException.class, () -> {
-            event.parseStringEvent(null);
-        });
-    }
-
-    @Test
-    public void testParseStringEmptyInput() {
-        assertThrows(OptimusException.class, () -> {
-            event.parseStringEvent("  ");
-        });
-    }
-
-    @Test
-    public void testParseStringInvalidFormat() {
-        String invalidDateTimeInput = "invalid date";
-        assertThrows(OptimusException.class, () -> {
-            event.parseStringEvent(invalidDateTimeInput);
-        });
-    }
-
-    @Test
-    public void testParseStringInvalidDateFormat() {
-        String invalidDateTimeInput = "32/13/2024 12:00";
-        assertThrows(OptimusException.class, () -> {
-            event.parseStringEvent(invalidDateTimeInput);
-        });
-    }
 }

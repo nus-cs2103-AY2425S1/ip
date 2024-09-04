@@ -20,7 +20,7 @@ public abstract class Task {
 
     /**
      * Returns a symbol representing the completion status of the task.
-     * "X" indicates that the task is done, and " " (space) indicates that it is not done.
+     * "X" indicates that the task is done, and " " indicates that it is not done.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
@@ -32,8 +32,6 @@ public abstract class Task {
 
     /**
      * Returns the completion status of the task.
-     *
-     * @return {@code true} if the task is done; {@code false} otherwise.
      */
     public boolean isDone() {
         return isDone;
