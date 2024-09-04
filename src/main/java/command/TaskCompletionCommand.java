@@ -40,10 +40,10 @@ public class TaskCompletionCommand extends Command {
     public String execute(TaskList tasks) {
         try {
             if (this.isCompleted) {
-            tasks.setTaskAsCompleted(this.getI());
+            tasks.setTaskAsCompleted(this.getTaskIndex());
                 return generateRandomPrefix(TASK_COMPLETED_PREFIXES) + tasks.taskListToString();
             } else {
-                tasks.setTaskAsNotCompleted(this.getI());
+                tasks.setTaskAsNotCompleted(this.getTaskIndex());
                 return generateRandomPrefix(TASK_UNCOMPLETED_PREFIXES) + tasks.taskListToString();
             }
         } catch (NullPointerException | IndexOutOfBoundsException e) {

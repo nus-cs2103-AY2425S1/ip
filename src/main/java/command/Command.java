@@ -19,7 +19,7 @@ public abstract class Command {
         return this.task;
     }
 
-    public int getI() {
+    public int getTaskIndex() {
         return this.taskIndex;
     }
 

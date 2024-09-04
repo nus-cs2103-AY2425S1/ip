@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-import command.*;
-import task.*;
+import command.*; // I need all the classes under command package
+import task.*; // same for task package, hence the wildcard import
 
 public class Parser {
     private static final Pattern NUMBER_PATTERN

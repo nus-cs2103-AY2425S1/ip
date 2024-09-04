@@ -9,28 +9,28 @@ import psu.Parser;
 
 public class ParserTest {
     @Test
-    public void test1() {
+    public void testIsExitCommand() {
         Parser p = new Parser();
         Command c = p.parse("bye");
         assertTrue(c.isExitCommand());
     }
 
     @Test
-    public void test2() {
+    public void testIsErrorCommand() {
         Parser p = new Parser();
         Command c = p.parse("sdfj");
         assertTrue(c.isErrorCommand());
     }
 
     @Test
-    public void test3() {
+    public void testNotIsErrorCommand() {
         Parser p = new Parser();
         Command c = p.parse("mark 3");
         assertFalse(c.isErrorCommand());
     }
 
     @Test
-    public void test4() {
+    public void testNotIsExitCommand() {
         Parser p = new Parser();
         Command c = p.parse("mark 3");
         assertFalse(c.isExitCommand());

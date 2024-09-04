@@ -8,14 +8,14 @@ import task.Deadline;
 
 public class DeadlineTest {
     @Test
-    public void test1() {
+    public void testNotCompletedDeadlineToEasyString() {
         LocalDateTime t = LocalDateTime.of(2024, 12, 8, 10, 0);
         Deadline d = new Deadline("something", t);
         assertEquals(d.toEasyString(), "[D][ ] something (by: " + t.toString() + ")");
     }
 
     @Test
-    public void test2() {
+    public void testCompletedDeadlineToEasyString() {
         LocalDateTime t = LocalDateTime.of(2024, 12, 8, 10, 0);
         Deadline d = new Deadline("something", t);
         d.markAsCompleted();
@@ -23,7 +23,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void test3() {
+    public void testCompletedDeadlineToString() {
         LocalDateTime t = LocalDateTime.of(2024, 12, 8, 10, 0);
         Deadline d = new Deadline("something", t);
         d.markAsCompleted();
@@ -31,7 +31,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void test4() {
+    public void testNotCompletedDeadlineToString() {
         LocalDateTime t = LocalDateTime.of(2024, 12, 8, 10, 0);
         Deadline d = new Deadline("something", t);
         assertEquals(d.toString(), "[D][ ] something (by: 10am on DECEMBER 8, 2024)");
