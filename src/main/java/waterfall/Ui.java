@@ -13,38 +13,36 @@ import waterfall.task.TaskList;
  */
 
 public class Ui {
-    private final String chatBotName = "Waterfall";
-    private final int indentSpace = 4;
+    private static final String chatBotName = "Waterfall";
 
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcomeMessage() {
-        String welcomeMessage = ("Hualalalalala I'm " + chatBotName + "\n" + "What can I do for you?\n")
-                .indent(indentSpace + 1);
-        System.out.println(welcomeMessage);
+    public static String showWelcomeMessage() {
+        String welcomeMessage = ("Hualalalalala I'm " + chatBotName + "\n" + "What can I do for you?\n");
+        return welcomeMessage;
     }
 
     /**
      * Displays a exit message to the user.
      */
-    public void showByeMessage() {
-        String byeMessage = ("Shhhhhhhhhhhh. Hope to see you again soon!\n").indent(indentSpace);
-        System.out.println(byeMessage);
+    public String showByeMessage() {
+        String byeMessage = ("Shhhhhhhhhhhh. Hope to see you again soon!\n");
+        return byeMessage;
     }
 
     /**
      * Displays an error message to alert users on database loading error.
      */
-    public void showLoadingError() {
-        System.out.println("Oops! Something went wrong in loading the database!".indent(indentSpace));
+    public String showLoadingError() {
+        return "Oops! Something went wrong in loading the database!";
     }
 
     /**
      * Displays an extra line.
      */
-    public void showLine() {
-        System.out.println(" ".repeat(indentSpace) + "____________________________________________________________\n");
+    public String showLine() {
+        return "____________________________________________________________\n";
     }
 
     /**
@@ -62,8 +60,8 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
-        System.out.println(" ".repeat(indentSpace + 1) + "Oops Water falls: " + message);
+    public String showError(String message) {
+        return "Oops Water falls: " + message;
     }
 
     /**
@@ -71,9 +69,9 @@ public class Ui {
      *
      * @param task The task that has been added.
      */
-    public void showAddMessage(Task task) {
-        System.out.println(" ".repeat(indentSpace + 1) + "Successfully added a task to the waterfallll:");
-        System.out.println(" ".repeat(indentSpace + 1) + task.toString());
+    public String showAddMessage(Task task) {
+        String res = "Successfully added a task to the waterfallll:\n";
+        return res + task.toString();
     }
 
     /**
@@ -81,9 +79,9 @@ public class Ui {
      *
      * @param task The task that has been marked as done.
      */
-    public void showMarkMessage(Task task) {
-        System.out.println(" ".repeat(indentSpace + 1) + "Huluhuluhulu, I've marked this task as done: ");
-        System.out.println(" ".repeat(indentSpace + 1) + task.toString());
+    public String showMarkMessage(Task task) {
+        String res = "Huluhuluhulu, I've marked this task as done: \n";
+        return res + task.toString();
     }
 
     /**
@@ -91,9 +89,9 @@ public class Ui {
      *
      * @param task The task that has been marked as not done.
      */
-    public void showUnmarkMessage(Task task) {
-        System.out.println(" ".repeat(indentSpace + 1) + "Hohohohohoho, I've marked this task as not done: ");
-        System.out.println(" ".repeat(indentSpace + 1) + task.toString());
+    public String showUnmarkMessage(Task task) {
+        String res = "Hohohohohoho, I've marked this task as not done: \n";
+        return res + task.toString();
     }
 
     /**
@@ -101,10 +99,9 @@ public class Ui {
      *
      * @param task The task that has been deleted.
      */
-    public void showDeleteMessage(Task task) {
-        System.out.println(" ".repeat(indentSpace + 1)
-                + "Hehehehehehe, I've removed this task from the waterfall: ");
-        System.out.println(" ".repeat(indentSpace + 1) + task.toString());
+    public String showDeleteMessage(Task task) {
+        String res = "Hehehehehehe, I've removed this task from the waterfall: \n";
+        return res + task.toString();
     }
 
     /**
@@ -112,9 +109,9 @@ public class Ui {
      *
      * @param taskList The list of tasks to be displayed.
      */
-    public void showTaskListMessage(TaskList taskList) {
-        System.out.println(" ".repeat(indentSpace) + "Here's the tasks in your waterfall hualalala");
-        taskList.printDetail(indentSpace + 1);
+    public String showTaskListMessage(TaskList taskList) {
+        String res = "Here's the tasks in your waterfall hualalala\n";
+        return res + taskList.printDetail(2);
     }
 
     /**
@@ -122,8 +119,8 @@ public class Ui {
      *
      * @param taskList The list of filtered tasks to be displayed.
      */
-    public void showSearchedTaskListMessage(TaskList taskList) {
-        System.out.println(" ".repeat(indentSpace) + "Here's the matching tasks in your waterfall hualalala");
-        taskList.printDetail(indentSpace + 1);
+    public String showSearchedTaskListMessage(TaskList taskList) {
+        String res = "Here's the matching tasks in your waterfall hualalala\n";
+        return res + taskList.printDetail(2);
     }
 }

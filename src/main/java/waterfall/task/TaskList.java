@@ -98,18 +98,20 @@ public class TaskList {
      *
      * @param indentSpace The number of spaces to indent.
      */
-    public void printDetail(int indentSpace) {
+    public String printDetail(int indentSpace) {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < num; i++) {
             Task task = tasks.get(i);
             if (task != null) {
                 String taskString = " ".repeat(indentSpace)
                         + Integer.toString(i + 1) + "."
-                        + task.toString();
-                System.out.println(taskString);
+                        + task.toString() + "\n";
+                sb.append(taskString);
             } else {
                 break;
             }
         }
+        return sb.toString();
     }
 
     /**

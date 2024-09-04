@@ -28,9 +28,9 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws WaterfallException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws WaterfallException, IOException {
         List<Task> filteredTasks = tasks.searchTasks(targetTitle);
-        ui.showSearchedTaskListMessage(new TaskList(filteredTasks));
+        return ui.showSearchedTaskListMessage(new TaskList(filteredTasks));
     }
 
     @Override

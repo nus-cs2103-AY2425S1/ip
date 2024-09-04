@@ -26,13 +26,13 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws WaterfallException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws WaterfallException, IOException {
         if (!tasks.checkIndex(index)) {
             throw new WaterfallException("Why are you trying to edit a waterfall waterfall.task that does not exist?");
         }
         tasks.setDone(index, false);
         storage.updateTask(tasks.getTasks());
-        ui.showUnmarkMessage(tasks.getTask(index));
+        return ui.showUnmarkMessage(tasks.getTask(index));
     }
 
     @Override
