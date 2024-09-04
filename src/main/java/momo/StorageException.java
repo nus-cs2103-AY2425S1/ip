@@ -1,5 +1,7 @@
 package momo;
 
+import momo.exception.MomoException;
+
 /**
  * Handles storage related exceptions - when there are issues
  * writing into or interpreting files

@@ -1,6 +1,6 @@
 package momo.task;
 
-import momo.MomoException;
+import momo.exception.MomoException;
 import momo.Parser;
 
 import java.util.ArrayList;

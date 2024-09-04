@@ -1,6 +1,6 @@
 package momo.command;
 
-import momo.InvalidCommandException;
+import momo.exception.InvalidCommandException;
 import momo.Storage;
 import momo.StorageException;
 import momo.task.Deadline;

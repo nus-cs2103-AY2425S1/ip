@@ -1,4 +1,4 @@
-package momo;
+package momo.exception;
 
 /**
  * Thrown when user gives wrongly formatted command
