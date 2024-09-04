@@ -1,5 +1,12 @@
-import java.util.Scanner;
-import java.util.ArrayList;
+package streams;
+
+import streams.command.Command;
+import streams.exception.StreamsException;
+import streams.task.TaskList;
+import streams.util.Parser;
+import streams.util.Storage;
+import streams.util.Ui;
+
 public class streams {
     private Storage storage;
     private TaskList tasks;

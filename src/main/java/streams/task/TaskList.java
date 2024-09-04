@@ -1,3 +1,7 @@
+package streams.task;
+
+import streams.exception.StreamsException;
+
 import java.util.ArrayList;
 
 public class TaskList {

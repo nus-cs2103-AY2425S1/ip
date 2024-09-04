@@ -1,3 +1,5 @@
+package streams.task;
+
 import java.time.LocalDateTime;
 
 public class DeadlineTask extends Task {
@@ -14,6 +16,6 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(OUTPUT_FORMATTER) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(Task.OUTPUT_FORMATTER) + ")";
     }
 }

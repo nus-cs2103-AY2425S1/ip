@@ -1,3 +1,9 @@
+package streams.command;
+
+import streams.util.Storage;
+import streams.task.TaskList;
+import streams.util.Ui;
+
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

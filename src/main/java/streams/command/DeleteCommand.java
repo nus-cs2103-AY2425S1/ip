@@ -1,3 +1,11 @@
+package streams.command;
+
+import streams.exception.StreamsException;
+import streams.task.Task;
+import streams.task.TaskList;
+import streams.util.Storage;
+import streams.util.Ui;
+
 public class DeleteCommand extends Command {
     private int taskNumber;
 

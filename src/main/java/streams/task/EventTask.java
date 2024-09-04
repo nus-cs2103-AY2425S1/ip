@@ -1,3 +1,5 @@
+package streams.task;
+
 import java.time.LocalDateTime;
 
 public class EventTask extends Task {
@@ -20,6 +22,6 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMATTER) + " to: " + to.format(OUTPUT_FORMATTER) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(Task.OUTPUT_FORMATTER) + " to: " + to.format(Task.OUTPUT_FORMATTER) + ")";
     }
 }

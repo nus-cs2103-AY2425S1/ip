@@ -1,3 +1,5 @@
+package streams.util;
+
 import java.util.Scanner;
 public class Ui {
     private Scanner sc;
