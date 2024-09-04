@@ -99,6 +99,62 @@ public class Bobby {
         }
     }
 
+    public String getResponse(String input) {
+        String output = "";
+
+        this.initializeTaskList();
+
+        try {
+            Command command = Parser.parse(input);
+
+            switch (command) {
+            case BYE:
+                output = ui.showBye();
+                break;
+            case LIST:
+                output = ui.showTaskList(this.listOfTasks.getListOfTasks());
+                break;
+            case TODO:
+                Task t = Todo.createTodo(input);
+                listOfTasks.addTask(t);
+                output = ui.showTaskCreated(t, listOfTasks.getListOfTasks());
+                break;
+            case DEADLINE:
+                Task d = Deadline.createDeadline(input);
+                listOfTasks.addTask(d);
+                output = ui.showTaskCreated(d, listOfTasks.getListOfTasks());
+                break;
+            case EVENT:
+                Task e = Event.createEvent(input);
+                listOfTasks.addTask(e);
+                output = ui.showTaskCreated(e, listOfTasks.getListOfTasks());
+                break;
+            case MARK:
+                int indexMarked = Parser.parseNumber(input, 4);
+                listOfTasks.mark(indexMarked);
+                output = ui.showMarked();
+                break;
+            case UNMARK:
+                int indexUnmark = Parser.parseNumber(input, 6);
+                listOfTasks.unmark(indexUnmark);
+                output = ui.showUnmarked();
+                break;
+            case DELETE:
+                int indexDelete = Parser.parseNumber(input, 6);
+                Task taskToBeDeleted = listOfTasks.getTask(indexDelete - 1);
+                listOfTasks.deleteTask(indexDelete);
+                output = ui.showTaskDeleted(taskToBeDeleted, listOfTasks.getNumberOfTasks());
+                break;
+            case FIND:
+                String keyword = input.split(" ", 2)[1].trim();
+                output = ui.showFindTasks(this.listOfTasks.findMatchingTasks(keyword));
+            }
+        } catch (BobbyException e) {
+            System.out.println(e.getMessage());
+        }
+        return output;
+    }
+
     /**
      * Initializes the TaskList in Bobby
      */
