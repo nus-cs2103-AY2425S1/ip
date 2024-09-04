@@ -32,4 +32,8 @@ public class Meeju {
         // add a getResponse method method should get input, pass to parse and get back a string
         // -> an instance of meeju will be passed to the GUI part
     }
+
+    public String getResponse(String input) {
+        return "HI";
+    }
 }
