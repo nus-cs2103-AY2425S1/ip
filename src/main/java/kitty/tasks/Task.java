@@ -60,10 +60,12 @@ public class Task {
     @Override
     public String toString() {
         String str = "[";
-        if (isDone)
+        if (isDone) {
             str += "X";
-        else
+        } else {
             str += " ";
+        }
+
         str += "] " + name;
         return str;
     }
