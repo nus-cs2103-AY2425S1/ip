@@ -13,14 +13,35 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Interfaces with a text file to read and write tasks input by the user.
+ * <p>
+ * The contents in the file persist even after the program terminates.
+ * </p>
+ */
 public class TaskFileManager {
     private final File file;
+
+    /**
+     * Default constructor.
+     *
+     * @param path the path to the text file used to store tasks
+     */
     public TaskFileManager(Path path) {
         file = path.toAbsolutePath()
                 .normalize()
                 .toFile();
     }
 
+    /**
+     * Saves the specified tasks into the text file.
+     * <p>
+     * This operation will overwrite the contents previously in the text file.
+     * </p>
+     *
+     * @param tasks        the tasks to save to the text file
+     * @throws IOException if writing to the file is unsuccessful
+     */
     public void saveTasksToFile(Task[] tasks) throws IOException {
         createFileIfNotExists();
 
@@ -30,6 +51,14 @@ public class TaskFileManager {
         writer.close();
     }
 
+    /**
+     * Reads from the file specified in the constructor, then converts the
+     * stored task strings into an array of {@link Task} objects using
+     * the {@link TaskParser} class.
+     *
+     * @return             an array of {@link Task} objects
+     * @throws IOException if reading from the file is unsuccessful
+     */
     public Task[] readTasksFromFile() throws IOException {
         if (!file.exists()) {
             return new Task[0];
@@ -54,6 +83,13 @@ public class TaskFileManager {
         return tasks.toArray(new Task[0]);
     }
 
+    /**
+     * Converts and array of {@link Task} objects into a string.
+     *
+     * @param tasks the array of {@link Task} objects
+     * @return      a string representing the array of {@link Task}
+     *              objects
+     */
     private String toSaveFormat(Task[] tasks) {
         StringBuilder result = new StringBuilder();
         for (Task task : tasks) {
@@ -63,6 +99,14 @@ public class TaskFileManager {
         return result.toString();
     }
 
+    /**
+     * Creates a file to store tasks if no such file already exists.
+     * <p>
+     * The relevant parent directories are also created if needed.
+     * </p>
+     *
+     * @throws IOException if the creation of the file was unsuccessful
+     */
     private void createFileIfNotExists() throws IOException {
         if (file.exists()) {
             return;
