@@ -9,7 +9,7 @@ import yapmeister.task.TaskList;
 /**
  * Represents Deadline user command that creates a Deadline Task
  */
-public class DeadlineCommand implements Command{
+public class DeadlineCommand implements Command {
     private Task task;
     @Override
     public void execute(TaskList tasks, Storage storage, UI ui) throws Exception {

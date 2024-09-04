@@ -1,10 +1,6 @@
 package yapmeister;
 
-import yapmeister.task.Task;
-import yapmeister.task.ToDo;
-import yapmeister.task.TaskList;
-import yapmeister.task.Deadline;
-import yapmeister.task.Event;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +10,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import yapmeister.task.Deadline;
+import yapmeister.task.Event;
+import yapmeister.task.Task;
+import yapmeister.task.TaskList;
+import yapmeister.task.ToDo;
 
 /**
  * Storage that handles file loading and storing of tasks.
@@ -38,7 +40,7 @@ public class Storage {
 
     /**
      * Loads from the filepath the list of tasks and returns it.
-     * @return ArrayList<Task> of tasks loaded from the file at filepath.
+     * @return ArrayList of tasks loaded from the file at filepath.
      * @throws StorageException Error when the file is inaccessible or does not exist.
      */
     public ArrayList<Task> load() throws StorageException {
@@ -103,6 +105,8 @@ public class Storage {
                 tasks.add(createTask(TaskType.Event, isCompleted,
                         taskDetails[2], taskDetails[3], taskDetails[4]));
                 break;
+            default:
+                break;
             }
         }
         return tasks;
@@ -143,6 +147,8 @@ public class Storage {
         case Event:
             task = new Event(args[0], args[1], args[2]);
             task.setCompleted(isCompleted);
+            break;
+        default:
             break;
         }
         return task;

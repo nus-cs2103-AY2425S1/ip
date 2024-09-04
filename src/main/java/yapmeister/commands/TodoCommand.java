@@ -2,7 +2,6 @@ package yapmeister.commands;
 
 import yapmeister.Storage;
 import yapmeister.UI;
-import yapmeister.task.InvalidDescriptionException;
 import yapmeister.task.Task;
 import yapmeister.task.TaskList;
 import yapmeister.task.ToDo;

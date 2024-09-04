@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
  * Represents a Deadline Task
  * @author BlazeChron
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private final String deadline;
     private final LocalDate deadlineDate;
 

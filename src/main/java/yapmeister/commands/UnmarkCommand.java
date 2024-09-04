@@ -1,17 +1,25 @@
 package yapmeister.commands;
 
+import static java.lang.Integer.parseInt;
+
 import yapmeister.Storage;
 import yapmeister.UI;
 import yapmeister.task.InvalidMarkException;
 import yapmeister.task.TaskList;
-
-import static java.lang.Integer.parseInt;
 
 /**
  * Represents Mark user command that unmarks the task at index
  */
 public class UnmarkCommand implements Command {
     private int index;
+
+    /**
+     * Executes the Unmark command
+     * @param tasks
+     * @param storage
+     * @param ui
+     * @throws InvalidMarkException
+     */
     public void execute(TaskList tasks, Storage storage, UI ui) throws InvalidMarkException {
         if (index >= tasks.getSize() || index < 0) {
             throw new InvalidMarkException("No task at that index");

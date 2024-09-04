@@ -6,16 +6,9 @@ import yapmeister.task.TaskList;
  * YapMeister main entry point.
  */
 public class YapMeister {
-    final static int MAX_TASKS = 100;
     private UI ui;
     private Storage storage;
     private TaskList tasks;
-    
-    enum TaskType {
-        ToDo,
-        Deadline,
-        Event
-    }
 
     /**
      * Creates YapMeister program with specified save file at filepath
