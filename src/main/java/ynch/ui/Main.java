@@ -1,8 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
+
 import java.nio.file.Paths;
 
 public class Main {
@@ -62,7 +64,7 @@ public class Main {
             }
             case ValidCommand.todo: {
                 String task = userInput.split(" ", 2)[1];
-                ui.printAdd(taskList.add(task), taskList.size());
+                ui.printAdd(taskList.add(task), taskList.getSize());
                 break;
             }
             case ValidCommand.deadline: {
@@ -70,7 +72,7 @@ public class Main {
                 userInput = userInput.split(" ", 2)[1];
                 String task = userInput.split("/by")[0];
                 String deadline = userInput.split("/by")[1];
-                ui.printAdd(taskList.add(task, deadline), taskList.size());
+                ui.printAdd(taskList.add(task, deadline), taskList.getSize());
                 break;
             }
             case ValidCommand.event: {
@@ -79,12 +81,12 @@ public class Main {
                 String fromAndTo = userInput.split("/from")[1];
                 String from = fromAndTo.split("/to")[0];
                 String to = fromAndTo.split("/to")[1];
-                ui.printAdd(taskList.add(task, from, to), taskList.size());
+                ui.printAdd(taskList.add(task, from, to), taskList.getSize());
                 break;
             }
             case ValidCommand.delete: {
                 int i = Integer.valueOf(userInput.split(" ")[1]);
-                ui.printDelete(taskList.delete(i), taskList.size());
+                ui.printDelete(taskList.delete(i), taskList.getSize());
                 break;
             }
             }
