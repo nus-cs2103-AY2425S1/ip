@@ -1,6 +1,7 @@
 package gopher.gui;
 
 import gopher.Gopher;
+import gopher.ui.UI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -35,9 +36,15 @@ public class MainWindow extends AnchorPane {
                     .getResourceAsStream("/images/Gopher.png")
             );
 
+    /**
+     * Initialized the GUI when user enters
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer
+                .getChildren()
+                .add(DialogBox.getGopherDialog(UI.getGreetMessage(), gopherImage));
     }
 
     /** Injects the Gopher instance */

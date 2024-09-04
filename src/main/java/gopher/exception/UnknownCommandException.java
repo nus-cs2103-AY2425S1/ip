@@ -14,6 +14,6 @@ public class UnknownCommandException extends Exception {
     public String getMessage() {
         return "Unknown Command: "
                 + this.command
-                + "\nPlease try again...";
+                + "\nPlease try again...\n\n";
     }
 }

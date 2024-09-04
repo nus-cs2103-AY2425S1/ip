@@ -5,7 +5,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import gopher.storage.TaskManager;
-import gopher.ui.UI;
 
 /**
  * Represents TaskList that tracks user input tasks.
@@ -37,7 +36,6 @@ public class TaskList {
     public void add(Task task) {
         this.tasks.add(task);
         TaskManager.saveTasks(tasks);
-        UI.printAddTaskMessage(this, task);
     }
 
     /**
@@ -48,10 +46,8 @@ public class TaskList {
      * @param taskNumber number of the task to be deleted
      */
     public void delete(int taskNumber) {
-        Task task = getTask(taskNumber);
         tasks.remove(taskNumber - 1);
         TaskManager.saveTasks(tasks);
-        UI.printDeleteTaskMessage(this, task);
     }
 
     /**
@@ -86,7 +82,6 @@ public class TaskList {
         Task task = getTask(taskNumber);
         task.markAsDone();
         TaskManager.saveTasks(tasks);
-        UI.printMarkAsDoneMessage(task);
     }
 
     /**
@@ -100,7 +95,6 @@ public class TaskList {
         Task task = getTask(taskNumber);
         task.markAsNotDone();
         TaskManager.saveTasks(tasks);
-        UI.printMarkAsUndoneMessage(task);
     }
 
     /**
@@ -124,6 +118,12 @@ public class TaskList {
 
     @Override
     public String toString() {
+        // Show no task message to user if task list is empty
+        if (tasks.isEmpty()) {
+            return "Good job! There's no pending tasks to be done!";
+        }
+
+        // List out the tasks if list not empty
         StringBuilder list = new StringBuilder();
         for (int i = 1; i <= tasks.size(); i++) {
             String message = String.format("%d. %s",
