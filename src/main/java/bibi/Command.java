@@ -189,28 +189,34 @@ public class Command {
             if (args.isEmpty()) {
                 ui.printInvalidSyntaxMessage("Please use \"find <pattern>\"");
             } else {
-                Task task;
-                int count = 0;
-                for (int i = 1; i <= tasks.getTaskCount(); i++) {
-                    if ((task = tasks.getTask(i - 1)).getDescription().contains(args)) {
-                        if (count == 0) {
-                            System.out.println("Here are the matching tasks I found:");
-                        }
-                        System.out.printf("%d: %s%n", i, task);
-                        count++;
-                    }
-                }
-
-                // Message for when there are no matching tasks
-                if (count == 0) {
-                    System.out.println("No matching tasks found. Paranoid?");
-                }
+                findRelevantTasks(tasks, args.split(" "));
             }
             ui.printHorizontalLine();
 
             break;
         default:
             ui.printUnknownCommandMessage(cmd);
+        }
+    }
+
+    private void findRelevantTasks(TaskList tasks, String ... words) {
+        Task task;
+        int count = 0;
+        for (int i = 1; i <= tasks.getTaskCount(); i++) {
+            for (int j = 0; j < words.length; j++) {
+                if ((task = tasks.getTask(i - 1)).getDescription().contains(words[j])) {
+                    if (count == 0) {
+                        System.out.println("Here are the matching tasks I found:");
+                    }
+                    System.out.printf("%d: %s%n", i, task);
+                    count++;
+                }
+            }
+        }
+
+        // Message for when there are no matching tasks
+        if (count == 0) {
+            System.out.println("No matching tasks found. Paranoid?");
         }
     }
 }
