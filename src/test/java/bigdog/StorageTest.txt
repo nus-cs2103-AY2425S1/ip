@@ -1,0 +1,3 @@
+O | T | test todo
+X | D | test deadline | 2024-09-03T16:00
+O | E | test event | 2024-09-04T00:00 | 2024-09-04T23:59
