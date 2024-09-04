@@ -11,6 +11,12 @@ public class TodoCommand extends Command {
         this.description = description;
     }
 
+    /**
+     * Executes the command to add a to-do task to the task list.
+     *
+     * @return a CommandResult indicating the task has been added
+     * @throws SnowyException if there is an error adding the task
+     */
     @Override
     public CommandResult execute() throws SnowyException {
         Task todo = new Todo(description);

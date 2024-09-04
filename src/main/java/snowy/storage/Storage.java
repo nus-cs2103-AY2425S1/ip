@@ -22,6 +22,14 @@ public class Storage {
 
     private final Path taskFilePath;
 
+    /**
+     * Constructs a Storage object and initializes the file and directory structure.
+     * If the directory or file does not exist, they are created. If the file exists,
+     * it is cleared upon initialization.
+     *
+     * @param directoryPath the path to the directory where the task file will be stored
+     * @param fileName the name of the task file
+     */
     public Storage(String directoryPath, String fileName) {
         Path dataDirectoryPath = Paths.get(directoryPath);
         this.taskFilePath = dataDirectoryPath.resolve(fileName);
@@ -40,11 +48,22 @@ public class Storage {
         }
     }
 
+    /**
+     * Clears the content of the task file by writing an empty string to it.
+     *
+     * @throws IOException if an I/O error occurs while clearing the file
+     */
     private void clearFile() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(taskFilePath.toString(), false))) {
             writer.write(""); // Write an empty string to clear the file
         }
     }
+
+    /**
+     * Writes a task to the file. The task is appended to the end of the file.
+     *
+     * @param task the task to be written to the file
+     */
     public void writeTaskToFile(Task task) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(taskFilePath.toString(), true))) {
             writer.write(task.toString());
@@ -54,6 +73,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a task from the file by copying all tasks except the one to be deleted
+     * to a temporary file, then replacing the original file with the temporary file.
+     *
+     * @param task the task to be deleted from the file
+     */
     public void deleteTaskFromFile(Task task) {
         Path tempFilePath = taskFilePath.getParent().resolve("temp.txt");
         String search = task.toString();
@@ -84,6 +109,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file into a list of strings.
+     * Each line in the file corresponds to a task.
+     *
+     * @return a list of tasks represented as strings
+     */
     public List<String> loadTasksFromFile() {
         List<String> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(taskFilePath.toString()))) {

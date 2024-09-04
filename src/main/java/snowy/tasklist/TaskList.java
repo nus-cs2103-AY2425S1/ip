@@ -16,6 +16,11 @@ public class TaskList {
 
     }
 
+    /**
+     * Adds a task to the task list and saves it to the file.
+     *
+     * @param t the task to be added
+     */
     public void addTask(Task t) {
         taskList.add(t);
         String str = String.format(" %s\nNow you have %d task(s) in your list\n", t, this.taskList.size());
@@ -23,19 +28,42 @@ public class TaskList {
         storage.writeTaskToFile(t);
     }
 
+    /**
+     * Checks if the task at the specified index is marked as done.
+     *
+     * @param i the index of the task to check
+     * @return true if the task is marked as done, false otherwise
+     */
     public boolean isTaskDone(int i) {
         Task task = taskList.get(i);
         return task.isDone;
     }
 
+    /**
+     * Returns the number of tasks currently in the task list.
+     *
+     * @return the size of the task list
+     */
     public int getSize() {
         return taskList.size();
     }
 
+    /**
+     * Retrieves the task at the specified index.
+     *
+     * @param index the index of the task to retrieve
+     * @return the Task object at the specified index
+     */
     public Task getTask(int index) {
         return taskList.get(index);
     }
 
+    /**
+     * Toggles the completion status of the task at the specified index.
+     *
+     * @param i the index of the task to toggle
+     * @throws SnowyException if the provided index is invalid
+     */
     public void toggleTask(int i) throws SnowyException {
         if (i >= 0 && i < taskList.size()) {
             Task task = taskList.get(i);
@@ -47,6 +75,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Displays the list of tasks, each prefixed with its index in the list.
+     *
+     * @throws SnowyException if the task list is empty
+     */
     public void displayList() throws SnowyException {
         if (taskList.isEmpty()) {
             throw new SnowyException("No tasks, make a list first.");
@@ -58,6 +91,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes the task at the specified index from the task list and the file.
+     *
+     * @param index the index of the task to delete (1-based index)
+     * @throws SnowyException if the index is invalid or the task list is empty
+     */
     public void deleteTask(int index) throws SnowyException {
         if (taskList.isEmpty()) {
             throw new SnowyException("No tasks in list.");

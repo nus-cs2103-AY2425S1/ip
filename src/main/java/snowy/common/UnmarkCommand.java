@@ -9,6 +9,12 @@ public class UnmarkCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Executes the command to unmark the task as done.
+     *
+     * @return a CommandResult indicating the task has been unmarked
+     * @throws SnowyException if the task is not done or if there is an error unmarking it
+     */
     @Override
     public CommandResult execute() throws SnowyException {
         if (!taskList.isTaskDone(index - 1)) {

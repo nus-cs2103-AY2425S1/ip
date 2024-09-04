@@ -17,6 +17,12 @@ public class Parser {
     public static final Pattern DEADLINE_ARGS_FORMAT = Pattern.compile("(?<description>.+) /by (?<date>.+)");
     public static final Pattern EVENT_ARGS_FORMAT = Pattern.compile("(?<description>.+) /from (?<from>.+) /to (?<to>.+)");
 
+    /**
+     * Parses user input into a command for execution.
+     *
+     * @param input full user input string
+     * @return the command based on the user input
+     */
     public Command parseCommand(String input) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
 
@@ -61,6 +67,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments and creates a TodoCommand.
+     *
+     * @param arg the arguments string containing the task description
+     * @return the prepared TodoCommand
+     * @throws SnowyException if the format of the arguments is invalid
+     */
     private Command parseTodoCommand(String arg) throws SnowyException {
         final Matcher matcher = TODO_ARGS_FORMAT.matcher(arg);
 
@@ -71,6 +84,13 @@ public class Parser {
         return new TodoCommand(matcher.group("description"));
     }
 
+    /**
+     * Parses arguments and creates a DeadlineCommand.
+     *
+     * @param arg the arguments string containing the task description and date
+     * @return the prepared DeadlineCommand
+     * @throws SnowyException if the format of the arguments is invalid
+     */
     private Command parseDeadlineCommand(String arg) throws SnowyException {
         final Matcher matcher = DEADLINE_ARGS_FORMAT.matcher(arg);
 
@@ -83,6 +103,13 @@ public class Parser {
         return new DeadlineCommand(description, date);
     }
 
+    /**
+     * Parses arguments and creates an EventCommand.
+     *
+     * @param arg the arguments string containing the task description, start time, and end time
+     * @return the prepared EventCommand
+     * @throws SnowyException if the format of the arguments is invalid
+     */
     private Command parseEventCommand(String arg) throws SnowyException {
         final Matcher matcher = EVENT_ARGS_FORMAT.matcher(arg);
 
@@ -96,6 +123,13 @@ public class Parser {
         return new EventCommand(description, from, to);
     }
 
+    /**
+     * Parses arguments and creates a DeleteCommand.
+     *
+     * @param arg the arguments string containing the task number
+     * @return the prepared DeleteCommand
+     * @throws SnowyException if the format of the arguments is invalid
+     */
     private Command parseDeleteCommand(String arg) throws SnowyException {
         final Matcher matcher = INDEX_ARGS_FORMAT.matcher(arg);
 
@@ -107,6 +141,13 @@ public class Parser {
         return new DeleteCommand(index);
     }
 
+    /**
+     * Parses arguments and creates a MarkCommand.
+     *
+     * @param arg the arguments string containing the task number
+     * @return the prepared MarkCommand
+     * @throws SnowyException if the format of the arguments is invalid
+     */
     private Command parseMarkCommand(String arg) throws SnowyException {
         final Matcher matcher = INDEX_ARGS_FORMAT.matcher(arg);
 
@@ -118,6 +159,13 @@ public class Parser {
         return new MarkCommand(index);
     }
 
+    /**
+     * Parses arguments and creates an UnmarkCommand.
+     *
+     * @param arg the arguments string containing the task number
+     * @return the prepared UnmarkCommand
+     * @throws SnowyException if the format of the arguments is invalid
+     */
     private Command parseUnmarkCommand(String arg) throws SnowyException {
         final Matcher matcher = INDEX_ARGS_FORMAT.matcher(arg);
 

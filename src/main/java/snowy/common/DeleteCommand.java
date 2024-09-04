@@ -3,13 +3,31 @@ package snowy.common;
 import snowy.data.SnowyException;
 import snowy.tasklist.TaskList;
 
+/**
+ * Represents a command to delete a task from the task list.
+ *
+ * The DeleteCommand class allows the user to remove a task from the task list by specifying
+ * its index. When executed, it deletes the task at the given index and returns a result
+ * indicating that the task was deleted.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
+    /**
+     * Constructs a DeleteCommand with the specified index.
+     *
+     * @param index the index of the task to be deleted (1-based index)
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Executes the command to delete the task at the specified index from the task list.
+     *
+     * @return a CommandResult indicating the task has been deleted
+     * @throws SnowyException if the index is invalid or the task cannot be deleted
+     */
     @Override
     public CommandResult execute() throws SnowyException {
         taskList.deleteTask(index);
