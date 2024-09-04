@@ -38,14 +38,14 @@ public class DeleteCommand implements Command {
      * @throws ArtsException If the task index is invalid or cannot be parsed.
      */
     @Override
-    public void execute() throws ArtsException {
+    public String execute() throws ArtsException {
         try {
             int index = Integer.parseInt(taskIndex) - 1;
             Task task = tasks.removeTask(index);
             storage.save(tasks.getTasks());
-            ui.showMessage("Noted. I've removed this task:\n " + task
+            return "Noted. I've removed this task:\n " + task
                     + "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks")
-                    + " in the list.");
+                    + " in the list.";
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new ArtsException("Invalid task index.");
         }

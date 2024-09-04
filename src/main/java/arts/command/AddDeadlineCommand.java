@@ -46,7 +46,7 @@ public class AddDeadlineCommand implements Command {
      * @throws ArtsException If the task details are invalid or if the date format is incorrect.
      */
     @Override
-    public void execute() throws ArtsException {
+    public String execute() throws ArtsException {
         String[] deadlineParts = details.split(" /by ");
         if (deadlineParts.length < 2) {
             throw new ArtsException("The deadline must have a /by date.");
@@ -54,9 +54,9 @@ public class AddDeadlineCommand implements Command {
         LocalDateTime deadlineDate = parseDate(deadlineParts[1]);
         tasks.addTask(new Deadline(deadlineParts[0], deadlineDate));
         storage.save(tasks.getTasks());
-        ui.showMessage("Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1)
+        return "Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1)
                 + "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks")
-                + " in the list.");
+                + " in the list.";
     }
 
     /**

@@ -46,7 +46,7 @@ public class AddEventCommand implements Command {
      * @throws ArtsException If the task details are invalid or if the date format is incorrect.
      */
     @Override
-    public void execute() throws ArtsException {
+    public String execute() throws ArtsException {
         String[] eventParts = details.split(" /from | /to ");
         if (eventParts.length < 3) {
             throw new ArtsException("The event must have /from and /to times.");
@@ -55,9 +55,9 @@ public class AddEventCommand implements Command {
         LocalDateTime eventToDate = parseDate(eventParts[2]);
         tasks.addTask(new Event(eventParts[0], eventFromDate, eventToDate));
         storage.save(tasks.getTasks());
-        ui.showMessage("Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1)
+        return "Got it. I've added this task:\n " + tasks.getTask(tasks.size() - 1)
                 + "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks")
-                + " in the list.");
+                + " in the list.";
     }
 
     /**

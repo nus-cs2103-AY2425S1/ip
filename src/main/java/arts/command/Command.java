@@ -16,6 +16,6 @@ public interface Command {
      *
      * @throws ArtsException If an error occurs during the execution of the command.
      */
-    void execute() throws ArtsException;
+    String execute() throws ArtsException;
 }
 

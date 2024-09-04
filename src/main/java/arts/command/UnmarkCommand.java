@@ -38,13 +38,13 @@ public class UnmarkCommand implements Command {
      * @throws ArtsException If the task index is invalid or cannot be parsed.
      */
     @Override
-    public void execute() throws ArtsException {
+    public String execute() throws ArtsException {
         try {
             int index = Integer.parseInt(taskIndex) - 1;
             Task task = tasks.getTask(index);
             task.markAsNotDone();
             storage.save(tasks.getTasks());
-            ui.showMessage("OK, I've marked this task as not done yet:\n " + task);
+            return "OK, I've marked this task as not done yet:\n " + task;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new ArtsException("Invalid task index.");
         }

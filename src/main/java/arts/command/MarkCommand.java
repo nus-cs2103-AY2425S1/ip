@@ -38,13 +38,13 @@ public class MarkCommand implements Command {
      * @throws ArtsException If the task index is invalid or cannot be parsed.
      */
     @Override
-    public void execute() throws ArtsException {
+    public String execute() throws ArtsException {
         try {
             int index = Integer.parseInt(taskIndex) - 1;
             Task task = tasks.getTask(index);
             task.markAsDone();
             storage.save(tasks.getTasks());
-            ui.showMessage("Nice! I've marked this task as done:\n " + task);
+            return "Nice! I've marked this task as done:\n " + task;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new ArtsException("Invalid task index.");
         }

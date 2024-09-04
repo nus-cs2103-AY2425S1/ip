@@ -15,7 +15,6 @@ import arts.util.Parser;
 import arts.util.Storage;
 import arts.util.Ui;
 
-
 /**
  * The Arts class is the main entry point for the Arts application.
  * It manages the initialization and execution of the application, handling user commands
@@ -53,56 +52,45 @@ public class Arts {
     }
 
     /**
-     * Runs the Arts application, processing user commands in a loop until exit.
+     * Generates a response based on user input.
+     *
+     * @param input The user input.
+     * @return A response string.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String input = ui.readCommand();
-                CommandType command = parser.parseCommand(input);
-                String[] parts = parser.parseArguments(input);
+    public String getResponse(String input) {
+        try {
+            CommandType command = parser.parseCommand(input);
+            String[] parts = parser.parseArguments(input);
 
-                switch (command) {
-                case BYE:
-                    ui.showGoodbye();
-                    isExit = true;
-                    break;
-                case LIST:
-                    ui.showMessage(listTasks());
-                    break;
-                case MARK:
-                    new MarkCommand(tasks, storage, ui, parts[1]).execute();
-                    break;
-                case UNMARK:
-                    new UnmarkCommand(tasks, storage, ui, parts[1]).execute();
-                    break;
-                case DELETE:
-                    new DeleteCommand(tasks, storage, ui, parts[1]).execute();
-                    break;
-                case TODO:
-                    new AddTodoCommand(tasks, storage, ui, parts[1]).execute();
-                    break;
-                case DEADLINE:
-                    new AddDeadlineCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
-                    break;
-                case EVENT:
-                    new AddEventCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
-                    break;
-                case FIND:
-                    new FindCommand(tasks, ui, parts[1]).execute();
-                    break;
-                default:
-                    throw new ArtsException("I'm sorry, but I don't know what that means.");
-                }
-            } catch (ArtsException e) {
-                ui.showError(e.getMessage());
-            } catch (Exception e) {
-                ui.showError("An unexpected error occurred: " + e.getMessage());
+            switch (command) {
+            case BYE:
+                return "Bye! Hope to see you again soon!";
+            case LIST:
+                return listTasks();
+            case MARK:
+                return new MarkCommand(tasks, storage, ui, parts[1]).execute();
+            case UNMARK:
+                return new UnmarkCommand(tasks, storage, ui, parts[1]).execute();
+            case DELETE:
+                return new DeleteCommand(tasks, storage, ui, parts[1]).execute();
+            case TODO:
+                return new AddTodoCommand(tasks, storage, ui, parts[1]).execute();
+            case DEADLINE:
+                return new AddDeadlineCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
+            case EVENT:
+                return new AddEventCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
+            case FIND:
+                return new FindCommand(tasks, parts[1]).execute();
+            default:
+                throw new ArtsException("I'm sorry, but I don't know what that means.");
             }
+        } catch (ArtsException e) {
+            return "OOPS!!! " + e.getMessage();
+        } catch (Exception e) {
+            return "An unexpected error occurred: " + e.getMessage();
         }
     }
+
 
     /**
      * Lists all tasks currently in the task list.
@@ -121,10 +109,6 @@ public class Arts {
         }
     }
 
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
-
     /**
      * Main method to start the Arts application.
      *
@@ -132,5 +116,25 @@ public class Arts {
      */
     public static void main(String[] args) {
         new Arts("./data/tasks.txt").run();
+    }
+
+    /**
+     * Runs the Arts application, processing user commands in a loop until exit.
+     */
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String input = ui.readCommand();
+                String response = getResponse(input);
+                ui.showMessage(response);
+                if (input.equalsIgnoreCase("bye")) {
+                    isExit = true;
+                }
+            } catch (Exception e) {
+                ui.showError("An unexpected error occurred: " + e.getMessage());
+            }
+        }
     }
 }
