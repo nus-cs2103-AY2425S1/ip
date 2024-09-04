@@ -1,5 +1,6 @@
 package lama.command;
 
+import javafx.application.Platform;
 import lama.Storage;
 import lama.TaskList;
 import lama.Ui;
@@ -20,6 +21,7 @@ public class ExitCommand extends Command {
     @Override
     public String run(TaskList taskList, Storage storage, Ui ui) {
         ui.showExitCommand();
+        Platform.exit();
         return "Bye. Hope to see you again soon!";
     }
 
