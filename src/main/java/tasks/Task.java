@@ -1,11 +1,14 @@
 package tasks;
-import chatterboxexceptions.ChatterboxExceptions;
+
 import java.util.Objects;
+
+import chatterboxexceptions.ChatterboxExceptions;
+
 
 /**
  * Abstract class that defines Task
  */
-public abstract  class Task {
+public abstract class Task {
     private Boolean status;
     private String desc;
 
@@ -15,7 +18,7 @@ public abstract  class Task {
      * @param desc is a string describing task
      * @throws ChatterboxExceptions.ChatterBoxNoInput if no input
      */
-    public Task(String desc) throws ChatterboxExceptions.ChatterBoxNoInput{
+    public Task(String desc) throws ChatterboxExceptions.ChatterBoxNoInput {
         if (desc.trim().isEmpty()) {
             throw new ChatterboxExceptions.ChatterBoxNoInput("Error: No input for task");
         }
@@ -47,7 +50,9 @@ public abstract  class Task {
     public void setStatus(Boolean stat) {
         this.status = stat;
     }
-    public String getTaskSymbol() { return "";}
+    public String getTaskSymbol() {
+        return "";
+    }
 
     @Override
     public String toString() {

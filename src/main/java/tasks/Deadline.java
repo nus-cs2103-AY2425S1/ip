@@ -1,21 +1,35 @@
 package tasks;
-import chatterboxexceptions.ChatterboxExceptions;
-import parser.Parser;
+
 import java.time.LocalDateTime;
 
+import chatterboxexceptions.ChatterboxExceptions;
+
+/**
+ * Subclass of Task that handles a single deadline specification
+ */
 public class Deadline extends Task {
     private final LocalDateTime dueDateObj;
     private final String dueDate;
 
-    public Deadline(String desc, String dueDate) throws ChatterboxExceptions.ChatterBoxNoInput{
+    /**
+     *  Constructor for Deadline using raw string
+     * @param desc description of the task
+     * @param dueDate raw string deadline
+     * @throws ChatterboxExceptions.ChatterBoxNoInput
+     */
+    public Deadline(String desc, String dueDate) throws ChatterboxExceptions.ChatterBoxNoInput {
         super(desc);
-        this.dueDate =dueDate;
+        this.dueDate = dueDate;
         this.dueDateObj = null;
-
-
     }
 
-    public Deadline(String desc, LocalDateTime dueDateObj) throws ChatterboxExceptions.ChatterBoxNoInput{
+    /**
+     * Constructor for Deadline using LocalDateTime objects
+     * @param desc description of the task
+     * @param dueDateObj LocalDateTime of deadline
+     * @throws ChatterboxExceptions.ChatterBoxNoInput if no desc found
+     */
+    public Deadline(String desc, LocalDateTime dueDateObj) throws ChatterboxExceptions.ChatterBoxNoInput {
         super(desc);
         this.dueDateObj = dueDateObj;
         this.dueDate = null;
@@ -28,7 +42,8 @@ public class Deadline extends Task {
     @Override
     public String getDescription() {
         if (this.dueDateObj != null) {
-            return super.getDescription() + String.format("( by %s ) ", this.dueDateObj.format(parser.Parser.getPrintDateFormatter()));
+            return super.getDescription() + String.format("( by %s ) ",
+                    this.dueDateObj.format(parser.Parser.getPrintDateFormatter()));
         }
         return super.getDescription() + String.format(" ( by %s )", this.dueDate);
     }

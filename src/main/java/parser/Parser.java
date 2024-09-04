@@ -1,16 +1,21 @@
 package parser;
 
-import chatterboxexceptions.ChatterboxExceptions;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import chatterboxexceptions.ChatterboxExceptions;
+
 /**
  * Parser class has various methods to parse user input
  */
-public  class Parser {
+public class Parser {
+    /**
+     * Enum contains list of valid commands
+     */
     public enum ValidCommand {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND;
     }
@@ -22,8 +27,10 @@ public  class Parser {
     private static final DateTimeFormatter DASHONLYDATE = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final DateTimeFormatter SLASHONLYDATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter PRINTDATEFORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
-    private static final DateTimeFormatter[] DATE_TIME_FORMATTERS = new DateTimeFormatter[] {DASHFORMATTER, SLASHFORMATTER, PRINTDATEFORMATTER};
-    private static final DateTimeFormatter[] DATE_ONLY_FORMATTERS = new DateTimeFormatter[] {DASHONLYDATE, SLASHONLYDATE};
+    private static final DateTimeFormatter[] DATE_TIME_FORMATTERS =
+            new DateTimeFormatter[] {DASHFORMATTER, SLASHFORMATTER, PRINTDATEFORMATTER};
+    private static final DateTimeFormatter[] DATE_ONLY_FORMATTERS =
+            new DateTimeFormatter[] {DASHONLYDATE, SLASHONLYDATE};
 
 
     /**
@@ -54,14 +61,15 @@ public  class Parser {
             try {
                 return LocalDate.parse(dateTimeString, formatter).atStartOfDay();
             } catch (DateTimeParseException e) {
-
+                //do nothing try next one
             }
         }
         return null;
     }
 
     /**
-     * Parses a string of text to check if text has a valid command listed in ValidCommandS by checking sthe started of text
+     * Parses a string of text to check if text has a valid command listed in ValidCommandS
+     * by checking the first word
      * @param text to be parsed,
      * @return corresponding ValidCommand enum to the command in text
      */
@@ -84,7 +92,7 @@ public  class Parser {
             return ValidCommand.EVENT;
         } else if (text.startsWith("delete")) {
             return ValidCommand.DELETE;
-        }  else if (text.startsWith("find")) {
+        } else if (text.startsWith("find")) {
             return ValidCommand.FIND;
         } else {
             return ValidCommand.INVALID;
@@ -117,17 +125,18 @@ public  class Parser {
      * @param desc of format todo {text}
      * @return the text description
      */
-    public String parseTODO(String desc) {
+    public String parseTodo(String desc) {
         return desc.substring(4).trim();
     }
 
-    /** parses a string to obtain text for deaadline without white space
+    /**
+     * parses a string to obtain text for deaadline without white space
      *
      * @param desc of format deadline text /by text
      * @return String[] with the [0] as the description and [1] as by {text}
      * @throws chatterboxexceptions.ChatterboxExceptions.ChatterBoxNoInput if no text is found
      */
-    public String[] parseDeadline(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter{
+    public String[] parseDeadline(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
 
 
         int endDate = desc.indexOf("/by");
@@ -156,16 +165,17 @@ public  class Parser {
                 deadline.append(desc.charAt(i));
             }
         }
-        return new String[] {plainDesc.toString().trim(), deadline.toString().trim()} ;
+        return new String[] {plainDesc.toString().trim(), deadline.toString().trim()};
     }
 
-    /** Parses the event string for the desc, from and to time
+    /**
+     * Parses the event string for the desc, from and to time
      *
      * @param desc takes in a string of format text /from text /to text
      * @return String[] with 0 being the first text, 1 the from text and 2 being the to text
      * @throws ChatterboxExceptions.ChatterBoxMissingParameter if any of parameters not detected
      */
-    public String[] parseEvent(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter{
+    public String[] parseEvent(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
 
 
         int fromStart = desc.indexOf("/from");
