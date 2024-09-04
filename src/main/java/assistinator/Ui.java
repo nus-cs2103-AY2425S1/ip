@@ -1,7 +1,10 @@
-package Assistinator;
+package assistinator;
 
 import java.util.Scanner;
 
+/**
+ * API of UI component
+ */
 public class Ui {
     private Scanner scanner;
 

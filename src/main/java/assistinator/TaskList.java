@@ -1,7 +1,10 @@
-package Assistinator;
+package assistinator;
 
 import java.util.ArrayList;
 
+/**
+ * Represents list of task
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 

@@ -1,5 +1,8 @@
-package Assistinator;
+package assistinator;
 
+/**
+ * Represents event task
+ */
 public class Event extends Task {
     protected String start;
     protected String end;

@@ -1,22 +1,24 @@
-package Assistinator;
+package assistinator;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * API of the storage class
+ */
 public class Storage {
-    private final String FILE_PATH;
+    private String filePath;
 
     /**
      * Initialise a storage class
      * @param filePath File path to tasks
      */
     public Storage(String filePath) {
-        this.FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -25,7 +27,7 @@ public class Storage {
      */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
-            FileWriter writer = new FileWriter(FILE_PATH);
+            FileWriter writer = new FileWriter(filePath);
             for (Task task : tasks) {
                 writer.write(task.toFileString() + System.lineSeparator());
             }
@@ -43,7 +45,7 @@ public class Storage {
     public ArrayList<Task> loadTasks() throws AssitinatorExceptions {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
                 String[] parts = s.nextLine().split("\\|");
@@ -69,21 +71,21 @@ public class Storage {
 
         Task task;
         switch (type) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                task = new Deadline(description, parts[3].trim());
-                break;
-            case "E":
-                task = new Event(
-                        description,
-                        parts[3].trim(),
-                        parts[4].substring(parts[4].indexOf(' ') + 1)
-                );
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown task type: " + type);
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            task = new Deadline(description, parts[3].trim());
+            break;
+        case "E":
+            task = new Event(
+                    description,
+                    parts[3].trim(),
+                    parts[4].substring(parts[4].indexOf(' ') + 1)
+            );
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown task type: " + type);
         }
         if (isDone) {
             task.markAsDone();

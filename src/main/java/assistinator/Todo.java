@@ -1,5 +1,8 @@
-package Assistinator;
+package assistinator;
 
+/**
+ * Represents todo task
+ */
 public class Todo extends Task {
 
     /**

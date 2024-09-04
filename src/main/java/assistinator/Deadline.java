@@ -1,8 +1,11 @@
-package Assistinator;
+package assistinator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents deadline task
+ */
 public class Deadline extends Task {
     protected LocalDate by;
 
