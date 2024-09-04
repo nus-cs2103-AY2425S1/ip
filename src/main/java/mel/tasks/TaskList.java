@@ -1,13 +1,13 @@
 package mel.tasks;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
+
 import mel.exceptions.MelException;
 import mel.exceptions.TaskException;
 import mel.main.Mel;
 import mel.utils.Storage;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * TaskList class that handles a
@@ -34,19 +34,19 @@ public class TaskList {
      * @throws TaskException if input is of invalid format.
      * @throws TaskException if task input is invalid.
      */
-    public void taskAction(String input) throws MelException, TaskException {
+    public void executeTask(String input) throws MelException, TaskException {
         String cmd = input.split(" ", 2)[0];
         if (Objects.equals(input, "list")) {
             printAll();
         } else if (cmd.equals("mark")) {
-            mark(input);
+            markTaskAsDone(input);
         } else if (cmd.equals("delete")) {
-            delete(input);
+            deleteTask(input);
         } else if (cmd.equals("find")) {
-            find(input);
+            findTask(input);
         } else {
             mel.println("Mel remembers...");
-            add(input);
+            createTask(input);
         }
     }
 
@@ -56,7 +56,7 @@ public class TaskList {
      * @throws TaskException if input is of invalid format.
      * @throws TaskException if task input is invalid.
      */
-    private void add(String str) throws MelException, TaskException {
+    private void createTask(String str) throws MelException, TaskException {
         Task task;
         switch (str.split(" ", 2)[0]) {
         case "todo":
@@ -69,8 +69,8 @@ public class TaskList {
             task = new Event(str);
             break;
         default:
-            throw new MelException("Mel is confused... " +
-                    "Mel doesn't understand you :((");
+            throw new MelException("Mel is confused... "
+                    + "Mel doesn't understand you :((");
         }
         tasks.add(task);
         updateTasks();
@@ -84,7 +84,7 @@ public class TaskList {
      * Deletes tasks based on input.
      * @param str input string.
      */
-    private void delete(String str) {
+    private void deleteTask(String str) {
         String[] temp = str.split(" ");
         int idx = Integer.parseInt(temp[1]) - 1;
         try {
@@ -95,8 +95,8 @@ public class TaskList {
             mel.println("Mel counts " + tasks.size()
                     + " stuffs memorized XD");
         } catch (IndexOutOfBoundsException e) {
-            mel.println("Mel's brain explodes in anger?! " +
-                    "Mel recalls only " + tasks.size() + " things");
+            mel.println("Mel's brain explodes in anger?! "
+                    + "Mel recalls only " + tasks.size() + " things");
         }
     }
 
@@ -104,22 +104,22 @@ public class TaskList {
      * Handles marking of tasks' completion based on input.
      * @param str input string.
      */
-    private void mark(String str) {
+    private void markTaskAsDone(String str) {
         String[] temp = str.split(" ");
         String m = temp[0];
         int idx = Integer.parseInt(temp[1]) - 1;
         try {
             if (Objects.equals(m, "mark")) {
                 mel.println("Mel sees you completed your task!");
-                tasks.get(idx).mark();
+                tasks.get(idx).markTaskAsDone();
             } else {
                 mel.println("Mel wonders how you undid your task...");
-                tasks.get(idx).unmark();
+                tasks.get(idx).markTaskAsNotDone();
             }
             updateTasks();
         } catch (IndexOutOfBoundsException e) {
-            mel.println("Mel's brain explodes in anger?! " +
-                    "Mel recalls only " + tasks.size() + " things");
+            mel.println("Mel's brain explodes in anger?! "
+                    + "Mel recalls only " + tasks.size() + " things");
         }
     }
 
@@ -128,7 +128,7 @@ public class TaskList {
      * then outputs details of matching tasks
      * @param str input string.
      */
-    private void find(String str) {
+    private void findTask(String str) {
         mel.println("Mel brain rattles in recollection...");
         for (Task t : tasks) {
             if (t.isMatch(str.split(" ", 2)[1])) {
