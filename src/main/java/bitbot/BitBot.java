@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The main class to run the application
+ */
 public class BitBot {
     private static final String PATH_TO_FILE = "./data/Bitbot.txt";
     private ArrayList<Task> arrayList;

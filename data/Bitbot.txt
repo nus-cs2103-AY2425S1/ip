@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 E|X|go sentosa|Nov 20 2024|Nov 20 2024
 T|X|borrow book|NIL| NIL
+=======
+T|X|borrow book|NIL| NIL
+D| |do homework|Nov 20 2024 17:20|NIL
+T| |borrow book|NIL| NIL
+>>>>>>> A-CheckStyle
 T|X|buy bread|NIL| NIL
 E|X|deadline|Aug 29 2024|Aug 29 2024
 T| |go for break|NIL| NIL

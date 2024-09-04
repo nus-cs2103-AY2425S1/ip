@@ -8,31 +8,58 @@ import java.time.format.DateTimeFormatter;
  * Adapted from the partial solution in the question
  */
 public class Deadline extends Task {
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-
     protected String by;
     protected LocalDateTime localDateTime;
     protected LocalDate localDate;
     protected LocalTime localTime;
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-    public Deadline (String description, String by) {
+    /**
+     * This is a Deadline constructor that takes in the description of the task
+     * and takes in the time to end the task by
+     *
+     * @param description the description of the task
+     * @param by the time to end the task by in a String format
+     */
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline (String description, LocalDateTime localDateTime) {
+    /**
+     * This is a Deadline constructor that takes in the description of the task
+     * and takes in the time to end the task by in dd/MM/yyyy HH:mm format
+     *
+     * @param description the description of the event
+     * @param localDateTime the time to end the task in dd/MM/yyyy HH:mm format
+     */
+    public Deadline(String description, LocalDateTime localDateTime) {
         super(description);
         this.localDateTime = localDateTime;
     }
 
-    public Deadline (String description, LocalDate localDate) {
+    /**
+     * This is a Deadline constructor that takes in the description of the task
+     * and takes in the time to end the task by in dd/MM/yyyy format
+     *
+     * @param description the description of the event
+     * @param localDate the time to end the task in dd/MM/yyyy format
+     */
+    public Deadline(String description, LocalDate localDate) {
         super(description);
         this.localDate = localDate;
     }
 
-    public Deadline (String description, LocalTime localTime) {
+    /**
+     * This is a Deadline constructor that takes in the description of the task
+     * and takes in the time to end the task by in HH:mm format
+     *
+     * @param description the description of the event
+     * @param localTime the time to end the task in HH:mm format
+     */
+    public Deadline(String description, LocalTime localTime) {
         super(description);
         this.localTime = localTime;
     }
@@ -47,7 +74,7 @@ public class Deadline extends Task {
             return "[D]" + super.finalString() + " (by: " + localDateTime.format(dateTimeFormatter) + ")";
         } else if (localDate != null) {
             return "[D]" + super.finalString() + " (by: " + localDate.format(dateFormatter) + ")";
-        } else if (localTime != null){
+        } else if (localTime != null) {
             return "[D]" + super.finalString() + " (by: " + localTime.format(timeFormatter) + ")";
         } else {
             return "[D]" + super.finalString() + " (by: " + by + ")";
@@ -68,7 +95,7 @@ public class Deadline extends Task {
         } else if (localDate != null) {
             byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
                     + localDate.format(dateFormatter) + "|" + "NIL";
-        } else if (localTime != null){
+        } else if (localTime != null) {
             byOrDateTimeString = "D|" + (isDone ? "X" : " ") + "|" + taskDescription + "|"
                     + localTime.format(timeFormatter) + "|" + "NIL";
         } else {
