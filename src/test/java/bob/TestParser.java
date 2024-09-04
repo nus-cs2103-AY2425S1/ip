@@ -46,8 +46,8 @@ public class TestParser {
     }
 
     @Test
-    public void parse_find_commandReturned() {
-        Command cmd = Parser.parse("find 2024-08-30");
+    public void parse_findDate_commandReturned() {
+        Command cmd = Parser.parse("findDate 2024-08-30");
         assertEquals(new FindDateCommand("2024-08-30"), cmd);
     }
 
