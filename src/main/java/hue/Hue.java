@@ -18,6 +18,8 @@ public class Hue {
     private static Storage storage;
     private static TaskList tasks;
     private final UI ui;
+
+    private String commandType;
     /**
      * Creates a {@code Hue} object with the specified file path for task storage.
      * Initializes the user interface and attempts to load tasks from the specified file.
@@ -67,10 +69,19 @@ public class Hue {
     public String getResponse(String input){
         try {
             Command command = Parser.parse(input);
+            commandType = command.getClass().getSimpleName();
             return command.execute(tasks, ui, storage);  // Return the response from the executed command
         } catch (HueException | IOException e) {
             return e.getMessage();  // Return the error message as the response
         }
+    }
+
+    public String varagsAttempt (String... words) {
+        return words[0];
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 
 

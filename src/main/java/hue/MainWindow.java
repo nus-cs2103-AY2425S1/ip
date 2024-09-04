@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    
+
 
     /** Injects the Duke instance */
     public void setHue(Hue d) {
@@ -45,9 +45,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = hue.getResponse(input);
+        String commandType = hue.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getHueDialog(response, hueImage)
+                DialogBox.getHueDialog(response, hueImage, commandType)
         );
         userInput.clear();
     }
