@@ -1,12 +1,12 @@
 package commands;
 
+import java.time.LocalDateTime;
+
 import exceptions.DownyException;
 import storage.Storage;
 import tasks.Event;
 import tasks.TaskList;
 import ui.Ui;
-
-import java.time.LocalDateTime;
 
 /**
  * The {@code EventCommand} class represents a command that, when executed, adds a new event task
@@ -85,5 +85,4 @@ public class EventCommand implements Command {
     public LocalDateTime getEndTime() {
         return this.endTime;
     }
-
 }
