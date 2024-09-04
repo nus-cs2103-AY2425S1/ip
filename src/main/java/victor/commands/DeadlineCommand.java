@@ -8,6 +8,10 @@ import victor.messages.ReturnMessage;
 import victor.tasklist.TaskList;
 import victor.tasks.Deadline;
 
+/**
+ * Deadline command that extends Command class, has a Deadline object that is generated
+ * by the execute method.
+ */
 public class DeadlineCommand extends Command {
     private Deadline deadline;
     public DeadlineCommand(String[] additionalInput) {

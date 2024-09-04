@@ -31,9 +31,9 @@ public class TaskListTest {
         String[] expectedResponse = new String[] {"  ~  Cool! I added this task:",
             "  ~  {D}{ } test deadline (by: Jan 01 2020)",
             "  ~  You now have 1 task in your list."};
-        assertAll("Verifying task list adding tasks works",
-                () -> assertArrayEquals(response, expectedResponse),
-                () -> assertEquals(taskList.getSize(), 1));
+        assertAll("Verifying task list adding tasks works", ()
+                -> assertArrayEquals(response, expectedResponse), ()
+                -> assertEquals(taskList.getSize(), 1));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TaskListTest {
         taskList.addTask(deadline);
         String[] response = taskList.markDone(1);
         String[] expectedResponse = new String[] {"  ~  You finished a task! Well done! I marked this task as done:",
-                "  ~  {D}{X} test deadline (by: Jan 01 2020)"};
+            "  ~  {D}{X} test deadline (by: Jan 01 2020)"};
         assertAll("Verifying task list marking tasks as done works", ()
                 -> assertArrayEquals(response, expectedResponse), ()
                 -> assertEquals(taskList.getSize(), 1));

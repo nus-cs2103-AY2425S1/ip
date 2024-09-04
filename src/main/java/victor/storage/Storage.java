@@ -13,6 +13,10 @@ import victor.commands.MarkCommand;
 import victor.commands.ToDoCommand;
 import victor.tasklist.TaskList;
 
+/**
+ * Storage class that handles reading from the file where task data is stored. Has the
+ * relative file path where data is stored and the task list of Task objects.
+ */
 public class Storage {
     private Path filePath;
     private TaskList taskList;

@@ -7,6 +7,10 @@ import victor.messages.ReturnMessage;
 import victor.tasklist.TaskList;
 import victor.tasks.ToDo;
 
+/**
+ * To Do command that extends Command class, has a ToDo object that is generated
+ * by the execute method.
+ */
 public class ToDoCommand extends Command {
     private ToDo toDo;
     public ToDoCommand(String[] additionalInput) {

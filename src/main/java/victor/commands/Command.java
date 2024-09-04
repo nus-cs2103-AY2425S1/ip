@@ -5,6 +5,10 @@ import java.nio.file.Path;
 import victor.messages.ReturnMessage;
 import victor.tasklist.TaskList;
 
+/**
+ * Generic command class that has a task list and a string array for
+ * the words from the user's input.
+ */
 public class Command {
     protected TaskList taskList;
     protected String[] additionalInput;

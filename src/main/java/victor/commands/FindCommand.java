@@ -2,6 +2,11 @@ package victor.commands;
 
 import victor.messages.ReturnMessage;
 
+/**
+ * Find command that extends the Command class, validates input to ensure there are tasks
+ * in the task list to search through, and validates that user input a phrase to search for
+ * in task names.
+ */
 public class FindCommand extends Command {
     public FindCommand(String[] additionalInput) {
         super(additionalInput);

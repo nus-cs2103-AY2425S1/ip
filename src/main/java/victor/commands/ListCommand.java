@@ -2,6 +2,10 @@ package victor.commands;
 
 import victor.messages.ReturnMessage;
 
+/**
+ * List command class that extends Command class, checks if any tasks exist and returns
+ * enumerated version of tasks from taskList.
+ */
 public class ListCommand extends Command {
     public ListCommand(String[] additionalInput) {
         super(additionalInput);
