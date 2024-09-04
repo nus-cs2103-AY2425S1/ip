@@ -1,6 +1,7 @@
 package dude.gui;
 
 import dude.Dude;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for the main GUI.
  */
@@ -31,9 +33,12 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Dude instance */
+    /**
+     * Injects the Dude instance
+     */
     public void setDude(Dude d) {
         dude = d;
+        showGreet();
     }
 
     /**
@@ -46,8 +51,30 @@ public class MainWindow extends AnchorPane {
         String response = dude.readAndReact(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dudeImage)
+                DialogBox.getDudeDialog(response, dudeImage)
         );
+
         userInput.clear();
+        exitIfNotRunning();
+    }
+
+    /**
+     * Check if dude is no longer running, and if so, close the application after 3 seconds
+     */
+    public void exitIfNotRunning() {
+        if (!dude.isRunning()) {
+            Platform.runLater(() -> {
+                try {
+                    Thread.sleep(3000); // wait for 3 seconds
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.exit();
+            });
+        }
+    }
+
+    public void showGreet() {
+        dialogContainer.getChildren().add(DialogBox.getDudeDialog(dude.greet(), dudeImage));
     }
 }

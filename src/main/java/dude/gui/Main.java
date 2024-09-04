@@ -16,7 +16,7 @@ public class Main extends Application {
     private static final String FILE_PATH = "./data/dude.txt";
     private Dude dude;
 
-    public Main(){
+    public Main() {
         dude = new Dude(FILE_PATH);
     }
 
@@ -30,7 +30,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setDude(dude);  // inject the Dude instance
+            fxmlLoader.<MainWindow>getController().setDude(dude); // inject the Dude instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

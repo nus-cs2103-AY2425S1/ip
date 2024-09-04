@@ -35,6 +35,7 @@ public class Dude {
         storage = new Storage(filePath);
         taskList = new TaskList(storage.loadData());
         ui = new Ui();
+        isRunning = true;
     }
 
     /**
@@ -62,7 +63,7 @@ public class Dude {
 
             switch (Parser.getCommand(input)) {
             case HI:
-                return ui.showGreet();
+                return greet();
             case BYE:
                 return exit();
             case LIST:
@@ -87,6 +88,15 @@ public class Dude {
         } catch (DudeException e) {
             return ui.showError(e);
         }
+    }
+
+    /**
+     * Greet the user.
+     *
+     * @return A greeting message.
+     */
+    public String greet() {
+        return ui.showGreet();
     }
 
     /**
@@ -278,10 +288,19 @@ public class Dude {
      * Exits the application and saves data.
      */
     public String exit() {
-        this.isRunning = false;
+        isRunning = false;
         storage.saveData(taskList);
         ui.closeScanner();
         return ui.showBye();
+    }
+
+    /**
+     * Checks if the Dude application is currently running.
+     *
+     * @return True if the Dude application is running, false otherwise.
+     */
+    public boolean isRunning() {
+        return isRunning;
     }
 
     public static void main(String[] args) {
