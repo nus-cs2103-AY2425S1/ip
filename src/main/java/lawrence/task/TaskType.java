@@ -26,7 +26,7 @@ public enum TaskType {
     }
 
     /**
-     * Converts a text string into its relevant enum counterpart.
+     * Converts a text string into its enum counterpart.
      *
      * @param input the input containing an enum value
      * @return a TaskType enum if it exists
