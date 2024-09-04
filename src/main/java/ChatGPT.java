@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -105,6 +103,7 @@ public class ChatGPT {
                         "\n\t Please try again with a valid command and inputs");
                 System.out.println("\t" + LINE);
             }
+            saveData();
         } while (true);
     }
 
@@ -208,6 +207,25 @@ public class ChatGPT {
             System.out.println("\tPlease fix the file and restart or start from scratch");
             System.out.println("\t" + LINE);
             return new ArrayList<>();
+        }
+    }
+
+    private static void saveData() {
+        File currentDir = new File(".");
+        File data = new File (currentDir.getAbsolutePath() + "\\data\\data.txt");
+        try {
+            data.createNewFile();
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(data));
+            for (int i = 0; i < list.size(); i++) {
+                fileWriter.write(list.get(i).toPrint());
+                fileWriter.newLine();
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("\t" + LINE);
+            System.out.println("\t!! There was a problem writing to the file !!");
+            System.out.println("\tPlease ensure the file directory exists.");
+            System.out.println("\t" + LINE);
         }
     }
 }
