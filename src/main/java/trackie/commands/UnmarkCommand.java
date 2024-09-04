@@ -15,6 +15,7 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
         try {
             tasklist.unmarkTask(arguments);
+            storage.save();
         } catch (TrackieException e) {
             ui.displayErrorMessage(e);
         }

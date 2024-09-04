@@ -6,11 +6,7 @@ public class Parser {
     public static Command parseCommand(String input) {
         String[] arguments = input.split(" ");
         switch (arguments[0]) {
-            case "todo":
-                return new AddCommand(arguments);
-            case "deadline":
-                return new AddCommand(arguments);
-            case "event":
+            case "todo", "deadline", "event":
                 return new AddCommand(arguments);
             case "mark":
                 return new MarkCommand(arguments);

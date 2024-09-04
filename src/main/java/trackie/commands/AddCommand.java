@@ -24,7 +24,7 @@ public class AddCommand extends Command {
                 case "event":
                     tasklist.addEventTask(arguments);
             }
-            storage.save(tasklist);
+            storage.save();
         } catch (TrackieException e) {
             ui.displayErrorMessage(e);
         }

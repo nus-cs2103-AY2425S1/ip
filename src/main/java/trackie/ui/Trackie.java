@@ -12,13 +12,14 @@ public class Trackie {
 
     public Trackie(String filepath) {
         ui = new Ui();
-        storage = new Storage(filepath);
         tasks = new TaskList();
+        storage = new Storage(filepath, tasks);
+
     }
 
     public void run() {
         ui.greet();
-        storage.load(tasks);
+        storage.load();
         boolean isExit = false;
         while (!isExit) {
             String userInput = ui.readCommand();

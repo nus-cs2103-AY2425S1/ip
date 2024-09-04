@@ -15,6 +15,7 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
         try {
             tasklist.markTask(arguments);
+            storage.save();
         } catch (TrackieException e) {
             ui.displayErrorMessage(e);
         }

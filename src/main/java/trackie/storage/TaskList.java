@@ -73,7 +73,7 @@ public class TaskList {
         }
 
         if (sb2.isEmpty()) {
-            throw new TrackieException("Trackie.Deadline cannot be empty!");
+            throw new TrackieException("Deadline cannot be empty!");
         } else {
             deadline = sb2.substring(0, sb2.length() - 1);
         }

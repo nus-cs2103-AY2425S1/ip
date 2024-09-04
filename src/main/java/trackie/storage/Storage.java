@@ -9,13 +9,15 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Storage {
-    File fPtr;
-    public Storage(String filepath) {
+    private TaskList taskList;
+    private File fPtr;
+    public Storage(String filepath, TaskList taskList) {
         fPtr = new File(filepath);
+        this.taskList = taskList;
     }
 
     //loads data from txt file into memory
-    public void load(TaskList t) {
+    public void load() {
         try {
             Scanner sc = new Scanner(fPtr);
             while (sc.hasNextLine()) {
@@ -24,21 +26,21 @@ public class Storage {
 
                 // add tasks according to their types
                 if (arguments[0].equals("T")) {
-                    t.tasks.add(new Todo(arguments[2], Integer.parseInt(arguments[1])));
+                    taskList.tasks.add(new Todo(arguments[2], Integer.parseInt(arguments[1])));
                 } else if (arguments[0].equals("D")) {
-                    t.tasks.add(new Deadline(arguments[2], arguments[3], Integer.parseInt(arguments[1])));
+                    taskList.tasks.add(new Deadline(arguments[2], arguments[3], Integer.parseInt(arguments[1])));
                 } else if (arguments[0].equals("E")) {
-                    t.tasks.add(new Event(arguments[2], arguments[3], arguments[4], Integer.parseInt(arguments[1])));
+                    taskList.tasks.add(new Event(arguments[2], arguments[3], arguments[4], Integer.parseInt(arguments[1])));
                 }
             }
-            t.listTasks();
+            taskList.listTasks();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     //saves data from memory to txt file
-    public void save(TaskList t) {
+    public void save() {
         try {
             PrintWriter pw = new PrintWriter(fPtr);
             pw.close();
@@ -46,7 +48,7 @@ public class Storage {
             e.printStackTrace();
         }
 
-        for (Task x : t.tasks) {
+        for (Task x : taskList.tasks) {
             String data = "";
             int status = x.getStatusIcon().equals("X") ? 1 : 0;
             if (x instanceof Todo) {

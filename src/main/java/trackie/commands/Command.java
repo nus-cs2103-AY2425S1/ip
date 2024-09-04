@@ -16,5 +16,9 @@ public abstract class Command {
         return this.isExit;
     }
 
+    public String[] getArguments() {
+        return this.arguments;
+    }
+
     public abstract void execute(TaskList tasklist, Ui ui, Storage storage);
 }
