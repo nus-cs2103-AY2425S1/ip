@@ -1,4 +1,4 @@
-package yoda.gui;
+package yoda;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import yoda.Yoda;
 
 /**
  * Controller for the main GUI.
@@ -35,6 +34,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setYoda(Yoda y) {
         yoda = y;
+        yoda.run();
     }
 
     /**

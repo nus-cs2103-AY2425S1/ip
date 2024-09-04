@@ -1,4 +1,4 @@
-package yoda.gui;
+package yoda;
 
 import java.io.IOException;
 import java.util.Collections;

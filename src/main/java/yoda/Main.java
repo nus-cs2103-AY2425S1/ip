@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
-import yoda.gui.MainWindow;
 
 /**
  * A GUI for Duke using FXML.
@@ -19,6 +18,11 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            MainWindow mainWindow = new MainWindow();
+
+            fxmlLoader.setRoot(mainWindow);
+            fxmlLoader.setController(mainWindow);
+
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
@@ -27,5 +31,9 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
