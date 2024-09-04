@@ -104,7 +104,7 @@ public class Ui {
     /**
      * Displays a help message with command descriptions and examples.
      */
-    public void printHelp() {
+    public void printHelp(String... extra) {
         out.println(DIVIDER);
         out.println("Here are the available commands and their formats:");
         out.println();
