@@ -34,7 +34,7 @@ public class Event extends Task {
     /**
      * Represents the task in a readable format. If the task is read from an existing file, it is directly read into
      * name of the event. Else, this method does additional formatting to represent the date in a standard format.
-     *{@code
+     * {@code
      * Event event = new Event("project meeting", "02-12/2024", "1800 to 2000");
      * System.out.println(event);
      *
@@ -56,9 +56,8 @@ public class Event extends Task {
                     + firstTime + " to " + secondTime + ")";
         } catch (Exception e) {
             this.compareDate = LocalDate.parse(this.date, DateTimeFormatter.ofPattern("MMM d yyyy"));
-            String newDate =  this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            String newDate = this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             return "[E] " + super.getName() + "(" + newDate + " from " + this.time + ")";
         }
-
     }
 }

@@ -28,8 +28,8 @@ public class UI {
      * Displays message if user does not specify the category of the task to the chabot.
      */
     public void noCategoryDeclared() {
-        System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) " +
-                "before providing a description of it.");
+        System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) "
+                + "before providing a description of it.");
     }
 
     /**
@@ -71,7 +71,8 @@ public class UI {
      * Displays message if the user provides an event date in an invalid format.
      */
     public void invalidEventDate() {
-        System.out.println("Please provide a proper date in MM/DD/YYYY format, as well as a start time and end time in HH:MM format for your Event!");
+        System.out.println("Please provide a proper date in MM/DD/YYYY format, "
+                + "as well as a start time and end time in HH:MM format for your Event!");
     }
 
     /**
@@ -92,7 +93,8 @@ public class UI {
      * Displays message when user tries to mark or unmark tasks to an empty tasklist.
      */
     public void noTasksAdded() {
-        System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before marking/unmarking them.");
+        System.out.println("You have currently added ZERO tasks to your list! "
+                + "Try telling me some of your tasks before marking/unmarking them.");
     }
 
     /**
@@ -129,7 +131,8 @@ public class UI {
      * Displays message when user tries to delete a task from an empty task list.
      */
     public void noTasksBeforeDelete() {
-        System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before deleting them.");
+        System.out.println("You have currently added ZERO tasks to your list! "
+                + "Try telling me some of your tasks before deleting them.");
     }
 
     /**
@@ -141,7 +144,7 @@ public class UI {
 
     /**
      * Displays message when user marks a marked task.
-     * @return  This messags is returned as a string due to the possubility of a thrown exception.
+     * @return  This messags is returned as a string due to the possibility of a thrown exception.
      */
     public String taskDone() {
         return "Task is already marked as done!";

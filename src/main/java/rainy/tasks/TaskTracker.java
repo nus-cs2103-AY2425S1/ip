@@ -1,12 +1,11 @@
 package rainy.tasks;
 
-import rainy.rainyexceptions.InvalidIndexException;
-import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import rainy.database.UI;
-
-import java.util.Collections;
-import java.util.ArrayList;
+import rainy.rainyexceptions.InvalidIndexException;
+import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
 
 /**
  * Keeps track of the list of classes and variables pertaining to how many tasks there are.
@@ -41,7 +40,8 @@ public class TaskTracker {
     }
 
     /**
-     * Displays the list of tasks when user inputs list. This method also checks if a particular task is marked or unmarked.
+     * Displays the list of tasks when user inputs list.
+     * This method also checks if a particular task is marked or unmarked.
      * @return  This method returns the list of tasks in <code>String</code>.
      */
     public String getList() {
@@ -67,16 +67,17 @@ public class TaskTracker {
     /**
      * Marks a particular task as specified by the user.
      * @param z                               Represents the index of the task in the task list.
-     * @throws InvalidIndexException          Thrown by <code>TaskManager</code> object when user provides a non-existent task number.
-     * @throws InvalidMarkAndUnmarkException  Thrown by <code>Task</code> object when user wants to mark a marked tasked or unmark an unmarked task.
+     * @throws InvalidIndexException          Thrown by <code>TaskManager</code> object when user
+     *                                        provides a non-existent task number.
+     * @throws InvalidMarkAndUnmarkException  Thrown by <code>Task</code> object when user
+     *                                        marks a marked tasked or unmarks an unmarked task.
      */
     public void markDone(int z) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         if (this.counter == 0) {
             this.ui.noTasksAdded();
         } else if (z < 0 || z >= this.counter) {
             throw new InvalidIndexException(this.ui.invalidTask());
-        }
-        else {
+        } else {
             Task newTask = this.taskList.get(z);
             newTask.mark();
             this.taskList.set(z, newTask);
@@ -89,16 +90,17 @@ public class TaskTracker {
     /**
      * Unmarks a particular task as specified by the user.
      * @param q                               Represents the index of the task in the task list.
-     * @throws InvalidIndexException          Thrown by <code>TaskManager</code> object when user provides a non-existent task number.
-     * @throws InvalidMarkAndUnmarkException  Thrown by <code>Task</code> object when user wants to mark a marked tasked or unmark an unmarked task.
+     * @throws InvalidIndexException          Thrown by <code>TaskManager</code> object when user
+     *                                        provides a non-existent task number.
+     * @throws InvalidMarkAndUnmarkException  Thrown by <code>Task</code> object when user
+     *                                        marks a marked tasked or unmarks an unmarked task.
      */
     public void unmarkDone(int q) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         if (this.counter == 0) {
             this.ui.noTasksAdded();
         } else if (q < 0 || q >= this.counter) {
             throw new InvalidIndexException(this.ui.invalidTask());
-        }
-        else {
+        } else {
             Task newTask = this.taskList.get(q);
             newTask.unmark();
             this.taskList.set(q, newTask);

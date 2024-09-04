@@ -1,15 +1,13 @@
 package rainy.database;
 
-import java.io.FileWriter;
 import java.io.File;
-import java.io.IOException;
 import java.io.FileNotFoundException;
-
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 import rainy.rainyexceptions.InvalidIndexException;
 import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
-
 import rainy.tasks.TaskTracker;
 
 /**
@@ -27,10 +25,13 @@ public class Storage {
     /**
      * Takes in a <code>File</code> object and reads the data.
      * @param newFile                        Represents the file object to be read.
-     * @return                               This method copies the previously established tasks to a newly created <code>TaskTracker</code>
+     * @return                               This method copies the previously established tasks to a newly
+     *                                       created <code>TaskTracker</code>
      *                                       object and returns it to be used by the Rainy chatbot.
-     * @throws InvalidIndexException         Thrown by <code>TaskManager</code> object when user provides a non-existent task number.
-     * @throws InvalidMarkAndUnmarkException Thrown by <code>Task</code> object when user wants to mark a marked tasked or unmark an unmarked task.
+     * @throws InvalidIndexException         Thrown by <code>TaskManager</code> object when user provides
+     *                                       a non-existent task number.
+     * @throws InvalidMarkAndUnmarkException Thrown by <code>Task</code> object when user wants to mark a
+     *                                       marked tasked or unmark an unmarked task.
      */
     public TaskTracker copyPreviousFiles(File newFile) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         TaskTracker newTask;
@@ -41,7 +42,7 @@ public class Storage {
             int trace = 0;
             while (sc.hasNext()) {
                 String oldData = sc.nextLine();
-                if (trace > 0){
+                if (trace > 0) {
                     if (oldData.charAt(8) == 'T') {
                         newTask.updateListToDo(oldData.substring(11));
                     } else if (oldData.charAt(8) == 'D') {
@@ -62,7 +63,7 @@ public class Storage {
                 trace++;
             }
             ui.startTracking();
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             ui.startTracking();
             newTask = new TaskTracker();
         }
@@ -85,6 +86,6 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
+

@@ -14,7 +14,7 @@ public class ToDo extends Task {
 
     /**
      * Represents the task in a readable format.
-     *{@code
+     * {@code
      * ToDo todo = new ToDo("project meeting");
      * System.out.println(event);
      *

@@ -36,6 +36,10 @@ checkstyle {
     toolVersion = '10.2'
 }
 
+checkstyleTest {
+    include '**/TaskTrackerTest.java'
+}
+
 shadowJar {
     archiveBaseName = "rainy"
     archiveClassifier = null
