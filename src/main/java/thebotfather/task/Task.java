@@ -1,9 +1,10 @@
 package thebotfather.task;
 
-import thebotfather.util.TheBotFatherException;
-
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+
+import thebotfather.util.TheBotFatherException;
+
 
 /**
  * Represents a task with a description, completion status, and a type identifier.
@@ -46,8 +47,9 @@ public abstract class Task {
      * @throws TheBotFatherException If the description is empty or null.
      */
     public Task(String description, String type) throws TheBotFatherException {
-        if (Objects.equals(description, ""))
+        if (Objects.equals(description, "")) {
             throw new TheBotFatherException("Kid, Learn to read, where is the description??");
+        }
         this.description = description;
         this.type = type;
     }
@@ -116,5 +118,4 @@ public abstract class Task {
     public String toFile() {
         return this.type + " | " + (this.isDone() ? "1" : "0") + " | " + this.description;
     }
-
 }

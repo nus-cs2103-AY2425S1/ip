@@ -1,12 +1,12 @@
 package thebotfather.task;
 
-import thebotfather.util.TheBotFatherException;
-
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.StringTokenizer;
+
+import thebotfather.util.TheBotFatherException;
 
 /**
  * Represents a task that occurs during a specific time interval.
@@ -73,27 +73,27 @@ public class Event extends Task {
             }
 
             if (Objects.equals(from.toString(), "")) {
-                throw new TheBotFatherException("Kid, look at what you have written... is that a valid event?? *sigh*\n" +
-                        "\tIf you have an event, type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"");
+                throw new TheBotFatherException("Kid, look at what you have written... is that a valid event?? *sigh*\n"
+                        + "\tIf you have an event, "
+                        + "type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"");
             }
 
             return new Event(description.toString().trim(),
                     LocalDateTime.parse(from.toString().trim(), Task.DATE_STRING_FORMATTER),
                     LocalDateTime.parse(to.toString().trim(), Task.DATE_STRING_FORMATTER));
         } catch (NoSuchElementException | DateTimeException e) {
-            throw new TheBotFatherException("Kid, look at what you have written... is that a valid event?? *sigh*\n" +
-                    "\tIf you have an event, type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"");
+            throw new TheBotFatherException("Kid, look at what you have written... is that a valid event?? *sigh*\n"
+                    + "\tIf you have an event, "
+                    + "type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"");
         }
     }
 
     @Override
     public String toString() {
-        return super.toString() +
-                " (from: " +
-                this.from.format(Task.DATE_STRING_FORMATTER_PRINT) +
-                " to: " +
-                this.to.format(Task.DATE_STRING_FORMATTER_PRINT) +
-                ")";
+        return super.toString()
+                + " (from: " + this.from.format(Task.DATE_STRING_FORMATTER_PRINT)
+                + " to: " + this.to.format(Task.DATE_STRING_FORMATTER_PRINT)
+                + ")";
     }
 
     @Override

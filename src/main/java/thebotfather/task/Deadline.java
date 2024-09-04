@@ -1,11 +1,11 @@
 package thebotfather.task;
 
-import thebotfather.util.TheBotFatherException;
-
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
+
+import thebotfather.util.TheBotFatherException;
 
 /**
  * Represents a task with a deadline.
@@ -62,8 +62,8 @@ public class Deadline extends Task {
                     LocalDateTime.parse(by.toString().trim(),
                             Task.DATE_STRING_FORMATTER));
         } catch (NoSuchElementException | DateTimeException e) {
-            throw new TheBotFatherException("If you have a deadline, type : " +
-                    "\"deadline <description> /by DD-MM-YY HH:MM\"");
+            throw new TheBotFatherException("If you have a deadline, type : "
+                    + "\"deadline <description> /by DD-MM-YY HH:MM\"");
         }
     }
 

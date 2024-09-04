@@ -1,8 +1,8 @@
 package thebotfather.util;
 
-import thebotfather.task.Task;
-
 import java.util.Scanner;
+
+import thebotfather.task.Task;
 
 /**
  * The Ui class handles all interactions with the user.
@@ -14,7 +14,7 @@ public class Ui {
     /**
      * The Scanner instance used for reading user input from the console.
      */
-    Scanner sc;
+    private final Scanner sc;
 
     /**
      * Constructs a new Ui instance and initializes the scanner for user input.
@@ -33,8 +33,8 @@ public class Ui {
         if (sc.hasNextLine()) {
             return sc.nextLine();
         } else {
-            throw new TheBotFatherException("OOPS!!! I'm sorry, but I don't know what that means :-(.\n" +
-                    "\tUse \"bye\" if you want to exit the program");
+            throw new TheBotFatherException("OOPS!!! I'm sorry, but I don't know what that means :-(.\n"
+                    + "\tUse \"bye\" if you want to exit the program");
         }
     }
 
@@ -100,7 +100,7 @@ public class Ui {
      * Prints the current number of tasks remaining to be done.
      */
     public void printCount() {
-        this.print("You have " + TaskList.NUMBER_OF_REMAINING_TASKS + " tasks left to do... think it's doable??");
+        this.print("You have " + TaskList.numberOfRemainingTasks + " tasks left to do... think it's doable??");
     }
 
     /**

@@ -7,6 +7,9 @@ import thebotfather.util.TaskList;
 import thebotfather.util.TheBotFatherException;
 import thebotfather.util.Ui;
 
+/**
+ * Represents a command to find tasks containing a specific word in their descriptions.
+ */
 public class FindCommand extends Command {
 
     /**
@@ -32,8 +35,8 @@ public class FindCommand extends Command {
         }
         word = builder.toString().trim();
         if (word.isEmpty()) {
-            throw new TheBotFatherException("What word you you want me to find bruh\n" +
-                    "\tIf you want me to find a specific word type \"find <word>\"");
+            throw new TheBotFatherException("What word you you want me to find bruh\n"
+                    + "\tIf you want me to find a specific word type \"find <word>\"");
         }
     }
 

@@ -1,10 +1,5 @@
 package thebotfather.util;
 
-import thebotfather.task.Deadline;
-import thebotfather.task.Event;
-import thebotfather.task.Task;
-import thebotfather.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +7,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+
+import thebotfather.task.Deadline;
+import thebotfather.task.Event;
+import thebotfather.task.Task;
+import thebotfather.task.Todo;
 
 /**
  * The Storage class handles the loading and saving of tasks from and to a file.
@@ -69,7 +69,9 @@ public class Storage {
                 default:
                     throw new Exception("Error");
                 }
-                if (Objects.equals(instructions[1], "1")) taskList.markAsDone(taskList.numberOfElements() - 1);
+                if (Objects.equals(instructions[1], "1")) {
+                    taskList.markAsDone(taskList.numberOfElements() - 1);
+                }
             }
         } catch (Exception e) {
             throw new TheBotFatherException("The file is corrupted");

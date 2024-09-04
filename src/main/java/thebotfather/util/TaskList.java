@@ -1,8 +1,8 @@
 package thebotfather.util;
 
-import thebotfather.task.Task;
-
 import java.util.ArrayList;
+
+import thebotfather.task.Task;
 
 /**
  * The TaskList class manages a list of tasks in the TheBotFather application.
@@ -12,14 +12,14 @@ import java.util.ArrayList;
 public class TaskList {
 
     /**
+     * The count of tasks left to be completed
+     */
+    protected static int numberOfRemainingTasks = 0;
+
+    /**
      * The initial list of tasks.
      */
     private final ArrayList<Task> taskArrayList;
-
-    /**
-     * The count of tasks left to be completed
-     */
-    protected static int NUMBER_OF_REMAINING_TASKS = 0;
 
     /**
      * Constructs a TaskList instance with an initial list of tasks.
@@ -38,7 +38,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         taskArrayList.add(task);
-        NUMBER_OF_REMAINING_TASKS++;
+        numberOfRemainingTasks++;
     }
 
     /**
@@ -49,7 +49,9 @@ public class TaskList {
      */
     public String getListDesc() throws TheBotFatherException {
         int size = taskArrayList.size();
-        if (size < 1) throw new TheBotFatherException("How do I print what is not there?");
+        if (size < 1) {
+            throw new TheBotFatherException("How do I print what is not there?");
+        }
         StringBuilder string = new StringBuilder();
         for (int i = 0; i < size; i++) {
             string.append(i + 1).append(". ").append(taskArrayList.get(i)).append("\n");
@@ -68,12 +70,13 @@ public class TaskList {
         try {
             Task task = taskArrayList.get(index);
             if (!task.isDone()) {
-                NUMBER_OF_REMAINING_TASKS--;
+                numberOfRemainingTasks--;
             }
             task.markAsDone();
         } catch (IndexOutOfBoundsException e) {
-            throw new TheBotFatherException("To be a real man you need to know how to count, you don't even have those many tasks son.\n" +
-                    "\tTo mark a task as done enter \"mark <index>\"");
+            throw new TheBotFatherException("To be a real man you need to know how to count, "
+                    + "you don't even have those many tasks son.\n"
+                    + "\tTo mark a task as done enter \"mark <index>\"");
         }
     }
 
@@ -88,12 +91,13 @@ public class TaskList {
         try {
             Task task = taskArrayList.get(index);
             if (task.isDone()) {
-                NUMBER_OF_REMAINING_TASKS++;
+                numberOfRemainingTasks++;
             }
             task.unmark();
         } catch (IndexOutOfBoundsException e) {
-            throw new TheBotFatherException("To be a real man you need to know how to count, you don't even have those many tasks son.\n" +
-                    "\tTo unmark a task enter \"unmark <index>\"");
+            throw new TheBotFatherException("To be a real man you need to know how to count, "
+                    + "you don't even have those many tasks son.\n"
+                    + "\tTo unmark a task enter \"unmark <index>\"");
         }
     }
 
@@ -110,12 +114,13 @@ public class TaskList {
             Task task = taskArrayList.get(index);
             taskArrayList.remove(index);
             if (!task.isDone()) {
-                NUMBER_OF_REMAINING_TASKS--;
+                numberOfRemainingTasks--;
             }
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new TheBotFatherException("To be a real man you need to know how to count, you don't even have those many tasks son.\n" +
-                    "\tTo delete a task enter \"delete <index>\"");
+            throw new TheBotFatherException("To be a real man you need to know how to count, "
+                    + "you don't even have those many tasks son.\n"
+                    + "\tTo delete a task enter \"delete <index>\"");
         }
     }
 

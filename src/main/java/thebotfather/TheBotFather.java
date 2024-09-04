@@ -1,5 +1,7 @@
 package thebotfather;
 
+import java.util.ArrayList;
+
 import thebotfather.command.Command;
 import thebotfather.task.Task;
 import thebotfather.util.Parser;
@@ -7,8 +9,6 @@ import thebotfather.util.Storage;
 import thebotfather.util.TaskList;
 import thebotfather.util.TheBotFatherException;
 import thebotfather.util.Ui;
-
-import java.util.ArrayList;
 
 /**
  * The main class for TheBotFather application.
@@ -79,8 +79,6 @@ public class TheBotFather {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-
         new TheBotFather("./data/TheBotFather.txt").run();
-
     }
 }

@@ -1,24 +1,25 @@
 package thebotfather.util;
 
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
+
+import thebotfather.command.AddCommand;
 import thebotfather.command.Command;
 import thebotfather.command.CommandList;
-import thebotfather.command.ExitCommand;
-import thebotfather.command.PrintTaskListCommand;
-import thebotfather.command.MarkCommand;
 import thebotfather.command.DeleteCommand;
-import thebotfather.command.AddCommand;
+import thebotfather.command.ExitCommand;
 import thebotfather.command.FindCommand;
+import thebotfather.command.MarkCommand;
+import thebotfather.command.PrintTaskListCommand;
 import thebotfather.task.Deadline;
 import thebotfather.task.Event;
 import thebotfather.task.Task;
 import thebotfather.task.Todo;
 
-import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
-
 /**
  * The Parser class is responsible for interpreting user input and converting it into a Command.
- * It parses the string input to determine which command the user wants to execute and returns the corresponding Command object.
+ * It parses the string input to determine which command the user wants to execute
+ * and returns the corresponding Command object.
  */
 public class Parser {
 
@@ -39,8 +40,8 @@ public class Parser {
             tokens = new StringTokenizer(completeLine);
             command = tokens.nextToken();
         } catch (NoSuchElementException e) {
-            throw new TheBotFatherException("OOPS!!! I'm sorry, but I don't know what that means :-(.\n" +
-                    "\tUse \"bye\" if you want to exit the program");
+            throw new TheBotFatherException("OOPS!!! I'm sorry, but I don't know what that means :-(.\n"
+                    + "\tUse \"bye\" if you want to exit the program");
         }
 
         switch (CommandList.findCommand(command)) {
@@ -52,37 +53,37 @@ public class Parser {
             try {
                 String index = tokens.nextToken();
                 if (tokens.hasMoreTokens()) {
-                    throw new TheBotFatherException("Just one number please :/\n" +
-                            "\tTo mark a task as done enter \"mark <index>\"");
+                    throw new TheBotFatherException("Just one number please :/\n"
+                            + "\tTo mark a task as done enter \"mark <index>\"");
                 }
                 return new MarkCommand(String.valueOf(index), true);
             } catch (NoSuchElementException e) {
-                throw new TheBotFatherException("Skill issue: Atleast enter a number.\n" +
-                        "\tTo mark a task as done enter \"mark <index>\"");
+                throw new TheBotFatherException("Skill issue: Atleast enter a number.\n"
+                        + "\tTo mark a task as done enter \"mark <index>\"");
             }
         case UNMARK:
             try {
                 String index = tokens.nextToken();
                 if (tokens.hasMoreTokens()) {
-                    throw new TheBotFatherException("Just one number please :/\n" +
-                            "\tTo mark a task as done enter \"mark <index>\"");
+                    throw new TheBotFatherException("Just one number please :/\n"
+                            + "\tTo mark a task as done enter \"mark <index>\"");
                 }
                 return new MarkCommand(String.valueOf(index), false);
             } catch (NoSuchElementException e) {
-                throw new TheBotFatherException("Skill issue: Atleast enter a number.\n" +
-                        "\tTo unmark a task enter \"unmark <index>\"");
+                throw new TheBotFatherException("Skill issue: Atleast enter a number.\n"
+                        + "\tTo unmark a task enter \"unmark <index>\"");
             }
         case DELETE:
             try {
                 String index = tokens.nextToken();
                 if (tokens.hasMoreTokens()) {
-                    throw new TheBotFatherException("Just one number please :/\n" +
-                            "\tTo mark a task as done enter \"mark <index>\"");
+                    throw new TheBotFatherException("Just one number please :/\n"
+                            + "\tTo mark a task as done enter \"mark <index>\"");
                 }
                 return new DeleteCommand(String.valueOf(index));
             } catch (NoSuchElementException e) {
-                throw new TheBotFatherException("Skill issue: Atleast enter a number.\n" +
-                        "\tTo unmark a task enter \"unmark <index>\"");
+                throw new TheBotFatherException("Skill issue: Atleast enter a number.\n"
+                        + "\tTo unmark a task enter \"unmark <index>\"");
             }
         case FIND:
             return new FindCommand(tokens);
@@ -99,8 +100,8 @@ public class Parser {
             ui.printAddedDeadline(deadline);
             return new AddCommand(deadline);
         default:
-            throw new TheBotFatherException("OOPS!!! I'm sorry, but I don't know what that means :-(.\n" +
-                    "\tUse \"bye\" if you want to exit the program");
+            throw new TheBotFatherException("OOPS!!! I'm sorry, but I don't know what that means :-(.\n"
+                    + "\tUse \"bye\" if you want to exit the program");
         }
     }
 }

@@ -1,9 +1,9 @@
 package thebotfather.task;
 
-import thebotfather.util.TheBotFatherException;
-
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
+
+import thebotfather.util.TheBotFatherException;
 
 /**
  * Represents a simple task that needs to be done without any specific time frame.
@@ -40,8 +40,8 @@ public class Todo extends Task {
             }
             return new Todo(description.toString().trim());
         } catch (NoSuchElementException e) {
-            throw new TheBotFatherException("Why to do a todo if there is no todo to do :/ \n" +
-                    "\tIf you have a todo, type : \"todo <description>\"");
+            throw new TheBotFatherException("Why to do a todo if there is no todo to do :/ \n"
+                    + "\tIf you have a todo, type : \"todo <description>\"");
         }
     }
 }

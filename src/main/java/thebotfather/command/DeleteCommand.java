@@ -26,13 +26,14 @@ public class DeleteCommand extends Command {
         try {
             this.index = Integer.parseInt(stringIndex) - 1;
         } catch (NumberFormatException e) {
-            throw new TheBotFatherException("How do you not know what a number is, jeez\n" +
-                    "\tTo delete a task enter \"delete <index>\"");
+            throw new TheBotFatherException("How do you not know what a number is, jeez\n"
+                    + "\tTo delete a task enter \"delete <index>\"");
         }
     }
 
     /**
-     * Executes the delete task command by removing the task from the task list, saving the updated task list to storage,
+     * Executes the delete task command by removing the task from the task list,
+     * saving the updated task list to storage,
      * and printing the deleted task information.
      *
      * @param taskList The task list from which the task will be deleted.
