@@ -4,11 +4,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
-    private final LocalDateTime startDateTime;
-    private final LocalDateTime endDateTime;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
 
     /**
      * Constructor for Event class.
@@ -49,7 +53,8 @@ public class Event extends Task {
      */
     @Override
     public String serialize() {
-        return super.serialize() + " | " + startDateTime.format(INPUT_FORMATTER) + " | " + endDateTime.format(INPUT_FORMATTER);
+        return super.serialize() + " | " + startDateTime.format(INPUT_FORMATTER) + " | "
+                + endDateTime.format(INPUT_FORMATTER);
     }
 
     /**

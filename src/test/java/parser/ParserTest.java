@@ -1,12 +1,21 @@
 package parser;
 
-import command.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
 import org.junit.jupiter.api.Test;
+
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.InvalidCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
 import task.Deadline;
 import task.Event;
 import task.ToDo;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
     @Test

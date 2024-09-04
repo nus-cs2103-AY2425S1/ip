@@ -1,11 +1,11 @@
 package command;
 
+import java.io.IOException;
+
 import storage.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -25,8 +25,8 @@ public class DeleteCommand extends Command {
     /**
      * Executes the command to delete a task from the task list.
      *
-     * @param tasks The task list to delete the task from.
-     * @param ui The user interface to display the result of the command.
+     * @param tasks   The task list to delete the task from.
+     * @param ui      The user interface to display the result of the command.
      * @param storage The storage to save the task list to.
      */
     @Override

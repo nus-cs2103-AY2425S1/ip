@@ -1,12 +1,22 @@
 package parser;
 
-import command.*;
-import task.Deadline;
-import task.ToDo;
-import task.Event;
-
 import java.time.format.DateTimeParseException;
 
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.InvalidCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
+import task.Deadline;
+import task.Event;
+import task.ToDo;
+
+/**
+ * Represents a parser to parse user input.
+ */
 public class Parser {
     /**
      * Parses the given input and returns the corresponding command.
@@ -34,7 +44,9 @@ public class Parser {
             try {
                 return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
             } catch (DateTimeParseException e) {
-                return new InvalidCommand("Invalid date format! Please use yyyy-MM-dd HHmm format.\nExample: 2021-09-30 1800");
+                return new InvalidCommand(
+                        "Invalid date format! Please use yyyy-MM-dd HHmm format.\nExample: 2021-09-30 1800"
+                );
             }
         case "event":
             String[] eventParts = arguments.split(" /from | /to ");
@@ -46,7 +58,9 @@ public class Parser {
             try {
                 return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
             } catch (DateTimeParseException e) {
-                return new InvalidCommand("Invalid date format! Please use yyyy-MM-dd HHmm format.\nExample: 2021-09-30 1800");
+                return new InvalidCommand(
+                        "Invalid date format! Please use yyyy-MM-dd HHmm format.\nExample: 2021-09-30 1800"
+                );
             }
         case "mark":
             return new MarkCommand(Integer.parseInt(arguments));
@@ -57,7 +71,9 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         default:
-            return new InvalidCommand("OOPS!!! I'm sorry, but I don't know what that means :-(\nPlease enter a valid command!");
+            return new InvalidCommand(
+                    "OOPS!!! I'm sorry, but I don't know what that means :-(\nPlease enter a valid command!"
+            );
         }
     }
 }

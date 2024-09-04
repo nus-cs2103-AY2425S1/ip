@@ -1,11 +1,11 @@
 package command;
 
+import java.io.IOException;
+
 import storage.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to mark a task as done.
@@ -25,8 +25,8 @@ public class MarkCommand extends Command {
     /**
      * Marks the task as done and saves the updated task list to the storage.
      *
-     * @param tasks The task list.
-     * @param ui The user interface.
+     * @param tasks   The task list.
+     * @param ui      The user interface.
      * @param storage The storage.
      */
     @Override
