@@ -82,7 +82,7 @@ public class Main extends Application {
 
         //Add Greeting
         dialogContainer.getChildren().addAll(
-                new DialogBox(stelle.getGreeting(), stelleImage)
+                DialogBox.getStelleDialog(stelle.getGreeting(), stelleImage)
         );
 
         //Handling user input
@@ -104,10 +104,10 @@ public class Main extends Application {
      */
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = stelle.getResponse(userInput.getText());
+        String stelleText = stelle.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, userImage),
-                new DialogBox(dukeText, stelleImage)
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getStelleDialog(stelleText, stelleImage)
         );
         userInput.clear();
     }
