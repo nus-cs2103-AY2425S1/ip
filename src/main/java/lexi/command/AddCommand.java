@@ -12,6 +12,7 @@ import lexi.ui.Ui;
  */
 public class AddCommand extends Command {
     private final Task task;
+    private String response;
 
     /**
      * Constructs an AddCommand with the specified task.
@@ -36,7 +37,7 @@ public class AddCommand extends Command {
         tasks.addTask(task);
         storage.updateStorage(tasks.getTasks());
         int taskSize = tasks.getSize();
-        ui.showAddMessage(task, taskSize);
+        response = ui.showAddMessage(task, taskSize);
     }
 
     /**
@@ -47,5 +48,10 @@ public class AddCommand extends Command {
     @Override
     public String getCommandName() {
         return "ADD";
+    }
+
+    @Override
+    public String getString() {
+        return response;
     }
 }

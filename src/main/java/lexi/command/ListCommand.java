@@ -14,6 +14,7 @@ import lexi.ui.Ui;
  */
 public class ListCommand extends Command {
 
+    private String response;
     /**
      * Executes the list command, displaying all tasks in the task list.
      *
@@ -27,7 +28,7 @@ public class ListCommand extends Command {
         if (taskList.isEmpty()) {
             throw new LexiException("You have no tasks in your list!");
         }
-        ui.showListOfTasks(taskList);
+        response = ui.showListOfTasks(taskList);
     }
 
     /**
@@ -38,5 +39,10 @@ public class ListCommand extends Command {
     @Override
     public String getCommandName() {
         return "LIST";
+    }
+
+    @Override
+    public String getString() {
+        return response;
     }
 }

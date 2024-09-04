@@ -13,20 +13,20 @@ import lexi.ui.Ui;
  */
 public class Lexi {
 
+    private static final String filePath = "data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private String commandType;
 
     /**
      * Constructs a new Lexi application instance.
      * Initializes the UI, loads tasks from the specified file, and prepares the task list.
-     *
-     * @param filePath The file path to load tasks from.
      */
-    public Lexi(String filePath) {
+    public Lexi() {
         try {
             ui = new Ui();
-            storage = new Storage(filePath);
+            storage = new Storage(Lexi.filePath);
             tasks = new TaskList(storage.load());
         } catch (LexiException e) {
             ui.showLoadingError();
@@ -39,33 +39,17 @@ public class Lexi {
      * This method starts the main loop that reads commands from the user, processes them,
      * and executes the corresponding actions until the user decides to exit.
      */
-    public void run() {
-        ui.showLine();
-        ui.showWelcome();
-        ui.showLine();
-        boolean isExit = false;
-        while (!isExit) {
+    public String getResponse(String input) {
             try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                ui.showLine();
+                Command c = Parser.parse(input);
                 c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                this.commandType = c.getClass().getSimpleName();
+                return c.getString();
             } catch (LexiException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
+                return ui.showError(e.getMessage());
             }
-        }
     }
-
-    /**
-     * The main entry point for the Lexi application.
-     * This method creates a new Lexi instance and starts the application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Lexi("data/tasks.txt").run();
+    public String getCommandType() {
+        return commandType;
     }
 }

@@ -10,6 +10,8 @@ import lexi.ui.Ui;
  */
 public class ByeCommand extends Command {
 
+    private String response;
+
     /**
      * Executes the bye command.
      * This method sets the application to exit and displays a goodbye message to the user.
@@ -20,8 +22,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        super.setExit();
-        ui.showBye();
+        response = ui.showBye();
     }
 
     /**
@@ -32,5 +33,10 @@ public class ByeCommand extends Command {
     @Override
     public String getCommandName() {
         return "BYE";
+    }
+
+    @Override
+    public String getString() {
+        return response;
     }
 }

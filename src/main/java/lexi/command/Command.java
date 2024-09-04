@@ -11,7 +11,6 @@ import lexi.ui.Ui;
  * check if the command is an exit command, and set the exit status.
  */
 public abstract class Command {
-    private boolean isExit = false;
 
     /**
      * Executes the command.
@@ -31,20 +30,5 @@ public abstract class Command {
      * @return The name of the command.
      */
     public abstract String getCommandName();
-
-    /**
-     * Sets the exit status of the command to true, indicating that the application should exit.
-     */
-    public void setExit() {
-        this.isExit = true;
-    }
-
-    /**
-     * Returns whether this command is an exit command.
-     *
-     * @return {@code true} if the command is an exit command, {@code false} otherwise.
-     */
-    public boolean isExit() {
-        return this.isExit;
-    }
+    public abstract String getString();
 }
