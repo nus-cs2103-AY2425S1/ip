@@ -34,7 +34,7 @@ public class AddToDoCommand extends Command {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Got it. I've added this task:\n");
-        sb.append("  " + task);
+        sb.append("  " + task + "\n");
         sb.append("Now you have " + tasklist.size() + " tasks in the list.\n");
 
         return sb.toString();
