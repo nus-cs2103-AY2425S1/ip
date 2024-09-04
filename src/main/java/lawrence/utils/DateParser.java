@@ -1,7 +1,9 @@
+package lawrence.utils;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class DateUtils {
+public class DateParser {
     public static final String USER_INPUT_FORMAT_STRING = "yyyy-MM-dd HH:mm";
     public static final String STORE_FORMAT_STRING = "dd-MM-yyyy HH:mm";
     private static final DateTimeFormatter USER_INPUT_FORMATTER = DateTimeFormatter.ofPattern(USER_INPUT_FORMAT_STRING);

@@ -1,3 +1,9 @@
+package lawrence.command;
+
+import lawrence.database.TaskFileManager;
+import lawrence.task.TaskList;
+import lawrence.ui.UserInterface;
+
 import java.io.IOException;
 
 public abstract class Command {

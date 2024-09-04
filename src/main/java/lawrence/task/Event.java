@@ -1,3 +1,7 @@
+package lawrence.task;
+
+import lawrence.utils.DateParser;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {
@@ -18,14 +22,14 @@ public class Event extends Task {
     public String toSaveFormat() {
         return String.format("E | %s | %s | %s",
                 super.toSaveFormat(),
-                DateUtils.toOutputString(from),
-                DateUtils.toOutputString(to));
+                DateParser.toOutputString(from),
+                DateParser.toOutputString(to));
     }
 
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
-                DateUtils.toOutputString(from),
-                DateUtils.toOutputString(to));
+                DateParser.toOutputString(from),
+                DateParser.toOutputString(to));
     }
 }

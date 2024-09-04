@@ -1,3 +1,5 @@
+package lawrence.command;
+
 public enum CommandType {
     EXIT("bye"),
     DISPLAY("list"),

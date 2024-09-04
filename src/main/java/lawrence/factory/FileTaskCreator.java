@@ -1,3 +1,8 @@
+package lawrence.factory;
+
+import lawrence.task.*;
+import lawrence.utils.DateParser;
+
 import java.time.LocalDateTime;
 
 public class FileTaskCreator implements TaskCreator {
@@ -60,7 +65,7 @@ public class FileTaskCreator implements TaskCreator {
         // deconstruct array elements into their respective attributes
         boolean isComplete = parameters[0].equals("1");
         String description = parameters[1];
-        LocalDateTime by = DateUtils.parseFileInputDate(parameters[2]);
+        LocalDateTime by = DateParser.parseFileInputDate(parameters[2]);
 
         return new Deadline(description, isComplete, by);
     }
@@ -78,8 +83,8 @@ public class FileTaskCreator implements TaskCreator {
         // deconstruct array elements into their respective attributes
         boolean isComplete = parameters[0].equals("1");
         String description = parameters[1];
-        LocalDateTime from = DateUtils.parseFileInputDate(parameters[2]);
-        LocalDateTime to = DateUtils.parseFileInputDate(parameters[3]);
+        LocalDateTime from = DateParser.parseFileInputDate(parameters[2]);
+        LocalDateTime to = DateParser.parseFileInputDate(parameters[3]);
 
         return new Event(description, isComplete, from, to);
     }

@@ -1,3 +1,15 @@
+package lawrence.factory;
+
+
+import lawrence.command.Command;
+import lawrence.command.CommandType;
+import lawrence.command.DisplayTasksCommand;
+import lawrence.command.ExitSessionCommand;
+import lawrence.command.CompleteTaskCommand;
+import lawrence.command.UncompleteTaskCommand;
+import lawrence.command.DeleteTaskCommand;
+import lawrence.command.AddTaskCommand;
+
 public class CommandFactory {
     public static Command createCommand(String input) throws IllegalArgumentException {
         // Parse command at start of the line

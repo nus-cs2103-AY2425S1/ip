@@ -1,3 +1,12 @@
+package lawrence.app;
+
+import lawrence.command.Command;
+import lawrence.database.TaskFileManager;
+import lawrence.factory.CommandFactory;
+import lawrence.task.Task;
+import lawrence.task.TaskList;
+import lawrence.ui.UserInterface;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;

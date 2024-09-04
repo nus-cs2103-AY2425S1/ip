@@ -1,6 +1,13 @@
+package lawrence.command;
+
+import lawrence.database.TaskFileManager;
+import lawrence.task.Task;
+import lawrence.task.TaskList;
+import lawrence.ui.UserInterface;
+
 import java.io.IOException;
 
-public class CompleteTaskCommand extends Command{
+public class CompleteTaskCommand extends Command {
     private final String input;
 
     public CompleteTaskCommand(String input) {

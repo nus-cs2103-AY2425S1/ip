@@ -1,3 +1,5 @@
+package lawrence.task;
+
 public enum TaskType {
     TODO("todo"),
     DEADLINE("deadline"),
