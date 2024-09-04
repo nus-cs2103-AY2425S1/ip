@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Task {
@@ -27,7 +28,7 @@ public class Task {
                 if (taskArray.length == 2){
                     String[] by = taskArray[1].split(" ", 2);
                     if (by[0].equalsIgnoreCase("by") && by.length == 2) {
-                        return new Deadline(taskArray[0], by[1]);
+                        return new Deadline(taskArray[0], LocalDate.parse(by[1],Parser.DATEFORMATTER));
                     }
                 }
                 throw new RuntimeException();
@@ -38,7 +39,9 @@ public class Task {
                     String[] from = taskArr[1].split(" ", 2);
                     String[] to = taskArr[2].split(" ", 2);
                     if (from[0].equalsIgnoreCase("from") && from.length == 2 && to[0].equalsIgnoreCase("to") && to.length == 2) {
-                        return new Event(taskArr[0], from[1], to[1]);
+                        return new Event(taskArr[0],
+                                LocalDate.parse(from[1].replaceAll(" ",""), Parser.DATEFORMATTER),
+                                LocalDate.parse(to[1].replaceAll(" ",""),Parser.DATEFORMATTER));
                     }
                 }
                 throw new RuntimeException();

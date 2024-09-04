@@ -1,6 +1,7 @@
-import java.util.Arrays;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Parser {
+    public static final DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public static Task loadTask(String data) {
         String[] dataArr = data.split("\\|");
         boolean completed = false;
@@ -29,21 +30,32 @@ public class Parser {
         throw new RuntimeException("Error loading task, data given is wrong");
     }
     public static Task parseStoredDeadline(String[] dataArr) {
-        if (dataArr.length == 4) {
-            if (dataArr[1].equals(Task.COMPLETEICON)){
-                return new Deadline(true, dataArr[2], dataArr[3]);
+        try {
+            if (dataArr.length == 4) {
+                if (dataArr[1].equals(Task.COMPLETEICON)){
+                    return new Deadline(true, dataArr[2], LocalDate.parse(dataArr[3], DATEFORMATTER));
+                }
+                return new Deadline(false, dataArr[2], LocalDate.parse(dataArr[3], DATEFORMATTER));
             }
-            return new Deadline(false, dataArr[2], dataArr[3]);
+            throw new RuntimeException("Error loading task, data given is wrong");
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Fk");
         }
-        throw new RuntimeException("Error loading task, data given is wrong");
+
     }
 
     public static Task parseStoredEvent(String[] dataArr) {
         if (dataArr.length == 5) {
             if (dataArr[1].equals(Task.COMPLETEICON)){
-                return new Event(true, dataArr[2], dataArr[3],dataArr[4]);
+                return new Event(true,
+                        dataArr[2],
+                        LocalDate.parse(dataArr[3], DATEFORMATTER),
+                        LocalDate.parse(dataArr[4], DATEFORMATTER));
             }
-            return new Event(false, dataArr[2], dataArr[3],dataArr[4]);
+            return new Event(false,
+                    dataArr[2],
+                    LocalDate.parse(dataArr[3], DATEFORMATTER),
+                    LocalDate.parse(dataArr[4], DATEFORMATTER));
         }
         throw new RuntimeException("Error loading task, data given is wrong");
     }
