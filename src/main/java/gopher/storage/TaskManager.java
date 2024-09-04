@@ -1,17 +1,16 @@
 package gopher.storage;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.FileCorruptedException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
 import gopher.task.Task;
-
-import java.io.IOException;
-import java.lang.StringBuilder;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 
 /**
  * Represents the storage for managing task related data files.
@@ -48,7 +47,9 @@ public class TaskManager {
         String[] taskRows = taskString.split("\n");
         String[] tokens;
         for (String row : taskRows) {
-            if (row.isEmpty()) continue;
+            if (row.isEmpty()) {
+                continue;
+            }
 
             tokens = row.split(" \\| ");
             String taskType = tokens[0];
@@ -71,6 +72,8 @@ public class TaskManager {
                             taskName,
                             tokens[3],
                             tokens[4]));
+                    break;
+                default:
                     break;
                 }
                 if (newTask != null && taskStatus.equals("X")) {

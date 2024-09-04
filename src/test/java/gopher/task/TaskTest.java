@@ -1,18 +1,20 @@
 package gopher.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskTest {
     private Task createTask(String command) {
-        try{
+        try {
             return Task.of(command);
-        } catch(UnknownCommandException
-        | EmptyTaskDescriptionException
-        | MissingTokenException e) {
+        } catch (UnknownCommandException
+            | EmptyTaskDescriptionException
+            | MissingTokenException e) {
             return null;
         }
     }
