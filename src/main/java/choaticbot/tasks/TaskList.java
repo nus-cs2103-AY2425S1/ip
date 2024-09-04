@@ -71,6 +71,17 @@ public class TaskList {
         printLine();
     }
 
+    public void filterByWord(String word) {
+        printLine();
+        for (int i = 0; i < tasklist.size(); i++) {
+            if (tasklist.get(i).containWord(word)) {
+                System.out.println();
+                System.out.println((i + 1) + ". " + this.tasklist.get(i));
+            }
+        }
+        printLine();
+    }
+
     /**
      * Returns the list of tasks
      * @return An ArrayList of type Task

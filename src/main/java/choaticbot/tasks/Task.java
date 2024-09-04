@@ -38,6 +38,10 @@ abstract public class Task {
         return getType() + "|" + getName() + "|" + isComplete() + "|" + getAdditionalInfo();
     }
 
+    public boolean containWord(String name) {
+        return this.name.contains(name);
+    }
+
     @Override
     public String toString() {
         String marker = isCompleted ? "[X]" : "[ ]";

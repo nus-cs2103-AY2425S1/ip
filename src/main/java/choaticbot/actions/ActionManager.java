@@ -14,6 +14,7 @@ public class ActionManager {
             case "mark" -> new Mark(taskList, processedInput.getDetails());
             case "unmark" -> new Unmark(taskList, processedInput.getDetails());
             case "delete" -> new Delete(taskList, processedInput.getDetails());
+            case "find" -> new Find(taskList, processedInput.getDetails());
             //Allow fall through on purpose to cover all cases
             case "todo", "deadline", "event" ->
                     new CreateTask(taskList, processedInput.getAction(), processedInput.getDetails());
