@@ -117,40 +117,46 @@ public class Bobby {
             case TODO:
                 Task t = Todo.createTodo(input);
                 listOfTasks.addTask(t);
+                this.storage.saveData(this.listOfTasks.getListOfTasks());
                 output = ui.showTaskCreated(t, listOfTasks.getListOfTasks());
                 break;
             case DEADLINE:
                 Task d = Deadline.createDeadline(input);
                 listOfTasks.addTask(d);
+                this.storage.saveData(this.listOfTasks.getListOfTasks());
                 output = ui.showTaskCreated(d, listOfTasks.getListOfTasks());
                 break;
             case EVENT:
                 Task e = Event.createEvent(input);
                 listOfTasks.addTask(e);
+                this.storage.saveData(this.listOfTasks.getListOfTasks());
                 output = ui.showTaskCreated(e, listOfTasks.getListOfTasks());
                 break;
             case MARK:
                 int indexMarked = Parser.parseNumber(input, 4);
                 listOfTasks.mark(indexMarked);
+                this.storage.saveData(this.listOfTasks.getListOfTasks());
                 output = ui.showMarked();
                 break;
             case UNMARK:
                 int indexUnmark = Parser.parseNumber(input, 6);
                 listOfTasks.unmark(indexUnmark);
+                this.storage.saveData(this.listOfTasks.getListOfTasks());
                 output = ui.showUnmarked();
                 break;
             case DELETE:
                 int indexDelete = Parser.parseNumber(input, 6);
                 Task taskToBeDeleted = listOfTasks.getTask(indexDelete - 1);
                 listOfTasks.deleteTask(indexDelete);
+                this.storage.saveData(this.listOfTasks.getListOfTasks());
                 output = ui.showTaskDeleted(taskToBeDeleted, listOfTasks.getNumberOfTasks());
                 break;
             case FIND:
                 String keyword = input.split(" ", 2)[1].trim();
                 output = ui.showFindTasks(this.listOfTasks.findMatchingTasks(keyword));
             }
-        } catch (BobbyException e) {
-            System.out.println(e.getMessage());
+        } catch (BobbyException | IOException e) {
+            return e.getMessage();
         }
         return output;
     }

@@ -85,7 +85,7 @@ public class Ui {
         } else {
             for (int i = 0; i < numberOfTasks; i++) {
                 int number = i + 1;
-                output += (number + ". " + taskList.get(i) + "\n");
+                output += (number + ". " + taskList.get(i).toString() + "\n");
             }
             return output;
         }
