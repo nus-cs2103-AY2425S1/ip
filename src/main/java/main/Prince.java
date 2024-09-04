@@ -22,7 +22,6 @@ public class Prince {
 
     /**
      * A constructor for Prince.
-     * @param filePath Path that represents a relative path to the storage file.
      */
     public Prince() {
         ui = new Ui();
@@ -36,32 +35,23 @@ public class Prince {
     }
 
     /**
-     * Runs Prince.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readInput();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (PrinceException e) {
-                ui.showError(e.toString());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
      * Return a string containing Prince's response to the user's input
      * @param input Input by the user.
      * @return Prince's response to the user.
      */
     public String getResponse(String input) {
-        return "Prince heard: " + input;      
+        boolean isExit = false;
+        if (isExit) {
+            return "Prince going to sleep...";
+        }
+        try {
+            ui.resetBuilder();
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            isExit = c.isExit();
+            return ui.getBuilder();
+        } catch (PrinceException e) {
+            return e.toString();
+        }
     }
 }
