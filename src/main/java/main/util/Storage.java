@@ -1,4 +1,4 @@
-package prince.util;
+package main.util;
 
 // deals with loading tasks from the file and saving tasks in the file
 
@@ -11,12 +11,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
-import prince.exceptions.PrinceException;
-import prince.tasks.Deadline;
-import prince.tasks.Event;
-import prince.tasks.Task;
-import prince.tasks.TaskList;
-import prince.tasks.Todo;
+import main.exceptions.PrinceException;
+import main.tasks.Deadline;
+import main.tasks.Event;
+import main.tasks.Task;
+import main.tasks.TaskList;
+import main.tasks.Todo;
 
 /**
  * Storage handles the reading and writing of user input to text files.

@@ -1,8 +1,8 @@
-package prince.command;
+package main.command;
 
-import prince.tasks.TaskList;
-import prince.util.Storage;
-import prince.util.Ui;
+import main.tasks.TaskList;
+import main.util.Storage;
+import main.util.Ui;
 
 /**
  * Command that terminates the chatbot.
@@ -10,7 +10,7 @@ import prince.util.Ui;
 public class ByeCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        this.toggleIsExit();
+        toggleIsExit();
         ui.showBye();
     }
 }

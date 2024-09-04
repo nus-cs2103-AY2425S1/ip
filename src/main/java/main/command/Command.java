@@ -1,9 +1,9 @@
-package prince.command;
+package main.command;
 
-import prince.exceptions.PrinceException;
-import prince.tasks.TaskList;
-import prince.util.Storage;
-import prince.util.Ui;
+import main.exceptions.PrinceException;
+import main.tasks.TaskList;
+import main.util.Storage;
+import main.util.Ui;
 
 /**
  * Command is an abstract class containing the

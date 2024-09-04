@@ -12,11 +12,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import prince.exceptions.PrinceException;
-import prince.tasks.Deadline;
-import prince.tasks.Event;
-import prince.tasks.TaskList;
-import prince.tasks.Todo;
+import main.exceptions.PrinceException;
+import main.tasks.Deadline;
+import main.tasks.Event;
+import main.tasks.TaskList;
+import main.tasks.Todo;
+import main.util.Storage;
 
 public class StorageTest {
     private static final Path FILE_PATH = (Paths.get("testFile", "temp.txt"));

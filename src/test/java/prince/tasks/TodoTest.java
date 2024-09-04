@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import main.tasks.Todo;
+
 public class TodoTest {
     @Test
     public void constructor_validInput_success() {

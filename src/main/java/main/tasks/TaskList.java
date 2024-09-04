@@ -1,4 +1,4 @@
-package prince.tasks;
+package main.tasks;
 
 import java.util.ArrayList;
 
@@ -38,5 +38,9 @@ public class TaskList {
 
     public void remove(int index) {
         tasksArray.remove(index);
+    }
+
+    public boolean isEmpty() {
+        return tasksArray.isEmpty();
     }
 }

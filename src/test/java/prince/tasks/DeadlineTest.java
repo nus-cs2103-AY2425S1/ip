@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import main.tasks.Deadline;
+
 public class DeadlineTest {
     @Test
     public void constructor_validInputWithoutFormattedDate_success() {

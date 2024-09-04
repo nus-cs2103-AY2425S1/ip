@@ -1,10 +1,10 @@
-package prince.command;
+package main.command;
 
-import prince.exceptions.PrinceException;
-import prince.tasks.TaskList;
-import prince.tasks.Todo;
-import prince.util.Storage;
-import prince.util.Ui;
+import main.exceptions.PrinceException;
+import main.tasks.TaskList;
+import main.tasks.Todo;
+import main.util.Storage;
+import main.util.Ui;
 
 /**
  * Creates a todo task.

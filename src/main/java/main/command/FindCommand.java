@@ -1,10 +1,10 @@
-package prince.command;
+package main.command;
 
-import prince.exceptions.PrinceException;
-import prince.tasks.Task;
-import prince.tasks.TaskList;
-import prince.util.Storage;
-import prince.util.Ui;
+import main.exceptions.PrinceException;
+import main.tasks.Task;
+import main.tasks.TaskList;
+import main.util.Storage;
+import main.util.Ui;
 
 /**
  * Command that finds tasks containing the keyword

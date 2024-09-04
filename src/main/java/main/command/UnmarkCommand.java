@@ -1,22 +1,22 @@
-package prince.command;
+package main.command;
 
-import prince.exceptions.PrinceException;
-import prince.tasks.Task;
-import prince.tasks.TaskList;
-import prince.util.Storage;
-import prince.util.Ui;
+import main.exceptions.PrinceException;
+import main.tasks.Task;
+import main.tasks.TaskList;
+import main.util.Storage;
+import main.util.Ui;
 
 /**
- * Command that marks a task.
+ * Command that unmarks a task.
  */
-public class MarkCommand extends Command {
+public class UnmarkCommand extends Command {
     private String input;
 
     /**
      * A constructor for UnmarkCommand class.
      * @param input Input by the user
      */
-    public MarkCommand(String input) {
+    public UnmarkCommand(String input) {
         this.input = input;
     }
 
@@ -26,15 +26,15 @@ public class MarkCommand extends Command {
      * @return Index of the task.
      */
     private int getIndex(String input) {
-        // get character value of index in input
-        String indexAsString = input.substring(5);
+        // get character value of index in the input
+        String indexAsString = input.substring(7);
         // convert to arr index
         int index = Integer.valueOf(indexAsString) - 1;
         return index;
     }
 
     /**
-     * Marks task as complete.
+     * Marks task as incomplete.
      * Update storage with correct boolean status.
      * Displays input for user.
      * @param input    Input by the user.
@@ -43,21 +43,26 @@ public class MarkCommand extends Command {
      * @param ui Ui as initialised in main.
      * @throws PrinceException
      */
-    private void mark(String input, TaskList taskList, Storage storage, Ui ui) throws PrinceException {
-        String checkMark = input.substring(0, 4);
-        if (checkMark.equals("mark")) {
+    private void unmark(String input, TaskList taskList, Storage storage, Ui ui) throws PrinceException {
+        if (input.equals("unmark")) {
+            throw new PrinceException("Don't forget to include the number of the task!");
+        }
+        // extra check to make sure the start of input is "unmark"
+        String checkUnmark = input.substring(0, 6);
+        if (checkUnmark.equals("unmark")) {
             int index = getIndex(input);
             Task task = taskList.get(index);
-            task.markAsDone();
+            task.markAsNotDone();
             storage.updateFile(input, taskList);
+            ui.showUnmark();
             ui.showTaskToString(task);
         } else {
-            throw new PrinceException("Please ensure that your input begins with 'mark'!");
+            throw new PrinceException("Please ensure that your input begins with 'unmark'!");
         }
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws PrinceException {
-        mark(this.input, tasks, storage, ui);
+        unmark(this.input, tasks, storage, ui);
     }
 }

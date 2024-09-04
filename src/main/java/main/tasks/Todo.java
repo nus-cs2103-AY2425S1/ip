@@ -1,4 +1,4 @@
-package prince.tasks;
+package main.tasks;
 
 /**
  * Todo represents a todo task and is a subclass of the Task class.

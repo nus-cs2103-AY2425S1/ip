@@ -1,4 +1,4 @@
-package prince.tasks;
+package main.tasks;
 
 /**
  * Task is a class that represents tasks that a user may input.
@@ -34,7 +34,6 @@ public class Task {
      */
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("    Nice! I've marked this task as done:");
     }
 
     /**
@@ -42,7 +41,6 @@ public class Task {
      */
     public void markAsNotDone() {
         this.isDone = false;
-        System.out.println("    OK, I've marked this task as not done yet:");
     }
 
     /**

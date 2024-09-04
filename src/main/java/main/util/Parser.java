@@ -1,16 +1,16 @@
-package prince.util;
+package main.util;
 
-import prince.command.ByeCommand;
-import prince.command.Command;
-import prince.command.DeadlineCommand;
-import prince.command.DeleteCommand;
-import prince.command.EventCommand;
-import prince.command.FindCommand;
-import prince.command.ListCommand;
-import prince.command.MarkCommand;
-import prince.command.TodoCommand;
-import prince.command.UnmarkCommand;
-import prince.exceptions.PrinceException;
+import main.command.ByeCommand;
+import main.command.Command;
+import main.command.DeadlineCommand;
+import main.command.DeleteCommand;
+import main.command.EventCommand;
+import main.command.FindCommand;
+import main.command.ListCommand;
+import main.command.MarkCommand;
+import main.command.TodoCommand;
+import main.command.UnmarkCommand;
+import main.exceptions.PrinceException;
 
 /**
  * Parser executes commands based on user input.
