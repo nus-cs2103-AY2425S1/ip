@@ -12,7 +12,7 @@ public class InvalidCommand extends Command {
 
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        System.out.println("Invalid Trackie.Command.");
+        System.out.println("Invalid command.");
     }
 
 }

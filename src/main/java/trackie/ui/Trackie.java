@@ -30,6 +30,6 @@ public class Trackie {
     }
 
     public static void main(String[] args) {
-        new Trackie("./src/data.txt").run();
+        new Trackie("src").run();
     }
 }

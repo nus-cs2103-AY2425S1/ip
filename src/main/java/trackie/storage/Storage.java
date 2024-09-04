@@ -5,19 +5,37 @@ import trackie.tasks.Event;
 import trackie.tasks.Task;
 import trackie.tasks.Todo;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Storage {
     private TaskList taskList;
     private File fPtr;
     public Storage(String filepath, TaskList taskList) {
-        fPtr = new File(filepath);
+        try {
+            String filename = "data.txt";
+            fPtr = new File(filepath);
+            if (!fPtr.exists()) {
+                fPtr.mkdirs();
+            }
+            fPtr = new File(filepath + File.separatorChar + filename);
+            fPtr.createNewFile();
+
+        } catch (IOException e) {
+            System.out.println("Error creating file =(");
+        }
+
         this.taskList = taskList;
     }
 
     //loads data from txt file into memory
     public void load() {
+        System.out.println(fPtr.getAbsolutePath());
         try {
             Scanner sc = new Scanner(fPtr);
             while (sc.hasNextLine()) {

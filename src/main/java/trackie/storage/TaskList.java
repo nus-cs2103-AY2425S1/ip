@@ -23,7 +23,7 @@ public class TaskList {
 
     public void addTodoTask(String[] arguments) throws TrackieException {
         if (arguments.length == 1) {
-            throw new TrackieException("Incorrect usage!");
+            throw new TrackieException("Correct usage: todo [desc]");
         }
         StringBuilder sb = new StringBuilder();
         int ptr = 1;
@@ -41,7 +41,7 @@ public class TaskList {
 
     public void addDeadlineTask(String[] arguments) throws TrackieException {
         if (arguments.length == 1) {
-            throw new TrackieException("Incorrect usage!");
+            throw new TrackieException("Correct usage: deadline [desc] /by [yyyy-mm-dd]");
         }
 
         String desc;
@@ -54,7 +54,7 @@ public class TaskList {
 
         while (!arguments[ptr].equals("/by")) {
             if (ptr == arguments.length - 1) {
-                throw new TrackieException("Incorrect usage 1!");
+                throw new TrackieException("Correct usage: deadline [desc] /by [yyyy-mm-dd]");
             }
             sb.append(arguments[ptr]).append(' ');
             ptr++;
@@ -93,7 +93,7 @@ public class TaskList {
 
     public void addEventTask(String[] arguments) throws TrackieException {
         if (arguments.length == 1) {
-            throw new TrackieException("Incorrect usage 2!");
+            throw new TrackieException("Correct usage: event [desc] /from [start] /to [end]");
         }
 
         String desc = "";
@@ -105,7 +105,7 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         while (!arguments[ptr].equals("/from")) {
             if (ptr == arguments.length - 1) {
-                throw new TrackieException("Incorrect usage 3!");
+                throw new TrackieException("Correct usage: event [desc] /from [start] /to [end]");
             }
             sb.append(arguments[ptr]).append(' ');
             ptr++;
@@ -118,13 +118,13 @@ public class TaskList {
 
         ptr++;
         if (ptr >= arguments.length) {
-            throw new TrackieException("Incorrect usage 4!");
+            throw new TrackieException("Correct usage: event [desc] /from [start] /to [end]");
         }
         //retrieve the start time
         StringBuilder sb2 = new StringBuilder();
         while (!arguments[ptr].equals("/to")) {
             if (ptr == arguments.length - 1) {
-                throw new TrackieException("Incorrect usage 5!");
+                throw new TrackieException("Correct usage: event [desc] /from [start] /to [end]");
             }
             sb2.append(arguments[ptr]).append(" ");
             ptr++;
