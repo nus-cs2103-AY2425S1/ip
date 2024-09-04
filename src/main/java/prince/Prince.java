@@ -3,12 +3,12 @@ package prince;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import command.Command;
-import exceptions.PrinceException;
-import tasks.TaskList;
-import util.Parser;
-import util.Storage;
-import util.Ui;
+import prince.command.Command;
+import prince.exceptions.PrinceException;
+import prince.tasks.TaskList;
+import prince.util.Parser;
+import prince.util.Storage;
+import prince.util.Ui;
 
 /**
  * Prince is a chatbot that interacts with users.
