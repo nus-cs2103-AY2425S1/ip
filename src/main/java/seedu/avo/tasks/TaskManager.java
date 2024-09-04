@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import seedu.avo.storage.Storage;
-import seedu.avo.ui.AppUI;
+import seedu.avo.ui.ResponseFormatter;
 
 /**
  * Represents a controller that perform
@@ -15,15 +15,15 @@ import seedu.avo.ui.AppUI;
 public class TaskManager {
     private final List<Task> tasks;
     private final Storage<Task, String> storage;
-    private final AppUI ui;
+    private final ResponseFormatter formatter;
 
     /**
      * @param storage A storage object
      */
-    public TaskManager(Storage<Task, String> storage, AppUI ui) {
+    public TaskManager(Storage<Task, String> storage, ResponseFormatter formatter) {
         tasks = storage.fetchAll();
         this.storage = storage;
-        this.ui = ui;
+        this.formatter = formatter;
     }
 
     /**
@@ -32,8 +32,8 @@ public class TaskManager {
     public String listTasks() {
         List<Integer> indexes = IntStream.range(0, tasks.size())
                 .boxed().toList();
-        return ui.printTaskCount(tasks.size()) + "\n" +
-        ui.printTasksFromList(tasks, indexes);
+        return formatter.showTaskCount(tasks.size()) + "\n"
+                + formatter.showTasksFromList(tasks, indexes);
     }
 
     /**
@@ -44,7 +44,7 @@ public class TaskManager {
         Task task = tasks.get(index);
         task.complete();
         saveList();
-        return ui.printTaskMarked(tasks, index);
+        return formatter.showTaskMarked(tasks, index);
     }
     /**
      * Mark a task as uncompleted
@@ -54,7 +54,7 @@ public class TaskManager {
         Task task = tasks.get(index);
         task.unComplete();
         saveList();
-        return ui.printTaskUnmarked(tasks, index);
+        return formatter.showTaskUnmarked(tasks, index);
     }
 
     /**
@@ -64,7 +64,7 @@ public class TaskManager {
     public String addTask(Task task) {
         tasks.add(task);
         saveList();
-        return ui.printTaskAdded(tasks);
+        return formatter.showTaskAdded(tasks);
     }
 
     /**
@@ -74,15 +74,15 @@ public class TaskManager {
     public String deleteTask(int index) {
         Task task = tasks.remove(index);
         saveList();
-        return ui.printTaskRemoved(task);
+        return formatter.showTaskRemoved(task);
     }
     private void saveList() {
         storage.write(this.formatData());
     }
     public String getTasksByDate(LocalDate date) {
         List<Integer> indexes = filterByDate(date);
-        return ui.printTaskCount(indexes.size()) + "\n" +
-        ui.printTasksFromList(tasks, indexes);
+        return formatter.showTaskCount(indexes.size()) + "\n"
+                + formatter.showTasksFromList(tasks, indexes);
     }
 
     /**
@@ -98,8 +98,8 @@ public class TaskManager {
     }
     public String getTasksByName(String name) {
         List<Integer> indexes = filterByName(name);
-        return ui.printTaskCount(indexes.size()) + "\n" +
-        ui.printTasksFromList(tasks, indexes);
+        return formatter.showTaskCount(indexes.size()) + "\n"
+                + formatter.showTasksFromList(tasks, indexes);
     }
     private List<Integer> filterByName(String name) {
         List<Integer> result = new ArrayList<>();

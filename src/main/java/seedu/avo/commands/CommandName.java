@@ -11,8 +11,7 @@ public enum CommandName {
     UNMARK("unmark"),
     DELETE("delete"),
     SEARCH_DATE("on"),
-    SEARCH_NAME("find"),
-    EXIT("exit");
+    SEARCH_NAME("find");
     private final String commandName;
     CommandName(String commandName) {
         this.commandName = commandName;

@@ -1,16 +1,14 @@
 package seedu.avo;
 
+/**
+ * Represents the response to the user
+ */
 public class Response {
-    private String message;
-    private boolean isExit;
-    public Response(String message, boolean isExit) {
+    private final String message;
+    public Response(String message) {
         this.message = message;
-        this.isExit = isExit;
     }
     public String getMessage() {
         return message;
-    }
-    public boolean getExitStatus() {
-        return isExit;
     }
 }
