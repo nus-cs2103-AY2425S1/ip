@@ -41,6 +41,10 @@ public class Controller {
         return taskList.deleteTask(command.getContent());
     }
 
+    private String findTask(Command<String> command) {
+        return taskList.findTask(command.getContent());
+    }
+
     private String createTask(Command<LocalDate[]> command) {
         return taskList.addTask(command);
     }
@@ -67,6 +71,11 @@ public class Controller {
                 case "delete" -> {
                     @SuppressWarnings("unchecked")
                     String temp = deleteTask((Command<Integer>) command);
+                    return temp;
+                }
+                case "find" -> {
+                    @SuppressWarnings("unchecked")
+                    String temp = findTask((Command<String>) command);
                     return temp;
                 }
                 case "todo", "event", "deadline" -> {

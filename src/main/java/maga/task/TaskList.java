@@ -67,6 +67,19 @@ public class TaskList {
         }
     }
 
+    public String findTask(String content) {
+        StringBuilder message = new StringBuilder("Here are the matching tasks in your list: \n");
+        int count = 1;
+        for (Task task : taskList) {
+            if (task.getDescription().contains(content)) {
+                message.append(count + ". ").append(task.toString()).append("\n");
+            }
+            count++;
+        }
+
+        return message.toString();
+    }
+
     public String addTask(Command<LocalDate[]> command) {
         Task task = null;
         if (Objects.equals(command.getCommandType(), "todo")) {

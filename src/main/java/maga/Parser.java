@@ -36,9 +36,14 @@ public class Parser {
     }
 
     private Command<Integer> deleteTask(String input) {
-        String descrip = input.substring(7).trim();
-        int taskNumber = Integer.parseInt(descrip) - 1;
+        String description = input.substring(7).trim();
+        int taskNumber = Integer.parseInt(description) - 1;
         return new Command<>("delete", taskNumber);
+    }
+
+    private Command<String> findTask(String input) {
+        String description = input.substring(5).trim();
+        return new Command<>("find", description);
     }
 
     private Command<LocalDate[]> addTodoTask(String input) {
@@ -73,6 +78,7 @@ public class Parser {
         return new Command<>("deadline", descriptionArray[0], dateArray);
     }
 
+
     public Command<?> handleInput(String input) throws InvalidCommandException, DateTimeParseException {
         input = input.toLowerCase();
         String command = input.split(" ")[0];
@@ -82,6 +88,7 @@ public class Parser {
             case "mark" -> markTask(input);
             case "unmark" -> unmarkTask(input);
             case "delete" -> deleteTask(input);
+            case "find" -> findTask(input);
             case "todo" -> addTodoTask(input);
             case "event" -> addEventTask(input);
             case "deadline" -> addDeadlineTask(input);
