@@ -1,0 +1,3 @@
+D | 0 | aaa | sat
+E | 0 | bbb | sat | sun
+T | 0 | ccc
