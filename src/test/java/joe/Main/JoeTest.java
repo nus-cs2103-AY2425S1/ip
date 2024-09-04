@@ -16,11 +16,11 @@ public class JoeTest {
         Joe joe = new Joe("data/test.txt");
         TaskList tasks = joe.getTasks();
         assertEquals(4, tasks.size());
-        assertEquals("[T][X] read book", tasks.get(0).toString());
-        assertEquals("[D][ ] return book (by: Dec/12/2019 18:00)", tasks.get(1).toString());
+        assertEquals("[T][X] read book", tasks.getTask(0).toString());
+        assertEquals("[D][ ] return book (by: Dec/12/2019 18:00)", tasks.getTask(1).toString());
         assertEquals("[E][ ] project meeting (from: Dec/12/2019 18:00 to: Dec/12/2019 21:00)",
-                tasks.get(2).toString());
-        assertEquals("[T][X] join sports club", tasks.get(3).toString());
+                tasks.getTask(2).toString());
+        assertEquals("[T][X] join sports club", tasks.getTask(3).toString());
     }
 
     @Test

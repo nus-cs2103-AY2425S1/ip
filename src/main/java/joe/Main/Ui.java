@@ -29,13 +29,11 @@ public class Ui {
     }
 
     /**
-     * Runs the programme.
-     *
-     * @param tasks the TaskList object containing the tasks
+     * Sets the task list.
+     * @param tasks the task list
      */
-    public void runProgramme(TaskList tasks) {
+    public void setTasks(TaskList tasks) {
         this.tasks = tasks;
-        responseToCommand(receiveCommand());
     }
 
     /**
@@ -50,49 +48,40 @@ public class Ui {
      *
      * @param userCmd the user's command
      */
-    public void responseToCommand(String userCmd) {
+    public String responseToCommand(String userCmd) {
         Parser parser = new Parser(tasks);
-        boolean isExit = false;
-        Command c = null;
-        while (c == null || !c.isBye()) {
-            System.out.println(line);
-            switch (userCmd) {
-            case "/help":
-                c = new HelpCommand();
-                break;
-            case "bye":
-                c = new ByeCommand();
-                break;
-            case "list":
-                c = new ListCommand(tasks);
-                break;
-            case "save":
-                c = new SaveCommand(tasks);
-                break;
-            default:
-                try {
-                    c = parser.parseCommand(userCmd);
-                } catch (IllegalArgumentException | InvalidIndexException | InvalidCommandException e) {
-                    System.out.println(e.getMessage());
-                    System.out.println(line);
-                    continue;
-                }
-            }
-            c.execute();
-            System.out.println(line);
-
-            if (!c.isBye()) {
-                userCmd = receiveCommand();
+        Command c;
+        switch (userCmd) {
+        case "/help":
+            c = new HelpCommand();
+            break;
+        case "bye":
+            c = new ByeCommand();
+            break;
+        case "list":
+            c = new ListCommand(tasks);
+            break;
+        case "save":
+            c = new SaveCommand(tasks);
+            break;
+        default:
+            try {
+                c = parser.parseCommand(userCmd);
+            } catch (IllegalArgumentException | InvalidIndexException | InvalidCommandException e) {
+                return e.getMessage();
             }
         }
+
+        return c.execute();
     }
 
     /**
      * Tells the reader that there is an error reading the saved file and will create a new empty task list.
      */
-    public void showLoadingError(Exception e) {
-        System.out.println(e);
-        System.out.println("Creating new task list.");
+    public String showLoadingError(Exception e) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(e).append("\n").append("Creating new task list.\n");
+        return sb.toString();
     }
 
     /**

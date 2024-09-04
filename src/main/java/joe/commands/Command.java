@@ -11,7 +11,7 @@ public abstract class Command {
      * @throws IllegalArgumentException If the command is invalid.
      * @throws InvalidCommandException If the command is invalid.
      */
-    public abstract void execute() throws IllegalArgumentException, InvalidCommandException;
+    public abstract String execute() throws IllegalArgumentException, InvalidCommandException;
 
     /**
      * Returns true if the command is a bye command.

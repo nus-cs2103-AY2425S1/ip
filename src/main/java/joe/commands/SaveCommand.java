@@ -18,7 +18,7 @@ public class SaveCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        taskList.saveTasks();
+    public String execute() {
+        return taskList.saveTasks();
     }
 }

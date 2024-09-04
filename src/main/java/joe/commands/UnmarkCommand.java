@@ -21,7 +21,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute() throws InvalidIndexException {
-        taskList.unmark(index);
+    public String execute() throws InvalidIndexException {
+        return taskList.unmark(index);
     }
 }
