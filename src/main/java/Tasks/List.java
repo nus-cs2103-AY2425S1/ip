@@ -26,7 +26,6 @@ public class List {
     }
     public void addTaskToList(Task task) {
         tasks.add(task);
-        //System.out.println(line + task.addedString() + numOfTasks() + line);
     }
 
     public String addedNotification(Task task) {
