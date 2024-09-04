@@ -166,7 +166,7 @@ public class Ui {
      */
     public void showError(String message) {
         System.out.println(LINE_SEPARATOR);
-        System.out.println("\t\t" +message);
+        System.out.println("\t\t" + message);
         System.out.println(LINE_SEPARATOR);
     }
 

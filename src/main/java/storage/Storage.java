@@ -6,10 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 
 import task.Deadline;
@@ -67,7 +65,7 @@ public class Storage {
      * @param taskList The list of tasks to be saved.
      */
     public void saveTasks(ArrayList<Task> taskList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : taskList) {
                 writer.write(task.toSaveFormat() + System.lineSeparator());
             }

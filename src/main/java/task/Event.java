@@ -2,7 +2,13 @@ package task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-public class Event extends Task{
+
+/**
+ * Represents a task which is an event.
+ * An Event task has a description and a specific date and time
+ * when it starts and ends.
+ */
+public class Event extends Task {
 
     /**
      * Represents an event task with a specific start and end date and time.
@@ -20,8 +26,8 @@ public class Event extends Task{
      */
     public Event(String description, String dateStart, String dateEnd) {
         super(description);
-        this.dateStart = LocalDateTime.parse(dateStart.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));;
-        this.dateEnd = LocalDateTime.parse(dateEnd.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));;
+        this.dateStart = LocalDateTime.parse(dateStart.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        this.dateEnd = LocalDateTime.parse(dateEnd.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     /**
@@ -66,9 +72,9 @@ public class Event extends Task{
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " +
-                dateStart.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) +
-                " to: " + dateEnd.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + dateStart.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"))
+                + " to: " + dateEnd.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
     }
 
     /**
@@ -79,10 +85,9 @@ public class Event extends Task{
      */
     @Override
     public String toSaveFormat() {
-        return "task.Event | " + (isDone ? "Done" : "Not Done") + " | " +
-                description + " | " +
-                dateStart.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) +
-                " | " +
-                dateEnd.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
+        return "task.Event | " + (isDone ? "Done" : "Not Done") + " | "
+                + description + " | "
+                + dateStart.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"))
+                + " | " + dateEnd.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
     }
 }

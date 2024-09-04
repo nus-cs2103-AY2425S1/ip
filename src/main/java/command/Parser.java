@@ -1,15 +1,14 @@
 package command;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import storage.Storage;
-
 import task.Deadline;
 import task.Event;
-import task.ToDo;
 import task.Task;
 import task.TaskList;
+import task.ToDo;
+
 
 /**
  * Handles the parsing and execution of user commands in the ChatterBox chatbot.
@@ -17,8 +16,6 @@ import task.TaskList;
  * methods, modifying the tasklist and updating the storage as necessary.
  */
 public class Parser {
-    //Formatter for displaying dates in the desired format
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
     /**
      * Parses and executes user command based on the input string.
@@ -29,23 +26,23 @@ public class Parser {
      * @param ui The user interface handler for displaying messages.
      */
     public void parseExecute(String input, TaskList taskList, Storage storage, Ui ui) {
-        if(input.startsWith("mark")) {
+        if (input.startsWith("mark")) {
             markCommand(input, taskList, storage, ui);
-        } else if(input.startsWith("unmark")) {
+        } else if (input.startsWith("unmark")) {
             unmarkCommand(input, taskList, storage, ui);
-        } else if(input.startsWith("todo")) {
+        } else if (input.startsWith("todo")) {
             todoCommand(input, taskList, storage, ui);
-        } else if(input.startsWith("deadline")) {
+        } else if (input.startsWith("deadline")) {
             deadlineCommand(input, taskList, storage, ui);
-        } else if(input.startsWith("event")) {
+        } else if (input.startsWith("event")) {
             eventCommand(input, taskList, storage, ui);
-        } else if(input.startsWith("delete")) {
+        } else if (input.startsWith("delete")) {
             deleteCommand(input, taskList, storage, ui);
-        } else if(input.startsWith("list")) {
+        } else if (input.startsWith("list")) {
             listCommand(input, taskList, storage, ui);
-        } else if(input.startsWith("bye")) {
+        } else if (input.startsWith("bye")) {
             byeCommand(input, taskList, storage, ui);
-        } else if(input.startsWith("find")) {
+        } else if (input.startsWith("find")) {
             findCommand(input, taskList, storage, ui);
         } else {
             ui.showErrorUnknownCommand();
@@ -131,11 +128,11 @@ public class Parser {
     private void deadlineCommand(String input, TaskList taskList, Storage storage, Ui ui) {
         if (!input.contains("/by")) {
             ui.showError("task.Deadline format should be: deadline DESCRIPTION /by DATE");
-        } if (input.length() == 8) {
+        }
+        if (input.length() == 8) {
             ui.showErrorEmptyDeadlineDescription();
         } else {
             int index = input.indexOf("/");
-            String temp = input.substring(index + 1);
             int tempIndex = input.indexOf("y");
             String deadline = input.substring(tempIndex + 2);
             String description = input.substring(9, index);
@@ -164,10 +161,10 @@ public class Parser {
             int index = input.indexOf("/");
             String description = input.substring(6, index);
             String temp = input.substring(index + 1);
-            int index_2 = temp.indexOf("/");
-            int index_m = temp.indexOf("m");
-            String dateStart = temp.substring(index_m + 1, index_2);
-            String dateEnd = temp.substring(index_2 + 4);
+            int index2 = temp.indexOf("/");
+            int indexM = temp.indexOf("m");
+            String dateStart = temp.substring(indexM + 1, index2);
+            String dateEnd = temp.substring(index2 + 4);
             Event task = new Event(description, dateStart, dateEnd);
             taskList.addTask(task);
             ui.showTaskAdded(task, taskList.size());
@@ -195,7 +192,7 @@ public class Parser {
             } else {
                 ui.showErrorInvalidTaskNumber();
             }
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             ui.showError("Command must be followed by a specific task number");
         }
     }

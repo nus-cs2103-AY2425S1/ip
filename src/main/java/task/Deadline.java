@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * A Deadline task has a description and a specific date and time
  * by which it needs to be completed.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     protected LocalDateTime by;
 
@@ -20,7 +20,7 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = LocalDateTime.parse(by.trim(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm") );
+        this.by = LocalDateTime.parse(by.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     /**
@@ -62,7 +62,7 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                +  by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
     }
 
     /**
@@ -74,6 +74,6 @@ public class Deadline extends Task{
     @Override
     public String toSaveFormat() {
         return "task.Deadline | " + (isDone ? "Done" : "Not Done") + " | " + description + " | "
-                +  by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
     }
 }

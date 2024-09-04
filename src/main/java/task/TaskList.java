@@ -89,11 +89,16 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Finds a task by the given description
+     * @param description The description of the task to be found
+     * @return The tasks which have the same description as specified.
+     */
     public ArrayList<Task> findTasks(String description) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         if (description == null || description.trim().isEmpty()) {
             return matchingTasks;
-        } else  {
+        } else {
             for (Task task: tasks) {
                 if (task.getDescription().toLowerCase().contains(description.toLowerCase())) {
                     matchingTasks.add(task);

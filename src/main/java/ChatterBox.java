@@ -10,7 +10,7 @@ import task.TaskList;
  * Represents the main class for the ChatterBox application.
  * This class initializes the application, handles user input, and manages tasks.
  */
-public class ChatterBox{
+public class ChatterBox {
     private final TaskList taskList;
     private final Storage storage;
     private final Ui ui;
@@ -39,9 +39,9 @@ public class ChatterBox{
         Scanner sc = new Scanner(System.in);
         boolean isRunning = true;
 
-        while(isRunning) {
+        while (isRunning) {
             String input = sc.nextLine().trim();
-            if(input.equals("bye")) {
+            if (input.equals("bye")) {
                 parser.parseExecute(input, taskList, storage, ui);
                 isRunning = false;
             } else {
