@@ -1,7 +1,5 @@
 package task;
 
-import task.TaskType;
-
 public abstract class Task {
     protected String description;
     protected boolean isDone;

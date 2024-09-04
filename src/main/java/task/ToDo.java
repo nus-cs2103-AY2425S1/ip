@@ -1,5 +1,8 @@
 package task;
 
+import task.Task;
+import task.TaskType;
+
 public class ToDo extends Task {
 
     /**
