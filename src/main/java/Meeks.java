@@ -20,7 +20,7 @@ public class Meeks extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/pikachu.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/quack.jpeg"));
     private Image meeksImage = new Image(this.getClass().getResourceAsStream("/images/mudkip.png"));
     private Mudkip meeks = new Mudkip();
 
@@ -88,8 +88,8 @@ public class Meeks extends Application {
         String userText = userInput.getText();
         String meeksText = meeks.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, userImage),
-                new DialogBox(meeksText, meeksImage)
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getMeeksDialog(meeksText, meeksImage)
         );
         userInput.clear();
     }
