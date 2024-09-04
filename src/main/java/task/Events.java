@@ -1,14 +1,17 @@
 package task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import exception.CommandFoundButInvalidException;
 import exception.EmptyDescriptionException;
 import exception.InvalidSyntaxException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.List;
-
+/**
+ * Represents an event with a start and end date. this class extends the {@code Task}
+ * to include functionality for handling events with specific time ranges.
+ */
 public class Events extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -58,7 +61,7 @@ public class Events extends Task {
      * @throws EmptyDescriptionException if the description string is empty
      * @throws InvalidSyntaxException if the description is not empty but there is error with the syntax
      */
-    public String[] getValidString(String description) throws CommandFoundButInvalidException{
+    public String[] getValidString(String description) throws CommandFoundButInvalidException {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("event");
         }
@@ -76,6 +79,13 @@ public class Events extends Task {
         throw new InvalidSyntaxException("event");
     }
 
+    /**
+     * Returns the initial description of the event in a format suitable for storage.
+     * This format includes the task type, completion status, and the original description.
+     *
+     * @return a string representation of the event suitable for storage
+     */
+    @Override
     public String getInitDesc() {
         String str = super.isDone ? "1" : "0";
         return String.format("E | %s | %s", str, this.initDesc);
