@@ -1,11 +1,5 @@
 package storage;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
-import ui.Ui;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -18,6 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+import ui.Ui;
 
 /**
  * The {@code Storage} class handles the storage and retrieval of tasks from a file.
@@ -61,7 +61,7 @@ public class Storage {
             }
         } catch (IOException e) {
             Ui.showErrorMessage("Error creating file or folder: " + e.getMessage());
-            return taskList;  // Return an empty list if file creation fails
+            return taskList; // Return an empty list if file creation fails
         }
 
         // Now proceed to read the file
@@ -76,27 +76,30 @@ public class Storage {
                 String taskNumber = parts[1];
                 String taskDescription = parts[2];
                 switch (taskType) {
-                    case 'T' -> {
-                        taskList.add(new Todo(taskDescription));
-                        if (taskNumber.equals("1")) {
-                            taskList.get(taskList.size() - 1).completeTask();
-                        }
+                case 'T' -> {
+                    taskList.add(new Todo(taskDescription));
+                    if (taskNumber.equals("1")) {
+                        taskList.get(taskList.size() - 1).completeTask();
                     }
-                    case 'D' -> {
-                        LocalDateTime taskDeadline = LocalDateTime.parse(parts[3]);
-                        taskList.add(new Deadline(taskDescription, taskDeadline));
-                        if (taskNumber.equals("1")) {
-                            taskList.get(taskList.size() - 1).completeTask();
-                        }
+                }
+                case 'D' -> {
+                    LocalDateTime taskDeadline = LocalDateTime.parse(parts[3]);
+                    taskList.add(new Deadline(taskDescription, taskDeadline));
+                    if (taskNumber.equals("1")) {
+                        taskList.get(taskList.size() - 1).completeTask();
                     }
-                    case 'E' -> {
-                        LocalDateTime taskStartTime = LocalDateTime.parse(parts[3]);
-                        LocalDateTime taskEndTime = LocalDateTime.parse(parts[4]);
-                        taskList.add(new Event(taskDescription, taskStartTime, taskEndTime));
-                        if (taskNumber.equals("1")) {
-                            taskList.get(taskList.size() - 1).completeTask();
-                        }
+                }
+                case 'E' -> {
+                    LocalDateTime taskStartTime = LocalDateTime.parse(parts[3]);
+                    LocalDateTime taskEndTime = LocalDateTime.parse(parts[4]);
+                    taskList.add(new Event(taskDescription, taskStartTime, taskEndTime));
+                    if (taskNumber.equals("1")) {
+                        taskList.get(taskList.size() - 1).completeTask();
                     }
+                }
+                default -> {
+                    // Do nothing
+                }
                 }
             }
         } catch (FileNotFoundException e) {
@@ -266,5 +269,4 @@ public class Storage {
             e.printStackTrace();
         }
     }
-
 }

@@ -1,10 +1,10 @@
 package parser;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
 
 import commands.ByeCommand;
 import commands.Command;
@@ -16,7 +16,6 @@ import commands.ListCommand;
 import commands.MarkCommand;
 import commands.TodoCommand;
 import commands.UnmarkCommand;
-
 import exceptions.DownyException;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidFormatException;

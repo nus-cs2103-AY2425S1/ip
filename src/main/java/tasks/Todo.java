@@ -2,12 +2,8 @@ package tasks;
 
 /**
  * The {@code Todo} class represents a simple task without any specific date or time associated with it.
-<<<<<<< HEAD
- * It extends the {@code Task} class and is used for tasks that need to be done but do not have a deadline or event time.
-=======
  * It extends the {@code Task} class and is used for tasks that need to be done but
  * do not have a deadline or event time.
->>>>>>> branch-A-CodingStandard
  */
 public class Todo extends Task {
 
@@ -29,5 +25,4 @@ public class Todo extends Task {
     public String toString() {
         return "[T] " + super.toString();
     }
-
 }

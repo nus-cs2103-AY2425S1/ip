@@ -1,9 +1,9 @@
 package ui;
 
+import java.util.Scanner;
+
 import tasks.Task;
 import tasks.TaskList;
-
-import java.util.Scanner;
 
 /**
  * The {@code Ui} class handles interactions with the user, including displaying messages,
@@ -12,9 +12,8 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private final Scanner scanner;
-
     private static final String DIVIDER = "________________________________________\n";
+    private final Scanner scanner;
 
     /**
      * Constructs a new {@code Ui} object and initializes the scanner for user input.
@@ -105,8 +104,11 @@ public class Ui {
         System.out.printf(DIVIDER);
     }
 
-
-
+    /**
+     * Displays a message indicating that a task is complete.
+     *
+     * @param t The task that is complete.
+     */
     public void displayCompletedTask(Task t) {
         System.out.println(DIVIDER + "Nice! You've completed this task:\n  " + t + "\n" + DIVIDER);
     }

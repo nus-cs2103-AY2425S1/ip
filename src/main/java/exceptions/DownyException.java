@@ -17,4 +17,3 @@ public class DownyException extends Exception {
     }
 
 }
-

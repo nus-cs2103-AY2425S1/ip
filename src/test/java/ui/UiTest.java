@@ -1,16 +1,17 @@
 package ui;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import tasks.Task;
-import tasks.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import tasks.Task;
+import tasks.TaskList;
 
 class UiTest {
 
@@ -71,11 +72,11 @@ class UiTest {
 
         ui.displayTasks(taskList);
 
-        String expectedOutput = DIVIDER +
-                "Here are the tasks in your list:\n" +
-                "1. [T] [ ] Read a book\n" +
-                "2. [D] [ ] Submit report (by: Aug 30 2024 1800)\n" +
-                DIVIDER;
+        String expectedOutput = DIVIDER
+                + "Here are the tasks in your list:\n"
+                + "1. [T] [ ] Read a book\n"
+                + "2. [D] [ ] Submit report (by: Aug 30 2024 1800)\n"
+                + DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
@@ -84,10 +85,9 @@ class UiTest {
     void testDisplayCompletedTask() {
         Task task = new Task("Read a book");
         ui.displayCompletedTask(task);
-        String expectedOutput = DIVIDER +
-                "Nice! You've completed this task:\n  " +
-                task + "\n" +
-                DIVIDER;
+        String expectedOutput = DIVIDER
+                + "Nice! You've completed this task:\n  "
+                + task + "\n" + DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
@@ -96,10 +96,9 @@ class UiTest {
     void testDisplayIncompleteTask() {
         Task task = new Task("Read a book");
         ui.displayIncompleteTask(task);
-        String expectedOutput = DIVIDER +
-                "Ok! This task is not complete:\n  " +
-                task + "\n" +
-                DIVIDER;
+        String expectedOutput = DIVIDER
+                + "Ok! This task is not complete:\n  "
+                + task + "\n" + DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
@@ -108,10 +107,9 @@ class UiTest {
     void testDisplayDeletedTask() {
         Task task = new Task("Read a book");
         ui.displayDeletedTask(task);
-        String expectedOutput = DIVIDER +
-                "Ok! This task has been removed:\n  " +
-                task + "\n" +
-                DIVIDER;
+        String expectedOutput = DIVIDER
+                + "Ok! This task has been removed:\n  "
+                + task + "\n" + DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
@@ -120,11 +118,9 @@ class UiTest {
     void testDisplayTaskAdded() {
         Task task = new Task("Read a book");
         ui.displayTaskAdded(task, 5);
-        String expectedOutput = DIVIDER +
-                "Okay! Added this task:\n  " +
-                task + "\n" +
-                "Now you have 5 tasks in this list\n" +
-                DIVIDER;
+        String expectedOutput = DIVIDER
+                + "Okay! Added this task:\n  "
+                + task + "\n" + "Now you have 5 tasks in this list\n" + DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
@@ -132,18 +128,18 @@ class UiTest {
     @Test
     void testDisplayHelp() {
         ui.displayHelp();
-        String expectedOutput = DIVIDER +
-                "Here are a list of valid commands:\n" +
-                " - list\n" +
-                " - mark <taskNumber>\n" +
-                " - unmark <taskNumber>\n" +
-                " - delete <taskNumber>\n" +
-                " - todo <taskDescription>\n" +
-                " - deadline <taskDescription> /by <dueDate>\n" +
-                " - event <taskDescription> /from <startTime> /to <endTime>\n" +
-                " - bye\n" +
-                " - help\n" +
-                DIVIDER;
+        String expectedOutput = DIVIDER
+                + "Here are a list of valid commands:\n"
+                + " - list\n"
+                + " - mark <taskNumber>\n"
+                + " - unmark <taskNumber>\n"
+                + " - delete <taskNumber>\n"
+                + " - todo <taskDescription>\n"
+                + " - deadline <taskDescription> /by <dueDate>\n"
+                + " - event <taskDescription> /from <startTime> /to <endTime>\n"
+                + " - bye\n"
+                + " - help\n"
+                + DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
@@ -157,11 +153,11 @@ class UiTest {
 
         ui.displayMatchingTasks(taskList, "read");
 
-        String expectedOutput = DIVIDER +
-                "Here are the tasks in your list that match the keyword:\n" +
-                "1. [T] [ ] Read a book\n" +
-                "2. [T] [ ] Read the news\n" +
-                DIVIDER;
+        String expectedOutput = DIVIDER
+                + "Here are the tasks in your list that match the keyword:\n"
+                + "1. [T] [ ] Read a book\n"
+                + "2. [T] [ ] Read the news\n"
+                + DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
@@ -175,10 +171,10 @@ class UiTest {
 
         ui.displayMatchingTasks(taskList, "exercise");
 
-        String expectedOutput = DIVIDER +
-                "Here are the tasks in your list that match the keyword:\n" +
-                "No matching tasks found.\n" +
-                DIVIDER;
+        String expectedOutput = DIVIDER
+                + "Here are the tasks in your list that match the keyword:\n"
+                + "No matching tasks found.\n"
+                + DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
@@ -192,11 +188,11 @@ class UiTest {
 
         ui.displayMatchingTasks(taskList, "READ");
 
-        String expectedOutput = DIVIDER +
-                "Here are the tasks in your list that match the keyword:\n" +
-                "1. [T] [ ] Read a book\n" +
-                "2. [T] [ ] Read the news\n" +
-                DIVIDER;
+        String expectedOutput = DIVIDER
+                + "Here are the tasks in your list that match the keyword:\n"
+                + "1. [T] [ ] Read a book\n"
+                + "2. [T] [ ] Read the news\n"
+                + DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
     }
