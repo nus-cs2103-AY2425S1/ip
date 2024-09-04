@@ -26,7 +26,6 @@ public class Kira {
 
     public void run() {
 
-        //Kira.Kira kira = new Kira.Kira("data/kira.txt");
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser(this);
         String line = "____________________________________________________________\n";
