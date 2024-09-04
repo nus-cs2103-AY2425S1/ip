@@ -26,26 +26,33 @@ public class DeleteTaskCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void prompt() {
 
         Command listCommand = new ListCommand(taskList, ui);
-        listCommand.execute();
+        listCommand.prompt();
 
-        String input = null;
+        if (taskList.getLength() == 0) {
+            this.isComplete = true;
+            return;
+        }
 
-        if (taskList.getLength() != 0) {
+        ui.requestIndexFromUser("delete");
+    }
 
-            try {
-                input = ui.requestIndexFromUser("delete");
-                // Convert the input into a integer
-                int index = Integer.parseInt(input);
-                Task removedTask = taskList.deleteTask(index);
-                ui.printUpdateSuccessfulMessage(removedTask, "delete", taskList);
-            } catch (NumberFormatException invalidIdxError) {
-                ui.printExceptionMessage(new InvalidIndexException(input));
-            } catch (IndexOutOfBoundsException indexError) {
-                ui.printExceptionMessage(indexError);
-            }
+    @Override
+    public void execute(String input) {
+
+        try {                
+            // Convert the input into a integer
+            int index = Integer.parseInt(input);
+            Task task = taskList.deleteTask(index);
+            ui.printUpdateSuccessfulMessage(task, "delete", taskList);
+        } catch (NumberFormatException invalidIdxError) {
+            ui.printExceptionMessage(new InvalidIndexException(input));
+        } catch (IndexOutOfBoundsException indexError) {
+            ui.printExceptionMessage(indexError);
+        } finally {
+            this.isComplete = true;
         }
     }
 }

@@ -2,8 +2,11 @@ package quack;
 
 import java.util.Scanner;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import quack.exception.InvalidIndexException;
 import quack.exception.InvalidTaskTypeException;
+import quack.gui.DialogBox;
 import quack.tasks.Task;
 
 /**
@@ -28,9 +31,14 @@ public class Ui {
     /** Farewell message for Quack */
     private String farewellMessage = "Bye. Hope to see you again soon!";
     /** Greeting message for Quack */
-    private String greetingMessage = "Hello! I'm " + this.botName + "\nWhat can I do for you?\n" + this.spacer;
+    private String greetingMessage = "Hello! I'm " + this.botName + "\nWhat can I do for you?";
     /** Scanner to read user inputs*/
     private Scanner scanner = new Scanner(System.in);
+    
+    /** Output stream to display response to user */
+    private VBox dialogContainer;
+    /** Image of the Quack chatbot */
+    private Image quackImage;
     /** A list of all possible task types */
     private enum TaskTypes {
         TODO,
@@ -40,9 +48,13 @@ public class Ui {
 
     /**
      * Creates a Ui object.
+     * @param dialogContainer The output stream of the quack.
+     * @param quackImage The profile picture of the quack chatbot.
      */
-    public Ui() {
+    public Ui(VBox dialogContainer, Image quackImage) {
 
+        this.dialogContainer = dialogContainer;
+        this.quackImage = quackImage;
     }
 
     /**
@@ -54,20 +66,20 @@ public class Ui {
     }
 
     /**
-     * Prints the logo of Quack.
+     * Retrieves the logo of Quack.
+     * @return The logo of Quack.
      */
-    public void printLogo() {
+    public String getLogo() {
 
-        System.out.println(this.logo + "\n" + this.spacer);
+        return this.logo + "\n";
     }
 
     /**
-     * Prints the greeting message for Quack.
+     * Retrieves the greeting message for Quack.
+     * @return The greeting message to be displayed by Quack
      */
-    public void printgreeting() {
-
-        this.printLogo();
-        System.out.println(this.greetingMessage);
+    public String getGreeting() {
+        return this.greetingMessage;
     }
 
     /**
@@ -75,7 +87,7 @@ public class Ui {
      */
     public void printFarewell() {
 
-        System.out.println(this.farewellMessage);
+        this.outputToScreen(this.farewellMessage);
     }
 
     /**
@@ -92,16 +104,17 @@ public class Ui {
      */
     public void printExceptionMessage(Exception err) {
 
-        System.out.println(err.getMessage() + "\n" + this.spacer);
+        this.outputToScreen(err.getMessage());
     }
 
     /**
-     * Prints the object in its string representation.
+     * Returns the string representation of the object.
      * @param obj Object to be printed.
+     * @return The string representation of the object.
      */
-    public void printObject(Object obj) {
+    public String objectToString(Object obj) {
 
-        System.out.println(obj.toString() + "\n" + this.spacer);
+        return obj.toString();
     }
 
     /**
@@ -111,13 +124,12 @@ public class Ui {
     public void printSearchResult(TaskList filteredTaskList) {
 
         if (filteredTaskList.getLength() == 0) {
-            System.out.println("Im sorry. Seems like no tasks in the task list fits the description!");
+            this.outputToScreen("Im sorry. Seems like no tasks in the task list fits the description!");
         } else {
-            System.out.println("Here are some tasks that I found that matches your description:");
-            System.out.println(filteredTaskList.toString());
+            String output = ("Here are some tasks that I found that matches your description:\n");
+            output += filteredTaskList.toString();
+            this.outputToScreen(output);
         }
-
-        System.out.println(this.spacer);
     }
 
     /**
@@ -146,15 +158,11 @@ public class Ui {
 
     /**
      * Requests a search prompt from the user to begin searching
-     * for tasks that fot the prompt.
-     * @return A string representation of the command the user entered.
+     * for tasks that matches the prompt.
      */
-    public String requestSearchPrompt() {
+    public void requestSearchPrompt() {
 
-        System.out.print("What task would you like to find? : ");
-        String input = this.scanner.nextLine();
-        System.out.println(this.spacer);
-        return input;
+        this.outputToScreen("What task would you like to find?");
     }
 
     /**
@@ -163,12 +171,10 @@ public class Ui {
      * @return The index the user entered as an integer.
      * @throws InvalidIndexException If the index entered is invalid.
      */
-    public String requestIndexFromUser(String command) {
+    public void requestIndexFromUser(String command) {
 
-        System.out.println("Which task do you want to " + command + "? (Input the index of the task): ");
-        String input = this.scanner.nextLine();
-        System.out.println(this.spacer);
-        return input;
+        String output = "Which task do you want to " + command + "? (Input the index of the task): ";
+        this.outputToScreen(output);
     }
 
     /**
@@ -243,5 +249,13 @@ public class Ui {
             }
         }
         throw new InvalidTaskTypeException(taskType);
+    }
+
+    /**
+     * Outputs the text message for quack into the dialog box.
+     * @param output The string to be displayed.
+     */
+    public void outputToScreen(String output) {
+        this.dialogContainer.getChildren().addAll(DialogBox.getQuackDialog(output, quackImage));
     }
 }

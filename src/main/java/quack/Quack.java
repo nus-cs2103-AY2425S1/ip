@@ -1,7 +1,8 @@
 package quack;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import quack.command.Command;
-import quack.exception.InvalidCommandException;
 
 /**
  * The Quack chatbot program implements the functionality needed
@@ -17,19 +18,26 @@ public class Quack {
     private TaskList toDoList;
     /** Sotrage object to load and save data */
     private Storage storage;
-    /** Paser object to handle user inputs */
-    private Paser paser;
+    /** Parser object to handle user inputs */
+    private Parser parser;
 
     /**
      * Creates a Quack chatbot object.
+     * <p>
+     * At the same time greet the user.
+     * @param dialogContainer The output stream of the quack.
+     * @param quackImage The profile picture of the quack chatbot.
      */
-    public Quack() {
+    public Quack(VBox dialogContainer, Image quackImage) {
 
         this.isRunning = true;
         this.toDoList = new TaskList();
         this.storage = new Storage(this.toDoList);
-        this.ui = new Ui();
-        this.paser = new Paser(this, toDoList, storage, ui);
+        this.ui = new Ui(dialogContainer, quackImage);
+        this.parser = new Parser(this, toDoList, storage, ui);
+
+        String greeting = ui.getGreeting();
+        ui.outputToScreen(greeting);
     }
 
     /**
@@ -48,31 +56,13 @@ public class Quack {
     }
 
     /**
-     * Runs the chatbot and start taking inputs from the user.
+     * Processes the user command.
+     * @return The greeting message to be displayed to the user.
      */
-    private void run() {
+    public Command processResponse(String userInput) {
 
-        ui.printgreeting();
-
-        // Keep taking inputs from the user as long as the chatbot is running
-        while (isRunning) {
-            try {
-                Command command = paser.getUserInput();
-                command.execute();
-            } catch (InvalidCommandException commandError) {
-                ui.printExceptionMessage(commandError);
-            }
-        }
-        ui.printFarewell();
-        ui.closeScanner();
-    }
-
-    public String getResponse(String input) {
-        return "Nigga no!";
-    }
-
-    public static void main(String[] args) {
-        Quack bot = new Quack();
-        bot.run();
+        Command command = this.parser.processCommand(userInput);
+        return command;
     }
 }
+

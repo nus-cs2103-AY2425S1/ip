@@ -25,10 +25,16 @@ public class FindTaskCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void prompt() {
 
-        String input = this.ui.requestSearchPrompt();
+        ui.requestSearchPrompt();
+    }
+
+    @Override
+    public void execute(String input) {
+
         TaskList filteredTask = taskList.filterTasks(input);
         ui.printSearchResult(filteredTask);
+        this.isComplete = true;
     }
 }

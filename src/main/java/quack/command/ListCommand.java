@@ -24,7 +24,14 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        ui.printObject(taskList);
+    public void prompt() {
+        this.execute("");
+    }
+
+    @Override
+    public void execute(String input) {
+        String output = ui.objectToString(taskList);
+        ui.outputToScreen(output);
+        this.isComplete = true;
     }
 }

@@ -31,7 +31,7 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void prompt() {
 
         try {
             String taskType = ui.requestTaskType();
@@ -78,5 +78,10 @@ public class AddTaskCommand extends Command {
         } catch (InvalidDateTimeException dateTimeError) {
             ui.printExceptionMessage(dateTimeError);
         }
+    }
+
+    @Override
+    public void execute(String input) {
+        
     }
 }
