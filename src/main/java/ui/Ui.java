@@ -1,13 +1,13 @@
 package ui;
 
-import exception.JadeException;
-import task.TaskManager;
-import task.Task;
-import task.TaskType;
-import parser.Parser;
-
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import exception.JadeException;
+import parser.Parser;
+import task.Task;
+import task.TaskManager;
+import task.TaskType;
 
 /**
  * Handles user interaction and input for the Jade application.
@@ -167,6 +167,12 @@ public class Ui {
         taskManager.findTasks(keyword);
     }
 
+    /**
+     * Displays the list of tasks that match the search keyword provided by the user.
+     * If no tasks match the keyword, a message indicating no matches is shown.
+     *
+     * @param matchingTasks The list of tasks that match the search keyword.
+     */
     public static void showMatchingTasks(ArrayList<Task> matchingTasks) {
         StringBuilder message;
         if (matchingTasks.isEmpty()) {
