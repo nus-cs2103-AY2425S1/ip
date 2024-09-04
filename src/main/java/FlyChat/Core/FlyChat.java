@@ -35,7 +35,7 @@ public class FlyChat {
 
     private static void run() {
         isChatOperational = true;
-        while(isChatOperational) {
+        while (isChatOperational) {
             try {
                 processCommands();
             } catch (InputMismatchException e) {
@@ -47,13 +47,13 @@ public class FlyChat {
     }
 
     private static void processCommands() throws InputMismatchException, IOException {
-        try{
+        try {
             String inputString = ui.getNextLine();
 
             //while loop continues scanning until "bye" is typed by user
             while (!parser.parseCommand(inputString).equals("bye")) {
                 //when user types "list", list of tasks is returned
-                if(parser.parseCommand(inputString).equals("list")) {
+                if (parser.parseCommand(inputString).equals("list")) {
                     ui.announceString(taskList.announceItems());
                 //when user types "mark [num]", the task with index num is marked as done
                 } else if (parser.parseCommand(inputString).equals("mark")) {

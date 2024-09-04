@@ -35,7 +35,7 @@ public class Parser {
     }
 
     public String getEventStartTime(String inputString) {
-        return inputString.replaceAll(".*/from\\s*|\\s*/to.*","");
+        return inputString.replaceAll(".*/from\\s*|\\s*/to.*", "");
     }
 
     public String getEventEndTime(String inputString) {
@@ -53,7 +53,7 @@ public class Parser {
      * @return boolean indicating whether the task has been marked.
      * @throws IOException If save file has been corrupted and cannot be read.
      */
-    public boolean checkTaskCompletedFromFile(String inputString) throws IOException{
+    public boolean checkTaskCompletedFromFile(String inputString) throws IOException {
         try {
             return inputString.charAt(4) == 'X';
         } catch (IndexOutOfBoundsException e) {

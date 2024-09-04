@@ -8,7 +8,7 @@ import java.util.InputMismatchException;
 import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
-    
+
     @Test
     void testCreateNewDeadline_withValidDescriptionAndDeadlineAndUnmarked() {
         String description = "Assignment 1";
@@ -16,8 +16,8 @@ public class DeadlineTest {
         boolean isMarked = false;
 
         Deadline newDeadline = Deadline.createNewDeadline(description, deadlineText, isMarked);
-        assertEquals("[D][ ] Assignment 1 (by: 11 11 2024)", newDeadline.toString()
-                , "The deadline task should be created with the correct description, end date and unmarked");
+        assertEquals("[D][ ] Assignment 1 (by: 11 11 2024)", newDeadline.toString(),
+                "The deadline task should be created with the correct description, end date and unmarked");
     }
 
     @Test
@@ -27,8 +27,8 @@ public class DeadlineTest {
         boolean isMarked = true;
 
         Deadline newDeadline = Deadline.createNewDeadline(description, deadlineText, isMarked);
-        assertEquals("[D][X] Assignment 1 (by: 11 11 2024)", newDeadline.toString()
-                , "The deadline task should be created with the correct description, end date and marked");
+        assertEquals("[D][X] Assignment 1 (by: 11 11 2024)", newDeadline.toString(),
+                "The deadline task should be created with the correct description, end date and marked");
     }
 
     @Test
@@ -39,8 +39,8 @@ public class DeadlineTest {
         InputMismatchException exception = assertThrows(InputMismatchException.class, () -> {
             Deadline.createNewDeadline(description, deadlineText, isMarked);
         });
-        assertEquals("Please ensure that input contains a description TT", exception.getMessage()
-                , "The exception message should match the expected output");
+        assertEquals("Please ensure that input contains a description TT", exception.getMessage(),
+                "The exception message should match the expected output");
     }
 
     @Test
@@ -51,8 +51,8 @@ public class DeadlineTest {
         InputMismatchException exception = assertThrows(InputMismatchException.class, () -> {
             Deadline.createNewDeadline(description, deadlineText, isMarked);
         });
-        assertEquals("Please ensure that input contains end date formatted in the yyyy-mm-dd format"
-                , exception.getMessage(), "The exception message should match the expected output");
+        assertEquals("Please ensure that input contains end date formatted in the yyyy-mm-dd format",
+                exception.getMessage(), "The exception message should match the expected output");
     }
 
     @Test
@@ -63,7 +63,7 @@ public class DeadlineTest {
         InputMismatchException exception = assertThrows(InputMismatchException.class, () -> {
             Deadline.createNewDeadline(description, deadlineText, isMarked);
         });
-        assertEquals("Please ensure that input contains end date formatted in the yyyy-mm-dd format"
-                , exception.getMessage(), "The exception message should match the expected output");
+        assertEquals("Please ensure that input contains end date formatted in the yyyy-mm-dd format",
+                exception.getMessage(), "The exception message should match the expected output");
     }
 }

@@ -58,7 +58,7 @@ public class Storage {
             BufferedWriter writer = new BufferedWriter(new FileWriter(tmp));
             writer.write(source);
             writer.close();
-            if(saveFile.delete()) {
+            if (saveFile.delete()) {
                 tmp.renameTo(saveFile);
             }
         } catch (IOException e) {

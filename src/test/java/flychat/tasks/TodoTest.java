@@ -14,8 +14,8 @@ class TodoTest {
         String description = "Complete CS2030S Lecture 8";
         boolean isMarked = false;
         Todo todo = Todo.createNewTodo(description, isMarked);
-        assertEquals("[T][ ] Complete CS2030S Lecture 8", todo.toString()
-                , "The todo task should be created with the correct description and unmarked");
+        assertEquals("[T][ ] Complete CS2030S Lecture 8", todo.toString(),
+                "The todo task should be created with the correct description and unmarked");
     }
 
     @Test
@@ -23,8 +23,8 @@ class TodoTest {
         String description = "Finish assignment";
         boolean isMarked = true;
         Todo todo = Todo.createNewTodo(description, isMarked);
-        assertEquals("[T][X] Finish assignment", todo.toString()
-                , "The todo task should be created with the correct description and marked");
+        assertEquals("[T][X] Finish assignment", todo.toString(),
+                "The todo task should be created with the correct description and marked");
     }
 
     @Test
@@ -34,7 +34,7 @@ class TodoTest {
         InputMismatchException exception = assertThrows(InputMismatchException.class, () -> {
             Todo.createNewTodo(description, isMarked);
         });
-        assertEquals("Please ensure that the input contains a description TT", exception.getMessage()
-                , "The exception message should match the expected output");
+        assertEquals("Please ensure that the input contains a description TT", exception.getMessage(),
+                "The exception message should match the expected output");
     }
 }

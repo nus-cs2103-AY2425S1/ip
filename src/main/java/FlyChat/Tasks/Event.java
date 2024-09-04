@@ -25,9 +25,11 @@ public class Event extends Task {
      * @return A new Event task.
      * @throws InputMismatchException If input does not contain a description, startTime or endTime.
      */
-    public static Event createNewEvent(String description, String startTime, String endTime, boolean isMarked) throws InputMismatchException {
+    public static Event createNewEvent(String description, String startTime, String endTime, boolean isMarked) throws
+            InputMismatchException {
         if (description.equals("") || startTime.equals("") || endTime.equals("")) {
-            throw new InputMismatchException("Please ensure that the input contains a description, start and end time TT");
+            throw new InputMismatchException(
+                    "Please ensure that the input contains a description, start and end time TT");
         }
 
         Event newEvent = new Event(description, startTime, endTime);
