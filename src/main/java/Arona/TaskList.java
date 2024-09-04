@@ -2,6 +2,8 @@ package Arona;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TaskList {
 
@@ -62,6 +64,10 @@ public class TaskList {
     public Task setStatus(int i, boolean status) throws AronaException {
         get(i).setStatus(status);
         return get(i);
+    }
+
+    public ArrayList<Task> filter(String keyword) {
+        return list.stream().filter(x -> x.toString().contains(keyword)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     private static void process(String line) {

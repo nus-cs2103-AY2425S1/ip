@@ -54,12 +54,6 @@ public class TaskListTest {
     public void size_test_success(){
         DummyArona(".\\testdata.txt");
 
-        try {
-            ui.showList(tasks);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
         // Get current task length
         assertEquals(0, tasks.size());
 

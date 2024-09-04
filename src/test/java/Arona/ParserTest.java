@@ -87,7 +87,7 @@ public class ParserTest {
             Parser.parse("deadline /by", storage, tasks, ui);
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please specify a by date.", e.getMessage());
+            assertEquals("Error! Please input description and by date.", e.getMessage());
         }
 
         // Wrong date format
@@ -116,7 +116,7 @@ public class ParserTest {
             Parser.parse("event party /from /to", storage, tasks, ui);
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please specify a from and to date.", e.getMessage());
+            assertEquals("Error! Please input description, from date, and to date.", e.getMessage());
         }
 
         // Wrong date format

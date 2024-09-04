@@ -1,5 +1,7 @@
 package Arona;
 
+import java.util.ArrayList;
+
 public class Ui {
     public Ui() {}
 
@@ -18,6 +20,16 @@ public class Ui {
 
     public void showList(TaskList taskList) throws AronaException {
         if (taskList.size() == 0) {
+            print("The task list is empty!");
+        }
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            print(i + 1 + ". " + task.getStatusIcon() + task.getCategory() + " " + task.toFriendlyString());
+        }
+    }
+
+    public void showFilterList(ArrayList<Task> taskList) throws AronaException {
+        if (taskList.isEmpty()) {
             print("The task list is empty!");
         }
         for (int i = 0; i < taskList.size(); i++) {
