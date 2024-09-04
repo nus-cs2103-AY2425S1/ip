@@ -1,9 +1,7 @@
 package alisa.command;
 
-import alisa.AlisaException;
 import alisa.Storage;
 import alisa.Ui;
-import alisa.task.Task;
 import alisa.task.TaskList;
 
 public class FindCommand extends Command {
