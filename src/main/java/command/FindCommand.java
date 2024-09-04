@@ -1,7 +1,8 @@
 package command;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import tasklist.TaskList;
 import tasks.Task;
@@ -35,16 +36,11 @@ public class FindCommand extends Command {
         // Check if tasklist is null
         assert tasklist != null : "tasklist argument cannot be null";
 
-        List<Task> matches = new ArrayList<Task>();
-
         List<Task> tasks = tasklist.getTasks();
 
-        for (Task t : tasks) {
-            // Add task if matches keyward
-            if (t.toString().indexOf(keyword) != -1) {
-                matches.add(t);
-            }
-        }
+        List<Task> matches = tasks.stream()
+                .filter(t -> t.toString().indexOf(keyword) != -1)
+                .collect(Collectors.toList());
 
         // Show matches
         StringBuilder sb = new StringBuilder();
