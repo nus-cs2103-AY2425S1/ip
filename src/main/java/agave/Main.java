@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    private Agave agave = new Agave("./data/agave.txt");
+
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
@@ -17,6 +19,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);  // This will start the JavaFX application
+        launch(args);
     }
 }

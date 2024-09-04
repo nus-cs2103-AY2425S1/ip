@@ -106,6 +106,4 @@ public class Parser {
             throw new AgaveException("Please enter a keyword to search for.");
         }
     }
-
-
 }
