@@ -65,6 +65,9 @@ public class Fence {
                     tasks.delete(index);
                     ui.count(tasks.getSize());
                     storage.saveRewrite(tasks);
+                } else if (commandType.equals("find")) {
+                    String keyword = parser.getString();
+                    ui.list(tasks.find(keyword));
                 } else {
                     ui.printUnknownCommand();
                 }

@@ -69,4 +69,15 @@ public class TaskList {
     public void delete(int i) {
         items.remove(i - 1);
     }
+
+    public TaskList find(String keyword) {
+        TaskList res = new TaskList(new ArrayList<Task>());
+        for (int i = 0; i < items.size(); i++) {
+            Task curr = items.get(i);
+            if (curr.containsKeyword(keyword)) {
+                res.add(curr);
+            }
+        }
+        return res;
+    }
 }

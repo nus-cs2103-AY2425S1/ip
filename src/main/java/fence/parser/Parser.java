@@ -13,6 +13,7 @@ public class Parser {
 
     private Task taskResult;
     private int intResult;
+    private String strResult;
 
     public Task parseTxt(String command) {
         StringTokenizer st = new StringTokenizer(command);
@@ -162,6 +163,12 @@ public class Parser {
         } else if (firstWord.equals("delete")) {
             intResult = Integer.parseInt(st.nextToken());
             return "delete";
+        } else if (firstWord.equals("find")) {
+            strResult = st.nextToken();
+            while (st.hasMoreTokens()) {
+                strResult = strResult + " " + st.nextToken();
+            }
+            return "find";
         } else {
             return "unknown command";
         }
@@ -175,4 +182,7 @@ public class Parser {
         return this.intResult;
     }
 
+    public String getString() {
+        return this.strResult;
+    }
 }
