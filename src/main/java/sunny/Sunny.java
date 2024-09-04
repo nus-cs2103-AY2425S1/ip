@@ -19,17 +19,18 @@ public class Sunny {
 
         // USER INTERACTION
         while (true) {
-            Scanner userInput = new Scanner(System.in);  // Create a Scanner object
-            String userMessage = userInput.nextLine();  // Read user input
+            Scanner userInput = new Scanner(System.in); // Create a Scanner object
+            String userMessage = userInput.nextLine(); // Read user input
 
             if (Objects.equals(userMessage, "bye")) {
-                System.out.println(toUser.reply("bye"));
+                System.out.println(toUser.getResponse("bye"));
                 break;
             } else {
-                System.out.println(toUser.reply(userMessage));
+                System.out.println(toUser.getResponse(userMessage));
             }
 
 
         }
     }
+
 }
