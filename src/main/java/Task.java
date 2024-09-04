@@ -1,15 +1,24 @@
+import java.util.Objects;
+
 public class Task {
     String description;
+    public static final String COMPLETEICON = "X";
+    public static final String TYPEICON = " ";
+    private boolean completed;
     public enum TaskType {
         TODO,
         EVENT,
         DEADLINE,
     }
 
-    private boolean completed;
-    Task(String task){
+    public Task(String task){
         this.description = task;
         this.completed = false;
+    }
+    public Task(boolean complete, String description) {
+        this.completed = complete;
+        this.description = description;
+
     }
     public static Task of(String task, TaskType type) {
         switch (type) {
@@ -40,9 +49,6 @@ public class Task {
         }
 
     }
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public void mark() {
         this.completed = true;
@@ -53,18 +59,18 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return this.completed ? "X" : " ";
+        return this.completed ? COMPLETEICON : " ";
     }
     public String getTypeIcon() {
-        return " ";
-    }
-
-    public boolean getStatus() {
-        return this.completed;
+        return TYPEICON;
     }
 
     @Override
     public String toString() {
         return this.description;
+    }
+
+    public String toStorageString(){
+        return String.format("%s|%s|%s", TYPEICON, getStatusIcon(),this.description);
     }
 }

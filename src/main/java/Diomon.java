@@ -1,24 +1,33 @@
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Diomon {
+    private Storage storage;
+    private Commands commands;
     private static void greeting() {
         String greetingMessage = "________________________________________________________________\nHello! I'm Diomon\nWhat do you need recorded?\n________________________________________________________________\n";
         System.out.print(greetingMessage);
     }
-    private static void echo() {
+    private void run() {
         // Initialise instance
+        Storage storage = new Storage("data/data.txt");
+        commands = new Commands();
         Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
+        TaskList taskList = new TaskList(storage.load());
         greeting();
-        while(true) {
+        while (true) {
             String input = scanner.nextLine();
             System.out.println("________________________________________________________________");
-            Commands.run(input,taskList);
+            commands.run(input,taskList);
             System.out.println("________________________________________________________________");
+            if (commands.isExit()) {
+                storage.save(taskList.toStorageString());
+                break;
+            }
         }
     }
 
     public static void main(String[] args) {
-        echo();
+        new Diomon().run();
     }
 }

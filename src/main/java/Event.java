@@ -1,8 +1,14 @@
 public class Event extends Task{
+    public static final String TYPEICON = "E";
     private String from;
     private String to;
     public Event(String task, String from, String to) {
         super(task);
+        this.from = from;
+        this.to = to;
+    }
+    public Event(boolean complete, String description, String from, String to) {
+        super(complete, description);
         this.from = from;
         this.to = to;
     }
@@ -25,11 +31,16 @@ public class Event extends Task{
 
     @Override
     public String getTypeIcon() {
-        return "D";
+        return TYPEICON;
     }
 
     @Override
     public String toString() {
         return super.description + String.format(" (From: %s To: %s)", this.from, this.to);
+    }
+
+    @Override
+    public String toStorageString(){
+        return String.format("%s|%s|%s|%s|%s", getTypeIcon(), getStatusIcon(),this.description, this.from, this.to);
     }
 }

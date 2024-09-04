@@ -7,6 +7,13 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
+    public TaskList(Task... args) {
+        this.tasks = new ArrayList<Task>();
+        for (Task task : args) {
+            this.add(task);
+        }
+    }
+
     public void add(Task t) {
         this.tasks.add(t);
     }
@@ -33,6 +40,14 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++){
             Task t = tasks.get(i);
             temp = temp.concat(String.format("%d-> [%s][%s] %s\n", i + 1, t.getTypeIcon(), t.getStatusIcon(), t));
+        }
+        return temp;
+    }
+    public String toStorageString() {
+        String temp ="";
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            temp = temp.concat(String.format("%s\n", t.toStorageString()));
         }
         return temp;
     }
