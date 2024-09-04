@@ -1,4 +1,4 @@
-package lawrence.factory;
+package lawrence.parser;
 
 import lawrence.task.Task;
 

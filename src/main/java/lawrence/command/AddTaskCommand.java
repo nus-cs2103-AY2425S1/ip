@@ -1,8 +1,8 @@
 package lawrence.command;
 
 import lawrence.database.TaskFileManager;
-import lawrence.factory.InputSource;
-import lawrence.factory.TaskFactory;
+import lawrence.parser.InputSource;
+import lawrence.parser.TaskParser;
 import lawrence.task.Task;
 import lawrence.task.TaskList;
 import lawrence.ui.UserInterface;
@@ -19,7 +19,7 @@ public class AddTaskCommand extends Command {
     @Override
     public void execute(TaskList taskList, TaskFileManager manager, UserInterface ui) {
         try {
-            Task t = TaskFactory.createTask(input, InputSource.USER);
+            Task t = TaskParser.createTask(input, InputSource.USER);
             taskList.addTask(t);
             saveTasks(taskList, manager);
 

@@ -1,4 +1,4 @@
-package lawrence.factory;
+package lawrence.parser;
 
 
 import lawrence.command.Command;
@@ -10,7 +10,7 @@ import lawrence.command.UncompleteTaskCommand;
 import lawrence.command.DeleteTaskCommand;
 import lawrence.command.AddTaskCommand;
 
-public class CommandFactory {
+public class CommandParser {
     public static Command createCommand(String input) throws IllegalArgumentException {
         // Parse command at start of the line
         String[] inputComponents = input.split(" ", 2);

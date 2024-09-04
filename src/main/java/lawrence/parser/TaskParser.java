@@ -1,8 +1,8 @@
-package lawrence.factory;
+package lawrence.parser;
 
 import lawrence.task.Task;
 
-public class TaskFactory {
+public class TaskParser {
     public static Task createTask(String input, InputSource source) {
         TaskCreator creator;
         switch(source) {

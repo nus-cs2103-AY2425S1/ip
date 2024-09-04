@@ -2,7 +2,7 @@ package lawrence.app;
 
 import lawrence.command.Command;
 import lawrence.database.TaskFileManager;
-import lawrence.factory.CommandFactory;
+import lawrence.parser.CommandParser;
 import lawrence.task.Task;
 import lawrence.task.TaskList;
 import lawrence.ui.UserInterface;
@@ -45,7 +45,7 @@ public class Lawrence {
         while (shouldContinue) {
             userInput = sc.nextLine();  // Get next user input
             try {
-                Command c = CommandFactory.createCommand(userInput);
+                Command c = CommandParser.createCommand(userInput);
                 c.execute(taskList, manager, ui);
                 shouldContinue = c.shouldContinue();
             } catch (IllegalArgumentException e) {

@@ -1,6 +1,10 @@
-package lawrence.factory;
+package lawrence.parser;
 
-import lawrence.task.*;
+import lawrence.task.Task;
+import lawrence.task.TaskType;
+import lawrence.task.Todo;
+import lawrence.task.Deadline;
+import lawrence.task.Event;
 import lawrence.utils.DateParser;
 
 import java.time.LocalDateTime;
