@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 class TaskListTest {
     private TaskList taskList;
 
+    /**
+     * Initializes the TaskList instance with sample tasks before each test.
+     */
     @BeforeEach
     void setUp() {
         // Initialize the TaskList with some sample tasks
@@ -21,6 +24,9 @@ class TaskListTest {
         taskList = new TaskList(tasks);
     }
 
+    /**
+     * Tests adding a new task to the task list.
+     */
     @Test
     void addTask_success() {
         // Add a new task and check if the task list size increases
@@ -34,6 +40,9 @@ class TaskListTest {
         assertTrue(taskList.get().contains(newTask));
     }
 
+    /**
+     * Tests deleting a task from the task list.
+     */
     @Test
     void deleteTask_success() {
         // Delete the first task and check if it's removed
@@ -46,6 +55,9 @@ class TaskListTest {
         assertNotEquals("Task 1", taskList.get().get(0).getDescription());
     }
 
+    /**
+     * Tests deleting a task with an invalid index.
+     */
     @Test
     void deleteTask_invalidIndex_throwsException() {
         // Attempt to delete a task with an invalid index and expect an exception
@@ -53,6 +65,9 @@ class TaskListTest {
         assertThrows(BigdogException.class, () -> taskList.delete(3));
     }
 
+    /**
+     * Tests marking a task as done.
+     */
     @Test
     void markTask_success() {
         // Mark the first task as done and check if it's marked
@@ -63,6 +78,9 @@ class TaskListTest {
         assertTrue(taskList.get().get(0).isMarked());
     }
 
+    /**
+     * Tests marking a task with an invalid index.
+     */
     @Test
     void markTask_invalidIndex_throwsException() {
         // Attempt to mark a task with an invalid index and expect an exception
@@ -70,6 +88,9 @@ class TaskListTest {
         assertThrows(BigdogException.class, () -> taskList.mark(3));
     }
 
+    /**
+     * Tests unmarking a task.
+     */
     @Test
     void unmarkTask_success() {
         // Mark and then unmark the first task, and check if it's unmarked
@@ -81,6 +102,9 @@ class TaskListTest {
         assertFalse(taskList.get().get(0).isMarked());
     }
 
+    /**
+     * Tests unmarking a task with an invalid index.
+     */
     @Test
     void unmarkTask_invalidIndex_throwsException() {
         // Attempt to unmark a task with an invalid index and expect an exception
@@ -88,6 +112,9 @@ class TaskListTest {
         assertThrows(BigdogException.class, () -> taskList.unmark(3));
     }
 
+    /**
+     * Tests the string representation of the task list.
+     */
     @Test
     void testToString() {
         assertEquals("""

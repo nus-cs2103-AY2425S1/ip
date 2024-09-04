@@ -6,14 +6,32 @@ import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
+    /** The end date and time */
     private LocalDateTime end;
+
+    /** Indicates whether the deadline includes a specific end time or just a date. */
     private static boolean withTime;
 
+    /**
+     * Private constructor for creating a {@code Deadline} instance.
+     *
+     * @param str the description of the task.
+     * @param end the deadline date and time.
+     * @param marked whether the task is marked as done.
+     */
     private Deadline(String str, LocalDateTime end, boolean marked) {
         super(str, marked);
         this.end = end;
     }
 
+    /**
+     * Factory method that creates a code Deadline object from a string input.
+     * The input string should contain the task description followed by the deadline date/time (optional).
+     *
+     * @param s the input string containing the task description and deadline.
+     * @return a new Deadline instance.
+     * @throws BigdogException if the input string is empty or does not contain a valid deadline.
+     */
     public static Deadline of(String s) throws BigdogException {
         if (s.isEmpty() || s.charAt(0) == '/') {
             throw new BigdogException("deadline can't be empty! Theres nothing to do!\n");
@@ -26,6 +44,16 @@ public class Deadline extends Task {
         }
         throw new BigdogException("Come on! Set a due by date and get to work!\n");
     }
+
+    /**
+     * Factory method that creates a Deadline object from a string input and a marked status.
+     * This method is typically used when loading tasks from the storage file.
+     *
+     * @param s the input string containing the task description and deadline.
+     * @param marked whether the task is marked as done.
+     * @return a new Deadline instance.
+     * @throws BigdogException if the input string is corrupted or invalid.
+     */
     public static Deadline of(String s, boolean marked) throws BigdogException {
         if (s.length() <= 4) {
             throw new BigdogException("data file corrupted! Cause: " + s + "\n");
@@ -40,6 +68,14 @@ public class Deadline extends Task {
         throw new BigdogException("data file corrupted! Cause: " + s + "\n");
     }
 
+    /**
+     * Converts a date string into a LocalDateTime object.
+     * The input string should follow the format "dd/MM/yyyy HH:mm" or "dd/MM/yyyy".
+     *
+     * @param str the input string representing the date and time.
+     * @return the corresponding LocalDateTime object.
+     * @throws BigdogException if the input string has an invalid format.
+     */
     private static LocalDateTime stringToDate(String str) throws BigdogException {
         long dashes = str.chars().filter(x -> x == '/').count();
         if (dashes != 2) {
@@ -70,12 +106,22 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns a string representing the task description and deadline.
+     *
+     * @return the description of the task with the deadline included.
+     */
     @Override
     public String getDescription() {
         return super.getDescription() + " | " + this.end;
     }
 
-
+    /**
+     * Returns a string representation of the Deadline task.
+     * The format includes the task type, status, description, and deadline.
+     *
+     * @return a formatted string representing the deadline task.
+     */
     @Override
     public String toString() {
         if (withTime) {

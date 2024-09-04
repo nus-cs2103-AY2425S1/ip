@@ -6,17 +6,31 @@ import java.util.ArrayList;
 
 public class Bigdog {
 
-    // Array to store tasks
+    /** Storage for tasks into external file */
     private Storage storage;
+    /** TaskList to manage tasks */
     private TaskList tasks;
+    /** Ui to handle interaction with users */
     private Ui ui;
 
+    /**
+     * Constructs a Bigdog object.
+     * Initializes the storage, task list, and UI components using the specified file path.
+     *
+     * @param file the file path where tasks are stored and loaded from.
+     */
     public Bigdog(String file) {
         this.storage = new Storage(file);
         this.tasks = new TaskList(this.storage.load());
         this.ui = new Ui();
     }
 
+    /**
+     * Runs the main event loop of the Bigdog application.
+     * This method continuously reads user input, parses it, and executes the corresponding commands.
+     * It handles exceptions that may arise during the execution of commands and ensures that tasks
+     * are saved after each iteration of the loop.
+     */
     public void run() {
 
         ui.greet();
@@ -67,6 +81,12 @@ public class Bigdog {
         }
     }
 
+    /**
+     * The main method that serves as the entry point for the Bigdog application.
+     * It creates an instance of the Bigdog class and calls the run method.
+     *
+     * @param args command-line arguments (not used).
+     */
     public static void main(String[] args) {
 
         new Bigdog("./src/main/Bigdog.txt").run();

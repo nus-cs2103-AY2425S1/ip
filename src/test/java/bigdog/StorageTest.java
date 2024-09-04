@@ -15,11 +15,17 @@ class StorageTest {
     private Storage storage;
     private final String testFilePath = "testStorage.txt";
 
+    /**
+     * Initializes the Storage instance before each test.
+     */
     @BeforeEach
     void setUp() {
         storage = new Storage(testFilePath);
     }
 
+    /**
+     * Deletes the test file after each test to ensure a clean state.
+     */
     @BeforeEach
     void tearDown() {
         // Delete the test file after each test
@@ -29,6 +35,12 @@ class StorageTest {
         }
     }
 
+    /**
+     * Tests saving and loading of tasks to ensure that tasks are saved and
+     * loaded correctly.
+     *
+     * @throws BigdogException if there is an issue with saving or loading tasks
+     */
     @Test
     void saveAndLoadTasks_success() throws BigdogException {
         // Create some sample tasks
@@ -50,6 +62,10 @@ class StorageTest {
         assertEquals(tasks.get(2).getDescription(), loadTasks.get(2).getDescription());
     }
 
+    /**
+     * Tests loading tasks from a non-existent file to ensure that a
+     * BigdogException is thrown.
+     */
     @Test
     void load_nonExistentFile_throwsException() {
         // Create a storage instance with a non-existent file path
@@ -59,6 +75,12 @@ class StorageTest {
         assertThrows(BigdogException.class, storage::load);
     }
 
+    /**
+     * Tests saving and loading tasks with marked tasks to ensure that
+     * the marked state of tasks is correctly preserved.
+     *
+     * @throws BigdogException if there is an issue with saving or loading tasks
+     */
     @Test
     void saveAndLoadTasks_withMarkedTasks() throws BigdogException {
         // Create some sample tasks
@@ -79,6 +101,12 @@ class StorageTest {
         assertFalse(loadedTasks.get(1).isMarked());
     }
 
+    /**
+     * Tests saving and loading tasks with corrupted data to ensure that
+     * a BigdogException is thrown when data is corrupted.
+     *
+     * @throws IOException if there is an issue with writing the corrupted data
+     */
     @Test
     void saveAndLoadTasks_corruptedData_throwsException() throws IOException {
         // Simulate a corrupted file

@@ -6,15 +6,37 @@ import java.time.format.DateTimeParseException;
 
 public class Event extends Task{
 
+    /** The start date and time of the event. */
     private LocalDateTime start;
+
+    /** The end date and time of the event. */
     private LocalDateTime end;
+
+    /** Indicates whether the event includes specific start and end times or just dates. */
     private static boolean withTime;
+
+    /**
+     * Private constructor for creating an Event instance.
+     *
+     * @param str the description of the event.
+     * @param start the start date and time of the event.
+     * @param end the end date and time of the event.
+     * @param marked whether the event is marked as done.
+     */
     private Event(String str, LocalDateTime start, LocalDateTime end, boolean marked) {
         super(str, marked);
         this.start = start;
         this.end = end;
     }
 
+    /**
+     * Factory method that creates an Event object from a string input.
+     * The input string should contain the event description followed by the start and end date/time (optional).
+     *
+     * @param s the input string containing the event description, start, and end times.
+     * @return a new Event instance.
+     * @throws BigdogException if the input string is empty or does not contain valid dates.
+     */
     public static Event of(String s) throws BigdogException {
         if (s.length() <= 6) {
             throw new BigdogException("event can't be empty! If theres no event then go and sleep!");
@@ -37,6 +59,15 @@ public class Event extends Task{
         throw new BigdogException("Event has to have a start and end!");
     }
 
+    /**
+     * Factory method that creates an Event object from a string input and a marked status.
+     * This method is typically used when loading events from a file.
+     *
+     * @param s the input string containing the event description, start, and end times.
+     * @param marked whether the event is marked as done.
+     * @return a new Event instance.
+     * @throws BigdogException if the input string is corrupted or invalid.
+     */
     public static Event of(String s, boolean marked) throws BigdogException {
 
 
@@ -60,6 +91,14 @@ public class Event extends Task{
         throw new BigdogException("data file corrupted! Cause: " + s);
     }
 
+    /**
+     * Converts a date string into a LocalDateTime object.
+     * The input string should follow the format "dd/MM/yyyy HH:mm" or "dd/MM/yyyy".
+     *
+     * @param str the input string representing the date and time.
+     * @return the corresponding LocalDateTime object.
+     * @throws BigdogException if the input string has an invalid format.
+     */
     private static LocalDateTime stringToDate(String str) throws BigdogException {
         long dashes = str.chars().filter(x -> x == '/').count();
         if (dashes != 2) {
@@ -90,12 +129,23 @@ public class Event extends Task{
         }
     }
 
+    /**
+     * Returns a string representing the event description along with its start and end times.
+     *
+     * @return the description of the event with the start and end times included.
+     */
     @Override
     public String getDescription() {
         return super.getDescription() + " | " + this.start + " | " + this.end;
     }
 
 
+    /**
+     * Returns a string representation of the Event task.
+     * The format includes the task type, status, description, and start and end times.
+     *
+     * @return a formatted string representing the event task.
+     */
     @Override
     public String toString() {
         if (withTime) {
