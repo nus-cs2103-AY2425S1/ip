@@ -30,6 +30,15 @@ class TaskList {
     int getSize() {
         return this.todoList.size();
     }
+
+    boolean isEmpty() {
+        return this.todoList.size() == 0;
+    }
+
+    Task add(Task task) {
+        this.todoList.add(task);
+        return task;
+    }
     
     /**
      * Adds a new Todo task to the TaskList.
@@ -111,6 +120,17 @@ class TaskList {
         return taskToMark;
     }
 
+    
+    TaskList find(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (Task t : this.todoList) {
+            if (t.getDescription().contains(keyword)) {
+                matchingTasks.add(t);
+            }
+        }
+        return matchingTasks;
+    }
+    
     /**
      * Returns a string representation of all tasks in the TaskList.
      *
