@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Tars {
     private final TaskList tasks;
-    private final UI ui;
+    private final Ui ui;
 
     /**
      * Constructs a Tars object, initializing the user interface and loading tasks from storage.
@@ -20,7 +20,7 @@ public class Tars {
      * during loading, an empty task list is created instead.
      */
     public Tars() {
-        ui = new UI();
+        ui = new Ui();
         Storage storage = new Storage("./data/tars.txt");
         TaskList loadedTasks;
         try {

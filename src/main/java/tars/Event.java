@@ -22,13 +22,13 @@ public class Event extends Task {
      * cannot be parsed, a {@link TarsException} is thrown.
      *
      * @param name The name or description of the event task.
-     * @param done Indicates whether the task is completed or not.
+     * @param isDone Indicates whether the task is completed or not.
      * @param from The start time of the event in the format "yyyy-MM-dd HHmm" or "dd MMM yyyy, HH:mm".
      * @param to The end time of the event in the format "yyyy-MM-dd HHmm" or "dd MMM yyyy, HH:mm".
      * @throws TarsException If either the start or end time cannot be parsed into a {@link java.time.LocalDateTime}.
      */
-    public Event(String name, boolean done, String from, String to) throws TarsException {
-        super(name, done);
+    public Event(String name, boolean isDone, String from, String to) throws TarsException {
+        super(name, isDone);
         try {
             this.from = DateTimeParser.parse(from);
             this.to = DateTimeParser.parse(to);

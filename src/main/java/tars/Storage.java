@@ -139,6 +139,6 @@ public class Storage {
             type = "E";
             additionalInfo = " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo();
         }
-        return type + " | " + (task.isDone() ? "1" : "0") + " | " + task.getName() + additionalInfo;
+        return type + " | " + (task.getIsDone() ? "1" : "0") + " | " + task.getName() + additionalInfo;
     }
 }
