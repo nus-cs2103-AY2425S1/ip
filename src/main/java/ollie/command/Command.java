@@ -1,5 +1,6 @@
 package ollie.command;
 
+import ollie.Response;
 import ollie.exception.OllieException;
 import ollie.Storage;
 import ollie.TaskList;
@@ -10,16 +11,9 @@ import ollie.Ui;
  * certain side effects may be invoked.
  */
 public abstract class Command {
-    protected boolean isExit = false;
-
     /**
-     * Return whether this command represents the end of the conversation.
+     * Return response object to be processed by Main Window
      *
-     * @return boolean True if this commands ends the conversation, false if otherwise.
      */
-    public boolean isExit() {
-        return isExit;
-    }
-
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws OllieException;
+    public abstract Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException;
 }
