@@ -1,3 +1,0 @@
-1.[T][ ] nothing
-2.[T][ ] panda
-3.[T][ ] hello

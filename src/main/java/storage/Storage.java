@@ -89,12 +89,8 @@ public class Storage {
             }
             return list.toArray(new Task[0]);
         } catch (IOException e) {
-            Path directoryPath = Paths.get("./data");
-            Path filePath = directoryPath.resolve("data.txt");
-            Files.createDirectories(directoryPath);
-            Files.createFile(filePath);
+            throw e;
         }
-        return null; // should not reach here
     }
 
     /**

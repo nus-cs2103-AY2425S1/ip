@@ -6,6 +6,9 @@ import tasks.TaskList;
 import ui.Ui;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * The Primo class is the entry point for the task management application.
@@ -22,14 +25,18 @@ public class Primo {
      * Initializes the UI, storage, and task list.
      * If loading tasks from storage fails, it initializes an empty task list and shows an error message.
      *
-     * @param filePath The path to the file where tasks are stored.
+     * @param filePathString The path to the file where tasks are stored.
      */
-    public Primo(String filePath) {
+    public Primo(String filePathString) throws IOException {
         this.ui = new Ui();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage(filePathString);
         try {
             this.tasks = new TaskList(storage.load()); // Throws PrimoException and IOException
         } catch (PrimoException | IOException e) {
+            Path directoryPath = Paths.get("./data");
+            Path filePath = directoryPath.resolve("data.txt");
+            Files.createDirectories(directoryPath);
+            Files.createFile(filePath);
             ui.showLoadingError();
             tasks = new TaskList(); // Initializes an empty task list on error
             this.tasks = new TaskList();
@@ -65,7 +72,7 @@ public class Primo {
      *
      * @param args Command-line arguments (not used).
      */
-    public static void main(String[] args) {
-        new Primo("data/tasks.txt").run(); // Runs the application with the specified file path
+    public static void main(String[] args) throws IOException {
+        new Primo("data/data.txt").run(); // Runs the application with the specified file path
     }
 }
