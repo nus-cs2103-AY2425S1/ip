@@ -46,13 +46,6 @@ public class Task {
     }
 
     /**
-     * Displays input for the user.
-     */
-    public void delete() {
-        System.out.println("    Noted. I've removed this task:");
-    }
-
-    /**
      * Returns a string representing the format used for storage of input in files.
      * @return String.
      */
