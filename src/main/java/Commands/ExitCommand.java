@@ -13,7 +13,8 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
+        return "    Bye. Hope to see ya again soon!";
     }
 
 }

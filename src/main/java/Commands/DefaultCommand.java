@@ -11,11 +11,12 @@ public class DefaultCommand extends Command {
     /**
      * print default command
      *
+     * @return
      */
     @Override
-    public void execute() {
+    public String execute() {
 
-        System.out.println(userInput);
+        return userInput;
     }
 
     @Override

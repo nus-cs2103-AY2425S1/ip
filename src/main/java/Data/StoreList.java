@@ -34,8 +34,9 @@ public class StoreList {
      *
      * @param item task to be added.
      * @param type tasktype to be created and stores.
+     * @return
      */
-    public void addItem(String item, String type) {
+    public String addItem(String item, String type) {
         try {
             if (type.equals("todo")) {
                 // create a Tasks.ToDos object
@@ -53,17 +54,17 @@ public class StoreList {
                 items.add(t);
             }
 
-            System.out.println("    Got it. I've added this task:\n" + "      " + t.print()
-                    + "\n    Now you have " + this.getSize() + " tasks in the list.");
+            return "    Got it. I've added this task:\n" + "      " + t.print() +
+                    "\n    Now you have " + this.getSize() + " tasks in the list.";
 
         } catch (EmptyDescException | EmptyDeadlineException
                  | EmptyEventException | EmptyDeadlineDateException
                  | EmptyEventTimingException e) {
 
-            System.out.println(e.getMessage());
+            return e.getMessage();
 
         } catch (Exception e) {
-            System.out.println("An unexpected error occurred: " + e.getMessage());
+            return "An unexpected error occurred: " + e.getMessage();
         }
     }
 
@@ -78,13 +79,13 @@ public class StoreList {
      *
      * @param num Index of task to be marked.
      */
-    public void markItem(int num) throws InvalidIndexException {
+    public String markItem(int num) throws InvalidIndexException {
         if (num > items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
         items.get(num - 1).mark();
-        System.out.println("    " + "Wohoo! I've marked this task as done! WELL DONE!:\n" +
-                "      " + items.get(num - 1).print());
+        return "    Wohoo! I've marked this task as done! WELL DONE!:\n" +
+                "      " + items.get(num - 1).print();
     }
 
     /**
@@ -92,13 +93,13 @@ public class StoreList {
      *
      * @param num Index of task to be unmarked.
      */
-    public void UnmarkItem(int num) throws InvalidIndexException {
+    public String UnmarkItem(int num) throws InvalidIndexException {
         if (num > items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
         items.get(num - 1).unMark();
-        System.out.println("    " + "Aww:( I've marked this task as not done yet:\n" +
-                "      " + items.get(num - 1).print());
+        return "    " + "Aww:( I've marked this task as not done yet:\n" +
+                "      " + items.get(num - 1).print();
     }
 
     /**
@@ -106,25 +107,26 @@ public class StoreList {
      *
      * @param num Index of task to be deleted.
      */
-    public void deleteItem(int num) throws InvalidIndexException {
+    public String deleteItem(int num) throws InvalidIndexException {
         if (num >= items.size()) {
             throw new InvalidIndexException("Task number does not exist");
         }
         Task temp = items.get(num - 1);
         items.remove(num - 1);
-        System.out.println("    " + "Noted! I've removed this task:\n" +
-                "      " + temp.print() + "\n    Now you have " + this.getSize() + " tasks in the list.");
+        return "    " + "Noted! I've removed this task:\n" +
+                "      " + temp.print() + "\n    Now you have " + this.getSize() + " tasks in the list.";
 
     }
 
     /**
      * Displays items in list
      */
-    public void displayItems() {
-        System.out.println("    Here are the tasks in your list:");
+    public String displayItems() {
+        StringBuilder result = new StringBuilder("    Here are the tasks in your list:\n");
         for (int i = 0; i < items.size(); i++) {
-            System.out.println("    " + (i + 1) + "." + items.get(i).print());
+            result.append("    ").append(i + 1).append(".").append(items.get(i).print()).append("\n");
         }
+        return result.toString();
     }
 
     /**
@@ -132,10 +134,11 @@ public class StoreList {
      *
      * @param date the date in the format yyyy-MM-dd or dd/MM/yyyy to check deadlines against.
      */
-    public void dueOnDate(String date) {
+    public String dueOnDate(String date) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate inputDate;
+        StringBuilder result = new StringBuilder();
         // variable to store if tasks found
         boolean found = false;
 
@@ -147,19 +150,18 @@ public class StoreList {
                 // check if input date matches format of stored date
                 inputDate = LocalDate.parse(date, dateTimeFormatter2);
             } catch (Exception e2) {
-                System.out.println("invalid date format! pls use yyyy-MM-dd or dd/MM/yyyy");
-                return;
+                return "invalid date format! pls use yyyy-MM-dd or dd/MM/yyyy";
             }
         }
 
-        System.out.println("    Here are the tasks due on " + date + ":");
+        result.append("    Here are the tasks due on ").append(date).append(":\n");
         for (int i = 0; i < items.size(); i++) {
             Task task = items.get(i);
             if (task instanceof Deadlines) {
                 // type cast once sure of type of task
                 LocalDate taskDate = ((Deadlines) task).getLocalDate();
                 if (taskDate != null && taskDate.equals(inputDate)) {
-                    System.out.println("    " + (i + 1) + "." + items.get(i).print());
+                    result.append("    ").append(i + 1).append(".").append(items.get(i).print()).append("\n");
                     found = true;
                 }
             }
@@ -168,7 +170,7 @@ public class StoreList {
                 // type cast once sure of type of task
                 LocalDate taskDate = ((Events) task).getLocalDate();
                 if (taskDate != null && taskDate.equals(inputDate)) {
-                    System.out.println("    " + (i + 1) + "." + items.get(i).print());
+                    result.append("    ").append(i + 1).append(".").append(items.get(i).print()).append("\n");
                     found = true;
                 }
             }
@@ -176,8 +178,9 @@ public class StoreList {
 
         // if no tasks found, return no tasks due
         if (!found) {
-            System.out.println("No tasks due on " + date);
+            result.append("No tasks due on ").append(date);
         }
+        return result.toString();
     }
 
     /**
@@ -185,8 +188,8 @@ public class StoreList {
      *
      * @param substrings the keywords to search against.
      */
-    public void displayItemsWithWord(String... substrings) {
-        System.out.println("    Here are the tasks in your list that match your search" + ":");
+    public String displayItemsWithWord(String... substrings) {
+        StringBuilder result = new StringBuilder("    Here are the tasks in your list that match your search:\n");
         for (int i = 0; i < items.size(); i++) {
             String taskDesc = items.get(i).getTaskDesc();
             boolean contains = false;
@@ -198,8 +201,9 @@ public class StoreList {
                 }
             }
             if (contains) {
-                System.out.println("    " + (i + 1) + "." + items.get(i).print());
+                result.append("    ").append(i + 1).append(".").append(items.get(i).print()).append("\n");
             }
         }
+        return result.toString();
     }
 }

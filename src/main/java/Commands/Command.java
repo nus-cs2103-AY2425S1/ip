@@ -15,6 +15,6 @@ public abstract class Command {
         this.storeList = storeList;
     }
 
-    public abstract void execute() throws InvalidIndexException;
+    public abstract String execute() throws InvalidIndexException;
     public abstract boolean isExit();
 }

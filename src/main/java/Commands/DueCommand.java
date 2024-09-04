@@ -13,12 +13,11 @@ public class DueCommand extends Command {
     /**
      * Displays items due via method in storelist class
      *
+     * @return
      */
     @Override
-    public void execute() {
-        System.out.println(Ui.LINE);
-        storeList.dueOnDate(userInput.substring(4).trim());
-        System.out.println(Ui.LINE);
+    public String execute() {
+        return storeList.dueOnDate(userInput.substring(4).trim());
     }
 
     @Override
