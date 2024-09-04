@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
 
 public class Kafka {
 
@@ -63,6 +64,18 @@ public class Kafka {
         System.out.println("  Now you have " + this.tasks.size() + " task(s) in the list.");
     }
 
+    public void getNewFile(String filePath) {
+        File file = new File(filePath);
+        try {
+            file.getParentFile().mkdirs();
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating the file: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         String logo = """
                    __  __            __     _
@@ -75,6 +88,7 @@ public class Kafka {
         Kafka kafka = new Kafka();
         boolean isExitChat = false;
         String filepath = "C:/Users/Nicholas/Downloads/Kafka.txt";
+        kafka.getNewFile(filepath);
 
         System.out.println("  Hello from\n" + logo);
         kafka.greet();
