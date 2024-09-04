@@ -10,7 +10,7 @@ public class Espresso {
 
     void addToList(String str) {
         if (count < tasks.length) {
-            Task task;
+            Task task = null;
             if (str.startsWith("todo ")) {
                 task = new todoTask(str.substring(5));
             }else if (str.startsWith("deadline ")) {
@@ -21,7 +21,7 @@ public class Espresso {
                 String split2[] = split1[1].split(" /to ");
                 task = new eventTask(split1[0], split2[0], split2[1]);
             } else {
-                task = new Task(str);
+                System.out.println("SORRY!! LOOKS LIKE YOU'VE GIVEN AN INVALID TASK");
             }
             tasks[count] = task;
             System.out.println("____________________________________________________________");
@@ -80,20 +80,24 @@ public class Espresso {
         sc.close();
     }
     void markTask(int position) {
+        System.out.println("_________________________________________");
         if (position >= 0 && position < count) {
             tasks[position].mark();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + tasks[position]);
+            System.out.println("_________________________________________");
         } else {
             System.out.println("Invalid task number.");
         }
     }
 
     private void unmarkTask(int position) {
+        System.out.println("_________________________________________");
         if (position >= 0 && position < count) {
             tasks[position].unmark();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("  " + tasks[position]);
+            System.out.println("_________________________________________");
         } else {
             System.out.println("Invalid task number.");
         }
