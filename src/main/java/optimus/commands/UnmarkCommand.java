@@ -6,6 +6,9 @@ import optimus.Ui;
 import optimus.exceptions.InvalidTaskNumberException;
 import optimus.tasks.Task;
 
+/**
+ * Command to mark task as incomplete
+ */
 public class UnmarkCommand extends Command {
     private final int taskIndex;
 
@@ -15,9 +18,10 @@ public class UnmarkCommand extends Command {
 
     /**
      * Marks the task as incomplete in permanent and session storage, prints to UI if successful
+     *
      * @param storage - permanent storage
-     * @param tasks - session storage
-     * @param ui - user interface
+     * @param tasks   - session storage
+     * @param ui      - user interface
      * @throws InvalidTaskNumberException - when task number does not exist or is not valid
      */
     @Override

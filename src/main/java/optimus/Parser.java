@@ -1,5 +1,10 @@
 package optimus;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.Optional;
+
 import optimus.commands.AddTaskCommand;
 import optimus.commands.Command;
 import optimus.commands.DeleteTaskCommand;
@@ -17,11 +22,9 @@ import optimus.tasks.DeadlineTask;
 import optimus.tasks.EventTask;
 import optimus.tasks.ToDoTask;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-import java.util.Optional;
-
+/**
+ * User input reader
+ */
 public class Parser {
 
     private static final String[] FLAGS = {"/from", "/to", "/by"};
@@ -30,6 +33,7 @@ public class Parser {
 
     /**
      * Returns a Command object based on user input and throws an Exception for invalid commands
+     *
      * @param input - user input through keyboard
      * @return corresponding Command object
      * @throws OptimusExceptions - thrown for incorrect or incomplete commands
@@ -70,20 +74,23 @@ public class Parser {
 
     /**
      * Returns an appropriate AddTaskCommand based on the command
+     *
      * @param commands - commands as an array of Strings, each word of the command must be a separate element
      * @return AddTaskCommand with the correct Task as its input
      * @throws IncompleteCommandException - Thrown when commands lack dates or time
-     * @throws InvalidCommandException - Thrown if the method is called incorrectly
+     * @throws InvalidCommandException    - Thrown if the method is called incorrectly
      * @throws InvalidDateFormatException - Thrown if the date format for the deadline task is incorrect
      */
-    private static Command addTask(String[] commands) throws IncompleteCommandException, InvalidCommandException, InvalidDateFormatException {
+    private static Command addTask(String[] commands) throws IncompleteCommandException,
+            InvalidCommandException, InvalidDateFormatException {
         if (commands.length < 2) {
             throw new IncompleteCommandException(NO_DESCRIPTION_MSG);
         }
 
         String type = commands[0];
         String description = extractDescription(commands);
-        String startTime, endTime;
+        String startTime;
+        String endTime;
 
         switch (type) {
         case "todo" -> {

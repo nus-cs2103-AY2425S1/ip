@@ -1,15 +1,17 @@
 package optimus;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
 import optimus.commands.AddTaskCommand;
 import optimus.commands.MarkCommand;
 import optimus.exceptions.OptimusExceptions;
 import optimus.tasks.DeadlineTask;
-import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
 

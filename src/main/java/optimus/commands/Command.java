@@ -5,16 +5,19 @@ import optimus.TaskList;
 import optimus.Ui;
 import optimus.exceptions.OptimusExceptions;
 
+/**
+ * Template for Commands
+ */
 public abstract class Command {
 
-    abstract public void execute(Storage storage, TaskList tasks, Ui ui) throws OptimusExceptions;
-
-
     /**
+     * Returns if programme should continue
      *
-     * @return
+     * @return - True except for the exit command
      */
     public boolean shouldContinue() {
         return true;
     }
+
+    public abstract void execute(Storage storage, TaskList tasks, Ui ui) throws OptimusExceptions;
 }

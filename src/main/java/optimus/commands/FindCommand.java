@@ -1,15 +1,19 @@
 package optimus.commands;
 
+import java.util.stream.Stream;
+
 import optimus.Storage;
 import optimus.TaskList;
 import optimus.Ui;
 import optimus.exceptions.OptimusExceptions;
 import optimus.tasks.Task;
 
-import java.util.stream.Stream;
-
+/**
+ * Command to filter tasks by keyword
+ */
 public class FindCommand extends Command {
-    String filter;
+    private final String filter;
+
     public FindCommand(String filter) {
         this.filter = filter;
     }

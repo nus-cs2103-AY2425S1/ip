@@ -6,6 +6,9 @@ import optimus.Ui;
 import optimus.exceptions.InvalidTaskNumberException;
 import optimus.tasks.Task;
 
+/**
+ * Command to delete task from storage
+ */
 public class DeleteTaskCommand extends Command {
     private final int taskIndex;
 
@@ -15,9 +18,10 @@ public class DeleteTaskCommand extends Command {
 
     /**
      * Deletes task from permanent and session storage and prints to UI if successful
+     *
      * @param storage - permanent storage
-     * @param tasks - session storage
-     * @param ui - user interface
+     * @param tasks   - session storage
+     * @param ui      - user interface
      * @throws InvalidTaskNumberException - when task number does not exist or is not valid
      */
     @Override
