@@ -1,15 +1,15 @@
 package dudu.utils;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
 import dudu.command.Command;
 import dudu.command.CommandDeadline;
 import dudu.command.CommandList;
 import dudu.task.Deadline;
-
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
     @Test
