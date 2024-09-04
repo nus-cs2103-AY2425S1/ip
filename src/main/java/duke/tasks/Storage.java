@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import duke.additionalparsers.DataParser;
 import duke.ui.Notgpt;
-
 /**
  * The {@code Storage} class manages the storage, retrieval, and manipulation of tasks.
  * <p>
@@ -42,14 +41,20 @@ public class Storage {
                 System.out.println("*the first word will always be read as the command*");
                 Notgpt.lnDiv();
             }
-
         } catch (IOException e) {
             System.err.println("An error occurred: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
+    /**
+     * Writes the current list of tasks to the storage file.
+     * <p>
+     * This method clears the file's contents before writing the updated list of tasks.
+     * </p>
+     */
     private void writeToFile() {
-        try{
+        try {
             Files.write(filePath, new byte[0]);
             Files.writeString(filePath, this.toString());
         } catch (IOException e) {
@@ -58,47 +63,100 @@ public class Storage {
         }
     }
 
-
-    public void todo(String s){
+    /**
+     * Adds a new {@code Todo} task to the list and writes the updated list to the file.
+     *
+     * @param s the description of the todo task
+     */
+    public void todo(String s) {
         store.add(new Todo(s));
         this.writeToFile();
     }
-    public void event(String s){
+
+    /**
+     * Adds a new {@code Event} task to the list and writes the updated list to the file.
+     *
+     * @param s the description of the event task
+     */
+    public void event(String s) {
         store.add(new Event(s));
         this.writeToFile();
     }
-    public void deadline(String s){
+
+    /**
+     * Adds a new {@code Deadline} task to the list and writes the updated list to the file.
+     *
+     * @param s the description of the deadline task
+     */
+    public void deadline(String s) {
         store.add(new Deadline(s));
         this.writeToFile();
     }
+
+    /**
+     * Returns a string representation of all the tasks in the list.
+     * <p>
+     * Each task is represented by its index in the list, followed by its string representation.
+     * </p>
+     *
+     * @return a string representation of all tasks
+     */
     public String toString() {
         String thing = "";
         int j = 1;
-        for(int i = 0; i<store.size(); i++){
+        for (int i = 0; i < store.size(); i++) {
             thing += j + ". " + store.get(i).toString();
-            if (i != store.size()-1) {
+            if (i != store.size() - 1) {
                 thing += "\n";
             }
-                j++;
+            j++;
         }
         return thing;
     }
-    public void mark(int i){
-        store.get(i-1).complete();
+
+    /**
+     * Marks the task at the specified index as completed and writes the updated list to the file.
+     *
+     * @param i the index of the task to mark as completed
+     */
+    public void mark(int i) {
+        store.get(i - 1).complete();
         this.writeToFile();
     }
-    public void unmark(int i){
-        store.get(i-1).uncomplete();
+
+    /**
+     * Unmarks the task at the specified index as not completed and writes the updated list to the file.
+     *
+     * @param i the index of the task to unmark as not completed
+     */
+    public void unmark(int i) {
+        store.get(i - 1).uncomplete();
         this.writeToFile();
     }
-    public void delete(int i){
-        store.remove(i-1);
+
+    /**
+     * Deletes the task at the specified index from the list and writes the updated list to the file.
+     *
+     * @param i the index of the task to delete
+     */
+    public void delete(int i) {
+        store.remove(i - 1);
         this.writeToFile();
     }
+
+    /**
+     * Finds tasks in the list that contain the specified keyword in their description.
+     * <p>
+     * Returns a string of all matching tasks, each prefixed by its index in the list.
+     * </p>
+     *
+     * @param s the keyword to search for in the task descriptions
+     * @return a string of matching tasks, each on a new line
+     */
     public String find(String s) {
         String thing = "";
         int j = 1;
-        for(int i = 0; i<store.size(); i++){
+        for (int i = 0; i < store.size(); i++) {
             if (store.get(i).getTask().contains(s)) {
                 thing += j + ". " + store.get(i).toString() + "\n";
                 j++;
@@ -106,6 +164,12 @@ public class Storage {
         }
         return thing.trim();
     }
+
+    /**
+     * Returns the number of tasks currently stored.
+     *
+     * @return the size of the task list
+     */
     public int size() {
         return store.size();
     }
