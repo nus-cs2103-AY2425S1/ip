@@ -15,7 +15,7 @@ class TaskList {
         this.todoList = todoList;
     }
 
-    int size() {
+    int getSize() {
         return this.todoList.size();
     }
     
