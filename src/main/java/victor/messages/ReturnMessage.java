@@ -26,7 +26,19 @@ public class ReturnMessage {
         return this.message;
     }
 
-    public boolean checkIsEmpty() {
+    public String getMessagesAsString() {
+        if (!this.isEmpty()) {
+            String returnString = "";
+            for (String string : getMessages()) {
+                returnString += string + "\n";
+            }
+            return returnString.trim();
+        } else {
+            return "  ~  Sorry, something went wrong! Please try again!";
+        }
+    }
+
+    public boolean isEmpty() {
         return this.isEmpty;
     }
 }

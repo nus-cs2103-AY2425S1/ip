@@ -1,41 +1,47 @@
 package victor.controls;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import victor.ui.UI;
+import javafx.stage.Stage;
+import victor.Handler;
 
 /**
  * Controller for the main GUI.
  */
 public class MainWindow {
-    @FXML
-    private ScrollPane scrollPane;
+    private static final String WELCOME_MESSAGE = "Hi, I'm Victor! Let's get started with tracking your tasks!";
     @FXML
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-
-    private UI ui;
+    private Stage stage;
+    private Handler handler;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/toucan.png"));
     private Image victorImage = new Image(this.getClass().getResourceAsStream("/images/victor.png"));
 
-    @FXML
-    public void initialise() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    /**
+     * Sets Stage instance used by main.
+     * @param stage A Stage object used to run the application.
+     */
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     /**
-     * Injects UI instance.
-     * @param ui A UI element handling user input and output.
+     * Initialises a handler for the main window which handles user input.
      */
-    public void setUi(UI ui) {
-        this.ui = ui;
+    public void setHandler() {
+        this.handler = new Handler();
+    }
+
+    /**
+     * Creates an initial welcome message for the user upon starting the program.
+     */
+    public void welcomeUser() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getVictorDialog(WELCOME_MESSAGE, victorImage));
     }
 
     /**
@@ -45,7 +51,10 @@ public class MainWindow {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = ui.getResponse(input);
+        if (input.trim().equalsIgnoreCase("bye")) {
+            stage.close();
+        }
+        String response = handler.handleRequest(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getVictorDialog(response, victorImage)
