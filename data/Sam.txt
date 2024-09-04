@@ -4,3 +4,5 @@ T | 0 | join sports club
 T | 1 | run
 D | 1 | assignment | 06-09-2024
 E | 0 | bootcamp | 07-10-2024 | 10-10-2024
+T | 0 | return book
+E | 0 | interview | 07-10-2024 | 09-10-2024

@@ -31,7 +31,8 @@ public class Sam {
      *
      * @param filePath The file path to the storage file.
      */
-    public Sam(String filePath) {
+    public Sam() {
+        String filePath = "data/Sam.txt";
         ui = new Ui();
         storage = new Storage(filePath);
 
@@ -46,70 +47,62 @@ public class Sam {
     }
 
     /**
-     * Runs the program and handles user input.
-     * Displays a welcome message and prompts the user for input.
-     * Executes different actions based on the user's input, such as adding, deleting, marking, or finding tasks.
-     * Saves the tasks to storage after each action.
-     * Catches and displays any exceptions that occur during the execution of the program.
-     * Closes the scanner after the program finishes running.
+     * Handles a single user input and returns the response as a string.
+     * @param input the input from the user
+     * @return the response based on the input
      */
-    public void run() {
-        ui.showWelcome();
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            String input = scanner.nextLine();
-            ui.showLine();
-            try {
-                if (input.equals("bye")) {
-                    ui.showGoodbye();
-                    if (items.getSize() > 0) {
-                        storage.save(items.getItems());
-                    }
-                    break;
-                } else if (input.equals("list")) {
-                    ui.showMessage("Here are the tasks in your list:");
-                    ui.showMessage(items.toString());
-                } else if (input.startsWith("mark")) {
-                    markItemDone(input);
-                } else if (input.startsWith("find")) {
-                    findItem(input);
-                } else if (input.startsWith("unmark")) {
-                    markItemUndone(input);
-                } else if (input.startsWith("delete")) {
-                    deleteItem(input);
-                } else {
-                    addItem(input);
+    public String getResponse(String input) {
+        StringBuilder response = new StringBuilder();
+        
+        try {
+            if (input.equals("bye")) {
+                response.append("Goodbye!\n");
+                if (items.getSize() > 0) {
+                    storage.save(items.getItems());
                 }
-                storage.save(items.getItems());
-            } catch (SamException e) {
-                ui.showMessage(e.getMessage());
-            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-                ui.showMessage("Invalid input format. Please follow the correct format for tasks.");
-            } catch (DateTimeParseException e) {
-                ui.showMessage("Invalid date format. Please use dd-MM-yyyy.");
-            } catch (IOException e) {
-                ui.showMessage("An error occurred while saving the tasks.");
-            } catch (Exception e) {
-                ui.showMessage("An error occurred. Please try again.");
+
+            } else if (input.equals("list")) {
+                response.append("Here are the tasks in your list:\n");
+                response.append(items.toString()).append("\n");
+            } else if (input.startsWith("mark")) {
+                response.append(markItemDone(input));
+            } else if (input.startsWith("find")) {
+                response.append(findItem(input));
+            } else if (input.startsWith("unmark")) {
+                response.append(markItemUndone(input));
+            } else if (input.startsWith("delete")) {
+                response.append(deleteItem(input));
+            } else {
+                response.append(addItem(input));
             }
-            ui.showLine();
+            storage.save(items.getItems());
+        } catch (SamException e) {
+            response.append(e.getMessage()).append("\n");
+        } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+            response.append("Invalid input format. Please follow the correct format for tasks.\n");
+        } catch (DateTimeParseException e) {
+            response.append("Invalid date format. Please use dd-MM-yyyy.\n");
+        } catch (IOException e) {
+            response.append("An error occurred while saving the tasks.\n");
+        } catch (Exception e) {
+            response.append("An error occurred. Please try again.\n");
         }
-        scanner.close();
+        
+        return response.toString();
     }
 
     /**
      * Marks a task as done based on the user input.
      *
      * @param input the user input containing the task number to mark as done
+     * @return the message indicating the task has been marked as done
      * @throws SamException if the task number is invalid or out of range
      */
-    private void markItemDone(String input) throws SamException {
+    private String markItemDone(String input) throws SamException {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             items.getItem(index).markAsDone();
-            ui.showMessage("Nice! I've marked this task as done:");
-            ui.showMessage(items.getItem(index).toString());
+            return "Nice! I've marked this task as done:\n" + items.getItem(index).toString() + "\n";
         } catch (NumberFormatException e) {
             throw new SamException("Invalid task number. Please enter a valid task number to mark.");
         } catch (IndexOutOfBoundsException e) {
@@ -121,14 +114,14 @@ public class Sam {
      * Marks a task as undone based on the user input.
      *
      * @param input the user input containing the task number to be marked as undone
+     * @return the message indicating the task has been marked as undone
      * @throws SamException if the task number is invalid or out of range
      */
-    private void markItemUndone(String input) throws SamException {
+    private String markItemUndone(String input) throws SamException {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             items.getItem(index).markAsUndone();
-            ui.showMessage("OK, I've marked this task as not done yet:");
-            ui.showMessage(items.getItem(index).toString());
+            return "OK, I've marked this task as not done yet:\n" + items.getItem(index).toString() + "\n";
         } catch (NumberFormatException e) {
             throw new SamException("Invalid task number. Please enter a valid task number to unmark.");
         } catch (IndexOutOfBoundsException e) {
@@ -140,16 +133,16 @@ public class Sam {
      * Deletes an item from the list based on the given input.
      *
      * @param input the input string containing the task number to be deleted
+     * @return the message indicating the task has been deleted
      * @throws SamException if the input is not a valid task number or if the task number is out of range
      */
-    private void deleteItem(String input) throws SamException {
+    private String deleteItem(String input) throws SamException {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             Item item = items.getItem(index);
             items.deleteItem(index);
-            ui.showMessage("Noted. I've removed this task:");
-            ui.showMessage(item.toString());
-            ui.showMessage(String.format("Now you have %d tasks in the list", items.getSize()));
+            return "Noted. I've removed this task:\n" + item.toString() + "\n" +
+                    String.format("Now you have %d tasks in the list.\n", items.getSize());
         } catch (NumberFormatException e) {
             throw new SamException("Invalid task number. Please enter a valid task number to delete.");
         } catch (IndexOutOfBoundsException e) {
@@ -161,57 +154,75 @@ public class Sam {
      * Adds a new task to the list based on the given input.
      *
      * @param input the input string representing the task to be added
+     * @return the message indicating the task has been added
      * @throws SamException if the input is invalid or incomplete
      */
-    private void addItem(String input) throws SamException {
+    private String addItem(String input) throws SamException {
         String[] parts = input.split(" ");
         String itemType = parts[0];
+        String response;
 
         if ("todo".equals(itemType)) {
             if (parts.length == 1 || "".equals(input.substring(5).trim())) {
                 throw new SamException("Please include the name of the ToDo task.");
             }
             items.addItem(new ToDo(input.substring(5).trim()));
+            response = "Got it. I've added this task:\n" + items.getLastAdded().toString();
         } else if ("deadline".equals(itemType)) {
             String[] dParts = input.split(" /by ");
             if (dParts.length < 2 || "".equals(dParts[1].trim())) {
                 throw new SamException("Please include the date of the Deadline task.");
             }
             items.addItem(new Deadline(dParts[0].substring(9).trim(), dParts[1].trim()));
+            response = "Got it. I've added this task:\n" + items.getLastAdded().toString();
         } else if ("event".equals(itemType)) {
             String[] eParts = input.split(" /from | /to ");
             if (eParts.length < 3 || "".equals(eParts[1].trim()) || "".equals(eParts[2].trim())) {
                 throw new SamException("Please include the dates for the Event task.");
             }
             items.addItem(new Event(eParts[0].substring(6).trim(), eParts[1].trim(), eParts[2].trim()));
+            response = "Got it. I've added this task:\n" + items.getLastAdded().toString();
         } else {
             throw new SamException("I'm sorry, but I don't know what that means.");
         }
 
-        ui.showMessage("Got it. I've added this task:");
-        ui.showMessage(items.getLastAdded().toString());
-        ui.showMessage(String.format("Now you have %d tasks in the list", items.getSize()));
+        return response + String.format("\nNow you have %d tasks in the list.\n", items.getSize());
     }
 
     /**
-     * Finds and displays tasks that match the given keyword.
+     * Finds and returns tasks that match the given keyword.
      *
      * @param input the user input containing the keyword
+     * @return the message with the tasks that match the keyword
      */
-    private void findItem(String input) {
+    private String findItem(String input) {
         String keyword = input.substring(5).trim();
         List<Item> foundItems = items.findItems(keyword);
+        StringBuilder response = new StringBuilder();
+
         if (foundItems.isEmpty()) {
-            ui.showMessage("No tasks found with the keyword: " + keyword);
+            response.append("No tasks found with the keyword: ").append(keyword).append("\n");
         } else {
-            ui.showMessage("Here are the matching tasks in your list:");
+            response.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < foundItems.size(); i++) {
-                ui.showMessage((i + 1) + "." + foundItems.get(i).toString());
+                response.append((i + 1)).append(".").append(foundItems.get(i).toString()).append("\n");
             }
         }
+        return response.toString();
     }
 
     public static void main(String[] args) {
-        new Sam("data/Sam.txt").run();
+        Sam samApp = new Sam();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to the Sam Task Manager!");
+
+        while (true) {
+            String input = scanner.nextLine();
+            String response = samApp.getResponse(input);
+            System.out.println(response);
+            if (response.equals("Goodbye!\n")) {
+                System.exit(0);
+            }
+        }
     }
 }
