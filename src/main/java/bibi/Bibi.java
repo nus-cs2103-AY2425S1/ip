@@ -1,8 +1,8 @@
 package bibi;
 
-import bibi.task.TaskList;
 import java.io.FileNotFoundException;
 
+import bibi.task.TaskList;
 /**
  * Represents the chat bot.
  */

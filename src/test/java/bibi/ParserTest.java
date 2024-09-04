@@ -1,11 +1,11 @@
 package bibi;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     // Inspired from https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println

@@ -1,6 +1,5 @@
 package bibi;
 
-import bibi.task.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,13 +8,34 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 
+import bibi.task.Deadline;
+import bibi.task.Event;
+import bibi.task.Task;
+import bibi.task.TaskList;
+import bibi.task.ToDo;
+
+/**
+ * Represents an object that handles the modification of the save file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a new Storage instance that handles modification of the save file located in
+     * the specified path.
+     *
+     * @param filePath the path to the save file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Adds all the tasks specified in the save file into the TaskList.
+     *
+     * @param tasks The TaskList which will be used to contain the tasks found in the save file.
+     * @throws FileNotFoundException When the save file cannot be located in the specified path.
+     */
     public void restoreTasks(TaskList tasks) throws FileNotFoundException {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -38,9 +58,12 @@ public class Storage {
 
                 break;
             case 'D':
-                String[] deadlineName = input.substring(4).strip().split(" \\(by: ");
+                String[] deadlineName = input.substring(4)
+                                            .strip()
+                                            .split(" \\(by: ");
                 Task dl = new Deadline(deadlineName[0].stripIndent(),
-                        deadlineName[1].substring(0, deadlineName[1].length() - 1));
+                                    deadlineName[1].substring(0,
+                                    deadlineName[1].length() - 1));
                 tasks.addToTaskList(dl);
 
                 if (isDone) {
@@ -51,7 +74,9 @@ public class Storage {
             case 'E':
                 String[] eventName = input.substring(4).strip().split("\\(");
                 String[] interval = eventName[1].split(" - ");
-                Event e = new Event(eventName[0].stripIndent(), interval[0], interval[1].substring(0, interval[1].length()- 1));
+                Event e = new Event(eventName[0].stripIndent(),
+                        interval[0],
+                        interval[1].substring(0, interval[1].length() - 1));
                 tasks.addToTaskList(e);
 
                 if (isDone) {
@@ -59,10 +84,18 @@ public class Storage {
                 }
 
                 break;
+            default:
+                System.out.println("Program should not run this branch");
             }
         }
     }
 
+    /**
+     * Writes to the file the current Storage instance points to.
+     *
+     * @param tasks The list of tasks in the save file.
+     * @throws IOException when unable to write or create the file.
+     */
     public void writeToFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 
@@ -73,6 +106,9 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Creates a new directory to store the save file if it doesn't exist already.
+     */
     public void initializeDataDirectory() {
         if (!Files.exists(Path.of("data"))) {
             new File("data").mkdirs();

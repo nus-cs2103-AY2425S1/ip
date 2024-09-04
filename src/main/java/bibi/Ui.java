@@ -1,14 +1,15 @@
 package bibi;
 
+import java.util.Scanner;
+
 import bibi.task.Task;
 import bibi.task.TaskList;
-import java.util.Scanner;
 
 /**
  * Represents an object that handles inputs and outputs to the console.
  */
 public class Ui {
-    Scanner s;
+    private final Scanner s;
 
     /**
      * Constructs a new Ui instance.
