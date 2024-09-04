@@ -11,17 +11,17 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    private LocalDate endTime;
+    private LocalDate endDate;
 
     /**
      * Constructs a new instance of Deadline.
      *
      * @param description String description of Deadline.
-     * @param endTime LocalDateTime end time of Deadline.
+     * @param endDate LocalDateTime end date of Deadline.
      */
-    public Deadline(String description, LocalDate endTime) {
+    public Deadline(String description, LocalDate endDate) {
         super(description);
-        this.endTime = endTime;
+        this.endDate = endDate;
     }
 
     /**
@@ -29,20 +29,20 @@ public class Deadline extends Task {
      *
      * @param description String description of Deadline.
      * @param isDone Boolean indicating whether Deadline is done or not.
-     * @param endTime LocalDateTime end time of Deadline.
+     * @param endDate LocalDateTime end date of Deadline.
      */
-    public Deadline(String description, Boolean isDone, LocalDate endTime) {
+    public Deadline(String description, Boolean isDone, LocalDate endDate) {
         super(description, isDone);
-        this.endTime = endTime;
+        this.endDate = endDate;
     }
 
     /**
-     * Gets end time of the Deadline.
+     * Gets end date of the Deadline.
      *
-     * @return description endTime which indicates when the Deadline is due by.
+     * @return description endDate which indicates when the Deadline is due by.
      */
     public LocalDate getEndTime() {
-        return this.endTime;
+        return this.endDate;
     }
 
     /**
@@ -54,7 +54,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String endTime = this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String endTime = this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return "[D]" + super.toString() + " (by: " + endTime + ")";
     }
 
