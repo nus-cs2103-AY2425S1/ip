@@ -1,5 +1,6 @@
 package genji.command;
 
+import genji.GenjiException;
 import genji.task.TaskList;
 import genji.Ui;
 import genji.Storage;
@@ -12,9 +13,14 @@ public class UnmarkCommand extends Command{
 
     @Override
     public void execute(TaskList list, Ui ui, Storage s) {
-        list.unmark(index);
-        ui.unmark(list.get(index));
-        s.saveList(list);
+        try {
+            list.unmark(index);
+            ui.unmark(list.get(index));
+            s.saveList(list);
+        } catch (IndexOutOfBoundsException i) {
+            ui.showError(new GenjiException(
+                    "Please input a integer smaller than the number of tasks").getMessage());
+        }
     }
 
     @Override

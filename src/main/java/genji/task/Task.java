@@ -16,6 +16,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public String toListString() {
         if (isDone) {
             return " | 1 | " + name;

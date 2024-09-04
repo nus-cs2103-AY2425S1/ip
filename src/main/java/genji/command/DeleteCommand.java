@@ -1,5 +1,6 @@
 package genji.command;
 
+import genji.GenjiException;
 import genji.task.TaskList;
 import genji.task.Task;
 import genji.Ui;
@@ -13,10 +14,15 @@ public class DeleteCommand extends Command{
 
     @Override
     public void execute(TaskList list, Ui ui, Storage s) {
-        Task temp = list.get(index);
-        list.delete(index);
-        ui.delete(temp, list);
-        s.saveList(list);
+        try {
+            Task temp = list.get(index);
+            list.delete(index);
+            ui.delete(temp, list);
+            s.saveList(list);
+        } catch (IndexOutOfBoundsException i) {
+            ui.showError(new GenjiException(
+                    "Please input a integer smaller than the number of tasks").getMessage());
+        }
     }
 
     @Override
