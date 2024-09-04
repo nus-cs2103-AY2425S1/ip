@@ -17,8 +17,8 @@ public class ByeCommand extends Command {
      * @param storage Storage that writes and load files.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("    " + "Bye!!! Thanks for chatting!");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         super.quitBot();
+        return "    " + "Bye!!! Thanks for chatting!";
     }
 }

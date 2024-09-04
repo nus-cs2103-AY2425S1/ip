@@ -28,14 +28,14 @@ public class MarkCommand extends Command {
      * @param storage Storage that writes and load files.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (index >= tasks.getLength() || index < 0) {
-            ui.showTaskNotFoundError();
-            return;
+            return ui.showTaskNotFoundError();
         }
         tasks.getTask(index).markCompleted();
         storage.overwriteFile(tasks);
-        System.out.println("    Good job! I've marked this task as done:");
-        System.out.println("       " + tasks.getTask(index).toString());
+        String response = "    Good job! I've marked this task as done:\n"
+                + "       " + tasks.getTask(index).toString();
+        return response;
     }
 }

@@ -28,12 +28,12 @@ public class AddCommand extends Command {
      * @param storage Storage that writes and load files.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("    Got it. I've added this task:");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(task);
-        System.out.println("        " + task.toString());
         String word = tasks.getLength() == 1 ? "task" : "tasks";
-        System.out.println(String.format("    Now you have %d %s in the tasks.", tasks.getLength(), word));
         storage.appendToFile(task);
+        return "    Got it. I've added this task:\n" + "        " + task.toString()
+                + "\n" + String.format("    Now you have %d %s in the tasks.",
+                tasks.getLength(), word);
     }
 }

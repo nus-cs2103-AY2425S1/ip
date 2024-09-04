@@ -26,14 +26,14 @@ public class UnmarkCommand extends Command {
      * @param storage Storage that writes and load files.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (index >= tasks.getLength() || index < 0) {
-            ui.showTaskNotFoundError();
-            return;
+            return ui.showTaskNotFoundError();
         }
         tasks.getTask(index).markUncompleted();
         storage.overwriteFile(tasks);
-        System.out.println("        Noted. I've removed this task:");
-        System.out.println("       " + tasks.getTask(index).toString());
+        String response = "        Noted. I've removed this task:"
+                + "       " + tasks.getTask(index).toString();
+        return response;
     }
 }

@@ -23,8 +23,8 @@ public class Ui {
     /**
      * Displays a horizontal line.
      */
-    public void showLine() {
-        System.out.println(LINE);
+    public String showLine() {
+        return LINE;
     }
 
     /**
@@ -41,14 +41,14 @@ public class Ui {
     /**
      * Displays error message for invalid tasks index.
      */
-    public void showTaskNotFoundError() {
-        System.out.println("    Bimo.Tasks.Task not found in list");
+    public String showTaskNotFoundError() {
+        return ("    Bimo.Tasks.Task not found in list");
     }
 
     /**
      * Displays error message for invalid commands.
      */
-    public void showErrorMessage() {
-        System.out.println("    Something went wrong! Please try again");
+    public String showErrorMessage() {
+        return ("    Something went wrong! Please try again");
     }
 }

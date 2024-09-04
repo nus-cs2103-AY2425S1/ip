@@ -29,16 +29,17 @@ public class DeleteCommand extends Command {
      * @param storage Storage that writes and load files.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (index >= tasks.getLength() || index < 0) {
             ui.showTaskNotFoundError();
-            return;
+            return ui.showTaskNotFoundError();
         }
         Task task = tasks.removeTask(index);
         storage.overwriteFile(tasks);
-        System.out.println("    Noted. I've removed this task:");
-        System.out.println("        " + task.toString());
         String word = tasks.getLength() == 1 ? "task" : "tasks";
-        System.out.println(String.format("    Now you have %d %s in the tasks.", tasks.getLength(), word));
+        String response = "    Noted. I've removed this task:" + "        "
+                + task.toString() + String.format("    Now you have %d %s in the tasks.",
+                tasks.getLength(), word);
+        return response;
     }
 }

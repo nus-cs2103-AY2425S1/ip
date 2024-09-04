@@ -24,6 +24,19 @@ public class Bimo {
             tasks = new TaskList();
         }
     }
+    /**
+     * Return a string object for the dialog box of chatbot
+     */
+    public String getResponse(String input) {
+        String response = "";
+        try {
+            Command c = Parser.parse(input);
+            response = c.execute(tasks, ui, storage);
+        } catch (BimoException e) {
+            response = ui.showErrorMessage();
+        }
+        return response;
+    }
 
     /**
      * Starts the chatbot up.
@@ -46,7 +59,7 @@ public class Bimo {
         }
     }
 
-    public static void main(String[] args) {
-        new Bimo("data/Bimo.txt").run();
-    }
+    //    public static void main(String[] args) {
+    //        new Bimo("data/Bimo.txt").run();
+    //    }
 }
