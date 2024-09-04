@@ -146,11 +146,13 @@ public class Kafka {
                     if (userInput.length < 2) {
                         throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
                     }
-                    String[] eventSplit = userInput[1].split("/from |/to ");
+                    String[] eventSplit = userInput[1].split("/from | /to ");
                     if (eventSplit.length < 3) {
                         throw new KafkaException("It appears the details for this event task are off. Let's give it another go, shall we?");
                     }
-                    Task event = new Event(eventSplit[0], eventSplit[1], eventSplit[2], false);
+                    LocalDateTime from = LocalDateTimeConverter.getLocalDateTime(eventSplit[1]);
+                    LocalDateTime to = LocalDateTimeConverter.getLocalDateTime(eventSplit[2]);
+                    Task event = new Event(eventSplit[0], from, to, false);
                     kafka.addTask(event);
                     KafkaTextWriter.writeToFile(filePath, kafka.tasks);
                 } else {
@@ -159,7 +161,7 @@ public class Kafka {
             } catch (KafkaException | IOException e) {
                 System.out.println("  " + e.getMessage());
             } catch (DateTimeParseException e) {
-                System.out.println("  Ah, it seems you have made a mistake with the deadline. Please align your date with this format: yyyy-mm-dd hhmm (2024-01-01 2300)");
+                System.out.println("  Ah, it seems you have made a mistake with the date. Please align your date with this format: yyyy-mm-dd hhmm (2024-01-01 2300)");
             }
         }
         kafka.goodbye();

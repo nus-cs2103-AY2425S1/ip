@@ -26,8 +26,8 @@ public class KafkaTextReader {
                         tasks.add(deadline);
                         break;
                     case "E":
-                        String from = fileContent[3];
-                        String to = fileContent[4];
+                        LocalDateTime from = LocalDateTime.parse(fileContent[3]);
+                        LocalDateTime to = LocalDateTime.parse(fileContent[4]);
                         Task event = new Event(description, from, to, isDone);
                         tasks.add(event);
                         break;

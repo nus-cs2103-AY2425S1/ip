@@ -9,11 +9,6 @@ public class LocalDateTimeConverter {
         return LocalDateTime.parse(dateTime, formatter);
     }
 
-    public static String getOriginalLocalDateTimeString(LocalDateTime ldt) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return ldt.format(formatter);
-    }
-
     public static String getDifferentFormat(LocalDateTime ldt) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd yyyy HHmm");
         return ldt.format(formatter);
