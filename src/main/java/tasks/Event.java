@@ -58,8 +58,5 @@ public class Event extends Task {
         String end = DateTimeHandler.formatDateTime(this.endTime);
         return ("[E] " + super.toString() + " (from: " + start + " to: " + end + ")");
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> branch-A-CodingStandard
+
