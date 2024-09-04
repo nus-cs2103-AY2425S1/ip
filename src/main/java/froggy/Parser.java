@@ -32,8 +32,6 @@ public class Parser {
             } else if (input.toLowerCase().startsWith("event ")) {
                 return new AddEventCommand(input);
             } else {
-                System.out.println("Input not recognised. Please input a valid action:");
-                System.out.println("todo, event, deadline, mark, unmark, list, bye");
                 return new InvalidCommand();
             }
         }

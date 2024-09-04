@@ -22,8 +22,7 @@ public class Deadline extends Task {
     private static LocalDate parseDate(String dateString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         try {
-            LocalDate date = LocalDate.parse(dateString, formatter);
-            return date;
+            return LocalDate.parse(dateString, formatter);
         } catch (DateTimeParseException e) {
             return null;
         }
