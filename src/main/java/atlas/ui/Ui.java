@@ -21,7 +21,7 @@ public class Ui {
     /**
      * Greets the user when they start running the chatbot.
      */
-    public void greet() {
+    public void showWelcomeMessage() {
         // @@author patorjk.com
         // Reused from https://patorjk.com/software/taag/#p=display&f=Isometric1&t=Ui
         // with minor modifications
@@ -58,7 +58,7 @@ public class Ui {
      *
      * @param message String The error message to be printed out.
      */
-    public void showError(String message) {
+    public void showErrorMessage(String message) {
         this.print(message);
     }
 

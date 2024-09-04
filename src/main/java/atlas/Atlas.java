@@ -29,7 +29,7 @@ public class Atlas {
         try {
             this.tasks = new TaskList(this.storage.load());
         } catch (AtlasException e) {
-            this.ui.showError(e.getMessage());
+            this.ui.showErrorMessage(e.getMessage());
             this.tasks = new TaskList();
         }
     }
@@ -39,7 +39,7 @@ public class Atlas {
      * it until the user exits the chatbot. If there is any error, it will be caught and displayed.
      */
     public void run() {
-        this.ui.greet();
+        this.ui.showWelcomeMessage();
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -48,7 +48,7 @@ public class Atlas {
                 c.execute(this.tasks, this.ui, this.storage);
                 isExit = c.isExit();
             } catch (AtlasException e) {
-                this.ui.showError(e.getMessage());
+                this.ui.showErrorMessage(e.getMessage());
             } finally {
                 ui.showLine();
             }
