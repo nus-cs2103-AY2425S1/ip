@@ -8,13 +8,27 @@ import dave.task.Deadline;
 import dave.task.Event;
 import dave.task.Todo;
 
-
+/**
+ * The {@code Parser} class is responsible for interpreting and processing user input commands.
+ * It determines which type of task the command refers to and creates the corresponding command object.
+ */
 public class Parser {
+
+    /**
+     * Enum representing different task types or commands that the parser can handle.
+     */
     public enum TaskType {
         bye, list, mark, unmark, todo, deadline, event, delete
     }
 
-    public static Command parse(String fullCommand) throws dave.exceptions.InvalidCommandException {
+    /**
+     * Parses the user's input command and returns the appropriate {@code Command} object based on the task type.
+     *
+     * @param fullCommand The full string command input provided by the user.
+     * @return The corresponding {@code Command} object for the input command.
+     * @throws InvalidCommandException if the command is not recognized.
+     */
+    public static Command parse(String fullCommand) throws InvalidCommandException {
         String[] commandParts = fullCommand.split(" ", 2);
         String commandWord = commandParts[0];
         String commandArgs = commandParts.length > 1 ? commandParts[1] : "";
@@ -33,7 +47,7 @@ public class Parser {
                 case deadline:
                     try {
                         return new AddCommand(new Deadline(commandArgs));
-                    } catch (dave.exceptions.InvalidDateTimeFormatException e) {
+                    } catch (InvalidDateTimeFormatException e) {
                         System.out.println(e.getMessage());
                         return null;
                     }
@@ -57,7 +71,7 @@ public class Parser {
                 default:
                     return null;
             }
-        } catch (dave.exceptions.InvalidDescriptionException e) {
+        } catch (InvalidDescriptionException e) {
             System.out.println(e.getMessage());
             return null;
         } catch (Exception e) {
@@ -66,5 +80,3 @@ public class Parser {
         }
     }
 }
-
-

@@ -15,11 +15,21 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+/**
+ * The Storage class handles the loading and saving of tasks to and from a file.
+ */
 public class Storage {
     private static String filePath;
 
     String horizontal = "__________________________________________________________";
 
+    /**
+     * Constructs a Storage object and loads tasks from the specified file into the given TaskList.
+     *
+     * @param file     The file path to load tasks from and save tasks to.
+     * @param taskList The TaskList to populate with tasks loaded from the file.
+     */
     public Storage(String file, TaskList taskList) {
         try {
             this.filePath = file;
@@ -30,29 +40,43 @@ public class Storage {
         }
     }
 
-    public static void saveFile(TaskList dataList) throws IOException
-    {
+    /**
+     * Saves the given TaskList to the file.
+     *
+     * @param dataList The TaskList containing tasks to be saved.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
+    public static void saveFile(TaskList dataList) throws IOException {
         File fileObj = new File(filePath);
         fileObj.getParentFile().mkdirs();
         if (!fileObj.exists()) {
             fileObj.createNewFile();
         }
         FileWriter fw = new FileWriter(fileObj);
-        for (int i = 0; i < dataList.getSize(); i++)
-        {
+        for (int i = 0; i < dataList.getSize(); i++) {
             fw.write(dataList.getTask(i).write());
         }
         fw.close();
     }
 
+    /**
+     * Clears the contents of the file.
+     *
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public static void clearFile() throws IOException {
         FileWriter fw = new FileWriter(filePath, false);
         fw.write("");
         fw.close();
     }
 
-    public static void amendFile(Task task) throws IOException
-    {
+    /**
+     * Appends a task to the file.
+     *
+     * @param task The Task to be appended to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
+    public static void amendFile(Task task) throws IOException {
         File fileObj = new File(filePath);
         fileObj.getParentFile().mkdirs();
         if (!fileObj.exists()) {
@@ -63,6 +87,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads tasks from the file and returns them as an ArrayList.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws IOException If an I/O error occurs while reading from the file.
+     */
     public ArrayList<Task> loadFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
@@ -126,8 +156,5 @@ public class Storage {
         return tasks;
     }
 }
-
-
-
 
 

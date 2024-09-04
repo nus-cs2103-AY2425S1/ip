@@ -5,13 +5,32 @@ import dave.task.TaskList;
 import dave.storage.Storage;
 import dave.ui.Ui;
 import java.io.IOException;
+
+/**
+ * Represents the command to delete a task from the task list.
+ * This command removes the task from the list, provides feedback to the user, and saves the updated list to storage.
+ */
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a {@code DeleteCommand} with the specified index of the task to be deleted.
+     *
+     * @param index The index of the task to be deleted in the task list.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Executes the command to delete a task from the task list.
+     * It removes the task from the list, saves the updated list to the storage, and provides feedback to the user.
+     *
+     * @param tasks   The {@code TaskList} containing the tasks.
+     * @param storage The {@code Storage} object to handle saving the updated task list.
+     * @param ui      The {@code Ui} object to handle user interaction.
+     * @throws IOException If an input or output error occurs while saving the task list.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         try {

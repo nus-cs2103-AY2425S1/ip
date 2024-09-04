@@ -6,13 +6,31 @@ import dave.storage.Storage;
 import dave.ui.Ui;
 import java.io.IOException;
 
+/**
+ * Represents the command to add a new task to the task list.
+ * This command adds the task, provides feedback to the user, and saves the updated list to storage.
+ */
 public class AddCommand extends Command {
     private final Task task;
 
+    /**
+     * Constructs an {@code AddCommand} with the specified task to be added.
+     *
+     * @param task The task to be added to the task list.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }
 
+    /**
+     * Executes the command to add a task to the task list.
+     * It adds the task to the list, saves the updated list to the storage, and provides feedback to the user.
+     *
+     * @param tasks   The {@code TaskList} containing the tasks.
+     * @param storage The {@code Storage} object to handle saving the updated task list.
+     * @param ui      The {@code Ui} object to handle user interaction.
+     * @throws IOException If an input or output error occurs while saving the task.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         try {
