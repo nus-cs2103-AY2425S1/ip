@@ -1,4 +1,4 @@
-package elara.task;
+import elara.task.Task;
 
 public class ToDoTask extends Task {
     public ToDoTask(String desc) {

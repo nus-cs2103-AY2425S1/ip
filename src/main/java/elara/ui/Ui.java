@@ -1,5 +1,3 @@
-package elara.ui;
-
 import elara.task.Task;
 import elara.task.TaskList;
 
@@ -18,7 +16,7 @@ public class Ui {
     }
 
     public void showWelcomeMessage() {
-        String welcomeMessage = "Hello! I'm elara.main.Elara\nWhat can I do for you?";
+        String welcomeMessage = "Hello! I'm Elara\nWhat can I do for you?";
         System.out.println(LINE + "\n" + welcomeMessage + "\n" + LINE);
     }
 

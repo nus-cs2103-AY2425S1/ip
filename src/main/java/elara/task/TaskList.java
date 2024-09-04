@@ -1,5 +1,3 @@
-package elara.task;
-
 import java.util.ArrayList;
 
 public class TaskList {
