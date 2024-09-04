@@ -15,6 +15,7 @@ Sure thing! Here is your task list:
 	1: [T] [X] individual project
 	2: [D] [ ] presentation (by: 6 Sep 2024 4:00 pm)
 	3: [E] [ ] project meeting (from: 4pm to: 6pm)
+
 ____________________________________________________________
 ____________________________________________________________
 Great job completing the task! Keep up the great work!
@@ -29,6 +30,7 @@ Sure thing! Here is your task list:
 	1: [T] [X] individual project
 	2: [D] [ ] presentation (by: 6 Sep 2024 4:00 pm)
 	3: [E] [ ] project meeting (from: 4pm to: 6pm)
+
 ____________________________________________________________
 ____________________________________________________________
 Goodbye! If you ever want to chat again, I'll be here.

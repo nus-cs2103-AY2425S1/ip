@@ -7,57 +7,45 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Alexer {
-    private static final String GOODBYE = "Goodbye! If you ever want to chat again, I'll be here.\nHave a great day!";
     private static final String BREAK = "____________________________________________________________";
+
+    public static final String LOGO = """
+                     .     .                           
+                    /|     |     ___  _  .-   ___  .___
+                   /  \\    |   .'   `  \\,'  .'   ` /   \\
+                  /---'\\   |   |----'  /\\   |----' |   '
+                ,'      \\ /\\__ `.___, /  \\  `.___, /   """;
 
     public static final String NAME = "Alexer";
 
-    private final Scanner scanner = new Scanner(System.in);
+    private static Alexer alexer;
 
-    private final TaskManager tasks = new TaskManager();
+    private final Scanner scanner;
 
-    /**
-     * Prints the chatbot response with break lines
-     * @param response The message to be printed
-     */
-    private void printResponse(String response) {
-        System.out.println(BREAK);
-        System.out.println(response);
-        System.out.println(BREAK);
+    private final TaskManager tasks;
+
+    private final Prompter prompter;
+
+    private final CommandHandler commandHandler;
+
+    public static Alexer getInstance() {
+        return alexer;
     }
 
-    public void printGoodbye() {
-        System.out.println(BREAK);
-        System.out.println(GOODBYE);
-        System.out.println(BREAK);
+    public Alexer() {
+        alexer = this;
+        scanner = new Scanner(System.in);
+        tasks = new TaskManager();
+        prompter = new Prompter();
+        commandHandler = new CommandHandler();
     }
 
-    public void printTasks() {
-        System.out.println(BREAK);
-        System.out.println("Sure thing! Here is your task list:\n");
-
-        for (int i = 0; i < tasks.getTaskCount(); i++) {
-            System.out.format("\t%d: %s\n", i + 1, tasks.getTask(i));
-        }
-
-        System.out.println(BREAK);
+    public Prompter getPrompter() {
+        return prompter;
     }
 
-    public void greetUser() {
-        System.out.println(BREAK);
-        System.out.printf("Hello from %s, what can I do for you today?\n", NAME);
-        System.out.println(BREAK);
-    }
-
-    public void addTask(String taskDescription) {
-        // create new task
-        Task task = new Task(taskDescription);
-        tasks.addTask(task);
-
-        System.out.println(BREAK);
-        System.out.format("Got it! I’ve added the task to your list:\n\n\t%s\n", task);
-        System.out.format("\nYou have %d tasks now.\n", tasks.getTaskCount());
-        System.out.println(BREAK);
+    public TaskManager getTaskManager() {
+        return tasks;
     }
 
     public void deleteTask(List<String> arguments) {
@@ -106,7 +94,7 @@ public class Alexer {
         try {
             dateTime = LocalDateTime.parse(by, dateTimeFormat);
         } catch (DateTimeException e) {
-            printResponse("Uh-oh, I failed to understand what is the task deadline!");
+            prompter.printResponse("Uh-oh, I failed to understand what is the task deadline!");
             return;
         }
 
@@ -173,64 +161,60 @@ public class Alexer {
         List<String> arguments = new ArrayList<>(List.of(input.split(" ")));
         String command = arguments.remove(0);
 
-        switch (command) {
-        case "bye":
-            printGoodbye();
-            break;
-        case "list":
-            printTasks();
+        Command cmd = commandHandler.getCommand(command.toLowerCase());
+        if (cmd != null) {
+            cmd.run(arguments.toArray(String[]::new));
             promptLoop();
-            break;
-        case "mark":
-            int index = Integer.parseInt(arguments.get(0));
-            markTaskDone(index);
-            promptLoop();
-            break;
-        case "unmark":
-            int taskNum = Integer.parseInt(arguments.get(0));
-            unmarkTaskDone(taskNum);
-            promptLoop();
-            break;
-        case "todo":
-            addTodo(arguments);
-            promptLoop();
-            break;
-        case "deadline":
-            addDeadline(arguments);
-            promptLoop();
-            break;
-        case "event":
-            addEvent(arguments);
-            promptLoop();
-            break;
-        case "delete":
-            deleteTask(arguments);
-            promptLoop();
-            break;
-        default:
-            System.out.println(BREAK);
-            System.out.println("Uh-oh, I did not understand what you are trying to do.");
-            System.out.println(BREAK);
-            promptLoop();
-            break;
+        } else {
+            switch (command) {
+            case "bye":
+                prompter.printGoodbye();
+                break;
+            case "mark":
+                int index = Integer.parseInt(arguments.get(0));
+                markTaskDone(index);
+                promptLoop();
+                break;
+            case "unmark":
+                int taskNum = Integer.parseInt(arguments.get(0));
+                unmarkTaskDone(taskNum);
+                promptLoop();
+                break;
+            case "todo":
+                addTodo(arguments);
+                promptLoop();
+                break;
+            case "deadline":
+                addDeadline(arguments);
+                promptLoop();
+                break;
+            case "event":
+                addEvent(arguments);
+                promptLoop();
+                break;
+            case "delete":
+                deleteTask(arguments);
+                promptLoop();
+                break;
+            default:
+                System.out.println(BREAK);
+                System.out.println("Uh-oh, I did not understand what you are trying to do.");
+                System.out.println(BREAK);
+                promptLoop();
+                break;
+            }
         }
     }
 
-    public static void main(String[] args) {
-        String logo = """
-                     .     .                           
-                    /|     |     ___  _  .-   ___  .___
-                   /  \\    |   .'   `  \\,'  .'   ` /   \\
-                  /---'\\   |   |----'  /\\   |----' |   '
-                ,'      \\ /\\__ `.___, /  \\  `.___, /   """;
-        System.out.println(BREAK);
-        System.out.println(logo);
-        System.out.println(BREAK);
+    public void start() {
+        prompter.printLogo();
+        tasks.loadTasks();
+        prompter.printGreeting();
+        promptLoop();
+    }
 
-        // create an instance of our bot
+    public static void main(String[] args) {
         Alexer alexer = new Alexer();
-        alexer.tasks.loadTasks();
-        alexer.greetUser();
-        alexer.promptLoop();
+        alexer.start();
     }
 }
