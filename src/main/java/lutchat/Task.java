@@ -55,6 +55,19 @@ public abstract class Task {
     }
 
     /**
+     * Checks if the specified string is contained within the task's description.
+     *
+     * @param str the string to check for within the task's description
+     * @return true if the description contains the specified string, false otherwise
+     */
+    public boolean contains(String str) {
+        if (description.contains(str)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Returns the type of the task.
      * This method must be implemented by subclasses to specify the task type.
      *
