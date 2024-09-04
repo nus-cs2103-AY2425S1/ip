@@ -141,9 +141,12 @@ public class TaskList {
     }
 
     /**
-     * Returns string representation of TaskList.
+     * Returns String representation of TaskList of matching tasks.
+     * Matching tasks are identified by the given keyword. 
      *
-     * @return String representation.
+     * @param input keyword to search tasks for
+     * @return String representation of TaskList of matching tasks
+     * @throws SerenityException If keyword is missing.
      */
     public String findTask(String input) throws SerenityException {
 
@@ -168,7 +171,12 @@ public class TaskList {
         }
         return message;
     }
-    
+
+    /**
+     * Returns string representation of TaskList.
+     *
+     * @return String representation.
+     */
     @Override
     public String toString() {
         String message = "Here are the tasks in your list:";
