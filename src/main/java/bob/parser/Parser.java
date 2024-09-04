@@ -15,8 +15,9 @@ public class Parser {
     /**
      * Parses string format of date and returns a LocalDate object.
      * @param date String format of date.
-     * @return LocalDate object
+     * @return LocalDate object.
      */
+    @SuppressWarnings("checkstyle:EmptyCatchBlock")
     public static LocalDate parseDate(String date) {
         List<DateTimeFormatter> inputFormatters = List.of(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd"),  //type 1 date format
@@ -29,6 +30,7 @@ public class Parser {
             try {
                 return LocalDate.parse(date, formatter);
             } catch (DateTimeParseException e) {
+
             }
         }
 
