@@ -1,8 +1,11 @@
 package dumpling.task;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Class to handle list of tasks
+ */
 public class TaskList {
 
     private List<Task> items;
@@ -86,13 +89,18 @@ public class TaskList {
      */
     public String delete(int itemIdx) throws IndexOutOfBoundsException {
         Task deletedTask = this.items.remove(itemIdx - 1);
-        String message = "     Noted. I've removed this task:\n" +
-                String.format("       %s\n", deletedTask.toString()) +
-                String.format("     Now you have %d %s in the list.",
+        String message = "     Noted. I've removed this task:\n"
+                + String.format("       %s\n", deletedTask.toString())
+                + String.format("     Now you have %d %s in the list.",
                     this.items.size(), (this.items.size() == 1 ? "task" : "tasks"));
         return message;
     }
 
+    /**
+     * Find tasks with description that has teh target substring
+     * @param targetSubstring Target substring to search for
+     * @return String with the list of matching tasks, or a default message if no tasks found.
+     */
     public String find(String targetSubstring) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : this.items) {

@@ -1,9 +1,12 @@
 package dumpling.command;
 
 import dumpling.Storage;
-import dumpling.Ui.Ui;
 import dumpling.task.TaskList;
+import dumpling.ui.Ui;
 
+/**
+ * FindCommand class, inherits Command
+ */
 public class FindCommand extends Command {
 
     private String targetSubstring;

@@ -1,9 +1,12 @@
 package dumpling.command;
 
-import dumpling.task.TaskList;
-import dumpling.Ui.Ui;
 import dumpling.Storage;
+import dumpling.task.TaskList;
+import dumpling.ui.Ui;
 
+/**
+ * Abstract class Command for other Command classes to inherit from
+ */
 public abstract class Command {
 
     /**
@@ -15,6 +18,13 @@ public abstract class Command {
      */
     public abstract void execute(TaskList taskList, Ui ui, Storage storage);
 
+    /**
+     * Function that executes the Command's intended actions and returns the log as a string
+     *
+     * @param taskList TaskList holding the tasks
+     * @param storage Storage object to save data after Add, Delete or Mark commands
+     * @return String that holds the information of the log from performing the command
+     */
     public abstract String executeAndReturnLog(TaskList taskList, Storage storage);
 
     /**

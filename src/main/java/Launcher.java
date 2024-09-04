@@ -1,4 +1,4 @@
-import dumpling.Ui.Main;
+import dumpling.ui.Main;
 import javafx.application.Application;
 
 /**

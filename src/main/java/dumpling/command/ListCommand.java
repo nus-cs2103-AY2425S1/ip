@@ -1,9 +1,12 @@
 package dumpling.command;
 
-import dumpling.task.TaskList;
-import dumpling.Ui.Ui;
 import dumpling.Storage;
+import dumpling.task.TaskList;
+import dumpling.ui.Ui;
 
+/**
+ * ListCommand to handle list commands for Dumpling
+ */
 public class ListCommand extends Command {
 
     public void execute(TaskList taskList, Ui ui, Storage storage) {
