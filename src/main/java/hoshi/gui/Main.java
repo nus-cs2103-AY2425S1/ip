@@ -25,6 +25,9 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
+
             // inject the hoshi instance
             fxmlLoader.<MainWindow>getController().setHoshi(hoshi);
             stage.show();
