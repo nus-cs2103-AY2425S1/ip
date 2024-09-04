@@ -1,5 +1,7 @@
 package elster.tasks;
 
+import elster.Elseption;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,21 +23,15 @@ public class DeadlineTask extends Task {
      * @param input Input from terminal to be parsed.
      * @return Created deadline task.
      */
-    public static DeadlineTask of(String input) {
+    public static DeadlineTask of(String input) throws Elseption {
         String[] splitInput = input.split("\\s+");
         LocalDateTime deadline;
 
         if (input.strip().equals("deadline")) {
-            printLine();
-            System.out.println("    Elster begs of you to have details for your task");
-            printLine();
-            return null;
+            throw new Elseption("Elster begs of you to have details for your task");
 
         } else if (!input.contains("/by")) {
-            printLine();
-            System.out.println("    Elster begs of you to have a yknow, deadline with /by");
-            printLine();
-            return null;
+            throw new Elseption("Elster begs of you to have a yknow, deadline with /by");
 
         }
 
@@ -51,11 +47,8 @@ public class DeadlineTask extends Task {
             }
 
         } catch (Exception e) {
-            printLine();
-            System.out.println("    for /by, Elster requires a yyyy-mm-dd or yyyy-mm-dd HH:mm "
+            throw new Elseption("for /by, Elster requires a yyyy-mm-dd or yyyy-mm-dd HH:mm "
                     + "format please and thanks");
-            printLine();
-            return null;
         }
 
         return new DeadlineTask(

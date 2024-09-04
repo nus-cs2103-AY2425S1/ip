@@ -50,19 +50,15 @@ public class Elster {
 
                 } else if (input.startsWith("deadline")) {
                     DeadlineTask task = DeadlineTask.of(input);
-                    if (!(task == null)) {
-                        taskList.addToList(task);
-                        ui.addTaskMessage(taskList, task);
-                    }
+                    taskList.addToList(task);
+                    ui.addTaskMessage(taskList, task);
 
                     storage.writeToFile(taskList);
 
                 } else if (input.startsWith("event")) {
                     EventTask task = EventTask.of(input);
-                    if (!(task == null)) {
-                        taskList.addToList(task);
-                        ui.addTaskMessage(taskList, task);
-                    }
+                    taskList.addToList(task);
+                    ui.addTaskMessage(taskList, task);
 
                     storage.writeToFile(taskList);
 
@@ -75,10 +71,8 @@ public class Elster {
 
                 } else if (input.startsWith("todo")) {
                     ToDoTask task = ToDoTask.of(input);
-                    if (!(task == null)) {
-                        taskList.addToList(task);
-                        ui.addTaskMessage(taskList, task);
-                    }
+                    taskList.addToList(task);
+                    ui.addTaskMessage(taskList, task);
 
                     storage.writeToFile(taskList);
 

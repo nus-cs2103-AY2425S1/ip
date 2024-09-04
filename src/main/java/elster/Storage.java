@@ -13,8 +13,8 @@ import elster.tasks.Task;
 import elster.tasks.ToDoTask;
 
 public class Storage {
-    private Path dirPath;
-    private Path filePath;
+    private final Path dirPath;
+    private final Path filePath;
 
     public Storage(Path filePath, Ui ui) {
         this.dirPath = filePath;

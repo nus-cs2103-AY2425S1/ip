@@ -1,5 +1,7 @@
 package elster.tasks;
 
+import elster.Elseption;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,29 +33,19 @@ public class EventTask extends Task {
      * @param input Input from terminal to be parsed.
      * @return Created event task.
      */
-    public static EventTask of(String input) {
+    public static EventTask of(String input) throws Elseption {
         String[] splitInput = input.split("\\s+");
         LocalDateTime start;
         LocalDateTime end;
 
         if (input.strip().equals("event")) {
-            printLine();
-            System.out.println("    Elster \"kindly\" requests you to have details for your task");
-            printLine();
-            return null;
+            throw new Elseption("Elster \"kindly\" requests you to have details for your task");
 
         } else if (!input.contains("/from")) {
-            printLine();
-            System.out.println("    Elster \"kindly\" requests you to have a start time with /from");
-            printLine();
-            return null;
+            throw new Elseption("Elster \"kindly\" requests you to have a start time with /from");
 
         } else if (!input.contains("/to")) {
-            printLine();
-            System.out.println("    Elster \"kindly\" requests you to have a end time with /to");
-            printLine();
-            return null;
-
+            throw new Elseption("Elster \"kindly\" requests you to have a end time with /to");
         }
 
         try {
@@ -71,10 +63,7 @@ public class EventTask extends Task {
             }
 
         } catch (Exception e) {
-            printLine();
-            System.out.println("    Elster \"gently\" requests a yyyy-mm-dd or yyyy-mm-dd HH:mm format");
-            printLine();
-            return null;
+            throw new Elseption("Elster \"gently\" requests a yyyy-mm-dd or yyyy-mm-dd HH:mm format");
         }
 
         return new EventTask(
