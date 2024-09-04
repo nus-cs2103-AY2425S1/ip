@@ -2,26 +2,26 @@ package ui;
 
 public class Ui {
 
-    private final String line = "____________________________________________________________\n";
+    private final String line = "_______________________________________________________\n";
 
     public Ui() {}
     /**
      * Prints the greeting to the user.
      */
-    public void greet() {
-        System.out.print(line() + "Hello! I'm Meeks! Your friendly chatbot!\n" + "What can I do for you?\n");
+    public String greet() {
+        return line() + "Hello! I'm Meeks! Your friendly chatbot!\n" + "What can I do for you?\n";
     }
     /**
      * Prints the goodbye message to the user.
      */
-    public void goodbye() {
-        System.out.print("Bye. Hope to see you again soon!\n" + line());
+    public String goodbye() {
+        return "Bye. Hope to see you again soon!\n" + line();
     }
     /**
      * Prints the unknown command message to the user.
      */
-    public void invalidCommand() {
-        System.out.print("Oh no! You have input an unknown command!\n" + line());
+    public String invalidCommand() {
+        return "Oh no! You have input an unknown command!\n" + line();
     }
     /**
      * A line to separate messages.

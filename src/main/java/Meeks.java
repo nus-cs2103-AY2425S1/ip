@@ -43,7 +43,7 @@ public class Meeks extends Application {
                 System.out.println("Input cannot be empty. Please try again.");
                 continue;
             }
-            echo.echoOut();
+            System.out.print(echo.echoOut());
 
             if (command.equalsIgnoreCase("bye")) {
                 break;

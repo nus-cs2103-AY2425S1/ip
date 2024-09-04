@@ -16,6 +16,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Mudkip meeks;
+    private final String line = "_______________________________________________________\n";
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/quack.jpeg"));
     private Image meeksImage = new Image(this.getClass().getResourceAsStream("/images/mudkip.png"));
@@ -23,6 +24,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getMeeksDialog(
+                        line + "Hello! I'm Meeks! Your friendly chatbot!\n" +
+                                "What can I do for you?\n" , meeksImage)
+        );
     }
 
     /** Injects the Mudkip instance */
