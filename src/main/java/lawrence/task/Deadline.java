@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
-    private final LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Constructor. Creates a {@link Deadline} object with the specified

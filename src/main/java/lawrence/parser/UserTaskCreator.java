@@ -43,31 +43,19 @@ public class UserTaskCreator implements TaskCreator {
 
         Task t;
         switch (type) {
-        case TODO:
-            t = createTodoTask(inputComponents[1]);
-            break;
         case DEADLINE:
             t = createDeadlineTask(inputComponents[1]);
             break;
         case EVENT:
             t = createEventTask(inputComponents[1]);
             break;
+        case TODO:
+            t = createTodoTask(inputComponents[1]);
+            break;
         default:
             throw new IllegalArgumentException("Unknown task type: " + type);
         }
         return t;
-    }
-
-    /**
-     * Creates and returns a {@link Todo} object based on the
-     * input information provided.
-     *
-     * @param input a string containing information about the {@link Todo} object
-     * @return a {@link Todo} object
-     * @see Todo
-     */
-    private Todo createTodoTask(String input) {
-        return new Todo(input);
     }
 
     /**
@@ -120,5 +108,17 @@ public class UserTaskCreator implements TaskCreator {
         LocalDateTime to = DateParser.parseUserInputDate(parameters[2]);
 
         return new Event(description, from, to);
+    }
+
+    /**
+     * Creates and returns a {@link Todo} object based on the
+     * input information provided.
+     *
+     * @param input a string containing information about the {@link Todo} object
+     * @return a {@link Todo} object
+     * @see Todo
+     */
+    private Todo createTodoTask(String input) {
+        return new Todo(input);
     }
 }

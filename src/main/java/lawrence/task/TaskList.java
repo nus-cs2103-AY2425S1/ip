@@ -2,13 +2,12 @@ package lawrence.task;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Represents the list of tasks the user has specified to be tracked by the chatbot.
  */
 public class TaskList {
-    private final ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     /**
      * Default constructor. The number of items in the list will be
@@ -36,15 +35,6 @@ public class TaskList {
      */
     public void addTask(Task task) {
         list.add(task);
-    }
-
-    /**
-     * Returns an array of {@link Task} objects stored in the list.
-     *
-     * @return an array of {@link Task} objects
-     */
-    public Task[] getTasks() {
-        return list.toArray(new Task[0]);
     }
 
     /**
@@ -135,6 +125,15 @@ public class TaskList {
                 .toList();
 
         return new TaskList(result.toArray(new Task[0]));
+    }
+
+    /**
+     * Returns an array of {@link Task} objects stored in the list.
+     *
+     * @return an array of {@link Task} objects
+     */
+    public Task[] getTasks() {
+        return list.toArray(new Task[0]);
     }
 
     /**

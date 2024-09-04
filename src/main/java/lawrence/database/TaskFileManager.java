@@ -20,7 +20,7 @@ import java.util.Scanner;
  * </p>
  */
 public class TaskFileManager {
-    private final File file;
+    private final File FILE;
 
     /**
      * Default constructor. The {@link Path} instance provided can be a
@@ -29,27 +29,9 @@ public class TaskFileManager {
      * @param path the path to the text file used to store tasks
      */
     public TaskFileManager(Path path) {
-        file = path.toAbsolutePath()
+        FILE = path.toAbsolutePath()
                 .normalize()
                 .toFile();
-    }
-
-    /**
-     * Saves the specified tasks into the text file.
-     * <p>
-     * This operation will overwrite the contents previously in the text file.
-     * </p>
-     *
-     * @param tasks        the tasks to save to the text file
-     * @throws IOException if writing to the file is unsuccessful
-     */
-    public void saveTasksToFile(Task[] tasks) throws IOException {
-        createFileIfNotExists();
-
-        FileWriter writer = new FileWriter(file);
-        String result = toSaveFormat(tasks);
-        writer.write(result);
-        writer.close();
     }
 
     /**
@@ -57,15 +39,15 @@ public class TaskFileManager {
      * stored task strings into an array of {@link Task} objects using
      * the {@link TaskParser} class.
      *
-     * @return             an array of {@link Task} objects
+     * @return an array of {@link Task} objects
      * @throws IOException if reading from the file is unsuccessful
      */
     public Task[] readTasksFromFile() throws IOException {
-        if (!file.exists()) {
+        if (!FILE.exists()) {
             return new Task[0];
         }
 
-        Scanner sc = new Scanner(new FileReader(file));
+        Scanner sc = new Scanner(new FileReader(FILE));
         sc.useDelimiter("\n");
 
         ArrayList<Task> tasks = new ArrayList<>();
@@ -85,13 +67,30 @@ public class TaskFileManager {
     }
 
     /**
+     * Saves the specified tasks into the text file.
+     * <p>
+     * This operation will overwrite the contents previously in the text file.
+     * </p>
+     *
+     * @param tasks the tasks to save to the text file
+     * @throws IOException if writing to the file is unsuccessful
+     */
+    public void saveTasksToFile(Task[] tasks) throws IOException {
+        createFileIfNotExists();
+
+        FileWriter writer = new FileWriter(FILE);
+        String result = convertToSaveFormat(tasks);
+        writer.write(result);
+        writer.close();
+    }
+
+    /**
      * Converts and array of {@link Task} objects into a string.
      *
      * @param tasks the array of {@link Task} objects
-     * @return      a string representing the array of {@link Task}
-     *              objects
+     * @return a string representing the array of {@link Task} objects
      */
-    private String toSaveFormat(Task[] tasks) {
+    private String convertToSaveFormat(Task[] tasks) {
         StringBuilder result = new StringBuilder();
         for (Task task : tasks) {
             result.append(task.toSaveFormat());
@@ -109,19 +108,19 @@ public class TaskFileManager {
      * @throws IOException if the creation of the file was unsuccessful
      */
     private void createFileIfNotExists() throws IOException {
-        if (file.exists()) {
+        if (FILE.exists()) {
             return;
         }
 
-        boolean parentDirectoryCreated = file.getParentFile().mkdirs();
-        boolean fileCreated = file.createNewFile();
+        boolean parentDirectoryCreated = FILE.getParentFile().mkdirs();
+        boolean fileCreated = FILE.createNewFile();
 
         if (!parentDirectoryCreated) {
-            throw new IOException("An error occurred when trying to initialise the file directory " + file.getPath());
+            throw new IOException("An error occurred when trying to initialise the file directory " + FILE.getPath());
         }
 
         if (!fileCreated) {
-            throw new IOException("An error occurred when trying to initialise " + file.getName());
+            throw new IOException("An error occurred when trying to initialise " + FILE.getName());
         }
     }
 }

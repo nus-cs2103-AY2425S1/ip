@@ -1,9 +1,9 @@
 package lawrence.task;
 
-import lawrence.task.Task;
-
+/**
+ * Represents a simple task with no time constraints.
+ */
 public class Todo extends Task {
-
     /**
      * Constructor. Creates an {@link Todo} object with the specified
      * task description.

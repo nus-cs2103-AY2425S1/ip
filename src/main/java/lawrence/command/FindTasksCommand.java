@@ -28,16 +28,16 @@ public class FindTasksCommand extends Command {
      * the method returns.
      * </p>
      *
-     * @param taskList a list of tasks the command may operate
-     *                 on
-     * @param manager  a {@link TaskFileManager} instance that
-     *                 the command may use when saving changes
-     *                 made
-     * @param ui       a {@link UserInterface} instance to
-     *                 display possible messages to the user
+     * @param tasks a list of tasks the command may operate
+     *              on
+     * @param manager a {@link TaskFileManager} instance that
+     *                the command may use when saving changes
+     *                made
+     * @param ui a {@link UserInterface} instance to display
+     *           possible messages to the user
      */
     @Override
-    public void execute(TaskList taskList, TaskFileManager manager, UserInterface ui) {
+    public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
         if (input.isEmpty()) {
             ui.showMessage("Match query cannot be empty!");
             return;
@@ -54,7 +54,7 @@ public class FindTasksCommand extends Command {
             ui.showMessage("Please include a phrase for your query.");
             return;
         }
-        TaskList results = taskList.findTasks(query);
+        TaskList results = tasks.findTasks(query);
         if (results.getSize() < 1) {
             ui.showMessage("No matches were found for your query: " + query);
             return;

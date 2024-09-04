@@ -4,17 +4,17 @@ package lawrence.command;
  * Represents the different commands that can be issued by the user.
  */
 public enum CommandType {
-    EXIT("bye"),
-    DISPLAY("list"),
-    MARK_COMPLETE("mark"),
-    MARK_INCOMPLETE("unmark"),
-    DELETE("delete"),
-    FIND_MATCHING("find"),
-    ADD_TODO("todo"),
     ADD_DEADLINE("deadline"),
-    ADD_EVENT("event");
+    ADD_EVENT("event"),
+    ADD_TODO("todo"),
+    DELETE("delete"),
+    DISPLAY("list"),
+    EXIT("bye"),
+    FIND_MATCHING("find"),
+    MARK_COMPLETE("mark"),
+    MARK_INCOMPLETE("unmark");
 
-    private final String commandType;
+    private String commandType;
 
     /** Default constructor.
      * <p>
@@ -23,24 +23,15 @@ public enum CommandType {
      *
      * @param type the string containing an enum value
      */
-    private CommandType(String type) {
+    CommandType(String type) {
         this.commandType = type.toLowerCase();
-    }
-
-    /**
-     * Returns the command type as a string.
-     *
-     * @return a string of the command type
-     */
-    public String getCommandType() {
-        return commandType;
     }
 
     /**
      * Converts a text string into its relevant enum counterpart.
      *
      * @param input the text containing an enum value
-     * @return      an enum type matching the input
+     * @return an enum type matching the input
      * @throws IllegalArgumentException if the input string does not match any enum values
      */
     public static CommandType fromString(String input) throws IllegalArgumentException {
@@ -50,5 +41,14 @@ public enum CommandType {
             }
         }
         throw new IllegalArgumentException(String.format("No command type found for: %s.", input));
+    }
+
+    /**
+     * Returns the command type as a string.
+     *
+     * @return a string of the command type
+     */
+    public String getCommandType() {
+        return commandType;
     }
 }

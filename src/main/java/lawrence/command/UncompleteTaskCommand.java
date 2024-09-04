@@ -11,7 +11,7 @@ import java.io.IOException;
  * Represents the user command to mark existing tasks as incomplete.
  */
 public class UncompleteTaskCommand extends Command {
-    private final String input;
+    private String input;
 
     /**
      * Default constructor.
@@ -30,16 +30,16 @@ public class UncompleteTaskCommand extends Command {
      * method does nothing.
      * </p>
      *
-     * @param taskList a list of tasks the command may operate
-     *                 on
-     * @param manager  a {@link TaskFileManager} instance that
-     *                 the command may use when saving changes
-     *                 made
-     * @param ui       a {@link UserInterface} instance to
-     *                 display possible messages to the user
+     * @param tasks a list of tasks the command may operate
+     *              on
+     * @param manager a {@link TaskFileManager} instance that
+     *                the command may use when saving changes
+     *                made
+     * @param ui a {@link UserInterface} instance to display
+     *           possible messages to the user
      */
     @Override
-    public void execute(TaskList taskList, TaskFileManager manager, UserInterface ui) {
+    public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui) {
         String[] inputComponents = input.split(" ", 2);
         if (inputComponents.length < 2) {
             ui.showMessage("Please specify the task you want to mark as incomplete.");
@@ -49,8 +49,8 @@ public class UncompleteTaskCommand extends Command {
         String rawTaskNumber = inputComponents[1];
         try {
             int taskNumber = Integer.parseInt(rawTaskNumber);
-            Task incompleteTask = taskList.uncompleteTask(taskNumber);
-            saveTasks(taskList, manager);
+            Task incompleteTask = tasks.uncompleteTask(taskNumber);
+            saveTasks(tasks, manager);
 
             ui.showMessage(String.format("Changed your mind? The task is set to incomplete:%n%s", incompleteTask));
         } catch (NumberFormatException e) {

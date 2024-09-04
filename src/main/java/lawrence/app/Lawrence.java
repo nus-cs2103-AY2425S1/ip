@@ -25,9 +25,10 @@ import java.util.Scanner;
 public class Lawrence {
     private static final String NAME = "Lawrence";
     private static final Path SAVE_LOCATION = Paths.get(".", "data", "tasks.txt");
-    private TaskList taskList;
-    private final TaskFileManager manager;
-    private final UserInterface ui;
+
+    private TaskFileManager manager;
+    private TaskList tasks;
+    private UserInterface ui;
 
     /**
      * Default constructor.
@@ -37,15 +38,16 @@ public class Lawrence {
         manager = new TaskFileManager(SAVE_LOCATION);
         try {
             Task[] existingTasks = manager.readTasksFromFile();
-            taskList = new TaskList(existingTasks);
+            tasks = new TaskList(existingTasks);
         } catch (IOException e) {
             // initialise with no tasks instead
-            taskList = new TaskList(new Task[0]);
+            tasks = new TaskList(new Task[0]);
         }
     }
 
     /**
      * Initialises and runs the Lawrence chatbot.
+     *
      * @param args optional startup arguments
      */
     public static void main(String[] args) {
@@ -67,9 +69,9 @@ public class Lawrence {
             userInput = sc.nextLine();  // Get next user input
             try {
                 Command c = CommandParser.createCommand(userInput);
-                c.execute(taskList, manager, ui);
+                c.execute(tasks, manager, ui);
                 shouldContinue = c.shouldContinue();
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | IllegalStateException e) {
                 ui.showMessage(String.format("%s Please try again.", e.getMessage()));
             }
         }

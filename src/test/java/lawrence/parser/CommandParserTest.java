@@ -28,21 +28,18 @@ public class CommandParserTest {
     public void createCommand_markCompleteCommand_returnsCompleteTaskCommand() {
         Command command = CommandParser.createCommand("mark 1");
         assertInstanceOf(CompleteTaskCommand.class, command);
-        // Additional assertions could be made to verify the command's parameters
     }
 
     @Test
     public void createCommand_markCompleteCommandWithMissingValue_returnsCompleteTaskCommand() {
         Command command = CommandParser.createCommand("mark");
         assertInstanceOf(CompleteTaskCommand.class, command);
-        // Additional assertions could be made to verify the command's parameters
     }
 
     @Test
     public void createCommand_markCompleteCommandWithInvalidValue_returnsCompleteTaskCommand() {
         Command command = CommandParser.createCommand("mark ;");
         assertInstanceOf(CompleteTaskCommand.class, command);
-        // Additional assertions could be made to verify the command's parameters
     }
 
     @Test
