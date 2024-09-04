@@ -49,8 +49,8 @@ public class TaskList {
      * Marks a task as done based on its task number as per the list.
      *
      * @param taskNumber The number of the task to mark as done.
-     * @throws MeejuException If the task number is invalid, or the task is already marked.
      * @return Response acknowledging completion of task
+     * @throws MeejuException If the task number is invalid, or the task is already marked.
      */
     public String markTask(String taskNumber) throws MeejuException {
         Task taskToMark;
@@ -76,8 +76,8 @@ public class TaskList {
      * The undo operation of mark
      *
      * @param taskNumber The number of the task to unmark.
-     * @throws MeejuException If the task number is invalid, or the task is not yet marked.
      * @return Response acknowledging completion of task
+     * @throws MeejuException If the task number is invalid, or the task is not yet marked.
      */
     public String unmarkTask(String taskNumber) throws MeejuException {
         Task taskToUnmark;
@@ -102,8 +102,8 @@ public class TaskList {
      * Adds a new todo task to the list.
      *
      * @param taskInstruction The description of the todo task.
-     * @throws MeejuException If the task description is empty.
      * @return Response acknowledging completion of task
+     * @throws MeejuException If the task description is empty.
      */
     public String addTodoTask(String taskInstruction) throws MeejuException {
         if (taskInstruction.isEmpty()) {
@@ -121,8 +121,8 @@ public class TaskList {
      * Adds a new deadline task to the list.
      *
      * @param taskInstruction The instruction containing the description and deadline of the task.
-     * @throws MeejuException If the task description or deadline is empty, or the format is incorrect.
      * @return Response acknowledging completion of task
+     * @throws MeejuException If the task description or deadline is empty, or the format is incorrect.
      */
     public String addDeadlineTask(String taskInstruction) throws MeejuException {
         if (taskInstruction.isEmpty()) {
@@ -154,8 +154,8 @@ public class TaskList {
      * Adds a new event task to the list.
      *
      * @param taskInstruction The instruction containing the description, start time, and end time of the event task.
-     * @throws MeejuException If the task description, start time, or end time is empty, or the format is incorrect.
      * @return Response acknowledging completion of task
+     * @throws MeejuException If the task description, start time, or end time is empty, or the format is incorrect.
      */
     public String addEventTask(String taskInstruction) throws MeejuException {
         if (taskInstruction.isEmpty()) {
@@ -191,8 +191,8 @@ public class TaskList {
      * Deletes a task from the list based on its number in the list.
      *
      * @param taskNumber The number of the task to delete.
-     * @throws MeejuException If the task number is invalid or does not exist.
      * @return Response acknowledging completion of task
+     * @throws MeejuException If the task number is invalid or does not exist.
      */
     public String deleteTask(String taskNumber) throws MeejuException {
         Task taskToDelete;
@@ -217,8 +217,8 @@ public class TaskList {
      * Finds and lists all those tasks whose task description contains the specified keyword.
      *
      * @param keyword The search keyword.
-     * @throws MeejuException If blank string is provided.
      * @return Response acknowledging completion of task
+     * @throws MeejuException If blank string is provided.
      */
     public String findTask(String keyword) throws MeejuException {
         if (keyword.isEmpty()) {

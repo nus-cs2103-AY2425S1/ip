@@ -7,9 +7,9 @@ public class Meeju {
 
     private static final String LINE_BREAK = "____________________________________________________________";
 
-    Storage storage = new Storage();
-    TaskList taskList = new TaskList(storage);
-    Parser parser = new Parser();
+    private Storage storage = new Storage();
+    private TaskList taskList = new TaskList(storage);
+    private Parser parser = new Parser();
     public static void main(String[] args) {
 
         String logo = " __  __ _____ _____    _ _   _\n"
