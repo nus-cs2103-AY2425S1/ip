@@ -7,7 +7,7 @@ public class TaskParser {
         if (input.isEmpty()) {
             throw new IllegalArgumentException("Task input cannot be empty!");
         }
-        
+
         TaskCreator creator;
         switch(source) {
         case FILE:
