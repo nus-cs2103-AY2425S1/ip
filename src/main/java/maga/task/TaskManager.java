@@ -26,7 +26,7 @@ public class TaskManager {
     }
 
     public TaskList loadTasks() {
-        TaskList tasks = new TaskList(100);
+        TaskList tasks = new TaskList();
         File file = new File(FILE_PATH);
 
         // check if file exists

@@ -5,30 +5,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DeadlineTask extends Task{
-    protected LocalDate from;
-    protected LocalDate to;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
 
-    public DeadlineTask(String description, String from, String to) throws DateTimeParseException {
-        super(description);
-        try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            this.from = LocalDate.parse(from, dateFormatter);
-            this.to = LocalDate.parse(to, dateFormatter);
-        } catch (DateTimeParseException e) {
-            throw e;
-        }
-    }
-
-    public DeadlineTask(boolean isDone, String description, String from, String to) throws DateTimeParseException {
+    public DeadlineTask(boolean isDone, String description, LocalDate startDate, LocalDate endDate) throws DateTimeParseException {
         super(description);
         this.isDone = isDone;
-        try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            this.from = LocalDate.parse(from, dateFormatter);
-            this.to = LocalDate.parse(to, dateFormatter);
-        } catch (DateTimeParseException e) {
-            throw e;
-        }
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public String getTaskType() {
@@ -41,14 +25,14 @@ public class DeadlineTask extends Task{
         if (isDone) {
             isDoneNum = 1;
         }
-        return "E | " + isDoneNum + " | " + description + " | " + from + " | " + to;
+        return "E | " + isDoneNum + " | " + description + " | " + startDate + " | " + endDate;
     }
 
     @Override
     public String printTask() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMM dd");
-        String formattedFrom = from.format(formatter);
-        String formattedTo = to.format(formatter);
+        String formattedFrom = startDate.format(formatter);
+        String formattedTo = endDate.format(formatter);
         return this.getTaskType() + this.getStatusIcon() + this.getDescription() + " from " + formattedFrom +
                 " to " + formattedTo;
     }

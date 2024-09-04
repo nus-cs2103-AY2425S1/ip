@@ -1,82 +1,91 @@
 package maga;
 
+import com.sun.source.tree.TryTree;
+import maga.task.DeadlineTask;
+import maga.task.EventTask;
 import maga.task.TaskList;
+import maga.task.TodoTask;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Parser {
-    private final Scanner scanner;
-    private final TaskList taskList;
 
-    public Parser(TaskList taskList, Scanner scanner) {
-        this.scanner = scanner;
-        this.taskList = taskList;
+    public Parser() {
     }
 
-    public void handleInput(String input) {
-        while(!input.equalsIgnoreCase("bye")) {
-            // display maga.task list
-            input = input.toLowerCase();
-            if(input.equals("list")) {
-                taskList.printTasks();
-                input = scanner.nextLine();
-                continue;
-            }
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-            // mark tasks as done
-            if (input.startsWith("mark ")) {
-                char[] charArray = input.toCharArray();
-                int taskNumber = Character.getNumericValue(charArray[charArray.length - 1]) - 1;
-                taskList.markTask(taskNumber);
-                input = scanner.nextLine();
-                continue;
-            }
+    private Command<Integer> listTasks() {
+        return new Command<>("list", null);
+    }
 
-            //marks tasks as undone
-            if (input.toLowerCase().startsWith("unmark ")) {
-                char[] charArray = input.toCharArray();
-                int taskNumber = Character.getNumericValue(charArray[charArray.length - 1]) - 1;
-                taskList.unmarkTask(taskNumber);
-                input = scanner.nextLine();
-                continue;
-            }
+    private Command<Integer> markTask(String input) {
+        char[] charArray = input.toCharArray();
+        int taskNumber = Character.getNumericValue(charArray[charArray.length - 1]) - 1;
+        return new Command<>("mark", taskNumber);
+    }
 
-            // delete tasks
-            if(input.startsWith("delete ")) {
-                String descrip = input.substring(7).trim();
-                int tempInt;
-                try {
-                    tempInt = Integer.parseInt(descrip);
-                } catch (Exception NumberFormatException) {
-                    System.out.println("You can only delete a maga.task number! No one calls amendments by their names!!");
-                    input = scanner.nextLine();
-                    continue;
-                }
+    private Command<Integer> unmarkTask(String input) {
+        char[] charArray = input.toCharArray();
+        int taskNumber = Character.getNumericValue(charArray[charArray.length - 1]) - 1;
+        return new Command<>("unmark", taskNumber);
+    }
 
-                System.out.println(tempInt);
-                taskList.deleteTask(tempInt - 1);
-                input = scanner.nextLine();
-                continue;
+    private Command<Integer> deleteTask(String input) {
+        String descrip = input.substring(7).trim();
+        int taskNumber = Integer.parseInt(descrip) - 1;
+        return new Command<>("delete", taskNumber);
+    }
 
-            }
+    private Command<LocalDate[]> addTodoTask(String input) {
+        String description = input.substring(5).trim();
+        return new Command<>("todo", description, null);
+    }
 
-            // add tasks to tasklist
-            if(input.startsWith("todo ") || input.startsWith("event ") || input.startsWith("deadline ")) {
-                try {
-                    taskList.addTask(input);
-                    input = scanner.nextLine();
-                    continue;
-                } catch (DateTimeParseException e) {
-                    System.out.println("Error while parsing date - format in yyyy-MM-dd");
-                    continue;
-                }
-            }
-
-            // should never reach here unless command is invalid
-            System.out.println("HEY! SLEEPY JOE and CROOKED KAMALA " +
-                    "might be demented but you're not! Specify a command!");
-            input = scanner.nextLine();
+    private Command<LocalDate[]> addEventTask(String input) throws DateTimeParseException {
+        String description = input.substring(6).trim();
+        String[] descriptionArray = description.split("/");
+        LocalDate[] date = new LocalDate[1];
+        try {
+            date[0] = LocalDate.parse(descriptionArray[1], formatter);
+        } catch (DateTimeParseException e) {
+            throw e;
         }
+        return new Command<>("event", descriptionArray[0], date);
+    }
+
+    private Command<LocalDate[]> addDeadlineTask(String input) throws DateTimeParseException {
+        String description = input.substring(9).trim();
+        String[] descriptionArray = description.split("/");
+        LocalDate fromDate, toDate;
+        try {
+            fromDate = LocalDate.parse(descriptionArray[1], formatter);
+            toDate = LocalDate.parse(descriptionArray[2], formatter);
+        } catch (DateTimeParseException e) {
+            throw e;
+        }
+
+        LocalDate[] dateArray = {fromDate, toDate};
+        return new Command<>("deadline", descriptionArray[0], dateArray);
+    }
+
+    public Command<?> handleInput(String input) throws InvalidCommandException, DateTimeParseException {
+        input = input.toLowerCase();
+        String command = input.split(" ")[0];
+
+        return switch (command) {
+            case "list" -> listTasks();
+            case "mark" -> markTask(input);
+            case "unmark" -> unmarkTask(input);
+            case "delete" -> deleteTask(input);
+            case "todo" -> addTodoTask(input);
+            case "event" -> addEventTask(input);
+            case "deadline" -> addDeadlineTask(input);
+            default -> throw new InvalidCommandException();
+        };
     }
 }

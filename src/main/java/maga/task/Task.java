@@ -1,8 +1,12 @@
 package maga.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public Task(String description) {
         this.description = description;
@@ -40,18 +44,18 @@ public abstract class Task {
             String type = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
-            String dateTime = parts[3];
+            LocalDate dateTime = LocalDate.parse(parts[3], formatter); // need handle error
             return new EventTask(isDone, description, dateTime);
         } else if (parts.length == 5) {
             String type = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
-            String from = parts[3];
-            String to = parts[4];
-            return new DeadlineTask(isDone, description, from, to);
+            LocalDate startDate = LocalDate.parse(parts[3], formatter); // need handle error
+            LocalDate endDate = LocalDate.parse(parts[4], formatter);
+            return new DeadlineTask(isDone, description, startDate, endDate);
         }
 
-        return new TodoTask("");
+        return new TodoTask(false, "");
     }
 
     @Override

@@ -7,25 +7,10 @@ import java.time.format.DateTimeParseException;
 public class EventTask extends Task {
     protected LocalDate localDate;
 
-    public EventTask(String description, String localDate) throws DateTimeParseException {
-        super(description);
-        try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            this.localDate = LocalDate.parse(localDate, dateFormatter);
-        } catch (DateTimeParseException e) {
-            throw e;
-        }
-    }
-
-    public EventTask(boolean isDone, String description, String localDate) throws DateTimeParseException {
+    public EventTask(boolean isDone, String description, LocalDate localDate) {
         super(description);
         this.isDone = isDone;
-        try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            this.localDate = LocalDate.parse(localDate, dateFormatter);
-        } catch (DateTimeParseException e) {
-            throw e;
-        }
+        this.localDate = localDate;
     }
 
     public String getTaskType() {
