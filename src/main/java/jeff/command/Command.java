@@ -1,9 +1,9 @@
 package jeff.command;
 
-import jeff.TaskList;
 import jeff.Storage;
+import jeff.TaskList;
 import jeff.Ui;
-import jeff.exceptions.JEFFException;
+import jeff.exceptions.JeffException;
 
 /**
  * Abstract base class for all commands.
@@ -20,9 +20,9 @@ public abstract class Command {
      * @param tasks The task list on which the command operates.
      * @param ui The UI object used for user interaction.
      * @param storage The storage object used for saving/loading tasks.
-     * @throws JEFFException If there is an error during command execution.
+     * @throws JeffException If there is an error during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws JEFFException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException;
 
     /**
      * Indicates whether this command ends the application.
@@ -34,6 +34,6 @@ public abstract class Command {
     }
 
     public static boolean isNumeric(String str) {
-        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal
+        return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional '-' and decimal
     }
 }

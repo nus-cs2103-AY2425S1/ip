@@ -26,6 +26,13 @@ public class Deadline extends Task {
         return dueDate;
     }
 
+    /**
+     * Converts the {@code dueDate} field to a formatted string.
+     * The date and time are formatted as "dd/MM/yyyy HHmm", which includes
+     * the day, month, year, hour, and minute without a colon separating the hour and minute.
+     *
+     * @return a string representation of the {@code dueDate} field, formatted according to the specified pattern.
+     */
     public String dateToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return dueDate.format(formatter);
@@ -37,7 +44,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String saveAsCSV() {
-        return "D," + super.saveAsCSV() + "," + this.dateToString();
+    public String saveAsCsv() {
+        return "D," + super.saveAsCsv() + "," + this.dateToString();
     }
 }

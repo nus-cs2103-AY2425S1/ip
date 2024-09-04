@@ -1,6 +1,6 @@
 package jeff;
 
-import jeff.exceptions.JEFFException;
+import jeff.exceptions.JeffException;
 import jeff.task.ToDo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +16,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void deleteTask_existingTask_success() throws JEFFException {
+    public void deleteTask_existingTask_success() throws JeffException {
         TaskList taskList = new TaskList();
         taskList.addTask(new ToDo("read book"));
         taskList.deleteTask(0);
