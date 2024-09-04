@@ -1,3 +1,7 @@
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -67,6 +71,23 @@ public class Task {
         String s = "";
         s += isDone ? "1" : "0";
         return s;
+    }
+
+    public String parseDate(String string) {
+        // YYYY-MM-DD
+        if (string.length() != 10) {
+            return string;
+        }
+
+        try {
+            LocalDate d = LocalDate.parse(string
+                    .replaceAll("/", "-"));
+            String s = d.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return s;
+        } catch (DateTimeException e) {
+            System.out.println("This was not a valid date format");
+            return string;
+        }
     }
 
     protected static String getUniqueKey() {
