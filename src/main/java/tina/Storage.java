@@ -1,13 +1,14 @@
 package tina;
 
-import tina.task.Task;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.File;
+
+import tina.task.Task;
+
 
 /**
  * The <code>Storage</code> class handles reading from and writing to a file that stores the task list.

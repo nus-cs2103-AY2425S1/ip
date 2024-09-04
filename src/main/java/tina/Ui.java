@@ -1,57 +1,26 @@
 package tina;
 
-import java.util.Scanner;
-
 /**
- * The <code>Ui</code> class handles user interaction, including greeting the user, processing commands, and exiting the application.
+ * The <code>Ui</code> class handles user interaction, including greeting the user,
+ * processing commands, and exiting the application.
  */
 public class Ui {
 
     /**
-     * Greets the user with a welcome message and a logo.
-     */
-    public void greet() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Tina");
-        System.out.println("What can I do for you?");
-    }
-
-    /**
-     * Displays a farewell message when the user exits the application.
-     */
-    public void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Continuously reads user input, processes commands, and interacts with the task list until the user enter "bye".
+     * Processes the user's input by parsing it and executing the corresponding command.
+     * If the input cannot be processed due to a TinaException, the method returns the
+     * error message from the exception.
      *
-     * @param tasks The <code>TaskList</code> object that holds the list of tasks and handles task-related operations.
+     * @param tasks The TaskList object that contains the current list of tasks. This should not be null.
+     * @param input The user's input string to be parsed and executed. This should not be null.
+     * @return A string representing the result of the command or an error message if a TinaException occurs.
      */
-    public void doTask(TaskList tasks) {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        while (!input.equals("bye")) {
-            try {
-                System.out.println(Parser.parseInput(input, tasks));
-            } catch (TinaException e) {
-                System.out.println(e.getMessage());
-            }
-            input = sc.nextLine();
-        }
-        sc.close();
-    }
-
     public String runInput(TaskList tasks, String input) {
         try {
             return Parser.parseInput(input, tasks);
         } catch (TinaException e) {
-            return (e.getMessage());
+            return e.getMessage();
         }
     }
+
 }

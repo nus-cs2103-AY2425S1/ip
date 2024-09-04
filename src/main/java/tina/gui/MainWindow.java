@@ -43,7 +43,8 @@ public class MainWindow extends AnchorPane {
      */
     private void displayGreeting() {
         dialogContainer.getChildren().add(
-                DialogBox.getTinaDialog("Hello! I'm Tina, your friendly chatbot. How can I assist you today?", dukeImage)
+                DialogBox.getTinaDialog("Hello! I'm Tina, your friendly chatbot. How can I assist you today?",
+                        dukeImage)
         );
     }
 
@@ -55,7 +56,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if (input.equals("bye")){
+        if (input.equals("bye")) {
             Main.exit();
         } else {
             String response = tina.getResponse(input);

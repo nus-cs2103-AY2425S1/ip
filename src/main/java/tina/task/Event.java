@@ -1,7 +1,9 @@
 package tina.task;
 
-import tina.Parser;
 import java.time.LocalDateTime;
+
+import tina.Parser;
+
 
 /**
  * Represents an event task with a start and end time.
@@ -13,7 +15,8 @@ public class Event extends Task {
     private final LocalDateTime end;
 
     /**
-     * Constructs a new <code>Event</code> object with the specified description, start time, and end time when parsed from user.
+     * Constructs a new <code>Event</code> object with the specified description,
+     * start time, and end time when parsed from user.
      *
      * @param des The description of the event.
      * @param start The start time of the event, in a parsable date-time string format.
@@ -58,6 +61,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("E %d %s | %s | %s", isMark? 1 : 0, des, start, end);
+        return String.format("E %d %s | %s | %s", isMark ? 1 : 0, des, start, end);
     }
 }

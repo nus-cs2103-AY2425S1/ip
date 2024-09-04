@@ -1,11 +1,12 @@
 package tina;
 
-import tina.task.Task;
-
 import java.util.ArrayList;
 
+import tina.task.Task;
+
 /**
- * The <code>TaskList</code> class manages a list of tasks and handles operations such as adding, marking, unmarking, listing, and deleting tasks.
+ * The <code>TaskList</code> class manages a list of tasks and handles operations such as
+ * adding, marking, unmarking, listing, and deleting tasks.
  * It interacts with the <code>Storage</code> class to persist the task list to a file.
  */
 public class TaskList {
@@ -32,9 +33,9 @@ public class TaskList {
     public String addTask(Task task) {
         list.add(task);
         storage.write(list);
-        String result = "Got it. I've added this task:\n" +
-                "  " + task.getDes() + "\n" +
-                String.format("Now you have %d tasks in the list.", list.size());
+        String result = "Got it. I've added this task:\n"
+                + "  " + task.getDes() + "\n"
+                + String.format("Now you have %d tasks in the list.", list.size());
         return result;
     }
 
@@ -47,8 +48,9 @@ public class TaskList {
     public String markTask(int x) {
         Task currTask = list.get(x - 1);
         currTask.mark();
-        String result = "Nice! I've marked this task as done:\n" +
-                "  " + currTask.getDes();
+        String result = "Nice! I've marked this task as done:\n"
+                + "  "
+                + currTask.getDes();
 
         storage.write(list);
         return result;
@@ -63,8 +65,8 @@ public class TaskList {
     public String unmarkTask(int x) {
         Task currTask = list.get(x - 1);
         currTask.unmark();
-        String result = "OK, I've marked this task as not done yet:\n" +
-                "  " + currTask.getDes();
+        String result = "OK, I've marked this task as not done yet:\n"
+                + "  " + currTask.getDes();
         storage.write(list);
         return result;
     }
@@ -84,9 +86,6 @@ public class TaskList {
         }
         return result.toString();
     }
-
-
-
     /**
      * Deletes a task from the list and saves the updated list to storage.
      * Displays a confirmation message including the deleted task and the total number of remaining tasks.
@@ -95,14 +94,25 @@ public class TaskList {
      */
     public String deleteTask(int x) {
         Task currTask = list.remove(x - 1);
-        String result = "Noted. I've removed this task:\n" +
-                "  " + currTask.getDes() + "\n" +
-                String.format("Now you have %d tasks in the list.", list.size());
+        String result = "Noted. I've removed this task:\n"
+                + "  " + currTask.getDes() + "\n"
+                + String.format("Now you have %d tasks in the list.", list.size());
         storage.write(list);
         return result;
     }
 
 
+    /**
+     * Finds and returns a list of tasks that match the given input string.
+     * The search is performed by checking if the input string is contained
+     * within the description of each task.
+     *
+     * @param input The string to search for within the task descriptions.
+     *              This should not be null.
+     * @return A formatted string listing all tasks that match the input string.
+     *         The string includes task numbers and descriptions. If no tasks
+     *         match, the returned string will indicate that no matches were found.
+     */
     public String findTask(String input) {
         StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
         int count = 1;

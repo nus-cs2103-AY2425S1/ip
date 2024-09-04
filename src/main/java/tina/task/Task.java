@@ -43,7 +43,7 @@ public abstract class Task {
      * @return A string of the task description, with "[X]" if marked, or "[ ]" if not.
      */
     public String getDes() {
-        if(isMark) {
+        if (isMark) {
             return "[X] " + des;
         } else {
             return "[ ] " + des;

@@ -1,5 +1,7 @@
 package tina.gui;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import tina.Tina;
 
-import java.io.IOException;
+
 
 /**
  * A GUI for Duke using FXML.
@@ -31,7 +33,7 @@ public class Main extends Application {
             //ensure user unable to resize below min
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setTina(tina);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setTina(tina); //inject the Tina instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
