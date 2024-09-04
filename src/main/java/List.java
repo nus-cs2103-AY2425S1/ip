@@ -9,6 +9,9 @@ public class List {
         this.tasks = new ArrayList<>(100);
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
     public String numOfTasks() {
         if (tasks.size() < 2) {
             return "Now you have " + tasks.size() + " task in the list.\n";
@@ -18,7 +21,11 @@ public class List {
     }
     public void addTaskToList(Task task) {
         tasks.add(task);
-        System.out.println(line + task.addedString() + numOfTasks() + line);
+        //System.out.println(line + task.addedString() + numOfTasks() + line);
+    }
+
+    public String addedNotification(Task task) {
+        return line + task.addedString() + numOfTasks() + line;
     }
 
     public String displayList() {
