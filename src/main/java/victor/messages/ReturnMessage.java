@@ -9,7 +9,7 @@ public class ReturnMessage {
 
     /**
      * Constructor for the ReturnMessage class, sets the isEmpty boolean to
-     * true if no messages were input.
+     * true if no messages were input. Using Varargs here.
      * @param messages A variable number of String arguments for the return message
      *     of the commands.
      */
