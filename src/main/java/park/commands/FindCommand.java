@@ -31,10 +31,10 @@ public class FindCommand extends Command {
             }
         }
         if (result.isEmpty()) {
-            ui.showToUser("There are no matching tasks.");
+            ui.setResponse("There are no matching tasks.");
         } else {
-            ui.showToUser("Here are the matching tasks in your list:");
-            ui.showToUser(result.toString());
+            ui.setResponse("Here are the matching tasks in your list:" + "\n");
+            ui.setResponse(result.toString());
         }
     }
 

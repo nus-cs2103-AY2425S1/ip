@@ -11,6 +11,7 @@ public class Ui {
 
     private final Scanner in;
     private final PrintStream out;
+    private StringBuilder parkResponse = new StringBuilder();
 
     /**
      * Constructs a Ui object that takes inputs from the user and prints output.
@@ -49,7 +50,7 @@ public class Ui {
     }
 
     /**
-     * Prints welcome message upon running the chatbot
+     * Prints welcome message upon running the chatbot.
      */
     public void showWelcomeMessage() {
         showToUser("""
@@ -57,10 +58,18 @@ public class Ui {
                 What can I do for you?""");;
     }
 
-    /**
-     * Prints goodbye message upon exiting the chatbot
-     */
-    public void showGoodbyeMessage() {
-        showToUser("Bye. Hope to see you again soon!");
+    public void setResponse(String message) {
+        parkResponse.append(message);
+    }
+
+    public String getResponse() {
+        String response = parkResponse.toString();
+        parkResponse.setLength(0);
+        return response;
+    }
+
+    public void printResponse() {
+        out.println(parkResponse);
+        parkResponse.setLength(0);
     }
 }
