@@ -1,6 +1,8 @@
-package alice;
+package alice.utility;
 
 import java.util.ArrayList;
+
+import alice.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -35,12 +37,12 @@ public class TaskList {
      *
      * @param task The task to be added to the list.
      */
-    public void addToList(Task task) {
+    public String addToList(Task task) {
         try {
             this.list.add(task);
-            ui.addToListMsg(task, this.list.size());
+            return ui.addToListMsg(task, this.list.size());
         } catch (Exception e) {
-            ui.addFailMsg();
+            return ui.addFailMsg();
         }
     }
 
@@ -49,13 +51,13 @@ public class TaskList {
      *
      * @param num The index of the task to be marked as done.
      */
-    public void markTask(int num) {
+    public String markTask(int num) {
         if (num <= list.size() && num > 0) {
             Task currTask = list.get(num - 1);
             currTask.markDone();
-            ui.markMsg(currTask);
+            return ui.markMsg(currTask);
         } else {
-            ui.invalidNumMsg();
+            return ui.invalidNumMsg();
         }
     }
 
@@ -64,13 +66,13 @@ public class TaskList {
      *
      * @param num The index of the task to be marked as undone.
      */
-    public void unmarkTask(int num) {
+    public String unmarkTask(int num) {
         if (num <= list.size() && num > 0) {
             Task currTask = list.get(num - 1);
             currTask.markUndone();
-            ui.unMarkMsg(currTask);
+            return ui.unMarkMsg(currTask);
         } else {
-            ui.invalidNumMsg();
+            return ui.invalidNumMsg();
         }
     }
 
@@ -79,13 +81,13 @@ public class TaskList {
      *
      * @param num The index of the task to be deleted.
      */
-    public void delete(int num) {
+    public String delete(int num) {
         if (num <= list.size() && num > 0) {
             Task currTask = list.get(num - 1);
             this.list.remove(currTask);
-            ui.deleteMsg(currTask, list.size());
+            return ui.deleteMsg(currTask, list.size());
         } else {
-            ui.invalidNumMsg();
+            return ui.invalidNumMsg();
         }
     }
 
@@ -111,7 +113,7 @@ public class TaskList {
     public TaskList findTask(String keyword) {
         ArrayList<Task> temp = new ArrayList<>();
         for (Task task : list) {
-            if (task.description.contains(keyword)) {
+            if (task.getDescription().contains(keyword)) {
                 temp.add(task);
             }
         }

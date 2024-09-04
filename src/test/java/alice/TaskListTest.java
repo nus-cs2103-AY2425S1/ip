@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import alice.task.Todo;
+import alice.utility.TaskList;
+
 /**
  * Unit tests for the {@link TaskList} class.
  * Verifies that the TaskList class correctly handles tasks, including adding and marking tasks.

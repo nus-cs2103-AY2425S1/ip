@@ -1,4 +1,4 @@
-package alice;
+package alice.task;
 
 /**
  * Represents a task with a description and a completion status.
@@ -51,6 +51,10 @@ public class Task {
      */
     public void markUndone() {
         this.isDone = false;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     /**

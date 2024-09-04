@@ -3,6 +3,12 @@ package alice;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import alice.task.Task;
+import alice.utility.Parser;
+import alice.utility.Storage;
+import alice.utility.TaskList;
+import alice.utility.Ui;
+
 /**
  * The main class for the Alice application.
  * Initializes components, loads tasks from storage, and handles user input.
@@ -13,15 +19,14 @@ public class Alice {
     private final Storage storage;
     private Ui ui;
     private Parser parser;
+    private Scanner scanner = new Scanner(System.in);
 
     /**
      * Constructs an Alice application instance with a specified storage path.
      * Initializes the storage, task list, user interface, and parser.
      * Loads existing tasks from storage and adds them to the task list.
-     *
-     * @param path The file path to the storage location for tasks.
      */
-    public Alice(String path) {
+    public Alice() {
         this.storage = new Storage(path);
         this.list = new TaskList();
         this.ui = new Ui();
@@ -32,21 +37,19 @@ public class Alice {
         }
     }
 
-    /**
-     * The entry point of the Alice application.
-     * Initializes the application, greets the user, and processes user input in a loop.
-     * Exits when the user specifies to stop.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
-        Alice alice = new Alice(path);
-        Scanner scanner = new Scanner(System.in);
-        alice.ui.greet();
-        boolean isOnline = true;
-        while (isOnline) {
-            isOnline = alice.parser.performAction(scanner.nextLine().trim());
-        }
-        scanner.close();
+    public String getGreeting() {
+        return ui.greetMsg();
+    }
+
+    public String getResponse(String input) {
+        return parser.performAction(input);
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
+    public TaskList getList() {
+        return list;
     }
 }

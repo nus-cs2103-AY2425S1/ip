@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import alice.task.Todo;
+
 /**
  * Unit tests for the {@link Todo} class.
  * Verifies that the Todo class correctly handles task saving functionality.

@@ -1,4 +1,4 @@
-package alice;
+package alice.task;
 
 /**
  * Represents a "Todo" task with a description and a completion status.
