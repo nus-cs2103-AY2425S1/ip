@@ -23,25 +23,28 @@ public class Parser {
      * @throws PrinceException
      */
     public static Command parse(String input) throws PrinceException {
-        if (input.equals("bye")) {
+        String[] inputParts = input.split(" ", 2);
+        String command = inputParts[0];
+        switch (command) {
+        case "bye":
             return new ByeCommand();
-        } else if (input.equals("list")) {
+        case "list":
             return new ListCommand();
-        } else if (input.contains("unmark")) {
+        case "unmark":
             return new UnmarkCommand(input);
-        } else if (input.contains("mark")) {
+        case "mark":
             return new MarkCommand(input);
-        } else if (input.contains("delete")) {
+        case "delete":
             return new DeleteCommand(input);
-        } else if (input.contains("find")) {
+        case "find":
             return new FindCommand(input);
-        } else if (input.contains("todo")) {
+        case "todo":
             return new TodoCommand(input);
-        } else if (input.contains("deadline")) {
+        case "deadline":
             return new DeadlineCommand(input);
-        } else if (input.contains("event")) {
+        case "event":
             return new EventCommand(input);
-        } else {
+        default:
             throw new PrinceException("    Sorry, I am not sure what '" + input
                     + "' means. Please try again!");
         }
