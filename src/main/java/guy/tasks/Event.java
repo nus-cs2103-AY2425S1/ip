@@ -18,7 +18,7 @@ public class Event extends Task {
      * @param end the event's end time
      */
     public Event(String name, LocalDateTime start, LocalDateTime end) {
-        super(name);
+        super(name, TaskType.EVENT);
         this.start = start;
         this.end = end;
     }

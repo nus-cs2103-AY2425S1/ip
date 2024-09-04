@@ -11,7 +11,7 @@ public class ToDo extends Task {
      * @param name description of the task
      */
     public ToDo(String name) {
-        super(name);
+        super(name, TaskType.TODO);
     }
     @Override
     public String toString() {
