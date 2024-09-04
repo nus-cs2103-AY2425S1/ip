@@ -1,10 +1,10 @@
 package puke.commands;
 
+import puke.TaskList;
 import puke.exceptions.EmptyInputException;
 import puke.exceptions.InvalidTaskNumberFormatException;
 import puke.exceptions.TaskNumberOutOfBoundsException;
-import puke.tasklist.TaskManager;
-import puke.ui.MessageBuilder;
+import puke.message.MessageBuilder;
 
 /**
  * Command to mark a task as completed or incomplete based on the specified task number.
@@ -21,7 +21,8 @@ public class MarkTaskCommand extends Command {
      * @throws InvalidTaskNumberFormatException if the numberString cannot be parsed as an integer
      * @throws EmptyInputException if the numberString is empty
      */
-    public MarkTaskCommand(String numberString, boolean isDone) throws InvalidTaskNumberFormatException, EmptyInputException {
+    public MarkTaskCommand(String numberString, boolean isDone)
+            throws InvalidTaskNumberFormatException, EmptyInputException {
         if (numberString.isEmpty()) {
             throw new EmptyInputException("You must specify a task number to mark.");
         }
@@ -36,15 +37,15 @@ public class MarkTaskCommand extends Command {
     /**
      * Executes the command to mark the specified task as completed or incomplete and sends a confirmation message.
      *
-     * @param taskManager the TaskManager to perform operations on
+     * @param taskList the TaskList to perform operations on
      * @param messageBuilder the MessageBuilder used to construct and send a confirmation message
      * @throws TaskNumberOutOfBoundsException if the taskNumber is outside the valid range of task numbers
      */
     @Override
-    public void execute(TaskManager taskManager, MessageBuilder messageBuilder) throws TaskNumberOutOfBoundsException {
-        if (taskNumber < 1 || taskNumber > taskManager.getTaskCount()) {
+    public void execute(TaskList taskList, MessageBuilder messageBuilder) throws TaskNumberOutOfBoundsException {
+        if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
             throw new TaskNumberOutOfBoundsException(taskNumber);
         }
-        messageBuilder.sendMessage(taskManager.markTask(taskNumber, isDone));
+        messageBuilder.sendMessage(taskList.markTask(taskNumber, isDone));
     }
 }

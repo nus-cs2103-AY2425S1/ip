@@ -1,4 +1,4 @@
-package puke.tasks;
+package puke.task;
 
 import java.util.Objects;
 
@@ -85,12 +85,17 @@ public abstract class Task {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         Task task = (Task) obj;
-        return isDone() == task.isDone() &&
-                Objects.equals(getDescription(), task.getDescription());
+        return isDone() == task.isDone()
+                && Objects.equals(getDescription(), task.getDescription());
     }
+
 
     /**
      * Returns the hash code of the task.

@@ -1,4 +1,4 @@
-package puke.tasks;
+package puke.task;
 
 /**
  * Represents a to-do task with a description and completion status.
@@ -13,7 +13,9 @@ public class Todo extends Task {
      */
     public Todo(String description, boolean isDone) {
         super(description);
-        if (isDone) markAsDone();
+        if (isDone) {
+            markAsDone();
+        }
     }
 
     /**

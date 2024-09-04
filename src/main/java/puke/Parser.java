@@ -1,4 +1,4 @@
-package puke.handlers;
+package puke;
 
 import puke.commands.AddDeadlineCommand;
 import puke.commands.AddEventCommand;
@@ -11,24 +11,23 @@ import puke.commands.MarkTaskCommand;
 import puke.exceptions.EmptyInputException;
 import puke.exceptions.PukeException;
 import puke.exceptions.UnknownCommandException;
-import puke.tasklist.TaskManager;
-import puke.ui.MessageBuilder;
+import puke.message.MessageBuilder;
 
 /**
  * Manages user input by parsing and executing commands.
  */
-public class InputManager {
-    private TaskManager taskManager;
+public class Parser {
+    private TaskList taskList;
     private MessageBuilder messageBuilder;
 
     /**
-     * Constructs an InputManager with the specified TaskManager and MessageBuilder.
+     * Constructs an Parser with the specified TaskList and MessageBuilder.
      *
-     * @param taskManager the TaskManager to handle task operations
+     * @param taskList the TaskList to handle task operations
      * @param messageBuilder the MessageBuilder to construct and send messages
      */
-    public InputManager(TaskManager taskManager, MessageBuilder messageBuilder) {
-        this.taskManager = taskManager;
+    public Parser(TaskList taskList, MessageBuilder messageBuilder) {
+        this.taskList = taskList;
         this.messageBuilder = messageBuilder;
     }
 
@@ -50,7 +49,7 @@ public class InputManager {
 
         try {
             Command commandObject = parseCommand(command, args);
-            commandObject.execute(taskManager, messageBuilder);
+            commandObject.execute(taskList, messageBuilder);
         } catch (PukeException e) {
             messageBuilder.sendMessage(e.getMessage());
             throw e;
@@ -67,24 +66,24 @@ public class InputManager {
      */
     private Command parseCommand(String command, String args) throws PukeException {
         switch (command.toLowerCase()) {
-            case "todo":
-                return new AddTodoCommand(args);
-            case "deadline":
-                return new AddDeadlineCommand(args);
-            case "event":
-                return new AddEventCommand(args);
-            case "delete":
-                return new DeleteTaskCommand(args);
-            case "mark":
-                return new MarkTaskCommand(args, true);
-            case "unmark":
-                return new MarkTaskCommand(args, false);
-            case "list":
-                return new ListTasksCommand();
-            case "find":
-                return new FindTaskCommand(args);
-            default:
-                throw new UnknownCommandException();
+        case "todo":
+            return new AddTodoCommand(args);
+        case "deadline":
+            return new AddDeadlineCommand(args);
+        case "event":
+            return new AddEventCommand(args);
+        case "delete":
+            return new DeleteTaskCommand(args);
+        case "mark":
+            return new MarkTaskCommand(args, true);
+        case "unmark":
+            return new MarkTaskCommand(args, false);
+        case "list":
+            return new ListTasksCommand();
+        case "find":
+            return new FindTaskCommand(args);
+        default:
+            throw new UnknownCommandException();
         }
     }
 }

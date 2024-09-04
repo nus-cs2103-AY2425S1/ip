@@ -1,9 +1,4 @@
-package puke.storage;
-
-import puke.tasks.Deadline;
-import puke.tasks.Event;
-import puke.tasks.Task;
-import puke.tasks.Todo;
+package puke;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,6 +7,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import puke.task.Deadline;
+import puke.task.Event;
+import puke.task.Task;
+import puke.task.Todo;
 
 /**
  * Handles loading and saving tasks to and from a file.
@@ -77,14 +77,16 @@ public class Storage {
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
         switch (type) {
-            case "T":
-                return new Todo(description, isDone);
-            case "D":
-                return new Deadline(description, isDone, parts.length > 3 ? parts[3] : null);
-            case "E":
-                return new Event(description, isDone, parts.length > 3 ? parts[3] : null, parts.length > 4 ? parts[4] : null);
-            default:
-                throw new IllegalArgumentException("Unsupported task type: " + type);
+        case "T":
+            return new Todo(description, isDone);
+        case "D":
+            return new Deadline(description, isDone, parts.length > 3 ? parts[3] : null);
+        case "E":
+            return new Event(description, isDone,
+                    parts.length > 3 ? parts[3] : null,
+                    parts.length > 4 ? parts[4] : null);
+        default:
+            throw new IllegalArgumentException("Unsupported task type: " + type);
         }
     }
 }

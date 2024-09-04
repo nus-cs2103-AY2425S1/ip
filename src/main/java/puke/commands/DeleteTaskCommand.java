@@ -1,10 +1,10 @@
 package puke.commands;
 
+import puke.TaskList;
 import puke.exceptions.EmptyInputException;
 import puke.exceptions.InvalidTaskNumberFormatException;
 import puke.exceptions.TaskNumberOutOfBoundsException;
-import puke.tasklist.TaskManager;
-import puke.ui.MessageBuilder;
+import puke.message.MessageBuilder;
 
 /**
  * Command to delete a task by its task number.
@@ -31,17 +31,17 @@ public class DeleteTaskCommand extends Command {
     }
 
     /**
-     * Executes the command to delete the specified task from the TaskManager and sends a confirmation message.
+     * Executes the command to delete the specified task from the TaskList and sends a confirmation message.
      *
-     * @param taskManager the TaskManager from which the task will be deleted
+     * @param taskList the TaskList from which the task will be deleted
      * @param messageBuilder the MessageBuilder used to construct and send a confirmation message
      * @throws TaskNumberOutOfBoundsException if the taskNumber is outside the valid range of task numbers
      */
     @Override
-    public void execute(TaskManager taskManager, MessageBuilder messageBuilder) throws TaskNumberOutOfBoundsException {
-        if (taskNumber < 1 || taskNumber > taskManager.getTaskCount()) {
+    public void execute(TaskList taskList, MessageBuilder messageBuilder) throws TaskNumberOutOfBoundsException {
+        if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
             throw new TaskNumberOutOfBoundsException(taskNumber);
         }
-        messageBuilder.sendMessage(taskManager.deleteTask(taskNumber));
+        messageBuilder.sendMessage(taskList.deleteTask(taskNumber));
     }
 }

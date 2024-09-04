@@ -1,4 +1,4 @@
-package puke.tasks;
+package puke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,10 +8,10 @@ import java.util.Objects;
  * Represents an event with a description, completion status, and time range.
  */
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructs an Event with the specified description, completion status, start time, and end time.
@@ -25,7 +25,9 @@ public class Event extends Task {
         super(description);
         this.from = LocalDateTime.parse(from, inputFormatter);
         this.to = LocalDateTime.parse(to, inputFormatter);
-        if (isDone) markAsDone();
+        if (isDone) {
+            markAsDone();
+        }
     }
 
     /**
@@ -36,9 +38,15 @@ public class Event extends Task {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!super.equals(obj)) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
         Event other = (Event) obj;
         return Objects.equals(from, other.from) && Objects.equals(to, other.to);
     }
@@ -60,8 +68,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " +
-                from.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + " | " +
-                to.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
+                + from.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + " | "
+                + to.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 }
