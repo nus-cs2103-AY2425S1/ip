@@ -47,4 +47,9 @@ public class Storage {
                     + " " + taskList.get(i)), StandardOpenOption.APPEND);
         }
     }
+
+    public String getStorageLocation() {
+        Path dataDir = Paths.get(filepath);
+        return dataDir.toAbsolutePath().toString();
+    }
 }

@@ -6,14 +6,19 @@ public class Parser {
     public Parser() {}
 
     public static void parse(String input, Storage storage, TaskList taskList, Ui ui) throws Exception {
+
         // Bye command
         if (input.equalsIgnoreCase("bye")) {
-
             // Save task list to data.txt
             storage.save(taskList);
 
             // Reply
             ui.showFarewell();
+        }
+
+        // Debug: print data location
+        else if (input.equalsIgnoreCase("storage")) {
+            ui.showStorage(storage);
         }
 
         // List command
@@ -68,6 +73,7 @@ public class Parser {
 
         // Todos or events or deadline command
         else if (input.toLowerCase().startsWith("todo") || input.toLowerCase().startsWith("event") || input.toLowerCase().startsWith("deadline")) {
+
             // Data from command
             String[] data;
 

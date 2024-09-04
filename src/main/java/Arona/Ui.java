@@ -12,7 +12,14 @@ public class Ui {
         print("Bye. Hope to see you again soon!");
     }
 
+    public void showStorage(Storage storage) {
+        print(storage.getStorageLocation());
+    }
+
     public void showList(TaskList taskList) throws AronaException {
+        if (taskList.size() == 0) {
+            print("The task list is empty!");
+        }
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             print(i + 1 + ". " + task.getStatusIcon() + task.getCategory() + " " + task.toFriendlyString());

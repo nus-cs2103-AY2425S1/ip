@@ -33,7 +33,9 @@ public class Arona {
                 String input = in.nextLine();
                 Parser.parse(input, storage, tasks, ui);
 
+                // Exit loop
                 if (input.equalsIgnoreCase("bye")) {
+                    // Exit programme
                     break;
                 }
             } catch (Exception e) {
