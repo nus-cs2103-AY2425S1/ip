@@ -29,27 +29,22 @@ public class JunoUi {
             """;
         this.greeting = "🌟 Welcome to the Future! I'm Juno, your digital assistant.\n"
                 + "How can I assist you on your journey today?";
-        this.farewell = "👋 Farewell for now! Looking forward to our next interaction.";
+        this.farewell = "👋 Farewell for now! Looking forward to our next interaction.\n"
+                + "Juno is shutting down now...";
     }
 
     /**
      * Displays the welcome message to the console.
      */
-    public void displayWelcomeMessage() {
-        System.out.println("___________________________________________________________________");
-        System.out.println(this.logo);
-        System.out.println("___________________________________________________________________");
-        System.out.println(this.greeting);
-        System.out.println("___________________________________________________________________");
+    public String displayWelcomeMessage() {
+        return this.greeting;
     }
 
     /**
      * Displays the farewell message to the console.
      */
-    public void displayFarewellMessage() {
-        System.out.println("____________________________________________________________");
-        System.out.println(this.farewell);
-        System.out.println("____________________________________________________________");
+    public String displayFarewellMessage() {
+        return this.farewell;
     }
 
     /**

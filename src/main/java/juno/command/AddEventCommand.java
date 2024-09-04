@@ -38,7 +38,7 @@ public class AddEventCommand extends AddCommand {
      * @throws TaskManagerException If an error occurs during task addition, such as missing task description.
      */
     @Override
-    public void runCommand() throws TaskManagerException {
+    public String runCommand() throws TaskManagerException {
         String taskInfo;
         try {
             taskInfo = userInput.split("\\s+", 3)[2];
@@ -70,7 +70,12 @@ public class AddEventCommand extends AddCommand {
         }
         this.tasks.add(t);
         this.fileManager.writeTasksToFile(this.tasks);
-        System.out.println("\uD83C\uDF89 Got it! I've added: \"" + taskDescription + "\" to your list!");
-        System.out.println("\uD83C\uDFAF You now have " + this.tasks.size() + " tasks in the list. Keep going!");
+        StringBuilder outString = new StringBuilder("\uD83C\uDF89 Got it! I've added: \""
+                + taskDescription
+                + "\" to your list!");
+        outString.append("\n").append("\uD83C\uDFAF You now have ")
+                 .append(this.tasks.size())
+                 .append(" tasks in the list. Keep going!");
+        return outString.toString();
     }
 }

@@ -25,8 +25,8 @@ public class ExitCommand extends Command {
      * the JunoUi instance.
      */
     @Override
-    public void runCommand() {
-        this.junoUi.displayFarewellMessage();
+    public String runCommand() {
+        return this.junoUi.displayFarewellMessage();
     }
 
     /**

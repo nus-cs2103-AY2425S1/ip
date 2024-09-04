@@ -15,7 +15,7 @@ public abstract class Command {
      *
      * @throws TaskManagerException If an error occurs during command execution.
      */
-    public abstract void runCommand() throws TaskManagerException;
+    public abstract String runCommand() throws TaskManagerException;
 
     /**
      * Determines if the command being executed changes the while loop behaviour in Juno class.
