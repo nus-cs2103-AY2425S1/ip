@@ -1,11 +1,12 @@
 package momo.command;
 
+import momo.Ui;
 import momo.exception.InvalidCommandException;
 import momo.task.Task;
 import momo.task.TaskList;
 
 public class FindCommand extends Command {
-    public static void run(String input, TaskList tasks) throws InvalidCommandException {
+    public static void run(String input, TaskList tasks, Ui ui) throws InvalidCommandException {
         StringBuilder matchingTasks = new StringBuilder();
         String desc = input.substring(4).trim().toLowerCase();
 
@@ -22,10 +23,10 @@ public class FindCommand extends Command {
         }
 
         if (matchingTasks.isEmpty()) {
-            System.out.println("There are no matching tasks in your list");
+            ui.printDialogue("There are no matching tasks in your list");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
-            System.out.println(matchingTasks);
+            ui.printDialogue("Here are the matching tasks in your list:");
+            ui.printDialogue(matchingTasks.toString());
         }
     }
 }
