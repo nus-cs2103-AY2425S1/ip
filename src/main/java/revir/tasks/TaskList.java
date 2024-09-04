@@ -1,9 +1,10 @@
 package revir.tasks;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import revir.system.Storage;
 import revir.user.Ui;
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.
@@ -79,8 +80,9 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             str.append(tasks.get(i).toString() + '\n');
         }
-        if (!str.isEmpty())
+        if (!str.isEmpty()) {
             str.deleteCharAt(str.length() - 1);
+        }
         return str.toString();
     }
 

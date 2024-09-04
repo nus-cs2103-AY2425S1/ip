@@ -10,10 +10,10 @@ import java.time.format.DateTimeFormatter;
  * Usage: event <description> /from <start date> /to <end date>
  */
 public class Event extends Task {
+    public static String format = "event <description> /from <start date> /to <end date>";
+    
     private LocalDateTime start;
     private LocalDateTime end;
-
-    public static String format = "event <description> /from <start date> /to <end date>";
 
     /**
      * Constructs a new Event object with the given description, start time, and end

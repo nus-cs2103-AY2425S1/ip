@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
  * Inherits from the Task class.
  */
 public class Deadline extends Task {
-    private LocalDateTime deadline;
-    
     public static String format = "deadline <description> /by <date>";
+    
+    private LocalDateTime deadline;
 
     /**
      * Creates a new Deadline object with the given description and deadline.

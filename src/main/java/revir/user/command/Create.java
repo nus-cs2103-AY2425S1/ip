@@ -1,15 +1,17 @@
 package revir.user.command;
 
 import java.io.IOException;
-import revir.tasks.*;
-import revir.user.Ui;
 import java.time.LocalDateTime;
+
+import revir.tasks.Deadline;
+import revir.tasks.Event;
+import revir.tasks.Todo;
+import revir.user.Ui;
 
 /**
  * Represents a command to create a new task and add it to the task list.
  */
 public class Create extends Command {
-    private String taskDescription;
     private Task task;
     
     /**
@@ -19,7 +21,6 @@ public class Create extends Command {
      */
     public Create(String taskDescription) {
         super(false);
-        this.taskDescription = taskDescription;
         this.task = new Todo(taskDescription);
     }
 
@@ -31,7 +32,6 @@ public class Create extends Command {
      */
     public Create(String taskDescription, LocalDateTime deadline) {
         super(false);
-        this.taskDescription = taskDescription;
         this.task = new Deadline(taskDescription, deadline);
     }
 
@@ -44,7 +44,6 @@ public class Create extends Command {
      */
     public Create(String taskDescription, LocalDateTime start, LocalDateTime end) {
         super(false);
-        this.taskDescription = taskDescription;
         this.task = new Event(taskDescription, start, end);
     }
 

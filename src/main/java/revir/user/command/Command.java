@@ -1,6 +1,7 @@
 package revir.user.command;
 
 import java.io.IOException;
+
 import revir.tasks.TaskList;
 import revir.user.Ui;
 
@@ -8,7 +9,7 @@ import revir.user.Ui;
  * Represents a command that can be executed by the user.
  * Subclasses of this class should implement the execute method to perform specific operations.
  */
-abstract public class Command {
+public abstract class Command {
     private boolean isExit = false;
 
     Command(boolean isExit) {
