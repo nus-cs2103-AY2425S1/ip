@@ -1,3 +1,5 @@
+package meerkatpack;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -6,7 +8,6 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private final String STORAGEFILEPATH = "Meerkat.txt";
     private Parser parser ;
 
     public void writeToFile(String filePath, String textToAdd) throws IOException {

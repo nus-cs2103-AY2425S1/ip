@@ -1,12 +1,13 @@
-import java.io.FileNotFoundException;
+package meerkatpack;
+
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
     private static TaskList taskList;
     private static Ui ui;
-    private final String STORAGEFILEPATH = "Meerkat.txt";
-
 
     public Parser() {
         this.taskList = new TaskList();
@@ -31,7 +32,8 @@ public class Parser {
                 break;
             case 4:
                 try {
-                    taskList.createDeadlineTask(strArray[2], strArray[3]);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kkmm");
+                    taskList.createDeadlineTask(strArray[2], LocalDateTime.parse(strArray[3], formatter));
                     switch (strArray[1]) {
                         case "m":
                             taskList.setMostRecentTaskCompletionStatus(true);
@@ -79,7 +81,8 @@ public class Parser {
                 String[] todoStringArray = taskName.split(" /by ");
                 String dueDate = todoStringArray[1];
                 String name = todoStringArray[0].split(" ", 2)[1];
-                taskList.createDeadlineTask(name, dueDate);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kkmm");
+                taskList.createDeadlineTask(name, LocalDateTime.parse(dueDate, formatter));
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.printNeedMoreInfoDeadlineMessage();
             } catch (IOException e) {
