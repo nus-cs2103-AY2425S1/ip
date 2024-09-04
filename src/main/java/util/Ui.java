@@ -29,7 +29,7 @@ public class Ui {
      */
     public void showWelcome() {
         showLine();
-        System.out.println("    Hello! I'm Prince");
+        System.out.println("    Hello! I'm Prince :p");
         System.out.println("    What can I do for you?");
         showLine();
     }
@@ -57,7 +57,6 @@ public class Ui {
             String numDot = listNum + ".";
             System.out.println("    " + numDot + task.toString());
         }
-        showLine();
     }
 
     /**
@@ -75,7 +74,6 @@ public class Ui {
             String numDot = listNum + ".";
             System.out.println("    " + numDot + task.toString());
         }
-        showLine();
     }
 
     public void showNoMatchingTasks() {
@@ -87,7 +85,28 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        System.out.println("No tasks were found in storage!");
+        System.out.println("Error loading tasks from storage!");
+    }
+
+    public void showAdd() {
+        System.out.println("    Got it. I've added this task:");
+    }
+
+    public void showTaskToString(Task task) {
+        System.out.println("      " + task.toString());
+    }
+
+    /**
+     * Displays number of tasks for the user.
+     * @param taskList List of tasks.
+     */
+    public void showNumberOfTasks(TaskList taskList) {
+        System.out.println("    Now you have " + taskList.size()
+                    + " tasks in the list.");
+    }
+
+    public void showDelete() {
+        System.out.println("    Noted. I've removed this task:");
     }
 
     /**
