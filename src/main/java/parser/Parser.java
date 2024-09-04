@@ -12,7 +12,6 @@ import task.Event;
 import task.Task;
 import task.TaskList;
 import task.Todo;
-import ui.Ui;
 
 /**
  * The Parser class is responsible for parsing and executing user commands.
@@ -26,50 +25,42 @@ public class Parser {
      *
      * @param command   The command entered by the user (e.g. Todo XXX).
      * @param taskList  The TaskList object that holds all the tasks.
-     * @param ui        The Ui object that handles user interaction.
      * @param storage   The Storage object that handles saving and loading tasks from the file.
+     * @return The result of the command as a string message.
      * @throws InvalidInputException if the user enters an unrecognized command or provides invalid input.
      * @throws EmptyTaskException    if the user attempts to add a task without providing a description.
      * @throws TaskIndexOutOfBound   if the user provides an index for a task that does not exist.
      */
-    public static void parseCommand(
-            String command, TaskList taskList, Ui ui, Storage storage
+    public static String parseCommand(
+            String command, TaskList taskList, Storage storage
     ) throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
         String[] slicedStr = command.split(" ");
         String action = slicedStr[0];
 
         switch (action) {
         case "list":
-            ui.showTaskList(taskList.getTasks());
-            break;
+            return getTaskList(taskList.getTasks());
 
         case "mark":
-            handleMarkCommand(slicedStr, taskList, ui, storage, true);
-            break;
+            return handleMarkCommand(slicedStr, taskList, storage, true);
 
         case "unmark":
-            handleMarkCommand(slicedStr, taskList, ui, storage, false);
-            break;
+            return handleMarkCommand(slicedStr, taskList, storage, false);
 
         case "todo":
-            handleTodoCommand(slicedStr, taskList, ui, storage);
-            break;
+            return handleTodoCommand(slicedStr, taskList, storage);
 
         case "deadline":
-            handleDeadlineCommand(slicedStr, taskList, ui, storage);
-            break;
+            return handleDeadlineCommand(slicedStr, taskList, storage);
 
         case "event":
-            handleEventCommand(slicedStr, taskList, ui, storage);
-            break;
+            return handleEventCommand(slicedStr, taskList, storage);
 
         case "delete":
-            handleDeleteCommand(slicedStr, taskList, ui, storage);
-            break;
+            return handleDeleteCommand(slicedStr, taskList, storage);
 
         case "find":
-            handleFindCommand(slicedStr, taskList, ui);
-            break;
+            return handleFindCommand(slicedStr, taskList);
 
         default:
             throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
@@ -77,18 +68,18 @@ public class Parser {
     }
 
     /**
-     * Handles the "mark" and "unmark" commands, marking or unmarking a task as done or not done.
+     * Handles the "mark" and "unmark" commands for marking or unmarking a task.
      *
-     * @param slicedStr  The array of strings representing the user's command.
-     * @param taskList   The TaskList object that holds all the tasks.
-     * @param ui         The Ui object that handles user interaction.
-     * @param storage    The Storage object that handles saving tasks.
-     * @param isMarking  true if marking the task as done; false if unmarking the task.
-     * @throws TaskIndexOutOfBound    if the provided task index is out of bounds.
-     * @throws InvalidInputException  if the user does not provide a task number.
+     * @param slicedStr  The user's input sliced into an array.
+     * @param taskList   The task list containing all tasks.
+     * @param storage    The storage for saving tasks.
+     * @param isMarking  A boolean that indicates whether to mark or unmark the task.
+     * @return A string response indicating the result of marking or unmarking the task.
+     * @throws TaskIndexOutOfBound if the task index provided is out of bounds.
+     * @throws InvalidInputException if the task number is not provided.
      */
-    private static void handleMarkCommand(
-            String[] slicedStr, TaskList taskList, Ui ui, Storage storage, boolean isMarking
+    private static String handleMarkCommand(
+            String[] slicedStr, TaskList taskList, Storage storage, boolean isMarking
     ) throws TaskIndexOutOfBound, InvalidInputException {
         if (slicedStr.length < 2) {
             throw new InvalidInputException("Please provide a task number to mark or unmark.");
@@ -98,30 +89,30 @@ public class Parser {
 
         if (isMarking) {
             taskList.markTask(taskIndex);
-            ui.showMarkTask(taskList.getTask(taskIndex));
+            saveTasksWithHandling(taskList, storage);
+            return String.format("OK, I've marked this task as done:\n[%s][%s] %s",
+                    taskList.getTask(taskIndex).getType(),
+                    taskList.getTask(taskIndex).getStatusIcon(), taskList.getTask(taskIndex));
         } else {
             taskList.unmarkTask(taskIndex);
-            ui.showUnmarkTask(taskList.getTask(taskIndex));
-        }
-
-        try {
-            storage.saveTasks(taskList.getTasks());
-        } catch (IOException e) {
-            ui.showErrorMessage("Error saving tasks: " + e.getMessage());
+            saveTasksWithHandling(taskList, storage);
+            return String.format("OK, I've marked this task as not done yet:\n[%s][%s] %s",
+                    taskList.getTask(taskIndex).getType(),
+                    taskList.getTask(taskIndex).getStatusIcon(), taskList.getTask(taskIndex));
         }
     }
 
     /**
-     * Handles the "todo" command, adding a new todo task to the task list.
+     * Handles the "todo" command to add a new Todo task.
      *
-     * @param slicedStr  The array of strings representing the user's command.
-     * @param taskList   The TaskList object that holds all the tasks.
-     * @param ui         The Ui object that handles user interaction.
-     * @param storage    The Storage object that handles saving tasks.
-     * @throws EmptyTaskException  if the user does not provide a description for the todo task.
+     * @param slicedStr  The user's input sliced into an array.
+     * @param taskList   The task list containing all tasks.
+     * @param storage    The storage for saving tasks.
+     * @return A string response confirming the addition of the task.
+     * @throws EmptyTaskException if the task description is missing.
      */
-    private static void handleTodoCommand(
-            String[] slicedStr, TaskList taskList, Ui ui, Storage storage
+    private static String handleTodoCommand(
+            String[] slicedStr, TaskList taskList, Storage storage
     ) throws EmptyTaskException {
         if (slicedStr.length < 2) {
             throw new EmptyTaskException("todo");
@@ -129,26 +120,22 @@ public class Parser {
         Todo newTodo = new Todo();
         newTodo.convertStringToTask(slicedStr);
         taskList.addTask(newTodo);
-        ui.showAddTask(newTodo, taskList.getTasks().size());
-
-        try {
-            storage.saveTasks(taskList.getTasks());
-        } catch (IOException e) {
-            ui.showErrorMessage("Error saving tasks: " + e.getMessage());
-        }
+        saveTasksWithHandling(taskList, storage);
+        return String.format("Got it. I've added this task:\n[%s][%s] %s\nNow you have %d tasks in the list",
+                newTodo.getType(), newTodo.getStatusIcon(), newTodo, taskList.getTasks().size());
     }
 
     /**
-     * Handles the "event" command, adding a new event task to the task list.
+     * Handles the "deadline" command to add a new Deadline task.
      *
-     * @param slicedStr  The array of strings representing the user's command.
-     * @param taskList   The TaskList object that holds all the tasks.
-     * @param ui         The Ui object that handles user interaction.
-     * @param storage    The Storage object that handles saving tasks.
-     * @throws EmptyTaskException  if the user does not provide a description for the event task.
+     * @param slicedStr  The user's input sliced into an array.
+     * @param taskList   The task list containing all tasks.
+     * @param storage    The storage for saving tasks.
+     * @return A string response confirming the addition of the task.
+     * @throws EmptyTaskException if the task description is missing.
      */
-    private static void handleDeadlineCommand(
-            String[] slicedStr, TaskList taskList, Ui ui, Storage storage
+    private static String handleDeadlineCommand(
+            String[] slicedStr, TaskList taskList, Storage storage
     ) throws EmptyTaskException {
         if (slicedStr.length < 2) {
             throw new EmptyTaskException("deadline");
@@ -158,28 +145,27 @@ public class Parser {
             Deadline newDeadline = new Deadline();
             newDeadline.convertStringToTask(slicedStr);
             taskList.addTask(newDeadline);
-            ui.showAddTask(newDeadline, taskList.getTasks().size());
-            storage.saveTasks(taskList.getTasks());
-        } catch (IOException e) {
-            ui.showErrorMessage("Error saving tasks: " + e.getMessage());
+            saveTasksWithHandling(taskList, storage);
+            return String.format("Got it. I've added this task:\n[%s][%s] %s\nNow you have %d tasks in the list",
+                    newDeadline.getType(), newDeadline.getStatusIcon(), newDeadline, taskList.getTasks().size());
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showErrorMessage("Error saving tasks details: " + e.getMessage());
+            return "Error saving task details: Invalid description or date.";
         } catch (IllegalArgumentException e) {
-            ui.showErrorMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 
     /**
-     * Handles the "event" command, adding a new event task to the task list.
+     * Handles the "todo" command to add a new Event task.
      *
-     * @param slicedStr  The array of strings representing the user's command.
-     * @param taskList   The TaskList object that holds all the tasks.
-     * @param ui         The Ui object that handles user interaction.
-     * @param storage    The Storage object that handles saving tasks.
-     * @throws EmptyTaskException  if the user does not provide a description for the event task.
+     * @param slicedStr  The user's input sliced into an array.
+     * @param taskList   The task list containing all tasks.
+     * @param storage    The storage for saving tasks.
+     * @return A string response confirming the addition of the task.
+     * @throws EmptyTaskException if the task description is missing.
      */
-    private static void handleEventCommand(
-            String[] slicedStr, TaskList taskList, Ui ui, Storage storage
+    private static String handleEventCommand(
+            String[] slicedStr, TaskList taskList, Storage storage
     ) throws EmptyTaskException {
         if (slicedStr.length < 2) {
             throw new EmptyTaskException("event");
@@ -189,29 +175,28 @@ public class Parser {
             Event newEvent = new Event();
             newEvent.convertStringToTask(slicedStr);
             taskList.addTask(newEvent);
-            ui.showAddTask(newEvent, taskList.getTasks().size());
-            storage.saveTasks(taskList.getTasks());
-        } catch (IOException e) {
-            ui.showErrorMessage("Error saving tasks: " + e.getMessage());
+            saveTasksWithHandling(taskList, storage);
+            return String.format("Got it. I've added this task:\n[%s][%s] %s\nNow you have %d tasks in the list",
+                    newEvent.getType(), newEvent.getStatusIcon(), newEvent, taskList.getTasks().size());
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showErrorMessage("Error saving tasks details. Please enter a valid description or date");
+            return "Error saving task details. Please enter a valid description or date.";
         } catch (IllegalArgumentException e) {
-            ui.showErrorMessage(e.getMessage());
+            return e.getMessage();
         }
     }
 
     /**
-     * Handles the "delete" command, deleting a task from the task list.
+     * Handles the "delete" command to remove a task from the task list.
      *
-     * @param slicedStr  The array of strings representing the user's command.
-     * @param taskList   The TaskList object that holds all the tasks.
-     * @param ui         The Ui object that handles user interaction.
-     * @param storage    The Storage object that handles saving tasks.
-     * @throws TaskIndexOutOfBound    if the provided task index is out of bounds.
-     * @throws InvalidInputException  if the user does not provide a task number.
+     * @param slicedStr  The user's input sliced into an array.
+     * @param taskList   The task list containing all tasks.
+     * @param storage    The storage for saving tasks.
+     * @return A string response confirming the deletion of the task.
+     * @throws TaskIndexOutOfBound if the task index is out of bounds.
+     * @throws InvalidInputException if the task number is not provided.
      */
-    private static void handleDeleteCommand(
-            String[] slicedStr, TaskList taskList, Ui ui, Storage storage
+    private static String handleDeleteCommand(
+            String[] slicedStr, TaskList taskList, Storage storage
     ) throws TaskIndexOutOfBound, InvalidInputException {
         if (slicedStr.length < 2) {
             throw new InvalidInputException("Please provide a task number to delete.");
@@ -220,25 +205,21 @@ public class Parser {
         int taskIndex = Integer.parseInt(slicedStr[1]) - 1;
         Task deletedTask = taskList.getTask(taskIndex);
         taskList.deleteTask(taskIndex);
-        ui.showDeleteTask(deletedTask, taskList.getTasks().size());
-
-        try {
-            storage.saveTasks(taskList.getTasks());
-        } catch (IOException e) {
-            ui.showErrorMessage("Error saving tasks: " + e.getMessage());
-        }
+        saveTasksWithHandling(taskList, storage);
+        return String.format("Noted. I've removed this task:\n[%s][%s] %s\nNow you have %d tasks in the list",
+                deletedTask.getType(), deletedTask.getStatusIcon(), deletedTask, taskList.getTasks().size());
     }
 
     /**
-     * Handles the "find" command, finds tasks that match user's input
+     * Handles the "find" command to find tasks with the same keywords from the task list.
      *
-     * @param slicedStr  The array of strings representing the user's command.
-     * @param taskList   The TaskList object that holds all the tasks.
-     * @param ui         The Ui object that handles user interaction.
-     * @throws InvalidInputException  if the user does not provide any keyword.
+     * @param slicedStr  The user's input sliced into an array.
+     * @param taskList   The task list containing all tasks.
+     * @return A string response confirming the deletion of the task.
+     * @throws InvalidInputException if the task number is not provided.
      */
-    private static void handleFindCommand(
-            String[] slicedStr, TaskList taskList, Ui ui
+    private static String handleFindCommand(
+            String[] slicedStr, TaskList taskList
     ) throws InvalidInputException {
         if (slicedStr.length < 2) {
             throw new InvalidInputException("Please indicate what you want to find.");
@@ -251,7 +232,40 @@ public class Parser {
                 matchingTasks.add(task);
             }
         }
-        ui.showFindTask(matchingTasks);
+        return getTaskList(matchingTasks);
+    }
+
+    /**
+     * Saves the tasks entered by the user
+     *
+     * @param taskList The task list containing all tasks.
+     * @param storage The storage containing all tasks.
+     */
+    private static void saveTasksWithHandling(TaskList taskList, Storage storage) {
+        try {
+            storage.saveTasks(taskList.getTasks());
+        } catch (IOException e) {
+            // This error should now be handled by the caller if needed
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * returns the tasks of the user
+     *
+     * @param taskList The task list containing all tasks.
+     * @return return the task list of the user
+     */
+    private static String getTaskList(ArrayList<Task> taskList) {
+        if (taskList.isEmpty()) {
+            return "Your task list is empty.";
+        }
+        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < taskList.size(); i++) {
+            response.append(String.format("%d.[%s][%s] %s\n", i + 1, taskList.get(i).getType(),
+                                          taskList.get(i).getStatusIcon(), taskList.get(i)));
+        }
+        return response.toString();
     }
 
     /**

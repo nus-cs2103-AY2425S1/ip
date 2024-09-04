@@ -7,49 +7,73 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import parser.Parser;
 import task.Task;
 
 /**
- * The Storage class controls the storage management
- * It contains methods to load tasks from a file and also to save user inputs to the file
+ * Manages saving and loading tasks from a file.
  */
 public class Storage {
+
     private final String filePath;
 
     /**
-     * Constructs a Storage object with the specified file path.
-     *
-     * @param filePath The path to the file where tasks are stored.
+     * Initializes the Storage object with the specified file path.
+     * @param filePath The path to the storage file.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        ensureFileIsAccessible();
     }
 
     /**
-     * Loads tasks from the specified file.
-     *
-     * @return An ArrayList of Task objects loaded from the file.
-     * @throws FileNotFoundException if the file specified by filePath does not exist.
+     * Ensures that the file and its directory are accessible.
+     * If the directory or file doesn't exist, it attempts to create them.
+     */
+    private void ensureFileIsAccessible() {
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error: Unable to create file at " + filePath);
+            }
+        }
+
+        // Check if the file is readable and writable
+        if (!file.canRead() || !file.canWrite()) {
+            System.out.println("Error: File " + filePath + " is not accessible for reading/writing.");
+        }
+    }
+
+    /**
+     * Loads tasks from the file.
+     * @return The list of tasks loaded from the file.
+     * @throws FileNotFoundException if the file is not found.
      */
     public ArrayList<Task> loadTasks() throws FileNotFoundException {
         ArrayList<Task> taskList = new ArrayList<>();
         File dataSaved = new File(filePath);
-        Scanner s = new Scanner(dataSaved);
+        Scanner scanner = new Scanner(dataSaved);
 
-        while (s.hasNext()) {
-            String[] dataArr = s.nextLine().split(" \\| ");
-            Task newTask = Parser.parseSavedData(dataArr);
+        while (scanner.hasNext()) {
+            String[] dataArr = scanner.nextLine().split(" \\| ");
+            Task newTask = parser.Parser.parseSavedData(dataArr); // Assumes parseSavedData parses the saved data
             taskList.add(newTask);
         }
+
         return taskList;
     }
 
     /**
-     * Saves the list of tasks to the specified file.
-     *
-     * @param taskList The ArrayList of Task objects to be saved.
-     * @throws IOException if an I/O error occurs during writing to the file.
+     * Saves the current task list to the file.
+     * @param taskList The list of tasks to save.
+     * @throws IOException if there's an error writing to the file.
      */
     public void saveTasks(ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
@@ -57,5 +81,6 @@ public class Storage {
         for (Task task : taskList) {
             fw.write(task.toSavedFormat(separation) + "\n");
         }
+        fw.close();
     }
 }
