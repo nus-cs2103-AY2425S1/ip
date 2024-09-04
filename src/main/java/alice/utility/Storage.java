@@ -1,4 +1,4 @@
-package alice;
+package alice.utility;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,6 +9,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import alice.task.Deadline;
+import alice.task.Event;
+import alice.task.Task;
+import alice.task.Todo;
 
 /**
  * Handles the saving and loading of tasks to and from a file.
