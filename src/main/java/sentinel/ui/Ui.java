@@ -4,9 +4,8 @@ package sentinel.ui;
  * Ui for Sentinel chatbot.
  */
 public class Ui {
-    public String currentMessage;
-    public static String MESSAGE_LINE = "---------------------------------------";
-
+    public static final String MESSAGE_LINE = "---------------------------------------";
+    private String currentMessage;
     /**
      * Outputs a message on the screen
      *
@@ -28,5 +27,14 @@ public class Ui {
     public void showError(String errorMessage) {
         output("Oh no! : " + errorMessage);
         currentMessage = errorMessage;
+    }
+
+    /**
+     * Gets the current message outputted.
+     *
+     * @return Current message outputted.
+     */
+    public String getCurrentMessage() {
+        return currentMessage;
     }
 }

@@ -139,7 +139,7 @@ public class Sentinel {
     public String greet() {
         String greetMessage = "Greetings! I'm Sentinel. \n" + "What can I do for you?";
         say(greetMessage);
-        return(greetMessage);
+        return greetMessage;
     }
 
     /**
@@ -234,7 +234,7 @@ public class Sentinel {
             goodbye();
         }
 
-        return ui.currentMessage;
+        return ui.getCurrentMessage();
     }
     ////////////// SENTINEL METHODS END //////////////
 
