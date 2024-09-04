@@ -18,26 +18,10 @@ public class Ui {
     }
 
     /**
-     * Greets the user when the program starts.
-     */
-    public String greet() {
-        return "Pika! I'm Pikappi!\nWhat can I do for you?\nType 'help' to see what I can do!";
-    }
-
-    /**
      * Bids farewell to the user when the program ends.
      */
     public String goodbye() {
         return "Pi-kapi! See you again~\n";
-    }
-
-    /**
-     * Reads the user input from the command line.
-     *
-     * @return User input from the command line
-     */
-    public String readCommand() {
-        return reader.nextLine();
     }
 
     /**
@@ -126,5 +110,21 @@ public class Ui {
      */
     public String showUnmarkedTask(Task task) {
         return "kaPi! I've unmarked this task as not done yet:\n" + task;
+    }
+
+    /**
+     * Shows the help message to the user.
+     */
+    public String showHelp() {
+        return "Pika! Here are the commands you can use:\n"
+                + "> todo <task>: Adds a todo task to the list\n"
+                + "> deadline <task> /by <date>: Adds a deadline task to the list\n"
+                + "> event <task> /at <date>: Adds an event task to the list\n"
+                + "> list: Shows all tasks in the list\n"
+                + "> find <keyword>: Shows tasks that contain the keyword\n"
+                + "> mark <index>: Marks a task as done\n"
+                + "> unmark <index>: Unmarks a task as not done yet\n"
+                + "> delete <index>: Deletes a task from the list\n"
+                + "> bye: Exits Pikappi";
     }
 }

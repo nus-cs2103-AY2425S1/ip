@@ -6,6 +6,7 @@ import pikappi.command.DeleteCommand;
 import pikappi.command.EventCommand;
 import pikappi.command.ExitCommand;
 import pikappi.command.FindCommand;
+import pikappi.command.HelpCommand;
 import pikappi.command.ListCommand;
 import pikappi.command.MarkCommand;
 import pikappi.command.TodoCommand;
@@ -65,7 +66,11 @@ public class Parser {
             c = new MarkCommand(Integer.parseInt(command.split(" ")[1]));
             break;
         case "UNMARK":
-            c = new UnmarkCommand(Integer.parseInt(command.split(" ")[1]));
+            try {
+                c = new UnmarkCommand(Integer.parseInt(command.split(" ")[1]));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new PikappiException("Pika..? Task does not exist..");
+            }
             break;
         case "TODO":
             try {
@@ -101,6 +106,9 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new PikappiException("Pika..? What do you want to find?");
             }
+            break;
+        case "HELP":
+            c = new HelpCommand();
             break;
         default:
             throw new PikappiException("Pika..?? I don't understand..");

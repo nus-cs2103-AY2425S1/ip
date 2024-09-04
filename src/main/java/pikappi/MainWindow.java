@@ -32,7 +32,8 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getPikappiDialog("Hello! I'm Pikappi\nWhat can I do for you?", pikappiImage)
+                DialogBox.getPikappiDialog("Hello! I'm Pikappi\nWhat can I do for you?\n"
+                        + "Type 'help' to see what I can do!", pikappiImage)
         );
     }
 
