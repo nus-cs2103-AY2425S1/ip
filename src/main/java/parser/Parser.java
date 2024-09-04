@@ -1,7 +1,10 @@
 package parser;
 
 import exception.JadeException;
-import task.*;
+import task.Task;
+import task.Todo;
+import task.Deadline;
+import task.Event;
 import ui.Ui;
 
 import java.time.format.DateTimeParseException;

@@ -1,9 +1,9 @@
 package storage;
 
-import task.Deadline;
-import task.Event;
 import task.Task;
 import task.Todo;
+import task.Deadline;
+import task.Event;
 
 import java.io.File;
 import java.io.FileReader;
@@ -37,18 +37,27 @@ public class Storage {
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-        if (!file.exists()) {
-            file.getParentFile().mkdirs(); // Create directory if it does not exist
-        } else {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    tasks.add(parseTask(line));
-                }
+        File parentDir = file.getParentFile();
+
+        if (!parentDir.exists()) {
+            parentDir.mkdirs(); // create a parent directory if it does not exist
+        } else if (!file.exists()) {
+            try {
+                file.createNewFile(); // create a file if it does not exist
             } catch (IOException e) {
-                System.out.println("Error loading tasks from file: " + e.getMessage());
+                System.out.println("Error creating a file: " + e.getMessage());
             }
         }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                tasks.add(parseTask(line));
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+
         return tasks;
     }
 
@@ -81,9 +90,9 @@ public class Storage {
             String by = parts[3];
             return new Deadline(description, by, isDone);
         case "E":
-            String[] subparts = parts[3].split(" - ");
-            String from = subparts[0];
-            String to = subparts[1];
+            String[] timeParts = parts[3].split(" - ");
+            String from = timeParts[0];
+            String to = timeParts[1];
             return new Event(description, from, to, isDone);
         default:
             return null;

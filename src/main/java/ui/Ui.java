@@ -1,7 +1,9 @@
 package ui;
 
 import exception.JadeException;
-import task.*;
+import task.TaskManager;
+import task.Task;
+import task.TaskType;
 import parser.Parser;
 
 import java.util.Scanner;
@@ -18,8 +20,8 @@ public class Ui {
             + INDENT + "What can I do for you?";
     public static final String EXIT = INDENT + "Bye. Hope to see you again soon!";
 
-    private final TaskManager taskManager;
     private final Scanner sc;
+    private final TaskManager taskManager;
     private final Parser parser;
     private String message;
 
@@ -29,8 +31,8 @@ public class Ui {
      * @param taskManager The TaskManager to interact with.
      */
     public Ui(TaskManager taskManager) {
-        this.taskManager = taskManager;
         this.sc = new Scanner(System.in);
+        this.taskManager = taskManager;
         this.parser = new Parser();
     }
 
@@ -90,7 +92,8 @@ public class Ui {
                 throw new JadeException("Hmm, no such task. Try again.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            displayErrorMessage("Please specify a valid task number.");
+            displayErrorMessage("Please specify a valid task number in the format:\n"
+                    + INDENT + "  mark <index>");
         } catch (JadeException e) {
             displayErrorMessage(e.getMessage());
         }
@@ -152,7 +155,8 @@ public class Ui {
                 throw new JadeException("Hmm, no such task. Try again.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            displayErrorMessage("Please specify a valid task number.");
+            displayErrorMessage("Please specify a valid task number in the format:\n"
+                    + INDENT + "  mark <index>");
         } catch (JadeException e) {
             displayErrorMessage(e.getMessage());
         }
