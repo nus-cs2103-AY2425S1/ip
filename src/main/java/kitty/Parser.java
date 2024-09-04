@@ -1,6 +1,12 @@
 package kitty;
 
-import kitty.command.*;
+import kitty.command.ListCommand;
+import kitty.command.AddCommand;
+import kitty.command.FindCommand;
+import kitty.command.MarkCommand;
+import kitty.command.UnmarkCommand;
+import kitty.command.DeleteCommand;
+
 import kitty.kittyexceptions.DeadlineException;
 import kitty.kittyexceptions.EventException;
 import kitty.kittyexceptions.FindException;
@@ -13,14 +19,15 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
-    public static boolean parseFirstWord(String str, Ui ui, TaskList tasks, Storage storage) throws FindException, MarksException, NumberFormatException, IndexOutOfBoundsException{
+    public static boolean parseFirstWord(String str, Ui ui, TaskList tasks, Storage storage) throws FindException,
+            MarksException, NumberFormatException, IndexOutOfBoundsException {
         String[] aux = str.split(" ", 2);
         switch (aux[0].trim()) {
-            case "find" -> parseFind(str, ui, tasks);
-            case "list" -> new ListCommand(ui, tasks).run();
-            case "mark", "delete", "unmark" -> parseMarks(str, ui, storage, tasks);
-            case "todo", "deadline", "event" -> new AddCommand(ui, tasks, str, storage).run();
-            default -> ui.showErrorMessage("Burrrrr~ What is this??? I have no idea about it...");
+        case "find" -> parseFind(str, ui, tasks);
+        case "list" -> new ListCommand(ui, tasks).run();
+        case "mark", "delete", "unmark" -> parseMarks(str, ui, storage, tasks);
+        case "todo", "deadline", "event" -> new AddCommand(ui, tasks, str, storage).run();
+        default -> ui.showErrorMessage("Burrrrr~ What is this??? I have no idea about it...");
 
         }
         return false;
@@ -29,8 +36,9 @@ public class Parser {
     public static boolean checkDeadline(String str, Ui ui) {
         try {
             String[] parts = str.split("/by");
-            if (parts.length != 2 || parts[0].equals(""))
+            if (parts.length != 2 || parts[0].equals("")) {
                 throw new DeadlineException();
+            }
             return checkDateTime(parts[1].trim());
         } catch (DeadlineException e) {
             ui.showErrorMessage(e.toString());
@@ -49,8 +57,9 @@ public class Parser {
     public static boolean checkEvent(String str, Ui ui) {
         try {
             String[] parts = str.split("/from|/to");
-            if (parts.length != 3)
+            if (parts.length != 3) {
                 throw new EventException();
+            }
             return checkDateTime(parts[1].trim()) && checkDateTime(parts[2].trim());
         } catch (EventException e) {
             ui.showErrorMessage(e.toString());
@@ -58,7 +67,7 @@ public class Parser {
         }
     }
 
-    private static void parseFind(String str, Ui ui, TaskList tasks) throws FindException{
+    private static void parseFind(String str, Ui ui, TaskList tasks) throws FindException {
         String[] aux = str.split(" ");
         if (aux.length != 2) {
             throw new FindException();
@@ -79,7 +88,8 @@ public class Parser {
         return LocalDateTime.now();
     }
 
-    private static void parseMarks(String str, Ui ui, Storage storage, TaskList tasks) throws MarksException, NumberFormatException, IndexOutOfBoundsException{
+    private static void parseMarks(String str, Ui ui, Storage storage, TaskList tasks) throws MarksException,
+            NumberFormatException, IndexOutOfBoundsException {
         String[] aux = str.split(" ");
         if (aux.length != 2) {
             throw new MarksException();
@@ -95,9 +105,12 @@ public class Parser {
         if (parts.length > 0) {
             index = Integer.parseInt(parts[0]);
             switch (aux[0].trim()) {
-                case "mark" -> new MarkCommand(ui, tasks, index, storage).run();
-                case "unmark" -> new UnmarkCommand(ui, tasks, index, storage).run();
-                case "delete" -> new DeleteCommand(ui, tasks, index, storage).run();
+            case "mark" -> new MarkCommand(ui, tasks, index, storage).run();
+            case "unmark" -> new UnmarkCommand(ui, tasks, index, storage).run();
+            case "delete" -> new DeleteCommand(ui, tasks, index, storage).run();
+            default -> {
+                return;
+            }
             }
         }
 

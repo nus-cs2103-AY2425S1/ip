@@ -6,7 +6,7 @@ import kitty.Ui;
 
 import java.io.IOException;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private int index;
     private Storage storage;
 
@@ -17,7 +17,7 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    public void run() throws IndexOutOfBoundsException{
+    public void run() throws IndexOutOfBoundsException {
         try {
             String msg = tasks.deleteTask(index);
             storage.rewriteFile(tasks.getData());

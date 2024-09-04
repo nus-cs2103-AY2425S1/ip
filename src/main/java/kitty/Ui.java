@@ -26,7 +26,7 @@ public class Ui {
             storage.initializeTaskList(tasks);
         } catch (FileNotFoundException e) {
             showErrorMessage("Cannot find ip/data/Kitty.txt file.");
-        }catch (IOException e) {
+        } catch (IOException e) {
             showErrorMessage("Create file ip/data/Kitty.txt failed.");
         }
 

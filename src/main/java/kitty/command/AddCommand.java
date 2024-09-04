@@ -12,7 +12,7 @@ import kitty.tasks.Todo;
 
 import java.io.IOException;
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private String commandBody;
     private Storage storage;
 
@@ -27,27 +27,30 @@ public class AddCommand extends Command{
         String[] parts = commandBody.split(" ", 2);
         Task task = new Task("");
         boolean isCreated = false;
-        switch (parts[0]){
-            case "todo" -> {
-                task = new Todo(parts[1].trim());
+        switch (parts[0]) {
+        case "todo" -> {
+            task = new Todo(parts[1].trim());
+            isCreated = true;
+        }
+        case "deadline" -> {
+            if (Parser.checkDeadline(parts[1].trim(), ui)) {
+                String[] aux = Parser.parseDeadline(parts[1]);
+                task = new Deadline(aux[0], Parser.parseDateTime(aux[1]));
                 isCreated = true;
             }
-            case "deadline" -> {
-                if (Parser.checkDeadline(parts[1].trim(), ui)) {
-                    String[] aux = Parser.parseDeadline(parts[1]);
-                    task = new Deadline(aux[0], Parser.parseDateTime(aux[1]));
-                    isCreated = true;
-                }
+        }
+        case "event" -> {
+            if (Parser.checkEvent(parts[1], ui)) {
+                String[] aux = Parser.parseEvent(parts[1]);
+                task = new Event(aux[0],
+                        Parser.parseDateTime(aux[1]),
+                        Parser.parseDateTime(aux[2]));
+                isCreated = true;
             }
-            case "event" -> {
-                if (Parser.checkEvent(parts[1], ui)) {
-                    String[] aux = Parser.parseEvent(parts[1]);
-                    task = new Event(aux[0],
-                            Parser.parseDateTime(aux[1]),
-                            Parser.parseDateTime(aux[2]));
-                    isCreated = true;
-                }
-            }
+        }
+        default -> {
+            return;
+        }
         }
 
         if (isCreated) {

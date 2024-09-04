@@ -7,7 +7,7 @@ import kitty.tasks.Task;
 
 import java.io.IOException;
 
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private int index;
     private Storage storage;
     public UnmarkCommand(Ui ui, TaskList tasks, int index, Storage storage) {
@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command{
     }
 
     @Override
-    public void run() throws IndexOutOfBoundsException{
+    public void run() throws IndexOutOfBoundsException {
         Task tmp = tasks.markUndone(index);
         try {
             storage.rewriteFile(tasks.getData());

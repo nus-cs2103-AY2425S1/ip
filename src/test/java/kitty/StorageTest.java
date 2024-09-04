@@ -1,29 +1,26 @@
 package kitty;
 
 import kitty.tasks.Task;
-import kitty.tasks.Todo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 class StorageTest {
 
-    private Storage storage;
-    private TaskList taskList;
     private static final String KITTY_DATA_PATH = "data/Kitty.txt";
     private static final String BACKUP_PATH = "data/Kitty_backup.txt";
+    private Storage storage;
+    private TaskList taskList;
+
 
     @BeforeEach
     void setUp() throws IOException {
@@ -75,8 +72,10 @@ class StorageTest {
 
         storage.initializeTaskList(taskList);
 
-        assertEquals(1, taskList.getTasks().size(), "Task list should have one task after initialization");
+        assertEquals(1, taskList.getTasks().size(),
+                "Task list should have one task after initialization");
         Task task = taskList.getTasks().get(0);
-        assertEquals("T ~!! 0 ~!! Test task", task.getTaskData().trim(), "The task data should match the input content");
+        assertEquals("T ~!! 0 ~!! Test task", task.getTaskData().trim(),
+                "The task data should match the input content");
     }
 }

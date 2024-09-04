@@ -3,7 +3,7 @@ package kitty.tasks;
 /**
  * Provides skeleton for a kind of tasks.Task named tasks.Todo.
  */
-public class Todo extends Task{
+public class Todo extends Task {
     public Todo(String name) {
         super(name);
     }
