@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,7 +26,7 @@ public class Kafka {
         System.out.println("  Now you have " + this.tasks.size() + " task(s) in the list.");
     }
 
-    public void createList() {
+    public void getList() {
         System.out.println("  Here are the tasks in your list:");
         for (int i = 0; i < this.tasks.size(); i++) {
             Task t = this.tasks.get(i);
@@ -73,6 +74,7 @@ public class Kafka {
         Scanner scanner = new Scanner(System.in);
         Kafka kafka = new Kafka();
         boolean isExitChat = false;
+        String filepath = "C:/Users/Nicholas/Downloads/Kafka.txt";
 
         System.out.println("  Hello from\n" + logo);
         kafka.greet();
@@ -86,16 +88,19 @@ public class Kafka {
                 if (userInput[0].equalsIgnoreCase("bye")) {
                     isExitChat = true;
                 } else if (userInput[0].equalsIgnoreCase("list")) {
-                    kafka.createList();
+                    kafka.getList();
                 } else if (userInput[0].equalsIgnoreCase("mark")) {
                     int taskNumber = Integer.parseInt(userInput[1]);
                     kafka.mark(taskNumber);
+                    KafkaTextWriter.writeToFile(filepath, kafka.tasks);
                 } else if (userInput[0].equalsIgnoreCase("unmark")) {
                     int taskNumber = Integer.parseInt(userInput[1]);
                     kafka.unmark(taskNumber);
+                    KafkaTextWriter.writeToFile(filepath, kafka.tasks);
                 } else if (userInput[0].equalsIgnoreCase("delete")) {
                     int taskNumber = Integer.parseInt(userInput[1]);
                     kafka.delete(taskNumber);
+                    KafkaTextWriter.writeToFile(filepath, kafka.tasks);
                 } else {
                     if (userInput[0].equalsIgnoreCase("todo")) {
                         if (userInput.length < 2) {
@@ -103,6 +108,7 @@ public class Kafka {
                         }
                         Task todo = new Todo(userInput[1]);
                         kafka.addTask(todo);
+                        KafkaTextWriter.writeToFile(filepath, kafka.tasks);
                     } else if (userInput[0].equalsIgnoreCase("deadline")) {
                         if (userInput.length < 2) {
                             throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
@@ -113,6 +119,7 @@ public class Kafka {
                         }
                         Task deadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
                         kafka.addTask(deadline);
+                        KafkaTextWriter.writeToFile(filepath, kafka.tasks);
                     } else if (userInput[0].equalsIgnoreCase("event")) {
                         if (userInput.length < 2) {
                             throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
@@ -123,11 +130,12 @@ public class Kafka {
                         }
                         Task event = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
                         kafka.addTask(event);
+                        KafkaTextWriter.writeToFile(filepath, kafka.tasks);
                     } else {
                         throw new KafkaException("Hmm... I'm not sure what you're getting at. Care to enlighten me?");
                     }
                 }
-            } catch (KafkaException e) {
+            } catch (KafkaException | IOException e) {
                 System.out.println("  " + e.getMessage());
             }
         }
