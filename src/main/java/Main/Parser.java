@@ -8,6 +8,7 @@ import Commands.DeleteCommand;
 import Commands.FindCommand;
 import Commands.ListCommand;
 import Commands.MarkCommand;
+import Commands.ReminderCommand;
 import Commands.UnmarkCommand;
 import Exception.DiegoException;
 import Exception.NoDescriptionException;
@@ -54,7 +55,19 @@ public class Parser {
             return new DeleteCommand(parseIndex(input));
         } else if (input.startsWith("find")) {
             return new FindCommand(input.substring(5).trim());
-        } else {
+        } else if (input.startsWith("remind")) {
+            String[] parts = input.split(" ");
+            //Default to 7 days if no number is provided
+            int days = 7;
+            if (parts.length > 1) {
+                try {
+                    days = Integer.parseInt(parts[1]);
+                } catch (NumberFormatException e) {
+                    throw new DiegoException("Invalid number of days for remind command.");
+                }
+            }
+            return new ReminderCommand(days);
+        }else {
             throw new UnknownCommandException();
         }
     }
