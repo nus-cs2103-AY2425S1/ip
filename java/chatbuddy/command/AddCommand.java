@@ -9,11 +9,20 @@ import chatbuddy.task.TaskList;
 import chatbuddy.task.ToDo;
 import chatbuddy.ui.Ui;
 
+/**
+ * Represents a command to add a task (ToDo, Deadline, or Event) to the task list.
+ */
 public class AddCommand extends Command {
 
     private String description;
     private String type;
 
+    /**
+     * Constructs an AddCommand with the given description and task type.
+     *
+     * @param description The task description.
+     * @param type The task type ("T" for ToDo, "D" for Deadline, "E" for Event).
+     */
     public AddCommand(String description, String type) {
         this.description = description;
         this.type = type;
