@@ -1,15 +1,15 @@
 package sigma.command;
 
-import sigma.Storage;
-import sigma.TaskList;
-import sigma.Ui;
+import sigma.utils.Storage;
+import sigma.utils.TaskList;
+import sigma.utils.Ui;
 import sigma.exception.SigmaException;
 import sigma.task.Task;
 
 /**
  * Represents the command to mark a task as done.
  */
-public class MarkCommand extends Commands {
+public class MarkCommand extends Command {
 
     public MarkCommand(String[] split) {
         super(split);
@@ -23,7 +23,7 @@ public class MarkCommand extends Commands {
      * @throws SigmaException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         if (split.length > 1) {
             int index = Integer.parseInt(split[1]);
             if (index > 0 && index <= tasks.size()) {
@@ -32,7 +32,8 @@ public class MarkCommand extends Commands {
                     throw new SigmaException("What the sigma? Task already marked!");
                 }
                 item.setStatus(true);
-                ui.print(String.format("SLAYYY! I'm going to mark this done for you:\n [%s] %s", item.getStatusString()
+                return ui.print(String.format("SLAYYY! I'm going to mark this done for you:\n [%s] %s",
+                        item.getStatusString()
                         , item.getDesc()));
             } else {
                 throw new SigmaException("Invalid task number!");

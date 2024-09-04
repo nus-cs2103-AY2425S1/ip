@@ -1,7 +1,7 @@
 package sigma.command;
 
 import org.junit.jupiter.api.Test;
-import sigma.TaskList;
+import sigma.utils.TaskList;
 
 import java.util.ArrayList;
 

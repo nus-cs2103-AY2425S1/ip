@@ -1,14 +1,14 @@
 package sigma.command;
 
-import sigma.Storage;
-import sigma.TaskList;
-import sigma.Ui;
+import sigma.utils.Storage;
+import sigma.utils.TaskList;
+import sigma.utils.Ui;
 import sigma.exception.SigmaException;
 
 /**
  * Represents the command to execute the user's input.
  */
-public class UnrecognisedCommand extends Commands {
+public class UnrecognisedCommand extends Command {
 
         public UnrecognisedCommand(String[] split) {
             super(split);
@@ -22,8 +22,9 @@ public class UnrecognisedCommand extends Commands {
          * @throws SigmaException
          */
         @Override
-        public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
+        public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
             ui.throwUnrecognisedError();
+            return "???";
         }
 
 }

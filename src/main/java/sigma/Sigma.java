@@ -1,7 +1,11 @@
 package sigma;
 
-import sigma.command.Commands;
+import sigma.command.Command;
 import sigma.exception.SigmaException;
+import sigma.utils.Parser;
+import sigma.utils.Storage;
+import sigma.utils.TaskList;
+import sigma.utils.Ui;
 
 import java.io.File;
 
@@ -15,13 +19,22 @@ public class Sigma {
     private TaskList tasks;
     private Ui ui;
     private File data;
+    private String commandType;
+
+    // Default constructor
+    public Sigma() {
+        this.ui = new Ui();
+        storage = new Storage("data.txt");
+        this.data = new File("data.txt");
+        tasks = new TaskList(storage.read(data));
+    }
 
     /**
      * Constructor for Sigma.
      * Initializes the Ui, Storage, and TaskList.
      * @param filePath
      */
-    private Sigma(String filePath) {
+    public Sigma(String filePath) {
         this.ui = new Ui();
         storage = new Storage(filePath);
         this.data = new File(filePath);
@@ -29,7 +42,7 @@ public class Sigma {
     }
 
     /**
-     * Main method to run Sigma.
+     * sigma.gui.Main method to run Sigma.
      * @param args
      */
     public static void main(String[] args) {
@@ -51,8 +64,9 @@ public class Sigma {
             String fullCommand;
             try {
                 fullCommand = ui.readCommand();
-                Commands c = Parser.parse(fullCommand);
+                Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
+                isExit = c.isExit();
             } catch (SigmaException e) {
                 ui.print(e.getMessage());
             } catch (NumberFormatException e) {
@@ -61,6 +75,29 @@ public class Sigma {
             }
             storage.write(this.data, tasks.getTasks());
         }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        // get first char of input as the command type
+        try {
+            Command c = Parser.parse(input);
+            commandType = c.toString();
+            if (c.isExit()) {
+                System.exit(0);
+            }
+            return c.execute(tasks, ui, storage);
+        } catch (SigmaException e) {
+            return e.getMessage();
+        } catch (NumberFormatException e) {
+            return "What the sigma? I need a number!";
+        }
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 }
 

@@ -1,9 +1,9 @@
 package sigma.command;
 
-import sigma.Parser;
-import sigma.Storage;
-import sigma.TaskList;
-import sigma.Ui;
+import sigma.utils.Parser;
+import sigma.utils.Storage;
+import sigma.utils.TaskList;
+import sigma.utils.Ui;
 import sigma.exception.SigmaException;
 import sigma.task.EventTask;
 
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * Represents the command to add an event task.
  */
-public class EventCommand extends Commands {
+public class EventCommand extends Command {
 
     public EventCommand(String[] split) {
         super(split);
@@ -24,9 +24,10 @@ public class EventCommand extends Commands {
      * @param ui
      * @param storage
      * @throws SigmaException
+     * @return String response.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         Parser parser = new Parser();
         String SYNTAX = "Write \"event <task> /from <start time> /to <end time>\"!";
         if (split.length < 2) {
@@ -44,7 +45,7 @@ public class EventCommand extends Commands {
         LocalDateTime to = parser.parseLocalDateTime(timing[1]);
         EventTask eventTask = new EventTask(eventSplit[0], from, to);
         tasks.add(eventTask);
-        ui.print("You're a busy bee! Added: \n" + eventTask.toString()
+        return ui.print("You're a busy bee! Added: \n" + eventTask.toString()
                 + "\nNow you have " + tasks.size() + " tasks in the list!");
     }
 

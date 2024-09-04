@@ -1,17 +1,17 @@
 package sigma.command;
 
-import sigma.Storage;
-import sigma.TaskList;
-import sigma.Ui;
+import sigma.utils.Storage;
+import sigma.utils.TaskList;
+import sigma.utils.Ui;
 import sigma.exception.SigmaException;
 import sigma.task.ToDoTask;
 
 /**
  * Represents the command to add a todo task.
  */
-public class TodoCommand extends Commands {
+public class ToDoCommand extends Command {
 
-    public TodoCommand(String[] split) {
+    public ToDoCommand(String[] split) {
         super(split);
     }
 
@@ -23,7 +23,7 @@ public class TodoCommand extends Commands {
      * @throws SigmaException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         ToDoTask toDoTask = null;
         try {
             if (split.length < 2 || split[1].strip() == "") {
@@ -34,7 +34,7 @@ public class TodoCommand extends Commands {
             ui.throwError("Please don't run me on null!");
         }
         tasks.add(toDoTask);
-        ui.print("Productive! Added: \n" + toDoTask.toString()
+        return ui.print("Productive! Added: \n" + toDoTask.toString()
                 + "\nNow you have " + tasks.size() + " tasks in the list!");
     }
 

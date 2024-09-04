@@ -1,4 +1,4 @@
-package sigma;
+package sigma.utils;
 
 import sigma.task.Task;
 
@@ -78,6 +78,14 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    public StringBuilder buildList() {
+        StringBuilder s = new StringBuilder();
+        for (int i = 1; i <= tasks.size(); i++) {
+            s.append(i + ". " + tasks.get(i - 1).toString() + "\n");
+        }
+        return s;
     }
 
 }
