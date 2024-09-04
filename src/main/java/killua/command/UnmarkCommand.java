@@ -37,10 +37,11 @@ public class UnmarkCommand extends Command {
      * @throws IOException If there is an error saving the task list to storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
         tasks.unmarkTask(taskIndex);
         Task task = tasks.getTasks().get(taskIndex);
-        ui.showTaskUnmarked(task);
+        String message = ui.showTaskUnmarked(task);
         storage.save(tasks);
+        return message;
     }
 }

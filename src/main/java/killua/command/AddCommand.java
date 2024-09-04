@@ -34,9 +34,10 @@ public class AddCommand extends Command {
      * @throws IOException If there is an error in reading or writing to storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
         tasks.addTask(task);
-        ui.showTaskAdded(task, tasks.getTasks().size());
+        String message = ui.showTaskAdded(task, tasks.getTasks().size());
         storage.save(tasks);
+        return message;
     }
 }

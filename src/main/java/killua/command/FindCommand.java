@@ -51,7 +51,7 @@ public class FindCommand extends Command {
      * @param storage The storage object (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMatchedTask(filterTask(tasks));
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showMatchedTask(filterTask(tasks));
     }
 }

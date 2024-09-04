@@ -14,7 +14,6 @@ import killua.util.TaskList;
  */
 public class Ui {
 
-    private static final String LINE = "______________________________________________________________________________";
     private final Scanner in;
 
     /**
@@ -37,9 +36,8 @@ public class Ui {
     /**
      * Displays a welcome message and a list of available commands.
      */
-    public void showWelcomeMessage() {
-        printLine();
-        System.out.println("""
+    public String welcomeUser() {
+        return """
         Welcome to Killua Task Manager!
         Here are some commands you can use:
             bye - Exit the application
@@ -51,24 +49,7 @@ public class Ui {
             deadline <description> /by <yyyy-mm-dd> OR
             deadline <description> /by <yyyy-mm-dd hh:mm> - Add a new deadline task
             event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR
-            event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm> - Add a new event task""");
-        printLine();
-    }
-
-    /**
-     * Prints a separator line for formatting purposes.
-     */
-    public void printLine() {
-        System.out.println(LINE);
-    }
-
-    /**
-     * Displays an error message indicating that tasks could not be loaded.
-     */
-    public void showLoadingError() {
-        printLine();
-        System.out.println("Error loading tasks.");
-        printLine();
+            event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm> - Add a new event task""";
     }
 
     /**
@@ -77,12 +58,14 @@ public class Ui {
      * @param task The task that was added.
      * @param taskCount The total number of tasks in the list after the addition.
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        printLine();
+    public String showTaskAdded(Task task, int taskCount) {
+        return "Got it. I've added this task:\n  " + task + "\nNow you have "
+                + taskCount + " tasks in the list.";
+//        printLine();
+//        System.out.println("Got it. I've added this task:");
+//        System.out.println("  " + task);
+//        System.out.println("Now you have " + taskCount + " tasks in the list.");
+//        printLine();
     }
 
     /**
@@ -90,20 +73,15 @@ public class Ui {
      *
      * @param task The task that was deleted.
      */
-    public void showTaskDeleted(Task task) {
-        printLine();
-        System.out.println("OK, I've deleted this task:");
-        System.out.println("  " + task);
-        printLine();
+    public String showTaskDeleted(Task task) {
+        return "OK, I've deleted this task:\n" + task;
     }
 
     /**
      * Displays a farewell message when the application is exiting.
      */
-    public void showBye() {
-        printLine();
-        System.out.println("Bye!");
-        printLine();
+    public String showBye() {
+        return "Bye!";
     }
 
     /**
@@ -111,15 +89,14 @@ public class Ui {
      *
      * @param tasks The task list to be displayed.
      */
-    public void showTaskList(TaskList tasks) {
-        printLine();
+    public String showTaskList(TaskList tasks) {
+        String message;
         if (tasks.isEmpty()) {
-            System.out.println("Your task list is empty.");
+            message = "Your task list is empty.";
         } else {
-            System.out.println("Here are the tasks in your list:");
-            tasks.printTasks();
+            message = "Here are the tasks in your list:\n" + tasks.getTasksString();
         }
-        printLine();
+        return message;
     }
 
     /**
@@ -127,11 +104,8 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void showTaskMarked(Task task) {
-        printLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
-        printLine();
+    public String showTaskMarked(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -139,11 +113,8 @@ public class Ui {
      *
      * @param task The task that was marked as not done yet.
      */
-    public void showTaskUnmarked(Task task) {
-        printLine();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
-        printLine();
+    public String showTaskUnmarked(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**
@@ -152,32 +123,21 @@ public class Ui {
      * @param tasks The task list containing the tasks to be displayed.
      * @param date The date for which tasks are to be displayed.
      */
-    public void showTasksOnDate(TaskList tasks, LocalDate date) {
-        printLine();
-        System.out.println("Tasks on " + date + ":");
+    public String showTasksOnDate(TaskList tasks, LocalDate date) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tasks on ").append(date).append(":\n");
 
         boolean hasTasks = false;
         for (Task task : tasks.getTasksOnDate(date).getTasks()) {
-            System.out.println("  " + task);
+            sb.append("  ").append(task).append("\n");
             hasTasks = true;
         }
 
         if (!hasTasks) {
-            System.out.println("No tasks found for this date.");
+            sb.append("No tasks found for this date.\n");
         }
 
-        printLine();
-    }
-
-    /**
-     * Displays an error message.
-     *
-     * @param message The error message to be displayed.
-     */
-    public void showError(String message) {
-        printLine();
-        System.out.println(message);
-        printLine();
+        return sb.toString();
     }
 
     /**
@@ -197,14 +157,13 @@ public class Ui {
      *
      * @param tasks The TaskList containing the tasks to be displayed.
      */
-    public void showMatchedTask(TaskList tasks) {
-        printLine();
+    public String showMatchedTask(TaskList tasks) {
+        String message;
         if (tasks.isEmpty()) {
-            System.out.println("No matching task in your list!");
+            message = "No matching task in your list!";
         } else {
-            System.out.println("Here are the Matching tasks in your list:");
-            tasks.printTasks();
+            message = "Here are the Matching tasks in your list:" + tasks.getTasksString();
         }
-        printLine();
+        return message;
     }
 }

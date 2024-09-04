@@ -51,7 +51,7 @@ public class OnCommand extends Command {
      * @param storage The storage is not used in this command, but required for method signature.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTasksOnDate(tasks, date);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showTasksOnDate(tasks, date);
     }
 }

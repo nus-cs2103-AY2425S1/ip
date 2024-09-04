@@ -36,10 +36,11 @@ public class MarkCommand extends Command {
      * @throws IOException If there is an error saving the task list to storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
         tasks.markTaskDone(taskIndex);
         Task task = tasks.getTasks().get(taskIndex);
-        ui.showTaskMarked(task);
+        String message = ui.showTaskMarked(task);
         storage.save(tasks);
+        return message;
     }
 }
