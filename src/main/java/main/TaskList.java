@@ -1,5 +1,9 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 import exception.CommandFoundButInvalidException;
 import exception.EmptyDescriptionException;
 import exception.InvalidSyntaxException;
@@ -8,17 +12,16 @@ import task.Events;
 import task.Task;
 import task.ToDos;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 /**
  * Manages a list of tasks, providing methods to add, mark, unmark, delete, find, and list tasks.
  * Also handles storing tasks in a format suitable for persistence
  */
 public class TaskList {
     private List<Task> allTasks;
-    private Stack<Task> deletedTasks, addedTasks, markedTasks, unmarkedTasks;
+    private Stack<Task> deletedTasks;
+    private Stack<Task> addedTasks;
+    private Stack<Task> markedTasks;
+    private Stack<Task> unmarkedTasks;
 
     /**
      * Constructs a {@code TaskList} instance with an initial list of tasks.
