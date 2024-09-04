@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +15,17 @@ public class Storage {
         this.path = path;
     }
 
-    public ArrayList<Task> load() throws IOException {
+    public void addTask(Task task) throws NoosyException {
+        try {
+            FileWriter fileWriter = new FileWriter(this.path, true);
+            fileWriter.write(task.storeInFile() + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new NoosyException("Error writing file: " + e.getMessage());
+        }
+    }
+
+    public ArrayList<Task> load() throws NoosyException, IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File stored = new File(this.path);
 
@@ -59,11 +68,19 @@ public class Storage {
         return tasks;
     }
 
-    public void save(ArrayList<Task> tasks) throws IOException {
-        FileWriter writer = new FileWriter(path);
-        for (Task task : tasks) {
-            writer.write(task.storeInFile() + "\n");
+    public void save(TaskList tasks) throws NoosyException {
+        try {
+            FileWriter writer = new FileWriter(this.path);
+
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                writer.write(task.storeInFile() + "\n");
+            }
+
+            writer.close();
+
+        } catch (IOException e) {
+            throw new NoosyException("Cannot write file: " + e.getMessage());
         }
-        writer.close();
     }
 }

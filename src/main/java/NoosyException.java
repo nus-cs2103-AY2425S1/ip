@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class NoosyException {
+public class NoosyException extends Throwable {
+
+    public NoosyException(String errorMsg) {
+        super(errorMsg);
+    }
 }
