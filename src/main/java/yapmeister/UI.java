@@ -13,6 +13,8 @@ public class UI {
     private Parser parser;
     private TaskList tasks;
 
+    private boolean isRunning;
+
     /**
      * Creates a new UI
      */
@@ -35,11 +37,20 @@ public class UI {
      */
     public void process() {
         String input = "";
-        boolean isRunning = true;
+        isRunning = true;
         while (isRunning) {
             input = scanner.nextLine();
             isRunning = parser.processInput(input);
         }
         System.out.println("Fine. Bye. Leave and never return");
+        scanner.close();
+    }
+
+    public void exit() {
+        isRunning = false;
+    }
+
+    public void displayString(String s) {
+        System.out.println(s);
     }
 }

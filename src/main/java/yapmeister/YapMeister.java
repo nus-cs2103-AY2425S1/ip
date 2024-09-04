@@ -30,7 +30,7 @@ public class YapMeister {
             //ui.showLoadingError();
             this.tasks = new TaskList();
         }
-        Parser parser = new Parser(this.storage, this.tasks);
+        Parser parser = new Parser(this.storage, this.tasks, this.ui);
         this.ui.setParser(parser);
     }
 

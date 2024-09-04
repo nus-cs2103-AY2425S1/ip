@@ -1,5 +1,6 @@
 package yapmeister;
 
+import yapmeister.commands.*;
 import yapmeister.task.Task;
 import yapmeister.task.ToDo;
 import yapmeister.task.TaskList;
@@ -21,15 +22,17 @@ import static java.lang.Integer.parseInt;
 public class Parser {
     TaskList tasks;
     Storage storage;
+    UI ui;
 
     /**
      * Creates a Parser.
      * @param storage Storage where information is stored and saved.
      * @param tasks TaskList storing the tasks.
      */
-    public Parser(Storage storage, TaskList tasks) {
+    public Parser(Storage storage, TaskList tasks, UI ui) {
         this.storage = storage;
         this.tasks = tasks;
+        this.ui = ui;
     }
     public void setTaskList(TaskList tasks) {
         this.tasks = tasks;
@@ -41,111 +44,50 @@ public class Parser {
      * @return boolean to indicate whether UI should continue running or terminate.
      */
     public boolean processInput(String input) {
-        String[] command = input.split(" ");
+        String[] inputs = input.split(" ");
+        Command command = null;
         try {
-            switch (command[0]) {
+            switch (inputs[0]) {
             case "bye":
-                storage.saveLoadedTasks(tasks);
+                command = new ByeCommand().parse(input);
                 return false;
             case "list":
-                int i = 0;
-                ArrayList<Task> taskArrayList = tasks.getTaskArrayList();
-                for (Task task : taskArrayList) {
-                    System.out.println(String.format("%d. %s", i + 1, task.toString()));
-                    i++;
-                }
+                command = new ListCommand().parse(input);
                 break;
             case "mark":
-                int index = parseInt(command[1]) - 1;
-                if (index >= tasks.getSize() || index < 0) {
-                    throw new InvalidMarkException("No task at that index");
-                }
-                tasks.get(index).setCompleted(true);
-                System.out.println("You did this:");
-                System.out.println(tasks.get(index).toString());
+                command = new MarkCommand().parse(input);
                 break;
             case "unmark":
-                int umindex = parseInt(command[1]) - 1;
-                if (umindex >= tasks.getSize() || umindex < 0) {
-                    throw new InvalidMarkException("No task at that index");
-                }
-                tasks.get(umindex).setCompleted(false);
-                System.out.println("You undid this:");
-                System.out.println(tasks.get(umindex).toString());
+                command = new UnmarkCommand().parse(input);
                 break;
             case "todo":
-                //Fallthrough
+                command = new TodoCommand().parse(input);
+                break;
             case "deadline":
-                //Fallthrough
+                command = new DeadlineCommand().parse(input);
             case "event":
-                Task task = null;
-                task = createTaskInput(command[0], input);
-                System.out.println("Added:");
-                tasks.addTask(task);
-                System.out.println(String.format("You have %d tasks", tasks.getSize()));
+                command = new EventCommand().parse(input);
                 break;
             case "delete":
-                int dindex = parseInt(command[1]) - 1;
-                if (dindex >= tasks.getSize() || dindex < 0) {
-                    throw new InvalidMarkException("No task at that index");
-                }
-                Task removedTask = tasks.deleteTask(dindex);
-                System.out.println("Removed this task");
-                System.out.println(removedTask.toString());
-                System.out.println(String.format("You have %d tasks", tasks.getSize()));
+                command = new DeleteCommand().parse(input);
                 break;
             case "find":
-                ArrayList<Task> tasks2 = tasks.getFilteredArrayList(t -> t.getTaskName().contains(command[1]));
-                i = 0;
-                for (Task filteredTask : tasks2) {
-                    System.out.println(String.format("%d. %s", i + 1, filteredTask.toString()));
-                    i++;
-                }
+                command = new FindCommand().parse(input);
                 break;
             default:
-                System.out.println("Invalid input please yap yapology");
+                ui.displayString("Invalid input please yap yapology");
             }
-        } catch (InvalidDescriptionException | InvalidMarkException | IOException e) {
-            System.out.println(e.getMessage());
+            if (command != null) {
+                command.execute(tasks, storage, ui);
+            }
+        } catch (InvalidInputException | InvalidMarkException | IOException e) {
+            ui.displayString(e.getMessage());
         } catch (NumberFormatException e) {
-            System.out.println("Invalid number format");
+            ui.displayString("Invalid number format");
+        } catch (Exception e) {
+            ui.displayString("Unaccounted for exception. "
+                    + "Please contact @BlazeChron because he forgot something.");
         }
         return true;
-    }
-
-    /**
-     * Creates Task based on user input.
-     * @param type Type of Task to create.
-     * @param input User input.
-     * @return Task created.
-     * @throws InvalidDescriptionException Error when input given is invalid for the type of task.
-     */
-    private Task createTaskInput(String type, String input) throws InvalidDescriptionException {
-        Task task = null;
-        String[] format;
-        switch (type) {
-        case "todo":
-            format = input.split("todo ");
-            if (format.length <= 1) {
-                throw new InvalidDescriptionException("Invalid yapmeister.task.Task description");
-            }
-            task = new ToDo(format[1]);
-            break;
-        case "deadline":
-            format = input.split("deadline | /by ");
-            if (format.length <= 2) {
-                throw new InvalidDescriptionException("Invalid yapmeister.task.Task description");
-            }
-            task = new Deadline(format[1], format[2]);
-            break;
-        case "event":
-            format = input.split("event | /from | /to ");
-            if (format.length <= 3) {
-                throw new InvalidDescriptionException("Invalid yapmeister.task.Task description");
-            }
-            task = new Event(format[1], format[2], format[3]);
-            break;
-        }
-        return task;
     }
 }
