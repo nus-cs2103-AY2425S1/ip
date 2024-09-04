@@ -7,15 +7,16 @@ import java.time.format.DateTimeFormatterBuilder;
  * The Bao class represents the main application that manages the tasks.
  * Initialises the UI, handles storage, and manages the list of tasks.
  */
+@SuppressWarnings("checkstyle:Regexp")
 public class Bao {
+    private static DateTimeFormatter inputDateFormat;
+    private static DateTimeFormatter fileDateFormat;
+    private static DateTimeFormatter dateOnlyFormat;
+    private static DateTimeFormatter outputDateFormat;
+    private static final String file_Path = "./data/bao.json.txt";
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
-    private static final String file_Path = "./data/bao.json.txt";
-    public static DateTimeFormatter inputDateFormat;
-    public static DateTimeFormatter fileDateFormat;
-    public static DateTimeFormatter dateOnlyFormat;
-    public static DateTimeFormatter outputDateFormat;
 
     /**
      * Constructs a new Bao instance with the specified file path for storage.
@@ -93,6 +94,22 @@ public class Bao {
 
     public TaskList getTaskList() {
         return this.tasks;
+    }
+
+    public static DateTimeFormatter getInputDateFormat() {
+        return inputDateFormat;
+    }
+
+    public static DateTimeFormatter getFileDateFormat() {
+        return fileDateFormat;
+    }
+
+    public static DateTimeFormatter getDateOnlyFormat() {
+        return dateOnlyFormat;
+    }
+
+    public static DateTimeFormatter getOutputDateFormat() {
+        return outputDateFormat;
     }
 
     /**
