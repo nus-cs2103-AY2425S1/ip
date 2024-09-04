@@ -1,7 +1,9 @@
 package sigmabot.task;
 
+import java.util.Map;
 import java.util.Scanner;
-
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 /**
  * The {@code Todo} class represents a simple task with a name and description.
  * It can be marked as done or not done. This class extends the {@link Task} class.
@@ -45,6 +47,34 @@ public class Todo extends Task {
         String description = sc.nextLine().trim();
         return new Todo(name, description);
     }
+
+    /**
+     * Creates a new {@code Todo} object using GUI input components and stores it in the provided map.
+     *
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
+     * @param taskMap     The map to store the created {@code Todo} object.
+     */
+    public static void createTodoGUI(TextArea displayArea, TextField inputField, Map<String, Task> taskMap) {
+        displayArea.appendText("Enter name for Todo:\n");
+
+        // Handle name input
+        inputField.setOnAction(event -> {
+            String name = inputField.getText().trim();
+            inputField.clear();
+            displayArea.appendText("Enter description for Todo:\n");
+
+            // Handle description input
+            inputField.setOnAction(eventDesc -> {
+                String description = inputField.getText().trim();
+                inputField.clear();
+                Todo newTodo = new Todo(name, description);
+                taskMap.put(name, newTodo);  // Store the new Todo in the map
+                displayArea.appendText("Todo created: " + newTodo.toString() + "\n");
+            });
+        });
+    }
+
 
     /**
      * Returns a string representation of the {@code Todo} task.

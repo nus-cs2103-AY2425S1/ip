@@ -3,6 +3,9 @@ package sigmabot.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.Map;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;;
 
 /**
  * The {@code Deadline} class represents a task that needs to be completed by a specific date.
@@ -63,6 +66,45 @@ public class Deadline extends Task {
         }
         return new Deadline(name, description, byTime);
     }
+
+    /**
+     * Creates a new {@code Deadline} object using GUI input components and stores it in the provided map.
+     *
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
+     * @param taskMap     The map to store the created {@code Deadline} object.
+     */
+    public static void createDeadlineGUI(TextArea displayArea, TextField inputField, Map<String, Task> taskMap) {
+        displayArea.appendText("Enter name for Deadline:\n");
+
+        // Handle name input
+        inputField.setOnAction(event -> {
+            String name = inputField.getText().trim();
+            inputField.clear();
+            displayArea.appendText("Enter description for Deadline:\n");
+
+            // Handle description input
+            inputField.setOnAction(eventDesc -> {
+                String description = inputField.getText().trim();
+                inputField.clear();
+                displayArea.appendText("Enter deadline (yyyy-MM-dd) for Deadline:\n");
+
+                // Handle deadline date input
+                inputField.setOnAction(eventDeadline -> {
+                    try {
+                        LocalDate byTime = LocalDate.parse(inputField.getText().trim());
+                        inputField.clear();
+                        Deadline newDeadline = new Deadline(name, description, byTime);
+                        taskMap.put(name, newDeadline);  // Store the new Deadline in the map
+                        displayArea.appendText("Deadline created: " + newDeadline.toString() + "\n");
+                    } catch (DateTimeParseException e) {
+                        displayArea.appendText("Invalid date format. Please enter in the format yyyy-MM-dd.\n");
+                    }
+                });
+            });
+        });
+    }
+
 
     public LocalDate getByTime() {
         return this.byTime;

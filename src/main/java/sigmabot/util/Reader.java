@@ -1,7 +1,5 @@
 package sigmabot.util;
 
-import sigmabot.ui.UiComponent;
-
 /**
  * The Reader class serves as an abstract base class for reading files in the application.
  * It provides a standard interface for reading files, allowing different types of readers

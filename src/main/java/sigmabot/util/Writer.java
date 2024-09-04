@@ -1,7 +1,5 @@
 package sigmabot.util;
 
-import sigmabot.ui.UiComponent;
-
 /**
  * The Writer class serves as an abstract base class for writing data to files in the application.
  * It provides a standard interface for writing data to files, allowing for different types

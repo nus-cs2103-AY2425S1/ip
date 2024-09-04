@@ -1,8 +1,12 @@
 package sigmabot.task;
 
+import java.util.Scanner;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+import java.util.Map;
+
 
 /**
  * The {@code Event} class represents an event with a name, description, start time, end time, and location.
@@ -90,6 +94,67 @@ public class Event extends Task {
         location = sc.nextLine().trim();
         return new Event(name, description, startTime, endTime, location);
     }
+
+    /**
+     * Creates a new {@code Event} object using GUI input components and stores it in the provided map.
+     *
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
+     * @param taskMap     The map to store the created {@code Event} object.
+     */
+    public static void createEventGUI(TextArea displayArea, TextField inputField, Map<String, Task> taskMap) {
+        displayArea.appendText("Enter name for Event:\n");
+
+        // Handle name input
+        inputField.setOnAction(event -> {
+            String name = inputField.getText().trim();
+            inputField.clear();
+            displayArea.appendText("Enter description for Event:\n");
+
+            // Handle description input
+            inputField.setOnAction(eventDesc -> {
+                String description = inputField.getText().trim();
+                inputField.clear();
+                displayArea.appendText("Enter start time (yyyy-MM-dd) for Event:\n");
+
+                // Handle start time input
+                inputField.setOnAction(eventStart -> {
+                    try {
+                        LocalDate startTime = LocalDate.parse(inputField.getText().trim());
+                        inputField.clear();
+                        displayArea.appendText("Enter end time (yyyy-MM-dd) for Event:\n");
+
+                        // Handle end time input
+                        inputField.setOnAction(eventEnd -> {
+                            try {
+                                LocalDate endTime = LocalDate.parse(inputField.getText().trim());
+                                if (endTime.isBefore(startTime)) {
+                                    displayArea.appendText("End time cannot be before start time. Please enter a valid end time:\n");
+                                } else {
+                                    inputField.clear();
+                                    displayArea.appendText("Enter location for Event:\n");
+
+                                    // Handle location input
+                                    inputField.setOnAction(eventLocation -> {
+                                        String location = inputField.getText().trim();
+                                        inputField.clear();
+                                        Event newEvent = new Event(name, description, startTime, endTime, location);
+                                        taskMap.put(name, newEvent);  // Store the new Event in the map
+                                        displayArea.appendText("Event created: " + newEvent.toString() + "\n");
+                                    });
+                                }
+                            } catch (DateTimeParseException e) {
+                                displayArea.appendText("Invalid date format. Please enter in the format yyyy-MM-dd.\n");
+                            }
+                        });
+                    } catch (DateTimeParseException e) {
+                        displayArea.appendText("Invalid date format. Please enter in the format yyyy-MM-dd.\n");
+                    }
+                });
+            });
+        });
+    }
+
 
     public String getLocation() {
         return location;
