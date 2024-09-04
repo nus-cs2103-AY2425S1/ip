@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class UnreadableException extends Throwable {
 
     public UnreadableException() {

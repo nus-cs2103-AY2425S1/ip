@@ -1,3 +1,5 @@
+package Tasks;
+
 import java.util.Objects;
 
 public abstract class Task {
@@ -73,7 +75,7 @@ public abstract class Task {
     public static Task intepreteTask(String description, String type) {
         if (Objects.equals(type, "T")) {    // To Do
             return new ToDo(description);
-        } else if (Objects.equals(type, "D")) {     // Deadline
+        } else if (Objects.equals(type, "D")) {     // Tasks.Deadline
             String input = description.split(" \\(by: ")[0];
             String deadlineInWords = description.split(" \\(by: ")[1]
                     .split("\\)")[0];
@@ -102,7 +104,7 @@ public abstract class Task {
             String deadline = formatDate(deadlineInWords);
             return new Deadline(input, deadline);
 
-        } else {        // Event
+        } else {        // Tasks.Event
             String input = description.split("\\(from: ")[0];
             String period = description.split("\\(from: ")[1];
             String startInWords = period.split(" to: ")[0];

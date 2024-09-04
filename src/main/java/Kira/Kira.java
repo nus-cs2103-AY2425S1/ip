@@ -1,3 +1,7 @@
+package Kira;
+
+
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -19,15 +23,13 @@ public class Kira {
 
     public void run() {
 
-        //Kira kira = new Kira("data/kira.txt");
+        //Kira.Kira kira = new Kira.Kira("data/kira.txt");
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser(this);
-        //File file = new File("data/kira.txt");
-        //List list = retrieve(file);
         String line = "____________________________________________________________\n";
 
         System.out.println(line +
-                " Hello! I'm Kira\n" +
+                " Hello! I'm Kira.Kira\n" +
                 " What can I do for you?\n" +
                 line);
 

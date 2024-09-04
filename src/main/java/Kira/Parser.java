@@ -1,3 +1,11 @@
+package Kira;
+
+import Exceptions.EmptyException;
+import Exceptions.InvalidTaskException;
+import Exceptions.UnreadableException;
+import Kira.Kira;
+import Tasks.*;
+
 public class Parser {
     private Kira kira;
     public Parser(Kira kira) {

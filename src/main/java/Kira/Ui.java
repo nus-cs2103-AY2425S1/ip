@@ -1,3 +1,5 @@
+package Kira;
+
 public class Ui {
     public Ui() {}
 

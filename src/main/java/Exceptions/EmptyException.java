@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class EmptyException extends Throwable {
     public EmptyException(String command) {
         super("____________________________________________________________\n"
