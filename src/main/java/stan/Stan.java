@@ -3,6 +3,7 @@ package stan;
 import java.util.ArrayList;
 import stan.commands.Command;
 import stan.exceptions.StanException;
+import stan.ui.Ui;
 
 /**
  * The main class for the Stan chatbot.
@@ -26,7 +27,27 @@ public class Stan {
         storage = new Storage(filePath);
         tasks = new TaskList(new ArrayList<>(storage.loadTasks()));
     }
-
+    public String getWelcomeMessage() {
+        Ui ui = new Ui();
+        return ui.showWelcome();
+    }
+    /**
+     * Generates a response to the user input.
+     *
+     * @param input The user input string.
+     * @return The chatbot's response string.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (StanException e) {
+            return ui.showError(e.getMessage());
+        }
+    }
+    public boolean isExitCommand(String input) {
+        return input.trim().equalsIgnoreCase("bye");
+    }
     /**
      * Runs the main logic of the Stan chatbot.
      * Continuously reads user commands, processes them, and executes the appropriate actions.

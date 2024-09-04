@@ -1,7 +1,7 @@
 package stan.commands;
 
 import stan.TaskList;
-import stan.Ui;
+import stan.ui.Ui;
 import stan.Storage;
 import stan.tasks.Task;
 import stan.exceptions.StanMissingArgumentException;
@@ -40,12 +40,12 @@ public class DeleteCommand extends Command {
      * @throws StanInvalidArgumentException If the task number is out of range.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws StanInvalidArgumentException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws StanInvalidArgumentException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new StanInvalidArgumentException("The task number is out of range.");
         }
         Task removedTask = tasks.remove(taskIndex);
-        ui.showTaskDeleted(removedTask, tasks.size());
         storage.saveTasks(tasks.getTasks());
+        return ui.showTaskDeleted(removedTask, tasks.size());
     }
 }

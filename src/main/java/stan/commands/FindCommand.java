@@ -1,7 +1,7 @@
 package stan.commands;
 
 import stan.TaskList;
-import stan.Ui;
+import stan.ui.Ui;
 import stan.Storage;
 import stan.tasks.Task;
 import stan.exceptions.StanMissingArgumentException;
@@ -28,8 +28,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         List<Task> matchingTasks = tasks.findTasks(keyword);
-        ui.showFindResults(matchingTasks);
+        return ui.showFindResults(matchingTasks);
     }
 }

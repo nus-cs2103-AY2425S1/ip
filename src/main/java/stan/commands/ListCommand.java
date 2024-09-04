@@ -1,7 +1,7 @@
 package stan.commands;
 
 import stan.TaskList;
-import stan.Ui;
+import stan.ui.Ui;
 import stan.Storage;
 
 /**
@@ -17,7 +17,7 @@ public class ListCommand extends Command {
      * @param storage The storage object (unused in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTaskList(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showTaskList(tasks);
     }
 }

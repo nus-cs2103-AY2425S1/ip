@@ -1,7 +1,7 @@
 package stan.commands;
 
 import stan.TaskList;
-import stan.Ui;
+import stan.ui.Ui;
 import stan.Storage;
 import stan.tasks.Task;
 import stan.tasks.Deadline;
@@ -29,7 +29,7 @@ public class DeadlineCommand extends Command {
         }
 
         if (!words[1].contains("/by")) {
-            throw new StanInvalidArgumentException("The deadline description is present but the '/by' clause is missing. Please add the time followed by the '/by' clause.");
+            throw new StanInvalidArgumentException("The deadline description is present but the '/by' clause is missing. Please add the '/by' clause followed by the time.");
         }
 
         String[] parts = words[1].split(" /by ", 2);
@@ -50,10 +50,10 @@ public class DeadlineCommand extends Command {
      * @throws StanInvalidDateTimeFormatException If the date and time format is incorrect.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws StanInvalidDateTimeFormatException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws StanInvalidDateTimeFormatException {
         Task task = new Deadline(description, by);
         tasks.add(task);
-        ui.showTaskAdded(task, tasks.size());
         storage.saveTasks(tasks.getTasks());
+        return ui.showTaskAdded(task, tasks.size());
     }
 }

@@ -1,7 +1,7 @@
 package stan.commands;
 
 import stan.TaskList;
-import stan.Ui;
+import stan.ui.Ui;
 import stan.Storage;
 import stan.tasks.Task;
 import stan.tasks.Todo;
@@ -34,10 +34,10 @@ public class TodoCommand extends Command {
      * @param storage The storage object to save the updated task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = new Todo(description);
         tasks.add(task);
-        ui.showTaskAdded(task, tasks.size());
         storage.saveTasks(tasks.getTasks());
+        return ui.showTaskAdded(task, tasks.size());
     }
 }

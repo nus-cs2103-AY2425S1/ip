@@ -1,7 +1,7 @@
 package stan.commands;
 
 import stan.TaskList;
-import stan.Ui;
+import stan.ui.Ui;
 import stan.Storage;
 import stan.exceptions.StanException;
 
@@ -19,7 +19,7 @@ public abstract class Command {
      * @param storage The storage object to save or load tasks.
      * @throws StanException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws StanException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws StanException;
 
     /**
      * Indicates whether the command is an exit command.
