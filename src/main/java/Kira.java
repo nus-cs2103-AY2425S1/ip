@@ -74,8 +74,8 @@ public class Kira {
                             throw new EmptyException("deadline");
                         }
                         String restOfWords = strings[1];
-                        String deadline = restOfWords.split("/by")[1];
-                        String input = restOfWords.split("/by")[0];
+                        String deadline = restOfWords.split(" /by ")[1];
+                        String input = restOfWords.split(" /by ")[0];
                         Task task = new Deadline(input, deadline);
                         list.addTaskToList(task);
                         System.out.println(list.addedNotification(task));
@@ -85,10 +85,10 @@ public class Kira {
                             throw new EmptyException("event");
                         }
                         String restOfWords = strings[1];
-                        String input = restOfWords.split("/from")[0];
-                        String period = restOfWords.split("/from")[1];
-                        String start = period.split("/to")[0];
-                        String end = period.split("/to")[1];
+                        String input = restOfWords.split(" /from ")[0];
+                        String period = restOfWords.split(" /from ")[1];
+                        String start = period.split(" /to ")[0];
+                        String end = period.split(" /to ")[1];
                         Task task = new Event(input, start, end);
                         list.addTaskToList(task);
                         System.out.println(list.addedNotification(task));
