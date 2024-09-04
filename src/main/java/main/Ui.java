@@ -1,21 +1,35 @@
 package main;
 
-import exception.CommandFoundButInvalidException;
 import task.Task;
 
-import java.util.List;
-
+/**
+ * Represents the user interface for interacting with the application.
+ * This class handles the display of messages to the user, including task status updates
+ * and other interactions.
+ */
 public class Ui {
     private StringBuilder message;
-    private String display;
+
+    /**
+     * Constructs a {@code Ui} instance, initializing the message storage.
+     */
     public Ui() {
         this.message = new StringBuilder();
     }
 
+    /**
+     * Displays a welcome message to the user.
+     */
     public void showWelcome() {
         message.append("Welcome to main.Hyperion!");
         System.out.println(this.message.toString());
     }
+
+    /**
+     * Displays a message to the user.
+     *
+     * @param message the message to be displayed.
+     */
     public void display(String message) {
         System.out.println(message);
     }
@@ -68,10 +82,20 @@ public class Ui {
         return "OK, I've marked this task as not done yet:\n" + t.toString();
     }
 
+    /**
+     * Returns a successful message upon the find command
+     *
+     * @return a message indicating the search result are being displayed
+     */
     public String findMessage() {
         return "Ok, these are your search results";
     }
 
+    /**
+     * Returns a goodbye message to the user when the application exits
+     *
+     * @return a message indicating goodbye
+     */
     public String bye() {
         return "Bye. Hope to see you again soon!";
     }
