@@ -19,7 +19,7 @@ public class Bing {
                 break;
             } else if (input.equals("list")) {
                 System.out.println("______________________________\n"
-                                    + "All tasks in your list : \n");
+                                    + "All tasks in your list :\n");
                 for (int i=0 ; i<tasks.size() ; i++) {
                     System.out.println((i + 1)+". "+tasks.get(i).toString());
                 }

@@ -1,0 +1,9 @@
+deadline Do Assignment /by Friday
+todo write essay
+list
+event group meet /from Thurs 4pm /to 6pm
+mark 2
+list
+unmark 2
+list
+bye
