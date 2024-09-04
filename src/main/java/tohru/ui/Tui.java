@@ -46,19 +46,23 @@ public class Tui implements Ui {
     }
 
     /**
-     * Prints text output from commands.
+     * Prints text messages from commands.
+     *
+     * @param texts Messages to be printed.
      */
-    public void showText(String ...text) {
-        for (String msg : text) {
+    public void showText(String ...texts) {
+        for (String msg : texts) {
             System.out.println(msg);
         }
     }
 
     /**
-     * Prints errors from commands.
+     * Prints error messages from commands.
+     *
+     * @param errors Error messages to be printed.
      */
-    public void showError(String ...error) {
-        for (String msg : error) {
+    public void showError(String ...errors) {
+        for (String msg : errors) {
             System.out.printf("Error | %s%n", msg);
         }
     }
