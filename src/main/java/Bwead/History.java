@@ -1,13 +1,13 @@
 package Bwead;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Handles the saving of tasks in a file with a specific file path.
@@ -15,8 +15,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class History {
 
-    private File saved;
     private static ArrayList<Task> historyList;
+    private File saved;
 
     /**
      * Constructs a History instance using a file path which points to local file.
@@ -65,7 +65,7 @@ public class History {
     public void updateFile(ArrayList<Task> tasklist) throws IOException {
         FileWriter fw = new FileWriter(saved);
         for (int i = 1; i <= tasklist.size(); i++) {
-            Task task = tasklist.get(i-1);
+            Task task = tasklist.get(i - 1);
             fw.write(task.toString() + System.lineSeparator());
         }
         fw.close();
@@ -100,17 +100,18 @@ public class History {
             String dates = text.split("from: ")[1];
             String startString = dates.split(" to: ")[0];
             String startDateString = startString.substring(0, startString.length() - 7);
-            String startTimeString = startString.substring(startString.length() - 5, startString.length() - 3) +
-                    startString.substring(startString.length() - 2, startString.length());
+            String startTimeString = startString.substring(startString.length() - 5, startString.length() - 3)
+                    + startString.substring(startString.length() - 2, startString.length());
             String endString = dates.split(" to: ")[1];
             endString = endString.substring(0, endString.length() - 1);
             String endDateString = endString.substring(0, endString.length() - 7);
-            String endTimeString = endString.substring(endString.length() - 5, endString.length() - 3) +
-                    endString.substring(endString.length() - 2, endString.length());
-            LocalTime startTime = LocalTime.parse(startTimeString.substring(0, 2) + ":" + startTimeString.substring(2,4));
+            String endTimeString = endString.substring(endString.length() - 5, endString.length() - 3)
+                    + endString.substring(endString.length() - 2, endString.length());
+            LocalTime startTime = LocalTime.parse(startTimeString.substring(0, 2) + ":"
+                    + startTimeString.substring(2, 4));
             LocalTime endTime = LocalTime.parse(endTimeString.substring(0, 2) + ":" + endTimeString.substring(2, 4));
-            return new Event(text1 + " ", LocalDate.parse(startDateString, DateTimeFormatter.ofPattern("MMM d uuuu"))
-                    , LocalDate.parse(endDateString, DateTimeFormatter.ofPattern("MMM d uuuu")),
+            return new Event(text1 + " ", LocalDate.parse(startDateString, DateTimeFormatter.ofPattern("MMM d uuuu")),
+                    LocalDate.parse(endDateString, DateTimeFormatter.ofPattern("MMM d uuuu")),
                     startTime, endTime);
         } else {
             return new Task("dh");

@@ -1,23 +1,22 @@
 package Bwead;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class ParserTest {
     @Test
     public void testGetEventEndTimeSuccess() {
-        assertEquals(LocalTime.of(18,00),
+        assertEquals(LocalTime.of(18, 00),
                 new Parser("event project meeting /from 2019-10-15 1700 /to 2019-10-15 1800").getEventEndTime());
-        assertEquals(LocalTime.of(9,00),
+        assertEquals(LocalTime.of(9, 00),
                 new Parser("event project meeting /from 2019-10-15 1700 /to 2020-09-16 0900").getEventEndTime());
-        assertEquals(LocalTime.of(10,38),
+        assertEquals(LocalTime.of(10, 38),
                 new Parser("event project meeting /from 2019-10-15 1700 /to 2019-10-15 1038").getEventEndTime());
     }
 
