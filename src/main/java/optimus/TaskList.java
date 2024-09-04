@@ -1,13 +1,16 @@
 package optimus;
 
-import optimus.exceptions.InvalidTaskNumberException;
-import optimus.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
+import optimus.exceptions.InvalidTaskNumberException;
+import optimus.tasks.Task;
+
+/**
+ * Handles storage for current session
+ */
 public class TaskList {
-    ArrayList<Task> list;
+    private final ArrayList<Task> list;
 
     public TaskList(ArrayList<Task> loadedFromStorage) {
         this.list = loadedFromStorage;
@@ -15,6 +18,7 @@ public class TaskList {
 
     /**
      * Returns a Task at a specific index
+     *
      * @param taskNum - Index at which the task is at
      * @return -  Task if it exists
      * @throws InvalidTaskNumberException - Thrown when task does not exist or task number is invalid
@@ -29,6 +33,7 @@ public class TaskList {
 
     /**
      * Returns total number of tasks
+     *
      * @return total number of tasks
      */
     public int getNumOfTasks() {
@@ -37,6 +42,7 @@ public class TaskList {
 
     /**
      * Removes a task at a specified index
+     *
      * @param taskNum - Task index
      * @return - Task which was removed
      * @throws InvalidTaskNumberException - Thrown when task does not exist or task number is invalid
@@ -51,6 +57,7 @@ public class TaskList {
 
     /**
      * Returns a stream of Tasks whose descriptions contain the keyword
+     *
      * @param keyword
      * @return
      */
@@ -61,6 +68,7 @@ public class TaskList {
 
     /**
      * Adds a task as the end of the list of tasks
+     *
      * @param task - Task to be added
      */
     public void addTask(Task task) {
@@ -73,6 +81,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks. Unsafe operation, use sparingly
+     *
      * @return
      */
     public ArrayList<Task> getList() {

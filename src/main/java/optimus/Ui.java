@@ -2,10 +2,12 @@ package optimus;
 
 import java.util.Scanner;
 
+/**
+ * Handles all user interactions
+ */
 public class Ui {
-
-    Scanner scanner;
     private static final String LINE_BREAK = "____________________________";
+    private final Scanner scanner;
 
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -13,6 +15,7 @@ public class Ui {
 
     /**
      * Reads user input from the keyboard
+     *
      * @return - user input
      */
     public String readCommand() {
@@ -36,6 +39,7 @@ public class Ui {
 
     /**
      * Prints the argument to the UI for users to see
+     *
      * @param out - string to be printed
      */
     public void printToInterface(String out) {

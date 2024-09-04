@@ -1,20 +1,36 @@
 package optimus.tasks;
 
-import optimus.Storage;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+import optimus.Storage;
+
+/**
+ * Task with deadline
+ */
 public class DeadlineTask extends Task {
 
-    LocalDate deadline;
+    private final LocalDate deadline;
 
+    /**
+     * Constructor for when new DeadlineTask is initialised
+     *
+     * @param desc     - description
+     * @param deadline - deadline
+     */
     public DeadlineTask(String desc, LocalDate deadline) {
         super(desc);
         this.deadline = deadline;
     }
 
+    /**
+     * Constructor for when DeadlineTask is found in storage
+     *
+     * @param desc     - description
+     * @param deadline - deadline
+     * @param status   - task status
+     */
     public DeadlineTask(String desc, LocalDate deadline, String status) {
         this(desc, deadline);
         if (Objects.equals(status, "1")) {
@@ -24,6 +40,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Returns string representation of the task for UI purposes
+     *
      * @return
      */
     @Override
@@ -38,6 +55,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Returns string representation of the task for storage purposes
+     *
      * @return
      */
     @Override

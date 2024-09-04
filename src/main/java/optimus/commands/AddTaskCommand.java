@@ -5,6 +5,9 @@ import optimus.TaskList;
 import optimus.Ui;
 import optimus.tasks.Task;
 
+/**
+ * Command to add task to list
+ */
 public class AddTaskCommand extends Command {
 
     private final Task task;
@@ -15,9 +18,10 @@ public class AddTaskCommand extends Command {
 
     /**
      * Adds task to both permenant and session storage and prints success message
+     *
      * @param storage - permenant storage
-     * @param tasks - session storage
-     * @param ui - user interface
+     * @param tasks   - session storage
+     * @param ui      - user interface
      */
     @Override
     public void execute(Storage storage, TaskList tasks, Ui ui) {

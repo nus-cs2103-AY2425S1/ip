@@ -4,6 +4,9 @@ import optimus.Storage;
 import optimus.TaskList;
 import optimus.Ui;
 
+/**
+ * Command to stop program
+ */
 public class LeaveCommand extends Command {
 
     public LeaveCommand() {
@@ -11,9 +14,10 @@ public class LeaveCommand extends Command {
 
     /**
      * Prints a goodbye message to the UI
+     *
      * @param storage - permanent storage
-     * @param tasks - session storage
-     * @param ui - user interface
+     * @param tasks   - session storage
+     * @param ui      - user interface
      */
     @Override
     public void execute(Storage storage, TaskList tasks, Ui ui) {
@@ -22,6 +26,7 @@ public class LeaveCommand extends Command {
 
     /**
      * Returns a flag to Optimus to end chat
+     *
      * @return - Always false
      */
     @Override

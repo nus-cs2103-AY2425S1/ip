@@ -1,10 +1,5 @@
 package optimus;
 
-import optimus.tasks.DeadlineTask;
-import optimus.tasks.EventTask;
-import optimus.tasks.Task;
-import optimus.tasks.ToDoTask;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,13 +10,20 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import optimus.tasks.DeadlineTask;
+import optimus.tasks.EventTask;
+import optimus.tasks.Task;
+import optimus.tasks.ToDoTask;
+
+/**
+ * Handles permanent storage
+ */
 public class Storage {
 
+    public static final String SPECIAL_CHAR = "%%";
     private static final Path workingDir = Paths.get(System.getProperty("user.dir"));
     private static final Path dataDir = workingDir.resolve("data");
     private static final Path storeFile = dataDir.resolve("store.txt");
-
-    public static final String SPECIAL_CHAR = "%%";
 
     public Storage() {
         validateStorageFile();
@@ -44,6 +46,7 @@ public class Storage {
 
     /**
      * Adds a task in string format to the end of permanent storage
+     *
      * @param stringToAdd - task in string format
      */
     public void appendToStorage(String stringToAdd) {
@@ -56,6 +59,7 @@ public class Storage {
 
     /**
      * Rewrites the entire permanent storage file using data from session storage
+     *
      * @param taskList - session storage
      */
     public void rewriteEntireFile(ArrayList<Task> taskList) {
@@ -70,8 +74,9 @@ public class Storage {
     }
 
     /**
-     * Initialises an ArrayList<Task> from the tasks in permanent storage to be used in session storage.
+     * Initialises an ArrayList of Task objects from the tasks in permanent storage to be used in session storage.
      * Used when first starting Optimus
+     *
      * @return - An ArrayList containing all the Tasks in permanent storage
      */
     public ArrayList<Task> load() {
@@ -85,15 +90,28 @@ public class Storage {
                 String[] values = line.split(SPECIAL_CHAR);
                 String type = values[0];
                 switch (type) {
-                case "T" -> data.add(new ToDoTask(values[2], values[1]));
-                case "D" -> data.add(new DeadlineTask(values[2], LocalDate.parse(values[3]), values[1]));
-                case "E" -> data.add(new EventTask(values[2], values[3], values[4], values[1]));
+                case "T" -> {
+                    data.add(new ToDoTask(values[2], values[1]));
+                    break;
+                }
+                case "D" -> {
+                    data.add(new DeadlineTask(values[2], LocalDate.parse(values[3]), values[1]));
+                    break;
+                }
+                case "E" -> {
+                    data.add(new EventTask(values[2], values[3], values[4], values[1]));
+                    break;
+                }
+                default -> {
+                    continue;
+                }
                 }
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading from the file: " + e.getMessage());
         } catch (DateTimeParseException e) {
-            System.out.println("The data stored in the storage file is outdated and incompatible. Please delete store.txt and try again");
+            System.out.println("The data stored in the storage file is outdated and incompatible. "
+                    + "Please delete store.txt and try again");
         }
         return data;
     }

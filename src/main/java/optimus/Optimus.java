@@ -3,11 +3,17 @@ package optimus;
 import optimus.commands.Command;
 import optimus.exceptions.OptimusExceptions;
 
+/**
+ * Execution class
+ */
 public class Optimus {
-    Storage storage;
-    TaskList tasks;
-    Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
 
+    /**
+     * Constructor creates a Storage, TaskList and UI
+     */
     public Optimus() {
         this.storage = new Storage();
         this.tasks = new TaskList(storage.load());

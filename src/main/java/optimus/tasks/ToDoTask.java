@@ -1,14 +1,23 @@
 package optimus.tasks;
 
-import optimus.Storage;
-
 import java.util.Objects;
 
+import optimus.Storage;
+
+/**
+ * Task without time constraint
+ */
 public class ToDoTask extends Task {
     public ToDoTask(String desc) {
         super(desc);
     }
 
+    /**
+     * Constructor for when ToDoTask in found in storage
+     *
+     * @param desc
+     * @param status
+     */
     public ToDoTask(String desc, String status) {
         this(desc);
         if (Objects.equals(status, "1")) {
@@ -18,6 +27,7 @@ public class ToDoTask extends Task {
 
     /**
      * Returns string representation of the task for UI purposes
+     *
      * @return
      */
     @Override
@@ -31,6 +41,7 @@ public class ToDoTask extends Task {
 
     /**
      * Returns string representation of the task for storage purposes
+     *
      * @return
      */
 

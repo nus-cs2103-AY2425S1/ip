@@ -1,20 +1,22 @@
 package optimus;
 
-import optimus.exceptions.OptimusExceptions;
-import optimus.tasks.Task;
-import optimus.tasks.ToDoTask;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import optimus.exceptions.OptimusExceptions;
+import optimus.tasks.Task;
+import optimus.tasks.ToDoTask;
+
+
 public class TaskListTest {
-    ArrayList<Task> tasks = new ArrayList<>();
-    Task task1 = new ToDoTask("Task 1");
-    Task task2 = new ToDoTask("Task 2");
-    Task task3 = new ToDoTask("Task 3");
+    private final ArrayList<Task> tasks = new ArrayList<>();
+    private final Task task1 = new ToDoTask("Task 1");
+    private final Task task2 = new ToDoTask("Task 2");
+    private final Task task3 = new ToDoTask("Task 3");
 
     private void populateTasks() {
         tasks.add(task1);

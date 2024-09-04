@@ -1,9 +1,17 @@
 package optimus.tasks;
 
+/**
+ * Tasks to be tracked by the user
+ */
 public class Task {
     private boolean isDone;
     private final String taskDesc;
 
+    /**
+     * Constructor assigns task as incomplete
+     *
+     * @param desc
+     */
     public Task(String desc) {
         this.isDone = false;
         this.taskDesc = desc;
@@ -11,7 +19,8 @@ public class Task {
 
     /**
      * Returns task description
-     * @return
+     *
+     * @return description
      */
     public String getTaskDesc() {
         return taskDesc;
@@ -33,7 +42,8 @@ public class Task {
 
     /**
      * Returns a representation of the isDone flag as a string. "X" is true, " " is false
-     * @return
+     *
+     * @return status flag
      */
     public String getStatusString() {
         return this.isDone ? "X" : " ";
@@ -41,7 +51,8 @@ public class Task {
 
     /**
      * Returns a representation of the isDone flag as a string. 1 is true, 0 is false
-     * @return
+     *
+     * @return boolean integer
      */
     public int getStatusInt() {
         return this.isDone ? 1 : 0;
@@ -51,6 +62,7 @@ public class Task {
      * Dummy method for child classes to override.
      * TODO: Should be in Storage class
      * TODO: Replace this method with a method returning all relevant storage information as a String[]
+     *
      * @return ""
      */
     public String getStorageString() {
