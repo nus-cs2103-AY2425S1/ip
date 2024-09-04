@@ -10,9 +10,8 @@ public class UserInterface {
         showMessage(greeting);
     }
 
-    public void exitSession() {
+    public void showExitMessage() {
         showMessage("That's all folks! Hope to see you again soon!");
-        System.exit(0);
     }
 
     public void showMessage(String message) {

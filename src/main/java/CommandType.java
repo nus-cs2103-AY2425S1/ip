@@ -4,9 +4,9 @@ public enum CommandType {
     MARK_COMPLETE("mark"),
     MARK_INCOMPLETE("unmark"),
     DELETE("delete"),
-    CREATE_TODO("todo"),
-    CREATE_DEADLINE("deadline"),
-    CREATE_EVENT("event");
+    ADD_TODO("todo"),
+    ADD_DEADLINE("deadline"),
+    ADD_EVENT("event");
 
     private final String commandType;
 
@@ -31,6 +31,6 @@ public enum CommandType {
                 return type;
             }
         }
-        throw new IllegalArgumentException("No command type found for: " + input);
+        throw new IllegalArgumentException(String.format("No command type found for: %s.", input));
     }
 }
