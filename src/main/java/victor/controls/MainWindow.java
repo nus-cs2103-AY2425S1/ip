@@ -1,6 +1,7 @@
 package victor.controls;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -16,6 +17,8 @@ public class MainWindow {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
+    @FXML
+    private ScrollPane scrollPane;
     private Stage stage;
     private Handler handler;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/toucan.png"));
@@ -34,6 +37,14 @@ public class MainWindow {
      */
     public void setHandler() {
         this.handler = new Handler();
+    }
+
+    /**
+     * Sets a listener for the height of the dialog container to scroll the bottom when
+     * text goes beyond bottom of window.
+     */
+    public void setScrollListener() {
+        this.dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
     /**

@@ -25,6 +25,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setHandler();
+            fxmlLoader.<MainWindow>getController().setScrollListener();
             fxmlLoader.<MainWindow>getController().setStage(stage);
             fxmlLoader.<MainWindow>getController().welcomeUser();
             stage.show();
