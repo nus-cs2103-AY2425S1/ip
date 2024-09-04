@@ -1,7 +1,7 @@
 package pixel.command;
 
-import pixel.PixelException;
 import pixel.Storage;
+import pixel.PixelException;
 import pixel.Ui;
 import pixel.task.TaskList;
 
@@ -22,10 +22,11 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the FindCommand, finding tasks that match the keyword and displaying them in the UI.
+     * Executes the FindCommand, finding tasks that match the keyword and displaying
+     * them in the UI.
      *
-     * @param tasks the list of tasks to search in
-     * @param ui the user interface to display the matching tasks
+     * @param tasks   the list of tasks to search in
+     * @param ui      the user interface to display the matching tasks
      * @param storage the storage to save the tasks
      * @throws PixelException if there is an error executing the command
      */
