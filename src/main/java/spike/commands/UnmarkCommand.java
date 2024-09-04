@@ -13,6 +13,11 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
+    public String getCommandType() {
+        return "Unmark";
+    }
+
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpikeException {
         try {
             tasks.markTaskUndone(taskIndex);

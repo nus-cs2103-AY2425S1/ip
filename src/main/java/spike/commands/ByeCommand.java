@@ -5,6 +5,12 @@ import spike.storage.Storage;
 import spike.ui.Ui;
 
 public class ByeCommand extends Command {
+
+    @Override
+    public String getCommandType() {
+        return "Bye";
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showBye();

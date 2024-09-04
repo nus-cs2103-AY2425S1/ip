@@ -5,6 +5,12 @@ import spike.storage.Storage;
 import spike.ui.Ui;
 
 public class ListCommand extends Command {
+
+    @Override
+    public String getCommandType() {
+        return "List";
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showTaskList(tasks.getAllTasks());

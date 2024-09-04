@@ -14,6 +14,11 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
+    public String getCommandType() {
+        return "Add Task";
+    }
+
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpikeException {
         tasks.addTask(task);
         ui.showTaskAdded(task, tasks.getSize());
