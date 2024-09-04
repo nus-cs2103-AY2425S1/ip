@@ -1,11 +1,15 @@
 package duke;
 
+import duke.Exception.DukeException;
+import duke.Exception.TypeOfException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+import javafx.scene.control.TextField;
+
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,15 +19,18 @@ import java.time.format.DateTimeFormatter;
  */
 public class Nameless {
     private final DateTimeFormatter PARSE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+    private final String FILE_PATH = "data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
     private TypeOfException exception;
     private Ui ui;
+    private boolean isRunning;
 
-    public Nameless(String filePath) throws DukeException {
+    public Nameless() throws DukeException {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         exception = new TypeOfException();
+        isRunning = true;
         try {
             tasks = new TaskList(storage.loadFile());
         } catch (DukeException e) {
@@ -37,72 +44,47 @@ public class Nameless {
      */
     public void run() {
         ui.greetings();
-        Scanner sc = new Scanner(System.in);
-        while(true) {
-            String input = sc.nextLine();
-            try {
-                if(input.equals("bye")) {
-                    bye();
-                    break;
-                } else if(input.equals("list")) {
-                    ui.showList(tasks);
-                } else if(input.matches("mark \\d+")) {
-                    ui.showMarkTask(tasks, Parser.splitGetNum(input));
-                } else if(input.matches("unmark \\d+")) {
-                    ui.showUnmarkTask(tasks, Parser.splitGetNum(input));
-                } else if(input.matches("todo(?: .+)?")) {
-                    todo(input);
-                } else if(input.matches("deadline(?: .+)?")) {
-                    deadline(input);
-                } else if(input.matches("event(?: .+)?")) {
-                    event(input);
-                } else if(input.matches("delete \\d+")) {
-                    ui.showDeleteTask(tasks, Parser.splitGetNum(input));
-                } else if (input.matches("find(?: .+)?")) {
-                    find(input);
-                } else {
-                    exception.noIdea();
-                }
-
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
+        TextField inputField = new TextField();
+        while(isRunning) {
+            String input = inputField.getText();
+            getResponse(input);
         }
     }
 
-    private void bye() throws DukeException {
+    private String bye() throws DukeException {
         storage.writeFile(tasks.getTasks());
-        ui.goodbye();
+        isRunning = false;
+        return ui.goodbye();
     }
 
     /**
      * Adds a new todo task when input is "todo"
      * Prints the output of the added task
      */
-    private void todo(String input) throws DukeException {
+    private String todo(String input) throws DukeException {
         String words = Parser.splitGetWords(input);
         if (words.isEmpty()) {
             exception.todoFormatError();
         }
         tasks.addTask(new Todo(words));
-        ui.showAddTask(tasks);
+        return ui.showAddTask(tasks);
     }
 
     /**
      * Adds a new deadline task when input is "deadline"
      * Prints the output of the added task
      */
-    private void deadline(String input) throws DukeException {
+    private String deadline(String input) throws DukeException {
         String[] words = Parser.splitGetWords(input).split(" /by ", 2);
         if(words.length != 2) {
-            exception.deadlineFormatError();
+            return exception.deadlineFormatError();
         }
         try {
             LocalDateTime date = LocalDateTime.parse(words[1], PARSE_FORMAT);
             tasks.addTask(new Deadline(words[0], date));
-            ui.showAddTask(tasks);
+            return ui.showAddTask(tasks);
         } catch (DateTimeParseException e) {
-            exception.timeFormatError();
+            return exception.timeFormatError();
         }
     }
 
@@ -110,30 +92,62 @@ public class Nameless {
      * Adds a new event task when input is "event"
      * Prints the output of the added task
      */
-    private void event(String input) throws DukeException {
+    private String event(String input) throws DukeException {
         String[] words = Parser.splitGetWords(input).split(" /from | /to ", 3);
         if (words.length != 3) {
-            exception.eventFormatError();
+            return exception.eventFormatError();
         }
         try {
             LocalDateTime from = LocalDateTime.parse(words[1], PARSE_FORMAT);
             LocalDateTime to = LocalDateTime.parse(words[2], PARSE_FORMAT);
             tasks.addTask(new Event(words[0], from, to));
-            ui.showAddTask(tasks);
+            return ui.showAddTask(tasks);
         } catch (DateTimeParseException e) {
-            exception.timeFormatError();
+            return exception.timeFormatError();
         }
     }
 
-    private void find(String input) throws DukeException {
+    private String find(String input) throws DukeException {
         String word = Parser.splitGetWords(input);
         if (word.isEmpty()) {
-            exception.findFormatError();
+            return exception.findFormatError();
         }
-        ui.showFindTask(tasks, word);
+        return ui.showFindTask(tasks, word);
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+            try {
+                if (input.equals("bye")) {
+                    return bye();
+                } else if (input.equals("list")) {
+                    return ui.showList(tasks);
+                } else if (input.matches("mark \\d+")) {
+                    return ui.showMarkTask(tasks, Parser.splitGetNum(input));
+                } else if (input.matches("unmark \\d+")) {
+                    return ui.showUnmarkTask(tasks, Parser.splitGetNum(input));
+                } else if (input.matches("todo(?: .+)?")) {
+                    return todo(input);
+                } else if (input.matches("deadline(?: .+)?")) {
+                    return deadline(input);
+                } else if (input.matches("event(?: .+)?")) {
+                    return event(input);
+                } else if (input.matches("delete \\d+")) {
+                    return ui.showDeleteTask(tasks, Parser.splitGetNum(input));
+                } else if (input.matches("find(?: .+)?")) {
+                    return find(input);
+                } else {
+                    return exception.noIdea();
+                }
+
+            } catch (DukeException e) {
+                return e.getMessage();
+            }
     }
 
     public static void main(String[] args) throws DukeException {
-        new Nameless("data/tasks.txt").run();
+        new Nameless().run();
     }
 }

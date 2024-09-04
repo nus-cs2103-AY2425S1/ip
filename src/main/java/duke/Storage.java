@@ -1,5 +1,6 @@
 package duke;
 
+import duke.Exception.DukeException;
 import duke.task.Task;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -32,7 +33,7 @@ public class Storage {
      * Creates directory if it does not exist.
      * @throws DukeException if error creating directory
      */
-    private void createDirectory() throws  DukeException {
+    private void createDirectory() throws DukeException {
         Path directory = filePath.getParent();
         if (Files.notExists(directory)) {
             try {

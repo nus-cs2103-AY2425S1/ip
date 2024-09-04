@@ -1,4 +1,4 @@
-package duke;
+package duke.Exception;
 
 public class DukeException extends Exception {
     private final String LINE = "______________________________________________________________";
