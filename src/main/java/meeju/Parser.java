@@ -5,12 +5,6 @@ package meeju;
  * It interacts with the TaskList object to perform various operations like creating, updating,
  * finding and deleting tasks.
  */
-
-
-// Make changes to this parse method
-    // it should take in the string and tasklist as usual BUT, it must return the respons as a
-    // STRING NOW!!!!
-    // EVEN AN EXCEPTION IS TO BE RETURNED AS A STRING - return in catch block
 public class Parser {
 
     /**
@@ -18,64 +12,59 @@ public class Parser {
      *
      * @param taskList    The task list on which the operations are performed.
      * @param instruction The user instruction to be parsed and executed.
-     * @return An integer representing the result of the parsing:
-     *         <ul>
-     *             <li>{@code -1} if the instruction is "bye", signaling the program to exit.</li>
-     *             <li>{@code 0} if the instruction is successfully executed.</li>
-     *             <li>{@code 5} if the instruction is not recognized.</li>
-     *         </ul>
+     * @return A String representing the result of the parsing
      */
-    public int parse(TaskList taskList, String instruction) {
+    public String parse(TaskList taskList, String instruction) {
         if (instruction.equals("bye")) {
-            return -1;
+            return " Bye. Hope to see you again soon!";
         } else if (instruction.equals("list")) {
-            taskList.printList();
+            return taskList.printList();
         } else if (instruction.startsWith("find ")) {
             try {
-                taskList.findTask(instruction.substring(5));
+                return taskList.findTask(instruction.substring(5));
             } catch (MeejuException e) {
-                System.out.println(e);
+                return e.getMessage();
             }
         } else if (instruction.startsWith("mark ")) {
             try {
-                taskList.markTask(instruction.substring(5));
+                return taskList.markTask(instruction.substring(5));
             } catch (MeejuException e) {
-                System.out.println(e);
+                return e.getMessage();
             }
         } else if (instruction.startsWith("unmark ")) {
             try {
-                taskList.unmarkTask(instruction.substring(7));
+                return taskList.unmarkTask(instruction.substring(7));
             } catch (MeejuException e) {
-                System.out.println(e);
+                return e.getMessage();
             }
         } else if (instruction.startsWith("delete ")) {
             try {
-                taskList.deleteTask(instruction.substring(7));
+                return taskList.deleteTask(instruction.substring(7));
             } catch (MeejuException e) {
-                System.out.println(e);
+                return e.getMessage();
             }
         } else if (instruction.startsWith("todo ")) {
             try {
-                taskList.addTodoTask(instruction.substring(5));
+                return taskList.addTodoTask(instruction.substring(5));
             } catch (MeejuException e) {
-                System.out.println(e);
+                return e.getMessage();
             }
         } else if (instruction.startsWith("deadline ")) {
             try {
-                taskList.addDeadlineTask(instruction.substring(9));
+                return taskList.addDeadlineTask(instruction.substring(9));
             } catch (MeejuException e) {
-                System.out.println(e);
+                return e.getMessage();
             }
         } else if (instruction.startsWith("event ")) {
             try {
-                taskList.addEventTask(instruction.substring(6));
+                return taskList.addEventTask(instruction.substring(6));
             } catch (MeejuException e) {
-                System.out.println(e);
+                return e.getMessage();
             }
         } else {
-            System.out.println("I'm sorry, I did not understand that =^..^=");
-            return 5;
+            return "I'm sorry, I did not understand that =^..^=";
+
         }
-        return 0;
+
     }
 }

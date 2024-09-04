@@ -23,14 +23,17 @@ public class MainWindow extends AnchorPane {
 
     private Meeju meeju;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image meejuImage = new Image(this.getClass().getResourceAsStream("/images/meeju.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String welcomeMessage = "Meow!\n"
+                + " Hello! I'm Meeju\n"
+                + " What can I do for you?\n\n\n\n";
         dialogContainer.getChildren().addAll(
-                DialogBox.getMeejuDialog("Hello There!", dukeImage)
+                DialogBox.getMeejuDialog(welcomeMessage, meejuImage)
         );
     }
 
@@ -49,7 +52,7 @@ public class MainWindow extends AnchorPane {
         String response = meeju.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getMeejuDialog(response, dukeImage)
+                DialogBox.getMeejuDialog(response, meejuImage)
         );
         userInput.clear();
         if (input.equals("bye")) {

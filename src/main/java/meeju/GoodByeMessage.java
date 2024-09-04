@@ -11,9 +11,8 @@ public class GoodByeMessage {
      *
      */
 
-    //RETURN THE STRING - althought it adds no value
-    public static void goodByeMessage() {
-        System.out.println(" Bye. Hope to see you again soon!");
+    public static String goodByeMessage() {
+        return " Bye. Hope to see you again soon!";
 
     }
 }

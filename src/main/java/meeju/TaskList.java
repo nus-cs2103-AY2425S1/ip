@@ -2,8 +2,6 @@ package meeju;
 
 import java.util.ArrayList;
 
-//CHANGE THE PRINTLIST METHOD and return String for all methods instead of printing it out
-
 /**
  * TaskList class manages a list of tasks using an ArrayList and provides methods to manipulate this list.
  * It supports adding, marking, unmarking, finding and deleting tasks.
@@ -37,11 +35,14 @@ public class TaskList {
     /**
      * Prints out all the contents of taskList
      *
+     * @return list The content of taskList in string form.
      */
-    public void printList() {
+    public String printList() {
+        StringBuilder taskString = new StringBuilder();
         for (int i = 0; i < this.taskList.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + this.taskList.get(i));
+            taskString.append((i + 1)).append(". ").append(this.taskList.get(i)).append("\n");
         }
+        return taskString.toString();
     }
 
     /**
@@ -49,8 +50,9 @@ public class TaskList {
      *
      * @param taskNumber The number of the task to mark as done.
      * @throws MeejuException If the task number is invalid, or the task is already marked.
+     * @return Response acknowledging completion of task
      */
-    public void markTask(String taskNumber) throws MeejuException {
+    public String markTask(String taskNumber) throws MeejuException {
         Task taskToMark;
         if (taskNumber.isEmpty()) {
             throw new MeejuException("Please specify which task to mark!");
@@ -64,9 +66,9 @@ public class TaskList {
             throw new MeejuException("The task is already marked!");
         }
         taskToMark.setIsDone(true);
-        System.out.println("Meow! I've marked this task as done:\n"
-                + "\t" + taskToMark);
         this.storage.updateFile(taskList);
+        return "Meow! I've marked this task as done:\n"
+                + "\t" + taskToMark;
     }
 
     /**
@@ -75,8 +77,9 @@ public class TaskList {
      *
      * @param taskNumber The number of the task to unmark.
      * @throws MeejuException If the task number is invalid, or the task is not yet marked.
+     * @return Response acknowledging completion of task
      */
-    public void unmarkTask(String taskNumber) throws MeejuException {
+    public String unmarkTask(String taskNumber) throws MeejuException {
         Task taskToUnmark;
         if (taskNumber.isEmpty()) {
             throw new MeejuException("Please specify which task to unmark!");
@@ -90,10 +93,9 @@ public class TaskList {
             throw new MeejuException("The task is not marked yet!");
         }
         taskToUnmark.setIsDone(false);
-
-        System.out.println("Meow! I've marked this task as not done yet:\n"
-                + "\t" + taskToUnmark);
         this.storage.updateFile(taskList);
+        return "Meow! I've marked this task as not done yet:\n"
+                + "\t" + taskToUnmark;
     }
 
     /**
@@ -101,16 +103,18 @@ public class TaskList {
      *
      * @param taskInstruction The description of the todo task.
      * @throws MeejuException If the task description is empty.
+     * @return Response acknowledging completion of task
      */
-    public void addTodoTask(String taskInstruction) throws MeejuException {
+    public String addTodoTask(String taskInstruction) throws MeejuException {
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
         }
         Todo task = new Todo(taskInstruction);
         this.taskList.add(task);
-        System.out.println("Meow! I've added this task:\n"
-                + "\t" + task + "\nNow you have " + getNumberOfTask() + " tasks in the list.");
         this.storage.updateFile(taskList);
+        return "Meow! I've added this task:\n"
+                + "\t" + task + "\nNow you have " + getNumberOfTask()
+                + " tasks in the list.";
     }
 
     /**
@@ -118,8 +122,9 @@ public class TaskList {
      *
      * @param taskInstruction The instruction containing the description and deadline of the task.
      * @throws MeejuException If the task description or deadline is empty, or the format is incorrect.
+     * @return Response acknowledging completion of task
      */
-    public void addDeadlineTask(String taskInstruction) throws MeejuException {
+    public String addDeadlineTask(String taskInstruction) throws MeejuException {
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
         }
@@ -138,10 +143,11 @@ public class TaskList {
         }
         Deadline task = new Deadline(taskDescription, taskDeadline);
         this.taskList.add(task);
-
-        System.out.println("Meow! I've added this task:\n"
-                + "\t" + task + "\nNow you have " + getNumberOfTask() + " tasks in the list.");
         this.storage.updateFile(taskList);
+        return "Meow! I've added this task:\n"
+                + "\t" + task + "\nNow you have "
+                + getNumberOfTask() + " tasks in the list.";
+
     }
 
     /**
@@ -149,8 +155,9 @@ public class TaskList {
      *
      * @param taskInstruction The instruction containing the description, start time, and end time of the event task.
      * @throws MeejuException If the task description, start time, or end time is empty, or the format is incorrect.
+     * @return Response acknowledging completion of task
      */
-    public void addEventTask(String taskInstruction) throws MeejuException {
+    public String addEventTask(String taskInstruction) throws MeejuException {
         if (taskInstruction.isEmpty()) {
             throw new MeejuException("Please give a caption to the task!");
         }
@@ -173,11 +180,11 @@ public class TaskList {
 
         Event task = new Event(taskDescription, taskStart, taskEnd);
         this.taskList.add(task);
-
-        System.out.println("Meow! I've added this task:\n"
-                + "\t" + task + "\nNow you have " + getNumberOfTask()
-                + " tasks in the list.");
         this.storage.updateFile(taskList);
+        return "Meow! I've added this task:\n"
+                + "\t" + task + "\nNow you have " + getNumberOfTask()
+                + " tasks in the list.";
+
     }
 
     /**
@@ -185,8 +192,9 @@ public class TaskList {
      *
      * @param taskNumber The number of the task to delete.
      * @throws MeejuException If the task number is invalid or does not exist.
+     * @return Response acknowledging completion of task
      */
-    public void deleteTask(String taskNumber) throws MeejuException {
+    public String deleteTask(String taskNumber) throws MeejuException {
         Task taskToDelete;
         if (taskNumber.isEmpty()) {
             throw new MeejuException("Please specify which task to delete!");
@@ -198,11 +206,10 @@ public class TaskList {
         }
 
         this.taskList.remove(Integer.parseInt(taskNumber) - 1);
-
-        System.out.println("Meow! I've removed this task:\n"
-                + "\t" + taskToDelete
-                + "\nNow you have " + getNumberOfTask() + " tasks in the list.");
         this.storage.updateFile(taskList);
+        return "Meow! I've removed this task:\n"
+                + "\t" + taskToDelete
+                + "\nNow you have " + getNumberOfTask() + " tasks in the list.";
 
     }
 
@@ -211,21 +218,24 @@ public class TaskList {
      *
      * @param keyword The search keyword.
      * @throws MeejuException If blank string is provided.
+     * @return Response acknowledging completion of task
      */
-    public void findTask(String keyword) throws MeejuException {
+    public String findTask(String keyword) throws MeejuException {
         if (keyword.isEmpty()) {
             throw new MeejuException("Meow! Please tell me what should i find");
         }
         int count = 1;
+        StringBuilder taskString = new StringBuilder();
         for (int i = 0; i < this.taskList.size(); i++) {
             if (this.taskList.get(i).getTaskDescription().contains(keyword)) {
-                System.out.println("\t" + count + ". " + this.taskList.get(i));
+                taskString.append(count).append(". ").append(this.taskList.get(i)).append("\n");
                 count++;
             }
         }
         if (count == 1) {
-            System.out.println("Meow! No such tasks can be found.");
+            return "Meow! No such tasks can be found.";
         }
+        return taskString.toString();
     }
 
 }
