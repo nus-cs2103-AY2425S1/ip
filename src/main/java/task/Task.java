@@ -19,7 +19,7 @@ public class Task {
     public Task(String description, String type) {
         this.description = description;
         this.isDone = false;
-        this.type= type;
+        this.type = type;
     }
 
     /**

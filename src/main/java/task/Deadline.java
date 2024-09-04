@@ -1,17 +1,16 @@
 package task;
 
-import java.util.Arrays;
-import java.util.List;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * The Deadline class represents a task with a deadline date.
  * It extends the Task class.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     protected LocalDate dueTime;
 
@@ -82,7 +81,8 @@ public class Deadline extends Task{
                 // continues to the next format if parsing fails
             }
         }
-        throw new IllegalArgumentException("Oops! Date format not recognized: " + dateStr + " If you have entered a time, please remove it.");
+        throw new IllegalArgumentException("Oops! Date format not recognized: "
+                                            + dateStr + " If you have entered a time, please remove it.");
     }
 
     @Override

@@ -1,17 +1,20 @@
 package storage;
 
-import task.Task;
-
 import java.util.ArrayList;
+
+import task.Task;
 
 public class StorageStub extends Storage {
     private ArrayList<Task> tasks = new ArrayList<>();
-    public boolean isSaveTasksCalled = false;
+    private boolean isSaveTasksCalled = false;
 
     public StorageStub() {
         super("");  // No need to specify a file path since it's a stub.
     }
 
+    public boolean getIsSaveTasksCalled() {
+        return this.isSaveTasksCalled;
+    }
     @Override
     public ArrayList<Task> loadTasks() {
         return new ArrayList<>(tasks);  // Return a copy of the internal task list to simulate loading from a file.

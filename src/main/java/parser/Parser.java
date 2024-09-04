@@ -1,15 +1,18 @@
 package parser;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import exceptions.EmptyTaskException;
 import exceptions.InvalidInputException;
 import exceptions.TaskIndexOutOfBound;
 import storage.Storage;
-import task.*;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.Todo;
 import ui.Ui;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * The Parser class is responsible for parsing and executing user commands.
@@ -29,7 +32,9 @@ public class Parser {
      * @throws EmptyTaskException    if the user attempts to add a task without providing a description.
      * @throws TaskIndexOutOfBound   if the user provides an index for a task that does not exist.
      */
-    public static void parseCommand(String command, TaskList taskList, Ui ui, Storage storage) throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
+    public static void parseCommand(
+            String command, TaskList taskList, Ui ui, Storage storage
+    ) throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
         String[] slicedStr = command.split(" ");
         String action = slicedStr[0];
 
@@ -82,7 +87,9 @@ public class Parser {
      * @throws TaskIndexOutOfBound    if the provided task index is out of bounds.
      * @throws InvalidInputException  if the user does not provide a task number.
      */
-    private static void handleMarkCommand(String[] slicedStr, TaskList taskList, Ui ui, Storage storage, boolean isMarking) throws TaskIndexOutOfBound, InvalidInputException {
+    private static void handleMarkCommand(
+            String[] slicedStr, TaskList taskList, Ui ui, Storage storage, boolean isMarking
+    ) throws TaskIndexOutOfBound, InvalidInputException {
         if (slicedStr.length < 2) {
             throw new InvalidInputException("Please provide a task number to mark or unmark.");
         }
@@ -113,7 +120,9 @@ public class Parser {
      * @param storage    The Storage object that handles saving tasks.
      * @throws EmptyTaskException  if the user does not provide a description for the todo task.
      */
-    private static void handleTodoCommand(String[] slicedStr, TaskList taskList, Ui ui, Storage storage) throws EmptyTaskException {
+    private static void handleTodoCommand(
+            String[] slicedStr, TaskList taskList, Ui ui, Storage storage
+    ) throws EmptyTaskException {
         if (slicedStr.length < 2) {
             throw new EmptyTaskException("todo");
         }
@@ -138,7 +147,9 @@ public class Parser {
      * @param storage    The Storage object that handles saving tasks.
      * @throws EmptyTaskException  if the user does not provide a description for the event task.
      */
-    private static void handleDeadlineCommand(String[] slicedStr, TaskList taskList, Ui ui, Storage storage) throws EmptyTaskException {
+    private static void handleDeadlineCommand(
+            String[] slicedStr, TaskList taskList, Ui ui, Storage storage
+    ) throws EmptyTaskException {
         if (slicedStr.length < 2) {
             throw new EmptyTaskException("deadline");
         }
@@ -167,7 +178,9 @@ public class Parser {
      * @param storage    The Storage object that handles saving tasks.
      * @throws EmptyTaskException  if the user does not provide a description for the event task.
      */
-    private static void handleEventCommand(String[] slicedStr, TaskList taskList, Ui ui, Storage storage) throws EmptyTaskException {
+    private static void handleEventCommand(
+            String[] slicedStr, TaskList taskList, Ui ui, Storage storage
+    ) throws EmptyTaskException {
         if (slicedStr.length < 2) {
             throw new EmptyTaskException("event");
         }
@@ -197,7 +210,9 @@ public class Parser {
      * @throws TaskIndexOutOfBound    if the provided task index is out of bounds.
      * @throws InvalidInputException  if the user does not provide a task number.
      */
-    private static void handleDeleteCommand(String[] slicedStr, TaskList taskList, Ui ui, Storage storage) throws TaskIndexOutOfBound, InvalidInputException {
+    private static void handleDeleteCommand(
+            String[] slicedStr, TaskList taskList, Ui ui, Storage storage
+    ) throws TaskIndexOutOfBound, InvalidInputException {
         if (slicedStr.length < 2) {
             throw new InvalidInputException("Please provide a task number to delete.");
         }
@@ -222,7 +237,9 @@ public class Parser {
      * @param ui         The Ui object that handles user interaction.
      * @throws InvalidInputException  if the user does not provide any keyword.
      */
-    private static void handleFindCommand(String[] slicedStr, TaskList taskList, Ui ui) throws InvalidInputException{
+    private static void handleFindCommand(
+            String[] slicedStr, TaskList taskList, Ui ui
+    ) throws InvalidInputException {
         if (slicedStr.length < 2) {
             throw new InvalidInputException("Please indicate what you want to find.");
         }
@@ -244,7 +261,7 @@ public class Parser {
      * @return The corresponding Task object, or null if the data is invalid.
      */
     public static Task parseSavedData(String[] dataArr) {
-        Task task = null;
+        Task task;
         switch (dataArr[0]) {
         case "T":
             task = new Todo();
@@ -254,6 +271,9 @@ public class Parser {
             break;
         case "E":
             task = new Event();
+            break;
+        default:
+            task = null;
             break;
         }
         if (task != null) {

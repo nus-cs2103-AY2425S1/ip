@@ -1,13 +1,11 @@
 package task;
 
-import java.util.Arrays;
-import java.util.List;
-
-import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * The Event class represents a task with a start and end date and time.
@@ -15,9 +13,9 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
 
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd ha");
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd ha");
 
     /**
      * Constructs an Event object with an empty description and a type of "E".
@@ -32,7 +30,7 @@ public class Event extends Task {
      * @param slicedStr The array of strings representing the user input.
      */
     public void convertStringToTask(String[] slicedStr) {
-        String taskDetails = String.join(" ",Arrays.copyOfRange(slicedStr, 1, slicedStr.length));
+        String taskDetails = String.join(" ", Arrays.copyOfRange(slicedStr, 1, slicedStr.length));
         String[] taskParts = taskDetails.split(" /from | /to ");
         this.description = taskParts[0];
         this.startTime = parseDateTime(taskParts[1]);
@@ -124,7 +122,8 @@ public class Event extends Task {
             }
         }
 
-        throw new IllegalArgumentException("Oops! Date format not recognized: " + dateStr + ". Have you entered the correct time?");
+        throw new IllegalArgumentException("Oops! Date format not recognized: "
+                                            + dateStr + ". Have you entered the correct time?");
     }
     @Override
     public String toSavedFormat(String separation) {
