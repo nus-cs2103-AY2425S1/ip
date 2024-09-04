@@ -9,11 +9,18 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Handles the loading and saving of tasks to a file.
+ * It also ensures that the necessary file and directories are created if they do not exist.
+ */
 public class Storage {
     private static final String HOME = System.getProperty("user.home");
     private static final Path FOLDER_PATH = Paths.get(HOME, "Winner");
     private static final Path TASKLIST_PATH = Paths.get(HOME, "Winner", "tasklist.txt");
 
+    /**
+     * Checks if the Winner folder and tasklist file exist. If not, it creates them.
+     */
     public static void checkAndCreateFile() { //Storage
         try {
             if (Files.exists(FOLDER_PATH)) {
@@ -27,6 +34,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the tasklist file into the provided ArrayList of tasks.
+     *
+     * @param tasks List where tasks will be loaded into.
+     */
     public static void loadTasks(ArrayList<Task> tasks) { //Storage
         try (BufferedReader br = Files.newBufferedReader(TASKLIST_PATH)) {
             String line;
@@ -65,6 +77,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the list of tasks to the tasklist file.
+     *
+     * @param tasks List of tasks to be saved.
+     */
     public static void saveTasks(ArrayList<Task> tasks) { //Storage
         try (BufferedWriter bw = Files.newBufferedWriter(TASKLIST_PATH)) {
             for (Task i : tasks) {
@@ -85,6 +102,5 @@ public class Storage {
             System.out.println("Error writing tasks to file: " + e.getMessage());
         }
     }
-
 
 }

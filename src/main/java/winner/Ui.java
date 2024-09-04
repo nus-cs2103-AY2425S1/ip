@@ -1,21 +1,41 @@
 package winner;
 
+/**
+ * Handles all interactions with the user.
+ */
 public class Ui {
 
+    /**
+     * Creates a Ui Object.
+     */
     public Ui() {
 
     }
 
+    /**
+     * Displays a message in an indented format and with separators.
+     *
+     * @param msg Message to be displayed for the user.
+     */
     public static void applyTemplate(String msg) {
         System.out.println(("-".repeat(100) + "\n"
                 + msg + "\n"
                 + "-".repeat(100)).indent(10));
     }
 
+    /**
+     * Returns a greeting message.
+     *
+     * @return String containing the "hi!" greeting.
+     */
     public static String hiAgain() {
         return "hi!";
     }
 
+    /**
+     * Displays initial greeting message when the application starts.
+     * It also provides some help on the commands the user can use.
+     */
     public static void winnerSaysHi() {
         System.out.println(("-".repeat(100) + "\n"
                 + "Hello! I am Winner, your personal task trackBOT!" + "\n"
@@ -36,6 +56,9 @@ public class Ui {
                 + "-".repeat(100)).indent(10));
     }
 
+    /**
+     * Displays a farewell message when the user exits the application.
+     */
     public static void winnerSaysBye() {
         System.out.println(("-".repeat(100) + "\n"
                 + "Hope I have been of service!" + "\n"
@@ -43,7 +66,5 @@ public class Ui {
                 + "Remember!!! A WINNER NEVER LOSES!!!" + "\n"
                 + "-".repeat(100)).indent(10));
     }
-
-
 
 }
