@@ -16,7 +16,7 @@ public class ListCommand extends Command {
      * @param storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
-        ui.showAllTasks(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
+        return ui.showAllTasks(tasks);
     }
 }

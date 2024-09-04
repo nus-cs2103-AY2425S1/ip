@@ -6,25 +6,25 @@ public class Ui {
     Ui() {
     }
 
-    public void showWelcome() {
+    public String showWelcome() {
         String greet = "Hello! I'm Bob\nWhat can I do for you?\n";
-        show(greet);
+        return show(greet);
     }
 
-    public void show(String show) {
+    public String show(String show) {
         String line = "-----------------------------\n";
-        System.out.println(line + show + "\n" + line);
+        return line + show + "\n" + line;
     }
 
-    public void showAddTask(Task task, int length) {
+    public String showAddTask(Task task, int length) {
         String add = "Got it. I've added this task:\n" + task.toString().trim()
                 + "\nNow you have " + length + " tasks in the list.";
-        show(add);
+        return show(add);
     }
 
-    public void showError(String show) {
+    public String showError(String show) {
         String line = "------------ERROR------------\n";
-        System.out.println(line + show + "\n" + line);
+        return line + show + "\n" + line;
     }
 
     public String readCommand() {
@@ -33,13 +33,14 @@ public class Ui {
         return reader.nextLine();
     }
 
-    public void showAllTasks(TaskList tasks) {
+    public String showAllTasks(TaskList tasks) {
+        String result = "";
         if (tasks.size() == 0) {
-            System.out.println("No tasks!");
-            return;
+            return "No tasks!";
         }
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + ". " + tasks.get(i).toString());
+            result += i + 1 + ". " + tasks.get(i).toString() + "\n";
         }
+        return result;
     }
 }

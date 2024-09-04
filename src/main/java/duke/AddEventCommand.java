@@ -54,9 +54,9 @@ public class AddEventCommand extends Command {
      * @param storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
         Task task = this.process(this.input);
         tasks.add(task);
-        ui.showAddTask(task, tasks.size());
+        return ui.showAddTask(task, tasks.size());
     }
 }

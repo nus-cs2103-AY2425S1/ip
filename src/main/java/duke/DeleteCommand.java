@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
      * @param storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
         Integer index = process(this.input);
         if (index < 0 || index >= tasks.size()) {
             throw new DukeException("Invalid index inputted");
@@ -36,6 +36,6 @@ public class DeleteCommand extends Command {
         Task removed = tasks.remove(index);
         String remove = "Noted. I've removed this task:\n" + removed.toString().trim()
                 + "\nNow you have " + tasks.size() + " tasks in the list.";
-        ui.show(remove);
+        return ui.show(remove);
     }
 }

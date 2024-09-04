@@ -36,15 +36,16 @@ public class FindCommand extends Command{
      * @param storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String find = this.process(this.input);
         int count = 1;
-
+        StringBuilder result = new StringBuilder();
         for (Task task: tasks.getList()) {
             if (task.getDescription().contains(find)) {
-                System.out.println(count + ". " + task);
+                result.append(count).append(". ").append(task).append("\n");
                 count += 1;
             }
         }
+        return result.toString();
     }
 }

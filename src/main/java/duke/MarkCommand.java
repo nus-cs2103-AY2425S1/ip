@@ -28,7 +28,7 @@ public class MarkCommand extends Command {
      * @param storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
 
         int index = process(this.input);
 
@@ -38,6 +38,6 @@ public class MarkCommand extends Command {
 
         Task mark = tasks.get(index);
         mark.mark();
-        ui.show("Nice! I've marked this task as done:" + mark);
+        return ui.show("Nice! I've marked this task as done:" + mark);
     }
 }

@@ -40,6 +40,21 @@ public class Duke {
         }
     }
 
+    public String getResponse(String text) {
+        try {
+            Command command = Parser.ParseCommand(text);
+            if (command != null) {
+                return command.execute(tasks, ui, storage);
+            }
+            return "Command does not exist!";
+        } catch (DukeException e) {
+            return e.getMessage();
+        } catch (ParseException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }

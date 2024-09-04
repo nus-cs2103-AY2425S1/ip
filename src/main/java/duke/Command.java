@@ -8,7 +8,7 @@ abstract class Command {
     String input;
     static boolean exit;
 
-    abstract public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException, IOException;
+    abstract public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException, IOException;
 
     public static boolean isExit() {
         return exit;

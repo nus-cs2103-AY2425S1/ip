@@ -27,7 +27,7 @@ public class UnMarkCommand extends Command {
      * @param storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
 
         int index = process(this.input);
 
@@ -37,6 +37,6 @@ public class UnMarkCommand extends Command {
 
         Task unmark = tasks.get(index);
         unmark.unMark();
-        ui.show("Ok I've unmarked this task as done:" + unmark);
+        return ui.show("Ok I've unmarked this task as done:" + unmark);
     }
 }

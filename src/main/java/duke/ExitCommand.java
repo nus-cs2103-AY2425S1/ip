@@ -16,9 +16,9 @@ public class ExitCommand extends Command {
      * @param storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException, IOException {
         Command.exit = true;
-        ui.show("Bye!");
         storage.writeData(tasks);
+        return ui.show("Bye!");
     }
 }
