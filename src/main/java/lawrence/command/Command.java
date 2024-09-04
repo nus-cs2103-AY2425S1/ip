@@ -16,15 +16,15 @@ public abstract class Command {
     /**
      * Executes the specified user command.
      *
-     * @param tasks   a list of tasks the command may operate
-     *                on
-     * @param manager a {@link TaskFileManager} instance that
-     *                the command may use when saving changes
-     *                made
-     * @param ui      the {@link UserInterface} instance to
-     *                display possible messages to the user
+     * @param taskList a list of tasks the command may operate
+     *                 on
+     * @param manager  a {@link TaskFileManager} instance that
+     *                 the command may use when saving changes
+     *                 made
+     * @param ui       the {@link UserInterface} instance to
+     *                 display possible messages to the user
      */
-    abstract public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui);
+    abstract public void execute(TaskList taskList, TaskFileManager manager, UserInterface ui);
 
     /**
      * Saves the current tasks in memory to a text file.

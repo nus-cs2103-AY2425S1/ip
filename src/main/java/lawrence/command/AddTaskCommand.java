@@ -11,11 +11,42 @@ import lawrence.utils.DateParser;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the user command to create new tasks.
+ */
 public class AddTaskCommand extends Command {
     private final String input;
+
+    /**
+     * Default constructor.
+     *
+     * @param input the user input associated with this command
+     */
     public AddTaskCommand(String input) {
         this.input = input;
     }
+
+    /**
+     * Creates the relevant task based on user input, then adds
+     * the new task into the {@link TaskList} and saves the
+     * tasks into a text file.
+     * <p>
+     * Displays the result of the execution to the user in the form
+     * of text messages.
+     * </p>
+     * <p>
+     * If the details of the task cannot be parsed from user input,
+     * no task will be created and the text file will not be updated.
+     * </p>
+     *
+     * @param taskList a list of tasks the command may operate
+     *                 on
+     * @param manager  a {@link TaskFileManager} instance that
+     *                 the command may use when saving changes
+     *                 made
+     * @param ui       the {@link UserInterface} instance to
+     *                 display possible messages to the user
+     */
     @Override
     public void execute(TaskList taskList, TaskFileManager manager, UserInterface ui) {
         try {
