@@ -1,11 +1,16 @@
 public class Event extends Task {
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
-    public Event(String text, String from, String to) {
-        super(text);
+    public Event(String text, String from, String to, boolean isDone) {
+        super(text,isDone);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String export() {
+        return "E | " + (isDone ? "1" : "0") + " | " + text + " | " + from + " | " + to;
     }
 
     @Override
