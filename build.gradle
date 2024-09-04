@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.maga.Maga")
+    mainClass.set("maga.Maga")
 }
 
 shadowJar {
