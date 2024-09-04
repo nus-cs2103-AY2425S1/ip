@@ -12,6 +12,6 @@ class Todo extends Task {
     }
 
     String toSaveAsString() {
-        return "T/" + super.toSaveAsString();
+        return "T" + super.toSaveAsString();
     }
 }

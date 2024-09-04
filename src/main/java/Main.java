@@ -48,24 +48,30 @@ public class Main {
             switch (parser.processInput(userInput)) {
             case ValidCommand.list: {
                 System.out.println(taskList.list());
+                break;
             }
             case ValidCommand.mark: {
                 int i = Integer.valueOf(userInput.split(" ")[1]);
                 ui.printMark(taskList.mark(i));
+                break;
             }
             case ValidCommand.unmark: {
                 int i = Integer.valueOf(userInput.split(" ")[1]);
                 ui.printUnmark(taskList.unmark(i));
+                break;
             }
             case ValidCommand.todo: {
                 String task = userInput.split(" ", 2)[1];
                 ui.printAdd(taskList.add(task), taskList.size());
+                break;
             }
             case ValidCommand.deadline: {
+                System.out.println("deadline");
                 userInput = userInput.split(" ", 2)[1];
                 String task = userInput.split("/by")[0];
                 String deadline = userInput.split("/by")[1];
                 ui.printAdd(taskList.add(task, deadline), taskList.size());
+                break;
             }
             case ValidCommand.event: {
                 userInput = userInput.split(" ", 2)[1];
@@ -74,10 +80,12 @@ public class Main {
                 String from = fromAndTo.split("/to")[0];
                 String to = fromAndTo.split("/to")[1];
                 ui.printAdd(taskList.add(task, from, to), taskList.size());
+                break;
             }
             case ValidCommand.delete: {
                 int i = Integer.valueOf(userInput.split(" ")[1]);
                 ui.printDelete(taskList.delete(i), taskList.size());
+                break;
             }
             }
 

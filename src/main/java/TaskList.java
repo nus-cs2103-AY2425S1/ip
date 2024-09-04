@@ -73,6 +73,7 @@ class TaskList {
     String toSaveAsString() {
         String output = "";
         for (Task t : this.todoList) {
+            System.out.println(t.toSaveAsString());
             output = output + t.toSaveAsString() + "\n";
         }
         return output;
