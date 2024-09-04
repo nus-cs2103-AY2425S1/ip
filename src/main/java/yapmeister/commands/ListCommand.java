@@ -7,6 +7,9 @@ import yapmeister.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Represents List user command that lists the tasks
+ */
 public class ListCommand implements Command {
     @Override
     public void execute(TaskList tasks, Storage storage, UI ui) {

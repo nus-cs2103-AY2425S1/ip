@@ -7,6 +7,9 @@ import yapmeister.task.Event;
 import yapmeister.task.Task;
 import yapmeister.task.TaskList;
 
+/**
+ * Represents Event user command that creates an Event Task
+ */
 public class EventCommand implements Command {
     private Task task;
     @Override

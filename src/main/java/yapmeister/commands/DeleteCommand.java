@@ -8,6 +8,9 @@ import yapmeister.task.TaskList;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Represents Delete user command that deletes the task at index
+ */
 public class DeleteCommand implements Command {
     private int index;
     @Override

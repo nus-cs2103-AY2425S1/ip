@@ -8,6 +8,9 @@ import yapmeister.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Represents Find user command that searches for a keyword in the tasks
+ */
 public class FindCommand implements Command {
     String searchTerm;
     @Override

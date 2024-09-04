@@ -7,6 +7,9 @@ import yapmeister.task.Task;
 import yapmeister.task.TaskList;
 import yapmeister.task.ToDo;
 
+/**
+ * Represents Todo user command that creates an Todo Task
+ */
 public class TodoCommand implements Command {
     private Task task;
     @Override

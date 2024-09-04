@@ -5,8 +5,10 @@ import yapmeister.UI;
 import yapmeister.task.Deadline;
 import yapmeister.task.Task;
 import yapmeister.task.TaskList;
-import yapmeister.task.ToDo;
 
+/**
+ * Represents Deadline user command that creates a Deadline Task
+ */
 public class DeadlineCommand implements Command{
     private Task task;
     @Override

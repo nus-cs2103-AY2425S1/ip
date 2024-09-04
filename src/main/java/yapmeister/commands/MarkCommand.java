@@ -7,6 +7,9 @@ import yapmeister.task.TaskList;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Represents Mark user command that marks the task at index
+ */
 public class MarkCommand implements Command {
     private int index;
     @Override

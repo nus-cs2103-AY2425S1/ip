@@ -7,6 +7,9 @@ import yapmeister.task.TaskList;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Represents Mark user command that unmarks the task at index
+ */
 public class UnmarkCommand implements Command {
     private int index;
     public void execute(TaskList tasks, Storage storage, UI ui) throws InvalidMarkException {
