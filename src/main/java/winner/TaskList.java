@@ -93,11 +93,9 @@ public class TaskList {
         } catch (DateTimeParseException e) {
             throw new WinnerException("""
                     Expected format for adding deadline task:
-                    deadline (task) by (dd/mm/yyyy) at (time - 24 hour format)
-                    
-                    Expected format for date and time:
-                    date - dd/mm/yyyy
-                    time - 24 hour format""");
+                    deadline (task) by (date) at (time)
+                         > date - dd/mm/yyyy
+                         > time - 24 hour format""");
         }
     }
 
