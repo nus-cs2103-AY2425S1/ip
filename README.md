@@ -1,4 +1,4 @@
-# Duke project template
+# Eli project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Eli_. Given below are instructions on how to use it.
 
