@@ -28,6 +28,7 @@ public class Joe {
             ui.showLoadingError(e);
             tasks = new TaskList();
         }
+        ui.setTasks(tasks);
     }
 
     /**
@@ -51,14 +52,10 @@ public class Joe {
     }
 
     /**
-     * Runs the programme.
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        ui.runProgramme(tasks);
-    }
-
-    public static void main(String[] args) {
-        new Joe("data/joe.txt").run();
+    public String getResponse(String input) {
+        return ui.responseToCommand(input);
     }
 
 }

@@ -39,7 +39,7 @@ public class ParserTest {
     public void testParseCommand_mark() throws InvalidCommandException {
         tasks.addTask(new ToDo("read book"));
         parser.parseCommand("mark 1");
-        assertTrue(tasks.get(0).checkDone());
+        assertTrue(tasks.getTask(0).checkDone());
     }
 
     /**
@@ -52,7 +52,7 @@ public class ParserTest {
         todo.setDone(true);
         tasks.addTask(todo);
         parser.parseCommand("unmark 1");
-        assertFalse(tasks.get(0).checkDone());
+        assertFalse(tasks.getTask(0).checkDone());
     }
 
     /**
@@ -74,8 +74,8 @@ public class ParserTest {
     public void testParseCommand_todo() throws InvalidCommandException {
         parser.parseCommand("todo read book");
         assertEquals(1, tasks.size());
-        assertInstanceOf(ToDo.class, tasks.get(0));
-        assertEquals("read book", tasks.get(0).getDescription());
+        assertInstanceOf(ToDo.class, tasks.getTask(0));
+        assertEquals("read book", tasks.getTask(0).getDescription());
     }
 
     /**
@@ -86,8 +86,8 @@ public class ParserTest {
     public void testParseCommand_deadline() throws InvalidCommandException {
         parser.parseCommand("deadline return book | by 12/12/2019 1800");
         assertEquals(1, tasks.size());
-        assertInstanceOf(Deadline.class, tasks.get(0));
-        assertEquals("return book", tasks.get(0).getDescription());
+        assertInstanceOf(Deadline.class, tasks.getTask(0));
+        assertEquals("return book", tasks.getTask(0).getDescription());
     }
 
     /**
@@ -98,8 +98,8 @@ public class ParserTest {
     public void testParseCommand_event() throws InvalidCommandException {
         parser.parseCommand("event project meeting | from 12/12/2019 1800 | to 12/12/2019 2100");
         assertEquals(1, tasks.size());
-        assertInstanceOf(Event.class, tasks.get(0));
-        assertEquals("project meeting", tasks.get(0).getDescription());
+        assertInstanceOf(Event.class, tasks.getTask(0));
+        assertEquals("project meeting", tasks.getTask(0).getDescription());
     }
 
     /**

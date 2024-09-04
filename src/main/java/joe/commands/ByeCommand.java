@@ -9,8 +9,8 @@ public class ByeCommand extends Command {
      * Prints a goodbye message.
      */
     @Override
-    public void execute() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String execute() {
+        return "Bye. Hope to see you again soon!";
     }
 
     @Override

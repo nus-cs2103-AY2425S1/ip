@@ -21,7 +21,8 @@ public class QueryCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        tasks.queryTasksByDate(date);
+    public String execute() {
+
+        return tasks.queryTasksByDate(date);
     }
 }

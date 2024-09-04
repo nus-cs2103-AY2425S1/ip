@@ -17,7 +17,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        taskList.listTasks();
+    public String execute() {
+        return taskList.listTasks();
     }
 }

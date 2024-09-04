@@ -21,7 +21,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute() throws InvalidIndexException {
-        taskList.markDone(index);
+    public String execute() throws InvalidIndexException {
+        return taskList.markDone(index);
     }
 }

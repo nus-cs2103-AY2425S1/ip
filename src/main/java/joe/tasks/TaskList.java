@@ -51,126 +51,148 @@ public class TaskList {
 
     /**
      * Adds a task to the user's list.
-     *
-     * @param t the Task to be added
+     * @param t the task to be added
+     * @return the message to be displayed to the user
      */
-    public void addTask(Task t) {
+    public String addTask(Task t) {
         taskList.add(t);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + t);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it. I've added this task:\n");
+        sb.append("  ").append(t).append("\n");
+        sb.append("Now you have ").append(taskList.size()).append(" tasks in the list.");
+        return sb.toString();
     }
 
     /**
-     * Deletes a task at a specific index.
-     *
-     * @param index the index of the Task the user wants to delete
+     * Deletes a task from the user's list.
+     * @param index the index of the task to be deleted
+     * @return the message to be displayed to the user
+     * @throws InvalidIndexException if the index is invalid
      */
-    public void deleteTask(int index) throws InvalidIndexException {
+    public String deleteTask(int index) throws InvalidIndexException {
         if (index - 1 >= taskList.size() || index - 1 < 0) {
             throw new InvalidIndexException(index);
         }
+
+        StringBuilder sb = new StringBuilder();
         Task t = taskList.remove(index - 1);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + t);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        sb.append("Noted. I've removed this task:\n");
+        sb.append("  ").append(t).append("\n");
+        sb.append("Now you have ").append(taskList.size()).append(" tasks in the list.");
+        return sb.toString();
     }
 
     /**
      * Marks a task as done.
-     *
-     * @param index the index of the Task the user wants to mark
+     * @param index the index of the task to be marked as done
+     * @return the message to be displayed to the user
+     * @throws InvalidIndexException if the index is invalid
      */
-    public void markDone(int index) throws InvalidIndexException {
+    public String markDone(int index) throws InvalidIndexException {
         if (index - 1 >= taskList.size() || index - 1 < 0) {
             throw new InvalidIndexException(index);
         }
         Task t = taskList.get(index - 1);
         t.setDone(true);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + t);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nice! I've marked this task as done:\n");
+        sb.append("  ").append(t);
+        return sb.toString();
     }
 
     /**
-     * Unmarks a task.
-     *
-     * @param index the index of the Task the user wants to unmark
+     * Unmarks a task as done.
+     * @param index the index of the task to be unmarked as done
+     * @return the message to be displayed to the user
+     * @throws InvalidIndexException if the index is invalid
      */
-    public void unmark(int index) throws InvalidIndexException {
+    public String unmark(int index) throws InvalidIndexException {
         if (index - 1 >= taskList.size() || index - 1 < 0) {
             throw new InvalidIndexException(index - 1);
         }
         Task t = taskList.get(index - 1);
         t.setDone(false);
-        System.out.println("OK, I've marked this task as undone:");
-        System.out.println("  " + t);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("OK, I've marked this task as undone:\n");
+        sb.append("  ").append(t);
+        return sb.toString();
     }
 
     /**
-     * Lists all the tasks in the user's list.
+     * Lists the tasks in the user's list.
+     * @return the message to be displayed to the user
      */
-    public void listTasks() {
-        System.out.println("Here are the tasks in your list:");
+    public String listTasks() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i));
+            sb.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
         }
+
+        return sb.toString();
     }
 
     /**
-     * Saves the user's current list of Tasks and automatically loads the saved list during their next session
+     * Saves the tasks in the user's list to a file.
+     * @return the message to be displayed to the user
      */
-    public void saveTasks() {
+    public String saveTasks() {
         int taskCount = taskList.size();
-        System.out.println("Saving your tasks......");
+        StringBuilder botMessage = new StringBuilder();
+        botMessage.append("Saving your tasks......\n");
         try {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder fileData = new StringBuilder();
             for (int i = 0; i < taskCount; i++) {
                 Task t = taskList.get(i);
-                sb.append(t.saveRepr());
-                System.out.println(t + " (saved)");
-                sb.append(System.lineSeparator());
+                fileData.append(t.saveRepr());
+                botMessage.append(t).append(" (saved)\n");
+                fileData.append(System.lineSeparator());
             }
 
             FileWriter fw = new FileWriter("data/joe.txt");
-            fw.write(sb.toString());
+            fw.write(fileData.toString());
             fw.close();
-            System.out.println("Your tasks have been successfully saved.");
+            botMessage.append("Your tasks have been successfully saved.\n");
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            botMessage.append("Something went wrong: ").append(e.getMessage());
         }
+
+        return botMessage.toString();
     }
 
     /**
-     * Queries the tasks in the user's list by a specific date
-     * and prints out the tasks that are due on that date for deadlines
-     * and start on that date for events.
-     *
+     * Queries the tasks in the user's list by date.
      * @param date the date to query the tasks by
+     * @return the message to be displayed to the user
      */
-    public void queryTasksByDate(String date) {
+    public String queryTasksByDate(String date) {
         // The arbitrary 1200 time here will not affect the output
         LocalDateTime targetDate = Formatter.createLocalDateTimeWithArbitraryTime(date);
-
+        StringBuilder sb = new StringBuilder();
         int tasksFound = 0;
         for (Task t : taskList) {
             if (t instanceof Deadline) {
                 Deadline d = (Deadline) t;
                 long days = d.daysTillDeadline(targetDate);
                 if (days == 0L) {
-                    System.out.printf("%d.%s\n", ++tasksFound, d);
+                    sb.append(String.format("%d.%s\n", ++tasksFound, d));
                 }
             } else if (t instanceof Event) {
                 Event e = (Event) t;
                 long days = e.daysTillEvent(targetDate);
                 if (days == 0L) {
-                    System.out.printf("%d.%s\n", ++tasksFound, e);
+                    sb.append(String.format("%d.%s\n", ++tasksFound, e));
                 }
             }
         }
 
         if (tasksFound == 0) {
-            System.out.printf("There are no tasks on %s\n", targetDate.format(DateTimeFormatter.ISO_DATE));
+            sb.append(String.format("There are no tasks on %s\n", targetDate.format(DateTimeFormatter.ISO_DATE)));
         }
+
+        return sb.toString();
     }
 
     /**
@@ -188,7 +210,7 @@ public class TaskList {
      * @param index the index of the task
      * @return the task at the index
      */
-    public Task get(int index) {
+    public Task getTask(int index) {
         return taskList.get(index);
     }
 
@@ -197,15 +219,18 @@ public class TaskList {
      *
      * @param keyword the query made by the user to find tasks with matching descriptions
      */
-    public void findTasks(String keyword) {
-        System.out.println("Here are the matching tasks in the list:");
+    public String findTasks(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in the list:\n");
 
         int foundStrings = 0;
         for (Task t : taskList) {
             String description = t.getDescription();
             if (description.contains(keyword)) {
-                System.out.printf("%d. %s\n", ++foundStrings, t);
+                sb.append(String.format("%d. %s\n", ++foundStrings, t));
             }
         }
+
+        return sb.toString();
     }
 }
