@@ -8,12 +8,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Bean.
+ * Main application class for Bean's GUI.
  */
 public class Main extends Application {
 
     private Bean bean = new Bean("data/bean.txt");
 
+    /**
+     * Starts the JavaFX application.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {

@@ -1,30 +1,12 @@
 package bean.ui;
 
 import java.util.List;
-import java.util.Scanner;
 import bean.task.Task;
 
 /**
  * The Ui class handles user interactions, including displaying messages and reading user input.
  */
 public class Ui {
-//    private Scanner scanner;
-
-    /**
-     * Initializes a new Ui instance.
-     */
-//    public Ui() {
-//        this.scanner = new Scanner(System.in);
-//    }
-
-    /**
-     * Reads and returns user input as a trimmed string.
-     *
-     * @return The user's input.
-     */
-//    public String getUserInput() {
-//        return scanner.nextLine().trim();
-//    }
 
     /**
      * Returns a greeting message.
