@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Storage {
@@ -57,10 +59,11 @@ public class Storage {
                         task = new Todo(taskComponents[2]);
                         break;
                     case "D":
-                        task = new Deadline(taskComponents[2], taskComponents[3]);
+                        task = new Deadline(taskComponents[2], LocalDate.parse(taskComponents[3]));
                         break;
                     case "E":
-                        task = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
+                        task = new Event(taskComponents[2], LocalDate.parse(taskComponents[3]),
+                                LocalDate.parse(taskComponents[4]));
                         break;
                     default:
                         break;
@@ -72,6 +75,10 @@ public class Storage {
             }
             return taskList;
         } catch (IOException e) {
+            System.out.println(e);
+            throw e;
+        } catch (DateTimeParseException e) {
+            // TODO: Handle this exception
             System.out.println(e);
             throw e;
         }

@@ -1,4 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
 
 public class Mittens {
 
@@ -144,12 +147,16 @@ public class Mittens {
                     String[] inputs = input.split(" /");
                     String description = inputs[0].substring(9);
                     
-                    String by = null;
+                    LocalDate by = null;
                     for (int i = 1; i < inputs.length; i++) {
                         String[] flagWords = inputs[i].split(" ");
                         if (flagWords[0].equals("by")) {
                             if (by == null) {
-                                by = inputs[i].substring(3);
+                                try {
+                                    by = LocalDate.parse(inputs[i].substring(3));
+                                } catch (DateTimeParseException e) {
+                                    throw new BadInputException("Invalid date format for 'by' flag");
+                                }
                             } else {
                                 throw new BadInputException("Found duplicate of 'by' flag");
                             }
@@ -170,19 +177,27 @@ public class Mittens {
                     String[] inputs = input.split(" /");
                     String description = inputs[0].substring(6);
 
-                    String from = null;
-                    String to = null;
+                    LocalDate from = null;
+                    LocalDate to = null;
                     for (int i = 1; i < inputs.length; i++) {
                         String[] flagWords = inputs[i].split(" ");
                         if (flagWords[0].equals("from")) {
                             if (from == null) {
-                                from = inputs[i].substring(5);
+                                try {
+                                    from = LocalDate.parse(inputs[i].substring(5));
+                                } catch (DateTimeParseException e) {
+                                    throw new BadInputException("Invalid date format for 'from' flag");
+                                }
                             } else {
                                 throw new BadInputException("Found duplicate of 'from' flag");
                             }
                         } else if (flagWords[0].equals("to")) {
                             if (to == null) {
-                                to = inputs[i].substring(3);
+                                try {
+                                    to = LocalDate.parse(inputs[i].substring(3));
+                                } catch (DateTimeParseException e) {
+                                    throw new BadInputException("Invalid date format for 'to' flag");
+                                }
                             } else {
                                 throw new BadInputException("Found duplicate of 'to' flag");
                             }
