@@ -84,35 +84,35 @@ public class Devon {
 
             try {
                 switch (command) {
-                    case BYE:
-                        return;
-                    case LIST:
-                        printList();
-                        break;
-                    case MARK:
-                        markAction(input);
-                        break;
-                    case UNMARK:
-                        unmarkAction(input);
-                        break;
-                    case TODO:
-                        todoAction(input);
-                        break;
-                    case DEADLINE:
-                        deadlineAction(input);
-                        break;
-                    case EVENT:
-                        eventAction(input);
-                        break;
-                    case DELETE:
-                        deleteAction(input);
-                        break;
-                    case FIND:
-                        findAction(input);
-                        break;
-                    default:
-                        unknownAction();
-                        break;
+                case BYE:
+                    return;
+                case LIST:
+                    printList();
+                    break;
+                case MARK:
+                    markAction(input);
+                    break;
+                case UNMARK:
+                    unmarkAction(input);
+                    break;
+                case TODO:
+                    todoAction(input);
+                    break;
+                case DEADLINE:
+                    deadlineAction(input);
+                    break;
+                case EVENT:
+                    eventAction(input);
+                    break;
+                case DELETE:
+                    deleteAction(input);
+                    break;
+                case FIND:
+                    findAction(input);
+                    break;
+                default:
+                    unknownAction();
+                    break;
                 }
             } catch (DevonException e) {
                 ui.displayException(e);
