@@ -1,6 +1,7 @@
 package Arona;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Parser {
     public Parser() {}
@@ -26,8 +27,8 @@ public class Parser {
             ui.showList(taskList);
         }
 
-        // Delete
-        else if (input.toLowerCase().startsWith("delete")) {
+        // Delete command
+        else if (input.toLowerCase().startsWith("delete ")) {
 
             // Extract and save task number
             String[] data = input.split("delete", 2);
@@ -48,7 +49,7 @@ public class Parser {
         }
 
         // Mark and unmark command
-        else if (input.toLowerCase().startsWith("mark") || input.toLowerCase().startsWith("unmark")) {
+        else if (input.toLowerCase().startsWith("mark ") || input.toLowerCase().startsWith("unmark ")) {
 
             // Extract and save task number
             String[] data = input.split("mark", 2);
@@ -72,7 +73,7 @@ public class Parser {
         }
 
         // Todos or events or deadline command
-        else if (input.toLowerCase().startsWith("todo") || input.toLowerCase().startsWith("event") || input.toLowerCase().startsWith("deadline")) {
+        else if (input.toLowerCase().startsWith("todo ") || input.toLowerCase().startsWith("event ") || input.toLowerCase().startsWith("deadline ")) {
 
             // Data from command
             String[] data;
@@ -102,7 +103,7 @@ public class Parser {
                         }
                         taskList.add(taskData[0], byDate);
                     } else {
-                        throw new AronaException("Error! Please specify a by date.");
+                        throw new AronaException("Error! Please input description and by date.");
                     }
                     break;
                 }
@@ -119,7 +120,7 @@ public class Parser {
                         }
                         taskList.add(taskData[0], fromDate, toDate);
                     } else {
-                        throw new AronaException("Error! Please specify a from and to date.");
+                        throw new AronaException("Error! Please input description, from date, and to date.");
                     }
                     break;
                 }
@@ -127,6 +128,25 @@ public class Parser {
 
             // Reply
             ui.showAdd(taskList.size(), taskList.peek());
+        }
+
+        // Find command
+        else if (input.toLowerCase().startsWith("find ")) {
+
+            // Extract and save keyword
+            String keyword = input.split("find", 2)[1].strip();
+
+            // Check if empty
+            if (keyword.isBlank()) {
+                throw new AronaException("Error! Please input a keyword");
+            }
+
+
+            // Process
+            ArrayList<Task> filterTaskList = taskList.filter(keyword);
+
+            // Reply
+            ui.showFilterList(filterTaskList);
         }
 
         // All other unrecognised commands
