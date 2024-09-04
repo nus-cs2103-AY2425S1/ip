@@ -1,5 +1,7 @@
 import java.io.*;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -97,6 +99,7 @@ public class ChatGPT {
                 System.out.println("\t" + LINE);
                 System.out.println(e.getMessage());
                 System.out.println("\t" + LINE);
+
             } catch (Exception e) {
                 System.out.println("\t" + LINE);
                 System.out.println("\t There seems to have been a problem with your inputs Q.Q" +
@@ -138,7 +141,7 @@ public class ChatGPT {
 
     private static void printList() {
         System.out.println("\t"+LINE);
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             System.out.println("\tNothing has been added");
         } else {
             System.out.println("\tHere are the tasks in your list:");
@@ -216,8 +219,8 @@ public class ChatGPT {
         try {
             data.createNewFile();
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(data));
-            for (int i = 0; i < list.size(); i++) {
-                fileWriter.write(list.get(i).toPrint());
+            for (Task task : list) {
+                fileWriter.write(task.toPrint());
                 fileWriter.newLine();
             }
             fileWriter.close();
