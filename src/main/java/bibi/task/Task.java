@@ -1,5 +1,8 @@
 package bibi.task;
 
+/**
+ * Represents a Task using a description and completion status.
+ */
 public class Task {
     private String task;
     private boolean isDone = false;
