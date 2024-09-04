@@ -1,3 +1,2 @@
-D | 0 | aaa | sat
-E | 0 | bbb | sat | sun
-T | 0 | ccc
+T | 0 | lalala
+D | 0 | lalala2 | 2019-12-02

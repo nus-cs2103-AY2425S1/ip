@@ -1,17 +1,20 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    String startTime;
-    String endTime;
+    LocalDate startTime;
+    LocalDate endTime;
 
     public Event(String description, String startTime, String endTime) {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = LocalDate.parse(startTime);
+        this.endTime = LocalDate.parse(endTime);
     }
 
     public Event(String description, String startTime, String endTime, boolean isDone) {
         super(description, isDone);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = LocalDate.parse(startTime);
+        this.endTime = LocalDate.parse(endTime);
     }
 
     /**
@@ -21,11 +24,14 @@ public class Event extends Task {
      */
     @Override
     public String convertToFileString() {
-        return "E | " + super.convertToFileString() + String.format(" | %s | %s\n", startTime, endTime);
+        return "E | " + super.convertToFileString()
+                + String.format(" | %s | %s\n", startTime, endTime);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", startTime, endTime);
+        return "[E]" + super.toString() + String.format(" (from: %s to: %s)",
+                startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 }
