@@ -1,10 +1,9 @@
 package task;
 
-import storage.Storage;
-
-import ui.Ui;
-
 import java.util.ArrayList;
+
+import storage.Storage;
+import ui.Ui;
 
 /**
  * The {@code TaskList} class manages a list of tasks and provides methods to add, list, mark, unmark,

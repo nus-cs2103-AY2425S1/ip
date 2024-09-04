@@ -2,11 +2,8 @@ import java.util.Scanner;
 
 import parser.BobException;
 import parser.Parser;
-
 import storage.Storage;
-
 import task.TaskList;
-
 import ui.Ui;
 
 
@@ -20,6 +17,9 @@ public class Bob {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructor for Bob
+     */
     public Bob() {
         this.ui = new Ui();
         this.tasks = new TaskList();

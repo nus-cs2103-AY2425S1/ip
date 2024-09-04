@@ -13,7 +13,6 @@ import task.Event;
 import task.Task;
 import task.TaskList;
 import task.ToDo;
-
 import ui.Ui;
 
 
@@ -38,25 +37,25 @@ public class Storage {
             Scanner s1 = new Scanner(f);
             while (s1.hasNext()) {
                 String t = s1.nextLine();
-                String[] task_list = t.trim().split(" \\| ");
+                String[] taskList = t.trim().split(" \\| ");
                 Task x;
-                switch (task_list[0]) {
+                switch (taskList[0]) {
                 case "T":
-                    x = new ToDo(task_list[2]);
+                    x = new ToDo(taskList[2]);
                     tl.addTask(x);
                     break;
                 case "D":
-                    x = new Deadline(task_list[2], task_list[3]);
+                    x = new Deadline(taskList[2], taskList[3]);
                     tl.addTask(x);
                     break;
                 case "E":
-                    x = new Event(task_list[2], task_list[3], task_list[4]);
+                    x = new Event(taskList[2], taskList[3], taskList[4]);
                     tl.addTask(x);
                     break;
                 default:
-                    throw new IllegalStateException("Unexpected value: " + task_list[0]);
+                    throw new IllegalStateException("Unexpected value: " + taskList[0]);
                 }
-                if (task_list[1].equals("1")) {
+                if (taskList[1].equals("1")) {
                     x.markAsDone();
                 }
             }

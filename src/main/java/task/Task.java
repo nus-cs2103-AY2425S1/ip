@@ -22,7 +22,6 @@ public abstract class Task {
 
     /**
      * Mark as done
-     * @return true
      */
     public void markAsDone() {
         this.isDone = true;
@@ -30,7 +29,6 @@ public abstract class Task {
 
     /**
      * mark as not done
-     * @return true
      */
     public void markAsNotDone() {
         this.isDone = false;

@@ -110,7 +110,7 @@ public class Parser {
     }
 
     public void findParser(String message, TaskList t) throws BobException {
-        String[] words = message.split(" ",2);
+        String[] words = message.split(" ", 2);
         if (words.length < 2) {
             throw new BobException("Text after find cannot be empty!");
         }
