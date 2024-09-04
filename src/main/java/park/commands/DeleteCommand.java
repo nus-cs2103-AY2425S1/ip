@@ -27,9 +27,9 @@ public class DeleteCommand extends Command {
         try {
             Task t = tasks.get(index);
             storage.delete(t);
-            ui.showToUser("Noted. I've removed this task:" + t);
+            ui.setResponse("Noted. I've removed this task:" + t + "\n");
             tasks.delete(index);
-            ui.showToUser("Now you have " + tasks.size() + " tasks in the list.");
+            ui.setResponse("Now you have " + tasks.size() + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
             throw new ParkException("invalid index");
         }

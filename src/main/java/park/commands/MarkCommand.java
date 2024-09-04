@@ -30,7 +30,7 @@ public class MarkCommand extends Command {
             t.mark();
             String newLine = t.encode();
             storage.modify(oldLine, newLine);
-            ui.showToUser("OK, I've marked this task as done:" + t);
+            ui.setResponse("OK, I've marked this task as done:" + t);
         } catch (IndexOutOfBoundsException e) {
             throw new ParkException("invalid index");
         }

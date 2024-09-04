@@ -40,10 +40,25 @@ public class Park {
                 String fullCommand = ui.getUserCommand();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
+                ui.printResponse();
                 isExit = c.isExit();
             } catch (ParkException e) {
                 ui.showToUser(e.getMessage());
             }
+        }
+    }
+
+    /**
+     * Executes a single command and returns the chatbot's response.
+     *
+     */
+    public String getResponse(String userInput) {
+        try {
+            Command c = Parser.parse(userInput);
+            c.execute(tasks, ui, storage);
+            return ui.getResponse();
+        } catch (ParkException e) {
+            return e.getMessage();
         }
     }
 
