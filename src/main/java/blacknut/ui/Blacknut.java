@@ -1,15 +1,4 @@
-package blacknut.ui;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
-import blacknut.ui.BlacknutExceptions.InvalidCommandException;
-import blacknut.ui.BlacknutExceptions.EmptyDescriptionException;
-import blacknut.ui.BlacknutExceptions.InvalidTaskNumberException;
-import blacknut.ui.BlacknutExceptions.IncorrectFormatException;
-import blacknut.ui.BlacknutExceptions.BlacknutException;
-
-import java.io.File;
 
 //public class Blacknut {
 //    private static final String FILE_PATH = "data" + File.separator + "blacknut.txt";
@@ -227,6 +216,23 @@ import java.io.File;
 //    }
 //}
 
+package blacknut.ui;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import blacknut.ui.BlacknutExceptions.InvalidCommandException;
+import blacknut.ui.BlacknutExceptions.EmptyDescriptionException;
+import blacknut.ui.BlacknutExceptions.InvalidTaskNumberException;
+import blacknut.ui.BlacknutExceptions.IncorrectFormatException;
+import blacknut.ui.BlacknutExceptions.BlacknutException;
+
+import java.io.File;
+
+/**
+ * Represents the main Blacknut application that handles user input, processes commands,
+ * and manages tasks.
+ */
 public class Blacknut {
     private static final String FILE_PATH = "data" + File.separator + "blacknut.txt";
     private Storage storage;
@@ -234,6 +240,9 @@ public class Blacknut {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructs a new Blacknut application.
+     */
     public Blacknut() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
@@ -241,6 +250,9 @@ public class Blacknut {
         parser = new Parser();
     }
 
+    /**
+     * Runs the Blacknut application, handling user input and executing commands.
+     */
     public void run() {
         ui.showWelcome();
 
@@ -310,6 +322,11 @@ public class Blacknut {
         }
     }
 
+    /**
+     * The main method to run the Blacknut application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Blacknut().run();
     }
