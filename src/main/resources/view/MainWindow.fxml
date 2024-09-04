@@ -6,12 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+<fx:root type="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="600.0" prefWidth="400.0"
             xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="MainWindow">
+            xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <TextField fx:id="userInput"
                    layoutY="558.0"
@@ -23,7 +22,6 @@
                 layoutX="324.0"
                 layoutY="558.0"
                 mnemonicParsing="false"
-                onAction="#handleUserInput"
                 onAction="#handleUserInput"
                 textFill="aqua"
                 prefHeight="41.0"
@@ -42,5 +40,5 @@
             </content>
         </ScrollPane>
     </children>
-</AnchorPane>
+</fx:root>
 

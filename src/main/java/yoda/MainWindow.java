@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Yoda yoda;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.png"));
+    private Image yodaImage = new Image(this.getClass().getResourceAsStream("/images/YodaImage.png"));
 
     @FXML
     public void initialize() {
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
         String response = yoda.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, yodaImage)
         );
         userInput.clear();
     }
