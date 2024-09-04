@@ -18,7 +18,7 @@ public class Command {
 
 
     /**
-     *Mark corresponding task in the task list as done.
+     * Mark corresponding task in the task list as done.
      * @param string String from the Scanner(System.in)
      * @return a string from ui.getMarkMessage()
      */
