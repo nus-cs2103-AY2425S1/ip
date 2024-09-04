@@ -43,15 +43,18 @@ public class DeleteCommand extends Command {
      * @throws TaskManagerException If an error occurs during task deletion, such as an invalid task number.
      */
     @Override
-    public void runCommand() throws TaskManagerException {
+    public String runCommand() throws TaskManagerException {
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+", 2)[1]) - 1;
             if (taskNumber >= 0 && taskNumber < this.tasks.size()) {
                 Task taskToDelete = this.tasks.remove(taskNumber);
-                System.out.println("Got it! 🗑️ I've waved goodbye to this task:");
-                System.out.println(taskToDelete.toString());
-                System.out.println("Your list just got lighter! 🌟 "
-                        + "Now you're down to " + this.tasks.size() + " tasks. Keep up the momentum!");
+                StringBuilder outString = new StringBuilder("Got it! 🗑️ I've waved goodbye to this task:");
+                outString.append("\n").append(taskToDelete.toString()).append("\n")
+                         .append("Your list just got lighter! 🌟 ")
+                         .append("Now you're down to ")
+                         .append(this.tasks.size())
+                         .append(" tasks. Keep up the momentum!");
+                return outString.toString();
             } else {
                 throw new TaskManagerException("\uD83D\uDEAB Oops! That task number is out of range. "
                         + "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",

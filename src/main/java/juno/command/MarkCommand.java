@@ -49,32 +49,32 @@ public class MarkCommand extends Command {
      * @throws TaskManagerException If an error occurs during mark or unmark, such as an invalid task number.
      */
     @Override
-    public void runCommand() throws TaskManagerException {
+    public String runCommand() throws TaskManagerException {
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+", 2)[1]) - 1;
             if (taskNumber >= 0 && taskNumber < this.tasks.size()) {
                 Task taskToMark = this.tasks.get(taskNumber);
+                StringBuilder outString = new StringBuilder();
                 if (this.markAsDone) {
                     if (taskToMark.getIsDone()) {
-                        System.out.println("You have completed the task \""
-                                + taskToMark.getDescription()
-                                + "\" already!");
+                        outString.append("You have completed the task \"")
+                                 .append(taskToMark.getDescription()).append("\" already!");
                     } else {
                         taskToMark.markAsDone();
-                        System.out.println("Great work! Knew you would have completed it.");
+                        outString.append("Great work! Knew you would have completed it.");
                     }
                 } else {
                     if (!taskToMark.getIsDone()) {
-                        System.out.println("Task \""
-                                + taskToMark.getDescription()
-                                + "\" is still not done! You can't unmark an undone task!");
+                        outString.append("Task \"").append(taskToMark.getDescription())
+                                 .append("\" is still not done! You can't unmark an undone task!");
                     } else {
                         this.tasks.get(taskNumber).markAsNotDone();
-                        System.out.println("Hey, I have unmarked this task for you. "
-                                + "Maybe you should start working on it soon?");
+                        outString.append("Hey, I have unmarked this task for you. ")
+                                 .append("Maybe you should start working on it soon?");
                     }
                 }
-                System.out.println("  " + this.tasks.get(taskNumber).toString());
+                outString.append("\n").append("  ").append(this.tasks.get(taskNumber).toString());
+                return outString.toString();
             } else {
                 throw new TaskManagerException("\uD83D\uDEAB Oops! That task number is out of range. "
                         + "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
