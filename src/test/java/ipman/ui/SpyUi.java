@@ -10,18 +10,18 @@ import ipman.commands.Command;
  * messages.
  */
 public class SpyUi implements Ui {
-    private final List<String> record = new ArrayList<>();
+    private final List<String> recordedMessages = new ArrayList<>();
 
-    public String[] getRecord() {
+    public String[] getRecordedMessages() {
         // @@author st0le-reused
         // Reused from https://stackoverflow.com/a/5374336/4428725
-        return record.toArray(new String[record.size()]);
+        return recordedMessages.toArray(new String[recordedMessages.size()]);
         // @@author
     }
 
     @Override
     public void showWelcome() {
-        this.record.add("welcome");
+        this.recordedMessages.add("welcome");
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SpyUi implements Ui {
 
     @Override
     public void showMessage(String message) {
-        this.record.add("message:" + message);
+        this.recordedMessages.add("message:" + message);
     }
 
     @Override
@@ -41,11 +41,11 @@ public class SpyUi implements Ui {
 
     @Override
     public void showError(String message) {
-        this.record.add("error:" + message);
+        this.recordedMessages.add("error:" + message);
     }
 
     @Override
     public void showGoodbye() {
-        this.record.add("goodbye");
+        this.recordedMessages.add("goodbye");
     }
 }
