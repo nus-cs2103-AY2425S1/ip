@@ -21,7 +21,7 @@ public class Ui {
      * Greets the user when the program starts.
      */
     public String greet() {
-        return "Pika! I'm Pikappi!\nWhat can I do for you?\n";
+        return "Pika! I'm Pikappi!\nWhat can I do for you?\nType 'help' to see what I can do!";
     }
 
     /**
@@ -29,13 +29,6 @@ public class Ui {
      */
     public String goodbye() {
         return "Pi-kapi! See you again~\n";
-    }
-
-    /**
-     * Shows a horizontal line.
-     */
-    public String showLine() {
-        return "____________________________________________________________";
     }
 
     /**
