@@ -52,6 +52,19 @@ public class Bro {
         }
     }
 
+    /**
+     * Processes user input and returns a response from Bro
+     * @param input
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input, this.tasks, this.storage);
+            return c.execute(this.ui);
+        } catch (BroException e) {
+            return this.ui.showError(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         new Bro("data/tasks.txt").run();
     }

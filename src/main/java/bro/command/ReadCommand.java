@@ -11,8 +11,8 @@ public class ReadCommand implements Command {
         this.taskList = taskList;
     }
 
-    public void execute(UI ui) {
-        ui.printTasks(this.taskList);
+    public String execute(UI ui) {
+        return ui.printTasks(this.taskList);
     }
 
     public boolean isExit() {

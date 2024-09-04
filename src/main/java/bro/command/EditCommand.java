@@ -20,17 +20,19 @@ public class EditCommand implements Command {
         this.storage = storage;
     }
 
-    public void execute(UI ui) throws BroException{
+    public String execute(UI ui) throws BroException{
         try {
+            String response;
             if (this.isMark) {
                 Task task = this.taskList.markTask(this.taskId);
-                ui.showMarkTaskSuccess(task);
+                response = ui.showMarkTaskSuccess(task);
             } else {
                 Task task = this.taskList.unmarkTask(this.taskId);
-                ui.showUnmarkTaskSuccess(task);
+                response = ui.showUnmarkTaskSuccess(task);
             }
 
             this.storage.writeToStorage(this.taskList.getTasks());
+            return response;
 
         } catch (Exception e) {
             throw new BroException("Error Marking task");

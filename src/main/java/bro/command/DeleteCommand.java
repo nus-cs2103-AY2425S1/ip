@@ -17,10 +17,11 @@ public class DeleteCommand implements Command {
         this.storage = storage;
     }
 
-    public void execute(UI ui) {
+    public String execute(UI ui) {
         Task task = this.taskList.deleteTask(taskId);
-        ui.showDeleteTaskSuccess(task);
+        String response = ui.showDeleteTaskSuccess(task);
         this.storage.writeToStorage(this.taskList.getTasks());
+        return response;
     }
 
     public boolean isExit() {

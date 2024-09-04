@@ -17,10 +17,11 @@ public class CreateCommand implements Command {
         this.storage = storage;
     }
 
-    public void execute(UI ui) {
+    public String execute(UI ui) {
         Task task = this.taskList.addTask(this.task);
-        ui.showCreateTaskSuccess(task, this.taskList.getNumberOfTask());
+        String response = ui.showCreateTaskSuccess(task, this.taskList.getNumberOfTask());
         this.storage.writeToStorage(this.taskList.getTasks());
+        return response;
     }
 
     public boolean isExit() {

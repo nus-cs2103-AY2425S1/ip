@@ -39,10 +39,13 @@ public class TaskList {
         return task;
     }
 
-    public void printAllTasks() {
+    public String printAllTasks() {
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
+            result.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
+        return result.toString();
     }
 
     public int getNumberOfTask() {

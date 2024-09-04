@@ -16,7 +16,7 @@ public interface Command {
      * @param ui The user interface through which the command interacts.
      * @throws BroException If an error occurs during command execution.
      */
-    void execute(UI ui) throws BroException;
+    String execute(UI ui) throws BroException;
 
     /**
      * Indicates whether the command will cause the application to exit.

@@ -16,8 +16,8 @@ public class FindCommand extends ReadCommand{
     }
 
     @Override
-    public void execute(UI ui) {
+    public String execute(UI ui) {
         ArrayList<Task> tasks = super.taskList.findTasks(this.content);
-        ui.showTaskFind(tasks);
+        return ui.showTaskFind(tasks);
     }
 }

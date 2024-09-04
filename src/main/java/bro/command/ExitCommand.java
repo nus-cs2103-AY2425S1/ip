@@ -4,8 +4,8 @@ import bro.ui.UI;
 
 public class ExitCommand implements Command {
 
-    public void execute(UI ui) {
-        ui.showGoodbye();
+    public String execute(UI ui) {
+        return ui.showGoodbye();
     }
 
     public boolean isExit() {
