@@ -1,7 +1,7 @@
 package velma.task;
 
 /**
- * Event class
+ * Event class - event task that has starting time and end time
  */
 public class Event extends Task {
 

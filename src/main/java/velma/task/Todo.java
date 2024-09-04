@@ -1,7 +1,7 @@
 package velma.task;
 
 /**
- * Todo class
+ * Todo class - task that only have description with no deadline
  */
 public class Todo extends Task {
 

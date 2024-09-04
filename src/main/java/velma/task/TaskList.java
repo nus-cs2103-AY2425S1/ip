@@ -4,7 +4,7 @@ package velma.task;
 import java.util.ArrayList;
 
 /**
- * TaskList class
+ * TaskList class - tasklist list that contains of different types of task
  */
 public class TaskList {
     private ArrayList<Task> tasks;
