@@ -32,7 +32,10 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Stelle instance */
+    /**
+     * Injects the Stelle instance
+     * @param s The Stelle instance to inject
+     */
     public void setStelle(Stelle s) {
         stelle = s;
         // also print the greeting from Stelle

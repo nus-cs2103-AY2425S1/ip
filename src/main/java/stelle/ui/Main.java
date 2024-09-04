@@ -17,6 +17,10 @@ public class Main extends Application {
 
     private Stelle stelle = new Stelle();
 
+    /**
+     * Starts the application.
+     * @param stage The JavaFX stage.
+     */
     @Override
     public void start(Stage stage) {
         try {

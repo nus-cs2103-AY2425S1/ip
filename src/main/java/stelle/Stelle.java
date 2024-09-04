@@ -43,7 +43,7 @@ public class Stelle {
     }
 
     /**
-     * Get's the chatbot's greeting message.
+     * Gets the chatbot's greeting message.
      * @return String The greeting message.
      */
     public String getGreeting() {
