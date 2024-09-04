@@ -14,9 +14,7 @@ import velma.task.Task;
 import velma.task.TaskList;
 import velma.task.Todo;
 
-/**
- * Velma class
- */
+
 public class Velma {
     private static final String FILE_PATH = "./data/velma.txt";
     private Storage storage;
@@ -39,6 +37,13 @@ public class Velma {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    /**
+     * Prints a line separator.
+     */
+    public void printLine() {
+        System.out.println("--------------------------------------------------\n");
     }
 
 
@@ -97,11 +102,13 @@ public class Velma {
     */
     public void run() {
         ui.showWelcome();
+        printLine();
         Scanner req = new Scanner(System.in);
         boolean end = false;
 
         while (!end) {
             String request = req.nextLine();
+            printLine();
             Command command = getCommand(request);
 
             try {
@@ -214,8 +221,10 @@ public class Velma {
                 default:
                     throw new VelmaException("Sorry boss! What are you talking about?");
                 }
+                printLine();
             } catch (VelmaException e) {
                 ui.showError(e.getMessage());
+                printLine();
             }
         }
     }
