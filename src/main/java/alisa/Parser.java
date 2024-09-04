@@ -1,6 +1,13 @@
 package alisa;
 
-import alisa.command.*;
+import alisa.command.Command;
+import alisa.command.MarkCommand;
+import alisa.command.UnmarkCommand;
+import alisa.command.AddCommand;
+import alisa.command.DeleteCommand;
+import alisa.command.ExitCommand;
+import alisa.command.ListCommand;
+import alisa.command.FindCommand;
 import alisa.exception.AlisaException;
 import alisa.task.Deadline;
 import alisa.task.Event;

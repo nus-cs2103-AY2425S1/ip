@@ -1,6 +1,5 @@
 package alisa.command;
 
-import alisa.exception.AlisaException;
 import alisa.Storage;
 import alisa.task.TaskList;
 import alisa.Ui;
