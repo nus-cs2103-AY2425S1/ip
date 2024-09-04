@@ -7,6 +7,7 @@ import Majima.task.Task;
 import Majima.task.Todo;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -35,16 +36,29 @@ public class Storage {
      */
     public List<Task> load() throws MajimaException {
         List<Task> tasks = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                Task task = parseTask(line);
-                tasks.add(task);
+        File file = new File(filePath);
+
+        try {
+            File parentDir = file.getParentFile();
+            if (!parentDir.exists()) {
+                parentDir.mkdirs();  // Create directory if it doesn't exist
+            }
+            
+            if (!file.exists()) {
+                file.createNewFile(); // Create the file if it doesn't exist
+            }
+
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    Task task = parseTask(line);
+                    tasks.add(task);
+                }
             }
         } catch (IOException e) {
-            throw new MajimaException("There was an error loading tasks from file: "
-                    + e.getMessage());
+            throw new MajimaException("There was an error loading tasks from file: " + e.getMessage());
         }
+
         return tasks;
     }
 
