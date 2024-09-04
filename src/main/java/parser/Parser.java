@@ -1,11 +1,10 @@
 package parser;
 
-
 import exception.TakoException;
+import task.Event;
+import task.Deadline;
 import task.TaskList;
 import task.ToDo;
-import task.Deadline;
-import task.Event;
 import ui.Ui;
 
 import java.time.LocalDate;
@@ -56,10 +55,10 @@ public class Parser {
 
 
     /**
-     * Marks the task as complete according to the input
+     * Finds the task which consists of the 'command' input
      *
      * @param command
-     * @throws TakoException if the mark command is not in the right form
+     * @throws TakoException if the find command is not in the right form
      */
     public static void parseFind(String command) {
         try {
@@ -67,7 +66,8 @@ public class Parser {
                 String targetString = command.substring(5);
                 Ui.findTargetString(targetString);
             } else {
-                throw new TakoException("Wrong format! Find command should have the form 'find x', where x is not empty");
+                throw new TakoException("Wrong format! Find command should have the form 'find x', "
+                                        + "where x is not empty");
             }
         } catch (TakoException e) {
             System.out.println(e.message());
@@ -75,6 +75,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks the task as complete according to the input
+     *
+     * @param command
+     * @throws TakoException if the mark command is not in the right form
+     */
     public static void parseMark(String command) {
         try {
             if (command.length() > 4 && command.charAt(4) == ' ') {
@@ -82,12 +88,12 @@ public class Parser {
                     int taskNumber = Integer.parseInt(command.substring(5));
                     TaskList.markTask(taskNumber);
                 } catch (NumberFormatException e) {
-                    throw new TakoException("Wrong format! mark command should have the form 'mark x'," +
-                                            " where x is an integer");
+                    throw new TakoException("Wrong format! mark command should have the form 'mark x',"
+                                            + " where x is an integer");
                 }
             }
-            throw new TakoException("Wrong format! mark command should have the form 'mark x'," +
-                                    " where x is an integer");
+            throw new TakoException("Wrong format! mark command should have the form 'mark x',"
+                                    + " where x is an integer");
         } catch (TakoException e) {
             System.out.println(e.message());
             Ui.promptInput();
@@ -107,12 +113,12 @@ public class Parser {
                     int taskNumber = Integer.parseInt(command.substring(7));
                     TaskList.unmarkTask(taskNumber);
                 } catch (NumberFormatException e) {
-                    throw new TakoException("Wrong format! Unmark command should have the form 'unmark x'," +
-                                            " where x is an integer");
+                    throw new TakoException("Wrong format! Unmark command should have the form 'unmark x',"
+                                            + " where x is an integer");
                 }
             }
-            throw new TakoException("Wrong format! Unmark command should have the form 'unmark x'," +
-                                    " where x is an integer");
+            throw new TakoException("Wrong format! Unmark command should have the form 'unmark x',"
+                                    + " where x is an integer");
         } catch (TakoException e) {
             System.out.println(e.message());
             Ui.promptInput();
@@ -132,12 +138,12 @@ public class Parser {
                     int taskNumber = Integer.parseInt(command.substring(7));
                     TaskList.deleteTask(taskNumber);
                 } catch (NumberFormatException e) {
-                    throw new TakoException("Wrong format! Delete command should have the form 'delete x'," +
-                                            " where x is an integer");
+                    throw new TakoException("Wrong format! Delete command should have the form 'delete x',"
+                                            + " where x is an integer");
                 }
             }
-            throw new TakoException("Wrong format! Delete command should have the form 'delete x'," +
-                                    " where x is an integer");
+            throw new TakoException("Wrong format! Delete command should have the form 'delete x',"
+                                    + " where x is an integer");
         } catch (TakoException e) {
             System.out.println(e.message());
             Ui.promptInput();
@@ -157,8 +163,8 @@ public class Parser {
                 String description = command.substring(5);
                 TaskList.addTask(new ToDo(description));
             } else {
-                throw new TakoException("Wrong format! Todo command should have the form 'mark x'," +
-                                        " where x is not empty");
+                throw new TakoException("Wrong format! Todo command should have the form 'mark x',"
+                                        + " where x is not empty");
             }
         } catch (TakoException e) {
             System.out.println(e.message());
@@ -191,8 +197,8 @@ public class Parser {
                     }
                 }
             }
-            throw new TakoException("Wrong format! Deadline command should have the form " +
-                                    "'deadline x /by YYYY-MM-DD', where x is not empty");
+            throw new TakoException("Wrong format! Deadline command should have the form "
+                                    + "'deadline x /by YYYY-MM-DD', where x is not empty");
         } catch (TakoException e) {
             System.out.println(e.message());
             Ui.promptInput();
@@ -217,8 +223,8 @@ public class Parser {
                             if (command.length() > fromPosition + 5 && command.charAt(fromPosition + 5) == ' ') {
                                 if (command.contains("/to")) {
                                     if (!command.substring(fromPosition + 5, toPosition).isBlank()) {
-                                        if (command.length() > toPosition + 3 &&
-                                                command.charAt(toPosition + 3) == ' ') {
+                                        if (command.length() > toPosition + 3
+                                                && command.charAt(toPosition + 3) == ' ') {
                                             if (!command.substring(toPosition + 4).isBlank()) {
                                                 String description = command.substring(6, fromPosition);
                                                 String from = command.substring(fromPosition + 6, toPosition - 1);
@@ -236,8 +242,8 @@ public class Parser {
                     }
                 }
             }
-            throw new TakoException("Wrong format! Event command should have the form" +
-                                    " 'event x /from YYYY-MM-DD /to YYYY-MM-DD', where x is not empty");
+            throw new TakoException("Wrong format! Event command should have the form"
+                                    + " 'event x /from YYYY-MM-DD /to YYYY-MM-DD', where x is not empty");
         } catch (TakoException e) {
             System.out.println(e.message());
             Ui.promptInput();

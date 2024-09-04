@@ -1,10 +1,10 @@
 package storage;
 
-import task.ToDo;
+import parser.Parser;
 import task.Deadline;
 import task.Event;
 import task.TaskList;
-import parser.Parser;
+import task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
