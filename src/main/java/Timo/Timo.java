@@ -1,22 +1,24 @@
 package Timo;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.Scanner;
-import java.util.*;
-import java.io.File;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 
 class Task {
-    private String taskype = "T";
+    private String tasktype = "T";
     private boolean mark;
-    private String val;
-    public Task(boolean mark, String val) {
+    private final String description;
+    public Task(boolean mark, String description) {
         this.mark = mark;
-        this.val = val;
+        this.description = description;
     }
 
     public void markDone() {
@@ -39,12 +41,12 @@ class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + this.val;
+        return "[" + getStatusIcon() + "] " + this.description;
     }
 }
 
 class Todo extends Task {
-    private String tasktype = "T";
+    private final String tasktype = "T";
 
 
     public Todo(boolean mark, String val) {
@@ -59,26 +61,26 @@ class Todo extends Task {
 }
 
 class Deadline extends Task {
-    private LocalDateTime date;
-    private String tasktype = "D";
+    private final LocalDateTime date;
+    private final String tasktype = "D";
 
-    public Deadline(boolean mark, String val, LocalDateTime date){
+    public Deadline(boolean mark, String val, LocalDateTime date) {
         super(mark, val);
         this.date = date;
     }
 
     @Override
     public String toString() {
-        return "[" + this.tasktype + "]" + super.toString() +
-                " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
+        return "[" + this.tasktype + "]" + super.toString()
+                + " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
                 + ")";
     }
 }
 
 class Event extends Task {
-    private String from;
-    private String to;
-    private String tasktype = "E";
+    private final String from;
+    private final String to;
+    private final String tasktype = "E";
 
     public Event(boolean mark, String val, String from, String to) {
         super(mark, val);
@@ -203,7 +205,7 @@ class Storage {
             fil.close();
 
 
-            //create filewriter to append to file
+            //create FileWriter to append to file
             FileWriter fw = new FileWriter(this.filepath, true);
             for (Task i: arr) {
                 fw.write(i + "\n");
@@ -219,7 +221,7 @@ class Storage {
 //Timo.TaskList: operations to add and delete tasks in the list
 //has operations to return list
 class TaskList {
-    private List<Task> arr;
+    private final List<Task> arr;
 
     public TaskList(List<Task> arr) {
         this.arr = arr;
@@ -232,7 +234,7 @@ class TaskList {
 
     /**
      * adds a Task to the array
-     * @param task
+     * @param task a task
      */
     public void add(Task task) {
 
@@ -241,7 +243,7 @@ class TaskList {
 
     /**
      * removes the Task given the Task number and returns the Task that is removed
-     * @param number
+     * @param number the task number
      * @return Task
      */
     public Task delete(int number) {
@@ -250,7 +252,7 @@ class TaskList {
 
     /**
      * displays the Task in the array
-     * @return List<Task>
+     * @return list of tasks
      */
     public List<Task> showList() {
         return this.arr;
@@ -258,7 +260,7 @@ class TaskList {
 
     /**
      * Marks the Task given the Task number, and returns the Task
-     * @param num
+     * @param num the task number
      * @return Task
      */
     public Task mark(int num) {
@@ -269,7 +271,7 @@ class TaskList {
 
     /**
      * Unmark the Task given the Task number, and returns the Task
-     * @param num
+     * @param num the task number
      * @return Task
      */
     public Task unmark(int num) {
@@ -302,7 +304,7 @@ class UI {
 
     /**
      * given a TaskList, prints our the list items
-     * @param lst
+     * @param lst the tasklist
      *
      * @see TaskList
      */
@@ -327,7 +329,7 @@ class UI {
 
     /**
      * given Task, prints out that the Task is marked
-     * @param chosen
+     * @param chosen the task that is marked
      */
     public void printMark(Task chosen) {
         System.out.println("----------------------------");
@@ -338,7 +340,7 @@ class UI {
 
     /**
      * given Task, prints out that the Task is unmarked
-     * @param chosen
+     * @param chosen the task that is unmarked
      */
     public void printUnmark(Task chosen) {
         System.out.println("----------------------------");
@@ -349,8 +351,8 @@ class UI {
 
     /**
      * given Todo and size, prints out that Todo task has been added, and prints out the total size of array
-     * @param todo
-     * @param size
+     * @param todo the todo task
+     * @param size the size of the task list
      */
     public void printTodo(Task todo, int size) {
         System.out.println("----------------------------");
@@ -362,8 +364,8 @@ class UI {
 
     /**
      * given Deadline and size, prints out that Deadline task has been added, and prints out the total size of array
-     * @param deadline
-     * @param size
+     * @param deadline the deadline task
+     * @param size the size of the task list
      */
     public void printDeadline(Deadline deadline, int size) {
         System.out.println("----------------------------");
@@ -384,8 +386,8 @@ class UI {
 
     /**
      * given Event task and size, prints out that Event task has been added, and prints out the total size of the array
-     * @param event
-     * @param size
+     * @param event the event task
+     * @param size the size of the task list
      */
     public void printEvent(Event event, int size) {
         System.out.println("----------------------------");
@@ -397,8 +399,8 @@ class UI {
 
     /**
      * given the task and the size, prints out the task that was deleted and the size of the array
-     * @param task
-     * @param size
+     * @param task the task
+     * @param size the size of task list
      */
     public void printDelete(Task task, int size) {
         System.out.println("----------------------------");
@@ -410,7 +412,7 @@ class UI {
 
     /**
      * prints out the error
-     * @param e
+     * @param e the unknown command error
      */
     public void printUnknownCommandError(TimoException e) {
         System.out.println("----------------------------");
@@ -424,9 +426,9 @@ class UI {
 //Timo.Parser: deals with making sense of the commands
 //parser deal, then send commands to ui
 class Parser {
-    private UI ui;
-    private Storage storage;
-    private TaskList taskList;
+    private final UI ui;
+    private final Storage storage;
+    private final TaskList taskList;
     public Parser(UI ui, Storage storage, TaskList taskList) {
         this.ui = ui;
         this.storage = storage;
@@ -454,98 +456,112 @@ class Parser {
      */
     public void parse(String command) throws TimoException {
         switch (command) {
-            case "bye":
-                this.ui.bye();
-                this.storage.store(this.taskList.showList());
+        case "bye":
+            this.ui.bye();
+            this.storage.store(this.taskList.showList());
+            break;
+
+        case "list":
+            this.ui.printList(this.taskList);
+            break;
+
+        case "mark":
+            String taskNumber = String.valueOf(command.charAt(command.length() - 1));
+
+            //get the Timo.Task number to mark
+            int markTarget = Integer.parseInt(taskNumber);
+
+            //find the task to mark
+            Task markedTask = this.taskList.mark(markTarget);
+            this.ui.printMark(markedTask);
+            break;
+
+        case "unmark":
+
+            //get the Timo.Task number to unmark
+            int unmarkTarget = Integer.parseInt(String.valueOf(command.charAt(command.length() - 1)));
+
+            //find the task to unmark
+            Task unmarkedTask = this.taskList.unmark(unmarkTarget);
+            this.ui.printUnmark(unmarkedTask);
+            break;
+
+        case "todo":
+            String[] todoCommands = command.split(" ", 2);
+            if (todoCommands.length != 2) {
+                throw new TimoException("Usage todo: todo <task> (need argument)");
+            }
+            Todo task = new Todo(false, todoCommands[1]);
+            this.taskList.add(task);
+            this.ui.printTodo(task, this.taskList.showList().size());
+            break;
+
+        case "deadline":
+            String[] deadlineCommands = command.split("deadline |/by ");
+            String todo = deadlineCommands[1];
+            String datetime = deadlineCommands[2].trim();
+            DateTimeFormatter a = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+            try {
+                LocalDateTime date = LocalDateTime.parse(datetime, a);
+                System.out.println(date);
+                Deadline deadline = new Deadline(false, todo, date);
+                this.taskList.add(deadline);
+                this.ui.printDeadline(deadline, this.taskList.showList().size());
                 break;
-
-            case "list":
-                this.ui.printList(this.taskList);
+            } catch (DateTimeException e) {
+                this.ui.printDeadlineError();
                 break;
+            }
+        case "event":
+            String[] eventCommands = command.split("event |/from |/to ");
+            Event event = new Event(false, eventCommands[1], eventCommands[2], eventCommands[3]);
+            this.taskList.add(event);
+            this.ui.printEvent(event, this.taskList.showList().size());
+            break;
+        case "delete":
+            //get the Timo.Task number to delete
+            int deleteTarget = Integer.parseInt(String.valueOf(command.charAt(command.length() - 1)));
 
-            default:
-                String s = String.valueOf(command.charAt(command.length() - 1));
-                if (command.startsWith("mark")) {
-                    //get the Timo.Task number to mark
-                    String num = s;
-                    int target = Integer.parseInt(num);
+            // Timo.Task that is deleted
+            Task deleteTask = this.taskList.delete(deleteTarget);
+            this.ui.printDelete(deleteTask, this.taskList.showList().size());
+            break;
 
-                    //find the task to mark
-                    Task chosen = this.taskList.mark(target);
-                    this.ui.printMark(chosen);
-                } else if (command.startsWith("unmark")) {
-                    //get the Timo.Task number to unmark
-                    String num = s;
-                    int target = Integer.parseInt(num);
+        case "find":
+            String phrase = command.split(" ", 2)[1];
 
-                    //find the task to unmark
-                    Task chosen = this.taskList.unmark(target);
-                    this.ui.printUnmark(chosen);
-                } else if (command.startsWith("todo")) {
-                        String[] tmp = command.split(" ", 2);
-                        if (tmp.length != 2) {
-                            throw new TimoException("Usage todo: todo <task> (need argument)");
-                        }
-                        Todo task = new Todo(false, tmp[1]);
-                        this.taskList.add(task);
-                        this.ui.printTodo(task, this.taskList.showList().size());
-                } else if (command.startsWith("deadline")) {
-                    String[] tmp = command.split("deadline |/by ");
-                    String todo = tmp[1];
-                    String datetime = tmp[2].trim();
-                    DateTimeFormatter a = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            // TaskList to print out
+            TaskList temporaryLst = new TaskList();
 
-                    try {
-                        LocalDateTime date = LocalDateTime.parse(datetime, a);
-                        System.out.println(date);
-                        Deadline task = new Deadline(false, todo, date);
-                        this.taskList.add(task);
-                        this.ui.printDeadline(task, this.taskList.showList().size());
-                    } catch (DateTimeException e) {
-                        this.ui.printDeadlineError();
-                    }
-                } else if (command.startsWith("event")) {
-                    String[] tmp = command.split("event |/from |/to ");
-                    Event task = new Event(false, tmp[1], tmp[2], tmp[3]);
-                    this.taskList.add(task);
-                    this.ui.printEvent(task, this.taskList.showList().size());
-                } else if (command.startsWith("delete")) {
-                    String num = s;
-                    int target = Integer.parseInt(num);
-
-                    // Timo.Task that is deleted
-                    Task task = this.taskList.delete(target);
-                    this.ui.printDelete(task, this.taskList.showList().size());
-                } else if (command.startsWith("find")) {
-                    String phrase = command.split(" ", 2)[1];
-
-                    // TaskList to print out
-                    TaskList lst = new TaskList();
-
-                    for (Task task: this.taskList.showList()) {
-                        if (task.toString().contains(phrase)) {
-                            lst.add(task);
-                        }
-                    }
-                    this.ui.printList(lst);
-
-                } else {
-                    throw new TimoException("I'm sorry, I do not know what that means");
+            for (Task currentTask: this.taskList.showList()) {
+                if (currentTask.toString().contains(phrase)) {
+                    temporaryLst.add(currentTask);
                 }
+            }
+            this.ui.printList(temporaryLst);
+            break;
+        default:
+            throw new TimoException("I'm sorry, I do not know what that means");
         }
     }
 }
 
-
+/**
+ * main class Timo
+ */
 public class Timo {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private UI ui;
+    private final UI ui;
 
-    private Parser parser;
+    private final Parser parser;
 
-
+    /**
+     * initialises Timo with ui, storage and parser
+     * @param filepath the path to store the data
+     */
     public Timo(String filepath) {
         ui = new UI();
         storage = new Storage(filepath);
@@ -557,6 +573,9 @@ public class Timo {
         parser = new Parser(ui, storage, tasks);
     }
 
+    /**
+     * run method which runs the entire program
+     */
     public void run() {
         //welcome
         ui.greet();
