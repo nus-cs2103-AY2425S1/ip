@@ -127,6 +127,12 @@ public class TaskList {
             + "\nNow you have " + list.size() + " tasks in the list.";
     }
 
+    /**
+     * Find task using keyword.
+     *
+     * @param keyword
+     * @return output list of tasks found
+     */
     public String findString(String keyword) {
         String output = "RoTodo worked hard, here's the list of matching task:\n";
         String output2 = "";
@@ -142,8 +148,8 @@ public class TaskList {
         if (count == 1) {
             return "Rotodo worked hard, but unable to find matching tasks...";
         }
-        output2 = String.format(output2, 
-            (Object[]) IntStream.range(count, list.size()+1).mapToObj(x -> x).toArray());
+        output2 = String.format(output2,
+            (Object[]) IntStream.range(count, list.size() + 1).mapToObj(x -> x).toArray());
         return (output + output2).stripTrailing();
     }
 

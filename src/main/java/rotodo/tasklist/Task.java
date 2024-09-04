@@ -44,6 +44,13 @@ public abstract class Task {
         return "Did something happen? RoTodo is confused... Task undone:\n  " + this.toString();
     }
 
+    /**
+     * Checks if task match given keyword (with/without padding).
+     *
+     * @param keyword
+     * @param padding indicate to match with padding
+     * @return true if match, else false
+     */
     public boolean matchDescription(String keyword, boolean padding) {
         if (padding) {
             return value.toLowerCase().contains(" " + keyword.toLowerCase() + " ")

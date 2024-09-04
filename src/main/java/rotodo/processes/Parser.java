@@ -105,7 +105,7 @@ public class Parser {
         case TODO:
             if (token.length < 2) {
                 throw new IncompleteInputException(
-                    "RoTodo can't read you mind, otherwise "
+                    "RoTodo can't read your mind, otherwise "
                     + "RoTodo's creator would be rich!\n"
                     + "  RoTodo needs a task description");
             }
@@ -114,14 +114,14 @@ public class Parser {
         case DEADLINE:
             if (token.length < 2) {
                 throw new IncompleteInputException(
-                    "RoTodo can't read you mind, otherwise "
+                    "RoTodo can't read your mind, otherwise "
                     + "RoTodo's creator would be rich!\n"
                     + "  RoTodo needs a task description and deadline");
             }
             token = token[1].split(" /by ", 2);
             if (token.length < 2) {
                 throw new IncompleteInputException(
-                    "RoTodo can't read you mind, otherwise "
+                    "RoTodo can't read your mind, otherwise "
                     + "RoTodo's creator would be rich!\n"
                     + "  RoTodo needs a task description and deadline");
             }
@@ -130,14 +130,14 @@ public class Parser {
         case EVENT:
             if (token.length < 2) {
                 throw new IncompleteInputException(
-                    "RoTodo can't read you mind, otherwise "
+                    "RoTodo can't read your mind, otherwise "
                     + "RoTodo's creator would be rich!\n"
                     + "  RoTodo needs a task description, from and to date/time");
             }
             token = token[1].split(" /from | /to ", 3);
             if (token.length < 3) {
                 throw new IncompleteInputException(
-                    "RoTodo can't read you mind, otherwise "
+                    "RoTodo can't read your mind, otherwise "
                     + "RoTodo's creator would be rich!\n"
                     + "  RoTodo needs a task description, from and to date/time");
             }

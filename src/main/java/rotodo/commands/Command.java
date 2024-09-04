@@ -17,7 +17,7 @@ public abstract class Command {
      * will be applied to (one or more of) TaskList, Ui, and Storage.
      *
      * @param tl tasklist
-     * @param ui 
+     * @param ui
      * @param st storage
      */
     public abstract void execute(TaskList tl, Ui ui, Storage st);

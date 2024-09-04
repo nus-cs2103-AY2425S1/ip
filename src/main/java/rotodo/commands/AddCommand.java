@@ -52,7 +52,7 @@ public class AddCommand extends Command {
             case DEADLINE:
                 if (value.length < 2) {
                     throw new IncompleteInputException(
-                        "RoTodo can't read you mind, otherwise "
+                        "RoTodo can't read your mind, otherwise "
                         + "RoTodo's creator would be rich!\n"
                         + "  RoTodo needs a task description and deadline");
                 }
@@ -63,7 +63,7 @@ public class AddCommand extends Command {
             case EVENT:
                 if (value.length < 3) {
                     throw new IncompleteInputException(
-                        "RoTodo can't read you mind, otherwise "
+                        "RoTodo can't read your mind, otherwise "
                         + "RoTodo's creator would be rich!\n"
                         + "  RoTodo needs a task description, from and to date/time");
                 }
