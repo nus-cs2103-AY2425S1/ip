@@ -40,8 +40,13 @@ application {
 }
 
 shadowJar {
+<<<<<<< Updated upstream
     archiveBaseName = "chatbuddy"
+=======
+    archiveBaseName = "ChatBuddy"
+>>>>>>> Stashed changes
     archiveClassifier = null
+    archiveVersion = "1.0"
 }
 
 run{
