@@ -21,6 +21,9 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasklist) {
+        // Check if tasklist is null
+        assert tasklist != null : "tasklist argument cannot be null";
+
         List<Task> tasks = tasklist.getTasks();
 
         StringBuilder sb = new StringBuilder();

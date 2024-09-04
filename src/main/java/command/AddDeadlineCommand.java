@@ -20,6 +20,10 @@ public class AddDeadlineCommand extends Command {
      * @throws DeadlineException If the date format is invalid.
      */
     public AddDeadlineCommand(String desc, String date) throws DeadlineException {
+        // Check if desc and date are null
+        assert desc != null : "Desc argument cannot be null";
+        assert date != null : "Date argument cannot be null";
+
         task = new Deadline(desc, date);
 
     }
@@ -33,6 +37,9 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasklist) {
+        // Check if tasklist is null
+        assert tasklist != null : "tasklist argument cannot be null";
+
         tasklist.addTask(task);
 
         StringBuilder sb = new StringBuilder();
