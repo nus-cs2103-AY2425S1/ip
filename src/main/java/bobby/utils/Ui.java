@@ -1,4 +1,6 @@
-package bobby;
+package bobby.utils;
+
+import bobby.tasks.Task;
 
 import java.util.ArrayList;
 

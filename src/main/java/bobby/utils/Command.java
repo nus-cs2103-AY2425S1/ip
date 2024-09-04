@@ -1,4 +1,4 @@
-package bobby;
+package bobby.utils;
 
 public enum Command {
     /**

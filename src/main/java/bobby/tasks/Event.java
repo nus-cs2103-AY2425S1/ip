@@ -1,4 +1,4 @@
-package bobby;
+package bobby.tasks;
 
 import bobby.exception.EmptyDescriptionException;
 

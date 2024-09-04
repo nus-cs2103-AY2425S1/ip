@@ -1,5 +1,6 @@
-package bobby;
+package bobby.utils;
 
+import bobby.tasks.Task;
 import bobby.exception.BobbyException;
 
 import java.util.ArrayList;

@@ -1,5 +1,9 @@
-package bobby;
+package bobby.utils;
 
+import bobby.tasks.Deadline;
+import bobby.tasks.Event;
+import bobby.tasks.Task;
+import bobby.tasks.Todo;
 import bobby.exception.BobbyException;
 import bobby.exception.EmptyDescriptionException;
 
