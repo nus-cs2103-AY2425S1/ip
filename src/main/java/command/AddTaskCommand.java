@@ -5,18 +5,18 @@ import task.TaskList;
 
 public class AddTaskCommand extends Command {
     private final String[] ADD_TASK_PREFIXES = new String[] {
-        "\tYou got it! Adding task:\n\t",
-        "\tYou got it! Adding task:\n\t",
-        "\tYou got it! Adding task:\n\t",
-        "\tYou sure wanna do that?\n\t",
-        "\tAlright! Adding task:\n\t",
-        "\tAlright! Adding task:\n\t",
-        "\tAlright! Adding task:\n\t",
-        "\tOn it! Task added:\n\t",
-        "\tOn it! Task added:\n\t",
-        "\tWhatever you say! *nervous laughter*:\n\t",
-        "\tHmmmm..... Done. Task added:\n\t",
-        "\tWorking..... Done. Task added:\n\t",
+        "You got it! Adding task:\n",
+        "You got it! Adding task:\n",
+        "You got it! Adding task:\n",
+        "You sure wanna do that?\n",
+        "Alright! Adding task:\n",
+        "Alright! Adding task:\n",
+        "Alright! Adding task:\n",
+        "On it! Task added:\n",
+        "On it! Task added:\n",
+        "Whatever you say! *nervous laughter*:\n",
+        "Hmmmm..... Done. Task added:\n",
+        "Working..... Done. Task added:\n",
     };
 
     public AddTaskCommand(Task t) {

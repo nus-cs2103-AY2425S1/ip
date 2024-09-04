@@ -1,0 +1,59 @@
+package fret;
+
+import command.Command;
+import javafx.util.Pair;
+import psu.Storage;
+import psu.Ui;
+
+import task.TaskList;
+
+public class Fret {
+    Storage storage;
+    Ui fretUi;
+    TaskList userTasks;
+
+    public Fret(String filepath) {
+        this.storage = new Storage(filepath);
+        this.fretUi = new Ui();
+        this.userTasks = new TaskList(storage.loadTasksFromMemory());
+    }
+
+    public String welcomeUser() {
+        return fretUi.welcomeUser();
+    }
+
+    /**
+     * Runs the Fret chatbot program
+     */
+    public void run() {
+        fretUi.welcomeUser();
+        boolean isExit = false;
+        while (!isExit) {
+            // // Command userCommand = fretUi.processUserInput();
+            // isExit = userCommand.isExitCommand();
+            // String result = userCommand.execute(userTasks);
+            // fretUi.printBotOutputString(result);
+        }
+
+        fretUi.closeUi();
+        storage.writeTasksToMemory(userTasks.taskListToFile());
+    }
+
+    /**
+     * gets the response from Fret based on user input
+     * 
+     * @param input input from the user
+     * @return Fret's reply to the user
+     */
+    public Pair<String, Boolean> getResponse(String input) {
+        Command userCommand = fretUi.processUserInput(input);
+        boolean isExit = userCommand.isExitCommand();
+        String result = userCommand.execute(userTasks);
+        return new Pair<String, Boolean>(result, isExit);
+        // fretUi.printBotOutputString(result);
+    }
+
+    public static void main(String[] args) {
+        new Fret("data/taskList.txt").run();
+    }
+}

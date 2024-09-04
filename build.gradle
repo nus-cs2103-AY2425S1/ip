@@ -47,7 +47,8 @@ test {
     }
 }
 
-mainClassName = "Fret"
+// mainClassName = "Fret"
+mainClassName = "Launcher"
 
 shadowJar {
     archiveBaseName = "fret"

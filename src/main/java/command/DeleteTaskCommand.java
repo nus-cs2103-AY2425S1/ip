@@ -4,11 +4,11 @@ import task.TaskList;
 
 public class DeleteTaskCommand extends Command {
     private final String[] TASK_DELETED_PREFIXES = new String[] {
-        "\tO-Okay, deleting task now.\n",
-        "\tAlright, task removed.\n",
-        "\tWhatever you say! Task deleted.\n",
-        "\tCtrl-alt-del\n",
-        "\tWatch me make this task disappear!\n"
+        "O-Okay, deleting task now.\n",
+        "Alright, task removed.\n",
+        "Whatever you say! Task deleted.\n",
+        "Ctrl-alt-del\n",
+        "Watch me make this task disappear!\n"
     };
 
     public DeleteTaskCommand(int i) {
@@ -21,7 +21,7 @@ public class DeleteTaskCommand extends Command {
             tasks.removeTask(this.getI());
             return generateRandomPrefix(TASK_DELETED_PREFIXES) + tasks.taskListToString();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            return "\tHold on a second! You don't have those many tasks!";
+            return "Hold on a second! You don't have those many tasks!";
         }
     }
 }

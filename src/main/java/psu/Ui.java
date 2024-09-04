@@ -26,8 +26,10 @@ public class Ui {
 
     /**
      * Welcomes the user with ASCII art and a greeting
+     * 
+     * @return the greeting
      */
-    public void welcomeUser() {
+    public String welcomeUser() {
         String logo = "________                ___ \n"
                 + "| _____|             ___| |___ \n"
                 + "| |___  __   _   ___ |__   __|\n"
@@ -35,19 +37,21 @@ public class Ui {
                 + "| |     |   /  <  __/   | |__\n"
                 + "|_|     |__|    \\___|   |___|\n";
         
-        System.out.println("Initiating...\n" + logo);
-
-        printBotOutputString("\tPersonal AI Fret, coming online!\n\tHey, how can I be of assistance?");
+        String welcomeString = "Initiating...\n" + logo 
+                + "\nPersonal AI Fret, coming online!\nHey, how can I be of assistance?";
+        
+        return welcomeString;
     }
 
     /**
      * Gets command-line input from user and
      * passes it to the parser for parsing
      * 
+     * @param input the input from the user
      * @return the Command object returned by the Parser
      */
-    public Command processUserInput() {
-        return this.inputParser.parse(this.uinput.nextLine());
+    public Command processUserInput(String input) {
+        return this.inputParser.parse(input);
     }
 
     /**

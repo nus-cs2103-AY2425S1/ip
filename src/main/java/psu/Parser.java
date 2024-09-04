@@ -10,12 +10,18 @@ import command.*;
 import task.*;
 
 public class Parser {
-    private static final Pattern NUMBER_PATTERN = Pattern.compile("[0-9]+");
-    private static final Pattern TODO_PATTERN = Pattern.compile("todo (.+)");
-    private static final Pattern DEADLINE_PATTERN = Pattern.compile("deadline (.+?) /by (.+)");
-    private static final Pattern EVENT_PATTERN = Pattern.compile("event (.+?) /from (.+) /to (.+)");
-    private static final Pattern DATETIME_PATTERN = Pattern.compile("(\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ tT]([\\d:]+) *(am|pm)");
-    private static final Pattern FIND_CMD_PATTERN = Pattern.compile("find (.+)");
+    private static final Pattern NUMBER_PATTERN
+            = Pattern.compile("[0-9]+");
+    private static final Pattern TODO_PATTERN
+            = Pattern.compile("todo (.+)");
+    private static final Pattern DEADLINE_PATTERN
+            = Pattern.compile("deadline (.+?) /by (.+)");
+    private static final Pattern EVENT_PATTERN
+            = Pattern.compile("event (.+?) /from (.+) /to (.+)");
+    private static final Pattern DATETIME_PATTERN
+            = Pattern.compile("(\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ tT]([\\d:]+) *(am|pm)");
+    private static final Pattern FIND_CMD_PATTERN
+            = Pattern.compile("find (.+)");
 
     /**
      * Takes in a string representing a date and time and returns a representative LocalDateTime object
@@ -88,7 +94,7 @@ public class Parser {
                 } else {
                     // if no integer found, reprompt for input
                     // printBotOutputString("\tUhhh sorry what did you wanna mark again?");
-                    return new ErrorCommand("\tUhhh sorry what did you wanna mark again?");
+                    return new ErrorCommand("Uhhh sorry what did you wanna mark again?");
                 }
             } else if (userInput.startsWith("unmark")) {
                 // else if user input starts with "unmark" then mark task X as incomplete
@@ -99,7 +105,7 @@ public class Parser {
                     int taskNum = Integer.parseInt(taskNumMatch.group());
                     return new TaskCompletionCommand(false, taskNum - 1);
                 } else {
-                    return new ErrorCommand("\tUhhh sorry what did you wanna mark again?");
+                    return new ErrorCommand("Uhhh sorry what did you wanna mark again?");
                 }
             } else if (userInput.startsWith("todo")) {
                 // add add user input to tasklist as todo
@@ -109,7 +115,7 @@ public class Parser {
                     Todo task = new Todo(taskMatcher.group(1));
                     return new AddTaskCommand(task);
                 } else {
-                    return new ErrorCommand("\tHang on it looks like you haven't given me any task to add!");
+                    return new ErrorCommand("Hang on it looks like you haven't given me any task to add!");
                 }
             } else if (userInput.startsWith("deadline")) {
                 // add user input as deadline task, after parsing out the date and task
@@ -124,10 +130,10 @@ public class Parser {
                         );
                         return new AddTaskCommand(task);
                     } else {
-                        return new ErrorCommand("\tHang on! You seem to have given me an invalid date and time!");
+                        return new ErrorCommand("Hang on! You seem to have given me an invalid date and time!");
                     }
                 } else {
-                    return new ErrorCommand("\tOops! You haven't given me any task or deadline to add!");
+                    return new ErrorCommand("Oops! You haven't given me any task or deadline to add!");
                 }
             } else if (userInput.startsWith("event")) {
                 // add user input as event task, after parsing out the dates and task
@@ -144,10 +150,10 @@ public class Parser {
                         );
                         return new AddTaskCommand(task);
                     } else {
-                        return new ErrorCommand("\tHang on! You seem to have given me an invalid date and time!");
+                        return new ErrorCommand("Hang on! You seem to have given me an invalid date and time!");
                     }
                 } else {
-                    return new ErrorCommand("\tHold on! You haven't given me any task or timings to add!");
+                    return new ErrorCommand("Hold on! You haven't given me any task or timings to add!");
                 }
             } else if (userInput.startsWith("delete")) {
                 // else if user input starts with "delete" then delete task X
@@ -160,7 +166,7 @@ public class Parser {
                     return new DeleteTaskCommand(taskNum - 1);
                 } else {
                     // if no integer found, reprompt for input
-                    return new ErrorCommand("\tUhhh sorry which task did you wish to delete?");
+                    return new ErrorCommand("Uhhh sorry which task did you wish to delete?");
                 }
             } else if (userInput.startsWith("find")) {
                 Matcher searchTermMatch = FIND_CMD_PATTERN.matcher(userInput);
@@ -169,10 +175,10 @@ public class Parser {
                     String searchTerm = searchTermMatch.group(1);
                     return new SearchTaskCommand(searchTerm);
                 } else {
-                    return new ErrorCommand("\tHang on, what do I need to look for?");
+                    return new ErrorCommand("Hang on, what do I need to look for?");
                 }
             } else {
-                return new ErrorCommand("\tUhhh I did not get that so I'm just gonna say yes!");
+                return new ErrorCommand("Uhhh I did not get that so I'm just gonna say yes!");
             }
         } else {
             return new ExitCommand();

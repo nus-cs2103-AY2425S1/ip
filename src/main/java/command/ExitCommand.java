@@ -9,7 +9,7 @@ public class ExitCommand extends Command {
 
     @Override
     public String execute(TaskList tasks) {
-        return "\tAlright, I've saved your tasks! Goodbye!";
+        return "Alright, I've saved your tasks! Goodbye!";
     }
 
     @Override

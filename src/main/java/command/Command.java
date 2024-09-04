@@ -7,11 +7,11 @@ import task.TaskList;
 
 public abstract class Command {
     private final Random RNG = new Random();
-    private int i;
+    private int taskIndex;
     private Task task;
 
     public Command(int i, Task t) {
-        this.i = i;
+        this.taskIndex = i;
         this.task = t;
     }
 
@@ -20,7 +20,7 @@ public abstract class Command {
     }
 
     public int getI() {
-        return this.i;
+        return this.taskIndex;
     }
 
     /**
