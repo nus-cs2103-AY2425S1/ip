@@ -8,7 +8,8 @@ public class NoDescriptionExceptions extends ToothlessExceptions {
 
     /**
      * Constructor for NoDescription.
-     * @param taskType the type of task that the user is trying to create
+     *
+     * @param taskType    the type of task that the user is trying to create
      * @param instruction the format for the task type
      */
     public NoDescriptionExceptions(String taskType, String instruction) {

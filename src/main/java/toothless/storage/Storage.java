@@ -20,18 +20,19 @@ public class Storage {
      * Saves the tasks to a file.
      */
     public void saveTask(ArrayList<Task> list) {
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
-            for(Task task : list) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
+            for (Task task : list) {
                 writer.write(getTaskData(task));
                 writer.newLine();
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("Toothless:\nOh no! There is an error saving quests to file.");
         }
     }
 
     /**
      * Returns the data of the task to save in the text file.
+     *
      * @param task The task to be saved.
      * @return The data of the task to be saved in the text file.
      */
@@ -67,6 +68,7 @@ public class Storage {
 
     /**
      * Parses the data from the file to a task.
+     *
      * @param taskData The data of the task.
      * @return The task parsed from the data.
      */
@@ -77,26 +79,26 @@ public class Storage {
         boolean isDone = splitData[1].equals("1");
         String description = splitData[2];
 
-        switch(taskType) {
-            case "T":
-                return new ToDo(description, isDone);
-            case "D":
-                String deadline = splitData[3];
-                try {
-                    return new Deadline(description, deadline, isDone);
-                } catch (ToothlessExceptions e) {
-                    System.out.println(e.getMessage());
-                }
-            case "E":
-                String eventStart = splitData[3];
-                String eventEnd = splitData[4];
-                try {
-                    return new Event(description, eventStart, eventEnd, isDone);
-                } catch (ToothlessExceptions e) {
-                    System.out.println(e.getMessage());
-                }
-            default:
-                return null;
+        switch (taskType) {
+        case "T":
+            return new ToDo(description, isDone);
+        case "D":
+            String deadline = splitData[3];
+            try {
+                return new Deadline(description, deadline, isDone);
+            } catch (ToothlessExceptions e) {
+                System.out.println(e.getMessage());
+            }
+        case "E":
+            String eventStart = splitData[3];
+            String eventEnd = splitData[4];
+            try {
+                return new Event(description, eventStart, eventEnd, isDone);
+            } catch (ToothlessExceptions e) {
+                System.out.println(e.getMessage());
+            }
+        default:
+            return null;
         }
     }
 }

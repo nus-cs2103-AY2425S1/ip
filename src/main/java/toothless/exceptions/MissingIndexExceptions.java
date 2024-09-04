@@ -8,7 +8,8 @@ public class MissingIndexExceptions extends ToothlessExceptions {
 
     /**
      * Constructor for MissingIndex.
-     * @param taskType the type of task that the user is trying to create
+     *
+     * @param taskType    the type of task that the user is trying to create
      * @param instruction the format for the task type
      */
     public MissingIndexExceptions(String taskType, String instruction) {

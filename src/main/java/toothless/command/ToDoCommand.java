@@ -17,6 +17,7 @@ public class ToDoCommand extends Command {
 
     /**
      * Constructor for ToDoCommand.
+     *
      * @param description Description of the todo task.
      */
     public ToDoCommand(String description) {
@@ -25,7 +26,7 @@ public class ToDoCommand extends Command {
 
     @Override
     public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
-        if(description.isEmpty()) {
+        if (description.isEmpty()) {
             throw new NoDescriptionExceptions("todo", "todo <description>");
         }
         taskList.addTask(new ToDo(description), ui, taskList);

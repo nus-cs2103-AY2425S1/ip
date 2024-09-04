@@ -21,6 +21,7 @@ public class Ui {
 
     /**
      * Reads the command entered by the user.
+     *
      * @return The command entered by the user.
      */
     public String readCommand() {
@@ -58,6 +59,7 @@ public class Ui {
 
     /**
      * Prints the message when a task is added.
+     *
      * @param task The task that is added.
      * @param size The size of the task list.
      */
@@ -78,6 +80,7 @@ public class Ui {
 
     /**
      * Prints the message when a task is marked as done.
+     *
      * @param task The task that is marked as done.
      */
     public void markDoneMessage(Task task) {
@@ -87,6 +90,7 @@ public class Ui {
 
     /**
      * Prints the message when a task is marked as undone.
+     *
      * @param task The task that is marked as undone.
      */
     public void markUndoneMessage(Task task) {

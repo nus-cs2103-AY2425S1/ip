@@ -7,7 +7,13 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests for Ui class.
+ */
 public class UiTest {
+    /**
+     * Tests if the welcome message is printed correctly.
+     */
     @Test
     public void testBye() {
         Ui ui = new Ui();

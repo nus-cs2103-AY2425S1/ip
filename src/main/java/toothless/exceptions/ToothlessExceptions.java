@@ -7,6 +7,7 @@ public class ToothlessExceptions extends Exception {
 
     /**
      * Constructor for ToothlessExceptions.
+     *
      * @param message the error message to be displayed
      */
     public ToothlessExceptions(String message) {
