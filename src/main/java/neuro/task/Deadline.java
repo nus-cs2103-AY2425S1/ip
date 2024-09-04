@@ -11,6 +11,12 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private final LocalDateTime deadline;
 
+    /**
+     * Constructs a Deadline object with the specified description and deadline.
+     *
+     * @param description The description of the task.
+     * @param deadline The deadline by which the task should be done.
+     */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
@@ -18,7 +24,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy[ HHmm]")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy[ HHmm]")) + ")";
     }
 
     @Override

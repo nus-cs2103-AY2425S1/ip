@@ -1,11 +1,18 @@
 package neuro;
 
-import neuro.command.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import neuro.command.AddCommand;
+import neuro.command.Command;
+import neuro.command.DeleteCommand;
+import neuro.command.ExitCommand;
+import neuro.command.FindCommand;
+import neuro.command.ListCommand;
+import neuro.command.MarkCommand;
+import neuro.command.UnmarkCommand;
 
 /**
  * The {@code Parser} class handles the parsing of user input strings.
@@ -94,8 +101,8 @@ public class Parser {
 
         // Missing /by
         if (byIndex < 0) {
-            throw new IllegalArgumentException("UH OH! The command given is missing the '/by' input for deadline." +
-                    "Try updating the command like 'deadline finish homework /by Mon 2359'.");
+            throw new IllegalArgumentException("UH OH! The command given is missing the '/by' input for deadline."
+                    + "Try updating the command like 'deadline finish homework /by Mon 2359'.");
         }
         return byIndex;
     }
@@ -117,8 +124,8 @@ public class Parser {
 
         // Missing /from
         if (fromIndex < 0) {
-            throw new IllegalArgumentException("UH OH! The command given is missing the '/from' input for event." +
-                    "Try updating the command like 'event project meeting /from Mon 2pm /to 5pm'.");
+            throw new IllegalArgumentException("UH OH! The command given is missing the '/from' input for event."
+                    + "Try updating the command like 'event project meeting /from Mon 2pm /to 5pm'.");
         }
         return fromIndex;
     }
@@ -140,8 +147,8 @@ public class Parser {
 
         // Missing /to
         if (toIndex < 0) {
-            throw new IllegalArgumentException("UH OH! The command given is missing the '/to' input for event." +
-                    "Try updating the command like 'event project meeting /from Mon 2pm /to 5pm'.");
+            throw new IllegalArgumentException("UH OH! The command given is missing the '/to' input for event."
+                    + "Try updating the command like 'event project meeting /from Mon 2pm /to 5pm'.");
         }
         return toIndex;
     }
@@ -150,7 +157,7 @@ public class Parser {
         String[] commandComponents = userCommand.split(" ");
 
         try {
-            return Integer.valueOf(commandComponents[1]);
+            return Integer.parseInt(commandComponents[1]);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             return -1;
         }

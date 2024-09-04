@@ -4,9 +4,17 @@ import neuro.Storage;
 import neuro.Ui;
 import neuro.task.TaskList;
 
+/**
+ * The {@code FindCommand} class represents a command to find tasks in the task list based on a search query.
+ */
 public class FindCommand extends Command {
     private final String searchQuery;
 
+    /**
+     * Constructs a FindCommand object with the specified search query.
+     *
+     * @param searchQuery The query used to search for tasks.
+     */
     public FindCommand(String searchQuery) {
         this.searchQuery = searchQuery;
     }

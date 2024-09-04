@@ -7,7 +7,7 @@ import java.util.Iterator;
  * Represents a list of <code>Task</code>s.
  */
 public class TaskList implements Iterable<Task> {
-    ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     /**
      * <code>TaskList</code> constructor.

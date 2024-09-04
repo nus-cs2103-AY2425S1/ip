@@ -1,8 +1,7 @@
 package neuro.command;
 
-import neuro.Ui;
 import neuro.Storage;
-
+import neuro.Ui;
 import neuro.task.Task;
 import neuro.task.TaskList;
 
@@ -10,8 +9,13 @@ import neuro.task.TaskList;
  * The {@code DeleteCommand} class represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    private int index;
+    private final int index;
 
+    /**
+     * Constructs a DeleteCommand object with the specified index of the task to be deleted.
+     *
+     * @param index The index of the task to be deleted from the task list.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
@@ -26,8 +30,8 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index < 0) {
-            ui.showError("Missing or invalid index for 'delete' command! Add a valid " +
-                    "index for a task to delete, like 'delete 2'.");
+            ui.showError("Missing or invalid index for 'delete' command! Add a valid "
+                    + "index for a task to delete, like 'delete 2'.");
             return;
         }
 
@@ -38,8 +42,8 @@ public class DeleteCommand extends Command {
             ui.showMessage(task.toString());
             ui.showMessage("Now you have " + tasks.getSize() + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Index out of bounds! Try calling the command 'list' to " +
-                    "verify the index of the desired task.");
+            ui.showError("Index out of bounds! Try calling the command 'list' to "
+                    + "verify the index of the desired task.");
         }
     }
 }

@@ -6,9 +6,15 @@ package neuro.task;
  * It extends the {@link Task} class, inheriting its properties and methods.
  */
 public class Event extends Task {
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
+    /**
+     * Constructs an Event object with the specified from and to time/date.
+     * @param description The description of the task.
+     * @param from The "from" or starting time/date for the event.
+     * @param to The "to" or ending time/date for the event.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
