@@ -8,6 +8,13 @@ public class ListTaskCommand extends Command {
         Alexer alexer = Alexer.getInstance();
         Prompter prompter = alexer.getPrompter();
 
-        prompter.printResponse(alexer.getTaskManager().toString());
+        int taskCount = alexer.getTaskManager().getTaskCount();
+        StringBuilder response = new StringBuilder();
+        for (int i = 0; i < taskCount; i++) {
+            String task = alexer.getTaskManager().getTask(i).toString();
+            response.append(String.format("\t%d: %s\n", i + 1, task));
+        }
+
+        prompter.printTaskList(response.toString());
     }
 }
