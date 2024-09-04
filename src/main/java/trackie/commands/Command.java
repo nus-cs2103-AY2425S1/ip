@@ -1,3 +1,9 @@
+package trackie.commands;
+
+import trackie.storage.Storage;
+import trackie.storage.TaskList;
+import trackie.ui.Ui;
+
 public abstract class Command {
     protected String[] arguments;
     private boolean isExit;

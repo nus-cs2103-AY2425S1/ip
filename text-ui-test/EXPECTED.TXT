@@ -1,4 +1,4 @@
-Hello, I'm Trackie. Nice to meet you =)
+Hello, I'm trackie.trackie. Nice to meet you =)
 Instructions:
 To add a todo task: todo [description]
 To add a deadline task: deadline [description] /by [deadline]

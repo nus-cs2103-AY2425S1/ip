@@ -1,3 +1,7 @@
+package trackie.parsing;
+
+import trackie.commands.*;
+
 public class Parser {
     public static Command parseCommand(String input) {
         String[] arguments = input.split(" ");

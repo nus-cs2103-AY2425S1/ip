@@ -1,3 +1,10 @@
+package trackie.storage;
+
+import trackie.tasks.Deadline;
+import trackie.tasks.Event;
+import trackie.tasks.Task;
+import trackie.tasks.Todo;
+
 import java.io.*;
 import java.util.Scanner;
 
