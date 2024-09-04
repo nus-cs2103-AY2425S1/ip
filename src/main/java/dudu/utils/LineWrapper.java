@@ -1,7 +1,10 @@
 package dudu.utils;
 
+/**
+ * Represents a class to wrap strings in a line rule
+ */
 public class LineWrapper {
-    static final String lineRule = "--------------------------------------------";
+    private static String lineRule = "--------------------------------------------";
 
     /**
      * Wraps the provided content with a horizontal line above and below.

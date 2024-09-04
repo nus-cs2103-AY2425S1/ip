@@ -1,15 +1,17 @@
 package dudu.command;
 
-import dudu.command.Command;
+import java.io.IOException;
+
 import dudu.task.Task;
 import dudu.utils.Storage;
 import dudu.utils.TaskList;
 import dudu.utils.UI;
 
-import java.io.IOException;
-
+/**
+ * Represents a event task creation user command into the chatbot
+ */
 public class CommandEvent extends Command {
-    Task task;
+    private Task task;
 
     /**
      * Constructs a CommandEvent with the specified task.

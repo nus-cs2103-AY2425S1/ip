@@ -1,10 +1,12 @@
 package dudu.command;
 
-import dudu.command.Command;
 import dudu.utils.Storage;
 import dudu.utils.TaskList;
 import dudu.utils.UI;
 
+/**
+ * Represents a list tasks user command into the chatbot
+ */
 public class CommandList extends Command {
     /**
      * Executes the exit command by displaying a goodbye message to the user.
@@ -14,7 +16,7 @@ public class CommandList extends Command {
      * @param storage The storage (not used in this command).
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage){
+    public void execute(TaskList taskList, UI ui, Storage storage) {
         ui.printTasks(taskList);
     }
 
