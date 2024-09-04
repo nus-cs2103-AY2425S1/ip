@@ -26,6 +26,8 @@ public class Alexer {
 
     private final Prompter prompter;
 
+    private final CommandHandler commandHandler;
+
     public static Alexer getInstance() {
         return alexer;
     }
@@ -35,6 +37,7 @@ public class Alexer {
         scanner = new Scanner(System.in);
         tasks = new TaskManager();
         prompter = new Prompter();
+        commandHandler = new CommandHandler();
     }
 
     public Prompter getPrompter() {
@@ -180,46 +183,48 @@ public class Alexer {
         List<String> arguments = new ArrayList<>(List.of(input.split(" ")));
         String command = arguments.remove(0);
 
-        switch (command) {
-        case "bye":
-            prompter.printGoodbye();
-            break;
-        case "list":
-            printTasks();
+        Command cmd = commandHandler.getCommand(command.toLowerCase());
+        if (cmd != null) {
+            cmd.run(arguments.toArray(String[]::new));
             promptLoop();
-            break;
-        case "mark":
-            int index = Integer.parseInt(arguments.get(0));
-            markTaskDone(index);
-            promptLoop();
-            break;
-        case "unmark":
-            int taskNum = Integer.parseInt(arguments.get(0));
-            unmarkTaskDone(taskNum);
-            promptLoop();
-            break;
-        case "todo":
-            addTodo(arguments);
-            promptLoop();
-            break;
-        case "deadline":
-            addDeadline(arguments);
-            promptLoop();
-            break;
-        case "event":
-            addEvent(arguments);
-            promptLoop();
-            break;
-        case "delete":
-            deleteTask(arguments);
-            promptLoop();
-            break;
-        default:
-            System.out.println(BREAK);
-            System.out.println("Uh-oh, I did not understand what you are trying to do.");
-            System.out.println(BREAK);
-            promptLoop();
-            break;
+        } else {
+            switch (command) {
+            case "bye":
+                prompter.printGoodbye();
+                break;
+            case "mark":
+                int index = Integer.parseInt(arguments.get(0));
+                markTaskDone(index);
+                promptLoop();
+                break;
+            case "unmark":
+                int taskNum = Integer.parseInt(arguments.get(0));
+                unmarkTaskDone(taskNum);
+                promptLoop();
+                break;
+            case "todo":
+                addTodo(arguments);
+                promptLoop();
+                break;
+            case "deadline":
+                addDeadline(arguments);
+                promptLoop();
+                break;
+            case "event":
+                addEvent(arguments);
+                promptLoop();
+                break;
+            case "delete":
+                deleteTask(arguments);
+                promptLoop();
+                break;
+            default:
+                System.out.println(BREAK);
+                System.out.println("Uh-oh, I did not understand what you are trying to do.");
+                System.out.println(BREAK);
+                promptLoop();
+                break;
+            }
         }
     }
 
