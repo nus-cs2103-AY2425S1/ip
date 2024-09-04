@@ -16,73 +16,74 @@ public class Ui {
     private static final String ENDING = "Bye! Hope to see you again soon!\n"
             + LINE;
 
-    public void printLine() {
-        System.out.print(LINE);
+    public String printLine() {
+        return LINE;
     }
 
-    public void printGreeting() {
-        System.out.print(GREETING);
+    public String printGreeting() {
+        return GREETING;
     }
 
-    public void printEnding() {
-        System.out.print(ENDING);
+    public String printEnding() {
+        return ENDING;
     }
 
-    public void printIndexError() {
-        System.out.println("Invalid index input. Please try again.");
+    public String printIndexError() {
+        return "Invalid index input. Please try again.";
     }
 
-    public void printTodoFormatError() {
-        System.out.println("Invalid input for todo. Make sure that you are following the correct format.");
-        System.out.println("Example:");
-        System.out.println("todo Read Book");
+    public String printTodoFormatError() {
+        return "Invalid input for todo. Make sure that you are following the correct format.\n"
+                + "Example:\n"
+                + "todo Read Book";
     }
 
-    public void printDeadlineFormatError() {
-        System.out.println("Invalid input for Deadline. Make sure that you are following the correct format.");
-        System.out.println("Example:");
-        System.out.println("deadline Return Book /by 2024-09-01");
+    public String printDeadlineFormatError() {
+        return "Invalid input for Deadline. Make sure that you are following the correct format.\n"
+                + "Example:\n"
+                + "deadline Return Book /by 2024-09-01";
     }
 
-    public void printEventFormatError() {
-        System.out.println("Invalid input for Event. Make sure that you are following the correct format.");
-        System.out.println("Example:");
-        System.out.println("event Orientation Camp /from 2024-09-01 /to 20224-09-04");
+    public String printEventFormatError() {
+        return "Invalid input for Event. Make sure that you are following the correct format.\n"
+                + "Example:"
+                + "event Orientation Camp /from 2024-09-01 /to 20224-09-04";
     }
 
-    public void printUnknownCommand() {
-        System.out.println("Invalid command given. Please try again.");
+    public String printUnknownCommand() {
+        return "Invalid command given. Please try again.";
     }
 
-    public void printList(TaskList tasks) {
-        System.out.print(tasks.toString());
+    public String printList(TaskList tasks) {
+        return tasks.toString();
     }
 
-    public void printMarkDone(Task task) {
-        System.out.println("Ok, I've marked this task as completed:");
-        System.out.println(task.toString());
+    public String printMarkDone(Task task) {
+        return "Ok, I've marked this task as completed:\n"
+                + task.toString();
     }
 
-    public void printMarkIncomplete(Task task) {
-        System.out.println("Ok, I've marked this task as incomplete:");
-        System.out.println(task.toString());
+    public String printMarkIncomplete(Task task) {
+        return "Ok, I've marked this task as incomplete:\n"
+                + task.toString();
     }
 
-    public void printDeleteTask(Task task) {
-        System.out.println("Ok, I've deleted this task:");
-        System.out.println(task.toString());
+    public String printDeleteTask(Task task) {
+        return "Ok, I've deleted this task:\n"
+                + task.toString();
     }
 
-    public void printUpdateError() {
-        System.out.println("Unable to update save file.");
+    public String printUpdateError() {
+        return "Unable to update save file.";
     }
 
-    public void printFoundTask(ArrayList<Task> foundTasks) {
+    public String printFoundTask(ArrayList<Task> foundTasks) {
         int i = 1;
-        System.out.println("Here are the matching tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         for (Task task : foundTasks) {
-            System.out.println(i + ". " + task.toString());
+            sb.append(i).append(". ").append(task.toString()).append("\n");
             i++;
         }
+        return sb.toString();
     }
 }
