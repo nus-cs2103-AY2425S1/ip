@@ -16,7 +16,7 @@ public class InvalidCommand extends Command {
      * @param storage Loads list of tasks from file and writes tasks to the bestie.txt file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.invalidCommand();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.invalidCommand();
     }
 }

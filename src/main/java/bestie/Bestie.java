@@ -1,6 +1,5 @@
 package bestie;
 
-import java.util.Scanner;
 
 import bestie.command.Command;
 import bestie.command.ExitCommand;
@@ -15,8 +14,6 @@ public class Bestie {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private Scanner sc = new Scanner(System.in);
-
 
     /**
      * Creates an instance of the Bestie chatbot, initialising the ui, storage and tasklist
@@ -24,7 +21,7 @@ public class Bestie {
      * @param filePath path of the bestie.txt file where tasks are stored.
      */
     public Bestie(String filePath) {
-        this.ui = new Ui(sc);
+        this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage.loadTasksFromFile());
     }
@@ -50,6 +47,16 @@ public class Bestie {
         }
 
     }
+
+    public String welcomeMessage() {
+        return this.ui.welcome();
+    }
+
+    public String getResponse(String userInput) {
+        Command instruction = Parser.parse(userInput);
+        return instruction.execute(tasks, ui, storage);
+    }
+
     public static void main(String[] args) {
         new Bestie("bestie.txt").run();
     }

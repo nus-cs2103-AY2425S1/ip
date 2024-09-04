@@ -18,9 +18,9 @@ public class ExitCommand extends Command {
      * @param storage Loads list of tasks from file and writes tasks to the bestie.txt file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         // only save the tasks that are still in the list when exiting
         storage.saveTasksToFile(tasks);
-        ui.byeBye();
+        return ui.byeBye();
     }
 }

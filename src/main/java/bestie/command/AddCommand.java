@@ -30,9 +30,9 @@ public class AddCommand extends Command {
      * @param storage Loads list of tasks from file and writes tasks to the bestie.txt file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(this.task);
-        ui.showTaskAdded(task, tasks.size());
+        return ui.showTaskAdded(task, tasks.size());
     }
 
 }
