@@ -13,7 +13,6 @@ public class Majima {
 
     /**
      * Creates a Majima object and the datapath for the .txt file.
-     *
      */
     public Majima(String filePath) {
         ui = new Ui();
@@ -27,28 +26,20 @@ public class Majima {
     }
 
     /**
-     * Starts the Majima chatbot.
+     * Processes user input and returns Majimabot's response.
      *
+     * @param input User's input string
+     * @return String Response from Majimabot
      */
-    public void run() {
-        ui.userGreet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                //placeholder for ui.linegap
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (MajimaException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                //placeholder
-            }
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            ui.clearOutput(); // Clear previous outputs
+            c.execute(tasks, ui, storage); // Execute the command
+        } catch (MajimaException e) {
+            ui.showError(e.getMessage());
         }
-    }
-
-    public static void main(String[] args) {
-        new Majima("data/Majima.txt").run();
+        return ui.getOutput(); // Return the output collected in Ui
     }
 }
+

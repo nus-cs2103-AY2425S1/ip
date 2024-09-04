@@ -41,11 +41,11 @@ public class Storage {
         try {
             File parentDir = file.getParentFile();
             if (!parentDir.exists()) {
-                parentDir.mkdirs();  // Create directory if it doesn't exist
+                parentDir.mkdirs();
             }
-            
+
             if (!file.exists()) {
-                file.createNewFile(); // Create the file if it doesn't exist
+                file.createNewFile();
             }
 
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
