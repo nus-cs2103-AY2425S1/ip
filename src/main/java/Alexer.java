@@ -12,9 +12,21 @@ public class Alexer {
 
     public static final String NAME = "Alexer";
 
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
-    private final TaskManager tasks = new TaskManager();
+    private final TaskManager tasks;
+
+    private static Alexer alexer;
+
+    public Alexer() {
+        alexer = this;
+        scanner = new Scanner(System.in);
+        tasks = new TaskManager();
+    }
+
+    public Alexer getInstance() {
+        return alexer;
+    }
 
     /**
      * Prints the chatbot response with break lines
