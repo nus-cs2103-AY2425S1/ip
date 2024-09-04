@@ -12,11 +12,12 @@ public class TodoCommand extends Command {
         this.manager = manager;
     }
     @Override
-    public void execute(String userInput) throws AvoException {
+    public CommandResult execute(String userInput) throws AvoException {
         String[] inputs = userInput.split("todo ");
         if (inputs.length < 2) {
             throw new AvoException("OOPS!!! The description of a todo cannot be empty.");
         }
-        manager.addTask(new ToDo(inputs[1].trim()));
+        String message = manager.addTask(new ToDo(inputs[1].trim()));
+        return new CommandResult(message);
     }
 }

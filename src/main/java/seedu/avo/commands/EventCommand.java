@@ -16,13 +16,14 @@ public class EventCommand extends Command {
         this.manager = manager;
     }
     @Override
-    public void execute(String userInput) throws AvoException {
+    public CommandResult execute(String userInput) throws AvoException {
         String[] inputs = userInput.split("event |/from |/to ");
         if (inputs.length < 4) {
             throw new AvoException("OOPS!!! The description of an event cannot be empty.");
         }
         LocalDateTime startTime = DateTime.parseWithTime(inputs[2]);
         LocalDateTime endTime = DateTime.parseWithTime(inputs[3]);
-        manager.addTask(new Event(inputs[1].trim(), startTime, endTime));
+        String message = manager.addTask(new Event(inputs[1].trim(), startTime, endTime));
+        return new CommandResult(message);
     }
 }

@@ -14,7 +14,7 @@ public class ExitCommand extends Command {
     public boolean isExit() {
         return true; }
     @Override
-    public void execute(String userInput) throws AvoException {
-
+    public CommandResult execute(String userInput) throws AvoException {
+        return new CommandResult("");
     }
 }

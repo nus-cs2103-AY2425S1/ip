@@ -33,7 +33,7 @@ public class Main extends Application {
     private AppUI ui = new AppUI();
     private TaskManager taskManager = new TaskManager(storage, ui);
     private CommandParser parser = new CommandParser(new CommandManager(taskManager));
-    private Avo avo = new Avo(ui, parser);
+    private Avo avo = new Avo(parser);
 
     @Override
     public void start(Stage stage) {

@@ -42,10 +42,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = avo.getResponse(input);
+        Response response = avo.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAvoDialog(response, avoImage)
+                DialogBox.getAvoDialog(response.getMessage(), avoImage)
         );
         userInput.clear();
     }

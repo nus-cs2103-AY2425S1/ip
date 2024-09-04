@@ -56,13 +56,13 @@ public class AppUI {
      * Displays the number of tasks with a user-friendly message
      * @param count The number of tasks
      */
-    public void printTaskCount(int count) {
+    public String printTaskCount(int count) {
         if (count == 0) {
-            print("You have no tasks.");
+            return "You have no tasks.";
         } else if (count == 1) {
-            print("You have one task.");
+            return "You have one task.";
         } else {
-            print(String.format("You have %s tasks.", count));
+            return String.format("You have %s tasks.", count);
         }
     }
 
@@ -71,13 +71,12 @@ public class AppUI {
      * @param tasks The list of tasks
      * @param indexes The list of indices that will be printed out
      */
-    public void printTasksFromList(List<Task> tasks, List<Integer> indexes) {
+    public String printTasksFromList(List<Task> tasks, List<Integer> indexes) {
+        StringBuilder stringBuilder = new StringBuilder();
         for (Integer index: indexes) {
-            print(getTask(tasks, index));
+            stringBuilder.append(getTask(tasks, index)).append("\n");
         }
-    }
-    public void printTask(List<Task> tasks, int index) {
-        print(getTask(tasks, index));
+        return stringBuilder.toString();
     }
 
     /**
@@ -85,34 +84,34 @@ public class AppUI {
      * @param tasks The list of tasks
      * @param index The index of the completed task
      */
-    public void printTaskMarked(List<Task> tasks, int index) {
-        print("Nice! I've marked this task as done:");
-        printTask(tasks, index);
+    public String printTaskMarked(List<Task> tasks, int index) {
+        return "Nice! I've marked this task as done:\n"
+                + getTask(tasks, index);
     }
     /**
      * Displays a user-friendly message when a task is marked as uncompleted
      * @param tasks The list of tasks
      * @param index The index of the uncompleted task
      */
-    public void printTaskUnmarked(List<Task> tasks, int index) {
-        print("OK, I've marked this task as not done yet:");
-        printTask(tasks, index);
+    public String printTaskUnmarked(List<Task> tasks, int index) {
+        return "OK, I've marked this task as not done yet:\n"
+                + getTask(tasks, index);
     }
 
     /**
      * Displays a user-friendly message when a task is added
      * @param tasks The list of tasks
      */
-    public void printTaskAdded(List<Task> tasks) {
-        print("Got it. I've added this task:");
-        printTask(tasks, tasks.size() - 1);
+    public String printTaskAdded(List<Task> tasks) {
+        return "Got it. I've added this task:\n"
+                + getTask(tasks, tasks.size() - 1);
     }
     /**
      * Displays a user-friendly message when a task is removed
      * @param task The removed task
      */
-    public void printTaskRemoved(Task task) {
-        print("Noted. I've removed this task:");
-        print(task.toString());
+    public String printTaskRemoved(Task task) {
+        return "Noted. I've removed this task:\n"
+                + task.toString();
     }
 }

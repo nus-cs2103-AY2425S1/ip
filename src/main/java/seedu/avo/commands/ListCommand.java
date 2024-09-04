@@ -10,7 +10,8 @@ public class ListCommand extends Command {
         this.manager = manager;
     }
     @Override
-    public void execute(String userInput) {
-        manager.listTasks();
+    public CommandResult execute(String userInput) {
+        String message = manager.listTasks();
+        return new CommandResult(message);
     }
 }
