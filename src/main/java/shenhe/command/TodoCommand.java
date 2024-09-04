@@ -13,7 +13,7 @@ import shenhe.Storage;
  * the user. It validates the input, adds the new task to the list, and provides feedback through the user interface.
  * </p>
  */
-public class TodoCommand extends Command {
+public final class TodoCommand extends Command {
     private String userInput;
 
     /**

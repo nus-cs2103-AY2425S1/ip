@@ -16,7 +16,7 @@ import shenhe.task.Deadline;
  * extract task descriptions and deadline information, and then updates the task list and storage.
  * </p>
  */
-public class DeadlineCommand extends Command {
+public final class DeadlineCommand extends Command {
     private String userInput;
 
     /**

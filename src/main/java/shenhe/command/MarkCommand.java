@@ -12,7 +12,7 @@ import shenhe.exception.EmptyTaskDescriptionException;
  * It validates the user input, updates the task status, and provides feedback through the user interface.
  * </p>
  */
-public class MarkCommand extends Command {
+public final class MarkCommand extends Command {
     private String userInput;
 
     /**

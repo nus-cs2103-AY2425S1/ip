@@ -13,7 +13,7 @@ import shenhe.Storage;
  * provides feedback through the user interface.
  * </p>
  */
-public class UnmarkCommand extends Command {
+public final class UnmarkCommand extends Command {
     private String userInput;
 
     /**

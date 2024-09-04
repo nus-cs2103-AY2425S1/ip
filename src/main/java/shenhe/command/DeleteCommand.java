@@ -13,7 +13,7 @@ import shenhe.exception.EmptyTaskDescriptionException;
  * It updates the task list and saves the changes to storage.
  * </p>
  */
-public class DeleteCommand extends Command {
+public final class DeleteCommand extends Command {
     private String userInput;
 
     /**

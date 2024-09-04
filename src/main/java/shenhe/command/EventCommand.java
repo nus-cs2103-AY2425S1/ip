@@ -14,7 +14,7 @@ import shenhe.task.Event;
  * It parses the input, creates an {@code Event} object, and updates the task list and storage.
  * </p>
  */
-public class EventCommand extends Command {
+public final class EventCommand extends Command {
     private String userInput;
 
     /**

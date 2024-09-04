@@ -14,7 +14,7 @@ import java.util.List;
  * in their descriptions. It retrieves the matching tasks from the task list and displays them to the user.
  * </p>
  */
-public class FindCommand extends Command {
+public final class FindCommand extends Command {
     private String keyword;
 
     /**

@@ -12,7 +12,7 @@ import shenhe.Storage;
  * It checks if the user input is valid and, if so, retrieves and displays each task in the list.
  * </p>
  */
-public class ListCommand extends Command {
+public final class ListCommand extends Command {
     private String userInput;
 
     /**

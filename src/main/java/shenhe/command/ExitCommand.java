@@ -11,7 +11,7 @@ import shenhe.Storage;
  * When this command is executed, it will display a goodbye message and indicate that the application should exit.
  * </p>
  */
-public class ExitCommand extends Command {
+public final class ExitCommand extends Command {
 
     /**
      * Executes the exit command.

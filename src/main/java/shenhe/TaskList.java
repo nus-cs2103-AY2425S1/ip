@@ -13,7 +13,7 @@ import java.util.List;
  * the size of the list.
  * </p>
  */
-public class TaskList {
+public final class TaskList {
     private List<Task> tasks;
 
     /**
