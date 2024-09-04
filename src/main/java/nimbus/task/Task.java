@@ -26,6 +26,15 @@ public class Task {
         return this.completed;
     }
 
+    /**
+     * Gets task name
+     * @return String of task name
+     */
+
+    public String getTaskName() {
+        return taskName;
+    }
+
     public String toFileFormat() {
         return this.taskName;
     }

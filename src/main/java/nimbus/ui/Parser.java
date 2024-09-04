@@ -27,6 +27,8 @@ public class Parser {
             new UnmarkCommand(userInput, taskList).execute();
         } else if (userInput.startsWith("delete ")) {
             new DeleteCommand(userInput, taskList).execute();
+        } else if (userInput.startsWith("find ")) {
+            new FindCommand(userInput, taskList).execute();
         } else {
             new AddCommand(userInput, taskList).execute();
         }
