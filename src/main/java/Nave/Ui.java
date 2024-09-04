@@ -2,7 +2,7 @@ package Nave;
 
 public class Ui {
     public void greet() {
-        System.out.println(formatResponse("Hello! :) I'm Nave.Nave, your personal task management assistant.\n" +
+        System.out.println(formatResponse("Hello! :) I'm Nave, your personal task management assistant.\n" +
                 "What can I do for you today?"));
     }
 
