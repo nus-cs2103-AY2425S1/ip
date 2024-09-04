@@ -23,25 +23,31 @@ public class TaskList {
         }
         return s.toString();
     }
-    public void createTodoTask(String name) throws IOException {
+    public void createTodoTask(String name, boolean fromSave) throws IOException {
         Task thisTask = new Todo(name);
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
-        ui.printTaskCreationMessage(thisTask, this);
+        if (!fromSave) {
+            ui.printTaskCreationMessage(thisTask, this);
+        }
     }
 
-    public void createEventTask(String name, String start, String end) throws IOException {
+    public void createEventTask(String name, String start, String end, boolean fromSave) throws IOException {
         Task thisTask = new Event(name, start, end);
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
-        ui.printTaskCreationMessage(thisTask, this);
+        if (!fromSave) {
+            ui.printTaskCreationMessage(thisTask, this);
+        }
     }
 
-    public void createDeadlineTask(String name, LocalDateTime duedate) throws IOException {
+    public void createDeadlineTask(String name, LocalDateTime duedate, boolean fromSave) throws IOException {
         Task thisTask = new Deadline(name, duedate);
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
-        ui.printTaskCreationMessage(thisTask, this);
+        if (!fromSave) {
+            ui.printTaskCreationMessage(thisTask, this);
+        }
     }
 
     public void markTaskAsDone(int taskNum) throws IOException {

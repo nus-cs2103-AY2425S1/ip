@@ -19,12 +19,14 @@ public class Parser {
         switch (strArray.length) {
             case 3:
                 try {
-                    taskList.createTodoTask(strArray[2]);
+                    taskList.createTodoTask(strArray[2], true);
                     switch (strArray[1]) {
                         case "m":
                             taskList.setMostRecentTaskCompletionStatus(true);
+                            break;
                         case "u":
                             taskList.setMostRecentTaskCompletionStatus(false);
+                            break;
                     }
                 } catch (IOException e) {
                     ui.printErrorWritingFileMessage();
@@ -33,12 +35,14 @@ public class Parser {
             case 4:
                 try {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kkmm");
-                    taskList.createDeadlineTask(strArray[2], LocalDateTime.parse(strArray[3], formatter));
+                    taskList.createDeadlineTask(strArray[2], LocalDateTime.parse(strArray[3], formatter), true);
                     switch (strArray[1]) {
                         case "m":
                             taskList.setMostRecentTaskCompletionStatus(true);
+                            break;
                         case "u":
                             taskList.setMostRecentTaskCompletionStatus(false);
+                            break;
                     }
                 } catch (IOException e) {
                     ui.printErrorWritingFileMessage();
@@ -46,12 +50,14 @@ public class Parser {
                 break;
             case 5:
                 try {
-                    taskList.createEventTask(strArray[2], strArray[3], strArray[4]);
+                    taskList.createEventTask(strArray[2], strArray[3], strArray[4], true);
                     switch (strArray[1]) {
                         case "m":
                             taskList.setMostRecentTaskCompletionStatus(true);
+                            break;
                         case "u":
                             taskList.setMostRecentTaskCompletionStatus(false);
+                            break;
                     }
                 } catch (IOException e) {
                     ui.printErrorWritingFileMessage();
@@ -67,7 +73,7 @@ public class Parser {
         // create new todo task
         if (strArray[0].equalsIgnoreCase("todo")) {
             try {
-                taskList.createTodoTask(strArray[1]);
+                taskList.createTodoTask(strArray[1], false);
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.printNeedMoreInfoTodoMessage();
             } catch (IOException e) {
@@ -82,7 +88,7 @@ public class Parser {
                 String dueDate = todoStringArray[1];
                 String name = todoStringArray[0].split(" ", 2)[1];
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kkmm");
-                taskList.createDeadlineTask(name, LocalDateTime.parse(dueDate, formatter));
+                taskList.createDeadlineTask(name, LocalDateTime.parse(dueDate, formatter), false);
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.printNeedMoreInfoDeadlineMessage();
             } catch (IOException e) {
@@ -96,7 +102,7 @@ public class Parser {
                 String[] eventStringArray = taskName.split(" /from ");
                 String[] duration = eventStringArray[1].split(" /to ");
                 String name = eventStringArray[0].split(" ", 2)[1];
-                taskList.createEventTask(name, duration[0], duration[1]);
+                taskList.createEventTask(name, duration[0], duration[1], false);
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.printNeedMoreInfoEventMessage();
             } catch (IOException e) {

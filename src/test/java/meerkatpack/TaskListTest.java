@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
     @Test
-    public void markTodoAsDone_whenCalled_changeDoneStatus() throws IOException {
+    public void setMostRecentTaskCompletionStatus_whenCalled_setDoneStatus() throws IOException {
         TaskList taskList = new TaskList();
-        Todo todoTask = new Todo("eat");
-        boolean preMarkStatus = todoTask.isCompleted();
-        taskList.markTaskAsDone(1);
-        boolean postMarkStatus = todoTask.isCompleted();
-        assertEquals(preMarkStatus, postMarkStatus);
+        taskList.createTodoTask("eat", true);
+        boolean preMarkStatus = taskList.getTaskList().get(taskList.getSize()-1).isCompleted();
+        taskList.setMostRecentTaskCompletionStatus(true);
+        boolean postMarkStatus = taskList.getTaskList().get(taskList.getSize()-1).isCompleted();
+        assertEquals(preMarkStatus, !postMarkStatus);
     }
 }
