@@ -1,7 +1,19 @@
 package winner;
 
+/**
+ * Represents a Parser to handle the parsing of user inputs and directs the appropriate actions to be taken
+ * based on the command given by the user.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and performs the appropriate action based on the command.
+     *
+     * @param input User input from Scanner as String.
+     * @param taskList TaskList object that contains and manages the list of tasks.
+     * @throws WinnerException If the input does not match any known command or
+     * if there are issues with the input format.
+     */
     public static void parseInput(String input, TaskList taskList) throws WinnerException {
         if (input.matches("(?i)hi|hello")) {
             Ui.applyTemplate(Ui.hiAgain());
