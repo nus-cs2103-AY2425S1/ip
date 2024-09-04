@@ -3,9 +3,11 @@ package task;
 import exception.CommandFoundButInvalidException;
 import exception.EmptyDescriptionException;
 
-import java.util.List;
-
-public class ToDos extends Task{
+/**
+ * Represents a to-do task. Inherits from the {@code Task} class and provides
+ * specific functionality for managing to-do tasks.
+ */
+public class ToDos extends Task {
     /**
      * Constructs a {@code ToDos} object with the specified time
      *
@@ -39,6 +41,13 @@ public class ToDos extends Task{
         }
     }
 
+    /**
+     * Returns the initial description of the event in a format suitable for storage.
+     * This format includes the task type, completion status, and the original description.
+     *
+     * @return a string representation of the event suitable for storage
+     */
+    @Override
     public String getInitDesc() {
         String str = super.isDone ? "1" : "0";
         return String.format("T | %s | %s", str, super.description);
