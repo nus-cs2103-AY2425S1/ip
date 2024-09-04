@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Task {
     public enum TaskType {
         TODO, DEADLINE, EVENT
@@ -64,11 +68,15 @@ class Todo extends Task {
 }
 
 class Deadline extends Task {
-    protected String by;
+    protected LocalDate by;
 
     public Deadline(String description, String by) {
         super(description, TaskType.DEADLINE);
-        this.by = by;
+        try {
+            this.by = LocalDate.parse(by);  // Parse date in yyyy-mm-dd format
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: Invalid date format. Please use yyyy-mm-dd.");
+        }
     }
 
     @Override
@@ -78,22 +86,33 @@ class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return super.toString() + " (by: " + by.format(formatter) + ")";
     }
 }
 
 class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
     public Event(String description, String from, String to) {
         super(description, TaskType.EVENT);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDate.parse(from);  // Parse start date in yyyy-mm-dd format
+            this.to = LocalDate.parse(to);      // Parse end date in yyyy-mm-dd format
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: Invalid date format. Please use yyyy-mm-dd.");
+        }
+    }
+
+    @Override
+    public String toSaveString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 }

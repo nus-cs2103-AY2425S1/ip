@@ -80,12 +80,13 @@ public class Crack {
                     }
                     String description = parts[0].trim();
                     String by = parts[1].trim();
-                    tasks.add(new Deadline(description, by));
-                    System.out.println(divider + " Got it. I've added this task:\n   [D][ ] " + description + " (by: " + by + ")\n"
+                    Deadline newDeadline = new Deadline(description, by);
+                    tasks.add(newDeadline);
+                    System.out.println(divider + " Got it. I've added this task:\n" + newDeadline + "\n"
                             + " Now you have " + tasks.size() + " tasks in the list.\n" + divider);
                     saveTasksToFile(tasks);
                 } catch (Exception e) {
-                    System.out.println(divider + " Error: Invalid format for deadline. Use: deadline <description> /by <time>.\n" + divider);
+                    System.out.println(divider + " Error: Invalid format for deadline. Use: deadline <description> /by <yyyy-md-dd>.\n" + divider);
                 }
             } else if (input.startsWith("event ")) {
                 try {
@@ -96,12 +97,13 @@ public class Crack {
                     String description = parts[0].trim();
                     String from = parts[1].trim();
                     String to = parts[2].trim();
-                    tasks.add(new Event(description, from, to));
-                    System.out.println(divider + " Got it. I've added this task:\n   [E][ ] " + description + " (from: " + from + " to: " + to + ")\n"
+                    Event newEvent = new Event(description, from, to);
+                    tasks.add(newEvent);
+                    System.out.println(divider + " Got it. I've added this task:\n" + newEvent + "\n"
                             + " Now you have " + tasks.size() + " tasks in the list.\n" + divider);
                     saveTasksToFile(tasks);
                 } catch (Exception e) {
-                    System.out.println(divider + " Error: Invalid format for event. Use: event <description> /from <start> /to <end>.\n" + divider);
+                    System.out.println(divider + " Error: Invalid format for event. Use: event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>.\n" + divider);
                 }
             } else if (input.startsWith("delete ")) {
                 try {
