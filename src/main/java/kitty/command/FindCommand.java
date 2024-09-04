@@ -11,8 +11,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void run() {
+    public String run() {
         String msg = tasks.findTask(keyword);
-        ui.showFindTask(msg);
+        return ui.showFindTask(msg);
     }
 }

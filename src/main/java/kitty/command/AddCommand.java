@@ -23,7 +23,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void run() {
+    public String run() {
         String[] parts = commandBody.split(" ", 2);
         Task task = new Task("");
         boolean isCreated = false;
@@ -49,7 +49,7 @@ public class AddCommand extends Command {
             }
         }
         default -> {
-            return;
+            return "";
         }
         }
 
@@ -59,13 +59,14 @@ public class AddCommand extends Command {
                 String data = task.getTaskData();
                 try {
                     storage.addContent(data);
-                    ui.showAddTaskMessage(task, size);
+                    return ui.showAddTaskMessage(task, size);
                 } catch (IOException e) {
-                    ui.showErrorMessage("File writing unsuccessful.\n"
+                    return ui.showErrorMessage("File writing unsuccessful.\n"
                             + "This task is not updated to hard disk.");
                 }
 
             }
         }
+        return "";
     }
 }

@@ -47,12 +47,15 @@ public class TaskList {
         return str.toString();
     }
 
-    public void list() {
+    public String list() {
         int count = 1;
         Task[] tmp = new Task[0];
+        StringBuilder message = new StringBuilder();
         for (Task item: tasks.toArray(tmp)) {
-            System.out.println(count++ + "." + item);
+            message.append(count++).append(".").append(item).append("\n");
         }
+        System.out.println(message.toString());
+        return message.toString();
     }
 
     public ArrayList<Task> getTasks() {

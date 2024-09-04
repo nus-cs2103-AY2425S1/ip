@@ -22,13 +22,6 @@ public class Ui {
 
     public void run() {
         showGreetingMessage();
-        try {
-            storage.initializeTaskList(tasks);
-        } catch (FileNotFoundException e) {
-            showErrorMessage("Cannot find ip/data/Kitty.txt file.");
-        } catch (IOException e) {
-            showErrorMessage("Create file ip/data/Kitty.txt failed.");
-        }
 
         String command = "";
         Scanner sc = new Scanner(System.in);
@@ -40,9 +33,7 @@ public class Ui {
                 continue;
             }
             try {
-                if (Parser.parseFirstWord(command, this, tasks, storage)) {
-                    showErrorMessage("Burrrrr~ What is this??? I have no idea about it...\n");
-                }
+                Parser.parseFirstWord(command, this, tasks, storage);
             } catch (FindException e) {
                 showErrorMessage(e.toString());
             } catch (MarksException e) {
@@ -61,54 +52,62 @@ public class Ui {
         showLowerLine();
     }
 
-    public void showGoodbyeMessage() {
+    public String showGoodbyeMessage() {
+        String message = "Bye. Hope I can see you again soon!\n"
+                + "Next time bring me some cat food please!!!";
         showUpperLine();
-        System.out.println("Bye. Hope I can see you again soon!\n"
-                + "Next time bring me some cat food please!!!");
+        System.out.println(message);
         showLowerLine();
+        return message;
     }
 
-    public void showTaskList(TaskList tasks) {
+    public String showTaskList(TaskList tasks) {
         showUpperLine();
         System.out.println("Meow~ Here you are!");
-        tasks.list();
+        String message = tasks.list();
         showLowerLine();
+        return "Meow~ Here you are!\n" + message;
     }
 
-    public void showDoneMessage(Task task) {
+    public String showDoneMessage(Task task) {
         showUpperLine();
-        System.out.println("Well done! You have completed this task!");
-        System.out.println(" " + task);
+        String message = "Well done! You have completed this task!\n" + " " + task;
+        System.out.println(message);
         showLowerLine();
+        return message;
     }
 
-    public void showUndoneMessage(Task task) {
+    public String showUndoneMessage(Task task) {
         showUpperLine();
-        System.out.println("Meow~ Okay we can continue this task!");
-        System.out.println("  " + task);
+        String msg = "Meow~ Okay we can continue this task!\n" + "  " + task;
+        System.out.println(msg);
         showLowerLine();
+        return msg;
     }
 
-    public void showAddTaskMessage(Task task, int size) {
+    public String showAddTaskMessage(Task task, int size) {
         showUpperLine();
-        System.out.println("Okie, I added it into the list:");
-        System.out.println("  " + task);
-        System.out.printf("Now you have %d tasks in the list.\n", size);
+        String msg = String.format("Okie, I added it into the list:\n" + "  " + task
+                + "\nNow you have %d tasks in the list.\n", size);
+        System.out.printf(msg);
         showLowerLine();
+        return msg;
     }
 
-    public void showDeleteTaskMessage(String note) {
+    public String  showDeleteTaskMessage(String note) {
         showUpperLine();
         System.out.println("I have removed it from the list :)");
         System.out.println(note);
         showLowerLine();
+        return "I have removed it from the list :)\n" + note;
     }
 
-    public void showFindTask(String str) {
+    public String showFindTask(String str) {
         showUpperLine();
-        System.out.println("Meow~ Here you are!");
-        System.out.printf(str);
+        String msg = "Meow~ Here you are!\n" + str;
+        System.out.printf(msg);
         showLowerLine();
+        return msg;
     }
 
     private void showUpperLine() {
@@ -119,9 +118,10 @@ public class Ui {
         System.out.println("\n" + DIVISION_LINE);
     }
 
-    public void showErrorMessage(String message) {
+    public String showErrorMessage(String message) {
         showUpperLine();
         System.out.println(message);
         showLowerLine();
+        return message;
     }
 }

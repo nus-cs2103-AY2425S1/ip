@@ -15,7 +15,7 @@ class Command {
     /**
      * Carries out the operation
      */
-    public void run() {
-        return;
+    public String run() {
+        return "";
     }
 }

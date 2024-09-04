@@ -19,18 +19,26 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
-    public static boolean parseFirstWord(String str, Ui ui, TaskList tasks, Storage storage) throws FindException,
+    public static String parseFirstWord(String str, Ui ui, TaskList tasks, Storage storage) throws FindException,
             MarksException, NumberFormatException, IndexOutOfBoundsException {
         String[] aux = str.split(" ", 2);
         switch (aux[0].trim()) {
-        case "find" -> parseFind(str, ui, tasks);
-        case "list" -> new ListCommand(ui, tasks).run();
-        case "mark", "delete", "unmark" -> parseMarks(str, ui, storage, tasks);
-        case "todo", "deadline", "event" -> new AddCommand(ui, tasks, str, storage).run();
-        default -> ui.showErrorMessage("Burrrrr~ What is this??? I have no idea about it...");
-
+        case "find" -> {
+            return parseFind(str, ui, tasks);
         }
-        return false;
+        case "list" -> {
+            return new ListCommand(ui, tasks).run();
+        }
+        case "mark", "delete", "unmark" -> {
+            return parseMarks(str, ui, storage, tasks);
+        }
+        case "todo", "deadline", "event" -> {
+            return new AddCommand(ui, tasks, str, storage).run();
+        }
+        default -> {
+            return ui.showErrorMessage("Burrrrr~ What is this??? I have no idea about it...");
+        }
+        }
     }
 
     public static boolean checkDeadline(String str, Ui ui) {
@@ -67,12 +75,12 @@ public class Parser {
         }
     }
 
-    private static void parseFind(String str, Ui ui, TaskList tasks) throws FindException {
+    private static String parseFind(String str, Ui ui, TaskList tasks) throws FindException {
         String[] aux = str.split(" ");
         if (aux.length != 2) {
             throw new FindException();
         }
-        new FindCommand(ui, tasks, aux[1]).run();
+        return new FindCommand(ui, tasks, aux[1]).run();
     }
 
     private static boolean checkDateTime(String dateTime) {
@@ -88,7 +96,7 @@ public class Parser {
         return LocalDateTime.now();
     }
 
-    private static void parseMarks(String str, Ui ui, Storage storage, TaskList tasks) throws MarksException,
+    private static String parseMarks(String str, Ui ui, Storage storage, TaskList tasks) throws MarksException,
             NumberFormatException, IndexOutOfBoundsException {
         String[] aux = str.split(" ");
         if (aux.length != 2) {
@@ -105,15 +113,22 @@ public class Parser {
         if (parts.length > 0) {
             index = Integer.parseInt(parts[0]);
             switch (aux[0].trim()) {
-            case "mark" -> new MarkCommand(ui, tasks, index, storage).run();
-            case "unmark" -> new UnmarkCommand(ui, tasks, index, storage).run();
-            case "delete" -> new DeleteCommand(ui, tasks, index, storage).run();
+            case "mark" -> {
+                return new MarkCommand(ui, tasks, index, storage).run();
+            }
+            case "unmark" -> {
+                return new UnmarkCommand(ui, tasks, index, storage).run();
+            }
+            case "delete" -> {
+                return new DeleteCommand(ui, tasks, index, storage).run();
+            }
             default -> {
-                return;
+            return "";
             }
             }
         }
 
+        throw new MarksException();
     }
 
 }

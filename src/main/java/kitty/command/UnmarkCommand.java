@@ -17,13 +17,13 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void run() throws IndexOutOfBoundsException {
+    public String run() throws IndexOutOfBoundsException {
         Task tmp = tasks.markUndone(index);
         try {
             storage.rewriteFile(tasks.getData());
-            ui.showUndoneMessage(tmp);
+            return ui.showUndoneMessage(tmp);
         } catch (IOException e) {
-            ui.showErrorMessage("File writing unsuccessful.\n"
+            return ui.showErrorMessage("File writing unsuccessful.\n"
                     + "This task is not updated as Done on hard disk.");
         }
     }

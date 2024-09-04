@@ -30,6 +30,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String greeting = "Hello! I'm Kitty!\n" + "What can I do for you?";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getKittyDialog(greeting, kittyImage)
+        );
     }
 
     /** Injects the Kitty instance */
