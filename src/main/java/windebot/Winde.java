@@ -15,7 +15,10 @@ public class Winde {
 
     private static History history;
     private static Reminder reminder;
-    private static Ui ui;
+    //private static Ui ui;
+    private String commandType;
+    private boolean willContinue;
+
 
     /**
      * Constructs a Winde object with the specified file path for storing history.
@@ -24,9 +27,11 @@ public class Winde {
      */
 
     Winde(String filePath) {
-        ui = new Ui();
+        //ui = new Ui();
         history = new History(filePath);
         reminder = new Reminder(history.load());
+        commandType = "";
+        willContinue = true;
     }
 
     /**
@@ -34,9 +39,10 @@ public class Winde {
      */
 
     public Winde() {
-        ui = new Ui();
+        //ui = new Ui();
         history = new History();
         reminder = new Reminder(history.load());
+        commandType = "";
     }
 
     /**
@@ -44,15 +50,17 @@ public class Winde {
      *
      * @param args Command-line arguments (not used).
      */
-
+/*
     public static void main(String[] args) {
         new Winde().run();
     }
 
+ */
+
     /**
      * Starts the main loop of the WindeBot application.
      */
-
+/*
     private static void run() {
         ui.greet();
         Command currentCommand = new ListCommand();
@@ -76,8 +84,40 @@ public class Winde {
         currentCommand.exit(history, reminder, ui);
     }
 
+ */
+
     public String getResponse(String input) {
-        return "Winde heard: " + input;
+        try {
+            Command currentCommand = Parser.parse(input);
+            Ui ui = new Ui();
+            willContinue = currentCommand.execute(input, reminder, ui, history);
+            commandType = currentCommand.whatCommand();
+            return ui.getOutput();
+        } catch (UnsupportedCommandException e) {
+            throw new RuntimeException(e);
+        } catch (EmptyDescriptionException e) {
+            throw new RuntimeException(e);
+        } catch (TooManyParametersException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getCommandType() {
+        return commandType;
+    }
+
+    public String hello() {
+        String output = "__        __              _" + "\n";
+        output += "\\ \\      / /(_) _ __   __| | ___ " + "\n";
+        output += " \\ \\ /\\ / / | || '_  \\/ _` |/ _ \\ " + "\n";
+        output += "  \\ V  V /  | || | | || (_ || __/ " + "\n";
+        output += "   \\_/\\_/   |_||_| |_|\\__,_|\\___| " + "\n";
+        output += "Hello! I'm Winde\n" + "What can I do for you?" + "\n";
+        return output;
+    }
+
+    public boolean getWillContinue() {
+        return willContinue;
     }
 }
 

@@ -33,9 +33,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Winde winde) {
+    /** Injects the Winde instance */
+    public void setWinde(Winde winde) {
         this.winde = winde;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getWindeDialog(winde.hello(), windeImage, ""));
     }
 
     /**
@@ -46,10 +48,16 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = winde.getResponse(input);
+        String commandType = winde.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getWindeDialog(response, windeImage)
+                DialogBox.getWindeDialog(response, windeImage, commandType)
         );
         userInput.clear();
+        /*
+        if (!winde.getWillContinue()) {
+            Main.stop();
+        }
+         */
     }
 }
