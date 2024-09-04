@@ -22,6 +22,11 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setMinWidth(800);
+            stage.setMinHeight(600);
+            stage.setTitle("Waterfall");
+            stage.setMaxWidth(1400);
+            stage.setMaxHeight(1000);
             fxmlLoader.<MainWindow>getController().setWaterfall(waterfall); // inject the waterfall instance
             stage.show();
         } catch (IOException e) {

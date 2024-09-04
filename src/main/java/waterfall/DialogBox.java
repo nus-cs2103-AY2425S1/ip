@@ -46,6 +46,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
@@ -54,6 +55,17 @@ public class DialogBox extends HBox {
 
     public static DialogBox getWaterfallDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.flip();
+        return db;
+    }
+
+    /**
+     * Greets the user.
+     * @param img Image of the chatBot.
+     * @return DialogBox with greeting.
+     */
+    public static DialogBox greetUser(Image img) {
+        var db = new DialogBox(Ui.showWelcomeMessage(), img);
         db.flip();
         return db;
     }

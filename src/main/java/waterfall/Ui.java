@@ -13,15 +13,13 @@ import waterfall.task.TaskList;
  */
 
 public class Ui {
-    private final String chatBotName = "Waterfall";
-    private final int indentSpace = 2;
+    private static final String chatBotName = "Waterfall";
 
     /**
      * Displays a welcome message to the user.
      */
-    public String showWelcomeMessage() {
-        String welcomeMessage = ("Hualalalalala I'm " + chatBotName + "\n" + "What can I do for you?\n")
-                .indent(indentSpace + 1);
+    public static String showWelcomeMessage() {
+        String welcomeMessage = ("Hualalalalala I'm " + chatBotName + "\n" + "What can I do for you?\n");
         return welcomeMessage;
     }
 
@@ -29,7 +27,7 @@ public class Ui {
      * Displays a exit message to the user.
      */
     public String showByeMessage() {
-        String byeMessage = ("Shhhhhhhhhhhh. Hope to see you again soon!\n").indent(indentSpace);
+        String byeMessage = ("Shhhhhhhhhhhh. Hope to see you again soon!\n");
         return byeMessage;
     }
 
@@ -37,14 +35,14 @@ public class Ui {
      * Displays an error message to alert users on database loading error.
      */
     public String showLoadingError() {
-        return "Oops! Something went wrong in loading the database!".indent(indentSpace);
+        return "Oops! Something went wrong in loading the database!";
     }
 
     /**
      * Displays an extra line.
      */
     public String showLine() {
-        return " ".repeat(indentSpace) + "____________________________________________________________\n";
+        return "____________________________________________________________\n";
     }
 
     /**
@@ -63,7 +61,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public String showError(String message) {
-        return " ".repeat(indentSpace + 1) + "Oops Water falls: " + message;
+        return "Oops Water falls: " + message;
     }
 
     /**
@@ -72,8 +70,8 @@ public class Ui {
      * @param task The task that has been added.
      */
     public String showAddMessage(Task task) {
-        String res = " ".repeat(indentSpace + 1) + "Successfully added a task to the waterfallll:\n";
-        return res + " ".repeat(indentSpace + 1) + task.toString();
+        String res = "Successfully added a task to the waterfallll:\n";
+        return res + task.toString();
     }
 
     /**
@@ -82,8 +80,8 @@ public class Ui {
      * @param task The task that has been marked as done.
      */
     public String showMarkMessage(Task task) {
-        String res = " ".repeat(indentSpace + 1) + "Huluhuluhulu, I've marked this task as done: \n";
-        return res + " ".repeat(indentSpace + 1) + task.toString();
+        String res = "Huluhuluhulu, I've marked this task as done: \n";
+        return res + task.toString();
     }
 
     /**
@@ -92,8 +90,8 @@ public class Ui {
      * @param task The task that has been marked as not done.
      */
     public String showUnmarkMessage(Task task) {
-        String res = " ".repeat(indentSpace + 1) + "Hohohohoho, I've marked this task as not done: \n";
-        return res + " ".repeat(indentSpace + 1) + task.toString();
+        String res = "Hohohohohoho, I've marked this task as not done: \n";
+        return res + task.toString();
     }
 
     /**
@@ -102,9 +100,8 @@ public class Ui {
      * @param task The task that has been deleted.
      */
     public String showDeleteMessage(Task task) {
-        String res = " ".repeat(indentSpace + 1)
-                + "Hehehehehehe, I've removed this task from the waterfall: \n";
-        return res + " ".repeat(indentSpace + 1) + task.toString();
+        String res = "Hehehehehehe, I've removed this task from the waterfall: \n";
+        return res + task.toString();
     }
 
     /**
@@ -113,8 +110,8 @@ public class Ui {
      * @param taskList The list of tasks to be displayed.
      */
     public String showTaskListMessage(TaskList taskList) {
-        String res = " ".repeat(indentSpace) + "Here's the tasks in your waterfall hualalala\n";
-        return res + taskList.printDetail(indentSpace);
+        String res = "Here's the tasks in your waterfall hualalala\n";
+        return res + taskList.printDetail(2);
     }
 
     /**
@@ -123,7 +120,7 @@ public class Ui {
      * @param taskList The list of filtered tasks to be displayed.
      */
     public String showSearchedTaskListMessage(TaskList taskList) {
-        String res = " ".repeat(indentSpace) + "Here's the matching tasks in your waterfall hualalala\n";
-        return res + taskList.printDetail(indentSpace);
+        String res = "Here's the matching tasks in your waterfall hualalala\n";
+        return res + taskList.printDetail(2);
     }
 }
