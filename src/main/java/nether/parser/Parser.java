@@ -2,10 +2,11 @@ package nether.parser;
 
 import nether.NetherException;
 import nether.command.AddCommand;
+import nether.command.Command;
 import nether.command.DeleteCommand;
 import nether.command.ExitCommand;
+import nether.command.FindCommand;
 import nether.command.ListCommand;
-import nether.command.Command;
 import nether.command.MarkDoneCommand;
 import nether.command.MarkNotDoneCommand;
 import nether.task.DeadlineTask;
@@ -21,10 +22,11 @@ public class Parser {
     /**
      * Parses the user input to identify the {@code Command} and extracts details relevant to the {@code Command}.
      *
-     * @param userInput The full input string provided by the user (without trailing or leading whiespaces).
+     * @param userInput The full input string provided by the user (without trailing or leading whitespaces).
      * @return An array of strings containing the parts of the user input necessary to create tasks.
      * @throws NetherException If the command is not recognized or the input format is incorrect.
      */
+    @SuppressWarnings("checkstyle:Indentation")
     public Command parse(String userInput) throws NetherException {
         String[] processedInput;
         String commandWord = extractCommandWord(userInput);

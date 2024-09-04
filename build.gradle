@@ -1,4 +1,5 @@
 plugins {
+    id 'checkstyle'
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
@@ -25,6 +26,18 @@ test {
         showCauses true
         showStackTraces true
         showStandardStreams = false
+    }
+}
+
+checkstyle {
+    toolVersion = '10.18'
+    configDirectory = file("$rootDir/config/checkstyle")
+}
+
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required = true
+        html.required = true // Enable the HTML report
     }
 }
 
