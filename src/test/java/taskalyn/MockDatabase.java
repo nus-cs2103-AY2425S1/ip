@@ -7,11 +7,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * Creates a MockDatabase that uses a different database file from the main Taskalyn application.
+ */
 public class MockDatabase extends Database {
     private static final String DIRECTORY = "./data";
     private static final String FILE_NAME = "taskalyn_test.txt";
     private static final Path FILE_PATH = Paths.get(DIRECTORY, FILE_NAME);
 
+    /**
+     * Constructs a MockDatabase and creates a new database file.
+     */
     public MockDatabase() {
         try {
             List<String> txtLines = Files.readAllLines(FILE_PATH);
@@ -26,6 +32,9 @@ public class MockDatabase extends Database {
         }
     }
 
+    /**
+     * Creates a new database file at the given file path.
+     */
     public void createDatabase() {
         try {
             Files.createDirectories(FILE_PATH.getParent());
@@ -35,6 +44,11 @@ public class MockDatabase extends Database {
         }
     }
 
+    /**
+     * Writes task data to the database file.
+     *
+     * @param lines List of task data to write.
+     */
     public void writeToDatabase(List<String> lines) {
         try {
             Files.write(FILE_PATH, lines);
@@ -43,10 +57,22 @@ public class MockDatabase extends Database {
         }
     }
 
+    /**
+     * Reads task data from the database file.
+     *
+     * @return List of task data.
+     * @throws IOException If an I/O error occurs during reading.
+     */
     public List<String> readFromDatabase() throws IOException {
         return Files.readAllLines(FILE_PATH);
     }
 
+    /**
+     * Returns the total number of tasks in the database file.
+     *
+     * @return Total number of tasks.
+     * @throws IOException If an I/O error occurs during reading.
+     */
     public int getDatabaseSize() throws IOException {
         List<String> txtLines = readFromDatabase();
         return txtLines.size();

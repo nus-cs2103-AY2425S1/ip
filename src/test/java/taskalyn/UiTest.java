@@ -10,11 +10,16 @@ import java.io.PrintStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 
-
+/**
+ * Verifies that the Ui handles user interactions properly.
+ */
 public class UiTest {
     private ByteArrayOutputStream outContent;
     private Ui ui;
 
+    /**
+     * Verifies that the welcome message is shown correctly.
+     */
     @Test
     public void testWelcomeMessage() {
         String input = "Hey! I'm Taskalyn, your personal Task Manager :)\n" +
@@ -37,6 +42,9 @@ public class UiTest {
         assertEquals(expectedOutput, outContent.toString());
     }
 
+    /**
+     * Verifies that the todo command is scanned correctly.
+     */
     @Test
     public void testScanningOfTodoCommand() {
         String input = "todo eat";
@@ -47,6 +55,9 @@ public class UiTest {
         assertEquals("todo eat", command);
     }
 
+    /**
+     * Verifies that any user input is trimmed before being parsed.
+     */
     @Test
     public void testScanningOfCommandWithSpaceInfront() {
         String input = " todo eat";

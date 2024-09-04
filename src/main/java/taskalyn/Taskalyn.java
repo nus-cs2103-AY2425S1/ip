@@ -1,6 +1,15 @@
 package taskalyn;
 
+/**
+ * Starts the Taskalyn application.
+ */
 public class Taskalyn {
+
+    /**
+     * Starts the Taskalyn application by initialising other classes.
+     *
+     * @param args Command-line arguments (unused)
+     */
     public static void main(String[] args) {
 
         // Initialising
@@ -12,13 +21,10 @@ public class Taskalyn {
 
         while (true) {
             boolean continueRunning = parser.parse(taskManager);
-            // String lastCommand = ui.getLastCommand();
-            // if (lastCommand.equals("bye")) {
-            //     break;
-            // }
             if (!continueRunning) {
                 break;
             }
         }
+        ui.close();
     }
 }

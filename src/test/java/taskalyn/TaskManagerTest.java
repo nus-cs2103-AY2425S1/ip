@@ -11,13 +11,20 @@ import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+/**
+ * Verifies that the TaskManager properly handles task operations.
+ */
 public class TaskManagerTest {
     private static TaskManager taskManager;
     private List<Task> tasks;
     private Ui ui;
     private static MockDatabase database;
 
+    /**
+     * Sets up ui, database, and taskmanager before each test.
+     *
+     * @throws IOException If an I/O error occurs during reading.
+     */
     @BeforeEach
     public void setUpBeforeTests() throws IOException {
         this.ui = new Ui();
@@ -28,12 +35,18 @@ public class TaskManagerTest {
         }
     }
 
+    /**
+     * Verifies that a negative task number returns an exception.
+     */
     @Test
     public void testCompleteNegativeTaskNumber() {
         TodoTask task = new TodoTask("do homework", false);
         assertThrows(IndexOutOfBoundsException.class, () -> taskManager.completeTask(-4));
     }
 
+    /**
+     * Verifies that an existent task can be completed.
+     */
     @Test
     public void testCompleteExistentTask() {
         TodoTask task = new TodoTask("do homework", false);
@@ -41,11 +54,17 @@ public class TaskManagerTest {
         assertDoesNotThrow(() -> taskManager.completeTask(1));
     }
 
+    /**
+     * Verifies that an invalid task number returns an exception.
+     */
     @Test
     public void deleteAnInvalidTaskNumber() {
         assertThrows(IndexOutOfBoundsException.class, () -> taskManager.completeTask(-100));
     }
 
+    /**
+     * Verifies that the task size is correctly shown.
+     */
     @Test
     public void checkTaskSize() {
         TodoTask t1 = new TodoTask("eat chicken", false);
@@ -58,6 +77,9 @@ public class TaskManagerTest {
         assertEquals(2, taskManager.getTaskSize());
     }
 
+    /**
+     * Verifies that the listing of tasks is followed as per project guidelines.
+     */
     @Test
     public void checkListingOfTasks() {
         TodoTask t1 = new TodoTask("eat chicken", false);

@@ -1,13 +1,29 @@
 package taskalyn;
 
+/**
+ * Manages scanning of input and parsing of commands.
+ */
 public class Parser {
     private TaskManager taskManager;
     private Ui ui;
 
+    /**
+     * Constructs the Parser object with ui and taskmanager.
+     *
+     * @param ui Ui object to manage user interaction.
+     * @param taskManager TaskManager object to manage tasks.
+     */
     public Parser(Ui ui, TaskManager taskManager) {
         this.ui = ui;
         this.taskManager = taskManager;
     }
+
+    /**
+     * Parses user input commands and handles task management.
+     *
+     * @param taskManager TaskManager object to manage tasks.
+     * @return {@code true} to allow inputs, {@code false} to stop parsing.
+     */
     public boolean parse(TaskManager taskManager) {
         while (true) {
             String input = ui.readCommand();

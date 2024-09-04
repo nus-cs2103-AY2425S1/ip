@@ -4,11 +4,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages the tasks in the database.
+ */
 public class TaskManager {
     private List<Task> tasks;
     private Database database;
     private Ui ui;
 
+    /**
+     * Constructs the TaskManager object with the database and ui.
+     *
+     * @param database Database object to read from and write to.
+     * @param ui Ui object for user interaction.
+     */
     public TaskManager(Database database, Ui ui) {
         this.database = database;
         this.ui = ui;
@@ -16,6 +25,11 @@ public class TaskManager {
         loadDatabase();
     }
 
+    /**
+     * Adds a task to the database.
+     *
+     * @param task Task object.
+     */
     public void addTask(Task task) {
         tasks.add(task);
         ui.printLines("Got it, I've added this task to your list!\n" +
@@ -23,6 +37,11 @@ public class TaskManager {
         updateDatabase();
     }
 
+    /**
+     * Deletes a task from the database.
+     *
+     * @param taskId The id of the task.
+     */
     public void deleteTask(int taskId) {
         if (taskId <= tasks.size() + 1) {
             Task task = tasks.get(taskId - 1);
@@ -33,10 +52,18 @@ public class TaskManager {
         updateDatabase();
     }
 
+    /**
+     * Returns the total number of tasks in database.
+     *
+     * @return Total number of tasks in database.
+     */
     public int getTaskSize() {
         return tasks.size();
     }
 
+    /**
+     * Lists the tasks in the database.
+     */
     public void listTasks() {
         String taskString = "Here are the tasks in your list:\n" + "    ";
 
@@ -57,6 +84,11 @@ public class TaskManager {
         ui.printLines(taskString);
     }
 
+    /**
+     * Marks a task as complete.
+     *
+     * @param taskId The id of the task.
+     */
     public void completeTask(int taskId) {
         if (taskId <= tasks.size() + 1) {
             tasks.get(taskId - 1).setComplete();
@@ -66,6 +98,11 @@ public class TaskManager {
         updateDatabase();
     }
 
+    /**
+     * Marks a task as incomplete.
+     *
+     * @param taskId The id of the task.
+     */
     public void incompleteTask(int taskId) {
         if (taskId <= tasks.size() + 1) {
             tasks.get(taskId - 1).setIncomplete();

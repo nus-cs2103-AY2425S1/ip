@@ -6,7 +6,14 @@ import java.io.PrintStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+/**
+ * Verifies that the Parser properly handles user inputs.
+ */
 public class ParserTest {
+
+    /**
+     * Verifies that the Parser properly handles the bye command.
+     */
     @Test
     public void testParseByeCommand() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
