@@ -3,11 +3,14 @@ package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Deadline task, which contains a description and a deadline (by when it should be completed).
+ * A Deadline task can also be marked as done or not done.
+ */
 public class Deadline extends Task {
-    private LocalDateTime by;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
-
+    private LocalDateTime by;
     /**
      * Creates a new Deadline task.
      *

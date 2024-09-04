@@ -1,10 +1,17 @@
 package skd.ui;
 
-import task.Task;
-
 import java.util.List;
 import java.util.Scanner;
 
+import task.Task;
+
+/**
+ * Handles the interactions with the user in the SKD application.
+ *
+ * The Ui class is responsible for displaying messages to the user and receiving input from the user.
+ * It facilitates communication between the user and the application, such as showing task lists,
+ * prompting for input, and displaying error or success messages.
+ */
 public class Ui {
     private static final String LINE = "    ____________________________________________________________";
     private Scanner scanner;

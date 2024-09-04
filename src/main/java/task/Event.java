@@ -2,18 +2,26 @@ package task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Represents an Event task, which contains a description, a start time, and an end time.
+ * An Event task is characterized by the period it spans from a specific start time to a specific end time.
+ * It can also be marked as done or not done.
+ */
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
+
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
-     * Creates an Event task with the description, start time and end time.
+     * Constructs an Event object with a description, start time, end time, and sets its completion status to not done
+     * by default.
      *
-     * @param description Description of the event.
-     * @param from Start time of the event in  "yyyy-MM-dd HHmm" format.
-     * @param to End time of the event in  "yyyy-MM-dd HHmm" format.
+     * @param description The description of the event.
+     * @param from        The start time of the event.
+     * @param to          The end time of the event.
      */
     public Event(String description, String from, String to) {
         super(description, TaskType.EVENT);
@@ -22,13 +30,12 @@ public class Event extends Task {
     }
 
     /**
-     * Creates an Event task with the description, start time ,end time,
-     * and status.
+     * Constructs an Event object with a description, start time, end time, and allows setting its completion status.
      *
-     * @param description Description of the event.
-     * @param from Start time of the event in the format "yyyy-MM-dd HHmm".
-     * @param to End time of the event in the format "yyyy-MM-dd HHmm".
-     * @param isDone Status of the event(Done or not)
+     * @param description The description of the event.
+     * @param from        The start time of the event.
+     * @param to          The end time of the event.
+     * @param isDone      The completion status of the event.
      */
     public Event(String description, String from, String to, boolean isDone) {
         super(description, TaskType.EVENT, isDone);
@@ -72,6 +79,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return getType() + getStatusIcon() + " " + description + " (from: " + from.format(OUTPUT_FORMATTER) + " to: " + to.format(OUTPUT_FORMATTER) + ")";
+        return getType() + getStatusIcon() + " " + description + " (from: " + from.format(OUTPUT_FORMATTER) + " to: "
+                + to.format(OUTPUT_FORMATTER) + ")";
     }
 }

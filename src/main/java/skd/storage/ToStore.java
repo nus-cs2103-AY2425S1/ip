@@ -1,15 +1,20 @@
 package skd.storage;
 
-import skd.command.Parser;
-import task.Task;
-
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import skd.command.Parser;
+import task.Task;
+
+/**
+ * The {@code ToStore} class handles the persistence of tasks to and from a file.
+ * It loads tasks from the file when starting the application and saves tasks
+ * to the file when changes occur. This ensures that tasks are persisted across sessions.
+ */
 public class ToStore {
     private final Path filePath;
 

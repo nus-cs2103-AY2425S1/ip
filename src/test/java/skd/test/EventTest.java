@@ -1,9 +1,12 @@
 package skd.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 import task.Event;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class EventTest {
 

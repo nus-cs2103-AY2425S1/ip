@@ -1,8 +1,8 @@
 package task;
 
-import task.Task;
-import task.TaskType;
-
+/**
+ * Represents a To-Do task, which is a basic task with only a description and no time constraints.
+ */
 public class ToDo extends Task {
 
     /**

@@ -1,5 +1,9 @@
 package task;
 
+/**
+ * Represents a task in the task manager application.
+ * A task can have a description and be marked as done or not done.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -23,7 +27,7 @@ public abstract class Task {
      *
      * @param description Description of the task.
      * @param taskType Type of the task.
-     * @param isDone Whether or not task is done.
+     * @param isDone Whether task is done.
      */
     public Task(String description, TaskType taskType, boolean isDone) {
         this.description = description;
@@ -32,7 +36,7 @@ public abstract class Task {
     }
 
     /**
-     * Returns whether or not task is done.
+     * Returns whether task is done.
      *
      * @return true if the task is done, false otherwise.
      */

@@ -1,12 +1,17 @@
 package skd.command;
 
+import java.util.List;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
 
-import java.util.List;
-
+/**
+ * The Parser class is responsible for parsing the user input commands
+ * and converting them into corresponding tasks or command types. It can
+ * also process commands to mark tasks as done, unmark them, or delete tasks.
+ */
 public class Parser {
 
     /**
@@ -48,26 +53,28 @@ public class Parser {
      */
     public static Task parseAddCommand(String input, CommandType type) {
         switch (type) {
-            case TODO:
-                String description = input.substring(5).trim();
-                if (description.isEmpty()) {
-                    throw new IllegalArgumentException("OOPS!!! The description of a todo cannot be empty.");
-                }
-                return new ToDo(description);
-            case DEADLINE:
-                String[] deadlineParts = input.substring(9).split(" /by ");
-                if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
-                    throw new IllegalArgumentException("OOPS!!! The description or deadline cannot be empty.");
-                }
-                return new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
-            case EVENT:
-                String[] eventParts = input.substring(6).split(" /from | /to ");
-                if (eventParts.length < 3 || eventParts[0].trim().isEmpty() || eventParts[1].trim().isEmpty() || eventParts[2].trim().isEmpty()) {
-                    throw new IllegalArgumentException("OOPS!!! The description, start time, or end time cannot be empty.");
-                }
-                return new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
-            default:
-                throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        case TODO:
+            String description = input.substring(5).trim();
+            if (description.isEmpty()) {
+                throw new IllegalArgumentException("OOPS!!! The description of a todo cannot be empty.");
+            }
+            return new ToDo(description);
+        case DEADLINE:
+            String[] deadlineParts = input.substring(9).split(" /by ");
+            if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
+                throw new IllegalArgumentException("OOPS!!! The description or deadline cannot be empty.");
+            }
+            return new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+        case EVENT:
+            String[] eventParts = input.substring(6).split(" /from | /to ");
+            if (eventParts.length < 3 || eventParts[0].trim().isEmpty()
+                    || eventParts[1].trim().isEmpty()
+                    || eventParts[2].trim().isEmpty()) {
+                throw new IllegalArgumentException("OOPS!!! The description, start time, or end time cannot be empty.");
+            }
+            return new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
+        default:
+            throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -84,20 +91,20 @@ public class Parser {
             String description;
 
             switch (type) {
-                case "T":
-                    description = line.substring(7);
-                    return new ToDo(description, isDone);
-                case "D":
-                    description = line.substring(7, line.indexOf("(by:")).trim();
-                    String by = line.substring(line.indexOf("(by:") + 5, line.indexOf(")")).trim();
-                    return new Deadline(description, by, isDone);
-                case "E":
-                    description = line.substring(7, line.indexOf("(from:")).trim();
-                    String from = line.substring(line.indexOf("(from:") + 7, line.indexOf(" to:")).trim();
-                    String to = line.substring(line.indexOf("to:") + 4, line.indexOf(")")).trim();
-                    return new Event(description, from, to, isDone);
-                default:
-                    throw new IllegalArgumentException("Invalid task type");
+            case "T":
+                description = line.substring(7);
+                return new ToDo(description, isDone);
+            case "D":
+                description = line.substring(7, line.indexOf("(by:")).trim();
+                String by = line.substring(line.indexOf("(by:") + 5, line.indexOf(")")).trim();
+                return new Deadline(description, by, isDone);
+            case "E":
+                description = line.substring(7, line.indexOf("(from:")).trim();
+                String from = line.substring(line.indexOf("(from:") + 7, line.indexOf(" to:")).trim();
+                String to = line.substring(line.indexOf("to:") + 4, line.indexOf(")")).trim();
+                return new Event(description, from, to, isDone);
+            default:
+                throw new IllegalArgumentException("Invalid task type");
             }
         } catch (Exception e) {
             System.out.println("     Corrupted task entry found and skipped: " + line);

@@ -1,15 +1,29 @@
 package skd;
 
+import java.util.List;
+import java.util.Scanner;
+
 import skd.command.CommandType;
 import skd.command.Parser;
 import skd.storage.ToStore;
 import skd.ui.Ui;
 import task.Task;
 
-import java.util.List;
-import java.util.Scanner;
 
-public class SKD {
+/**
+ * Main class for the SKD application.
+ *
+ * The SKD application allows users to manage tasks, such as ToDos, Deadlines, and Events.
+ * Users can add, delete, mark, and unmark tasks, as well as save and load tasks from a file.
+ *
+ * The application provides a command-line interface where users can input commands
+ * to interact with their task list. The commands are parsed and appropriate actions
+ * are taken, such as adding a new task or marking a task as done.
+ *
+ * Tasks are saved to a file and loaded from the file on startup, ensuring persistence
+ * of the user's task list between sessions.
+ */
+public class SkD {
     private ToStore storage;
     private List<Task> tasks;
     private Ui ui;
@@ -19,7 +33,7 @@ public class SKD {
      *
      * @param filePath Path to storage file.
      */
-    public SKD(String filePath) {
+    public SkD(String filePath) {
         ui = new Ui();
         storage = new ToStore(filePath);
         tasks = storage.load();
@@ -87,6 +101,6 @@ public class SKD {
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
-        new SKD("data/duke.txt").run();
+        new SkD("data/duke.txt").run();
     }
 }
