@@ -13,8 +13,7 @@ public class Bao {
     private static DateTimeFormatter fileDateFormat;
     private static DateTimeFormatter dateOnlyFormat;
     private static DateTimeFormatter outputDateFormat;
-    private static final String file_Path = "./data/bao.json.txt";
-    private Ui ui;
+    private static final String FILE_PATH = "./data/bao.json.txt";
     private Storage storage;
     private TaskList tasks;
 
@@ -25,14 +24,13 @@ public class Bao {
      * @param filePath Path of the file used for storage of tasks.
      */
     public Bao(String filePath) {
-        ui = new Ui();
         storage = new Storage(filePath);
         initialiseDates();
         try {
             tasks = new TaskList(storage.loadFile());
         } catch (Exception e) {
-            ui.showMessage("Bao was fed a corrupted file, starting new one!");
-            ui.showMessage("Error details: " + e.getMessage());
+            System.out.println("Bao was fed a corrupted file, starting new one!");
+            System.out.println("Error details: " + e.getMessage());
             tasks = new TaskList();
         }
     }
@@ -78,22 +76,27 @@ public class Bao {
     }
 
     /**
-     * Runs the main application, processes user input until application is terminated.
+     * Returns a response based on the input command.
+     *
+     * @param input User input command.
+     * @return The response from Bao.
      */
-    public void run() {
-        ui.showWelcomeMessage();
-        while (true) {
-            try {
-                String command = ui.command().trim();
-                Parser.parse(command, tasks, ui, storage);
-            } catch (Exception e) {
-                ui.showMessage(e.getMessage());
-            }
+    public String getResponse(String input) {
+        String response = "";
+        try {
+            response = Parser.parse(input, tasks, storage);
+        } catch (Exception e) {
+            response = "Bao encountered an error: " + e.getMessage();
         }
+        return response;
     }
 
     public TaskList getTaskList() {
         return this.tasks;
+    }
+
+    public Storage getStorage() {
+        return storage;
     }
 
     public static DateTimeFormatter getInputDateFormat() {
@@ -119,6 +122,6 @@ public class Bao {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        new Bao(file_Path).run();
+        new Bao(FILE_PATH);
     }
 }
