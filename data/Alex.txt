@@ -1,6 +1,7 @@
-[T][X] sing a song
+[T][ ] sing a song
 [D][X] go to mall /by 2024-05-06 1812
 [E][ ] go to mall /from 2024-07-24 1700 /to 2024-07-24 1730
 [D][ ] water the plants /by 2024-10-07 1400
-[T][X] watch movie
 [D][ ] wash clothes /by 2024-10-19 1604
+[E][ ] olympics volleyball /from 2024-08-18 1704 /to 2025-01-10 1922
+[T][ ] the gym activities with the broskis
