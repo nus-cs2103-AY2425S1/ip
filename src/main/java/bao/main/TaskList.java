@@ -1,7 +1,8 @@
 package bao.main;
 
-import bao.task.Task;
 import java.util.ArrayList;
+
+import bao.task.Task;
 
 /**
  * The TaskList class represents a list of tasks managed by the application, provides methods to add, delete, and
