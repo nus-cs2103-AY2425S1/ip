@@ -36,6 +36,7 @@ public class Todo extends Task {
 
     /**
      * Prompts the user to enter the details for a new {@code Todo} task and creates a new {@code Todo} object.
+     * (This method was for the CLI version of the method).
      *
      * @param sc The {@link Scanner} object used to read user input.
      * @return A new {@code Todo} object created based on user input.

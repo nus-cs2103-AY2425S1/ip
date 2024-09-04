@@ -43,6 +43,7 @@ public class Deadline extends Task {
 
     /**
      * Prompts the user to enter the details for a new {@code Deadline} and creates a new {@code Deadline} object.
+     * (This method was for the CLI version of the method).
      *
      * @param sc The {@link Scanner} object used to read user input.
      * @return A new {@code Deadline} object created based on user input.
