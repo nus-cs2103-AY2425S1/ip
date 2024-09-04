@@ -1,5 +1,14 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import exception.CommandFoundButInvalidException;
 import exception.InvalidSyntaxException;
 import task.Deadlines;
@@ -7,9 +16,6 @@ import task.Events;
 import task.Task;
 import task.ToDos;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Handles the reading and writing of task data to and from a file.
