@@ -28,6 +28,9 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasklist) {
+        // Check if tasklist is null
+        assert tasklist != null : "tasklist argument cannot be null";
+
         StringBuilder sb = new StringBuilder();
 
         try {

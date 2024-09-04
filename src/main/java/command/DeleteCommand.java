@@ -30,14 +30,15 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasklist) {
-
+        // Check if tasklist is null
+        assert tasklist != null : "tasklist argument cannot be null";
         StringBuilder sb = new StringBuilder();
 
         try {
             Task task = tasklist.delete(index);
 
             sb.append("Noted. I've removed this task:\n");
-            sb.append("  " + task);
+            sb.append("  " + task + "\n");
             sb.append("Now you have " + tasklist.size() + " tasks in the list.\n");
 
         } catch (TaskListOutOfBoundsException e) {

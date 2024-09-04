@@ -17,6 +17,9 @@ public class AddToDoCommand extends Command {
      * @param desc The description of the to-do task.
      */
     public AddToDoCommand(String desc) {
+        // Check if desc is null
+        assert desc != null : "Desc argument cannot be null";
+
         task = new ToDo(desc);
     }
 
@@ -29,12 +32,15 @@ public class AddToDoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasklist) {
+        // Check if tasklist is null
+        assert tasklist != null : "tasklist argument cannot be null";
+
         tasklist.addTask(task);
 
         StringBuilder sb = new StringBuilder();
 
         sb.append("Got it. I've added this task:\n");
-        sb.append("  " + task);
+        sb.append("  " + task + "\n");
         sb.append("Now you have " + tasklist.size() + " tasks in the list.\n");
 
         return sb.toString();
