@@ -50,8 +50,8 @@ public class Ui {
      * @return string representation of the confirmation message
      */
     public String showAdd(Task addedTask, int numTasks) {
-        return String.format("\tGot it. I've added this task:\n\t%s\n" +
-                "\tNow you have %d tasks in the list.", addedTask, numTasks);
+        return String.format("Got it. I've added this task:\n%s\n" +
+                "Now you have %d tasks in the list.", addedTask, numTasks);
     }
 
     /**
@@ -62,8 +62,8 @@ public class Ui {
      * @return string representation of the confirmation message
      */
     public String showDelete(Task removedTask, int numTasks) {
-        return String.format("\tOk. I've removed this task:\n\t%s\n" +
-                "\tNow you have %d tasks in the list.", removedTask, numTasks);
+        return String.format("Ok. I've removed this task:\n%s\n" +
+                "Now you have %d tasks in the list.", removedTask, numTasks);
     }
 
     /**
@@ -74,15 +74,15 @@ public class Ui {
      */
     public String showList(TaskList list) {
         if (list.isEmpty()) {
-            return "\tThere are no tasks in your list.";
+            return "There are no tasks in your list.";
         } else {
             StringBuilder builder = new StringBuilder();
             for (int i = 1; i <= list.getSize(); i++) {
-                builder.append(String.format("\t%d. %s\n", i, list.get(i - 1)));
+                builder.append(String.format("%d. %s\n", i, list.get(i - 1)));
             }
             // Remove the last newline char
             builder.deleteCharAt(builder.length() - 1);
-            return "\tHere are the tasks in your list:\n" + builder;
+            return "Here are the tasks in your list:\n" + builder;
         }
     }
 
@@ -95,7 +95,7 @@ public class Ui {
      */
     public String showMarked(TaskList list, int index) {
         list.get(index).markAsDone();
-        return "\tNice! I've marked this task as done:\n\t" + list.get(index);
+        return "Nice! I've marked this task as done:\n" + list.get(index);
     }
 
     /**
@@ -107,7 +107,7 @@ public class Ui {
      */
     public String showUnmarked(TaskList list, int index) {
         list.get(index).markAsUndone();
-        return "\tOk, I've marked this task as not done yet:\n\t" + list.get(index);
+        return "Ok, I've marked this task as not done yet:\n" + list.get(index);
     }
 
     /**
@@ -119,19 +119,19 @@ public class Ui {
      */
     public String showSearch(TaskList list, String keyword) {
         if (list.isEmpty()) {
-            return "\tThere are no tasks in your list.";
+            return "There are no tasks in your list.";
         } else {
             TaskList filteredList = list.filter(keyword);
             if (filteredList.isEmpty()) {
-                return "\tThere are no matching tasks in your list.";
+                return "There are no matching tasks in your list.";
             } else {
                 StringBuilder builder = new StringBuilder();
                 for (int i = 1; i <= filteredList.getSize(); i++) {
-                    builder.append(String.format("\t%d. %s\n", i, filteredList.get(i - 1)));
+                    builder.append(String.format("%d. %s\n", i, filteredList.get(i - 1)));
                 }
                 // Remove the last newline char
                 builder.deleteCharAt(builder.length() - 1);
-                return "\tHere are the matching tasks in your list:\n" + builder;
+                return "Here are the matching tasks in your list:\n" + builder;
             }
         }
     }
