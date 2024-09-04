@@ -1,11 +1,8 @@
 package sigma.command;
 
 import org.junit.jupiter.api.Test;
-import sigma.TaskList;
-import sigma.Ui;
-import sigma.Storage;
+import sigma.utils.TaskList;
 import sigma.exception.SigmaException;
-import sigma.task.Task;
 import sigma.task.ToDoTask;
 
 import java.util.ArrayList;

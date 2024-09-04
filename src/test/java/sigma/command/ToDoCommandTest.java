@@ -1,22 +1,19 @@
 package sigma.command;
 
 import org.junit.jupiter.api.Test;
-import sigma.TaskList;
-import sigma.Ui;
-import sigma.Storage;
+import sigma.utils.TaskList;
 import sigma.exception.SigmaException;
-import sigma.task.ToDoTask;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TodoCommandTest {
+public class ToDoCommandTest {
 
     @Test
     public void todoCommand_normalInput_addsTaskSuccessfully() {
-        TodoCommand tc = new TodoCommand(new String[]{"todo", "buy groceries"});
+        ToDoCommand tc = new ToDoCommand(new String[]{"todo", "buy groceries"});
         TaskList tl = new TaskList(new ArrayList<>());
         try {
             tc.execute(tl, null, null);
@@ -28,7 +25,7 @@ public class TodoCommandTest {
 
     @Test
     public void todoCommand_missingTaskDescription_throwsException() {
-        TodoCommand tc = new TodoCommand(new String[]{"todo"});
+        ToDoCommand tc = new ToDoCommand(new String[]{"todo"});
         TaskList tl = new TaskList(new ArrayList<>());
         SigmaException thrown = assertThrows(SigmaException.class, () -> tc.execute(tl, null, null));
         assertEquals("???? You're missing the task! Write \"todo <task>\"!", thrown.getMessage());
@@ -36,7 +33,7 @@ public class TodoCommandTest {
 
     @Test
     public void todoCommand_emptyCommandArray_throwsException() {
-        TodoCommand tc = new TodoCommand(new String[]{});
+        ToDoCommand tc = new ToDoCommand(new String[]{});
         TaskList tl = new TaskList(new ArrayList<>());
         SigmaException thrown = assertThrows(SigmaException.class, () -> tc.execute(tl, null, null));
         assertEquals("???? You're missing the task! Write \"todo <task>\"!", thrown.getMessage());
@@ -44,7 +41,7 @@ public class TodoCommandTest {
 
     @Test
     public void todoCommand_taskDescriptionWithWhitespace_addsTaskSuccessfully() {
-        TodoCommand tc = new TodoCommand(new String[]{"todo", "   read a book   "});
+        ToDoCommand tc = new ToDoCommand(new String[]{"todo", "   read a book   "});
         TaskList tl = new TaskList(new ArrayList<>());
         try {
             tc.execute(tl, null, null);
@@ -56,7 +53,7 @@ public class TodoCommandTest {
 
     @Test
     public void todoCommand_specialCharactersInTaskDescription_addsTaskSuccessfully() {
-        TodoCommand tc = new TodoCommand(new String[]{"todo", "clean @home!"});
+        ToDoCommand tc = new ToDoCommand(new String[]{"todo", "clean @home!"});
         TaskList tl = new TaskList(new ArrayList<>());
         try {
             tc.execute(tl, null, null);
@@ -69,7 +66,7 @@ public class TodoCommandTest {
     @Test
     public void todoCommand_longTaskDescription_addsTaskSuccessfully() {
         String longDescription = "This is a very long task description to see how the system handles large inputs without any issues";
-        TodoCommand tc = new TodoCommand(new String[]{"todo", longDescription});
+        ToDoCommand tc = new ToDoCommand(new String[]{"todo", longDescription});
         TaskList tl = new TaskList(new ArrayList<>());
         try {
             tc.execute(tl, null, null);
@@ -81,7 +78,7 @@ public class TodoCommandTest {
 
     @Test
     public void todoCommand_taskDescriptionWithMultipleWords_addsTaskSuccessfully() {
-        TodoCommand tc = new TodoCommand(new String[]{"todo", "complete the assignment"});
+        ToDoCommand tc = new ToDoCommand(new String[]{"todo", "complete the assignment"});
         TaskList tl = new TaskList(new ArrayList<>());
         try {
             tc.execute(tl, null, null);
@@ -93,7 +90,7 @@ public class TodoCommandTest {
 
     @Test
     public void todoCommand_taskDescriptionIsWhitespace_throwsException() {
-        TodoCommand tc = new TodoCommand(new String[]{"todo", "   "});
+        ToDoCommand tc = new ToDoCommand(new String[]{"todo", "   "});
         TaskList tl = new TaskList(new ArrayList<>());
         SigmaException thrown = assertThrows(SigmaException.class, () -> tc.execute(tl, null, null));
         assertEquals("???? You're missing the task! Write \"todo <task>\"!", thrown.getMessage());
@@ -101,7 +98,7 @@ public class TodoCommandTest {
 
     @Test
     public void todoCommand_nullInput_throwsException() {
-        TodoCommand tc = new TodoCommand(null);
+        ToDoCommand tc = new ToDoCommand(null);
         TaskList tl = new TaskList(new ArrayList<>());
         try {
             tc.execute(tl, null, null);

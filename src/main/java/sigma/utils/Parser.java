@@ -1,14 +1,14 @@
-package sigma;
+package sigma.utils;
 
 import sigma.command.ByeCommand;
-import sigma.command.Commands;
+import sigma.command.Command;
 import sigma.command.DeadlineCommand;
 import sigma.command.DeleteCommand;
 import sigma.command.EventCommand;
 import sigma.command.FindCommand;
 import sigma.command.ListCommand;
 import sigma.command.MarkCommand;
-import sigma.command.TodoCommand;
+import sigma.command.ToDoCommand;
 import sigma.command.UnmarkCommand;
 import sigma.command.UnrecognisedCommand;
 import sigma.exception.SigmaException;
@@ -27,12 +27,12 @@ public class Parser {
      * @param command User input.
      * @return Corresponding command.
      */
-    public static Commands parse(String command) {
+    public static Command parse(String command) {
         String[] split = command.split(" ", 2);
         String cmd = split[0]; // Convert input to uppercase to match enum
         switch (cmd) {
         case "todo":
-            return new TodoCommand(split);
+            return new ToDoCommand(split);
         case "deadline":
             return new DeadlineCommand(split);
         case "event":

@@ -1,17 +1,17 @@
 package sigma.command;
 
-import sigma.Storage;
-import sigma.TaskList;
-import sigma.Ui;
+import sigma.utils.Storage;
+import sigma.utils.TaskList;
+import sigma.utils.Ui;
 import sigma.exception.SigmaException;
 
 /**
  * Represents the command to execute the user's input.
  */
-public abstract class Commands {
+public abstract class Command {
 
     protected String[] split;
-    public Commands(String[] split) {
+    public Command(String[] split) {
         this.split = split;
     }
 
@@ -22,7 +22,11 @@ public abstract class Commands {
      * @param storage
      * @throws SigmaException
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException;
+
+    public boolean isExit() {
+        return false;
+    }
 
     /**
      * Returns the string representation of the command.

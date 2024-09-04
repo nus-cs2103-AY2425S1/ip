@@ -1,4 +1,4 @@
-package sigma;
+package sigma.utils;
 
 import sigma.exception.SigmaException;
 import sigma.task.DeadlineTask;

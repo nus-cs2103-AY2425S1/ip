@@ -1,9 +1,9 @@
 package sigma.command;
 
-import sigma.Parser;
-import sigma.Storage;
-import sigma.TaskList;
-import sigma.Ui;
+import sigma.utils.Parser;
+import sigma.utils.Storage;
+import sigma.utils.TaskList;
+import sigma.utils.Ui;
 import sigma.exception.SigmaException;
 import sigma.task.DeadlineTask;
 
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * Represents the command to add a deadline task.
  */
-public class DeadlineCommand extends Commands {
+public class DeadlineCommand extends Command {
 
     public DeadlineCommand(String[] split) {
         super(split);
@@ -26,7 +26,7 @@ public class DeadlineCommand extends Commands {
      * @throws SigmaException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         Parser parser = new Parser();
         if (split.length < 2) {
             throw new SigmaException("What the sigma? You're missing the task! " +
@@ -40,7 +40,7 @@ public class DeadlineCommand extends Commands {
         LocalDateTime dateTime = parser.parseLocalDateTime(deadlineSplit[1]);
         DeadlineTask deadlineTask = new DeadlineTask(deadlineSplit[0], dateTime);
         tasks.add(deadlineTask);
-        ui.print("Wow! Keeping yourself busy! Added: \n" + deadlineTask.toString()
+        return ui.print("Wow! Keeping yourself busy! Added: \n" + deadlineTask.toString()
                 + "\nNow you have " + tasks.size() + " tasks in the list!");
     }
 

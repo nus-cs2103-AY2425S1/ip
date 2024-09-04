@@ -1,13 +1,13 @@
 package sigma.command;
 
-import sigma.Storage;
-import sigma.TaskList;
-import sigma.Ui;
+import sigma.utils.Storage;
+import sigma.utils.TaskList;
+import sigma.utils.Ui;
 
 /**
  * Represents the command to exit the program.
  */
-public class ByeCommand extends Commands {
+public class ByeCommand extends Command {
 
     /**
      * Constructs a ByeCommand object.
@@ -24,9 +24,17 @@ public class ByeCommand extends Commands {
      * @param storage
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.exit();
-        System.exit(0);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.exit();
+    }
+
+    /**
+     * Returns true to indicate that the program should exit.
+     * @return true
+     */
+    @Override
+    public boolean isExit() {
+        return true;
     }
 
 }
