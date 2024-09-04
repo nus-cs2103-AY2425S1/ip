@@ -1,5 +1,1 @@
 [T][ ] task 1
-[D][ ] task 2 (by: 2024-06-22 1600)
-[E][X] task 3 (from: 2024-06-22 1600 to: 2024-06-22 1800)
-[T][ ] task 4
-[][X] invalid input

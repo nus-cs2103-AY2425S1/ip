@@ -10,12 +10,18 @@ package chatbot;
 public class Ui {
     /**
      * Prints out "Bee" logo in ASCII art.
+     * Optimized for CLI
      */
-    public static final String LOGO = " ____\n"
+    public static final String LOGO_CLI = " ____\n"
             + "|  _ \\  ___   ___\n"
             + "| |_/  / _ \\ / _ \\\n"
             + "| |_\\ |  __/|  __/\n"
             + "|____/ \\___| \\___|\n";
+
+    /**
+     * Prints out "Bee" logo in emoji.
+     */
+    public static final String LOGO = "🐝";
 
     /**
      * Prints out user guide.
@@ -31,6 +37,11 @@ public class Ui {
                 mark <task index>
                 unmark <task index>
                 delete <task index>
+                
+            Format your time in:
+                yyyy-MM-dd HHmm (24Hr)
+                    or yyyy-MM-dd hh:mm am (12Hr).
+                You can replace - with \\ as well;
             """;
 
     /**
@@ -56,13 +67,13 @@ public class Ui {
     }
 
     /**
-     * Formats standard output to be sandwiched by two lines
+     * Formats standard output to be sandwiched by two lines for text interface.
      *
      * @param content text to be included between 2 lines
      */
     public static void printBtnLines(String content) {
-        String line = "______________________________________" +
-                "_______________________________________\n";
+        String line = "______________________________________"
+                + "_______________________________________\n";
 
         System.out.println(line + multiLineIndent(content) + line);
     }
@@ -72,12 +83,13 @@ public class Ui {
      * Informs user of total number of tasks in todolist.
      *
      * @param added      String representation of task added.
-     * @param numOfTasks total number of tasks added
+     * @param numOfTasks Total number of tasks added.
+     * @return           Success message for added task.
      */
-    public static void addTaskResponse(String added, int numOfTasks) {
-        printBtnLines(String.format(
+    public static String addTaskResponse(String added, int numOfTasks) {
+        return String.format(
                 "Got it. I've added this task:\n   %s\nNow you have %d tasks in the list.",
-                added, numOfTasks));
+                added, numOfTasks);
     }
 
     /**
@@ -86,10 +98,11 @@ public class Ui {
      *
      * @param deleted    String representation of task deleted.
      * @param numOfTasks Total number of tasks added.
+     * @return           Success message for deleted task.
      */
-    public static void deleteTaskResponse(String deleted, int numOfTasks) {
-        printBtnLines(String.format(
+    public static String deleteTaskResponse(String deleted, int numOfTasks) {
+        return String.format(
                 "Noted. I've removed this task:\n   %s\nNow you have %d tasks in the list.",
-                deleted, numOfTasks));
+                deleted, numOfTasks);
     }
 }

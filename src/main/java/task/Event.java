@@ -1,9 +1,9 @@
 package task;
 
-import chatbot.Parser;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import chatbot.Parser;
 
 /**
  * A class representing individual events
@@ -15,6 +15,14 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
+    /**
+     * Instantiates new Event object.
+     *
+     * @param name Task name.
+     * @param from Start date-time string.
+     * @param to End date-time string.
+     * @throws DateTimeParseException If date-time string is in incorrect format.
+     */
     public Event(String name, String from, String to) throws DateTimeParseException {
         super(name);
         this.from = Parser.parseStringToDateTime(from);
@@ -34,8 +42,8 @@ public class Event extends Task {
         if (!(obj instanceof Event event)) {
             return false;
         }
-        return super.equals(event) &&
-                this.to.equals(event.to) &&
-                this.from.equals(event.from);
+        return super.equals(event)
+                && this.to.equals(event.to)
+                && this.from.equals(event.from);
     }
 }
