@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BigdogTest {
 
     @Test
-    public void dummyTest(){
+    public void buildTest(){
         assertEquals(2, 2);
     }
 

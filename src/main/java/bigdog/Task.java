@@ -5,26 +5,26 @@ public abstract class Task {
     private boolean marked;
     private String taskRep;
 
+    private static final String UNRECOGNIZED_KEYWORDS_MESSAGE =
+            "Sorry the only keywords I recognise are:\n" +
+                    "1. todo\n" +
+                    "2. deadline\n" +
+                    "3. event\n" +
+                    "4. mark\n" +
+                    "5. unmark\n" +
+                    "6. delete\n" +
+                    "7. list\n" +
+                    "8. bye";
+
     public Task(String taskRep, boolean marked) {
         this.marked = marked;
         this.taskRep = taskRep;
     }
 
-    public static Task of(String task) throws BigdogException {
-        if (task.startsWith("todo")) {
-            return Todo.of(task);
-        } else if (task.startsWith("deadline")) {
-            return Deadline.of(task);
-        } else if (task.startsWith("event")) {
-            return Event.of(task);
-        } else {
-            throw new BigdogException("Sorry the only keywords I recognise are \n1.todo\n2.deadline\n3.event" +
-                    "\n4.mark\n5.unmark\n6.delete\n7.list\n8.bye ");
-        }
-    }
-
-
     public static Task of(String task, boolean marked) throws BigdogException {
+        if (task == null || task.isEmpty()) {
+            throw new BigdogException("Task cannot be empty!");
+        }
         if (task.startsWith("T")) {
             return Todo.of(task, marked);
         } else if (task.startsWith("D")) {
@@ -32,8 +32,7 @@ public abstract class Task {
         } else if (task.startsWith("E")) {
             return Event.of(task, marked);
         } else {
-            throw new BigdogException("Sorry the only keywords I recognise are \n1.todo\n2.deadline\n3.event" +
-                    "\n4.mark\n5.unmark\n6.delete\n7.list\n8.bye ");
+            throw new BigdogException(UNRECOGNIZED_KEYWORDS_MESSAGE);
         }
     }
 

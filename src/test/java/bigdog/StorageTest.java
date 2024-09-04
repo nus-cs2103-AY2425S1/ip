@@ -17,16 +17,11 @@ class StorageTest {
 
     @BeforeEach
     void setUp() {
-        storage = new Storage(testFilePath);
-    }
-
-    @BeforeEach
-    void tearDown() {
-        // Delete the test file after each test
         File file = new File(testFilePath);
         if (file.exists()) {
             file.delete();
         }
+        storage = new Storage(testFilePath);
     }
 
     @Test

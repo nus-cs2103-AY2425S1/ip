@@ -9,6 +9,7 @@ public class Event extends Task{
     private LocalDateTime start;
     private LocalDateTime end;
     private static boolean withTime;
+
     private Event(String str, LocalDateTime start, LocalDateTime end, boolean marked) {
         super(str, marked);
         this.start = start;
