@@ -57,6 +57,9 @@ public class TaskList {
                     + "You can use the command \"list\" to view your list of tasks :D";
         } catch (DateTimeParseException e) {
             throw new WinnerException("""
+                    Expected format for adding deadline task:
+                    deadline (task) by (dd/mm/yyyy) at (time - 24 hour format)
+                    
                     Expected format for date and time:
                     date - dd/mm/yyyy
                     time - 24 hour format""");
@@ -102,6 +105,18 @@ public class TaskList {
         Task task = tasks.get(taskNumber - 1);
         tasks.remove(taskNumber - 1);
         return task.deleteTask();
+    }
+
+    public String findTasksWithKeyword(String keyword) {
+        int counter = 1;
+        StringBuilder list = new StringBuilder("\nHere are the tasks you are searching for: \n");
+        for (Task i : tasks) {
+            if (i.description.contains(keyword)) {
+                list.append(counter).append(". ").append(i.taskToString()).append("\n");
+                counter++;
+            }
+        }
+        return list.toString();
     }
 
 }
