@@ -42,34 +42,34 @@ public class Parser {
             return new ListCommand();
         }
         case "mark": {
-            String[] args = parseArgs(messageRecord.args, new String[]{});
+            String[] args = parseArgs(messageRecord.args);
             int index = parseInt(args[0]) - 1;
             return new MarkCommand(index);
         }
         case "unmark": {
-            String[] args = parseArgs(messageRecord.args, new String[]{});
+            String[] args = parseArgs(messageRecord.args);
             int index = parseInt(args[0]) - 1;
             return new UnmarkCommand(index);
         }
         case "todo": {
-            String[] args = parseArgs(messageRecord.args, new String[]{});
+            String[] args = parseArgs(messageRecord.args);
             return new CreateToDoCommand(args[0]);
         }
         case "deadline": {
-            String[] args = parseArgs(messageRecord.args, new String[] { "/by" });
+            String[] args = parseArgs(messageRecord.args, "/by");
             return new CreateDeadlineCommand(args[0], parseDate(args[1]));
         }
         case "event": {
-            String[] args = parseArgs(messageRecord.args, new String[] { "/from", "/to" });
+            String[] args = parseArgs(messageRecord.args, "/from", "/to");
             return new CreateEventCommand(args[0], parseDate(args[1]), parseDate(args[2]));
         }
         case "delete": {
-            String[] args = parseArgs(messageRecord.args, new String[]{});
+            String[] args = parseArgs(messageRecord.args);
             int index = parseInt(args[0]);
             return new DeleteCommand(index);
         }
         case "find": {
-            String[] args = parseArgs(messageRecord.args, new String[]{});
+            String[] args = parseArgs(messageRecord.args);
             return new FindCommand(args[0]);
         }
         default: {
@@ -86,7 +86,7 @@ public class Parser {
         return new Message(split[0], split[1]);
     }
 
-    private static String[] parseArgs(String messageArgs, String[] argNames) {
+    private static String[] parseArgs(String messageArgs, String... argNames) {
         // The values ot the arguments. One additional space is used for the
         // text before all the arguments, i.e. <keyword> TEXT <arg1> ARG1 VAL...
         String[] values = new String[argNames.length + 1];
