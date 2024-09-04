@@ -1,10 +1,10 @@
 package task;
 
+import java.util.ArrayList;
+
 import exception.JadeException;
 import storage.Storage;
 import ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Manages a list of tasks.

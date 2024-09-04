@@ -1,19 +1,27 @@
 package parser;
 
+import java.time.format.DateTimeParseException;
+
 import exception.JadeException;
-import task.Task;
-import task.Todo;
 import task.Deadline;
 import task.Event;
+import task.Task;
+import task.Todo;
 import ui.Ui;
-
-import java.time.format.DateTimeParseException;
 
 /**
  * Handles the parsing of user commands and executes the appropriate actions.
  */
 public class Parser {
 
+    /**
+     * Parses a user command to create a task object (Todo, Deadline, or Event).
+     * Throws a JadeException if the task description of the command is missing.
+     *
+     * @param command The user input command to parse.
+     * @return The Task object created based on the user command.
+     * @throws JadeException If the command format is incorrect or required details are missing.
+     */
     public Task parseTaskCommand(String command) throws JadeException {
         if (command.startsWith("todo")) {
             if (command.substring(4).trim().isEmpty()) {
