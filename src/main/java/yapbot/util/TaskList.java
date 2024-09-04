@@ -164,7 +164,7 @@ public class TaskList {
             }
         }
 
-        if (result.isEmpty()) {
+        if (result.length() == 0) {
             return null;
         } else {
             result.deleteCharAt(result.length() - 1);
