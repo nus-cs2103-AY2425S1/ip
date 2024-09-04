@@ -29,6 +29,10 @@ public class Task {
         return type;
     }
 
+    public String toSaveString() {
+        return getTypeIcon() + " | " + (isDone ? "1" : "0") + " | " + description;
+    }
+
     @Override
     public String toString() {
         return "[" + getTypeIcon() + "][" + getStatusIcon() + "] " + description;
@@ -52,6 +56,11 @@ class Todo extends Task {
     public Todo(String description) {
         super(description, TaskType.TODO);
     }
+
+    @Override
+    public String toSaveString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }
 
 class Deadline extends Task {
@@ -60,6 +69,11 @@ class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description, TaskType.DEADLINE);
         this.by = by;
+    }
+
+    @Override
+    public String toSaveString() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
     }
 
     @Override
