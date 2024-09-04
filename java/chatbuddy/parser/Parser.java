@@ -9,8 +9,18 @@ import chatbuddy.command.MarkCommand;
 import chatbuddy.command.UnmarkCommand;
 import chatbuddy.exception.ChatBuddyException;
 
+/**
+ * Parses user input and returns the appropriate command to execute.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param userInput The user's input string.
+     * @return The command corresponding to the user input.
+     * @throws ChatBuddyException If the user input is invalid.
+     */
     public static Command parse(String userInput) throws ChatBuddyException {
         String[] parts = userInput.split(" ", 2);
         String commandWord = parts[0];

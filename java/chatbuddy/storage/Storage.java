@@ -5,20 +5,35 @@ import chatbuddy.task.Deadline;
 import chatbuddy.task.Event;
 import chatbuddy.task.Task;
 import chatbuddy.task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks to and from the storage file.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file used for storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws ChatBuddyException If there is an error while loading the tasks.
+     */
     public ArrayList<Task> load() throws ChatBuddyException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -68,6 +83,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the storage file.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws ChatBuddyException If there is an error while saving the tasks.
+     */
     public void saveTasks(ArrayList<Task> tasks) throws ChatBuddyException {
         try {
             FileWriter writer = new FileWriter(filePath);
