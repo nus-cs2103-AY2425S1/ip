@@ -31,7 +31,7 @@ public class AddDeadlineCommand implements Command {
      * @param inputFormatters An array of date formatters for parsing the deadline date.
      */
     public AddDeadlineCommand(TaskList tasks, Storage storage, Ui ui, String details,
-                              DateTimeFormatter[] inputFormatters) {
+                              DateTimeFormatter... inputFormatters) {
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;

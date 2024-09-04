@@ -31,7 +31,7 @@ public class AddEventCommand implements Command {
      * @param inputFormatters An array of date formatters for parsing the event dates.
      */
     public AddEventCommand(TaskList tasks, Storage storage, Ui ui, String details,
-                           DateTimeFormatter[] inputFormatters) {
+                           DateTimeFormatter... inputFormatters) {
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
