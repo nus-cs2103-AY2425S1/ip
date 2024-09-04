@@ -1,7 +1,6 @@
 package main;
 
 import exception.CommandFoundButInvalidException;
-import exception.CommandNotFoundException;
 import exception.InvalidSyntaxException;
 import task.Deadlines;
 import task.Events;
@@ -12,6 +11,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles the reading and writing of task data to and from a file.
+ * Provides functionality to load tasks from a file and save tasks to a file
+ */
 public class Storage {
     private String filePath;
     private File file;
@@ -56,17 +59,17 @@ public class Storage {
                 String[] parts = line.split("\\| ");
                 Task currTask;
                 switch (parts[0].trim()) {
-                    case "T":
-                        currTask = new ToDos(parts[2]);
-                        break;
-                    case "D":
-                        currTask = new Deadlines(parts[2]);
-                        break;
-                    case "E":
-                        currTask = new Events(parts[2]);
-                        break;
-                    default:
-                        throw new InvalidSyntaxException("File is corrupted");
+                case "T":
+                    currTask = new ToDos(parts[2]);
+                    break;
+                case "D":
+                    currTask = new Deadlines(parts[2]);
+                    break;
+                case "E":
+                    currTask = new Events(parts[2]);
+                    break;
+                default:
+                    throw new InvalidSyntaxException("File is corrupted");
                 }
                 if (Integer.parseInt(parts[1].trim()) == 1) {
                     currTask.markAsDone();
@@ -80,9 +83,10 @@ public class Storage {
         return allTasks;
     }
     /**
-     * Saves tasks from the input list of tasks into a file
+     * Saves tasks from the provided {@code TaskList} instance to the file.
+     * The file content will be overwritten with the current tasks
      *
-     * @param taskList a {@code TaskList} instance
+     * @param taskList a {@code TaskList} instance containing tasks to be saved
      */
     public void put(TaskList taskList) {
         try {
