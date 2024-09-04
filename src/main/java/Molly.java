@@ -34,7 +34,7 @@ public class Molly {
         Ui.greetUser();
         TaskList taskList = new TaskList(storage.loadTasks());
         Scanner botScanner = new Scanner(System.in);
-        Parser MollyParser = new Parser(storage, taskList);
+        Parser mollyParser = new Parser(storage, taskList);
         String userInput = "";
         Ui.printLine();
         while (!userInput.toLowerCase().equals("bye")) {
@@ -44,13 +44,12 @@ public class Molly {
                 if (userInput.toLowerCase().equals("bye")) {
                     break;
                 }
-                MollyParser.handleUserInput(userInput);
+                mollyParser.handleUserInput(userInput);
 
             } catch (MollyException e) {
                 System.out.println(e.getMessage());
                 Ui.printLine();
             }
-
         }
         storage.saveTasks(taskList);
         Ui.sayBye();
