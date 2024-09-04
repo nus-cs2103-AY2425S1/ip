@@ -1,9 +1,9 @@
-package command;
+package rasputin.command;
 
-import task.TaskList;
-import task.InvalidTaskException;
+import rasputin.task.TaskList;
+import rasputin.task.InvalidTaskException;
 
-import ui.Ui;
+import rasputin.gui.Ui;
 
 /**
  * Represents a command to mark a task as done.
@@ -24,10 +24,11 @@ public class MarkCommand extends Command {
      * @throws InvalidTaskException If the given index is out of bounds of the TaskList.
      */
     @Override
-    public void execute() throws InvalidTaskException {
+    public String execute() throws InvalidTaskException {
         try {
             tasks.mark(index);
-            Ui.printText("Marked that as done for you.\n" + tasks.get(index).toString());
+            String output = "Marked that as done for you.\n" + tasks.get(index).toString();
+            return output;
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskException("ERROR! Task not found.");
         }

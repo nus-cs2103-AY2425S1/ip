@@ -1,9 +1,9 @@
-package command;
+package rasputin.command;
 
-import task.TaskList;
-import task.InvalidTaskException;
+import rasputin.task.TaskList;
+import rasputin.task.InvalidTaskException;
 
-import ui.Ui;
+import rasputin.gui.Ui;
 
 
 /**
@@ -25,10 +25,11 @@ public class DeleteCommand extends Command {
      * @throws InvalidTaskException If the given index is out of bounds of TaskList.
      */
     @Override
-    public void execute() throws InvalidTaskException {
+    public String execute() throws InvalidTaskException {
         try {
-            Ui.printText("Done, removed that task for you.\n" + tasks.get(index).toString());
+            String output = "Done, removed that task for you.\n" + tasks.get(index).toString();
             tasks.remove(index);
+            return output;
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskException("ERROR! Task not found.");
         }

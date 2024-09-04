@@ -1,9 +1,9 @@
-package ui;
+package rasputin.gui;
 
 import java.util.Scanner;
 
-import task.Task;
-import task.TaskList;
+import rasputin.task.Task;
+import rasputin.task.TaskList;
 
 /**
  * Represents the UI that the user will interact with when using the chatbot.
@@ -30,8 +30,8 @@ public class Ui {
      *
      * @param tasks List of tasks to be printed.
      */
-    public static void printList(TaskList tasks) {
-        printText(tasks.toString());
+    public static String printList(TaskList tasks) {
+        return tasks.toString();
     }
 
     /**
@@ -40,24 +40,24 @@ public class Ui {
      * @param task Task to be added into the list.
      * @param tasks List of tasks to be used.
      */
-    public static void printAddTask(Task task, TaskList tasks) {
+    public static String printAddTask(Task task, TaskList tasks) {
         String output = String.format("Added %s task:\n%s", task.getType(), task);
-        output += "\nYou currently have " + tasks.size() + " task/s in your list.";
-        printText(output);
+        output += "\nYou currently have " + tasks.size() + "rasputin/s in your list.";
+        return output;
     }
 
     /**
      * Prints the greeting in between two line breaks when the user starts the chatbot.
      */
-    public static void printGreeting() {
-        printText("Hello, I'm Rasputin!\nWhat can I do for you?");
+    public static String printGreeting() {
+        return "Hello, I'm Rasputin!\nWhat can I do for you?";
     }
 
     /**
      * Prints the farewell in between two line breaks when the user is done with the chatbot.
      */
-    public static void printFarewell() {
-        printText("Bye. See you later!");
+    public static String printFarewell() {
+        return "Bye. See you later!";
     }
 
     /**
@@ -65,8 +65,8 @@ public class Ui {
      *
      * @param error Error message to be printed.
      */
-    public static void printError(String error) {
-        printText(error);
+    public static String printError(String error) {
+        return error;
     }
 
     /**

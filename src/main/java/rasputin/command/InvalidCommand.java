@@ -1,6 +1,6 @@
-package command;
+package rasputin.command;
 
-import ui.Ui;
+import rasputin.gui.Ui;
 
 /**
  * Represents an invalid command due to invalid parameters or input.
@@ -17,8 +17,8 @@ public class InvalidCommand extends Command {
      * Prints the error message thrown by the exception.
      */
     @Override
-    public void execute() {
-        Ui.printError(message);
+    public String execute() {
+        return Ui.printError(message);
     }
 
     /**

@@ -1,13 +1,13 @@
-package command;
+package rasputin.command;
 
-import task.TaskList;
-import task.RasputinException;
-import task.InvalidTaskException;
-import task.Todo;
-import task.Deadline;
-import task.Event;
+import rasputin.task.TaskList;
+import rasputin.task.RasputinException;
+import rasputin.task.InvalidTaskException;
+import rasputin.task.Todo;
+import rasputin.task.Deadline;
+import rasputin.task.Event;
 
-import ui.Ui;
+import rasputin.gui.Ui;
 
 import java.time.format.DateTimeParseException;
 
@@ -31,7 +31,7 @@ public class AddCommand extends Command {
      * @throws RasputinException If task has incorrect parameters such as empty description or invalid time and date.
      */
     @Override
-    public void execute() throws RasputinException {
+    public String execute() throws RasputinException {
         String[] cmdSplit = input.split(" ");
         String type = cmdSplit[0];
         if (cmdSplit.length < 2) {
@@ -43,8 +43,7 @@ public class AddCommand extends Command {
                 desc = input.substring(5);
                 Todo todo = new Todo(desc);
                 tasks.add(todo);
-                Ui.printAddTask(todo, tasks);
-                break;
+                return Ui.printAddTask(todo, tasks);
             case "deadline":
                 String str = input.substring(9);
                 String[] deadlineSplit = str.split(" /by ");
@@ -60,8 +59,7 @@ public class AddCommand extends Command {
                     throw new InvalidTaskException("ERROR! Invalid deadline format.");
                 }
                 tasks.add(deadline);
-                Ui.printAddTask(deadline, tasks);
-                break;
+                return Ui.printAddTask(deadline, tasks);
             case "event":
                 str = input.substring(6);
                 String[] durations = str.split(" /from ");
@@ -84,8 +82,9 @@ public class AddCommand extends Command {
                     throw new InvalidTaskException("ERROR! Invalid event duration format.");
                 }
                 tasks.add(event);
-                Ui.printAddTask(event, tasks);
-                break;
+                return Ui.printAddTask(event, tasks);
+            default:
+                throw new InvalidTaskException("ERROR! Invalid task.");
         }
     }
 

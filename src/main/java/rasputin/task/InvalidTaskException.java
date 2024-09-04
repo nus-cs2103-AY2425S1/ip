@@ -1,4 +1,4 @@
-package task;
+package rasputin.task;
 
 /**
  * Represents an error that occurs in the creation of a task.

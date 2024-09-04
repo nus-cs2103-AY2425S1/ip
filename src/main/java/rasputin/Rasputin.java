@@ -1,14 +1,18 @@
-import command.Command;
-import command.InvalidCommand;
+package rasputin;
 
-import parser.Parser;
+import javafx.application.Application;
+import javafx.application.Platform;
+import rasputin.command.Command;
+import rasputin.command.InvalidCommand;
 
-import storage.Storage;
+import rasputin.parser.Parser;
 
-import task.RasputinException;
-import task.TaskList;
+import rasputin.storage.Storage;
 
-import ui.Ui;
+import rasputin.task.RasputinException;
+import rasputin.task.TaskList;
+
+import rasputin.gui.Ui;
 
 /**
  * Represents a chatbot to store a list of tasks for the user.
@@ -28,6 +32,7 @@ public class Rasputin {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(this.storage.readFile());
         this.parser = new Parser(tasks, storage);
+//        run();
     }
 
     /**
@@ -48,8 +53,19 @@ public class Rasputin {
         }
     }
 
+    public String getResponse(String input) {
+        try {
+            Command cmd = parser.parseInput(input);
+            return cmd.execute();
+        } catch (RasputinException e) {
+            return new InvalidCommand(e.getMessage()).execute();
+        }
+
+    }
+
     public static void main(String[] args) {
         Rasputin rasputin = new Rasputin("src/main/data/rasputin.txt");
         rasputin.run();
     }
+
 }

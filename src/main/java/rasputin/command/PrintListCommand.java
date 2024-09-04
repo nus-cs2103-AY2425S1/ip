@@ -1,8 +1,8 @@
-package command;
+package rasputin.command;
 
-import task.TaskList;
+import rasputin.task.TaskList;
 
-import ui.Ui;
+import rasputin.gui.Ui;
 
 /**
  * Represents command to print out the current list of tasks.
@@ -18,8 +18,8 @@ public class PrintListCommand extends Command {
      * Prints the current list of tasks.
      */
     @Override
-    public void execute() {
-        Ui.printList(tasks);
+    public String execute() {
+        return Ui.printList(tasks);
     }
 
     /**

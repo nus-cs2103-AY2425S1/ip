@@ -1,4 +1,4 @@
-package task;
+package rasputin.task;
 
 /**
  * Represents a task to be completed. A task can be of 3 different types and can be marked as done or not done.
@@ -28,7 +28,7 @@ public class Task {
      * @return Type of task.
      */
     public String getType() {
-        return "task";
+        return "rasputin";
     }
 
     /**

@@ -1,4 +1,4 @@
-package task;
+package rasputin.task;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;

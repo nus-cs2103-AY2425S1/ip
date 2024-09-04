@@ -1,10 +1,12 @@
-package command;
+package rasputin.command;
 
-import task.TaskList;
+import javafx.application.Platform;
+import rasputin.task.TaskList;
 
-import storage.Storage;
+import rasputin.storage.Storage;
 
-import ui.Ui;
+import rasputin.gui.Ui;
+
 
 /**
  * Represents the command to close the program when the user types "bye".
@@ -25,10 +27,11 @@ public class ExitCommand extends Command {
      *
      */
     @Override
-    public void execute() {
+    public String execute() {
         isTerminated = true;
         storage.writeFile(tasks);
-        Ui.printFarewell();
+        Platform.exit();
+        return Ui.printFarewell();
     }
 
     /**

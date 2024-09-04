@@ -1,10 +1,10 @@
-package command;
+package rasputin.command;
 
-import task.RasputinException;
-import task.TaskList;
-import task.Task;
+import rasputin.task.RasputinException;
+import rasputin.task.TaskList;
+import rasputin.task.Task;
 
-import ui.Ui;
+import rasputin.gui.Ui;
 
 /**
  * Represents a command to find a task with description containing the keyword to search with.
@@ -29,7 +29,7 @@ public class FindCommand extends Command {
      * @throws RasputinException If command is missing the keyword to search with.
      */
     @Override
-    public void execute() throws RasputinException {
+    public String execute() throws RasputinException {
         String[] cmdSplit = input.split(" ", 2);
         if (cmdSplit.length < 2) {
             throw new RasputinException("ERROR! Find command requires a keyword to search with.");
@@ -43,10 +43,10 @@ public class FindCommand extends Command {
         }
 
         if (foundTasks.isEmpty()) {
-            Ui.printText("No matching tasks in list.");
+            return "No matching tasks in list.";
         } else {
             String output = String.format("Here are the matching tasks in your list.\n%s", foundTasks.toString());
-            Ui.printText(output);
+            return output;
         }
     }
 

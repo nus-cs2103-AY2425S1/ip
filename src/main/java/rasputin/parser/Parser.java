@@ -1,18 +1,18 @@
-package parser;
+package rasputin.parser;
 
-import command.AddCommand;
-import command.Command;
-import command.DeleteCommand;
-import command.ExitCommand;
-import command.FindCommand;
-import command.InvalidCommand;
-import command.MarkCommand;
-import command.PrintListCommand;
-import command.UnmarkCommand;
-import storage.Storage;
-import task.InvalidTaskException;
-import task.RasputinException;
-import task.TaskList;
+import rasputin.command.AddCommand;
+import rasputin.command.Command;
+import rasputin.command.DeleteCommand;
+import rasputin.command.ExitCommand;
+import rasputin.command.FindCommand;
+import rasputin.command.InvalidCommand;
+import rasputin.command.MarkCommand;
+import rasputin.command.PrintListCommand;
+import rasputin.command.UnmarkCommand;
+import rasputin.storage.Storage;
+import rasputin.task.InvalidTaskException;
+import rasputin.task.RasputinException;
+import rasputin.task.TaskList;
 
 /**
  * Parses the input from the user to be passed into the commands.
