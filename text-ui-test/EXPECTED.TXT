@@ -1,6 +1,6 @@
-Task file not found, creating task file.
+task file not found, creating task file.
 Unable to create task file.
-Task file not found.
+task file not found.
 ____________________________________
 Hello, I'm Rasputin!
 What can I do for you?
@@ -70,7 +70,7 @@ ____________________________________
 ____________________________________
 
 ____________________________________
-Task has been unmarked.
+task has been unmarked.
 [T][ ] buy milk
 ____________________________________
 
@@ -94,19 +94,19 @@ ERROR! Event tasks require a duration for the event.
 ____________________________________
 
 ____________________________________
-ERROR! Task to be marked not specified.
+ERROR! task to be marked not specified.
 ____________________________________
 
 ____________________________________
-ERROR! Task not found.
+ERROR! task not found.
 ____________________________________
 
 ____________________________________
-ERROR! Task to be deleted not specified.
+ERROR! task to be deleted not specified.
 ____________________________________
 
 ____________________________________
-ERROR! Task not found.
+ERROR! task not found.
 ____________________________________
 
 ____________________________________

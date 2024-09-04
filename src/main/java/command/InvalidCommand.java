@@ -1,6 +1,6 @@
-package Command;
+package command;
 
-import Ui.Ui;
+import ui.Ui;
 
 /**
  * Represents an invalid command due to invalid parameters or input.

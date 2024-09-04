@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 /**
  * Represents a task that has no deadline to be completed by.

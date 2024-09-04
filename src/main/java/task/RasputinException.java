@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 public class RasputinException extends RuntimeException {
     public RasputinException(String message) {

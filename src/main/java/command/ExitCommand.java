@@ -1,10 +1,10 @@
-package Command;
+package command;
 
-import Task.TaskList;
+import task.TaskList;
 
-import Storage.Storage;
+import storage.Storage;
 
-import Ui.Ui;
+import ui.Ui;
 
 /**
  * Represents the command to close the program when the user types "bye".

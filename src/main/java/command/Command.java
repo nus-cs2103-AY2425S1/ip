@@ -1,6 +1,6 @@
-package Command;
+package command;
 
-import Task.RasputinException;
+import task.RasputinException;
 
 /**
  * Abstract class to represent commands to be executed in the chatbot.

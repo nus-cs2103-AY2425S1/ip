@@ -1,18 +1,18 @@
-package Parser;
+package parser;
 
-import Command.AddCommand;
-import Command.Command;
-import Command.DeleteCommand;
-import Command.ExitCommand;
-import Command.FindCommand;
-import Command.InvalidCommand;
-import Command.MarkCommand;
-import Command.PrintListCommand;
-import Command.UnmarkCommand;
-import Storage.Storage;
-import Task.InvalidTaskException;
-import Task.RasputinException;
-import Task.TaskList;
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.InvalidCommand;
+import command.MarkCommand;
+import command.PrintListCommand;
+import command.UnmarkCommand;
+import storage.Storage;
+import task.InvalidTaskException;
+import task.RasputinException;
+import task.TaskList;
 
 /**
  * Parses the input from the user to be passed into the commands.

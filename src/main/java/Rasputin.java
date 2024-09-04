@@ -1,14 +1,14 @@
-import Command.Command;
-import Command.InvalidCommand;
+import command.Command;
+import command.InvalidCommand;
 
-import Parser.Parser;
+import parser.Parser;
 
-import Storage.Storage;
+import storage.Storage;
 
-import Task.RasputinException;
-import Task.TaskList;
+import task.RasputinException;
+import task.TaskList;
 
-import Ui.Ui;
+import ui.Ui;
 
 /**
  * Represents a chatbot to store a list of tasks for the user.

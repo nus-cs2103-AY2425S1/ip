@@ -1,9 +1,9 @@
-package Command;
+package command;
 
-import Task.TaskList;
-import Task.InvalidTaskException;
+import task.TaskList;
+import task.InvalidTaskException;
 
-import Ui.Ui;
+import ui.Ui;
 
 
 /**

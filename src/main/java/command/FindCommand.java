@@ -1,10 +1,10 @@
-package Command;
+package command;
 
-import Task.RasputinException;
-import Task.TaskList;
-import Task.Task;
+import task.RasputinException;
+import task.TaskList;
+import task.Task;
 
-import Ui.Ui;
+import ui.Ui;
 
 /**
  * Represents a command to find a task with description containing the keyword to search with.

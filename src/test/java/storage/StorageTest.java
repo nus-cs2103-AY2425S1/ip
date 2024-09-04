@@ -1,11 +1,11 @@
-package Storage;
+package storage;
 
 import org.junit.jupiter.api.Test;
 
-import Task.Task;
-import Task.Todo;
-import Task.Deadline;
-import Task.Event;
+import task.Task;
+import task.Todo;
+import task.Deadline;
+import task.Event;
 
 import java.util.ArrayList;
 

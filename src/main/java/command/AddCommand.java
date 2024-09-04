@@ -1,13 +1,13 @@
-package Command;
+package command;
 
-import Task.TaskList;
-import Task.RasputinException;
-import Task.InvalidTaskException;
-import Task.Todo;
-import Task.Deadline;
-import Task.Event;
+import task.TaskList;
+import task.RasputinException;
+import task.InvalidTaskException;
+import task.Todo;
+import task.Deadline;
+import task.Event;
 
-import Ui.Ui;
+import ui.Ui;
 
 import java.time.format.DateTimeParseException;
 

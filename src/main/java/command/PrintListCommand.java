@@ -1,8 +1,8 @@
-package Command;
+package command;
 
-import Task.TaskList;
+import task.TaskList;
 
-import Ui.Ui;
+import ui.Ui;
 
 /**
  * Represents command to print out the current list of tasks.
