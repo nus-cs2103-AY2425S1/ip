@@ -22,7 +22,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setKita(kita);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setKita(kita);
+            stage.setTitle("Kita Ikuyo");
+            stage.setMaxWidth(420);
+            stage.setMinWidth(420);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

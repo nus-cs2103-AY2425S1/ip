@@ -49,6 +49,8 @@ public class ChatBubble extends HBox {
     }
 
     public static ChatBubble getUserDialog(String text, Image img) {
+        var db = new ChatBubble(text, img);
+        db.flip();
         return new ChatBubble(text, img);
     }
 
