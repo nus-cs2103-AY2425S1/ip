@@ -1,10 +1,13 @@
 package mira;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
 
 public class StorageTest {
     private static final String TEST_DATA_FOLDER = "./src/test/data/StorageTest";
@@ -13,7 +16,7 @@ public class StorageTest {
      * Test if createTaskFromFile throws MiraException with a specific message when unknown task type is found.
      */
     @Test
-    public void testCreateTaskFromFile_UnknownTaskType() {
+    public void testCreateTaskFromFile_unknownTaskType() {
         String filePath = TEST_DATA_FOLDER + "/UnknownTaskTypeData.txt";
         Storage storage = new Storage(filePath);
 
@@ -28,7 +31,7 @@ public class StorageTest {
      * Test if createTaskFromFile successfully loads Todo, Deadline, and Event tasks.
      */
     @Test
-    public void testCreateTaskFromFile_SuccessfulLoad() {
+    public void testCreateTaskFromFile_successfulLoad() {
         String filePath = TEST_DATA_FOLDER + "/ValidData.txt";
         Storage storage = new Storage(filePath);
         try {
@@ -37,9 +40,9 @@ public class StorageTest {
             for (Task task : tasks) {
                 result.append(task.toFileString()).append("\n");
             }
-            assertEquals("T | 1 | read book\n" +
-                    "D | 0 | return book | 6/6/2019 1800\n" +
-                    "E | 0 | project meeting | 6/8/2019 1400 | 6/8/2019 1600\n", result.toString());
+            assertEquals("T | 1 | read book\n"
+                    + "D | 0 | return book | 6/6/2019 1800\n"
+                    + "E | 0 | project meeting | 6/8/2019 1400 | 6/8/2019 1600\n", result.toString());
         } catch (Exception e) {
             fail();
         }

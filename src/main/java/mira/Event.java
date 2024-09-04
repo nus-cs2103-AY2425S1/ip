@@ -8,9 +8,9 @@ import java.time.format.DateTimeParseException;
  * Represents an Event task that starts and ends at specific date/times.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter DEFAULT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private final LocalDateTime from; // The start datetime of the event
     private final LocalDateTime to; // The end datetime of the event
-    private final DateTimeFormatter DEFAULT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * Constructs a new Event task.

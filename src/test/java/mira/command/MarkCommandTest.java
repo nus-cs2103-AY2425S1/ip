@@ -1,9 +1,10 @@
 package mira.command;
 
-import mira.TaskList;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import mira.TaskList;
 
 public class MarkCommandTest {
 
