@@ -27,8 +27,33 @@ public class Jag {
         }
     }
 
+    public Jag() {
+        ui = new Ui();
+        storage = new Storage("./data/jag.txt");
+        try {
+            tasks = storage.load();
+        } catch (FileNotFoundException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
     /**
-     * Method to run the application
+     * Generates a response from Jag
+     */
+    public String getResponse(String input) throws AExceptions {
+        try {
+            ui.setCommand(input);
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            return ui.getResponse();
+        } catch (AExceptions e) {
+            return e.getErrorMessage();
+        }
+    }
+
+    /**
+     * Method to run the application on CLI
      * Starts the chatbot with a welcome message
      * Continues until the "bye" command is given
      */

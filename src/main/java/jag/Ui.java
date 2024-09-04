@@ -9,14 +9,31 @@ import java.util.Scanner;
  */
 public class Ui {
     private String loadingError = "File not found :(";
-    private String dashed = "----------";
+    private static String dashed = "----------";
     private Scanner scanner = new Scanner(System.in);
-    private String greetings = this.dashed + "\nHello! I'm jag.Jag What can I do for you?\n" + this.dashed;
-    private String bye = this.dashed + "\nBye. Hope to see you again soon!\n" + this.dashed;
+    private static String greetings = dashed + "\nHello! I'm Jag What can I do for you?\n" + dashed;
+    private String bye = dashed + "\nBye. Hope to see you again soon!\n" + dashed;
+    private String response = "";
 
     private String command;
     public void showLoadingError() {
         System.out.println(this.loadingError);;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
+    }
+
+    public static String getGreetings() {
+        return Ui.greetings;
+    }
+
+    public void setResponse(String response) {
+        this.response = this.dashed + "\n" + response + "\n" + this.dashed;
+    }
+
+    public String getResponse() {
+        return this.response;
     }
 
     /**
@@ -32,7 +49,7 @@ public class Ui {
     }
 
     public void showLine() {
-        System.out.println(this.dashed);
+        System.out.println(dashed);
     }
 
     /**
@@ -47,21 +64,6 @@ public class Ui {
         return this.command;
     }
 
-
-
-    /**
-     * Responds by printing out the String response
-     *
-     * @param response Response that consist of all Tasks
-     *                 that have been turned into Strings
-     *                 from the List class
-     */
-    public void list(String response) {
-        System.out.println(this.dashed);
-        System.out.println(response);
-        System.out.println(this.dashed);
-        command = scanner.nextLine();
-    }
 
     /**
      * Returns the description of the task from user input
@@ -159,6 +161,22 @@ public class Ui {
     }
 
     /**
+     * Responds by printing out the String response
+     *
+     * @param response Response that consist of all Tasks
+     *                 that have been turned into Strings
+     *                 from the List class
+     */
+    public void list(String response) {
+        System.out.println(this.dashed);
+        System.out.println(response);
+        System.out.println(this.dashed);
+        setResponse(response);
+        command = scanner.nextLine();
+    }
+
+
+    /**
      * Displays the right response to the user that a task has been added
      * based on the type of task
      *
@@ -169,28 +187,26 @@ public class Ui {
      *              accessed and displayed to the user upon the addition
      */
     public void addedResponse(char type, Task task, TaskList tasks) {
+        String response = "Got it. I've added this task: "
+                + "\n" + task.toString()
+                + "\n" + "Now you have " + tasks.size() + " tasks in the list";
+        setResponse(response);
         if (type == 'T') {
             // Response for ToDos
             System.out.println(this.dashed);
-            System.out.println("Got it. I've added this task: ");
-            System.out.println(task.toString());
-            System.out.println("Now you have " + tasks.size() + " tasks in the list");
+            System.out.println(response);
             System.out.println(this.dashed);
             command = scanner.nextLine();
         } else if (type == 'D') {
             // Response for jag.Deadline
             System.out.println(this.dashed);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task.toString());
-            System.out.println("Now you have " + tasks.size() + " tasks in the list");
+            System.out.println(response);
             System.out.println(this.dashed);
             command = scanner.nextLine();
         } else {
             // Response for event
             System.out.println(this.dashed);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task.toString());
-            System.out.println("Now you have " + tasks.size() + " tasks in the list");
+            System.out.println(response);
             System.out.println(this.dashed);
             command = scanner.nextLine();
         }
@@ -205,10 +221,12 @@ public class Ui {
      * @param size Represents the updated size of the task list after the deletion
      */
     public void deleteResponse(Task task, int size) {
+        String response = "Noted. I've removed this task:"
+                + "\n" + task.toString()
+                + "\n" + "Now you have " + size + " tasks in the list.";
+        setResponse(response);
         System.out.println(this.dashed);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + size + " tasks in the list.");
+        System.out.println(response);
         System.out.println(this.dashed);
         command = scanner.nextLine();
     }
@@ -220,9 +238,11 @@ public class Ui {
      *             can be called upon
      */
     public void unmarkResponse(Task task) {
+        String response = "OK, I've marked this task as not done yet:"
+                + "\n" + task.toString();
+        setResponse(response);
         System.out.println(this.dashed);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString());
+        System.out.println(response);
         System.out.println(this.dashed);
         command = scanner.nextLine();
     }
@@ -234,9 +254,11 @@ public class Ui {
      *             can be called upon
      */
     public void markResponse(Task task) {
+        String response = "Nice! I've marked this task as done:"
+                + "\n" + task.toString();
+        setResponse(response);
         System.out.println(this.dashed);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
+        System.out.println(response);
         System.out.println(this.dashed);
         command = scanner.nextLine();
     }
@@ -252,19 +274,24 @@ public class Ui {
      *                   found by the FindCommand instance
      */
     public void findResponse(TaskList foundTasks) {
+        String response;
         if (foundTasks.size() != 0) {
             System.out.println(this.dashed);
             System.out.println("Here are the matching tasks in your list: ");
+            response = "Here are the matching tasks in your list: ";
             for (int i = 0; i < foundTasks.size(); i++) {
                 System.out.println((i + 1) + ". " + foundTasks.getTask(i).toString());
+                response += (i + 1) + ". " + foundTasks.getTask(i).toString();
             }
             System.out.println(this.dashed);
-            command = scanner.nextLine();
         } else {
             System.out.println(this.dashed);
             System.out.println("Sorry we could not find any matching tasks in your list");
             System.out.println(this.dashed);
+            response = "Sorry we could not find any matching tasks in your list";
         }
+        setResponse(response);
+        command = scanner.nextLine();
     }
 
 
@@ -273,6 +300,7 @@ public class Ui {
      * and to close the instance of the scanner to end the application
      */
     public void exitResponse() {
+        setResponse(bye);
         System.out.println(bye);
         scanner.close();
     }
