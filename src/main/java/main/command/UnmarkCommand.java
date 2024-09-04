@@ -44,6 +44,9 @@ public class UnmarkCommand extends Command {
      * @throws PrinceException
      */
     private void unmark(String input, TaskList taskList, Storage storage, Ui ui) throws PrinceException {
+        if (input.equals("unmark")) {
+            throw new PrinceException("Don't forget to include the number of the task!");
+        }
         // extra check to make sure the start of input is "unmark"
         String checkUnmark = input.substring(0, 6);
         if (checkUnmark.equals("unmark")) {
@@ -51,6 +54,7 @@ public class UnmarkCommand extends Command {
             Task task = taskList.get(index);
             task.markAsNotDone();
             storage.updateFile(input, taskList);
+            ui.showUnmark();
             ui.showTaskToString(task);
         } else {
             throw new PrinceException("Please ensure that your input begins with 'unmark'!");
