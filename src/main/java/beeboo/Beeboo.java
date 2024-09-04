@@ -21,7 +21,7 @@ public class Beeboo {
 
     private static final String FILE_PATH = "./data/beeboo.txt";
 
-    private static Image beebooImage = new Image(Beeboo.class.getResourceAsStream("/images/DaDuke.png"));
+    private static Image beebooImage = new Image(Beeboo.class.getResourceAsStream("/images/Beeboo.jpg"));
 
     /**
      * Constructs a BeeBoo instance with the specified file path for storage.
