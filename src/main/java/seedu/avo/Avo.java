@@ -4,6 +4,7 @@ import seedu.avo.commands.Command;
 import seedu.avo.commands.CommandResult;
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.parser.CommandParser;
+import seedu.avo.ui.Response;
 
 /**
  * Represents the bot

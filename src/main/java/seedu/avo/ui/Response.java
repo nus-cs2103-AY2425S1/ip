@@ -1,4 +1,4 @@
-package seedu.avo;
+package seedu.avo.ui;
 
 /**
  * Represents the response to the user

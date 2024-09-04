@@ -1,4 +1,4 @@
-package seedu.avo;
+package seedu.avo.ui;
 
 import java.io.IOException;
 import java.util.Collections;

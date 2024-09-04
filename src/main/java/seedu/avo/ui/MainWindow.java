@@ -1,4 +1,4 @@
-package seedu.avo;
+package seedu.avo.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import seedu.avo.Avo;
+
 /**
  * Controller for the main GUI.
  */
@@ -22,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Avo avo;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image avoImage = new Image(this.getClass().getResourceAsStream("/images/DaAvo.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image avoImage = new Image(this.getClass().getResourceAsStream("/images/DaAvo.png"));
 
     @FXML
     public void initialize() {
