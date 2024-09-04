@@ -29,20 +29,19 @@ public class Parser {
      * @param commandsExecutor The commandsExecutor to execute commands on
      * @returns boolean - Whether the "bye" command was entered
      */
-    public static boolean parse(String command, Commands commandsExecutor) throws KitaError, IOException {
+    public static ParserMessage parse(String command, Commands commandsExecutor) throws KitaError, IOException {
         if (command.equals("bye")) {
-            commandsExecutor.bye();
-            return true;
+            return new ParserMessage(commandsExecutor.bye(), true);
         } else if (command.equals("list")) {
-            commandsExecutor.list();
+            return new ParserMessage(commandsExecutor.list(), false);
         } else if (command.startsWith("mark")) {
-            commandsExecutor.mark(command);
+            return new ParserMessage(commandsExecutor.mark(command), false);
         } else if (command.startsWith("unmark")) {
-            commandsExecutor.unmark(command);
+            return new ParserMessage(commandsExecutor.unmark(command), false);
         } else if (command.startsWith("delete")) {
-            commandsExecutor.delete(command);
+            return new ParserMessage(commandsExecutor.delete(command), false);
         } else if (command.startsWith("find")) {
-            commandsExecutor.find(command);
+            return new ParserMessage(commandsExecutor.find(command), false);
         } else {
             Matcher eventMatcher = eventPattern.matcher(command);
             Matcher deadlineMatcher = deadlinePattern.matcher(command);
@@ -57,7 +56,7 @@ public class Parser {
                     }
                     throw new KitaMissingDescription();
                 }
-                commandsExecutor.createEvent(eventMatcher);
+                return new ParserMessage(commandsExecutor.createEvent(eventMatcher), false);
 
             } else if (command.startsWith("deadline")) {
                 if (!deadlineMatcher.matches()) {
@@ -66,19 +65,18 @@ public class Parser {
                     }
                     throw new KitaMissingDescription();
                 }
-                commandsExecutor.createDeadline(deadlineMatcher);
+                return new ParserMessage(commandsExecutor.createDeadline(deadlineMatcher), false);
 
             } else if (command.startsWith("todo")) {
                 if (!todoMatcher.matches()) {
                     throw new KitaMissingDescription();
                 }
 
-                commandsExecutor.createToDo(todoMatcher);
+                return new ParserMessage(commandsExecutor.createToDo(todoMatcher), false);
             } else {
                 // No valid command found :c
                 throw new KitaNotFound();
             }
         }
-        return false;
     }
 }
