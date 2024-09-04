@@ -2,6 +2,7 @@ package momo.command;
 
 import momo.Storage;
 import momo.StorageException;
+import momo.Ui;
 import momo.task.Task;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class AddCommand extends Command {
      *
      * @param task Task object to be printed
      */
-    public static void printTaskAdded(Task task) {
-        System.out.println("Noted. I've added this task:\n " + task);
+    public static void printTaskAdded(Task task, Ui ui) {
+        ui.printDialogue("Noted. I've added this task:\n " + task);
     }
 }
