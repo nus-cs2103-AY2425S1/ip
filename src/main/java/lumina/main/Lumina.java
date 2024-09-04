@@ -46,8 +46,8 @@ public class Lumina {
     public Lumina() {
         if (luminaCount > 0) {
             // since for now we only have one data file, we will prevent more instantiation
-            // of more than once Lumina.Main.Lumina instance, to prevent data from being corrupted
-            throw new IllegalStateException("Lumina.Main.Lumina has already been instantiated!");
+            // of more than once Lumina instance, to prevent data from being corrupted
+            throw new IllegalStateException("Lumina has already been instantiated!");
         }
         luminaCount++;
         ui = new Ui();
@@ -84,7 +84,7 @@ public class Lumina {
                         int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
                         taskList.markTaskNotDone(taskIndex);
                     } else {
-                        throw new LuminaException("Oh no! Lumina.Main.Lumina detected "
+                        throw new LuminaException("Oh no! Lumina detected "
                                 + "unexpected number of parameters in your command! "
                                 + "Please try again");
                     }
@@ -100,7 +100,7 @@ public class Lumina {
                         int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
                         taskList.markTaskDone(taskIndex);
                     } else {
-                        throw new LuminaException("Oh no! Lumina.Main.Lumina detected "
+                        throw new LuminaException("Oh no! Lumina detected "
                                 + "unexpected number of parameters in your command! "
                                 + "Please try again");
                     }
@@ -140,7 +140,7 @@ public class Lumina {
                         int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
                         taskList.deleteTask(taskIndex);
                     } else {
-                        throw new LuminaException("Oh no! Lumina.Main.Lumina detected "
+                        throw new LuminaException("Oh no! Lumina detected "
                                 + "unexpected number of parameters in your command! "
                                 + "Please try again");
                     }

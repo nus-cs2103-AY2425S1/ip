@@ -40,7 +40,7 @@ public class Ui {
      * Greets the user with a welcome message when the program starts.
      */
     public void greet() {
-        this.printMessage("Hello! I'm Lumina.Main.Lumina\n" +
+        this.printMessage("Hello! I'm Lumina\n" +
                 "What can I do for you?");
     }
 

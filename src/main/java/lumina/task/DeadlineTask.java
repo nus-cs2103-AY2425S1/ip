@@ -10,7 +10,7 @@ public class DeadlineTask extends Task {
     private LocalDate byDateObject;
 
     /**
-     * Constructor for Lumina.Main.Lumina.Lumina.Main.Lumina.Task.Task.DeadlineTask
+     * Constructor for Deadline Task
      *
      * @param description description of task
      * @param byDateObject  deadline of task
@@ -21,7 +21,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Constructor for Lumina.Main.Lumina.Lumina.Main.Lumina.Task.Task.DeadlineTask
+     * Constructor for Deadline Task
      *
      * @param description description of task
      * @param byDateObject  deadline of task

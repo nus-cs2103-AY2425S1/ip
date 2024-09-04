@@ -1,8 +1,5 @@
 T | 0 | add book
 T | 1 | read book
-D | 0 | c c | 2024-01-10
-E | 0 | d d | 2024-01-01 | 2024-02-02
-T | 0 | a v
-T | 0 | a
-D | 0 | a f | 2023-02-02
 E | 1 | book concert | 2024-01-01 | 2024-03-03
+T | 0 | go class
+D | 0 | finish hw | 2024-09-08
