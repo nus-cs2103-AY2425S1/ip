@@ -33,9 +33,12 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws KronaException {
         tasks.addTask(task);
-        ui.showMessage("Got it. I've added this task:");
-        ui.showMessage(task.toString());
-        ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
+        StringBuilder output = new StringBuilder();
+        output.append("Got it. I've added this task:\n");
+        output.append(task.toString()).append("\n");
+        output.append("Now you have ").append(tasks.size()).append(" tasks in the list.");
         storage.save(tasks);
+
+        ui.setCombinedMessage(output.toString());
     }
 }

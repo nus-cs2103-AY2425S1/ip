@@ -35,9 +35,13 @@ public class UnmarkCommand extends Command {
         try {
             Task task = tasks.get(taskIndex);
             task.markNotDone();
-            ui.showMessage("OK, I've marked this task as not done yet:");
-            ui.showMessage(task.toString());
+
+            StringBuilder output = new StringBuilder();
+            output.append("OK, I've marked this task as not done yet:\n");
+            output.append(task.toString());
             storage.save(tasks);
+
+            ui.setCombinedMessage(output.toString());
         } catch (IndexOutOfBoundsException e) {
             throw new KronaException("krona.task.Task index is out of bounds.");
         }

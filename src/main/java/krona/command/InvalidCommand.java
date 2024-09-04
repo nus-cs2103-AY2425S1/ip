@@ -28,8 +28,16 @@ public class InvalidCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage(errorMessage != null && !errorMessage.isEmpty()
-                ? errorMessage
-                : "OOPS!!! I'm sorry, but I don't know what that means :-(");
+        StringBuilder output = new StringBuilder();
+
+        // If there is an error message, use it; otherwise, use the default message
+        if (errorMessage != null && !errorMessage.isEmpty()) {
+            output.append(errorMessage);
+        } else {
+            output.append("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+
+        // Send the combined message to the UI
+        ui.setCombinedMessage(output.toString());
     }
 }

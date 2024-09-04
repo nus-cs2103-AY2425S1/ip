@@ -4,7 +4,6 @@ import krona.task.Task;
 import krona.task.TaskList;
 import krona.ui.Ui;
 import krona.storage.Storage;
-import krona.exception.KronaException;
 
 import java.util.ArrayList;
 
@@ -40,13 +39,17 @@ public class FindCommand extends Command {
             }
         }
 
+        StringBuilder output = new StringBuilder();
+
         if (matchingTasks.isEmpty()) {
-            ui.showMessage("No matching tasks found.");
+            output.append("No matching tasks found.");
         } else {
-            ui.showMessage("Here are the matching tasks in your list:");
+            output.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                ui.showMessage((i + 1) + ". " + matchingTasks.get(i).toString());
+                output.append(i + 1).append(". ").append(matchingTasks.get(i).toString()).append("\n");
             }
         }
+
+        ui.setCombinedMessage(output.toString().trim());
     }
 }

@@ -35,10 +35,16 @@ public class DeleteCommand extends Command {
         try {
             Task task = tasks.get(taskIndex);
             tasks.deleteTask(taskIndex);
-            ui.showMessage("Noted. I've removed this task:");
-            ui.showMessage(task.toString());
-            ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
-            storage.save(tasks);  // Save tasks after deleting
+
+            StringBuilder output = new StringBuilder();
+            output.append("Noted. I've removed this task:\n");
+            output.append(task.toString()).append("\n");
+            output.append("Now you have ").append(tasks.size()).append(" tasks in the list.");
+
+            storage.save(tasks);
+
+            ui.setCombinedMessage(output.toString());
+
         } catch (IndexOutOfBoundsException e) {
             throw new KronaException("krona.task.Task index is out of bounds.");
         }

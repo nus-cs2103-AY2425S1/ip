@@ -34,26 +34,25 @@ public class Krona {
     }
 
     /**
-     * Runs the main Krona application.
-     * Continuously reads and executes user commands until the bye command is given.
+     * Processes the user input and returns the appropriate response from the Krona chatbot.
+     *
+     * This method takes the user's input, parses it to determine the command, and executes
+     * the command on the task list. The method returns the resulting response string, which
+     * is displayed in the GUI or terminal.
+     *
+     * @param input The user input in the form of a String.
+     * @return A String representing Krona's response to the user, including success or error
+     *         messages.
+     * @throws KronaException if any error occurs during the execution of the command.
      */
-    public void run() {
-        ui.welcome();
-        boolean isExit = false;
-        while (!isExit) {
-            String fullCommand = ui.readCommand();
-            Command c = Parser.parse(fullCommand);
-            try {
-                c.execute(tasks, ui, storage);
-            } catch (KronaException e) {
-                ui.showMessage("An error occurred: " + e.getMessage());
-            }
-            isExit = c.isExit();
+    public String getResponse(String input) {
+        Command c = Parser.parse(input);
+        try {
+            c.execute(tasks, ui, storage);
+            // Return the combined message
+            return ui.getCombinedMessage();
+        } catch (KronaException e) {
+            return "Error: " + e.getMessage();
         }
     }
-
-    public static void main(String[] args) {
-        new Krona("data/tasks.txt").run();
-    }
-
 }

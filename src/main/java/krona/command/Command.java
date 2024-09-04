@@ -20,12 +20,4 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws KronaException;
 
-    /**
-     * Indicates whether this command causes the application to exit.
-     *
-     * @return {@code true} if the command should cause the application to exit, {@code false} otherwise.
-     */
-    public boolean isExit() {
-        return false;
-    }
 }

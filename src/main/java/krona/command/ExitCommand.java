@@ -4,6 +4,9 @@ import krona.task.TaskList;
 import krona.ui.Ui;
 import krona.storage.Storage;
 
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+
 /**
  * Represents a command to exit the Krona chatbot.
  */
@@ -18,11 +21,11 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.goodbye();
-    }
+        ui.goodbye(); // Show goodbye message
 
-    @Override
-    public boolean isExit() {
-        return true;
+        // Create a PauseTransition to wait for 2 seconds before exiting
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(event -> ui.exitApp()); // Exit the app after the delay
+        pause.play(); // Start the pause
     }
 }

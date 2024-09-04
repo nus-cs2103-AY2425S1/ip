@@ -35,9 +35,13 @@ public class MarkCommand extends Command {
         try {
             Task task = tasks.get(taskIndex);
             task.markDone();
-            ui.showMessage("Nice! I've marked this task as done:");
-            ui.showMessage(task.toString());
+
+            StringBuilder output = new StringBuilder();
+            output.append("Nice! I've marked this task as done:\n");
+            output.append(task.toString());
             storage.save(tasks);
+
+            ui.setCombinedMessage(output.toString());
         } catch (IndexOutOfBoundsException e) {
             throw new KronaException("krona.task.Task index is out of bounds.");
         }
