@@ -21,9 +21,10 @@ public class TaskHandling {
      * @param to A StringBuilder to build the "to" time
      * @param sb A StringBuilder to build the event description
      * @param task This helps to determine if I need to add "task" or "tasks"
+     * @return A String that stores the output
      * @throws BitBotException if input is invalid
      */
-    public static void handleEvent (ArrayList<Task> arrayList, String textPart,
+    public static String handleEvent (ArrayList<Task> arrayList, String textPart,
                                     String[] partsOfInput, int indexFrom, StringBuilder from,
                                     StringBuilder to, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
@@ -111,10 +112,10 @@ public class TaskHandling {
             event = new Events(textPart, from.toString().trim(), to.toString().trim());
         }
         arrayList.add(event);
-        System.out.println("          ____________________________________\n          Got it. I've added this task:\n"
+        return "          ____________________________________\n          Got it. I've added this task:\n"
                 + "             " + event.finalString() + "\n"
                 + "          Now you have " + arrayList.size() + " " + task + " in the list.\n"
-                + "          ____________________________________");
+                + "          ____________________________________";
     }
 
     /**
@@ -140,10 +141,11 @@ public class TaskHandling {
      * @param by A StringBuilder to build the "by" time
      * @param sb A StringBuilder to build the event description
      * @param task This helps to determine if I need to add "task" or "tasks"
+     * @return A String that stores the output
      * @throws BitBotException if input is invalid
      */
 
-    public static void handleDeadline (ArrayList<Task> arrayList, String textPart,
+    public static String handleDeadline (ArrayList<Task> arrayList, String textPart,
                                        String[] partsOfInput, int indexBy, StringBuilder by,
                                        StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
@@ -207,10 +209,10 @@ public class TaskHandling {
             deadline = new Deadline(textPart, by.toString().trim());
         }
         arrayList.add(deadline);
-        System.out.println("          ____________________________________\n          Got it. I've added this task:\n"
+        return "          ____________________________________\n          Got it. I've added this task:\n"
                 + "             " + deadline.finalString() + "\n"
                 + "          Now you have " + arrayList.size() + " " + task + " in the list.\n"
-                + "          ____________________________________");
+                + "          ____________________________________";
     }
 
     /**
@@ -234,9 +236,10 @@ public class TaskHandling {
      * @param partsOfInput the String[] of the split input
      * @param sb A StringBuilder to build the event description
      * @param task This helps to determine if I need to add "task" or "tasks"
+     * @return A string that stores the output
      * @throws BitBotException if input is invalid
      */
-    public static void handleTodo(ArrayList<Task> arrayList, String textPart,
+    public static String handleTodo(ArrayList<Task> arrayList, String textPart,
                                    String[] partsOfInput, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
             throw new BitBotException("OOPS!!! Need to add a description for a todo activity\n " +
@@ -248,10 +251,10 @@ public class TaskHandling {
         textPart = sb.toString().trim();
         Task toDos = new ToDos(textPart);
         arrayList.add(toDos);
-        System.out.println("          ____________________________________\n          Got it. I've added this task:\n"
+        return "          ____________________________________\n          Got it. I've added this task:\n"
                 + "             " + toDos.finalString() + "\n"
                 + "          Now you have " + arrayList.size() + " " + task + " in the list.\n"
-                + "          ____________________________________\n");
+                + "          ____________________________________\n";
     }
 
     /**
@@ -264,16 +267,21 @@ public class TaskHandling {
         return todo;
     }
     /**
-     * Handles the displaying of the list in order
+     * Handles the display of the list in order
      *
      * @param arrayList the list of tasks
+     * @return A String that stores the tasks
      */
-    public static void handleList(ArrayList<Task> arrayList) {
-        System.out.println("          ____________________________________\n          Here are the tasks in your list:");
+    public static String handleList(ArrayList<Task> arrayList) {
+
+        StringBuilder result = new StringBuilder();
+        result.append("          ____________________________________\n          Here are the tasks in your list:\n");
+
         for (int i = 1; i < arrayList.size() + 1; i++) {
-            System.out.println("          " + i + ". " + arrayList.get(i - 1).finalString());
+            result.append("          " + i + ". " + arrayList.get(i - 1).finalString() + "\n");
         }
-        System.out.println("          ____________________________________\n");
+        result.append("          ____________________________________\n");
+        return result.toString();
     }
 
     /**
@@ -283,7 +291,7 @@ public class TaskHandling {
      * @param wordsToSearch this is a variable argument of Strings that the user can input.
      * @throws BitBotException when the user does not key in any text after "find"
      */
-    public static void handleFind (ArrayList<Task> arrayList, String... wordsToSearch) throws BitBotException {
+    public static String handleFind (ArrayList<Task> arrayList, String... wordsToSearch) throws BitBotException {
         if (wordsToSearch == null ||wordsToSearch.length == 0) {
             throw new BitBotException("OOPS!! Add a string of words you want to find.\n" +
                     "          Please do not leave it blank.");
@@ -291,6 +299,7 @@ public class TaskHandling {
 
         String textToBeFound;
         StringBuilder sb1 = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         ArrayList<Task> similarWordList = new ArrayList<>();
 
         for (String eachWord : wordsToSearch) {
@@ -309,18 +318,19 @@ public class TaskHandling {
         }
 
         if (similarWordList.isEmpty()) {
-            System.out.println("          ____________________________________");
-            System.out.println("          There are no matching tasks in the list.");
-            System.out.println("          Please try another keyword.");
-            System.out.println("          ____________________________________");
+            result.append("          ____________________________________\n");
+            result.append("          There are no matching tasks in the list.\n");
+            result.append("          Please try another keyword.\n");
+            result.append("          ____________________________________\n");
         } else {
-            System.out.println("          ____________________________________");
-            System.out.println("          Here are the matching tasks in your list:");
+            result.append("          ____________________________________\n");
+            result.append("          Here are the matching tasks in your list:\n");
             for (int i = 1; i < similarWordList.size() + 1; i++) {
-                System.out.println("          " + i + ". " + similarWordList.get(i - 1).finalString());
+                result.append("          " + i + ". " + similarWordList.get(i - 1).finalString() + "\n");
             }
-            System.out.println("          ____________________________________");
+            result.append("          ____________________________________\n");
         }
+        return result.toString();
     }
     /**
      * Checks if the string is a string or whether it is an integer wrapped in a string.
@@ -342,7 +352,7 @@ public class TaskHandling {
      *
      * @param partsOfInput the String[] of the split input
      * @param arrayList the list of tasks
-     * @return an in of the numberPart so that it can use it in subsequent calculations.
+     * @return an int of the numberPart so that it can use it in subsequent calculations.
      * @throws BitBotException when the user does not key in any text after "delete" / "mark" / "unmark"
      */
     public static int checkAndThrowException(String[] partsOfInput, ArrayList<Task> arrayList) throws BitBotException{
