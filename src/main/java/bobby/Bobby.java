@@ -55,53 +55,65 @@ public class Bobby {
         boolean isRunning = true;
         while (isRunning) {
             String userInput = ui.readCommand();
-            Command command = parser.parseCommand(userInput);
-            try {
-                switch (command) {
-                case BYE:
-                    ui.showExitMessage();
-                    isRunning = false;
-                    break;
-                case LIST:
-                    ui.showTasks(tasks);
-                    break;
-                case MARK:
-                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    Task task = tasks.get(index);
-                    task.markTask();
-                    ui.showTaskMarked(task);
-                    storage.saveTasks(tasks);
-                    break;
-                case UNMARK:
-                    int i = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    Task taskToUnmark = tasks.get(i);
-                    taskToUnmark.unmarkTask();
-                    ui.showTaskUnmarked(taskToUnmark);
-                    storage.saveTasks(tasks);
-                    break;
-                case DELETE:
-                    int deleteIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    Task deletedTask = tasks.remove(deleteIndex);
-                    ui.showTaskDeleted(deletedTask, tasks.size());
-                    storage.saveTasks(tasks);
-                    break;
-                case SEARCHDATE:
-                case FIND:
-                    ArrayList<Task> foundTasks = parser.parseFindCommand(userInput, tasks);
-                    ui.showFoundTasks(foundTasks);
-                    break;
-                default:
-                    Task newTask = parser.parseTask(userInput);
-                    tasks.add(newTask);
-                    ui.showTaskAdded(newTask, tasks.size());
-                    storage.saveTasks(tasks);
-                    break;
-                }
-            } catch (BobbyException e) {
-                ui.showError(e.getMessage());
+            String response = processCommand(userInput);
+            ui.showResponse(response);
+            if (response.equals(ui.getExitMessage())) {
+                isRunning = false;
             }
         }
+    }
 
+    /**
+     * Processes a single command and returns the appropriate response.
+     *
+     * @param userInput The user's input command.
+     * @return The response to be displayed to the user.
+     */
+    public String processCommand(String userInput) {
+        Command command = parser.parseCommand(userInput);
+        try {
+            switch (command) {
+            case BYE:
+                return ui.getExitMessage();
+            case LIST:
+                return ui.getTasksList(tasks);
+            case MARK:
+                int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                Task task = tasks.get(index);
+                task.markTask();
+                storage.saveTasks(tasks);
+                return ui.getTaskMarkedMessage(task);
+            case UNMARK:
+                int i = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                Task taskToUnmark = tasks.get(i);
+                taskToUnmark.unmarkTask();
+                storage.saveTasks(tasks);
+                return ui.getTaskUnmarkedMessage(taskToUnmark);
+            case DELETE:
+                int deleteIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                Task deletedTask = tasks.remove(deleteIndex);
+                storage.saveTasks(tasks);
+                return ui.getTaskDeletedMessage(deletedTask, tasks.size());
+            case SEARCHDATE:
+            case FIND:
+                ArrayList<Task> foundTasks = parser.parseFindCommand(userInput, tasks);
+                return ui.getFoundTasksMessage(foundTasks);
+            default:
+                Task newTask = parser.parseTask(userInput);
+                tasks.add(newTask);
+                storage.saveTasks(tasks);
+                return ui.getTaskAddedMessage(newTask, tasks.size());
+            }
+        } catch (BobbyException e) {
+            return ui.getErrorMessage(e.getMessage());
+        }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return processCommand(input);
     }
 
     /**
