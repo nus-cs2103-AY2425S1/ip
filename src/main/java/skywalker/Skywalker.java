@@ -1,3 +1,5 @@
+package skywalker;
+
 import java.io.IOException;
 
 import skywalker.command.Command;
@@ -63,5 +65,9 @@ public class Skywalker {
      */
     public static void main(String[] args) {
         new Skywalker("./data/tasks.txt").run();
+    }
+
+    public String getResponse(String input) {
+        return "Skywalker heard: " + input;
     }
 }
