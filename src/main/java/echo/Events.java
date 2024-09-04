@@ -2,11 +2,13 @@ package echo;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+
 /**
  * The Events class represents a task that has a start and end date.
  * It extends the Task class and includes additional fields to store the start and end dates.
  */
-public class Events extends Task{
+public class Events extends Task {
+
 
     LocalDate start;
     LocalDate end;
@@ -31,7 +33,7 @@ public class Events extends Task{
      * @return A string that includes the task type, description, start date, and end date.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[E] " + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 
@@ -41,7 +43,7 @@ public class Events extends Task{
      * @return A string in the format " /from start /to end".
      */
     @Override
-    public String getAdd(){
+    public String getAdd() {
         return " /from " + start + " /to " + end;
     }
 

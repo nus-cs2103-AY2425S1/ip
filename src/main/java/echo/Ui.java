@@ -16,7 +16,7 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-<<<<<<< HEAD
+
     public static void showClassFound(List<Task> tasks) {
         for(int i = 0; i < tasks.size(); i++) {
             int no = i + 1;
@@ -24,13 +24,12 @@ public class Ui {
         }
     }
 
-=======
+
     /**
      * Reads and returns the user's command as a trimmed, lowercase string.
      *
      * @return The user's command.
      */
->>>>>>> branch-A-JavaDoc
     public String readCommand() {
         return scanner.nextLine().trim().toLowerCase();
     }

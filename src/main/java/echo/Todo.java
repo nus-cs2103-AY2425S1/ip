@@ -1,9 +1,11 @@
 package echo;
+
 /**
  * The Todo class represents a simple task that does not have any additional details such as a deadline or event time.
  * It extends the Task class and is used for tasks that are just descriptions.
  */
-public class Todo extends Task{
+public class Todo extends Task {
+
 
     /**
      * Returns the type letter for this task, which is "T" for Todo.

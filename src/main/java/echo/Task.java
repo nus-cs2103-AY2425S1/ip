@@ -7,6 +7,7 @@ public abstract class Task {
     boolean isDone;
     String taskDes;
 
+
     /**
      * Constructs a Task with the specified description.
      * The task is initially not done.
@@ -21,14 +22,14 @@ public abstract class Task {
     /**
      * Marks the task as done.
      */
-    public void setDone(){
+    public void setDone() {
         isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
-    public void setUndone(){
+    public void setUndone() {
         isDone = false;
     }
 
@@ -37,7 +38,7 @@ public abstract class Task {
      *
      * @return A string that shows whether the task is done and its description.
      */
-    public String toString(){
+    public String toString() {
         if(isDone){
             return "[X] " + taskDes;
         } else {

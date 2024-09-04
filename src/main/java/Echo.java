@@ -49,7 +49,6 @@ public class Echo {
             String command = parts[0];
 
 
-
             try {
                 switch (command) {
                 case "bye":
@@ -96,6 +95,7 @@ public class Echo {
 
         }
     }
+
 
     /**
      * The main method that creates an instance of Echo and starts the application.
