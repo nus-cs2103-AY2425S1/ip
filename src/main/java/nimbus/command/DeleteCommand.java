@@ -6,10 +6,22 @@ import nimbus.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * DeleteCommand deletes particular task entries requested by user
+ */
+
 public class DeleteCommand  extends Command {
     private String userInput;
     private ArrayList<Task> tasks;
     private TaskList taskList;
+
+    /**
+     * Creates a DeleteCommand Object
+     * Stores userInput and allows taskList to be passed in
+     *
+     * @param userInput
+     * @param taskList
+     */
 
     public DeleteCommand(String userInput, TaskList taskList) {
         super(userInput, taskList);
@@ -17,6 +29,10 @@ public class DeleteCommand  extends Command {
         this.tasks = taskList.getTaskList();
         this.taskList = taskList;
     }
+
+    /**
+     * Removes a task from the list based on the index in userInput
+     */
 
     @Override
     public void execute() {

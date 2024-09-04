@@ -6,8 +6,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * This class handles the formatting of dates amd times
+ */
+
 public class DateTime {
     LocalDateTime dateTime;
+
+    /**
+     * Creates DateTime object that changes the userInput into the desired output string
+     * for start time and deadlines
+     *
+     * @param dateTime the date time user has provided
+     * @throws WrongDateTimeFormatException if the userInput is in the wrong form
+     */
 
     public DateTime(String dateTime) throws WrongDateTimeFormatException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -18,7 +30,14 @@ public class DateTime {
         }
     }
 
-    // for endTime
+    /**
+     * Creates DateTime object that changes the userInput into the desired output string for endTime
+     *
+     * @param startTime start time of event task
+     * @param endTime end time of event task
+     * @throws WrongDateTimeFormatException if the userInput is in the wrong form
+     */
+
     public DateTime(String startTime, String endTime) throws WrongDateTimeFormatException{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
@@ -36,9 +55,21 @@ public class DateTime {
         }
     }
 
+    /**
+     * gets dateTime
+     *
+     * @return LocalDateTime
+     */
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
+
+    /**
+     * changes dateTime string into storage format
+     *
+     * @return String in storage format
+     */
 
     public String toStorageFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");

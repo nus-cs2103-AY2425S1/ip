@@ -10,11 +10,23 @@ import nimbus.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * AddCommand class is a subclass of Command
+ * It is able to create tasks and add them into the task list
+ */
+
 public class AddCommand extends Command {
 
     private ArrayList<Task> tasks;
     private TaskList taskList;
     public String taskDescription;
+
+    /**
+     * Creates an AddCommand Object where taskInput is the task description
+     *
+     * @param userInput user input
+     * @param taskList taskList object that is passed in
+     */
 
     public AddCommand(String userInput, TaskList taskList) {
         super(userInput, taskList);
@@ -22,6 +34,17 @@ public class AddCommand extends Command {
         this.taskList = taskList;
         this.tasks = taskList.getTaskList();
     }
+
+    /**
+     * Adds a task into the taskList in this file,
+     * Able to add TodoTask, DeadlineTask and EventTask
+     *
+     * @throws WrongInputException if task description does not fit\
+     * @throws MissingDescriptionException if task is missing description
+     * @throws MissingDeadlineException if userInput did not include deadline
+     * @throws MissingStartEndTimeException if there is either missing start or end time for events
+     * @throws WrongDateTimeFormatException if dateTime format is wrong in userInput
+     */
 
     @Override
     public void execute() {
