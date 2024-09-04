@@ -1,19 +1,17 @@
 package parser;
 
-import chatterboxexceptions.ChatterboxExceptions;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+import chatterboxexceptions.ChatterboxExceptions;
+
+
 public class ParserTest {
 
-    Parser testParser = new Parser();
-    
-    @Test
-    public void dummyTest() {
-        assertEquals(2,2);
-    }
+    private final Parser testParser = new Parser();
+
 
     @Test
     public void parseCommand_byeCommand() {
@@ -28,13 +26,13 @@ public class ParserTest {
     }
 
     @Test
-    public void extractNum_43(){
+    public void extractNum_normalText() {
         assertEquals(43, testParser.extractNum("unmark 43"));
 
     }
 
     @Test
-    public void extractNum_21(){
+    public void extractNum_connectedText() {
         assertEquals(43, testParser.extractNum("unmark sadf43"));
 
     }
