@@ -24,9 +24,8 @@ import java.io.IOException;
     private Button sendButton;
     private Tanjiro tanjiro;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/nezuko.png"));
-    private Image tanjiroImage = new Image(this.getClass().getResourceAsStream("/images/tanjiro.png"));
-
+    private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/nezuko.png"));
+    private final Image TANJIRO_IMAGE = new Image(this.getClass().getResourceAsStream("/images/tanjiro.png"));
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -42,7 +41,7 @@ import java.io.IOException;
     private void greetMessage(){
         String response = tanjiro.onStartup();
         dialogContainer.getChildren().addAll(
-                DialogBoxController.getTanjiroDialog(response,tanjiroImage)
+                DialogBoxController.getTanjiroDialog(response,TANJIRO_IMAGE)
         );
     }
 
@@ -55,8 +54,8 @@ import java.io.IOException;
         String input = userInput.getText();
         String response = tanjiro.run(input);
         dialogContainer.getChildren().addAll(
-                DialogBoxController.getUserDialog(input, userImage),
-                DialogBoxController.getTanjiroDialog(response, tanjiroImage)
+                DialogBoxController.getUserDialog(input, USER_IMAGE),
+                DialogBoxController.getTanjiroDialog(response, TANJIRO_IMAGE)
         );
         userInput.clear();
     }

@@ -46,10 +46,8 @@ public class Tanjiro {
 //    }
     public String onStartup() {
         Ui ui = new Ui();
-        StringBuilder response = new StringBuilder();
-        response.append(ui.greet());
 
-        return response.toString();
+        return ui.greet();
     }
     public String run(String userInput) throws IOException {
         Ui ui = new Ui();

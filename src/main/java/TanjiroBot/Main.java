@@ -5,7 +5,9 @@ import java.io.IOException;
 import Controller.MainWindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -19,10 +21,16 @@ public class Main extends Application {
      */
 
     private Tanjiro tanjiro = new Tanjiro();
+    private final Image BOT_IMAGE = new Image(this.getClass().getResourceAsStream("/images/dslogo.png"));
+
     @Override
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+
+            stage.setTitle("Tanjiro Bot");
+            stage.getIcons().add(BOT_IMAGE);
+
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
