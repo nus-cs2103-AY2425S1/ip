@@ -96,7 +96,8 @@ public class Parser {
                 return new AddTaskCommand(deadline);
             }
         case "event":
-            if (parsedInputArray.length != 3 || !parsedInputArray[1].matches("^from.*$") || !parsedInputArray[2].matches("^to.*$")) {
+            if (parsedInputArray.length != 3 || !parsedInputArray[1].matches("^from.*$")
+                    || !parsedInputArray[2].matches("^to.*$")) {
                 throw new OrionInputException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>");
             } else {
                 String[] mapped = Arrays.stream(parsedInputArray)
