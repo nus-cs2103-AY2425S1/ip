@@ -1,24 +1,63 @@
-# Duke project template
+# Chatsy
+> "We cannot solve problems with the kind of thinking we employed when we came up with them" &ndash; [Albert Einstein](https://en.wikipedia.org/wiki/Albert_Einstein)
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+<br>
+Chatsy frees your mind of having to remember things you need to do. It's,
+<br>
 
-## Setting up in Intellij
+<ul>
+   <li>text-based</li>
+   <li>easy to learn</li>
+   <li><strike>FAST</strike> SUPER FAST to use</li>
+</ul>
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+<br>
+All you need to do is,
+<br>
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+<ol>
+   <li>download it from
+      <a href="https://nus-cs2103-ay2425s1.github.io/website/schedule/week4/project.html">here</a>.
+   </li>                                 
+   <li>double-click it.</li>                              
+   <li>add your tasks.</li>  
+   <li>let it manage your tasks for you 😉</li>
+</ol>
+
+<br>
+And it is <strong>FREE!</strong>
+<br>
+
+Features: <br> 
+✅ Managing tasks <br> 
+⬜️ Managing deadlines (coming soon) <br> 
+⬜️ Reminders (coming soon)  <br> 
+
+If you are a Java programmer, you can use it to practice Java too. Here's the `main` method:
+```
+    public static void main(String[] args) {
+        storage = new Storage(LOCAL_DIRECTORY_PATH, LOCAL_FILE_PATH);
+        ui = new UI();
+        taskManager = new TaskManager();
+        commandHandler = new CommandHandler(taskManager, ui);
+
+        try {
+            taskManager.setTasks(storage.loadTasks());
+        } catch (LocalFileException e) {
+            ui.output("Failed to load tasks: " + e.getMessage());
+        }
+
+        ui.greet(name);
+        while (isRunning) {
+            try {
+                commandHandler.handle(ui.readCommand());
+            } catch (ChatsyException e) {
+                ui.output("Oops! " + e.getMessage());
+            } catch (Exception e) {
+                ui.output("An unexpected error occurred: " + e.getMessage());
+            }
+        }
+
+        exit();
+    }
+```
