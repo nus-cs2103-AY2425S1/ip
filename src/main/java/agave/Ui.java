@@ -13,7 +13,7 @@ public class Ui {
     public void makeLine() {
         System.out.println("____________________________________________________________");
     }
-
+    
     public void showWelcome() {
         makeLine();
         System.out.println("Hello! I am Agave.\n" +
