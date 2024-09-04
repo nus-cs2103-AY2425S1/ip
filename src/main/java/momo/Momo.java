@@ -1,5 +1,7 @@
 package momo;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import momo.command.*;
 import momo.exception.MomoException;
 import momo.task.TaskList;
@@ -11,6 +13,10 @@ import momo.task.TaskList;
  */
 public class Momo {
 
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/userIcon.png"));
+    private final Image momoImage = new Image(this.getClass().getResourceAsStream("/images/momoIcon.png"));
+
+
     /**
      * The file path where the task data is stored.
      */
@@ -20,8 +26,8 @@ public class Momo {
     private TaskList tasks;
     private Ui ui;
 
-    public Momo(String filePath) {
-        ui = new Ui();
+    public Momo(String filePath, Ui ui) {
+        this.ui = ui;
         storage = new Storage(filePath);
 
         try {
@@ -41,37 +47,37 @@ public class Momo {
      */
     public void run() {
         ui.showGreeting();
-        String input = ui.getUserInput().trim();
-
-        while (true) {
-            try {
-                CommandType command = Parser.parseInput(input);
-                if (command == CommandType.BYE) {
-                    ui.showFarewell();
-                } else if (command == CommandType.LIST) {
-                    ui.printList(tasks);
-                } else if (command == CommandType.FIND) {
-                    FindCommand.run(input, tasks);
-                } else if (command == CommandType.MARK) {
-                    MarkCommand.run(input, tasks, storage);
-                } else if (command == CommandType.UNMARK) {
-                    UnmarkCommand.run(input, tasks, storage);
-                } else if (command == CommandType.DELETE) {
-                    DeleteCommand.run(input, tasks, storage);
-                } else {
-                    if (command == CommandType.TODO) {
-                        TodoCommand.run(input, storage, tasks);
-                    } else if (command == CommandType.DEADLINE) {
-                        DeadlineCommand.run(input, storage, tasks);
-                    } else if (command == CommandType.EVENT) {
-                        EventCommand.run(input, storage, tasks);
-                    }
-                }
-            } catch (MomoException e) {
-                System.out.println(e.getMessage());
-            }
-            input = ui.getUserInput();
-        }
+//        String input = ui.getUserInput().trim();
+//
+//        while (true) {
+//            try {
+//                CommandType command = Parser.parseInput(input);
+//                if (command == CommandType.BYE) {
+//                    ui.showFarewell();
+//                } else if (command == CommandType.LIST) {
+//                    ui.printList(tasks);
+//                } else if (command == CommandType.FIND) {
+//                    FindCommand.run(input, tasks);
+//                } else if (command == CommandType.MARK) {
+//                    MarkCommand.run(input, tasks, storage);
+//                } else if (command == CommandType.UNMARK) {
+//                    UnmarkCommand.run(input, tasks, storage);
+//                } else if (command == CommandType.DELETE) {
+//                    DeleteCommand.run(input, tasks, storage);
+//                } else {
+//                    if (command == CommandType.TODO) {
+//                        TodoCommand.run(input, storage, tasks);
+//                    } else if (command == CommandType.DEADLINE) {
+//                        DeadlineCommand.run(input, storage, tasks);
+//                    } else if (command == CommandType.EVENT) {
+//                        EventCommand.run(input, storage, tasks);
+//                    }
+//                }
+//            } catch (MomoException e) {
+//                System.out.println(e.getMessage());
+//            }
+//            input = ui.getUserInput();
+//        }
     }
 
     /**
@@ -80,9 +86,11 @@ public class Momo {
      * @param args CLI arguments (not used)
      * @throws MomoException if unexpected chatbot related errors occur
      */
-    public static void main(String[] args) throws MomoException {
-        new Momo(FILE_PATH).run();
+    public static void main(String[] args)  {
+//        new Momo(FILE_PATH).run();
     }
+
+
 
 
 }
