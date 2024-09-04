@@ -47,9 +47,9 @@ public class Deadline extends Task {
     @Override
     public String toTextFile() {
         if (getIsDone()) {
-            return String.format("[X] | Deadline | %s | %s", getDescription(), this.deadline);
+            return String.format("[X] | DEADLINE | %s | %s", getDescription(), this.deadline);
         } else {
-            return String.format("[ ] | Deadline | %s | %s", getDescription(), this.deadline);
+            return String.format("[ ] | DEADLINE | %s | %s", getDescription(), this.deadline);
         }
     }
 }

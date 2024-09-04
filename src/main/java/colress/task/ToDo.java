@@ -48,9 +48,9 @@ public class ToDo extends Task {
     @Override
     public String toTextFile() {
         if (getIsDone()) {
-            return String.format("[X] | To-Do | %s", getDescription());
+            return String.format("[X] | TODO | %s", getDescription());
         } else {
-            return String.format("[ ] | To-Do | %s", getDescription());
+            return String.format("[ ] | TODO | %s", getDescription());
         }
     }
 }

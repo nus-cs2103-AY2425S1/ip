@@ -124,6 +124,10 @@ public final class TaskList {
         return "Here is your list:" + result;
     }
 
+    /**
+     * Facilitates building a string representation of the list of tasks whose description contains a specified keyword
+     * and returns it.
+     */
     public String retrieveTasks(String keyword) {
         String result = "";
         if (tasks.isEmpty()) {

@@ -5,7 +5,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+import colress.command.AddCommand;
 import colress.command.Command;
+import colress.command.DateCommand;
 import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
 
@@ -13,31 +15,29 @@ import colress.exception.UnknownTaskTypeException;
  * Represents the Ui of the Colress chatbot.
  */
 public final class Ui {
-    private static final String MESSAGE_FAREWELL = "Well then, I'll see you soon.";
-    private static final String MESSAGE_FILE_CREATED_CONFIRMATION = "New task list file created.";
-    private static final String MESSAGE_FILE_EXISTS_CONFIRMATION = "Task list file exists. Retrieving file.";
-    private static final String MESSAGE_GREETING = "Hello. My name is Colress.\n"
+    public static final String MESSAGE_FILE_CREATED_CONFIRMATION = "New task list file created.";
+    public static final String MESSAGE_FILE_EXISTS_CONFIRMATION = "Task list file exists. Retrieving file.";
+    public static final String MESSAGE_GREETING = "Hello. My name is Colress.\n"
             + "What brings you here?";
-    private static final String MESSAGE_LIST_EMPTY = "Your list is empty.";
-    private static final String MESSAGE_NOT_A_VALID_DATE_TIME_ERROR =
+    public static final String MESSAGE_LIST_EMPTY = "Your list is empty.";
+    public static final String MESSAGE_NOT_A_VALID_DATE_TIME_ERROR =
             "You did not seem to have entered a valid date/time. Try Again.";
-    private static final String MESSAGE_NOT_A_VALID_NUMBER_ERROR =
+    public static final String MESSAGE_NOT_A_VALID_NUMBER_ERROR =
             "You did not seem to have entered a valid number. Try Again.";
-    private static final String PROMPT_DATE = "Enter the date (in the form yyyy-mm-dd).";
-    private static final String PROMPT_DEADLINE = "Enter the deadline (in the form yyyy-mm-dd).";
-    private static final String PROMPT_DEADLINE_DESCRIPTION = "Enter the description of the deadline.";
-    private static final String PROMPT_EVENT_DATE = "Enter the date of the event (in the form yyyy-mm-dd).";
-    private static final String PROMPT_EVENT_DESCRIPTION = "Enter the description of the event.";
-    private static final String PROMPT_EVENT_END_TIME = "Enter the ending time of the event (in the form hh:mm).";
-    private static final String PROMPT_EVENT_START_TIME = "Enter the starting time of the event (in the form hh:mm).";
-    private static final String PROMPT_KEYWORD = "Enter the keyword to find in the list.";
-    private static final String PROMPT_TASK_DESCRIPTION = "Enter the description of the task.";
-    private static final String PROMPT_TASK_NUMBER = "Enter the task number.";
-    private static final String PROMPT_TASK_TYPE = "Enter the type of task you wish to add to your list.";
-    private static final String SPACER =
-            "________________________________________________________________________________\n";
+    public static final String PROMPT_DATE = "Enter the date (in the form yyyy-mm-dd).";
+    public static final String PROMPT_DEADLINE = "Enter the deadline (in the form yyyy-mm-dd).";
+    public static final String PROMPT_DEADLINE_DESCRIPTION = "Enter the description of the deadline.";
+    public static final String PROMPT_EVENT_DATE = "Enter the date of the event (in the form yyyy-mm-dd).";
+    public static final String PROMPT_EVENT_DESCRIPTION = "Enter the description of the event.";
+    public static final String PROMPT_EVENT_END_TIME = "Enter the ending time of the event (in the form hh:mm).";
+    public static final String PROMPT_EVENT_START_TIME = "Enter the starting time of the event (in the form hh:mm).";
+    public static final String PROMPT_KEYWORD = "Enter the keyword to find in the list.";
+    public static final String PROMPT_TASK_DESCRIPTION = "Enter the description of the task.";
+    public static final String PROMPT_TASK_NUMBER = "Enter the task number.";
+    public static final String PROMPT_TASK_TYPE = "Enter the type of task you wish to add to your list.";
     private final Parser parser;
-    private boolean hasCalledExitCommand;
+    private Status status;
+    private Command currCommand;
 
     /**
      * Constructor for the Ui class.
@@ -46,29 +46,11 @@ public final class Ui {
      */
     public Ui() {
         this.parser = new Parser();
-        this.hasCalledExitCommand = false;
+        this.status = Status.COMMAND;
     }
 
-    public boolean getHasCalledExitCommand() {
-        return hasCalledExitCommand;
-    }
-
-    public void print(String s) {
-        System.out.println(SPACER + s + "\n" + SPACER);
-    }
-
-    public void welcome() {
-        print(MESSAGE_GREETING);
-    }
-
-    /**
-     * Facilitates exiting the program.
-     * The Ui prints a farewell message to the user.
-     * The boolean field is assigned true to reflect that an exit command has been called.
-     */
-    public void exit() {
-        print(MESSAGE_FAREWELL);
-        hasCalledExitCommand = true;
+    public String welcome() {
+        return MESSAGE_GREETING;
     }
 
     /**
@@ -77,11 +59,38 @@ public final class Ui {
      *
      * @param hasCreatedNewFile A boolean argument that reflects whether a new file has been created.
      */
-    public void printLoadTaskStatus(boolean hasCreatedNewFile) {
+    public String printLoadTaskStatus(boolean hasCreatedNewFile) {
         if (hasCreatedNewFile) {
-            print(MESSAGE_FILE_CREATED_CONFIRMATION);
+            return MESSAGE_FILE_CREATED_CONFIRMATION;
         } else {
-            print(MESSAGE_FILE_EXISTS_CONFIRMATION);
+            return MESSAGE_FILE_EXISTS_CONFIRMATION;
+        }
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String processInput(String input, TaskList taskList) {
+        switch(this.status) {
+        case COMMAND:
+            return processCommand(input, taskList);
+        case TASKTYPE:
+            return processTaskType(input);
+        case DESCRIPTION:
+            return processDescription(input, taskList);
+        case DATE:
+            return processDate(input, taskList);
+        case STARTTIME:
+            return processStartTime(input);
+        case ENDTIME:
+            return processEndTime(input, taskList);
+        case TASKNUMBER:
+            return processTaskNumber(input, taskList);
+        case KEYWORD:
+            return processKeyword(input, taskList);
+        default:
+            return "There is an error. Try again.";
         }
     }
 
@@ -93,25 +102,29 @@ public final class Ui {
      * @param taskList A TaskList object that is passed to the execute method of the commands to allow the commands to
      *     do operations on the list of tasks.
      */
-    public void processInput(TaskList taskList) {
-        Command command = null;
-        while (command == null) {
-            try {
-                command = parser.getCommand();
-            } catch (UnknownCommandException e) {
-                print(String.valueOf(e));
-            }
+    public String processCommand(String input, TaskList taskList) {
+        try {
+            this.currCommand = parser.getCommand(input);
+            return currCommand.start(this, taskList);
+        } catch (UnknownCommandException e) {
+            return e.getMessage();
         }
-        command.execute(this, taskList);
     }
-
 
     /**
      * Prompts the user for a keyword to find in the list of tasks and returns it.
      */
-    public String promptKeyword() {
-        print(PROMPT_KEYWORD);
-        return parser.getString();
+    public String promptKeyword(TaskList taskList) {
+        if (taskList.isEmpty()) {
+            return MESSAGE_LIST_EMPTY;
+        }
+        setStatus(Status.KEYWORD);
+        return PROMPT_KEYWORD;
+    }
+
+    public String processKeyword(String input, TaskList taskList) {
+        currCommand.initialise(input);
+        return currCommand.execute(this, taskList);
     }
 
     /**
@@ -123,16 +136,18 @@ public final class Ui {
      * @return A String that represents the type of task indicated by the user.
      */
     public String promptTaskType() {
-        String result = null;
-        while (result == null) {
-            try {
-                print(PROMPT_TASK_TYPE);
-                result = parser.getTaskType();
-            } catch (UnknownTaskTypeException e) {
-                print(String.valueOf(e));
-            }
+        setStatus(Status.TASKTYPE);
+        return PROMPT_TASK_TYPE;
+    }
+
+    public String processTaskType(String input) {
+        try {
+            TaskType result = parser.getTaskType(input);
+            currCommand.initialise(result);
+            return promptDescription(result);
+        } catch (IllegalArgumentException e) {
+            return new UnknownTaskTypeException().getMessage();
         }
-        return result;
     }
 
     /**
@@ -141,18 +156,30 @@ public final class Ui {
      * @param taskType A String that represents the type of task, and prints the corresponding prompt.
      * @return A String that represents the description of the task indicated by the user.
      */
-    public String promptDescription(String taskType) {
+    public String promptDescription(TaskType taskType) {
+        setStatus(Status.DESCRIPTION);
         switch (taskType) {
-        case "deadline":
-            print(PROMPT_DEADLINE_DESCRIPTION);
-            break;
-        case "event":
-            print(PROMPT_EVENT_DESCRIPTION);
-            break;
+        case DEADLINE:
+            return PROMPT_DEADLINE_DESCRIPTION;
+        case EVENT:
+            return PROMPT_EVENT_DESCRIPTION;
         default:
-            print(PROMPT_TASK_DESCRIPTION);
+            return PROMPT_TASK_DESCRIPTION;
         }
-        return parser.getString();
+    }
+
+    public String processDescription(String input, TaskList taskList) {
+        AddCommand c = (AddCommand) currCommand;
+        c.initialise(input);
+        TaskType currTasktype = c.getTaskType();
+        switch (currTasktype) {
+        case TODO:
+            return c.execute(this, taskList);
+        case DEADLINE, EVENT:
+            return promptDate(currTasktype, taskList);
+        default:
+            return "There is an error. Try again.";
+        }
     }
 
     /**
@@ -163,26 +190,34 @@ public final class Ui {
      * @param taskType A String that represents the type of task, and prints the corresponding prompt.
      * @return A LocalDate object that represents the date of the task indicated by the user.
      */
-    public LocalDate promptDate(String taskType) {
-        String prompt;
-        if (taskType.equals("deadline")) {
-            prompt = PROMPT_DEADLINE;
-        } else if (taskType.equals("event")) {
-            prompt = PROMPT_EVENT_DATE;
-        } else {
-            prompt = PROMPT_DATE;
+    public String promptDate(TaskType taskType, TaskList taskList) {
+        if (currCommand instanceof DateCommand && taskList.isEmpty()) {
+            return MESSAGE_LIST_EMPTY;
         }
+        setStatus(Status.DATE);
+        switch (taskType) {
+        case DEADLINE:
+            return PROMPT_DEADLINE;
+        case EVENT:
+            return PROMPT_EVENT_DATE;
+        default:
+            return PROMPT_DATE;
+        }
+    }
 
-        LocalDate result = null;
-        while (result == null) {
-            try {
-                print(prompt);
-                result = parser.readDate();
-            } catch (DateTimeParseException e) {
-                print(MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
+    public String processDate(String input, TaskList taskList) {
+        LocalDate result;
+        try {
+            result = parser.readDate(input);
+            currCommand.initialise(result);
+
+            if (currCommand instanceof AddCommand && ((AddCommand) currCommand).getTaskType() == TaskType.EVENT) {
+                return promptTime("from");
             }
+            return currCommand.execute(this, taskList);
+        } catch (DateTimeParseException e) {
+            return MESSAGE_NOT_A_VALID_DATE_TIME_ERROR;
         }
-        return result;
     }
 
     /**
@@ -194,24 +229,34 @@ public final class Ui {
      *     and prints the corresponding prompt.
      * @return A LocalTime object that represents the time of the event indicated by the user.
      */
-    public LocalTime promptTime(String timeType) {
-        String prompt;
+    public String promptTime(String timeType) {
         if (timeType.equals("from")) {
-            prompt = PROMPT_EVENT_START_TIME;
+            setStatus(Status.STARTTIME);
+            return PROMPT_EVENT_START_TIME;
         } else {
-            prompt = PROMPT_EVENT_END_TIME;
+            setStatus(Status.ENDTIME);
+            return PROMPT_EVENT_END_TIME;
         }
+    }
 
-        LocalTime result = null;
-        while (result == null) {
-            try {
-                print(prompt);
-                result = parser.readTime();
-            } catch (DateTimeParseException e) {
-                print(MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
-            }
+    public String processStartTime(String input) {
+        try {
+            LocalTime result = parser.readTime(input);
+            currCommand.initialise(result);
+            return promptTime("to");
+        } catch (DateTimeParseException e) {
+            return MESSAGE_NOT_A_VALID_DATE_TIME_ERROR;
         }
-        return result;
+    }
+
+    public String processEndTime(String input, TaskList taskList) {
+        try {
+            LocalTime result = parser.readTime(input);
+            currCommand.initialise(result);
+            return currCommand.execute(this, taskList);
+        } catch (DateTimeParseException e) {
+            return MESSAGE_NOT_A_VALID_DATE_TIME_ERROR;
+        }
     }
 
     /**
@@ -221,55 +266,62 @@ public final class Ui {
      * the user.
      * The method checks against the TaskList object if the input is valid, and alerts the user if it is not.
      */
-    public int promptTaskNumber(TaskList taskList) {
-        int result = -1;
+    public String promptTaskNumber(TaskList taskList) {
         if (taskList.isEmpty()) {
-            print(MESSAGE_LIST_EMPTY);
-        } else {
-            while (result == -1) {
-                try {
-                    print(PROMPT_TASK_NUMBER);
-                    result = parser.getTaskNumber();
-                    if (taskList.isOutOfBounds(result)) {
-                        result = -1;
-                        print(MESSAGE_NOT_A_VALID_NUMBER_ERROR);
-                    }
-                } catch (NumberFormatException e) {
-                    print(MESSAGE_NOT_A_VALID_NUMBER_ERROR);
-                }
-            }
+            return MESSAGE_LIST_EMPTY;
         }
-        return result;
+        setStatus(Status.TASKNUMBER);
+        return PROMPT_TASK_NUMBER;
     }
 
-    /**
-     * Facilitates printing the list of tasks to the user.
-     *
-     * @param taskList A TaskList object representing the current list of tasks, for the method to retrieve the tasks
-     *     to print.
-     * @param listType A String argument to indicate whether to print all tasks or to prompt the user for additional
-     *     input.
-     */
-    public void printTasks(TaskList taskList, String listType) {
-        if (taskList.isEmpty()) {
-            print(MESSAGE_LIST_EMPTY);
-        } else if (Objects.equals(listType, "list")) {
-            String result = taskList.retrieveTasks();
-            print(Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result);
-        } else if (Objects.equals(listType, "date")) {
-            String result = taskList.retrieveTasks(promptDate("date"));
-            print(Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result);
-        } else if (Objects.equals(listType, "find")) {
-            String result = taskList.retrieveTasks(promptKeyword());
-            print(Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result);
+    public String processTaskNumber(String input, TaskList taskList) {
+        try {
+            int result = parser.getTaskNumber(input);
+            if (taskList.isOutOfBounds(result)) {
+                return MESSAGE_NOT_A_VALID_NUMBER_ERROR;
+            } else {
+                currCommand.initialise(result);
+                return currCommand.execute(this, taskList);
+            }
+        } catch (NumberFormatException e) {
+            return MESSAGE_NOT_A_VALID_NUMBER_ERROR;
         }
+    }
+
+    public String printTasks(TaskList taskList) {
+        setStatus(Status.COMMAND);
+        if (taskList.isEmpty()) {
+            return MESSAGE_LIST_EMPTY;
+        }
+
+        String result = taskList.retrieveTasks();
+        return Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result;
+    }
+
+    public String printTasks(TaskList taskList, LocalDate date) {
+        setStatus(Status.COMMAND);
+        if (taskList.isEmpty()) {
+            return MESSAGE_LIST_EMPTY;
+        }
+
+        String result = taskList.retrieveTasks(date);
+        return Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result;
+    }
+
+    public String printTasks(TaskList taskList, String keyword) {
+        setStatus(Status.COMMAND);
+        if (taskList.isEmpty()) {
+            return MESSAGE_LIST_EMPTY;
+        }
+
+        String result = taskList.retrieveTasks(keyword);
+        return Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result;
     }
 
     /**
      * Prints the message and the current list of tasks.
      */
-    public void printConfirmationMessage(TaskList taskList, String message) {
-        print(message);
-        printTasks(taskList, "list");
+    public String printConfirmationMessage(TaskList taskList, String message) {
+        return message + "\n\n" + printTasks(taskList);
     }
 }

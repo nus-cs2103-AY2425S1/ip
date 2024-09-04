@@ -68,9 +68,9 @@ public class Event extends Task {
     @Override
     public String toTextFile() {
         if (getIsDone()) {
-            return String.format("[X] | Event | %s | %s | %s to %s", getDescription(), this.date, this.from, this.to);
+            return String.format("[X] | EVENT | %s | %s | %s to %s", getDescription(), this.date, this.from, this.to);
         } else {
-            return String.format("[ ] | Event | %s | %s | %s to %s", getDescription(), this.date, this.from, this.to);
+            return String.format("[ ] | EVENT | %s | %s | %s to %s", getDescription(), this.date, this.from, this.to);
         }
     }
 }

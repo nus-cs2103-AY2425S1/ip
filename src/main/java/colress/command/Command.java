@@ -1,6 +1,10 @@
 package colress.command;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import colress.TaskList;
+import colress.TaskType;
 import colress.Ui;
 
 /**
@@ -17,5 +21,13 @@ public abstract class Command {
         return successfulExecutionMessage;
     }
 
-    public abstract void execute(Ui ui, TaskList taskList);
+    public abstract String start(Ui ui, TaskList taskList);
+
+    public abstract void initialise(String input);
+    public abstract void initialise(TaskType input);
+    public abstract void initialise(int input);
+    public abstract void initialise(LocalDate input);
+    public abstract void initialise(LocalTime input);
+
+    public abstract String execute(Ui ui, TaskList taskList);
 }

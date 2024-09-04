@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import colress.TaskList;
+import colress.TaskType;
 import colress.Ui;
 import colress.task.Deadline;
 import colress.task.Event;
@@ -14,8 +15,44 @@ import colress.task.ToDo;
  * Represents the add command that add a task to the list of tasks.
  */
 public final class AddCommand extends Command {
+    private TaskType taskType;
+    private String description;
+    private LocalDate date;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private boolean hasStartTime;
     public AddCommand() {
         super("Okay. I have added this task to your list:\n");
+        hasStartTime = false;
+    }
+
+    @Override
+    public String start(Ui ui, TaskList taskList) {
+        return ui.promptTaskType();
+    }
+
+    public void initialise(TaskType input) {
+        taskType = input;
+    }
+    public void initialise(String input) {
+        description = input;
+    }
+    public void initialise(LocalDate input) {
+        date = input;
+    }
+    public void initialise(LocalTime input) {
+        if (hasStartTime) {
+            this.endTime = input;
+        } else {
+            startTime = input;
+            hasStartTime = true;
+        }
+    }
+
+    public void initialise(int input) {}
+
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     /**
@@ -23,25 +60,20 @@ public final class AddCommand extends Command {
      * from the user regarding what type of task to add and the various fields of the task to be added.
      */
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        String taskType = ui.promptTaskType();
-        String description = ui.promptDescription(taskType);
-        LocalDate date;
-        LocalTime from;
-        LocalTime to;
+    public String execute(Ui ui, TaskList taskList) {
         Task task;
-
-        if (taskType.equals("todo")) {
-            task = new ToDo(description);
-        } else if (taskType.equals("deadline")) {
-            date = ui.promptDate(taskType);
+        switch (taskType) {
+        case DEADLINE:
             task = new Deadline(description, date);
-        } else {
-            date = ui.promptDate(taskType);
-            from = ui.promptTime("from");
-            to = ui.promptTime("to");
-            task = new Event(description, date, from, to);
+            break;
+        case EVENT:
+            task = new Event(description, date, startTime, endTime);
+            break;
+        default:
+            task = new ToDo(description);
         }
-        ui.printConfirmationMessage(taskList, getSuccessfulExecutionMessage() + taskList.addTask(task));
+
+        return ui.printConfirmationMessage(taskList,
+                getSuccessfulExecutionMessage() + taskList.addTask(task));
     }
 }
