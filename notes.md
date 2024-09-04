@@ -54,3 +54,11 @@ find cook
 
 (cd to libs in build)
 java -jar duke.jar
+
+# checkstyle
+after running gradle build
+run this -> ./gradlew checkstyleMain checkstyleTest
+
+# to run GUI in gradle
+./gradlew build
+./gradlew run 

@@ -1,8 +1,5 @@
 package duke.gui;
 
-import java.io.IOException;
-import java.util.Collections;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,9 +12,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
+import java.io.IOException;
+import java.util.Collections;
+
 /**
- * Represents a dialog box in the GUI.
- * This class extends HBox and is used to display messages and profile pictures in a chat-like interface.
+ * Represents a dialog box in the GUI for displaying messages and profile pictures in a chat-like interface.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -26,49 +25,60 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * Constructs a new DialogBox with the given text and image.
+     * Private constructor to initialize a DialogBox with the specified text and image.
      *
-     * @param text The text to be displayed in the dialog box.
-     * @param img The image to be used as the profile picture.
+     * @param text The text to display in the dialog box.
+     * @param img  The profile picture associated with the dialog.
      */
     private DialogBox(String text, Image img) {
+        loadFXML();
+        dialog.setText(text);
+        displayPicture.setImage(img);
+        setDisplayPictureClip();
+    }
+
+    /**
+     * Loads the FXML layout for the DialogBox.
+     */
+    private void loadFXML() {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+        fxmlLoader.setController(this);
+        fxmlLoader.setRoot(this);
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        dialog.setText(text);
-        displayPicture.setImage(img);
-
+    /**
+     * Sets a circular clip on the display picture to shape it as a circle.
+     */
+    private void setDisplayPictureClip() {
         Circle clip = new Circle(30, 30, 30);
         displayPicture.setClip(clip);
     }
 
     /**
-     * Flips the dialog box horizontally.
-     * This is used to change the alignment of the dialog box for different speakers.
+     * Flips the dialog box horizontally to align with the left side.
+     * This is typically used for displaying responses from different speakers.
      */
     private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
+        ObservableList<Node> nodes = FXCollections.observableArrayList(getChildren());
+        Collections.reverse(nodes);
+        getChildren().setAll(nodes);
         setAlignment(Pos.TOP_LEFT);
     }
 
     /**
-     * Creates a DialogBox for Duke's introduction.
+     * Creates a DialogBox for Duke's introduction message with the image flipped.
      *
      * @param text The introduction text.
-     * @param img Duke's profile picture.
-     * @return A DialogBox instance for Duke's introduction.
+     * @param img  Duke's profile picture.
+     * @return A flipped DialogBox instance for Duke's introduction.
      */
-
     public static DialogBox getDukeIntro(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.flip();
         return db;
     }
@@ -77,23 +87,22 @@ public class DialogBox extends HBox {
      * Creates a DialogBox for the user's message.
      *
      * @param text The user's message.
-     * @param img The user's profile picture.
+     * @param img  The user's profile picture.
      * @return A DialogBox instance for the user's message.
      */
-
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
     /**
-     * Creates a DialogBox for Duke's message.
+     * Creates a DialogBox for Duke's message with the image flipped.
      *
      * @param text Duke's message.
-     * @param img Duke's profile picture.
-     * @return A DialogBox instance for Duke's message.
+     * @param img  Duke's profile picture.
+     * @return A flipped DialogBox instance for Duke's message.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.flip();
         return db;
     }

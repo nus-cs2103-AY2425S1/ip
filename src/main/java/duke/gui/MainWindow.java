@@ -1,7 +1,6 @@
 package duke.gui;
 
 import duke.Duke;
-import duke.gui.DialogBox;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  * Represents the main window of the Duke application.
- * This class extends AnchorPane and controls the primary user interface.
+ * Controls the primary user interface.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -30,14 +29,12 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
     private Stage stage;
-
-    private Image userImage = new Image(this.getClass().getResource("/images/DaUser.png").toExternalForm());
-    private Image dukeImage = new Image(this.getClass().getResource("/images/DaDuke.png").toExternalForm());
+    private final Image userImage = new Image(this.getClass().getResource("/images/DaUser.png").toExternalForm());
+    private final Image dukeImage = new Image(this.getClass().getResource("/images/DaDuke.png").toExternalForm());
     private boolean isDarkMode = false;
 
     /**
      * Initializes the main window.
-     * This method is automatically called by JavaFX after the FXML file has been loaded.
      */
     @FXML
     public void initialize() {
@@ -45,30 +42,27 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sends the introduction message from Duke.
-     * This method adds Duke's greeting to the dialog container.
+     * Displays Duke's introductory greeting.
      */
     @FXML
     public void sendIntro() {
-        dialogContainer.getChildren().add(DialogBox.getDukeIntro(
-                duke.getGreeting(), dukeImage));
+        addDukeMessage(duke.getGreeting());
     }
 
     /**
-     * Toggles dark mode in the dialog container.
+     * Toggles dark mode for the main pane.
      */
     @FXML
     private void toggleDarkMode() {
         isDarkMode = !isDarkMode;
+        mainPane.getStyleClass().removeIf(style -> style.equals("dark-mode"));
         if (isDarkMode) {
             mainPane.getStyleClass().add("dark-mode");
-        } else {
-            mainPane.getStyleClass().remove("dark-mode");
         }
     }
 
     /**
-     * Sets the Duke instance for this window.
+     * Sets the Duke instance.
      *
      * @param d The Duke instance to be used
      */
@@ -77,7 +71,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sets the Stage instance for this window.
+     * Sets the Stage instance.
      *
      * @param s The Stage instance to be used
      */
@@ -86,18 +80,34 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Handles user input.
-     * This method is called when the user sends a message. It processes the input,
-     * gets a response from Duke, and updates the dialog container.
+     * Handles user input when the send button is clicked or Enter is pressed.
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText(); // Capture user input from the text field
-        String response = duke.getResponse(input); // Call Duke's command processing method
-        dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input, userImage), // Display user's input
-            DialogBox.getDukeDialog(response, dukeImage) // Display Duke's response
-        );
-        userInput.clear(); // Clear the input field after processing
+        String input = userInput.getText().trim();
+        if (!input.isEmpty()) {
+            addUserMessage(input);
+            String response = duke.getResponse(input);
+            addDukeMessage(response);
+            userInput.clear();
+        }
+    }
+
+    /**
+     * Adds a user message to the dialog container.
+     *
+     * @param message The user's message
+     */
+    private void addUserMessage(String message) {
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(message, userImage));
+    }
+
+    /**
+     * Adds a Duke message to the dialog container.
+     *
+     * @param message Duke's response message
+     */
+    private void addDukeMessage(String message) {
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(message, dukeImage));
     }
 }
