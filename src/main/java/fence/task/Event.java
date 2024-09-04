@@ -1,6 +1,7 @@
 package fence.task;
 
 public class Event extends Task {
+
     private String from;
     private String to;
 

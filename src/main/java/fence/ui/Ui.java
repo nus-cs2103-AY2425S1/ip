@@ -4,6 +4,7 @@ import fence.task.Task;
 import fence.tasklist.TaskList;
 
 public class Ui {
+
     public void greet() {
         System.out.println("nihao! I'm Fence |=|=|=|=|=|");
     }
@@ -25,8 +26,8 @@ public class Ui {
     }
 
     public void printUnknownCommand() {
-        System.out.println("fence is programmed to track your tasks and has long lost all ability " +
-                "to do other things ");
+        System.out.println("fence is programmed to track your tasks and has long lost all ability "
+                + "to do other things ");
     }
 
     public void printMissingFieldError() {

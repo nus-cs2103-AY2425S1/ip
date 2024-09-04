@@ -1,12 +1,15 @@
 package fence.parser;
 
-import java.time.format.DateTimeParseException;
-import java.util.NoSuchElementException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.format.DateTimeParseException;
+import java.util.NoSuchElementException;
+
+import org.junit.jupiter.api.Test;
+
 public class ParserTest {
+
     @Test
     public void parseInput_expectedInput_success() {
         assertEquals("bye", new Parser().parseInput("bye"));

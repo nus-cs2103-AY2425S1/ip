@@ -1,6 +1,7 @@
 package fence.task;
 
 public class Task {
+
     private String description;
     private boolean isDone;
 

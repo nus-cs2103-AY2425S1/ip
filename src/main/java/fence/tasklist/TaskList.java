@@ -1,7 +1,8 @@
 package fence.tasklist;
 
-import fence.task.Task;
 import java.util.ArrayList;
+
+import fence.task.Task;
 
 public class TaskList {
 
@@ -24,12 +25,12 @@ public class TaskList {
     }
 
     public void mark(int i) {
-        Task task = items.get(i-1);
+        Task task = items.get(i - 1);
         task.complete();
     }
 
     public void unmark(int i) {
-        Task task = items.get(i-1);
+        Task task = items.get(i - 1);
         task.undo();
     }
 
