@@ -1,8 +1,9 @@
 import Exception.EmptyDescriptionException;
-import Tools.Parser;
-import Tools.Storage;
-import Tools.TaskList;
-import Tools.Ui;
+import Tools.*;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 
@@ -11,7 +12,7 @@ import java.io.FileNotFoundException;
  * This class initializes the necessary components and handles the main execution loop,
  * delegating command parsing and execution to specialized classes.
  */
-public class ChatgptMoreOOP {
+public class ChatgptMoreOOP{
 
     /**
      * The main method to run the application.
@@ -34,4 +35,20 @@ public class ChatgptMoreOOP {
             parser.parse(line);  // Parse and execute the command
         }
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        NewStorage storage = new NewStorage("./data/duke.txt");
+        try {
+            NewTaskList tasks = storage.load();  // Load the existing tasks from storage
+            NewParser parser = new NewParser(tasks, storage);  // Initialize the parser with the loaded tasks and UI
+
+            return parser.parse(input);  // Parse and execute the command
+        } catch (FileNotFoundException e) {
+            return "File not found";
+        }
+    }
+
 }
