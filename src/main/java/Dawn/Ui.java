@@ -19,9 +19,12 @@ public class Ui {
      */
     public void greet() throws DawnException {
         String divider = "--".repeat(30);
+        String logo = "૮꒰ ˶• ༝ •˶꒱ა ♡";
 
         System.out.println(divider);
-        System.out.println("Dawn 🌙 speaking, what can I do for you?");
+        System.out.println("Bunny🐰 speaking, what can I do for you?");
+        System.out.println(logo);
+
         interact();
     }
 

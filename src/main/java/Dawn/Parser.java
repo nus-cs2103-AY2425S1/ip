@@ -42,7 +42,8 @@ public class Parser {
         try {
             switch (cmd) {
             case BYE:
-                System.out.println("Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out");
+                System.out.println("Byeeee~ nice chatting with you! See you next time, Bunny out");
+                System.out.println("ᘏ ⑅ ᘏ   ഒ    zᶻ\n" + "꒰˶  - ˕ -꒱ ⌒)ᦱ");
                 saveTasks("./data/dawn.txt");
                 String divider = "--".repeat(30);
                 System.out.println(divider);

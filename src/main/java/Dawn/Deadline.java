@@ -14,8 +14,8 @@ public class Deadline extends Task {
      */
     public Deadline(String desc, String deadline) {
         super(desc);
-        this.deadline = deadline;
-        String[] strings = this.deadline.split(" "); // in the format of by, date, time
+        String[] strings = deadline.split(" "); // in the format of by, date, time
+        this.deadline = strings[2];
         this.date = LocalDate.parse(strings[1]);
     }
 
