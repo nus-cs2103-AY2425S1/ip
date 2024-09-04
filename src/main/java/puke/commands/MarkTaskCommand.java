@@ -1,9 +1,9 @@
 package puke.commands;
 
+import puke.TaskList;
 import puke.exceptions.EmptyInputException;
 import puke.exceptions.InvalidTaskNumberFormatException;
 import puke.exceptions.TaskNumberOutOfBoundsException;
-import puke.TaskList;
 import puke.message.MessageBuilder;
 
 /**

@@ -2,10 +2,10 @@ package puke.commands;
 
 import java.util.ArrayList;
 
-import puke.exceptions.PukeException;
 import puke.TaskList;
-import puke.task.Task;
+import puke.exceptions.PukeException;
 import puke.message.MessageBuilder;
+import puke.task.Task;
 
 /**
  * Command to find tasks by searching for a keyword in the task description.

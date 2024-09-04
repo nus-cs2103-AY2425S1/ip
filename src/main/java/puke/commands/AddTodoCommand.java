@@ -1,7 +1,7 @@
 package puke.commands;
 
-import puke.exceptions.EmptyDescriptionException;
 import puke.TaskList;
+import puke.exceptions.EmptyDescriptionException;
 import puke.message.MessageBuilder;
 
 /**

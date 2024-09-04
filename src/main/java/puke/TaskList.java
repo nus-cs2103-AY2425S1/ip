@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import puke.exceptions.TaskNumberOutOfBoundsException;
-import puke.Storage;
 import puke.task.Deadline;
 import puke.task.Event;
 import puke.task.Task;

@@ -15,11 +15,11 @@ import puke.exceptions.MissingEventTimeException;
 import puke.exceptions.MissingTimeException;
 import puke.exceptions.PukeException;
 import puke.exceptions.TaskNumberOutOfBoundsException;
+import puke.message.MessageBuilder;
 import puke.task.Deadline;
 import puke.task.Event;
 import puke.task.Task;
 import puke.task.Todo;
-import puke.message.MessageBuilder;
 
 /**
  * Unit tests for the Parser class.
