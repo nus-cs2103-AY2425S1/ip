@@ -20,16 +20,16 @@ public class Event extends Task {
 
     /**
      * Constructs an {@code Event} with the given arguments
-     * @param completed if the {@code Event} is completed
+     * @param isCompleted if the {@code Event} is completed
      * @param description the description of the {@code Event}
      * @param startDate the start date of the {@code Event}
      * @param endDate the end date of the {@code Event}
      * @throws EmptyArgumentException if description, start date or end date is empty
      * @throws IncorrectDateFormatException if start date or end date is in the incorrect date format
      */
-    public Event(boolean completed, String description, String startDate, String endDate)
+    public Event(boolean isCompleted, String description, String startDate, String endDate)
             throws EmptyArgumentException, IncorrectDateFormatException {
-        super(completed, description);
+        super(isCompleted, description);
         if (description.isEmpty()) {
             throw new EmptyArgumentException("description");
         }

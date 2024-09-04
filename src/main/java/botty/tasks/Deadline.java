@@ -18,15 +18,15 @@ public class Deadline extends Task {
 
     /**
      * Constructs a {@code Deadline} with the given inputs
-     * @param completed whether the task is completed
+     * @param isCompleted whether the task is completed
      * @param description the description
      * @param endDate the end date
      * @throws EmptyArgumentException if the description or end date is empty
      * @throws IncorrectDateFormatException if the end date is formatted incorrectly
      */
-    public Deadline(boolean completed, String description, String endDate)
+    public Deadline(boolean isCompleted, String description, String endDate)
             throws EmptyArgumentException, IncorrectDateFormatException {
-        super(completed, description);
+        super(isCompleted, description);
         if (description.isEmpty()) {
             throw new EmptyArgumentException("description");
         }
@@ -72,11 +72,11 @@ public class Deadline extends Task {
 
         String[] arguments = taskString.split(" \\| ");
 
-        boolean completed = arguments[1].equals("1");
+        boolean isCompleted = arguments[1].equals("1");
         String description = arguments[2];
         String endDate = arguments[3];
 
-        return new Deadline(completed, description, endDate);
+        return new Deadline(isCompleted, description, endDate);
     }
 
     /**

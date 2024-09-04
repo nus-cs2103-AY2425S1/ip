@@ -8,17 +8,17 @@ import botty.exceptions.CorruptedTaskStringException;
  */
 public abstract class Task {
     // Whether the task is completed
-    private boolean completed;
+    private boolean isCompleted;
     // The task's description
     private final String description;
 
     /**
-     * Constructs a {@code Task} with the given completed and description
-     * @param completed whether the {@code Task} is completed
+     * Constructs a {@code Task} with the given completion status and description
+     * @param isCompleted whether the {@code Task} is completed
      * @param description the description
      */
-    public Task(boolean completed, String description) {
-        this.completed = completed;
+    public Task(boolean isCompleted, String description) {
+        this.isCompleted = isCompleted;
         this.description = description;
     }
 
@@ -32,17 +32,17 @@ public abstract class Task {
 
     /**
      * Sets whether the {@code Task} is completed
-     * @param completed whether the {@code Task} is completed
+     * @param isCompleted whether the {@code Task} is completed
      */
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
     /**
      * Returns the string representation of completed and description for local storage
      */
     protected String getCompletedAndDescription() {
-        return (completed ? "1" : "0") + " | " + description;
+        return (isCompleted ? "1" : "0") + " | " + description;
     }
 
     /**
@@ -50,7 +50,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", completed ? "X" : " ", description);
+        return String.format("[%s] %s", isCompleted ? "X" : " ", description);
     }
 
     /**

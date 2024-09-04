@@ -9,12 +9,12 @@ import botty.exceptions.EmptyArgumentException;
  */
 public class Todo extends Task {
     /**
-     * Constructs a {@code Todo} with the given completed and description
-     * @param completed whether the task is completed
+     * Constructs a {@code Todo} with the given completion status and description
+     * @param isCompleted whether the task is completed
      * @param description the description
      */
-    public Todo(boolean completed, String description) throws EmptyArgumentException {
-        super(completed, description);
+    public Todo(boolean isCompleted, String description) throws EmptyArgumentException {
+        super(isCompleted, description);
         if (description.isEmpty()) {
             throw new EmptyArgumentException("description");
         }
