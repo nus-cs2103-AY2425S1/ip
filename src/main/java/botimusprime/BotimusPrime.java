@@ -27,7 +27,7 @@ public class BotimusPrime {
         this.ui = new Ui();
         this.storage = new Storage(fileName);
         taskList = storage.loadFromDisk();
-        parser = new Parser(taskList,ui, storage);
+        parser = new Parser(taskList, ui, storage);
     }
 
     /**

@@ -66,7 +66,8 @@ public class Parser {
 
     /**
      * Parses the user input and executes the corresponding command.
-     * The method recognizes commands such as "bye", "list", "mark", "unmark", "to\do", "deadline", "event", and "delete".
+     * The method recognizes commands such as "bye", "list", "mark",
+     * "unmark", "to\do", "deadline", "event", and "delete".
      * If the command is not recognized, an error message is displayed.
      *
      * @param input The user input string to be parsed.
