@@ -52,7 +52,7 @@ public class Database {
             List<String> txtLines = readFromDatabase();
             return txtLines.size();
         } catch (IOException e) {
-            return 0;
+            System.out.println("Error checking Database Size: " + e.getMessage());
         }
     }
 }
