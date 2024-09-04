@@ -59,14 +59,14 @@ public abstract class Task {
         return this.status ? "True" : "False";
     }
 
-    public void markAsDone() {
+    public String markAsDone() {
         this.status = true;
-        System.out.println("Nice! I've marked this task as done: \n" + this);
+        return "Nice! I've marked this task as done: \n" + this;
     }
 
-    public void markAsUndone() {
+    public String markAsUndone() {
         this.status = false;
-        System.out.println("OK, I've marked this task as not done yet: \n" + this);
+        return "OK, I've marked this task as not done yet: \n" + this;
     }
 
     public String getStatusIndicator() {
