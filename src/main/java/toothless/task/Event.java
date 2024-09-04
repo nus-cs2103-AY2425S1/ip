@@ -40,6 +40,7 @@ public class Event extends Task {
      * @param eventStart the start date and time of the event
      * @param eventEnd the end date and time of the event
      * @param isDone the status of the event
+     * @throws ToothlessExceptions if the date and time format is invalid
      */
     public Event(String description, String eventStart, String eventEnd, boolean isDone) throws ToothlessExceptions{
         super(description, isDone);
