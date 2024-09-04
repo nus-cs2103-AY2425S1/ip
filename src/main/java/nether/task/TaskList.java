@@ -86,6 +86,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds the tasks whose description matchers the input string.
+     * @param searchString The input string given by user.
+     * @return A list of tasks whose descriptions match the input string.
+     */
     public TaskList searchTask(String searchString) {
         List<Task> matchingTasks = new ArrayList<>();
 

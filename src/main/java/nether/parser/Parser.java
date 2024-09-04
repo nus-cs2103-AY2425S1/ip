@@ -26,7 +26,6 @@ public class Parser {
      * @return An array of strings containing the parts of the user input necessary to create tasks.
      * @throws NetherException If the command is not recognized or the input format is incorrect.
      */
-    @SuppressWarnings("checkstyle:Indentation")
     public Command parse(String userInput) throws NetherException {
         String[] processedInput;
         String commandWord = extractCommandWord(userInput);
