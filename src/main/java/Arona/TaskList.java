@@ -6,6 +6,12 @@ import java.util.ArrayList;
 public class TaskList {
 
     private static ArrayList<Task> list = new ArrayList<>(100);
+
+    /**
+     * Constructor for TaskList, called once at the start of the program, lines from data.txt fed into this class to
+     * initialise the task list
+     * @param  taskStringArray  arraylist of raw strings from data.txt
+     */
     public TaskList(ArrayList<String> taskStringArray) {
         for (String s : taskStringArray) {
             process(s);

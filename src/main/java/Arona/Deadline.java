@@ -6,6 +6,11 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     protected LocalDate by;
 
+    /**
+     * Constructor for the deadline class which encapsulates a task with a set deadline but irrelevant/any start date
+     * @param  description  the name of the task
+     * @param  by  the deadline given in LocalDate readable format, time not included
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
