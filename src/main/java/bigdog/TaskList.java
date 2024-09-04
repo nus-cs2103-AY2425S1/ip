@@ -27,7 +27,7 @@ public class TaskList {
     }
 
     public ArrayList<Task> get() {
-        return this.list;
+        return new ArrayList<>(this.list);
     }
 
     public String mark(int i) {
@@ -46,18 +46,37 @@ public class TaskList {
         return String.format("OK, I've marked this task as not done yet:\n%s\n", this.list.get(i - 1));
     }
 
-    @Override
-    public String toString() {
-        String listString = "Here are the tasks in your list:\n";
-
+    /**
+     * Finds and returns tasks that contain the specified search string.
+     *
+     * @param str The string to search for in the task descriptions.
+     * @return A string representing the tasks that match the search string with their indices.
+     */
+    public String find(String str) {
+        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < this.list.size(); i++) {
-            listString += (i + 1) + "." + this.list.get(i) + "\n";
+            if (this.list.get(i).toString().contains(str)) {
+                result.append(i + 1).append(". ").append(this.list.get(i).toString()).append("\n");
+            }
         }
-
-        return listString;
+        if (result.toString().equals("Here are the tasks in your list:\n")) {
+            return "There are no similar tasks in your list!\n";
+        }
+        return result.toString();
     }
 
     public void show() {
         System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder listString = new StringBuilder("Here are the tasks in your list:\n");
+
+        for (int i = 0; i < this.list.size(); i++) {
+            listString.append(i + 1).append(".").append(this.list.get(i)).append("\n");
+        }
+
+        return listString.toString();
     }
 }

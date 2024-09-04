@@ -89,6 +89,38 @@ class TaskListTest {
     }
 
     @Test
+    void findTasks_success() {
+        taskList.add(Todo.of("Read a book"));
+        taskList.add(Deadline.of("Submit assignment /by 10/09/2024"));
+        taskList.add(Event.of("Attend meeting /from 12/09/2024 18:00 /to 12/09/2024 20:00"));
+
+        // Find tasks containing "book" and "meeting"
+        String resultBook = taskList.find("book");
+        String resultMeeting = taskList.find("meeting");
+
+        // Expected results
+        String expectedBook = "Here are the tasks in your list:\n" +
+                "3. [T][ ] Read a book\n";
+        String expectedMeeting = "Here are the tasks in your list:\n" +
+                "5. [E][ ] Attend meeting (from: 12 Sep 2024 18:00 to: 12 Sep 2024 20:00)\n";
+
+        assertEquals(expectedBook, resultBook);
+        assertEquals(expectedMeeting, resultMeeting);
+    }
+
+    @Test
+    void findTasks_noMatch() {
+        // Find tasks containing a string that does not match any task
+        String resultNoMatch = taskList.find("holiday");
+
+        // Expected result when no tasks match the search string
+        String expectedNoMatch = "There are no similar tasks in your list!\n";
+
+        // Validate result
+        assertEquals(expectedNoMatch, resultNoMatch);
+    }
+
+    @Test
     void testToString() {
         assertEquals("""
                 Here are the tasks in your list:
