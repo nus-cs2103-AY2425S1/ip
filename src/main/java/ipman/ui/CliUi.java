@@ -5,6 +5,11 @@ import java.util.Scanner;
 import ipman.commands.Command;
 import ipman.parser.Parser;
 
+/**
+ * Represents the command line user interface.
+ * Messages will be received from standard input and messages will be displayed
+ * to standard output.
+ */
 public class CliUi implements Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private final Scanner scanner = new Scanner(System.in);

@@ -9,6 +9,9 @@ import ipman.ui.CliUi;
 import ipman.ui.Ui;
 
 
+/**
+ * Represents the main chat bot program that allows users to manage their tasks
+ */
 public class IpMan {
     private static final Ui ui = new CliUi();
     private static final TaskList tasks = new TaskList();
