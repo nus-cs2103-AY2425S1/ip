@@ -1,19 +1,19 @@
 package mel.main;
 
+import java.util.Scanner;
+
 import mel.exceptions.MelException;
 import mel.exceptions.TaskException;
 import mel.tasks.TaskList;
 import mel.utils.Storage;
-import mel.utils.UI;
-
-import java.util.Scanner;
+import mel.utils.Ui;
 
 /**
  * Mel class is the main class of Mel chatbot.
  */
 public class Mel {
     private final TaskList taskList;
-    private final UI ui;
+    private final Ui ui;
 
     /**
      * Constructor for Mel chatbot, instantiates
@@ -22,7 +22,7 @@ public class Mel {
     public Mel() {
         Storage storage = new Storage();
         taskList = new TaskList(this, storage);
-        ui = new UI(this);
+        ui = new Ui(this);
     }
 
     /**
@@ -32,7 +32,7 @@ public class Mel {
      */
     public void taskAction(String input) {
         try {
-            taskList.taskAction(input);
+            taskList.executeTask(input);
         } catch (MelException | TaskException e) {
             ui.println(e.toString());
         }
@@ -41,7 +41,7 @@ public class Mel {
     /**
      * Passes response string to UI for output to user.
      * @param str response string.
-     * @see UI
+     * @see Ui
      */
     public void println(String str) {
         ui.println(str);

@@ -1,9 +1,9 @@
 package mel.tasks;
 
+import java.time.LocalDateTime;
+
 import mel.exceptions.ParseException;
 import mel.utils.Parser;
-
-import java.time.LocalDateTime;
 
 /**
  * Task class represents a task.
@@ -18,7 +18,7 @@ public class Task {
      * @param str date and/or time input string.
      * @return parsed date-time.
      * @throws ParseException if date-time input cannot be parsed
-     * or is of invalid format.
+     *      or is of invalid format.
      * @see LocalDateTime
      */
     protected LocalDateTime parseDateTime(String str) throws ParseException {
@@ -28,7 +28,7 @@ public class Task {
     /**
      * Marks a task to indicate its completion.
      */
-    public void mark() {
+    public void markTaskAsDone() {
         isDone = true;
         System.out.println("  " + this);
     }
@@ -36,7 +36,7 @@ public class Task {
     /**
      * Removes a task's mark to indicate it is incomplete.
      */
-    public void unmark() {
+    public void markTaskAsNotDone() {
         isDone = false;
         System.out.println("  " + this);
     }
@@ -46,8 +46,8 @@ public class Task {
      * matches the task detail.
      * @param str input string.
      * @return boolean of match result,
-     * where True - match,
-     * False - no match.
+     *      where True - match,
+     *      False - no match.
      */
     public boolean isMatch(String str) {
         return task.contains(str);

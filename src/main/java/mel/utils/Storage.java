@@ -13,11 +13,11 @@ public class Storage {
     /**
      * Save data directory path.
      */
-    private final File DIR_DATA = new File("data");
+    private final File dirData = new File("data");
     /**
      * Task list save file path.
      */
-    private final File PATH_TASKS = new File(DIR_DATA, "tasks.txt");
+    private final File pathTask = new File(dirData, "tasks.txt");
 
     /**
      * Updates save file of task list, creates
@@ -26,12 +26,12 @@ public class Storage {
      * @throws IOException if I/O error occurs when writing save file.
      */
     public void updateTasks(String[] taskList) throws IOException {
-        if (!DIR_DATA.exists()) {
-            DIR_DATA.mkdir();
+        if (!dirData.exists()) {
+            dirData.mkdir();
         }
-        PATH_TASKS.delete();
-        PATH_TASKS.createNewFile();
-        BufferedWriter writer = new BufferedWriter(new FileWriter(PATH_TASKS));
+        pathTask.delete();
+        pathTask.createNewFile();
+        BufferedWriter writer = new BufferedWriter(new FileWriter(pathTask));
         for (String str : taskList) {
             writer.write(str + "\n");
         }

@@ -1,12 +1,13 @@
 package mel.utils;
 
-import mel.exceptions.ParseException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import mel.exceptions.ParseException;
 
 public class ParserTest {
     @Test

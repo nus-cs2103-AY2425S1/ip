@@ -1,10 +1,10 @@
 package mel.tasks;
 
-import mel.exceptions.ParseException;
-import mel.exceptions.TaskException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import mel.exceptions.ParseException;
+import mel.exceptions.TaskException;
 
 /**
  * Event class that represents a task with a
