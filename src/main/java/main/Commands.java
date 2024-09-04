@@ -2,6 +2,10 @@ package main;
 
 import exception.CommandNotFoundException;
 
+/**
+ * Enum representing various commands that the application can process.
+ * Each enum constant corresponds to a specific command.
+ */
 public enum Commands {
     TODO("todo"),
     DEADLINE("deadline"),
@@ -14,10 +18,21 @@ public enum Commands {
     FIND("find");
 
     private final String value;
+
+    /**
+     * Constructs a {@code Commands} enum constant with the specified command value.
+     *
+     * @param value the string representation of the command
+     */
     Commands(String value) {
         this.value = value;
     }
 
+    /**
+     * Returns the string representation of this command.
+     *
+     * @return the string value of this command
+     */
     public String getValue() {
         return this.value;
     }
