@@ -14,6 +14,9 @@ public class Optimus {
         this.ui = new Ui();
     }
 
+    /**
+     * Boots up the UI and keeps running until the UI decides to shut down
+     */
     private void run() {
         ui.greet();
         boolean runChat = true;

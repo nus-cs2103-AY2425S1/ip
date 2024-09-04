@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Ui {
 
     Scanner scanner;
-    private static final String linebreak = "____________________________";
+    private static final String LINE_BREAK = "____________________________";
 
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -31,7 +31,7 @@ public class Ui {
      * Prints the linebreak to the UI
      */
     public void showLineBreak() {
-        System.out.println(linebreak);
+        System.out.println(LINE_BREAK);
     }
 
     /**

@@ -3,6 +3,7 @@ package optimus;
 import optimus.commands.AddTaskCommand;
 import optimus.commands.Command;
 import optimus.commands.DeleteTaskCommand;
+import optimus.commands.FindCommand;
 import optimus.commands.LeaveCommand;
 import optimus.commands.ListCommand;
 import optimus.commands.MarkCommand;
@@ -31,7 +32,7 @@ public class Parser {
      * Returns a Command object based on user input and throws an Exception for invalid commands
      * @param input - user input through keyboard
      * @return corresponding Command object
-     * @throws OptimusExceptions
+     * @throws OptimusExceptions - thrown for incorrect or incomplete commands
      */
     public static Command parse(String input) throws OptimusExceptions {
         String[] commands = input.split(" ");
@@ -41,14 +42,14 @@ public class Parser {
 
         String command = commands[0].toLowerCase();
         return switch (command) {
-            case "bye" -> new LeaveCommand();
-            case "list" -> new ListCommand();
-            case "mark" -> new MarkCommand(parseTaskNumber(commands));
-            case "unmark" -> new UnmarkCommand(parseTaskNumber(commands));
-            case "todo", "deadline", "event" -> addTask(commands);
-            case "delete" -> new DeleteTaskCommand(parseTaskNumber(commands));
-            case "find" -> new FindCommand(extractDescription(commands));
-            default -> throw new InvalidCommandException("This command does not exist.");
+        case "bye" -> new LeaveCommand();
+        case "list" -> new ListCommand();
+        case "mark" -> new MarkCommand(parseTaskNumber(commands));
+        case "unmark" -> new UnmarkCommand(parseTaskNumber(commands));
+        case "todo", "deadline", "event" -> addTask(commands);
+        case "delete" -> new DeleteTaskCommand(parseTaskNumber(commands));
+        case "find" -> new FindCommand(extractDescription(commands));
+        default -> throw new InvalidCommandException("This command does not exist.");
         };
     }
 
@@ -67,7 +68,14 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Returns an appropriate AddTaskCommand based on the command
+     * @param commands - commands as an array of Strings, each word of the command must be a separate element
+     * @return AddTaskCommand with the correct Task as its input
+     * @throws IncompleteCommandException - Thrown when commands lack dates or time
+     * @throws InvalidCommandException - Thrown if the method is called incorrectly
+     * @throws InvalidDateFormatException - Thrown if the date format for the deadline task is incorrect
+     */
     private static Command addTask(String[] commands) throws IncompleteCommandException, InvalidCommandException, InvalidDateFormatException {
         if (commands.length < 2) {
             throw new IncompleteCommandException(NO_DESCRIPTION_MSG);
