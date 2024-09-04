@@ -13,24 +13,13 @@ public class Ui {
     private static final String LINE_BREAK = "____________________________________";
     private static Scanner scanner = new Scanner(System.in);
 
-
     /**
-     * Prints the message after a command is executed in between two line breaks.
-     *
-     * @param text Text to be printed.
-     */
-    public static void printText(String text) {
-        System.out.println(LINE_BREAK);
-        System.out.println(text);
-        System.out.println(LINE_BREAK + "\n");
-    }
-
-    /**
-     * Prints the list of tasks in between two line breaks.
+     * Prints the list of tasks.
      *
      * @param tasks List of tasks to be printed.
+     * @return String form of the list of tasks.
      */
-    public static String printList(TaskList tasks) {
+    public static String getList(TaskList tasks) {
         return tasks.toString();
     }
 
@@ -39,6 +28,7 @@ public class Ui {
      *
      * @param task Task to be added into the list.
      * @param tasks List of tasks to be used.
+     * @return String of Rasputin's response.
      */
     public static String printAddTask(Task task, TaskList tasks) {
         String output = String.format("Added %s task:\n%s", task.getType(), task);
@@ -48,6 +38,7 @@ public class Ui {
 
     /**
      * Prints the greeting in between two line breaks when the user starts the chatbot.
+     * @return String of Rasputin's greeting.
      */
     public static String printGreeting() {
         return "Hello, I'm Rasputin!\nWhat can I do for you?";
@@ -55,6 +46,7 @@ public class Ui {
 
     /**
      * Prints the farewell in between two line breaks when the user is done with the chatbot.
+     * @return String of Rasputin's farewell.
      */
     public static String printFarewell() {
         return "Bye. See you later!";
@@ -64,18 +56,11 @@ public class Ui {
      * Prints the error message in between two line breaks.
      *
      * @param error Error message to be printed.
+     * @String String of error message.
      */
     public static String printError(String error) {
         return error;
     }
 
-    /**
-     * Reads the user input from the terminal.
-     *
-     * @return User input to be passed into the parser.
-     */
-    public static String readInput() {
-        return scanner.nextLine().trim();
-    }
 }
 

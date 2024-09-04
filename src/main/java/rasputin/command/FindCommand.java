@@ -4,7 +4,6 @@ import rasputin.task.RasputinException;
 import rasputin.task.TaskList;
 import rasputin.task.Task;
 
-import rasputin.gui.Ui;
 
 /**
  * Represents a command to find a task with description containing the keyword to search with.

@@ -19,7 +19,7 @@ public class PrintListCommand extends Command {
      */
     @Override
     public String execute() {
-        return Ui.printList(tasks);
+        return Ui.getList(tasks);
     }
 
     /**

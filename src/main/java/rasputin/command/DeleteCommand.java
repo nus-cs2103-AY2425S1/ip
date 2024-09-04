@@ -3,7 +3,6 @@ package rasputin.command;
 import rasputin.task.TaskList;
 import rasputin.task.InvalidTaskException;
 
-import rasputin.gui.Ui;
 
 
 /**

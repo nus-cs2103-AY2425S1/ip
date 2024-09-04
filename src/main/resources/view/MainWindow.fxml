@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="600.0" prefWidth="400.0"
+            prefHeight="600.0" prefWidth="450.0"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="rasputin.gui.MainWindow">
@@ -31,12 +31,12 @@
                     hbarPolicy="NEVER"
                     hvalue="1.0"
                     prefHeight="557.0"
-                    prefWidth="400.0"
+                    prefWidth="450.0"
                     vvalue="1.0">
             <content>
                 <VBox fx:id="dialogContainer"
                       prefHeight="552.0"
-                      prefWidth="388.0" />
+                      prefWidth="436.0" />
             </content>
         </ScrollPane>
     </children>
