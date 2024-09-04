@@ -1,24 +1,24 @@
-package main.froggy;
+package froggy;
 
-public class MarkCommand extends Command{
+public class UnmarkCommand extends Command{
 
     private String input;
 
-    public MarkCommand(String input) {
+    public UnmarkCommand(String input) {
         this.input = input;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        if (input.length() <= 5) {
-            System.out.println("Error: Please enter the index of the task to be marked.");
+        if (input.length() <= 7) {
+            System.out.println("Error: Please enter the index of the task to be unmarked.");
             ui.showLine();
         } else {
             try {
-                int index = Integer.parseInt(input.substring(5)) - 1;
+                int index = Integer.parseInt(input.substring(7)) - 1;
                 if (index >= 0 && index < taskList.getSize()) {
-                    taskList.setDone(index, true);
-                    System.out.println("Marked the following task as done:");
+                    taskList.setDone(index, false);
+                    System.out.println("Marked the following task as undone:");
                     taskList.printTask(index);
                     ui.showLine();
                 } else {
@@ -26,7 +26,7 @@ public class MarkCommand extends Command{
                     ui.showLine();
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Error: Please enter a valid index after 'mark'.");
+                System.out.println("Error: Please enter a valid index after 'unmark'.");
                 ui.showLine();
             }
         }

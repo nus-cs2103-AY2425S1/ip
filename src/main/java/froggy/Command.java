@@ -1,4 +1,4 @@
-package main.froggy;
+package froggy;
 
 public abstract class Command {
     /**

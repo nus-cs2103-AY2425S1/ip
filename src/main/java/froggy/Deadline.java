@@ -1,4 +1,4 @@
-package main.froggy;
+package froggy;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

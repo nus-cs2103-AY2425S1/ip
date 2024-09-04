@@ -1,36 +1,34 @@
-package main.froggy;
+package froggy;
 
-public class UnmarkCommand extends Command{
+public class DeleteCommand extends Command{
 
     private String input;
 
-    public UnmarkCommand(String input) {
+    public DeleteCommand(String input) {
         this.input = input;
     }
-
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (input.length() <= 7) {
-            System.out.println("Error: Please enter the index of the task to be unmarked.");
+            System.out.println("Error: Please enter the index of the task to be deleted.");
             ui.showLine();
         } else {
             try {
                 int index = Integer.parseInt(input.substring(7)) - 1;
                 if (index >= 0 && index < taskList.getSize()) {
-                    taskList.setDone(index, false);
-                    System.out.println("Marked the following task as undone:");
+                    System.out.println("Deleted the following task:");
                     taskList.printTask(index);
                     ui.showLine();
+                    taskList.removeTask(index);
                 } else {
                     System.out.println("Error: Invalid index. Please enter an index in range.");
                     ui.showLine();
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Error: Please enter a valid index after 'unmark'.");
+                System.out.println("Error: Please enter a valid index after 'delete'.");
                 ui.showLine();
             }
         }
-        storage.saveTasks(taskList.getTasks());
     }
 
     @Override
