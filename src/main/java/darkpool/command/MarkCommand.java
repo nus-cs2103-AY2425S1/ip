@@ -1,9 +1,10 @@
 package darkpool.command;
 
+import darkpool.util.DarkpoolException;
 import darkpool.util.Storage;
 import darkpool.util.TaskList;
 import darkpool.util.Ui;
-import darkpool.util.DarkpoolException;
+
 
 /**
  * Represents a command to mark a task in the task list as completed.

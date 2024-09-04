@@ -1,16 +1,18 @@
 package darkpool.task;
 
-import darkpool.util.DarkpoolException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import darkpool.util.DarkpoolException;
+
 
 class EventTest {
 
@@ -39,7 +41,8 @@ class EventTest {
 
     @Test
     void testEventCreationInvalidTimeFormat() {
-        DarkpoolException exception = assertThrows(DarkpoolException.class, () -> new Event(description, invalidTime, validToTime, false));
+        DarkpoolException exception = assertThrows(DarkpoolException.class, () ->
+                new Event(description, invalidTime, validToTime, false));
         assertTrue(exception.getMessage().contains("could not be parsed"));
     }
 

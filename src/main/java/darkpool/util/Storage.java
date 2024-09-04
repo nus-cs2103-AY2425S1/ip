@@ -1,19 +1,21 @@
 package darkpool.util;
 
-import darkpool.task.Deadline;
-import darkpool.task.Event;
-import darkpool.task.Task;
-import darkpool.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import darkpool.task.Deadline;
+import darkpool.task.Event;
+import darkpool.task.Task;
+import darkpool.task.Todo;
+
+
 /**
  * Handles the loading and saving of tasks to and from a file.
  */
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class Storage {
 
     private final String filePath;
@@ -103,7 +105,9 @@ public class Storage {
         String type = taskParts[0];
         boolean isDone = taskParts[1].equals("1");
         String description = taskParts[2];
-        String from, to, by;
+        String from;
+        String to;
+        String by;
 
         switch (type) {
         case "E" -> {

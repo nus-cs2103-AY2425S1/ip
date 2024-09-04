@@ -9,8 +9,8 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    final String GREETING = "\tit’s darkpool. what twisted reason dragged me into your misery?";
-    final String BYE = "\tcontact me again and you'll regret it.";
+    final String greeting = "\tit’s darkpool. what twisted reason dragged me into your misery?";
+    final String bye = "\tcontact me again and you'll regret it.";
 
     /**
      * Reads a command from the user.
@@ -27,7 +27,7 @@ public class Ui {
      */
     public void greeting() {
         upperLine();
-        output(GREETING);
+        output(greeting);
         lowerLine();
     }
 
@@ -35,7 +35,7 @@ public class Ui {
      * Displays the goodbye message.
      */
     public void goodbye() {
-        output(BYE);
+        output(bye);
     }
 
     /**
@@ -81,7 +81,8 @@ public class Ui {
      * @param size the new size of the task list
      */
     public void add(String task, int size) {
-        output("\ti have dumped this nonsense on the list\n\t\t" + task + "\n\tnow you are stuck with " + size + " goddamn tasks");
+        output("\ti have dumped this nonsense on the list\n\t\t" + task
+                + "\n\tnow you are stuck with " + size + " goddamn tasks");
     }
 
     /**

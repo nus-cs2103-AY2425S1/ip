@@ -1,8 +1,9 @@
 package darkpool.util;
 
+import java.util.ArrayList;
+
 import darkpool.task.Task;
 
-import java.util.ArrayList;
 
 /**
  * The TaskList class represents a list of tasks.
@@ -90,6 +91,13 @@ public class TaskList {
         return getTaskString(index);
     }
 
+    /**
+     * Searches for tasks that contain the specified search query in their description.
+     *
+     * @param searchQuery the query to search for in the task descriptions
+     * @return a string representation of the matching tasks
+     * @throws DarkpoolException if the task list is empty or the search query is empty
+     */
     public String search(String searchQuery) throws DarkpoolException {
         if (taskList.isEmpty()) {
             throw new DarkpoolException("\tbozo you got no tasks");
@@ -123,14 +131,15 @@ public class TaskList {
         return getTaskString(index);
     }
 
-    public
+
 
     /**
      * Returns the string representation of the task list.
      *
      * @return the string representation of the task list
      */
-    @Override String toString() {
+    @Override
+    public String toString() {
         if (taskList.isEmpty()) {
             return "\tbozo you got no tasks";
         }

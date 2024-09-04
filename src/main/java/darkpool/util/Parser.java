@@ -1,12 +1,20 @@
 package darkpool.util;
 
-import darkpool.command.*;
+import java.time.format.DateTimeParseException;
+import java.util.Objects;
+
+import darkpool.command.AddCommand;
+import darkpool.command.Command;
+import darkpool.command.DeleteCommand;
+import darkpool.command.ExitCommand;
+import darkpool.command.FindCommand;
+import darkpool.command.ListCommand;
+import darkpool.command.MarkCommand;
+import darkpool.command.UnmarkCommand;
 import darkpool.task.Deadline;
 import darkpool.task.Event;
 import darkpool.task.Todo;
 
-import java.time.format.DateTimeParseException;
-import java.util.Objects;
 
 /**
  * Parses user input and returns the corresponding command.

@@ -2,6 +2,7 @@ package darkpool.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
 import darkpool.util.DarkpoolException;
 
 /**
@@ -39,7 +40,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + (isDone ? "[X] " : "[ ] ") + this.description + " (from:" + this.fromTime.format(Task.FORMATTER) + " to:" + this.toTime.format(Task.FORMATTER) + ")";
+        return "[E]" + (isDone ? "[X] " : "[ ] ") + this.description + " (from:" + this.fromTime.format(Task.FORMATTER)
+                + " to:" + this.toTime.format(Task.FORMATTER) + ")";
     }
 
     /**
@@ -49,6 +51,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return ("E | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.fromTime.format(Task.FORMATTER) + " | " + this.toTime.format(Task.FORMATTER) + "\n");
+        return ("E | " + (isDone ? "1" : "0") + " | " + this.description + " | "
+                + this.fromTime.format(Task.FORMATTER) + " | " + this.toTime.format(Task.FORMATTER) + "\n");
     }
 }

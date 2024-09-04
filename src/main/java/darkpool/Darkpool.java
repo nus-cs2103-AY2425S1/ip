@@ -2,10 +2,11 @@ package darkpool;
 
 import darkpool.command.Command;
 import darkpool.util.DarkpoolException;
+import darkpool.util.Parser;
 import darkpool.util.Storage;
 import darkpool.util.TaskList;
 import darkpool.util.Ui;
-import darkpool.util.Parser;
+
 
 /**
  * The main class for the Darkpool application.

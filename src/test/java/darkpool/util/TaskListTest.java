@@ -1,15 +1,17 @@
 package darkpool.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import darkpool.task.Deadline;
 import darkpool.task.Event;
 import darkpool.task.Task;
 import darkpool.task.Todo;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaskListTest {
 
@@ -56,21 +58,27 @@ class TaskListTest {
     }
 
     @Test
-    void testToString_EmptyList() {
+    void testToStringEmptyList() {
         assertEquals("\tbozo you got no tasks", taskList.toString());
     }
 
     @Test
-    void testToString_NonEmptyList() throws DarkpoolException {
+    void testToStringNonEmptyList() throws DarkpoolException {
         Task todo = new Todo("read a book", false);
         Task deadline = new Deadline("submit report", "30-08-2024 18:00", false);
-        Task event = new Event("attend meeting", "30-08-2024 10:00", "30-08-2024 12:00", false);
+        Task event = new Event("attend meeting", "30-08-2024 10:00", "30-08-2024 12:00",
+                false);
 
         taskList.addTask(todo);
         taskList.addTask(deadline);
         taskList.addTask(event);
 
-        String expectedOutput = "\twhy am i here\n\t\t1. [T][ ] read a book\n\t\t2. [D][ ] submit report (by:30-08-2024 18:00)\n\t\t3. [E][ ] attend meeting (from:30-08-2024 10:00 to:30-08-2024 12:00)";
+        String expectedOutput = """
+                \twhy am i here
+                \t\t1. [T][ ] read a book
+                \t\t2. [D][ ] submit report \
+                (by:30-08-2024 18:00)
+                \t\t3. [E][ ] attend meeting (from:30-08-2024 10:00 to:30-08-2024 12:00)""";
 
         assertEquals(expectedOutput, taskList.toString());
     }
@@ -79,7 +87,8 @@ class TaskListTest {
     void testToFileString() throws DarkpoolException {
         Task todo = new Todo("read a book", false);
         Task deadline = new Deadline("submit report", "30-08-2024 18:00", false);
-        Task event = new Event("attend meeting", "30-08-2024 10:00", "30-08-2024 12:00", false);
+        Task event = new Event("attend meeting", "30-08-2024 10:00", "30-08-2024 12:00",
+                false);
 
         taskList.addTask(todo);
         taskList.addTask(deadline);
@@ -103,7 +112,8 @@ class TaskListTest {
         TaskList taskListWithTasks = new TaskList(tasks);
         assertEquals(2, taskListWithTasks.getSize());
 
-        String expectedOutput = "\twhy am i here\n\t\t1. [T][ ] read a book\n\t\t2. [D][ ] submit report (by:30-08-2024 18:00)";
+        String expectedOutput =
+                "\twhy am i here\n\t\t1. [T][ ] read a book\n\t\t2. [D][ ] submit report (by:30-08-2024 18:00)";
         assertEquals(expectedOutput, taskListWithTasks.toString());
     }
 }

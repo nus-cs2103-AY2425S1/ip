@@ -6,9 +6,9 @@ import java.time.format.DateTimeFormatter;
  * Represents an abstract task with a description and completion status.
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
     static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    protected final String description;
+    protected boolean isDone;
 
     /**
      * Constructs a Task with the specified description and completion status.
