@@ -1,26 +1,24 @@
 package duke;
 
-import java.util.Scanner;
-
+/**
+ * Represents a Duck chatbot object.
+ */
 public class Duck {
-    /**
-     * Runs the chatbot DUCK.
-     *
-     * @return String task description and date.
-     * @throws DuckException if user inputs invalid input.
-     * */
-    public static void main(String[] args) throws DuckException {
-        Scanner scan = new Scanner(System.in);
-        TaskList cmds = new TaskList(Storage.load(), Storage.loadNum());
-
-        System.out.println("Hello! I'm DUCK\n What can I do for you?");
-        boolean shouldContinue = true;
-        while (shouldContinue) {
-            String userCmd = scan.nextLine();
-            shouldContinue = Parser.parseCommand(cmds, userCmd);
-        }
-        scan.close();
+    private TaskList cmds;
+    Duck() throws DuckException {
+        cmds = new TaskList(Storage.load(), Storage.loadNum());
     }
 
+    /**
+     * Responds to user input.
+     *
+     * @param input user input to be responded to.
+     * @return String response from Duck.
+     * @throws DuckException if command given is not valid.
+     */
+    public String getResponse(String input) throws DuckException {
+        //return "Duke heard: " + input;
+        return Parser.parseCommand(cmds, input);
+    }
 }
 

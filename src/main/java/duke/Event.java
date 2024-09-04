@@ -1,7 +1,9 @@
 package duke;
 
 import java.time.LocalDate;
-
+/**
+ * Represents a Task with a specified start and end time.
+ */
 public class Event extends Task{
     LocalDate fromdate;
     LocalDate todate;

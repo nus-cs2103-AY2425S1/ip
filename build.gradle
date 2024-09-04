@@ -29,7 +29,8 @@ test {
 
 application {
     //mainClass.set("seedu.duke.Duke")
-    mainClass.set("duke.Duck")
+    //mainClass.set("duke.Duck")
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {

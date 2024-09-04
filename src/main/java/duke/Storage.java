@@ -8,7 +8,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
+/**
+ * Handles the storage functions of the Duck chatbot.
+ */
 public class Storage {
     private static final String PATH = "./data/duke.txt";
 
@@ -122,7 +124,12 @@ public class Storage {
             throw new DuckException("Unrecognised file type.");
         }
     }
-
+    /**
+     * Saves a given task in specified format.
+     *
+     * @param task Task item to be saved.
+     * @return String representation of task to be saved.
+     * */
     private static String saveTask(Task task) {
         String done = "0";
         if (task.isDone) {

@@ -1,7 +1,9 @@
 package duke;
 
 import java.time.LocalDate;
-
+/**
+ * Represents a Task with a specified deadline.
+ */
 public class Deadline extends Task {
     LocalDate deadl;
     public Deadline(String descr, String dl) {

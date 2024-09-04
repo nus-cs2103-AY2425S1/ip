@@ -1,5 +1,7 @@
-4
+6
 T | 1 | asdas
-T | 0 | asgg
 D | 0 | adas  | 2020-03-03
-E | 1 | aasdad  | 2020-02-02 | 2020-03-04
+E | 0 | aasdad  | 2020-02-02 | 2020-03-04
+T | 0 | asdasasadg
+T | 0 | asfsagag
+D | 1 | asdad  | 2022-12-23
