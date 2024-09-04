@@ -1,7 +1,5 @@
 package ui;
 
-import java.util.Scanner;
-
 import exceptions.AliceException;
 import parser.Parser;
 import storage.TaskList;
@@ -12,9 +10,7 @@ import tasks.Task;
  * Encapsulates a parser and a scanner for reading user input.
  */
 public class Ui {
-    private static final String DIVIDER = "------------------------------------------";
     private final Parser parser;
-    private final Scanner scanner;
 
     /**
      * Initialises a Ui object.
@@ -23,117 +19,93 @@ public class Ui {
      */
     public Ui(TaskList list) {
         parser = new Parser(list, this);
-        scanner = new Scanner(System.in);
     }
 
     /**
-     * Prints the welcome message to the terminal.
+     * Returns the welcome message.
      */
-    public void showWelcome() {
-        System.out.println("Hello! I am Alice!");
-        System.out.println("What can I do for you?");
-        showDivider();
+    public String showWelcomeMessage() {
+        return "Hello! I am Alice!\nWhat can I do for you?";
     }
 
     /**
-     * Prints the exit message to the terminal.
+     * Returns the exit message
      */
-    public void exitMessage() {
-        showDivider();
-        System.out.println("Bye. Hope to see you again soon!");
-        scanner.close();
+    public String showExitMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Gets user inputs from the terminal.
+     * Returns the response of Alice.
+     *
+     * @param input the user's input.
+     * @return the response.
      */
-    public void getInput() {
-        while (!parser.isBye()) {
-            if (!scanner.hasNext()) {
-                continue;
-            }
-            try {
-                parser.parse(scanner.nextLine());
-            } catch (AliceException e) {
-                System.out.println(e);
-                showDivider();
-            }
+    public String handleUserInput(String input) {
+        try {
+            return parser.parse(input);
+        } catch (AliceException e) {
+            return e.toString();
         }
     }
 
     /**
-     * Prints message to terminal when task is marked or unmarked.
+     * Returns the custom message when task is marked or unmarked.
      *
      * @param task the task which was handled.
      * @param command "mark" or "unmark".
+     * @return the custom message.
      */
-    public void printHandleTaskMessage(Task task, String command) {
+    public String getHandleTaskMessage(Task task, String command) {
         if (command.equals("mark")) {
-            showDivider();
-            System.out.println("Noted! I've marked this task as done: ");
-            System.out.println(task);
-            showDivider();
+            return "Noted! I've marked this task as done: \n" + task;
         } else {
-            showDivider();
-            System.out.println("Ok, I've marked this task as not done yet: ");
-            System.out.println(task);
-            showDivider();
+            return "Ok, I've marked this task as not done yet: \n" + task;
         }
     }
 
     /**
-     * Prints message to the terminal when task is deleted or added.
+     * Returns the custom message when task is deleted or added.
      *
      * @param task the task that was handled.
      * @param command "delete" or "todo" or "deadline" or "event".
      * @param size number of tasks in the list.
+     * @return the custom message.
      */
-    public void printHandleTaskMessage(Task task, String command, int size) {
+    public String getHandleTaskMessage(Task task, String command, int size) {
+        StringBuilder s = new StringBuilder();
         if (command.equals("delete")) {
-            showDivider();
-            System.out.println("Noted. I've removed this task: ");
-            System.out.println(task);
-            System.out.printf("Now you have %d tasks in the list%n", size);
-            showDivider();
+            s.append("Noted. I've removed this task: \n");
         } else {
-            showDivider();
-            System.out.println("Got it. I've added this task: ");
-            System.out.println(task);
-            System.out.printf("Now you have %d tasks in the list%n", size);
-            showDivider();
+            s.append("Got it. I've added this task: \n");
         }
+        s.append(task).append("\n");
+        s.append("Now you have ").append(size).append(" tasks in the list");
+        return s.toString();
     }
 
     /**
-     * Prints all the tasks in the list.
+     * Returns a string of all the tasks in the list.
      *
      * @param tasks the string representation of all the tasks.
      * @param size number of tasks in the list.
+     * @return tasks in the list.
      */
-    public void printListedTasks(String tasks, int size) {
-        showDivider();
-        System.out.println("Here are the tasks in your list: ");
-        System.out.println(tasks);
-        System.out.printf("Now you have %d tasks in the list%n", size);
-        showDivider();
+    public String getListedTasks(String tasks, int size) {
+        StringBuilder s = new StringBuilder();
+        s.append("Here are the tasks in your list: \n");
+        s.append(tasks).append("\n");
+        s.append("Now you have ").append(size).append(" tasks in the list");
+        return s.toString();
     }
 
     /**
-     * Prints filtered tasks to the terminal.
+     * Returns the filtered tasks.
      *
      * @param tasks String of tasks to be displayed.
+     * @return the filtered tasks.
      */
-    public void printFilteredTasks(String tasks) {
-        showDivider();
-        System.out.println("Here are the matching tasks in your list: ");
-        System.out.println(tasks);
-        showDivider();
-    }
-
-    /**
-     * Prints the divider to the terminal.
-     */
-    public void showDivider() {
-        System.out.println(Ui.DIVIDER);
+    public String getFilteredTasks(String tasks) {
+        return "Here are the matching tasks in your list: \n" + tasks;
     }
 }

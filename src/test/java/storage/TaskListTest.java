@@ -1,16 +1,17 @@
 package storage;
 
-import commands.Command;
-import exceptions.InvalidTaskException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import commands.Command;
+import exceptions.InvalidTaskException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
     @Test
@@ -137,7 +138,9 @@ public class TaskListTest {
         list4.addTask(new Todo("test"));
         list4.addTask(new Deadline("test", "2024-08-30"));
         list4.addTask(new Event("test", "2024-08-30", "2024-08-30"));
-        assertEquals("1. [T][ ] test\n2. [D][ ] test (by: Aug 30 2024)\n3. [E][ ] test (from: Aug 30 2024 to: Aug 30 2024)\n",
+        assertEquals("1. [T][ ] test\n"
+                        + "2. [D][ ] test (by: Aug 30 2024)\n"
+                        + "3. [E][ ] test (from: Aug 30 2024 to: Aug 30 2024)\n",
                 list4.listTasks());
     }
 
