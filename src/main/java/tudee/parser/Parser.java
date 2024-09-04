@@ -1,38 +1,35 @@
 package tudee.parser;
 
-import tudee.task.ToDo;
+import tudee.TudeeException;
+import tudee.command.AddTaskCommand;
+import tudee.command.ByeCommand;
+import tudee.command.Command;
+import tudee.command.DateCommand;
+import tudee.command.DeleteCommand;
+import tudee.command.FindCommand;
+import tudee.command.ListCommand;
+import tudee.command.MarkCommand;
+import tudee.command.UnknownCommand;
+import tudee.command.UnmarkCommand;
 import tudee.task.Deadline;
 import tudee.task.Events;
-import tudee.command.Command;
-import tudee.command.AddTaskCommand;
-import tudee.command.ListCommand;
-import tudee.command.ByeCommand;
-import tudee.command.DeleteCommand;
-import tudee.command.MarkCommand;
-import tudee.command.UnmarkCommand;
-import tudee.command.DateCommand;
-import tudee.command.FindCommand;
-import tudee.command.UnknownCommand;
-import tudee.TudeeException;
+import tudee.task.ToDo;
 
 /**
  * Parses user input into respective Command objects.
- * This class interprets the user's input and returns the appropriate Command
- * based on the input string.
+ * This class interprets the user's input and returns the appropriate Command based on the input string.
  */
 public class Parser {
 
     /**
      * Parses the given input string to generate the respective Command.
-     * The input string is expected to contain a command followed by
-     * optional arguments depending on the command called. The method
-     * recognises commands such as "list", "bye", "todo", "deadline",
-     * "event", "mark", "unmark", "delete", and "date". Each command
-     * is mapped to a specific Command subclass.
+     * The input string is expected to contain a command followed by optional arguments depending on the command called.
+     * The method recognises commands such as "list", "bye", "todo", etc.
+     * Each command is mapped to a specific Command subclass.
      *
-     * @param input the user input string to be parsed
-     * @return the corresponding Command based on the input
-     * @throws TudeeException if the input is invalid or not recognized
+     * @param input the user input string to be parsed.
+     * @return the corresponding Command based on the input.
+     * @throws TudeeException if the input is invalid or not recognized.
      */
     public static Command parse(String input) throws TudeeException {
         String[] inputs = input.split(" ", 2);

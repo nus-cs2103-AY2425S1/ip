@@ -1,14 +1,13 @@
 package tudee.command;
 
+import tudee.TudeeException;
+import tudee.storage.Storage;
 import tudee.task.TaskList;
 import tudee.ui.Ui;
-import tudee.storage.Storage;
-import tudee.TudeeException;
 
 /**
  * Represents an abstract command in the application.
- * Commands that extend this class define specific actions to be performed
- * when executed.
+ * Commands that extend this class define specific actions to be performed when executed.
  */
 public abstract class Command {
     /**

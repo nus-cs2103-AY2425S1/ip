@@ -1,9 +1,9 @@
 package tudee.task;
 
 /**
- * Represents a Task. A Task has a description and a status indicating
- * whether it is done or not. This class is abstract and is meant to be
- * extended by specific types of task.
+ * Represents a Task.
+ * A Task has a description and a status indicating whether it is done or not.
+ * This class is abstract and is meant to be extended by specific types of task.
  */
 public abstract class Task {
     protected String taskString;
@@ -61,8 +61,7 @@ public abstract class Task {
     public abstract String toFileString();
 
     /**
-     * Returns a string representation of the task, including
-     * its type and completion status.
+     * Returns a string representation of the task, including its type and completion status.
      *
      * @return The string representation of the task.
      */

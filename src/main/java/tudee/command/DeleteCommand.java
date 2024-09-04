@@ -1,15 +1,15 @@
 package tudee.command;
 
-import tudee.task.TaskList;
-import tudee.task.Task;
-import tudee.ui.Ui;
-import tudee.storage.Storage;
 import tudee.TudeeException;
+import tudee.storage.Storage;
+import tudee.task.Task;
+import tudee.task.TaskList;
+import tudee.ui.Ui;
 
 /**
  * Represents a command to delete a task from the task list.
- * This command removes the task at a specified index and updates the
- * user interface and storage accordingly.
+ * This command removes the task at a specified index.
+ * Updates the user interface and storage accordingly.
  */
 public class DeleteCommand extends Command {
     private final int index;
@@ -25,8 +25,8 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the command to delete the task at the specified index.
-     * Updates the user interface to show the deleted task and
-     * saves the updated task list to storage.
+     * Updates the user interface to show the deleted task.
+     * Saves the updated task list to storage.
      *
      * @param tasks The task list from which the task will be deleted.
      * @param ui The user interface to update with the deleted task.

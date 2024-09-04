@@ -1,8 +1,8 @@
 package tudee.command;
 
+import tudee.storage.Storage;
 import tudee.task.TaskList;
 import tudee.ui.Ui;
-import tudee.storage.Storage;
 
 /**
  * Represents a command to stop chatting with the chatbot.

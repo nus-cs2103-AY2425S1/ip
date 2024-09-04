@@ -21,8 +21,8 @@ public class ToDo extends Task {
      * @return A formatted string for the To-Do task.
      */
     @Override
-    public String toFileString()  {
-        return "T | " + (done ? "1": "0") + " | " + taskString;
+    public String toFileString() {
+        return "T | " + (done ? "1" : "0") + " | " + taskString;
     }
 
     /**

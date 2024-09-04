@@ -1,28 +1,30 @@
 package tudee.command;
 
-import tudee.task.TaskList;
-import tudee.task.Task;
-import tudee.task.Deadline;
-import tudee.task.Events;
-import tudee.ui.Ui;
-import tudee.storage.Storage;
-import tudee.TudeeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import tudee.TudeeException;
+import tudee.storage.Storage;
+import tudee.task.Deadline;
+import tudee.task.Events;
+import tudee.task.Task;
+import tudee.task.TaskList;
+import tudee.ui.Ui;
+
+
 /**
  * Represents a command to list tasks that are associated with a specific date.
- * This command filters tasks based on the given date and displays tasks that
- * are due on that date or ongoing during that period.
+ * This command filters tasks based on the given date.
+ * Displays tasks that are due on that date or ongoing during that period.
  */
 public class DateCommand extends Command {
     private final LocalDate date;
 
     /**
      * Constructs a DateCommand with the specified date string.
-     * Parses the date string to a LocalDate object. Throws an exception if the date format is invalid.
+     * Parses the date string to a LocalDate object.
+     * Throws an exception if the date format is invalid.
      *
      * @param dateStr The date string in yyyy-MM-dd format.
      * @throws TudeeException If the date string cannot be parsed into a LocalDate.
@@ -37,8 +39,7 @@ public class DateCommand extends Command {
 
     /**
      * Executes the command to list tasks associated with the specified date.
-     * Iterates through the task list and displays tasks that are either deadlines
-     * on the specified date or events that include the date within their duration.
+     * Iterates through the task list and displays tasks that are either deadlines or events.
      *
      * @param tasks The task list to be checked for tasks on the specified date.
      * @param ui The user interface to update with the list of tasks on the date.
@@ -65,7 +66,8 @@ public class DateCommand extends Command {
             }
         }
         if (!haveTask) {
-            throw new TudeeException("You have no tasks on this date, " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".");
+            throw new TudeeException("You have no tasks on this date, "
+                    + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".");
         }
     }
 }

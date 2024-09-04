@@ -1,14 +1,14 @@
 package tudee.command;
 
-import tudee.task.TaskList;
-import tudee.task.Task;
-import tudee.ui.Ui;
 import tudee.storage.Storage;
+import tudee.task.Task;
+import tudee.task.TaskList;
+import tudee.ui.Ui;
 
 /**
  * Represents a command to mark a task as not completed.
- * This command updates the status of a specific task to not done,
- * and then updates the user interface and storage accordingly.
+ * This command updates the status of a specific task to not done.
+ * Updates the user interface and storage accordingly.
  */
 public class UnmarkCommand extends Command {
     private final int index;
@@ -24,8 +24,8 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the command to mark the task at the specified index as not completed.
-     * Updates the user interface to show the task as unmarked and
-     * saves the updated task list to storage.
+     * Updates the user interface to show the task as unmarked.
+     * Saves the updated task list to storage.
      *
      * @param tasks The task list in which the task will be unmarked.
      * @param ui The user interface to update with the unmarked task.

@@ -1,17 +1,17 @@
 package tudee.ui;
 
-import tudee.task.Task;
-
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
+
+import tudee.task.Task;
 
 /**
  * The Ui class handles the interaction with the user.
  * It manages input and output, displaying messages to the user,
  */
 public class Ui {
-    private final Scanner sc;
     private static final String STRAIGHTLINE = "____________________________________________________________ \n";
+    private final Scanner sc;
 
     /**
      * Constructs a new Ui object and initializes the scanner
@@ -135,6 +135,10 @@ public class Ui {
         System.out.println(task);
     }
 
+    /**
+     * Closes the Scanner resource used for reading user input.
+     * This should be called when the user terminates the chatbot.
+     */
     public void close() {
         if (sc != null) {
             sc.close();

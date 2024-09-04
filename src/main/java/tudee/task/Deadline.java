@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Deadline task.
- * A Deadline task is a task with a specific deadline
+ * A Deadline task is a task with a specific deadline.
  */
 public class Deadline extends Task {
 
@@ -31,7 +31,7 @@ public class Deadline extends Task {
      * @return The deadline date as a LocalDate object.
      */
     public LocalDate getDateTime() {
-        return  this.deadline;
+        return this.deadline;
     }
 
     /**
@@ -41,12 +41,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (done ? 1 : 0) +" | " + taskString + " | " + deadline;
+        return "D | " + (done ? 1 : 0) + " | " + taskString + " | " + deadline;
     }
 
     /**
-     * Returns a string representation of the deadline task consisting
-     * its type, completion status and deadline.
+     * Returns a string representation of the deadline task consisting its type, completion status and deadline.
      *
      * @return The string representation of the deadline task.
      */

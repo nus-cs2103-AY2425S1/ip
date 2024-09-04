@@ -55,12 +55,11 @@ public class Events extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (done ? 1 : 0) +" | " + taskString + " | " + start + " | " + end;
+        return "E | " + (done ? 1 : 0) + " | " + taskString + " | " + start + " | " + end;
     }
 
     /**
-     * Returns a string representation of the events task consisting
-     * its type, completion status, start date and end date.
+     * Returns a string representation of the events task with its type, completion status, start date and end date.
      *
      * @return The string representation of the events task.
      */

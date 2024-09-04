@@ -1,11 +1,5 @@
 package tudee.storage;
 
-import tudee.task.Task;
-import tudee.task.ToDo;
-import tudee.task.Deadline;
-import tudee.task.Events;
-import tudee.TudeeException;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +7,12 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import tudee.TudeeException;
+import tudee.task.Deadline;
+import tudee.task.Events;
+import tudee.task.Task;
+import tudee.task.ToDo;
 
 /**
  * Handles loading and saving of tasks to and from a file.
@@ -24,7 +24,7 @@ public class Storage {
     /**
      * Constructs a Storage object with the specified file path.
      *
-     * @param path the path to the file where tasks are stored
+     * @param path the path to the file where tasks are stored.
      */
     public Storage(String path) {
         this.path = path;
@@ -35,8 +35,8 @@ public class Storage {
      * Tasks are read from the specified file and parsed into appropriate Task objects.
      * If the file does not exist, an empty list is returned.
      *
-     * @return a list of tasks loaded from the file
-     * @throws TudeeException if there is an error in processing the task list
+     * @return a list of tasks loaded from the file.
+     * @throws TudeeException if there is an error in processing the task list.
      */
     public List<Task> load() throws TudeeException {
         List<Task> tasks = new ArrayList<>();
@@ -52,17 +52,17 @@ public class Storage {
                 Task currentTask;
                 try {
                     switch (data[0]) {
-                        case "T":
-                            currentTask = new ToDo(data[2]);
-                            break;
-                        case "D":
-                            currentTask = new Deadline(data[2], data[3]);
-                            break;
-                        case "E":
-                            currentTask = new Events(data[2], data[3], data[4]);
-                            break;
-                        default:
-                            throw new TudeeException("Invalid letter");
+                    case "T":
+                        currentTask = new ToDo(data[2]);
+                        break;
+                    case "D":
+                        currentTask = new Deadline(data[2], data[3]);
+                        break;
+                    case "E":
+                        currentTask = new Events(data[2], data[3], data[4]);
+                        break;
+                    default:
+                        throw new TudeeException("Invalid letter");
                     }
                     if (data[1].equals("1")) {
                         currentTask.markAsDone();
@@ -82,15 +82,14 @@ public class Storage {
      * Saves the given list of tasks to the file specified by the path.
      * Each task is written to the file in a standardised format.
      *
-     * @param tasks the list of tasks to be saved
+     * @param tasks the list of tasks to be saved.
      */
     public void save(List<Task> tasks) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(path))) {
             for (Task currentTask : tasks) {
                 pw.println(currentTask.toFileString());
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Failed to save tasks: " + e.getMessage());
         }
     }

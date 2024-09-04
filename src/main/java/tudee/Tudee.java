@@ -1,11 +1,16 @@
 package tudee;
 
+import tudee.command.Command;
+import tudee.parser.Parser;
 import tudee.storage.Storage;
 import tudee.task.TaskList;
 import tudee.ui.Ui;
-import tudee.parser.Parser;
-import tudee.command.Command;
 
+/**
+* The Tudee class represents a chatbot that manages tasks.
+* It initializes necessary components such as storage, task list, and UI.
+* Through these components, it provides a main loop to interact with the user through commands.
+*/
 public class Tudee {
     private Storage storage;
     private TaskList taskList;

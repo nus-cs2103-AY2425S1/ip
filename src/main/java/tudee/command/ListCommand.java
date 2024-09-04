@@ -1,13 +1,13 @@
 package tudee.command;
 
+import tudee.storage.Storage;
 import tudee.task.TaskList;
 import tudee.ui.Ui;
-import tudee.storage.Storage;
 
 /**
  * Represents a command to display the list of tasks.
- * This command retrieves the current task list and updates the
- * user interface to show the tasks.
+ * This command retrieves the current task list.
+ * Updates the user interface to show the tasks.
  */
 public class ListCommand extends Command {
     /**
