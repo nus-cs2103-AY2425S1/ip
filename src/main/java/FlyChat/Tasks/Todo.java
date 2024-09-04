@@ -1,4 +1,4 @@
-package FlyChat.Tasks;
+package flychat.tasks;
 
 import java.util.InputMismatchException;
 
@@ -13,7 +13,7 @@ public class Todo extends Task {
 
     /**
      * Creates a new Todo task.
-     * 
+     *
      * @param description A string containing the description for the todo.
      * @param isMarked A boolean indicating whether the todo task is marked.
      * @return New Todo object.

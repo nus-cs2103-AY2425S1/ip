@@ -1,4 +1,4 @@
-package FlyChat.Core;
+package flychat.core;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Parser {
     /**
      * Parses through the user input and returns the type of command requested by the user.
-     * 
+     *
      * @param inputString String containing user input.
      * @return The specific command requested by the user.
      */
@@ -16,7 +16,7 @@ public class Parser {
         String filteredString = inputString.replaceAll("\\s.*", "");
         return filteredString;
     }
-    
+
     public String getTaskDescription(String inputString) {
         return inputString.replaceFirst("^\\S*\\s*", "").replaceAll("\\s*/.*", "");
     }
@@ -26,7 +26,7 @@ public class Parser {
     }
 
     public String getEventStartTime(String inputString) {
-        return inputString.replaceAll(".*/from\\s*|\\s*/to.*",""); 
+        return inputString.replaceAll(".*/from\\s*|\\s*/to.*", "");
     }
 
     public String getEventEndTime(String inputString) {
@@ -39,12 +39,12 @@ public class Parser {
 
     /**
      * Checks if the task saved in the save file has been marked as completed.
-     * 
+     *
      * @param inputString String containing info on the task saved in the save file.
      * @return boolean indicating whether the task has been marked.
      * @throws IOException If save file has been corrupted and cannot be read.
      */
-    public boolean checkTaskCompletedFromFile(String inputString) throws IOException{
+    public boolean checkTaskCompletedFromFile(String inputString) throws IOException {
         try {
             return inputString.charAt(4) == 'X';
         } catch (IndexOutOfBoundsException e) {
