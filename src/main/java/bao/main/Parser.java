@@ -86,7 +86,7 @@ public class Parser {
                 ui.showMessage("Bao needs a proper description and deadline for the task!");
             } else {
                 try {
-                    LocalDateTime dateTime = LocalDateTime.parse(argParts[1], Bao.inputDateFormat);
+                    LocalDateTime dateTime = LocalDateTime.parse(argParts[1], Bao.getInputDateFormat());
                     tasks.addTask(new Deadline(argParts[0], dateTime));
                     storage.save(tasks.getTasks());
                     ui.showMessage("Bao got it! Bao is now tracking:");
@@ -104,8 +104,8 @@ public class Parser {
                 ui.showMessage("Bao needs a proper description and duration for the task!");
             } else {
                 try {
-                    LocalDateTime from = LocalDateTime.parse(argParts[1], Bao.inputDateFormat);
-                    LocalDateTime to = LocalDateTime.parse(argParts[2], Bao.inputDateFormat);
+                    LocalDateTime from = LocalDateTime.parse(argParts[1], Bao.getInputDateFormat());
+                    LocalDateTime to = LocalDateTime.parse(argParts[2], Bao.getInputDateFormat());
                     tasks.addTask(new Event(argParts[0], from, to));
                     storage.save(tasks.getTasks());
                     ui.showMessage("Bao got it! Bao is now tracking:");
@@ -133,7 +133,7 @@ public class Parser {
         case "on" -> {
             try {
                 LocalDate date = LocalDate.parse(args, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                ui.showMessage("Bao showing tasks on " + date.format(Bao.dateOnlyFormat) + ":");
+                ui.showMessage("Bao showing tasks on " + date.format(Bao.getDateOnlyFormat()) + ":");
                 boolean found = false;
                 for (Task task : tasks.getTasks()) {
                     if (task instanceof Deadline) {

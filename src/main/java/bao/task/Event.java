@@ -41,7 +41,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "E | " + super.toString() + " | "
-                + from.format(Bao.outputDateFormat) + "-" + to.format(Bao.outputDateFormat);
+                + from.format(Bao.getOutputDateFormat()) + "-" + to.format(Bao.getOutputDateFormat());
     }
 
     /**
@@ -53,6 +53,6 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         return "E | " + (isDone ? "1" : "0") + " | " + description.trim()
-                + " | " + from.format(Bao.fileDateFormat) + " - " + to.format(Bao.fileDateFormat);
+                + " | " + from.format(Bao.getFileDateFormat()) + " - " + to.format(Bao.getFileDateFormat());
     }
 }

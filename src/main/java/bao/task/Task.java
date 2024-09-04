@@ -59,7 +59,7 @@ public abstract class Task {
             if (parts.length < 4) {
                 throw new IllegalArgumentException("Invalid deadline task format: " + string);
             }
-            LocalDateTime dateAndTime = LocalDateTime.parse(parts[3].trim(), Bao.fileDateFormat);
+            LocalDateTime dateAndTime = LocalDateTime.parse(parts[3].trim(), Bao.getFileDateFormat());
             Deadline deadline = new Deadline(description, dateAndTime);
             if (isDone) {
                 deadline.mark();
@@ -74,8 +74,8 @@ public abstract class Task {
             if (duration.length < 2) {
                 throw new IllegalArgumentException("Invalid event duration format: " + string);
             }
-            LocalDateTime from = LocalDateTime.parse(duration[0].trim(), Bao.fileDateFormat);
-            LocalDateTime to = LocalDateTime.parse(duration[1].trim(), Bao.fileDateFormat);
+            LocalDateTime from = LocalDateTime.parse(duration[0].trim(), Bao.getFileDateFormat());
+            LocalDateTime to = LocalDateTime.parse(duration[1].trim(), Bao.getFileDateFormat());
             Event event = new Event(description, from, to);
             if (isDone) {
                 event.mark();
