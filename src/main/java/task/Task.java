@@ -36,6 +36,7 @@ public abstract class Task {
     }
 
     public static void init_list() throws IOException {
+        TaskList.tasks.clear();
         StringBuilder sb = storage.read();
         String[] lines = sb.toString().split("\n");
         for (String s : lines) {
@@ -141,23 +142,26 @@ public abstract class Task {
         }
     }
 
-    public static void delete_task(int index) throws IOException {
-        ArrayList<Task> temporaryTaskList = TaskList.getTasks();
+    public static String delete_task(int index) throws IOException {
+        String response = "";
+        ArrayList<Task> temporaryTaskList = TaskList.tasks;
         if (temporaryTaskList.isEmpty()) {
-            ui.emptyList();
+            response = ui.emptyList();
         } else {
             if (temporaryTaskList.size() >= index) {
                 Task temp = temporaryTaskList.get(index - 1);
                 temporaryTaskList.remove(temp);
                 storage.delete(index);
-                ui.delete_message(temp);
+                response = ui.delete_message(temp);
             } else {
-                ui.doesNotExist();
+                response = ui.doesNotExist();
             }
         }
+
+        return response;
     }
 
-    public static void findTask(String input) throws FileNotFoundException {
+    public static String findTask(String input) throws FileNotFoundException {
         StringBuilder sb = storage.read();
         String temp = sb.toString();
         String[] lineTokens = temp.split("\n");
@@ -179,53 +183,59 @@ public abstract class Task {
             }
         }
 
-        ui.findTaskMessage(finalSb);
+        return ui.findTaskMessage(finalSb);
     }
 
-    public static void list_task() throws FileNotFoundException {
+    public static String list_task() throws FileNotFoundException {
         StringBuilder temp = storage.read();
-        ui.list_task_message(String.valueOf(temp));
+        return ui.list_task_message(String.valueOf(temp));
     }
 
-    public static void mark_task(int index) throws IOException {
-        ArrayList<Task> temporaryTaskList = TaskList.getTasks();
+    public static String mark_task(int index) throws IOException {
+        String response = "";
+        ArrayList<Task> temporaryTaskList = TaskList.tasks;
         if (temporaryTaskList.isEmpty()) {
-            ui.emptyList();
+            response = ui.emptyList();
         } else {
             if (temporaryTaskList.size() >= index) {
                 Task temp = temporaryTaskList.get(index - 1);
                 System.out.println("CURRENT STATUS IS : " + temp.getCurrentStatus());
                 if (temp.getCurrentStatus()== Status.MARKED) {
-                    ui.alreadyMarked();
+                    response = ui.alreadyMarked();
                 } else {
                     temp.setCurrentStatus(Status.MARKED);
                     storage.mark(index);
-                    ui.mark_message(temp.getName());
+                    response = ui.mark_message(temp.getName());
                 }
             } else {
-                ui.doesNotExist();
+                response = ui.doesNotExist();
             }
         }
+
+        return response;
     }
 
-    public static void unmark_task(int index) throws IOException {
-        ArrayList<Task> temporaryTaskList = TaskList.getTasks();
+    public static String unmark_task(int index) throws IOException {
+        String response = "";
+        ArrayList<Task> temporaryTaskList = TaskList.tasks;
         if (temporaryTaskList.isEmpty()) {
-            ui.emptyList();
+            response = ui.emptyList();
         } else {
             if (temporaryTaskList.size() > index) {
                 Task temp = temporaryTaskList.get(index - 1);
                 if (temp.getCurrentStatus() == Status.UNMARKED) {
-                    ui.alreadyUnmarked();
+                    response = ui.alreadyUnmarked();
                 } else {
                     temp.setCurrentStatus(Status.UNMARKED);
                     storage.unmark(index);
-                    ui.unmark_message(temp.getName());
+                    response = ui.unmark_message(temp.getName());
                 }
             } else {
-                ui.doesNotExist();
+                response = ui.doesNotExist();
             }
         }
+
+        return response;
     }
 
     public String getName() {
@@ -245,7 +255,7 @@ public abstract class Task {
     }
 
     public int get_list_size() {
-        return TaskList.getTasks().size();
+        return TaskList.tasks.size();
     }
 
     public abstract LocalDateTime getDate();

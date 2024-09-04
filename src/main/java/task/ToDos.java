@@ -8,19 +8,20 @@ public class ToDos extends Task {
         super(name, "T");
     }
 
-    public void addTask(ToDos t) throws IOException {
+    public String addTask(ToDos t) throws IOException {
         TaskList.addTasks(t);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[T][_] " + t.getName());
-        System.out.println("Now you have " + t.get_list_size() +" tasks in the list.");
-
         updateTaskList(t);
+        return ui.addTodoMessage(t);
     }
 
     private void updateTaskList(ToDos t) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = TaskList.getTasks().size();
+        int index = TaskList.tasks.size();
+//        System.out.println("====DEBUG==== Size of list: " + index);
+//        for (int i = 0; i < TaskList.tasks.size(); i++) {
+//            System.out.println("TESTING : " + TaskList.tasks.get(i).getName());
+//        }
         StringBuilder information;
         if (t.getCurrentStatus()== Status.MARKED) {
             information = new StringBuilder(index + ". [" + t.getTag() + "]" + marked + " " + t.getName());

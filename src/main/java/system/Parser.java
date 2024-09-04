@@ -114,9 +114,9 @@ public class Parser {
      * @param input A string containing the input command followed by the task name.
      * @throws FileNotFoundException If the task file is not found during the search.
      */
-    public void performFind(String input) throws FileNotFoundException {
+    public String performFind(String input) throws FileNotFoundException {
         String name = input.substring(5);
-        Task.findTask(name);
+        return Task.findTask(name);
     }
 
     /**
@@ -125,8 +125,8 @@ public class Parser {
      *
      * @throws FileNotFoundException If the task file is not found when attempting to list tasks.
      */
-    public void performListTasks() throws FileNotFoundException {
-        Task.list_task();
+    public String performListTasks() throws FileNotFoundException {
+        return Task.list_task();
     }
 
     /**
@@ -137,12 +137,12 @@ public class Parser {
      * @param input Input string that determines the task to be marked or unmarked.
      * @throws IOException If an I/O error occurs during the operation.
      */
-    public void performMark(String input) throws IOException {
+    public String performMark(String input) throws IOException {
         int list_no = Character.getNumericValue(input.charAt(input.length() - 1));
         if (containUnmark(input)) {
-            Task.unmark_task(list_no);
+            return Task.unmark_task(list_no);
         } else {
-            Task.mark_task(list_no);
+            return Task.mark_task(list_no);
         }
     }
 
@@ -155,14 +155,17 @@ public class Parser {
      * @throws StringIndexOutOfBoundsException If the input string is too short to contain a valid task name.
      * @throws IOException                     If an I/O error occurs while adding the task.
      */
-    public void performToDo(String input) {
+    public String performToDo(String input) {
+        String response = "";
         try {
             String name = input.substring(5);
             ToDos temp_todo = new ToDos(name);
-            temp_todo.addTask(temp_todo);
+            response = temp_todo.addTask(temp_todo);
         } catch (StringIndexOutOfBoundsException | IOException e) {
-            ui.empty_todo();
+            response = ui.empty_todo();
         }
+
+        return response;
     }
 
     /**
@@ -176,12 +179,13 @@ public class Parser {
      *              The format of the string should be "deadline <task name> /by <YYYY-MM-DD HHMM>".
      * @throws StringIndexOutOfBoundsException If the input string does not adhere to the expected format.
      */
-    public void performDeadline(String input) {
+    public String performDeadline(String input) {
+        String response = "";
         try {
             String[] deadline_arr = input.split("/");
 
             if (deadline_arr.length != 2 || deadline_arr[1].length() <= 3) {
-                ui.invalidDate();
+                response = ui.invalidDeadlineInput();
             } else {
                 String name = deadline_arr[0].substring(9);
                 String date = deadline_arr[1].substring(3);
@@ -202,21 +206,23 @@ public class Parser {
 
                             LocalDateTime ldt = dateTimeSystem.createDate(year, month, day, hour, minute);
                             Deadlines tempDeadline = new Deadlines(name, ldt);
-                            tempDeadline.addTask(tempDeadline);
+                            response = tempDeadline.addTask(tempDeadline);
                         } else {
-                            ui.twentyFourHourClock();
+                            response = ui.twentyFourHourClock();
                         }
                     } else {
-                        ui.invalidDate();
+                        response = ui.invalidDate();
                     }
                 } else {
-                    ui.invalidDate();
+                    response = ui.invalidDate();
                 }
             }
         } catch (StringIndexOutOfBoundsException |
                  IOException e) {
-            ui.empty_deadline();
+            response = ui.empty_deadline();
         }
+
+        return response;
     }
 
     /**
@@ -231,11 +237,12 @@ public class Parser {
      *              The format of the string should be "event <event name> /from <YYYY-MM-DD HHMM> /to <YYYY-MM-DD HHMM>".
      * @throws StringIndexOutOfBoundsException If the input string does not adhere to the expected format.
      */
-    public void performEvent(String input) {
+    public String performEvent(String input) {
+        String response = "";
         try {
             String[] deadlineArr = input.split("/");
             if (deadlineArr.length != 3 || deadlineArr[0].length() <= 6 || deadlineArr[1].length() <= 5 || deadlineArr[2].length() <= 3) {
-                ui.invalidDate();
+                response = ui.invalidEventInput();
             } else {
                 String name = deadlineArr[0].substring(6);
                 String start = deadlineArr[1].substring(5);
@@ -247,7 +254,7 @@ public class Parser {
                 String[] dateTokenEnd = fullDateTokenEnd[0].split("-");
 
                 if (dateTokenStart.length != 3 || dateTokenEnd.length != 3) {
-                    ui.invalidDate();
+                    response = ui.invalidDate();
                 } else {
                     String startYear = dateTokenStart[0];
                     String startMonth = dateTokenStart[1];
@@ -268,18 +275,20 @@ public class Parser {
                             LocalDateTime ldtEnd = dateTimeSystem.createDate(endYear, endMonth, endDay, endHour, endMinute);
 
                             Events temp_event = new Events(name, ldtStart, ldtEnd);
-                            temp_event.addTask(temp_event);
+                            response = temp_event.addTask(temp_event);
                         } else {
-                            ui.twentyFourHourClock();
+                            response = ui.twentyFourHourClock();
                         }
                     } else {
-                        ui.invalidDate();
+                        response = ui.invalidDate();
                     }
                 }
             }
         } catch (StringIndexOutOfBoundsException | IOException e) {
-            ui.empty_event();
+            response = ui.empty_event();
         }
+
+        return response;
     }
 
 
@@ -290,8 +299,8 @@ public class Parser {
      * @param input Input string that determines the task to be deleted.
      * @throws IOException If an I/O error occurs during the deletion operation.
      */
-    public void performDelete(String input) throws IOException {
+    public String performDelete(String input) throws IOException {
         int list_no = Character.getNumericValue(input.charAt(input.length() - 1));
-        Task.delete_task(list_no);
+        return Task.delete_task(list_no);
     }
 }

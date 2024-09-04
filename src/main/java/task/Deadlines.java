@@ -11,18 +11,17 @@ public class Deadlines extends Task {
         this.date = date;
     }
 
-    public void addTask(Deadlines d) throws IOException {
+    public String addTask(Deadlines d) throws IOException {
         TaskList.addTasks(d);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[D][_] " + d.getName() + "(by: " + dateTimeSystem.format(date) + ")");
-        System.out.println("Now you have " + d.get_list_size() +" tasks in the list.");
         updateTasklist(d);
+
+        return ui.addDeadlineMessage(d, date);
     }
 
     private void updateTasklist(Deadlines d) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = TaskList.getTasks().size();
+        int index = TaskList.tasks.size();
         StringBuilder information;
         if (d.getCurrentStatus()== Status.MARKED) {
             information = new StringBuilder(index + ". [" + d.getTag() + "]" + marked + " " + d.getName());
