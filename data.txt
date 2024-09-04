@@ -4,3 +4,5 @@ T,0,borrow book
 T,0,book
 T,0,book
 T,0,book
+T,0,what
+E,0,help (from: 10 May 2002 to: 11 May 2002)

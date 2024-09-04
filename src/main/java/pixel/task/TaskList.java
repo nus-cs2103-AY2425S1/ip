@@ -70,6 +70,7 @@ public class TaskList {
     /**
      * Returns a string representation of the TaskList.
      *
+     * @param keyword the keyword to search for
      * @return a string representation of the TaskList
      */
     public TaskList findTasks(String keyword) {

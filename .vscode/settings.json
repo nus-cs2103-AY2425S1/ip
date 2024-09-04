@@ -3,5 +3,6 @@
   // "java.format.settings.profile": "GoogleStyle",
   "java.checkstyle.configuration": "${workspaceFolder}/config/checkstyle/checkstyle.xml",
   "java.checkstyle.version": "10.18.1",
+  "java.configuration.updateBuildConfiguration": "interactive",
   
 }

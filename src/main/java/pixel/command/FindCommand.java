@@ -22,10 +22,11 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the FindCommand, finding tasks that match the keyword and displaying them in the UI.
+     * Executes the FindCommand, finding tasks that match the keyword and displaying
+     * them in the UI.
      *
-     * @param tasks the list of tasks to search in
-     * @param ui the user interface to display the matching tasks
+     * @param tasks   the list of tasks to search in
+     * @param ui      the user interface to display the matching tasks
      * @param storage the storage to save the tasks
      * @throws PixelException if there is an error executing the command
      */
@@ -33,6 +34,21 @@ public class FindCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws PixelException {
         TaskList matchingTasks = tasks.findTasks(keyword);
         ui.showMatchingTasks(matchingTasks);
+    }
+
+    /**
+     * Executes the FindCommand and returns the response message.
+     *
+     * @param tasks   the list of tasks to search in
+     * @param ui      the user interface to display the matching tasks
+     * @param storage the storage to save the tasks
+     * @return the response message
+     * @throws PixelException if there is an error executing the command
+     */
+    @Override
+    public String executeAndGetResponse(TaskList tasks, Ui ui, Storage storage) throws PixelException {
+        TaskList matchingTasks = tasks.findTasks(keyword);
+        return ui.getMatchingTasksResponse(matchingTasks);
     }
 
     /**
