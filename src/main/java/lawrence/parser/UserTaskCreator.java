@@ -9,12 +9,24 @@ import lawrence.utils.DateParser;
 
 import java.time.LocalDateTime;
 
+/**
+ * The concrete implementation of {@link TaskCreator} used to parse
+ * user input into a {@link Task} object.
+ */
 public class UserTaskCreator implements TaskCreator {
     private static final int NUMBER_OF_DEADLINE_PARAMETERS = 2;
     private static final int NUMBER_OF_EVENT_PARAMETERS = 3;
 
+    /**
+     * Converts a string input by the user containing task information
+     * into a {@link Task} object.
+     *
+     * @param input the string containing information about a task object
+     * @return a {@link Task} object
+     * @throws IllegalArgumentException if input is invalid
+     */
     @Override
-    public Task createTask(String input) {
+    public Task createTask(String input) throws IllegalArgumentException {
         if (input.isEmpty()) {
             throw new IllegalArgumentException("Cannot create task from empty input!");
         }
@@ -46,11 +58,28 @@ public class UserTaskCreator implements TaskCreator {
         return t;
     }
 
+    /**
+     * Creates and returns a {@link Todo} object based on the
+     * input information provided.
+     *
+     * @param input a string containing information about the {@link Todo} object
+     * @return a {@link Todo} object
+     * @see Todo
+     */
     private Todo createTodoTask(String input) {
         return new Todo(input);
     }
 
-    private Deadline createDeadlineTask(String input) {
+    /**
+     * Creates and returns a {@link Deadline} object based on the
+     * input information provided.
+     *
+     * @param input a string containing information about the {@link Deadline} object
+     * @return a {@link Deadline} object
+     * @throws IllegalArgumentException if the input is invalid
+     * @see Deadline
+     */
+    private Deadline createDeadlineTask(String input) throws IllegalArgumentException {
         String[] parameters = input.split(" /by ", NUMBER_OF_DEADLINE_PARAMETERS);
 
         if (parameters.length != NUMBER_OF_DEADLINE_PARAMETERS) {
@@ -67,6 +96,15 @@ public class UserTaskCreator implements TaskCreator {
         return new Deadline(description, by);
     }
 
+    /**
+     * Creates and returns an {@link Event} object based on the
+     * input information provided.
+     *
+     * @param input a string containing information about the {@link Event} object
+     * @return an {@link Event} object
+     * @throws IllegalArgumentException if the input is invalid
+     * @see Event
+     */
     private Event createEventTask(String input) {
         String[] parameters = input.split(" /from | /to ", NUMBER_OF_EVENT_PARAMETERS);
         if (parameters.length != NUMBER_OF_EVENT_PARAMETERS) {

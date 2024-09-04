@@ -20,10 +20,10 @@ public enum CommandType {
      * The input string is converted into lowercase for greater input flexibility.
      * </p>
      *
-     * @param command the string containing an enum value
+     * @param type the string containing an enum value
      */
-    private CommandType(String command) {
-        this.commandType = command.toLowerCase();
+    private CommandType(String type) {
+        this.commandType = type.toLowerCase();
     }
 
     /**

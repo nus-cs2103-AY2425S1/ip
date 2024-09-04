@@ -23,13 +23,14 @@ public class CommandParser {
      * The commands available are as specified in {@link CommandType} and are exhaustive.
      * Any input that cannot be properly passed into a Command instance will result in
      * an {@link IllegalArgumentException}.
-     *
      * </p>
+     *
      * @param input                     the string containing a command to be parsed
      * @return                          a {@link Command} object
      * @throws IllegalArgumentException if the input cannot be parsed into a known command
+     * @throws IllegalStateException if the parsed {@link CommandType} is not recognised
      */
-    public static Command createCommand(String input) throws IllegalArgumentException {
+    public static Command createCommand(String input) throws IllegalArgumentException, IllegalStateException {
         if (input.isEmpty()) {
             throw new IllegalArgumentException("Command input cannot be empty!");
         }
