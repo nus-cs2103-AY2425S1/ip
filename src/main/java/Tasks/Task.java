@@ -35,8 +35,6 @@ public abstract class Task {
 
     public void markAsDone() {
         this.done = true;
-        //System.out.println(line + "Nice! I've marked this task as done:\n"
-          //      + this.displayTask() + line);
     }
 
     public String markedNotification() {
@@ -79,28 +77,6 @@ public abstract class Task {
             String input = description.split(" \\(by: ")[0];
             String deadlineInWords = description.split(" \\(by: ")[1]
                     .split("\\)")[0];
-            /*
-            String[] strings = deadlineInWords.split(" ");
-            String monthInWords = strings[0];
-            String dateOfMonth = strings[1];
-            String year = strings[2];
-            String[] hourMinute = strings[3].split(":");
-            String time = hourMinute[0] + hourMinute[1];
-            int month = Objects.equals(monthInWords, "Jan") ? 1
-                    : Objects.equals(monthInWords, "Feb") ? 2
-                    : Objects.equals(monthInWords, "Mar") ? 3
-                    : Objects.equals(monthInWords, "Apr") ? 4
-                    : Objects.equals(monthInWords, "May") ? 5
-                    : Objects.equals(monthInWords, "Jun") ? 6
-                    : Objects.equals(monthInWords, "Jul") ? 7
-                    : Objects.equals(monthInWords, "Aug") ? 8
-                    : Objects.equals(monthInWords, "Sep") ? 9
-                    : Objects.equals(monthInWords, "Oct") ? 10
-                    : Objects.equals(monthInWords, "Nov") ? 11
-                    : Objects.equals(monthInWords, "Dec") ? 12
-                    : -1;
-            String deadline = dateOfMonth + "/" + month + "/" + year + " " + time;
-            */
             String deadline = formatDate(deadlineInWords);
             return new Deadline(input, deadline);
 
