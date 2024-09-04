@@ -22,6 +22,9 @@ public class Ui {
         return output.toString(); // Returns the collected output
     }
 
+    /*
+     * deprecated, since UI seperates texts now
+     */
     private void appendLine() {
         output.append("____________________________________________________________\n");
     }
@@ -30,20 +33,20 @@ public class Ui {
      * Runs at the start to greet the user.
      */
     public void userGreet() {
-        appendLine();
+        //appendLine();
         output.append("KIIIIIRYU-CHAN! It's ya old pal, Majima!\n");
         output.append("What can I do fer ya?\n");
-        appendLine();
+        //appendLine();
     }
 
     public void showError(String message) {
-        appendLine();
+        //appendLine();
         output.append("Error: ").append(message).append("\n");
-        appendLine();
+        //appendLine();
     }
 
     public void showTaskList(TaskList tasks) {
-        appendLine();
+        //appendLine();
         if (tasks.isEmpty()) {
             output.append("おめでとう, Kiryu-chan! There ain't nothing to do left!\n");
         } else {
@@ -52,41 +55,41 @@ public class Ui {
                 output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
         }
-        appendLine();
+        //appendLine();
     }
 
     public void showTaskAdded(Task task) {
-        appendLine();
+        //appendLine();
         output.append("Understood, Kiryu-chan! This is goin' into the list: ").append(task).append("\n");
-        appendLine();
+        //appendLine();
     }
 
     public void showTaskDeleted(Task task) {
-        appendLine();
+        //appendLine();
         output.append("Gotcha, Kiryu. Axin' this task off the list: ").append(task).append("\n");
-        appendLine();
+        //appendLine();
     }
 
     public void showGoodbye() {
-        appendLine();
+        //appendLine();
         output.append("Bye bye! Don't keep me waiting fer too long now, ya hear?\n");
-        appendLine();
+        //appendLine();
     }
 
     public void showTaskMarked(Task task) {
-        appendLine();
+        //appendLine();
         output.append("Okay, I've gone ahead and marked that one fer ya.\n").append("  ").append(task).append("\n");
-        appendLine();
+        //appendLine();
     }
 
     public void showTaskUnmarked(Task task) {
-        appendLine();
+        //appendLine();
         output.append("Okay, I've gone ahead and unmarked that one fer ya.\n").append("  ").append(task).append("\n");
-        appendLine();
+        //appendLine();
     }
 
     public void showFoundTasks(List<Task> tasks, String keyword) {
-        appendLine();
+        //appendLine();
         if (tasks.isEmpty()) {
             output.append("Kiryu! There ain't no tasks matching that description!\n");
         } else {
@@ -95,7 +98,7 @@ public class Ui {
                 output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
         }
-        appendLine();
+        //appendLine();
     }
 
     public String readCommand() {

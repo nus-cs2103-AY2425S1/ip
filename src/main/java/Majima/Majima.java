@@ -32,6 +32,7 @@ public class Majima {
      * @return String Response from Majimabot
      */
     public String getResponse(String input) {
+        ui.clearOutput();
         try {
             Command c = Parser.parse(input);
             ui.clearOutput(); // Clear previous outputs
