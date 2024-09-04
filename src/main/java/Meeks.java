@@ -21,7 +21,8 @@ public class Meeks extends Application {
     private Button sendButton;
     private Scene scene;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/pikachu.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/mudkip.png"));
+    private Image meeksImage = new Image(this.getClass().getResourceAsStream("/images/mudkip.png"));
+    private Mudkip meeks = new Mudkip();
 
     @Override
     public void start(Stage stage) {
@@ -84,7 +85,12 @@ public class Meeks extends Application {
     }
 
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String meeksText = meeks.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, userImage),
+                new DialogBox(meeksText, meeksImage)
+        );
         userInput.clear();
     }
 
@@ -112,8 +118,6 @@ public class Meeks extends Application {
                 break;
             }
         }
-
-
         scanner.close();
     }
 }
