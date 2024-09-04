@@ -1,12 +1,12 @@
 package main;
 
-import exception.CommandFoundButInvalidException;
-import main.Ui;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
+import exception.CommandFoundButInvalidException;
 import task.Task;
 import task.ToDos;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UiTest {
     @Test
@@ -17,7 +17,7 @@ public class UiTest {
                     + "Now you have 5 tasks in the list";
             Task curr = new ToDos("gym");
             Ui ui = new Ui();
-            assertEquals(result,  ui.deleteMessage(curr, 5));
+            assertEquals(result, ui.deleteMessage(curr, 5));
         } catch (CommandFoundButInvalidException e) {
             System.out.println("Error");
         }

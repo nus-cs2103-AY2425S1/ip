@@ -1,10 +1,11 @@
 package task;
-import exception.CommandFoundButInvalidException;
-import org.junit.jupiter.api.Test;
-import task.Task;
-import task.ToDos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import exception.CommandFoundButInvalidException;
+
 public class DeadlinesTest {
     @Test
     public void testSuccess() {
