@@ -70,6 +70,9 @@ public class Parser {
             case "delete":
                return new DeleteCommand(commandDetails);
 
+            case "find":
+                return new FindCommand(commandDetails);
+
             default:
                 throw new YapBotException("Error, supporting module for user command: \"" + command + "\" not "
                         + "found.\nYapBot may not support this feature.");

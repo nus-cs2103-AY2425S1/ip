@@ -42,6 +42,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public boolean checkTaskname(String query) {
+        return this.description.contains(query);
+    }
+
     /**
      * Returns the string representation of the task to be saved on a file.
      * The string is formatted such that YapBot can create the task again by parsing it.

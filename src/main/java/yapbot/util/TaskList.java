@@ -1,6 +1,8 @@
 package yapbot.util;
 
 import yapbot.exceptions.YapBotException;
+import yapbot.tasks.Deadline;
+import yapbot.tasks.Event;
 import yapbot.tasks.Task;
 
 import java.io.IOException;
@@ -139,6 +141,32 @@ public class TaskList {
         task.setDone(false);
 
         return task;
+    }
+
+    public String getMatchingTasks(String query) {
+        Iterator<Task> tasks = this.storedTasks.iterator();
+
+        StringBuilder result = new StringBuilder();
+        int index = 1;
+
+        while (tasks.hasNext()) {
+            Task task = tasks.next();
+            if (task.checkTaskname(query)) {
+                result.append("  ")
+                        .append(index)
+                        .append(".")
+                        .append(task)
+                        .append("\n");
+                index++;
+            }
+        }
+
+        if (result.isEmpty()) {
+            return null;
+        } else {
+            result.deleteCharAt(result.length() - 1);
+            return result.toString();
+        }
     }
 
     /**
