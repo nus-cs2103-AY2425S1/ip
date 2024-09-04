@@ -1,8 +1,10 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
+import java.time.LocalDateTime;
 
 public class Kafka {
 
@@ -121,42 +123,43 @@ public class Kafka {
                     int taskNumber = Integer.parseInt(userInput[1]);
                     kafka.delete(taskNumber);
                     KafkaTextWriter.writeToFile(filePath, kafka.tasks);
-                } else {
-                    if (userInput[0].equalsIgnoreCase("todo")) {
-                        if (userInput.length < 2) {
-                            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
-                        }
-                        Task todo = new Todo(userInput[1], false);
-                        kafka.addTask(todo);
-                        KafkaTextWriter.writeToFile(filePath, kafka.tasks);
-                    } else if (userInput[0].equalsIgnoreCase("deadline")) {
-                        if (userInput.length < 2) {
-                            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
-                        }
-                        String[] deadlineSplit = userInput[1].split("/by");
-                        if (deadlineSplit.length < 2) {
-                            throw new KafkaException("It appears the details for this deadline task are off. Let's give it another go, shall we?");
-                        }
-                        Task deadline = new Deadline(deadlineSplit[0], deadlineSplit[1], false);
-                        kafka.addTask(deadline);
-                        KafkaTextWriter.writeToFile(filePath, kafka.tasks);
-                    } else if (userInput[0].equalsIgnoreCase("event")) {
-                        if (userInput.length < 2) {
-                            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
-                        }
-                        String[] eventSplit = userInput[1].split("/from|/to");
-                        if (eventSplit.length < 3) {
-                            throw new KafkaException("It appears the details for this event task are off. Let's give it another go, shall we?");
-                        }
-                        Task event = new Event(eventSplit[0], eventSplit[1], eventSplit[2], false);
-                        kafka.addTask(event);
-                        KafkaTextWriter.writeToFile(filePath, kafka.tasks);
-                    } else {
-                        throw new KafkaException("Hmm... I'm not sure what you're getting at. Care to enlighten me?");
+                } else if (userInput[0].equalsIgnoreCase("todo")) {
+                    if (userInput.length < 2) {
+                        throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
                     }
+                    Task todo = new Todo(userInput[1], false);
+                    kafka.addTask(todo);
+                    KafkaTextWriter.writeToFile(filePath, kafka.tasks);
+                } else if (userInput[0].equalsIgnoreCase("deadline")) {
+                    if (userInput.length < 2) {
+                        throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
+                    }
+                    String[] deadlineSplit = userInput[1].split("/by ");
+                    if (deadlineSplit.length < 2) {
+                        throw new KafkaException("It appears the details for this deadline task are off. Let's give it another go, shall we?");
+                    }
+                    LocalDateTime by = LocalDateTimeConverter.getLocalDateTime(deadlineSplit[1]);
+                    Task deadline = new Deadline(deadlineSplit[0], by, false);
+                    kafka.addTask(deadline);
+                    KafkaTextWriter.writeToFile(filePath, kafka.tasks);
+                } else if (userInput[0].equalsIgnoreCase("event")) {
+                    if (userInput.length < 2) {
+                        throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
+                    }
+                    String[] eventSplit = userInput[1].split("/from |/to ");
+                    if (eventSplit.length < 3) {
+                        throw new KafkaException("It appears the details for this event task are off. Let's give it another go, shall we?");
+                    }
+                    Task event = new Event(eventSplit[0], eventSplit[1], eventSplit[2], false);
+                    kafka.addTask(event);
+                    KafkaTextWriter.writeToFile(filePath, kafka.tasks);
+                } else {
+                    throw new KafkaException("Hmm... I'm not sure what you're getting at. Care to enlighten me?");
                 }
             } catch (KafkaException | IOException e) {
                 System.out.println("  " + e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.out.println("  Ah, it seems you have made a mistake with the deadline. Please align your date with this format: yyyy-mm-dd hhmm (2024-01-01 2300)");
             }
         }
         kafka.goodbye();

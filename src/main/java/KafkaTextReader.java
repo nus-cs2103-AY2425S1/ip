@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,7 +21,7 @@ public class KafkaTextReader {
                         tasks.add(todo);
                         break;
                     case "D":
-                        String by = fileContent[3];
+                        LocalDateTime by = LocalDateTime.parse(fileContent[3]);
                         Task deadline = new Deadline(description, by, isDone);
                         tasks.add(deadline);
                         break;
