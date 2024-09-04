@@ -1,6 +1,16 @@
-import java.util.Scanner;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Represents Elsa, a chatbot.
@@ -9,11 +19,120 @@ import java.util.ArrayList;
 public class Elsa {
     private static final List<Task> THINGS_TO_DO = new ArrayList<>();
 
+    private static final String BASE_DIR = System.getProperty("user.dir");
+    private static final Path DATA_DIR = Paths.get(BASE_DIR, "data");
+    private static final Path DATA_FILE = DATA_DIR.resolve("Elsa.txt");
+
     public static void main(String[] args) {
-        System.out.println("Hi! I'm Elsa");
-        System.out.println("It's nice to meet you.\nHow can I help you?");
-        addLine();
+        ensureDataFileExists();
+        populateListOfTasks(THINGS_TO_DO);
+        greetUser();
         processUserInput(THINGS_TO_DO);
+        saveTasksToDataFile(THINGS_TO_DO);
+    }
+
+    /**
+     * This method ensures that the directory for the Elsa.txt data file which is ..\ip\data exists.
+     * If it does not exist, the method creates the ..\ip\data folder.
+     * The method then checks if an Elsa.txt file exists within the ..\ip\data folder.
+     * If it does not exist, a new Elsa.txt file is created.
+     */
+    private static void ensureDataFileExists() {
+        try {
+            if (!Files.exists(DATA_DIR)) {
+                Files.createDirectories(DATA_DIR);
+            }
+            if (!Files.exists(DATA_FILE)) {
+                Files.createFile(DATA_FILE);
+            }
+        } catch (IOException e) {
+            System.out.println("Oops, it seems like an error has occurred while creating directories or files.");
+        }
+    }
+
+    /**
+     * This method updates the THINGS_TO_DO arrayList to match the data in the Elsa.txt file.
+     */
+    private static void populateListOfTasks(List<Task> tasks) {
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE.toFile()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            System.err.println("Oops, it appears that an error has occurred while reading the file: " + e.getMessage());
+        }
+
+        for (int i = 0; i < lines.size(); i++) {
+            tasks.add(convertStringToTask(lines.get(i)));
+        }
+    }
+
+    /**
+     * This method converts a line in the Elsa.txt data file to its corresponding Task object.
+     */
+    private static Task convertStringToTask(String taskInfo) {
+        String[] parts = taskInfo.split(" \\| ");
+
+        String taskType = parts[0];
+        String description = parts[2];
+        boolean isDone = parts[1].equals("1");
+
+        switch (taskType) {
+            case "T":
+                // Create a Todo task
+                return new Todo(description, isDone);
+
+            case "D":
+                // Create a Deadline task
+                String by = parts[3];
+                return new Deadline(description, isDone, by);
+
+            case "E":
+                // Create an Event task
+                String[] eventTimes = parts[3].split(" - ");
+                String from = eventTimes[0].trim();
+                String to = eventTimes[1].trim();
+                return new Event(description, isDone, from, to);
+
+            default:
+                throw new IllegalArgumentException("Invalid task type: " + taskType);
+        }
+    }
+
+    /**
+     * This method saves the data of the tasks in the THINGS_TO_DO arrayList in the Elsa.txt file.
+     */
+    private static void saveTasksToDataFile(List<Task> tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE.toFile(), false))) {
+            for (Task task : tasks) {
+                String taskString = taskToString(task);
+                writer.write(taskString);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Oops, it appears that an error has occurred while writing to the file: " +
+                               e.getMessage());
+        }
+    }
+
+    /**
+     * This method converts a task object in the tasks arrayList to a corresponding line for the Elsa.txt data file.
+     */
+    private static String taskToString(Task task) {
+        if (task instanceof Todo) {
+            return "T | " + (task.isDone ? "1" : "0") + " | " + task.getDescription();
+        } else if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            return "D | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + " | " + deadline.getBy();
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            return "E | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + " | " +
+                    event.getFrom() + " - " + event.getTo();
+        } else {
+            throw new IllegalArgumentException("Unknown task type: " + task.getClass().getSimpleName());
+        }
     }
 
     /**
@@ -21,6 +140,15 @@ public class Elsa {
      */
     private static void addLine() {
         System.out.println("______________________________________");
+    }
+
+    /**
+     * This method greets the user and begins the conversation.
+     */
+    private static void greetUser() {
+        System.out.println("Hi! I'm Elsa");
+        System.out.println("It's nice to meet you.\nHow can I help you?");
+        addLine();
     }
 
     /**
@@ -36,7 +164,7 @@ public class Elsa {
      * This method adds a Todo_task to the list.
      */
     private static void addTodo(List<Task> tasks, String description) {
-        Todo newTodo = new Todo(description);
+        Todo newTodo = new Todo(description, false);
         tasks.add(newTodo);
         addLine();
         System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have " +
@@ -48,7 +176,7 @@ public class Elsa {
      * This method adds a Deadline_task to the list.
      */
     private static void addDeadline(List<Task> tasks, String description, String by) {
-        Deadline newDeadline = new Deadline(description, by);
+        Deadline newDeadline = new Deadline(description, false, by);
         tasks.add(newDeadline);
         addLine();
         System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have " +
@@ -60,7 +188,7 @@ public class Elsa {
      * This method adds an Event_task to the list.
      */
     private static void addEvent(List<Task> tasks, String description, String from, String to) {
-        Event newEvent = new Event(description, from, to);
+        Event newEvent = new Event(description, false, from, to);
         tasks.add(newEvent);
         addLine();
         System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have " +
@@ -68,6 +196,11 @@ public class Elsa {
         addLine();
     }
 
+    /**
+     * This method deletes a task from the list.
+     * @param tasks the list of tasks
+     * @param userInput the input provided by the user
+     */
     private static void deleteTask(List<Task> tasks, String userInput) {
         // Finds the index of the task that is to be deleted
         int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
