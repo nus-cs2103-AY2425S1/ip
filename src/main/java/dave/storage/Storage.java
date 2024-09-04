@@ -1,5 +1,12 @@
 package dave.storage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import dave.task.Task;
 import dave.task.TaskList;
 import dave.task.Event;
@@ -8,13 +15,6 @@ import dave.task.Todo;
 import dave.exceptions.InvalidDescriptionException;
 import dave.exceptions.InvalidDateTimeFormatException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * The Storage class handles the loading and saving of tasks to and from a file.

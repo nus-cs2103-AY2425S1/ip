@@ -1,6 +1,12 @@
 package dave.parser;
 
-import dave.command.*;
+import dave.command.AddCommand;
+import dave.command.Command;
+import dave.command.DeleteCommand;
+import dave.command.ExitCommand;
+import dave.command.ListCommand;
+import dave.command.MarkCommand;
+import dave.command.UnmarkCommand;
 import dave.exceptions.InvalidCommandException;
 import dave.exceptions.InvalidDateTimeFormatException;
 import dave.exceptions.InvalidDescriptionException;
@@ -42,34 +48,34 @@ public class Parser {
 
         try {
             switch (taskType) {
-                case todo:
-                    return new AddCommand(new Todo(commandArgs));
-                case deadline:
-                    try {
-                        return new AddCommand(new Deadline(commandArgs));
-                    } catch (InvalidDateTimeFormatException e) {
-                        System.out.println(e.getMessage());
-                        return null;
-                    }
-                case event:
-                    try {
-                        return new AddCommand(new Event(commandArgs));
-                    } catch (InvalidDateTimeFormatException e) {
-                        System.out.println(e.getMessage());
-                        return null;
-                    }
-                case delete:
-                    return new DeleteCommand(Integer.parseInt(commandArgs));
-                case mark:
-                    return new MarkCommand(Integer.parseInt(commandArgs));
-                case unmark:
-                    return new UnmarkCommand(Integer.parseInt(commandArgs));
-                case list:
-                    return new ListCommand();
-                case bye:
-                    return new ExitCommand();
-                default:
+            case todo:
+                return new AddCommand(new Todo(commandArgs));
+            case deadline:
+                try {
+                    return new AddCommand(new Deadline(commandArgs));
+                } catch (InvalidDateTimeFormatException e) {
+                    System.out.println(e.getMessage());
                     return null;
+                }
+            case event:
+                try {
+                    return new AddCommand(new Event(commandArgs));
+                } catch (InvalidDateTimeFormatException e) {
+                    System.out.println(e.getMessage());
+                    return null;
+                }
+            case delete:
+                return new DeleteCommand(Integer.parseInt(commandArgs));
+            case mark:
+                return new MarkCommand(Integer.parseInt(commandArgs));
+            case unmark:
+                return new UnmarkCommand(Integer.parseInt(commandArgs));
+            case list:
+                return new ListCommand();
+            case bye:
+                return new ExitCommand();
+            default:
+                return null;
             }
         } catch (InvalidDescriptionException e) {
             System.out.println(e.getMessage());

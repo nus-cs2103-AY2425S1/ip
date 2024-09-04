@@ -1,5 +1,6 @@
 package dave;
 
+import java.io.IOException;
 import dave.command.Command;
 import dave.exceptions.InvalidCommandException;
 import dave.parser.Parser;
@@ -7,13 +8,13 @@ import dave.storage.Storage;
 import dave.task.TaskList;
 import dave.ui.Ui;
 
-import java.io.IOException;
 
 /**
  * The main class for the Dave application, responsible for initializing components
  * and running the main program loop.
  */
 public class Dave {
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -24,9 +25,9 @@ public class Dave {
      * @param filePath The file path where tasks will be stored and loaded from.
      */
     public Dave(String filePath) {
-        ui = new Ui();
-        tasks = new TaskList();
-        storage = new Storage(filePath, tasks);
+        this.ui = new Ui();
+        this.tasks = new TaskList();
+        this.storage = new Storage(filePath, this.tasks);
     }
 
     /**
@@ -35,12 +36,17 @@ public class Dave {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
+
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                if (c == null) { continue; }
+
+                if (c == null) {
+                    continue;
+                }
+
                 c.execute(tasks, storage, ui);
                 isExit = c.isExit();
             } catch (InvalidCommandException e) {
