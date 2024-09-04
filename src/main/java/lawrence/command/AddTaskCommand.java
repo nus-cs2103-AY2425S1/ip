@@ -31,12 +31,11 @@ public class AddTaskCommand extends Command {
      * the new task into the {@link TaskList} and saves the
      * tasks into a text file.
      * <p>
-     * Displays the result of the execution to the user in the form
-     * of text messages.
+     * Displays the result of the execution to the user afterwards.
      * </p>
      * <p>
-     * If the details of the task cannot be parsed from user input,
-     * no task will be created and the text file will not be updated.
+     * If information about the task to add is invalid,
+     * no new task will be created and the text file will not be updated.
      * </p>
      *
      * @param taskList a list of tasks the command may operate

@@ -23,13 +23,11 @@ public class CompleteTaskCommand extends Command {
     }
 
     /**
-     * Finds the specified task and marks it as complete.
+     * Finds the specified task and marks it as complete, then displays
+     * the new status of the task to the user.
      * <p>
-     * Displays the result of the execution to the user via text messages.
-     * </p>
-     * <p>
-     * If the details of the task to mark complete cannot be parsed from
-     * user input, the method does nothing.
+     * If information about the task to mark complete is invalid, the
+     * method does nothing.
      * </p>
      *
      * @param taskList a list of tasks the command may operate
