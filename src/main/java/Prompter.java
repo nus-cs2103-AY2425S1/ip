@@ -13,6 +13,10 @@ public class Prompter {
         printResponse("Goodbye! If you ever want to chat again, I'll be here.\nHave a great day!");
     }
 
+    public void printTaskList(String tasks) {
+        printResponse("Sure thing! Here is your task list:\n\n" + tasks);
+    }
+
     /**
      * Prints the chatbot response with break lines
      * @param response The message to be printed
