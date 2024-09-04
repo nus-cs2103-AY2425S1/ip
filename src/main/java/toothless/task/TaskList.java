@@ -21,6 +21,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
+     *
      * @return The list of tasks.
      */
     public ArrayList<Task> getList() {
@@ -56,10 +57,11 @@ public class TaskList {
 
     /**
      * Marks a task as done.
+     *
      * @param index The index of the task to be marked as done.
      */
     public void markDone(int index, Ui ui) throws ToothlessExceptions {
-        if(index > list.size() || index < 1) {
+        if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
                     DIVIDER);
         }
@@ -71,10 +73,11 @@ public class TaskList {
 
     /**
      * Mark a task as undone.
+     *
      * @param index The index of the task to be marked as undone.
      */
     public void markUndone(int index, Ui ui) throws ToothlessExceptions {
-        if(index > list.size() || index < 1) {
+        if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
                     DIVIDER);
         }
@@ -86,11 +89,12 @@ public class TaskList {
 
     /**
      * Deletes a task from the task list.
+     *
      * @param index The index of the task to be deleted.
      * @throws ToothlessExceptions If the index is out of range.
      */
     public void deleteTask(int index) throws ToothlessExceptions {
-        if(index > list.size() || index < 1) {
+        if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
                     DIVIDER);
         }
@@ -103,4 +107,25 @@ public class TaskList {
         list.remove(fixedIndex);
     }
 
+    /**
+     * Finds a task that matches the keyword.
+     *
+     * @param keyword The keyword to search for.
+     */
+    public void findTask(String keyword) {
+        System.out.println("Toothless:\nHere are the quests that match your keyword:\n");
+        int taskCount = 0;
+        for (Task task : list) {
+            if (task.getDescription().contains(keyword)) {
+                System.out.println(taskCount + 1 + ". " + task);
+                taskCount++;
+            }
+        }
+
+        if (taskCount == 0) {
+            System.out.println("Oopsie! Seems like there are no quests that match your keyword.");
+        }
+
+        System.out.println("\n" + DIVIDER);
+    }
 }
