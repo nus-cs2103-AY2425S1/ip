@@ -40,39 +40,39 @@ public class SKD {
                 CommandType commandType = Parser.parseCommand(input);
 
                 switch (commandType) {
-                    case BYE:
-                        ui.showByeMessage();
-                        isRunning = false;
-                        break;
-                    case LIST:
-                        ui.showTaskList(tasks);
-                        break;
-                    case MARK:
-                        Parser.parseMark(input, tasks);
-                        storage.save(tasks);
-                        break;
-                    case UNMARK:
-                        Parser.parseUnmark(input, tasks);
-                        storage.save(tasks);
-                        break;
-                    case TODO:
-                    case DEADLINE:
-                    case EVENT:
-                        Task newTask = Parser.parseAddCommand(input, commandType);
-                        tasks.add(newTask);
-                        ui.showAddedTask(newTask, tasks.size());
-                        storage.save(tasks);
-                        break;
-                    case DELETE:
-                        Parser.parseDelete(input, tasks);
-                        storage.save(tasks);
-                        break;
-                    case FIND:
-                        String keyword = input.substring(5).trim();
-                        ui.showFoundTasks(tasks, keyword);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                case BYE:
+                    ui.showByeMessage();
+                    isRunning = false;
+                    break;
+                case LIST:
+                    ui.showTaskList(tasks);
+                    break;
+                case MARK:
+                    Parser.parseMark(input, tasks);
+                    storage.save(tasks);
+                    break;
+                case UNMARK:
+                    Parser.parseUnmark(input, tasks);
+                    storage.save(tasks);
+                    break;
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                    Task newTask = Parser.parseAddCommand(input, commandType);
+                    tasks.add(newTask);
+                    ui.showAddedTask(newTask, tasks.size());
+                    storage.save(tasks);
+                    break;
+                case DELETE:
+                    Parser.parseDelete(input, tasks);
+                    storage.save(tasks);
+                    break;
+                case FIND:
+                    String keyword = input.substring(5).trim();
+                    ui.showFoundTasks(tasks, keyword);
+                    break;
+                default:
+                    throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (IllegalArgumentException e) {
                 ui.showError(e.getMessage());
