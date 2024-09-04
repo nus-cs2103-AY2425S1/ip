@@ -45,7 +45,7 @@ public class Parser {
         case "event":
             return new EventCommand(input);
         default:
-            throw new PrinceException("    Sorry, I am not sure what '" + input
+            throw new PrinceException("Sorry, I am not sure what '" + input
                     + "' means. Please try again!");
         }
     }
