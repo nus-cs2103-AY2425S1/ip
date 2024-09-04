@@ -12,6 +12,7 @@ public class Oliver {
     private TaskList tasks;
     private Ui ui;
     private boolean isRunning = true;
+    private final static String FILEPATH = "./data/oliver.txt";
 
     public Oliver(String filePath) {
         this.ui = new Ui();
@@ -62,7 +63,7 @@ public class Oliver {
     }
 
     public static void main(String[] args) {
-        new Oliver("./data/oliver.txt").run();
+        new Oliver(FILEPATH).run();
     }
 
     /**
@@ -97,9 +98,8 @@ public class Oliver {
             int index = Integer.parseInt(Parser.parseArgs(input)) - 1;
             if (index > tasks.getSize() - 1 || index < 0) {
                 return ui.showOutOfRangeError();
-            } else {
-                return ui.showUnmarked(tasks, index);
             }
+            return ui.showUnmarked(tasks, index);
         } catch (IndexOutOfBoundsException e) {
             return ui.showMissingArgsError();
         } catch (NumberFormatException e) {
@@ -192,11 +192,10 @@ public class Oliver {
             int index = taskNum - 1;
             if (index > tasks.getSize() - 1 || index < 0) {
                 return ui.showOutOfRangeError();
-            } else {
-                Task removedTask = tasks.get(index);
-                tasks.delete(taskNum);
-                return ui.showDelete(removedTask, tasks.getSize());
             }
+            Task removedTask = tasks.get(index);
+            tasks.delete(taskNum);
+            return ui.showDelete(removedTask, tasks.getSize());
         } catch (IndexOutOfBoundsException e) {
             return ui.showMissingArgsError();
         } catch (NumberFormatException e) {
