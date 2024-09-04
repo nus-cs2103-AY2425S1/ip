@@ -71,7 +71,7 @@ public class Parser {
             System.out.println(allTasks.list());
             break;
         case MARK:
-            allTasks.mark(remainder, allTasks.getAllTasks());
+            allTasks.mark(remainder);
             s.put(allTasks);
             System.out.println(ui.markedMessage(allTasks.getLastMarked()));
             break;
