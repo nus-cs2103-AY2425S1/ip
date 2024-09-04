@@ -3,7 +3,7 @@ package bigdog;
 public class Parser {
 
     // [command, description, start date, end date]
-    private static final String[] commands = {"bye", "list", "mark", "unmark", "delete", "todo", "deadline", "event"};
+    private static final String[] VALID_COMMANDS = {"bye", "list", "mark", "unmark", "delete", "todo", "deadline", "event"};
 
     /**
      * Constructs a {@code Parser} object.
@@ -26,7 +26,7 @@ public class Parser {
         String[] temp = str.split(" ",2);
         String command = temp[0].toLowerCase();
         for (int i = 0; i < 8; i++) {
-            if (command.equals(commands[i])) {
+            if (command.equals(VALID_COMMANDS[i])) {
                 break;
             }
             if (i == 7) {

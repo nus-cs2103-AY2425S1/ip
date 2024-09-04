@@ -11,7 +11,7 @@ public class BigdogTest {
      * This test is used as a placeholder to ensure that the testing setup is functional.
      */
     @Test
-    public void dummyTest(){
+    public void buildTest(){
         assertEquals(2, 2);
     }
 

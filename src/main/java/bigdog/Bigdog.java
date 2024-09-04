@@ -1,8 +1,6 @@
 package bigdog;
 
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Bigdog {
 
@@ -68,7 +66,8 @@ public class Bigdog {
                         case "event":
                             ui.print(this.tasks.add(Event.of(commands[1])));
                             break;
-
+                        default:
+                            ui.print("Unknown command. Please try again.");
                 }
             } catch (BigdogException |
                      DateTimeParseException |

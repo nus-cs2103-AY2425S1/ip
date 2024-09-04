@@ -51,7 +51,7 @@ public class TaskList {
      * @return the list of tasks.
      */
     public ArrayList<Task> get() {
-        return this.list;
+        return new ArrayList<>(this.list);
     }
 
     /**
@@ -92,13 +92,13 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        String listString = "Here are the tasks in your list:\n";
+        StringBuilder listString = new StringBuilder("Here are the tasks in your list:\n");
 
         for (int i = 0; i < this.list.size(); i++) {
-            listString += (i + 1) + "." + this.list.get(i) + "\n";
+            listString.append(i + 1).append(". ").append(this.list.get(i)).append("\n");
         }
 
-        return listString;
+        return listString.toString();
     }
 
     /**
