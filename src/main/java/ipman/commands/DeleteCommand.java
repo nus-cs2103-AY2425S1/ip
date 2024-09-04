@@ -21,12 +21,13 @@ public class DeleteCommand implements Command {
     @Override
     public void execute(Context context) {
         TaskList tasks = context.tasks();
-        Task task = tasks.get(this.taskIndex);
-        tasks.remove(this.taskIndex);
 
         if (this.taskIndex < 0 || this.taskIndex >= tasks.size()) {
             throw new InvalidIndexException(tasks.size(), this.taskIndex);
         }
+
+        Task task = tasks.get(this.taskIndex);
+        tasks.remove(this.taskIndex);
 
         Ui ui = context.ui();
         ui.showMessage("Noted. I've removed this task:");

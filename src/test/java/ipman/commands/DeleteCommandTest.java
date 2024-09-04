@@ -16,7 +16,7 @@ public class DeleteCommandTest {
         Context context = new Context(tasks, new SpyUi(), new DummyFileManager());
 
         Command command = new DeleteCommand(0);
-        assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(InvalidIndexException.class, () -> {
             command.execute(context);
         });
     }
