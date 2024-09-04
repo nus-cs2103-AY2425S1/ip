@@ -56,14 +56,12 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.setStyle("-fx-background-color: #84b9eb");
         return db;
     }
 
     public static DialogBox getRasputinDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.setStyle("-fx-background-color: grey");
         return db;
     }
 }
