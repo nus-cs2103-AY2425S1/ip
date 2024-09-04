@@ -1,61 +1,71 @@
 package shoai;
-import shoai.TaskList; // Imports the TaskList class to manage tasks
-import shoai.Ui; // Imports the Ui class for user interface interactions
-import shoai.Storage; // Imports the Storage class to handle task storage
-import shoai.Parser; // Imports the Parser class to parse commands
-import shoai.ShoAIException; // Imports the ShoAIException class for handling exceptions
+
+import java.util.Scanner;
 
 /**
- * Main class for the ShoAI application. This class initializes the application,
- * handles user input, and manages the main application loop.
+ * Entry point of the ShoAI application.
  */
 public class ShoAI {
 
-    private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private Storage storage;
+    private Parser parser;
+    private Ui ui; // Add an instance of Ui
+    private boolean welcomed; // Flag to check if welcome message has been shown
 
-    /**
-     * Constructs a ShoAI object with the specified file path for task storage.
-     *
-     * @param filePath The path to the file where tasks are stored.
-     */
     public ShoAI(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        this.storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.loadTasks());
+            this.tasks = new TaskList(storage.loadTasks());
         } catch (ShoAIException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
+            // Handle the exception, e.g., log it or print an error message
+            System.out.println("Error loading tasks: " + e.getMessage());
+            // Optionally, you can initialize tasks to an empty TaskList
+            this.tasks = new TaskList();
         }
+        this.parser = new Parser();
+        this.ui = new Ui(); // Initialize Ui
+        this.welcomed = false; // Initialize the welcomed flag
     }
 
     /**
-     * Starts the application and enters the main loop to handle user commands.
+     * Starts the ShoAI application.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
+    public String start() {
+        String response;
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+
+        while (true) {
+            if (!welcomed) {
+                response = ui.showWelcome();
+                welcomed = true;
+                return response;
+            }
+            userInput = scanner.nextLine();
             try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line
-                isExit = new Parser().parse(fullCommand, tasks, ui, storage);
+                response = parser.parse(userInput, tasks, storage);
+                if (response != null) {
+                    return response;
+                }
             } catch (ShoAIException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
+                response = e.getMessage();
+                return response;
             }
         }
     }
 
     /**
-     * Main method to start the ShoAI application.
+     * Provides a response to the user input.
      *
-     * @param args Command line arguments (not used).
+     * @param userInput The input provided by the user.
+     * @return The response string from the parser.
      */
-    public static void main(String[] args) {
-        new ShoAI("src/main/data/ShoAI.txt").run();
+    public String getResponse(String userInput) {
+        try {
+            return parser.parse(userInput, tasks, storage);
+        } catch (ShoAIException e) {
+            return e.getMessage();
+        }
     }
 }
