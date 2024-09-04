@@ -4,6 +4,10 @@ import lawrence.task.Task;
 
 public class TaskParser {
     public static Task createTask(String input, InputSource source) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("Task input cannot be empty!");
+        }
+        
         TaskCreator creator;
         switch(source) {
         case FILE:

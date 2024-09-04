@@ -11,7 +11,10 @@ import lawrence.command.DeleteTaskCommand;
 import lawrence.command.AddTaskCommand;
 
 public class CommandParser {
-    public static Command createCommand(String input) throws IllegalArgumentException {
+    public static Command createCommand(String input) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("Command input cannot be empty!");
+        }
         // Parse command at start of the line
         String[] inputComponents = input.split(" ", 2);
 

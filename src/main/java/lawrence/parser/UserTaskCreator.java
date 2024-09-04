@@ -15,8 +15,16 @@ public class UserTaskCreator implements TaskCreator {
 
     @Override
     public Task createTask(String input) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("Cannot create task from empty input!");
+        }
+
         // separate the string containing information about the task type into index 0
         String[] inputComponents = input.split(" ", 2);
+
+        if (inputComponents.length != 2) {
+            throw new IllegalArgumentException("Unable to parse input from user");
+        }
 
         // parse the type of task that needs to be created
         TaskType type = TaskType.fromString(inputComponents[0]);
