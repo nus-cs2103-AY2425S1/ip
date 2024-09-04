@@ -23,7 +23,9 @@ class Parser {
             case "event":
                 return ValidCommand.event;
             case "delete":
-                return ValidCommand.delete;       
+                return ValidCommand.delete;
+            case "find":
+                return ValidCommand.find;       
         }
         return ValidCommand.list;
     }

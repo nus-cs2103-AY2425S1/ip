@@ -87,6 +87,10 @@ public class Main {
                 ui.printDelete(taskList.delete(i), taskList.size());
                 break;
             }
+            case ValidCommand.find: {
+                String keyword = userInput.split(" ", 2)[1];
+                ui.printFind(taskList.find(keyword));
+            }
             }
 
         }
