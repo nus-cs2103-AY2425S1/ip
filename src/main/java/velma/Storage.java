@@ -1,5 +1,4 @@
 package velma;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,11 +7,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import velma.task.Task;
-import velma.task.Todo;
+
 import velma.task.Deadline;
 import velma.task.Event;
+import velma.task.Task;
+import velma.task.Todo;
 
+
+
+/**
+ * Represents a storage object that is responsible for loading tasks from a file and saving tasks to a file.
+ */
 public class Storage {
     private String filepath;
     public Storage(String filepath) {
@@ -21,11 +26,13 @@ public class Storage {
 
 
     /**
-     * Loads tasks from a file located at "/Users/zeonchew04/ip/data/velma.txt" and returns them as an ArrayList of Velma.task.Task objects.
+     * Loads tasks from a file located at "/Users/zeonchew04/ip/data/velma.txt" and returns them as
+     * an ArrayList of Velma.task.Task objects.
      *
      * <p>If the file does not exist, an empty ArrayList is returned, and a message is printed to indicate
      * that no previous tasks were found. The tasks in the file are expected to be formatted in a specific way
-     * to distinguish between different types of tasks (To-Do, Velma.task.Deadline, Velma.task.Event). This method parses the file
+     * to distinguish between different types of tasks (To-Do, Velma.task.Deadline, Velma.task.Event).
+     * This method parses the file
      * accordingly and recreates the Velma.task.Task objects.</p>
      *
      * <p>Each task type is identified by the first character in the line:
@@ -37,7 +44,8 @@ public class Storage {
      *
      * If the task is marked as done (indicated by "[X]"), the task's status is updated accordingly.</p>
      *
-     * @return An ArrayList of Velma.task.Task objects that were stored in the file. If the file is not found, an empty list is returned.
+     * @return An ArrayList of Velma.task.Task objects that were stored in the file.
+     *      If the file is not found, an empty list is returned.
      *
      * @throws IllegalArgumentException if an unknown task type is encountered in the file.
      */
@@ -56,15 +64,17 @@ public class Storage {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" ", 3);
                 Task task;
-                switch (parts[0].charAt(1)) { // Extract task type from the string
+                switch (parts[0].charAt(1)) {
                 case 'T':
                     task = new Todo(parts[2]);
                     break;
                 case 'D':
                     String[] deadlineParts = parts[2].split(" \\(by: ", 2);
                     String deadlineDescription = deadlineParts[0];
-                    String byString = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");// Remove closing parenthesis
+                    String byString = deadlineParts[1]
+                            .substring(0, deadlineParts[1].length() - 1);
+                    DateTimeFormatter formatter = DateTimeFormatter
+                            .ofPattern("MMM dd yyyy HHmm"); // Remove closing parenthesis
                     LocalDateTime by = LocalDateTime.parse(byString, formatter);
                     task = new Deadline(deadlineDescription, by);
                     break;

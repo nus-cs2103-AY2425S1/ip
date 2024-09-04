@@ -1,1 +1,3 @@
 [T][ ] play golf
+[T][ ] cs2101 presentation
+[D][ ] training (by: Oct 02 2024 1600)

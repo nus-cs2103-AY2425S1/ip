@@ -3,6 +3,9 @@ package velma.task;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList class
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
