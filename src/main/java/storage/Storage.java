@@ -18,7 +18,7 @@ public class Storage {
     /**
      * File path to store task list.
      */
-    public static final String STORAGE_FILEPATH = "tasks.txt";
+    public static final String STORAGE_FILEPATH = "data/tasks.txt";
 
     /**
      * Locate to the file that stores task list.
