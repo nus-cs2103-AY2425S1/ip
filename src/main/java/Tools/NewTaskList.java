@@ -62,11 +62,20 @@ public class NewTaskList {
         if (input.trim().length() <= 5) {
             throw new EmptyDescriptionException("OPS!!! The description of a todo cannot be empty.");
         }
+
         String description = input.substring(5).trim();
         tasks.add(new Todo(description));
+
+        String tasklist = "";
+
+        for (int i = 0; i < tasks.size(); i++) {
+            int index = i+1;
+            tasklist += index + " , " + tasks.get(i).toString() + "\n";
+        }
+
         return "Got it. I've added this task:\n  " +
                 new Todo(description) + "\nNow you have " +
-                tasks.size() + " tasks in the list" + tasks.size() + ".";
+                tasks.size() + " tasks in the list" + tasks.size() + "." + tasklist;
 
     }
 

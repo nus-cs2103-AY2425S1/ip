@@ -22,19 +22,33 @@ public class NewParser {
                 storage.saveTasks(tasks);
                 return "Bye. Hope to see you again soon!";
             } else if (input.startsWith("delete")) {
-                return tasks.deleteTask(Integer.parseInt(input.substring(7)) - 1);
+                String s = tasks.deleteTask(Integer.parseInt(input.substring(7)) - 1);
+                storage.saveTasks(tasks);
+                return s;
             } else if (input.startsWith("todo")) {
-                return tasks.addTodoTask(input);
+                String s = tasks.addTodoTask(input);
+                storage.saveTasks(tasks);
+                return s;
             } else if (input.startsWith("deadline")) {
-                return tasks.addDeadlineTask(input);
+                String s = tasks.addDeadlineTask(input);
+                storage.saveTasks(tasks);
+                return s;
             } else if (input.startsWith("event")) {
-                return tasks.addEventTask(input);
+                String s = tasks.addEventTask(input);
+                storage.saveTasks(tasks);
+                return s;
             } else if (input.equals("list")) {
-                return tasks.listTasks();
+                String s = tasks.listTasks();
+                storage.saveTasks(tasks);
+                return s;
             } else if (input.startsWith("mark")) {
-                return tasks.markTask(Integer.parseInt(input.substring(5)) - 1);
+                String s = tasks.markTask(Integer.parseInt(input.substring(5)) - 1);
+                storage.saveTasks(tasks);
+                return s;
             } else if (input.startsWith("unmark")) {
-                return tasks.unmarkTask(Integer.parseInt(input.substring(7)) - 1);
+                String s = tasks.unmarkTask(Integer.parseInt(input.substring(5)) - 1);
+                storage.saveTasks(tasks);
+                return s;
             } else if (input.equalsIgnoreCase("exit")) {
                 return"Bye. Hope to see you again soon!";
             } else if (input.startsWith("find")) {

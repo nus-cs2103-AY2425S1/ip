@@ -20,8 +20,8 @@ public class MainWindow extends AnchorPane {
 
     private ChatgptMoreOOP chatgptMoreOOP;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image chatgptMoreOOPImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/yagami.png"));
+    private Image chatgptMoreOOPImage = new Image(this.getClass().getResourceAsStream("/images/L.png"));
 
     @FXML
     public void initialize() {
