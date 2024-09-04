@@ -10,6 +10,12 @@ import yapbot.util.Ui;
 public class DeadlineCommand extends Command {
     private String taskDetails;
 
+    /**
+     * Creates a DeadlineCommand instance.
+     *
+     * @param taskDetails Details of the Deadline task to be created.
+     * @throws YapBotException If task details are empty.
+     */
     public DeadlineCommand(String taskDetails) throws YapBotException {
         if (taskDetails.isEmpty()) {
             throw new YapBotException("Error, Automated Task Suggestion module offline."
@@ -19,6 +25,12 @@ public class DeadlineCommand extends Command {
         this.taskDetails = taskDetails;
     }
 
+    /**
+     * {@inheritDoc}
+     * Creates and adds the Deadline Task to TaskList.
+     *
+     * @throws YapBotException If task details do not contain a deadline.
+     */
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
         if (!taskDetails.contains("/by")) {
@@ -27,6 +39,8 @@ public class DeadlineCommand extends Command {
         }
 
         String taskName = taskDetails.substring(0, taskDetails.indexOf("/by")).strip();
+
+        // Changes to upper case to align with date time formatter
         String deadlineStr = taskDetails.substring(taskDetails.indexOf("/by") + 3).strip().toUpperCase();
 
         Task task = new Deadline(taskName, deadlineStr);

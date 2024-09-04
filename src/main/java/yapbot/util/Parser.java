@@ -1,10 +1,29 @@
 package yapbot.util;
 
-import yapbot.commands.*;
+import yapbot.commands.ByeCommand;
+import yapbot.commands.Command;
+import yapbot.commands.DeadlineCommand;
+import yapbot.commands.DeleteCommand;
+import yapbot.commands.EventCommand;
+import yapbot.commands.ListCommand;
+import yapbot.commands.MarkCommand;
+import yapbot.commands.UnmarkCommand;
+import yapbot.commands.ToDoCommand;
+
 import yapbot.exceptions.YapBotException;
 
+/**
+ * Processes user input and passes input accordingly to relevant classes.
+ */
 public class Parser {
 
+    /**
+     * Parses user input.
+     *
+     * @param input user input.
+     * @return A Command instance based on user's entered command.
+     * @throws YapBotException If no command was entered or if the command is invalid.
+     */
     public static Command parse(String input) throws YapBotException {
 
         // Remove leading and trailing whitespace from user input
@@ -32,7 +51,6 @@ public class Parser {
 
             case "list":
                 return new ListCommand();
-
 
             case "mark":
                 return new MarkCommand(commandDetails);

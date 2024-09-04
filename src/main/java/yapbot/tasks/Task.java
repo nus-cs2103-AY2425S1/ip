@@ -12,15 +12,21 @@ public class Task {
     private String description;
     private boolean isDone;
 
+    // Formats used for parsing of date and time from user input, locale is explicity set to en_sg for compatibility
     private static final Locale LOCALE = new Locale("en_sg");
-    protected static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("ha yyyy/MM/dd", LOCALE);
+    protected static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("ha yyyy/MM/dd",
+            LOCALE);
     protected static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd", LOCALE);
     protected static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("ha", LOCALE);
+
+    // Format for displaying date and time to user
+    protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("ha dd MMM yyyy", LOCALE);
 
     /**
      * Returns a Task instance.
      *
      * @param description Details of the Task.
+     * @throws YapBotException If task detail is empty.
      */
     public Task(String description) throws YapBotException {
         if (description.isEmpty()) {
@@ -37,7 +43,8 @@ public class Task {
     }
 
     /**
-     * Returns the string representation of the task that is parseable by YapBot.
+     * Returns the string representation of the task to be saved on a file.
+     * The string is formatted such that YapBot can create the task again by parsing it.
      */
     public String saveTask() {
         if (this.isDone) {

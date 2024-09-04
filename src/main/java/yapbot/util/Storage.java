@@ -15,17 +15,36 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles all file interactions for YapBot.
+ */
 public class Storage {
     private File file;
     private String filepath;
 
+    /**
+     * Returns a Storage instance.
+     * The actual file is not automatically created together with the instance.
+     *
+     * @param filepath Location where tasks are saved to.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
         this.file = new File(filepath);
     }
 
+    /**
+     * Parses the file to return the tasks stored on it.
+     * If the file is empty, an empty ArrayList is returned.
+     * If the file is corrupted or parsing fails, data on the file is dumped.
+     *
+     * @return An ArrayList of tasks parsed from the file.
+     * @throws YapBotException If the file cannot be parsed or the file cannot be created.
+     */
     public ArrayList<Task> load() throws YapBotException {
         try {
+
+            // Creates the file if it does not exist
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -85,10 +104,12 @@ public class Storage {
                         break;
                     }
 
+                    // Handles the case where the tasktype may not exist due to file corruption
                     default: {
                         this.file.delete();
 
                         this.file.createNewFile();
+
                         throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
                                 + "\nYapBot will execute without prior data.");
                     }
@@ -97,6 +118,7 @@ public class Storage {
 
             }
 
+            s.close();
             return result;
         } catch (FileNotFoundException e) {
             return new ArrayList<>();
@@ -104,24 +126,33 @@ public class Storage {
             throw new YapBotException("Error, save file could not be created."
                     + "\nYour tasks from this session will not be saved.");
         } catch (NumberFormatException | DateTimeParseException e) {
+            // Covers parsing errors due to file corruption
+
             this.file.delete();
+
             try {
                 this.file.createNewFile();
             } catch (IOException ignored) {
-
+                // IOException would have been thrown already if the file cannot be created.
             }
+
             throw new YapBotException("Save data detected...load failed.\nCorrupted data found."
                     + "\nYapBot will execute without prior data.");
         }
     }
 
+    /**
+     * Saves tasks onto the file.
+     *
+     * @param saveableTasks String representation of the tasks to be saved.
+     * @return true if tasks are saved successfully.
+     * @throws IOException If tasks cannot be saved.
+     */
     public boolean save(String saveableTasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filepath);
-
         fileWriter.write(saveableTasks);
-
         fileWriter.close();
-        return true;
 
+        return true;
     }
 }

@@ -9,6 +9,12 @@ import yapbot.util.Ui;
 public class MarkCommand extends Command {
     private int index;
 
+    /**
+     * Creates a MarkCommand instance.
+     *
+     * @param commandDetails Details specifying the task.
+     * @throws YapBotException If commandDetails is empty.
+     */
     public MarkCommand(String commandDetails) throws YapBotException {
         if (commandDetails.isEmpty()) {
             throw new YapBotException("Error, User Input Prediction module offline."
@@ -23,6 +29,13 @@ public class MarkCommand extends Command {
 
     }
 
+    /**
+     * {@inheritDoc}
+     * Marks the task as completed.
+     *
+     * @throws YapBotException if the task cannot be found.
+     */
+    @Override
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException{
 
         Task task = tasks.markTask(index);

@@ -11,6 +11,12 @@ public class EventCommand extends Command {
 
     private String taskDetails;
 
+    /**
+     * Creates an EventCommand instance.
+     *
+     * @param taskDetails Details of the Event task to be created.
+     * @throws YapBotException If task details are empty.
+     */
     public EventCommand(String taskDetails) throws YapBotException {
         if (taskDetails.isEmpty()) {
             throw new YapBotException("Error, Automated Task Suggestion module offline."
@@ -20,6 +26,12 @@ public class EventCommand extends Command {
         this.taskDetails = taskDetails;
     }
 
+    /**
+     * {@inheritDoc}
+     * Creates and adds the Event Task to TaskList.
+     *
+     * @throws YapBotException If task details do not contain start and end times/dates.
+     */
     @Override
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
         boolean containsFrom = taskDetails.contains("/from");
@@ -47,16 +59,13 @@ public class EventCommand extends Command {
         String fromStr;
         String toStr;
 
-        // Checks order of /from and /to
+        // Checks order of /from and /to and changes to upper case to align with date time formatter
         if (toIndex > fromIndex) {
-            fromStr =
-                    taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5, taskDeadlines.indexOf("/to")).strip()
-                            .toUpperCase();
-            toStr = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3).strip().toUpperCase();
+            fromStr = taskDeadlines.substring(fromIndex + 5, toIndex).strip().toUpperCase();
+            toStr = taskDeadlines.substring(toIndex + 3).strip().toUpperCase();
         } else {
-            toStr = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3, taskDeadlines.indexOf("/from")).strip()
-                    .toUpperCase();
-            fromStr = taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5).strip().toUpperCase();
+            toStr = taskDeadlines.substring(toIndex + 3, fromIndex).strip().toUpperCase();
+            fromStr = taskDeadlines.substring(fromIndex + 5).strip().toUpperCase();
         }
 
         Task task = new Event(taskName, fromStr, toStr);
