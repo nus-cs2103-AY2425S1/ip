@@ -1,21 +1,25 @@
-class EventTask extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
 
-    public EventTask(String description, String from, String to) {
+public class EventTask extends Task {
+    private LocalDateTime from;
+    private LocalDateTime to;
+
+    public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public EventTask(String description, String from, String to, boolean isDone) {
-        super(description, isDone);
-        this.from = from;
-        this.to = to;
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    public LocalDateTime getTo() {
+        return to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMATTER) + " to: " + to.format(OUTPUT_FORMATTER) + ")";
     }
 }

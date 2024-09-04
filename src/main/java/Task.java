@@ -1,26 +1,30 @@
-abstract class Task {
-    protected boolean isDone;
-    protected String description;
+import java.time.format.DateTimeFormatter;
 
-    public enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
+public abstract class Task {
+    protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+
+    protected String description;
+    protected boolean isDone;
 
     public Task(String description) {
-        this(description, false);
+        this.description = description;
+        this.isDone = false;
     }
 
-    public Task(String description, boolean isDone) {
-        this.description = description;
-        this.isDone = isDone;
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void markAsNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     @Override
@@ -28,3 +32,4 @@ abstract class Task {
         return (isDone ? "[X] " : "[ ] ") + description;
     }
 }
+
