@@ -18,8 +18,8 @@ public class ListCommand extends Command {
      * @param storage Storage object that saves changes to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTasks(tasks, "\nHere are the tasks in your list: ");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showTasks(tasks, "Here are the tasks in your list: ");
     }
 
     /**
@@ -30,5 +30,10 @@ public class ListCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getCommandType() {
+        return "";
     }
 }

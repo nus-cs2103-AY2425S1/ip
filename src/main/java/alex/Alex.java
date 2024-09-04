@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import alex.command.Command;
+import alex.task.Pair;
 
 /**
  * Represents the chatbot Alex
@@ -26,32 +27,16 @@ public class Alex {
     }
 
     /**
-     * Starts the execution of the chatbot with a greeting and subsequently allows the user to
-     * enter inputs and responds according to user input.
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        this.ui.showWelcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(this.tasks, this.ui, this.storage);
-                isExit = c.isExit();
-            } catch (AlexException e) {
-                ui.showError(e);
-            } catch (IOException e) {
-                ui.showError(e);
-                break;
-            }
+    public Pair<String, String> getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String response = c.execute(this.tasks, this.ui, this.storage);
+            String command = c.getCommandType();
+            return new Pair<>(response, command);
+        } catch (AlexException | IOException e) {
+            return new Pair<>(ui.showError(e), "Error");
         }
-    }
-
-    /**
-     * Gets the program started as the entry point method of the chatbot application
-     */
-    public static void main(String[] args) {
-        new Alex("./data/Alex.txt").run();
     }
 }

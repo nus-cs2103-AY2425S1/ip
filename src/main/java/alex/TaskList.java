@@ -43,11 +43,11 @@ public class TaskList {
      * @param ui Ui object to send a message to user that the Task has been deleted.
      * @throws IOException If there are issues when saving changes to file.
      */
-    public void delete(int taskNumber, Storage storage, Ui ui) throws IOException {
+    public String delete(int taskNumber, Storage storage, Ui ui) throws IOException {
         Task task = list.get(taskNumber - 1);
         list.remove(taskNumber - 1);
         storage.save(list);
-        ui.showMessage("Noted. I've removed this task: ", task, this.list.size());
+        return ui.showMessage("Noted. I've removed this task: ", task, this.list.size());
     }
 
     /**
@@ -58,11 +58,11 @@ public class TaskList {
      * @param ui Ui object to inform user that the Task has been marked as completed.
      * @throws IOException If there are issues saving changes to file.
      */
-    public void mark(int taskNumber, Storage storage, Ui ui) throws IOException {
+    public String mark(int taskNumber, Storage storage, Ui ui) throws IOException {
         Task task = list.get(taskNumber - 1);
         task.markAsDone();
         storage.save(list);
-        ui.showMark(task);
+        return ui.showMark(task);
     }
 
     /**
@@ -73,27 +73,30 @@ public class TaskList {
      * @param ui Ui object to inform user that the Task has been unmarked.
      * @throws IOException If there are issues saving changes to file.
      */
-    public void unmark(int taskNumber, Storage storage, Ui ui) throws IOException {
+    public String unmark(int taskNumber, Storage storage, Ui ui) throws IOException {
         Task task = list.get(taskNumber - 1);
         task.markAsUndone();
         storage.save(list);
-        ui.showUnmark(task);
+        return ui.showUnmark(task);
     }
 
     /**
      * Displays the list of Tasks that the user currently has.
-     *
-     * @param line String representing separation line.
      */
-    public void showTasks(String line, String message) {
-        System.out.println(line + message);
+    public String showTasks(String message) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(message);
+        sb.append("\n");
         for (int i = 1; i <= this.list.size(); i++) {
-            System.out.println(i + "." + this.list.get(i - 1));
+            sb.append(i);
+            sb.append(". ");
+            sb.append(this.list.get(i - 1));
+            sb.append("\n");
         }
-        System.out.println(line);
+        return sb.toString();
     }
 
-    public void findWord(String string, Ui ui) {
+    public String findWord(String string, Ui ui) {
         ArrayList<Task> list = new ArrayList<>();
         for (int i = 0; i < this.list.size(); i++) {
             Task task = this.list.get(i);
@@ -101,6 +104,6 @@ public class TaskList {
                 list.add(task);
             }
         }
-        ui.showTasks(new TaskList(list), "\nHere are the matching tasks in your list: ");
+        return ui.showTasks(new TaskList(list), "\nHere are the matching tasks in your list: ");
     }
 }

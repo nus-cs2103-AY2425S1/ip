@@ -12,7 +12,6 @@ import alex.AlexException;
  * Encapsulates a user command to be executed.
  */
 public abstract class Command {
-
     /**
      * Executes user command.
      * Takes different forms based on the type of command.
@@ -23,10 +22,12 @@ public abstract class Command {
      * @throws AlexException If there are issues that occur when trying to execute user command.
      * @throws IOException If there are issues when trying to save changes to file.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException;
 
     /**
      * Returns a boolean value that tells the chatbot whether to terminate its operations or not.
      */
     public abstract boolean isExit();
+
+    public abstract String getCommandType();
 }

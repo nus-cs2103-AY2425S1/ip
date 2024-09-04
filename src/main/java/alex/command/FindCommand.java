@@ -13,17 +13,22 @@ public class FindCommand extends Command {
         this.lineScanner = lineScanner;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<String> arrOfStr = new ArrayList<>();
         while (this.lineScanner.hasNext()) {
             arrOfStr.add(this.lineScanner.next());
         }
 
-        tasks.findWord(String.join(" ", arrOfStr), ui);
+        return tasks.findWord(String.join(" ", arrOfStr), ui);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getCommandType() {
+        return "";
     }
 }

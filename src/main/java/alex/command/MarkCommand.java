@@ -33,7 +33,7 @@ public class MarkCommand extends Command{
      * @throws IOException If there are issues saving changes to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException {
         if (!lineScanner.hasNext()) {
             throw new AlexException("Oh no! Please provide an integer number after 'mark' or 'unmark'\n" +
                     "indicating the task number to mark or unmark!");
@@ -59,9 +59,9 @@ public class MarkCommand extends Command{
         }
 
         if (this.mark.equals("mark")) {
-            tasks.mark(taskNumber, storage, ui);
+            return tasks.mark(taskNumber, storage, ui);
         } else {
-            tasks.unmark(taskNumber, storage, ui);
+            return tasks.unmark(taskNumber, storage, ui);
         }
     }
 
@@ -73,5 +73,10 @@ public class MarkCommand extends Command{
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getCommandType() {
+        return "ChangeMarkCommand";
     }
 }
