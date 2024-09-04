@@ -27,7 +27,7 @@ public class Deadline extends Task {
                 throw new EmptyDescriptionException();
             }
             this.description = desc;
-            this.by = (str.substring(str.toLowerCase().indexOf("/by ") + 4, str.length()));
+            this.by = parseDate(str.substring(str.toLowerCase().indexOf("/by ") + 4, str.length()));
             if (by.isEmpty()) {
                 throw new IncompleteEventOrDeadlineException();
             }

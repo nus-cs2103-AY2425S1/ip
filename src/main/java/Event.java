@@ -26,8 +26,8 @@ public class Event extends Task {
                 throw new EmptyDescriptionException();
             }
             description = desc;
-            from = str.substring(str.toLowerCase().indexOf("/from ") + 6, str.toLowerCase().indexOf("/to "));
-            to = str.substring(str.toLowerCase().indexOf("/to ") + 4, str.length());
+            from = parseDate(str.substring(str.toLowerCase().indexOf("/from ") + 6, str.toLowerCase().indexOf("/to ")));
+            to = parseDate(str.substring(str.toLowerCase().indexOf("/to ") + 4, str.length()));
             if (from.isEmpty() || to.isEmpty()) {
                 throw new IncompleteEventOrDeadlineException();
             }
