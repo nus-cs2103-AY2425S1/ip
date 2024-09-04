@@ -1,5 +1,7 @@
 package easton.model;
 
+import java.util.Arrays;
+
 /**
  * Represents a task.
  */
@@ -40,20 +42,13 @@ public abstract class Task {
     }
 
     /**
-     * Checks if the keyword is in the description.
+     * Checks if the keywords are in the description.
      *
-     * @param keyword Keyword to search.
+     * @param keywords Keywords to search.
      * @return If the keyword is in the description.
      */
-    public boolean hasKeyword(String keyword) {
-        String[] splitString = description.split(" ");
-        for (String word : splitString) {
-            if (word.matches(keyword)) {
-                return true;
-            }
-        }
-
-        return false;
+    public boolean hasKeywords(String ... keywords) {
+        return Arrays.stream(keywords).anyMatch((x) -> description.matches(".*\\b" + x + "\\b.*"));
     }
 
     @Override

@@ -370,35 +370,27 @@ public class Easton {
      * @throws EmptyDescriptionException If the body of the prompt is empty.
      */
     public void findTasks(String input) throws EmptyDescriptionException {
-        String[] splitInput = input.stripLeading()
-                .stripTrailing()
-                .split(" ", 2);
+        String[] splitInput = input.trim().split("\\s+", 2);
 
         if (splitInput.length != 2) {
             throw new EmptyDescriptionException();
         }
 
-        String keyword = splitInput[1].trim();
-        if (keyword.contains(" ")) {
-            Ui.displayText("Only one keyword please!");
-        } else {
-            boolean hasNoMatch = true;
+        String[] keywords = splitInput[1].split("\\s+");
+        boolean hasNoMatch = true;
 
-            for (Task task : tasks) {
-                if (task.hasKeyword(keyword)) {
-                    hasNoMatch = false;
-                    break;
-                }
+        for (Task task : tasks) {
+            if (task.hasKeywords(keywords)) {
+                hasNoMatch = false;
+                break;
             }
-
-            if (hasNoMatch) {
-                Ui.displayText("No match was found.");
-            } else {
-                Ui.displayText("Here are the matching tasks in your list:");
-                ui.list(tasks, (x) -> x.hasKeyword(keyword));
-            }
-
         }
 
+        if (hasNoMatch) {
+            Ui.displayText("No match was found.");
+        } else {
+            Ui.displayText("Here are the matching tasks in your list:");
+            ui.list(tasks, (x) -> x.hasKeywords(keywords));
+        }
     }
 }
