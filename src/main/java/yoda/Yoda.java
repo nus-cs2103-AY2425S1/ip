@@ -60,6 +60,11 @@ public class Yoda {
         }
     }
 
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
+
     /**
      * Entry point for the Yoda application.
      * Creates a new Yoda instance with the specified file path and starts the application.

@@ -1,12 +1,11 @@
 package yoda.commands;
 
 import org.junit.jupiter.api.Test;
-import yoda.TaskList;
-import yoda.exceptions.YodaException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import yoda.TaskList;
+import yoda.exceptions.YodaException;
 
 public class TodoCommandTest {
     @Test

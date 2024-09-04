@@ -1,11 +1,15 @@
 package yoda.commands;
 
 import org.junit.jupiter.api.Test;
-import yoda.TaskList;
-import yoda.tasks.Todo;
-import yoda.exceptions.YodaException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import yoda.TaskList;
+import yoda.exceptions.YodaException;
+import yoda.tasks.Todo;
 
 public class MarkCommandTest {
     @Test
