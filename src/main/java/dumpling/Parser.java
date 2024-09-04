@@ -203,23 +203,23 @@ public class Parser {
     /**
      * Helper method to obtain information from the split user input string
      *
-     * @param splitDescrption String array obtained by splitting the user input string
+     * @param splitDescription String array obtained by splitting the user input string
      * @param startIdx Starting index to consider
      * @param terminalString String to stop forming the subsection
      * @return Pair of formed string and ending index of this traversal
      */
     public static Pair<String, Integer> formSubSection(
-            String[] splitDescrption,
+            String[] splitDescription,
             int startIdx,
             String terminalString
     ) {
         String formedSection = "";
         int currIdx = startIdx;
-        while (currIdx < splitDescrption.length && !splitDescrption[currIdx].equals(terminalString)) {
+        while (currIdx < splitDescription.length && !splitDescription[currIdx].equals(terminalString)) {
             if (!formedSection.isEmpty()) {
                 formedSection += " ";
             }
-            formedSection += splitDescrption[currIdx];
+            formedSection += splitDescription[currIdx];
             currIdx++;
         }
         return new Pair<>(formedSection, currIdx);

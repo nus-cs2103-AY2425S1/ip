@@ -10,8 +10,10 @@ import dumpling.DumplingException;
 public class Ui {
 
     private static final String DIVIDER = "    ____________________________________________________________";
-    private static final String WELCOME_MESSAGE = "    Hello! I'm Dumpling\n"
-            + "    What can I do for you?";
+    private static final String WELCOME_MESSAGE[] = {
+            "    Hello! I'm Dumpling",
+            "    What can I do for you?"
+    };
     private static final String EXIT_MESSAGE = "    Bye. Hope to see you again soon!";
 
     private Scanner scanner;
@@ -28,34 +30,33 @@ public class Ui {
         this.echo("     " + exception.getMessage());
     }
 
-    public void showLine() {
-        this.echo(DIVIDER);
-    }
-
     /**
      * Display welcome message of Dumpling chatbot
      */
     public void showWelcome() {
-        this.showLine();
-        this.echo(WELCOME_MESSAGE);
-        this.showLine();
+        this.echo(DIVIDER, WELCOME_MESSAGE[0], WELCOME_MESSAGE[1], DIVIDER);
     }
 
     /**
      * Display exit message of Dumpling chatbot
      */
     public void exit() {
-        this.echo(EXIT_MESSAGE);
+        this.echo(EXIT_MESSAGE, DIVIDER);
         this.scanner.close();
-        this.showLine();
     }
 
-    public void echo(String message) {
-        System.out.println(message);
+    public void showLine() {
+        this.echo(DIVIDER);
+    }
+
+    public void echo(String ... messages) {
+        for (String message : messages) {
+            System.out.println(message);
+        }
     }
 
     public String getWelcomeMessage() {
-        return WELCOME_MESSAGE;
+        return WELCOME_MESSAGE[0] + "\n" + WELCOME_MESSAGE[1];
     }
 
     public String getExitMessage() {
