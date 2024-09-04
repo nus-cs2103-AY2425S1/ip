@@ -1,13 +1,25 @@
 package killua.parser;
 
-import killua.command.*;
-import killua.task.*;
-import killua.util.KilluaException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import killua.command.AddCommand;
+import killua.command.Command;
+import killua.command.DeleteCommand;
+import killua.command.ExitCommand;
+import killua.command.FindCommand;
+import killua.command.ListCommand;
+import killua.command.MarkCommand;
+import killua.command.OnCommand;
+import killua.command.UnmarkCommand;
+import killua.task.Deadline;
+import killua.task.Event;
+import killua.task.Task;
+import killua.task.Todo;
+import killua.util.KilluaException;
+
 
 /**
  * Utility class that provides methods for parsing commands, tasks, and dates.
@@ -101,8 +113,8 @@ public class Parser {
                 return new Deadline(description, date);
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new KilluaException("Please use the correct format for deadlines: " +
-                    "deadline <description> /by <yyyy-mm-dd> OR deadline <description> /by <yyyy-mm-dd hh:mm>");
+            throw new KilluaException("Please use the correct format for deadlines: "
+                    + "deadline <description> /by <yyyy-mm-dd> OR deadline <description> /by <yyyy-mm-dd hh:mm>");
         }
     }
 
@@ -158,7 +170,7 @@ public class Parser {
             return Integer.parseInt(arguments.trim()) - 1;
         } catch (NumberFormatException e) {
             throw new KilluaException("Please provide a valid task number!");
-        }  catch (IndexOutOfBoundsException e1) {
+        } catch (IndexOutOfBoundsException e1) {
             throw new KilluaException("Task " + arguments + " not found!");
         }
     }

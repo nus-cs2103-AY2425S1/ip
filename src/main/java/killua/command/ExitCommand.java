@@ -1,8 +1,8 @@
 package killua.command;
 
 import killua.storage.Storage;
-import killua.util.TaskList;
 import killua.ui.Ui;
+import killua.util.TaskList;
 
 /**
  * Represents a command to exit the application.

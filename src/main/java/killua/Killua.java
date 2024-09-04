@@ -1,13 +1,13 @@
 package killua;
 
-import killua.command.Command;
-import killua.util.KilluaException;
-import killua.storage.Storage;
-import killua.util.TaskList;
-import killua.ui.Ui;
-import killua.parser.Parser;
-
 import java.io.IOException;
+
+import killua.command.Command;
+import killua.parser.Parser;
+import killua.storage.Storage;
+import killua.ui.Ui;
+import killua.util.KilluaException;
+import killua.util.TaskList;
 
 /**
  * Represents the main application class for the Killua task manager.
@@ -16,10 +16,10 @@ import java.io.IOException;
  */
 public class Killua {
 
+    private static final String FILE_PATH = "./data/tasks.txt";
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
-    private static final String FILE_PATH = "./data/tasks.txt";
 
     /**
      * Constructs a Killua instance with the specified file path for task storage.

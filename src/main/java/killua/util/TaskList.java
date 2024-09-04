@@ -1,11 +1,12 @@
 package killua.util;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import killua.task.Deadline;
 import killua.task.Event;
 import killua.task.Task;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks in the Killua task manager.
