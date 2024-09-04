@@ -89,9 +89,4 @@ public class Task {
             return string;
         }
     }
-
-    protected static String getUniqueKey() {
-        return "VSKXYudfs8162JDRoa619dvkat$2ndu$(!%$(@^nhdisg!))";
-    }
-
 }
