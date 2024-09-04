@@ -7,10 +7,23 @@ import ipman.models.Task;
 import ipman.models.TaskList;
 import ipman.ui.Ui;
 
+/**
+ * Creates a <code>Deadline</code> inside <code>Context</code>'s
+ * <code>TaskList</code>
+ * @see Deadline
+ * @see Context
+ * @see TaskList
+ */
 public class CreateDeadlineCommand implements Command {
     private final String name;
     private final LocalDate by;
 
+    /**
+     * Creates command that creates a particular deadline
+     * @param name deadline name
+     * @param by deadline completion date
+     * @see Deadline
+     */
     public CreateDeadlineCommand(String name, LocalDate by) {
         this.name = name;
         this.by = by;

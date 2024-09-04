@@ -5,9 +5,21 @@ import ipman.models.TaskList;
 import ipman.models.ToDo;
 import ipman.ui.Ui;
 
+/**
+ * Creates a <code>ToDo</code> inside <code>Context</code>'s
+ * <code>TaskList</code>
+ * @see ToDo
+ * @see Context
+ * @see TaskList
+ */
 public class CreateToDoCommand implements Command {
     private final String name;
 
+    /**
+     * Creates command that creates a particular to-do
+     * @param name to-do name
+     * @see ToDo
+     */
     public CreateToDoCommand(String name) {
         this.name = name;
     }
