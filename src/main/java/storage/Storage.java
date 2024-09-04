@@ -1,11 +1,5 @@
 package storage;
 
-import chatterboxexceptions.ChatterboxExceptions;
-import parser.Parser;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,12 +11,19 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import chatterboxexceptions.ChatterboxExceptions;
+import parser.Parser;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 /**
  * Handles the storage of Task history
  */
-public  class Storage {
+public class Storage {
 
-    private final String HISTFILE;
+    private final String HIST_FILE;
 
     /**
      * Initializes Storage class with no specified storage file, creates a data directory and storage file command1
@@ -30,7 +31,7 @@ public  class Storage {
     public Storage() {
 
         checkDirectory();
-        HISTFILE =  Paths.get(System.getProperty("user.dir"),"data" , "command1.txt").toString();
+        HIST_FILE = Paths.get(System.getProperty("user.dir"), "data", "command1.txt").toString();
     }
 
     /**
@@ -39,7 +40,7 @@ public  class Storage {
      */
     public Storage(String filePath) {
         System.out.println("loading");
-        this.HISTFILE = filePath;
+        this.HIST_FILE = filePath;
     }
 
     /**
@@ -50,7 +51,7 @@ public  class Storage {
 
         checkDirectory();
 
-        File file = new File(HISTFILE);
+        File file = new File(HIST_FILE);
         try {
             if (!file.exists()) {
                 file.createNewFile();
@@ -61,8 +62,8 @@ public  class Storage {
             for (int i = 0; i < userList.size(); i++) {
 
                 Task currentTask = userList.get(i);
-//                System.out.println(currentTask.getDescription());
-                String taskStr = String.format("%s | %s | %s", currentTask.getTaskSymbol(), currentTask.getStatus()? "X" : " ", currentTask.getDescription());
+                String taskStr = String.format("%s | %s | %s", currentTask.getTaskSymbol(),
+                        currentTask.getStatus() ? "X" : " ", currentTask.getDescription());
                 history.append(taskStr);
                 history.append(System.lineSeparator());
             }
@@ -79,11 +80,11 @@ public  class Storage {
     /**
      * Loads the
      * @param parser
-     * @return
+     * @return an ArrayList with all tasks found in the storage file
      * @throws FileNotFoundException
      */
     public ArrayList<Task> load(Parser parser) throws FileNotFoundException {
-        File f = new File(this.HISTFILE);
+        File f = new File(this.HIST_FILE);
         Scanner s = new Scanner(f);
         ArrayList <Task> loadedTasks = new ArrayList<>();
         try {
@@ -105,7 +106,7 @@ public  class Storage {
                 } else if (type == 'D') {
                     int startBracket = rest.indexOf("( by");
                     String desc = rest.substring(0, startBracket).trim();
-                    String deadline = rest.substring(startBracket + 5, rest.length() -2 );
+                    String deadline = rest.substring(startBracket + 5, rest.length() - 2);
                     LocalDateTime deadlineObj = parser.parseDateTime(deadline);
                     Deadline newDead;
 
@@ -168,11 +169,11 @@ public  class Storage {
     }
 
     /**
-     * Gets the HISTFILE path string
-     * @return HISTFILE path string
+     * Gets the HIST_FILE path string
+     * @return HIST_FILE path string
      */
     public String getHistFilePath() {
-        return HISTFILE;
+        return HIST_FILE;
     }
 
 

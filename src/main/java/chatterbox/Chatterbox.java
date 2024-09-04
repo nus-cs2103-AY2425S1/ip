@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import chatterboxexceptions.ChatterboxExceptions;
 import parser.Parser;
 import storage.Storage;
-
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -230,7 +229,7 @@ public class Chatterbox {
 
                     case TODO:
 
-                        tasks.addTodo(parser.parseTODO(response.trim()));
+                        tasks.addTodo(parser.parseTodo(response.trim()));
                         ui.addTaskMsg("Todo", tasks.size());
                         break;
 

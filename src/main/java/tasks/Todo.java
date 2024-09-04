@@ -4,15 +4,22 @@ import chatterboxexceptions.ChatterboxExceptions;
 /**
  * Todo subclass of Task that has changes task symbol
  */
-public  class Todo extends Task {
+public class Todo extends Task {
 
 
-    public Todo(String desc) throws ChatterboxExceptions.ChatterBoxNoInput{
+    /**
+     * Constructor for Todo Object
+     * @param desc String of desc
+     * @throws ChatterboxExceptions.ChatterBoxNoInput if desc not found
+     */
+    public Todo(String desc) throws ChatterboxExceptions.ChatterBoxNoInput {
         super(desc);
 
     }
 
     @Override
-    public String getTaskSymbol() { return "T"; }
+    public String getTaskSymbol() {
+        return "T";
+    }
 
 }

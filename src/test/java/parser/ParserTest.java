@@ -52,12 +52,12 @@ public class ParserTest {
     @Test
     public void parseTodo_todoText() {
 
-        assertEquals("go home", testParser.parseTODO("todo go home"));
+        assertEquals("go home", testParser.parseTodo("todo go home"));
     }
 
     @Test void parseTodo_byeText() {
 
-        assertEquals("bye bye", testParser.parseTODO("todo bye bye"));
+        assertEquals("bye bye", testParser.parseTodo("todo bye bye"));
     }
     @Test
     public void parseDeadline_deadlineText() {

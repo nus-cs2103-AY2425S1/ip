@@ -1,13 +1,16 @@
 package ui;
 
-import tasks.Task;
-
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import tasks.Task;
+
+/**
+ * Class for Handling the printing of messages onto command line
+ */
 public class UI {
-    private final static String LINE_SEPARATOR = "____________________________________________________________";
-    private final static String BOTNAME = "Chatterbox";
+    private static final String LINE_SEPARATOR = "____________________________________________________________";
+    private static final String BOTNAME = "Chatterbox";
 
 
     private static final DateTimeFormatter PRINTDATEFORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
@@ -16,8 +19,8 @@ public class UI {
     }
 
     /**
-     * greeting() used to display the default greeting when running the bot
-     * @return string format of default greeting
+     * Displays the default greeting when running the bot
+     *
      */
     public void greeting() {
         System.out.println(String.format("""
@@ -31,16 +34,15 @@ ____________________________________________________________
      *
      */
     public void goodBye() {
-        System.out.println("""
-____________________________________________________________
- Bye. Hope to see you again soon!
-____________________________________________________________
-""");
+        System.out.println(UI.getLineseperator());
+        System.out.println("Bye! Hope to see you again soon!");
+        System.out.println(UI.getLineseperator());
     }
 
 
 
-    /** Returns the default line separator used
+    /**
+     *  Returns the default line separator used
      *
      * @return a line separator
      */
@@ -57,7 +59,10 @@ ____________________________________________________________
         System.out.println(UI.getLineseperator());
         System.out.println("Current Tasks in List: ");
         for (int i = 0; i < userList.size(); i++) {
-            System.out.println(String.format(i + 1 + ". " + "[%s][%s] %s", userList.get(i).getTaskSymbol(), userList.get(i).getStatus() ? "X" : " ", userList.get(i).getDescription()));
+            System.out.println(String.format(i + 1 + ". " + "[%s][%s] %s",
+                    userList.get(i).getTaskSymbol(),
+                    userList.get(i).getStatus() ? "X" : " ",
+                    userList.get(i).getDescription()));
         }
 
     }
@@ -86,12 +91,22 @@ ____________________________________________________________
         System.out.println(task.getDescription());
     }
 
+    /**
+     * Displays message for adding a task
+     * @param type Type of task (todo, deadline ...)
+     * @param size of TaskList object task is added to
+     */
     public void addTaskMsg(String type, int size) {
         System.out.println(UI.getLineseperator());
         System.out.println(String.format("Added %s to Tasks", type));
         System.out.println(String.format("Currently %d Tasks in List", size));
     }
 
+    /**
+     * Displays message for deleting a task
+     * @param task Task that is deleted
+     * @param size size of the TaskList object task is removed from
+     */
     public void delTaskMsg(Task task, int size) {
         System.out.println(UI.getLineseperator());
         System.out.println("Deleting Task: ");
@@ -100,11 +115,18 @@ ____________________________________________________________
 
     }
 
+    /**
+     * Displays the list of matching tasks from search parameter
+     * @param matches ArrayList of matching tasks
+     */
     public void displaySearch(ArrayList<Task> matches) {
         System.out.println(UI.getLineseperator());
         System.out.println("Displaying all matching tasks: ");
         for (int i = 0; i < matches.size(); i++) {
-            System.out.println(String.format(i + 1 + ". " + "[%s][%s] %s", matches.get(i).getTaskSymbol(), matches.get(i).getStatus() ? "X" : " ", matches.get(i).getDescription()));
+            System.out.println(String.format(i + 1 + ". " + "[%s][%s] %s",
+                    matches.get(i).getTaskSymbol(),
+                    matches.get(i).getStatus() ? "X" : " ",
+                    matches.get(i).getDescription()));
         }
 
     }
