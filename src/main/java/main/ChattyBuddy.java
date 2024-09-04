@@ -1,16 +1,15 @@
 package main;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 import exceptions.EmptyTaskException;
 import exceptions.InvalidInputException;
 import exceptions.TaskIndexOutOfBound;
+import parser.Parser;
+import storage.Storage;
 import task.TaskList;
 import ui.Ui;
-import storage.Storage;
-import parser.Parser;
-
-import java.util.ArrayList;
-
-import java.io.FileNotFoundException;
 
 /**
  * The main class for the ChattyBuddy application.

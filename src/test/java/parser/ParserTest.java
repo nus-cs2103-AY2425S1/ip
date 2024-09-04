@@ -1,20 +1,20 @@
 package parser;
 
-import exceptions.EmptyTaskException;
-import exceptions.InvalidInputException;
-import exceptions.TaskIndexOutOfBound;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import task.Task;
-import task.Todo;
-import ui.UiStub;
-import task.TaskListStub;
-import storage.StorageStub;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
+import exceptions.EmptyTaskException;
+import exceptions.InvalidInputException;
+import exceptions.TaskIndexOutOfBound;
+import task.Todo;
+import storage.StorageStub;
+import task.TaskListStub;
+import ui.UiStub;
 
 public class ParserTest {
 
@@ -33,7 +33,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testMarkCommandWithInitialTasks() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
+    public void testMarkCommandWithInitialTask() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
         Parser.parseCommand("mark 1", taskList, ui, storage);
         assertTrue(taskList.getTask(0).getIsDone(), "The first task should be marked as done");
         assertEquals("showMarkTask called for task: finish homework", ui.lastOutput);
@@ -43,8 +43,9 @@ public class ParserTest {
     void testTodoCommandWithStorage() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
         Parser.parseCommand("todo read book", taskList, ui, storage);
 
-        assertTrue(storage.isSaveTasksCalled, "saveTasks should be called");
+        assertTrue(storage.getIsSaveTasksCalled(), "saveTasks should be called");
         assertEquals(2, storage.getSavedTasks().size(), "There should be two tasks saved");
-        assertEquals("read book", storage.getSavedTasks().get(1).toString(), "The second task description should be 'read book'");
+        assertEquals("read book", storage.getSavedTasks().get(1).toString(),
+                "The second task description should be 'read book'");
     }
 }
