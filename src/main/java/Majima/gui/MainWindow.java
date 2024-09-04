@@ -3,6 +3,7 @@ package Majima.gui;
 import Majima.Majima;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -39,6 +40,9 @@ public class MainWindow extends AnchorPane {
      */
     public void setMajimabot(Majima majimabot) {
         this.majimabot = majimabot;
+
+        String greeting = majimabot.getUi().userGreet();
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(greeting, majimabotImage));
     }
 
     /**

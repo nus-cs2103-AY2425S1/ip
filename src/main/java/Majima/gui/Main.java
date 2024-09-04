@@ -2,6 +2,7 @@ package Majima.gui;
 
 import java.io.IOException;
 
+
 import Majima.Majima;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

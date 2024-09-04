@@ -1,6 +1,7 @@
 package Majima.gui;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 
 /**
  * A launcher class to workaround classpath issues.

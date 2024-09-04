@@ -31,12 +31,13 @@ public class Ui {
 
     /**
      * Runs at the start to greet the user.
+     * Integrated with the GUI.
      */
-    public void userGreet() {
-        //appendLine();
+    public String userGreet() {
+        clearOutput();  // Clear previous outputs
         output.append("KIIIIIRYU-CHAN! It's ya old pal, Majima!\n");
         output.append("What can I do fer ya?\n");
-        //appendLine();
+        return output.toString();  // Return the greeting string
     }
 
     public void showError(String message) {

@@ -42,5 +42,9 @@ public class Majima {
         }
         return ui.getOutput(); // Return the output collected in Ui
     }
+
+    public Ui getUi() {
+        return ui;
+    }
 }
 
