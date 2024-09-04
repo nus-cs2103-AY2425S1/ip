@@ -28,12 +28,15 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("optimus.Optimus")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Optimus"
     archiveClassifier = null
+    mainClassName = 'optimus.Optimus'
+    archiveFileName = 'Optimus.jar'
+
 }
 
 run{

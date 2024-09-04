@@ -5,19 +5,17 @@ import java.io.IOException;
 
 /**
  * The main class for the Optimus task management application.
- * The {@code Optimus} class initializes the necessary components and runs the application.
+ * The Optimus class initializes the necessary components and runs the application.
  */
 public class Optimus {
 
     private static final String FILE_PATH = "./data/optimus.txt";  // Default file path for storing tasks.
-    private Storage storage;  // Handles storage-related operations like loading and saving tasks.
-    private TaskList tasks;  // Manages the list of tasks in the application.
-    private Ui ui;  // Handles user interaction, including input and output.
+    private Storage storage;  // Handles loading and saving tasks.
+    private TaskList tasks;  // Manages the list of tasks.
+    private Ui ui;  // Handles user interaction.
 
     /**
-     * Constructs an {@code Optimus} object with the specified file path for storing tasks.
-     *
-     * @param filePath the file path for storing tasks.
+     * Constructs an object with the specified file path for storing tasks.
      */
     public Optimus(String filePath) {
         ui = new Ui();
@@ -51,9 +49,6 @@ public class Optimus {
 
     /**
      * The entry point for the Optimus application.
-     * Initializes and runs the application.
-     *
-     * @param args command-line arguments (not used).
      */
     public static void main(String[] args) {
         new Optimus(FILE_PATH).run();
