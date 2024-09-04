@@ -36,7 +36,7 @@ public class Elara {
                     break;
                 }
             } catch (InvalidInputException e) {
-                ui.showInvalidCommandMessage();
+                ui.showInvalidCommandMessage(e);
             }
         }
     }

@@ -1,19 +1,27 @@
 package elara.command;
 
 import elara.storage.Storage;
+import elara.task.InvalidInputException;
 import elara.task.TaskList;
 import elara.ui.Ui;
 
 public class DeleteCommand implements Command {
-    private final String taskDetails;
+    private final String fullInput;
 
     public DeleteCommand(String taskDetails) {
-        this.taskDetails = taskDetails;
+        this.fullInput = taskDetails;
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        int i = Integer.parseInt(taskDetails) - 1;
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
+        if (fullInput.trim().equals("delete")) {
+            throw new InvalidInputException("Append task index after command!");
+        }
+
+        int i = Integer.parseInt(fullInput.split(" ", 2)[1]) - 1;
+        if (i < 0 || i >= taskList.getTasks().size()) {
+            throw new InvalidInputException("Task index out of bounds!");
+        }
         ui.showRemoveTaskMessage(taskList.getTask(i));
         taskList.deleteTask(i);
         ui.showNumOfTasksMessage(taskList);

@@ -1,5 +1,6 @@
 package elara.ui;
 
+import elara.task.InvalidInputException;
 import elara.task.Task;
 import elara.task.TaskList;
 
@@ -62,8 +63,8 @@ public class Ui {
         }
     }
 
-    public void showInvalidCommandMessage() {
-        System.out.println("Invalid command. Please try again.");
+    public void showInvalidCommandMessage(InvalidInputException e) {
+        System.out.println(e);
     }
 
     public void showLoadingErrorMessage() {
