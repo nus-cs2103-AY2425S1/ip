@@ -77,7 +77,7 @@ public class Hue {
     }
 
     public String varagsAttempt (String... words) {
-        return words[0];
+        return words[0]; //here
     }
 
     public String getCommandType() {
