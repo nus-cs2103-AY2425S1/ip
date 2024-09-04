@@ -7,11 +7,17 @@ import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.List;
 
+/**
+ * Manages reading from and writing to the database file.
+ */
 public class Database {
     private static final String DIRECTORY = "./data";
     private static final String FILE_NAME = "taskalyn.txt";
     private static final Path FILE_PATH = Paths.get(DIRECTORY, FILE_NAME);
 
+    /**
+     * Constructs the database object.
+     */
     public Database() {
         try {
             List<String> txtLines = Files.readAllLines(FILE_PATH);
@@ -26,6 +32,9 @@ public class Database {
         }
     }
 
+    /**
+     * Creates database file at given file path.
+     */
     public void createDatabase() {
         try {
             Files.createDirectories(FILE_PATH.getParent());
@@ -35,6 +44,11 @@ public class Database {
         }
     }
 
+    /**
+     * Writes a list of task data to the database file.
+     *
+     * @param lines List of task data to write.
+     */
     public void writeToDatabase(List<String> lines) {
         try {
             Files.write(FILE_PATH, lines);
@@ -43,10 +57,22 @@ public class Database {
         }
     }
 
+    /**
+     * Reads the task data from the database file.
+     *
+     * @return List of task data.
+     * @throws IOException If an error happens while reading.
+     */
     public List<String> readFromDatabase() throws IOException {
         return Files.readAllLines(FILE_PATH);
     }
 
+    /**
+     * Returns the total number of tasks in the database.
+     *
+     * @return Number of tasks in database.
+     * @throws IOException If an error happens while reading.
+     */
     public int getDatabaseSize() throws IOException {
         List<String> txtLines = readFromDatabase();
         return txtLines.size();

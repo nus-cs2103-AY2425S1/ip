@@ -14,12 +14,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Verifies that database reads from, writes to, and creates database properly.
+ */
 public class DatabaseTest {
     private static final Path TEST_FILE_PATH = Paths.get("./data/taskalyn_test.txt");
     private TaskManager taskManager;
     private Ui ui;
     private MockDatabase db;
 
+    /**
+     * Sets up ui, database, taskmanager and removes database file before each test.
+     *
+     * @throws IOException If an I/O error occurs during reading.
+     */
     @BeforeEach
     public void setUpTest() throws IOException {
         this.ui = new Ui();
@@ -30,6 +38,11 @@ public class DatabaseTest {
         }
     }
 
+    /**
+     * Deletes database file after each test.
+     *
+     * @throws IOException If an I/O error occurs during reading.
+     */
     @AfterEach
     public void tearDownTest() throws IOException {
         if (Files.exists(TEST_FILE_PATH)) {
@@ -37,6 +50,9 @@ public class DatabaseTest {
         }
     }
 
+    /**
+     * Verifies that tasks written to database are described correctly in database file.
+     */
     @Test
     public void testWriteToDatabase() {
         // Arrange
