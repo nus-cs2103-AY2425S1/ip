@@ -22,6 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private Momo momo;
 
+    private Ui ui;
+
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/userIcon.png"));
     private final Image momoImage = new Image(this.getClass().getResourceAsStream("/images/momoIcon.png"));
 
@@ -32,7 +34,9 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Momo instance */
     public void setMomo() {
-        this.momo = new Momo(Momo.FILE_PATH, new Ui(dialogContainer, userInput));
+        this.ui = new Ui(dialogContainer, userInput);
+        this.momo = new Momo(Momo.FILE_PATH, this.ui);
+        this.ui.setMomo(momo);
         this.momo.run();
     }
 
@@ -42,12 +46,6 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = "Noted";
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getMomoDialog(response, momoImage)
-        );
-        userInput.clear();
+        ui.getUserInput();
     }
 }
