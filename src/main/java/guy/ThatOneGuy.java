@@ -2,6 +2,8 @@ package guy;
 
 import java.util.Scanner;
 
+import guy.exception.GuyException;
+import guy.gui.Launcher;
 import guy.parser.Parser;
 import guy.storage.Storage;
 import guy.tasks.TaskManager;
@@ -15,6 +17,8 @@ public class ThatOneGuy {
     private TaskManager tm;
     private Ui ui;
     private Storage storage;
+    private Parser parser;
+    private boolean isRunning;
 
     /**
      * Constructs a ThatOneGuy object.
@@ -33,15 +37,29 @@ public class ThatOneGuy {
      * @param args command-line arguments, currently unused
      */
     public static void main(String... args) {
-        ThatOneGuy guy = new ThatOneGuy();
-        guy.ui.greet();
-        guy.keepGoing();
-        guy.ui.bye();
-
-        if (args.length > 0) {
-            System.out.println(args.length + " arguments used.");
+        if (args.length > 0 && args[0].equals("--cli")) {
+            ThatOneGuy guy = new ThatOneGuy();
+            guy.ui.greet();
+            guy.keepGoing();
+            guy.ui.bye();
+        } else {
+            Launcher.main(args);
         }
+    }
+    public String getGreeting() {
+        return ui.getGreeting();
+    }
 
+    public String getResponse(String input) {
+        try {
+            String response = parser.guiInput(input);
+            if (response.equals("Whatever. Hope you never come back.")) {
+                isRunning = false;
+            }
+            return response;
+        } catch (GuyException e) {
+            return e.getMessage();
+        }
     }
 
     /**

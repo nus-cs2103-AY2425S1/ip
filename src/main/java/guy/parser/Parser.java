@@ -1,5 +1,7 @@
 package guy.parser;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 import guy.exception.GuyException;
@@ -66,6 +68,60 @@ public class Parser {
             }
         }
         return true;
+    }
+
+    /**
+     * Handles user input until the user requests to quit, but when the GUI is active.
+     * @param input string
+     * @return string
+     */
+    public String guiInput(String input) {
+        TaskManager tm = TaskManager.getInstance();
+        ByteArrayOutputStream bstream = new ByteArrayOutputStream();
+        PrintStream pstream = new PrintStream(bstream);
+        PrintStream sysstream = System.out;
+        System.setOut(pstream);
+
+        while (sc.hasNext()) {
+            String[] temp = splitCmd(input);
+            String cmd = temp[0];
+            String args = temp[1];
+
+            try {
+                switch (cmd) {
+                case "bye":
+                    sc.close();
+                    return "Whatever. Hope you never come back.";
+                case "list":
+                    tm.list();
+                    break;
+                case "mark":
+                    tm.markTask(args);
+                    break;
+                case "unmark":
+                    tm.unmarkTask(args);
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    tm.addTask(cmd, args);
+                    break;
+                case "delete":
+                    tm.deleteTask(args);
+                    break;
+                case "find":
+                    tm.findTask(args);
+                    break;
+                default:
+                    throw new GuyException("Maybe put in an actual command next time, shitass.");
+                }
+                System.out.flush();
+                System.setOut(sysstream);
+                return bstream.toString();
+            } catch (GuyException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     /**
