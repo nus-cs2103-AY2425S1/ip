@@ -78,4 +78,19 @@ public class Waterfall {
     public static void main(String[] args) {
         new Waterfall("data/Tasks.txt").run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String res = c.execute(tasks, ui, storage);
+            return res;
+        } catch (WaterfallException e) {
+            return e.getMessage();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 }

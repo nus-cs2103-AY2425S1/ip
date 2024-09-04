@@ -26,13 +26,13 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws WaterfallException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws WaterfallException, IOException {
         if (!tasks.checkIndex(index)) {
             throw new WaterfallException("Why are you trying to edit a waterfall waterfall.task that does not exist?");
         }
         tasks.setDone(index, true);
         storage.updateTask(tasks.getTasks());
-        ui.showMarkMessage(tasks.getTask(index));
+        return ui.showMarkMessage(tasks.getTask(index));
     }
 
     @Override

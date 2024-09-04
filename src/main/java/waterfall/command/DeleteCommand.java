@@ -26,11 +26,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task task = tasks.getTask(index);
         tasks.delete(index);
         storage.updateTask(tasks.getTasks());
-        ui.showDeleteMessage(task);
+        return ui.showDeleteMessage(task);
     }
 
     @Override
