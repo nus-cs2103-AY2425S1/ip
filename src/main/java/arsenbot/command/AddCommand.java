@@ -1,3 +1,9 @@
+package arsenbot.command;
+
+import arsenbot.storage.Storage;
+import arsenbot.task.*;
+import arsenbot.ui.Ui;
+
 import java.io.IOException;
 
 public class AddCommand extends Command {
