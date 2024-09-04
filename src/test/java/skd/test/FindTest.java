@@ -1,7 +1,11 @@
-package skd.task;
+package skd.test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 import java.util.ArrayList;
 import java.util.List;

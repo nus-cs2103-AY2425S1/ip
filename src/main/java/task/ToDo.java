@@ -1,4 +1,5 @@
-package skd.task;
+package task;
+
 public class ToDo extends Task {
 
     /**

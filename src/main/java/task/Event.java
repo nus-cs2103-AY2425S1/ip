@@ -1,4 +1,7 @@
-package skd.task;
+package task;
+import task.Task;
+import task.TaskType;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Event extends Task {

@@ -1,10 +1,7 @@
-package skd;
+package skd.ui;
 
-import skd.task.Deadline;
-import skd.task.Event;
-import skd.task.Task;
-import skd.task.ToDo;
-import skd.task.TaskType;
+import task.Task;
+
 import java.util.List;
 import java.util.Scanner;
 

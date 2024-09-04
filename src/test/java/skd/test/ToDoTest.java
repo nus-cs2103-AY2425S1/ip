@@ -1,6 +1,8 @@
-package skd.task;
+package skd.test;
 
 import org.junit.jupiter.api.Test;
+import task.ToDo;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ToDoTest {

@@ -1,9 +1,9 @@
-package skd.task;
+package skd.test;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import task.Event;
 
-import java.time.LocalDateTime;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EventTest {
 

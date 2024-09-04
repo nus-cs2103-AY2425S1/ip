@@ -1,10 +1,8 @@
-package skd;
+package skd.storage;
 
-import skd.task.Deadline;
-import skd.task.Event;
-import skd.task.Task;
-import skd.task.ToDo;
-import skd.task.TaskType;
+import skd.command.Parser;
+import task.Task;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
