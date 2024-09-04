@@ -107,4 +107,25 @@ public class TaskList {
         list.remove(fixedIndex);
     }
 
+    /**
+     * Finds a task that matches the keyword.
+     *
+     * @param keyword The keyword to search for.
+     */
+    public void findTask(String keyword) {
+        System.out.println("Toothless:\nHere are the quests that match your keyword:\n");
+        int taskCount = 0;
+        for (Task task : list) {
+            if (task.getDescription().contains(keyword)) {
+                System.out.println(taskCount + 1 + ". " + task);
+                taskCount++;
+            }
+        }
+
+        if (taskCount == 0) {
+            System.out.println("Oopsie! Seems like there are no quests that match your keyword.");
+        }
+
+        System.out.println("\n" + DIVIDER);
+    }
 }
