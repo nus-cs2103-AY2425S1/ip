@@ -1,25 +1,26 @@
 package task;
-import storage.Storage;
-import system.Ui;
-import system.DateTimeSystem;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import storage.Storage;
+import system.DateTimeSystem;
+import system.Ui;
+
 public abstract class Task {
-    public String name;
+    private String name;
 
     public enum Status {
-        MARKED,
-        UNMARKED
+        MARKED, UNMARKED
     }
 
-    public Status currentStatus;
+    private Status currentStatus;
     public static Ui ui = new Ui();
-    public String tag;
-//    public static ArrayList<Task> tasks = new ArrayList<>();
-    static Storage storage;
-    static DateTimeSystem dateTimeSystem = new DateTimeSystem();
+    private String tag;
+    public static DateTimeSystem dateTimeSystem = new DateTimeSystem();
+    public static Storage storage;
 
     static {
         try {
@@ -29,7 +30,7 @@ public abstract class Task {
         }
     }
 
-    public Task(String name, String tag){
+    public Task(String name, String tag) {
         this.name = name;
         currentStatus = Status.UNMARKED;
         this.tag = tag;
@@ -60,7 +61,7 @@ public abstract class Task {
             } else if (s.contains("[D]")) {
                 String[] tokens = s.split(" ");
                 StringBuilder name = new StringBuilder();
-                StringBuilder full_date = new StringBuilder();
+                StringBuilder fullDate = new StringBuilder();
                 boolean isName = true;
                 for (int i = 2; i < tokens.length; i++) {
                     if (isName) {
@@ -70,14 +71,15 @@ public abstract class Task {
                             name.append(tokens[i]);
                         }
                     } else {
-                        full_date.append(tokens[i]).append(" ");
+                        fullDate.append(tokens[i]).append(" ");
                     }
                 }
-                String[] full_date_token = full_date.toString().split(" ");
-                String[] date_token = full_date_token[0].split("-");
-                String[] time_token = full_date_token[1].split(":");
+                String[] fullDateTokens = fullDate.toString().split(" ");
+                String[] dateTokens = fullDateTokens[0].split("-");
+                String[] timeTokens = fullDateTokens[1].split(":");
 
-                LocalDateTime ldt = dateTimeSystem.createDate(date_token[0],date_token[1],date_token[2],time_token[0],time_token[1]);
+                LocalDateTime ldt = dateTimeSystem.createDate(dateTokens[0],
+                        dateTokens[1], dateTokens[2], timeTokens[0], timeTokens[1]);
 
                 Task d = new Deadlines(name.toString(), ldt);
                 if (s.contains("[X]")) {
@@ -85,10 +87,9 @@ public abstract class Task {
                 } else {
                     d.setCurrentStatus(Status.UNMARKED);
                 }
-//                tasks.add(d);
                 TaskList.addTasks(d);
 
-            } else if (s.contains("[E]")){
+            } else if (s.contains("[E]")) {
                 String[] tokens = s.split(" ");
                 StringBuilder name = new StringBuilder();
                 StringBuilder start = new StringBuilder();
@@ -114,21 +115,19 @@ public abstract class Task {
                             start.append(tokens[i]).append(" ");
                         }
                     }
-
-
                 }
 
                 String[] full_date_token_start = start.toString().split(" ");
                 String[] date_token_start = full_date_token_start[0].split("-");
                 String[] time_token_start = full_date_token_start[1].split(":");
 
-                LocalDateTime ldtStart = dateTimeSystem.createDate(date_token_start[0],date_token_start[1],date_token_start[2],time_token_start[0],time_token_start[1]);
+                LocalDateTime ldtStart = dateTimeSystem.createDate(date_token_start[0], date_token_start[1], date_token_start[2], time_token_start[0], time_token_start[1]);
 
                 String[] full_date_token_end = end.toString().split(" ");
                 String[] date_token_end = full_date_token_end[0].split("-");
                 String[] time_token_end = full_date_token_end[1].split(":");
 
-                LocalDateTime ldtEnd = dateTimeSystem.createDate(date_token_end[0],date_token_end[1],date_token_end[2],time_token_end[0],time_token_end[1]);
+                LocalDateTime ldtEnd = dateTimeSystem.createDate(date_token_end[0], date_token_end[1], date_token_end[2], time_token_end[0], time_token_end[1]);
 
                 Task e = new Events(name.toString(), ldtStart, ldtEnd);
                 if (s.contains("[X]")) {
@@ -200,7 +199,7 @@ public abstract class Task {
             if (temporaryTaskList.size() >= index) {
                 Task temp = temporaryTaskList.get(index - 1);
                 System.out.println("CURRENT STATUS IS : " + temp.getCurrentStatus());
-                if (temp.getCurrentStatus()== Status.MARKED) {
+                if (temp.getCurrentStatus() == Status.MARKED) {
                     response = ui.alreadyMarked();
                 } else {
                     temp.setCurrentStatus(Status.MARKED);
@@ -263,5 +262,6 @@ public abstract class Task {
     public abstract LocalDateTime getStart();
 
     public abstract LocalDateTime getEnd();
+
 
 }

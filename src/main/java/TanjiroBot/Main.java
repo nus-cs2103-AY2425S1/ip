@@ -5,7 +5,6 @@ import java.io.IOException;
 import Controller.MainWindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -28,13 +27,15 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
 
+            stage.setMinHeight(500);
+            stage.setMinWidth(700);
             stage.setTitle("Tanjiro Bot");
             stage.getIcons().add(BOT_IMAGE);
 
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindowController>getController().setTanjiro(tanjiro);  // inject the Duke instance
+            fxmlLoader.<MainWindowController>getController().setTanjiro(tanjiro);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

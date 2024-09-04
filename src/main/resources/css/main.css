@@ -1,0 +1,55 @@
+.root {
+    main-color: rgb(209, 194, 194);       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-color: main-color;
+}
+
+#anchorPaneId {
+    -fx-background-image: url("/images/zenitsu.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 400 571;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+.text-field {
+    -fx-background-color: #CCFFCC;
+    -fx-font: 20px "Arial";
+}
+
+.button {
+    -fx-background-color: #FF8000;
+    -fx-font: italic bold 20px "Arial";
+}
+
+.button:hover {
+    -fx-background-color:cyan;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color:orange;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
