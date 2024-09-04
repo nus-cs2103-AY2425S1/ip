@@ -4,6 +4,13 @@ import ipman.models.Task;
 import ipman.models.TaskList;
 import ipman.ui.Ui;
 
+/**
+ * Deletes a <code>Task</code> inside <code>Context</code>'s
+ * <code>TaskList</code>
+ * @see Task
+ * @see Context
+ * @see TaskList
+ */
 public class DeleteCommand implements Command {
     private final int taskIndex;
 
@@ -14,12 +21,13 @@ public class DeleteCommand implements Command {
     @Override
     public void execute(Context context) {
         TaskList tasks = context.tasks();
-        Task task = tasks.get(this.taskIndex);
-        tasks.remove(this.taskIndex);
 
         if (this.taskIndex < 0 || this.taskIndex >= tasks.size()) {
             throw new InvalidIndexException(tasks.size(), this.taskIndex);
         }
+
+        Task task = tasks.get(this.taskIndex);
+        tasks.remove(this.taskIndex);
 
         Ui ui = context.ui();
         ui.showMessage("Noted. I've removed this task:");

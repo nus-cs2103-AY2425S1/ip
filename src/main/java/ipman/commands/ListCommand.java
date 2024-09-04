@@ -3,6 +3,13 @@ package ipman.commands;
 import ipman.models.Task;
 import ipman.models.TaskList;
 
+/**
+ * Displays all the <code>Task</code>s from the <code>Context</code>'s
+ * <code>TaskList</code>.
+ * @see Task
+ * @see Context
+ * @see TaskList
+ */
 public class ListCommand implements Command {
     @Override
     public void execute(Context context) {
