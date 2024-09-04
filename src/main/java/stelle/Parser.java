@@ -157,7 +157,7 @@ public class Parser {
         }
     }
 
-    private String  processAddTaskInput(String input) throws IOException {
+    private String processAddTaskInput(String input) throws IOException {
         String outputString = "";
 
         if (input.isEmpty()) {
