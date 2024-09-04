@@ -67,7 +67,6 @@ public class Event extends Task{
         } else {
             String[] getTime = str.split(" ");
             String[] getDate = getTime[0].split("/");
-            System.out.println(str);
             String year = getDate[2];
             String month = getDate[1];
             String day = getDate[0];

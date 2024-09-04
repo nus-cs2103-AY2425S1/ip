@@ -15,8 +15,8 @@ public class Deadline extends Task {
     }
 
     public static Deadline of(String s) throws BigdogException {
-        if (s.isEmpty()) {
-            throw new BigdogException("deadline can't be empty! Theres nothing to do!");
+        if (s.isEmpty() || s.charAt(0) == '/') {
+            throw new BigdogException("deadline can't be empty! Theres nothing to do!\n");
         }
 
         for (int i = 0; i < s.length(); i++) {
@@ -24,11 +24,11 @@ public class Deadline extends Task {
                 return new Deadline(s.substring(0, i - 1), stringToDate(s.substring(i + 4)), false);
             }
         }
-        throw new BigdogException("Come on! Set a due by date and get to work!");
+        throw new BigdogException("Come on! Set a due by date and get to work!\n");
     }
     public static Deadline of(String s, boolean marked) throws BigdogException {
         if (s.length() <= 4) {
-            throw new BigdogException("data file corrupted! Cause: " + s);
+            throw new BigdogException("data file corrupted! Cause: " + s + "\n");
         }
 
         for (int i = 5; i < s.length(); i++) {
@@ -37,13 +37,13 @@ public class Deadline extends Task {
                 return new Deadline(s.substring(4, i - 1), end, marked);
             }
         }
-        throw new BigdogException("data file corrupted! Cause: " + s);
+        throw new BigdogException("data file corrupted! Cause: " + s + "\n");
     }
 
     private static LocalDateTime stringToDate(String str) throws BigdogException {
         long dashes = str.chars().filter(x -> x == '/').count();
         if (dashes != 2) {
-            throw new BigdogException("Invalid date format :" + str);
+            throw new BigdogException("Invalid date format :" + str + "\n");
         } else {
             String[] getTime = str.split(" ");
             String[] getDate = getTime[0].split("/");
@@ -60,11 +60,11 @@ public class Deadline extends Task {
                     return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, "00:00"));
                 } else {
                     throw new BigdogException("Invalid date format: " + str +
-                            "\nExample correct format: deadline return book /by 02/07/2019 18:00");
+                            "\nExample correct format: deadline return book /by 02/07/2019 18:00\n");
                 }
             } catch (DateTimeParseException e) {
                 throw new BigdogException("Invalid date format :" + str +
-                        "\nExample correct format: deadline return book /by 02/07/2019 18:00");
+                        "\nExample correct format: deadline return book /by 02/07/2019 18:00\n");
             }
 
         }
