@@ -1,4 +1,4 @@
-package chatbot;
+package chatbot.logic;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package chatbot;
+package chatbot.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -1,9 +1,10 @@
-package chatbot;
+package chatbot.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 
+import chatbot.logic.Ui;
 import org.junit.jupiter.api.Test;
 
 public class UiTest {

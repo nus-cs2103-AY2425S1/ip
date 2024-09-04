@@ -1,4 +1,4 @@
-package chatbot;
+package chatbot.logic;
 import chatbot.task.Task;
 
 /**

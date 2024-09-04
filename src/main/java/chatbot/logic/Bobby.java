@@ -1,4 +1,4 @@
-package chatbot;
+package chatbot.logic;
 
 import chatbot.exception.InputException;
 
@@ -30,6 +30,7 @@ public class Bobby {
 
     /**
      * Runs the core chat loop for the chatbot
+     * TODO decide whether this is still relevant
      */
     public void run() {
         this.ui.sayHi();
@@ -40,6 +41,10 @@ public class Bobby {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public String getResponse(String command) {
+        return "test: " + command;
     }
 
     /**

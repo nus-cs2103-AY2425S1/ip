@@ -1,10 +1,11 @@
-package chatbot;
+package chatbot.logic;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 
+import chatbot.logic.Parser;
 import org.junit.jupiter.api.Test;
 
 public class ParserTest {
