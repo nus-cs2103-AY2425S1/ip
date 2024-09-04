@@ -1,6 +1,6 @@
 import java.time.LocalDateTime;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private final LocalDateTime by;
     public Deadline(String description, LocalDateTime by) {
         super(description);

@@ -1,36 +1,13 @@
-public enum Command {
-    EXIT("bye"),
-    DISPLAY("list"),
-    MARK_COMPLETE("mark"),
-    MARK_INCOMPLETE("unmark"),
-    DELETE("delete"),
-    CREATE_TODO("todo"),
-    CREATE_DEADLINE("deadline"),
-    CREATE_EVENT("event");
+import java.io.IOException;
 
-    private final String command;
+public abstract class Command {
+    abstract public void execute(TaskList tasks, TaskFileManager manager, UserInterface ui);
 
-    private Command(String command) {
-        this.command = command.toLowerCase();
+    protected void saveTasks(TaskList tasks, TaskFileManager manager) throws IOException {
+        manager.saveTasksToFile(tasks.getTasks());
     }
 
-    public String getCommand() {
-        return command;
-    }
-
-    /**
-     * Converts a text string into its relevant enum counterpart.
-     * Throws an IllegalArgumentException if string does not match any enum values
-     *
-     * @param commandString the text containing an enum value
-     * @return an enum
-     */
-    public static Command fromString(String commandString) {
-        for (Command command : Command.values()) {
-            if (command.getCommand().equalsIgnoreCase(commandString)) {
-                return command;
-            }
-        }
-        throw new IllegalArgumentException("No enum constant for command: " + commandString);
+    public boolean shouldContinue() {
+        return true;
     }
 }
