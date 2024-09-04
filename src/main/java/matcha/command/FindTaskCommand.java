@@ -6,7 +6,6 @@ import matcha.exception.MatchaException;
 import matcha.storage.Storage;
 import matcha.task.Task;
 import matcha.tasklist.TaskList;
-import matcha.ui.Ui;
 
 /**
  * Represents a command to find tasks that contain a given keyword.
@@ -28,13 +27,12 @@ public class FindTaskCommand extends Command {
      * Prints out the tasks that contain the keyword.
      *
      * @param tasks The list of tasks to search from.
-     * @param ui User interface to interact with the user.
      * @param storage Storage to save the tasks.
      * @return The response to the user.
      * @throws MatchaException If the keyword is not provided.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
+    public String execute(TaskList tasks, Storage storage) throws MatchaException {
         if (inputWords.length != 2) {
             throw new MatchaException("Please enter a keyword to search for.");
         }

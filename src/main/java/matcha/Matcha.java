@@ -5,7 +5,6 @@ import matcha.exception.MatchaException;
 import matcha.parser.Parser;
 import matcha.storage.Storage;
 import matcha.tasklist.TaskList;
-import matcha.ui.Ui;
 
 /**
  * Represents the main class of the Matcha program.
@@ -13,7 +12,6 @@ import matcha.ui.Ui;
 public class Matcha {
     private static final String FILE_PATH = "./data/matcha.txt";
     private static boolean isExit = false;
-    private Ui ui;
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
@@ -22,7 +20,6 @@ public class Matcha {
      */
     public Matcha() {
         storage = new Storage(FILE_PATH);
-        ui = new Ui();
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (MatchaException e) {
@@ -41,7 +38,7 @@ public class Matcha {
                 return "Please enter a command.";
             }
             Command command = Parser.parseCommand(input);
-            return command.execute(tasks, ui, storage);
+            return command.execute(tasks, storage);
         } catch (MatchaException e) {
             return e.toString();
         }

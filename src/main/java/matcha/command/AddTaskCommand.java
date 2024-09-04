@@ -10,7 +10,6 @@ import matcha.task.Event;
 import matcha.task.Task;
 import matcha.task.Todo;
 import matcha.tasklist.TaskList;
-import matcha.ui.Ui;
 
 /**
  * Represents a command to add a task to the task list.
@@ -35,12 +34,11 @@ public class AddTaskCommand extends Command {
      * the updated task list to file.
      *
      * @param tasks Task list to add task to.
-     * @param ui Ui object to interact with user.
      * @param storage Storage object to save tasks to file.
      * @throws MatchaException If the task details are not provided or are invalid.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
+    public String execute(TaskList tasks, Storage storage) throws MatchaException {
         if (inputWords.length < 2) {
             throw new MatchaException("Please include the " + commandType + " details!");
         }
