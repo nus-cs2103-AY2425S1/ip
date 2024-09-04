@@ -59,50 +59,68 @@ public class Parser {
      * Processes text strings inputted by the user, and calls other functions
      * when appropriate.
      * @param input The text string entered by the user.
+     * @return String output of the chatbot.
      * @throws StelleException Throws certain exceptions related to the chatbot.
      */
-    public void processInput(String input) throws StelleException, IOException {
+    public String processInput(String input) throws StelleException, IOException {
+        String outputString;
+
         if (input.equals(BYE_COMMAND)) {
             taskList.writeToFile();
-            ui.printBye();
+            outputString = returnBye();
             System.exit(0);
         } else if (input.contains(FIND_COMMAND)) {
-            processFindTaskInput(input);
+            outputString = processFindTaskInput(input);
         } else if (input.contains(MARK_COMMAND) || input.contains(UNMARK_COMMAND)) {
-            processMarkUnmarkInput(input);
+            outputString = processMarkUnmarkInput(input);
         } else if (input.equals(LIST_COMMAND)) {
-            listTasks();
+            outputString = listTasks();
         } else if (input.contains(TODO_COMMAND) || input.contains(DEADLINE_COMMAND) || input.contains(EVENT_COMMAND)) {
-            processAddTaskInput(input);
+            outputString = processAddTaskInput(input);
         } else if (input.contains(DELETE_COMMAND)) {
-            processDeleteTaskInput(input);
+            outputString = processDeleteTaskInput(input);
         } else {
             throw new WrongCommandException();
         }
+
+        return outputString;
+    }
+
+    /**
+     * Returns the ending response when exiting the program.
+     * @return Bye response String.
+     */
+    private String returnBye() {
+        return "Bye.";
     }
 
     /**
      * Prints the tasks with names that contain the find query entered by user.
      * @param input The text string entered by the user.
      */
-    private void processFindTaskInput(String input) {
+    private String processFindTaskInput(String input) {
+        String outputString = "";
+
         String query = input.split(" ", 2)[1];
         ArrayList<Integer> resultList = taskList.find(query);
 
         if (resultList.isEmpty()) {
-            System.out.println("No tasks with names matching this liquery!");
-            return;
+            outputString = "No tasks with names matching this query!";
+            return outputString;
         }
 
-        System.out.println("Here are the matching tasks in your list:");
+        outputString = outputString + "Here are the matching tasks in your list:";
 
         for (int i = 0; i < resultList.size(); i++) {
-            String output = " " + (i + 1) + ". " + this.taskList.get(resultList.get(i)).toString();
-            System.out.println(output);
+            outputString = outputString + "\n " + (i + 1) + ". " + this.taskList.get(resultList.get(i)).toString();
         }
+
+        return outputString;
     }
 
-    private void processDeleteTaskInput(String input) throws TaskException, IOException {
+    private String processDeleteTaskInput(String input) throws TaskException, IOException {
+        String outputString = "";
+
         String possibleTaskNumString = input.replaceAll("[^\\d.]", "");
         if (possibleTaskNumString.isEmpty()) {
             throw new DeletionNotSpecifiedException();
@@ -113,14 +131,17 @@ public class Parser {
             throw new NoSuchTaskException();
         }
 
-        System.out.println("Alright. Removed the task:");
-        System.out.println(this.taskList.get(possibleTaskNum - 1));
+        outputString = outputString
+                + "Alright. Removed the task:\n"
+                + this.taskList.get(possibleTaskNum - 1).toString();
 
         this.taskList.remove(possibleTaskNum - 1);
         this.taskList.writeToFile();
+
+        return outputString;
     }
 
-    private void processMarkUnmarkInput(String input) throws TaskException, IOException {
+    private String processMarkUnmarkInput(String input) throws StelleException, IOException {
         String possibleTaskNumString = input.replaceAll("[^\\d.]", "");
         if (possibleTaskNumString.isEmpty()) {
             throw new MarkNotSpecifiedException();
@@ -128,16 +149,19 @@ public class Parser {
 
         int possibleTaskNum = Integer.valueOf(possibleTaskNumString);
         if (input.contains(UNMARK_COMMAND)) {
-            unmarkTask(possibleTaskNum);
+            return unmarkTask(possibleTaskNum);
         } else if (input.contains(MARK_COMMAND)) {
-            markTask(possibleTaskNum);
+            return markTask(possibleTaskNum);
+        } else {
+            throw new WrongCommandException();
         }
     }
 
-    private void processAddTaskInput(String input) throws IOException {
+    private String  processAddTaskInput(String input) throws IOException {
+        String outputString = "";
+
         if (input.isEmpty()) {
-            System.out.println("Please specify a task name!");
-            return;
+            return "Please specify a task name!";
         }
 
         TaskType taskType;
@@ -148,7 +172,7 @@ public class Parser {
         } else if (input.contains(EVENT_COMMAND)) {
             taskType = TaskType.EVENT;
         } else {
-            return;
+            throw new WrongCommandException();
         }
 
         switch (taskType) {
@@ -165,9 +189,11 @@ public class Parser {
             break;
         }
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println(this.taskList.get(taskList.size() - 1).toString());
-        System.out.println("Now you have " + this.taskList.size() + " tasks in the list.");
+        outputString = outputString + "Got it. I've added this task:";
+        outputString = outputString + "\n" + this.taskList.get(taskList.size() - 1).toString();
+        outputString = outputString + "\nNow you have " + this.taskList.size() + " tasks in the list.";
+
+        return outputString;
     }
 
     private void addToDo(String input) throws TaskException, IOException {
@@ -210,9 +236,10 @@ public class Parser {
     /**
      * Marks a certain task (makes it done).
      * @param taskNum The number of the task (ArrayList index + 1) to be marked as done.
+     * @return String The output of completing this task.
      * @throws TaskException Throws exceptions related to tasks.
      */
-    private void markTask(int taskNum) throws TaskException, IOException {
+    private String markTask(int taskNum) throws TaskException, IOException {
         if (taskNum <= 0 || taskNum > this.taskList.size()) {
             throw new NoSuchTaskException();
         }
@@ -222,8 +249,7 @@ public class Parser {
 
         this.taskList.writeToFile();
 
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
+        return "Nice! I've marked this task as done:\n" + task.toString();
     }
 
     /**
@@ -231,7 +257,7 @@ public class Parser {
      * @param taskNum The number of the task (ArrayList index + 1) to be marked as not done.
      * @throws TaskException Throws exceptions related to tasks.
      */
-    private void unmarkTask(int taskNum) throws TaskException, IOException {
+    private String unmarkTask(int taskNum) throws TaskException, IOException {
         if (taskNum <= 0 || taskNum > this.taskList.size()) {
             throw new NoSuchTaskException();
         }
@@ -241,20 +267,23 @@ public class Parser {
 
         this.taskList.writeToFile();
 
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString());
+        return "OK, I've marked this task as not done yet:\n" + task.toString();
     }
 
     /**
      * Reads tasks from local file and lists all Tasks currently stored, with added list numbers.
+     * @return String containing list of all currently saved tasks.
      */
-    private void listTasks() throws IOException {
+    private String listTasks() throws IOException {
+        String outputString = "";
+
         this.taskList.readFromFile();
 
-        System.out.println("Here are the tasks in your list:");
+        outputString = outputString + "Here are the tasks in your list:";
         for (int i = 0; i < this.taskList.size(); i++) {
-            String output = " " + (i + 1) + ". " + this.taskList.get(i).toString();
-            System.out.println(output);
+            outputString = outputString + "\n " + (i + 1) + ". " + this.taskList.get(i).toString();
         }
+
+        return outputString;
     }
 }

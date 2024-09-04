@@ -24,9 +24,21 @@ public class Ui {
         this.parser = new Parser(this, filePath);
     }
 
+    public String getResponse(String input) {
+        try {
+            return parser.processInput(input);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    public String wrapWithBorder(String text) {
+        return HORIZONTAL_LINE + "\n" + text + "\n" + HORIZONTAL_LINE + "\n";
+    }
+
     /**
      * Handles input and responds with output from stelle.Parser.
-     *
+     * Used for text UI.
      */
     public void run() {
         printGreeting();
@@ -44,6 +56,14 @@ public class Ui {
             }
             showLine();
         }
+    }
+
+    /**
+     * Returns a greeting message.
+     * @return String The greeting message.
+     */
+    public String getGreeting() {
+        return "Hello! I'm " + name + ".\nWhat can I do for you?";
     }
 
     /**
