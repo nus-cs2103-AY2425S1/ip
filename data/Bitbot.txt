@@ -1,10 +1,11 @@
-E| |go sentosa|Nov 20 2024|Nov 20 2024
+E|X|go sentosa|Nov 20 2024|Nov 20 2024
 T|X|borrow book|NIL| NIL
-D| |do homework|tomorrow|NIL
-D| |do homework|Nov 20 2024 17:20|NIL
-T| |borrow book|NIL| NIL
 T|X|buy bread|NIL| NIL
-T| |borrow book|NIL| NIL
 E|X|deadline|Aug 29 2024|Aug 29 2024
 T| |go for break|NIL| NIL
 D| |complete homework|tomorrow|NIL
+T| |check score|NIL| NIL
+T| |go by drink|NIL| NIL
+T|X|go for checkup|NIL| NIL
+T| |go checkup|NIL| NIL
+T| |plan for party|NIL| NIL
