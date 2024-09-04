@@ -1,3 +1,5 @@
+package alexer.command;
+
 public abstract class Command {
     private final String name;
 
