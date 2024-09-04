@@ -27,8 +27,8 @@ public class Deadline extends Task {
         super(s.split(" /by ")[0]);
         String[] parts = s.split(" /by ", 2);
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new IllegalArgumentException("Duke.Tasks.Deadline must include both a task description "
-                    + "and a 'by' time.");
+            throw new IllegalArgumentException("Deadlines must include both a task description "
+                    + "and a 'by' time and not include extra \"/\"...");
         }
         this.by = parts[1].trim();
         String toDate = dateParser.giveDate(by);

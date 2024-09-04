@@ -38,7 +38,7 @@ public class Event extends Task {
         }
         if (parts[0].trim().isEmpty() || from == null || to == null) {
             throw new IllegalArgumentException("Events must include both task description and 'from' "
-                    + "and 'to' times and not include extra \"/\"");
+                    + "and 'to' times and not include extra \"/\"...");
         }
         String toDate = dateParser.giveDate(to);
         if (toDate != null) {

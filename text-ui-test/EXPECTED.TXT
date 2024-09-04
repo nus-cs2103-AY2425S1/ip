@@ -8,6 +8,7 @@
 hi, I'm Not-gpt,
 do you really need me to do sth for you?
 ___________________________________________________________________________
+Data found and loaded from: C:\Users\trist\Documents\GitHub\ip\text-ui-test\.\data\data.txt
 *the first word will always be read as the command*
 ___________________________________________________________________________
 Added "thing" as a new task I guess
@@ -19,17 +20,17 @@ ___________________________________________________________________________
 ___________________________________________________________________________
 bruh? type something to add I'm not adding a blank...
 ___________________________________________________________________________
-duke.tasks.Event must include both task description and 'from' and 'to' times
+Events must include both task description and 'from' and 'to' times and not include extra "/"...
 ___________________________________________________________________________
-duke.tasks.Event must include both task description and 'from' and 'to' times
+Events must include both task description and 'from' and 'to' times and not include extra "/"...
 ___________________________________________________________________________
-duke.tasks.Event must include both task description and 'from' and 'to' times
+Events must include both task description and 'from' and 'to' times and not include extra "/"...
 ___________________________________________________________________________
-duke.tasks.Event must include both task description and 'from' and 'to' times
+Events must include both task description and 'from' and 'to' times and not include extra "/"...
 ___________________________________________________________________________
-duke.tasks.Event must include both task description and 'from' and 'to' times
+Events must include both task description and 'from' and 'to' times and not include extra "/"...
 ___________________________________________________________________________
-duke.tasks.Event must include both task description and 'from' and 'to' times
+Events must include both task description and 'from' and 'to' times and not include extra "/"...
 ___________________________________________________________________________
 Wow "thing1 /from 0 /to 100" is an event in your life huh?
 you have 2 tasks now
@@ -39,13 +40,13 @@ ___________________________________________________________________________
 ___________________________________________________________________________
 bruh? type something to add I'm not adding a blank...
 ___________________________________________________________________________
-duke.tasks.Deadline must include both a task description and a 'by' time.
+Deadlines must include both a task description and a 'by' time and not include extra "/"...
 ___________________________________________________________________________
-duke.tasks.Deadline must include both a task description and a 'by' time.
+Deadlines must include both a task description and a 'by' time and not include extra "/"...
 ___________________________________________________________________________
 The description of a deadline must include '/by' :/
 ___________________________________________________________________________
-duke.tasks.Deadline must include both a task description and a 'by' time.
+Deadlines must include both a task description and a 'by' time and not include extra "/"...
 ___________________________________________________________________________
 lol "thing2 /by 0" is a new deadline, better finish it quick...
 you have 3 tasks now
@@ -82,6 +83,8 @@ ___________________________________________________________________________
 2. [E][ ] thing1 (from: 0 to: 100)
 ___________________________________________________________________________
 what? type an actual command pls...
+___________________________________________________________________________
+I removed everything from your task list, hope you don't regret it...
 ___________________________________________________________________________
 It's finally over... *yawn*
 I'm heading to bed

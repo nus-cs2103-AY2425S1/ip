@@ -6,7 +6,7 @@ package duke.tasks;
  * </p>
  */
 public class Task {
-    public String task;
+    private String task;
     private boolean isDone;
 
     /**

@@ -164,6 +164,13 @@ public class Storage {
         }
         return thing.trim();
     }
+    /**
+     * Clears out the entire Storage Arraylist and cleans up any remaining data from the data.txt file as well
+     */
+    public void clear() {
+        store.clear();
+        this.writeToFile();
+    }
 
     /**
      * Returns the number of tasks currently stored.

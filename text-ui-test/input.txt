@@ -2,7 +2,7 @@ todo thing
 todo
 list
 event
-duke.tasks.Event /to /from
+Event /to /from
 event /to 0 /from
 event /from  /to 100
 event /from 0 /to 100
@@ -12,7 +12,7 @@ event thing1 /from 0 /to 100
 List
 deadline
 deadline /by
-duke.tasks.Deadline /by 0
+Deadline /by 0
 deadline thing2
 deadline thing2 /by
 deadline thing2 /by 0
@@ -27,4 +27,5 @@ list
 unmark 2
 list
 whatsup?
+clear
 bye

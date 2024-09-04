@@ -1,9 +1,8 @@
 package duke.ui;
 
-
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -37,9 +36,9 @@ public class Notgpt {
         try {
             Scanner scanner = new Scanner(System.in);
             String logo = " _   _       _                 _\n"
-                    + "| \\ | | ___ | |_    ____ ____ | |_ \n"
+                    + "| \\ | | ___ | |_    ____ ____ | |_\n"
                     + "|  \\| |/ _ \\  __|  / _` | '_ \\| __|\n"
-                    + "| |\\  | (_) | |_  | (_| | |_) | |_ \n"
+                    + "| |\\  | (_) | |_  | (_| | |_) | |_\n"
                     + "|_| \\_|\\___/ \\__|  \\__, | .__/ \\__|\n"
                     + "                   |___/|_|\n";
             System.out.println(logo + "\n" + "hi, I'm Not-gpt,\ndo you really need me to do sth for you?");

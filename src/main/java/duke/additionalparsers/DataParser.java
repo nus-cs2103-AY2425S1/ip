@@ -35,7 +35,6 @@ public class DataParser {
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 System.out.println(line);
-
                 Task task = parseTaskFromLine(line);
                 if (task != null && task.isReal()) {
                     tasks.add(task);
@@ -48,7 +47,6 @@ public class DataParser {
     }
 
     private static Task parseTaskFromLine(String line) {
-        // Remove the numbering at the beginning of the line
         line = line.replaceFirst("^\\d+\\.\\s*", "");
 
         Pattern todoPattern = Pattern.compile("^\\[T\\](\\[[ X]\\])\\s+(.+)$");
