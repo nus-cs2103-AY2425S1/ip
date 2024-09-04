@@ -45,7 +45,7 @@ public class Orion {
 
         try {
             tasks = new TaskList(storage.loadTasks());
-            ui.printLoadTasks(tasks.getNoTasks());
+            ui.printWelcome(tasks.getNoTasks());
         } catch (OrionException e) {
             ui.printLoadingError();
             tasks = new TaskList();

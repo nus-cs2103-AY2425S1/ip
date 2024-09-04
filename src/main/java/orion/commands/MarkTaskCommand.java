@@ -3,8 +3,8 @@ package orion.commands;
 import orion.chatbot.Storage;
 import orion.chatbot.TaskList;
 import orion.chatbot.Ui;
-import orion.tasks.Task;
 import orion.exceptions.OrionInputException;
+import orion.tasks.Task;
 
 /**
  * Represents a command to mark a task as completed in the task list.

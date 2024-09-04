@@ -1,10 +1,10 @@
 package orion.chatbot;
 
-import orion.exceptions.OrionInputException;
-import orion.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import orion.exceptions.OrionInputException;
+import orion.tasks.Task;
 
 /**
  * Represents a list of tasks in the chatbot.

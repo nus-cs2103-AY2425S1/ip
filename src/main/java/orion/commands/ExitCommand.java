@@ -1,11 +1,11 @@
 package orion.commands;
 
+import java.util.List;
+
 import orion.chatbot.Storage;
 import orion.chatbot.TaskList;
 import orion.chatbot.Ui;
-import orion.exceptions.OrionTaskListSaveException;
-
-import java.util.List;
+import orion.exceptions.OrionSaveTaskListException;
 
 /**
  * Represents a command to exit the application.
@@ -30,7 +30,7 @@ public class ExitCommand extends Command {
      * user interface.
      * <p>
      * This method retrieves the task descriptions, attempts to save them to
-     * the storage, and handles any potential {@link OrionTaskListSaveException}.
+     * the storage, and handles any potential {@link OrionSaveTaskListException}.
      * Regardless of whether saving succeeds or fails, it prints a goodbye message.
      * </p>
      *
@@ -45,7 +45,7 @@ public class ExitCommand extends Command {
         try {
             storage.saveTasks(saveTaskDescriptions);
             ui.printSaveTasks();
-        } catch (OrionTaskListSaveException e) {
+        } catch (OrionSaveTaskListException e) {
             ui.printSaveError();
         } finally {
             ui.printGoodbye();

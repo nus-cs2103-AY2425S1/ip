@@ -1,19 +1,18 @@
 package orion.chatbot;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import orion.exceptions.OrionException;
-
-import orion.tasks.Deadline;
-import orion.tasks.Event;
-import orion.tasks.Task;
-import orion.tasks.Todo;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import orion.exceptions.OrionException;
+import orion.tasks.Deadline;
+import orion.tasks.Event;
+import orion.tasks.Task;
+import orion.tasks.Todo;
 
 public class TaskListTest {
 
@@ -34,7 +33,7 @@ public class TaskListTest {
                     "3. [E][ ] sleep and sleep again (from: 3/1/2024, to: 4/1/2024)");
             assertEquals(tl.getTaskDescriptions(), strs);
         } catch (OrionException e) {
-
+            // Do nothing
         }
     }
 }

@@ -7,14 +7,14 @@ package orion.exceptions;
  * list, which may involve issues such as file access problems.
  * </p>
  */
-public class OrionTaskListSaveException extends OrionException {
+public class OrionSaveTaskListException extends OrionException {
 
     /**
-     * Constructs a new {@code OrionTaskListSaveException} with the specified detail message.
+     * Constructs a new {@code OrionSaveTaskListException} with the specified detail message.
      *
      * @param message the detail message that describes the reason for this exception
      */
-    public OrionTaskListSaveException(String message) {
+    public OrionSaveTaskListException(String message) {
         super(message);
     }
 }

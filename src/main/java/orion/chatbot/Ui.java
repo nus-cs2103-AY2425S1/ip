@@ -1,8 +1,9 @@
 package orion.chatbot;
 
-import orion.tasks.Task;
 import java.util.List;
 import java.util.Scanner;
+
+import orion.tasks.Task;
 
 /**
  * The {@code Ui} class handles all interactions with the user. It provides
@@ -148,11 +149,11 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating the number of tasks loaded from storage.
+     * Prints a welcome message indicating the number of tasks loaded from storage.
      *
      * @param taskNo The number of tasks loaded.
      */
-    protected void printLoadTasks(int taskNo) {
+    protected void printWelcome(int taskNo) {
         printIndent(String.format("Welcome back! You have %d tasks in your task list.", taskNo));
     }
 

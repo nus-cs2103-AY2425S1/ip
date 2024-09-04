@@ -1,10 +1,10 @@
 package orion.tasks;
 
-import orion.exceptions.OrionException;
-import orion.exceptions.OrionInputException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
+
+import orion.exceptions.OrionException;
+import orion.exceptions.OrionInputException;
 
 /**
  * Represents a task with a deadline.
@@ -38,8 +38,8 @@ public class Deadline extends Task {
         try {
             this.time = LocalDate.parse(deadline);
         } catch (DateTimeException e) {
-            throw new OrionInputException("Correct syntax: deadline <task> /by <yyyy-mm-dd>." +
-                    " Please input a valid date in the correct format!");
+            throw new OrionInputException("Correct syntax: deadline <task> /by <yyyy-mm-dd>."
+                    + " Please input a valid date in the correct format!");
         }
     }
 
