@@ -1,6 +1,9 @@
-package nimbus.ui;
+package nimbus;
 
 import nimbus.exception.*;
+import nimbus.ui.Storage;
+import nimbus.ui.TaskList;
+import nimbus.ui.Ui;
 
 import java.io.*;
 
@@ -22,6 +25,6 @@ public class Nimbus {
 
     public static void main(String[] args)
             throws IOException, WrongDateTimeFormatException {
-        new Nimbus("src/main/nimbus.txt").run();
+        new Nimbus("nimbus.txt").run();
     }
 }

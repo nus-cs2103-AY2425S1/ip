@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("nimbus.ui.Nimbus")
+    mainClass.set("nimbus.Nimbus")
 }
 
 shadowJar {

@@ -4,7 +4,7 @@ import nimbus.ui.Ui;
 
 public class WrongInputException extends Exception {
     public WrongInputException() {
-        super("Sorry Nimbus.Nimbus don't understand what you are saying QwQ \n" +
+        super("Sorry Nimbus don't understand what you are saying QwQ \n" +
                 "Try using todo, deadline or event!" + Ui.horizontalLine);
     }
 

@@ -6,7 +6,7 @@ public class MissingDeadlineException extends Exception {
 
 
     public MissingDeadlineException() {
-        super("Nimbus.Nimbus noticed that you did not include a deadline! Use /by!" + Ui.horizontalLine);
+        super("Nimbus noticed that you did not include a deadline! Use /by!" + Ui.horizontalLine);
     }
 
     @Override

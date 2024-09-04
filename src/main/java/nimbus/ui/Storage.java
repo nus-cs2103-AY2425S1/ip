@@ -1,5 +1,6 @@
 package nimbus.ui;
 
+import nimbus.Nimbus;
 import nimbus.exception.WrongDateTimeFormatException;
 import nimbus.task.DeadlineTask;
 import nimbus.task.EventTask;
@@ -7,7 +8,6 @@ import nimbus.task.Task;
 import nimbus.task.TodoTask;
 
 import java.io.*;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
