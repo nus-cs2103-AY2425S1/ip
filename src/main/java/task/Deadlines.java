@@ -74,6 +74,7 @@ public class Deadlines extends Task {
      *
      * @return a string representation of the deadline task suitable for storage
      */
+    @Override
     public String getInitDesc() {
         String str = super.isDone ? "1" : "0";
         return String.format("D | %s | %s", str, this.initDesc);
