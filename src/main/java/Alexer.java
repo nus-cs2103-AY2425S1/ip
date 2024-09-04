@@ -37,6 +37,14 @@ public class Alexer {
         prompter = new Prompter();
     }
 
+    public Prompter getPrompter() {
+        return prompter;
+    }
+
+    public TaskManager getTaskManager() {
+        return tasks;
+    }
+
     public void printTasks() {
         System.out.println(BREAK);
         System.out.println("Sure thing! Here is your task list:\n");
