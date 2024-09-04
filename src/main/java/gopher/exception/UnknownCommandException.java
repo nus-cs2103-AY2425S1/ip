@@ -1,5 +1,8 @@
 package gopher.exception;
 
+/**
+ * Thrown if the given command is not recognized.
+ */
 public class UnknownCommandException extends Exception {
     private String command;
 

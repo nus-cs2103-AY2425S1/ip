@@ -125,7 +125,7 @@ public class UI {
                     4. mark - Mark a task as done
                     5. unmark - Mark a task as not done
                     6. bye - Exit the chatbot
-                
+
                 Note: The command is case-insensitive, as long as the
                 input characters match, the chatbot would be able to
                 respond to the given command""");

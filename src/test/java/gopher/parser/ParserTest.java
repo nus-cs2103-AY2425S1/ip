@@ -1,23 +1,23 @@
 package gopher.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 
 public class ParserTest {
     @Test
     public void parseDateString_validDate_parseSuccess() {
-        assertEquals(LocalDateTime.of(2024, 8, 30, 0,0),
+        assertEquals(LocalDateTime.of(2024, 8, 30, 0, 0),
                 Parser.parseDateString("2024-08-30"));
     }
 
     @Test
     public void parseDateString_validDateTime_parseSuccess() {
-        assertEquals(LocalDateTime.of(2024, 8, 30, 16,0),
+        assertEquals(LocalDateTime.of(2024, 8, 30, 16, 0),
                 Parser.parseDateString("2024-08-30 16:00"));
     }
 
@@ -38,32 +38,32 @@ public class ParserTest {
     @Test
     public void parseDateString_emptyString_exceptionThrown() {
         assertThrows(IllegalArgumentException.class, () -> {
-           Parser.parseDateString("");
+            Parser.parseDateString("");
         });
     }
 
     @Test
-    public void parseLocalDateTime_LocalDate_parseSuccess() {
+    public void parseLocalDateTime_inputLocalDate_parseSuccess() {
         assertEquals("2024-08-30 00:00",
-                Parser.parseLocalDateTime(LocalDateTime.of(2024,8,30,0,0)));
+                Parser.parseLocalDateTime(LocalDateTime.of(2024, 8, 30, 0, 0)));
     }
 
     @Test
-    public void parseLocalDateTime_LocalDateTime_parseSuccess() {
+    public void parseLocalDateTime_inputLocalDateTime_parseSuccess() {
         assertEquals("2024-08-30 23:00",
                 Parser.parseLocalDateTime(LocalDateTime.of(2024, 8, 30, 23, 0)));
     }
 
     @Test
-    public void displayDate_LocalDate_display() {
+    public void displayDate_inputLocalDate_display() {
         assertEquals("Aug 30 2024 00:00",
-                Parser.displayDate(LocalDateTime.of(2024, 8,30,0,0)));
+                Parser.displayDate(LocalDateTime.of(2024, 8, 30, 0, 0)));
     }
 
     @Test
-    public void displayDate_LocalDateTime_display() {
+    public void displayDate_inputLocalDateTime_display() {
         assertEquals("Aug 30 2024 05:00",
-                Parser.displayDate(LocalDateTime.of(2024, 8,30,5,0)));
+                Parser.displayDate(LocalDateTime.of(2024, 8, 30, 5, 0)));
     }
 
     @Test

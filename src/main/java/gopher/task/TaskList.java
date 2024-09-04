@@ -1,14 +1,22 @@
 package gopher.task;
 
-import gopher.parser.Parser;
-import gopher.storage.TaskManager;
-import gopher.ui.UI;
-
-import java.lang.StringBuilder;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import gopher.storage.TaskManager;
+import gopher.ui.UI;
+
+/**
+ * Represents TaskList that tracks user input tasks.
+ * Supports functionalities such as:
+ *     1. Add/Delete task.
+ *     2. Mark/Unmark task as done.
+ *     3. Display tasks as list.
+ *     4. Find tasks based on keywords.
+ *     5. Get task by number.
+ *     6. Get size of the list.
+ */
 public class TaskList {
     /**
      * Tasks tracked by the TaskList

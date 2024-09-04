@@ -1,14 +1,12 @@
 package gopher.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
-
-import java.lang.StringBuilder;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-
 import gopher.task.Task;
 import gopher.ui.UI;
 
@@ -20,14 +18,14 @@ public class Parser {
     /**
      * DateTimeFormater for date input
      */
-    private static final DateTimeFormatter dateInputFormatter
-            = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter dateInputFormatter =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * DateTimeFormatter for date display
      */
-    private static final DateTimeFormatter dateTextFormatter
-            = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter dateTextFormatter =
+            DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
      * Parses the date input into LocalDateTime Object.
@@ -45,8 +43,8 @@ public class Parser {
 
         return LocalDateTime.parse(date
                         + " "
-                        + (time.isEmpty() ? "00:00" : time)
-                , dateInputFormatter);
+                        + (time.isEmpty() ? "00:00" : time),
+                dateInputFormatter);
     }
 
     /**

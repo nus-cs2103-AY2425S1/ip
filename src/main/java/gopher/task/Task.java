@@ -1,12 +1,10 @@
 package gopher.task;
 
+import java.time.LocalDateTime;
+
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
-
-import java.lang.StringBuilder;
-import java.time.LocalDateTime;
-
 import gopher.parser.Parser;
 
 /**

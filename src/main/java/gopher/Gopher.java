@@ -1,12 +1,12 @@
 package gopher;
 
+import java.util.Scanner;
+
 import gopher.parser.Parser;
 import gopher.storage.TaskManager;
 import gopher.task.Task;
 import gopher.task.TaskList;
 import gopher.ui.UI;
-
-import java.util.Scanner;
 
 /**
  * Represents the chatbot Gopher.
