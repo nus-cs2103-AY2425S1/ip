@@ -1,8 +1,8 @@
 package toothless.command;
 
+import toothless.exceptions.ToothlessExceptions;
 import toothless.storage.Storage;
 import toothless.task.TaskList;
-import toothless.exceptions.ToothlessExceptions;
 import toothless.ui.Ui;
 
 /**

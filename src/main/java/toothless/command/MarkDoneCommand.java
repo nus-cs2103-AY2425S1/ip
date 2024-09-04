@@ -1,15 +1,17 @@
 package toothless.command;
 
-import toothless.storage.Storage;
-import toothless.task.TaskList;
 import toothless.exceptions.MissingIndexExceptions;
 import toothless.exceptions.ToothlessExceptions;
+import toothless.storage.Storage;
+import toothless.task.TaskList;
 import toothless.ui.Ui;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkDoneCommand extends Command {
 
     private String description;
-    private final static String DIVIDER = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
 
     /**
      * Constructor for MarkDoneCommand

@@ -13,9 +13,9 @@ public class MissingIndexExceptions extends ToothlessExceptions {
      * @param instruction the format for the task type
      */
     public MissingIndexExceptions(String taskType, String instruction) {
-        super("The index for " + taskType + " is missing! :o" +
-                "Please enter a valid index.\n\n" +
-                "The format for " + taskType + " is: " + instruction + "\n" +
-                "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+        super("The index for " + taskType + " is missing! :o"
+                + "Please enter a valid index.\n\n"
+                + "The format for " + taskType + " is: " + instruction + "\n"
+                + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
     }
 }

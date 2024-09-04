@@ -52,15 +52,6 @@ public class Task {
     }
 
     /**
-     * Return the state of the task.
-     *
-     * @return the state of the task.
-     */
-    public boolean getIsDone() {
-        return isDone;
-    }
-
-    /**
      * Returns the status icon of the task.
      *
      * @return the status icon of the task.

@@ -1,19 +1,19 @@
 package toothless.task;
 
-import toothless.exceptions.ToothlessExceptions;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import toothless.exceptions.ToothlessExceptions;
 
 /**
  * Represents a deadline task.
  */
 public class Deadline extends Task {
 
-    protected LocalDateTime deadline;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy[ ]HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+    protected LocalDateTime deadline;
 
     /**
      * Constructor for Deadline.
@@ -27,9 +27,9 @@ public class Deadline extends Task {
         try {
             this.deadline = LocalDateTime.parse(deadline.trim().replace("-", "/"), INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ToothlessExceptions("Please enter a valid date and time\n" +
-                    "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n" +
-                    "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+            throw new ToothlessExceptions("Please enter a valid date and time\n"
+                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n"
+                    + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
         }
     }
 
@@ -45,9 +45,9 @@ public class Deadline extends Task {
         try {
             this.deadline = LocalDateTime.parse(deadline.trim().replace("-", "/"), INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ToothlessExceptions("Please enter a valid date and time\n" +
-                    "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n" +
-                    "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+            throw new ToothlessExceptions("Please enter a valid date and time\n"
+                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n"
+                    + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
         }
     }
 

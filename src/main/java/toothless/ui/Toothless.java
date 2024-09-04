@@ -11,11 +11,10 @@ import toothless.task.TaskList;
  */
 public class Toothless {
 
-    private final static String DIVIDER = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
-    private Storage storage;
-    private TaskList taskList;
-    private Ui ui;
-    private Parser parser;
+    private static final String DIVIDER = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
+    private final Storage storage;
+    private final TaskList taskList;
+    private final Ui ui;
 
     /**
      * Constructor for Toothless.
@@ -25,7 +24,6 @@ public class Toothless {
         this.storage = new Storage();
         this.taskList = new TaskList(storage.loadTasks());
         this.ui = new Ui();
-        this.parser = new Parser();
     }
 
     /**

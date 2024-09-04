@@ -1,6 +1,5 @@
 package toothless.command;
 
-import toothless.command.Command;
 import toothless.storage.Storage;
 import toothless.task.TaskList;
 import toothless.ui.Ui;

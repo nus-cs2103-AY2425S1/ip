@@ -1,14 +1,18 @@
 package toothless.storage;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import toothless.exceptions.ToothlessExceptions;
 import toothless.task.Deadline;
 import toothless.task.Event;
 import toothless.task.Task;
 import toothless.task.ToDo;
 
-import java.io.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * Deals with loading tasks from the file and saving tasks in the file.
@@ -89,6 +93,7 @@ public class Storage {
             } catch (ToothlessExceptions e) {
                 System.out.println(e.getMessage());
             }
+            break;
         case "E":
             String eventStart = splitData[3];
             String eventEnd = splitData[4];
@@ -97,8 +102,10 @@ public class Storage {
             } catch (ToothlessExceptions e) {
                 System.out.println(e.getMessage());
             }
+            break;
         default:
             return null;
         }
+        return null;
     }
 }

@@ -1,19 +1,19 @@
 package toothless.task;
 
-import toothless.exceptions.ToothlessExceptions;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import toothless.exceptions.ToothlessExceptions;
 
 /**
  * Represents an event task.
  */
 public class Event extends Task {
 
-    protected LocalDateTime eventStart;
-    protected LocalDateTime eventEnd;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy[ ]HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    protected LocalDateTime eventStart;
+    protected LocalDateTime eventEnd;
 
     /**
      * Constructor for Events.
@@ -29,9 +29,9 @@ public class Event extends Task {
             this.eventStart = LocalDateTime.parse(eventStart.trim().replace("-", "/"), INPUT_FORMATTER);
             this.eventEnd = LocalDateTime.parse(eventEnd.trim().replace("-", "/"), INPUT_FORMATTER);
         } catch (Exception e) {
-            throw new ToothlessExceptions("Please enter a valid date and time\n" +
-                    "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n" +
-                    "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+            throw new ToothlessExceptions("Please enter a valid date and time\n"
+                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n"
+                    + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
         }
     }
 
@@ -49,9 +49,9 @@ public class Event extends Task {
             this.eventStart = LocalDateTime.parse(eventStart.trim().replace("-", "/"), INPUT_FORMATTER);
             this.eventEnd = LocalDateTime.parse(eventEnd.trim().replace("-", "/"), INPUT_FORMATTER);
         } catch (Exception e) {
-            throw new ToothlessExceptions("Please enter a valid date and time\n" +
-                    "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n" +
-                    "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+            throw new ToothlessExceptions("Please enter a valid date and time\n"
+                    + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n"
+                    + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
         }
     }
 
@@ -62,11 +62,13 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + eventStart.format(INPUT_FORMATTER) + " | " + eventEnd.format(INPUT_FORMATTER);
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + eventStart.format(INPUT_FORMATTER) + " | " + eventEnd.format(INPUT_FORMATTER);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + eventStart.format(OUTPUT_FORMATTER) + " to: " + eventEnd.format(OUTPUT_FORMATTER) + ")";
+        return "[E]" + super.toString() + " (from: " + eventStart.format(OUTPUT_FORMATTER)
+                + " to: " + eventEnd.format(OUTPUT_FORMATTER) + ")";
     }
 }

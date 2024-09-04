@@ -13,9 +13,9 @@ public class NoDescriptionExceptions extends ToothlessExceptions {
      * @param instruction the format for the task type
      */
     public NoDescriptionExceptions(String taskType, String instruction) {
-        super("You need to have decription for your " + taskType + " task!\n" +
-                "Please enter a valid description.\n\n" +
-                "The format for " + taskType + " is: " + instruction + "\n" +
-                "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+        super("You need to have decription for your " + taskType + " task!\n"
+                + "Please enter a valid description.\n\n"
+                + "The format for " + taskType + " is: " + instruction + "\n"
+                + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
     }
 }

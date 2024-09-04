@@ -16,7 +16,7 @@ public class Parser {
         UNMARK,
         DELETE,
         FIND,
-        UNKNOWN;
+        UNKNOWN
     }
 
     /**

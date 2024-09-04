@@ -1,11 +1,14 @@
 package toothless.command;
 
-import toothless.storage.Storage;
-import toothless.task.TaskList;
 import toothless.exceptions.MissingIndexExceptions;
 import toothless.exceptions.ToothlessExceptions;
+import toothless.storage.Storage;
+import toothless.task.TaskList;
 import toothless.ui.Ui;
 
+/**
+ * Represents a command to mark a task as undone.
+ */
 public class MarkUndoneCommand extends Command {
 
     private String description;
