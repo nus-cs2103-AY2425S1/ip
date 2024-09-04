@@ -1,4 +1,10 @@
-import elara.task.*;
+package elara.storage;
+
+import elara.task.DeadlineTask;
+import elara.task.EventTask;
+import elara.task.Task;
+import elara.task.TaskList;
+import elara.task.ToDoTask;
 
 import java.io.File;
 import java.io.FileWriter;

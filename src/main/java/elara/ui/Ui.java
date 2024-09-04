@@ -1,3 +1,5 @@
+package elara.ui;
+
 import elara.task.Task;
 import elara.task.TaskList;
 

@@ -1,5 +1,16 @@
+package elara.main;
+
+import elara.command.Command;
+import elara.command.ExitCommand;
+
+import elara.parser.Parser;
+
+import elara.storage.Storage;
+
 import elara.task.InvalidInputException;
 import elara.task.TaskList;
+
+import elara.ui.Ui;
 
 public class Elara {
 
