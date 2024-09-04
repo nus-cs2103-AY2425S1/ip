@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Ui {
     private static Scanner scanner;
+    private String output;
 
     /**
      * Constructs a Ui object and initializes the scanner for reading user input.
@@ -16,6 +17,7 @@ public class Ui {
 
     Ui() {
         this.scanner = new Scanner(System.in);
+        this.output = "";
     }
 
     /**
@@ -77,10 +79,14 @@ public class Ui {
     /**
      * Prints the specified output string to the console.
      *
-     * @param output The string to print.
+     * @param addWhat The string to print.
      */
 
-    public void print(String output) {
-        System.out.println(output);
+    public void print(String addWhat) {
+        this.output += addWhat + "\n";
+    }
+
+    public String getOutput() {
+        return this.output;
     }
 }
