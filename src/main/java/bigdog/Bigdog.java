@@ -66,8 +66,12 @@ public class Bigdog {
                         case "event":
                             ui.print(this.tasks.add(Event.of(commands[1])));
                             break;
+                        case "find":
+                            ui.print(this.tasks.find(commands[1]));
+                            break;
                         default:
                             ui.print("Unknown command. Please try again.");
+
                 }
             } catch (BigdogException |
                      DateTimeParseException |

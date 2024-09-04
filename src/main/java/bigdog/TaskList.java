@@ -85,6 +85,7 @@ public class TaskList {
     }
 
     /**
+<<<<<<< HEAD
      * Returns a string representation of the task list.
      * The string includes the index and description of each task in the list.
      *
@@ -99,6 +100,24 @@ public class TaskList {
         }
 
         return listString.toString();
+=======
+     * Finds and returns tasks that contain the specified search string.
+     *
+     * @param str The string to search for in the task descriptions.
+     * @return A string representing the tasks that match the search string with their indices.
+     */
+    public String find(String str) {
+        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < this.list.size(); i++) {
+            if (this.list.get(i).toString().contains(str)) {
+                result.append(i + 1).append(". ").append(this.list.get(i).toString()).append("\n");
+            }
+        }
+        if (result.toString().equals("Here are the tasks in your list:\n")) {
+            return "There are no similar tasks in your list!\n";
+        }
+        return result.toString();
+>>>>>>> branch-level-9
     }
 
     /**
@@ -108,4 +127,18 @@ public class TaskList {
         System.out.println(this);
     }
 
+<<<<<<< HEAD
 }
+=======
+    @Override
+    public String toString() {
+        StringBuilder listString = new StringBuilder("Here are the tasks in your list:\n");
+
+        for (int i = 0; i < this.list.size(); i++) {
+            listString.append(i + 1).append(".").append(this.list.get(i)).append("\n");
+        }
+
+        return listString.toString();
+    }
+}
+>>>>>>> branch-level-9

@@ -3,7 +3,12 @@ package bigdog;
 public class Parser {
 
     // [command, description, start date, end date]
+<<<<<<< HEAD
     private static final String[] VALID_COMMANDS = {"bye", "list", "mark", "unmark", "delete", "todo", "deadline", "event"};
+=======
+    private static final String[] VALID_COMMANDS = {"bye", "list", "mark", "unmark", "delete", "todo",
+            "deadline", "event", "find"};
+>>>>>>> branch-level-9
 
     /**
      * Constructs a {@code Parser} object.
@@ -25,11 +30,15 @@ public class Parser {
     public static String[] parse(String str) throws BigdogException {
         String[] temp = str.split(" ",2);
         String command = temp[0].toLowerCase();
+<<<<<<< HEAD
         for (int i = 0; i < 8; i++) {
+=======
+        for (int i = 0; i < 9; i++) {
+>>>>>>> branch-level-9
             if (command.equals(VALID_COMMANDS[i])) {
                 break;
             }
-            if (i == 7) {
+            if (i == 8) {
                 throw new BigdogException("Parse Error: Invalid Argument!");
             }
         }
