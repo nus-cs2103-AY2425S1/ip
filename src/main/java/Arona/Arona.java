@@ -1,8 +1,8 @@
 package Arona;
 
+import java.nio.file.InvalidPathException;
 import java.util.Scanner;
 import java.util.ArrayList;
-
 
 public class Arona {
 
@@ -32,11 +32,32 @@ public class Arona {
             try {
                 String input = in.nextLine();
                 Parser.parse(input, storage, tasks, ui);
+
                 if (input.equalsIgnoreCase("bye")) {
                     break;
                 }
             } catch (Exception e) {
-                ui.showException(e);
+                // User Error
+                if (e instanceof AronaException) {
+                    ui.showException(e);
+                }
+                // Integer.parseInt() receives too long number
+                else if (e instanceof NumberFormatException) {
+                    ui.showNumberException();
+                }
+                // File not found or cant be read/write to
+                else if (e instanceof java.io.IOException || e instanceof SecurityException) {
+                    ui.showFileException();
+                }
+                // Path in arona::main not correct
+                else if (e instanceof InvalidPathException) {
+                    ui.showPathException();
+                }
+                // Other exception
+                else {
+                    //e.printStackTrace();
+                    ui.showException(e);
+                }
             }
         }
     }

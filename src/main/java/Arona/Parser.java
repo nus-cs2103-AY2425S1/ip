@@ -29,16 +29,11 @@ public class Parser {
 
             // Check if number
             if (!data[1].stripLeading().matches("^[1-9]\\d*$")) {
-                throw new AronaException("Error! Please input a positive number");
+                throw new AronaException("Error! Please input a positive number.");
             }
 
             // Save index as integer
             int index = Integer.parseInt(data[1].stripLeading());
-
-            // Check if exist
-            if ((index > taskList.size())) {
-                throw new AronaException("Error! This task does not exist!");
-            }
 
             // Process
             Task task = taskList.remove(index - 1);
@@ -58,16 +53,11 @@ public class Parser {
 
             // Check if number
             if (!data[1].stripLeading().matches("^[1-9]\\d*$")) {
-                throw new AronaException("Error! Please input a positive number");
+                throw new AronaException("Error! Please input a positive number.");
             }
 
             // Save index as integer
             int index = Integer.parseInt(data[1].stripLeading());
-
-            // Check if exist
-            if ((index > taskList.size())) {
-                throw new AronaException("Error! This task does not exist!");
-            }
 
             // Process
             Task task = taskList.setStatus(index - 1, action);
@@ -86,7 +76,7 @@ public class Parser {
 
             // Check if empty
             if (data.length == 1 || data[1].isBlank()) {
-                throw new AronaException("Error! Please input a task description");
+                throw new AronaException("Error! Please input a task description.");
             }
 
             // Process
@@ -102,11 +92,11 @@ public class Parser {
                         try {
                             byDate = LocalDate.parse(taskData[1]);
                         } catch (Exception e) {
-                            throw new AronaException("Please input your date in yyyy-mm-dd format");
+                            throw new AronaException("Please input your date in yyyy-mm-dd format.");
                         }
                         taskList.add(taskData[0], byDate);
                     } else {
-                        throw new AronaException("Error! Please specify a by");
+                        throw new AronaException("Error! Please specify a by date.");
                     }
                     break;
                 }
@@ -119,11 +109,11 @@ public class Parser {
                             fromDate = LocalDate.parse(taskData[1]);
                             toDate = LocalDate.parse(taskData[2]);
                         } catch (Exception e) {
-                            throw new AronaException("Please input your date in yyyy-mm-dd format");
+                            throw new AronaException("Please input your date in yyyy-mm-dd format.");
                         }
                         taskList.add(taskData[0], fromDate, toDate);
                     } else {
-                        throw new AronaException("Error! Please specify a from and to");
+                        throw new AronaException("Error! Please specify a from and to date.");
                     }
                     break;
                 }

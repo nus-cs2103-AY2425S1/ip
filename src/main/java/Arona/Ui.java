@@ -12,12 +12,10 @@ public class Ui {
         print("Bye. Hope to see you again soon!");
     }
 
-    public void showList(TaskList taskList) {
+    public void showList(TaskList taskList) throws AronaException {
         for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i) != null) {
-                Task task = taskList.get(i);
-                print(i + 1 + ". " + task.getStatusIcon() + task.getCategory() + " " + task.toFriendlyString());
-            }
+            Task task = taskList.get(i);
+            print(i + 1 + ". " + task.getStatusIcon() + task.getCategory() + " " + task.toFriendlyString());
         }
     }
 
@@ -45,6 +43,18 @@ public class Ui {
 
     public void showException(Exception e) {
         print(e.getMessage());
+    }
+
+    public void showNumberException() {
+        print("Error! Please input a valid number.");
+    }
+
+    public void showFileException() {
+        print("Error! data.txt file missing or cannot be read.");
+    }
+
+    public void showPathException() {
+        print("Error! Invalid path provided in main function.");
     }
 
     private static void print(String message) {
