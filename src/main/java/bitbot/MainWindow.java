@@ -3,6 +3,7 @@ package bitbot;
 //@@author SwaminathanViswa -reused
 //Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
 // with minor modifications
+
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -29,6 +30,8 @@ public class MainWindow extends AnchorPane {
 
     private BitBot bitbot;
 
+    private UI ui = new UI();
+
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image bitbotImage = new Image(this.getClass().getResourceAsStream("/images/Duke.png"));
 
@@ -39,7 +42,7 @@ public class MainWindow extends AnchorPane {
 
         // This is to add the introduction paragraph when the application first starts.
         dialogContainer.getChildren().add(
-                DialogBox.getBitBotDialog(UI.intro, bitbotImage)
+                DialogBox.getBitBotDialog(ui.getIntro(), bitbotImage)
         );
     }
 
@@ -59,7 +62,7 @@ public class MainWindow extends AnchorPane {
         if (input.equals("bye")) {
             // This is to display the conclusion when the user types "bye"
             dialogContainer.getChildren().add(
-                    DialogBox.getBitBotDialog(UI.conclusion, bitbotImage)
+                    DialogBox.getBitBotDialog(ui.getConclusion(), bitbotImage)
             );
             //@@author SwaminathanViswa -resued
             //Reused from https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx

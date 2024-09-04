@@ -39,7 +39,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setBitbot(bitbot);  // inject the BitBot instance
+            fxmlLoader.<MainWindow>getController().setBitbot(bitbot); //inject the BitBot instance
             stage.show();
 
         } catch (IOException e) {

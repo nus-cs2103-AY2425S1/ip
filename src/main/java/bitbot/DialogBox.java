@@ -3,8 +3,10 @@ package bitbot;
 //@@author SwaminathanViswa -reused
 //Reused from https://se-education.org/guides/tutorials/javaFxPart2.html
 // with minor modifications
+
 import java.io.IOException;
 import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

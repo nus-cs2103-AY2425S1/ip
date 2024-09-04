@@ -26,8 +26,7 @@ public class TaskHandling {
      * @return A String that stores the output
      * @throws BitBotException if input is invalid
      */
-<<<<<<< HEAD
-    public static String handleEvent (ArrayList<Task> arrayList, String textPart,
+    public static String handleEvent(ArrayList<Task> arrayList, String textPart,
                                     String[] partsOfInput, int indexFrom, StringBuilder from,
                                     StringBuilder to, StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
@@ -151,7 +150,7 @@ public class TaskHandling {
      * @throws BitBotException if input is invalid
      */
 
-    public static String handleDeadline (ArrayList<Task> arrayList, String textPart,
+    public static String handleDeadline(ArrayList<Task> arrayList, String textPart,
                                        String[] partsOfInput, int indexBy, StringBuilder by,
                                        StringBuilder sb, String task) throws BitBotException {
         if (partsOfInput.length < 2) {
@@ -296,10 +295,10 @@ public class TaskHandling {
      * @param wordsToSearch this is a variable argument of Strings that the user can input.
      * @throws BitBotException when the user does not key in any text after "find"
      */
-    public static String handleFind (ArrayList<Task> arrayList, String... wordsToSearch) throws BitBotException {
-        if (wordsToSearch == null ||wordsToSearch.length == 0) {
-            throw new BitBotException("OOPS!! Add a string of words you want to find.\n" +
-                    "          Please do not leave it blank.");
+    public static String handleFind(ArrayList<Task> arrayList, String... wordsToSearch) throws BitBotException {
+        if (wordsToSearch == null || wordsToSearch.length == 0) {
+            throw new BitBotException("OOPS!! Add a string of words you want to find.\n"
+                    + "          Please do not leave it blank.");
         }
 
         String textToBeFound;
