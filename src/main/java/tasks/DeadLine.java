@@ -15,6 +15,10 @@ public class DeadLine extends Task {
         this.byDate = byDate;
     }
 
+    public String getByDate() {
+        return byDate;
+    }
+
     @Override
     public String getSaveFormat() {
         return String.format("D | %d | %s | %s", super.intComplete(), super.getDescription(), byDate);

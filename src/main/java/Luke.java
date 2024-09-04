@@ -38,6 +38,10 @@ public class Luke {
         taskList.addTask(task);
     }
 
+    public ArrayList<Task> getTasks() {
+        return taskList.getTasks();
+    }
+
     /** Runs the Luke application */
     public void run() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

@@ -23,9 +23,12 @@ public class SceneManager {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/HomeScreen.fxml"));
             Parent root = fxmlLoader.load();
             fxmlLoader.<HomeScreenScene>getController().setSceneManager(this);
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
+
             stage.show();
+//            fxmlLoader.<HomeScreenScene>getController().listTasks();
         } catch (IOException e) {
             e.printStackTrace();
         }
