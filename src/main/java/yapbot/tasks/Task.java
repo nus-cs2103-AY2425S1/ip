@@ -42,6 +42,12 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Checks if the Task description contains the query String.
+     *
+     * @param query Keyword to check for in Task description.
+     * @return true if the keyword is present in Task description and false otherwise.
+     */
     public boolean checkTaskname(String query) {
         return this.description.contains(query);
     }

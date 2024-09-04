@@ -1,11 +1,8 @@
 package yapbot.util;
 
 import yapbot.exceptions.YapBotException;
-import yapbot.tasks.Deadline;
-import yapbot.tasks.Event;
 import yapbot.tasks.Task;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -143,6 +140,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Returns a String of Tasks that match the query.
+     *
+     * @param query Keyword to check for in Task description.
+     * @return String of Tasks that match the query.
+     */
     public String getMatchingTasks(String query) {
         Iterator<Task> tasks = this.storedTasks.iterator();
 
