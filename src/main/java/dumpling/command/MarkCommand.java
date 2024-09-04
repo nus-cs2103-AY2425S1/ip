@@ -2,7 +2,7 @@ package dumpling.command;
 
 import dumpling.DumplingException;
 import dumpling.task.TaskList;
-import dumpling.Ui;
+import dumpling.Ui.Ui;
 import dumpling.Storage;
 
 public class MarkCommand extends Command {
@@ -22,21 +22,26 @@ public class MarkCommand extends Command {
         this.itemIdx = itemIdx;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        ui.echo(executeAndReturnLog(taskList, storage));
+    }
+
+    @Override
+    public String executeAndReturnLog(TaskList taskList, Storage storage) {
         String message = "";
         try {
             if (commandEnum == CommandEnum.MARK) {
-                message = tasks.mark(itemIdx);
+                message = taskList.mark(itemIdx);
             } else if (commandEnum == CommandEnum.UNMARK) {
-                message = tasks.unmark(itemIdx);
+                message = taskList.unmark(itemIdx);
             }
-            ui.echo(message);
-            storage.save(tasks);
+            storage.save(taskList);
         } catch (IndexOutOfBoundsException e) {
             throw new DumplingException(
                     "You tried to mark / unmark at an index out of range! " +
-                    String.format("There are only %d items.", tasks.getNumItems()));
+                            String.format("There are only %d items.", taskList.getNumItems()));
         }
+        return message;
     }
 
     public boolean isExit() {

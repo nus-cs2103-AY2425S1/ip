@@ -1,7 +1,7 @@
 package dumpling.command;
 
 import dumpling.task.TaskList;
-import dumpling.Ui;
+import dumpling.Ui.Ui;
 import dumpling.Storage;
 
 public class DeleteCommand extends Command {
@@ -17,10 +17,15 @@ public class DeleteCommand extends Command {
         this.itemIdx = itemIdx;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String message = tasks.delete(this.itemIdx);
-        ui.echo(message);
-        storage.save(tasks);
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        ui.echo(executeAndReturnLog(taskList, storage));
+    }
+
+    @Override
+    public String executeAndReturnLog(TaskList taskList, Storage storage) {
+        String message = taskList.delete(this.itemIdx);
+        storage.save(taskList);
+        return  message;
     }
 
     public boolean isExit() {

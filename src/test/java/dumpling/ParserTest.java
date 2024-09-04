@@ -1,5 +1,6 @@
 package dumpling;
 
+import dumpling.Ui.Ui;
 import dumpling.command.Command;
 import dumpling.task.TaskList;
 import org.junit.jupiter.api.Test;

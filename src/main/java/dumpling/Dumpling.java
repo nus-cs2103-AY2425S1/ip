@@ -1,5 +1,6 @@
 package dumpling;
 
+import dumpling.Ui.Ui;
 import dumpling.command.Command;
 import dumpling.task.TaskList;
 
@@ -24,6 +25,11 @@ public class Dumpling {
             ui.showError(e);
             this.todoList = new TaskList();
         }
+    }
+
+    public String getResponse(String input) {
+        Command command = Parser.parse(input);
+        return command.executeAndReturnLog(this.todoList, this.storage);
     }
 
     public void run() {

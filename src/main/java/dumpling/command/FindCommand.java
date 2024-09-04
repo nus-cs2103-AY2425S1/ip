@@ -1,7 +1,7 @@
 package dumpling.command;
 
 import dumpling.Storage;
-import dumpling.Ui;
+import dumpling.Ui.Ui;
 import dumpling.task.TaskList;
 
 public class FindCommand extends Command {
@@ -12,9 +12,13 @@ public class FindCommand extends Command {
         this.targetSubstring = targetSubstring;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String message = tasks.find(this.targetSubstring);
-        ui.echo(message);
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        ui.echo(executeAndReturnLog(taskList, storage));
+    }
+
+    @Override
+    public String executeAndReturnLog(TaskList taskList, Storage storage) {
+        return taskList.find(this.targetSubstring);
     }
 
     public boolean isExit() {
