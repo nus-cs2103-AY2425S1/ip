@@ -1,3 +1,5 @@
+import elara.task.Task;
+
 public class ToDoTask extends Task {
     public ToDoTask(String desc) {
         super(desc);

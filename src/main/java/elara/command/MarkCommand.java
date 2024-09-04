@@ -1,3 +1,5 @@
+import elara.task.TaskList;
+
 public class MarkCommand implements Command {
     private final String taskDetails;
 

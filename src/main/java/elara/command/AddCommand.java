@@ -1,3 +1,5 @@
+package elara.command;
+
 public class AddCommand implements Command {
     private final String commandType;
     private final String taskDetails;
