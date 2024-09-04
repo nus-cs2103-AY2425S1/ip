@@ -13,7 +13,7 @@ public class DueCommand extends Command {
     /**
      * Displays items due via method in storelist class
      *
-     * @return
+     * @return a string
      */
     @Override
     public String execute() {

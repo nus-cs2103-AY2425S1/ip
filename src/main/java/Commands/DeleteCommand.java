@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     /**
      * deletes item in list via method in storelist class
      *
-     * @return
+     * @return a string
      */
     @Override
     public String execute() throws InvalidIndexException {

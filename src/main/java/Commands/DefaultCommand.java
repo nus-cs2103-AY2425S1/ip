@@ -11,7 +11,7 @@ public class DefaultCommand extends Command {
     /**
      * print default command
      *
-     * @return
+     * @return a string
      */
     @Override
     public String execute() {

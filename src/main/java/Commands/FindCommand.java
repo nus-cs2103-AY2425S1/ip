@@ -12,7 +12,7 @@ public class FindCommand extends Command {
     /**
      * Displays items in list with matching word via method in storelist class
      *
-     * @return
+     * @return a string
      */
     @Override
     public String execute() {

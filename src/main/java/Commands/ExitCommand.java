@@ -12,6 +12,11 @@ public class ExitCommand extends Command {
         return true;
     }
 
+
+    /**
+     *
+     * @return a string of exit message
+     */
     @Override
     public String execute() {
         return "    Bye. Hope to see ya again soon!";

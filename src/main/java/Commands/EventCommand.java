@@ -13,7 +13,7 @@ public class EventCommand extends Command {
     /**
      * Adds items to list via method in storelist class
      *
-     * @return
+     * @return a string
      */
     @Override
     public String execute() {
