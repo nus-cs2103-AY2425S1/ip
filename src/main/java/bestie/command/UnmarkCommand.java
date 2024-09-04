@@ -23,6 +23,7 @@ public class UnmarkCommand extends Command {
      * @param tasks User's list of tasks.
      * @param ui User Interface object that executes printing of message to console.
      * @param storage Loads list of tasks from file and writes tasks to the bestie.txt file.
+     * @return String displaying that task has been unmarked, or index is invalid.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

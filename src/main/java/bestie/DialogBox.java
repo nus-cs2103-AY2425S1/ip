@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 
-
 public class DialogBox extends HBox {
 
     @FXML
@@ -22,7 +21,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    // set to private, use a constructor instead
+    // set to private, use a factory method instead
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -48,10 +47,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * User's dialog box with user image and text.
+     *
+     * @param s User input command entered via the text field.
+     * @param i User image.
+     * @return Dialog box created for the user for display.
+     */
     public static DialogBox getUserDialog(String s, Image i) {
         return new DialogBox(s, i);
     }
 
+    /**
+     * User's dialog box with user image and text.
+     *
+     * @param s Bestie's response entered via the text field.
+     * @param i Bestie's image.
+     * @return Dialog box created for bestie for display.
+     */
     public static DialogBox getBestieDialog(String s, Image i) {
         var db = new DialogBox(s, i);
         db.flip();

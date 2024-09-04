@@ -25,24 +25,23 @@ public class MainWindow extends AnchorPane {
     private Bestie bestie;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Me.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Bestie.png"));
+    private Image bestieImage = new Image(this.getClass().getResourceAsStream("/images/Bestie.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Bestie d) {
+    /** Injects instance of Bestie, start by printing welcome message */
+    public void setBestie(Bestie d) {
         bestie = d;
-
         String welcome = bestie.welcomeMessage();
-        dialogContainer.getChildren().add(DialogBox.getBestieDialog(welcome, dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getBestieDialog(welcome, bestieImage));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing bestie's reply and then appends them to
+     * the dialog container. Clears user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -50,7 +49,7 @@ public class MainWindow extends AnchorPane {
         String response = bestie.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBestieDialog(response, dukeImage)
+                DialogBox.getBestieDialog(response, bestieImage)
         );
         userInput.clear();
     }

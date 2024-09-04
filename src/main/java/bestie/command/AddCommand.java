@@ -28,6 +28,7 @@ public class AddCommand extends Command {
      * @param tasks User's list of tasks.
      * @param ui User Interface object that executes printing of message to console.
      * @param storage Loads list of tasks from file and writes tasks to the bestie.txt file.
+     * @return String showing that new task has been added to user's list.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

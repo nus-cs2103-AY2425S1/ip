@@ -16,7 +16,7 @@ public class Bestie {
     private Ui ui;
 
     /**
-     * Creates an instance of the Bestie chatbot, initialising the ui, storage and tasklist
+     * Creates an instance of the Bestie chatbot, initialising the ui, storage and tasklist.
      *
      * @param filePath path of the bestie.txt file where tasks are stored.
      */
@@ -26,40 +26,24 @@ public class Bestie {
         this.tasks = new TaskList(storage.loadTasksFromFile());
     }
 
-
     /**
-     * Starts execution of the Bestie chatbot.
-     *  Terminates chatbot when the user keys in an exit command.
+     * Provides welcome message that Bestie displays when application is first opened.
+     *
+     * @return Welcome message when bestie first starts.
      */
-    public void run() {
-
-        // greet the user
-        this.ui.welcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            String userInput = ui.readNextCommand();
-            Command instruction = Parser.parse(userInput);
-            instruction.execute(tasks, ui, storage);
-            if (instruction instanceof ExitCommand) {
-                isExit = true;
-            }
-        }
-
-    }
-
     public String welcomeMessage() {
         return this.ui.welcome();
     }
 
+    /**
+     * Bestie's response to what the user has entered as a command.
+     *
+     * @param userInput Command that user has entered
+     * @return Response to command to be displayed by bestie.
+     */
     public String getResponse(String userInput) {
         Command instruction = Parser.parse(userInput);
         return instruction.execute(tasks, ui, storage);
     }
-
-    public static void main(String[] args) {
-        new Bestie("bestie.txt").run();
-    }
-
 
 }
