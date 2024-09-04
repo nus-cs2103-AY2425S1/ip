@@ -22,9 +22,9 @@ public class DeleteCommand extends Command {
      * @param storage Storage controller for file manipulation.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
+    public Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
         Task task = tasks.delete(index);
-        ui.showRemoveTask(task, tasks.getSize());
+        return new Response(ui.getRemoveTaskMessage(task, tasks.getSize()), false);
     }
 }
 

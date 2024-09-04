@@ -13,38 +13,33 @@ public class Ollie {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private String initialMessage;
 
     public Ollie(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
+            initialMessage = ui.getGreetingMessage();
         } catch (OllieException e) {
-            ui.showLoadingError(e);
             tasks = new TaskList();
+            initialMessage = e.getMessage();
         }
+    }
+
+    String getInitialMessage() {
+        return initialMessage;
     }
 
     /**
      * Starts the chatbot.
-     *
      */
-    public void run() {
-        ui.showGreeting();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (OllieException e) {
-                Ui.printResponse(e.getMessage());
-            }
+    public Response getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (OllieException e) {
+            return new Response(e.getMessage(), false);
         }
-    }
-
-    public static void main(String[] args) {
-        new Ollie(filepath).run();
     }
 }

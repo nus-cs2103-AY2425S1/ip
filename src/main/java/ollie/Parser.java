@@ -72,7 +72,7 @@ public class Parser {
         // Input parser:
         if (s.matches("^deadline.*$")) {
             if (!s.contains("/by")) {
-                throw new OllieException("Use deadline with a \"/by\" keyword and a date/time.");
+                throw new OllieException("Use deadline with a \"/by\" keyword and a date.");
             }
             String[] splitString = s.split("/by", 2);
 
@@ -83,7 +83,7 @@ public class Parser {
 
             String byInString = splitString[1].trim();
             if (byInString.isEmpty()) {
-                throw new OllieException("Date/Time of deadline cannot be empty!");
+                throw new OllieException("date of deadline cannot be empty!");
             }
 
             LocalDate by;
@@ -96,10 +96,10 @@ public class Parser {
             task = new Deadline(desc, by);
         } else if (s.matches("^event.*")) {
             if (!s.contains("/from")) {
-                throw new OllieException("Use deadline with a \"/from\" keyword and a date/time.");
+                throw new OllieException("Use deadline with a \"/from\" keyword and a date.");
             }
             if (!s.contains("/to")) {
-                throw new OllieException("Use deadline with a \"/to\" keyword and a date/time.");
+                throw new OllieException("Use deadline with a \"/to\" keyword and a date.");
             }
             if (!s.matches(".*/from.*/to.*")) {
                 throw new OllieException("\"/from\" keyword must come before \"/to\" keyword.");
@@ -113,11 +113,11 @@ public class Parser {
 
             String fromInString = splitString[1].trim();
             if (fromInString.isEmpty()) {
-                throw new OllieException("Date/Time after /from cannot be empty!");
+                throw new OllieException("date after /from cannot be empty!");
             }
             String toInString = splitString[2].trim();
             if (toInString.isEmpty()) {
-                throw new OllieException("Date/Time after /to cannot be empty!");
+                throw new OllieException("date after /to cannot be empty!");
             }
 
             LocalDate from, to;

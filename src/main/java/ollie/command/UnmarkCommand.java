@@ -23,8 +23,8 @@ public class UnmarkCommand extends Command {
      */
     @Override
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
+    public Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
         Task task = tasks.markAsUndone(index);
-        ui.showMarkAsUndone(task);
+        return new Response(ui.getMarkAsUndoneMessage(task), false);
     }
 }

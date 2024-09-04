@@ -1,5 +1,6 @@
 package ollie.command;
 
+import ollie.Response;
 import ollie.Storage;
 import ollie.TaskList;
 import ollie.Ui;
@@ -13,8 +14,8 @@ public class FindCommand extends Command{
         this.findQuery = findQuery;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
-        ui.showTaskList(tasks.filterByString(this.findQuery));
+    public Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
+        return new Response(ui.getTaskListMessage(tasks.filterByString(this.findQuery)), false);
     }
 }
 

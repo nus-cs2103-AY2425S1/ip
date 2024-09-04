@@ -1,5 +1,6 @@
 package ollie.command;
 
+import ollie.Response;
 import ollie.Storage;
 import ollie.task.Task;
 import ollie.TaskList;
@@ -23,8 +24,8 @@ public class AddCommand extends Command {
      * @param storage Storage controller for file manipulation.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public Response execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(this.task);
-        ui.showAddTask(task, tasks.getSize());
+        return new Response(ui.getAddTaskMessage(task, tasks.getSize()), false);
     }
 }

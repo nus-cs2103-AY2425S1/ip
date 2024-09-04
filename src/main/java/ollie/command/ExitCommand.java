@@ -1,5 +1,6 @@
 package ollie.command;
 
+import ollie.Response;
 import ollie.exception.OllieException;
 import ollie.Storage;
 import ollie.TaskList;
@@ -9,9 +10,6 @@ import ollie.Ui;
  * Represents a command for ending the conversation.
  */
 public class ExitCommand extends Command {
-    public ExitCommand() {
-        super.isExit = true;
-    }
 
     /**
      * Execute the command to save the data and exit the conversation.
@@ -21,10 +19,10 @@ public class ExitCommand extends Command {
      * @param storage Storage controller for file manipulation.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
+    public Response execute(TaskList tasks, Ui ui, Storage storage) throws OllieException {
         // Save data
         storage.save(tasks.getTasks());
-        ui.showExit();
+        return new Response(ui.getExitMessage(), true);
     }
 
     ;
