@@ -22,3 +22,8 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+## Acknowledgements
+
+1. Used ChatGPT to help generate roughly half of the JavaDoc comments
+2. Used ChatGPT to give recommendations on how to refactor the code to be more OOP, using the existing code as a base
