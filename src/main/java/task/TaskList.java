@@ -27,9 +27,9 @@ public class TaskList {
      *
      * @param task task to be added.
      */
-    public static void addTask(Task task) {
+    public static String addTask(Task task) {
         taskLists.add(task);
-        Ui.addTaskMessage(task);
+        return Ui.addTaskMessage(task);
     }
 
     /**
@@ -42,20 +42,20 @@ public class TaskList {
         return (i + 1) + "." + taskLists.get(i).toString();
     }
 
-    public static void markTask(int i) {
+    public static String markTask(int i) {
         taskLists.get(i - 1).markAsDone();
-        Ui.markTaskMessage(taskLists.get(i - 1));
+        return Ui.markTaskMessage(taskLists.get(i - 1));
     }
 
-    public static void unmarkTask(int i) {
+    public static String unmarkTask(int i) {
         taskLists.get(i - 1).markAsUndone();
-        Ui.unmarkTaskMessage(taskLists.get(i - 1));
+        return Ui.unmarkTaskMessage(taskLists.get(i - 1));
     }
 
-    public static void deleteTask(int i) {
+    public static String deleteTask(int i) {
         Task toBeRemovedTask = taskLists.get(i - 1);
         taskLists.remove(i - 1);
-        Ui.deleteTaskMessage(toBeRemovedTask);
+        return Ui.deleteTaskMessage(toBeRemovedTask);
     }
 
     /**

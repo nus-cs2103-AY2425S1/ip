@@ -18,30 +18,27 @@ public class Ui {
     /**
      * Greets the user when the chatbot just starts and ask them for an input.
      */
-    public static void greet() {
-
-        System.out.println("Hello! I'm Tako! What can I do for you?\n");
-
-        promptInput();
+    public static String greet() {
+        return "Hello! I'm Tako! What can I do for you?\n";
     }
 
     /**
      * Says goodbye to the user
      */
-    public static void exit() {
-        System.out.println("Bye! Have a nice day!");
+    public static String exit() {
+        return "Bye! Have a nice day!";
     }
 
     /**
      * Prints out the list of tasks that the chatbot is keeping track of and
      * ask them for input after that.
      */
-    public static void printList() {
-        System.out.println("Here are your list of tasks:");
+    public static String printList() {
+        String output = "Here are your list of tasks:\n";
         for (int i = 0; i < TaskList.length(); i++) {
-            System.out.println(TaskList.listTask(i));
+            output += TaskList.listTask(i) + "\n";
         }
-        promptInput();
+        return output;
     }
 
     /**
@@ -50,12 +47,12 @@ public class Ui {
      *
      * @param task task that is being added to the list.
      */
-    public static void addTaskMessage(Task task) {
-        System.out.println("Task Received! I've added this task:\n" +
+    public static String addTaskMessage(Task task) {
+        String output = "Task Received! I've added this task:\n" +
                           task.toString() + "\n" +
-                          "Now, you have " + TaskList.length() + " tasks in your list!");
+                          "Now, you have " + TaskList.length() + " tasks in your list!";
         Storage.store(TaskList.getAllTask());
-        promptInput();
+        return output;
     }
 
     /**
@@ -64,11 +61,11 @@ public class Ui {
      *
      * @param task task that is being marked on the list.
      */
-    public static void markTaskMessage(Task task) {
-        System.out.println("Task has been marked as complete! \n" +
-                           task.toString());
+    public static String markTaskMessage(Task task) {
+        String output = "Task has been marked as complete! \n" +
+                           task.toString();
         Storage.store(TaskList.getAllTask());
-        promptInput();
+        return output;
     }
 
     /**
@@ -77,11 +74,11 @@ public class Ui {
      *
      * @param task task that is being unmark on the list.
      */
-    public static void unmarkTaskMessage(Task task) {
-        System.out.println("Task has been marked as incomplete! \n" +
-                           task.toString());
+    public static String unmarkTaskMessage(Task task) {
+        String output = "Task has been marked as incomplete! \n" +
+                           task.toString();
         Storage.store(TaskList.getAllTask());
-        promptInput();
+        return output;
     }
 
     /**
@@ -90,34 +87,25 @@ public class Ui {
      *
      * @param task task that is being deleted on the list.
      */
-    public static void deleteTaskMessage(Task task) {
-        System.out.println("Task has been deleted!\n" +
+    public static String deleteTaskMessage(Task task) {
+        String output = "Task has been deleted!\n" +
                            task.toString() + "\n" +
-                           "Now, you have " + TaskList.length() + " tasks in your list!");
+                           "Now, you have " + TaskList.length() + " tasks in your list!";
         Storage.store(TaskList.getAllTask());
-        promptInput();
+        return output;
     }
 
-    /**
-     * Asks the user for the next input to the chatbot.
-     */
-    public static void promptInput() {
-        String command = input.nextLine();
-
-        Parser.parse(command);
-    }
-
-    public static void findTargetString(String targetString) {
+    public static String findTargetString(String targetString) {
         ArrayList<Task> filteredTask = new ArrayList<>();
         for (int i = 0; i < TaskList.length(); i++) {
             if (TaskList.get(i).getDescription().contains(targetString)) {
                 filteredTask.add(TaskList.get(i));
             }
         }
-        System.out.println("Here are the matching results:");
+        String output = "Here are the matching results:\n";
         for (int i = 0; i < filteredTask.size(); i++) {
-            System.out.println(filteredTask.get(i));
+            output += filteredTask.get(i) + "\n";
         }
-        promptInput();
+        return output;
     }
 }
