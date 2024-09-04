@@ -5,6 +5,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class LittleMissHelpful {
@@ -144,32 +147,88 @@ public class LittleMissHelpful {
                     Task newTask = null;
 
                     try {
-                        if (command.equalsIgnoreCase("todo")) {
+                        if (command.equals("todo")) {
                             newTask = new Todo(item);
 
-                        } else if (command.equalsIgnoreCase("deadline")) {
+                        } else if (command.equals("deadline")) {
                             String[] itemList = item.split("/by", 2);
                             if (itemList.length < 2) {
                                 throw new InvalidTaskFormatException(
-                                    lineBreak + "\nAlamak! Deadline format salah already. Use 'deadline description /by date'.\n" + lineBreak);
+                                        lineBreak + "\nAlamak! Deadline format salah already. Use 'deadline description /by date'.\n" + lineBreak);
                             }
                             String desc = itemList[0].trim();
                             String by = itemList[1].trim();
 
-                            newTask = new Deadline(desc, by);
+                            try {
+                                LocalDateTime byDateTime;
+                                if (by.equalsIgnoreCase("today")) {
+                                    // Use current date with time set to 23:59
+                                    byDateTime = LocalDateTime.now().withHour(23).withMinute(59).withSecond(0).withNano(0);
+                                } else {
+                                    // Try parsing as LocalDateTime
+                                    try {
+                                        byDateTime = LocalDateTime.parse(by);
+                                    } catch (DateTimeParseException e) {
+                                        // If LocalDateTime parsing fails, try parsing as LocalDate
+                                        try {
+                                            LocalDate byDate = LocalDate.parse(by);
+                                            byDateTime = byDate.atTime(23, 59); // Set time to 23:59 if only date is provided
+                                        } catch (DateTimeParseException ex) {
+                                            throw new DateTimeParseException(
+                                                    "Alamak! Date format for deadline salah already. Please use 'yyyy-MM-ddTHH:mm' or 'yyyy-MM-dd' or '/by today'.",
+                                                    by, 0);
+                                        }
+                                    }
+                                }
+                                newTask = new Deadline(desc, byDateTime);
+                            } catch (DateTimeParseException e) {
+                                System.out.println(lineBreak + "\nAlamak! Date format for deadline salah already. Please use 'yyyy-MM-ddTHH:mm', 'yyyy-MM-dd', or '/by today'.\n" + lineBreak);
+                                continue;
+                            }
 
-                        } else if (command.equalsIgnoreCase("event")) {
+
+                        } else if (command.equals("event")) {
                             String[] itemList = item.split("/from | /to", 3);
                             if (itemList.length < 3) {
                                 throw new InvalidTaskFormatException(
-                                    lineBreak + "\nAlamak! Event format salah already. Use 'event description /from start /to end'.\n" + lineBreak);
+                                        lineBreak + "\nAlamak! Event format salah already. Use 'event description /from start /to end'.\n" + lineBreak);
                             }
                             String desc = itemList[0].trim();
-                            String from = itemList[1].trim();
-                            String to = itemList[2].trim();
+                            try {
+                                // Attempt to parse `from` and `to` as LocalDateTime first
+                                LocalDateTime from;
+                                LocalDateTime to;
 
-                            newTask = new Event(desc, from, to);
+                                String fromInput = itemList[1].trim();
+                                String toInput = itemList[2].trim();
+
+                                try {
+                                    // Try to parse both as LocalDateTime
+                                    from = LocalDateTime.parse(fromInput);
+                                    to = LocalDateTime.parse(toInput);
+                                } catch (DateTimeParseException e) {
+                                    // If parsing LocalDateTime fails, try LocalDate
+                                    try {
+                                        LocalDate fromDate = LocalDate.parse(fromInput);
+                                        LocalDate toDate = LocalDate.parse(toInput);
+                                        // If successful, convert LocalDate to LocalDateTime with default time
+                                        from = fromDate.atStartOfDay();
+                                        to = toDate.atStartOfDay();
+                                    } catch (DateTimeParseException ex) {
+                                        // If both parsing attempts fail, throw exception
+                                        System.out.println(lineBreak + "\nAlamak! Date format for event salah already. Please use 'yyyy-MM-ddTHH:mm' or 'yyyy-MM-dd'.\n" + lineBreak);
+                                        continue;
+                                    }
+                                }
+
+                                newTask = new Event(desc, from, to);
+
+                            } catch (Exception e) {
+                                System.out.println(lineBreak + "\nAn error occurred while processing the event details. Please ensure correct format.\n" + lineBreak);
+                                continue;
+                            }
                         }
+
 
                         list.add(newTask);
                         System.out.println(lineBreak);
