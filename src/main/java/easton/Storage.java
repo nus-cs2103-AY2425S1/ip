@@ -44,7 +44,7 @@ public class Storage {
      * @return A list of string representation of the records.
      * @throws IOException If there is input or output failure with the file.
      */
-    public ArrayList<String> retrieve() throws IOException {
+    public ArrayList<String> retrieveRecords() throws IOException {
         ArrayList<String> records = new ArrayList<>();
         String record;
 
@@ -67,7 +67,7 @@ public class Storage {
      * @param records Records that are in a string representation.
      * @return If the records were save to the storage.
      */
-    public boolean save(ArrayList<String> records) {
+    public boolean saveRecords(ArrayList<String> records) {
         try {
             FileWriter fileWriter = new FileWriter(filePath.toFile());
             for (String record : records) {

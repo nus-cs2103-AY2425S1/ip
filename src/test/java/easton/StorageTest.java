@@ -12,14 +12,14 @@ import java.nio.file.Paths;
 public class StorageTest {
 
     @Test
-    public void retrieve_invalidFilePath_ExceptionThrown() {
+    public void retrieveRecords_invalidFilePath_ExceptionThrown() {
         try {
             Storage storage = new Storage("dummy.csv");
             File file = Paths.get(System.getProperty("user.dir"), "data", "dummy.csv").toFile();
             file.delete();
 
             assertThrows(IOException.class, () -> {
-                storage.retrieve();
+                storage.retrieveRecords();
             });
         } catch(IOException e) {
 
@@ -27,11 +27,11 @@ public class StorageTest {
     }
 
     @Test
-    public void retrieve_validFilePath_ExceptionThrown() {
+    public void retrieveRecords_validFilePath_ExceptionThrown() {
         try {
             Storage storage = new Storage("dummy.csv");
             assertDoesNotThrow(() -> {
-                storage.retrieve();
+                storage.retrieveRecords();
             });
         } catch (IOException e) {
 

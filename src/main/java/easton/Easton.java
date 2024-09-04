@@ -309,7 +309,7 @@ public class Easton {
         ArrayList<String> records = new ArrayList<>();
         Task task;
         try {
-            records = storage.retrieve();
+            records = storage.retrieveRecords();
         } catch (IOException e) {
             Ui.displayText("Could not retrieve tasks from storage.");
         }
@@ -360,7 +360,7 @@ public class Easton {
             records.add(task.getCsvFormat() + "\n");
         }
 
-        storage.save(records);
+        storage.saveRecords(records);
     }
 
     /**
