@@ -2,6 +2,7 @@ package easton.view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 /**
  * Represents the user interface of the program.
@@ -63,10 +64,13 @@ public class Ui<T> {
      * Prints the list.
      *
      * @param records Records to be printed.
+     * @param predicate Predicate to filter the list of records.
      */
-    public void list(ArrayList<T> records) {
+    public void list(ArrayList<T> records, Predicate<T> predicate) {
         for (int i = 0; i < records.size(); i++) {
-            print((i + 1) + "." + records.get(i));
+            if (predicate.test(records.get(i))) {
+                print((i + 1) + "." + records.get(i));
+            }
         }
     }
 

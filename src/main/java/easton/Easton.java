@@ -62,7 +62,7 @@ public class Easton {
                 break;
             case LIST:
                 Ui.displayText("Here are the tasks in your list:");
-                ui.list(tasks);
+                ui.list(tasks, (x) -> true);
                 break;
             case MARK:
                 changeTaskStatus(userInput, true, "Nice! I've marked this task as done:");
@@ -365,7 +365,6 @@ public class Easton {
      * @throws EmptyDescriptionException If the body of the prompt is empty.
      */
     public void findTasks(String input) throws EmptyDescriptionException {
-        ArrayList<Task> result = new ArrayList<>();
         String[] splitInput = input.stripLeading()
                 .stripTrailing()
                 .split(" ", 2);
@@ -378,16 +377,20 @@ public class Easton {
         if (keyword.contains(" ")) {
             Ui.displayText("Only one keyword please!");
         } else {
+            boolean hasNoMatch = true;
+
             for (Task task : tasks) {
                 if (task.hasKeyword(keyword)) {
-                    result.add(task);
+                    hasNoMatch = false;
+                    break;
                 }
             }
-            if (result.isEmpty()) {
+
+            if (hasNoMatch) {
                 Ui.displayText("No match was found.");
             } else {
                 Ui.displayText("Here are the matching tasks in your list:");
-                ui.list(result);
+                ui.list(tasks, (x) -> x.hasKeyword(keyword));
             }
 
         }
