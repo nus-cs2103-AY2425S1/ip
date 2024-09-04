@@ -7,7 +7,12 @@ import max.task.Event;
 import max.task.Task;
 import max.task.Todo;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -48,23 +53,23 @@ public class Storage {
                 String[] parts = line.split(" \\| ");
                 Task task;
                 switch (parts[0]) {
-                    case "T":
-                        task = new Todo(parts[2]);
-                        break;
-                    case "D":
-                        Parser tempParser = new Parser();
-                        LocalDateTime LDT = tempParser.parseDate(parts[3]);
-                        if (LDT != null) {
-                            task = new Deadline(parts[2], LDT);
-                        } else {
-                            task = new Deadline(parts[2], parts[3]);
-                        }
-                        break;
-                    case "E":
-                        task = new Event(parts[2], parts[3]);
-                        break;
-                    default:
-                        throw new MaxException("Unknown task type found in file.");
+                case "T":
+                    task = new Todo(parts[2]);
+                    break;
+                case "D":
+                    Parser tempParser = new Parser();
+                    LocalDateTime LDT = tempParser.parseDate(parts[3]);
+                    if (LDT != null) {
+                        task = new Deadline(parts[2], LDT);
+                    } else {
+                        task = new Deadline(parts[2], parts[3]);
+                    }
+                    break;
+                case "E":
+                    task = new Event(parts[2], parts[3]);
+                    break;
+                default:
+                    throw new MaxException("Unknown task type found in file.");
                 }
                 if (parts[1].equals("1")) {
                     task.markDone();

@@ -1,7 +1,11 @@
 package max.main;
 
 import max.exception.MaxException;
-import max.task.*;
+import max.task.Deadline;
+import max.task.Event;
+import max.task.Task;
+import max.task.TaskList;
+import max.task.Todo;
 
 import javax.crypto.Mac;
 import java.time.LocalDateTime;
