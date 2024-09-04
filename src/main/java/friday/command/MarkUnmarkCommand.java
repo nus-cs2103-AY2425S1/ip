@@ -29,27 +29,29 @@ public class MarkUnmarkCommand extends Command {
      * @param tasks   The task list to be modified by the command.
      * @param ui      The user interface for interacting with the user.
      * @param storage The storage for saving the task list.
+     * @return The string representation of marking or unmarking a target task from the task list.
      * @throws IOException       If an input/output error occurs during execution.
      * @throws FridayException   If there is an error specific to the command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (!inputs[1].chars().allMatch(Character::isDigit)) {
-            throw new FridayException("\tInvalid input. Where would you like to " + inputs[0] + "?");
+            throw new FridayException("Invalid input. Where would you like to " + inputs[0] + "?");
         }
         int index = Integer.parseInt(inputs[1]);
         if (index > tasks.getSize() || index <= 0) {
-            throw new FridayException("\tInvalid input. It appears you are attempting to"
+            throw new FridayException("Invalid input. It appears you are attempting to"
                     + " access something that does not exist yet.");
         }
         Task task = tasks.getTasks().get(index - 1);
         if (inputs[0].equals("mark")) {
             task.markAsDone();
-            System.out.println("\tNice! I've marked this task as done:\n\t  " + task);
+            storage.saveTasks(tasks.getTasks());
+            return "Nice! I've marked this task as done:\n\t  " + task;
         } else {
             task.unmarkAsDone();
-            System.out.println("\tOK, I've marked this task as not done yet:\n\t  " + task);
+            storage.saveTasks(tasks.getTasks());
+            return "OK, I've marked this task as not done yet:\n\t  " + task;
         }
-        storage.saveTasks(tasks.getTasks());
     }
 }

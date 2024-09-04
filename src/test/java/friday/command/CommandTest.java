@@ -49,25 +49,6 @@ class CommandTest {
     }
 
     @Test
-    void helpCommand_execute_displaysHelp() throws IOException, FridayException {
-        Command command = new HelpCommand();
-        command.execute(tasks, ui, storage);
-
-        Assertions.assertTrue(ui.showHelp());
-    }
-
-    @Test
-    void listCommand_execute_displaysTaskList() throws IOException, FridayException {
-        tasks.addTask(new Todo("read book"));
-        tasks.addTask(new Deadline("return book", "2024-08-27 1800"));
-
-        Command command = new ListCommand();
-        command.execute(tasks, ui, storage);
-
-        Assertions.assertTrue(ui.showTaskList(tasks));
-    }
-
-    @Test
     void byeCommand_execute_exits() throws IOException, FridayException {
         Command command = new ByeCommand();
         command.execute(tasks, ui, storage);

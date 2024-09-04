@@ -14,21 +14,11 @@ public class Ui {
     private final Scanner sc = new Scanner(System.in);
 
     /**
-     * Displays a line separator in the console.
-     */
-    public void showLine() {
-        System.out.println("\t____________________________________________________________");
-    }
-
-    /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        showLine();
-        System.out.println("\tWelcome Back! I'm Friday.");
-        System.out.println("\tWhat can I do for you today?");
-        System.out.println("\tTo view the list of commands that I support, type 'help' for more information.");
-        showLine();
+    public String showWelcome() {
+        return "Welcome Back! I'm Friday.\nWhat can I do for you today?"
+                + "\nTo view the list of commands that I support, type 'help' for more information.";
     }
 
     /**
@@ -36,22 +26,22 @@ public class Ui {
      *
      * @return {@code true} to indicate that the help message was shown.
      */
-    public boolean showHelp() {
-        System.out.println("\tHere are the list of commands that I support");
-        System.out.println("\thelp - List of commands supported by me, Friday.");
-        System.out.println("\tlist - View all entries to the current list of things"
-                + " you have asked me to take note of.");
-        System.out.println("\tmark <integer> - Mark an entry in the list as a completed task.");
-        System.out.println("\tunmark <integer> - Unmark an entry in the list as a completed task.");
-        System.out.println("\ttodo <string> - Remember a TODO task for you to revisit again.");
-        System.out.println("\tdeadline <string> /by <yyyy-mm-dd hhmm> - Remember a Deadline task for"
-                + " you to complete by the deadline.");
-        System.out.println("\tevent <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an Event task"
-                + " from when it begins to when it ends.");
-        System.out.println("\tdelete <integer> - Delete an entry from your current list.");
-        System.out.println("\tfind <string> - Find tasks by a keyword from your current list.");
-        System.out.println("\tbye - Exits this app and says Good Bye to Friday :)");
-        return true;
+    public String showHelp() {
+        String response = "Here are the list of commands that I support:";
+        response += "\nhelp - List of commands supported by me, Friday.";
+        response += "\nlist - View all entries to the current list of things"
+                + " you have asked me to take note of.";
+        response += "\nmark <integer> - Mark an entry in the list as a completed task.";
+        response += "\nunmark <integer> - Unmark an entry in the list as a completed task.";
+        response += "\ntodo <string> - Remember a TODO task for you to revisit again.";
+        response += "\ndeadline <string> /by <yyyy-mm-dd hhmm> - Remember a Deadline task for"
+                + " you to complete by the deadline.";
+        response += "\nevent <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an Event task"
+                + " from when it begins to when it ends.";
+        response += "\ndelete <integer> - Delete an entry from your current list.";
+        response += "\nfind <string> - Find tasks by a keyword from your current list.";
+        response += "\nbye - Exits this app and says Good Bye to Friday :)";
+        return response;
     }
 
     /**
@@ -65,30 +55,22 @@ public class Ui {
      * Displays the current list of tasks to the user.
      *
      * @param tasks The {@link TaskList} containing the tasks to be displayed.
-     * @return {@code true} to indicate that the task list was shown.
+     * @return The string representation of tasks in the task list.
      */
-    public boolean showTaskList(TaskList tasks) {
-        System.out.println("\tHere are the tasks in your list:");
+    public String showTaskList(TaskList tasks) {
+        String response = "Here are the tasks in your list:";
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println("\t" + (i + 1) + "." + tasks.getTasks().get(i).toString());
+            response += "\n" + (i + 1) + "." + tasks.getTasks().get(i).toString();
         }
-        return true;
-    }
-
-    /**
-     * Displays an error message to the user.
-     *
-     * @param message The error message to be displayed.
-     */
-    public void showError(String message) {
-        System.out.println(message);
+        return response;
     }
 
     /**
      * Displays a goodbye message to the user.
+     * @return The string representation of the goodbye message to the user.
      */
-    public void showGoodbye() {
-        System.out.println("\tGood Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Good Bye. Hope to see you again soon!";
     }
 
     /**
@@ -96,11 +78,12 @@ public class Ui {
      *
      * @param task The {@link Task} that was added.
      * @param taskCount The updated number of tasks in the list.
+     * @return The string representation of a task being added to the task list.
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t  " + task);
-        System.out.println("\tNow you have " + taskCount + " tasks in the list.");
+    public String showTaskAdded(Task task, int taskCount) {
+        String response = "Got it. I've added this task:";
+        response += "\n\t" + task + "\nNow you have " + taskCount + " tasks in the list.";
+        return response;
     }
 
     /**
@@ -108,11 +91,12 @@ public class Ui {
      *
      * @param task The {@link Task} that was deleted.
      * @param taskCount The updated number of tasks in the list.
+     * @return The string representation of a task being deleted from the task list.
      */
-    public void showTaskDeleted(Task task, int taskCount) {
-        System.out.println("\tNoted. I've removed this task:");
-        System.out.println("\t  " + task);
-        System.out.println("\tNow you have " + taskCount + " tasks in the list.");
+    public String showTaskDeleted(Task task, int taskCount) {
+        String response = "Noted. I've removed this task:";
+        response += "\n\t" + task + "\nNow you have " + taskCount + " tasks in the list.";
+        return response;
     }
 
     /**

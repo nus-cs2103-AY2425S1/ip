@@ -19,10 +19,11 @@ public abstract class Command {
      * @param tasks   The task list to be used by the command.
      * @param ui      The user interface for interacting with the user.
      * @param storage The storage for saving the task list.
+     * @return The string representation of the invoked command.
      * @throws IOException       If an input/output error occurs during execution.
      * @throws FridayException   If there is an error specific to the command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, FridayException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, FridayException;
 
     /**
      * Determines if this command is an exit command.
