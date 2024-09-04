@@ -22,7 +22,6 @@ public class Response {
 
     /**
      * Return response's message
-     *
      */
     public String getMessage() {
         return this.message;

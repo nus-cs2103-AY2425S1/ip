@@ -33,7 +33,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Ollie instance */
+    /**
+     * Injects the Ollie instance
+     */
     public void setOllie(Ollie d) {
         ollie = d;
 
@@ -43,7 +45,9 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    /** Set callback function */
+    /**
+     * Set callback function
+     */
     public void setExitHandler(ExitHandler exitHandler) {
         this.exitHandler = exitHandler;
     }
