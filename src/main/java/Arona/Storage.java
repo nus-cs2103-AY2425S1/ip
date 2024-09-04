@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Storage {
-    private final String filepath;
+    private final String filePath;
 
-    public Storage(String filepath) {
-        this.filepath = filepath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
     public ArrayList<String> load() throws Exception {
         // String array of data.txt
         ArrayList<String> data = new ArrayList<>();
         // Current data.txt directory
-        Path dataDir = Paths.get(filepath);
+        Path dataDir = Paths.get(filePath);
 
         // Make data.txt file if it doesn't exist
         try {
@@ -38,7 +38,7 @@ public class Storage {
 
     public void save(TaskList taskList) throws Exception {
         // Current data.txt directory
-        Path dataDir = Paths.get(filepath);
+        Path dataDir = Paths.get(filePath);
 
         // Write data to file
         Files.write(dataDir, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
@@ -49,7 +49,7 @@ public class Storage {
     }
 
     public String getStorageLocation() {
-        Path dataDir = Paths.get(filepath);
+        Path dataDir = Paths.get(filePath);
         return dataDir.toAbsolutePath().toString();
     }
 }
