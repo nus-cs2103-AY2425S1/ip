@@ -12,6 +12,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * The Lawrence chatbot that is able to keep track of tasks and their
+ * respective completion statuses.
+ * <p>
+ * The tasks are saved automatically after every action.
+ * This ensures that all changes are preserved and will be available
+ * the next time the program is run.
+ * </p>
+ * @author Kok Bo Chang
+ */
 public class Lawrence {
     private static final String NAME = "Lawrence";
     private static final Path SAVE_LOCATION = Paths.get(".", "data", "tasks.txt");
@@ -19,6 +29,9 @@ public class Lawrence {
     private final TaskFileManager manager;
     private final UserInterface ui;
 
+    /**
+     * Default constructor.
+     */
     public Lawrence() {
         ui = new UserInterface(NAME);
         manager = new TaskFileManager(SAVE_LOCATION);
@@ -31,11 +44,19 @@ public class Lawrence {
         }
     }
 
+    /**
+     * Initialises and runs the Lawrence chatbot.
+     * @param args optional startup arguments
+     */
     public static void main(String[] args) {
         Lawrence primeMinister = new Lawrence();
         primeMinister.run();
     }
 
+    /**
+     * Runs the chatbot to start listening for user commands
+     * in the console.
+     */
     public void run() {
         ui.greetUser();
 
