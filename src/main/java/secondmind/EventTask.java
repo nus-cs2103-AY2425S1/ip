@@ -12,7 +12,7 @@ public class EventTask extends Task {
 
     @Override
     public String getStorageRepresentation() {
-        if (this.isdone) {
+        if (!this.isdone) {
             return "E|0|" + this.description + "|" + this.eventStart + "|" + this.eventEnd;
         } else {
             return "E|1|" + this.description + "|" + this.eventStart + "|" + this.eventEnd;
