@@ -40,7 +40,7 @@ public class Ui {
      * @param message passed from user through Sunny class
      * @return String to be printed out in Sunny class
      */
-    public String reply(String message) {
+    public String getResponse(String message) {
         Parser p = new Parser(message);
         String command = p.getFirstHalf();
 
