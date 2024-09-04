@@ -122,6 +122,13 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Uses varargs to  create task
+     * @param type creates task based on TaskType
+     * @param isCompleted Initialises the boolean task completion with respect to this value
+     * @param args holds the respective details of the task
+     * @return
+     */
     private Task createTask(TaskType type, boolean isCompleted, String ... args) {
         Task task = null;
         switch (type) {
