@@ -1,8 +1,9 @@
 package lutchat;
 
-public class Todo extends Task{
-    public Todo(String d) {
-        super(d);
+public class Todo extends Task {
+
+    public Todo(String description) {
+        super(description);
     }
 
     @Override
