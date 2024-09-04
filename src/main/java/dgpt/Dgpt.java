@@ -17,7 +17,6 @@ public class Dgpt {
 
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     /**
      * Constructs a Dgpt instance with the specified file path for data storage and initialization.
@@ -32,56 +31,21 @@ public class Dgpt {
      *                 tasks upon initialization.
      */
     public Dgpt(String filepath) {
-        this.ui = new Ui();
         this.storage = new Storage(filepath);
         try {
             this.tasks = new TaskList(storage.load());
         } catch (DgptFileNotFoundException | IOException e) {
-            ui.showLoadingError();
             this.tasks = new TaskList();
         }
     }
 
-    private void run() {
-        ui.showWelcome();
-        Scanner scanner = new Scanner(System.in);
-        boolean isActive = true;
-        String input;
-
-        // bot is ready for user
-        while (isActive) {
-            ui.showUser();
-            input = scanner.nextLine();
-            if (input.equals("bye")) {
-                isActive = false;
-            } else {
-                try {
-                    Parser.parse(input, tasks, ui);
-                } catch (TaskNotFoundException | IncorrectInputException e) {
-                    ui.showError(e);
-                } catch (Exception e) {
-                    ui.showUnknownError();
-                }
-            }
-        }
-
-        scanner.close();
+    public String getResponse(String s) {
         try {
-            storage.save(tasks);
-        } catch (IOException e) {
-            ui.showError(e);
+            return Parser.parse(s, tasks, storage);
+        } catch (TaskNotFoundException | IncorrectInputException e) {
+            return e.getMessage();
         }
-        ui.showBye();
-    }
-
-
-
-    /**
-     * Main method to start the program and interact with the user.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Dgpt("./data/dgpt.txt").run();
     }
 }
+
+
