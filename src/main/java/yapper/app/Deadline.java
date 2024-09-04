@@ -6,21 +6,21 @@ import yapper.exceptions.YapperException;
  * Represents a deadline task in the Yapper chatbot application.
  */
 public class Deadline extends Task {
-    private String by;
+    private String deadline;
 
     /**
      * Constructs a new Deadline task with the specified description and deadline.
      *
-     * @param desc the description of the deadline task
-     * @param by   the date and/or time by which the task must be completed
+     * @param description the description of the deadline task
+     * @param deadline   the date and/or time by which the task must be completed
      * @throws YapperException if the deadline is empty
      */
-    public Deadline(String desc, String by) {
-        super(desc);
-        if (by.isEmpty()) {
+    public Deadline(String description, String deadline) {
+        super(description);
+        if (deadline.isEmpty()) {
             throw new YapperException("Description cannot be empty");
         }
-        this.by = by;
+        this.deadline = deadline;
     }
 
     /**
@@ -31,7 +31,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getDesc() {
-        return "| D | " + super.getDesc() + " | " + formattedDate(this.by);
+        return "| D | " + super.getDesc() + " | " + formattedDate(this.deadline);
     }
 
     /**
@@ -42,6 +42,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + formattedDate(this.by) + ")";
+        return "[D]" + super.toString() + " (by: " + formattedDate(this.deadline) + ")";
     }
 }

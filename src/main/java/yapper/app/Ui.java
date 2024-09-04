@@ -18,7 +18,7 @@ public class Ui {
     /**
      * Displays the introduction message and prompts the user.
      */
-    public static String intro() {
+    public static String yapperIntroduction() {
         String[] temp = {
             "Hello! I'm " + NAME,
             "What can I do for you?"

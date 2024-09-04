@@ -29,20 +29,20 @@ public class Task {
         "yyyy/MM/dd",
     };
 
-    private String desc;
+    private String description;
     private String isDone;
 
     /**
      * Constructs a new Task with the specified description.
      *
-     * @param desc the description of the task
+     * @param description the description of the task
      * @throws YapperException if the description is empty
      */
-    public Task(String desc) {
-        if (desc.isEmpty()) {
+    public Task(String description) {
+        if (description.isEmpty()) {
             throw new YapperException("Description cannot be empty");
         }
-        this.desc = desc;
+        this.description = description;
         this.isDone = "[ ]";
     }
 
@@ -73,8 +73,8 @@ public class Task {
         for (String timeFormat : timeFormats) {
             for (String dateFormat : dateFormats) {
                 try {
-                    StringBuilder fm = new StringBuilder(dateFormat).append(" ").append(timeFormat);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fm.toString());
+                    String format = new StringBuilder(dateFormat).append(" ").append(timeFormat).toString();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
                     LocalDateTime formattedDateTime = LocalDateTime.parse(time, formatter);
                     return formattedDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
                 } catch (DateTimeParseException e) {
@@ -83,9 +83,9 @@ public class Task {
             }
         }
 
-        for (String fm : timeFormats) {
+        for (String timeFormat : timeFormats) {
             try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fm);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeFormat);
                 LocalTime formattedTime = LocalTime.parse(time, formatter);
                 return formattedTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
             } catch (DateTimeParseException e) {
@@ -93,9 +93,9 @@ public class Task {
             }
         }
 
-        for (String fm : dateFormats) {
+        for (String dateFormat : dateFormats) {
             try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fm);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
                 LocalDate formattedDate = LocalDate.parse(time, formatter);
                 return formattedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             } catch (DateTimeParseException e) {
@@ -111,7 +111,7 @@ public class Task {
      * @return the task description with completion status
      */
     public String getDesc() {
-        return this.isDone.charAt(1) + " | " + this.desc;
+        return this.isDone.charAt(1) + " | " + this.description;
     }
 
     /**
@@ -121,6 +121,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return this.isDone + " " + this.desc;
+        return this.isDone + " " + this.description;
     }
 }

@@ -11,12 +11,12 @@ public class Event extends Task {
     /**
      * Constructs an Event with the specified description, start date, and end date.
      *
-     * @param desc the description of the event
+     * @param description the description of the event
      * @param from the start date of the event in string format
      * @param to   the end date of the event in string format
      */
-    public Event(String desc, String from, String to) {
-        super(desc);
+    public Event(String description, String from, String to) {
+        super(description);
         this.from = from;
         this.to = to;
     }

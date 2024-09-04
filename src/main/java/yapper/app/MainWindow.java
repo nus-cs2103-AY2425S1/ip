@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private Yapper yapper;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/you.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/icon.png"));
+    private Image youImage = new Image(this.getClass().getResourceAsStream("/images/you.png"));
+    private Image yapperImage = new Image(this.getClass().getResourceAsStream("/images/icon.png"));
 
     /**
      * Initialises the program to run
@@ -48,15 +48,15 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = yapper.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getUserDialog(input, youImage),
+                DialogBox.getDukeDialog(response, yapperImage)
         );
         userInput.clear();
     }
 
     private void displayIntro() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Ui.intro(), dukeImage)
+                DialogBox.getDukeDialog(Ui.yapperIntroduction(), yapperImage)
         );
     }
 }
