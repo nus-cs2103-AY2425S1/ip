@@ -23,7 +23,7 @@ public abstract class Command {
      * @param manager  a {@link TaskFileManager} instance that
      *                 the command may use when saving changes
      *                 made
-     * @param ui       the {@link UserInterface} instance to
+     * @param ui       a {@link UserInterface} instance to
      *                 display possible messages to the user
      */
     abstract public void execute(TaskList taskList, TaskFileManager manager, UserInterface ui);
@@ -46,7 +46,7 @@ public abstract class Command {
 
     /**
      * Returns a boolean indicating whether the program should
-     * continue running after this command.
+     * continue running after this command. Defaults to true.
      *
      * @return a boolean indicating whether the program should
      *         continue running
