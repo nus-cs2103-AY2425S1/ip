@@ -12,9 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * Manages a list of tasks, providing methods to add, mark, unmark, delete, find, and list tasks.
+ * Also handles storing tasks in a format suitable for persistence
+ */
 public class TaskList {
     private List<Task> allTasks;
     private Stack<Task> deletedTasks, addedTasks, markedTasks, unmarkedTasks;
+
+    /**
+     * Constructs a {@code TaskList} instance with an initial list of tasks.
+     *
+     * @param allTasks the initial list of tasks
+     */
     public TaskList(List<Task> allTasks) {
         this.allTasks = allTasks;
         this.deletedTasks = new Stack<>();
@@ -23,6 +33,12 @@ public class TaskList {
         this.unmarkedTasks = new Stack<>();
     }
 
+    /**
+     * Deletes a task from the list based on the specified index.
+     *
+     * @param description the index of the task to be deleted, as a {@code String}
+     * @throws CommandFoundButInvalidException if the command is invalid or the task index is out of bounce
+     */
     public void delete(String description) throws CommandFoundButInvalidException {
         try {
             int num = Integer.parseInt(description);
@@ -38,34 +54,58 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new {@code ToDos} task with the given description to the list
+     *
+     * @param description the description of the task to be added
+     * @throws CommandFoundButInvalidException if the command is invalid
+     */
     public void addTodo(String description) throws CommandFoundButInvalidException {
         Task current = new ToDos(description);
         this.allTasks.add(current);
         this.addedTasks.push(current);
     }
 
+    /**
+     * Adds a new {@code Deadlines} task with the given description to the list
+     *
+     * @param description the description of the task to be added
+     * @throws CommandFoundButInvalidException if the command is invalid
+     */
     public void addDeadline(String description) throws CommandFoundButInvalidException {
         Task current = new Deadlines(description);
         this.allTasks.add(current);
         this.addedTasks.push(current);
     }
 
+    /**
+     * Adds a new {@code Events} task with the given description to the list.
+     *
+     * @param description the description of the task to be added
+     * @throws CommandFoundButInvalidException if the command is invalid
+     */
     public void addEvent(String description) throws CommandFoundButInvalidException {
         Task current = new Events(description);
         this.allTasks.add(current);
         this.addedTasks.push(current);
     }
 
-    public void mark(String description, List<Task> allTasks) throws CommandFoundButInvalidException {
+    /**
+     * Marks a task as done based on the specified index.
+     *
+     * @param description the index of the task to be marked as done, as a {@code String}
+     * @throws CommandFoundButInvalidException if the command is invalid or the task index is out of bounce
+     */
+    public void mark(String description) throws CommandFoundButInvalidException {
         try {
             if (description.isEmpty()) {
                 throw new EmptyDescriptionException("mark");
             }
             int index = Integer.parseInt(description) - 1;
-            if (index < 0 || index >= allTasks.size()) {
+            if (index < 0 || index >= this.allTasks.size()) {
                 throw new InvalidSyntaxException("mark");
             }
-            Task targetTask = allTasks.get(index);
+            Task targetTask = this.allTasks.get(index);
             targetTask.markAsDone();
             this.markedTasks.push(targetTask);
         } catch (NumberFormatException e) {
@@ -73,6 +113,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a task as not done based on the specified index.
+     *
+     * @param description the index of the task to be unmarked, with type {@code String}
+     * @throws CommandFoundButInvalidException if the command is invalid or the task index is out of bounce
+     */
     public void unmark(String description) throws CommandFoundButInvalidException {
         try {
             if (description.isEmpty()) {
@@ -90,6 +136,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks that contain the specified substring in their description
+     *
+     * @param str the substring to search for
+     * @return a {@code List} of {@code Task} objects that contain the substring
+     */
     public List<Task> find(String str) {
         ArrayList<Task> result = new ArrayList<>();
         for (Task t : this.allTasks) {
@@ -102,6 +154,7 @@ public class TaskList {
 
     /**
      * Returns the string representation when users enter the list command
+     *
      * @return the string representation of the {@code Task} in the {@code ArrayList}
      */
     public String list() {
@@ -116,6 +169,7 @@ public class TaskList {
 
     /**
      * Returns a string that follows the format of the storage
+     *
      * @return the string representation of the {@code Tasks} in the {@code ArrayList} for
      *         storage
      */
@@ -128,28 +182,47 @@ public class TaskList {
         return result.toString();
     }
 
+    /**
+     * Retrieves the most recently marked task.
+     *
+     * @return the last marked {@code Task}
+     */
     public Task getLastMarked() {
         return this.markedTasks.pop();
     }
 
-
-
+    /**
+     * Retrieves the most recently unmarked task.
+     *
+     * @return the last unmarked {@code Task}
+     */
     public Task getLastUnmarked() {
         return this.unmarkedTasks.pop();
     }
 
+    /**
+     * Retrieves the most recently added task.
+     *
+     * @return the last added {@code Task}
+     */
     public Task getLastAdded() {
         return addedTasks.pop();
     }
 
+    /**
+     * Returns the number of tasks in the list
+     *
+     * @return the size of the task list
+     */
     public int getSize() {
         return this.allTasks.size();
     }
 
-    public List<Task> getAllTasks() {
-        return this.allTasks;
-    }
-
+    /**
+     * Retrieves the most recently deleted task.
+     *
+     * @return the last deleted {@code Task}
+     */
     public Task getLastDeleted() {
         return deletedTasks.pop();
     }
