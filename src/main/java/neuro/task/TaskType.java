@@ -19,10 +19,10 @@ public enum TaskType {
      */
     public static TaskType stringToEnum(String str) {
         return switch (str) {
-            case "todo" -> TODO;
-            case "deadline" -> DEADLINE;
-            case "event" -> EVENT;
-            default -> INVALID;
+        case "todo" -> TODO;
+        case "deadline" -> DEADLINE;
+        case "event" -> EVENT;
+        default -> INVALID;
         };
     }
 }

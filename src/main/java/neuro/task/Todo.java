@@ -5,6 +5,11 @@ package neuro.task;
  * It extends the {@link Task} class, inheriting its properties and methods.
  */
 public class Todo extends Task {
+    /**
+     * Constructs a Todo object with the specified description.
+     *
+     * @param description The description of the task.
+     */
     public Todo(String description) {
         super(description);
     }

@@ -11,6 +11,11 @@ import neuro.task.TaskList;
 public class MarkCommand extends Command {
     private final int index;
 
+    /**
+     * Constructs a MarkCommand object with the specified index of the task to mark.
+     *
+     * @param index The index of the task to mark in the task list.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }
@@ -25,8 +30,8 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index < 0) {
-            ui.showError("Missing or invalid index for 'mark' command! Add a valid " +
-                    "index for a task to mark, like 'mark 2'.");
+            ui.showError("Missing or invalid index for 'mark' command! Add a valid "
+                    + "index for a task to mark, like 'mark 2'.");
             return;
         }
 
@@ -38,8 +43,8 @@ public class MarkCommand extends Command {
             ui.showMessage("Nice! I've marked this task as done:");
             ui.showMessage(task.toString());
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Index out of bounds! Try calling the command 'list' to " +
-                    "verify the index of the desired task.");
+            ui.showError("Index out of bounds! Try calling the command 'list' to "
+                    + "verify the index of the desired task.");
         }
     }
 }

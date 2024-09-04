@@ -21,6 +21,11 @@ import neuro.task.Todo;
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the save file where data will be stored, retrieved from or saved.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
