@@ -4,9 +4,18 @@ import java.nio.file.Path;
 
 import victor.messages.ReturnMessage;
 
+/**
+ * Unmark command class that extends Command class, validates correct input for task to unmark
+ * as complete and executes unmark command on specified task.
+ */
 public class UnmarkCommand extends Command {
     private String taskNumber;
 
+    /**
+     * Unmark command constructor that takes in additional input and validates that
+     * task number was provided at all to unmark.
+     * @param additionalInput A string array containing the words from the unmark command input.
+     */
     public UnmarkCommand(String[] additionalInput) {
         super(additionalInput);
         if (additionalInput.length == 1) {

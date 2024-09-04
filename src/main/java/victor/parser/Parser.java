@@ -11,6 +11,10 @@ import victor.commands.MarkCommand;
 import victor.commands.ToDoCommand;
 import victor.commands.UnmarkCommand;
 
+/**
+ * Parser class that handles string input from user and determined command
+ * object to return based on first keyword.
+ */
 public class Parser {
     /**
      * Parses user input string and classifies input by type of command done. Parsing depends

@@ -8,10 +8,21 @@ import java.util.ArrayList;
 
 import victor.tasks.Task;
 
+/**
+ * Task list that handles all the input tasks using an array list
+ * and stores the filepath where the task list should be read from
+ * and written to.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private Path filePath;
 
+    /**
+     * Constructor for the task list, initialises an empty array list of
+     * tasks to hold the Task objects that are later generated or read.
+     * @param filePath A path object representing the relative file path where
+     *                 task data is written and read from.
+     */
     public TaskList(Path filePath) {
         this.tasks = new ArrayList<Task>();
         this.filePath = filePath;
@@ -129,6 +140,13 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    /**
+     * Method finds all tasks in the current TaskList that contain the string that is input.
+     * If there are no matches, returns an empty array.
+     * @param toMatch A string whose content is searched for in all the task names contained in the task list.
+     * @return An array of strings formatted to show the task's order in the list of all strings containing
+     *      the string to match as well as the standard task print output.
+     */
     public String[] findMatches(String toMatch) {
         ArrayList<String> matches = new ArrayList<String>();
         int count = 1;

@@ -4,9 +4,18 @@ import java.nio.file.Path;
 
 import victor.messages.ReturnMessage;
 
+/**
+ * Mark command class that extends Command class, validates correct input for task to mark
+ * as complete and executes mark command on specified task.
+ */
 public class MarkCommand extends Command {
     private String taskNumber;
 
+    /**
+     * Mark command constructor that takes in additional input and validates that
+     * task number was provided at all to mark.
+     * @param additionalInput
+     */
     public MarkCommand(String[] additionalInput) {
         super(additionalInput);
         if (additionalInput.length == 1) {
@@ -16,6 +25,11 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Mark command constructor that only takes in a task number to mask as complete.
+     * Used when reading tasks from file to avoid having to format as typical mark command.
+     * @param task An integer representing which task to mark as complete.
+     */
     public MarkCommand(int task) {
         super(new String[] {});
         this.taskNumber = String.valueOf(task);

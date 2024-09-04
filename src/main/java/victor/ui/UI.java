@@ -34,6 +34,15 @@ public class UI {
     }
 
     /**
+     * Generates response for user's chat message.
+     * @param input A string with the user input to be echoed.
+     * @return A string with the bot's response.
+     */
+    public String getResponse(String input) {
+        return "Victor heard: " + input;
+    }
+
+    /**
      * Displays the program welcome message to the user in the Standard Output.
      */
     public void showWelcomeMessage() {

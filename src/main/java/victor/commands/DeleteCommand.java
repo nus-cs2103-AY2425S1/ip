@@ -4,9 +4,18 @@ import java.nio.file.Path;
 
 import victor.messages.ReturnMessage;
 
+/**
+ * Delete command that ensures valid input for number of task deleted and
+ * executes the delete command.
+ */
 public class DeleteCommand extends Command {
     private String taskNumber;
 
+    /**
+     * Delete command constructor that takes in additional input and validates that
+     * task number was provided at all to delete.
+     * @param additionalInput A string array containing the words from the delete command input.
+     */
     public DeleteCommand(String[] additionalInput) {
         super(additionalInput);
         if (additionalInput.length == 1) {

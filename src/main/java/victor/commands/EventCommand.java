@@ -8,6 +8,9 @@ import java.time.format.DateTimeParseException;
 import victor.messages.ReturnMessage;
 import victor.tasks.Event;
 
+/**
+ * Event command extends command class, ensures valid input and creates event object.
+ */
 public class EventCommand extends Command {
     private Event event;
     public EventCommand(String[] additionalInput) {
