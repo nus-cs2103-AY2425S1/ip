@@ -8,17 +8,7 @@ import java.util.Scanner;
 public class Ui {
     private static final String LINE = "    " + "___________________________________";
 
-    /**
-     * Displays introduction to users.
-     *
-     * @param name Name of the chatbot.
-     */
-    public void greetUser(String name) {
-        System.out.println(LINE);
-        System.out.println("    " + String.format("Hello! I'm %s", name));
-        System.out.println("    " + "What can I do for you?");
-        System.out.println(LINE);
-    }
+
 
     /**
      * Displays a horizontal line.

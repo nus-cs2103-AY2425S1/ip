@@ -39,10 +39,19 @@ public class Bimo {
     }
 
     /**
+     * Displays introduction to users.
+     *
+     * @param name Name of the chatbot.
+     */
+    public String greetUser(String name) {
+        return String.format("Hello! I'm %s", name)
+                + "What can I do for you?";
+    }
+
+    /**
      * Starts the chatbot up.
      */
     public void run() {
-        ui.greetUser(NAME);
         boolean isRunning = true;
         while (isRunning) {
             try {

@@ -32,8 +32,8 @@ public class UnmarkCommand extends Command {
         }
         tasks.getTask(index).markUncompleted();
         storage.overwriteFile(tasks);
-        String response = "        Noted. I've removed this task:"
-                + "       " + tasks.getTask(index).toString();
+        String response = "Noted. I've removed this task:\n"
+                + "    " + tasks.getTask(index).toString();
         return response;
     }
 }

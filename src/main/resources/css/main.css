@@ -13,6 +13,7 @@
 .button {
     -fx-background-color: mediumspringgreen;
     -fx-font: italic bold 16px "Arial";
+    -fx-border-radius: 1em, 1em, 1em, 1em;
 }
 
 .button:hover {

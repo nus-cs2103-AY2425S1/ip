@@ -34,8 +34,8 @@ public class MarkCommand extends Command {
         }
         tasks.getTask(index).markCompleted();
         storage.overwriteFile(tasks);
-        String response = "    Good job! I've marked this task as done:\n"
-                + "       " + tasks.getTask(index).toString();
+        String response = "Good job! I've marked this task as done:\n"
+                + "    " + tasks.getTask(index).toString();
         return response;
     }
 }

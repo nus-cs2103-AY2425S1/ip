@@ -32,7 +32,7 @@ public class AddCommand extends Command {
         tasks.addTask(task);
         String word = tasks.getLength() == 1 ? "task" : "tasks";
         storage.appendToFile(task);
-        return "    Got it. I've added this task:\n" + "        " + task.toString()
+        return "Got it. I've added this task:\n" + "    " + task.toString()
                 + "\n" + String.format("    Now you have %d %s in the tasks.",
                 tasks.getLength(), word);
     }

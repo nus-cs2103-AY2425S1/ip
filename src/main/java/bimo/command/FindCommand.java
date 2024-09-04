@@ -40,7 +40,7 @@ public class FindCommand extends Command {
                 results.add(task);
             }
         }
-        String response = "    Here are the matching tasks in your list:";
+        String response = "Here are the matching tasks in your list:";
         for (int i = 0; i < results.size(); i++) {
             String message = String.format("\n    %d. %s", i + 1, results.get(i).toString());
             response += message;

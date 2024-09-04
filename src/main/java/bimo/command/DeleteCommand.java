@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
         Task task = tasks.removeTask(index);
         storage.overwriteFile(tasks);
         String word = tasks.getLength() == 1 ? "task" : "tasks";
-        String response = "    Noted. I've removed this task:" + "        "
+        String response = "    Noted. I've removed this task:\n"
                 + task.toString() + String.format("    Now you have %d %s in the tasks.",
                 tasks.getLength(), word);
         return response;
