@@ -34,8 +34,10 @@ application {
 shadowJar {
     archiveBaseName = "Bigdog"
     archiveClassifier = null
+    mainClassName = 'bigdog.Bigdog'
+    archiveFileName = 'Bigdog.jar'
 }
 
-run{
+run {
     standardInput = System.in
 }
