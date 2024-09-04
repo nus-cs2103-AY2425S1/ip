@@ -9,32 +9,48 @@ public class Espresso {
     }
 
     void addToList(String str) {
-        if (count < tasks.length) {
-            Task task = null;
-            if (str.startsWith("todo ")) {
-                task = new todoTask(str.substring(5));
-            }else if (str.startsWith("deadline ")) {
-                String split[] = str.substring(9).split(" /by");
-                task = new deadlineTask(split[0], split[1]);
-            } else if (str.startsWith("event ")) {
-                String split1[] = str.substring(6).split(" /from ");
-                String split2[] = split1[1].split(" /to ");
-                task = new eventTask(split1[0], split2[0], split2[1]);
-            } else {
-                System.out.println("SORRY!! LOOKS LIKE YOU'VE GIVEN AN INVALID TASK");
+        Task task = null;
+        try {
+            if (count < tasks.length) {
+                if (str.startsWith("todo")) {
+                    String status = str.substring(4).trim();
+                    if (status.isEmpty())
+                        throw new IllegalArgumentException("Description of todo task is required");
+                    task = new todoTask(status);
+                } else if (str.startsWith("deadline")) {
+                    String split[] = str.substring(8).split(" /by");
+                    String status = split[0].trim();
+                    if (status.isEmpty())
+                        throw new IllegalArgumentException("Description of deadline task is required");
+                    task = new deadlineTask(status, split[1].trim());
+                } else if (str.startsWith("event")) {
+                    String split1[] = str.substring(5).split(" /from ");
+                    String status = split1[0].trim();
+                    if (status.isEmpty())
+                        throw new IllegalArgumentException("Description of event task is required");
+                    String split2[] = split1[1].split(" /to ");
+                    task = new eventTask(status, split2[0].trim(), split2[1].trim());
+                }else {
+                    throw new IllegalArgumentException("Random Input! I don't know what that means :(");
+                }
             }
+            else
+                throw new IllegalArgumentException("Task list is full");
             tasks[count] = task;
             System.out.println("____________________________________________________________");
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + task);
-            if(count == 0)
+            if (count == 0)
                 System.out.println("Now you have " + (count + 1) + " task in the list.");
             else
                 System.out.println("Now you have " + (count + 1) + " tasks in the list.");
             System.out.println("____________________________________________________________");
             count++;
-        } else {
-            System.out.println("Task list is full");
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Oops! " + e.getMessage());
+            System.out.println("____________________________________________________________");
         }
     }
 
