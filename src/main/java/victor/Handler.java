@@ -10,7 +10,9 @@ import victor.storage.Storage;
 import victor.tasklist.TaskList;
 
 /**
- * Class that handles requests from the MainWindow handleUserInput method
+ * Class between MainWindow class and data handling classes like Commands and TaskList.
+ * Handles requests from the MainWindow handleUserInput method by parsing, executing, and
+ * writing to file.
  */
 public class Handler {
     private static final Path DATA_PATH = Paths.get("data", "data.txt");
