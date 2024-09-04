@@ -1,16 +1,18 @@
 package task;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import exception.CommandFoundButInvalidException;
 import exception.EmptyDescriptionException;
 import exception.InvalidSyntaxException;
 
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
+/**
+ * Represents a deadline task with a specific deadline date and time.
+ * This class extends the {@code Task} class and adds functionality to handle deadlines.
+ */
 public class Deadlines extends Task {
-//    private String deadline;
     private LocalDateTime deadline;
     private String initDesc;
 
@@ -66,6 +68,12 @@ public class Deadlines extends Task {
         throw new InvalidSyntaxException("deadline");
     }
 
+    /**
+     * Returns the initial description of the deadline task in a format suitable for storage.
+     * This format includes the task type, completion status, and the original description.
+     *
+     * @return a string representation of the deadline task suitable for storage
+     */
     public String getInitDesc() {
         String str = super.isDone ? "1" : "0";
         return String.format("D | %s | %s", str, this.initDesc);
