@@ -2,6 +2,7 @@ package lawrence.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents the list of tasks the user has specified to be tracked by the chatbot.
@@ -120,6 +121,20 @@ public class TaskList {
         Task t = list.get(taskNumber - 1);
         t.setComplete(false);
         return t;
+    }
+
+    /**
+     * Returns a {@link TaskList} containing tasks that match the given query.
+     *
+     * @param query the string to match task descriptions
+     * @return a {@link TaskList} containing hits
+     */
+    public TaskList findTasks(String query) {
+        List<Task> result = list.stream()
+                .filter(task -> task.contains(query))
+                .toList();
+
+        return new TaskList(result.toArray(new Task[0]));
     }
 
     /**

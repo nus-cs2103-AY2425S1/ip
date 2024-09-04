@@ -9,6 +9,7 @@ public enum CommandType {
     MARK_COMPLETE("mark"),
     MARK_INCOMPLETE("unmark"),
     DELETE("delete"),
+    FIND_MATCHING("find"),
     ADD_TODO("todo"),
     ADD_DEADLINE("deadline"),
     ADD_EVENT("event");

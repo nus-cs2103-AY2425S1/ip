@@ -45,6 +45,17 @@ public abstract class Task {
     }
 
     /**
+     * Returns a boolean indicate if the query matches or partially matches
+     * the task description.
+     *
+     * @param query the string to match with the description
+     * @return true if there is a match or partial match, false otherwise
+     */
+    public boolean contains(String query) {
+        return description.contains(query);
+    }
+
+    /**
      * Returns a string representation of the object in a
      * standardised save format.
      *
