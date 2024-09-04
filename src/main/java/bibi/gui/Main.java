@@ -1,17 +1,17 @@
 package bibi.gui;
 
 import java.io.IOException;
+
 import bibi.Bibi;
+
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  * The bibi.gui.Main class for JavaFx
  */
 public class Main extends Application {
-    public static final String DEFAULT_FILE_PATH = "bibi/data/list.txt";
+    public static final String DEFAULT_FILE_PATH = "src/main/resources/data/list.txt";
 
     private Bibi bibi;
     private VBox dialogContainer;
