@@ -1,8 +1,9 @@
-package Assistinator;
+package assistinator;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 public class StorageTest {
     private static final String TEST_FILE_PATH = "test_tasks.txt";

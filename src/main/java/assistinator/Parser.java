@@ -1,5 +1,8 @@
-package Assistinator;
+package assistinator;
 
+/**
+ * Parses input and creates respective command
+ */
 public class Parser {
     /**
      * Parses command from user input
@@ -34,18 +37,18 @@ public class Parser {
      * @param type The type of command (TODO, DEADLINE, or EVENT).
      * @param input The input string containing the task details.
      * @return A Task object created based on the input and command type.
-     * @throws AssitinatorExceptions If the task type is invalid or if there's an error in parsing the specific task type.
+     * @throws AssitinatorExceptions If the task type is invalid.
      */
     public Task parseTask(Command type, String input) throws AssitinatorExceptions {
         switch (type) {
-            case TODO:
-                return parseTodo(input);
-            case DEADLINE:
-                return parseDeadline(input);
-            case EVENT:
-                return parseEvent(input);
-            default:
-                throw new AssitinatorExceptions("Invalid task type");
+        case TODO:
+            return parseTodo(input);
+        case DEADLINE:
+            return parseDeadline(input);
+        case EVENT:
+            return parseEvent(input);
+        default:
+            throw new AssitinatorExceptions("Invalid task type");
         }
     }
 

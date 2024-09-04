@@ -1,5 +1,8 @@
-package Assistinator;
+package assistinator;
 
+/**
+ * Represents command given to chat bot
+ */
 public enum Command {
     BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, FIND, UNKNOWN;
 
