@@ -1,8 +1,9 @@
 package yapmeister;
 
+import java.util.Scanner;
+
 import yapmeister.task.TaskList;
 
-import java.util.Scanner;
 
 /**
  * UI that handles user interaction

@@ -20,7 +20,7 @@ public interface Command {
     /**
      * Takes in an input, parses it and returns the Command
      * @param input
-     * @return
+     * @return Command
      * @throws Exception
      */
     abstract Command parse(String input) throws Exception;

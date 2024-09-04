@@ -1,18 +1,17 @@
 package yapmeister.commands;
 
+import java.util.ArrayList;
+
 import yapmeister.Storage;
 import yapmeister.UI;
-import yapmeister.task.InvalidMarkException;
 import yapmeister.task.Task;
 import yapmeister.task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Represents Find user command that searches for a keyword in the tasks
  */
 public class FindCommand implements Command {
-    String searchTerm;
+    private String searchTerm;
     @Override
     public void execute(TaskList tasks, Storage storage, UI ui) throws Exception {
         ArrayList<Task> tasks2 = tasks.getFilteredArrayList(t -> t.getTaskName().contains(searchTerm));

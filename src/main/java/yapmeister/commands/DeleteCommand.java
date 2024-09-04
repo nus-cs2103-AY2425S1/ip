@@ -1,12 +1,13 @@
 package yapmeister.commands;
 
+import static java.lang.Integer.parseInt;
+
 import yapmeister.Storage;
 import yapmeister.UI;
 import yapmeister.task.InvalidMarkException;
 import yapmeister.task.Task;
 import yapmeister.task.TaskList;
 
-import static java.lang.Integer.parseInt;
 
 /**
  * Represents Delete user command that deletes the task at index

@@ -1,10 +1,10 @@
 package yapmeister.commands;
 
+import java.io.IOException;
+
 import yapmeister.Storage;
 import yapmeister.UI;
 import yapmeister.task.TaskList;
-
-import java.io.IOException;
 
 /**
  * Represents Bye user command that closes the app

@@ -19,7 +19,7 @@ public class TaskList {
 
     /**
      * Creates a TaskList with the specified ArrayList.
-     * @param tasks Given ArrayList<Task> to hold tasks
+     * @param tasks Given ArrayList to hold tasks
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;

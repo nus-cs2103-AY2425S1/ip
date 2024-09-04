@@ -1,32 +1,29 @@
 package yapmeister;
 
-import yapmeister.commands.Command;
+import java.io.IOException;
+
 import yapmeister.commands.ByeCommand;
+import yapmeister.commands.Command;
 import yapmeister.commands.DeadlineCommand;
 import yapmeister.commands.DeleteCommand;
 import yapmeister.commands.EventCommand;
 import yapmeister.commands.FindCommand;
+import yapmeister.commands.InvalidInputException;
 import yapmeister.commands.ListCommand;
 import yapmeister.commands.MarkCommand;
 import yapmeister.commands.TodoCommand;
 import yapmeister.commands.UnmarkCommand;
-
-
-
-import yapmeister.task.TaskList;
 import yapmeister.task.InvalidMarkException;
-import yapmeister.commands.InvalidInputException;
-
-import java.io.IOException;
+import yapmeister.task.TaskList;
 
 /**
  * Parser that handles the logic for YapMeister
  * @author BlazeChron
  */
 public class Parser {
-    TaskList tasks;
-    Storage storage;
-    UI ui;
+    private TaskList tasks;
+    private Storage storage;
+    private UI ui;
 
     /**
      * Creates a Parser.
@@ -69,6 +66,7 @@ public class Parser {
                 break;
             case "deadline":
                 command = new DeadlineCommand().parse(input);
+                break;
             case "event":
                 command = new EventCommand().parse(input);
                 break;

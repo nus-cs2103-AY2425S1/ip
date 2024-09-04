@@ -31,7 +31,7 @@ public abstract class Task {
      * Exports String representation to file storage format.
      * @return String representation in file storage format.
      */
-    abstract public String exportString();
+    public abstract String exportString();
 
     /**
      * Returns String format of the Task in YapMeister's required format.

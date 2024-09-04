@@ -1,11 +1,11 @@
 package yapmeister.commands;
 
+import static java.lang.Integer.parseInt;
+
 import yapmeister.Storage;
 import yapmeister.UI;
 import yapmeister.task.InvalidMarkException;
 import yapmeister.task.TaskList;
-
-import static java.lang.Integer.parseInt;
 
 /**
  * Represents Mark user command that marks the task at index

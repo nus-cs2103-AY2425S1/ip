@@ -1,11 +1,11 @@
 package yapmeister.commands;
 
+import java.util.ArrayList;
+
 import yapmeister.Storage;
 import yapmeister.UI;
 import yapmeister.task.Task;
 import yapmeister.task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Represents List user command that lists the tasks
