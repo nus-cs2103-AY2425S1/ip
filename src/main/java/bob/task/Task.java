@@ -1,3 +1,7 @@
+package bob.task;
+
+import bob.ui.Ui;
+
 public class Task {
     protected String description;
     protected boolean isDone;

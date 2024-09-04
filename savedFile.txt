@@ -1,2 +1,0 @@
-E | 0 | 0 | | | project | meeting
-E | 1 | TUTORIAL (from: Mon 4pm  to: 6pm) | Mon | 4pm | 6pm

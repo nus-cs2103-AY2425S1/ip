@@ -1,7 +1,10 @@
+package bob.ui;
+
+import bob.parser.Parser;
+
 /**
  * Class that handles interactions with the user.
  */
-
 public class Ui {
     private Parser parser;
 

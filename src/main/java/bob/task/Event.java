@@ -1,3 +1,5 @@
+package bob.task;
+
 public class Event extends Task {
 
     protected String startDay;

@@ -1,3 +1,5 @@
+package bob.storage;
+
 import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -5,6 +7,11 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import bob.task.Deadline;
+import bob.task.Event;
+import bob.task.Task;
+import bob.task.TaskList;
+import bob.task.Todo;
 
 
 /**
@@ -20,7 +27,7 @@ public class Storage {
      * Constructor for the Storage instance.
      * @param filePath File path to the location of the file where records are saved.
      */
-    Storage(String filePath) {
+    public Storage(String filePath) {
         this.FILE_PATH = filePath;
     }
 

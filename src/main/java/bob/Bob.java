@@ -1,17 +1,15 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Date;
+package bob;
+
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import bob.parser.Parser;
+import bob.exception.InvalidTaskException;
+import bob.exception.BobException;
+import bob.task.Task;
+import bob.task.TaskList;
+import bob.storage.Storage;
+import bob.ui.Ui;
+
 
 /**
  * This is a chatbot class named Bob.
@@ -29,13 +27,13 @@ public class Bob {
     /**
      * Initialises an instance of Bob.
      */
-    public Bob() {
-        this.records = new ArrayList<>();
-        this.counter = 0;
-        this.savedFilePath = "src/main/java/savedFile.txt";
-        ui = new Ui();
-        storage = new Storage(savedFilePath);
-    }
+//    public Bob() {
+//        this.records = new ArrayList<>();
+//        this.counter = 0;
+//        this.savedFilePath = "src/main/java/savedFile.txt";
+//        ui = new Ui();
+//        storage = new Storage(savedFilePath);
+//    }
 
 
 //    public static void main(String[] args)  {
@@ -60,7 +58,7 @@ public class Bob {
 
 
     public static void main(String[] args) {
-        Bob bob = new Bob("src/main/java/data/tasks.txt");
+        Bob bob = new Bob("src/main/java/bob/data/tasks.txt");
         bob.run();
     }
 
