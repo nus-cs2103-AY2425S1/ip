@@ -30,6 +30,9 @@ public class TaskList {
      * @param storage The storage system used to persist the tasks.
      */
     public TaskList(Storage storage) {
+        // Check if storage is null
+        assert storage != null : "Storage argument cannot be null";
+
         this.storage = storage;
         tasklist = new ArrayList<Task>();
 
@@ -65,6 +68,7 @@ public class TaskList {
                 }
             } catch (OuiOuiBaguetteException e) {
                 // Handle the exception (can log this if needed)
+                e.printStackTrace();;
             }
         }
     }
@@ -76,6 +80,9 @@ public class TaskList {
      * @return The task that was added.
      */
     public Task addTask(Task task) {
+        // Check if task is null
+        assert task != null : "Task cannot be null";
+
         tasklist.add(task);
         storage.store(task.toDataFormat());
         return task;
