@@ -1,8 +1,8 @@
 public class Prompter {
     private static final String BREAK = "____________________________________________________________";
 
-    public void printLogo(String logo) {
-        printResponse(logo);
+    public void printLogo() {
+        printResponse(Alexer.LOGO);
     }
 
     public void printGreeting() {

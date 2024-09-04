@@ -7,35 +7,34 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Alexer {
-    private static final String GOODBYE = "Goodbye! If you ever want to chat again, I'll be here.\nHave a great day!";
     private static final String BREAK = "____________________________________________________________";
 
+    public static final String LOGO = """
+                     .     .                           
+                    /|     |     ___  _  .-   ___  .___
+                   /  \\    |   .'   `  \\,'  .'   ` /   \\
+                  /---'\\   |   |----'  /\\   |----' |   '
+                ,'      \\ /\\__ `.___, /  \\  `.___, /   """;
+
     public static final String NAME = "Alexer";
+
+    private static Alexer alexer;
 
     private final Scanner scanner;
 
     private final TaskManager tasks;
 
-    private static Alexer alexer;
+    private final Prompter prompter;
 
     public Alexer() {
         alexer = this;
         scanner = new Scanner(System.in);
         tasks = new TaskManager();
+        prompter = new Prompter();
     }
 
     public Alexer getInstance() {
         return alexer;
-    }
-
-    /**
-     * Prints the chatbot response with break lines
-     * @param response The message to be printed
-     */
-    private void printResponse(String response) {
-        System.out.println(BREAK);
-        System.out.println(response);
-        System.out.println(BREAK);
     }
 
     public void printTasks() {
@@ -47,10 +46,6 @@ public class Alexer {
         }
 
         System.out.println(BREAK);
-    }
-
-    public void greetUser() {
-        printResponse(String.format("Hello from %s, what can I do for you today?", NAME));
     }
 
     public void addTask(String taskDescription) {
@@ -110,7 +105,7 @@ public class Alexer {
         try {
             dateTime = LocalDateTime.parse(by, dateTimeFormat);
         } catch (DateTimeException e) {
-            printResponse("Uh-oh, I failed to understand what is the task deadline!");
+            prompter.printResponse("Uh-oh, I failed to understand what is the task deadline!");
             return;
         }
 
@@ -179,7 +174,7 @@ public class Alexer {
 
         switch (command) {
         case "bye":
-            printResponse(GOODBYE);
+            prompter.printGoodbye();
             break;
         case "list":
             printTasks();
@@ -221,23 +216,13 @@ public class Alexer {
     }
 
     public void start() {
+        prompter.printLogo();
         tasks.loadTasks();
-        greetUser();
+        prompter.printGreeting();
         promptLoop();
     }
 
     public static void main(String[] args) {
-        String logo = """
-                     .     .                           
-                    /|     |     ___  _  .-   ___  .___
-                   /  \\    |   .'   `  \\,'  .'   ` /   \\
-                  /---'\\   |   |----'  /\\   |----' |   '
-                ,'      \\ /\\__ `.___, /  \\  `.___, /   """;
-        System.out.println(BREAK);
-        System.out.println(logo);
-        System.out.println(BREAK);
-
-        // create an instance of our chatbot
         Alexer alexer = new Alexer();
         alexer.start();
     }
