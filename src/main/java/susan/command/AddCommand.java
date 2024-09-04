@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a command to add tasks.
+ */
 public class AddCommand extends Command {
     private String taskType;
     private String[] commandParts;

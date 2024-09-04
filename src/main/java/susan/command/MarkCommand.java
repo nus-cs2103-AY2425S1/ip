@@ -8,6 +8,9 @@ import susan.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to mark or unmark tasks by user-input index.
+ */
 public class MarkCommand extends Command {
     private String[] commandParts;
     private boolean isMark;
@@ -28,7 +31,7 @@ public class MarkCommand extends Command {
                 task.undoMark();
             }
             storage.load(tasks);
-            ui.showTaskList(tasks);
+            ui.showMarkTask(task, tasks.size());
         } catch (Exception e) {
             throw new SusanException("Please enter a valid task index to mark / unmark.");
         }

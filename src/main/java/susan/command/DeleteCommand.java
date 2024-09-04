@@ -6,8 +6,9 @@ import susan.ui.Storage;
 import susan.ui.SusanException;
 import susan.ui.Ui;
 
-import java.io.IOException;
-
+/**
+ * Represents a command to delete tasks by user-input index.
+ */
 public class DeleteCommand extends Command {
     private String[] commandParts;
 
