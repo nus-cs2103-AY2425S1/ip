@@ -33,13 +33,13 @@ public class Task {
          * Returns the String output
          */
         if (this.isDone) {
-            return "1 | " + this.description;
+            return "[X] " + this.description;
         } else {
-            return "0 | " + this.description;
+            return "[ ] " + this.description;
         }
     }
 
-    static public Task fromStringToTask(String taskString) throws InvalidTaskFormatException {
+    public static Task readSavedTask(String taskString) throws InvalidTaskFormatException {
         /** 
          * Reads String version of task and returns task output
          */
@@ -71,6 +71,41 @@ public class Task {
             return new Event(description, isDone, from, to);
         } else {
             throw new InvalidTaskFormatException("Unknown task type: " + taskType);
+        }
+    }
+
+    public String writeSavedTask() throws InvalidTaskFormatException {
+        /** 
+         * Writes String version of task in the format to save
+         */
+
+        String spacer = " | ";
+        String taskType = null;
+        String isDone = this.isDone ? "1" : "0";
+        String description = "";
+        String by = "";
+        String from = "";
+        String to = "";
+
+        if (this instanceof Todo) {
+            taskType = "T";
+            description = this.description;
+            return taskType + spacer + isDone + spacer + description;
+
+        } else if (this instanceof Deadline d) {
+            taskType = "D";
+            description = d.description;
+            by = d.by;
+            return taskType + spacer + isDone + spacer + description + spacer + by;
+
+        } else if (this instanceof Event e) {
+            taskType = "E";
+            description = e.description;
+            from = e.from;
+            to = e.to;
+            return taskType + spacer + isDone + spacer + description + spacer + from + spacer + to;
+        } else {
+            throw new InvalidTaskFormatException("Cannot write task: " + this.toString());
         }
     }
     

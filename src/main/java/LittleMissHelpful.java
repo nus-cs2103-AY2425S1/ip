@@ -210,7 +210,7 @@ public class LittleMissHelpful {
                 String line;
                 while ((line = br.readLine()) != null) {
                     try {
-                        Task task = Task.fromStringToTask(line);
+                        Task task = Task.readSavedTask(line);
                         list.add(task);
                     } catch (InvalidTaskFormatException e) {
                         System.out.println("Warning: Skipping invalid task format: " + line);
@@ -229,8 +229,12 @@ public class LittleMissHelpful {
         File dataFile = new File(FILE_PATH);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(dataFile))) {
             for (Task task : list) {
-                bw.write(task.toString());
-                bw.newLine();
+                try {
+                    bw.write(task.writeSavedTask());
+                    bw.newLine();
+                } catch (InvalidTaskFormatException e) {
+                    System.out.println("Warning: Cannot write task: " + task.toString());
+                }
             }
         } catch (IOException e) {
             System.out.println("Error writing to the file: " + e.getMessage());

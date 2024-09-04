@@ -16,7 +16,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "E | " + super.toString() + " | " + this.from + " | " + this.to;
+        return "[E] " + super.toString() + " | " + this.from + " - " + this.to;
     }
     
 }
