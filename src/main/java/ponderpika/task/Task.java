@@ -1,4 +1,4 @@
-package Ponder_Pika.Task;
+package ponderpika.task;
 
 /**
  * This class represents an abstract task with a description and status (done or not done).
@@ -9,7 +9,7 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * Constructs a Task with the specified description.
+     * Constructs a task with the specified description.
      * The task is initially marked as not done, hence isDone being false.
      *
      * @param description the description of the task

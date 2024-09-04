@@ -1,28 +1,28 @@
-package Ponder_Pika.Storage;
+package ponderpika.storage;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import Ponder_Pika.Exception.PonderPikaException;
-import Ponder_Pika.Task.Deadline;
-import Ponder_Pika.Task.Event;
-import Ponder_Pika.Task.Task;
-import Ponder_Pika.Task.Todo;
-import Ponder_Pika.Task.TaskList;
+import ponderpika.task.Deadline;
+import ponderpika.task.Event;
+import ponderpika.task.Task;
+import ponderpika.task.TaskList;
+import ponderpika.task.Todo;
+import ponderpika.exception.PonderPikaException;
 
 /**
  * This class is responsible for handling file operations.
  * It includes methods for creating a file, saving task data to a file, and loading task data from a file.
  */
-public class IOHandler {
+public class IoHandler {
     private static final File FILE = new File("./data/pika.txt");
 
     /**
@@ -78,7 +78,7 @@ public class IOHandler {
      *
      * @return an ArrayList of tasks loaded from the file
      */
-    public TaskList loadData() {
+    public TaskList loadData() throws PonderPikaException {
         TaskList list = new TaskList();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
@@ -102,8 +102,8 @@ public class IOHandler {
                     list.addTask(d);
                     break;
                 case "E":
-                    Event e = new Event(splitlines[2].trim(), LocalDateTime.parse(splitlines[3].trim(),formatter),
-                            LocalDateTime.parse(splitlines[4].trim(),formatter));
+                    Event e = new Event(splitlines[2].trim(), LocalDateTime.parse(splitlines[3].trim(), formatter),
+                            LocalDateTime.parse(splitlines[4].trim(), formatter));
                     if (splitlines[1].trim().equals("true")) {
                         e.markDone();
                     }
@@ -115,15 +115,15 @@ public class IOHandler {
                     if (splitlines[1].trim().equals("true")) {
                         t.markDone();
                     }
-
                     list.addTask(t);
                     break;
+                default:
+                    throw new PonderPikaException("Error Loading Data! , Starting with an Empty TaskList!");
                 }
             }
         } catch (IOException ignored) {
-            // Ignored exception
+            throw new PonderPikaException("Error Loading Data! , Starting with an Empty TaskList!");
         }
-
         return list;
     }
 }

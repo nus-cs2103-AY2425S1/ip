@@ -1,13 +1,13 @@
-package Ponder_Pika.Task;
+package ponderpika.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class represents a specific type of task that has a start time and end time.
- * It extends the {@code Task} class and includes additional information about the
+ * It extends the {@code task} class and includes additional information about the
  * start and end time during which the even takes place.
- * The {@code Deadline} class overrides the following methods from the {@code Task} class:
+ * The {@code Deadline} class overrides the following methods from the {@code task} class:
  * saveFullDetails() and toString()
  */
 public class Event extends Task {

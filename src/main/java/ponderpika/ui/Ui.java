@@ -1,4 +1,4 @@
-package Ponder_Pika.Ui;
+package ponderpika.ui;
 
 public class Ui {
 
@@ -6,7 +6,7 @@ public class Ui {
      * Prints a greeting message to the user with the bot's name.
      */
     public void greet() {
-        String logo = "Ponder_Pika";
+        String logo = "ponderpika";
 
         System.out.println("----------------------------------------------------------");
         System.out.println("Hello I'm " + logo);

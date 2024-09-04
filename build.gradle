@@ -1,11 +1,16 @@
 plugins {
     id 'java'
+    id 'checkstyle'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
     mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 dependencies {
@@ -27,7 +32,7 @@ test {
 }
 
 application {
-    mainClass.set("Ponder_Pika.Main")
+    mainClass.set("ponderpika.Main")
 }
 
 shadowJar {

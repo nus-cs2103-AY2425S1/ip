@@ -1,10 +1,11 @@
-package Ponder_Pika;
+package ponderpika;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import Ponder_Pika.Task.Todo;
 import org.junit.jupiter.api.Test;
+
+import ponderpika.task.Todo;
 
 public class TodoTest {
 

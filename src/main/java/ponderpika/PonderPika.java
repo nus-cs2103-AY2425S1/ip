@@ -1,30 +1,45 @@
-package Ponder_Pika;
+package ponderpika;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import Ponder_Pika.Exception.PonderPikaException;
-import Ponder_Pika.Parser.Parser;
-import Ponder_Pika.Storage.IOHandler;
-import Ponder_Pika.Task.Task;
-import Ponder_Pika.Task.TaskList;
-import Ponder_Pika.Task.Todo;
-import Ponder_Pika.Ui.Ui;
+import ponderpika.exception.PonderPikaException;
+import ponderpika.parser.Parser;
+import ponderpika.storage.IoHandler;
+import ponderpika.task.Task;
+import ponderpika.task.TaskList;
+import ponderpika.task.Todo;
+import ponderpika.ui.Ui;
 
 /**
- * The {@code Ponder_Pika} class represents a task management system.
+ * The {@code ponderpika} class represents a task management system.
  * It allows users to manage tasks including adding, listing, marking, unmarking, deleting tasks, and more.
  */
-public class Ponder_Pika {
+public class PonderPika {
 
-    private final IOHandler io = new IOHandler();
+    private final IoHandler io = new IoHandler();
     private final TaskList taskList;
     private final Ui ui = new Ui();
     private final Parser parser = new Parser();
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
 
-    public Ponder_Pika() {
-        this.taskList = io.loadData();
+    /**
+     * Constructs a new PonderPika instance.
+     * <p>
+     * This constructor initializes the PonderPika object by attempting to load the task list from
+     * persistent storage using loadData. If loading the data fails due to a PonderPikaException,
+     * a new, empty TaskList is created and an error message is printed.
+     * </p>
+     */
+    public PonderPika() {
+        TaskList taskList1;
+        try {
+            taskList1 = io.loadData();
+        } catch (PonderPikaException e) {
+            taskList1 = new TaskList();
+            System.out.println(e.toString());
+        }
+        this.taskList = taskList1;
     }
 
     /**
@@ -58,6 +73,19 @@ public class Ponder_Pika {
             System.out.println(e.toString());
         }
     }
+
+    /**
+     * Handles a given Command by performing the appropriate action based on the command's action type.
+     * <p>
+     * This method processes commands for various actions such as listing tasks, marking tasks, adding
+     * different types of tasks (To-do, DEADLINE, EVENT), deleting tasks, finding tasks by a keyword, and
+     * handling the termination of the application.
+     * </p>
+     *
+     * @param command the command to be processed, which includes the action type and associated data
+     *
+     * @throws PonderPikaException if the action type in the command is unknown or not handled
+     */
 
     private void handleCommand(Command command) throws PonderPikaException {
         switch (command.getAction()) {
@@ -122,6 +150,8 @@ public class Ponder_Pika {
             ui.bidBye();
             System.out.println("\n----------------------------------------------------------");
             break;
+        default:
+            throw new PonderPikaException("Unknown command: " + command.getAction());
         }
     }
 }

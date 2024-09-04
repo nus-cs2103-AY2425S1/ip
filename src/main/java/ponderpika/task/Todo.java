@@ -1,11 +1,11 @@
-package Ponder_Pika.Task;
+package ponderpika.task;
 
 /**
  * This class represents a specific type of task that just has a description.
- * It extends the {@code Task} class and overrides the following methods from the {@code Task} class:
+ * It extends the {@code task} class and overrides the following methods from the {@code task} class:
  * saveFullDetails() and toString()
  */
- public class Todo extends Task {
+public class Todo extends Task {
 
     /**
      * Constructs a To-do task with specified description
@@ -25,6 +25,7 @@ package Ponder_Pika.Task;
      *
      * @return a string representing the full details of the task
      */
+
     @Override
     public String saveFullDetails() {
         return String.format("T | %b | %s", isDone(), getDescription());
