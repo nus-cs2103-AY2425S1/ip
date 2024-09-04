@@ -1,6 +1,10 @@
 public class ToDo extends Task{
-    public ToDo(String text) {
-        super(text);
+    public ToDo(String text, boolean isDone) {
+        super(text, isDone);
+    }
+    @Override
+    public String export() {
+        return "T | " + (isDone ? "1" : "0") + " | " + text;
     }
 
     @Override

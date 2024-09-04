@@ -1,11 +1,12 @@
 public abstract class Task {
-    private final String text;
-    private boolean isDone;
+    protected final String text;
+    protected boolean isDone;
 
-    public Task(String text) {
+    public Task(String text, boolean isDone) {
         this.text = text;
-        this.isDone = false;
+        this.isDone = isDone;
     }
+    public abstract String export();
 
     public void markAsDone() {
         this.isDone = true;
