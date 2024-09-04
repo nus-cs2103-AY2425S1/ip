@@ -1,12 +1,12 @@
 public class Task {
     String description;
+    private boolean completed;
     public enum TaskType {
         TODO,
         EVENT,
         DEADLINE,
     }
 
-    private boolean completed;
     Task(String task){
         this.description = task;
         this.completed = false;
@@ -40,9 +40,6 @@ public class Task {
         }
 
     }
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public void mark() {
         this.completed = true;
@@ -66,5 +63,9 @@ public class Task {
     @Override
     public String toString() {
         return this.description;
+    }
+
+    public String toStorageString(){
+        return String.format("%s|%s|%s", getTypeIcon(), getStatusIcon(),this.description);
     }
 }

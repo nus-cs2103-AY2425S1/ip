@@ -5,13 +5,6 @@ public class Deadline extends Task{
         this.deadline = by;
     }
 
-    public void editDeadline(String deadline) {
-        this.deadline = deadline;
-    }
-    public String getDeadline() {
-        return this.deadline;
-    }
-
     @Override
     public String getTypeIcon() {
         return "D";
@@ -20,5 +13,10 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         return super.description + String.format(" (by: %s)", this.deadline);
+    }
+
+    @Override
+    public String toStorageString(){
+        return String.format("%s|%s|%s|%s", getTypeIcon(), getStatusIcon(),this.description, this.deadline);
     }
 }

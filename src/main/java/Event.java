@@ -32,4 +32,9 @@ public class Event extends Task{
     public String toString() {
         return super.description + String.format(" (From: %s To: %s)", this.from, this.to);
     }
+
+    @Override
+    public String toStorageString(){
+        return String.format("%s|%s|%s|%s|%s", getTypeIcon(), getStatusIcon(),this.description, this.from, this.to);
+    }
 }

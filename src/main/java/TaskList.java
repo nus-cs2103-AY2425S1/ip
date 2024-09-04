@@ -36,4 +36,12 @@ public class TaskList {
         }
         return temp;
     }
+    public String toStorageString() {
+        String temp ="";
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            temp = temp.concat(String.format("%s\n", t.toStorageString()));
+        }
+        return temp;
+    }
 }

@@ -1,4 +1,5 @@
 public class Commands {
+    private boolean exit;
     public enum Types {
         TODO,
         DEADLINE,
@@ -11,6 +12,14 @@ public class Commands {
         DELETE,
     }
 
+    public Commands() {
+        this.exit = false;
+    }
+
+    public boolean isExit() {
+        return exit;
+    }
+
     public static Types checkType(String command) {
         for(Types t : Types.values()) {
             if (t.name().equalsIgnoreCase(command)) return t;
@@ -18,7 +27,7 @@ public class Commands {
         throw new RuntimeException();
     }
 
-    public static void runCommand(Types t, String input, TaskList taskList) {
+    public void runCommand(Types t, String input, TaskList taskList) {
         try {
             if (input == null) {
                 switch (t) {
@@ -64,7 +73,7 @@ public class Commands {
         }
     }
 
-    public static void run(String input, TaskList taskList) {
+    public void run(String input, TaskList taskList) {
         // Process input
         String[] inputArray = input.split(" ", 2);
         String inputCommand = inputArray[0];
@@ -78,13 +87,13 @@ public class Commands {
     }
 
     //Command Logic
-    public static void todo(TaskList taskList, String input) {
+    public void todo(TaskList taskList, String input) {
         Task newTask = Task.of(input, Task.TaskType.TODO);
         taskList.add(newTask);
         System.out.printf("New Task: [%s] has been added.\n", newTask);
         System.out.print(taskList);
     }
-    public static void deadline(TaskList taskList, String input) {
+    public void deadline(TaskList taskList, String input) {
         try {
             Task newTask = Task.of(input, Task.TaskType.DEADLINE);
             taskList.add(newTask);
@@ -95,7 +104,7 @@ public class Commands {
         }
 
     }
-    public static void event(TaskList taskList, String input) {
+    public void event(TaskList taskList, String input) {
         try {
             Task newTask = Task.of(input, Task.TaskType.EVENT);
             taskList.add(newTask);
@@ -105,11 +114,11 @@ public class Commands {
             System.out.println("Incorrect/ missing details given");
         }
     }
-    public static void list(TaskList taskList) {
+    public void list(TaskList taskList) {
         System.out.println("TaskList:");
         System.out.print(taskList);
     }
-    public static void mark(TaskList taskList, String input) {
+    public void mark(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
             System.out.printf("Task %d: [%s] has been marked", i, taskList.get(i - 1));
@@ -120,7 +129,7 @@ public class Commands {
             System.out.println("Index out of bound, please try again");
         }
     }
-    public static void unmark(TaskList taskList, String input) {
+    public void unmark(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
             System.out.printf("Task %d: [%s] has been unmarked", i, taskList.get(i - 1));
@@ -131,17 +140,16 @@ public class Commands {
             System.out.println("Index out of bound");
         }
     }
-    public static void bye() {
+    public void bye() {
         String byeMessage = "Bye. Hope to see you again soon!";
         System.out.println(byeMessage);
-        System.exit(0);
+        this.exit = true;
     }
-    public static void help() {
+    public void help() {
         String helpMessage = "Commands:\n-TODO\n-DEADLINE\n-EVENT\n-LIST\n-MARK\n-UNMARK\n-BYE\n-HELP";
         System.out.print(helpMessage);
     }
-
-    public static void delete(TaskList taskList, String input) {
+    public void delete(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
             System.out.printf("Task %d: [%s] has been deleted", i, taskList.get(i - 1));
