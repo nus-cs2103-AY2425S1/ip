@@ -1,9 +1,9 @@
 package stan.commands;
 
 import stan.TaskList;
-import stan.Ui;
+import stan.ui.Ui;
 import stan.Storage;
-
+import javafx.application.Platform;
 /**
  * Represents a command to exit the application.
  */
@@ -17,8 +17,8 @@ public class ExitCommand extends Command {
      * @param storage The storage object (unused in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showBye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showBye();
     }
 
     /**

@@ -1,7 +1,7 @@
 package stan.commands;
 
 import stan.TaskList;
-import stan.Ui;
+import stan.ui.Ui;
 import stan.Storage;
 import stan.tasks.Task;
 import stan.tasks.Event;
@@ -30,7 +30,7 @@ public class EventCommand extends Command {
         }
 
         if (!words[1].contains("/from") || !words[1].contains("/to")) {
-            throw new StanInvalidArgumentException("The event description is present but the '/from' or '/to' clause is missing. Please add the start time followed by the '/from' clause and the end time followed by the '/to' clause.");
+            throw new StanInvalidArgumentException("The event description is present but the '/from' or '/to' clause is missing. Please add the '/from' clause followed by the start time and the '/to' clause followed by the end time.");
         }
 
         String[] parts = words[1].split(" /from ", 2);
@@ -57,10 +57,10 @@ public class EventCommand extends Command {
      * @throws StanInvalidDateTimeFormatException If the date and time format is incorrect.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws StanInvalidDateTimeFormatException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws StanInvalidDateTimeFormatException {
         Task task = new Event(description, from, to);
         tasks.add(task);
-        ui.showTaskAdded(task, tasks.size());
         storage.saveTasks(tasks.getTasks());
+        return ui.showTaskAdded(task, tasks.size());
     }
 }
