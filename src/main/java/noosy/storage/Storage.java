@@ -1,3 +1,8 @@
+package noosy.storage;
+
+import noosy.exception.NoosyException;
+import noosy.task.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

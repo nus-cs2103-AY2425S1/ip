@@ -1,3 +1,7 @@
+package noosy.task;
+
+import noosy.task.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

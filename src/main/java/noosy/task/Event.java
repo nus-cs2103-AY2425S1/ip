@@ -1,8 +1,9 @@
-import java.time.LocalDate;
+package noosy.task;
+
+import noosy.task.Task;
+
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
 

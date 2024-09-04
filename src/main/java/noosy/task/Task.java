@@ -1,3 +1,5 @@
+package noosy.task;
+
 public abstract class Task {
     protected boolean status;
     protected String name;

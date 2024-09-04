@@ -1,3 +1,7 @@
+package noosy.task;
+
+import noosy.task.Task;
+
 public class Todo extends Task {
 
     public Todo(String name) {

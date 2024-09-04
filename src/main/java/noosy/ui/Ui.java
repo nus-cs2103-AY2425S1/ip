@@ -1,3 +1,8 @@
+package noosy.ui;
+
+import noosy.task.Task;
+import noosy.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
