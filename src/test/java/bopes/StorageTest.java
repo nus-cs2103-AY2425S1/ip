@@ -1,19 +1,22 @@
 package bopes;
 
-import bopes.exception.BopesException;
-import bopes.task.Task;
-import bopes.task.TaskList;
-import bopes.task.ToDo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import bopes.exception.BopesException;
+import bopes.task.Task;
+import bopes.task.TaskList;
+import bopes.task.ToDo;
 
 public class StorageTest {
 
@@ -60,7 +63,7 @@ public class StorageTest {
         // Add some tasks to the TaskList
         tasks.addTask(new ToDo("Task 1", false));
         tasks.addTask(new ToDo("Task 2", true));
-        
+
         // Save the tasks to the file
         storage.saveTasks(tasks);
 
@@ -95,6 +98,7 @@ public class StorageTest {
             storage.loadTasks();
         });
 
-        assertTrue(exception.getMessage().contains("Corrupted data: Insufficient task data in file."), "Exception should indicate loading error");
+        assertTrue(exception.getMessage()
+            .contains("Corrupted data: Insufficient task data in file."), "Exception should indicate loading error");
     }
 }
