@@ -1,13 +1,15 @@
 package dumpling.command;
 
-import dumpling.DumplingException;
 import dumpling.Pair;
+import dumpling.Parser;
+import dumpling.Storage;
 import dumpling.task.Task;
 import dumpling.task.TaskList;
-import dumpling.Ui.Ui;
-import dumpling.Storage;
-import dumpling.Parser;
+import dumpling.ui.Ui;
 
+/**
+ * AddCommand class, inherits Command
+ */
 public class AddCommand extends Command {
 
     private String userInput;
@@ -36,6 +38,7 @@ public class AddCommand extends Command {
         return pair.getSecond();
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }

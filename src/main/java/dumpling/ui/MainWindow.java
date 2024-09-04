@@ -1,9 +1,7 @@
-package dumpling.Ui;
+package dumpling.ui;
 
 import dumpling.Dumpling;
-import dumpling.Ui.Ui;
 import dumpling.DumplingException;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

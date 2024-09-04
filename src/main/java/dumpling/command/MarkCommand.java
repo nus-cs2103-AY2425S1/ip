@@ -1,10 +1,13 @@
 package dumpling.command;
 
 import dumpling.DumplingException;
-import dumpling.task.TaskList;
-import dumpling.Ui.Ui;
 import dumpling.Storage;
+import dumpling.task.TaskList;
+import dumpling.ui.Ui;
 
+/**
+ * MarkCommand class for mark AND unmark commands, inherits Command
+ */
 public class MarkCommand extends Command {
 
     private CommandEnum commandEnum;
@@ -16,12 +19,12 @@ public class MarkCommand extends Command {
      * @param commandEnum Command enum to flag if this action is to unmark or mark a task
      * @param itemIdx 1-based index of which item to mark or unmark
      */
-
     public MarkCommand(CommandEnum commandEnum, int itemIdx) {
         this.commandEnum = commandEnum;
         this.itemIdx = itemIdx;
     }
 
+    @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.echo(executeAndReturnLog(taskList, storage));
     }
@@ -38,12 +41,13 @@ public class MarkCommand extends Command {
             storage.save(taskList);
         } catch (IndexOutOfBoundsException e) {
             throw new DumplingException(
-                    "You tried to mark / unmark at an index out of range! " +
-                            String.format("There are only %d items.", taskList.getNumItems()));
+                    "You tried to mark / unmark at an index out of range! "
+                    + String.format("There are only %d items.", taskList.getNumItems()));
         }
         return message;
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }

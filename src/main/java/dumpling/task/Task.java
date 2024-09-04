@@ -1,9 +1,16 @@
 package dumpling.task;
 
+/**
+ * Abstract Task class, which Event, Deadline and ToDo inherit from
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor of task
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -18,6 +25,11 @@ public abstract class Task {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Checks if the description of this task has the given substring
+     * @param substring Target substring to search for
+     * @return True if substring is part of description, false otherwise
+     */
     public boolean hasSubstring(String substring) {
         for (int i = 0; i <= description.length() - substring.length(); i++) {
             if (this.description.substring(i, i + substring.length()).equals(substring)) {

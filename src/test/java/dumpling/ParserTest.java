@@ -1,12 +1,13 @@
 package dumpling;
 
-import dumpling.Ui.Ui;
-import dumpling.command.Command;
-import dumpling.task.TaskList;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import dumpling.command.Command;
+import dumpling.task.TaskList;
+import dumpling.ui.Ui;
 
 public class ParserTest {
     @Test
@@ -15,9 +16,9 @@ public class ParserTest {
         Ui ui = new Ui();
         TaskList tasks = new TaskList(storage.load());
         String[] fullCommands = {
-                "deadline read book by 2024-08-28",
-                "deadline read book /By 2024-08-28",
-                "deadline read book 2024-08-28",
+            "deadline read book by 2024-08-28",
+            "deadline read book /By 2024-08-28",
+            "deadline read book 2024-08-28"
         };
         for (String fullCommand : fullCommands) {
             try {
@@ -57,10 +58,10 @@ public class ParserTest {
         Ui ui = new Ui();
         TaskList tasks = new TaskList(storage.load());
         String[] fullCommands = {
-                "deadline read book /by 28 Aug 2024",
-                "deadline read book /by Aug 28 2024",
-                "deadline read book /by 28 Aug",
-                "deadline read book /by 4pm",
+            "deadline read book /by 28 Aug 2024",
+            "deadline read book /by Aug 28 2024",
+            "deadline read book /by 28 Aug",
+            "deadline read book /by 4pm",
         };
         for (String fullCommand : fullCommands) {
             try {
@@ -82,8 +83,8 @@ public class ParserTest {
         Ui ui = new Ui();
         TaskList tasks = new TaskList(storage.load());
         String[] fullCommands = {
-                "event",
-                "todo"
+            "event",
+            "todo"
         };
         for (String fullCommand : fullCommands) {
             try {
@@ -105,9 +106,9 @@ public class ParserTest {
         Ui ui = new Ui();
         TaskList tasks = new TaskList(storage.load());
         assertEquals(
-                "     Here are the tasks in your list:\n" +
-                        "     1.[T][ ] read book\n" +
-                        "     2.[E][X] project meeting (from: 28 Aug 2 to: 4pm)",
+                "     Here are the tasks in your list:\n"
+                        + "     1.[T][ ] read book\n"
+                        + "     2.[E][X] project meeting (from: 28 Aug 2 to: 4pm)",
                 tasks.list()
         );
     }

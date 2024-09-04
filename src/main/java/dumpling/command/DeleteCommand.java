@@ -1,9 +1,12 @@
 package dumpling.command;
 
-import dumpling.task.TaskList;
-import dumpling.Ui.Ui;
 import dumpling.Storage;
+import dumpling.task.TaskList;
+import dumpling.ui.Ui;
 
+/**
+ * DeleteCommand class, inherits Command
+ */
 public class DeleteCommand extends Command {
 
     private int itemIdx;
@@ -25,9 +28,10 @@ public class DeleteCommand extends Command {
     public String executeAndReturnLog(TaskList taskList, Storage storage) {
         String message = taskList.delete(this.itemIdx);
         storage.save(taskList);
-        return  message;
+        return message;
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }

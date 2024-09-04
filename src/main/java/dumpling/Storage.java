@@ -8,10 +8,19 @@ import java.util.List;
 import dumpling.task.Task;
 import dumpling.task.TaskList;
 
+/**
+ * Storage class to handle all data writing and reading
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Storage constructor. Creates the given file at the filepath if the file does not exist.
+     *
+     * @param filePath Data filepath for reading and writing
+     * @throws DumplingException Thrown if there is an issue with reading or creating the file
+     */
     public Storage(String filePath) throws DumplingException {
         this.filePath = filePath;
         try {

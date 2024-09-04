@@ -1,11 +1,15 @@
 package dumpling.command;
 
-import dumpling.task.TaskList;
-import dumpling.Ui.Ui;
 import dumpling.Storage;
+import dumpling.task.TaskList;
+import dumpling.ui.Ui;
 
+/**
+ * ByeCommand class, inherits Command
+ */
 public class ByeCommand extends Command {
 
+    @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         executeAndReturnLog(taskList, storage);
         ui.exit();
@@ -18,6 +22,7 @@ public class ByeCommand extends Command {
         return ui.getExitMessage();
     }
 
+    @Override
     public boolean isExit() {
         return true;
     }

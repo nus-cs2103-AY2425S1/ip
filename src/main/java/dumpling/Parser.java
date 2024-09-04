@@ -1,11 +1,5 @@
 package dumpling;
 
-import dumpling.command.*;
-import dumpling.task.Deadline;
-import dumpling.task.Event;
-import dumpling.task.Task;
-import dumpling.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.format.DateTimeParseException;
@@ -13,6 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import dumpling.command.AddCommand;
+import dumpling.command.ByeCommand;
+import dumpling.command.Command;
+import dumpling.command.CommandEnum;
+import dumpling.command.DeleteCommand;
+import dumpling.command.FindCommand;
+import dumpling.command.ListCommand;
+import dumpling.command.MarkCommand;
+import dumpling.task.Deadline;
+import dumpling.task.Event;
+import dumpling.task.Task;
+import dumpling.task.ToDo;
+
+/**
+ * Parser class to handle input manipulation
+ */
 public class Parser {
 
     private static final String DEADLINE_DATE_SEPARATOR = "/by";
@@ -34,10 +44,10 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             throw new DumplingException(
                     String.format(
-                            "%s is not a valid command!\n" +
-                                    "     To list items, use 'list'.\n" +
-                                    "     To mark or unmark an item as done, use '<mark/unmark> <item index>'.\n" +
-                                    "     To add a new item, use '<todo/deadline/event> <task name> <args>'.",
+                            "%s is not a valid command!\n"
+                            + "     To list items, use 'list'.\n"
+                            + "     To mark or unmark an item as done, use '<mark/unmark> <item index>'.\n"
+                            + "     To add a new item, use '<todo/deadline/event> <task name> <args>'.",
                             stringCommand));
         }
         switch (commandEnum) {
@@ -183,9 +193,9 @@ public class Parser {
                     "Like a dumpling, tasks cannot be empty! Please provide a descriptive name."
             );
         }
-        String message = "     Got it. I've added this task:\n" +
-                String.format("       %s\n", task.toString()) +
-                String.format("     Now you have %d %s in the list.",
+        String message = "     Got it. I've added this task:\n"
+                + String.format("       %s\n", task.toString())
+                + String.format("     Now you have %d %s in the list.",
                         numItems + 1, (numItems + 1 == 1 ? "task" : "tasks"));
         return new Pair<>(task, message);
     }
