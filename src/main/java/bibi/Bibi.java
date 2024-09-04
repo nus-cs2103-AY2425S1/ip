@@ -51,10 +51,10 @@ public class Bibi {
 
     public static void main(String[] args) {
         // Insert path to saveFile
-        new Bibi("data/list.txt").run();
+        new Bibi("resources/data/list.txt").run();
     }
 
     public String getResponse(String input) {
-        return "Bibi: " + input;
+        return Parser.parseCommand(input).execute(tasks, ui, storage);
     }
 }
