@@ -6,7 +6,7 @@ import bopes.exception.BopesException;
 import bopes.task.TaskList;
 
 /**
- * Main class for the Bopes application
+ * Main class for the Bopes application.
  */
 public class Bopes {
 
@@ -32,35 +32,26 @@ public class Bopes {
     }
 
     /**
-     * Starts the Bopes application, reading user commands and processing them.
+     * Handles user input and returns the response from Bopes.
+     * 
+     * @param input The user input.
+     * @return The response from Bopes.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line
-                if (fullCommand.equalsIgnoreCase("bye")) {
-                    isExit = true;
-                    ui.showGoodbye();
-                } else {
-                    Parser.parse(fullCommand, tasks, ui, storage);
-                }
-            } catch (BopesException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    public String getResponse(String input) {
+        try {
+            return Parser.parse(input, tasks, storage);
+        } catch (BopesException e) {
+            return "Error: " + e.getMessage();
         }
     }
 
     /**
-     * The main method to run the Bopes application.
+     * The main method to launch the Bopes application.
      * 
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
-        new Bopes("data/tasks.txt").run();
+        // Initialize the JavaFX application
+        Main.main(args);  // This launches the JavaFX application
     }
 }
