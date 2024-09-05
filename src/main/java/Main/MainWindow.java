@@ -15,8 +15,8 @@ import javafx.scene.layout.AnchorPane;
 
 public class MainWindow extends AnchorPane{
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Anxiety.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Joy.png"));
 
     @FXML
     private ScrollPane scrollPane;
@@ -31,6 +31,8 @@ public class MainWindow extends AnchorPane{
     private Parser parser;
 
     private StoreList storeList;
+
+    private String commandType;
 
     @FXML
     public void initialize() {
@@ -55,6 +57,7 @@ public class MainWindow extends AnchorPane{
         try {
             flashCommand.setData(storeList);
             flashText = flashCommand.execute();
+            commandType = flashCommand.getClass().getSimpleName();
             Storage.saveTasksToFile(storeList.getItems());
         } catch (InvalidIndexException e) {
             flashText = e.getMessage();
@@ -63,9 +66,10 @@ public class MainWindow extends AnchorPane{
         // Display both user input and the command output in the dialog box
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(flashText, dukeImage)
+                DialogBox.getDukeDialog(flashText, dukeImage, commandType)
         );
 
         userInput.clear();
     }
+
 }
