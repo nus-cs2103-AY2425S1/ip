@@ -30,10 +30,10 @@ public class Parser {
      * @throws CommandFoundButInvalidException if the command is recognized but the remaining string
      *         are of invalid syntax
      */
-    public Parser(String input, TaskList allTasks, Storage s, Ui ui) throws
-            EmptyStringException, CommandNotFoundException, CommandFoundButInvalidException {
+    public Parser(String input, TaskList allTasks, Storage s, Ui ui) throws EmptyStringException {
         this.allTasks = allTasks;
         this.ui = ui;
+        this.storage = s;
         if (input.isEmpty()) {
             throw new EmptyStringException();
         }
@@ -45,52 +45,6 @@ public class Parser {
             this.command = input.split(" ", 2)[0];
             this.remainder = input.split(" ", 2)[1];
         }
-        Commands cmd = Commands.fromString(command);
-        switch(cmd) {
-        case TODO:
-            allTasks.addTodo(remainder);
-            s.put(allTasks);
-            ui.display(ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize()));
-            break;
-        case DEADLINE:
-            allTasks.addDeadline(remainder);
-            s.put(allTasks);
-            System.out.println(ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize()));
-            break;
-        case EVENT:
-            allTasks.addEvent(remainder);
-            s.put(allTasks);
-            System.out.println(ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize()));
-            break;
-        case DELETE:
-            allTasks.delete(remainder);
-            s.put(allTasks);
-            System.out.println(ui.deleteMessage(this.allTasks.getLastDeleted(), this.allTasks.getSize()));
-            break;
-        case LIST:
-            System.out.println(allTasks.list());
-            break;
-        case MARK:
-            allTasks.mark(remainder);
-            s.put(allTasks);
-            System.out.println(ui.markedMessage(allTasks.getLastMarked()));
-            break;
-        case UNMARK:
-            allTasks.unmark(remainder);
-            s.put(allTasks);
-            ui.display(ui.unmarkedMessage(allTasks.getLastUnmarked()));
-            break;
-        case FIND:
-            ui.display(ui.findMessage());
-            ui.display(new TaskList(allTasks.find(remainder)).list());
-            break;
-        case BYE:
-            System.out.println(ui.bye());
-            this.isOver = true;
-            break;
-        default:
-            throw new CommandNotFoundException(command);
-        }
     }
 
     /**
@@ -100,5 +54,44 @@ public class Parser {
      */
     public boolean isOver() {
         return this.isOver;
+    }
+
+    public String run() throws CommandNotFoundException, CommandFoundButInvalidException {
+        Commands cmd = Commands.fromString(command);
+        switch(cmd) {
+        case TODO:
+            allTasks.addTodo(remainder);
+            storage.put(allTasks);
+            return ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize());
+        case DEADLINE:
+            allTasks.addDeadline(remainder);
+            storage.put(allTasks);
+            return ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize());
+        case EVENT:
+            allTasks.addEvent(remainder);
+            storage.put(allTasks);
+            return ui.addedMessage(allTasks.getLastAdded(), allTasks.getSize());
+        case DELETE:
+            allTasks.delete(remainder);
+            storage.put(allTasks);
+            return ui.deleteMessage(this.allTasks.getLastDeleted(), this.allTasks.getSize());
+        case LIST:
+            return allTasks.list();
+        case MARK:
+            allTasks.mark(remainder);
+            storage.put(allTasks);
+            return ui.markedMessage(allTasks.getLastMarked());
+        case UNMARK:
+            allTasks.unmark(remainder);
+            storage.put(allTasks);
+            return ui.unmarkedMessage(allTasks.getLastUnmarked());
+        case FIND:
+            return ui.findMessage() + "\n" + new TaskList(allTasks.find(remainder)).list();
+        case BYE:
+            this.isOver = true;
+            return ui.bye();
+        default:
+            throw new CommandNotFoundException(command);
+        }
     }
 }
