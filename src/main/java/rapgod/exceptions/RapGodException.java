@@ -1,4 +1,5 @@
 package rapgod.exceptions;
+
 public class RapGodException extends Exception{
     public RapGodException(String message) {
         super(message);

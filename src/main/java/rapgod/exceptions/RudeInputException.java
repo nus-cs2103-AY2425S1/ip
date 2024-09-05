@@ -1,4 +1,5 @@
 package rapgod.exceptions;
+
 public class RudeInputException extends RuntimeException{
     public RudeInputException() {
         super("That's a very rude thing to say!");
