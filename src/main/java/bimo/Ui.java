@@ -32,13 +32,13 @@ public class Ui {
      * Displays error message for invalid tasks index.
      */
     public String showTaskNotFoundError() {
-        return ("    Bimo.Tasks.Task not found in list");
+        return ("Task not found in list");
     }
 
     /**
      * Displays error message for invalid commands.
      */
     public String showErrorMessage() {
-        return ("    Something went wrong! Please try again");
+        return ("Something went wrong! Please try again");
     }
 }

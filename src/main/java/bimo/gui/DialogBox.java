@@ -15,8 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * Represents a dialog box consisting of an ImageView to represent the speaker's face
- * and a label containing text from the speaker.
+ * Represents a controlloer.
+ * A dialog box consisting of an ImageView to represent the user/chatbot's face
+ * and a label containing text from the user or chatbot.
  */
 public class DialogBox extends HBox {
     @FXML

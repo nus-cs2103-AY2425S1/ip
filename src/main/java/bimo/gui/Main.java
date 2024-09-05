@@ -10,12 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * Represents the GUI for Bimo using FXML.
  */
 public class Main extends Application {
 
     private Bimo bimo = new Bimo("data/Bimo.txt");
-
     @Override
     public void start(Stage stage) {
         try {
@@ -23,6 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Bimo");
             fxmlLoader.<MainWindow>getController().setBimo(bimo);
             stage.show();
         } catch (IOException e) {

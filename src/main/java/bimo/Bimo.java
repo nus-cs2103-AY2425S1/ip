@@ -25,7 +25,7 @@ public class Bimo {
         }
     }
     /**
-     * Return a string object for the dialog box of chatbot
+     * Returns a string object for the dialog box of chatbot.
      */
     public String getResponse(String input) {
         String response = "";
@@ -33,7 +33,7 @@ public class Bimo {
             Command c = Parser.parse(input);
             response = c.execute(tasks, ui, storage);
         } catch (BimoException e) {
-            response = ui.showErrorMessage();
+            response = e.getMessage();
         }
         return response;
     }
@@ -44,31 +44,21 @@ public class Bimo {
      * @param name Name of the chatbot.
      */
     public String greetUser(String name) {
-        return String.format("Hello! I'm %s", name)
-                + "What can I do for you?";
+        return String.format("Hello! I'm %s.", name)
+                + " What can I do for you? \n \n" + getListOfCommands();
     }
 
     /**
-     * Starts the chatbot up.
+     * Retrieves the list of  commands currently available.
+     *
+     * @return list of commands.
      */
-    public void run() {
-        boolean isRunning = true;
-        while (isRunning) {
-            try {
-                String input = ui.getUserCommand();
-                ui.showLine();
-                Command c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                isRunning = !c.getIsQuit();
-            } catch (BimoException e) {
-                ui.showErrorMessage();
-            } finally {
-                ui.showLine();
-            }
-        }
+    private String getListOfCommands() {
+        return "Available commands:\n\n"
+                + "1. todo <task>\n\n2. deadline <task> /by yyyy-mm-dd\n\n"
+                + "3. event <task> /from yyyy-mm-dd /to yyyy-mm-dd\n\n"
+                + "4. mark <task number>\n\n5. unmark <task number>\n\n"
+                + "6. delete <task number>\n\n7. find <keyword>\n\n"
+                + "8. bye\n";
     }
-
-    //    public static void main(String[] args) {
-    //        new Bimo("data/Bimo.txt").run();
-    //    }
 }

@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for the main GUI.
+ * Represents a controller for the GUI.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -21,24 +21,29 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
 
     private Bimo bimo;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image bimoImage = new Image(this.getClass().getResourceAsStream("/images/Bimo.png"));
 
+    /**
+     * Initialises the chatbot.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Bimo instance */
+    /** Sets the Bimo instance */
     public void setBimo(Bimo bimo) {
         this.bimo = bimo;
+        greetUser();
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Bimo's reply and then appends them to
+     * Creates two dialog boxes, one for user input and one for Bimo's response and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -50,5 +55,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getBimoDialog(response, bimoImage)
         );
         userInput.clear();
+    }
+    @FXML
+    private void greetUser() {
+        String input = bimo.greetUser("Bimo");
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBimoDialog(input, bimoImage));
     }
 }

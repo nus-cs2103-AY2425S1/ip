@@ -79,8 +79,8 @@ public class Parser {
             return new FindCommand(word);
 
         } else {
-            throw new BimoException("    Sorry, I do not understand you \n"
-                    + "    as this is not a valid command");
+            throw new BimoException("Sorry, I do not understand you \n"
+                    + "as this is not a valid command");
         }
     }
 
@@ -94,7 +94,7 @@ public class Parser {
     public static String parseDescription(String input) throws BimoException {
         String[] parsedArray = input.split(" ");
         if (parsedArray.length <= 1) {
-            throw new BimoException("    Please key in description for your task");
+            throw new BimoException("Please key in description for your task");
         }
         parsedArray[0] = "";
         return removeSpace(parsedArray);
@@ -127,11 +127,11 @@ public class Parser {
             String[] array) throws BimoException {
         if (array.length <= 1) {
             String type = isDeadline ? " /by" : " /from .... /to";
-            throw new BimoException("    Please provide a date using" + type);
+            throw new BimoException("Please provide a date using" + type);
         } else if (!isDeadline) {
             array = array[1].split(" /to ");
             if (array.length <= 1) {
-                throw new BimoException("    Please provide a deadline using /to");
+                throw new BimoException("Please provide a deadline using /to");
             }
         }
         return isEnd ? array[1] : array[0];
