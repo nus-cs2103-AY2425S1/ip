@@ -1,13 +1,12 @@
 package barney;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 import barney.action.commands.DeadlineCommand;
@@ -149,6 +148,7 @@ public class DeadlineCommandTest {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         HashMap<String, String> argumentMap = new HashMap<>();
+        argumentMap.put("command", "deadline");
         argumentMap.put("description", "return book");
         argumentMap.put("by", "June 6th");
         argumentMap.put("extra", "extra");
