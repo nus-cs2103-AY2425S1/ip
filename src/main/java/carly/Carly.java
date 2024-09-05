@@ -3,7 +3,7 @@ package carly;
 import java.io.IOException;
 import java.util.Scanner;
 
-import carly.exception.*;
+import carly.exception.CarlyException;
 import carly.ui.Ui;
 import carly.utils.Parser;
 import carly.utils.Storage;
@@ -42,7 +42,7 @@ public class Carly {
 
         while (true) {
             try {
-                input = ui.ReadInput(scan);
+                input = ui.readInput(scan);
                 Parser parser = new Parser(input);
                 command = parser.getCommand();
                 taskDescription = parser.getDetailsAfterCommand(command);
@@ -109,8 +109,9 @@ public class Carly {
                     System.out.println(e.getMessage());
                 }
                 break;
+            default:
+                Ui.printOutput("Oops, please print a valid command! ");
             }
-            //ui.printLineSeparator();
             try {
                 listStorage.savesFile(this.taskList);
             } catch (IOException | CarlyException e) {

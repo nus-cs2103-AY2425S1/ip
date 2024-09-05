@@ -24,11 +24,11 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
-    public String getStartTime(){
+    public String getStartTime() {
         return this.startTime;
     }
 
-    public String getEndTime(){
+    public String getEndTime() {
         return this.endTime;
     }
 

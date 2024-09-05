@@ -1,11 +1,14 @@
 package carly.tasks;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
 import carly.exception.CarlyException;
 
 public class DateTimeParserTest {
@@ -17,14 +20,14 @@ public class DateTimeParserTest {
     }
 
     @Test
-    public void testFormatDateTime_invalidDate(){
+    public void testFormatDateTime_invalidDate() {
         DateTimeParser parser = new DateTimeParser("2024-09-0");
         String formattedDate = parser.formatDateTime();
         assertNull(formattedDate, "The formatted date should be null for invalid input.");
     }
 
     @Test
-    public void testGetLocalDate_validDate() throws CarlyException{
+    public void testGetLocalDate_validDate() throws CarlyException {
         DateTimeParser parser = new DateTimeParser("2024-09-18");
         LocalDate localDate = parser.getLocalDate();
         assertEquals(LocalDate.of(2024, 9, 18), localDate);

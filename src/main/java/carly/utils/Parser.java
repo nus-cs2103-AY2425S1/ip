@@ -1,9 +1,10 @@
 package carly.utils;
 
+import java.util.Arrays;
+
 import carly.exception.CarlyNoTaskDescription;
 import carly.exception.CarlyUnknownIInputException;
 
-import java.util.Arrays;
 
 /**
  * Responsible for parsing user input and extracting commands and task descriptions.
@@ -15,11 +16,17 @@ public class Parser {
     private final String[] parts;
     private final String action;
 
+    /** represents commands that are allowed to be input by users */
     public enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT
     }
 
-
+    /**
+     * Constructs a Parser object with the given user input.
+     * This constructor splits the input into parts based on spaces and extracts the first word as the action (command).
+     *
+     * @param input The user's input string to be parsed.
+     */
     public Parser(String input) {
         this.input = input;
         this.firstSpaceIndex = input.indexOf(" ");
@@ -46,7 +53,7 @@ public class Parser {
      *
      * @throws CarlyNoTaskDescription if the command requires a task description but none is provided.
      */
-    public  String getDetailsAfterCommand(Command command)
+    public String getDetailsAfterCommand(Command command)
             throws CarlyNoTaskDescription {
         Command[] noDescriptionCommands = {Command.BYE, Command.LIST};
         boolean requiresDescription = !Arrays.asList(noDescriptionCommands).contains(command);

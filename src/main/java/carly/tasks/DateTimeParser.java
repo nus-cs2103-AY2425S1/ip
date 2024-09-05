@@ -1,18 +1,19 @@
 package carly.tasks;
 
-import carly.exception.CarlyException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import carly.exception.CarlyException;
+
 
 
 /** A utility class for parsing and formatting dates. */
 public class DateTimeParser {
 
     /** The date string to be parsed and formatted. */
-    private final String date;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private final String date;
 
     public DateTimeParser(String date) {
         this.date = date;

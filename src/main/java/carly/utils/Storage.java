@@ -14,6 +14,12 @@ import carly.exception.CarlyException;
 public class Storage {
     private final String filepath;
 
+    /**
+     * Constructs a Storage object and initializes it with the specified filepath.
+     * The constructor also ensures that the necessary file and directories are loaded.
+     *
+     * @param filepath The path where the task data will be stored.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
         loadFile();

@@ -13,8 +13,8 @@ public class CarlyIndexOutOfBoundsException extends CarlyException {
      * @param taskListSize The size of the task list, indicating the valid range of indices.
      */
     public CarlyIndexOutOfBoundsException(Integer taskNum, Integer taskListSize) {
-        super("Oh no! we don't have the item number " + taskNum + " in your list! \n" +
-                "Please key in your command with list number up to " + taskListSize + " only.");
+        super("Oh no! we don't have the item number " + taskNum + " in your list! \n"
+                + "Please key in your command with list number up to " + taskListSize + " only.");
     }
 
 }

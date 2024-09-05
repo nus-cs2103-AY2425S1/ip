@@ -1,17 +1,18 @@
 package carly.ui;
 
+import java.util.Scanner;
+
 import carly.exception.CarlyException;
 
-import java.util.Scanner;
 
 /**
  * Deals with interactions with the user.
  * Also deals with formatting of output message.
  */
 public class Ui {
-    private final String username;
-    private static final String LINE = "-----------------------------------------------------------";
     public static final String INDENTATION = "    ";
+    private static final String LINE = "-----------------------------------------------------------";
+    private final String username;
 
     public Ui(String username) {
         this.username = username;
@@ -37,7 +38,8 @@ public class Ui {
         printOutput("Bye " + username + ". I'll see you next time!");
     }
 
-    public String ReadInput(Scanner scan) throws CarlyException {
+    /** Reads input when user types into the chatbot. */
+    public String readInput(Scanner scan) throws CarlyException {
         if (scan.hasNextLine()) {
             return scan.nextLine();
         } else {
@@ -65,7 +67,7 @@ public class Ui {
      *     text here
      */
     public static void printOutputTopLine(String message) {
-        System.out.println(INDENTATION + LINE + "\n" +  INDENTATION + message + "\n");
+        System.out.println(INDENTATION + LINE + "\n" + INDENTATION + message + "\n");
     }
 
     /**

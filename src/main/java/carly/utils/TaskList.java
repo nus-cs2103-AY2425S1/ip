@@ -93,6 +93,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks in the task list that contain the specified word in their description.
+     * If matching tasks are found, they are added to a filtered task list and printed.
+     *
+     * @param word The word to search for in the task descriptions.
+     * @throws CarlyException If an error occurs while processing the task list or printing the results.
+     */
     public void find(String word) throws CarlyException {
         TaskList filteredList = new TaskList();
         for (Task t: this.taskList) {

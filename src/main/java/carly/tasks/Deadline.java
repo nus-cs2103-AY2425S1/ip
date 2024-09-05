@@ -1,9 +1,9 @@
 package carly.tasks;
 
-import carly.exception.CarlyException;
-
 import java.text.MessageFormat;
 import java.time.LocalDate;
+
+import carly.exception.CarlyException;
 
 /**
  * Represents a task of type Deadline.
@@ -29,8 +29,8 @@ public class Deadline extends Task {
     }
 
     public String getDueDate() {
-            DateTimeParser d = new DateTimeParser(dueDate.toString());
-            return d.formatDateTime();
+        DateTimeParser d = new DateTimeParser(dueDate.toString());
+        return d.formatDateTime();
     }
 
     /**
