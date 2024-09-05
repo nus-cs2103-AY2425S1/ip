@@ -1,6 +1,6 @@
 package CancelGPT.task;
 
-import CancelGPT.exception.task.InvalidTask;
+import CancelGPT.exception.task.InvalidTaskException;
 
 import java.time.format.DateTimeParseException;
 
@@ -52,7 +52,7 @@ public class Task {
         return this.getStatusInt() + " | " + this.getDescription();
     }
 
-    public static Task getTaskFromSavedDataString(String savedDataString) throws InvalidTask {
+    public static Task getTaskFromSavedDataString(String savedDataString) throws InvalidTaskException {
         String[] savedDataStringArr = savedDataString.split("\\s*\\|\\s*");
         try {
             if (savedDataStringArr[0].equals("T")) {
@@ -65,7 +65,8 @@ public class Task {
                 return Event.getTaskFromSavedDataStringArr(savedDataStringArr);
             }
         } catch (DateTimeParseException e) {
-            throw new InvalidTask("Unable to read task from tasks storage due to incorrect format saved");
+            throw new InvalidTaskException("Unable to read task from tasks " +
+                    "storage due to incorrect format saved");
         }
         return null;
     }

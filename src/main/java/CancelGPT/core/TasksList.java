@@ -1,6 +1,7 @@
 package CancelGPT.core;
 
 import CancelGPT.exception.task.TaskDoesNotExist;
+
 import CancelGPT.task.Task;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class TasksList {
             throw new TaskDoesNotExist();
         }
         Task taskDeleted = this.TASKS_LIST.remove(taskNumber - 1);
+        
         UI.printMessageToConsole("Noted. I've removed this task:");
         UI.printMessageToConsole(" " + taskDeleted);
         UI.printMessageToConsole("Now you have " + this.TASKS_LIST.size() + " tasks in the list.");
@@ -47,7 +49,9 @@ public class TasksList {
         if (taskNumber <= 0 || taskNumber > this.TASKS_LIST.size()) {
             throw new TaskDoesNotExist();
         }
+        
         this.TASKS_LIST.get(taskNumber - 1).mark();
+        
         UI.printMessageToConsole("Nice! I've marked this task as done:");
         UI.printMessageToConsole(" " + this.TASKS_LIST.get(taskNumber - 1));
     }
@@ -56,7 +60,9 @@ public class TasksList {
         if (taskNumber <= 0 || taskNumber > this.TASKS_LIST.size()) {
             throw new TaskDoesNotExist();
         }
+        
         this.TASKS_LIST.get(taskNumber - 1).unmark();
+        
         UI.printMessageToConsole("OK, I've marked this task as not done yet:");
         UI.printMessageToConsole(" " + this.TASKS_LIST.get(taskNumber - 1));
     }

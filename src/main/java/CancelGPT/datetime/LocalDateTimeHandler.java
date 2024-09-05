@@ -6,24 +6,25 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class LocalDateTimeHandler {
-    private LocalDateTime localDateTime;
+    private final LocalDateTime LOCAL_DATE_TIME;
 
     public LocalDateTimeHandler(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+        this.LOCAL_DATE_TIME = localDateTime;
     }
 
-    public static LocalDateTimeHandler parseLocalDateTime(String input) throws DateTimeParseException {
+    public static LocalDateTimeHandler parseLocalDateTimeStringToHandler(String input) 
+            throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return new LocalDateTimeHandler(LocalDateTime.parse(input, formatter));
     }
 
     public String getDisplayedLocalDateTime() throws DateTimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-        return this.localDateTime.format(formatter);
+        return this.LOCAL_DATE_TIME.format(formatter);
     }
 
     public String getLocalDateTimeOriginal() throws DateTimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return this.localDateTime.format(formatter);
+        return this.LOCAL_DATE_TIME.format(formatter);
     }
 }
