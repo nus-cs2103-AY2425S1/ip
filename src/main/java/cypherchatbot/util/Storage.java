@@ -1,10 +1,5 @@
 package cypherchatbot.util;
 
-import cypherchatbot.task.Deadline;
-import cypherchatbot.task.Event;
-import cypherchatbot.task.Task;
-import cypherchatbot.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,6 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import cypherchatbot.task.Deadline;
+import cypherchatbot.task.Event;
+import cypherchatbot.task.Task;
+import cypherchatbot.task.ToDo;
+
 /**
  * The Storage class handles the reading and writing of tasks to and from a file.
  * It provides methods for loading tasks from the file, adding new tasks, editing existing
@@ -22,7 +22,7 @@ import java.util.Scanner;
  */
 
 public class Storage {
-    String filepath;
+    private String filepath;
 
     /**
      * Creates a new Storage instance with the specified file path.
@@ -30,14 +30,14 @@ public class Storage {
      *
      * @param filepath The path to the file where tasks are stored.
      */
-    public Storage (String filepath) {
+    public Storage(String filepath) {
         try {
             this.filepath = filepath;
             int val = filepath.lastIndexOf('/');
 
-    ;       File directory = new File(this.filepath.substring(0,val));
+            File directory = new File(this.filepath.substring(0, val));
             if (!directory.exists() && directory.mkdir()) {
-                System.out.println("New directory created under the filepath: " + this.filepath.substring(0,val));
+                System.out.println("New directory created under the filepath: " + this.filepath.substring(0, val));
             }
 
             File taskFile = new File(this.filepath);
@@ -59,44 +59,42 @@ public class Storage {
      * @throws FileNotFoundException If the file at the specified path does not exist.
      */
 
-    public ArrayList<Task> load () throws FileNotFoundException {
+    public ArrayList<Task> load() throws FileNotFoundException {
 
-            ArrayList<Task> taskList = new ArrayList<>();
-            File file = new File(this.filepath);
+        ArrayList<Task> taskList = new ArrayList<>();
+        File file = new File(this.filepath);
 
-            Scanner fileScanner = new Scanner(file);
+        Scanner fileScanner = new Scanner(file);
 
-            while (fileScanner.hasNextLine()) {
-                // Segmenting the tasks
-                String[] taskLine = fileScanner.nextLine().split("\\|");
-                if (taskLine[0].equals("T")) {
-                    Task task = new ToDo(taskLine[2]);
-                    if (taskLine[1].equals("1")) {
-                        task.completeTask();
-                    }
-                    taskList.add(task);
-                } else if (taskLine[0].equals("D")) {
-                    LocalDateTime by = LocalDateTime.parse(taskLine[3],DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                    Task task = new Deadline(taskLine[2], by);
-                    if (taskLine[1].equals("1")) {
-                        task.completeTask();
-                    }
-                    taskList.add(task);
-                } else if (taskLine[0].equals("E")){
-                    LocalDateTime from = LocalDateTime.parse(taskLine[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                    LocalDateTime to = LocalDateTime.parse(taskLine[4],DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-
-                    Task task = new Event(taskLine[2], from, to);
-                    if (taskLine[1].equals("1")) {
-                        task.completeTask();
-                    }
-                    taskList.add(task);
+        while (fileScanner.hasNextLine()) {
+            // Segmenting the tasks
+            String[] taskLine = fileScanner.nextLine().split("\\|");
+            if (taskLine[0].equals("T")) {
+                Task task = new ToDo(taskLine[2]);
+                if (taskLine[1].equals("1")) {
+                    task.completeTask();
                 }
+                taskList.add(task);
+            } else if (taskLine[0].equals("D")) {
+                LocalDateTime by = LocalDateTime.parse(taskLine[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                Task task = new Deadline(taskLine[2], by);
+                if (taskLine[1].equals("1")) {
+                    task.completeTask();
+                }
+                taskList.add(task);
+            } else if(taskLine[0].equals("E")){
+                LocalDateTime from = LocalDateTime.parse(taskLine[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime to = LocalDateTime.parse(taskLine[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+                Task task = new Event(taskLine[2], from, to);
+                if (taskLine[1].equals("1")) {
+                    task.completeTask();
+                }
+                taskList.add(task);
             }
-            fileScanner.close();
-            return taskList;
-
-
+        }
+        fileScanner.close();
+        return taskList;
     }
 
     /**
@@ -104,7 +102,7 @@ public class Storage {
      *
      * @param data The String version of the task to be added to the file.
      */
-    public void addToStorage (String data) {
+    public void addToStorage(String data) {
         try {
             FileWriter writeToFile = new FileWriter(this.filepath, true);
             writeToFile.write(data + "\n");
@@ -120,7 +118,7 @@ public class Storage {
      * @param oldData The old line in the file to be replaced.
      * @param newData The new line that will replace the old line in the file.
      */
-    public void editTask (String oldData, String newData) {
+    public void editTask(String oldData, String newData) {
         try {
             // Read the file into an array
             List<String> entireFile = new ArrayList<>();
@@ -128,13 +126,13 @@ public class Storage {
 
             Scanner fileScanner = new Scanner(file);
 
-            while(fileScanner.hasNextLine()) {
+            while (fileScanner.hasNextLine()) {
                 entireFile.add(fileScanner.nextLine());
             }
             fileScanner.close();
 
             // Find the line we want to replace and change it
-            for (int i = 0; i < entireFile.size(); i ++) {
+            for (int i = 0; i < entireFile.size(); i++) {
                 if (entireFile.get(i).equals(oldData)) {
                     entireFile.set(i, newData);
                     break;
@@ -142,7 +140,7 @@ public class Storage {
             }
             // Rewrite the file line by line with new changes
             FileWriter newFile = new FileWriter(this.filepath);
-            for(String line: entireFile) {
+            for (String line: entireFile) {
                 newFile.write(line + "\n");
             }
             newFile.close();
@@ -157,7 +155,7 @@ public class Storage {
      *
      * @param oldData The line to be deleted from the file.
      */
-    public void delTaskFromStorage (String oldData) {
+    public void delTaskFromStorage(String oldData) {
         try {
             // Read the file into an array
             List<String> entireFile = new ArrayList<>();
@@ -165,13 +163,13 @@ public class Storage {
 
             Scanner fileScanner = new Scanner(file);
 
-            while(fileScanner.hasNextLine()) {
+            while (fileScanner.hasNextLine()) {
                 entireFile.add(fileScanner.nextLine());
             }
             fileScanner.close();
 
             // Find the line we want to replace and change it
-            for (int i = 0; i < entireFile.size(); i ++) {
+            for (int i = 0; i < entireFile.size(); i++) {
                 if (entireFile.get(i).equals(oldData)) {
                     entireFile.remove(i);
                     break;
@@ -179,7 +177,7 @@ public class Storage {
             }
             // Rewrite the file line by line with new changes
             FileWriter newFile = new FileWriter(this.filepath);
-            for(String line: entireFile) {
+            for (String line: entireFile) {
                 newFile.write(line + "\n");
             }
             newFile.close();

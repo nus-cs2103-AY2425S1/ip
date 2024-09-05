@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command {
      *
      * @param val The index of the task to be marked as incomplete.
      */
-    public UnmarkCommand (int val) {
+    public UnmarkCommand(int val) {
         this.val = val;
     }
 
@@ -30,9 +30,10 @@ public class UnmarkCommand extends Command {
      * @throws CypherException If the provided index is invalid or out of bounds.
      */
 
-    public void execute (TaskList tasks, Ui ui, Storage storage) throws CypherException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws CypherException {
         if (this.val >= tasks.size()) {
-            throw new CypherException(String.format("You have %d items in your list. Enter a valid integer or add more items to your list", tasks.size()));
+            throw new CypherException(String.format("You have %d items in your list. "
+                    + "Enter a valid integer or add more items to your list", tasks.size()));
         } else if (this.val < 0) {
             throw new CypherException("Enter a value above 0");
         }

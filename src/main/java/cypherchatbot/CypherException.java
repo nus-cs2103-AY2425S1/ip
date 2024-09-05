@@ -1,8 +1,8 @@
 package cypherchatbot;
 
-public class CypherException extends Exception{
-    String message;
-    public CypherException (String msg) {
+public class CypherException extends Exception {
+    private String message;
+    public CypherException(String msg) {
         super(msg);
         this.message = msg;
     }

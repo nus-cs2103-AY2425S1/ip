@@ -1,6 +1,6 @@
 package cypherchatbot.task;
 
-abstract public class Task {
+public abstract class Task {
     protected String description;
     protected Boolean completed;
 
@@ -24,5 +24,5 @@ abstract public class Task {
         return str;
     }
 
-    public abstract String toStringinFile ();
+    public abstract String toStringinFile();
 }

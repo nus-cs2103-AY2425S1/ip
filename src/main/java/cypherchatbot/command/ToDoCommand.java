@@ -11,7 +11,7 @@ import cypherchatbot.util.Ui;
  * and add it to the task list in the Cypher chat bot application.
  */
 public class ToDoCommand extends Command {
-    String[] command;
+    private String[] command;
 
     /**
      * Instantiates a ToDo command with a specific command.
@@ -34,7 +34,7 @@ public class ToDoCommand extends Command {
      * @param storage The Storage file where the task data will be saved.
      */
 
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task todo = new ToDo(command[1]);
         String output = tasks.addToList(todo);
         ui.output(output);

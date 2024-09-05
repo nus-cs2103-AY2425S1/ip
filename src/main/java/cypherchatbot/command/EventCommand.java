@@ -1,22 +1,22 @@
 package cypherchatbot.command;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import cypherchatbot.task.Event;
 import cypherchatbot.task.Task;
 import cypherchatbot.util.Storage;
 import cypherchatbot.util.TaskList;
 import cypherchatbot.util.Ui;
 
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * The Event class represents a command to create a new Event task
- * and add it to the task list in the Cypher chat bot application.
+ * and add it to the task list in the Cypher chatbot application.
  */
 public class EventCommand extends Command {
 
-    String[] command;
+    private String[] command;
 
 
     /**
@@ -39,10 +39,12 @@ public class EventCommand extends Command {
      * @param ui The Ui interface used to interact with the user.
      * @param storage The Storage file where the task data will be saved.
      */
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            LocalDateTime from = LocalDateTime.parse(command[1].trim(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            LocalDateTime to = LocalDateTime.parse(command[2].trim(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            LocalDateTime from = LocalDateTime.parse(command[1].trim(),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            LocalDateTime to = LocalDateTime.parse(command[2].trim(),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             Task task = new Event(command[0], from, to);
             String output = tasks.addToList(task);
             ui.output(output);

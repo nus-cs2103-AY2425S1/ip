@@ -1,21 +1,22 @@
 package cypherchatbot.command;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import cypherchatbot.task.Deadline;
 import cypherchatbot.task.Task;
 import cypherchatbot.util.Storage;
 import cypherchatbot.util.TaskList;
 import cypherchatbot.util.Ui;
 
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The Deadline class represents a command to create a new Deadline task
  * and add it to the task list in the Cypher chat bot application.
  */
 public class DeadlineCommand extends Command {
-    String[] command;
+    private String[] command;
 
     /**
      * Instantiates a Deadline command with a specific command.
@@ -37,7 +38,7 @@ public class DeadlineCommand extends Command {
      * @param ui The Ui interface used to interact with the user.
      * @param storage The Storage file where the task data will be saved.
      */
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             LocalDateTime by = LocalDateTime.parse(command[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             Task deadline = new Deadline(command[0], by);
