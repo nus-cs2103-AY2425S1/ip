@@ -31,7 +31,7 @@ public class MarkTaskCommand extends Command {
      * @param ui The user interface to reflect the task status change.
      */
     @Override
-    public void execute(TaskList t, Storage s, Ui ui) {
+    public String execute(TaskList t, Storage s, Ui ui) {
         // Parse the task identifier from the input string
         int taskId = Integer.parseInt(String.valueOf(getInput().charAt(5)));
 
@@ -42,7 +42,7 @@ public class MarkTaskCommand extends Command {
         s.writeToHardDisk(t.getTasks());
 
         // Update the user interface to reflect the task status change
-        Ui.markingTask(true, t.getTask(taskId));
+        return ui.markingTask(true, t.getTask(taskId));
     }
 }
 

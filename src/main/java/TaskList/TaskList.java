@@ -41,7 +41,7 @@ public class TaskList {
     /**
      * Converts all the strings that represent tasks from the hard drive .txt file and adds them to the task list.
      *
-     * @param s The storage object that Delphi uses to interact with the hard disk .txt file.
+     * @param s The storage object that UI.Delphi uses to interact with the hard disk .txt file.
      */
     public void loadStorageToTasks(Storage s) {
         Parser helperParser = new Parser();
@@ -174,9 +174,12 @@ public class TaskList {
     /**
      * Prints all tasks in the task list.
      */
-    public void printTasks() {
+    public String printTasks() {
+        String res = "";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("    " + (i + 1) + "." + tasks.get(i).toString());
+            //System.out.println("    " + (i + 1) + "." + tasks.get(i).toString());
+            res += "    " + (i + 1) + "." + tasks.get(i).toString() + "\n";
         }
+        return res;
     }
 }

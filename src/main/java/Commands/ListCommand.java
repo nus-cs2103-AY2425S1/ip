@@ -28,9 +28,9 @@ public class ListCommand extends Command {
      * @param ui The user interface to display the list of tasks.
      */
     @Override
-    public void execute(TaskList t, Storage s, Ui ui) {
+    public String execute(TaskList t, Storage s, Ui ui) {
         // Print all tasks in the task list
-        t.printTasks();
+        return t.printTasks();
     }
 }
 

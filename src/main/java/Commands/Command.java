@@ -33,7 +33,7 @@ public abstract class Command {
      * @param ui The user interface to interact with the user.
      * @throws DelphiException If an error occurs during execution.
      */
-    public abstract void execute(TaskList t, Storage s, Ui ui) throws DelphiException;
+    public abstract String execute(TaskList t, Storage s, Ui ui) throws DelphiException;
 
     /**
      * Determines if the command should exit the application.

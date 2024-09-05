@@ -12,7 +12,8 @@ public class FindCommand extends Command {
         super(s);
     }
 
-    public void execute(TaskList t, Storage s, Ui ui) {
+    public String execute(TaskList t, Storage s, Ui ui) {
+        String str = "";
         List<Task> taskList = t.getTasks();
         TaskList res = new TaskList();
         String taskToFind = getInput().substring(5);
@@ -21,7 +22,8 @@ public class FindCommand extends Command {
                 res.addTask(taskList.get(i));
             }
         }
-        ui.findingTask();
-        res.printTasks();
+        str += ui.findingTask();
+        str += res.printTasks();
+        return str;
     }
 }

@@ -2,7 +2,7 @@ package Exceptions;
 
 /**
  * The DelphiException class is a custom exception that extends the Exception class.
- * It is used to handle specific exceptions related to the Delphi application.
+ * It is used to handle specific exceptions related to the UI.Delphi application.
  *
  * @author jordanchan
  */

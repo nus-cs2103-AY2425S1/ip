@@ -24,6 +24,7 @@ public class Storage {
     public Storage(String filePath) {
         this.file = new File(filePath);
     }
+
     /**
      * Writes a list of tasks to the hard disk. This method clears the existing contents
      * of the file before writing the new tasks.

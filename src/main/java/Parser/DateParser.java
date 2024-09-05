@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 /**
- * Provides the Date Parsing functionality that allows Delphi to process dates and times in different formats.
+ * Provides the Date Parsing functionality that allows UI.Delphi to process dates and times in different formats.
  *
  * @author Jordan Chan
  */
