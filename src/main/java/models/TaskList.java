@@ -21,8 +21,13 @@ public class TaskList extends ActiveRecord {
         try {
             deserialiseRawData();
         } catch (Exception e) {
-            return;
+            // reset DB
+            resetDB();
         }
+    }
+
+    public void resetDB() {
+        this.dbDriver.save("");
     }
 
     public void addTask(Task task) {
@@ -69,8 +74,8 @@ public class TaskList extends ActiveRecord {
         for (Task task : tasks) {
             list.append(task.serialize()).append("\n");
         }
-        System.out.println("This is serialised raw string");
-        System.out.println(list);
+//        System.out.println("This is serialised raw string");
+//        System.out.println(list);
         return list.toString();
     }
 
@@ -83,7 +88,7 @@ public class TaskList extends ActiveRecord {
 
             String taskType = sections[0];
 
-            System.out.println(sections[2]);
+//            System.out.println(sections[2]);
 
             if (taskType.equals("T")) {
                 Todo task = new Todo(sections[2], sections[1].equals("1") ? true : false);
