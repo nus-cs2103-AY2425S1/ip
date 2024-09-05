@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileWriter; 
 import java.io.FileReader; 
 import java.io.BufferedReader;
-import java.io.IOException; 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class Duke {
@@ -29,7 +31,15 @@ public class Duke {
             this.name = name;
             this.marked = false;
             this.type = type;
-            this.deadline = deadline;
+            
+            try {
+                LocalDate date = LocalDate.parse(deadline, DateTimeFormatter.ISO_DATE);
+                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+                this.deadline = date.format(myFormatObj);
+            } catch (Exception e) {
+                this.deadline = deadline;
+            }
         }
 
         Task(String name, int type, String[] eventTimings) {
@@ -419,8 +429,8 @@ public class Duke {
                     break;
                 }
 
-                String deadline = getCommand(input, 9 + taskName.length() + 4, ' ');
-
+                String deadline = getCommand(input, 9 + taskName.length() + 4, '\n');
+                deadline.trim();
                 if(isEmptyString(deadline)) {
                     printError("Error: No deadline provided. Terminating program.");
                     break;
@@ -461,7 +471,8 @@ public class Duke {
                     break;
                 }
 
-                String endTime = getCommand(input, 6 + taskName.length() + 6 + startTime.length() + 4, ' ');
+                String endTime = getCommand(input, 6 + taskName.length() + 6 + startTime.length() + 4, '\n');
+                endTime.trim();
 
                 if(isEmptyString(endTime)) {
                     printError("Error: No end time provided for event. Terminating program.");
