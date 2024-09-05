@@ -1,5 +1,12 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
@@ -17,7 +24,7 @@ public class Duke {
     }
 
     private static void taskAddOrDeleteDisplay(Task task, String addOrDelete) {
-        System.out.println("Got it. I've" + addOrDelete + "ed this task:");
+        System.out.println("Got it. I've " + addOrDelete + "ed this task:");
         System.out.println(task);
         System.out.println("Now you have " + userInputs.size() + " tasks in the list.");
     }
@@ -78,6 +85,44 @@ public class Duke {
         }
     }
 
+    private static void loadFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNextLine()) {
+            processFileItem(s.nextLine());
+        }
+        s.close();
+    }
+
+    private static void processFileItem(String string) {
+        String items[] = string.split(" , ");
+        String task = items[0];
+        boolean flag = Objects.equals(items[1], "1");
+        if (Objects.equals(task, "T")) {
+            Todo taskToBeAdded = new Todo(items[2]);
+            taskToBeAdded.setDone(flag);
+            userInputs.add(taskToBeAdded);
+        } else if (Objects.equals(task, "D")) {
+            Deadline taskToBeAdded = new Deadline(items[2], items[3]);
+            taskToBeAdded.setDone(flag);
+            userInputs.add(taskToBeAdded);
+        } else if (Objects.equals(task, "E")) {
+            String start = items[3].split("-", 2)[0];
+            String end = items[3].split("-",2)[1];
+            Event taskToBeAdded = new Event(items[2], start, end);
+            taskToBeAdded.setDone(flag);
+            userInputs.add(taskToBeAdded);
+        }
+    }
+
+    private static void writeToFile(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (Task task : userInputs) {
+            fw.write(task.getWriteFormat() + "\n");
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -85,6 +130,19 @@ public class Duke {
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
+        String filePath = "duke.txt";
+        try {
+            loadFileContents(filePath); //if file exists, take file contents and add to userInputs
+        } catch (FileNotFoundException e) {
+            try {
+                Files.write(Path.of("duke.txt"), "".getBytes());
+            } catch (IOException e1) {
+                System.out.println("The endeavor to create the storage file has encountered an impediment." +
+                                   " I implore you to attempt this task once more in due course.");
+                return;
+            }
+        }
+
         String logo = " ,--.--------.    ,----.    ,-,--.             ,---.      \n" +
                       "/==/,  -   , -\\,-.--` , \\ ,-.'-  _\\  _.-.    .--.'  \\     \n" +
                       "\\==\\.-.  - ,-./==|-  _.-`/==/_ ,_.'.-,.'|    \\==\\-/\\ \\    \n" +
@@ -112,6 +170,11 @@ public class Duke {
                 System.out.println("The instruction provided is deemed invalid.");
             }
             inp = scanner.nextLine();
+        }
+        try {
+            writeToFile(filePath);
+        } catch (IOException e) {
+            System.out.println("An I/O error has occurred, your updates were not saved. Please try again later. Till then: ");
         }
         System.out.println("Farewell! Until we meet again.\n");
     }

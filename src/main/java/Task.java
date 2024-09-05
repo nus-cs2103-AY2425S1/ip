@@ -20,6 +20,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    protected String getWriteFormat() {
+        return "";
+    }
+
     @Override
     public String toString() {
         String res = "[";

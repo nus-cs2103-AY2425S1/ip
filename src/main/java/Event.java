@@ -17,7 +17,12 @@ public class Event extends Task{
     }
 
     @Override
+    protected String getWriteFormat() {
+        return "E , " + (isDone ? "1" : "0") + " , " + name + " , " + startDate + "-" + endDate;
+    }
+
+    @Override
     public String toString() {
-        return "[E]"+super.toString() + "(from: " + startDate + " to: " + endDate + ")";
+        return "[E]" + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
     }
 }
