@@ -15,13 +15,13 @@ public class Event extends Task {
      * A custom constructor for the Event Class
      *
      * @param description String representation of the given task
-     * @param from instance of LocalDateTime for the events start date
-     * @param to instance of LocalDateTime for the events end date
+     * @param dateTime Varargs of an instance of LocalDateTime for the
+     *                 events start and end date
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime ... dateTime) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = dateTime[0];
+        this.to = dateTime[1];
     }
 
     @Override
