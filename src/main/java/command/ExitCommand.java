@@ -18,8 +18,8 @@ public class ExitCommand extends Command {
      * @param storage The Storage object for saving tasks to the storage file (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.displayGoodbye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.displayGoodbye();
     }
 
     /**

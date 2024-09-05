@@ -42,8 +42,9 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("ui.Launcher")
 }
+
 
 shadowJar {
     archiveBaseName = "duke"

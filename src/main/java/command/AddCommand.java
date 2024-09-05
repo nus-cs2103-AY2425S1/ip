@@ -53,31 +53,31 @@ public class AddCommand extends Command {
      * @throws BuddyException If there is an error in the command, such as missing task descriptions or incorrect date formats.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         if (command.startsWith("todo")) {
-            addTodoTask(tasks, ui, storage);
+            return addTodoTask(tasks, ui, storage);
         } else if (command.startsWith("deadline")) {
-            addDeadlineTask(tasks, ui, storage);
+            return addDeadlineTask(tasks, ui, storage);
         } else if (command.startsWith("event")) {
-            addEventTask(tasks, ui, storage);
+            return addEventTask(tasks, ui, storage);
         } else {
             throw new BuddyException("Unknown task type.");
         }
     }
 
 
-    private void addTodoTask(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    private String addTodoTask(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         String taskDesc = command.substring(4).trim();
         if (taskDesc.isEmpty()) {
             throw new BuddyException("The description of a todo cannot be empty.");
         }
         Task task = new ToDos(taskDesc);
         tasks.addTask(task);
-        ui.displayAddTask(task, tasks);
         storage.save(tasks.getTasks());
+        return ui.displayAddTask(task, tasks);
     }
 
-    private void addDeadlineTask(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    private String addDeadlineTask(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         String taskDesc = command.substring(8).trim();
         if (taskDesc.isEmpty()) {
             throw new BuddyException("The description of a deadline cannot be empty.");
@@ -90,14 +90,14 @@ public class AddCommand extends Command {
             LocalDateTime date = formatDate(day);
             Task task = new Deadlines(desc, date);
             tasks.addTask(task);
-            ui.displayAddTask(task, tasks);
             storage.save(tasks.getTasks());
+            return ui.displayAddTask(task, tasks);
         } else {
             throw new BuddyException("When do ya need to get it done by? (Include '/by' after your description followed by the deadline in the format 'd/M/yyyy HHmm')");
         }
     }
 
-    private void addEventTask(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    private String addEventTask(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         String taskDesc = command.substring(5).trim();
         if (taskDesc.isEmpty()) {
             throw new BuddyException("The description of an event cannot be empty.");
@@ -116,8 +116,8 @@ public class AddCommand extends Command {
                 LocalDateTime formattedEndTime = formatDate(endTime);
                 Task eventTask = new Events(task, formattedStartTime, formattedEndTime);
                 tasks.addTask(eventTask);
-                ui.displayAddTask(eventTask, tasks);
                 storage.save(tasks.getTasks());
+                return ui.displayAddTask(eventTask, tasks);
             } else {
                 throw new BuddyException("There's no end date? (Include '/to' after the start date)");
             }

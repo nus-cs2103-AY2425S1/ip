@@ -1,3 +1,5 @@
+package buddy;
+
 import command.Command;
 import exceptions.BuddyException;
 import parser.Parser;
@@ -10,6 +12,8 @@ public class Buddy {
     private TaskList tasks;
     private Ui ui;
 
+    private boolean isExit = false;
+
     public Buddy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,8 +25,14 @@ public class Buddy {
         }
     }
 
+    public String runStartupMsg() {
+        return ui.displayWelcome();
+    }
+    public String runExitMsg() {
+        return ui.displayGoodbye();
+    }
+
     public void run() {
-        ui.displayWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -34,6 +44,22 @@ public class Buddy {
                 ui.displayError(e.getMessage());
             }
         }
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            if (command.isExit()) {
+                this.isExit = true;
+            }
+            return command.execute(tasks, ui, storage);
+        } catch (BuddyException e) {
+            return ui.displayError(e.getMessage());
+        }
+    }
+
+    public boolean isExit() {
+        return this.isExit;
     }
 
     public static void main(String[] args) {

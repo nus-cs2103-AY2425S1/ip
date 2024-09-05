@@ -17,14 +17,12 @@ public class Ui {
         return scanner.nextLine().trim();
     }
 
-    public void displayWelcome() {
-        System.out.println("    ---------------------------------------------------------");
-        System.out.println("    Hey there! I'm Buddy\n    What do ya need help with?");
-        System.out.println("    ---------------------------------------------------------\n");
+    public String displayWelcome() {
+        return "Hey there! I'm Buddy\nWhat do ya need help with?";
     }
 
-    public void displayGoodbye() {
-        System.out.println("    Bye! See ya soon!");
+    public String displayGoodbye() {
+        return "Bye! See ya soon!";
     }
 
     public void displayUpperLineBreak() {
@@ -36,86 +34,106 @@ public class Ui {
     }
 
 
-    public void displayAddTask(Task task, TaskList list) {
-        displayUpperLineBreak();
-        System.out.println("    Gotcha! I've added this task: ");
-        System.out.printf("         [%s][%s] %s%n", task.getTaskType(), task.getStatusIcon(), task.description);
-        System.out.printf("    Now, you have %d tasks in the list!%n", list.getTasks().size());
-        displayLowerLineBreak();
+    public String displayAddTask(Task task, TaskList list) {
+        return String.format(
+                "Gotcha! I've added this task: \n" +
+                        "         [%s][%s] %s\n" +
+                        "Now, you have %d tasks in the list!\n",
+                task.getTaskType(), task.getStatusIcon(), task.description, list.getTasks().size()
+        );
     }
 
-    public void displayDeleteTask(Task task, TaskList list) {
-        displayUpperLineBreak();
-        System.out.println("    Noted. I've removed this task:");
-        System.out.printf("      [%s][%s] %s%n", task.getTaskType(), task.getStatusIcon(), task.description);
-        System.out.printf("    Now you have %d tasks in the list.%n", list.getTasks().size());
-        displayLowerLineBreak();
+    public String displayDeleteTask(Task task, TaskList list) {
+        return String.format(
+                "Noted. I've removed this task:\n" +
+                        "      [%s][%s] %s\n" +
+                        "Now you have %d tasks in the list.\n",
+                task.getTaskType(), task.getStatusIcon(), task.description, list.getTasks().size()
+        );
     }
 
-    public void displayAlreadyMarked() {
-        displayUpperLineBreak();
-        System.out.println("    Uhh, its already been marked buddy!");
-        displayLowerLineBreak();
+    public String displayAlreadyMarked() {
+        return "Uhh, its already been marked buddy!";
     }
 
-    public void displayAlreadyUnmarked() {
-        displayUpperLineBreak();
-        System.out.println("    Uhh, its already been unmarked buddy!");
-        displayLowerLineBreak();
+    public String displayUnavailableItem() {
+        return "Uhh, that item doesnt exist";
     }
 
-    public void displayUnmarkedTask(int index, TaskList list) {
-        displayUpperLineBreak();
-        System.out.println("    Alright buddy, let's give that task another shot!");
-        System.out.printf("    [%s][%s] %s%n", list.getTasks().get(index).getTaskType(), list.getTasks().get(index).getStatusIcon(), list.getTasks().get(index).description);
-        displayLowerLineBreak();
+    public String displayAlreadyUnmarked() {
+        return "Uhh, its already been unmarked buddy!";
     }
 
-    public void displayMarkedTask(int index, TaskList list) {
-        displayUpperLineBreak();
-        System.out.println("    Nice one buddy! Marked this as done...");
-        System.out.printf("    [%s][%s] %s%n", list.getTasks().get(index).getTaskType(), list.getTasks().get(index).getStatusIcon(), list.getTasks().get(index).description);
-        displayLowerLineBreak();
+    public String displayUnmarkedTask(int index, TaskList list) {
+        return String.format(
+                "Alright buddy, let's give that task another shot!\n" +
+                        "    [%s][%s] %s\n",
+                list.getTasks().get(index).getTaskType(),
+                list.getTasks().get(index).getStatusIcon(),
+                list.getTasks().get(index).description
+        );
     }
 
-    public void displayError(String message) {
-        displayUpperLineBreak();
-        System.out.println("    OOPS!!! " + message);
-        displayLowerLineBreak();
+    public String displayMarkedTask(int index, TaskList list) {
+        return String.format(
+                "Nice one buddy! Marked this as done...\n" +
+                        "    [%s][%s] %s\n",
+                list.getTasks().get(index).getTaskType(),
+                list.getTasks().get(index).getStatusIcon(),
+                list.getTasks().get(index).description
+        );
     }
 
-    public void displayTasks(ArrayList<Task> tasks) {
+    public String displayError(String message) {
+        return "OOPS! " + message;
+    }
+
+    public String displayTasks(ArrayList<Task> tasks) {
+        StringBuilder result = new StringBuilder();
+
         if (tasks.isEmpty()) {
-            displayUpperLineBreak();
-            System.out.println("    List is empty!!");
-            displayLowerLineBreak();
+            result.append("List is empty!!\n");
         } else {
-            displayUpperLineBreak();
-            System.out.println("    Here are the tasks in your list: ");
+            result.append("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.printf("    %d. [%s][%s] %s%n", i + 1, tasks.get(i).getTaskType(), tasks.get(i).getStatusIcon(), tasks.get(i).description);
+                result.append(String.format("%d. [%s][%s] %s\n",
+                        i + 1,
+                        tasks.get(i).getTaskType(),
+                        tasks.get(i).getStatusIcon(),
+                        tasks.get(i).description
+                ));
             }
-            displayLowerLineBreak();
         }
+
+        return result.toString();
     }
 
-    public void displaySearchedTasks(ArrayList<Task> tasks, String search) {
+    public String displaySearchedTasks(ArrayList<Task> tasks, String search) {
+        StringBuilder result = new StringBuilder();
+
         if (tasks.isEmpty()) {
-            displayUpperLineBreak();
-            System.out.println("    List is empty!!");
-            displayLowerLineBreak();
+            result.append("List is empty!!\n");
         } else {
-            displayUpperLineBreak();
-            System.out.println("    Here are the matching tasks in your list: ");
+            result.append("Here are the matching tasks in your list:\n");
             int tracker = 0;
             for (int i = 0; i < tasks.size(); i++) {
                 if (tasks.get(i).description.contains(search)) {
-                    System.out.printf("    %d. [%s][%s] %s%n", tracker + 1, tasks.get(i).getTaskType(), tasks.get(i).getStatusIcon(), tasks.get(i).description);
+                    result.append(String.format("%d. [%s][%s] %s\n",
+                            tracker + 1,
+                            tasks.get(i).getTaskType(),
+                            tasks.get(i).getStatusIcon(),
+                            tasks.get(i).description
+                    ));
                     tracker++;
                 }
             }
-            displayLowerLineBreak();
+
+            if (tracker == 0) {
+                result.append("No matching tasks found.\n");
+            }
         }
+
+        return result.toString();
     }
 
 

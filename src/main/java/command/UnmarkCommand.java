@@ -31,13 +31,15 @@ public class UnmarkCommand extends Command {
      * @throws BuddyException If the task index is invalid or there is an error saving the tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
-        if (!tasks.isTaskDone(taskIndex)) {
-            ui.displayAlreadyUnmarked();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+        if (taskIndex >= tasks.getTasks().size()) {
+            return ui.displayUnavailableItem();
+        } else if (!tasks.isTaskDone(taskIndex)) {
+            return ui.displayAlreadyUnmarked();
         } else {
             tasks.unmarkTask(taskIndex);
-            ui.displayUnmarkedTask(taskIndex, tasks);
             storage.save(tasks.getTasks());
+            return ui.displayUnmarkedTask(taskIndex, tasks);
         }
     }
 

@@ -20,8 +20,8 @@ public class ListCommand extends Command {
      * @throws BuddyException If there is an issue displaying the tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
-        ui.displayTasks(tasks.getTasks());
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+        return ui.displayTasks(tasks.getTasks());
     }
 
     /**
@@ -31,6 +31,6 @@ public class ListCommand extends Command {
      */
     @Override
     public boolean isExit() {
-        return true;
+        return false;
     }
 }

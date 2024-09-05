@@ -30,13 +30,15 @@ public class MarkCommand extends Command {
      * @throws BuddyException If the task index is invalid or there is an error saving the tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
-        if (tasks.isTaskDone(taskIndex)) {
-            ui.displayAlreadyMarked();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+        if (taskIndex >= tasks.getTasks().size()) {
+            return ui.displayUnavailableItem();
+        } else if (tasks.isTaskDone(taskIndex)) {
+            return ui.displayAlreadyMarked();
         } else {
             tasks.markTask(taskIndex);
-            ui.displayMarkedTask(taskIndex, tasks);
             storage.save(tasks.getTasks());
+            return ui.displayMarkedTask(taskIndex, tasks);
         }
     }
 

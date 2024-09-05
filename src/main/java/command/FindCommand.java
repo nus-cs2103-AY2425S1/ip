@@ -13,7 +13,7 @@ public class FindCommand extends Command {
         this.search = search;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
-        ui.displaySearchedTasks(tasks.getTasks(), search);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+        return ui.displaySearchedTasks(tasks.getTasks(), search);
     }
 }

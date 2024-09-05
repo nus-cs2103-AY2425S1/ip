@@ -31,11 +31,13 @@ public class DeleteCommand extends Command {
      * @throws BuddyException If the task index is invalid (i.e., no task exists at the given index).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
-        tasks.deleteTask(taskIndex);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+
         Task t = tasks.getTasks().get(taskIndex);
-        ui.displayDeleteTask(t, tasks);
+        tasks.deleteTask(taskIndex);
+        System.out.println(taskIndex);
         storage.save(tasks.getTasks());
+        return ui.displayDeleteTask(t, tasks);
     }
 
     /**
