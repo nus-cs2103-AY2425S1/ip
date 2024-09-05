@@ -5,6 +5,9 @@ import java.util.List;
 
 import elster.tasks.Task;
 
+/**
+ * TaskList component, handles logic related to the entire list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
 
@@ -152,6 +155,12 @@ public class TaskList {
         return returnStr.toString();
     }
 
+    /**
+     * Finds all tasks in the list that has a description that matches the user input.
+     *
+     * @param input User input to match description with.
+     * @return List of tasks that have a description matching user input.
+     */
     public List<Task> findByDescription(String input) {
         ArrayList<Task> foundTasks = new ArrayList<>();
 

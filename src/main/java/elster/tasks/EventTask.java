@@ -1,10 +1,10 @@
 package elster.tasks;
 
-import elster.Elseption;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import elster.Elseption;
 
 /**
  * Event tasks are tasks that have a start and end time on top of the base task functionalities

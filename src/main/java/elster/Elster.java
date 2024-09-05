@@ -10,14 +10,22 @@ import elster.tasks.EventTask;
 import elster.tasks.Task;
 import elster.tasks.ToDoTask;
 
+/**
+ * Elster class that handles the logic for processing user inputs.
+ */
 public class Elster {
     private TaskList taskList;
     private final Ui ui;
     private final Storage storage;
 
+    /**
+     * Constructor for Elster class. Initialises the Ui, Storage and Tasklist components.
+     *
+     * @param filePath file path of the save file.
+     */
     public Elster(Path filePath) {
         this.ui = new Ui();
-        this.storage = new Storage(filePath, ui);
+        this.storage = new Storage(filePath);
 
         try {
             taskList = new TaskList();
@@ -27,6 +35,10 @@ public class Elster {
         }
     }
 
+    /**
+     * Run function of the Elster instance, handles the loading of the save file from storage as
+     * well as general logic of the chatbot.
+     */
     public void run() {
         boolean isStillRunning = true;
         String input;
