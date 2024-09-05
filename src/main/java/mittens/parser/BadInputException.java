@@ -1,4 +1,6 @@
-package mittens;
+package mittens.parser;
+
+import mittens.MittensException;
 
 public class BadInputException extends MittensException {
     private static final String MITTENS_MESSAGE = "Meow?! What does that mean?";

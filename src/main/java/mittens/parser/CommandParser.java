@@ -1,4 +1,4 @@
-package mittens;
+package mittens.parser;
 
 import mittens.commands.*;
 import mittens.task.Deadline;
