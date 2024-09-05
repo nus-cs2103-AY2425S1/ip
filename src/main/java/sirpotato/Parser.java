@@ -12,6 +12,7 @@ class Parser {
     /**
      * Validates the date that user inputs
      * If not in dd-MM-yyyy format, will throw an exception
+     * 
      * @param date the date(in string format) that the user types in
      */
     public static void validateDateFormat(String date) throws DukeException {
@@ -25,6 +26,7 @@ class Parser {
 
     /**
      * Validates user input
+     * 
      * @param userInput The user's input to the chatbot
      */
     public static void checkForErrors(String userInput) throws DukeException {
@@ -66,6 +68,7 @@ class Parser {
 
     /**
      * Parses the user input and returns the command to be executed
+     * 
      * @param userInput User's input to the chatbot
      * @return Command object to be executed i.e AddCommand or MarkCommand
      * @throws DukeException if the input is not valid 

@@ -18,6 +18,11 @@ public class Task {
         return (isDone ? "[X]" : "[ ]"); //return tick or X symbols
     }
 
+    /**
+     * Displays the description of the task and returns the description
+     * 
+     * @return The description in string format
+     */
     public String displayDescription() {
         return description;
     }

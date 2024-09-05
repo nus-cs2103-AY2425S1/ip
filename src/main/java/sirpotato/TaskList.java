@@ -2,16 +2,29 @@ package sirpotato;
 
 import java.util.ArrayList;
 
+/**
+ * A custom class to hold the list of tasks
+ * Contains methods to operate the task list
+ */
 public class TaskList {
 
     protected ArrayList<Task> toDoList;
     private Ui ui;
 
+    /**
+     * Initalises a tasklist with the given ArrayList of tasks
+     * 
+     * @param toDoList an ArrayList of tasks in the to-do list
+     */
     public TaskList(ArrayList<Task> toDoList) {
         this.toDoList = toDoList;
         this.ui = new Ui();
     }
 
+    /**
+     * An alternate constructor for the tasklist if there
+     * are no current tasks in the to-do list.
+     */
     public TaskList() {
         this.toDoList = new ArrayList<Task>();
         this.ui = new Ui();

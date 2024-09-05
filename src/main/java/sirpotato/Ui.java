@@ -3,6 +3,11 @@ package sirpotato;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class that handles the interactions with the users
+ * Reads their input
+ * Handles responses to the user
+ */
 public class Ui {
 
     private String logo;
@@ -10,11 +15,18 @@ public class Ui {
     private final String HORIZONTAL_LINE = "___________________________ \n";
     private final String INDENT = "   ";
 
+    /**
+     * Initialises the UI for the user
+     * Sets the logo and initialises the scanner
+     */
     public Ui() {
         this.logo = "Sir Potato";
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads the user's next command to the chatbot.
+     */
     public String readCommand() {
         String userInput = scanner.nextLine();
         return userInput;
@@ -37,6 +49,7 @@ public class Ui {
 
     /**
      * Displays the message that a task has been added to the list
+     * 
      * @param task the task that is being added to the toDoList.
      * @param toDoList the toDoList the task is being added to.
      */
@@ -50,6 +63,7 @@ public class Ui {
 
     /**
      * Prints out the deletion message 
+     * 
      * @param task Task being deleted
      * @param toDoList The to-do list being deleted from
      */
@@ -61,6 +75,11 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints the tasks in the current tasklist 
+     * 
+     * @param tasks The TaskList containing the current tasks
+     */
     public void listTasks(TaskList tasks) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(INDENT + "Here are the tasks in your list:");
@@ -72,6 +91,12 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE + "\n");
     }
 
+    /**
+     * When a user marks an item complete, this is the message that will be displayed
+     * 
+     * @param itemNumber the index number(starts at 1) of the item to be deleted
+     * @param toDoList the TaskList's arrayList containing the current to-do list.
+     */
     public void displayMarkedItem(int itemNumber, ArrayList<Task> toDoList) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(INDENT + "Good on ya! I've marked it done:");
@@ -79,12 +104,24 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * When a user unmarks an item to incomplete, this is the message that will be displayed
+     * 
+     * @param itemNumber the index number(starts at 1) of the item to be deleted
+     * @param toDoList the TaskList's arrayList containing the current to-do list.
+     */
     public void displayUnmarkedItem(int itemNumber, ArrayList<Task> toDoList) {
         System.out.println(INDENT + "What's happened here mate? I've unmarked it for ya.");
         System.out.println(INDENT + INDENT + toDoList.get(itemNumber));
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Formats the chatbot's response by sandwiching it between a dashed line
+     * And automatically indents the response
+     * 
+     * @param response the response that the chatbot wishes to format
+     */
     public void respond(String response) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(INDENT + response);
