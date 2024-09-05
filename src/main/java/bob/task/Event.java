@@ -16,7 +16,7 @@ public class Event extends Task {
         this.startDay = startDay;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.marker = "/from";
+//        this.marker = "/from";
     }
 
     /**
@@ -29,12 +29,12 @@ public class Event extends Task {
         this.startDay = startDay;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.marker = "/from";
+//        this.marker = "/from";
     }
 
     // Returns the letter representing event.
     @Override
-    public String taskLetter() {
+    public String getTaskLetter() {
         return "E";
     }
 
@@ -42,8 +42,8 @@ public class Event extends Task {
      * Returns a string representation of the file format in which we store the Event.
      */
     @Override
-    public String fileFormat () {
-        String part1 = super.fileFormat();
+    public String getFileFormat() {
+        String part1 = super.getFileFormat();
         return part1 + " | " + startDay + " | " + startTime + " | " + endTime;
     }
 }

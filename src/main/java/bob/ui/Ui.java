@@ -8,6 +8,11 @@ import bob.parser.Parser;
 public class Ui {
     private Parser parser;
 
+    /**
+     * Prints lines above and below a given String input.
+     *
+     * @param text String input.
+     */
     public static void printLines(String text) {
         String textToPrint = "\t____________________________________________________________\n"
                 + "\t"
@@ -16,6 +21,7 @@ public class Ui {
                 + "\t____________________________________________________________\n";
         System.out.println(textToPrint);
     }
+
 
     public void showWelcome() {
         String welcome = "Hello! I'm Bob\n"

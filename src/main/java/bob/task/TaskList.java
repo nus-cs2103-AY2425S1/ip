@@ -3,10 +3,6 @@ package bob.task;
 import bob.exception.InvalidTaskException;
 import bob.storage.Storage;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -123,7 +119,7 @@ public class TaskList {
             Task newTask = getTask(keyword, input); //initialise the exact Task class
             String immediateAdd = "Got it. I've added this task:\n\t"
                     + "  ["
-                    + newTask.taskLetter()
+                    + newTask.getTaskLetter()
                     + "][ ] "
                     + this.getInputDescription(input)
                     + "\n\t"

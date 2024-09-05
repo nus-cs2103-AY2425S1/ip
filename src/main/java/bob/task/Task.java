@@ -3,9 +3,9 @@ package bob.task;
 import bob.ui.Ui;
 
 public class Task {
-    protected String description;
-    protected boolean isDone;
-    protected String marker = " ";
+    private String description;
+    private boolean isDone;
+//    private String marker = " ";
 
     /**
      * Constructor to initialise a task.
@@ -36,7 +36,7 @@ public class Task {
      * Returns a string representation for a line item in the printed list,
      */
     public String getTaskListItem() {
-        return("[" + taskLetter() +"][" + this.getStatusIcon() + "] " + this.description);
+        return("[" + getTaskLetter() +"][" + this.getStatusIcon() + "] " + this.description);
     }
 
     /**
@@ -49,7 +49,7 @@ public class Task {
             this.isDone = true;
             String finishedMarking = "OK, I've marked this task as done:\n\t"
                     + "["
-                    + taskLetter()
+                    + getTaskLetter()
                     + "]"
                     + "[X] "
                     + this.description;
@@ -58,7 +58,7 @@ public class Task {
             this.isDone = false;
             String finishedUnmarking = "OK, I've marked this task as not done yet:\n\t"
                     + "["
-                    + taskLetter()
+                    + getTaskLetter()
                     + "]"
                     + "[ ] "
                     + this.description;
@@ -66,15 +66,15 @@ public class Task {
         }
     }
 
-    public String taskLetter() {
+    public String getTaskLetter() {
         return " ";
     }
 
     /**
      * Returns a string representation of the file format in which we store the task.
      */
-    public String fileFormat() {
+    public String getFileFormat() {
         String done = isDone ? "1" : "0";
-        return this.taskLetter() + " | " + done + " | " + this.description;
+        return this.getTaskLetter() + " | " + done + " | " + this.description;
     }
 }

@@ -15,7 +15,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        this.marker = "/by";
+//        this.marker = "/by";
     }
 
     /**
@@ -26,7 +26,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
         this.by = by;
-        this.marker = "/by";
+//        this.marker = "/by";
     }
 
     /**
@@ -37,12 +37,12 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDate date) {
         super(description);
         this.date = date;
-        this.marker = "/by";
+//        this.marker = "/by";
     }
 
     // Returns the letter representing deadline.
     @Override
-    public String taskLetter() {
+    public String getTaskLetter() {
         return "D";
     }
 
@@ -50,9 +50,8 @@ public class Deadline extends Task {
      * Returns a string representation of the file format in which we store the Deadline.
      */
     @Override
-    public String fileFormat () {
-        String part1 = super.fileFormat();
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public String getFileFormat() {
+        String part1 = super.getFileFormat();
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         String dateTimeOutput = (date != null) ? date.format(outputFormatter) : by;
         return part1 + " | " + dateTimeOutput;

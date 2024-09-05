@@ -1,6 +1,6 @@
 package bob.task;
 
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructor to initialise a task.
@@ -23,7 +23,7 @@ public class Todo extends Task{
 
     // Returns the letter representing todo.
     @Override
-    public String taskLetter() {
+    public String getTaskLetter() {
         return "T";
     }
 
@@ -31,8 +31,8 @@ public class Todo extends Task{
      * Returns a string representation of the file format in which we store the Todo.
      */
     @Override
-    public String fileFormat () {
-        String part1 = super.fileFormat();
+    public String getFileFormat() {
+        String part1 = super.getFileFormat();
         return part1;
     }
 }
