@@ -9,7 +9,18 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
+      minHeight="600.0" minWidth="600.0"
       fx:controller="denim.UI.MainWindow"
       stylesheets="@../css/MainWindow.css">
-    <!-- This VBox is the initial placeholder; additional components will be added iteratively -->
+    <children>
+        <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox />
+            </content>
+        </ScrollPane>
+        <HBox spacing="10" alignment="CENTER">
+            <TextField minHeight="100.0" minWidth="400.0" promptText="Your wish is my command UwU"/>
+            <Button text="Send"/>
+        </HBox>
+    </children>
 </VBox>
