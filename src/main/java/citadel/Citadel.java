@@ -36,6 +36,7 @@ public class Citadel {
      */
     public static TaskList loadDatabase() {
         items = db.getTasks();
+        assert items != null : "Task list from database cannot be null";
         return items;
     }
 
@@ -43,6 +44,8 @@ public class Citadel {
      * Saves tasks from the application into the database (storage).
      */
     public static void saveDatabase() {
+        assert items != null : "Task list cannot be null when saving to the database";
+
         try {
             db.saveData(items);
         } catch (IOException e) {
@@ -72,7 +75,11 @@ public class Citadel {
      * @throws CitadelException If there is an error processing the input.
      */
     public static String handleInput(String input) throws CitadelException {
+        assert input != null : "Input string cannot be null";
+        assert !input.isEmpty() : "Input string cannot be empty";
+
         Commands command = Parser.parseCommand(input);
+        assert command != null : "Parsed command cannot be null";
 
         switch (command) {
         case BYE:
