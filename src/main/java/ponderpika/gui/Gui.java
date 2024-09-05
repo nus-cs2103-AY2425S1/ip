@@ -3,7 +3,7 @@ package ponderpika.gui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+//import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -11,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import ponderpika.PonderPika;
+import ponderpika.ui.Ui;
 
 /**
  * This Gui class helps in creating GUI for our PonderPika bot
@@ -22,26 +24,32 @@ public class Gui extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private PonderPika bot;
+    private Ui ui = new Ui();
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/pikabot.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image botImage = new Image(this.getClass().getResourceAsStream("/images/pikabot.png"));
 
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String pikaText = bot.getResponse(userText);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getPikaDialog(pikaText, botImage)
+        );
         userInput.clear();
     }
 
     @Override
     public void start(Stage stage) {
+
+        bot = new PonderPika();
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
         sendButton = new Button("Send");
-
-        DialogBox dialogBox = new DialogBox("Hello!", userImage);
-        dialogContainer.getChildren().addAll(dialogBox);
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
@@ -83,6 +91,10 @@ public class Gui extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        String greeting = "Hello I'm Ponder Pika!\nIt is a great day to ponder! How may I help you?";
+        dialogContainer.getChildren().add(
+                DialogBox.getPikaDialog(greeting, botImage));
 
         //Handling user input
         sendButton.setOnMouseClicked((event) -> {

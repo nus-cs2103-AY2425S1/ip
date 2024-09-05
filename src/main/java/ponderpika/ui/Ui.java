@@ -1,5 +1,8 @@
 package ponderpika.ui;
 
+/**
+ * class helps in display of user interface
+ */
 public class Ui {
 
     /**
