@@ -5,6 +5,7 @@ import ipman.commands.Context;
 import ipman.commands.ExitException;
 import ipman.models.TaskList;
 import ipman.models.TasksFileManager;
+import ipman.parser.Parser;
 import ipman.ui.Ui;
 
 /**
@@ -19,26 +20,26 @@ public class IpMan {
     public IpMan(Ui ui) {
         this.ui = ui;
         this.context = new Context(tasks, ui, fileManager);
+        fileManager.load(tasks);
     }
 
-    public void execute() {
-        ui.showWelcome();
-        fileManager.load(tasks);
-
-        // Main loop
-        while (true) {
-            try {
-                Command command = ui.readMessage();
-                command.execute(context);
-                fileManager.save(tasks);
-            } catch (ExitException e) {
-                break;
-            } catch (Exception e) {
-                ui.showError(e.getMessage());
-            }
+    /**
+     * Executes a command interpreted from a message
+     *
+     * @param message message to parse and execute
+     * @return whether the program should exit
+     */
+    public boolean executeMessage(String message) {
+        try {
+            Command command = Parser.parseCommand(message);
+            command.execute(context);
+            fileManager.save(tasks);
+        } catch (ExitException e) {
+            return true;
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
         }
 
-        // Goodbye
-        ui.showGoodbye();
+        return false;
     }
 }

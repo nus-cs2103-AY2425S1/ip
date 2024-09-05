@@ -2,9 +2,6 @@ package ipman.ui;
 
 import java.util.Scanner;
 
-import ipman.commands.Command;
-import ipman.parser.Parser;
-
 /**
  * Represents the command line user interface.
  * Messages will be received from standard input and messages will be displayed
@@ -19,13 +16,6 @@ public class CliUi implements Ui {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Ip Man.");
         System.out.println("What can I do for you?");
-    }
-
-    @Override
-    public Command readMessage() {
-        System.out.print("> ");
-        String message = scanner.nextLine();
-        return Parser.parseCommand(message);
     }
 
     @Override
