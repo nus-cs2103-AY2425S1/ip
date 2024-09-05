@@ -1,8 +1,17 @@
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class TaskList {
 
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static ArrayList<Task> tasks;
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
+    }
 
     public void addTask(Task task) {
         tasks.add(task);
