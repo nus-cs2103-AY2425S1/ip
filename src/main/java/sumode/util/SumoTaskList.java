@@ -40,7 +40,7 @@ public class SumoTaskList {
             try {
                 tasks.add(Task.createFromData(datas[i]));
             } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                ui.corruptedSaveFile(i + 1);
+                ui.warnCorruptedSaveFile(i + 1);
             }
         }
 
@@ -76,7 +76,7 @@ public class SumoTaskList {
         case MARK: {
             int index = getIndex(command, item);
             tasks.get(index - 1).mark();
-            ui.mark(tasks.get(index - 1));
+            ui.printTaskMarked(tasks.get(index - 1));
         }
             if (storage != null) {
                 storage.save(this.tasks);
@@ -85,7 +85,7 @@ public class SumoTaskList {
         case UNMARK: {
             int index = getIndex(command, item);
             tasks.get(index - 1).unmark();
-            ui.unmark(tasks.get(index - 1));
+            ui.printTaskUnmarked(tasks.get(index - 1));
         }
             if (storage != null) {
                 storage.save(this.tasks);
@@ -94,7 +94,7 @@ public class SumoTaskList {
             break;
         case DELETE: {
             int index = getIndex(command, item);
-            ui.removeTask(tasks.get(index - 1), tasks.size() - 1);
+            ui.printTaskRemoved(tasks.get(index - 1), tasks.size() - 1);
             tasks.remove(index - 1);
         }
             if (storage != null) {
@@ -106,7 +106,7 @@ public class SumoTaskList {
         case EVENT:
             Task newlyAdded = Task.of(command, item);
             tasks.add(newlyAdded); // used factory method to be more neat and OOP
-            ui.addTask(newlyAdded, tasks.size());
+            ui.printTaskAdded(newlyAdded, tasks.size());
             if (storage != null) {
                 storage.save(this.tasks);
             }

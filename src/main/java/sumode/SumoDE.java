@@ -39,14 +39,14 @@ public class SumoDE extends Application {
         } catch (IOException e) {
             // Note: this will only happen when file don't exist and we cannot create new file in the path.
             // New File will be created when file doesn't exist in first place.
-            ui.unknownSaveError();
+            ui.warnUnknownSaveError();
         }
 
         try {
             this.tasks = new SumoTaskList(this.storage, this.ui);
         } catch (IOException e) {
             //unlikely will happen since we already successfully initialise storage
-            ui.unknownSaveError();
+            ui.warnUnknownSaveError();
         }
     }
 
@@ -70,12 +70,12 @@ public class SumoDE extends Application {
             command = Command.valueOf(commandString.toUpperCase());
             canTerminate = this.tasks.execute(command, item);
         } catch (IllegalArgumentException e) {
-            ui.unknownCommand(commandString);
+            ui.warnUnknownCommand(commandString);
         } catch (SumoDException e) {
             ui.handleError(e);
         } finally {
             if (!canTerminate) {
-                ui.next();
+                ui.requestNext();
             } else {
                 ui.bye();
                 Platform.exit();
