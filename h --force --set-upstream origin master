@@ -112,7 +112,7 @@ Date:   Tue Aug 25 17:23:26 2020 +0800
 
     Improve runtest.* scripts
     
-    * Improve the javac Jay.command to work for multiple java files.
+    * Improve the javac jay.command to work for multiple java files.
     * In runtest.bat, delete ACTUAL.TXT only if it exists.
 
 [33mcommit 87eb8b818ae0e244a172420fdab8c46c45c43e0b[m

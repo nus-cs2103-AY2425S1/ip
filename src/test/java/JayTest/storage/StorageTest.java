@@ -1,11 +1,11 @@
 package JayTest.storage;
 
-import Jay.storage.DataIOException;
-import Jay.storage.InvalidDataFormatException;
-import Jay.storage.Storage;
+import jay.storage.DataIOException;
+import jay.storage.InvalidDataFormatException;
+import jay.storage.Storage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import Jay.task.Task;
+import jay.task.Task;
 
 import java.util.ArrayList;
 

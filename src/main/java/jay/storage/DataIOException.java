@@ -1,4 +1,4 @@
-package Jay.storage;
+package jay.storage;
 
 /**
  * Represents an exception thrown when there is an error in reading or writing data.

@@ -1,15 +1,15 @@
 package JayTest;
 
-import Jay.TaskList;
-import Jay.command.InvalidCommandException;
+import jay.TaskList;
+import jay.command.InvalidCommandException;
 import org.junit.jupiter.api.Test;
-import Jay.parser.InvalidDateException;
-import Jay.parser.InvalidTimeException;
-import Jay.storage.DataIOException;
-import Jay.task.DeadlineTask;
-import Jay.task.EventTask;
-import Jay.task.Task;
-import Jay.task.ToDoTask;
+import jay.parser.InvalidDateException;
+import jay.parser.InvalidTimeException;
+import jay.storage.DataIOException;
+import jay.task.DeadlineTask;
+import jay.task.EventTask;
+import jay.task.Task;
+import jay.task.ToDoTask;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

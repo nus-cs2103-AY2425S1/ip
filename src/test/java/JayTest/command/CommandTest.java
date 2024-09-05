@@ -1,9 +1,9 @@
 package JayTest.command;
 
-import Jay.command.Command;
-import Jay.command.InvalidCommandException;
+import jay.command.Command;
+import jay.command.InvalidCommandException;
 import org.junit.jupiter.api.Test;
-import Jay.task.Task;
+import jay.task.Task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

@@ -1,12 +1,12 @@
 package JayTest.parser;
 
-import Jay.command.Command;
-import Jay.parser.InvalidDateException;
-import Jay.parser.InvalidTimeException;
-import Jay.parser.Parser;
+import jay.command.Command;
+import jay.parser.InvalidDateException;
+import jay.parser.InvalidTimeException;
+import jay.parser.Parser;
 import org.junit.jupiter.api.Test;
-import Jay.task.InvalidTaskException;
-import Jay.task.Task;
+import jay.task.InvalidTaskException;
+import jay.task.Task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

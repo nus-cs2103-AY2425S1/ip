@@ -1,11 +1,11 @@
-package Jay.storage;
+package jay.storage;
 
-import Jay.parser.InvalidDateException;
-import Jay.parser.InvalidTimeException;
-import Jay.task.DeadlineTask;
-import Jay.task.EventTask;
-import Jay.task.Task;
-import Jay.task.ToDoTask;
+import jay.parser.InvalidDateException;
+import jay.parser.InvalidTimeException;
+import jay.task.DeadlineTask;
+import jay.task.EventTask;
+import jay.task.Task;
+import jay.task.ToDoTask;
 
 import java.io.IOException;
 import java.nio.file.Files;

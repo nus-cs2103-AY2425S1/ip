@@ -1,22 +1,22 @@
 ____________________________________________________________
- Hello! I'm Jay.Jay
+ Hello! I'm jay.jay
  What can I do for you?
 ____________________________________________________________
 
 ____________________________________________________________
-Got it. I've added this Jay.task:
+Got it. I've added this jay.task:
 [T][ ] return book
 Now you have 1 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
-Got it. I've added this Jay.task:
+Got it. I've added this jay.task:
 [D][ ] return book (by: 28 Jul 2024)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
-Got it. I've added this Jay.task:
+Got it. I've added this jay.task:
 [E][ ] project meeting (from: 30 Jul 2024 14:00 to: 16:00)
 Now you have 3 tasks in the list.
 ____________________________________________________________
@@ -29,12 +29,12 @@ Here are the tasks in your list:
 ____________________________________________________________
 
 ____________________________________________________________
-Nice! I've marked this Jay.task as done:
+Nice! I've marked this jay.task as done:
 [D][X] return book (by: 28 Jul 2024)
 ____________________________________________________________
 
 ____________________________________________________________
-Nice! I've marked this Jay.task as done:
+Nice! I've marked this jay.task as done:
 [T][X] return book
 ____________________________________________________________
 
@@ -46,7 +46,7 @@ Here are the tasks in your list:
 ____________________________________________________________
 
 ____________________________________________________________
-OK, I've marked this Jay.task as not done yet:
+OK, I've marked this jay.task as not done yet:
 [D][ ] return book (by: 28 Jul 2024)
 ____________________________________________________________
 
@@ -58,7 +58,7 @@ Here are the tasks in your list:
 ____________________________________________________________
 
 ____________________________________________________________
-Noted. I've removed this Jay.task:
+Noted. I've removed this jay.task:
 [T][X] return book
 Now you have 2 tasks in the list.
 ____________________________________________________________

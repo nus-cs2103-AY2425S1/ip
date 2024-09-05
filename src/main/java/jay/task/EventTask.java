@@ -1,8 +1,8 @@
-package Jay.task;
+package jay.task;
 
-import Jay.parser.InvalidDateException;
-import Jay.parser.InvalidTimeException;
-import Jay.parser.Parser;
+import jay.parser.InvalidDateException;
+import jay.parser.InvalidTimeException;
+import jay.parser.Parser;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,6 +15,16 @@ public class EventTask extends Task {
     private final LocalTime startTime;
     private final LocalTime endTime;
 
+    /**
+     * Constructs an EventTask object.
+     *
+     * @param description The description of the Jay.task.
+     * @param date        The date of the Jay.task.
+     * @param startTime   The start time of the Jay.task.
+     * @param endTime     The end time of the Jay.task.
+     * @throws InvalidDateException If the date is invalid.
+     * @throws InvalidTimeException If the time is invalid.
+     */
     public EventTask(String description, boolean isDone, String date, String startTime, String endTime)
             throws InvalidDateException, InvalidTimeException {
         super(description, isDone);
@@ -30,8 +40,8 @@ public class EventTask extends Task {
     }
 
     @Override
-    public String simpleFormat() {
-        return "E | " + super.simpleFormat() + " | " + Parser.convertDateToStorageString(this.date) + " | "
+    public String getSimpleFormat() {
+        return "E | " + super.getSimpleFormat() + " | " + Parser.convertDateToStorageString(this.date) + " | "
                 + Parser.convertTimeToStorageString(this.startTime) + " | "
                 + Parser.convertTimeToStorageString(this.endTime);
     }

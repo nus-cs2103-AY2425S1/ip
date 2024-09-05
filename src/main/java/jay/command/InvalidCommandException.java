@@ -1,4 +1,4 @@
-package Jay.command;
+package jay.command;
 
 /**
  * Represents an exception thrown when an invalid Jay.command is entered by the user.

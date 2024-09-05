@@ -1,4 +1,4 @@
-package Jay.parser;
+package jay.parser;
 
 /**
  * Represents an exception thrown when the date provided is invalid.

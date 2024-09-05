@@ -1,7 +1,7 @@
-package Jay.task;
+package jay.task;
 
 /**
- * Represents a to-do Jay.task.
+ * Represents a to-do task.
  */
 public class ToDoTask extends Task {
     public ToDoTask(String description, boolean isDone) {
@@ -14,7 +14,7 @@ public class ToDoTask extends Task {
     }
 
     @Override
-    public String simpleFormat() {
-        return "T | " + super.simpleFormat();
+    public String getSimpleFormat() {
+        return "T | " + super.getSimpleFormat();
     }
 }

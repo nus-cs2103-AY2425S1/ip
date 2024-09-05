@@ -1,28 +1,37 @@
-package Jay.task;
+package jay.task;
 
 /**
  * Represents a Jay.task.
  */
 public class Task {
+    /**
+     * Represents the type of the task.
+     */
     public enum Type { ToDo, Deadline, Event, Unknown };
 
     private final String description;
     private boolean isDone;
 
+    /**
+     * Constructs a Jay.task object.
+     *
+     * @param description The description of the Jay.task.
+     * @param isDone      The status of the Jay.task.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
 
     /**
-     * Marks the Jay.task as done.
+     * Marks the task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Marks the Jay.task as not done.
+     * Marks the task as not done.
      */
     public void markAsNotDone() {
         this.isDone = false;
@@ -42,11 +51,11 @@ public class Task {
     }
 
     /**
-     * Returns a simple format of the Jay.task for Jay.storage.
+     * Returns a simple format of the task for Jay.storage.
      *
      * @return A simple format of the Jay.task.
      */
-    public String simpleFormat() {
+    public String getSimpleFormat() {
         return this.getSimpleStatusIcon() + " | " + this.description;
     }
 

@@ -1,13 +1,16 @@
-package Jay.command;
+package jay.command;
 
-import Jay.task.Task;
+import jay.task.Task;
 
 /**
  * Represents a Jay.command that the user inputs.
  */
 public class Command {
+    /**
+     * Represents the type of Jay.command.
+     */
     public enum CommandType {
-        List, Add, Mark, Unmark, Delete, Find, Exit
+        List, Add, Mark, Unmark, Delete, Find, Exit, Unknown
     };
 
     private final String command;
@@ -16,6 +19,7 @@ public class Command {
         this.command = command;
     }
 
+    // CHECKSTYLE.OFF: Indentation
     /**
      * Returns the type of Jay.command that user input.
      *
@@ -31,10 +35,12 @@ public class Command {
             case "unmark" -> CommandType.Unmark;
             case "delete" -> CommandType.Delete;
             case "find" -> CommandType.Find;
-            default -> CommandType.Add;
+            case "todo", "deadline", "event" -> CommandType.Add;
+            default -> CommandType.Unknown;
         };
     }
 
+    // CHECKSTYLE.ON: Indentation
     /**
      * Returns the Jay.task number from the Jay.command.
      *
@@ -45,10 +51,11 @@ public class Command {
         try {
             return Integer.parseInt(this.command.split(" ")[1]);
         } catch (NumberFormatException e) {
-            throw new InvalidCommandException("OOPS!!! Please enter a valid Jay.task number.");
+            throw new InvalidCommandException("OOPS!!! Please enter a valid task number.");
         }
     }
 
+    //CHECKSTYLE.OFF: Indentation
     /**
      * Returns the Jay.task type from the Jay.command.
      *
@@ -62,6 +69,7 @@ public class Command {
             default -> Task.Type.Unknown;
         };
     }
+    // Checkstyle.ON: Indentation
 
     /**
      * Returns the description from the Jay.command.

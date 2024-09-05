@@ -1,7 +1,7 @@
-package Jay.parser;
+package jay.parser;
 
-import Jay.command.Command;
-import Jay.task.*;
+import jay.command.Command;
+import jay.task.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,42 +20,43 @@ public class Parser {
      * @return The Jay.task object created from the user input.
      * @throws InvalidTaskException If the user input is invalid.
      */
+    @SuppressWarnings("checkstyle:RightCurly")
     public static Task parseTask(Task.Type taskType, Command command) throws InvalidTaskException {
         try {
             switch (taskType) {
             case ToDo: {
-                    try {
-                        String description = command.getDescription();
-                        return new ToDoTask(description, false);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new InvalidTaskException("OOPS!!! The description of a todo cannot be empty.");
-                    }
+                try {
+                    String description = command.getDescription();
+                    return new ToDoTask(description, false);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new InvalidTaskException("OOPS!!! The description of a todo cannot be empty.");
                 }
+            }
             case Deadline: {
-                    try {
-                        String description = command.getDescription();
-                        String date = command.getDate();
+                try {
+                    String description = command.getDescription();
+                    String date = command.getDate();
 
-                        return new DeadlineTask(description, false, date);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new InvalidTaskException("OOPS!!! The description or by of a deadline cannot be empty.");
-                    }
+                    return new DeadlineTask(description, false, date);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new InvalidTaskException("OOPS!!! The description or by of a deadline cannot be empty.");
                 }
+            }
             case Event: {
-                    try {
-                        String description = command.getDescription();
-                        String date = command.getDate();
-                        String startTime = command.getStartTime();
-                        String endTime = command.getEndTime();
+                try {
+                    String description = command.getDescription();
+                    String date = command.getDate();
+                    String startTime = command.getStartTime();
+                    String endTime = command.getEndTime();
 
-                        return new EventTask(description, false, date, startTime, endTime);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new InvalidTaskException("OOPS!!! The description, date, start time or "
-                                + "end time of an event cannot be empty.");
-                    }
+                    return new EventTask(description, false, date, startTime, endTime);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new InvalidTaskException("OOPS!!! The description, date, start time or "
+                            + "end time of an event cannot be empty.");
                 }
-                default:
-                    throw new InvalidTaskException("OOPS!!! I'm sorry, but I don't what Jay.task is this. :-(");
+            }
+            default:
+                throw new InvalidTaskException("OOPS!!! I'm sorry, but I don't know what task is this. :-(");
             }
         } catch (InvalidDateException e) {
             throw new InvalidTaskException("OOPS!!! Please enter a valid "

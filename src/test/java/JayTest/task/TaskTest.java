@@ -1,6 +1,6 @@
 package JayTest.task;
 
-import Jay.task.Task;
+import jay.task.Task;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

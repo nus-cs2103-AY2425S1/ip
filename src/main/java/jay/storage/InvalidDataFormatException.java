@@ -1,4 +1,4 @@
-package Jay.storage;
+package jay.storage;
 
 /**
  * Represents an exception thrown when the data format is invalid.

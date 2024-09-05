@@ -1,9 +1,9 @@
 package JayTest.task;
 
-import Jay.task.EventTask;
+import jay.task.EventTask;
 import org.junit.jupiter.api.Test;
-import Jay.parser.InvalidDateException;
-import Jay.parser.InvalidTimeException;
+import jay.parser.InvalidDateException;
+import jay.parser.InvalidTimeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

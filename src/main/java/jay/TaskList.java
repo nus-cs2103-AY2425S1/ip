@@ -1,13 +1,13 @@
-package Jay;
-
-import Jay.command.InvalidCommandException;
-import Jay.storage.DataIOException;
-import Jay.storage.InvalidDataFormatException;
-import Jay.storage.Storage;
-import Jay.task.Task;
+package jay;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jay.command.InvalidCommandException;
+import jay.storage.DataIOException;
+import jay.storage.InvalidDataFormatException;
+import jay.storage.Storage;
+import jay.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -17,6 +17,11 @@ public class TaskList {
     private int taskCount;
     private final Storage storage;
 
+    /**
+     * Constructs a TaskList object.
+     *
+     * @param fileName The name of the file to store the tasks.
+     */
     public TaskList(String fileName) {
         this.tasks = new ArrayList<>();
         this.storage = new Storage("data", fileName);
@@ -161,9 +166,9 @@ public class TaskList {
 
         for (int i = 0; i < this.taskCount; i++) {
             if (i == this.taskCount - 1) {
-                tasksStr.append(this.tasks.get(i).simpleFormat());
+                tasksStr.append(this.tasks.get(i).getSimpleFormat());
             } else {
-                tasksStr.append(this.tasks.get(i).simpleFormat()).append("\n");
+                tasksStr.append(this.tasks.get(i).getSimpleFormat()).append("\n");
             }
         }
 

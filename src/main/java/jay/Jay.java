@@ -1,18 +1,19 @@
-package Jay;
+package jay;
 
 import java.util.Scanner;
 
-import Jay.command.Command;
-import Jay.command.InvalidCommandException;
-import Jay.parser.Parser;
-import Jay.storage.DataIOException;
-import Jay.task.InvalidTaskException;
-import Jay.task.Task;
+import jay.command.Command;
+import jay.command.InvalidCommandException;
+import jay.parser.Parser;
+import jay.storage.DataIOException;
+import jay.task.InvalidTaskException;
+import jay.task.Task;
 
 /**
  * Jay.Jay is a personal assistant chatbot that helps users to keep track of various tasks.
  */
 public class Jay {
+    private final String name;
     private final TaskList tasks;
     private final Ui ui;
 
@@ -23,20 +24,19 @@ public class Jay {
      */
     public Jay(String name) {
         this.tasks = new TaskList("tasks.txt");
-        this.ui = new Ui(name);
+        this.ui = new Ui();
+        this.name = name;
     }
 
     public static void main(String[] args) {
-        Jay jay = new Jay("Jay");
-        jay.start();
+        new Jay("Jay").start();
     }
-
 
     /**
      * Starts the chatbot.
      */
     public void start() {
-        ui.greet();
+        ui.output(this.greet());
         Scanner scanner = new Scanner(System.in);
 
         while (scanner.hasNext()) {
@@ -48,6 +48,25 @@ public class Jay {
                 ui.output(this.processCommand(command));
             }
         }
+    }
+
+    /**
+     * Greets the user.
+     *
+     * @return The greeting message.
+     */
+    public String greet() {
+        return "Hello! I'm " + this.name + "\n" + " What can I do for you?";
+    }
+
+    /**
+     * Handles the user input.
+     *
+     * @param input The user input.
+     * @return The response to the user.
+     */
+    public String handleInput(String input) {
+        return this.processCommand(input);
     }
 
     /**
@@ -73,11 +92,11 @@ public class Jay {
             case Mark:
                 taskNumber = command.getTaskNumber();
                 task = this.tasks.markAsDone(taskNumber);
-                return "Nice! I've marked this Jay.task as done:\n" + task;
+                return "Nice! I've marked this task as done:\n" + task;
             case Unmark:
                 taskNumber = command.getTaskNumber();
                 task = this.tasks.markAsNotDone(taskNumber);
-                return "OK, I've marked this Jay.task as not done yet:\n" + task;
+                return "OK, I've marked this task as not done yet:\n" + task;
             case Delete:
                 taskNumber = command.getTaskNumber();
                 return this.deleteTask(taskNumber);
@@ -117,7 +136,7 @@ public class Jay {
     private String addTask(Task task) {
         try {
             this.tasks.addTask(task);
-            return "Got it. I've added this Jay.task:\n" + task + "\n" + this.tasks.getTaskCount();
+            return "Got it. I've added this task:\n" + task + "\n" + this.tasks.getTaskCount();
         } catch (DataIOException e) {
             return e.getMessage();
         }
@@ -132,7 +151,7 @@ public class Jay {
     private String deleteTask(int taskNumber) {
         try {
             Task task = this.tasks.removeTask(taskNumber);
-            return "Noted. I've removed this Jay.task:\n" + task + "\n" + this.tasks.getTaskCount();
+            return "Noted. I've removed this task:\n" + task + "\n" + this.tasks.getTaskCount();
         } catch (DataIOException | InvalidCommandException e) {
             return e.getMessage();
         }
