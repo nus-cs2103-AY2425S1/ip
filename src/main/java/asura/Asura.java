@@ -6,6 +6,10 @@ import asura.data.tasks.TaskList;
 import asura.parser.Parser;
 import asura.storage.Storage;
 import asura.ui.Ui;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * Represents the main program.
@@ -15,6 +19,8 @@ public class Asura {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private static final String DEFAULT_FILE_PATH = "data/asura.txt";
+
 
     /**
      * Creates an Asura with the specified file path.
@@ -59,6 +65,7 @@ public class Asura {
      * @param args Optional arguments passed to the program
      */
     public static void main(String[] args) {
-        new Asura("data/asura.txt").run();
+        new Asura(DEFAULT_FILE_PATH).run();
     }
+
 }
