@@ -41,18 +41,29 @@ public class Gopher {
             } else if (userInput.equalsIgnoreCase("list")) {
                 return UI.getTaskListMessage(taskList);
             } else if (userInput.toLowerCase().startsWith("mark")) {
-                int taskNumber = Parser.parseMarkCommand(userInput);
-                taskList.markAsDone(taskNumber);
-                return UI.getMarkAsDoneMessage(taskList.getTask(taskNumber));
+                int[] taskNumbers = Parser.parseMarkCommand(userInput);
+                taskList.markAsDone(taskNumbers);
+                StringBuilder message = new StringBuilder();
+                for (int taskNumber: taskNumbers) {
+                    message.append(UI.getMarkAsDoneMessage(taskList.getTask(taskNumber)));
+                }
+                return message.toString();
             } else if (userInput.toLowerCase().startsWith("unmark")) {
-                int taskNumber = Parser.parseUnMarkCommand(userInput);
-                taskList.markAsUndone(taskNumber);
-                return UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber));
+                int[] taskNumbers = Parser.parseUnmarkCommand(userInput);
+                taskList.markAsUndone(taskNumbers);
+                StringBuilder message = new StringBuilder();
+                for (int taskNumber: taskNumbers) {
+                    message.append(UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber)));
+                }
+                return message.toString();
             } else if (userInput.toLowerCase().startsWith("delete")) {
-                int taskNumber = Parser.parseDeleteCommand(userInput);
-                String message = UI.getDeleteTaskMessage(taskList.getTask(taskNumber));
-                taskList.delete(taskNumber);
-                return message;
+                int[] taskNumbers = Parser.parseDeleteCommand(userInput);
+                StringBuilder message = new StringBuilder();
+                for (int taskNumber: taskNumbers) {
+                    message.append(UI.getDeleteTaskMessage(taskList.getTask(taskNumber)));
+                }
+                taskList.delete(taskNumbers);
+                return message.toString();
             } else if (userInput.toLowerCase().startsWith("find")) {
                 String keyword = Parser.parseFindCommand(userInput);
                 TaskList matchedTasks = taskList.find(keyword);
@@ -75,4 +86,3 @@ public class Gopher {
         }
     }
 }
-

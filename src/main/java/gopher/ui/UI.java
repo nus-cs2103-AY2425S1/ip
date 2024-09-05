@@ -64,7 +64,7 @@ public class UI {
      * @param task task to be marked as done
      */
     public static String getMarkAsDoneMessage(Task task) {
-        return "Nice! I've marked this task as done:\n" + task;
+        return String.format("Nice! I've marked this task as done:\n%s\n", task);
     }
 
     /**
@@ -73,7 +73,7 @@ public class UI {
      * @param task task to be marked as not done
      */
     public static String getMarkAsUndoneMessage(Task task) {
-        return "Ok, I've marked this task as not done yet:\n" + task;
+        return String.format("Ok, I've marked this task as not done yet:\n%s\n", task);
     }
 
     /**
@@ -82,7 +82,7 @@ public class UI {
      * @param task     task to be deleted
      */
     public static String getDeleteTaskMessage(Task task) {
-        return "Noted. I've removed this task:\n" + task;
+        return String.format("Noted. I've removed this task:\n%s\n", task);
     }
 
     /**

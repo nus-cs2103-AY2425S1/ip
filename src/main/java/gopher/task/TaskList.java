@@ -1,6 +1,7 @@
 package gopher.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,10 +44,16 @@ public class TaskList {
      * Triggers the TaskManager to update the local saved tasks.
      * Prints the delete message on the UI.
      *
-     * @param taskNumber number of the task to be deleted
+     * @param taskNumbers numbers of the tasks to be deleted
      */
-    public void delete(int taskNumber) {
-        tasks.remove(taskNumber - 1);
+    public void delete(int... taskNumbers) {
+        Task[] deleteTaskList = Arrays
+                .stream(taskNumbers)
+                .mapToObj(this::getTask)
+                .toArray(Task[]::new);
+        for (Task task: deleteTaskList) {
+            tasks.remove(task);
+        }
         TaskManager.saveTasks(tasks);
     }
 
@@ -76,11 +83,13 @@ public class TaskList {
      * Triggers the TaskManager to update the local saved tasks.
      * Prints the mark as done message on the UI.
      *
-     * @param taskNumber number of the task to be marked as done
+     * @param taskNumbers numbers of the tasks to be marked as done
      */
-    public void markAsDone(int taskNumber) {
-        Task task = getTask(taskNumber);
-        task.markAsDone();
+    public void markAsDone(int... taskNumbers) {
+        for (int taskNumber: taskNumbers) {
+            Task task = getTask(taskNumber);
+            task.markAsDone();
+        }
         TaskManager.saveTasks(tasks);
     }
 
@@ -89,11 +98,13 @@ public class TaskList {
      * Triggers the TaskManager to update the local saved tasks.
      * Prints the mark as not done message on the UI.
      *
-     * @param taskNumber number of the task to be marked as not done
+     * @param taskNumbers numbers of the tasks to be marked as not done
      */
-    public void markAsUndone(int taskNumber) {
-        Task task = getTask(taskNumber);
-        task.markAsNotDone();
+    public void markAsUndone(int... taskNumbers) {
+        for (int taskNumber: taskNumbers) {
+            Task task = getTask(taskNumber);
+            task.markAsNotDone();
+        }
         TaskManager.saveTasks(tasks);
     }
 
