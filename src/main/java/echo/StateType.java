@@ -1,0 +1,11 @@
+package echo;
+
+public enum StateType {
+    TODO_DESCRIPTION,
+    DEADLINE_DESCRIPTION,
+    DEADLINE_DEADLINE,
+    EVENT_DESCRIPTION,
+    EVENT_START,
+    EVENT_END,
+    NO_STATE;
+}
