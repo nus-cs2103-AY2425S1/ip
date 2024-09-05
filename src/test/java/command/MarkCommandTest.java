@@ -14,7 +14,7 @@ public class MarkCommandTest {
         taskList.add(new Task.Todo("A todo task"));
         Task task = new Task.Deadline("Description for deadline", "tomorrow");
         taskList.add(task);
-        MarkCommand markCommand = new MarkCommand(2, taskList);
+        MarkCommand markCommand = new MarkCommand(1, taskList);
         markCommand.execute();
 
         assertEquals(taskList.get(1).isDone(), true);

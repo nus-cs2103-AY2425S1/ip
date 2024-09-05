@@ -25,8 +25,8 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute() {
-        taskList.markTaskAsDone(index - 1);
+        taskList.markTaskAsDone(index);
         new Storage("data/duke.txt").save(taskList);
-        System.out.println(Parser.addHorizontalLinesAndIndentation("Nice! I've marked this task as done:\n" + taskList.get(index - 1)));
+        System.out.println(Parser.addHorizontalLinesAndIndentation("Nice! I've marked this task as done:\n" + taskList.get(index)));
     }
 }

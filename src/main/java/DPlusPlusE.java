@@ -3,12 +3,12 @@ import task.TaskList;
 import utilities.Storage;
 import utilities.Ui;
 
-public class Duke {
+public class DPlusPlusE {
     private Storage storage = new Storage("./data/duke.txt");
     private TaskList tasks;
     private Ui ui;
 
-    public Duke(String filePath) {
+    public DPlusPlusE(String filePath) {
         storage = new Storage(filePath);
         try {
             tasks = storage.load();
