@@ -1,3 +1,5 @@
+package torne.task;
+
 import java.util.ArrayList;
 
 /**
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 public class TaskHandler {
     private final ArrayList<Task> taskList;
 
-    TaskHandler(ArrayList<Task> taskList) {
+    public TaskHandler(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
@@ -18,14 +20,14 @@ public class TaskHandler {
     /**
      * Adds a task to the task list.
      *
-     * @param task Task to be added.
+     * @param task torne.task.Task to be added.
      */
     public void addTask(Task task) {
         taskList.add(task);
     }
 
     /**
-     * Returns the `Task` at the specified position in this list.
+     * Returns the `torne.task.Task` at the specified position in this list.
      *
      * @param index index of the desired task. index is in [0, n-1].
      * @return The task at the position.
@@ -39,7 +41,7 @@ public class TaskHandler {
     }
 
     /**
-     * Removes the `Task` at the specified position in this list.
+     * Removes the `torne.task.Task` at the specified position in this list.
      *
      * @param index index of the desired task. index is in [0, n-1].
      * @return Returns the removed task.

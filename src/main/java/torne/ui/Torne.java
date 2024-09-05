@@ -1,7 +1,14 @@
+package torne.ui;
+
+import torne.exception.TorneException;
+import torne.exception.TorneInvalidCommandException;
+import torne.storage.Storage;
+import torne.task.*;
+
 import java.util.*;
 
 /**
- * This is the main class for `Torne`.
+ * This is the main class for `torne.ui.Torne`.
  * All the main commands are here.
  */
 
@@ -135,7 +142,7 @@ public class Torne {
     }
 
     /**
-     * Shows a greeting message, to be shown when user initialises Torne.
+     * Shows a greeting message, to be shown when user initialises torne.ui.Torne.
      */
     private void showGreeting() {
         String greetingText = """
@@ -173,7 +180,7 @@ Aww, bye to you as well :c""";
             return;
         }
 
-        StringBuilder helpMessageBuilder = new StringBuilder("This is the list of Torne commands and options:");
+        StringBuilder helpMessageBuilder = new StringBuilder("This is the list of torne.ui.Torne commands and options:");
 
         for (var entry : COMMANDS.entrySet()) {
             String cmd = entry.getKey();
@@ -212,7 +219,7 @@ Aww, bye to you as well :c""";
     }
 
     /**
-     * Creates a new task with no date/time, with type `TaskTodo`.
+     * Creates a new task with no date/time, with type `torne.task.TaskTodo`.
      *
      * @param name name of task to be added
      */
@@ -222,7 +229,7 @@ Aww, bye to you as well :c""";
     }
 
     /**
-     * Creates a new task with a datetime as the deadline, with type `TaskDeadline`.
+     * Creates a new task with a datetime as the deadline, with type `torne.task.TaskDeadline`.
      *
      * @param name name of task to be added
      * @param by date/time to do the task by
@@ -234,7 +241,7 @@ Aww, bye to you as well :c""";
 
     /**
      * Creates a new task that starts at a datetime and ends at a datetime,
-     * with type `TaskEvent`.
+     * with type `torne.task.TaskEvent`.
      *
      * @param name name of task to be added
      * @param from starting datetime

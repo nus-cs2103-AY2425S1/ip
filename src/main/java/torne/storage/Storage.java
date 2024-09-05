@@ -1,3 +1,10 @@
+package torne.storage;
+
+import torne.exception.TorneInvalidCommandException;
+import torne.exception.TorneInvalidDataException;
+import torne.task.Task;
+import torne.ui.ChatOutput;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -71,7 +78,7 @@ public class Storage {
 
             return tasks;
         } catch (FileNotFoundException e) {
-            OUTPUT.error("Task storage file not found: " + e.getMessage());
+            OUTPUT.error("torne.task.Task storage file not found: " + e.getMessage());
             return tasks;
         }
     }

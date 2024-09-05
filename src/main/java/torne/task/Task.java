@@ -1,15 +1,21 @@
+package torne.task;
+
+import torne.exception.TorneInvalidCommandException;
+import torne.exception.TorneInvalidDataException;
+
 /**
- * Class that encapsulates a task that can be added to `Torne`.
+ * Class that encapsulates a task that can be added to `torne.ui.Torne`.
  */
 public class Task {
     protected final String name;
     protected boolean isDone;
 
     /**
-     * Creates a Task object from a given storage string.
+     * Creates a torne.task.Task object from a given storage string.
      *
-     * @return Task created from the input string.
-     * @throws TorneException for issues with loading the Task.
+     * @return torne.task.Task created from the input string.
+     * @throws TorneInvalidCommandException for issues with loading the torne.task.Task via command.
+     * @throws TorneInvalidDataException for issues with loading the torne.task.Task via storage.
      */
     public static Task fromStorageString(String input) throws TorneInvalidCommandException, TorneInvalidDataException {
         String[] parts = input.split(" / ");
@@ -36,28 +42,28 @@ public class Task {
         // parse based on type
         switch (parts[0]) {
         case "T":
-            // TaskTodo
+            // torne.task.TaskTodo
             if (parts.length != 3) {
                 throw new TorneInvalidDataException("Invalid todo storage string.");
             }
             newTask = TaskTodo.fromStorage(parts[2]);
             break;
         case "D":
-            // TaskDeadline
+            // torne.task.TaskDeadline
             if (parts.length != 4) {
                 throw new TorneInvalidDataException("Invalid deadline storage string.");
             }
             newTask = TaskDeadline.fromStorage(parts[2], parts[3]);
             break;
         case "E":
-            // TaskDeadline
+            // torne.task.TaskDeadline
             if (parts.length != 5) {
                 throw new TorneInvalidDataException("Invalid event storage string.");
             }
             newTask = TaskEvent.fromStorage(parts[2], parts[3], parts[4]);
             break;
         default:
-            throw new TorneInvalidDataException("Storage string task type code invalid.");
+            throw new TorneInvalidDataException("torne.storage.Storage string task type code invalid.");
         }
 
         // set completion status
@@ -67,7 +73,7 @@ public class Task {
 
     Task(String name) throws TorneInvalidCommandException {
         if (name == null || name.isEmpty()) {
-            throw new TorneInvalidCommandException("Task cannot have an empty name");
+            throw new TorneInvalidCommandException("torne.task.Task cannot have an empty name");
         }
         this.name = name.trim();
     }

@@ -1,5 +1,10 @@
+package torne.task;
+
+import torne.exception.TorneInvalidCommandException;
+import torne.exception.TorneInvalidDataException;
+
 /**
- * Task with no date/time attached.
+ * torne.task.Task with no date/time attached.
  */
 public class TaskTodo extends Task {
     private TaskTodo(String name) throws TorneInvalidCommandException, TorneInvalidDataException {
@@ -18,7 +23,7 @@ public class TaskTodo extends Task {
     public String toString() {
         String status = isDone ? "X" : " ";
 
-        // format based on the toString output of `Task`
+        // format based on the toString output of `torne.task.Task`
         return String.format("[T]%s", super.toString());
     }
 

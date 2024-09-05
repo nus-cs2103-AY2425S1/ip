@@ -1,9 +1,16 @@
-import java.time.*;
+package torne.util;
+
+import torne.exception.TorneInvalidCommandException;
+import torne.exception.TorneInvalidDataException;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * This encapsulates a date-time object to be used by `Torne`.
+ * This encapsulates a date-time object to be used by `torne.ui.Torne`.
  */
 
 public class TorneDateTime {
@@ -14,12 +21,12 @@ public class TorneDateTime {
     }
 
     /**
-     * Creates a `TorneDateTime` from date time input string of the format `yyyy-MM-dd HHmm`,
+     * Creates a `torne.util.TorneDateTime` from date time input string of the format `yyyy-MM-dd HHmm`,
      * for instance
      * 2024-09-30 1820, or 1970-01-01 0000.
      *
      * @param input Input string.
-     * @return `TorneDateTime` object with the given date and time.
+     * @return `torne.util.TorneDateTime` object with the given date and time.
      * @throws TorneInvalidCommandException if the string cannot be parsed.
      */
     public static TorneDateTime parseInputDateTimeString(String input) throws TorneInvalidCommandException {
@@ -36,12 +43,12 @@ public class TorneDateTime {
     }
 
     /**
-     * Creates a `TorneDateTime` from date input string of the format `yyyy-MM-dd`,
+     * Creates a `torne.util.TorneDateTime` from date input string of the format `yyyy-MM-dd`,
      * for instance
      * 2024-09-30, or 1970-01-01.
      *
      * @param input Input string.
-     * @return `TorneDateTime` object with the given date and time.
+     * @return `torne.util.TorneDateTime` object with the given date and time.
      * @throws TorneInvalidCommandException if the string cannot be parsed.
      */
     public static TorneDateTime parseInputDateString(String input) throws TorneInvalidCommandException {
@@ -57,11 +64,11 @@ public class TorneDateTime {
     }
 
     /**
-     * Creates a `TorneDateTime` from datetime storage string as seconds since epoch
+     * Creates a `torne.util.TorneDateTime` from datetime storage string as seconds since epoch
      * (1970-01-01T00:00:00Z).
      *
      * @param input Input string.
-     * @return `TorneDateTime` object with the given date and time.
+     * @return `torne.util.TorneDateTime` object with the given date and time.
      * @throws TorneInvalidDataException if the string cannot be parsed.
      */
     public static TorneDateTime parseStorageString(String input) throws TorneInvalidDataException {
@@ -76,11 +83,11 @@ public class TorneDateTime {
     }
 
     /**
-     * Creates a `TorneDateTime` from datetime storage string of the ISO-8601 format.
+     * Creates a `torne.util.TorneDateTime` from datetime storage string of the ISO-8601 format.
      * Used when loading date time strings from local storage
      *
      * @param input Input string.
-     * @return `TorneDateTime` object with the given date and time.
+     * @return `torne.util.TorneDateTime` object with the given date and time.
      * @throws TorneInvalidDataException if the string cannot be parsed.
      */
     public static TorneDateTime parseIsoString(String input) throws TorneInvalidDataException {

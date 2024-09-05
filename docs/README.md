@@ -1,4 +1,4 @@
-# Torne User Guide
+# torne.ui.Torne User Guide
 
 // Update the title above to match the actual product name
 

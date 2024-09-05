@@ -1,5 +1,7 @@
+package torne.exception;
+
 public class TorneInvalidDataException extends TorneException {
-    TorneInvalidDataException(String message) {
+    public TorneInvalidDataException(String message) {
         super(message);
     }
 

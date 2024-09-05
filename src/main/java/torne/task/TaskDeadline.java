@@ -1,5 +1,11 @@
+package torne.task;
+
+import torne.exception.TorneInvalidCommandException;
+import torne.exception.TorneInvalidDataException;
+import torne.util.TorneDateTime;
+
 /**
- * Task with a deadline.
+ * torne.task.Task with a deadline.
  */
 public class TaskDeadline extends Task {
     protected TorneDateTime by;
@@ -38,7 +44,7 @@ public class TaskDeadline extends Task {
     public String toString() {
         String status = isDone ? "X" : " ";
 
-        // format based on the toString output of `Task`
+        // format based on the toString output of `torne.task.Task`
         return String.format(
                 "[D]%s (by: %s)",
                 super.toString(),

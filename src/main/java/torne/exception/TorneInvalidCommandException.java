@@ -1,5 +1,7 @@
+package torne.exception;
+
 public class TorneInvalidCommandException extends TorneException {
-    TorneInvalidCommandException(String message) {
+    public TorneInvalidCommandException(String message) {
         super(message);
     }
 

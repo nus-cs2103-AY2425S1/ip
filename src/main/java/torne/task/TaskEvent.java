@@ -1,7 +1,11 @@
-import java.time.LocalDateTime;
+package torne.task;
+
+import torne.exception.TorneInvalidCommandException;
+import torne.exception.TorneInvalidDataException;
+import torne.util.TorneDateTime;
 
 /**
- * Task that starts and ends at specific datetimes.
+ * torne.task.Task that starts and ends at specific datetimes.
  */
 public class TaskEvent extends Task {
     protected TorneDateTime from;
@@ -45,7 +49,7 @@ public class TaskEvent extends Task {
     public String toString() {
         String status = isDone ? "X" : " ";
 
-        // format based on the toString output of `Task`
+        // format based on the toString output of `torne.task.Task`
         return String.format(
                 "[E]%s (from: %s to: %s)",
                 super.toString(),
