@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import meep.task.TaskList;
-import meep.task.Todo;
 import meep.task.Deadline;
 import meep.task.Event;
+import meep.task.TaskList;
+import meep.task.Todo;
 import meep.ui.Ui;
 
 /**
@@ -53,10 +53,10 @@ public class Parser {
             return "th";
         }
         return switch (day % 10) {
-            case 1 -> "st";
-            case 2 -> "nd";
-            case 3 -> "rd";
-            default -> "th";
+        case 1 -> "st";
+        case 2 -> "nd";
+        case 3 -> "rd";
+        default -> "th";
         };
     }
 
