@@ -19,6 +19,10 @@ public class Parser {
     private TaskList tasks;
     private Storage storage;
     public Parser(String input, TaskList tasks, Storage storage) {
+        assert input != null : "Input string should not be null";
+        assert tasks != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
+
         this.input = input;
         this.tasks = tasks;
         this.words = input.split("\\s+");

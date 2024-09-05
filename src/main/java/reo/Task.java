@@ -8,6 +8,7 @@ public class Task {
     }
 
     public Task(String name, boolean isDone) {
+        assert name != null : "Task name cannot be null";
         this.name = name;
         this.isDone = isDone;
     }
@@ -20,6 +21,7 @@ public class Task {
     }
 
     public boolean nameDoesContain(String s) {
+        assert s!= null: "String s cannot be null";
         return this.name.contains(s);
     }
 
