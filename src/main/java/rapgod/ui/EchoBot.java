@@ -1,6 +1,7 @@
 package rapgod.ui;
 
 import rapgod.RapGod;
+
 import rapgod.exceptions.RudeInputException;
 import rapgod.exceptions.NoInputException;
 

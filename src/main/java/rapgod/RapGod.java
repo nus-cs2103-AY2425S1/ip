@@ -1,14 +1,14 @@
 package rapgod;
 
-import rapgod.exceptions.NoInputException;
-import rapgod.exceptions.RudeInputException;
-import rapgod.ui.EchoBot;
-import rapgod.ui.ListBot;
-
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import rapgod.exceptions.NoInputException;
+import rapgod.exceptions.RudeInputException;
+
+import rapgod.ui.EchoBot;
+import rapgod.ui.ListBot;
 
 public class RapGod {
 
@@ -51,7 +51,7 @@ public class RapGod {
         System.out.println(logo);
         System.out.print(introduction);
 
-        while(true) {
+        while (true) {
             System.out.print("Option:\n");
             String option = scanner.nextLine();
 
@@ -61,6 +61,7 @@ public class RapGod {
                 } else if (RapGod.RUDE_WORDS.contains(option)) {
                     throw new RudeInputException();
                 }
+
             } catch (NoInputException | RudeInputException exc) {
                 System.out.println("-----------------------------------------------");
                 System.out.println("RapGod:\n" + exc.getMessage());
@@ -71,21 +72,27 @@ public class RapGod {
             if (option.equalsIgnoreCase("echo bot")) {
                 EchoBot.run();
                 break;
+
             } else if (option.equalsIgnoreCase("list bot")) {
                 ListBot.run();
                 break;
+
             } else if (option.equalsIgnoreCase("Bye")) {
                 System.out.println("-----------------------------------------------");
                 System.out.println("Bye! Hope to see you again soon!");
                 System.out.println("-----------------------------------------------");
                 break;
+
             } else {
                 System.out.println("Option does not exist. Try again.");
+
             }
 
         }
     }
+
     public static void main(String[] args) {
         RapGod.run();
     }
+
 }
