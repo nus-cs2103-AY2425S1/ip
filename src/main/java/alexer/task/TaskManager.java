@@ -81,6 +81,8 @@ public class TaskManager {
 
                 if (task != null) {
                     taskList.add(task);
+                } else {
+                    System.out.println("Failed to load task: " + taskString);
                 }
             }
 

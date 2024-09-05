@@ -15,15 +15,15 @@ public class Deadline extends Task {
 
     public static Deadline fromTaskString(String taskString) {
         String[] parts = taskString.split("\\|");
-        if (parts.length < 4)
+        if (parts.length < 4) {
             return null;
+        }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         LocalDateTime dateTime;
         try {
              dateTime = LocalDateTime.parse(parts[3], formatter);
         } catch (DateTimeException e) {
-            System.out.println("Error loading date & time for deadline task, skipping");
             return null;
         }
         Deadline deadline = new Deadline(parts[2], dateTime);
