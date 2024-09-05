@@ -1,3 +1,7 @@
+package mysutong;
+
+import mysutong.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -6,7 +10,7 @@ public class Ui {
     public void showWelcome() {
         String horizontalLine = "____________________________________________________________";
         System.out.println(horizontalLine);
-        System.out.println("Hello! I'm MySutong");
+        System.out.println("Hello! I'm mysutong.MySutong");
         System.out.println("What can I do for you?");
         System.out.println(horizontalLine);
     }
