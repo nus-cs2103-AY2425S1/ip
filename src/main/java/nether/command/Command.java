@@ -23,7 +23,7 @@ public abstract class Command {
      * @param storage The {@code Storage} instance used to persist changes.
      * @throws NetherException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws NetherException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws NetherException;
 
     /**
      * Determines if the command indicates the end of the application.

@@ -52,8 +52,8 @@ public class Ui {
     /**
      * Prints the exit message to be shown when program is closed.
      */
-    public void printExitMessage() {
-        System.out.println("Bye. If you need any more help in the future, feel free to ask me. Enjoy your day!");
+    public String printExitMessage() {
+        return "Bye. If you need any more help in the future, feel free to ask me. Enjoy your day!";
     }
 
     /**
@@ -78,9 +78,11 @@ public class Ui {
      *
      * @param task The task that was added.
      */
-    public void printTaskAdded(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task.toString());
+    public String printTaskAdded(Task task) {
+        StringBuilder response = new StringBuilder();
+        response.append("Got it. I've added this task:\n");
+        response.append("  ").append(task.toString());
+        return response.toString();
     }
 
     /**
@@ -89,10 +91,13 @@ public class Ui {
      * @param task The task that was deleted.
      * @param size The new size of the task list after deletion.
      */
-    public void printTaskDeleted(Task task, int size) {
-        System.out.println("Noted, I've removed this task from the list:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + size + " task" + (size > 1 ? "s" : "") + " in the list.");
+    @SuppressWarnings("checkstyle:SingleSpaceSeparator")
+    public String printTaskDeleted(Task task, int size) {
+        StringBuilder response = new StringBuilder();
+        response.append("Noted, I've removed this task from the list:\n");
+        response.append("  ").append(task.toString()).append("\n");
+        response.append("Now you have " + size + " task" + (size > 1 ? "s" : "") + " in the list.");
+        return response.toString();
     }
 
     /**
@@ -101,19 +106,23 @@ public class Ui {
      * @param taskToMark The task that was marked or unmarked.
      * @param markMessage The message describing the action (e.g., marked as done).
      */
-    public void printMarkMessage(Task taskToMark, String markMessage) {
-        System.out.println(markMessage);
-        System.out.println("  " + taskToMark.toString());
+    public String printMarkMessage(Task taskToMark, String markMessage) {
+        StringBuilder response = new StringBuilder();
+        response.append(markMessage).append("\n");
+        response.append("  ").append(taskToMark.toString());
+        return response.toString();
     }
 
-    public void printMatchingTasks(TaskList matchingTasks) {
+    public String printMatchingTasks(TaskList matchingTasks) {
+        StringBuilder response = new StringBuilder();
         if (matchingTasks.getSize() > 0) {
-            System.out.println("Here are the tasks that match your search in your list:");
+            response.append("Here are the tasks that match your search in your list:\n");
             for (int i = 0; i < matchingTasks.getSize(); i++) {
-                System.out.println((i + 1) + "." + matchingTasks.getTask(i));
+                response.append((i + 1)).append(".").append(matchingTasks.getTask(i).toString()).append("\n");
             }
+            return response.toString();
         } else {
-            System.out.println("No matching tasks found in your list.");
+            return "No matching tasks found in your list.";
         }
     }
 }
