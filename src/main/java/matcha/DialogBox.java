@@ -25,6 +25,8 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
     private DialogBox(String text, Image img) {
+        assert text != null : "Text should not be null";
+        assert img != null : "Image should not be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -60,6 +62,8 @@ public class DialogBox extends HBox {
      * @return A dialog box representing the user's dialog.
      */
     public static DialogBox getUserDialog(String text, Image img) {
+        assert text != null : "Text should not be null";
+        assert img != null : "Image should not be null";
         return new DialogBox(text, img);
     }
     /**
@@ -70,6 +74,8 @@ public class DialogBox extends HBox {
      * @return A dialog box representing Matcha's dialog.
      */
     public static DialogBox getMatchaDialog(String text, Image img) {
+        assert text != null : "Text should not be null";
+        assert img != null : "Image should not be null";
         var db = new DialogBox(text, img);
         db.flip();
         return db;
