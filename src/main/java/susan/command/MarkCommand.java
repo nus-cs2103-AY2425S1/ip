@@ -21,7 +21,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SusanException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SusanException, IOException {
         try {
             int taskIndex = Integer.parseInt(commandParts[1]) - 1;
             Task task = tasks.get(taskIndex);
@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
                 task.undoMark();
             }
             storage.load(tasks);
-            ui.showMarkTask(task, tasks.size());
+            return ui.showMarkTask(task, tasks.size());
         } catch (Exception e) {
             throw new SusanException("Please enter a valid task index to mark / unmark.");
         }

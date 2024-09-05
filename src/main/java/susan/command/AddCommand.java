@@ -23,7 +23,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SusanException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SusanException, IOException {
         if (commandParts.length < 2) {
             throw new SusanException("The description of a task cannot be empty.");
         }
@@ -66,6 +66,6 @@ public class AddCommand extends Command {
 
         tasks.add(task);
         storage.load(tasks);
-        ui.showAddTask(task, tasks.size());
+        return ui.showAddTask(task, tasks.size());
     }
 }

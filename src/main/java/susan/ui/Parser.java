@@ -12,6 +12,8 @@ public class Parser {
         String commandWord = commandParts[0];
 
         switch (commandWord) {
+        case "hello":
+            return new HelloCommand();
         case "todo":
             return new AddCommand(commandParts);
         case "deadline":
