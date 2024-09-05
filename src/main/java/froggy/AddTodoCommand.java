@@ -1,8 +1,17 @@
 package froggy;
+
+/**
+ * Adds a Todo to the task list.
+ */
 public class AddTodoCommand extends Command {
 
-    private String input;
+    private final String input;
 
+    /**
+     * Constructor that takes in raw input as String.
+     *
+     * @param input raw input.
+     */
     public AddTodoCommand(String input){
         this.input = input;
     }

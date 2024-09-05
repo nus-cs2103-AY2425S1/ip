@@ -1,5 +1,8 @@
 package froggy;
 
+/**
+ * Prints whole task list out.
+ */
 public class ListCommand extends Command{
 
     @Override

@@ -1,9 +1,17 @@
 package froggy;
 
+/**
+ * Adds a deadline to the task list.
+ */
 public class AddDeadlineCommand extends Command {
 
-    private String input;
+    private final String input;
 
+    /**
+     * Constructor that takes in raw input as String.
+     *
+     * @param input raw input
+     */
     public AddDeadlineCommand(String input){
         this.input = input;
     }

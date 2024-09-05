@@ -1,9 +1,17 @@
 package froggy;
 
+/**
+ * Adds an Event to the task list.
+ */
 public class AddEventCommand extends Command {
 
-    private String input;
+    private final String input;
 
+    /**
+     * Constructor that takes in raw input as String.
+     *
+     * @param input raw input.
+     */
     public AddEventCommand(String input){
         this.input = input;
     }

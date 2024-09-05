@@ -1,10 +1,21 @@
 package froggy;
 
+/**
+ * Represents a task with description and a beginning time and ending time.
+ */
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected final String from;
+    protected final String to;
 
+    /**
+     * Constructor that takes in a description and two more descriptions.
+     * Additional descriptions indicate starting and ending time.
+     *
+     * @param description String input.
+     * @param from String input indicating start time.
+     * @param to String input indicating end time.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
