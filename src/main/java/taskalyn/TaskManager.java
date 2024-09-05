@@ -30,12 +30,13 @@ public class TaskManager {
      *
      * @param task Task object.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         tasks.add(task);
         ui.printLines("Got it, I've added this task to your list!\n" +
                 "      " + task.toString() + "\n" + "    Wah bro... " +
                 getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
         updateDatabase();
+        return ui.showAddTaskMessage(task, this);
     }
 
     /**
@@ -43,15 +44,14 @@ public class TaskManager {
      *
      * @param taskId The id of the task.
      */
-    public void deleteTask(int taskId) {
-        if (taskId <= tasks.size() + 1) {
-            Task task = tasks.get(taskId - 1);
-            tasks.remove(task);
-            ui.printLines("Awesome bro! One task gone :D\n" +
-                    "      " + task.toString() + "\n" + "    Wah bro... " +
-                    getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
-        }
+    public String deleteTask(int taskId) {
+        Task task = tasks.get(taskId - 1);
+        tasks.remove(task);
+        ui.printLines("Awesome bro! One task gone :D\n" +
+                "      " + task.toString() + "\n" + "    Wah bro... " +
+                getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
         updateDatabase();
+        return ui.showDeleteTaskMessage(task, this);
     }
 
     /**
@@ -66,7 +66,7 @@ public class TaskManager {
     /**
      * Lists the tasks in the database.
      */
-    public void listTasks() {
+    public String listTasks() {
         String taskString = "Here are the tasks in your list:\n" + "    ";
 
         if (!tasks.isEmpty()) {
@@ -84,6 +84,7 @@ public class TaskManager {
         }
 
         ui.printLines(taskString);
+        return taskString;
     }
 
     /**
@@ -91,13 +92,13 @@ public class TaskManager {
      *
      * @param taskId The id of the task.
      */
-    public void markTaskAsComplete(int taskId) {
-        if (taskId <= tasks.size() + 1) {
-            tasks.get(taskId - 1).setComplete();
-            ui.printLines("Nice, I've marked this task as complete:\n" +
-                    "       " + tasks.get(taskId - 1).toString());
-        }
+    public String markTaskAsComplete(int taskId) {
+        Task task = tasks.get(taskId - 1);
+        task.setComplete();
+        ui.printLines("Nice, I've marked this task as complete:\n" +
+                "       " + task.toString());
         updateDatabase();
+        return ui.showMarkTaskAsCompleteMessage(task);
     }
 
     /**
@@ -105,13 +106,13 @@ public class TaskManager {
      *
      * @param taskId The id of the task.
      */
-    public void markTaskAsIncomplete(int taskId) {
-        if (taskId <= tasks.size() + 1) {
-            tasks.get(taskId - 1).setIncomplete();
-            ui.printLines("Ok, I've marked this task as incomplete:\n" +
-                    "       " + tasks.get(taskId - 1).toString());
-        }
+    public String markTaskAsIncomplete(int taskId) {
+        Task task = tasks.get(taskId - 1);
+        task.setIncomplete();
+        ui.printLines("Ok, I've marked this task as incomplete:\n" +
+                "       " + task.toString());
         updateDatabase();
+        return ui.showMarkTaskAsIncompleteMessage(task);
     }
 
     /**
@@ -119,7 +120,7 @@ public class TaskManager {
      *
      * @param keyword Keyword input from user.
      */
-    public void searchTasksByKeyword(String keyword) {
+    public String searchTasksByKeyword(String keyword) {
         List<Task> matchedTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getTaskDescription().contains(keyword)) {
@@ -135,9 +136,9 @@ public class TaskManager {
                     matchingTasks += i + 1 + "." + matchedTasks.get(i).toString();
                 }
             }
-            ui.printLines(matchingTasks);
+            return ui.showSearchTasksByKeywordMessage(matchingTasks);
         } else {
-            ui.printLines("Aw... there are no matching tasks :(");
+            return ui.showSearchTasksByKeywordMessage("Aw... there are no matching tasks :(");
         }
     }
 

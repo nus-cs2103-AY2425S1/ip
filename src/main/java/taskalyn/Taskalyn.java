@@ -1,9 +1,24 @@
 package taskalyn;
 
+import java.util.Objects;
+
 /**
  * Starts the Taskalyn application.
  */
 public class Taskalyn {
+    private Ui ui;
+    private Database database;
+    private TaskManager taskManager;
+    private Parser parser;
+    private boolean isRunning;
+
+    public Taskalyn() {
+        this.ui = new Ui();
+        this.database = new Database();
+        this.taskManager = new TaskManager(database, ui);
+        this.parser = new Parser(ui, taskManager);
+        this.isRunning = true;
+    }
 
     /**
      * Starts the Taskalyn application by initialising other classes.
@@ -11,21 +26,10 @@ public class Taskalyn {
      * @param args Command-line arguments (unused)
      */
     public static void main(String[] args) {
-
-        // Initialising
         Ui ui = new Ui();
         Database database = new Database();
         TaskManager taskManager = new TaskManager(database, ui);
         Parser parser = new Parser(ui, taskManager);
-        ui.printWelcome();
-
-        while (true) {
-            boolean continueRunning = parser.parse(taskManager);
-            if (!continueRunning) {
-                break;
-            }
-        }
-        ui.close();
     }
 
     /**
@@ -35,6 +39,10 @@ public class Taskalyn {
      * @return Response from Taskalyn.
      */
     public String getResponse(String input) {
-        return "Hello World";
+        if (Objects.equals(input, "bye")) {
+            return ui.showByeMessage();
+        } else {
+            return parser.parse(taskManager, input);
+        }
     }
 }

@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream;
 public class ParserTest {
 
     /**
-     * Verifies that the Parser properly handles the bye command.
+     * Verifies that the Parser properly handles the bye command (Unused for GUI).
      */
     @Test
     public void parse_byeCommand_exitsGracefully() {
@@ -24,7 +24,8 @@ public class ParserTest {
         Database database = new Database();
         TaskManager taskManager = new TaskManager(database, ui);
         Parser parser = new Parser(ui, taskManager);
-        parser.parse(taskManager);
+        // Empty string used since unit test previously did not require 2nd argument.
+        parser.parse(taskManager, "");
         String output = out.toString();
         // Solution inspired by: https://stackoverflow.com/questions/41674408/java-test-system-output-including-new-lines-with-assertequals
         String expectedOutput = ("    ____________________________________________________________\n" +
