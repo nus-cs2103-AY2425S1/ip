@@ -2,12 +2,21 @@ package elon;
 
 import java.time.LocalDate;
 
-
+/**
+ * Provides user interface functions for interacting with the task list and its tasks.
+ */
 public class Ui {
+    /**
+     * Draws a horizontal line in the console for separation.
+     */
     public void drawLine() {
         System.out.println("\t -------------------------------------------------------");
     }
 
+
+    /**
+     * Prints a greeting message to the console.
+     */
     public void greet() {
         drawLine();
         System.out.println("\t Hello! I'm Elon");
@@ -15,18 +24,33 @@ public class Ui {
         drawLine();
     }
 
+    /**
+     * Prints a goodbye message to the console.
+     */
     public void exit() {
         drawLine();
         System.out.println("\t Bye. Hope to see you again soon!");
         drawLine();
     }
 
+    /**
+     * Prints the number of tasks currently in the task list.
+     *
+     * @param size the number of tasks in the list
+     */
     public void numOfTasks(int size) {
         drawLine();
         System.out.println(String.format("\t Now you have %d tasks in the list.", size));
         drawLine();
     }
 
+    /**
+     * Prints the tasks in the list to the console.
+     * If the list is empty, prints a message indicating that there are no tasks.
+     * Otherwise, prints each task with its index, incremented by 1 from the index in the list.
+     *
+     * @param list the TaskList containing tasks to be displayed
+     */
     public void listTasks(TaskList list) {
         drawLine();
         if (list.isEmpty()) {
@@ -40,6 +64,13 @@ public class Ui {
         drawLine();
     }
 
+    /**
+     * Marks the task at the specified index as done and prints the task to the console.
+     * If the task is already marked as done, prints a message indicating so.
+     *
+     * @param index the index of the task to mark as done
+     * @param list the TaskList containing the task
+     */
     public void markTask(int index, TaskList list) {
         drawLine();
         if (list.getIsDone(index)) {
@@ -52,6 +83,13 @@ public class Ui {
         drawLine();
     }
 
+    /**
+     * Marks the task at the specified index as not done and prints the task to the console.
+     * If the task is already marked as not done, prints a message indicating so.
+     *
+     * @param index the index of the task to mark as not done
+     * @param list  the TaskList containing the task
+     */
     public void unmarkTask(int index, TaskList list) {
         drawLine();
         if (!list.getIsDone(index)) {
@@ -64,16 +102,33 @@ public class Ui {
         drawLine();
     }
 
+    /**
+     * Prints a message indicating that a task has been added to the list.
+     */
     public void startAddTask() {
         drawLine();
         System.out.println("\t Got it. I've added this task:");
     }
 
+
+    /**
+     * Prints a message indicating the updated number of tasks in the list after adding a new task.
+     *
+     * @param size the updated number of tasks in the list
+     */
     public void endAddTask(int size) {
         System.out.println(String.format("\t Now you have %d tasks in the list.", size));
         drawLine();
     }
 
+    /**
+     * Adds a ToDo task to the task list based on the provided input array.
+     * Throws an ElonException if the description is missing.
+     *
+     * @param inputArr the input array containing the task description
+     * @param list the TaskList to add the ToDo task to
+     * @throws ElonException if the description is not specified
+     */
     public void addToDo(String[] inputArr, TaskList list) throws ElonException {
         if (inputArr.length <= 1) {
             throw new ElonException("Error. Description for ToDo task not specified.");
@@ -89,6 +144,14 @@ public class Ui {
         System.out.println("\t " + todo.toString());
     }
 
+    /**
+     * Adds a Deadline task to the task list based on the provided input array.
+     * Throws an ElonException if the description or deadline date is missing.
+     *
+     * @param inputArr the input array containing the task description and deadline date
+     * @param list the TaskList to add the Deadline task to
+     * @throws ElonException if the description or deadline date is not specified
+     */
     public void addDeadline(String[] inputArr, TaskList list) throws ElonException {
         if (inputArr.length <= 1) {
             throw new ElonException("Error. Description and By date for Deadline task not specified.");
@@ -115,6 +178,14 @@ public class Ui {
         System.out.println("\t " + deadline.toString());
     }
 
+    /**
+     * Adds an Event task to the task list based on the provided input array.
+     * Throws an ElonException if the description, start date, or end date is missing.
+     *
+     * @param inputArr the input array containing the task description, start date, and end date
+     * @param list the TaskList to add the Event task to
+     * @throws ElonException if the description, start date, or end date is not specified
+     */
     public void addEvent(String[] inputArr, TaskList list) throws ElonException {
         if (inputArr.length <= 1) {
             throw new ElonException("Error. Description, From and To date for Event task not specified.");
@@ -153,6 +224,12 @@ public class Ui {
         System.out.println("\t " + event.toString());
     }
 
+    /**
+     * Deletes the task at the specified index from the task list and prints a message to console.
+     *
+     * @param index the index of the task to delete
+     * @param list the TaskList containing the task
+     */
     public void deleteTask(int index, TaskList list) {
         drawLine();
         System.out.println("\t Noted. I've removed this task:");

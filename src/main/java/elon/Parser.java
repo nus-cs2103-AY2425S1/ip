@@ -3,6 +3,9 @@ package elon;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Parses user input commands and interacts with the UI, TaskList, and Storage.
+ */
 public class Parser {
     private Ui ui;
     private TaskList list;
@@ -10,6 +13,15 @@ public class Parser {
     private String[] inputArr;
     private Storage storage;
 
+    /**
+     * Constructs a Parser object with the specified UI, TaskList, Scanner, input array, and Storage.
+     *
+     * @param ui         the UI object for interacting with the user
+     * @param list       the TaskList containing tasks
+     * @param scanner    the Scanner object for reading user input
+     * @param inputArr   the array of user input split into commands
+     * @param storage    the Storage object for saving and loading tasks
+     */
     public Parser(Ui ui, TaskList list, Scanner scanner, String[] inputArr, Storage storage) {
         this.ui = ui;
         this.list = list;
@@ -17,6 +29,13 @@ public class Parser {
         this.inputArr = inputArr;
         this.storage = storage;
     }
+
+    /**
+     * Reads the next line of user input and splits it into an array of strings.
+     *
+     * @param scanner the Scanner object used to read the input
+     * @return an array of strings representing the user input
+     */
     public String[] nextInput(Scanner scanner) {
         return scanner.nextLine().split(" ");
     }
