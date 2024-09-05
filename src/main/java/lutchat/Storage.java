@@ -55,26 +55,26 @@ public class Storage {
 
             Task task = null;
             switch (taskType) {
-                case "T":
-                    task = new Todo(desc);
-                    break;
-                case "D":
-                    if (parts.length < 4) {
-                        System.out.println("Skipping corrupted line: " + data);
-                        continue;
-                    }
-                    task = new Deadline(desc, parts[3]);
-                    break;
-                case "E":
-                    if (parts.length < 5) {
-                        System.out.println("Skipping corrupted line: " + data);
-                        continue;
-                    }
-                    task = new Event(desc, parts[3], parts[4]);
-                    break;
-                default:
-                    System.out.println("Skipping unknown task type: " + taskType);
+            case "T":
+                task = new Todo(desc);
+                break;
+            case "D":
+                if (parts.length < 4) {
+                    System.out.println("Skipping corrupted line: " + data);
                     continue;
+                }
+                task = new Deadline(desc, parts[3]);
+                break;
+            case "E":
+                if (parts.length < 5) {
+                    System.out.println("Skipping corrupted line: " + data);
+                    continue;
+                }
+                task = new Event(desc, parts[3], parts[4]);
+                break;
+            default:
+                System.out.println("Skipping unknown task type: " + taskType);
+                continue;
             }
 
             if (task != null) {
