@@ -1,6 +1,7 @@
 package snah;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import snah.task.Deadline;
 import snah.task.Event;
