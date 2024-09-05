@@ -8,21 +8,18 @@ import task.Task;
  * and other interactions.
  */
 public class Ui {
-    private StringBuilder message;
 
     /**
      * Constructs a {@code Ui} instance, initializing the message storage.
      */
     public Ui() {
-        this.message = new StringBuilder();
     }
 
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        message.append("Welcome to main.Hyperion!");
-        System.out.println(this.message.toString());
+    public static String welcome() {
+        return "Welcome to main.Hyperion!";
     }
 
     /**

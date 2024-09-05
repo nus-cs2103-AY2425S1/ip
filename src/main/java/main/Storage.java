@@ -32,8 +32,7 @@ public class Storage {
      *                 file is created if the file does not exist
      */
     public Storage(String filePath) {
-        // create the file if it does not exist
-        filePath = filePath;
+        this.filePath = filePath;
         file = new File(filePath);
         file.getParentFile().mkdirs();
 
