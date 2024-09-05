@@ -1,5 +1,10 @@
 package Dawn;
-public class Dawn {
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+public class Dawn extends Application {
     private Storage storage;
     private Ui ui;
     private TaskList taskList;
@@ -20,6 +25,10 @@ public class Dawn {
         }
     }
 
+    public Dawn() {
+        this("data/Dawn.txt");
+    }
+
     /**
      * Starts the interaction between the chatbot and the user by greeting the user
      *
@@ -34,6 +43,15 @@ public class Dawn {
         } catch (DawnException e) {
             System.out.println(e);
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our scene
+        stage.show(); // Render the stage.
     }
 
 }
