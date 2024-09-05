@@ -24,29 +24,39 @@ public class Bimo {
             tasks = new TaskList();
         }
     }
-
     /**
-     * Starts the chatbot up.
+     * Returns a string object for the dialog box of chatbot.
      */
-    public void run() {
-        ui.greetUser(NAME);
-        boolean isRunning = true;
-        while (isRunning) {
-            try {
-                String input = ui.getUserCommand();
-                ui.showLine();
-                Command c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                isRunning = !c.getIsQuit();
-            } catch (BimoException e) {
-                ui.showErrorMessage();
-            } finally {
-                ui.showLine();
-            }
+    public String getResponse(String input) {
+        String response = "";
+        try {
+            Command c = Parser.parse(input);
+            response = c.execute(tasks, ui, storage);
+        } catch (BimoException e) {
+            response = e.getMessage();
         }
+        return response;
     }
 
-    public static void main(String[] args) {
-        new Bimo("data/Bimo.txt").run();
+    /**
+     * Displays introduction to users.
+     */
+    public String greetUser() {
+        return String.format("Hello! I'm %s.", NAME)
+                + " What can I do for you? \n \n" + getListOfCommands();
+    }
+
+    /**
+     * Retrieves the list of  commands currently available.
+     *
+     * @return list of commands.
+     */
+    private String getListOfCommands() {
+        return "Available commands:\n\n"
+                + "1. todo <task>\n\n2. deadline <task> /by yyyy-mm-dd\n\n"
+                + "3. event <task> /from yyyy-mm-dd /to yyyy-mm-dd\n\n"
+                + "4. mark <task number>\n\n5. unmark <task number>\n\n"
+                + "6. delete <task number>\n\n7. find <keyword>\n\n"
+                + "8. bye\n";
     }
 }

@@ -24,16 +24,17 @@ public class UnmarkCommand extends Command {
      * @param tasks List of user tasks.
      * @param ui User interface that interacts with users.
      * @param storage Storage that writes and load files.
+     * @return Response of chatbot.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (index >= tasks.getLength() || index < 0) {
-            ui.showTaskNotFoundError();
-            return;
+            return ui.showTaskNotFoundError();
         }
         tasks.getTask(index).markUncompleted();
         storage.overwriteFile(tasks);
-        System.out.println("        Noted. I've removed this task:");
-        System.out.println("       " + tasks.getTask(index).toString());
+        String response = "Noted. I've removed this task:\n"
+                + "    " + tasks.getTask(index).toString();
+        return response;
     }
 }

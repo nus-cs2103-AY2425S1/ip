@@ -1,54 +1,26 @@
 package bimo;
-
-import java.util.Scanner;
-
 /**
  * Deals with interactions with the user.
  */
 public class Ui {
     private static final String LINE = "    " + "___________________________________";
-
-    /**
-     * Displays introduction to users.
-     *
-     * @param name Name of the chatbot.
-     */
-    public void greetUser(String name) {
-        System.out.println(LINE);
-        System.out.println("    " + String.format("Hello! I'm %s", name));
-        System.out.println("    " + "What can I do for you?");
-        System.out.println(LINE);
-    }
-
     /**
      * Displays a horizontal line.
      */
-    public void showLine() {
-        System.out.println(LINE);
+    public String showLine() {
+        return LINE;
     }
-
-    /**
-     * Retrieves user input System.in.
-     *
-     * @return User input
-     */
-    public String getUserCommand() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        return input;
-    }
-
     /**
      * Displays error message for invalid tasks index.
      */
-    public void showTaskNotFoundError() {
-        System.out.println("    Bimo.Tasks.Task not found in list");
+    public String showTaskNotFoundError() {
+        return ("Task not found in list");
     }
 
     /**
      * Displays error message for invalid commands.
      */
-    public void showErrorMessage() {
-        System.out.println("    Something went wrong! Please try again");
+    public String showErrorMessage() {
+        return ("Something went wrong! Please try again");
     }
 }

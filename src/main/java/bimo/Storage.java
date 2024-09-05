@@ -13,7 +13,6 @@ import bimo.tasks.Event;
 import bimo.tasks.Task;
 import bimo.tasks.ToDo;
 
-
 /**
  * Deals with writing and loading files.
  */

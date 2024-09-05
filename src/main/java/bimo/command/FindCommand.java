@@ -29,9 +29,10 @@ public class FindCommand extends Command {
      * @param tasks List of user tasks.
      * @param ui User interface that interacts with users.
      * @param storage Storage that writes and load files.
+     * @return Response of chatbot.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> results = new ArrayList<>();
 
         for (int i = 0; i < tasks.getLength(); i++) {
@@ -40,10 +41,11 @@ public class FindCommand extends Command {
                 results.add(task);
             }
         }
-        System.out.println("    Here are the matching tasks in your list:");
+        String response = "Here are the matching tasks in your list:";
         for (int i = 0; i < results.size(); i++) {
-            String message = String.format("    %d. %s", i + 1, results.get(i).toString());
-            System.out.println(message);
+            String message = String.format("\n    %d. %s", i + 1, results.get(i).toString());
+            response += message;
         }
+        return response;
     }
 }

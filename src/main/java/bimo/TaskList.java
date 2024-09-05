@@ -11,8 +11,6 @@ public class TaskList {
     private static int length = 0;
 
     private ArrayList<Task> tasks;
-
-
     /**
      * Instantiates a TaskList object with elements.
      *
