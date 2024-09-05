@@ -41,6 +41,10 @@ public class Optimus {
         }
     }
 
+    public String getResponse(String input) {
+        return "Optimus heard: " + input;
+    }
+
     public static void main(String[] args) {
         Optimus optimus = new Optimus();
         optimus.run();
