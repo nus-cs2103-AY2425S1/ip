@@ -96,9 +96,9 @@ public class StorageManager {
                 throw new InvalidFileDataException(taskData);
             }
 
-            boolean taskIsDone;
-            taskIsDone = Integer.parseInt(processedData[1]) > 0;
-            if (taskIsDone) {
+            boolean isTaskDone;
+            isTaskDone = Integer.parseInt(processedData[1]) > 0;
+            if (isTaskDone) {
                 task.markAsDone();
             }
 

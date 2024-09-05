@@ -53,13 +53,8 @@ public abstract class Task {
         return this.description;
     }
 
+
     /**
-<<<<<<< HEAD
-     * Returns the string following the format of how the task is stored in the data file.
-     *
-     * @return The string to be written when storing the task in data text file.
-     */
-=======
      * Checks whether the task description has all keywords in the search input.
      *
      * @param searchInput The search input from the user.
@@ -89,9 +84,13 @@ public abstract class Task {
         return !hasMissingKeyword;
     }
 
-    // gets the string data to be written in the data file
->>>>>>> branch-level-9
+    /**
+     * Returns the string following the format of how the task is stored in the data file.
+     *
+     * @return The string to be written when storing the task in data text file.
+     */
     public abstract String getDataString();
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

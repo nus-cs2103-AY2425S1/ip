@@ -42,18 +42,18 @@ public class MrYapper {
      * Runs the ChatBot until the "bye" command is executed.
      */
     public void run() {
-        boolean conversationIsOngoing = false;
+        boolean isConversationOngoing = false;
         if (tasks != null && storageManager != null) {
             ui.showGreeting();
-            conversationIsOngoing = true;
+            isConversationOngoing = true;
         }
 
-        while (conversationIsOngoing) {
+        while (isConversationOngoing) {
             try {
                 String userInput = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(userInput);
-                conversationIsOngoing = !c.execute(tasks, ui, storageManager);
+                isConversationOngoing = !c.execute(tasks, ui, storageManager);
             } catch (IllegalTaskException | InvalidSyntaxException | IllegalArgumentException e) {
                 ui.send(e.getMessage());
             }
