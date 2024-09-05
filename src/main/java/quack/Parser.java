@@ -14,8 +14,6 @@ import quack.exception.InvalidCommandException;
  */
 public class Parser {
 
-    /** Quack chatbot object */
-    private Quack quack;
     /** Ui object to handle UI interface tasks */
     private Ui ui;
     /** To store all of the users tasks */
@@ -25,13 +23,11 @@ public class Parser {
 
     /**
      * Creates a Paser object.
-     * @param quack The chatbot object quack.
      * @param taskList A list that stores all the tasks tracked by Quack.
      * @param storage Storage object to save and load data from the save file.
      * @param ui The ui object that handles user interface requests.
      */
-    public Parser(Quack quack, TaskList taskList, Storage storage, Ui ui) {
-        this.quack = quack;
+    public Parser(TaskList taskList, Storage storage, Ui ui) {
         this.taskList = taskList;
         this.storage = storage;
         this.ui = ui;

@@ -21,6 +21,13 @@ public abstract class Command {
     }
 
     /**
+     * Sets the completion status as done.
+     */
+    public void completeCommand() {
+        this.isComplete = true;
+    }
+
+    /**
      * Prompts the user for inputs based on the command.
      */
     public abstract void prompt();

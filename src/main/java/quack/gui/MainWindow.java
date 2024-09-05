@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Quacks's reply 
+     * Creates two dialog boxes, one echoing user input and the other containing Quacks's reply
      * and then appends them to the dialog container.
      * <p>
      * It will then clear the user input after processing.
@@ -63,7 +63,7 @@ public class MainWindow extends AnchorPane {
         } else {
             this.command.execute(input);
         }
-        
+
         if (this.command != null && this.command.getCompletionStatus()) {
             this.command = null;
         }

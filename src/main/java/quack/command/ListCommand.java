@@ -19,6 +19,7 @@ public class ListCommand extends Command {
      * @param ui The ui object that handles user interface requests.
      */
     public ListCommand(TaskList taskList, Ui ui) {
+        super();
         this.taskList = taskList;
         this.ui = ui;
     }
@@ -32,6 +33,6 @@ public class ListCommand extends Command {
     public void execute(String input) {
         String output = ui.objectToString(taskList);
         ui.outputToScreen(output);
-        this.isComplete = true;
+        this.completeCommand();
     }
 }

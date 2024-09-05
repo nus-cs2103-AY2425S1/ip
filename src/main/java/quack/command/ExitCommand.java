@@ -28,6 +28,7 @@ public class ExitCommand extends Command {
      * @param storage Storage object to save and load data from the save file.
      */
     public ExitCommand(TaskList taskList, Storage storage, Ui ui) {
+        super();
         this.taskList = taskList;
         this.storage = storage;
         this.ui = ui;
@@ -44,7 +45,7 @@ public class ExitCommand extends Command {
 
         try {
             storage.saveData(taskList);
-            this.isComplete = true;
+            this.completeCommand();
         } catch (IOException IoError) {
             ui.printExceptionMessage(IoError);
         } finally {

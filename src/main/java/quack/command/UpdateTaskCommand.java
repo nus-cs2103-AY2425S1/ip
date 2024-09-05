@@ -25,10 +25,10 @@ public class UpdateTaskCommand extends Command {
      * @param ui The ui object that handles user interface requests.
      */
     public UpdateTaskCommand(String command, TaskList taskList, Ui ui) {
+        super();
         this.command = command;
         this.taskList = taskList;
         this.ui = ui;
-        this.isComplete = false;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class UpdateTaskCommand extends Command {
         listCommand.prompt();
 
         if (taskList.getLength() == 0) {
-            this.isComplete = true;
+            this.completeCommand();
             return;
         }
 
@@ -47,8 +47,8 @@ public class UpdateTaskCommand extends Command {
 
     @Override
     public void execute(String input) {
-        
-        try {                
+
+        try {
             // Convert the input into a integer
             int index = Integer.parseInt(input);
             Task task = taskList.updateTask(index, this.command);
@@ -60,7 +60,7 @@ public class UpdateTaskCommand extends Command {
         } catch (FailedUpdateException failUpdateError) {
             ui.printExceptionMessage(failUpdateError);
         } finally {
-            this.isComplete = true;
+            this.completeCommand();
         }
     }
 }

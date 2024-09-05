@@ -34,7 +34,7 @@ public class Quack {
         this.toDoList = new TaskList();
         this.storage = new Storage(this.toDoList);
         this.ui = new Ui(dialogContainer, quackImage);
-        this.parser = new Parser(this, toDoList, storage, ui);
+        this.parser = new Parser(toDoList, storage, ui);
 
         String greeting = ui.getGreeting();
         ui.outputToScreen(greeting);

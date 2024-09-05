@@ -20,6 +20,7 @@ public class FindTaskCommand extends Command {
      * @param ui The ui object that handles user interface requests.
      */
     public FindTaskCommand(TaskList taskList, Ui ui) {
+        super();
         this.taskList = taskList;
         this.ui = ui;
     }
@@ -35,6 +36,6 @@ public class FindTaskCommand extends Command {
 
         TaskList filteredTask = taskList.filterTasks(input);
         ui.printSearchResult(filteredTask);
-        this.isComplete = true;
+        this.completeCommand();
     }
 }

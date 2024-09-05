@@ -21,6 +21,7 @@ public class DeleteTaskCommand extends Command {
      * @param ui The ui object that handles user interface requests.
      */
     public DeleteTaskCommand(TaskList taskList, Ui ui) {
+        super();
         this.taskList = taskList;
         this.ui = ui;
     }
@@ -32,7 +33,7 @@ public class DeleteTaskCommand extends Command {
         listCommand.prompt();
 
         if (taskList.getLength() == 0) {
-            this.isComplete = true;
+            this.completeCommand();
             return;
         }
 
@@ -42,7 +43,7 @@ public class DeleteTaskCommand extends Command {
     @Override
     public void execute(String input) {
 
-        try {                
+        try {
             // Convert the input into a integer
             int index = Integer.parseInt(input);
             Task task = taskList.deleteTask(index);
@@ -52,7 +53,7 @@ public class DeleteTaskCommand extends Command {
         } catch (IndexOutOfBoundsException indexError) {
             ui.printExceptionMessage(indexError);
         } finally {
-            this.isComplete = true;
+            this.completeCommand();
         }
     }
 }
