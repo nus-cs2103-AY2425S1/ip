@@ -20,9 +20,9 @@ public class TodoCommand extends CreateTaskCommand {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
         ToDo toDo = new ToDo(super.name);
         taskList.addTask(toDo);
-        ui.printTaskAddedMessage(toDo, taskList.getTasks().size());
+        return ui.printTaskAddedMessage(toDo, taskList.getTasks().size());
     }
 }

@@ -20,8 +20,8 @@ public class DeleteCommand extends CommandWithIndex {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
         Task taskDeleted = taskList.deleteTask(super.index);
-        ui.printTaskDeletedMessage(taskDeleted, taskList.getTasks().size());
+        return ui.printTaskDeletedMessage(taskDeleted, taskList.getTasks().size());
     }
 }

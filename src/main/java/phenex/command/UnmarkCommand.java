@@ -20,8 +20,8 @@ public class UnmarkCommand extends CommandWithIndex {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
         Task taskMarked = taskList.markTaskIncomplete(super.index);
-        ui.printTaskMarkedIncompleteMessage(taskMarked);
+        return ui.printTaskMarkedIncompleteMessage(taskMarked);
     }
 }

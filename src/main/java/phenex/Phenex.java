@@ -60,7 +60,15 @@ public class Phenex {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        String response = "Invalid input!";
+        try {
+            Command command;
+            command = this.parser.parseCommandFromLine(input);
+            response = command.execute(this.tasks, this.ui, this.storage);
+        } catch (PhenexException e) {
+            Ui.printExceptionMessage(e);
+        }
+        return response;
     }
 
     public static void main(String... args) {

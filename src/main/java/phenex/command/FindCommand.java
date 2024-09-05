@@ -24,9 +24,9 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
         TaskList matchingTasks = taskList.findTasks(this.name);
-        ui.printTaskList(matchingTasks);
+        return ui.printTaskList(matchingTasks);
     }
 
     @Override

@@ -22,7 +22,8 @@ public abstract class Command {
      * @param taskList
      * @param ui
      * @param storage
-     * @throws PhenexException
+     * @return string that represents the execution of the command
+     * @throws PhenexException if execution fails
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException;
 }

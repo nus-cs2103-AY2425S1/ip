@@ -11,9 +11,9 @@ import phenex.ui.Ui;
 public class TerminatingCommand extends Command {
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
-        ui.sayFarewell();
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
         storage.storeTasksToMemory(taskList);
+        return ui.sayFarewell();
     }
 
     @Override
