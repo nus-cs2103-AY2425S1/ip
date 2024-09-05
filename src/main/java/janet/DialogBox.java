@@ -48,6 +48,14 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * Returns a DialogBox, containing a string of text and an image,
+     * with a PAPAYAWHIP color background
+     *
+     * @param s A string of text to display inside the DialogBox
+     * @param i An image to be rendered inside the DialogBox
+     * @return A DialogBox object
+     */
     public static DialogBox getUserDialog(String s, Image i) {
         // returns a new dialogBox with the String message and the image of the user
         DialogBox user = new DialogBox(s, i);
@@ -55,6 +63,14 @@ public class DialogBox extends HBox {
         return user;
     }
 
+    /**
+     * Returns a flipped DialogBox, containing a string of text and an image,
+     * with a ALICEBLUE color background
+     *
+     * @param s A string of text to display inside the DialogBox
+     * @param i An image to be rendered inside the DialogBox
+     * @return A DialogBox object
+     */
     public static DialogBox getJanetDialog(String s, Image i) {
         // returns a new FLIPPED dialogBox with the String message and the image of Duke
         var db = new DialogBox(s, i);
