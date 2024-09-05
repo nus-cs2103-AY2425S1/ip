@@ -1,10 +1,12 @@
 package ned;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
     public static final String INDENTATIONS = "    ";
 
+    private ArrayList<String> builtUpNedDialogue = new ArrayList<>();
     private Scanner scannerInstance;
     private final String logo = Ui.INDENTATIONS + " ____  _____              __  \n"
             + Ui.INDENTATIONS + "|_   \\|_   _|            |  ] \n"
@@ -37,24 +39,36 @@ public class Ui {
      * @param line - String to be printed with 1 tab indentation.
      */
     public void print(String line) {
-        //adds indentation to any printed lines
-        System.out.println(Ui.INDENTATIONS + line);
+        // adds indentation to any printed lines
+        // changes the box
+        builtUpNedDialogue.add(INDENTATIONS + line + "\n");
+    }
+
+    public String getAllBuiltUpDialogue() {
+        int builtUpNedDialogueSize = builtUpNedDialogue.size();
+        StringBuilder nedDialogue = new StringBuilder();
+        for (int index = 0; index < builtUpNedDialogueSize; index++){
+            nedDialogue.append(builtUpNedDialogue.get(index));
+        }
+        builtUpNedDialogue.clear();
+        return nedDialogue.toString();
     }
 
     /**
      * Displays a greeting to the user upon initialization of Ned.
      */
-    public void showWelcomeMessage() {
-        print("Hello! I'm\n" + logo + "\n");
-        print("Lord of Winterfell and Warden Of The North");
-        print("What can I do for you?");
+    public String getWelcomeMessage() {
+        String welcomeMessage = "Hello! I'm\n" + logo + "\n"
+                + "Lord of Winterfell and Warden Of The North\n"
+                + "What can I do for you?";
+        return welcomeMessage;
     }
 
     /**
      * Displays a farewell message to the user upon the issuing of the 'bye' command.
      */
-    public void showByeMessage() {
-        print("I wish you good fortune in the wars to come, m' lord");
+    public String getByeMessage() {
+        return INDENTATIONS + "I wish you good fortune in the wars to come, m' lord";
     }
 
     /**

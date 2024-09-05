@@ -14,7 +14,6 @@ public class Ned {
 
     /**
      * Creates an instance of the Ned chatbot
-     *
      * @param filePath The address of the cache file, relative to the project folder
      */
     public Ned(String filePath) {
@@ -32,12 +31,33 @@ public class Ned {
         new Ned(Ned.cachedTasksPath).run();
     }
 
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks,ui, storage, input);
+            if (c.isExit()) {
+                return "EXIT MESSAGE";
+            }
+            return ui.getAllBuiltUpDialogue();
+        } catch (NedException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String getWelcomeMessage() {
+        return ui.getWelcomeMessage();
+    }
+
+    public String getByeMessage() {
+        return ui.getByeMessage();
+    }
+
     /**
      * Shows the welcome message and then sends input to be parsed
      * Will exit if the command has a isExit = true
      */
     public void run() {
-        ui.showWelcomeMessage();
+        ui.getWelcomeMessage();
         boolean isExit = false;
         while (!isExit) {
             try {
