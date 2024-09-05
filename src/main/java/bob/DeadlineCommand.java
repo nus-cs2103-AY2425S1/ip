@@ -33,9 +33,9 @@ public class DeadlineCommand extends Command {
      * @param storage the {@code Storage} for saving or loading tasks (not used in this method).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline deadline = tasks.deadline(this.name, this.by);
-        Printer.prettyPrint(new String[] { "Got it. I've added this task:",
+        return Printer.format(new String[] { "Got it. I've added this task:",
             " " + deadline.toString(),
             String.format("Now you have %d tasks in the list.", tasks.getSize()) });
     }

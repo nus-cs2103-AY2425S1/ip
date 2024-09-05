@@ -30,14 +30,14 @@ public class FindCommand extends Command {
      * @param storage the {@code Storage} where tasks are saved.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         String[] tasksFound = tasks.findTasksWith(this.text);
         String[] toPrint = new String[tasksFound.length + 2];
         toPrint[0] = String.format("Here are the tasks matching %s:", this.text);
         toPrint[tasksFound.length + 1] = String.format("Number of tasks found: %d", tasksFound.length);
         System.arraycopy(tasksFound, 0, toPrint, 1, tasksFound.length);
 
-        Printer.prettyPrint(toPrint);
+        return Printer.format(toPrint);
     }
 
     /**

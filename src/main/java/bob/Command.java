@@ -13,7 +13,7 @@ abstract class Command {
      * @param ui the {@code Ui} to interact with the user.
      * @param storage the {@code Storage} to save or load tasks.
      */
-    protected abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    protected abstract String execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Determines if the command is an exit command.

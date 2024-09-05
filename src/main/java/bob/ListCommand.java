@@ -20,10 +20,10 @@ public class ListCommand extends Command {
      * @param storage the {@code Storage} where tasks are saved.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         String[] toPrint = new String[tasks.getSize() + 1];
         toPrint[0] = "Here are the tasks in your list:";
         System.arraycopy(tasks.describeTasks(), 0, toPrint, 1, tasks.getSize());
-        Printer.prettyPrint(toPrint);
+        return Printer.format(toPrint);
     }
 }

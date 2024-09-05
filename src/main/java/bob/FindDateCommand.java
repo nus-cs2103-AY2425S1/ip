@@ -11,14 +11,14 @@ public class FindDateCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         String[] tasksFound = tasks.findTasksOn(this.date);
         String[] toPrint = new String[tasksFound.length + 2];
         toPrint[0] = String.format("Here are the tasks occuring on %s:", this.date);
         toPrint[tasksFound.length + 1] = String.format("Number of tasks found: %d", tasksFound.length);
         System.arraycopy(tasksFound, 0, toPrint, 1, tasksFound.length);
 
-        Printer.prettyPrint(toPrint);
+        return Printer.format(toPrint);
     }
 
     @Override

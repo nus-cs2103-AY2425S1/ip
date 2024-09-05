@@ -39,7 +39,8 @@ public class Bob {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                String response = c.execute(tasks, ui, storage);
+                System.out.println(response);
                 isExit = c.isExit();
             } catch (IllegalInputException e) {
                 ui.showError(e.getMessage());

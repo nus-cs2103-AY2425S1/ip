@@ -16,9 +16,9 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ToDo todo = tasks.todo(name);
-        Printer.prettyPrint(new String[] { "Got it. I've added this task:",
+        return Printer.format(new String[] { "Got it. I've added this task:",
             " " + todo.toString(),
             String.format("Now you have %d tasks in the list.", tasks.getSize()) });
     }
