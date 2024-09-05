@@ -1,3 +1,8 @@
+package main.LittleMissHelpful.Task;
+
+import main.LittleMissHelpful.Exception.InvalidTaskFormatException;
+import java.time.LocalDateTime;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -56,19 +61,23 @@ public class Task {
         // Check task type and create corresponding Task
         if (taskType.equals("T")) {
             return new Todo(description, isDone);
+
         } else if (taskType.equals("D")) {
             if (parts.length != 4) {
                 throw new InvalidTaskFormatException("Invalid Deadline format: " + taskString);
             }
-            String by = parts[3];
+            LocalDateTime by = LocalDateTime.parse(parts[3]);
             return new Deadline(description, isDone, by);
+
         } else if (taskType.equals("E")) {
             if (parts.length != 5) {
                 throw new InvalidTaskFormatException("Invalid Event format: " + taskString);
             }
-            String from = parts[3];
-            String to = parts[4];
+
+            LocalDateTime from = LocalDateTime.parse(parts[3]);
+            LocalDateTime to = LocalDateTime.parse(parts[4]);
             return new Event(description, isDone, from, to);
+
         } else {
             throw new InvalidTaskFormatException("Unknown task type: " + taskType);
         }
@@ -83,9 +92,9 @@ public class Task {
         String taskType = null;
         String isDone = this.isDone ? "1" : "0";
         String description = "";
-        String by = "";
-        String from = "";
-        String to = "";
+        LocalDateTime by = null;
+        LocalDateTime from = null;
+        LocalDateTime to = null;
 
         if (this instanceof Todo) {
             taskType = "T";
