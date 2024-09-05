@@ -39,4 +39,11 @@ public class Susan {
     public static void main(String[] args) throws IOException {
         new Susan().run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
 }
