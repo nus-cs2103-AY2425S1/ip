@@ -32,7 +32,7 @@ public class DialogBox extends HBox {
         text.setWrapText(true);
         displayPicture.setFitWidth(100);
         displayPicture.setFitHeight(100);
-        this.setAlignment(Pos.CENTER_RIGHT);   // aligns itself
+        this.setAlignment(Pos.CENTER_RIGHT);   // aligns its children
 
         this.getChildren().addAll(text, displayPicture);
     }
