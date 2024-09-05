@@ -32,7 +32,7 @@ public class Ui {
      */
     public static String printAddTask(Task task, TaskList tasks) {
         String output = String.format("Added %s task:\n%s", task.getType(), task);
-        output += "\nYou currently have " + tasks.size() + "rasputin/s in your list.";
+        output += "\nYou currently have " + tasks.size() + " task/s in your list.";
         return output;
     }
 
