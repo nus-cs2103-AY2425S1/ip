@@ -11,11 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
 import choaticbot.actions.ActionManager;
 import choaticbot.actions.Action;
 import choaticbot.exceptions.ChoaticBotException;
