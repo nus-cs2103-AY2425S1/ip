@@ -10,8 +10,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends IndividualTask {
 
-    private String returnBy;
-    private LocalDateTime formatReturnBy;
+    private final String returnBy;
+    private final LocalDateTime formatReturnBy;
 
     /**
      * Constructs a {@code Deadline} object with the specified task description and return by date/time.

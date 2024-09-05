@@ -6,9 +6,9 @@ package duke;
  */
 public class MentalHealth {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructs a {@code MentalHealth} object with the specified file path for data storage.

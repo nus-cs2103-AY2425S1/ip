@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class Command {
 
     private static final String ERROR_MESSAGE_UNKNOWN_COMMAND = "I'm sorry, but I don't know what that means :-(";
-    private String command;
-    private String message;
+    private final String command;
+    private final String message;
 
     /**
      * Constructs a {@code Command} object with the specified command and message.

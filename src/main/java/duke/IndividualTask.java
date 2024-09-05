@@ -7,7 +7,7 @@ package duke;
  */
 public abstract class IndividualTask {
 
-    private String taskDescription;
+    private final String taskDescription;
     private boolean isTaskDone;
 
     /**

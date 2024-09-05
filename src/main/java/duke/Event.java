@@ -6,8 +6,8 @@ package duke;
  */
 public class Event extends IndividualTask {
 
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
     /**
      * Constructs an {@code Event} object with the specified task description, start time, and end time.

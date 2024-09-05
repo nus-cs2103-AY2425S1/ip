@@ -45,13 +45,6 @@ public class Ui {
     }
 
     /**
-     * Displays a goodbye message to the user.
-     */
-    public void goodbye() {
-        System.out.println(formatMessage(GOODBYE_MESSAGE));
-    }
-
-    /**
      * Formats a message by surrounding it with separator lines.
      *
      * @param msg The message to be formatted.

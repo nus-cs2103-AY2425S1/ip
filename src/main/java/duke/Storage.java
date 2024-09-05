@@ -14,9 +14,9 @@ import java.util.Scanner;
 public class Storage {
 
 
-    private ArrayList<IndividualTask> tasks = new ArrayList<IndividualTask>();
+    private final ArrayList<IndividualTask> tasks = new ArrayList<IndividualTask>();
 
-    private String path;
+    private final String path;
 
     /**
      * Constructs a duke.Storage object with the specified file path.
