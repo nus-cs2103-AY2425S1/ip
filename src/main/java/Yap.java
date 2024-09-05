@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 public class Yap {
     public static void main(String[] args) {
@@ -20,86 +20,17 @@ public class Yap {
         // Infinite loop to get user input
         Storage storage = new Storage("yap.txt", "./data/");
         TaskList taskList = new TaskList(storage);
+        Ui ui = new Ui(storage, taskList);
 
         while (true) {
             String userInput = scanner.nextLine();
-
-            // Bye functionality
             try {
-                if (userInput.equalsIgnoreCase("bye")) {
-                    System.out.println("Bye! It was really nice talking to you, see you soon :)");
+                int userInputParseStatus = ui.reactToUserInput(userInput);
+                if (userInputParseStatus == 0) {
                     break;
                 }
-
-                // Mark functionality
-                if (userInput.startsWith("mark")) {
-                    try {
-                        int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                        taskList.markTask(taskIndex, storage);
-                        System.out.println(separator);
-                    } catch (IndexOutOfBoundsException | NumberFormatException exception) {
-                        throw new InputException("You did not provide a valid task index to mark!");
-                    }
-                    continue;
-                }
-
-                // Unmark functionality
-                if (userInput.startsWith("unmark")) {
-                    try {
-                        int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                        taskList.unmarkTask(taskIndex, storage);
-                        System.out.println(separator);
-                    } catch (IndexOutOfBoundsException | NumberFormatException exception) {
-                        throw new InputException("You did not provide a valid task index to mark!");
-                    }
-                    continue;
-                }
-
-                // Delete functionality
-                if (userInput.startsWith("delete")) {
-                    try {
-                        int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                        taskList.deleteTask(taskIndex, storage);
-                        System.out.println(separator);
-                    } catch (IndexOutOfBoundsException | NumberFormatException exception) {
-                        throw new InputException("You did not provide a valid task index to mark!");
-                    }
-                    continue;
-                }
-
-                // If user adds a todo task
-                if (userInput.startsWith("todo")) {
-                    Task task = InputParser.parseInputAsToDo(userInput);
-                    taskList.addTask(task, storage);
-                    System.out.println(separator);
-                    continue;
-                }
-
-                // If user adds a deadline task
-                if (userInput.startsWith("deadline")) {
-                    Task task = InputParser.parseInputAsDeadline(userInput);
-                    taskList.addTask(task, storage);
-                    System.out.println(separator);
-                    continue;
-                }
-
-                // If user adds an event task
-                if (userInput.startsWith("event")) {
-                    Task task = InputParser.parseInputAsEvent(userInput);
-                    taskList.addTask(task, storage);
-                    System.out.println(separator);
-                    continue;
-                }
-
-                // List functionality
-                if (userInput.startsWith("list")) {
-                    taskList.listTasks();
-                    System.out.println(separator);
-                    continue;
-                }
-                throw new InputException();
-            } catch (InputException error) {
-                System.out.println(error.getMessage());
+            } catch (InputException | DateTimeParseException exception) {
+                System.out.println(exception.getMessage());
                 System.out.println(separator);
             }
         }

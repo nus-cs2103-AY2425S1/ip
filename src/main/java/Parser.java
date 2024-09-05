@@ -1,6 +1,6 @@
 import java.lang.reflect.Array;
 
-public class InputParser {
+public class Parser {
     public static ToDo parseInputAsToDo(String input) throws InputException {
         String taskName = input.replace("todo ", "").trim();
         if (taskName.isBlank()) {

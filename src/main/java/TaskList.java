@@ -4,45 +4,47 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
+    private Storage storage;
     public TaskList(Storage storage) {
         try {
+            this.storage = storage;
             this.tasks = storage.readTasksFromFile();
         } catch (BadDataFormatException | FileNotFoundException exception) {
             this.tasks = new ArrayList<Task>();
         }
     }
 
-    public void markTask(int taskIndex, Storage storage) {
+    public void markTask(int taskIndex) {
         if (tasks.get(taskIndex) == null) {
             throw new IndexOutOfBoundsException();
         }
         tasks.get(taskIndex).markAsDone();
-        saveCurrentTaskState(storage);
+        saveCurrentTaskState();
         System.out.println("I've marked this task as done:");
         System.out.println(tasks.get(taskIndex));
     }
 
-    public void unmarkTask(int taskIndex, Storage storage) {
+    public void unmarkTask(int taskIndex) {
         if (tasks.get(taskIndex) == null) {
             throw new IndexOutOfBoundsException();
         }
         tasks.get(taskIndex).markAsUndone();
-        saveCurrentTaskState(storage);
+        saveCurrentTaskState();
         System.out.println("I've marked this task as not done:");
         System.out.println(tasks.get(taskIndex));
     }
 
-    public void deleteTask(int taskIndex, Storage storage) {
+    public void deleteTask(int taskIndex) {
         Task tempTask = tasks.get(taskIndex);
         tasks.remove(taskIndex);
-        saveCurrentTaskState(storage);
+        saveCurrentTaskState();
         System.out.println("I've removed this task:");
         System.out.println(tempTask);
     }
 
-    public void addTask(Task task, Storage storage) {
+    public void addTask(Task task) {
         tasks.add(task);
-        saveCurrentTaskState(storage);
+        saveCurrentTaskState();
         System.out.println("Added: " + tasks.get(tasks.size() - 1));
         System.out.printf("You now have %d tasks in the list%n", tasks.size());
     }
@@ -53,7 +55,7 @@ public class TaskList {
         }
     }
 
-    private void saveCurrentTaskState(Storage storage) {
+    private void saveCurrentTaskState() {
         try {
             storage.writeTasksToFile(tasks);
         } catch (IOException exception) {
