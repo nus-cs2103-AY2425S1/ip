@@ -3,9 +3,7 @@ package tars;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,16 +14,30 @@ import java.util.Scanner;
  * @version 1
  */
 public class Storage {
-    protected static File F;
+    protected static File taskFile;
 
+    /**
+     * Constructor for Storage object which takes in a filePath and sets filePath field in object
+     *
+     * @param filePath
+     * @throws IOException
+     */
     public Storage(String filePath) throws IOException {
-        this.F = new File(filePath); // create a File for the given file path
+        this.taskFile = new File(filePath); // create a File for the given file path
 
-        if (!F.exists()) {
-            F.getParentFile().mkdirs();
-            F.createNewFile();
+        if (!taskFile.exists()) {
+            taskFile.getParentFile().mkdirs();
+            taskFile.createNewFile();
         }
     }
+
+    /**
+     * Writes file that will be used for the Tars application based on tasks existing or changed in tasksList
+     *
+     * @param filePath
+     * @param tasks
+     * @throws IOException
+     */
     public static void writeFile(String filePath, ArrayList<Task> tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         for (Task task : tasks) {
@@ -34,8 +46,14 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * Reads file that has been passed to storage object for Tars to reuse or use for the first time
+     *
+     * @return ArrayList of tasks
+     * @throws IOException
+     */
     public static ArrayList<Task> readFile() throws IOException {
-        Scanner s = new Scanner(F); // create a Scanner using the File as the source
+        Scanner s = new Scanner(taskFile); // create a Scanner using the File as the source
         ArrayList<Task> itemsList = new ArrayList<>();
 
         while (s.hasNext()) {

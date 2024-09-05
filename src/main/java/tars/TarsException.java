@@ -8,7 +8,7 @@ package tars;
  * @version 1
  */
 public class TarsException extends Exception {
-    public TarsException(String message){
+    public TarsException(String message) {
         super(message);
     }
 }

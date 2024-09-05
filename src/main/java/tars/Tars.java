@@ -1,8 +1,8 @@
 package tars;
 
+import java.io.IOException;
 import java.util.Scanner;
 
-import java.io.IOException;
 /**
  * This class is Chatbot application which handles Task Management, mainly ToDos, Deadline and Event tasks
  * Users can add the 3 different type of tasks and carry out other functions like mark, unmark and delete
@@ -18,6 +18,12 @@ public class Tars {
     private Ui ui;
     private Parser parserHelp;
 
+    /**
+     * Constructs the Tars object, taking in the filePath for storage and initialising Ui and Parsers objects
+     *
+     * @param filePath
+     * @throws IOException
+     */
     public Tars(String filePath) throws IOException {
         this.ui = new Ui();
         storage = new Storage(filePath);
@@ -44,7 +50,7 @@ public class Tars {
             String[] entryParts = entry.split(" ");
 
             if (entryParts.length < 2) {
-                 if (entry.equals("bye")) {
+                if (entry.equals("bye")) {
                     break;
                 } else {
                     parserHelp.checkEntry(entryParts, entry, taskList);

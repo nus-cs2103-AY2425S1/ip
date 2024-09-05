@@ -2,7 +2,6 @@ package tars;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 
 /**
@@ -13,8 +12,8 @@ import java.util.ArrayList;
  * @version 1
  */
 public class TaskList {
+    private static final String LINE = "    _____________________________________________";
     private ArrayList<Task> taskList;
-    static String LINE = "    _____________________________________________";
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
@@ -23,7 +22,7 @@ public class TaskList {
         this.taskList = new ArrayList<Task>();
     }
 
-    public ArrayList<Task> getList(){
+    public ArrayList<Task> getList() {
         return this.taskList;
     }
 
@@ -52,7 +51,7 @@ public class TaskList {
         } else if (task[0].equals("todo")) {
             this.addToDos(task, entry);
         } else if (task[0].equals("deadLINE")) {
-           this.addDeadline(task, entry);
+            this.addDeadline(task, entry);
         } else if (task[0].equals("event")) {
             this.addEvent(task, entry);
         } else if (task[0].equals("delete")) {
@@ -68,7 +67,7 @@ public class TaskList {
             Task t = new Task(entry);
             taskList.add(t);
 
-            System.out.println(LINE + "\n"  + "    added: " + entry + "\n" + LINE);
+            System.out.println(LINE + "\n" + "    added: " + entry + "\n" + LINE);
         }
     }
 
@@ -78,7 +77,7 @@ public class TaskList {
      * @param task
      * @param entry
      */
-    public void addToDos(String[] task, String entry){
+    public void addToDos(String[] task, String entry) {
         StringBuilder strBuild = new StringBuilder();
 
         for (int i = 1; i < task.length; i++) {
@@ -102,7 +101,7 @@ public class TaskList {
      * @param task
      * @param entry
      */
-    public void addDeadline(String[] task, String entry){
+    public void addDeadline(String[] task, String entry) {
         StringBuilder strBuild = new StringBuilder();
         StringBuilder dateStr = new StringBuilder();
 
@@ -118,22 +117,22 @@ public class TaskList {
             }
         }
 
-        Deadline deadLINETask = null;
+        Deadline deadlineTask = null;
 
         if (dateStr.toString().length() == 17) {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(dateStr.toString().trim(), format);
-            deadLINETask = new Deadline(strBuild.toString().trim(), dateTime);
+            deadlineTask = new Deadline(strBuild.toString().trim(), dateTime);
 
-            taskList.add(deadLINETask);
+            taskList.add(deadlineTask);
 
             System.out.println(LINE);
             System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + deadLINETask);
+            System.out.println("        " + deadlineTask);
             System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE);
         } else {
-            System.out.println(LINE + "\n" + "  Please state date and time of deadLINE" +
-                    "\n" + "in YYYY-dd-MM HH:mm format" + "\n" + LINE);
+            System.out.println(LINE + "\n" + "  Please state date and time of deadLINE"
+                    + "\n" + "in YYYY-dd-MM HH:mm format" + "\n" + LINE);
         }
     }
 
@@ -144,7 +143,7 @@ public class TaskList {
      * @param task
      * @param entry
      */
-    public void addEvent(String[] task, String entry){
+    public void addEvent(String[] task, String entry) {
         StringBuilder strBuild = new StringBuilder();
         StringBuilder toStr = new StringBuilder();
         StringBuilder fromStr = new StringBuilder();

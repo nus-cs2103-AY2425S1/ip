@@ -155,7 +155,8 @@ class Deadline extends Task {
  * @see Task
  */
 class Event extends Task {
-    protected LocalDateTime from, to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Constructs new Deadline Task with deadline stated
