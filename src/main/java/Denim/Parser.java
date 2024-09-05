@@ -85,8 +85,8 @@ public class Parser {
             return prepareFind(arguments);
 
         default:
-            return new InvalidCommand("Invalid Denim.Commands.Command",
-                    "Denim.Commands.Command for help: help");
+            return new InvalidCommand("Invalid Command",
+                    "Command for help: help");
         }
     }
 
@@ -173,7 +173,7 @@ public class Parser {
             return new InvalidCommand("Wrong format for mark command", MarkCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
-        return new MarkCommand(index - Ui.INDEX_OFFSET);
+        return new MarkCommand(index - TextBasedUi.indexOffset);
     }
 
     /**
@@ -189,7 +189,7 @@ public class Parser {
             return new InvalidCommand("Wrong format for unmark command", UnmarkCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
-        return new UnmarkCommand(index - Ui.INDEX_OFFSET);
+        return new UnmarkCommand(index - TextBasedUi.indexOffset);
     }
 
     /**
@@ -214,7 +214,7 @@ public class Parser {
             return new InvalidCommand("Wrong format for delete command", DeleteCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
-        return new DeleteCommand(index - Ui.INDEX_OFFSET);
+        return new DeleteCommand(index - TextBasedUi.indexOffset);
     }
 
     /**

@@ -14,8 +14,9 @@ import denim.storage.TaskIo;
  */
 public class Denim {
     static final String FILE_PATH = "data/denim.txt";
-    private Ui ui;
+    private TextBasedUi ui;
     private TaskIo taskIo;
+    private Parser parser = new Parser();
 
     private TaskList taskList;
 
@@ -42,7 +43,7 @@ public class Denim {
             System.out.println(e.getMessage());
             return;
         }
-        this.ui = new Ui();
+        this.ui = new TextBasedUi();
         ui.displayGreetingMessage();
     }
 
@@ -60,10 +61,19 @@ public class Denim {
         } while (!command.isExit());
     }
 
+    public Command parseGuiCommand(String input) {
+        Command command = parser.parseCommand(input);
+        return command;
+    }
+
+    public CommandResult executeGuiCommand(Command command) {
+        return command.execute(taskList, taskIo);
+    }
+
     /**
      * Exits the application by terminating the program.
      */
-    private void exit() {
+    public void exit() {
         System.exit(0);
     }
 }

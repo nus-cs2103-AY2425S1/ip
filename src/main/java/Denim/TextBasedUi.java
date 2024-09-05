@@ -10,7 +10,7 @@ import denim.commands.CommandResult;
  * The primary Ui for the application. It is responsible for receiving user input and passes it to the Parser.
  * It is also involved in returning feedback to the user after a command has been executed.
  */
-public class Ui {
+public class TextBasedUi {
 
     public static final int INDEX_OFFSET = 1;
     static final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -19,21 +19,11 @@ public class Ui {
     private final Scanner in;
     private final PrintStream out;
 
-
-    /**
-     * Constructs a new Ui with default standard input/output.
-     */
-    public Ui() {
+    public TextBasedUi() {
         this(System.in, System.out);
     }
 
-    /**
-     * Constructs a new Ui with the given InputStream and PrintStream.
-     *
-     * @param in The InputStream for the Ui.
-     * @param out the PrintStream for the Ui.
-     */
-    public Ui(InputStream in, PrintStream out) {
+    public TextBasedUi(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;
     }
