@@ -12,12 +12,6 @@ public class DeadlineCommand extends Command {
     private final String description;
     private final String date;
 
-    /**
-     * Constructs a DeadlineCommand with the specified description and due date.
-     *
-     * @param description the description of the deadline task
-     * @param date the due date for the task in the format "yyyy-MM-dd HHmm"
-     */
     public DeadlineCommand(String description, String date) {
         super();
         this.description = description;

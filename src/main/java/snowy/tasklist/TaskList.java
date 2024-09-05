@@ -28,32 +28,15 @@ public class TaskList {
         storage.writeTaskToFile(t);
     }
 
-    /**
-     * Checks if the task at the specified index is marked as done.
-     *
-     * @param i the index of the task to check
-     * @return true if the task is marked as done, false otherwise
-     */
     public boolean isTaskDone(int i) {
         Task task = taskList.get(i);
         return task.isDone;
     }
 
-    /**
-     * Returns the number of tasks currently in the task list.
-     *
-     * @return the size of the task list
-     */
     public int getSize() {
         return taskList.size();
     }
 
-    /**
-     * Retrieves the task at the specified index.
-     *
-     * @param index the index of the task to retrieve
-     * @return the Task object at the specified index
-     */
     public Task getTask(int index) {
         return taskList.get(index);
     }

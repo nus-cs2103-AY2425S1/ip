@@ -13,12 +13,6 @@ public class Deadline extends Task {
 
     protected LocalDateTime by;
 
-    /**
-     * Constructs a Deadline task with the specified description and due date.
-     *
-     * @param description the description of the task
-     * @param by the due date and time of the task in the format "yyyy-MM-dd HHmm"
-     */
     public Deadline(String description, String by) {
         super(description);
         this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));

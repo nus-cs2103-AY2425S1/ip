@@ -17,13 +17,6 @@ public class EventCommand extends Command {
     private final String from;
     private final String to;
 
-    /**
-     * Constructs an EventCommand with the specified description, start time, and end time.
-     *
-     * @param description the description of the event
-     * @param from the start time of the event in the format "yyyy-MM-dd HHmm"
-     * @param to the end time of the event in the format "yyyy-MM-dd HHmm"
-     */
     public EventCommand(String description, String from, String to) {
         this.description = description;
         this.from = from;

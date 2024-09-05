@@ -13,11 +13,6 @@ import snowy.tasklist.TaskList;
 public class DeleteCommand extends Command {
     private final int index;
 
-    /**
-     * Constructs a DeleteCommand with the specified index.
-     *
-     * @param index the index of the task to be deleted (1-based index)
-     */
     public DeleteCommand(int index) {
         this.index = index;
     }

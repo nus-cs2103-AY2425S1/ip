@@ -11,31 +11,15 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    /**
-     * Constructs a Task with the given description.
-     * The task is initially marked as not done.
-     *
-     * @param description the description of the task
-     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    /**
-     * Returns the status icon representing the task's completion status.
-     *
-     * @return "X" if the task is done, otherwise a space " ".
-     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    /**
-     * Returns the description of the task.
-     *
-     * @return the task's description
-     */
     public String getDescription() {
         return this.description;
     }
