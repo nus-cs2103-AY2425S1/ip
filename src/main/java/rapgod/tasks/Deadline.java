@@ -5,12 +5,42 @@ import rapgod.utils.Parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline with a description and a due date.
+ * This subclass of {@link Task} includes information about the deadline date by which the task should be completed.
+ */
 public class Deadline extends Task{
+
+    /**
+     * Constructs a Deadline with the specified description and due date.
+     * The due date is parsed into a {@link LocalDateTime} object using the {@link Parser} class.
+     *
+     * @param description The description of the deadline task.
+     * @param due The due date of the deadline, provided as a string.
+     */
     protected LocalDateTime due;
     public Deadline(String description, String due) {
         super(description);
         this.due = Parser.parseToDateTime(due);
     }
+
+    /**
+     * Returns the due date of the deadline.
+     *
+     * @return The due date of the deadline as a {@link LocalDateTime} object.
+     */
+    public LocalDateTime getDueDate() {
+        return this.due;
+    }
+
+    /**
+     * Returns a string representation of the Deadline.
+     * The string includes the task type identifier "[D]", the completion status, the description of the deadline,
+     * and the due date formatted as "MMM dd yyyy hh:mma".
+     * If the due date is "12:00am", it is omitted from the display.
+     *
+     * @return A string representation of the Deadline in the format "[D] [status] description (by: dueDate)".
+     */
     @Override
     public String toString() {
         String mark = isDone ? "X" : " ";
@@ -19,9 +49,5 @@ public class Deadline extends Task{
             due = due.substring(0, due.length() - 8);
         }
         return String.format("[D] [%s] %s (by: %s)", mark, super.description, due);
-    }
-
-    public LocalDateTime getDueDate() {
-        return this.due;
     }
 }
