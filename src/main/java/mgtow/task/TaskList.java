@@ -36,8 +36,9 @@ public class TaskList {
      * Deletes a new task from the list.
      *
      * @param index The index of the task to be deleted.
+     * @return task that is removed.
      */
-    public void deleteTask(int index) throws InvalidTaskException {
+    public Task deleteTask(int index) throws InvalidTaskException {
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskException("Don't bother, task non-existent");
         }
@@ -45,6 +46,7 @@ public class TaskList {
         System.out.println("\tSigh. I've removed this task:");
         System.out.println("\t  " + removedTask);
         System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
+        return removedTask;
     }
 
     /**

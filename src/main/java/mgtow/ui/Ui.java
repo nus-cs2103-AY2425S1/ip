@@ -1,8 +1,7 @@
 package mgtow.ui;
 
 import mgtow.task.Task;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,11 +17,12 @@ public class Ui {
         scanner = new Scanner(System.in);
     }
 
+    public String getWelcomeMessage() {
+        return LINE + "\nHello! I'm MGTOW\nWhat can I do for you?\n" + LINE;
+    }
+
     public void showWelcome() {
-        printMsg(LINE);
-        printMsg("Hello! I'm MGTOW.");
-        printMsg("What can I do for you?");
-        printMsg(LINE);
+        System.out.println(getWelcomeMessage());
     }
 
     public String readCommand() {
@@ -30,55 +30,71 @@ public class Ui {
     }
 
     public void showLine() {
-        printMsg(LINE);
+        System.out.println(LINE);
     }
 
     public void showLoadingError() {
-        printMsg("No existing task file found. Starting with an empty task list.");
+        System.out.println("No existing task file found. Starting with an empty task list.");
     }
 
     public void showError(String message) {
-        printMsg(message);
+        System.out.println(message);
     }
 
-    public void showTasksOnDate(ArrayList<Task> tasks, LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
-        if (tasks.isEmpty()) {
-            printMsg("No tasks found on " + date.format(formatter));
-        } else {
-            printMsg("Tasks on " + date.format(formatter) + ":");
-            for (int i = 0; i < tasks.size(); i++) {
-                printTask(i + 1, tasks.get(i));
-            }
+    public String getGoodbyeMessage() {
+        return "OK bye time to MGTOW";
+    }
+
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
+
+    public String getTaskListString(ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
+        return sb.toString();
+    }
+
+    public String getMarkTaskMessage(Task task) {
+        return "Nice! I've marked this task as done:\n  " + task;
+    }
+
+    public String getUnmarkTaskMessage(Task task) {
+        return "OK, I've unmarked this task:\n  " + task;
+    }
+
+    public String getDeleteTaskMessage(Task task, int remainingTasks) {
+        return "Noted. I've removed this task:\n  " + task +
+                "\nNow you have " + remainingTasks + " tasks in the list.";
+    }
+
+    public String getAddTaskMessage(Task task, int totalTasks) {
+        return "Got it. I've added this task:\n  " + task +
+                "\nNow you have " + totalTasks + " tasks in the list.";
     }
 
     /**
-     * Displays the tasks found that match the given keyword.
+     * Gets the tasks found that match the given keyword.
      *
      * @param tasks The list of tasks that match the keyword.
      * @param keyword The keyword used for the search.
+     * @return String output of matching tasks.
      */
-    public void showFoundTasks(ArrayList<Task> tasks, String keyword) {
+    public String getFoundTasksMessage(ArrayList<Task> tasks, String keyword) {
         if (tasks.isEmpty()) {
-            printMsg("No matching tasks found for '" + keyword + "'.");
+            return "No matching tasks found for '" + keyword + "'.";
         } else {
-            printMsg("Here are the matching tasks in your list:");
+            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                printTask(i + 1, tasks.get(i));
+                sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
             }
+            return sb.toString();
         }
     }
 
-    public void showGoodbye() {
-        printMsg("OK bye time to MGTOW.");
-    }
-
-    public void printMsg(String str) {
-        System.out.println("\t" + str);
-    }
-
-    public void printTask(int ind, Task task) {
-        System.out.println("\t" + ind + ". " + task);
+    public String getErrorMessage(String message) {
+        return "Error: " + message;
     }
 }

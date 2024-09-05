@@ -6,11 +6,11 @@ import mgtow.task.TaskList;
 import mgtow.ui.Ui;
 import mgtow.util.InvalidTaskException;
 import mgtow.util.Parser;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 
 /**
- * Main class for the MGTOW (Man Going Their Own Way) task management application.
+ * Main class for the Mgtow (Man Going Their Own Way) task management application.
  * This class initializes the application, handles user interactions, and manages tasks.
  */
 public class Mgtow {
@@ -34,9 +34,46 @@ public class Mgtow {
         }
     }
 
-    /**
-     * Runs the Mgtow application, handling user input and executing commands.
-     */
+    public String processCommand(String fullCommand) {
+        try {
+            String[] commandParts = Parser.parseCommand(fullCommand);
+            switch (commandParts[0]) {
+                case "bye":
+                    return ui.getGoodbyeMessage();
+                case "list":
+                    return ui.getTaskListString(tasks.getTasks());
+                case "mark":
+                    tasks.markTask(Integer.parseInt(commandParts[1]) - 1);
+                    storage.saveTasks(tasks.getTasks());
+                    return ui.getMarkTaskMessage(tasks.getTasks().get(Integer.parseInt(commandParts[1]) - 1));
+                case "unmark":
+                    tasks.unmarkTask(Integer.parseInt(commandParts[1]) - 1);
+                    storage.saveTasks(tasks.getTasks());
+                    return ui.getUnmarkTaskMessage(tasks.getTasks().get(Integer.parseInt(commandParts[1]) - 1));
+                case "delete":
+                    Task deletedTask = tasks.deleteTask(Integer.parseInt(commandParts[1]) - 1);
+                    storage.saveTasks(tasks.getTasks());
+                    return ui.getDeleteTaskMessage(deletedTask, tasks.getTasks().size());
+                case "todo":
+                case "deadline":
+                case "event":
+                    Task newTask = Parser.createTask(commandParts);
+                    tasks.addTask(newTask);
+                    storage.saveTasks(tasks.getTasks());
+                    return ui.getAddTaskMessage(newTask, tasks.getTasks().size());
+                case "find":
+                    ArrayList<Task> foundTasks = tasks.findTasks(commandParts[1]);
+                    return ui.getFoundTasksMessage(foundTasks, commandParts[1]);
+                default:
+                    throw new InvalidTaskException("What you talking?");
+            }
+        } catch (InvalidTaskException e) {
+            return ui.getErrorMessage(e.getMessage());
+        } catch (NumberFormatException e) {
+            return ui.getErrorMessage("Invalid number format. Please enter a valid number.");
+        }
+    }
+
     public void run() {
         ui.showWelcome();
         boolean isFinished = false;
@@ -44,59 +81,23 @@ public class Mgtow {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                String[] commandParts = Parser.parseCommand(fullCommand);
-                switch (commandParts[0]) {
-                    case "bye":
-                        isFinished = true;
-                        break;
-                    case "list":
-                        tasks.listAllTasks();
-                        break;
-                    case "mark":
-                        tasks.markTask(Integer.parseInt(commandParts[1]) - 1);
-                        storage.saveTasks(tasks.getTasks());
-                        break;
-                    case "unmark":
-                        tasks.unmarkTask(Integer.parseInt(commandParts[1]) - 1);
-                        storage.saveTasks(tasks.getTasks());
-                        break;
-                    case "delete":
-                        tasks.deleteTask(Integer.parseInt(commandParts[1]) - 1);
-                        storage.saveTasks(tasks.getTasks());
-                        break;
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        Task newTask = Parser.createTask(commandParts);
-                        tasks.addTask(newTask);
-                        storage.saveTasks(tasks.getTasks());
-                        break;
-                    case "date":
-                        LocalDate date = Parser.parseDate(commandParts[1]);
-                        ui.showTasksOnDate(tasks.getTasksOnDate(date), date);
-                        break;
-                    case "find":
-                        if (commandParts.length < 2 || commandParts[1].trim().isEmpty()) {
-                            throw new InvalidTaskException("Please provide a keyword to search for.");
-                        }
-                        ArrayList<Task> foundTasks = tasks.findTasks(commandParts[1]);
-                        ui.showFoundTasks(foundTasks, commandParts[1]);
-                        break;
-                    default:
-                        throw new InvalidTaskException("What you talking?");
+                String response = processCommand(fullCommand);
+                ui.showMessage(response);
+                if (fullCommand.equals("bye")) {
+                    isFinished = true;
                 }
-            } catch (InvalidTaskException e) {
-                ui.showError(e.getMessage());
-            } catch (NumberFormatException e) {
-                ui.showError("Invalid number format. Please enter a valid number.");
             } finally {
                 ui.showLine();
             }
         }
-        ui.showGoodbye();
     }
 
+    public Ui getUi() {
+        return ui;
+    }
+
+
     public static void main(String[] args) {
-        new Mgtow("./data/mgtow.MGTOW.txt").run();
+        new Mgtow("./data/MGTOW.txt").run();
     }
 }
