@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -21,13 +22,21 @@ public class Duke {
         System.out.println("Now you have " + userInputs.size() + " tasks in the list.");
     }
 
-    public static void processInput(String inp) throws EmptyTaskException, InvalidInstructionException {
+    public static void processInput(String inp) throws EmptyTaskException, InvalidInstructionException, EmptyCommandException {
         String instruction = inp.split(" ",2)[0];
         if (instruction.equals("list")) {
             display();
             return;
         }
-        if (inp.split(" ",2).length==1) {
+        if (inp.split(" ", 2).length==0) {
+            throw new EmptyCommandException();
+        }
+        boolean flag1 = !(Arrays.asList("list", "mark", "unmark", "todo", "event", "deadline", "delete").contains(inp.split(" ",2)[0]));
+        if (inp.split(" ", 2).length==1 && flag1) {
+            throw new InvalidInstructionException();
+        }
+        boolean flag2 = Arrays.asList("todo", "event", "deadline", "delete").contains(inp.split(" ",2)[0]);
+        if (inp.split(" ",2).length==1 && flag2) {
             throw new EmptyTaskException();
         }
         String remainingInput = inp.split(" ",2)[1];
@@ -76,10 +85,19 @@ public class Duke {
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
-
+        String logo = " ,--.--------.    ,----.    ,-,--.             ,---.      \n" +
+                      "/==/,  -   , -\\,-.--` , \\ ,-.'-  _\\  _.-.    .--.'  \\     \n" +
+                      "\\==\\.-.  - ,-./==|-  _.-`/==/_ ,_.'.-,.'|    \\==\\-/\\ \\    \n" +
+                      " `--`\\==\\- \\  |==|   `.-.\\==\\  \\  |==|, |    /==/-|_\\ |   \n" +
+                      "      \\==\\_ \\/==/_ ,    / \\==\\ -\\ |==|- |    \\==\\,   - \\  \n" +
+                      "      |==|- ||==|    .-'  _\\==\\ ,\\|==|, |    /==/ -   ,|  \n" +
+                      "      |==|, ||==|_  ,`-._/==/\\/ _ |==|- `-._/==/-  /\\ - \\ \n" +
+                      "      /==/ -//==/ ,     /\\==\\ - , /==/ - , ,|==\\ _.\\=\\.-' \n" +
+                      "      `--`--``--`-----``  `--`---'`--`-----' `--`         \n" +
+                      "\n";
         System.out.println("____________________________________________________________\n" +
-                "Hello! I'm Tesla\n" +
-                "What can I do for you?\n" +
+                "Hello! I'm\n" + logo +
+                "How may I be of service to you in this moment?\n" +
                 "____________________________________________________________\n");
         Scanner scanner = new Scanner(System.in);
         String inp = scanner.nextLine();
@@ -87,12 +105,14 @@ public class Duke {
             try {
                 processInput(inp);
             } catch (EmptyTaskException e) {
-                System.out.println("Remaining description of task cannot be empty.");
+                System.out.println("The description of the task must contain some substance; it cannot be void.");
+            } catch (EmptyCommandException e) {
+                System.out.println("An empty command has been received.");
             } catch (InvalidInstructionException e) {
-                System.out.println("Invalid instruction given.");
+                System.out.println("The instruction provided is deemed invalid.");
             }
             inp = scanner.nextLine();
         }
-        System.out.println("Bye. Hope to see you again soon!\n");
+        System.out.println("Farewell! Until we meet again.\n");
     }
 }
