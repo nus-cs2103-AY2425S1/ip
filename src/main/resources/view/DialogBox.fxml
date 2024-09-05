@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<fx:root alignment="CENTER_RIGHT" maxHeight="1.9" minHeight="-Infinity" maxWidth="1.9" minWidth="-Infinity"  prefWidth="750.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane maxHeight="-Infinity" minHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" HBox.hgrow="NEVER">
+            <children>
+                <Rectangle fx:id="box" arcHeight="25.0" arcWidth="25.0" fill="#6ab5fc" height="250.0" width="250.0" stroke="BLACK" strokeType="INSIDE" >
+                    <StackPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                    </StackPane.margin></Rectangle>
+                <Text fx:id="text" text="Label" textAlignment="RIGHT">
+                    <font>
+                        <Font name="Consolas" size="18.0" />
+                    </font>
+                    <StackPane.margin>
+                        <Insets left="12.0" right="12.0" />
+                    </StackPane.margin></Text>
+            </children>
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+        </StackPane>
+        <ImageView fx:id="profileImage" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <HBox.margin>
+                <Insets />
+            </HBox.margin></ImageView>
+    </children>
+    <padding>
+        <Insets top="15.0" bottom="15.0" left="5.0" right="5.0"  />
+    </padding>
+</fx:root>
