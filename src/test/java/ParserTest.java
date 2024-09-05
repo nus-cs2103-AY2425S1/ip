@@ -1,3 +1,11 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
 import charlotte.command.AddCommand;
 import charlotte.command.Command;
 import charlotte.exception.CharlotteException;
@@ -5,11 +13,8 @@ import charlotte.parser.Parser;
 import charlotte.task.Deadline;
 import charlotte.task.Event;
 import charlotte.task.ToDo;
-import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
     @Test

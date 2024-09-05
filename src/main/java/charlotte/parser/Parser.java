@@ -11,7 +11,6 @@ import charlotte.command.UnmarkCommand;
 import charlotte.exception.CharlotteException;
 import charlotte.task.Deadline;
 import charlotte.task.Event;
-import charlotte.task.Task;
 import charlotte.task.ToDo;
 
 /**

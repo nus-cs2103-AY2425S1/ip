@@ -9,7 +9,7 @@ import charlotte.ui.Ui;
 /**
  * Represents a command to find tasks by a given keyword.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private final String keyword;
 
     /**

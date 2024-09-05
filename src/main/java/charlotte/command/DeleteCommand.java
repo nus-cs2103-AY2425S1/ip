@@ -1,6 +1,5 @@
 package charlotte.command;
 
-import charlotte.command.Command;
 import charlotte.exception.CharlotteException;
 import charlotte.storage.Storage;
 import charlotte.task.Task;
@@ -23,7 +22,8 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the command to delete the task from the task list, updates the user interface, and saves the updated task list.
+     * Executes the command to delete the task from the task list, updates the user interface,
+     * and saves the updated task list.
      * <p>
      * This method checks if the index is valid, removes the task at the given index from the TaskList,
      * informs the user of the successful removal, and then saves the updated task list to storage.
@@ -32,7 +32,8 @@ public class DeleteCommand extends Command {
      * @param tasks The TaskList object from which the task will be deleted.
      * @param ui The Ui object used to communicate with the user.
      * @param storage The Storage object used to save the updated task list.
-     * @throws CharlotteException If the index is out of bounds or if an error occurs while saving the task list to storage.
+     * @throws CharlotteException If the index is out of bounds or if an error occurs
+     *     while saving the task list to storage.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {

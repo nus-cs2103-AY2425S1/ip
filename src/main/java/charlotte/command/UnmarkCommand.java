@@ -1,6 +1,5 @@
 package charlotte.command;
 
-import charlotte.command.Command;
 import charlotte.exception.CharlotteException;
 import charlotte.storage.Storage;
 import charlotte.task.Task;

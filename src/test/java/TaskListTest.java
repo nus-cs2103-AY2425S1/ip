@@ -1,8 +1,14 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import charlotte.task.Task;
 import charlotte.task.TaskList;
 import charlotte.task.ToDo;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+
+
+
 
 class TaskListTest {
 

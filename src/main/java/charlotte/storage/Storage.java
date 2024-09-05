@@ -1,13 +1,5 @@
 package charlotte.storage;
 
-import charlotte.exception.CharlotteException;
-
-import charlotte.task.Deadline;
-import charlotte.task.Event;
-import charlotte.task.Task;
-import charlotte.task.TaskList;
-import charlotte.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,13 +7,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import charlotte.exception.CharlotteException;
+import charlotte.task.Deadline;
+import charlotte.task.Event;
+import charlotte.task.Task;
+import charlotte.task.TaskList;
+import charlotte.task.ToDo;
+
 /**
  * The Storage class handles the loading and saving of tasks from/to a file.
  */
 public class Storage {
-    private final String filePath;
     private static final ArrayList<Task> TASKS = new ArrayList<>();
-
+    private final String filePath;
     /**
      * Constructs a Storage object with the specified file path.
      *
@@ -88,26 +86,26 @@ public class Storage {
 
                 Task task;
                 switch (taskType) {
-                    case "T":
-                        task = new ToDo(description);
-                        break;
-                    case "D":
-                        if (taskData.length < 4) {
-                            throw new CharlotteException("Invalid format for a deadline task");
-                        }
-                        String by = taskData[3];
-                        task = new Deadline(description, by);
-                        break;
-                    case "E":
-                        if (taskData.length < 5) {
-                            throw new CharlotteException("Invalid format for an event task");
-                        }
-                        String from = taskData[3];
-                        String to = taskData[4];
-                        task = new Event(description, from, to);
-                        break;
-                    default:
-                        throw new CharlotteException("Unknown task type in file: " + taskType);
+                case "T":
+                    task = new ToDo(description);
+                    break;
+                case "D":
+                    if (taskData.length < 4) {
+                        throw new CharlotteException("Invalid format for a deadline task");
+                    }
+                    String by = taskData[3];
+                    task = new Deadline(description, by);
+                    break;
+                case "E":
+                    if (taskData.length < 5) {
+                        throw new CharlotteException("Invalid format for an event task");
+                    }
+                    String from = taskData[3];
+                    String to = taskData[4];
+                    task = new Event(description, from, to);
+                    break;
+                default:
+                    throw new CharlotteException("Unknown task type in file: " + taskType);
                 }
 
                 if (isDone) {
