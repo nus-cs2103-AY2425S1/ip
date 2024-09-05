@@ -3,6 +3,10 @@ package donk.task;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Represents a list of tasks
+ */
 public class TaskList {
 
     private List<Task> tasks;
@@ -13,14 +17,14 @@ public class TaskList {
      *
      * @param tasks The list of tasks to initialize the TaskList with.
      */
-    public TaskList (List<Task> tasks) {
+    public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
 
     /**
      * Default constructor for the TaskList class that initializes an empty task list.
      */
-    public TaskList () {
+    public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
@@ -64,6 +68,12 @@ public class TaskList {
         tasks.add(t);
     }
 
+    /**
+     * Search for tasks in the tasklist
+     *
+     * @param searchTerm
+     * @return list of matching tasks
+     */
     public TaskList find(String searchTerm) {
         List<Task> filteredList = this.tasks
                 .stream()

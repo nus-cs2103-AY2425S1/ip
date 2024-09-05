@@ -1,9 +1,12 @@
 package donk;
-
-import donk.task.TaskList;
 import java.util.Scanner;
 
+import donk.task.TaskList;
 
+
+/**
+ * The main class that runs
+ */
 public class Donk {
 
     private Storage storage;
@@ -12,12 +15,11 @@ public class Donk {
 
     /**
      * Constructor for the Donk class.
-     *
-     * @param filePath The path to the file where tasks are stored.
-     *
-     * Initializes the user interface (UI) and storage components. Attempts to load
-     * tasks from the specified file. If loading fails, it displays a loading error
+     * Initializes the user interface (UI) and storage components
+     * Attempts to load tasks from the specified file.
+     * If loading fails, it displays a loading error
      * and initializes an empty task list.
+     * @param filePath The path to the file where tasks are stored.
      */
     public Donk(String filePath) {
         ui = new Ui();
@@ -43,7 +45,7 @@ public class Donk {
         while (scanner.hasNextLine()) {
             try {
                 String userInput = scanner.nextLine();
-                Parser.parse(userInput, this.tasks, this.storage,this.ui);
+                Parser.parse(userInput, this.tasks, this.storage, this.ui);
 
             } catch (TodoException e) {
                 System.out.println("    " + e.getMessage());
@@ -56,10 +58,9 @@ public class Donk {
 
     /**
      * The main method that starts the Donk application.
+     * Creates a new instance of Donk with the specified file path and runs the application.
      *
      * @param args Command-line arguments (not used).
-     *
-     * Creates a new instance of Donk with the specified file path and runs the application.
      */
     public static void main(String[] args) {
         new Donk("./save.txt").run();
