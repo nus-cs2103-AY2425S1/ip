@@ -21,9 +21,9 @@ import java.time.format.DateTimeFormatter;
  */
 
 public class Task {
+    protected static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("eee, d MMM uuuu h:mma");
     private String name;
     private boolean isDone;
-    protected static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("eee, d MMM uuuu h:mma");
 
     /**
      * Constructs a new Task object with the specified name of the task.
@@ -43,7 +43,9 @@ public class Task {
      *         false if the task was already marked as done.
      */
     public boolean markAsDone() {
-        if (this.isDone) return false;
+        if (this.isDone) {
+            return false;
+        }
         this.isDone = true;
         return true;
     }
@@ -55,7 +57,9 @@ public class Task {
      *         false if the task was already marked as not done.
      */
     public boolean markAsNotDone() {
-        if (!this.isDone) return false;
+        if (!this.isDone) {
+            return false;
+        }
         this.isDone = false;
         return true;
     }
@@ -78,14 +82,18 @@ public class Task {
      *
      * @return an empty string, as a general Task does not have a time.
      */
-    public String getTime() { return ""; };
+    public String getTime() {
+        return "";
+    }
 
     /**
      * Gets the name or description of the task.
      *
      * @return the name or description of the task.
      */
-    public String getDescription() { return this.name; }
+    public String getDescription() {
+        return this.name;
+    }
 
     /**
      * Gets the status of the task.
@@ -93,7 +101,9 @@ public class Task {
      * @return true if the task is marked as done,
      *         false if the task is marked as not done.
      */
-    public boolean isDone() { return isDone; }
+    public boolean isDone() {
+        return isDone;
+    }
 
     /**
      * Returns the string representation of the Task.

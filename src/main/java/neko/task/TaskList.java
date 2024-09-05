@@ -1,10 +1,12 @@
 package neko.task;
-import neko.NekoException;
-import neko.Storage;
-import neko.ui.Ui;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import neko.NekoException;
+import neko.Storage;
+import neko.ui.Ui;
 
 /**
  * The TaskList class represents a task list that stores tasks added by the user,
@@ -33,8 +35,8 @@ public class TaskList {
      * Prompts the user to add a task based on the task type and updates the storage.
      *
      * @param taskType The type of task to be added ("1" for Todo, "2" for Deadline, "3" for Event).
-     * @param ui The user interface for interaction with the user.
-     * @param storage The storage system for saving the task details.
+     * @param ui       The user interface for interaction with the user.
+     * @param storage  The storage system for saving the task details.
      * @throws IOException If an I/O error occurs while writing to storage.
      */
     public void addTask(String taskType, Ui ui, Storage storage) throws IOException {
@@ -63,7 +65,7 @@ public class TaskList {
     /**
      * Adds a Todo task based on user input and updates the storage.
      *
-     * @param ui The user interface for interacting with the user.
+     * @param ui      The user interface for interacting with the user.
      * @param storage The storage system for saving the task details.
      * @return The created Todo task.
      * @throws IOException If an I/O error occurs while writing to storage.
@@ -79,14 +81,15 @@ public class TaskList {
     /**
      * Adds a Deadline task based on user input and updates the storage.
      *
-     * @param ui The user interface for interacting with the user.
+     * @param ui      The user interface for interacting with the user.
      * @param storage The storage system for saving the task details.
      * @return The created Todo task.
      * @throws IOException If an I/O error occurs while writing to storage.
      */
     private Task addDeadlineTask(Ui ui, Storage storage) throws IOException {
         String taskName = ui.getTaskName();
-        LocalDateTime deadline = ui.getDateTime("Enter the deadline date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
+        LocalDateTime deadline = ui.getDateTime("Enter the deadline"
+                + " date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
         Task task = new Deadline(taskName, deadline);
         storage.writeFile("D | 0 | " + taskName + " | " + task.getTime() + "\n");
         return task;
@@ -95,15 +98,17 @@ public class TaskList {
     /**
      * Adds an Event task based on user input and updates the storage.
      *
-     * @param ui The user interface for interacting with the user.
+     * @param ui      The user interface for interacting with the user.
      * @param storage The storage system for saving the task details.
      * @return The created Todo task.
      * @throws IOException If an I/O error occurs while writing to storage.
      */
     private Task addEventTask(Ui ui, Storage storage) throws IOException {
         String taskName = ui.getTaskName();
-        LocalDateTime startDateTime = ui.getDateTime("Enter the start date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
-        LocalDateTime endDateTime = ui.getDateTime("Enter the end date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
+        LocalDateTime startDateTime = ui.getDateTime("Enter the "
+                + "start date and time in the form 'yyyy-MM-ddTHH:mm' meow:");
+        LocalDateTime endDateTime = ui.getDateTime("Enter the end date and time "
+                + "in the form 'yyyy-MM-ddTHH:mm' meow:");
 
         while (endDateTime.isBefore(startDateTime)) {
             ui.showMessage("End time cannot be before start time meow! Please enter the end date and time again");
@@ -191,14 +196,15 @@ public class TaskList {
      * Checks if the index is valid, i.e. greater or equal to 0, smaller than the
      * size of the list, and whether the task is empty, and throw an exception
      * with the corresponding message.
+     *
      * @param index The index where the task is stored in the list.
      * @throws NekoException If the index is invalid.
      */
     protected void checkValidIndex(int index) throws NekoException {
-        if (index < 0)  {
+        if (index < 0) {
             throw new NekoException("Invalid task number meow!");
         }
-        if (tasks.isEmpty())  {
+        if (tasks.isEmpty()) {
             throw new NekoException("You don't have any tasks yet meow!");
         }
         if (index >= tasks.size()) {
@@ -218,6 +224,13 @@ public class TaskList {
         tasks.remove(index);
     }
 
+    /**
+     * Finds and returns tasks that contain the specified keyword in their description.
+     *
+     * @param key The keyword to search for within task descriptions.
+     * @return A formatted string of the tasks that match the search keyword. If no tasks are found,
+     *      an empty string is returned.
+     */
     public String findTasks(String key) {
         String tasksFound = "";
         int numTasksFound = 0;
@@ -227,5 +240,5 @@ public class TaskList {
             }
         }
         return tasksFound.trim();
-        }
+    }
 }

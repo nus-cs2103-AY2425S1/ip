@@ -1,10 +1,11 @@
 package neko;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
 
 public class ParserTest {
 
@@ -21,11 +22,11 @@ public class ParserTest {
 
     @Test
     public void testParseEvent() {
-        assertEquals("[E][ ] Interview with Jane Street (from: Mon, 26 Aug 2024 " +
-                        "12:00pm to: Mon, 26 Aug 2024 2:00pm)",
+        assertEquals("[E][ ] Interview with Jane Street (from: Mon, 26 Aug 2024 "
+                        + "12:00pm to: Mon, 26 Aug 2024 2:00pm)",
                 Parser.parseTask(
-                        "E | 0 | Interview with Jane Street | Mon, 26 Aug 2024 12:00pm" +
-                                " | Mon, 26 Aug 2024 2:00pm").toString());
+                        "E | 0 | Interview with Jane Street | Mon, 26 Aug 2024 12:00pm"
+                                + " | Mon, 26 Aug 2024 2:00pm").toString());
     }
 
     @Test

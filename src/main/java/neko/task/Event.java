@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
  */
 
 public class Event extends Task {
-    private final LocalDateTime start, end;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
 
     /**
      * Constructs a new Event task with the specified name, start time and end time.
@@ -37,8 +38,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (from: " + start.format(dateFormatter)
+        return "[E]" + super.toString()
+                + " (from: " + start.format(dateFormatter)
                 + " to: " + end.format(dateFormatter) + ")";
     }
 
