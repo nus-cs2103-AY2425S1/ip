@@ -1,3 +1,5 @@
+package mittens.task;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -9,6 +11,10 @@ public abstract class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     public String getStatusIcon() {

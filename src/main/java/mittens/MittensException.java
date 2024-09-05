@@ -1,3 +1,5 @@
+package mittens;
+
 public class MittensException extends Exception {
     private final String mittensMessage;
     private final String helpMessage;

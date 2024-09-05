@@ -1,3 +1,7 @@
+package mittens.ui;
+
+import mittens.MittensException;
+
 import java.util.List;
 
 public abstract class Ui {

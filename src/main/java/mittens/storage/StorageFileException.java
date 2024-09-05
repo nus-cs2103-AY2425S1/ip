@@ -1,3 +1,7 @@
+package mittens.storage;
+
+import mittens.MittensException;
+
 public class StorageFileException extends MittensException {
     private static final String MITTENS_MESSAGE = "Meow?! Something's wrong with your storage!";
     private static final String HELP_MESSAGE = "Your storage might be corrupted. " +

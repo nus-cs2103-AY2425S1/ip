@@ -1,3 +1,10 @@
+package mittens.commands;
+
+import mittens.MittensException;
+import mittens.storage.Storage;
+import mittens.task.TaskList;
+import mittens.ui.Ui;
+
 public class ExitCommand extends Command {
     public ExitCommand() {
         super();

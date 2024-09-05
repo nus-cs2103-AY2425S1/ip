@@ -1,3 +1,11 @@
+package mittens.commands;
+
+import mittens.MittensException;
+import mittens.storage.Storage;
+import mittens.task.Task;
+import mittens.task.TaskList;
+import mittens.ui.Ui;
+
 public class DeleteCommand extends Command {
     protected int index;
 
