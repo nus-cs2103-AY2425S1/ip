@@ -1,4 +1,4 @@
-package mittens;
+package mittens.commands;
 
 import mittens.storage.Storage;
 import mittens.task.Task;

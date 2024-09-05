@@ -1,5 +1,6 @@
 package mittens;
 
+import mittens.commands.Command;
 import mittens.storage.Storage;
 import mittens.storage.StorageFileException;
 import mittens.task.TaskList;
