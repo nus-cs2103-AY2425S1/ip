@@ -4,9 +4,9 @@ package bob;
  * Represents a command to delete a task from the task list by its index.
  * This command removes a specified task from the list.
  */
-public class DeleteCommand  extends Command {
+public class DeleteCommand extends Command {
     protected static String[] params = new String[] {
-            "delete"
+        "delete"
     };
     protected static int paramCount = 1;
     protected static String identifier = "delete";
@@ -36,8 +36,8 @@ public class DeleteCommand  extends Command {
         }
         Task deleted = tasks.delete(idx);
         Printer.prettyPrint(new String[] {"Noted. I've removed this task:",
-                deleted.toString(),
-                String.format("Now you have %d tasks in the list.", tasks.getSize())});
+            deleted.toString(),
+            String.format("Now you have %d tasks in the list.", tasks.getSize())});
     }
 
     /**

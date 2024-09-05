@@ -6,7 +6,7 @@ package bob;
  */
 public class ListCommand extends Command {
     protected static String[] params = new String[] {
-            "list"
+        "list"
     };
     protected static int paramCount = 0;
     protected static String identifier = "list";

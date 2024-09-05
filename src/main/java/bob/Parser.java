@@ -111,14 +111,14 @@ public class Parser {
 
         // detect if any parameters are missing
         for (int i = 0; i < splits.length; i++) {
-            if (indexes[i] < 0 || indexes[i+1] - indexes[i] <= 1) {
+            if (indexes[i] < 0 || indexes[i + 1] - indexes[i] <= 1) {
                 throw new MissingParamException(splits[i]);
             }
         }
 
         for (int i = 0; i < splits.length; i++) {
-            StringBuilder arg = new StringBuilder(input[indexes[i]+1]);
-            for (int j = indexes[i]+2; j < indexes[i+1]; j++) {
+            StringBuilder arg = new StringBuilder(input[indexes[i] + 1]);
+            for (int j = indexes[i] + 2; j < indexes[i + 1]; j++) {
                 arg.append(' ');
                 arg.append(input[j]);
             }
@@ -135,7 +135,7 @@ public class Parser {
     }
 
     private static int findIndex(String[] input, String target, int startIndex) {
-        for (int i = startIndex;  i < input.length; i++) {
+        for (int i = startIndex; i < input.length; i++) {
             if (input[i].equals(target)) {
                 return i;
             }

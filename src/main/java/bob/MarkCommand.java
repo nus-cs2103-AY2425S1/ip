@@ -4,9 +4,9 @@ package bob;
  * Represents a command to mark a specific task as done.
  * This command updates the status of the task in the task list to completed when run.
  */
-public class MarkCommand  extends Command {
+public class MarkCommand extends Command {
     protected static String[] params = new String[] {
-            "mark"
+        "mark"
     };
     protected static int paramCount = 1;
     protected static String identifier = "mark";
@@ -34,8 +34,8 @@ public class MarkCommand  extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.mark(idx);
         Printer.prettyPrint(new String[] {
-                "Nice! I've marked this task as done:",
-                tasks.describeTask(idx) });
+            "Nice! I've marked this task as done:",
+            tasks.describeTask(idx) });
     }
 
     /**

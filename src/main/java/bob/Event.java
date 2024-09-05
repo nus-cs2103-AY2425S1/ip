@@ -27,18 +27,18 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                String.format(" (from: %s to: %s)",
-                        this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
-                        this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        return "[E]" + super.toString()
+            + String.format(" (from: %s to: %s)",
+                this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Event temp) {
-            return super.equals(temp) &&
-                    this.fromDate == temp.fromDate &&
-                    this.toDate == temp.toDate;
+            return super.equals(temp)
+                    && this.fromDate == temp.fromDate
+                    && this.toDate == temp.toDate;
         }
         return false;
     }

@@ -32,7 +32,7 @@ public class TaskList {
             throw new TaskIndexException(String.valueOf(idx));
         }
 
-        this.tasklist.get(idx-1).complete();
+        this.tasklist.get(idx - 1).complete();
     }
 
     public void unmark(int idx) {
@@ -40,7 +40,7 @@ public class TaskList {
             throw new TaskIndexException(String.valueOf(idx));
         }
 
-        this.tasklist.get(idx-1).uncomplete();
+        this.tasklist.get(idx - 1).uncomplete();
     }
 
     public Task delete(int idx) {
@@ -48,8 +48,8 @@ public class TaskList {
             throw new TaskIndexException(String.valueOf(idx));
         }
 
-        Task deleted = this.tasklist.get(idx-1);
-        this.tasklist.remove(idx-1);
+        Task deleted = this.tasklist.get(idx - 1);
+        this.tasklist.remove(idx - 1);
         return deleted;
     }
 
@@ -62,7 +62,7 @@ public class TaskList {
             return "Error finding task!";
         }
 
-        return this.tasklist.get(idx-1).toString();
+        return this.tasklist.get(idx - 1).toString();
     }
 
     public String[] describeTasks() {

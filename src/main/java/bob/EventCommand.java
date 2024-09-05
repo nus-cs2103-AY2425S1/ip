@@ -4,11 +4,11 @@ package bob;
  * Represents a command to create an event task with a specified name, start date, and end date.
  * This command adds a new event task to the task list when run.
  */
-public class EventCommand  extends Command {
+public class EventCommand extends Command {
     protected static String[] params = new String[] {
-            "event",
-            "/from",
-            "/to"
+        "event",
+        "/from",
+        "/to"
     };
     protected static int paramCount = 3;
     protected static String identifier = "event";
@@ -41,8 +41,8 @@ public class EventCommand  extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Event event = tasks.event(this.name, this.from, this.to);
         Printer.prettyPrint(new String[] { "Got it. I've added this task:",
-                " " + event.toString(),
-                String.format("Now you have %d tasks in the list.", tasks.getSize()) });
+            " " + event.toString(),
+            String.format("Now you have %d tasks in the list.", tasks.getSize()) });
     }
 
     /**

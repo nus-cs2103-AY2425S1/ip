@@ -6,7 +6,7 @@ package bob;
  */
 public class FindCommand extends Command {
     protected static String[] params = new String[] {
-            "find"
+        "find"
     };
     protected static int paramCount = 1;
     protected static String identifier = "find";

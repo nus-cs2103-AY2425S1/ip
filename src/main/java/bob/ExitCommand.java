@@ -6,7 +6,7 @@ package bob;
  */
 class ExitCommand extends Command {
     protected static String[] params = new String[] {
-            "bye"
+        "bye"
     };
     protected static int paramCount = 0;
     protected static String identifier = "bye";

@@ -22,7 +22,7 @@ public class Bob {
         try {
             this.tasks = this.storage.loadFile();
         } catch (IllegalInputException e) {
-//            ui.showLoadingError();
+            //ui.showLoadingError();
             this.tasks = new TaskList();
         }
     }

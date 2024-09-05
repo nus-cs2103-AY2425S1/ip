@@ -4,9 +4,9 @@ package bob;
  * Represents a command to add a deadline task to the task list.
  * This command specifies a task with a name and a deadline date.
  */
-public class DeadlineCommand  extends Command {
+public class DeadlineCommand extends Command {
     protected static String[] params = new String[] {
-            "deadline", "/by"
+        "deadline", "/by"
     };
     protected static int paramCount = 2;
     protected static String identifier = "deadline";
@@ -36,8 +36,8 @@ public class DeadlineCommand  extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline deadline = tasks.deadline(this.name, this.by);
         Printer.prettyPrint(new String[] { "Got it. I've added this task:",
-                " " + deadline.toString(),
-                String.format("Now you have %d tasks in the list.", tasks.getSize()) });
+            " " + deadline.toString(),
+            String.format("Now you have %d tasks in the list.", tasks.getSize()) });
     }
 
     /**

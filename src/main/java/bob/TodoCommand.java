@@ -3,9 +3,9 @@ package bob;
 /**
  * This command creates a ToDo task with the specified name and adds it to the task list when run.
  */
-public class TodoCommand  extends Command {
+public class TodoCommand extends Command {
     protected static String[] params = new String[] {
-            "todo"
+        "todo"
     };
     protected static int paramCount = 1;
     protected static String identifier = "todo";
@@ -19,8 +19,8 @@ public class TodoCommand  extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ToDo todo = tasks.todo(name);
         Printer.prettyPrint(new String[] { "Got it. I've added this task:",
-                " " + todo.toString(),
-                String.format("Now you have %d tasks in the list.", tasks.getSize()) });
+            " " + todo.toString(),
+            String.format("Now you have %d tasks in the list.", tasks.getSize()) });
     }
 
     @Override

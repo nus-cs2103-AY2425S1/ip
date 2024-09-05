@@ -4,9 +4,9 @@ package bob;
  * Represents a command to unmark a specific task as not done.
  * This command updates the status of the task in the task list to incomplete when run.
  */
-public class UnmarkCommand  extends Command {
+public class UnmarkCommand extends Command {
     protected static String[] params = new String[] {
-            "unmark"
+        "unmark"
     };
     protected static int paramCount = 1;
     protected static String identifier = "unmark";
@@ -34,8 +34,8 @@ public class UnmarkCommand  extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.unmark(idx);
         Printer.prettyPrint(new String[] {
-                "OK, I've marked this task as not done yet:",
-                tasks.describeTask(idx) });
+            "OK, I've marked this task as not done yet:",
+            tasks.describeTask(idx) });
     }
 
     /**
