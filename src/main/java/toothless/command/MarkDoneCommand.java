@@ -13,6 +13,7 @@ public class MarkDoneCommand extends Command {
 
     /**
      * Constructor for MarkDoneCommand
+     *
      * @param description Description of the task to be marked as done.
      *                    Should be the index of the task.
      */
@@ -22,7 +23,7 @@ public class MarkDoneCommand extends Command {
 
     @Override
     public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
-        if(description.isEmpty()) {
+        if (description.isEmpty()) {
             throw new MissingIndexExceptions("mark", "mark <index>");
         }
         int markIndex = Integer.parseInt(description);

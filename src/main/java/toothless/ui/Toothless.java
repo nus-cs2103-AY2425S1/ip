@@ -36,7 +36,7 @@ public class Toothless {
 
         ui.welcome();
 
-        while(true) {
+        while (true) {
             System.out.println("You :");
             String userInput = ui.readCommand();
             Command command = Parser.getCommandType(userInput);
@@ -63,6 +63,7 @@ public class Toothless {
 
     /**
      * Main method for Toothless.
+     *
      * @param args Command line arguments.
      */
     public static void main(String[] args) {

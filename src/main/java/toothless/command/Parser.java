@@ -20,6 +20,7 @@ public class Parser {
 
     /**
      * Returns the CommandType based on the user input.
+     *
      * @param command the user input
      * @return the CommandType based on the user input
      */
@@ -27,7 +28,7 @@ public class Parser {
         CommandType commandType;
         String trimmedCommand = command.trim();
         String[] splitCommand = trimmedCommand.split(" ", 2);
-        String description = splitCommand.length < 2? "" : splitCommand[1];
+        String description = splitCommand.length < 2 ? "" : splitCommand[1];
 
         switch (splitCommand[0]) {
         case "todo":
@@ -60,11 +61,12 @@ public class Parser {
 
     /**
      * Returns the Command based on the CommandType and description.
+     *
      * @param commandType the CommandType
      * @param description the description
      * @return the Command based on the CommandType and description
      */
-    private static Command handleCommand (CommandType commandType, String description) {
+    private static Command handleCommand(CommandType commandType, String description) {
         switch (commandType) {
         case TODO:
             return new ToDoCommand(description);

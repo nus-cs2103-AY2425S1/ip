@@ -17,6 +17,7 @@ public class EventCommand extends Command {
 
     /**
      * Constructor for EventCommand.
+     *
      * @param description Description of the event task.
      *                    Should contain the description, start time and end time of the event.
      */
@@ -26,9 +27,9 @@ public class EventCommand extends Command {
 
     @Override
     public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
-        if(description.isEmpty()) {
+        if (description.isEmpty()) {
             throw new NoDescriptionExceptions("event", "event <description> /from <start time> /to <end time>");
-        } else if(!description.contains("/from") || !description.contains("/to")) {
+        } else if (!description.contains("/from") || !description.contains("/to")) {
             throw new NoTimelineExceptions("event", "event <description> /from <start time> /to <end time>");
         }
         String[] splitEvent = description.split("/from");

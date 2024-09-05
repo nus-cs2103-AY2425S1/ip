@@ -9,6 +9,7 @@ public class Task {
 
     /**
      * Constructor for Task.
+     *
      * @param description The description of the task.
      */
     public Task(String description) {
@@ -18,8 +19,9 @@ public class Task {
 
     /**
      * Constructor for Task.
+     *
      * @param description The description of the task.
-     * @param isDone The status of the task.
+     * @param isDone      The status of the task.
      */
     public Task(String description, boolean isDone) {
         this.description = description;
@@ -42,6 +44,7 @@ public class Task {
 
     /**
      * Returns the description of the task.
+     *
      * @return the description of the task.
      */
     public String getDescription() {
@@ -50,13 +53,16 @@ public class Task {
 
     /**
      * Return the state of the task.
+     *
      * @return the state of the task.
      */
     public boolean getIsDone() {
         return isDone;
     }
+
     /**
      * Returns the status icon of the task.
+     *
      * @return the status icon of the task.
      */
     public String getStatusIcon() {
@@ -65,6 +71,7 @@ public class Task {
 
     /**
      * Returns the string representation of the task.
+     *
      * @return the string representation of the task.
      */
     public String toFileString() {
@@ -73,6 +80,7 @@ public class Task {
 
     /**
      * Returns the description of the task.
+     *
      * @return the description of the task.
      */
     @Override

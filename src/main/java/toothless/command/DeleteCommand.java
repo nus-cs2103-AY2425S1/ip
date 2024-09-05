@@ -14,6 +14,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Constructor for DeleteCommand.
+     *
      * @param description Description of the task to be deleted.
      *                    Should be the index of the task.
      */
@@ -23,7 +24,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public void executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
-        if(description.isEmpty()) {
+        if (description.isEmpty()) {
             throw new MissingIndexExceptions("delete", "delete <index>");
         }
         int deleteIndex = Integer.parseInt(description);
