@@ -1,34 +1,40 @@
 package slave;
 
 import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * An object containing all the method
+ * Contains a reference to the taskList as well as the address of the save file
+ */
 public class Storage {
     private String filePath;
     private List<Task> list;
 
+    /**
+     * @param list     is the list of tasks which the user is editing
+     * @param filePath is the address of the text file to which any changes are saved to
+     */
     public Storage(List<Task> list, String filePath) {
         this.list = list;
         this.filePath = filePath;
     }
 
     /**
-     * converts the List<Task> to a string format and writes it to the savefile "./src/main/data/savefile.txt"
+     * converts the taskList to a string format and writes it to the savefile
      * every line contains only 1 task
      * string format is as per the return value of toString() method of the respective task
-     * creates a new file at "./src/main/data" called "savefile.txt" in the event of a missing save file
+     * creates a new file at the specified address called "savefile.txt" in the event of a missing save file
      */
     public void save() {
         try {
@@ -40,7 +46,6 @@ public class Storage {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             writer.write(sb.toString());
             writer.close();
-//            System.out.println("saved");
         } catch (IOException ioe) {
             System.out.println("Save failed");
             System.out.println(ioe.getMessage());

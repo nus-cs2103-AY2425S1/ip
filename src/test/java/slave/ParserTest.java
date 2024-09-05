@@ -1,10 +1,10 @@
 package slave;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 import java.util.LinkedList;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
@@ -39,7 +39,7 @@ public class ParserTest {
     }
 
     @Test
-    public void WrongInputFormatAddToListTest() {
+    public void addWrongInputFormatToListTest() {
         LinkedList<Task> list = new LinkedList<>();
         list.add(new Todo("fly"));
         list.add(new Deadline("eat", LocalDate.parse("2022-02-02")));

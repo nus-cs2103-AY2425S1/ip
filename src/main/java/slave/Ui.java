@@ -2,6 +2,10 @@ package slave;
 
 import java.util.List;
 
+/**
+ * Ui object contains the name which slave uses to address the user by
+ * and a parser object. It contains the method to run the program
+ */
 public class Ui {
     private String user = "slave driver";
     private Parser parser;
@@ -22,8 +26,7 @@ public class Ui {
         Parser.pageBreakLine();
         // @@author ASCII Figlet Generator -reused
         // logo sourced from: https://www.askapache.com/online-tools/figlet-ascii/
-        String logo
-                = "_______        _______ _    _ _______\n"
+        String logo = "_______        _______ _    _ _______\n"
                 + "|______ |      |_____|  \\  /  |______\n"
                 + "______| |_____ |     |   \\/   |______\n";
         //@@author
