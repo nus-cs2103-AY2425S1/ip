@@ -18,8 +18,18 @@ import spike.exceptions.SpikeException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a parser that parses user input and returns the corresponding command.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param command User input.
+     * @return Corresponding command.
+     * @throws SpikeException If the user input is invalid.
+     */
     public static Command parse(String command) throws SpikeException {
         try {
             String[] inputSplit = command.split(" ", 2);
@@ -80,13 +90,13 @@ public class Parser {
         }
     }
 
-    public static void checkDescription (String[] inputArray, String inputType) throws SpikeException {
+    private static void checkDescription (String[] inputArray, String inputType) throws SpikeException {
         if ((inputArray.length == 1) || (inputArray[1].isEmpty())) {
             throw new SpikeException("The description of a " + inputType + " cannot be empty.");
         }
     }
 
-    public static Command markTask(String input) throws SpikeException {
+    private static Command markTask(String input) throws SpikeException {
         try {
             int index = Integer.parseInt(input) - 1;
             return new MarkCommand(index);
@@ -95,7 +105,7 @@ public class Parser {
         }
     }
 
-    public static Command unmarkTask(String input) throws SpikeException {
+    private static Command unmarkTask(String input) throws SpikeException {
         try {
             int index = Integer.parseInt(input) - 1;
             return new UnmarkCommand(index);
@@ -104,7 +114,7 @@ public class Parser {
         }
     }
 
-    public static Command deleteTask(String input) throws SpikeException {
+    private static Command deleteTask(String input) throws SpikeException {
         try {
             int index = Integer.parseInt(input) - 1;
             return new DeleteTaskCommand(index);
@@ -113,12 +123,12 @@ public class Parser {
         }
     }
 
-    public static Command addToDo(String input) throws SpikeException {
+    private static Command addToDo(String input) throws SpikeException {
         ToDo toDo = new ToDo(input);
         return new AddTaskCommand(toDo);
     }
 
-    public static Command addEvent(String input) throws SpikeException {
+    private static Command addEvent(String input) throws SpikeException {
         String[] parts = input.split(" /from | /to ");
 
         if (parts.length != 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
@@ -145,7 +155,7 @@ public class Parser {
         }
     }
 
-    public static Command addDeadline(String input) throws SpikeException {
+    private static Command addDeadline(String input) throws SpikeException {
         String[] split = input.split(" /by ", 2);
 
         if (split.length != 2 || split[0].trim().isEmpty() || split[1].trim().isEmpty()) {

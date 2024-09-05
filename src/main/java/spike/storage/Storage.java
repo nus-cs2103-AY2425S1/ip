@@ -13,15 +13,30 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Represents a storage object that handles reading and writing to a file.
+ */
 public class Storage {
     private String filePath;
     private File file;
 
+    /**
+     * Constructor for a storage object.
+     * Creates a new file if it does not exist.
+     *
+     * @param filePath The file path to read and write tasks to.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.file = new File(this.filePath);
     }
 
+    /**
+     * Writes the tasks to the file.
+     *
+     * @param tasks The list of tasks to write to the file.
+     * @throws SpikeException If an error occurs while writing to the file.
+     */
     public void writeToFile(TaskList tasks) throws SpikeException {
         try {
             FileWriter writer = new FileWriter(file);
@@ -34,6 +49,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file and returns them as an ArrayList.
+     * Creates a new file and returns an empty ArrayList if the file does not exist.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws SpikeException If an error occurs while reading from the file.
+     */
     public ArrayList<Task> loadFromFile() throws SpikeException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         try {
@@ -77,6 +99,11 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Clears the file.
+     *
+     * @throws SpikeException If an error occurs while clearing the file.
+     */
     public void clearFile() throws SpikeException {
         try {
             FileWriter writer = new FileWriter(this.file, false);
