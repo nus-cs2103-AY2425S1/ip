@@ -50,7 +50,8 @@ public class Storage {
                     }
                 } else if (input.startsWith("D")) {
                     String name = input.substring(8, input.lastIndexOf(" |"));
-                    LocalDateTime from = LocalDateTime.parse(input.substring(input.lastIndexOf(" |") + 3),
+                    LocalDateTime from = LocalDateTime.parse(input.substring
+                                    (input.lastIndexOf(" |") + 3),
                             DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
                     list.add(new Deadline(name, from));
                     if (input.substring(4).startsWith("1")) {
@@ -58,9 +59,11 @@ public class Storage {
                     }
                 } else {
                     String name = input.substring(8, input.lastIndexOf(" |"));
-                    LocalDateTime from = LocalDateTime.parse(input.substring(input.lastIndexOf(" |") + 3,
-                            input.lastIndexOf(" to")), DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-                    LocalDateTime to = LocalDateTime.parse(input.substring(input.lastIndexOf(" to") + 4),
+                    LocalDateTime from = LocalDateTime.parse(input.substring
+                            (input.lastIndexOf(" |") + 3, input.lastIndexOf(" to")),
+                            DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+                    LocalDateTime to = LocalDateTime.parse(input.substring
+                                    (input.lastIndexOf(" to") + 4),
                             DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
                     list.add(new Event(name, from, to));
                     if (input.substring(4).startsWith("1")) {
@@ -85,7 +88,7 @@ public class Storage {
      * Saves task list to the file
      * @param list list to be saved
      */
-    public void saveList(TaskList list){
+    public void saveList(TaskList list) {
         try {
             FileWriter fw = new FileWriter(filePath);
             for (Task t : list.getList()) {

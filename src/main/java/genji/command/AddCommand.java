@@ -8,7 +8,7 @@ import genji.Storage;
 /**
  * A class that deals with adding command
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private Task task;
 
     /**

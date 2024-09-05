@@ -56,7 +56,7 @@ public class ParserTest {
      * @throws GenjiException Not expected to be thrown
      */
     @Test
-    public void testAddDeadline() throws GenjiException{
+    public void testAddDeadline() throws GenjiException {
         TaskList t = new TaskList();
         Ui u = new Ui();
         Storage s = new Storage("./data/Genji.txt");
@@ -71,7 +71,7 @@ public class ParserTest {
      * @throws GenjiException Not expected to be thrown
      */
     @Test
-    public void testDeleteCommand() throws GenjiException{
+    public void testDeleteCommand() throws GenjiException {
         TaskList t = new TaskList();
         Ui u = new Ui();
         Storage s = new Storage("./data/Genji.txt");

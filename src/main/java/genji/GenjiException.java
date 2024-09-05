@@ -3,7 +3,7 @@ package genji;
 /**
  * A Exception class that handle errors related to the program
  */
-public class GenjiException extends Exception{
+public class GenjiException extends Exception {
 
     /**
      * Constructor of GenjiException

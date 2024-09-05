@@ -7,7 +7,7 @@ import genji.Storage;
 /**
  * A class that deals with acquiring task on specific day command
  */
-public class DateCommand extends Command{
+public class DateCommand extends Command {
     private String date;
 
     /**

@@ -9,7 +9,7 @@ import genji.Storage;
 /**
  * A class that deals with deleting command
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private int index;
 
     /**

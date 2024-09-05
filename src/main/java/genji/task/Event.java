@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * A class that deals with event tasks
  */
-public class Event extends Task{
+public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 

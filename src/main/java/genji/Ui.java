@@ -22,7 +22,7 @@ public class Ui {
     /**
      * Prints the welcome message
      */
-    public void welcome() {
+    public void printWelcome() {
         showLine();
         System.out.println("Hello! I'm Genji\nWhat can I do for you?  O.o?");
         showLine();
@@ -75,10 +75,9 @@ public class Ui {
         System.out.println("Now you have " + list.size() + " tasks in the list");
     }
 
-
     /**
      * Prints tasks that match the description
-     * @param list Task list to be searched
+     * @param list Task list to be printed
      */
     public void find(TaskList list) {
         if (list.size() == 0){

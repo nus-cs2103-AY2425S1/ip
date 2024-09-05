@@ -3,7 +3,7 @@ package genji.task;
 /**
  * A class that deals with todo tasks
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     public ToDo(String name) {
         super(name);
     }

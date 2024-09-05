@@ -28,7 +28,7 @@ public class Genji {
      * Receives user's commands and executes
      */
     public void run() {
-        ui.welcome();
+        ui.printWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {

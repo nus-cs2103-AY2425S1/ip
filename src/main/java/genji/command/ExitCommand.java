@@ -7,7 +7,7 @@ import genji.Storage;
 /**
  * A class that deals with exit command
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
 
     /**
      * Calling the bye method in Ui class

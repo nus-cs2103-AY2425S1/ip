@@ -8,7 +8,7 @@ import genji.Storage;
 /**
  * A class that deals with unmarking command
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     int index;
 
     /**

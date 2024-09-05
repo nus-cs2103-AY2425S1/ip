@@ -1,6 +1,14 @@
 package genji;
 
-import genji.command.*;
+import genji.command.Command;
+import genji.command.AddCommand;
+import genji.command.DateCommand;
+import genji.command.DeleteCommand;
+import genji.command.ExitCommand;
+import genji.command.FindCommand;
+import genji.command.ListCommand;
+import genji.command.MarkCommand;
+import genji.command.UnmarkCommand;
 import genji.task.ToDo;
 import genji.task.Deadline;
 import genji.task.Event;
@@ -19,7 +27,7 @@ public class Parser {
      * @return The corresponding command according to user's input
      * @throws GenjiException When user's command is invalid
      */
-    public static Command parse(String command) throws GenjiException{
+    public static Command parse(String command) throws GenjiException {
         if (command.equals("bye")) {
             return new ExitCommand();
         } else if (command.equals("list")) {

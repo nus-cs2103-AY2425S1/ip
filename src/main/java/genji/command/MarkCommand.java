@@ -8,7 +8,7 @@ import genji.Storage;
 /**
  * A class that deals with marking command
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     int index;
 
     /**

@@ -7,7 +7,7 @@ import genji.Storage;
 /**
  * A class that deals with displaying task list command
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * Calling the showList method in task list class
