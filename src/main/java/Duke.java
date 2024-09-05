@@ -1,5 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File; 
+import java.io.FileWriter; 
+import java.io.FileReader; 
+import java.io.BufferedReader;
+import java.io.IOException; 
 
 
 public class Duke {
@@ -218,11 +223,127 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
+    /*
+        file format:
+            - TODO/DEADLINE/EVENT|MARKED?|description|Deadline1|Deadline2|
+    */
+
+    public static String datafile = "data.txt";
+
+    public static void save() {
+        try {
+            File myObj = new File(datafile);
+            myObj.createNewFile();
+
+            FileWriter fw = new FileWriter(datafile);
+
+            int tasksLen = tasks.size();
+            
+            for(int i=0; i<tasksLen; ++i) {
+                Task task = tasks.get(i);
+                String toWrite = "";
+                if (task.type == TODO) {
+                    toWrite += "T|";
+                } else if (task.type == DEADLINE) {
+                    toWrite += "D|";
+                } else if (task.type == EVENT) {
+                    toWrite += "E|";
+                }
+
+                if(task.marked) {
+                    toWrite += "1|";
+                } else {
+                    toWrite += "0|";
+                }
+
+                toWrite += task.name;
+                toWrite += "|";
+
+                if(task.type == TODO) {
+                    toWrite += "||";
+                }
+
+                if(task.type == DEADLINE) {
+                    toWrite += task.deadline + "||";
+                }
+
+                if(task.type == EVENT) {
+                    toWrite += task.eventTimings[0] + "|" + task.eventTimings[1] + "|";
+                }
+
+                toWrite += '\n';
+
+                fw.write(toWrite);
+            }
+
+            fw.close();
+
+        } catch (IOException e) {
+
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+
+        };
+    }
+
+    public static void load() {
+        try {
+
+            File myObj = new File(datafile);
+            myObj.createNewFile();
+
+            FileReader fr = new FileReader(datafile);
+
+            BufferedReader br = new BufferedReader(fr);
+
+            String strLine;
+
+
+            while((strLine = br.readLine()) != null) {
+                int ptr = 0;
+                int len = strLine.length();
+                String taskType = "" + strLine.charAt(ptr);
+                ptr += 2;
+                String isMarked = "" + strLine.charAt(ptr);
+                ptr += 2;
+                String taskDescription = getCommand(strLine, ptr, '|');
+                ptr += taskDescription.length() + 1;
+                String deadline1 = getCommand(strLine, ptr, '|');
+                ptr += deadline1.length() + 1;
+                String deadline2 = getCommand(strLine, ptr, '|');
+                ptr += deadline2.length() + 1;
+
+                Task task;
+
+                if(taskType.equals("T")) {
+                    task = new Task(taskDescription, TODO);
+                } else if (taskType.equals("D")) {
+                    task = new Task(taskDescription, DEADLINE, deadline1);
+                } else {
+                    String[] eventTimings = new String[] {deadline1, deadline2};
+                    task = new Task(taskDescription, EVENT, eventTimings);
+                }
+
+                if(isMarked.equals("1")) {
+                    task.mark();
+                }
+
+                tasks.add(task);
+            }
+
+        } catch (IOException e) {
+
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+
+        };
+    }
+
     public static void main(String[] args) {
 
         String exitCommand = "bye";
         String listCommand = "list";
-
+        load();
         Scanner inputReader = new Scanner(System.in);
 
         printOpening();
@@ -235,6 +356,7 @@ public class Duke {
             if(command.equals(exitCommand)) {
 
                 printClosing();
+                save();
                 break;
 
             } else if(command.equals("list")) {
@@ -251,6 +373,7 @@ public class Duke {
                 }
 
                 markTask(rankToMark);
+                save();
 
             } else if(command.equals("unmark")) {
 
@@ -262,7 +385,7 @@ public class Duke {
                 }
 
                 unmarkTask(rankToUnmark);
-
+                save();
             } else if(command.equals("todo")) {
 
                 if(input.length() == 4) {
@@ -276,7 +399,7 @@ public class Duke {
                     break;
                 }
                 addTask(new Task(taskName, TODO));
-
+                save();
             } else if(command.equals("deadline")) {
 
                 if(input.length() <= 9) {
@@ -306,7 +429,7 @@ public class Duke {
                 taskName = taskName.substring(0, taskName.length() - 1);
 
                 addTask(new Task(taskName, DEADLINE, deadline));
-
+                save();
             } else if(command.equals("event")) {
 
                 if(input.length() <= 5) {
@@ -352,7 +475,7 @@ public class Duke {
 
 
                 addTask(new Task(taskName, EVENT, eventTimings));
-
+                save();
             } else if(command.equals("delete")) {
                 if(input.length() <= 7) {
                     printError("Error: You need to specify which task to delete. Terminating program.");
@@ -367,7 +490,7 @@ public class Duke {
                 }
 
                 deleteTask(rankToDelete);
-
+                save();
             } else {
 
                 System.out.println("Error: Invalid input, terminating program.");
