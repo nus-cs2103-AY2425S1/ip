@@ -30,6 +30,7 @@ public class RizzlerSpeech extends Speech {
 
     /**
      * Initialises <code>Map</code> of responses for the <code>RizzlerSpeech</code> object.
+     * {@code @Deprecated}
      */
     private static void initResponses() {
         RESPONSES.put("list", new String[]{"these are the things we gotta do:"});
@@ -46,7 +47,7 @@ public class RizzlerSpeech extends Speech {
      * @param newPrefix New prefix to replace the old prefix.
      */
     public void changePrefix(String newPrefix) {
-        this.prefix = newPrefix;
+        prefix = newPrefix;
     }
 
     /**
@@ -55,7 +56,7 @@ public class RizzlerSpeech extends Speech {
      */
     @Override
     public void say(String text) {
-        super.say(this.prefix + text);
+        super.say(prefix + text);
     }
 
     /**
@@ -63,16 +64,21 @@ public class RizzlerSpeech extends Speech {
      * @param textArr Array of <code>String</code> objects to be printed as output.
      */
     public void say(String[] textArr) {
-        for (String text : textArr) {
-            this.say(text);
+        if (textArr.length == 0) {
+            return;
         }
+        say();
+        for (String text : textArr) {
+            say(text);
+        }
+        say();
     }
 
     /**
      * Prints out the linebreak string with a prefix pre-pended.
      */
     public void say() {
-        System.out.print(this.prefix);
+        System.out.print(prefix);
         super.lineBreak();
     }
 }

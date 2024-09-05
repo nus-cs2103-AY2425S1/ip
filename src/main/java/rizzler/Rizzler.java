@@ -18,18 +18,18 @@ public class Rizzler {
         TaskLog taskLog = storage.getTasks();
 
         // greet user
-        new GreetCommand().execute(rizzlerSpeech, storage, taskLog);
+        rizzlerSpeech.say(new GreetCommand().execute(storage, taskLog));
 
         // interact with user
         boolean userIsDone = false;
         while (!userIsDone) {
             Command userCommand = parser.processInput();
-            userCommand.execute(rizzlerSpeech, storage, taskLog);
+            rizzlerSpeech.say(userCommand.execute(storage, taskLog));
             userIsDone = userCommand.shouldEnd();
         }
 
         // say bye to the user
-        new ByeCommand().execute(rizzlerSpeech, storage, taskLog);
+        rizzlerSpeech.say(new ByeCommand().execute(storage, taskLog));
         parser.close();
     }
 }

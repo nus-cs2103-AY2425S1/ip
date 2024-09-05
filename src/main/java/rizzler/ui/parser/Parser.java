@@ -13,7 +13,6 @@ import rizzler.command.TodoCommand;
 import rizzler.command.UnmarkCommand;
 
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -21,12 +20,10 @@ import java.util.Scanner;
  * Takes in user input and processes it into the appropriate command type
  */
 public class Parser {
-    private final ArrayList<String> inputLog;     // keeps track of all user inputs for future use
     private final Scanner scanner;
 
 
     public Parser() {
-        inputLog = new ArrayList<>();
         scanner = new Scanner(System.in);
     }
 
@@ -37,13 +34,11 @@ public class Parser {
 
     private String readInput() {
         String userInput = scanner.nextLine();
-        inputLog.add(userInput);
         return userInput;
     }
 
-    private Command parseInput(String userInput) {
+    protected Command parseInput(String userInput) {
         String[] userInputArr = userInput.split(" ");
-        int inputLen = userInputArr.length;
         Command outputCommand;
         switch (userInputArr[0].trim().toLowerCase()) {
         case "bye":

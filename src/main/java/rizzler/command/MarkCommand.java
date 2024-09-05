@@ -4,7 +4,6 @@ import rizzler.Storage;
 import rizzler.task.Task;
 import rizzler.task.TaskLog;
 import rizzler.ui.RizzlerException;
-import rizzler.ui.RizzlerSpeech;
 
 public class MarkCommand extends Command {
     private final int taskToMark;
@@ -15,17 +14,14 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(RizzlerSpeech speech, Storage storage, TaskLog taskLog) {
-        speech.say();
+    public String[] execute(Storage storage, TaskLog taskLog) {
         try {
             Task markedTask = taskLog.doTask(taskToMark);
             storage.storeTasks(taskLog);
-            speech.say("aight, i'll note that you've completed this.");
-            speech.say("\t" + markedTask);
-            speech.say();
+            return new String[] {"aight, i'll note that you've completed this.",
+                    "\t" + markedTask};
         } catch (RizzlerException e) {
-            speech.say(e.getMessage());
-            speech.say();
+            return new String[] {e.getMessage()};
         }
     }
 }
