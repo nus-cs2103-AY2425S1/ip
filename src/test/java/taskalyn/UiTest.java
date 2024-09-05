@@ -49,8 +49,9 @@ public class UiTest {
     public void readCommand_todoCommand_scannedCorrectly() {
         String input = "todo eat";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
         Ui ui = new Ui();
-        System.out.flush();
         String command = ui.readCommand();
         assertEquals("todo eat", command);
     }
@@ -62,8 +63,9 @@ public class UiTest {
     public void readCommand_todoCommand_ignoredCorrectly() {
         String input = " todo eat";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
         Ui ui = new Ui();
-        System.out.flush();
         String command = ui.readCommand();
         assertEquals("todo eat", command);
     }
