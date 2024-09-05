@@ -179,7 +179,7 @@ public abstract class Command {
          */
         @Override
         public String execute(TaskList tasks, Storage storage) {
-            return "Bye. Hope to see you again soon!\n";
+            return " Bye. Hope to see you again soon!\n";
         }
 
     }

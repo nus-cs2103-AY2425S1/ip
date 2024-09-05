@@ -17,16 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            fxmlLoader.setRoot(new MainWindow());
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
-            stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setNah(nah);  // inject the Duke instance
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        MainWindow mainWindow = new MainWindow(nah);
+        mainWindow.setStage(stage);
     }
 }

@@ -10,9 +10,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -33,8 +36,22 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
+
+        // customize border
+        Circle border = new Circle(50, 50, 45);
+        border.setStroke(Color.LIGHTBLUE);
+        border.setStrokeWidth(10);
+        displayPicture.setClip(border);
+
+        /* customize effect
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setRadius(5);
+        dropShadow.setOffsetX(3);
+        dropShadow.setOffsetY(3);
+        dropShadow.setColor(Color.GRAY);
+        displayPicture.setEffect(dropShadow);
+        */
         displayPicture.setImage(img);
     }
 
@@ -52,7 +69,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getNahDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

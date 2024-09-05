@@ -1,3 +1,0 @@
-T | 0 | nothing
-T | 0 | sleep
-D | 0 | homework | Oct 10 2025, 6:00 PM
