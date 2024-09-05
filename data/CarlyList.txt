@@ -1,2 +1,7 @@
-T | 0 | ngf
-T | 0 | book
+T | 0 | homework
+D | 0 | go for jogging | Sep 10 2024
+T | 1 | cook
+T | 0 | read
+E | 0 | conference at NY | sept 8 to sept 10
+D | 0 | play | Sep 09 1999
+D | 0 | play | Aug 01 1999

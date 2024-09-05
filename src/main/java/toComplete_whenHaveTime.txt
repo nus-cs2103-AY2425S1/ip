@@ -1,12 +1,8 @@
-- scan.hasNextLine() causes each entry to come with an "enter". So not applicable to "bye"
+To complete:
 - Already mark items shouldn’t be marked again. Give warning message.
 - check for duplicate items
-- implement setters and getters
-- enum for tasktype
-- public, private etc settings
+- exceptions: event /from /to (empty description)
 
-exceptions:
-- event /from /to (empty description)
 
 /*String logo = " ,-----.              ,--.          \n"
                 + "'  .--./,--,--.,--.--.|  |,--. ,--. \n"
@@ -25,5 +21,16 @@ gradle tools:
 ./gradlew clean shadowJar
 ./gradlew clean build
 
+
 shortcut:
 - double click on code -> softwrap
+
+
+public static void main(String[] args) {
+    Carly carly = new Carly();
+    try {
+        carly.chat();
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+    }
+}

@@ -16,11 +16,11 @@ public class Storage {
 
     public Storage(String filepath) {
         this.filepath = filepath;
-        LoadFile();
+        loadFile();
     }
 
     /** Ensures that the necessary directories and file are created. */
-    private void LoadFile() {
+    private void loadFile() {
         File file = new File(this.filepath);
         File directory = file.getParentFile();
 
