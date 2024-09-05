@@ -83,14 +83,17 @@ public class TaskList {
     /**
      * Filters the list of tasks for tasks with description matching the query
      *
-     * @param query The user query to be used as a filter
+     * @param queries The user queries to be used as a filter
      * @return The tasks that have description that includes the query
      */
-    public ArrayList<Task> findTasks(String query) {
+    public ArrayList<Task> findTasks(String ... queries) {
         ArrayList<Task> filteredTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.includes(query)) {
-                filteredTasks.add(task);
+            for (String query : queries) {
+                if (task.includes(query)) {
+                    filteredTasks.add(task);
+                    break;
+                }
             }
         }
         return filteredTasks;

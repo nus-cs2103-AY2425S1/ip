@@ -22,7 +22,7 @@ public class CommandFind extends Command {
 
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
-        ArrayList<Task> filteredTasks = taskList.findTasks(this.query);
+        ArrayList<Task> filteredTasks = taskList.findTasks(this.query.split(" "));
         return ui.findTasks(filteredTasks);
     }
 
