@@ -31,7 +31,7 @@ public class MainWindow {
 
     public void setFishman(Fishman fishman) {
         this.fishman = fishman;
-        String errorMessage = fishman.loadTasks();
+        String errorMessage = fishman.loadAndSaveTasks("load");
         if (errorMessage !=null) {
             showLoadErrors(errorMessage);
         }

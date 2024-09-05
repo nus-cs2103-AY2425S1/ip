@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import fishman.exception.FishmanException;
@@ -19,7 +18,7 @@ import fishman.task.Event;
 import fishman.task.Task;
 import fishman.task.TaskList;
 import fishman.task.ToDo;
-import javafx.util.Pair;
+
 
 
 /**
@@ -60,19 +59,28 @@ public class Storage {
      * Saves the list of tasks to the save file as specified by the filepath. The tasks are converted to
      * CSV string format before being written to the file.
      *
-     * @param tasks The list of tasks to be written to the save file.
+     * @param validTasks The list of tasks to be written to the save file.
      * @throws RuntimeException If an error occurs while writing to the file.
      */
-    public void save(TaskList tasks) {
+    public void save(TaskList validTasks, List<String> allFileLines) {
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
-            for (Task task : tasks) {
-                writer.write(toCsv(task));
-                writer.newLine();
+            if (errorMessages.isEmpty()) {
+                for (Task task : validTasks) {
+                    writer.write(toCsv(task));
+                    writer.newLine();
+                }
+            } else {
+                for (String line : allFileLines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException("Error saving tasks to file: " + e.getMessage(), e);
         }
     }
+
+
 
     /**
      * Converts a Task object to a CSV string representation, with "|" as the delimiter.
@@ -100,15 +108,14 @@ public class Storage {
      * corresponding Task object.
      *
      * @return A TaskList object containing all the loaded tasks.
-     * @throws FishmanException.InvalidArgumentsException If the file contains lines with invalid arguments.
-     * @throws RuntimeException If an error occurs while reading the file.
      */
-    public Pair<TaskList, String> load() throws FishmanException {
+    public LoadResults load() {
         TaskList tasks = new TaskList();
         errorMessages.clear();
-
+        List<String> allLines;
         try {
             List<String> lines = Files.readAllLines(filePath);
+            allLines = lines.stream().toList();
             for (String line : lines) {
                 try {
                     String[] arguments = line.split("\\|", -1);
@@ -168,9 +175,9 @@ public class Storage {
         }
 
         String combinedErrorMessage = errorMessages.isEmpty() ? null :
-                String.join("\n", errorMessages) + "\nInvalid data lines will be deleted on exit. Please re-enter the tasks in the correct format!";
+                String.join("\n", errorMessages) + "\nInvalid data lines will be skipped. Please check the data file!";
 
-        return new Pair<>(tasks, combinedErrorMessage);
+        return new LoadResults(tasks, allLines, combinedErrorMessage);
     }
 
     /**
@@ -188,6 +195,33 @@ public class Storage {
             return LocalDateTime.parse(dateTimeStr, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_DATE_FORMAT, line);
+        }
+    }
+
+
+    /**
+     *
+     */
+    public static class LoadResults {
+        private final TaskList validTasks;
+        private final String errorMessage;
+        private final List<String> allFileLines;
+
+        public LoadResults(TaskList validTasks, List<String> allFileLines, String errorMessage) {
+            this.validTasks = validTasks;
+            this.allFileLines = allFileLines;
+            this.errorMessage = errorMessage;
+        }
+
+        public TaskList getValidTasks() {
+            return validTasks;
+        }
+
+        public List<String> getAllTasksLines() {
+            return allFileLines;
+        }
+        public String getErrorMessage() {
+            return errorMessage;
         }
     }
 }

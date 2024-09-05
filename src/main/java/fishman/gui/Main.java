@@ -32,10 +32,6 @@ public class Main extends Application{
 
     @Override
     public void stop() {
-        try {
-            fishman.saveTasks();
-        } catch (FishmanException e) {
-            System.out.println(e.getMessage());
-        }
+        fishman.loadAndSaveTasks("save");
     }
 }

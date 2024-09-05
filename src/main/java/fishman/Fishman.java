@@ -7,9 +7,9 @@ import fishman.utils.Parser;
 import fishman.utils.Storage;
 import fishman.utils.Ui;
 import javafx.application.Platform;
-import javafx.util.Pair;
 
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+
 
 /**
  * The main class for the Fishman bot.
@@ -28,7 +28,6 @@ public class Fishman {
         try {
             Command command = Parser.parse(input, tasks);
             if (command.isExit()) {
-                saveTasks();
                 Platform.exit();
             }
             return command.execute(tasks, ui);
@@ -37,23 +36,30 @@ public class Fishman {
         }
     }
 
-    public String loadTasks() {
+    public String loadAndSaveTasks(String action) {
         try {
-            Pair<TaskList, String> loadResult = storage.load();
-            tasks = loadResult.getKey();
-            return loadResult.getValue();
+            Storage.LoadResults output = storage.load();
+            String errorMessage = output.getErrorMessage();
+            switch (action) {
+            case "load":
+                tasks = output.getValidTasks();
+                return errorMessage;
+
+            case "save":
+                if (errorMessage == null || errorMessage.isEmpty()) {
+                    storage.save(tasks, new ArrayList<>());
+                    return "successfully saved file.";
+                } else {
+                    storage.save(tasks, output.getAllTasksLines());
+                    return "successfully saved file with corrupt lines";
+                }
+            default:
+                return "Invalid action specified.";
+            }
+
         } catch (Exception e) {
             return "An unexpected error has occurred: " + e.getMessage();
         }
-    }
-
-    public void saveTasks() throws FishmanException {
-        try {
-            storage.save(tasks);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
     }
 
 }

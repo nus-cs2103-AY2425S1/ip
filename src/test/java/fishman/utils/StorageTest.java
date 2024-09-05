@@ -20,6 +20,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 
 class StorageTest {
@@ -57,8 +58,8 @@ class StorageTest {
         commandDeadline.execute(tasks, ui);
         Command command = Parser.parse("event Sample Event Task /from 2024-09-01 1400 /to 2024-09-01 1600", tasks);
         command.execute(tasks, ui);
-        storage.save(tasks);
-        TaskList loadedTasks = storage.load();
+        storage.save(tasks,new ArrayList<>());
+        TaskList loadedTasks = storage.load().getValidTasks();
         TaskList originalTasks = tasks;
         assertEquals(originalTasks.size(), loadedTasks.size());
         for (int i = 0; i < originalTasks.size(); i++) {

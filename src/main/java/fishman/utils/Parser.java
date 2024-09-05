@@ -66,12 +66,12 @@ public class Parser {
             case "bye":
                 return new ExitCommand();
             case "list":
-                if (tasks.size() == 0) {
+                if (tasks.isEmpty()) {
                     throw new FishmanException.EmptyListException();
                 }
                 return new ListCommand();
             case "mark":
-                if (tasks.size() == 0) {
+                if (tasks.isEmpty()) {
                     throw new FishmanException.EmptyListException();
                 }
                 int markIndex = Integer.parseInt(inputs[1]) - 1;
