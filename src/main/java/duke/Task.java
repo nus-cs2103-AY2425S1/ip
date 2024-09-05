@@ -4,6 +4,12 @@ public class Task {
     protected String name;
     protected boolean isDone;
 
+    /**
+     * Initialises the Task object as the constructor.
+     *
+     * @param name The description of the Task.
+     *
+     */
     public Task(String name) {
         setName(name);
         setDone(false);
@@ -18,6 +24,7 @@ public class Task {
         this.name = name;
     }
 
+
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
@@ -26,6 +33,9 @@ public class Task {
         return "";
     }
 
+    /**
+     * Overrides the existing toString() method in the Task class to fit the required display requirement for Task objects.
+     */
     @Override
     public String toString() {
         String res = "[";

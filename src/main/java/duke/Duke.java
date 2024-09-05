@@ -2,6 +2,7 @@ package duke;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
@@ -14,6 +15,13 @@ public class Duke {
 //    private static void addItem(String inp) {
 //        userInputs.add(new duke.Task(inp));
 //    }
+
+    /**
+     * Constructor for the main Duke class which handles the overall functionality of task managing program.
+     *
+     * @param filePath Stores the file path to the {@link .txt} file storing the tasks
+     *
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +33,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Parameterless function that handles the various objects for storing, manipulating and displaying the data on the terminal.
+     *
+     */
     public void run() {
         // Tesla calls storage to pass the stored stuff to task list
         // UI greets and then prompts user for response and returns the user's response to the program. duke.Parser works through it
