@@ -2,7 +2,6 @@ package atlas.commands;
 
 import atlas.storage.Storage;
 import atlas.tasks.TaskList;
-import atlas.ui.Ui;
 
 /**
  * Exits the chatbot when this class is instantiated.
@@ -10,12 +9,13 @@ import atlas.ui.Ui;
 public class ExitCommand extends Command {
     /**
      * @param tasks The current list of tasks in the chatbot.
-     * @param ui The current ui object the chatbot uses to display messages
      * @param storage The storage object the chatbot uses to store and load tasks
+     *
+     * @return String The message returned to be displayed on the chatbot GUI.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         super.setIsExit();
-        ui.exit();
+        return "Bye. Hope to see you again soon!";
     }
 }

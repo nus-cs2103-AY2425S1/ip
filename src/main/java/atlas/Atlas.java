@@ -5,13 +5,12 @@ import atlas.exceptions.AtlasException;
 import atlas.parser.Parser;
 import atlas.storage.Storage;
 import atlas.tasks.TaskList;
-import atlas.ui.Ui;
+import atlas.ui.DialogBox;
 
 /**
  * Represents the Atlas chatbot containing the methods to instantiate it and run it.
  */
 public class Atlas {
-    private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
 
@@ -24,12 +23,10 @@ public class Atlas {
      */
     public Atlas(String filepath) {
         this.storage = new Storage(filepath);
-        this.ui = new Ui();
-
         try {
             this.tasks = new TaskList(this.storage.load());
         } catch (AtlasException e) {
-            this.ui.showErrorMessage(e.getMessage());
+//            this.ui.showErrorMessage(e.getMessage());
             this.tasks = new TaskList();
         }
     }
@@ -38,29 +35,32 @@ public class Atlas {
      * Starts the chatbot which greets the user. The chatbot will read the command, parse and execute
      * it until the user exits the chatbot. If there is any error, it will be caught and displayed.
      */
-    public void run() {
-        this.ui.showWelcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(this.tasks, this.ui, this.storage);
-                isExit = c.isExit();
-            } catch (AtlasException e) {
-                this.ui.showErrorMessage(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
+//    public void run() {
+//        this.ui.showWelcomeMessage();
+//        boolean isExit = false;
+//        while (!isExit) {
+//            try {
+//                String fullCommand = ui.readCommand();
+//                Command c = Parser.parse(fullCommand);
+//                c.execute(this.tasks, this.ui, this.storage);
+//                isExit = c.isExit();
+//            } catch (AtlasException e) {
+//                this.ui.showErrorMessage(e.getMessage());
+//            } finally {
+//                ui.showLine();
+//            }
+//        }
+//    }
 
     /**
-     * Starts the chatbot.
-     *
-     * @param args Arguments provided to the command line.
+     * Generates a response for the user's chat message.
      */
-    public static void main(String[] args) {
-        new Atlas("./data/atlas.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(this.tasks, this.storage);
+        } catch (AtlasException e) {
+            return e.getMessage();
+        }
     }
 }
