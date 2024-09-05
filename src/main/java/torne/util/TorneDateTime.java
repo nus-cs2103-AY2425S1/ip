@@ -143,7 +143,7 @@ public class TorneDateTime {
         } else if (diff.toMinutes() < 60) {
             long mins = diff.toMinutes();
             differenceString = String.format("%d minute%s", mins, mins > 1 ? "s" : "");
-        } else if (diff.toHours() < 60) {
+        } else if (diff.toHours() < 24) {
             long hrs = diff.toHours();
             differenceString = String.format("%d hour%s", hrs, hrs > 1 ? "s" : "");
         } else if (diff.toDays() < 7) {
