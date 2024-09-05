@@ -20,4 +20,8 @@ public class Deadline extends Task{
         }
         return String.format("[D] [%s] %s (by: %s)", mark, super.description, due);
     }
+
+    public LocalDateTime getDueDate() {
+        return this.due;
+    }
 }

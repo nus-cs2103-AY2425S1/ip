@@ -76,10 +76,7 @@ public class DataManager {
     }
 
     /**
-     * Updates the task data file with the provided list of {@link Task} objects.
-     * The file is overwritten with the new task data.
      *
-     * @param list A list of {@link Task} objects to be written to the file.
      */
     public void updateMemory() {
         StringBuilder updatedList = new StringBuilder();

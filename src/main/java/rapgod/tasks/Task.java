@@ -37,4 +37,11 @@ public class Task {
         return String.format("[%s] %s", mark, this.description);
     }
 
+    public boolean isMarkedDone() {
+        return this.isDone;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
 }
