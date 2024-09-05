@@ -1,3 +1,4 @@
+import org.json.simple.JSONObject;
 
 public class Event extends Task {
 
@@ -55,5 +56,20 @@ public class Event extends Task {
                 throw new CreateTaskException("Oh SIR! The \"/to\" description of an Event cannot be empty!");
             }
         }
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject j = new JSONObject();
+        j.put("type", "event");
+        j.put("description", this.description);
+        j.put("from", from);
+        j.put("to", to);
+        return j;
+    }
+
+    public static Task fromJson(JSONObject jsonObject) {
+        Event t = new Event(jsonObject.get("description").toString(), jsonObject.get("from").toString(), jsonObject.get("to").toString());
+        return t;
     }
 }

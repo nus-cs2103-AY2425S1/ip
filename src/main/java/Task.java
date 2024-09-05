@@ -1,3 +1,5 @@
+import org.json.simple.JSONObject;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -42,5 +44,11 @@ public class Task {
         System.out.println(task.toString());
     }
 
+    public JSONObject toJson() {
+        JSONObject j = new JSONObject();
+        j.put("type", "task");
+        j.put("description", this.description);
+        return j;
+    }
     //...
 }

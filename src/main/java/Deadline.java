@@ -1,3 +1,4 @@
+import org.json.simple.JSONObject;
 
 public class Deadline extends Task {
 
@@ -49,5 +50,19 @@ public class Deadline extends Task {
                 throw new CreateTaskException("Oh SIR! The \"/by\" description of a Deadline cannot be empty!");
             }
         }
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject j = new JSONObject();
+        j.put("type", "deadline");
+        j.put("description", this.description);
+        j.put("completeBy", completeBy);
+        return j;
+    }
+
+    public static Task fromJson(JSONObject jsonObject) {
+        Deadline t = new Deadline(jsonObject.get("description").toString(), jsonObject.get("completeBy").toString());
+        return t;
     }
 }
