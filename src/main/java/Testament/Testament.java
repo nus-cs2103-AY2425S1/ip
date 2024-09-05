@@ -10,7 +10,7 @@ import ui.Ui;
  */
 public class Testament {
 
-    private static final String FILE_PATH = "Memory.TaskList.txt";
+    private static final String FILE_PATH = "memory/TaskList.txt";
     private final Storage storage;
     private final Ui ui;
     private final TaskList taskList;
