@@ -39,9 +39,11 @@ public class InputHandler {
             this.storage.saveTasks(data);
         } else if (input.equals("list")) {
             System.out.println(hline);
+
             for (int i = 0; i < data.size(); i++) {
                 System.out.println((i + 1) + "." + data.get(i).toString());
             }
+
             System.out.println(hline);
         } else if (input.startsWith("todo")) {
             this.todoHandle(input);
