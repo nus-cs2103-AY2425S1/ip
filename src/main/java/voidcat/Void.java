@@ -8,6 +8,11 @@ import voidcat.ui.Ui;
 
 import java.io.IOException;
 import java.lang.SecurityException;
+/**
+ * Represents the main class of the Void Cat program.
+ * It manages the overall flow of the program,
+ * including initializing components, interacting with the user, and handling tasks.
+ */
 public class Void {
     private static final String FILE_PATH = "./data/void.txt";
     private Storage storage;
@@ -42,7 +47,13 @@ public class Void {
 //                "The void calls, but I'll return. Goodbye!"
     };
 
-
+    /**
+     * Constructs a Void object with a specified file path for storage of tasks.
+     * If file exists, tasks are loaded by Storage.
+     * If not, the file is created.
+     *
+     * @param filePath The path to the file where user's tasks are stored.
+     */
     public Void(String filePath) {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
@@ -56,6 +67,10 @@ public class Void {
         }
     }
 
+    /**
+     * Starts the Void Cat program, handles user input,
+     * and processes commands until the user exits.
+     */
     public void run() {
         ui.welcome(greetings, assistGreetings);
         while (true) {
@@ -78,6 +93,11 @@ public class Void {
         ui.close();
     }
 
+    /**
+     * The entry point for the program. Creates an instance of Void and starts the program.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Void(FILE_PATH).run();
     }
