@@ -1,7 +1,6 @@
-package Elon;
+package elon;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 
 public class Ui {

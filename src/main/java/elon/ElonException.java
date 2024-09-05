@@ -1,4 +1,4 @@
-package Elon;
+package elon;
 
 public class ElonException extends Exception{
     ElonException(String message) {

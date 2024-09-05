@@ -1,4 +1,4 @@
-package Elon;
+package elon;
 
 public class ToDo extends Task {
     public ToDo(String description, boolean isDone) {
