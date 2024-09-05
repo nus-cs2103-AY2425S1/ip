@@ -47,6 +47,10 @@ public class Parser {
             return new Command(
                     CommandType.FIND.toString().toLowerCase(),
                     command);
+        } else if (command.strip().toLowerCase().contains(CommandType.UPDATE.toString().toLowerCase())) {
+            return new Command(
+                    CommandType.UPDATE.toString().toLowerCase(),
+                    command);
         } else {
             return new Command(command, command);
         }

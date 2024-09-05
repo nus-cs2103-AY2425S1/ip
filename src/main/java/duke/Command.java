@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Represents a command issued by the user.
@@ -57,6 +58,8 @@ public class Command {
             return handleDeleteCommand(messageParts, tasks, storage);
         case "find":
             return handleFindCommand(messageParts, tasks);
+        case "update":
+            return handleUpdateCommand(messageParts, tasks, storage);
         default:
             return handleUnknownCommand(tasks, storage);
         }
@@ -71,9 +74,8 @@ public class Command {
      * @param tasks    The {@code TaskList} object that contains all the tasks.
      * @param storage  The {@code Storage} object for saving the task list to a file.
      * @return A message indicating the result of the mark/unmark command.
-     * @throws MentalHealthException If an error occurs while processing the command.
      */
-    private String handleMarkCommand(String[] parts, TaskList tasks, Storage storage) throws MentalHealthException {
+    private String handleMarkCommand(String[] parts, TaskList tasks, Storage storage) {
         if (parts.length <= 1) {
             return "No Task found after 'mark'.";
         }
@@ -93,11 +95,8 @@ public class Command {
      * @param checkMarkOrUnmark A {@code String} indicating whether to mark ("mark") or unmark ("unmark") the task.
      * @param curTask           The {@code IndividualTask} object to be marked/unmarked.
      * @return A {@code String} message indicating the result of the mark/unmark operation.
-     * @throws MentalHealthException If an error occurs while processing the mark/unmark operation.
      */
-    private String markOrUnmarkTask(TaskList tasks, Storage storage, String checkMarkOrUnmark, IndividualTask curTask)
-            throws MentalHealthException {
-
+    private String markOrUnmarkTask(TaskList tasks, Storage storage, String checkMarkOrUnmark, IndividualTask curTask) {
         StringBuilder result = new StringBuilder();
         switch (checkMarkOrUnmark) {
         case "mark":
@@ -127,24 +126,85 @@ public class Command {
      */
     private String handleDeleteCommand(String[] parts, TaskList tasks, Storage storage) {
 
-        if (parts.length <= 1) {
-            return "No Task found.";
-        }
-
         assert parts.length > 1 : "Delete command should have at least 2 parts (delete + task number)";
-
-        StringBuilder result = new StringBuilder();
 
         int number = Integer.parseInt(parts[parts.length - 1]);
 
         // Ensure the task number is valid
         assert number > 0 && number <= tasks.getListTask().size() : "Task number out of bounds";
-
         IndividualTask curTask = tasks.getListTask().get(number - 1);
         tasks.deleteTask(number - 1);
         storage.saveTasksToFile(tasks.getListTask());
-
         return "Alrighty! I will remove the task:\n" + formatMessage(curTask, tasks.getListTask().size());
+    }
+
+    private String handleUpdateCommand(String[] parts, TaskList tasks, Storage storage) throws MentalHealthException {
+        if (parts.length <= 1) {
+            return "No Task found.";
+        }
+
+        int number = Integer.parseInt(parts[1]);
+
+        // Ensure the task number is valid
+        assert number > 0 && number <= tasks.getListTask().size() : "Task number out of bounds";
+
+        IndividualTask curTask = tasks.getListTask().get(number - 1);
+
+        // Extract the specific field to update (e.g., "description", "time")
+        String fieldToUpdate = parts[2]; // Example: "description", "by", "from", "to"
+        String newValue = String.join(" ", Arrays.copyOfRange(parts, 3, parts.length));
+
+        handleUpdateTask(curTask, fieldToUpdate, newValue);
+
+        storage.saveTasksToFile(tasks.getListTask());
+
+        return "Alrighty! I have updated this task:\n" + formatMessage(curTask, tasks.getListTask().size());
+    }
+
+    private void handleUpdateTask(IndividualTask curTask, String fieldToUpdate, String newValue)
+            throws MentalHealthException {
+        if (curTask instanceof ToDo) {
+            updateToDoTask((ToDo) curTask, fieldToUpdate, newValue);
+        } else if (curTask instanceof Deadline) {
+            updateDeadlineTask((Deadline) curTask, fieldToUpdate, newValue);
+        } else if (curTask instanceof Event) {
+            updateEventTask((Event) curTask, fieldToUpdate, newValue);
+        } else {
+            throw new MentalHealthException("Unknown task type");
+        }
+    }
+
+    private void updateToDoTask(ToDo todoTask, String fieldToUpdate, String newValue)
+            throws MentalHealthException {
+        if ("/description".equalsIgnoreCase(fieldToUpdate)) {
+            todoTask.setTaskDescription(newValue);
+        } else {
+            throw new MentalHealthException("Does not have relevant field");
+        }
+    }
+
+    private void updateDeadlineTask(Deadline deadlineTask, String fieldToUpdate, String newValue)
+            throws MentalHealthException {
+        if ("/description".equalsIgnoreCase(fieldToUpdate)) {
+            deadlineTask.setTaskDescription(newValue);
+        } else if ("/by".equalsIgnoreCase(fieldToUpdate)) {
+            deadlineTask.setReturnBy(newValue);
+        } else {
+            throw new MentalHealthException("Does not have relevant field");
+        }
+    }
+
+    private void updateEventTask(Event eventTask, String fieldToUpdate, String newValue)
+            throws MentalHealthException {
+        if ("/description".equalsIgnoreCase(fieldToUpdate)) {
+            eventTask.setTaskDescription(newValue);
+        } else if ("/from".equalsIgnoreCase(fieldToUpdate)) {
+            eventTask.setFrom(newValue);
+        } else if ("/to".equalsIgnoreCase(fieldToUpdate)) {
+            eventTask.setTo(newValue);
+        } else {
+            throw new MentalHealthException("Does not have relevant field");
+        }
     }
 
     /**
@@ -157,8 +217,6 @@ public class Command {
     private String handleFindCommand(String[] parts, TaskList tasks) {
 
         assert parts.length > 1 : "Find command should have at least 2 parts (find + keyword)";
-
-        StringBuilder result = new StringBuilder();
 
         String keyword = parts[parts.length - 1];
         ArrayList<IndividualTask> matchingTasks = findMatchingTasks(tasks, keyword);
