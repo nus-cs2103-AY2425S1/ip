@@ -58,13 +58,13 @@ public class Saving {
    public void getData() throws IOException {
         try {
             load(pathName);
-            System.out.println("loaded file");
-            System.out.println("full path: " + file.getAbsolutePath());
+            //System.out.println("loaded file");
+            //System.out.println("full path: " + file.getAbsolutePath());
         } catch (FileNotFoundException e) {
             Files.createDirectories(saveFilePath.getParent());
             Files.createFile(saveFilePath);
             this.file = new File(pathName);
-            System.out.println("created file");
+            //System.out.println("created file");
         }
     }
 
