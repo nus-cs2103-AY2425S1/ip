@@ -35,11 +35,10 @@ public abstract class Command {
      * Executes a command using the provided TaskList, UI, and Storage.
      *
      * @param tasks the TaskList that holds the tasks
-     * @param ui the UI used to interact with the user
      * @param storage the Storage used to save and retrieve data from a file
      * @throws NahException if an error occurs during command execution
      */
-    public abstract void execute(TaskList tasks, UI ui, Storage storage) throws NahException;
+    public abstract String execute(TaskList tasks, Storage storage) throws NahException;
 
     /**
      * The CleanCommand class is for cleaning all data.
@@ -50,14 +49,14 @@ public abstract class Command {
          * The UI will display the corresponding interaction.
          *
          * @param tasks the TaskList containing the tasks to be cleared
-         * @param ui the UI used to interact with the user and display the result
          * @param storage the Storage where data will be cleared from the file
          * @throws NahException if an error occurs during the cleaning process
          */
         @Override
-        public void execute(TaskList tasks, UI ui, Storage storage) throws NahException {
-            ui.show(tasks.clean());
+        public String execute(TaskList tasks, Storage storage) throws NahException {
             storage.clean();
+            return tasks.clean();
+
         }
 
     }
@@ -75,13 +74,12 @@ public abstract class Command {
          * The UI will display the corresponding interaction.
          *
          * @param tasks the TaskList containing the tasks to search through
-         * @param ui the UI used to interact with the user and display the search results
          * @param storage the Storage where data is stored (not modified in this operation)
          */
 
         @Override
-        public void execute(TaskList tasks, UI ui, Storage storage) throws NahException {
-            ui.show(tasks.find(this.keyWord));
+        public String execute(TaskList tasks, Storage storage) throws NahException {
+            return tasks.find(this.keyWord);
         }
 
     }
@@ -94,22 +92,23 @@ public abstract class Command {
             this.newTask = newTask;
         }
 
+
         /**
          * Executes the command by adding the new task to the TaskList and updating the Storage.
          * The UI will display the corresponding interaction.
          *
          * @param tasks the TaskList where the new task will be added
-         * @param ui the UI used to interact with the user and display the addition result
          * @param storage the Storage where the updated task list will be saved
          * @throws NahException if an error occurs while updating the storage
          */
         @Override
-        public void execute(TaskList tasks, UI ui, Storage storage) throws NahException {
+        public String execute(TaskList tasks, Storage storage) throws NahException {
             tasks.add(this.newTask);
-            ui.show(" Got it. I've added this task:\n"
+            String response = " Got it. I've added this task:\n"
                     + "   " + this.newTask.toString() + "\n"
-                    + " Now you have " + tasks.taskCount() + " tasks in the list.\n");
+                    + " Now you have " + tasks.taskCount() + " tasks in the list.\n";
             storage.rewrite(tasks.brief());
+            return response;
         }
 
     }
@@ -128,14 +127,14 @@ public abstract class Command {
          * and updating the Storage. The UI will display the corresponding interaction.
          *
          * @param tasks the TaskList from which the task will be deleted
-         * @param ui the UI used to interact with the user and display the deletion result
          * @param storage the Storage where the updated task list will be saved
          * @throws NahException if an error occurs while updating the storage
          */
         @Override
-        public void execute(TaskList tasks, UI ui, Storage storage) throws NahException {
-            ui.show(tasks.delete(this.idx));
+        public String execute(TaskList tasks, Storage storage) throws NahException {
+            String response = tasks.delete(this.idx);
             storage.rewrite(tasks.brief());
+            return response;
         }
     }
 
@@ -153,13 +152,12 @@ public abstract class Command {
          * The UI will display the corresponding interaction.
          *
          * @param tasks the TaskList containing the tasks to be searched
-         * @param ui the UI used to interact with the user and display the search results
          * @param storage the Storage where the updated task list will be saved
          *                (not modified in this operation)
          */
         @Override
-        public void execute(TaskList tasks, UI ui, Storage storage) {
-            ui.show(tasks.dueOn(this.due));
+        public String execute(TaskList tasks, Storage storage) {
+            return tasks.dueOn(this.due);
         }
     }
 
@@ -177,12 +175,11 @@ public abstract class Command {
          * The UI will display the corresponding interaction.
          *
          * @param tasks   the TaskList containing the tasks (not modified in this operation)
-         * @param ui      the UI used to interact with the user and stop the program
          * @param storage the Storage where data is stored (not modified in this operation)
          */
         @Override
-        public void execute(TaskList tasks, UI ui, Storage storage) {
-            ui.exit();
+        public String execute(TaskList tasks, Storage storage) {
+            return "Bye. Hope to see you again soon!\n";
         }
 
     }
@@ -196,12 +193,11 @@ public abstract class Command {
          * The UI will display the corresponding interaction.
          *
          * @param tasks the TaskList containing the tasks
-         * @param ui the UI used to interact with the user
          * @param storage the Storage where data is stored
          */
         @Override
-        public void execute(TaskList tasks, UI ui, Storage storage) {
-            ui.show(tasks.readTask());
+        public String execute(TaskList tasks, Storage storage) {
+            return tasks.readTask();
         }
     }
 
@@ -219,14 +215,14 @@ public abstract class Command {
          * as done and updating the storage. The UI will display the corresponding interaction.
          *
          * @param tasks   the TaskList containing the tasks
-         * @param ui      the UI used to interact with the user
          * @param storage the Storage where data is stored
          * @throws NahException if an error occurs during the task update or storage rewrite
          */
         @Override
-        public void execute(TaskList tasks, UI ui, Storage storage) throws NahException {
-            ui.show(tasks.mark(this.idx));
+        public String execute(TaskList tasks, Storage storage) throws NahException {
+            String response = tasks.mark(this.idx);
             storage.rewrite(tasks.brief());
+            return response;
         }
     }
 
@@ -238,12 +234,11 @@ public abstract class Command {
          * Executes with UI showing the corresponding interaction.
          *
          * @param tasks the TaskList containing the tasks
-         * @param ui the UI used to interact with the user
          * @param storage the Storage where data is stored
          */
         @Override
-        public void execute(TaskList tasks, UI ui, Storage storage) {
-            ui.unknownLine();
+        public String execute(TaskList tasks, Storage storage) {
+            return " Nahhhhh!!! Please give me a valid command, such as list, mark, todo,...\n";
         }
     }
 
@@ -261,14 +256,14 @@ public abstract class Command {
          * as not done and updating the storage. The UI will display the corresponding interaction.
          *
          * @param tasks   the TaskList containing the tasks
-         * @param ui      the UI used to interact with the user
          * @param storage the Storage where data is stored
          * @throws NahException if an error occurs during the task update or storage rewrite
          */
         @Override
-        public void execute(TaskList tasks, UI ui, Storage storage) throws NahException {
-            ui.show(tasks.unMark(this.idx));
+        public String execute(TaskList tasks, Storage storage) throws NahException {
+            String response = tasks.unMark(this.idx);
             storage.rewrite(tasks.brief());
+            return response;
         }
     }
 }

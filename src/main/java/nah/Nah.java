@@ -19,6 +19,19 @@ public class Nah {
     private UI ui;
     private TaskList tasks;
 
+    public Nah() {
+        ui = new UI();
+        storage = new Storage(hardDisk);
+        try {
+            tasks = new TaskList(storage.load());
+
+        } catch (NahException e) {
+            ui.show(e.getMessage());
+            storage = new Storage();
+            tasks = new TaskList();
+        }
+    }
+
     /**
      * Builds Nah chatBot based on a file of tasks.
      *
@@ -38,9 +51,20 @@ public class Nah {
 
     }
 
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, storage);
+        } catch (NahException e) {
+            return e.getMessage();
+        }
+    }
+
+
     /**
      * Runs the program
      */
+    /*
     public void run() {
         ui.greet();
         boolean isExit = false;
@@ -49,7 +73,7 @@ public class Nah {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(tasks, storage);
                 isExit = c.isExit();
             } catch (NahException e) {
                 ui.show(e.getMessage());
@@ -58,10 +82,11 @@ public class Nah {
             }
         }
     }
+    */
+
     public static void main(String[] args) {
 
         Nah nah = new Nah(hardDisk);
-        nah.run();
 
     }
 }

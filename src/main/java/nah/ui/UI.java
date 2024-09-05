@@ -1,6 +1,7 @@
 package nah.ui;
 
 import java.util.Scanner;
+import nah.command.Command;
 
 /**
  * Handles the interaction with user by print out correct response.
@@ -22,6 +23,7 @@ public class UI {
 
     private static final String unknown =
             " Nahhhhh!!! Please give me a valid command, such as list, mark, todo,...\n";
+
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -61,15 +63,13 @@ public class UI {
     }
 
     /**
-     * Prints out the response for the command.
+     * Return the response for the command.
      * This response was delivered from execute method in nah.command.Command
      *
      * @param s the response
      */
     public void show(String s) {
-
         System.out.println(s);
-
     }
 
     /**

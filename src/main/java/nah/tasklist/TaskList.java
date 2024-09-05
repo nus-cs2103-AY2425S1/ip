@@ -121,6 +121,9 @@ public class TaskList {
      * @return a String
      */
     public String readTask() {
+        if (this.taskCount == 0) {
+            return " There is no task in your list!\n";
+        }
         String s = " Here are the tasks in your list:\n";
         for (int i = 1; i <= taskCount; i++) {
             s += " " + i + ". " + tasks.get(i - 1).toString() + "\n";

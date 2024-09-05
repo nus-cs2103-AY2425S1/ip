@@ -18,6 +18,7 @@ public class NahTest {
      * The test pass if the chatBot response match the expected response and
      * no exception is thrown.
      */
+    /*
     @Test
     public void runTest1() {
         try {
@@ -55,5 +56,5 @@ public class NahTest {
         }
 
     }
-
+    */
 }
