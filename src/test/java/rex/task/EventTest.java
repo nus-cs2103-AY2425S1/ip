@@ -11,14 +11,14 @@ public class EventTest {
     public void testFormattedNotDone() {
         assertEquals("E | 0 | team meeting | 01-11-24 1200 | 01-11-24 1400",
                 new Event("team meeting", false, LocalDateTime.of(2024, 11, 1, 12, 0),
-                        LocalDateTime.of(2024, 11, 1, 14, 0)).formatted());
+                        LocalDateTime.of(2024, 11, 1, 14, 0)).formatter());
     }
 
     @Test
     public void testFormattedDone() {
         assertEquals("E | 1 | team meeting | 01-11-24 1200 | 01-11-24 1400",
                 new Event("team meeting", true, LocalDateTime.of(2024, 11, 1, 12, 0),
-                        LocalDateTime.of(2024, 11, 1, 14, 0)).formatted());
+                        LocalDateTime.of(2024, 11, 1, 14, 0)).formatter());
     }
 
     @Test

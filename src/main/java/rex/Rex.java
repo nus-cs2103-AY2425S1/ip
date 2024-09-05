@@ -1,5 +1,8 @@
 package rex;
 
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+
 import rex.command.Command;
 import rex.exception.InvalidInputException;
 import rex.task.Deadline;
@@ -10,9 +13,6 @@ import rex.task.ToDo;
 import rex.util.Parser;
 import rex.util.Storage;
 import rex.util.Ui;
-
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
 
 /**
  * The {@code Rex} class serves as the main entry point for the Rex application,
@@ -117,6 +117,7 @@ public class Rex {
                 case BYE:
                     ui.goodbye();
                     return;
+                default:
                 }
             } catch (InvalidInputException e) {
                 if (command != null) {

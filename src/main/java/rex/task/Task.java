@@ -24,14 +24,14 @@ public class Task {
     /**
      * Marks the task as done by setting its completion status to true.
      */
-    public void markDone() {
+    public void markAsDone() {
         this.isDone = true;
     }
 
     /**
      * Marks the task as not done by setting its completion status to false.
      */
-    public void unmarkDone() {
+    public void unMarkDone() {
         this.isDone = false;
     }
 
@@ -81,7 +81,7 @@ public class Task {
      *
      * @return A formatted string representing the task.
      */
-    public String formatted() {
+    public String formatter() {
         return (isDone ? "1" : "0") + " | " + description;
     }
 }

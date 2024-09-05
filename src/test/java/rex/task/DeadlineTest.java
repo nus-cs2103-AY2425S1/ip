@@ -10,13 +10,13 @@ public class DeadlineTest {
     @Test
     public void testFormattedNotDone() {
         assertEquals("D | 0 | do this | 01-09-24 1200",
-                new Deadline("do this", false, LocalDateTime.of(2024, 9, 1, 12, 0)).formatted());
+                new Deadline("do this", false, LocalDateTime.of(2024, 9, 1, 12, 0)).formatter());
     }
 
     @Test
     public void testFormattedDone() {
         assertEquals("D | 1 | do that thing | 01-09-24 1200",
-                new Deadline("do that thing", true, LocalDateTime.of(2024, 9, 1, 12, 0)).formatted());
+                new Deadline("do that thing", true, LocalDateTime.of(2024, 9, 1, 12, 0)).formatter());
     }
 
     @Test

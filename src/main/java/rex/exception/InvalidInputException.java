@@ -5,7 +5,7 @@ package rex.exception;
  * when the user provides an invalid input in the Rex application.
  * This class serves as the base class for more specific input-related exceptions.
  */
-public class InvalidInputException extends Exception{
+public class InvalidInputException extends Exception {
     /**
      * Constructs a new {@code InvalidInputException} with the specified detail message.
      *

@@ -9,8 +9,6 @@ import rex.exception.InvalidCommandException;
 public enum Command {
     TODO, DEADLINE, EVENT, LIST, FIND, MARK, UNMARK, DELETE, RAWR, BYE, HELP;
 
-    private static Command lastCommand;
-
     /**
      * Converts a user input string into the corresponding {@code Command} enum.
      *
@@ -78,6 +76,7 @@ public enum Command {
             return "rawr";
         case BYE:
             return "bye";
+        default:
         }
         return null;
     }

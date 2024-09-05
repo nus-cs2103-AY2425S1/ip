@@ -1,10 +1,10 @@
 package rex.util;
 
+import java.util.Scanner;
+
 import rex.command.Command;
 import rex.exception.InvalidInputException;
 import rex.task.Task;
-
-import java.util.Scanner;
 
 /**
  * The {@code Ui} class handles the user interface of the application.
@@ -67,7 +67,12 @@ public class Ui {
         System.out.print(output);
     }
 
-
+    /**
+     * Displays the output for the tasks that match the keyword searched.
+     *
+     * @param output A formatted string containing the list of tasks that match the search criteria.
+     *               This string is printed as is to the console.
+     */
     public void findTask(String output) {
         printDivider();
         System.out.print(output);

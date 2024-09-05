@@ -34,7 +34,7 @@ public class ToDo extends Task {
      * @return A formatted string representing the ToDo task.
      */
     @Override
-    public String formatted() {
-        return "T | " + super.formatted();
+    public String formatter() {
+        return "T | " + super.formatter();
     }
 }

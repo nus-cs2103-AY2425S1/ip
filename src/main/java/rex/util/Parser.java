@@ -1,15 +1,15 @@
 package rex.util;
 
-import rex.command.Command;
-import rex.exception.InvalidInputException;
-import rex.task.TaskList;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import rex.command.Command;
+import rex.exception.InvalidInputException;
+import rex.task.TaskList;
 
 /**
  * The {@code Parser} class provides utility methods to parse user input and save file content.
@@ -74,6 +74,7 @@ public class Parser {
                 LocalDateTime to = parseDateTime(taskTokens[4]);
                 list.loadTask(description, isMarked, from, to);
                 break;
+            default:
             }
         }
 
@@ -101,7 +102,8 @@ public class Parser {
      * Parses the argument for an {@code Event} task to extract the description, start time, and end time.
      *
      * @param argument The raw argument string containing the task description, start time, and end time.
-     * @return A string array where the first element is the description, the second is the start time, and the third is the end time.
+     * @return A string array where the first element is the description,
+     *         the second is the start time, and the third is the end time.
      * @throws InvalidInputException If the input is missing the "/from" or "/to" keywords or other required elements.
      */
     public static String[] parseEvent(String argument) throws InvalidInputException {
@@ -175,6 +177,7 @@ public class Parser {
                 throw new InvalidInputException("");
             }
             break;
+        default:
         }
     }
 }

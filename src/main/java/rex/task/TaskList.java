@@ -1,20 +1,19 @@
 package rex.task;
 
-import rex.exception.InvalidInputException;
-import rex.util.Parser;
-import rex.util.Storage;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import rex.exception.InvalidInputException;
+import rex.util.Parser;
+import rex.util.Storage;
 /**
  * The {@code TaskList} class manages a list of tasks, including adding, retrieving, updating,
  * and deleting tasks. It also handles the loading and saving of tasks to persistent storage.
  */
 public class TaskList {
     private Storage storage;
-    private ArrayList<Task> list;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs a new {@code TaskList} with the specified storage.
@@ -25,7 +24,7 @@ public class TaskList {
      */
     public TaskList(Storage storage) throws IOException {
         this.storage = storage;
-        this.list = new ArrayList<>();
+        this.tasks = new ArrayList<>();
         loadList();
     }
 
@@ -38,7 +37,7 @@ public class TaskList {
      */
     public ToDo addToDo(String argument) throws IOException {
         ToDo toDo = new ToDo(argument, false);
-        list.add(toDo);
+        tasks.add(toDo);
         updateStorage();
         return toDo;
     }
@@ -58,7 +57,7 @@ public class TaskList {
         LocalDateTime by = Parser.parseDateTime(argumentTokens[1]);
 
         Deadline deadline = new Deadline(description, false, by);
-        list.add(deadline);
+        tasks.add(deadline);
         updateStorage();
         return deadline;
     }
@@ -79,7 +78,7 @@ public class TaskList {
         LocalDateTime to = Parser.parseDateTime(argumentTokens[2]);
 
         Event event = new Event(description, false, from, to);
-        list.add(event);
+        tasks.add(event);
         updateStorage();
         return event;
     }
@@ -92,7 +91,7 @@ public class TaskList {
      * @param isDone      The completion status of the task.
      */
     public void loadTask(String description, boolean isDone) {
-        list.add(new ToDo(description, isDone));
+        tasks.add(new ToDo(description, isDone));
     }
 
     /**
@@ -104,7 +103,7 @@ public class TaskList {
      * @param by          The deadline of the task.
      */
     public void loadTask(String description, boolean isDone, LocalDateTime by) {
-        list.add(new Deadline(description, isDone, by));
+        tasks.add(new Deadline(description, isDone, by));
     }
 
     /**
@@ -117,7 +116,7 @@ public class TaskList {
      * @param to          The end time of the event.
      */
     public void loadTask(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
-        list.add(new Event(description, isDone, from, to));
+        tasks.add(new Event(description, isDone, from, to));
     }
 
     /**
@@ -137,7 +136,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
-        return list.get(index - 1);
+        return tasks.get(index - 1);
     }
 
     /**
@@ -152,7 +151,7 @@ public class TaskList {
         }
 
         StringBuilder output = new StringBuilder();
-        for (int i = 1; i <= list.size(); i++) {
+        for (int i = 1; i <= tasks.size(); i++) {
             output.append(i).append(".").append(getTask(i)).append("\n");
         }
 
@@ -165,18 +164,30 @@ public class TaskList {
      * @return The number of tasks in the list.
      */
     public int size() {
-        return list.size();
+        return tasks.size();
     }
 
     private boolean isEmpty() {
         return size() == 0;
     }
 
+    /**
+     * Finds and returns tasks from the task list that contain the specified keyword in their description.
+     *
+     * <p>The method iterates through all the tasks in the list and checks if the description of each
+     * task contains the specified keyword. If a task matches, it is included in the output string,
+     * which displays the task number and the task details.</p>
+     *
+     * @param keyword The keyword to search for within the task descriptions.
+     * @return A formatted string listing all tasks that contain the keyword, including their task number.
+     *         If no tasks match the keyword, an empty result string is returned
+     *         with a message indicating the search results.
+     */
     public String findTasks(String keyword) {
         int taskNumber = 1;
         String output = "Here are the matching tasks in your list:\n";
 
-        for (int i = 1; i <= list.size(); i++) {
+        for (int i = 1; i <= tasks.size(); i++) {
             Task task = getTask(i);
             if (task.getDescription().contains(keyword)) {
                 output += taskNumber + "." + task + "\n";
@@ -196,7 +207,7 @@ public class TaskList {
      */
     public Task markTask(String argument) throws IOException {
         Task actionTask = getTask(argument);
-        actionTask.markDone();
+        actionTask.markAsDone();
         updateStorage();
         return actionTask;
     }
@@ -210,7 +221,7 @@ public class TaskList {
      */
     public Task unmarkTask(String argument) throws IOException {
         Task actionTask = getTask(argument);
-        actionTask.unmarkDone();
+        actionTask.unMarkDone();
         updateStorage();
         return actionTask;
     }
@@ -224,7 +235,7 @@ public class TaskList {
      */
     public Task deleteTask(String argument) throws IOException {
         Task actionTask = getTask(argument);
-        list.remove(actionTask);
+        tasks.remove(actionTask);
         Task.removeTask();
         updateStorage();
         return actionTask;

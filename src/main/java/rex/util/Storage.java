@@ -1,14 +1,15 @@
 package rex.util;
 
-import rex.task.Task;
-import rex.task.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+
+import rex.task.Task;
+import rex.task.TaskList;
 
 /**
  * The {@code Storage} class handles the management of persistent storage for tasks.
@@ -46,25 +47,24 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to or copying files.
      */
     public void updateFile(TaskList list) throws IOException {
-        File file = new File(FILE_PATH);
         File temp = new File(TEMP_PATH);
 
-
-        // Create temp file to copy taskList from
-        Files.deleteIfExists(Paths.get(TEMP_PATH));
+        // Creates temp file to copy taskList from
+        Path tempFilePath = Paths.get(TEMP_PATH);
+        Files.deleteIfExists(tempFilePath);
         createFile(temp);
 
         try (FileWriter writer = new FileWriter(temp, true)) {
             // Write each task from the TaskList to the temp file
             for (int i = 1; i <= list.size(); i++) {
                 Task task = list.getTask(i);
-                writer.write(task.formatted() + System.lineSeparator());
+                writer.write(task.formatter() + System.lineSeparator());
             }
         }
 
         // Replace the main file with the updated temp file
-        Files.copy(Paths.get(TEMP_PATH), Paths.get(FILE_PATH), StandardCopyOption.REPLACE_EXISTING);
-        Files.delete(Paths.get(TEMP_PATH));
+        Files.copy(tempFilePath, Paths.get(FILE_PATH), StandardCopyOption.REPLACE_EXISTING);
+        Files.delete(tempFilePath);
     }
 
     /**

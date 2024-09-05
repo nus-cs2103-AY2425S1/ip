@@ -27,7 +27,8 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of the Event task, including its type identifier "[E]",
-     * the task details from the {@code Task} superclass, and the event's start and end times formatted as "dd MMM yyyy HHmm".
+     * the task details from the {@code Task} superclass,
+     * and the event's start and end times formatted as "dd MMM yyyy HHmm".
      *
      * @return A string representation of the Event task.
      */
@@ -40,14 +41,15 @@ public class Event extends Task {
 
     /**
      * Returns a formatted string suitable for saving to a file. The format includes a type identifier "E",
-     * followed by the formatted output from the {@code Task} superclass, and the event's start and end times formatted as "dd-MM-yy HHmm".
+     * followed by the formatted output from the {@code Task} superclass,
+     * and the event's start and end times formatted as "dd-MM-yy HHmm".
      *
      * @return A formatted string representing the Event task.
      */
     @Override
-    public String formatted() {
+    public String formatter() {
         DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd-MM-yy HHmm");
-        return "E | " + super.formatted() + " | " + from.format(fileFormat)
+        return "E | " + super.formatter() + " | " + from.format(fileFormat)
                 + " | " + to.format(fileFormat);
     }
 }

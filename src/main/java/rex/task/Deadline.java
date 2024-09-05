@@ -41,8 +41,8 @@ public class Deadline extends Task {
      * @return A formatted string representing the Deadline task.
      */
     @Override
-    public String formatted() {
+    public String formatter() {
         DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd-MM-yy HHmm");
-        return "D | " + super.formatted() + " | " + by.format(fileFormat);
+        return "D | " + super.formatter() + " | " + by.format(fileFormat);
     }
 }
