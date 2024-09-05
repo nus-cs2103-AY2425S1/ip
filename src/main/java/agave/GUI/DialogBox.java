@@ -26,7 +26,6 @@ public class DialogBox extends HBox {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
@@ -35,6 +34,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(image);
     }
+
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
