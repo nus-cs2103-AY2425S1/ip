@@ -12,13 +12,28 @@ import CancelGPT.task.ToDo;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
+/**
+ * Represents the command parser for CancelGPT's chatbot,
+ * which parses and handles commands.
+ */
 public class CommandParser {
     private CancelGPT chatbot;
 
+    /**
+     * Initialises the command parser for a given CancelGPT chatbot.
+     * 
+     * @param chatbot the chatbot the command parser is parsing for
+     */
     public CommandParser(CancelGPT chatbot) {
         this.chatbot = chatbot;
     }
 
+    /**
+     * The main method for CommandParser. Parses
+     * and handles command for the CommandParser's chatbot.
+     * 
+     * @param command the command to be parsed
+     */
     public void parseAndHandle(String command) {
         try {
             if (command.equals(Command.LIST.toString())) {
@@ -50,6 +65,13 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Parses a delete task command and return the task number to be deleted.
+     * 
+     * @param command the delete task command to parse
+     * @return the task number to be deleted
+     * @throws DeleteTaskInputException if the delete task command cannot be parsed
+     */
     public int parseDeleteTaskCommand(String command) throws DeleteTaskInputException {
         String[] commandArray = command.split(" ");
         if (commandArray.length != 2) {
@@ -62,6 +84,14 @@ public class CommandParser {
             throw new DeleteTaskInputException();
         }
     }
+
+    /**
+     * Parses a mark task command and return the task number to be marked.
+     *
+     * @param command the mark task command to parse
+     * @return the task number to be marked
+     * @throws MarkTaskInputException if the mark task command cannot be parsed
+     */
     public int parseMarkTaskCommand(String command) throws MarkTaskInputException {
         String[] commandArray = command.split(" ");
         if (commandArray.length != 2) {
@@ -74,7 +104,14 @@ public class CommandParser {
             throw new MarkTaskInputException();
         }
     }
-
+    
+    /**
+     * Parses an unmark task command and return the task number to be marked.
+     *
+     * @param command the unmark task command to parse
+     * @return the task number to be unmarked
+     * @throws UnmarkTaskInputException if the unmark task command cannot be parsed
+     */
     public int parseUnmarkTaskCommand(String command) throws UnmarkTaskInputException {
         String[] commandArray = command.split(" ");
         if (commandArray.length != 2) {
@@ -88,6 +125,13 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Parses command to create a ToDo task and returns the ToDo created.
+     *
+     * @param command the command to create a ToDo task
+     * @return the ToDo task created
+     * @throws InvalidTask if the command to create ToDo task cannot be parsed
+     */
     public Task parseToDoTaskCreationCommand(String command) throws InvalidTask {
         String[] commandArray = command.split(" ");
         String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, commandArray.length);
@@ -98,6 +142,13 @@ public class CommandParser {
         return new ToDo(taskDescription);
     }
 
+    /**
+     * Parses command to create a Deadline task and returns the Deadline created.
+     *
+     * @param command the command to create a Deadline task
+     * @return the Deadline task created
+     * @throws InvalidTask if the command to create Deadline task cannot be parsed
+     */
     public Task parseDeadlineTaskCreationCommand(String command) throws InvalidTask {
         String[] commandArray = command.split(" ");
 
@@ -128,6 +179,13 @@ public class CommandParser {
         return deadlineTask;
     }
 
+    /**
+     * Parses command to create a Event task and returns the Event created.
+     *
+     * @param command the command to create a Event task
+     * @return the Event task created
+     * @throws InvalidTask if the command to create Event task cannot be parsed
+     */
     public Task parseEventTaskCreationCommand(String command) throws InvalidTask {
         String[] commandArray = command.split(" ");
 
