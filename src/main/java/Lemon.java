@@ -1,4 +1,5 @@
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -61,10 +62,15 @@ public class Lemon {
                         addNewTask(new Todo(temp[2], Boolean.parseBoolean(temp[1])));
                         break;
                     case "D":
-                        addNewTask(new Deadline(temp[2], temp[3], Boolean.parseBoolean(temp[1])));
+                        addNewTask(new Deadline(temp[2],
+                                LocalDate.parse(temp[3], DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                                Boolean.parseBoolean(temp[1])));
                         break;
                     case "E":
-                        addNewTask(new Event(temp[2], temp[3], Boolean.parseBoolean(temp[1])));
+                        addNewTask(new Event(temp[2],
+                                LocalDate.parse(temp[3], DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                                LocalDate.parse(temp[4], DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                                Boolean.parseBoolean(temp[1])));
                         break;
                 }
             }
@@ -174,27 +180,27 @@ public class Lemon {
                 case DEADLINE: {
                     String[] next = systemScanner.nextLine().split("/by ");
                     if (next.length < 2) {
-                        throw new InvalidCommandException(" Missing/incorrect date format \n" +
+                        throw new InvalidFormatException(" Missing/incorrect date format \n" +
                                 " Use /by and format date as dd-mm-yyyy");
                     }
 
-                    //LocalDate by = LocalDate.parse(next[1], DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    LocalDate by = LocalDate.parse(next[1], DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
-                    addNewTask(new Deadline(next[0], next[1], false));
+                    addNewTask(new Deadline(next[0], by, false));
                     break;
                 }
                 case EVENT: {
                     String[] next = systemScanner.nextLine().split("/from | /to ");
 
                     if (next.length < 3) {
-                        throw new InvalidCommandException(" Missing/incorrect date format \n" +
+                        throw new InvalidFormatException(" Missing/incorrect date format \n" +
                                 " Use /by and format date as dd-mm-yyyy");
                     }
 
-                    //LocalDate from = LocalDate.parse(next[1], DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                    //LocalDate to = LocalDate.parse(next[1], DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    LocalDate from = LocalDate.parse(next[1], DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    LocalDate to = LocalDate.parse(next[1], DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
-                    addNewTask(new Event(next[0], next[1], next[2], false));
+                    addNewTask(new Event(next[0], from, to, false));
                     break;
                 }
                 case DELETE: {
@@ -219,6 +225,10 @@ public class Lemon {
                         " I can also keep track of all your tasks with \"list\"\n" +
                         " If you wanna update certain tasks, use \"mark\" or \"unmark\" and then its number");
                 systemScanner.nextLine();
+            } catch (DateTimeParseException e) {
+                System.out.println(" Incorrect date format, make sure the format is dd-MM-yyyy");
+            } catch (InvalidFormatException e) {
+                System.out.println(e.getMessage());
             }
         }
     }

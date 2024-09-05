@@ -1,5 +1,2 @@
-T|true| 1
-T|false| heal me
-D|false| get home |2pm
-D|false| homework |3pm /to 5pm
-E|false| die |now /to now
+D|false| help me |2023-03-22
+E|false| murder me |2023-04-03|2023-04-03

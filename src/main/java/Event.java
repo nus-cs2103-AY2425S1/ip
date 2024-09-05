@@ -1,7 +1,10 @@
-public class Event extends Task{
-    protected String from, to;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String from, String to, boolean isDone) {
+public class Event extends Task{
+    protected LocalDate from, to;
+
+    public Event(String description, LocalDate from, LocalDate to, boolean isDone) {
         super(description, "event", isDone);
 
         this.from = from;
@@ -10,11 +13,13 @@ public class Event extends Task{
 
     @Override
     public String toFileString() {
-        return "E|" + isDone + "|" + description + "|" + from + "/to " + to + "\n";
+        return "E|" + isDone + "|" + description + "|" + from.toString() + "|" + to.toString() + "\n";
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
+        return "[E]" + super.toString() + "(from: " +
+                from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " +
+                to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
