@@ -13,10 +13,21 @@ public abstract class Task {
         this.done = false;
     }
 
+    /**
+     * Returns a string to be displayed when task is successfully added to list
+     *
+     * @return A string of response by Kira
+     */
     public String addedString() {
         return "Got it. I've added this task:\n" + displayTask();
     }
 
+    /**
+     * Returns a string of display of a task that
+     * shows the task name, whether it is done and date (if applicable)
+     *
+     * @return A string of display of a task
+     */
     public String displayTask() {
         if (done) {
             return "[X] " + this.input + "\n";
@@ -33,21 +44,38 @@ public abstract class Task {
         return this.done;
     }
 
+    /**
+     * Marks the task as done
+     */
     public void markAsDone() {
         this.done = true;
     }
 
+    /**
+     * returns a string to be displayed when task is successfully marked as done
+     *
+     * @return A string to show that task is marked as done
+     */
     public String markedNotification() {
         return line + "Nice! I've marked this task as done:\n"
                 + this.displayTask() + line;
     }
 
+    /**
+     * Marks the task as undone
+     */
     public void markAsUndone() {
         this.done = false;
         System.out.println(line + "OK, I've marked this task as not done yet:\n"
                 + this.displayTask() + line);
     }
 
+    /**
+     * Formats the date from words form to numerical form
+     *
+     * @param string Date in format -- month date year hour:min (ex: Jan 22 2024 20:00)
+     * @return A string of date in format DD/M/YYYY time (ex: 22/1/2024 2000)
+     */
     public static String formatDate(String string) {
         String[] strings = string.split(" ");
         String monthInWords = strings[0];
@@ -70,6 +98,15 @@ public abstract class Task {
                 : -1;
         return dateOfMonth + "/" + month + "/" + year + " " + time;
     }
+
+    /**
+     * Intepretes the record of a task and
+     * creates an instance of the task
+     *
+     * @param description Name and date (if applicable) of task
+     * @param type Type of task
+     * @return The specific task
+     */
     public static Task intepreteTask(String description, String type) {
         if (Objects.equals(type, "T")) {    // To Do
             return new ToDo(description);

@@ -17,6 +17,13 @@ public class Storage {
         this.file = new File(pathname);
     }
 
+    /**
+     * Reads the previously saved file and
+     * Returns the list of all tasks saved in the file previously
+     * If no saved file detected, returns a new empty list
+     *
+     * @return List of tasks
+     */
     public List retrieve() {
         try {
             Scanner s = new Scanner(this.file);
@@ -39,6 +46,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes out the current list of tasks in a file
+     *
+     * @param list List of tasks
+     * @throws IOException If file cannot be written
+     */
     public void save(List list) throws IOException {
         FileWriter filewriter = new FileWriter(this.file, false);
 
