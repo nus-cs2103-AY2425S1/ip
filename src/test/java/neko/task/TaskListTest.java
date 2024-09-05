@@ -1,32 +1,34 @@
 package neko.task;
 
-import neko.NekoException;
-import neko.Parser;
-import neko.Storage;
-import neko.ui.Ui;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import neko.NekoException;
+import neko.Storage;
+import neko.ui.Ui;
 
 public class TaskListTest {
 
+    @TempDir
+    File tempDir;
     private TaskList tasks;
     private Ui ui;
     private Storage storage;
     private ByteArrayOutputStream outputStream;
     private ByteArrayInputStream inputStream;
     private PrintStream printStream;
-    @TempDir
-    File tempDir;
 
     @BeforeEach
     public void setUp() {
@@ -48,8 +50,8 @@ public class TaskListTest {
         assertEquals(1, tasks.size());
         assertTrue(tasks.getTask(0) instanceof Todo);
 
-        String expectedOutput = "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n " +
-                tasks.getTask(0) + "\nNow you have 1 tasks in your list meow";
+        String expectedOutput = "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n "
+                + tasks.getTask(0) + "\nNow you have 1 tasks in your list meow";
         assertTrue(outputStream.toString().contains(expectedOutput));
     }
 
@@ -64,9 +66,9 @@ public class TaskListTest {
         assertEquals(1, tasks.size());
         assertTrue(tasks.getTask(0) instanceof Deadline);
 
-        String expectedOutput = "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n" +
-                " [D][ ] Sample Deadline (by: Mon, 1 Jan 2024 1:00pm)\n" +
-                "Now you have 1 tasks in your list meow";
+        String expectedOutput = "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n"
+                + " [D][ ] Sample Deadline (by: Mon, 1 Jan 2024 1:00pm)\n"
+                + "Now you have 1 tasks in your list meow";
         assertTrue(outputStream.toString().contains(expectedOutput));
     }
 
@@ -81,9 +83,9 @@ public class TaskListTest {
         assertEquals(1, tasks.size());
         assertTrue(tasks.getTask(0) instanceof Event);
 
-        String expectedOutput = "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n" +
-                " [E][ ] Sample Event (from: Mon, 1 Jan 2024 1:00pm to: Tue, 2 Jan 2024 1:00pm)\n" +
-                "Now you have 1 tasks in your list meow";
+        String expectedOutput = "Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ\n"
+                + " [E][ ] Sample Event (from: Mon, 1 Jan 2024 1:00pm to: Tue, 2 Jan 2024 1:00pm)\n"
+                + "Now you have 1 tasks in your list meow";
         assertTrue(outputStream.toString().contains(expectedOutput));
     }
 
