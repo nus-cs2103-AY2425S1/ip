@@ -1,15 +1,15 @@
 package Gary.task;
 
 /**
- * The {@code Task} class represents a generic task with a description and completion status.
- * It is an abstract class that should be extended by specific types of tasks.
+ * Represents a task in the application. Each task has a description and a status indicating
+ * whether the task is completed or not.
  */
 public abstract class Task {
     protected String description;  // Description of the task
     protected boolean isDone = false;  // Completion status of the task
 
     /**
-     * Constructs a {@code Task} object with the specified description.
+     * Constructs a Task object with the given description.
      *
      * @param description The description of the task.
      */
@@ -18,8 +18,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns the description of the task.
-     *
      * @return The description of the task.
      */
     public String getDescription() {
@@ -34,16 +32,16 @@ public abstract class Task {
     }
 
     /**
-     * Converts the {@code Task} object into a string format suitable for saving to a file.
+     * Converts the task to a string that can be written to a file.
      *
-     * @return A string representation of the {@code Task} for file storage.
+     * @return A formatted string representation of the task for saving to a file.
      */
     public abstract String parseToFile();
 
     /**
-     * Returns a string representation of the {@code Task}.
+     * Returns a string representation of the task, showing its description and whether it is done.
      *
-     * @return A string representation of the {@code Task}.
+     * @return A string in the format "[X] description" if done, or "[ ] description" if not done.
      */
     @Override
     public String toString() {
