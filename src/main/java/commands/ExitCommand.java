@@ -8,15 +8,10 @@ import ui.Ui;
  * Represents a command to exit the application.
  * This command signals the application to terminate, with no additional actions required.
  */
-public class ExitCommand implements Command {
+public class ExitCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        // No special actions needed for exit
-    }
-
-    @Override
-    public boolean isExit() {
-        return true;
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return Ui.showGoodbye();
     }
 }

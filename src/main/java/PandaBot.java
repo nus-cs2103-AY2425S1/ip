@@ -48,34 +48,21 @@ public class PandaBot {
     }
 
     /**
-     * Starts the PandaBot and enters the main command processing loop.
-     * The bot will continue running until the user issues an exit command.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (InputException e) {
-                ui.showError(e.getMessage());
-            } catch (IOException e) {
-                ui.showError("Error saving tasks: " + e.getMessage());
-            }
-        }
-        ui.showGoodbye();
-    }
-
-    /**
-     * The entry point of the PandaBot application.
-     * Creates a new PandaBot instance and starts it with the specified task file path.
+     * Generates a response for the user's chat message.
+     * This method parses the user's input, executes the corresponding command,
+     * and returns the result as a response message.
      *
-     * @param args command-line arguments passed to the application (not used).
+     * @param input The user's input message that contains a command for PandaBot to execute.
+     * @return The response message after processing the user's input.
      */
-    public static void main(String[] args) {
-        new PandaBot("./data/PandaBot.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (InputException e) {
+            return e.getMessage();
+        } catch (IOException e) {
+            return "Error saving tasks: " + e.getMessage();
+        }
     }
 }

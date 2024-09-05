@@ -13,7 +13,7 @@ import ui.Ui;
  * Represents a command to delete a task from the task list.
  * This command handles the removal of a task at a specified index in the task list.
  */
-public class DeleteCommand implements Command {
+public class DeleteCommand extends Command {
     private final int taskIndex;
 
     /**
@@ -35,23 +35,16 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task removedTask = tasks.remove(taskIndex);
             storage.saveTaskList(tasks.getTasks());
 
-            ui.printLine();
-            ui.show("Noted. I've removed this task:");
-            ui.show(removedTask.toString());
-            ui.show("Now you have " + tasks.size() + " tasks in the list.");
-            ui.printLine();
+            return "Noted. I've removed this task:\n"
+                    + removedTask.toString() + "\n"
+                    + "Now you have " + tasks.size() + " tasks in the list.";
         } else {
-            ui.show("The specified task does not exist.");
+            return "The specified task does not exist.";
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

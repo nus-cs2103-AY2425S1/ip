@@ -11,7 +11,7 @@ import ui.Ui;
  * Represents a command to mark a task as done in the task list.
  * This command handles the marking of a task at a specified index as completed.
  */
-public class MarkCommand implements Command {
+public class MarkCommand extends Command {
     private final int taskIndex;
 
     /**
@@ -33,23 +33,16 @@ public class MarkCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.get(taskIndex).markAsDone();
             storage.saveTaskList(tasks.getTasks());
 
-            ui.printLine();
-            ui.show("Nice! I've marked this task as done:");
-            ui.show(tasks.get(taskIndex).toString());
-            ui.printLine();
+            return "Nice! I've marked this task as done:\n"
+                    + (tasks.get(taskIndex).toString());
         } else {
-            ui.show("The specified task does not exist.");
+            return "The specified task does not exist.";
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
 

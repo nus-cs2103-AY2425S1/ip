@@ -16,7 +16,7 @@ import ui.Ui;
  * Represents a command to add a new task to the task list.
  * This command handles the creation of ToDo, Deadline, and Event tasks and adds them to the task list.
  */
-public class AddCommand implements Command {
+public class AddCommand extends Command {
     private final String taskType;
     private final String taskDescription;
 
@@ -32,7 +32,7 @@ public class AddCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, InputException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, InputException {
         Task task = switch (taskType) {
             case "todo" -> new ToDo("").createTask(taskDescription);
             case "deadline" -> new Deadline("", LocalDateTime.now()).createTask(taskDescription);
@@ -43,15 +43,8 @@ public class AddCommand implements Command {
         tasks.add(task);
         storage.saveTaskList(tasks.getTasks());
 
-        ui.printLine();
-        ui.show("Got it. I've added this task:");
-        ui.show(task.toString());
-        ui.show("Now you have " + tasks.size() + " tasks in the list.");
-        ui.printLine();
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
+        return "Got it. I've added this task:\n"
+                + task.toString() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
     }
 }

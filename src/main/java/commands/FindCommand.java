@@ -12,7 +12,7 @@ import ui.Ui;
  * The FindCommand class implements the Command interface and represents a command to find tasks
  * in the task list that contain a specific keyword.
  */
-public class FindCommand implements Command {
+public class FindCommand extends Command {
     private final String keyword;
 
     /**
@@ -25,10 +25,9 @@ public class FindCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (keyword.isEmpty()) {
-            ui.show("No keyword provided. To find tasks by keywords, use: find <keyword>");
-            return;
+            return "No keyword provided. To find tasks by keywords, use: find <keyword>";
         }
 
         ArrayList<Task> matchingTasks = new ArrayList<>();
@@ -38,20 +37,16 @@ public class FindCommand implements Command {
             }
         }
 
-        ui.printLine();
         if (matchingTasks.isEmpty()) {
-            ui.show("No matching tasks found.");
+            return "No matching tasks found.";
         } else {
-            ui.show("Here are the matching tasks in your list:");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Here are the tasks with descriptions containing '").append(keyword).append("' in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                ui.show((i + 1) + ". " + matchingTasks.get(i));
+                String item = (i + 1) + ". " + matchingTasks.get(i) + "\n";
+                sb.append(item);
             }
+            return sb.toString();
         }
-        ui.printLine();
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
