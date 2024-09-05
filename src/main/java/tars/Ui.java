@@ -12,14 +12,14 @@ import java.util.Scanner;
  * methods to print different types of messages, such as task updates, errors,
  * and greetings.
  */
-public class UI {
+public class Ui {
     private final Scanner scanner;
     private final String line = "____________________________________";
 
     /**
      * Constructs a new UI object and initializes the scanner for reading user input.
      */
-    public UI() {
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 

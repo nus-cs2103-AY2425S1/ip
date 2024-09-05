@@ -10,42 +10,46 @@ package tars;
  */
 public class Task {
     private String name;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructs a new Task with the specified name and completion status.
      *
      * @param name the name or description of the task.
-     * @param done the completion status of the task; {@code true} if the task is done,
+     * @param isDone the completion status of the task; {@code true} if the task is done,
      *             {@code false} if the task is not done.
      */
-    public Task(String name, boolean done) {
+    public Task(String name, boolean isDone) {
+        assert name != null && !name.trim().isEmpty() : "Task name should not be null or empty.";
         this.name = name;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     public void setName(String newName) {
+        assert newName != null && !newName.trim().isEmpty() : "New task name should not be null or empty.";
         this.name = newName;
     }
 
     public String getName() {
+        assert this.name != null : "Task name should not be null when retrieving.";
         return this.name;
     }
 
-    public boolean isDone() {
-        return this.done;
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     public void setDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void setUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
-        return ("[" + (this.done ? "X" : " ") + "] " + this.name);
+        assert this.name != null : "Task name should not be null when generating string representation.";
+        return ("[" + (this.isDone ? "X" : " ") + "] " + this.name);
     }
 }
