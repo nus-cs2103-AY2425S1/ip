@@ -1,15 +1,14 @@
 package cloudy;
 
-<<<<<<< HEAD
+
 /**
  * The Ui class handles all interactions with the user.
  * It is responsible for displaying messages, including greetings, task lists,
  * and error messages, in a formatted manner.
  */
-=======
+
 import java.util.ArrayList;
 
->>>>>>> branch-Level-9
 public class Ui {
 
     /**
