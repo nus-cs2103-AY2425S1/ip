@@ -37,7 +37,8 @@ public class Ui {
     }
 
     /**
-     * Displays a custom message to the user if there is an issue with loading the hard drive-stored tasks into the program.
+     * Displays a custom message to the user if there is an issue with loading the hard drive-stored tasks into the
+     * program.
      *
      */
     public void showLoadingError() {
@@ -59,7 +60,7 @@ public class Ui {
 
     public void display(TaskList tasks) {
         System.out.println("Here are the tasks in your list:");
-        for (int i=0; i<tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i+1) + "." + tasks.get(i));
         }
     }

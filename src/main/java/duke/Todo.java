@@ -25,10 +25,11 @@ public class Todo extends Task{
 
 
     /**
-     * Overrides the existing toString() method in the Task class to fit the required display requirement for Todo objects.
+     * Overrides the existing toString() method in the Task class to fit the required display requirement for Todo
+     * objects.
      */
     @Override
     public String toString() {
-        return "[T]"+super.toString();
+        return "[T]" + super.toString();
     }
 }

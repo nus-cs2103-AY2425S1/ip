@@ -22,7 +22,7 @@ public class Storage {
         ArrayList<Task> userInputs = new ArrayList<>();
         while (s.hasNextLine()) {
             String string = s.nextLine();
-            String items[] = string.split(" , ");
+            String[] items = string.split(" , ");
             String task = items[0];
             boolean flag = Objects.equals(items[1], "1");
             if (Objects.equals(task, "T")) {
@@ -35,7 +35,7 @@ public class Storage {
                 userInputs.add(taskToBeAdded);
             } else if (Objects.equals(task, "E")) {
                 String start = items[3].split("-", 2)[0];
-                String end = items[3].split("-",2)[1];
+                String end = items[3].split("-", 2)[1];
                 Event taskToBeAdded = new Event(items[2], start, end);
                 taskToBeAdded.setDone(flag);
                 userInputs.add(taskToBeAdded);

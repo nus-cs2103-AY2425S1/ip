@@ -34,20 +34,17 @@ public class Duke {
     }
 
     /**
-     * Parameterless function that handles the various objects for storing, manipulating and displaying the data on the terminal.
+     * Parameterless function that handles the various objects for storing, manipulating and displaying the data on
+     * the terminal.
      *
      */
     public void run() {
-        // Tesla calls storage to pass the stored stuff to task list
-        // UI greets and then prompts user for response and returns the user's response to the program. duke.Parser works through it
-        // and modifies task list and signals ui accordingly for displaying necessary response to user
-        // finally, when the user says bye and the
         ui.greet();
         String userResponse = ui.out();
         while (!Objects.equals(userResponse, "bye")) {
             try {
-                Parser ps = new Parser(userResponse); //ui.out() gives the data from the user to parser, which processes and stores the data
-                ps.process(tasks, ui); //ps.process(tasks) modifies task list and ui accordingly
+                Parser ps = new Parser(userResponse);
+                ps.process(tasks, ui);
                 userResponse = ui.out();
             } catch (EmptyTaskException e) {
                 System.out.println("The description of the task must contain some substance; it cannot be void.");
