@@ -7,12 +7,6 @@ public class EventTask extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
 
-    public EventTask(String desc, String start, String end) {
-        super(desc);
-        this.start = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        this.end = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-    }
-
     public EventTask(String desc, LocalDateTime start, LocalDateTime end, boolean isDone) {
         super(desc, isDone);
         this.start = start;

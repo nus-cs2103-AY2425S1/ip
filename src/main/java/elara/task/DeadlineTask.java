@@ -6,11 +6,6 @@ import java.time.format.DateTimeFormatter;
 public class DeadlineTask extends Task {
     protected LocalDateTime deadline;
 
-    public DeadlineTask(String desc, String deadline) {
-        super(desc);
-        this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-    }
-
     public DeadlineTask(String desc, LocalDateTime deadline, boolean isDone) {
         super(desc, isDone);
         this.deadline = deadline;
