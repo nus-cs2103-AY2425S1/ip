@@ -14,7 +14,7 @@ checkstyle {
 }
 
 dependencies {
-String javaFxVersion = '17.0.1'
+String javaFxVersion = '17.0.7'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("PandaBot")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
