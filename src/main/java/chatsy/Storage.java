@@ -27,6 +27,7 @@ public class Storage {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private String directoryPath;
     private String filePath;
+
     /**
      * Constructs a {@code Storage} instance with the specified directory and file paths.
      *
@@ -87,6 +88,12 @@ public class Storage {
 
     private Task parseTask(String taskString) throws InvalidTaskStringException {
         String[] parts = taskString.split(" \\| ");
+
+        // Check if the taskString has enough parts to parse
+        if (parts.length < 3) {
+            throw new InvalidTaskStringException();
+        }
+
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];

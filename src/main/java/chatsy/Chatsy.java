@@ -5,102 +5,90 @@ import chatsy.exceptions.LocalFileException;
 
 /**
  * The main class for the Chatsy application.
- * It initializes the necessary components and handles the main program loop.
+ * It initializes the necessary components and interacts with the GUI.
  */
 public class Chatsy {
-    private static final String NAME = "Chatsy";
     private static final String LOCAL_DIRECTORY_PATH = "./data";
     private static final String LOCAL_FILE_PATH = LOCAL_DIRECTORY_PATH + "/chatsy.txt";
-    private static boolean isRunning = true;
-    private static TaskManager taskManager;
-    private static Storage storage;
-    private static UI ui;
-    private static CommandHandler commandHandler;
+    private TaskManager taskManager;
+    private Storage storage;
+    private CommandHandler commandHandler;
 
     /**
-     * The entry point for the Chatsy application.
-     * Initializes the components, loads tasks, and starts the main program loop.
-     *
-     * @param args The command-line arguments.
+     * Constructs a Chatsy instance.
      */
-    public static void main(String[] args) {
-        storage = new Storage(LOCAL_DIRECTORY_PATH, LOCAL_FILE_PATH);
-        ui = new UI();
-        taskManager = new TaskManager();
-        commandHandler = new CommandHandler(taskManager, ui);
+    public Chatsy() {
+        this.storage = new Storage(LOCAL_DIRECTORY_PATH, LOCAL_FILE_PATH);
+        this.taskManager = new TaskManager();
+        this.commandHandler = new CommandHandler(taskManager); // GUI will handle output now
 
+        // Load tasks when starting the application
         try {
             taskManager.setTasks(storage.loadTasks());
         } catch (LocalFileException e) {
-            ui.output("Failed to load tasks: " + e.getMessage());
+            // Handle error in the GUI
+            System.out.println("Failed to load tasks: " + e.getMessage());
         }
-
-        ui.greet(NAME);
-        while (isRunning()) {
-            try {
-                commandHandler.handle(ui.readCommand());
-            } catch (ChatsyException e) {
-                ui.output("Oops! " + e.getMessage());
-            } catch (Exception e) {
-                ui.output("An unexpected error occurred: " + e.getMessage());
-            }
-        }
-
-        exit();
     }
 
     /**
-     * Exits the Chatsy application.
-     * Saves the current tasks and displays a goodbye message.
+     * Processes the user command and returns the appropriate response for the GUI to display.
+     *
+     * @param input The user input command.
+     * @return The response message after handling the command.
+     * @throws ChatsyException If any error occurs while handling the command.
      */
-    public static void exit() {
+    public String handleCommand(String input) throws ChatsyException {
+        return commandHandler.handle(input);
+    }
+
+    /**
+     * Returns a greeting message for the user when the application starts.
+     *
+     * @return A greeting string.
+     */
+    public String greet() {
+        return "Hello! I'm Chatsy. How can I assist you today?";
+    }
+
+    /**
+     * Exits the Chatsy application by saving tasks and returning a goodbye message.
+     *
+     * @return A goodbye message to display in the GUI.
+     */
+    public String exit() {
         try {
             storage.saveTasks(taskManager.getTasks());
         } catch (LocalFileException e) {
-            ui.output("Failed to save tasks: " + e.getMessage());
+            return "Failed to save tasks: " + e.getMessage();
         }
-        ui.output("Bye. Hope to see you again soon!");
-        setRunning(false);
+        return "Bye. Hope to see you again soon!";
     }
 
-    // Getters and Setters
-    public static boolean isRunning() {
-        return isRunning;
+    /**
+     * Initializes the task list by loading tasks from storage (if any).
+     *
+     * @return A message indicating success or failure in loading tasks.
+     */
+    public String initTaskList() {
+        try {
+            taskManager.setTasks(storage.loadTasks());
+            return "Task list initialized successfully!";
+        } catch (LocalFileException e) {
+            return "Failed to load tasks: " + e.getMessage();
+        }
     }
 
-    public static void setRunning(boolean running) {
-        isRunning = running;
-    }
-
-    public static TaskManager getTaskManager() {
+    // Getter methods for accessing task manager, storage, etc., if needed by GUI
+    public TaskManager getTaskManager() {
         return taskManager;
     }
 
-    public static void setTaskManager(TaskManager taskManager) {
-        Chatsy.taskManager = taskManager;
-    }
-
-    public static Storage getStorage() {
+    public Storage getStorage() {
         return storage;
     }
 
-    public static void setStorage(Storage storage) {
-        Chatsy.storage = storage;
-    }
-
-    public static UI getUi() {
-        return ui;
-    }
-
-    public static void setUi(UI ui) {
-        Chatsy.ui = ui;
-    }
-
-    public static CommandHandler getCommandHandler() {
+    public CommandHandler getCommandHandler() {
         return commandHandler;
-    }
-
-    public static void setCommandHandler(CommandHandler commandHandler) {
-        Chatsy.commandHandler = commandHandler;
     }
 }
