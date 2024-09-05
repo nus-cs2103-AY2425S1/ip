@@ -1,14 +1,10 @@
 package ned.commands;
-
 import ned.Storage;
 import ned.TaskList;
 import ned.exceptions.NedException;
-
 import ned.tasks.Task;
 import ned.tasks.Event;
-
 import ned.Ui;
-
 import java.util.regex.Pattern;
 
 public class AddEventCommand implements Command {

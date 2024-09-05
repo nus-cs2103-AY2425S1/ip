@@ -1,5 +1,4 @@
 package ned;
-
 import ned.commands.Command;
 import ned.tasks.ToDo;
 import ned.exceptions.NedException;

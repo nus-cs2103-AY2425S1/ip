@@ -1,11 +1,9 @@
 package ned;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
     public static final String INDENTATIONS = "    ";
-
     private ArrayList<String> builtUpNedDialogue = new ArrayList<>();
     private Scanner scannerInstance;
     private final String logo = Ui.INDENTATIONS + " ____  _____              __  \n"

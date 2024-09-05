@@ -1,8 +1,6 @@
 package ned;
-
 import ned.exceptions.NedException;
 import ned.tasks.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,7 +11,6 @@ import java.util.Scanner;
 public class Storage {
 
     private File cacheFile;
-
     private String cacheFilePath;
 
     /**

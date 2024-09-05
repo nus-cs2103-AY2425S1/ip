@@ -1,7 +1,5 @@
 package ned;
-
 import ned.commands.*;
-
 import java.util.regex.Pattern;
 
 public enum CommandTypes {
@@ -40,7 +38,6 @@ public enum CommandTypes {
     /**
      * Returns a CommandTypes object by parsing the user input and matching it to each Command subclass's associated
      * regex. The CommandTypes are a fixed set of values.
-     *
      * @param userInput String representing a line of user input
      * @return A CommandTypes object, with its associated Command subclass
      */

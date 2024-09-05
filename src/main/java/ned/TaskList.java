@@ -1,7 +1,5 @@
 package ned;
-
 import java.util.ArrayList;
-
 import ned.exceptions.NedException;
 import ned.tasks.Task;
 
@@ -18,8 +16,8 @@ public class TaskList {
     }
 
     /**
-     * @param index
-     * @param uiInstance
+     * @param index - Index of the task to be removed
+     * @param uiInstance - Instance of the UI class to handle the printing
      * @throws NedException
      */
     public void removeTask(int index, Ui uiInstance) throws NedException {

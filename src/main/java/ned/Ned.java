@@ -1,8 +1,6 @@
 package ned;
-
 import ned.commands.Command;
 import ned.exceptions.NedException;
-
 import java.nio.file.Paths;
 import java.util.ArrayList;
 

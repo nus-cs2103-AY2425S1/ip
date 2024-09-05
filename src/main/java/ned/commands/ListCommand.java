@@ -1,9 +1,7 @@
 package ned.commands;
-
 import ned.Storage;
 import ned.TaskList;
 import ned.Ui;
-import ned.exceptions.NedException;
 
 public class ListCommand implements Command {
     private final String REGEX = "list";
