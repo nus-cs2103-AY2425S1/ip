@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 /**
  * Represents the graphical user interface that is used for user interactions.
  */
-public class Main extends Application{
+public class Main extends Application {
     private final Fishman fishman = new Fishman();
 
     /**

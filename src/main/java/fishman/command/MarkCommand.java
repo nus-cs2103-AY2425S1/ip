@@ -29,7 +29,7 @@ public class MarkCommand implements Command {
     /**
      * @inheritDoc
      *
-     * Marks or unmarks the specified task in the task list and returns a confirmation message.
+     *      Marks or unmarks the specified task in the task list and returns a confirmation message.
      *
      * @param tasks The TaskList which the specified task will be added.
      * @param ui The Ui object used to generate the confirmation message.

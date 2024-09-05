@@ -22,7 +22,7 @@ public interface Command {
      * Indicator for whether the program should exit.
      *
      * @return true if the program should exit after executing
-     * this command, false otherwise
+     *      this command, false otherwise
      */
     default boolean isExit() {
         return false;

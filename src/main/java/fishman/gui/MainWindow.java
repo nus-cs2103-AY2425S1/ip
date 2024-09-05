@@ -1,7 +1,6 @@
 package fishman.gui;
 
 import fishman.Fishman;
-import fishman.exception.FishmanException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -44,7 +43,7 @@ public class MainWindow {
     public void setFishman(Fishman fishman) {
         this.fishman = fishman;
         String errorMessage = fishman.loadAndSaveTasks("load");
-        if (errorMessage !=null) {
+        if (errorMessage != null) {
             showLoadErrors(errorMessage);
         }
     }

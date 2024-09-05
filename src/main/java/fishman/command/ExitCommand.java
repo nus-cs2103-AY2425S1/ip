@@ -14,8 +14,8 @@ public class ExitCommand implements Command {
     /**
      * @inheritDoc
      *
-     * Constructs a ExitCommand, which executes the exit command by returning
-     * the termination message to the user.
+     *      Constructs a ExitCommand, which executes the exit command by returning
+     *      the termination message to the user.
      *
      * @param tasks The TaskList, which is not used in this command but required by
      *              the interface.
@@ -31,7 +31,7 @@ public class ExitCommand implements Command {
      * @inheritDoc
      *
      * @return true to indicate that the program should terminate
-     * after this command.
+     *      after this command.
      */
     @Override
     public boolean isExit() {

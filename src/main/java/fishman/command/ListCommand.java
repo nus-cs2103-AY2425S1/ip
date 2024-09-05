@@ -12,7 +12,7 @@ public class ListCommand implements Command {
     /**
      * @inheritDoc
      *
-     * Displays the tasks in the task list.
+     *      Displays the tasks in the task list.
      *
      * @param tasks The TaskList which the tasks will be retrieved from.
      * @param ui The Ui object used to display the tasks in the task list.

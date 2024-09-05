@@ -150,6 +150,9 @@ public class FishmanException extends Exception {
             }
         }
 
+        /**
+         * The possible error types when loading the data file.
+         */
         public enum ErrorType {
             INVALID_TODO,
             INVALID_DEADLINE,

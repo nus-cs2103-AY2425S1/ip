@@ -1,5 +1,7 @@
 package fishman;
 
+import java.util.ArrayList;
+
 import fishman.command.Command;
 import fishman.exception.FishmanException;
 import fishman.task.TaskList;
@@ -8,7 +10,7 @@ import fishman.utils.Storage;
 import fishman.utils.Ui;
 import javafx.application.Platform;
 
-import java.util.ArrayList;
+
 
 
 /**

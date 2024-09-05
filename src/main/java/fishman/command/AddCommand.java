@@ -1,7 +1,7 @@
 package fishman.command;
 
-import fishman.task.TaskList;
 import fishman.task.Task;
+import fishman.task.TaskList;
 import fishman.utils.Ui;
 
 /**
@@ -28,8 +28,8 @@ public class AddCommand implements Command {
     /**
      * @inheritDoc
      *
-     * Adds the task to the task list and returns a confirmation message alongside the
-     * current number of tasks in the list.
+     *      Adds the task to the task list and returns a confirmation message alongside the
+     *      current number of tasks in the list.
      *
      * @param tasks The TaskList which the new task will be added.
      * @param ui The Ui instance to generate the confirmation message.

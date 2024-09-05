@@ -94,10 +94,12 @@ public class Storage {
         if (task instanceof ToDo) {
             sb.append("T").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription());
         } else if (task instanceof Deadline) {
-            sb.append("D").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription()).append("|")
+            sb.append("D").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription())
+                            .append("|")
                             .append(((Deadline) task).getBy().format(DATE_TIME_FORMATTER));
         } else if (task instanceof Event) {
-            sb.append("E").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription()).append("|")
+            sb.append("E").append(task.getStatus() ? "|true" : "|false").append("|").append(task.getDescription())
+                            .append("|")
                             .append(((Event) task).getFrom().format(DATE_TIME_FORMATTER)).append("|")
                             .append(((Event) task).getTo().format(DATE_TIME_FORMATTER));
         }
@@ -156,7 +158,7 @@ public class Storage {
                         break;
                     case "E":
                         if (arguments.length != 5 || description.isEmpty()) {
-                            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_EVENT,line);
+                            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_EVENT, line);
                         }
                         String from = arguments[3].trim();
                         String to = arguments[4].trim();
@@ -175,8 +177,9 @@ public class Storage {
             throw new RuntimeException("Error reading file: " + e.getMessage(), e);
         }
 
-        String combinedErrorMessage = errorMessages.isEmpty() ? null :
-                String.join("\n", errorMessages) + "\nInvalid data lines will be skipped. Please check the data file!";
+        String combinedErrorMessage = errorMessages.isEmpty() ? null
+                : String.join("\n", errorMessages) + "\nInvalid data lines will be skipped. "
+                + "Please check the data file!";
 
         return new LoadResults(tasks, allLines, combinedErrorMessage);
     }
