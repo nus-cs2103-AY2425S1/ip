@@ -21,14 +21,6 @@ public interface Command {
      * @throws DownyException If an error occurs during the execution of the command. The specific exceptions
      *                        will depend on the command's implementation.
      */
-    public void execute(Storage storage, TaskList tasks, Ui ui) throws DownyException;
-
-    /**
-     * Indicates whether the command should cause the application to exit. By default, most commands will return
-     * {@code false}. Only commands that specifically intend to terminate the application should return {@code true}.
-     *
-     * @return {@code true} if the command signals the application's termination, {@code false} otherwise.
-     */
-    public boolean isExit();
+    public String execute(Storage storage, TaskList tasks, Ui ui) throws DownyException;
 
 }

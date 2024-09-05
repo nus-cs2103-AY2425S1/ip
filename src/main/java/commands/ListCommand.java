@@ -22,23 +22,11 @@ public class ListCommand implements Command {
      * @throws DownyException If an error occurs during the loading of tasks from storage.
      */
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) throws DownyException {
+    public String execute(Storage storage, TaskList tasks, Ui ui) throws DownyException {
         tasks.loadTasks(storage);
         if (tasks.isEmpty()) {
-            Ui.showMessage("There are no tasks!");
-            return;
+            return Ui.showMessage("There are no tasks!");
         }
-        ui.displayTasks(tasks);
-    }
-
-    /**
-     * Indicates that this command does not signal the application to exit.
-     *
-     * @return {@code false}, indicating that this command does not cause the
-     *         application to terminate.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return ui.displayTasks(tasks);
     }
 }

@@ -12,7 +12,6 @@ import tasks.TaskList;
  */
 public class Ui {
 
-    private static final String DIVIDER = "________________________________________\n";
     private final Scanner scanner;
 
     /**
@@ -25,23 +24,16 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        System.out.println(DIVIDER + "Hello! I'm Downy.\nHow can I help?\n" + DIVIDER);
-    }
-
-    /**
-     * Displays a line divider to the user.
-     */
-    public void showLine() {
-        System.out.println(DIVIDER);
+    public static String showWelcome() {
+        return "Hello! I'm Downy.\nHow can I help?\n";
     }
 
     /**
      * Displays an exit message to the user and closes the scanner.
      */
-    public void showExitMessage() {
+    public String showExitMessage() {
         this.scanner.close();
-        System.out.println(DIVIDER + "Bye! Yippee!");
+        return "Bye! Yippee!";
     }
 
     /**
@@ -49,8 +41,8 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public static void showErrorMessage(String message) {
-        System.out.println(DIVIDER + "Error: " + message + "\n" + DIVIDER);
+    public static String showErrorMessage(String message) {
+        return "Error: " + message + "\n";
     }
 
     /**
@@ -58,8 +50,8 @@ public class Ui {
      *
      * @param message The message to be displayed.
      */
-    public static void showMessage(String message) {
-        System.out.println(DIVIDER + message + "\n" + DIVIDER);
+    public static String showMessage(String message) {
+        return message + "\n";
     }
 
     /**
@@ -67,13 +59,15 @@ public class Ui {
      *
      * @param tasks The task list containing the tasks to be displayed.
      */
-    public void displayTasks(TaskList tasks) {
-        System.out.print(DIVIDER);
-        System.out.println("Here are the tasks in your list:");
+    public String displayTasks(TaskList tasks) {
+        StringBuilder result = new StringBuilder();
+        result.append("Here are the tasks in your list:\n");
+
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println((i + 1) + ". " + tasks.getTask(i));
+            result.append((i + 1)).append(". ").append(tasks.getTask(i)).append("\n");
         }
-        System.out.print(DIVIDER);
+
+        return result.toString();
     }
 
     /**
@@ -84,24 +78,27 @@ public class Ui {
      * @param tasks   The {@code TaskList} containing the tasks to be searched.
      * @param keyword The keyword to search for within the task names.
      */
-    public void displayMatchingTasks(TaskList tasks, String keyword) {
-        System.out.printf(DIVIDER);
-        System.out.println("Here are the tasks in your list that match the keyword:");
+    public String displayMatchingTasks(TaskList tasks, String keyword) {
+        StringBuilder result = new StringBuilder();
+        result.append("Here are the tasks in your list that match the keyword:\n");
+
         String lowerCaseKeyword = keyword.toLowerCase();
         int matchCount = 0;
+
         for (int i = 0; i < tasks.getSize(); i++) {
             String taskName = tasks.getTask(i).getName().toLowerCase();
 
             if (taskName.contains(lowerCaseKeyword)) {
-                System.out.println((matchCount + 1) + ". " + tasks.getTask(i));
+                result.append((matchCount + 1)).append(". ").append(tasks.getTask(i)).append("\n");
                 matchCount++;
             }
         }
+
         if (matchCount == 0) {
-            System.out.println("No matching tasks found.");
+            result.append("No matching tasks found.\n");
         }
 
-        System.out.printf(DIVIDER);
+        return result.toString();
     }
 
     /**
@@ -109,8 +106,8 @@ public class Ui {
      *
      * @param t The task that is complete.
      */
-    public void displayCompletedTask(Task t) {
-        System.out.println(DIVIDER + "Nice! You've completed this task:\n  " + t + "\n" + DIVIDER);
+    public String displayCompletedTask(Task t) {
+        return "Nice! You've completed this task:\n  " + t + "\n";
     }
 
     /**
@@ -118,8 +115,8 @@ public class Ui {
      *
      * @param t The task that is not complete.
      */
-    public void displayIncompleteTask(Task t) {
-        System.out.println(DIVIDER + "Ok! This task is not complete:\n  " + t + "\n" + DIVIDER);
+    public String displayIncompleteTask(Task t) {
+        return "Ok! This task is not complete:\n  " + t + "\n";
     }
 
     /**
@@ -127,8 +124,8 @@ public class Ui {
      *
      * @param t The task that has been deleted.
      */
-    public void displayDeletedTask(Task t) {
-        System.out.println(DIVIDER + "Ok! This task has been removed:\n  " + t + "\n" + DIVIDER);
+    public String displayDeletedTask(Task t) {
+        return "Ok! This task has been removed:\n  " + t + "\n";
     }
 
     /**
@@ -138,9 +135,8 @@ public class Ui {
      * @param t         The task that has been added.
      * @param taskCount The current number of tasks in the list.
      */
-    public void displayTaskAdded(Task t, int taskCount) {
-        System.out.println(DIVIDER + "Okay! Added this task:\n  " + t
-                + "\nNow you have " + taskCount + " tasks in this list\n" + DIVIDER);
+    public String displayTaskAdded(Task t, int taskCount) {
+        return "Okay! Added this task:\n  " + t + "\nNow you have " + taskCount + " tasks in this list\n";
     }
 
     /**
@@ -155,18 +151,20 @@ public class Ui {
     /**
      * Displays a help message listing all valid commands.
      */
-    public void displayHelp() {
-        System.out.print(DIVIDER);
-        System.out.println("Here are a list of valid commands:");
-        System.out.println(" - list");
-        System.out.println(" - mark <taskNumber>");
-        System.out.println(" - unmark <taskNumber>");
-        System.out.println(" - delete <taskNumber>");
-        System.out.println(" - todo <taskDescription>");
-        System.out.println(" - deadline <taskDescription> /by <dueDate>");
-        System.out.println(" - event <taskDescription> /from <startTime> /to <endTime>");
-        System.out.println(" - bye");
-        System.out.println(" - help");
-        System.out.println(DIVIDER);
+    public String displayHelp() {
+        StringBuilder result = new StringBuilder();
+        result.append("Here are a list of valid commands:\n");
+        result.append(" - list\n");
+        result.append(" - mark <taskNumber>\n");
+        result.append(" - unmark <taskNumber>\n");
+        result.append(" - delete <taskNumber>\n");
+        result.append(" - todo <taskDescription>\n");
+        result.append(" - deadline <taskDescription> /by <dueDate>\n");
+        result.append(" - event <taskDescription> /from <startTime> /to <endTime>\n");
+        result.append(" - bye\n");
+        result.append(" - help\n");
+        result.append(" - find <keyword>\n");
+
+        return result.toString();
     }
 }
