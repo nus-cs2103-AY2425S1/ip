@@ -1,12 +1,27 @@
+
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Chappy {
-    
-    private static ArrayList<Task> userInputArray = new ArrayList<Task>();
-    private static int userInputArrayPointer = 0;
 
-    public static void main(String[] args) {
+    private enum Command {
+        BYE("bye"), LIST("list"), UNMARK("unmark"), MARK("mark"), TODO("todo"), DEADLINE("deadline"), EVENT("event"), DELETE("delete");
+        private final String keyword;
+
+        Command(String keyword) {
+            this.keyword = keyword;
+        }
+
+        public String getKeyword() {
+            return this.keyword;
+        }
+
+    }
+
+    protected static ArrayList<Task> userInputArray = new ArrayList<Task>();
+
+    public static void main(String[] args) throws CreateTaskException {
         String logo = """            
             :..               
            #@@@@#+:           
@@ -35,122 +50,116 @@ public class Chappy {
  """;
         System.out.println("Good day sir! \n" + logo + "\nat your service!");
         System.out.println("I shall await your next request.");
-        System.out.println("____________________________________________________________");
         Scanner scannerObj = new Scanner(System.in);
         String userInput;
-        while(scannerObj.hasNext()) {
-            userInput = scannerObj.nextLine();
-            
-            if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("It's been a pleasure serving you! Farewell sir.");
-                System.out.println("____________________________________________________________");
-                break;
-            } else if (userInput.equalsIgnoreCase("list")) {
-                System.out.println("____________________________________________________________");
-                for (int i = 0; i < userInputArray.size(); i++) {
-                    System.out.println(i+1 + "." + userInputArray.get(i).toString());
-                }
-                System.out.println("____________________________________________________________");
-
-            } else if (userInput.toLowerCase().contains("unmark")) {
-                int t = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                userInputArray.get(t).markAsNotDone();
-                System.out.println("____________________________________________________________");
-                System.out.println("Aww.. I've marked this task as not done yet..");
-                System.out.println(userInputArray.get(t).toString());
-                System.out.println("____________________________________________________________");
-
-            }  else if (userInput.toLowerCase().contains("mark")) {
-                int t = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                userInputArray.get(t).markAsDone();
-                System.out.println("____________________________________________________________");
-                System.out.println("Fantastic! I've marked this task as done!");
-                System.out.println(userInputArray.get(t).toString());
-                System.out.println("____________________________________________________________");
-
-            } else if (userInput.toLowerCase().contains("todo")) {
-                String[] t = userInput.trim().split("todo");
-                if (t.length < 2) {
-                    System.out.println("Oh SIR! The description of a todo cannot be empty!");
-                    continue;
-                }
-                Todo task = new Todo(t[1]);
-                userInputArray.add(task);
-                System.out.println("____________________________________________________________");
-                System.out.println("Alright sir! I've added this task:");
-                System.out.println(task.toString());
-                System.out.println("____________________________________________________________");
-
-            } else if (userInput.toLowerCase().contains("deadline")) {
-                String[] t = userInput.trim().split("deadline");
-                if (t.length < 2) {
-                    System.out.println("Oh SIR! The description of a deadline cannot be empty!");
-                    continue;
-                }
-                String[] t2 = t[1].split("/by");
-                if (t2.length < 2) {
-                    System.out.println("Oh SIR! The \"by\" description of a deadline cannot be empty!");
-                    continue;
-                }
-                Deadline task = new Deadline(t2[0], t2[1]);
-                userInputArray.add(task);
-                System.out.println("____________________________________________________________");
-                System.out.println("Alright sir! I've added this task:");
-                System.out.println(task.toString());
-                System.out.println("____________________________________________________________");
-
-            } else if (userInput.toLowerCase().contains("event")) {
-                String[] t = userInput.trim().split("event");
-                if (t.length < 2) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Oh SIR! The description of an event cannot be empty!");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                }
-                String[] t2 = t[1].split("/from");
-                if (t2.length < 2) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Oh SIR! The \"from\" description of an event cannot be empty!");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                }
-                
-                String[] t3 = t2[1].split("/to");
-                if (t3.length < 2) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Oh SIR! The \"to\" description of an event cannot be empty!");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                }
-
-                Event task = new Event(t2[0], t3[0], t3[1]);
-                userInputArray.add(task);
-                System.out.println("____________________________________________________________");
-                System.out.println("Alright sir! I've added this task:");
-                System.out.println(task.toString());
-                System.out.println("____________________________________________________________");
-
-            } else if (userInput.toLowerCase().contains("delete")) {
-                int t = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                Task task = userInputArray.get(t);
-                userInputArray.remove(t);
-                System.out.println("____________________________________________________________");
-                System.out.println("Unfortunate.. I'll remove this task from the list..");
-                System.out.println(task.toString());
-                System.out.println("____________________________________________________________");
-
-            } else if (userInput != "") {
-                System.out.println("____________________________________________________________");
-                System.out.println("Oh SIR! I can't understand what you are saying!");
-                System.out.println("____________________________________________________________");
-                
+        while (scannerObj.hasNext()) {
+            userInput = scannerObj.nextLine().trim();
+            if (userInput.equals("")) {
+                continue;
             }
-            
-           
-            
+            System.out.println("____________________________________________________________");
+            Command userInputCommand = null;
+            for (Command command : Command.values()) {
+                if (userInput.toLowerCase().contains(command.getKeyword())) {
+                    userInputCommand = command;
+                    break;
+                }
+            }
+            try {
+                if (!Objects.isNull(userInputCommand)) {
+
+                    switch (userInputCommand) {
+                        case BYE:
+                            System.out.println("It's been a pleasure serving you! Farewell sir.");
+                            return;
+
+                        case LIST:
+                            System.out.println("As requested, here are your outstanding tasks sir:");
+                            for (int i = 0; i < Chappy.userInputArray.size(); i++) {
+                                System.out.println(i + 1 + "." + userInputArray.get(i).toString());
+                            }
+                            break;
+
+                        case UNMARK:
+                            String[] unmarkInput = userInput.trim().split("(?i)"+ Command.UNMARK.getKeyword());
+                            if (unmarkInput.length < 2) {
+                                throw new CreateTaskException("Oh SIR! The index input of a Unmark command cannot be empty!");
+                            }
+                            int unmarkIndex = Integer.parseInt(unmarkInput[1].trim()) - 1;
+                            if (unmarkIndex < 0 || unmarkIndex > userInputArray.size() - 1) {
+                                throw new CreateTaskException("Oh SIR! That task index does not exist!");
+                            }
+                            userInputArray.get(unmarkIndex).markAsNotDone();
+                            break;
+
+                        case MARK:
+                            String[] markInput = userInput.trim().split("(?i)"+ Command.MARK.getKeyword());
+                            if (markInput.length < 2) {
+                                throw new CreateTaskException("Oh SIR! The index input of a Mark command cannot be empty!");
+                            }
+                            int markIndex = Integer.parseInt(markInput[1].trim()) - 1;
+                            if (markIndex < 0 || markIndex > userInputArray.size() - 1) {
+                                throw new CreateTaskException("Oh SIR! That task index does not exist!");
+                            }
+                            userInputArray.get(markIndex).markAsDone();
+                            break;
+
+                        case TODO:
+                            String[] todoInput = userInput.trim().split("(?i)" + Command.TODO.getKeyword());
+                            if (todoInput.length < 2) {
+                                throw new CreateTaskException("Oh SIR! The description of a Todo cannot be empty!");
+                            }
+                            Todo todo = new Todo(todoInput[1].trim());
+                            Task.addTask(todo);
+                            break;
+
+                        case DEADLINE:
+                            String[] deadlineInput = userInput.trim().split("(?i)" + Command.DEADLINE.getKeyword());
+                            if (deadlineInput.length < 2) {
+                                throw new CreateTaskException("Oh SIR! The description of a Deadline cannot be empty!");
+                            }
+                            Deadline.validateOptions(userInput.trim());
+                            String[] deadlineInput2 = deadlineInput[1].split(Deadline.Option.values()[0].getKeyword());
+                            Deadline deadline = new Deadline(deadlineInput2[0].trim(), deadlineInput2[1].trim());
+                            Task.addTask(deadline);
+                            break;
+
+                        case EVENT:
+                            String[] eventInput = userInput.trim().split("(?i)" + Command.EVENT.getKeyword());
+                            if (eventInput.length < 2) {
+                                throw new CreateTaskException("Oh SIR! The description of an Event cannot be empty!");
+                            }
+                            Event.validateOptions(userInput.trim());
+                            String[] eventInput2 = eventInput[1].split(Event.Option.values()[0].getKeyword());
+                            String[] eventInput3 = eventInput2[1].split(Event.Option.values()[1].getKeyword());
+                            Event task = new Event(eventInput2[0].trim(), eventInput3[0].trim(), eventInput3[1].trim());
+                            Task.addTask(task);
+
+                            break;
+
+                        case DELETE:
+                            String[] deleteInput = userInput.trim().split("(?i)" + Command.DELETE.getKeyword());
+
+                            if (deleteInput.length < 2) {
+                                throw new CreateTaskException("Oh SIR! The index input of a Delete command cannot be empty!");
+                            }
+                            int deleteIndex = Integer.parseInt(deleteInput[1].trim()) - 1;
+                            if (deleteIndex < 0 || deleteIndex > userInputArray.size() - 1) {
+                                throw new CreateTaskException("Oh SIR! That task index does not exist!");
+                            }
+                            Task.removeTask(deleteIndex);
+
+                            break;
+                    }
+                } else {
+                    throw new CreateTaskException("Oh SIR! I can't understand what you are saying!");
+                }
+
+            } catch (CreateTaskException e) {
+                System.out.println(e.getMessage());
+
+            }
+
         }
-        
-       
     }
 }
