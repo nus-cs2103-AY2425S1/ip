@@ -32,7 +32,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Duke instance
+     */
     public void setDuke(Yapper yapper1) {
         yapper = yapper1;
     }
