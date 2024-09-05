@@ -43,10 +43,9 @@ public class DeleteCommand extends Command {
         Task task = tasks.getTasks().get(index); // Retrieve the task to be deleted based on the index.
         tasks.deleteTask(index); // Remove the task from the task list.
         storage.save(tasks.getTasks()); // Save the updated task list to storage.
-        ui.showLine(); // Display confirmation messages to the user.
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
-        ui.showLine();
+        String outputToGui = "Noted. I've removed this task:\n";
+        outputToGui = outputToGui + "  " + task;
+        outputToGui = outputToGui + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        feedback = outputToGui;
     }
 }

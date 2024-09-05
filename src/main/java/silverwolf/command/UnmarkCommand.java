@@ -47,7 +47,7 @@ public class UnmarkCommand extends Command {
             specificTask.unmarkTask();
 
             // Provide feedback to the user
-            ui.showUnmarkTask(specificTask); // Assuming `Ui` has a method to show unmarked task
+            feedback = ui.showUnmarkTask(specificTask); // Assuming `Ui` has a method to show unmarked task
 
             // Save the updated task list to storage
             storage.save(tasks.getTasks());

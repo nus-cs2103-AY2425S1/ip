@@ -12,7 +12,7 @@ import silverwolf.ui.Ui;
  * Subclasses must implement the abstract execute method, which defines the specific behavior of the command.
  */
 public abstract class Command {
-
+    protected String feedback; // Stores the feedback message
     /**
      * Executes the command. This method must be implemented by all subclasses to define
      * the specific actions that the command will perform.
@@ -24,6 +24,14 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws SilverWolfException;
 
+    /**
+     * Returns feedback from the command after execution.
+     *
+     * @return The feedback message for the executed command.
+     */
+    public String getFeedback() {
+        return feedback;
+    }
     /**
      * Indicates whether the command causes the application to exit.
      * By default, this returns false, meaning the application will continue running after the command is executed.

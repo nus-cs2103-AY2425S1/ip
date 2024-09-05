@@ -36,11 +36,9 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SilverWolfException {
         tasks.addTask(task); // Add the task to the TaskList
         storage.save(tasks.getTasks()); // Save the updated task list to storage
-        ui.showLine(); // Show a dividing line in the UI
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task); // Display the task that was added
-        System.out.println("Now you have " + tasks.getSize() + " tasks in the list."); // Show the updated task count
-        ui.showLine(); // Show another dividing line in the UI
-        ui.newline(); // Add a newline for better readability
+        String outputToGui = "Got it. I've added this task:\n";
+        outputToGui = outputToGui + task;
+        outputToGui = outputToGui + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        feedback = outputToGui;
     }
 }
