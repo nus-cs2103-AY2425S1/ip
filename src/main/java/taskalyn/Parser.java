@@ -8,6 +8,7 @@ public class Parser {
         this.ui = ui;
         this.taskManager = taskManager;
     }
+
     public boolean parse(TaskManager taskManager) {
         while (true) {
             String input = ui.readCommand();
@@ -48,7 +49,7 @@ public class Parser {
                     try {
                         Integer i = Integer.parseInt(items[1]);
                         if (i > 0 && i <= taskManager.getTaskSize() + 1) {
-                            taskManager.completeTask(i);
+                            taskManager.markTaskAsComplete(i);
                         } else {
                             throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
                         }
@@ -65,7 +66,7 @@ public class Parser {
                     try {
                         Integer i = Integer.parseInt(items[1]);
                         if (i > 0 && i <= taskManager.getTaskSize() + 1) {
-                            taskManager.incompleteTask(i);
+                            taskManager.markTaskAsIncomplete(i);
                         } else {
                             throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
                         }

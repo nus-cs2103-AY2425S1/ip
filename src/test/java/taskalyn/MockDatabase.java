@@ -14,7 +14,7 @@ public class MockDatabase extends Database {
 
     public MockDatabase() {
         try {
-            List<String> txtLines = Files.readAllLines(FILE_PATH);
+            List<String> textLines = Files.readAllLines(FILE_PATH);
             if (Files.notExists(FILE_PATH)) {
                 Files.createDirectory(Paths.get(DIRECTORY));
                 Files.createFile(FILE_PATH);
@@ -48,7 +48,7 @@ public class MockDatabase extends Database {
     }
 
     public int getDatabaseSize() throws IOException {
-        List<String> txtLines = readFromDatabase();
-        return txtLines.size();
+        List<String> textLines = readFromDatabase();
+        return textLines.size();
     }
 }

@@ -29,25 +29,25 @@ public class TaskManagerTest {
     }
 
     @Test
-    public void testCompleteNegativeTaskNumber() {
+    public void completeTask_negativeIndex_exceptionThrown() {
         TodoTask task = new TodoTask("do homework", false);
-        assertThrows(IndexOutOfBoundsException.class, () -> taskManager.completeTask(-4));
+        assertThrows(IndexOutOfBoundsException.class, () -> taskManager.markTaskAsComplete(-4));
     }
 
     @Test
-    public void testCompleteExistentTask() {
+    public void completeTask_validIndex_successfullyCompleted() {
         TodoTask task = new TodoTask("do homework", false);
         taskManager.addTask(task);
-        assertDoesNotThrow(() -> taskManager.completeTask(1));
+        assertDoesNotThrow(() -> taskManager.markTaskAsComplete(1));
     }
 
     @Test
-    public void deleteAnInvalidTaskNumber() {
-        assertThrows(IndexOutOfBoundsException.class, () -> taskManager.completeTask(-100));
+    public void deleteTask_invalidIndex_exceptionThrown() {
+        assertThrows(IndexOutOfBoundsException.class, () -> taskManager.markTaskAsComplete(-100));
     }
 
     @Test
-    public void checkTaskSize() {
+    public void deleteTask_taskDeleted_updatesTaskSize() {
         TodoTask t1 = new TodoTask("eat chicken", false);
         DeadlineTask t2 = new DeadlineTask("finish homework", "2024-08-05 2359", false);
         EventTask t3 = new EventTask("party", "tmr 2pm", "tmr 4pm", false);
@@ -59,14 +59,14 @@ public class TaskManagerTest {
     }
 
     @Test
-    public void checkListingOfTasks() {
+    public void listTasks_tasksListed_correctOutput() {
         TodoTask t1 = new TodoTask("eat chicken", false);
         DeadlineTask t2 = new DeadlineTask("finish homework", "2024-08-05 2359", false);
         EventTask t3 = new EventTask("party", "tmr 2pm", "tmr 4pm", false);
         taskManager.addTask(t1);
         taskManager.addTask(t2);
         taskManager.addTask(t3);
-        taskManager.completeTask(2);
+        taskManager.markTaskAsComplete(2);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(outputStream);
         PrintStream old = System.out;
@@ -83,8 +83,10 @@ public class TaskManagerTest {
                 "    ____________________________________________________________\r\n\r\n"
                 ).replaceAll("\\n|\\r\\n", System.lineSeparator());
 
-        String actualOutput = outputStream.toString().trim().replaceAll("\\s+$", "").replaceAll("\\r\\n", "\n");
-        String normalizedExpectedOutput = expectedOutput.trim().replaceAll("\\s+$", "").replaceAll("\\r\\n", "\n");
+        String actualOutput = outputStream.toString().trim().replaceAll("\\s+$", "")
+                .replaceAll("\\r\\n", "\n");
+        String normalizedExpectedOutput = expectedOutput.trim().replaceAll("\\s+$", "")
+                .replaceAll("\\r\\n", "\n");
         assertEquals(normalizedExpectedOutput, actualOutput);
     }
 

@@ -38,7 +38,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testWriteToDatabase() {
+    public void writeToDatabase_multipleTasks_writtenSuccessfully() {
         // Arrange
         List<Task> tasks = Arrays.asList(
                 new TodoTask("Test Task 1", false),

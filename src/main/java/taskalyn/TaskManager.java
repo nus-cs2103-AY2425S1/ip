@@ -57,7 +57,7 @@ public class TaskManager {
         ui.printLines(taskString);
     }
 
-    public void completeTask(int taskId) {
+    public void markTaskAsComplete(int taskId) {
         if (taskId <= tasks.size() + 1) {
             tasks.get(taskId - 1).setComplete();
             ui.printLines("Nice, I've marked this task as complete:\n" +
@@ -66,7 +66,7 @@ public class TaskManager {
         updateDatabase();
     }
 
-    public void incompleteTask(int taskId) {
+    public void markTaskAsIncomplete(int taskId) {
         if (taskId <= tasks.size() + 1) {
             tasks.get(taskId - 1).setIncomplete();
             ui.printLines("Ok, I've marked this task as incomplete:\n" +
