@@ -14,10 +14,9 @@ public class TasksStorage {
     private CancelGPT chatbot;
     private Path tasksStoragePath;
 
-    public TasksStorage(CancelGPT chatbot) throws IOException {
+    public TasksStorage(CancelGPT chatbot, Path tasksStorageDirectoryPath) throws IOException {
         this.chatbot = chatbot;
 
-        Path tasksStorageDirectoryPath = Paths.get(System.getProperty("user.home"), "accountexeregister-ip", "data");
         if (!Files.exists(tasksStorageDirectoryPath)) {
             Files.createDirectories(tasksStorageDirectoryPath);
         }

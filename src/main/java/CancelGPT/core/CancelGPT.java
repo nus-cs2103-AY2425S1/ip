@@ -5,6 +5,8 @@ import CancelGPT.exception.task.TaskDoesNotExist;
 import CancelGPT.task.Task;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,11 +16,11 @@ public class CancelGPT {
     private TasksStorage tasksStorage;
     private CommandParser commandParser;
 
-    public CancelGPT() {
+    public CancelGPT(Path storageDirPath) {
         this.CHATBOT_NAME = "CancelGPT";
         this.TASKS_LIST = new TasksList();
         try {
-            this.tasksStorage = new TasksStorage(this);
+            this.tasksStorage = new TasksStorage(this, storageDirPath);
         } catch (IOException e) {
             UI.printMessageToConsole("Unable to use TASKS STORAGE. Exiting program");
             System.exit(1);
@@ -31,7 +33,7 @@ public class CancelGPT {
     }
 
     public static void main(String[] args) {
-        CancelGPT cancelGPT = new CancelGPT();
+        CancelGPT cancelGPT = new CancelGPT(Paths.get(System.getProperty("user.home"), "accountexeregister-ip", "data"));
         cancelGPT.run();
     }
 
