@@ -1,30 +1,9 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 import java.util.Scanner;
 
 
 public class Mittens {
-
-    // Unfortunately we were unable to use the initial cat ASCII art due to the
-    // Unicode characters interfering with the UI tests.
-    private final static String GREETING_MESSAGE = """
-            
-             /\\_/\\     ____________________
-             >^,^<    / Hi, I'm Mittens!   \\
-              / \\     \\ I'm a cat! Meow :3 /
-             (___)_/   --------------------
-            """;
-
-    private final static String EXIT_MESSAGE = """
-            
-             /\\_/\\     _____________
-             >^,^<    ( Bye-bye! :3 )
-              / \\      -------------
-             (___)_/
-            """;
-    
-    
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
@@ -33,77 +12,6 @@ public class Mittens {
         this.ui = new TextUi();
         this.storage = new Storage(storageFilePath);
         this.taskList = new TaskList();
-    }
-    
-    public void greet() {
-        System.out.println(GREETING_MESSAGE);
-    }
-
-    public void echo(String command) {
-        int len = command.length();
-        String message = """
-                
-                 /\\_/\\     %s
-                 >^,^<    ( %s )
-                  / \\      %s
-                 (___)_/
-                """.formatted("_".repeat(len + 2),
-                command, "-".repeat(len + 2));
-
-        System.out.println(message);
-    }
-
-    public void addTask(Task task) {
-        this.taskList.addTask(task);
-        System.out.printf("\nI've added \"%s\" to your list :3\n\n", task.getDescription());
-    }
-
-    public void listTasks() {
-        if (this.taskList.getCount() == 0) {
-            System.out.println("\nMeow?! Your list is empty!\n");
-            return;
-        }
-        System.out.printf("\nYou have %d tasks in your list, here they are :3\n", this.taskList.getCount());
-        List<Task> tasks = this.taskList.getTasks();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            System.out.printf("%d. %s\n", i + 1, task.toString());
-        }
-        System.out.print("\n");
-    }
-
-    public void markTaskAsDone(int index) throws BadInputException {
-        try {
-            Task task = this.taskList.markTaskAsDone(index - 1);
-            System.out.printf("\nMeow, I scratched the check box for you:\n%s\n\n", task.toString());
-        } catch (IndexOutOfBoundsException e) {
-            // TODO: Define custom exceptions for TaskList operations
-            throw new BadInputException("Task index is out of range");
-        }
-    }
-
-    public void markTaskAsNotDone(int index) throws BadInputException {
-        try {
-            Task task = this.taskList.markTaskAsNotDone(index - 1);
-            System.out.printf("\nMeow, I unscratched the check box for you:\n%s\n\n", task.toString());
-        } catch (IndexOutOfBoundsException e) {
-            // TODO: Define custom exceptions for TaskList operations
-            throw new BadInputException("Task index is out of range");
-        }
-    }
-    
-    public void deleteTask(int index) throws BadInputException {
-        try {
-            Task task = this.taskList.deleteTask(index - 1);
-            System.out.printf("\nMeow, I deleted the task '%s' for you :3\n\n", task.getDescription());
-        } catch (IndexOutOfBoundsException e) {
-            // TODO: Define custom exceptions for TaskList operations
-            throw new BadInputException("Task index is out of range");
-        }
-    }
-
-    public static void exit() {
-        System.out.println(EXIT_MESSAGE);
     }
 
     public void run() {
@@ -127,35 +35,35 @@ public class Mittens {
             return;
         }
         
-        greet();
+        ui.showGreetingMessage();
 
         while (true) {
-            System.out.print("> ");
-            String input = scanner.nextLine();
-
+            String input = ui.getUserInput();
+            
+            Command command = null;
             try {
                 if (input.equals("bye")) {
-                    break;
+                    command = new ExitCommand();
                 } else if (input.equals("list")) {
-                    listTasks();
+                    command = new ListCommand();
                 } else if (input.startsWith("mark")) {
                     try {
                         int index = Integer.parseInt(input.split(" ")[1]);
-                        markTaskAsDone(index);
+                        command = new MarkCommand(index);
                     } catch (NumberFormatException e) {
                         throw new BadInputException("Argument for command 'mark' must be a number");
                     }
                 } else if (input.startsWith("unmark")) {
                     try {
                         int index = Integer.parseInt(input.split(" ")[1]);
-                        markTaskAsNotDone(index);
+                        command = new UnmarkCommand(index);
                     } catch (NumberFormatException e) {
                         throw new BadInputException("Argument for command 'mark' must be a number");
                     }
                 } else if (input.startsWith("delete")) {
                     try {
                         int index = Integer.parseInt(input.split(" ")[1]);
-                        deleteTask(index);
+                        command = new DeleteCommand(index);
                     } catch (NumberFormatException e) {
                         throw new BadInputException("Argument for command 'delete' must be a number");
                     }
@@ -163,8 +71,7 @@ public class Mittens {
                     String description = input.substring(5);
 
                     Todo newTodo = new Todo(description);
-                    AddCommand command = new AddCommand(newTodo);
-                    command.execute(this.taskList, this.ui, this.storage);
+                    command = new AddCommand(newTodo);
                 } else if (input.startsWith("deadline")) {
                     // Separate the inputs so that the first element contains the description while
                     // the rest contains flags.
@@ -194,8 +101,7 @@ public class Mittens {
                     }
 
                     Deadline newDeadline = new Deadline(description, by);
-                    AddCommand command = new AddCommand(newDeadline);
-                    command.execute(this.taskList, this.ui, this.storage);
+                    command = new AddCommand(newDeadline);
                 } else if (input.startsWith("event")) {
                     // Separate the inputs so that the first element contains the description while
                     // the rest contains flags.
@@ -240,10 +146,7 @@ public class Mittens {
                     }
 
                     Event newEvent = new Event(description, from, to);
-                    AddCommand command = new AddCommand(newEvent);
-                    command.execute(this.taskList, this.ui, this.storage);
-                } else if (input.equals("save")) {
-                    this.storage.save(this.taskList);
+                    command = new AddCommand(newEvent);
                 } else {
                     throw new BadInputException("'%s' is not a known command".formatted(input));
                 }
@@ -253,9 +156,15 @@ public class Mittens {
                 UnknownException newException = new UnknownException(e.getMessage());
                 newException.echo();
             }
-        }
 
-        exit();
+            if (command != null) {
+                // This should always happen; the if statement is just to remove the NullPointerException warning.
+                command.execute(this.taskList, this.ui, this.storage);
+                if (command.isExit()) {
+                    break;
+                }
+            }
+        }
     }
     
     public static void main(String[] args) {
