@@ -11,51 +11,50 @@ public class Saving {
 
     private Path saveFilePath;
     private String pathName;
-
     private File file;
 
-    private ArrayList<Task> taskList;
+    private TaskList taskList;
 
     public Saving(String pathName) {
         this.pathName = pathName;
         this.saveFilePath = Path.of(pathName);
-        this.taskList = new ArrayList<>();
+        this.taskList = new TaskList();
     }
 
     private void load(String filePath) throws FileNotFoundException {
         this.file = new File(filePath);
         Scanner s = new Scanner(this.file);
         while (s.hasNextLine()) {
-                String line = s.nextLine();
-                String[] parts = line.split(" \\| ");
-                switch (parts[0]) {
-                    case "T":
-                        ToDo todo = new ToDo(parts[2]);
-                        if (parts[1].equals("1")) {
-                            todo.markDone();
-                        }
-                        taskList.add(todo);
-                        break;
-                    case "D":
-                        Deadline deadline = new Deadline(parts[2], parts[3]);
-                        if (parts[1].equals("1")) {
-                            deadline.markDone();
-                        }
-                        taskList.add(deadline);
-                        break;
-                    case "E":
-                        Event event = new Event(parts[2], parts[3], parts[4]);
-                        if (parts[1].equals("1")) {
-                            event.markDone();
-                        }
-                        taskList.add(event);
-                        break;
-                }
+            String line = s.nextLine();
+            String[] parts = line.split(" \\| ");
+            switch (parts[0]) {
+                case "T":
+                    ToDo todo = new ToDo(parts[2]);
+                    if (parts[1].equals("1")) {
+                        todo.markDone();
+                    }
+                    taskList.add(todo);
+                    break;
+                case "D":
+                    Deadline deadline = new Deadline(parts[2], parts[3]);
+                    if (parts[1].equals("1")) {
+                        deadline.markDone();
+                    }
+                    taskList.add(deadline);
+                    break;
+                case "E":
+                    Event event = new Event(parts[2], parts[3], parts[4]);
+                    if (parts[1].equals("1")) {
+                        event.markDone();
+                    }
+                    taskList.add(event);
+                    break;
             }
-            s.close();
+        }
+        s.close();
     }
 
-   public void getData() throws IOException {
+    public void getData() throws IOException {
         try {
             load(pathName);
             //System.out.println("loaded file");
@@ -75,14 +74,13 @@ public class Saving {
                 fw.write(task.toFileFormat() + "\n");
             }
             fw.close();
-            System.out.println("saved tasks");
+            //System.out.println("saved tasks");
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks.");
         }
     }
 
-    public ArrayList<Task> getTaskList() {
+    public TaskList getTaskList() {
         return this.taskList;
     }
-
 }
