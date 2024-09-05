@@ -1,10 +1,10 @@
 package yapbot.tasks;
 
-import yapbot.exceptions.YapBotException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
+import yapbot.exceptions.YapBotException;
 
 /**
  * Child class of Task that has an additional deadline field.

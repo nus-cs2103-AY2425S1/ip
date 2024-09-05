@@ -35,10 +35,10 @@ public class UnmarkCommand extends Command {
      * @throws YapBotException if the task cannot be found.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException{
+    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
 
         Task task = tasks.unmarkTask(index);
-        String successMessage =  "Finding Task...Success\nTask Incomplete:\n  " + task;
+        String successMessage = "Finding Task...Success\nTask Incomplete:\n  " + task;
         ui.printOutput(successMessage);
 
         return true;

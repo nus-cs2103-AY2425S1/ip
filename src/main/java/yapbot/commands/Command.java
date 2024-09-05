@@ -11,7 +11,6 @@ import yapbot.util.Ui;
 public abstract class Command {
 
     /**
-     *
      * @param tasks TaskList to be called for any task-related functions.
      * @param ui ui to be called for any printing of messages to the user.
      * @param storage storage to be called for any file interactions.

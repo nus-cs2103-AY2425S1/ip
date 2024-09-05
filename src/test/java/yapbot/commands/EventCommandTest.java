@@ -1,17 +1,17 @@
 package yapbot.commands;
 
-import org.junit.jupiter.api.Test;
-import yapbot.exceptions.YapBotException;
-import yapbot.util.Storage;
-import yapbot.util.TaskList;
-import yapbot.util.Ui;
-
-import java.time.format.DateTimeParseException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.format.DateTimeParseException;
+
+import org.junit.jupiter.api.Test;
+
+import yapbot.exceptions.YapBotException;
+import yapbot.util.Storage;
+import yapbot.util.TaskList;
+import yapbot.util.Ui;
 
 public class EventCommandTest {
     @Test
@@ -60,8 +60,8 @@ public class EventCommandTest {
             command.execute(new TaskList(), new Ui(), new Storage("tasks.txt"));
             fail();
         } catch (YapBotException e) {
-            assertEquals("Error, start and end times not detected.\nUse command \"todo\" for tasks " +
-                    "without deadlines.", e.getMessage());
+            assertEquals("Error, start and end times not detected.\nUse command \"todo\" for tasks "
+                    + "without deadlines.", e.getMessage());
         }
     }
 

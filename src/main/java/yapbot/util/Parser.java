@@ -1,7 +1,15 @@
 package yapbot.util;
 
-import yapbot.commands.*;
-
+import yapbot.commands.ByeCommand;
+import yapbot.commands.Command;
+import yapbot.commands.DeadlineCommand;
+import yapbot.commands.DeleteCommand;
+import yapbot.commands.EventCommand;
+import yapbot.commands.FindCommand;
+import yapbot.commands.ListCommand;
+import yapbot.commands.MarkCommand;
+import yapbot.commands.ToDoCommand;
+import yapbot.commands.UnmarkCommand;
 import yapbot.exceptions.YapBotException;
 
 /**
@@ -38,36 +46,36 @@ public class Parser {
         }
 
         switch (command) {
-            case "bye":
-                return new ByeCommand();
+        case "bye":
+            return new ByeCommand();
 
-            case "list":
-                return new ListCommand();
+        case "list":
+            return new ListCommand();
 
-            case "mark":
-                return new MarkCommand(commandDetails);
+        case "mark":
+            return new MarkCommand(commandDetails);
 
-            case "unmark":
-                return new UnmarkCommand(commandDetails);
+        case "unmark":
+            return new UnmarkCommand(commandDetails);
 
-            case "todo":
-                return new ToDoCommand(commandDetails);
+        case "todo":
+            return new ToDoCommand(commandDetails);
 
-            case "deadline":
-                return new DeadlineCommand(commandDetails);
+        case "deadline":
+            return new DeadlineCommand(commandDetails);
 
-            case "event":
-                return new EventCommand(commandDetails);
+        case "event":
+            return new EventCommand(commandDetails);
 
-            case "delete":
-               return new DeleteCommand(commandDetails);
+        case "delete":
+            return new DeleteCommand(commandDetails);
 
-            case "find":
-                return new FindCommand(commandDetails);
+        case "find":
+            return new FindCommand(commandDetails);
 
-            default:
-                throw new YapBotException("Error, supporting module for user command: \"" + command + "\" not "
-                        + "found.\nYapBot may not support this feature.");
+        default:
+            throw new YapBotException("Error, supporting module for user command: \"" + command + "\" not "
+                    + "found.\nYapBot may not support this feature.");
 
         }
     }

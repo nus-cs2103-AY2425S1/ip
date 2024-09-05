@@ -1,10 +1,10 @@
 package yapbot.tasks;
 
-import yapbot.exceptions.YapBotException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
+import yapbot.exceptions.YapBotException;
 
 /**
  * Child class of Task that has start and end dates/times.
@@ -25,8 +25,8 @@ public class Event extends Task {
         super(description);
 
         if (toStr.isEmpty() && fromStr.isEmpty()) {
-            throw new YapBotException("Error, start and end times not detected.\nUse command \"todo\" for tasks " +
-                    "without deadlines.");
+            throw new YapBotException("Error, start and end times not detected.\nUse command \"todo\" for tasks "
+                    + "without deadlines.");
         }
 
         if (toStr.isEmpty()) {
@@ -52,7 +52,7 @@ public class Event extends Task {
             }
         } else {
             // Date only, set time to default to 8am
-            from = LocalDate.parse(fromStr, DATE_FORMATTER).atTime(8,0);
+            from = LocalDate.parse(fromStr, DATE_FORMATTER).atTime(8, 0);
         }
 
         // same as above but for "to" field instead
@@ -60,7 +60,7 @@ public class Event extends Task {
             if (toStr.contains("/")) {
                 to = LocalDateTime.parse(toStr, DATETIME_FORMATTER);
             } else {
-                to= LocalTime.parse(toStr, TIME_FORMATTER).atDate(LocalDate.now());
+                to = LocalTime.parse(toStr, TIME_FORMATTER).atDate(LocalDate.now());
             }
         } else {
             to = LocalDate.parse(toStr, DATE_FORMATTER).atTime(8, 0);
@@ -94,8 +94,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (From: " + this.from.format(OUTPUT_FORMATTER)
+        return "[E]" + super.toString()
+                + " (From: " + this.from.format(OUTPUT_FORMATTER)
                 + " To: " + this.to.format(OUTPUT_FORMATTER)
                 + ")";
     }
