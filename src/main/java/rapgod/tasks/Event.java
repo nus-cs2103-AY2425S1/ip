@@ -28,4 +28,12 @@ public class Event extends Task{
         }
         return String.format("[E] [%s] %s (from: %s to: %s)", mark, super.description, from, to);
     }
+
+    public LocalDateTime getFrom() {
+        return this.from;
+    }
+
+    public LocalDateTime getTo() {
+        return this.to;
+    }
 }
