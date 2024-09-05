@@ -30,6 +30,7 @@ public class AddDeadlineCommand extends AddCommand {
             Task t = new Deadline(this.description, this.by);
             tasks.addTask(t);
             ui.talk("Added task: " + t + "\nThere are " + tasks.getLength() + " task(s) in the list.");
+            output = "Added task: " + t + "\nThere are " + tasks.getLength() + " task(s) in the list.";
         } catch (DateTimeParseException e) {
             throw new BarcusException("please format date as dd/MM/yyyy HH:mm");
         }
@@ -38,5 +39,10 @@ public class AddDeadlineCommand extends AddCommand {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 }

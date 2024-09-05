@@ -23,10 +23,16 @@ public class FindCommand extends Command {
         TaskList tasksSubstring = tasks.findTask(toFind);
         ui.talk("Here are the matching tasks!");
         tasksSubstring.showTaskList();
+        output = "Here are the matching tasks!\n" + tasksSubstring.getTaskListDisplay();
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 }

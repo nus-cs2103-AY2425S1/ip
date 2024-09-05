@@ -1,5 +1,6 @@
 package barcus.command;
 
+import barcus.exception.BarcusException;
 import barcus.storage.Storage;
 import barcus.task.Task;
 import barcus.tasklist.TaskList;
@@ -20,7 +21,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws BarcusException {
         if (pos > 0 && pos <= tasks.getLength()) {
             //tasks.get(pos - 1).markDone();
             //talk("Good job! Have marked as done: " + tasks.get(pos - 1));
@@ -28,13 +29,20 @@ public class DeleteCommand extends Command {
             //curr--;
             ui.talk("Removed task: " + temp + "\nThere are "
                     + tasks.getLength() + " task(s) in the list.");
+            output = "Removed task: " + temp + "\nThere are "
+                    + tasks.getLength() + " task(s) in the list.";
         } else {
-            ui.showError("please choose a number between 1 and " + tasks.getLength());
+            throw new BarcusException("please choose a number between 1 and " + tasks.getLength());
         }
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 }

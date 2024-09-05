@@ -23,10 +23,16 @@ public class AddTodoCommand extends AddCommand {
         Task t = new Todo(this.description);
         tasks.addTask(t);
         ui.talk("Added task: " + t + "\nThere are " + tasks.getLength() + " task(s) in the list.");
+        output = "Added task: " + t + "\nThere are " + tasks.getLength() + " task(s) in the list.";
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 }

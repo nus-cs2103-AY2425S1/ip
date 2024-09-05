@@ -1,5 +1,6 @@
 package barcus.command;
 
+import barcus.exception.BarcusException;
 import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
@@ -9,13 +10,19 @@ import barcus.ui.Ui;
  */
 public class UnknownCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws BarcusException {
 
-        ui.showError("command not found D:");
+        //ui.showError("command not found D:");
+        throw new BarcusException("command not found D:");
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 }
