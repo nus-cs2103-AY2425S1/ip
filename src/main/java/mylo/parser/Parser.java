@@ -12,11 +12,32 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * Parses user input into commands for the task management system.
+ * <p></p>
+ * <p>This class is responsible for interpreting the user's input and creating the appropriate
+ * command objects that can be executed to manipulate tasks.</p>
+ *
+ * @author cweijin
+ */
 public class Parser {
+
+    /**
+     * Parses the given input string and returns the corresponding command.
+     *
+     * @param input The input string from the user.
+     * @return A {@code Command} object representing the user's command.
+     * @throws NoSuchCommandException If the input does not correspond to a valid command.
+     * @throws IllegalValueException If the input contains illegal values.
+     */
     public static Command parse(String input) throws NoSuchCommandException, IllegalValueException {
         String[] keys = input.split(" ");
+
+        int index;
+        Command result;
+
         switch (keys[0]) {
-        case "list": {
+        case "list":
             if (keys.length == 1) return new ListCommand();
             LocalDateTime dateTime;
             switch (keys[1]) {
@@ -24,32 +45,35 @@ public class Parser {
             case "on" -> dateTime = HelperFunctions.stringToDateTime(keys[2], true);
             default -> throw new NoSuchCommandException(input);
             }
-            return new ListCommand(dateTime);
-        }
-        case "delete": {
-            int index = Integer.parseInt(keys[1]);
-            return new DeleteCommand(index);
-        }
-        case "mark": {
-            int index = Integer.parseInt(keys[1]);
-            return new MarkStatusCommand(true, index);
-        }
-        case "unmark": {
-            int index = Integer.parseInt(keys[1]);
-            return new MarkStatusCommand(false, index);
-        }
+            result = new ListCommand(dateTime);
+            break;
+        case "delete":
+            index = Integer.parseInt(keys[1]);
+            result = new DeleteCommand(index);
+            break;
+        case "mark":
+            index = Integer.parseInt(keys[1]);
+            result = new MarkStatusCommand(true, index);
+            break;
+        case "unmark":
+            index = Integer.parseInt(keys[1]);
+            result = new MarkStatusCommand(false, index);
+            break;
         case "todo":
-            return new AddCommand(TaskType.TODO, input.substring(4));
+            result = new AddCommand(TaskType.TODO, input.substring(4));
+            break;
         case "deadline":
-            return new AddCommand(TaskType.DEADLINE, input.substring(8));
-
+            result = new AddCommand(TaskType.DEADLINE, input.substring(8));
+            break;
         case "event":
-            return new AddCommand(TaskType.EVENT, input.substring(5));
-
+            result = new AddCommand(TaskType.EVENT, input.substring(5));
+            break;
         case "bye":
-            return new ExitCommand();
+            result = new ExitCommand();
+            break;
         default:
             throw new NoSuchCommandException(input);
         }
+        return result;
     }
 }
