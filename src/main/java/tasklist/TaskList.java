@@ -321,4 +321,11 @@ public class TaskList {
         //return scanner.nextLine();
         return sbr.toString();
     }
+
+    // Input is a string of multiple tasks split by \n
+    // Create and process each task.
+    // And pass into addMany(Tasks ...) {}
+    public static String addMany(String input, List<Task> items, Scanner scanner) {
+        return "";
+    }
 }

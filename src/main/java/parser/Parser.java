@@ -2,6 +2,7 @@
 package parser;
 
 import tasks.Task;
+
 import ui.Ui;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class Parser {
         commands.put("delete", new DeleteCommand());
         commands.put("find", new FindCommand());
         commands.put("on", new OnCommand());
+        //commands.put("many", new AddManyCommand());
     }
 
     // To initialise all the commands inside the map
