@@ -32,7 +32,7 @@ public class DialogBox extends HBox {
         text.setWrapText(true);
         displayPicture.setFitWidth(100);
         displayPicture.setFitHeight(100);
-        this.setAlignment(Pos.TOP_RIGHT);   // aligns itself
+        this.setAlignment(Pos.CENTER_RIGHT);   // aligns itself
 
         this.getChildren().addAll(text, displayPicture);
     }
@@ -41,7 +41,7 @@ public class DialogBox extends HBox {
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
-        this.setAlignment(Pos.TOP_LEFT);
+        this.setAlignment(Pos.CENTER_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
         this.getChildren().setAll(tmp);
