@@ -2,19 +2,33 @@ package Nave;
 
 import java.util.Scanner;
 
+/**
+ * The {@code Nave} class represents the main chatbot.
+ * It interacts with the user, processes commands, manages tasks, and handles
+ * persistence of task data.
+ */
 public class Nave {
     private final TaskList tasks;
     private final TaskStorage storage;
     private final Ui ui;
     private final Parser parser;
 
-    public Nave(String filePathString) {
+    private Nave(String filePathString) {
         this.tasks = new TaskList();
         this.storage = new TaskStorage(filePathString);
         this.ui = new Ui();
         this.parser = new Parser();
     }
 
+    /**
+     * Starts the application and enters the main loop.
+     * <p>
+     * The method displays a greeting to the user, processes user input in a loop
+     * until the user inputs "bye", and performs actions based on the parsed input.
+     * It handles various commands such as listing tasks, marking tasks, unmarking tasks,
+     * adding tasks, deleting tasks, and providing help messages.
+     * </p>
+     */
     public void run() {
         //Greet User
         ui.greet();
@@ -69,7 +83,17 @@ public class Nave {
         ui.sayFarewell();
     }
 
+    /**
+     * The entry point of the application.
+     * <p>
+     * Creates a new {@code Nave} instance and starts it by calling the {@code run} method.
+     * </p>
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         new Nave("./data/tasks.txt").run();
     }
 }
+
+
