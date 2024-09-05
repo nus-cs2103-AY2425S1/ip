@@ -1,15 +1,18 @@
-import orangecat.TheOrangeCat;
-import parser.Command;
-import storage.Storage;
-import parser.Parser;
-
-import java.util.List;
-import java.util.ArrayList;
-import tasks.Task;
-
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import orangecat.TheOrangeCat;
+import parser.Command;
+import parser.Parser;
+import storage.Storage;
+import tasks.Task;
+
+
+/**
+ * The main class that overruns the entire Chatbot
+ */
 public class TheOrangeRatchetCat {
 
     // Without the GUI, this is the main method
@@ -22,7 +25,8 @@ public class TheOrangeRatchetCat {
      */
     public String getResponse(String input) {
         List<Task> tasks = new ArrayList<>();
-        Task.taskCount = 0;
+        //Task.taskCount = 0;
+        Task.assignTaskCountZero(0);
         Storage.loadTasks(tasks);
         Parser.initialiseMap(); // To add all the command key-value pairs in Parser
         Scanner scanner = new Scanner(System.in);

@@ -1,17 +1,33 @@
 package storage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
-import tasks.*;
 
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
+/**
+ * Storage class encapsulates loading and saving tasks into the OrangeCat.txt
+ */
 public class Storage {
 
     private static final String FILE_PATH = "./data/OrangeCat.txt";
 
+    /**
+     * Saves tasks after each time the program runs
+     * @param items
+     */
     public static void saveTasks(List<Task> items) {
         try {
             Path path = Paths.get(FILE_PATH);
@@ -28,6 +44,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads task from the OrangeCat.txt
+     * @param items
+     */
     public static void loadTasks(List<Task> items) {
         try {
             // Similar to BufferedWriter, BufferedReader allows reading of files to be more efficient
@@ -44,18 +64,22 @@ public class Storage {
                 String description = parts[2];
                 Task task = null;
                 switch (taskType) {
-                    case "T":
-                        task = new ToDo(description);
-                        break; // Continues with reading the next task in the next line
-                    case "D":
-                        String by = parts[3];
-                        task = new Deadline(description, LocalDate.parse(by));
-                        break;
-                    case "E":
-                        String from = parts[3];
-                        String to = parts[4];
-                        task = new Event(description, LocalDate.parse(from), LocalDate.parse(to));
-                        break;
+                case "T":
+                    task = new ToDo(description);
+                    break; // Continues with reading the next task in the next line
+                case "D":
+                    String by = parts[3];
+                    task = new Deadline(description, LocalDate.parse(by));
+                    break;
+                case "E":
+                    String from = parts[3];
+                    String to = parts[4];
+                    task = new Event(description, LocalDate.parse(from), LocalDate.parse(to));
+                    break;
+                default:
+                    System.out.println("Unknown task type: " + taskType);
+                    // Handle the unexpected case, e.g., log an error or skip the line
+                    continue; // Skips the current iteration if taskType is not recognized
                 }
                 if (task != null) {
                     task.setDone(isDone);

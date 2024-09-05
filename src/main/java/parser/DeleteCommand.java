@@ -1,10 +1,15 @@
+
 package parser;
 
-import tasklist.TaskList;
-import tasks.Task;
 import java.util.List;
 import java.util.Scanner;
 
+import tasklist.TaskList;
+import tasks.Task;
+
+/**
+ * A DeleteCommand class created to delete Tasks from list
+ */
 public class DeleteCommand implements Command {
     @Override
     public String execute(String input, List<Task> items, Scanner scanner) {

@@ -1,13 +1,22 @@
 package ui;
 
+/**
+ * Ui class that encapsulates all the cat prints
+ */
 public class Ui {
 
+    /**
+     * Says goodbye
+     */
     public static void bidFarewell() {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints a cute welcome cat print
+     */
     public static void sayWelcome() {
         // Detailed and fancy cat welcome message
         System.out.println("     /\\_/\\   ");
@@ -34,6 +43,9 @@ public class Ui {
         System.out.println("*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*");
     }
 
+    /**
+     * Prints a sleepy cat
+     */
     public static void sleepyCat() {
         // Sleepy cat
         System.out.println("     |\\___/|   ");
@@ -45,6 +57,9 @@ public class Ui {
         System.out.println("");
     }
 
+    /**
+     * Prints a goodBye cat print
+     */
     public static void goodByeCat() {
         System.out.println("      /\\_____/\\");
         System.out.println("     /  o   o  \\");

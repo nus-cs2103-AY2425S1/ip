@@ -2,11 +2,19 @@ package tasks;
 
 import java.util.Objects;
 
+/**
+ * The umbrella term for all Tasks
+ */
 public abstract class Task {
+
+    private static int taskCount = 0;
     protected String description;
     protected boolean isDone;
-    public static int taskCount = 0;
 
+    /**
+     * Task constructor
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -14,8 +22,12 @@ public abstract class Task {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Task task = (Task) o;
         return Objects.equals(this.description, task.description);
     }
@@ -24,9 +36,8 @@ public abstract class Task {
     public int hashCode() {
         return Objects.hash(this.description);
     }
-
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public String toDataString() {
@@ -37,10 +48,28 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public void setDone(boolean done) { this.isDone = done; }
+    public void setDone(boolean done) {
+        this.isDone = done;
+    }
 
-    public boolean getDoneStatus() { return this.isDone; }
+    public boolean getDoneStatus() {
+        return this.isDone;
+    }
 
-    public String getDes() { return this.description; }
+    public String getDes() {
+        return this.description;
+    }
+    public static int assignTaskCountZero(int count) {
+        return Task.taskCount = count;
+    }
+    public static int getTaskCount() {
+        return Task.taskCount;
+    }
+    public static void incrementTaskCount() {
+        Task.taskCount++;
+    }
+    public static void decrementTaskCount() {
+        Task.taskCount--;
+    }
 }
 

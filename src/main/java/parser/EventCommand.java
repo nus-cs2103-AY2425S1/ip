@@ -1,11 +1,14 @@
+
 package parser;
+import java.util.List;
+import java.util.Scanner;
 
 import exceptions.TheOrangeRatchetCatException;
 import tasklist.TaskList;
 import tasks.Task;
-import java.util.List;
-import java.util.Scanner;
-
+/**
+ * EventCommand class created to add Events to the list
+ */
 public class EventCommand implements Command {
     @Override
     public String execute(String input, List<Task> items, Scanner scanner) {

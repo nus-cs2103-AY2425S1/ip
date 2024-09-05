@@ -3,15 +3,24 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline class represents a subtype of Task that comes with an additional deadline
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;
     protected DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * Deadline represents a specific subset of Task that comes with an additional deadline
+     * @param description
+     * @param by
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
-        Task.taskCount++;
+        Task.incrementTaskCount();
+        //Task.taskCount++;
     }
 
 

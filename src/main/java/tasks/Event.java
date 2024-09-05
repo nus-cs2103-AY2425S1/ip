@@ -2,20 +2,28 @@ package tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
-
+/**
+ * Event class that extends Task class with a range date specifier from and to
+ */
 public class Event extends Task {
 
     protected LocalDate fromDuration;
     protected LocalDate toDuration;
     protected DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * The Event class constructor that takes in taskDescription, fromDuration and toDuration
+     * @param description
+     * @param fromDuration
+     * @param toDuration
+     */
     public Event(String description, LocalDate fromDuration, LocalDate toDuration) {
         super(description);
         this.toDuration = toDuration;
         this.fromDuration = fromDuration;
-        Task.taskCount++;
+        Task.incrementTaskCount();
+        //Task.taskCount++;
     }
 
     @Override
@@ -25,7 +33,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.fromDuration.format(outputFormatter) + " to: " + this.toDuration.format(outputFormatter) + ")";
+        return "[E]" + super.toString() + " (from: " + this.fromDuration.format(outputFormatter)
+                + " to: " + this.toDuration.format(outputFormatter) + ")";
     }
 
     public LocalDate getFromDur() {

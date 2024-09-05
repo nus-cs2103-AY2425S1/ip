@@ -1,15 +1,17 @@
 // Parser.java
 package parser;
-
-import tasks.Task;
-
-import ui.Ui;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import tasks.Task;
+import ui.Ui;
+
+/**
+ * Parser class that encapsulates all the commands
+ */
 public class Parser {
 
     public static final Map<String, Command> commands = new HashMap<>();
@@ -39,6 +41,10 @@ public class Parser {
     // To initialise all the commands inside the map
     public static void initialiseMap() {}
 
+    /**
+     * Static method that tries to run the program overall
+     * @param items
+     */
     public static void ratchetCatBot(List<Task> items) {
         Ui.sayWelcome();
         Scanner scanner = new Scanner(System.in);

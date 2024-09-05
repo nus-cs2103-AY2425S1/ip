@@ -4,12 +4,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
+
+import exceptions.TheOrangeRatchetCatException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
-import exceptions.TheOrangeRatchetCatException;
 
+/**
+ * Encapsulates all the commands that the user can use to interact with the bot
+ */
 public class TaskList {
 
     /**
@@ -50,8 +54,8 @@ public class TaskList {
             System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.getDes());
             System.out.println("____________________________________________________________");
             //return scanner.nextLine();
-            return "Nice! I've marked this task as done:\n" +
-                    "[" + markingTask.getStatusIcon() + "] " + markingTask.getDes() + "\n";
+            return "Nice! I've marked this task as done:\n"
+                    + "[" + markingTask.getStatusIcon() + "] " + markingTask.getDes() + "\n";
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
             //return scanner.nextLine();
@@ -81,8 +85,8 @@ public class TaskList {
             System.out.println("[" + markingTask.getStatusIcon() + "] " + markingTask.getDes());
             System.out.println("____________________________________________________________");
             //return scanner.nextLine();
-            return "OK, I've marked this task as not done yet:\n" +
-                    "[" + markingTask.getStatusIcon() + "] " + markingTask.getDes() + "\n";
+            return "OK, I've marked this task as not done yet:\n"
+                    + "[" + markingTask.getStatusIcon() + "] " + markingTask.getDes() + "\n";
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Might want to reconsider your action. Please Try Again");
             //return scanner.nextLine();
@@ -106,16 +110,19 @@ public class TaskList {
         try {
             Task taskToDelete = items.get(index - 1);
             items.remove(index - 1);
-            Task.taskCount--;
+            //Task.taskCount--;
+            Task.decrementTaskCount();
             System.out.println("____________________________________________________________");
             System.out.println("Noted. I've removed this task:");
             System.out.println(taskToDelete);
-            System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
+            //System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
+            System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
             System.out.println("____________________________________________________________");
             //return scanner.nextLine();
-            return "Noted. I've removed this task:\n" +
-                    taskToDelete + "\n" +
-                    "Now you have " + Task.taskCount + " tasks in the list.\n";
+            return "Noted. I've removed this task:\n"
+                    + taskToDelete + "\n"
+                    //+ "Now you have " + Task.taskCount + " tasks in the list.\n";
+                    + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Pick an appropriate number. Please Try Again");
             //return scanner.nextLine();
@@ -133,7 +140,8 @@ public class TaskList {
      */
 
     // Deal with incorrect inputs todo <space> does not terminate
-    public static String addingToDo(String input, List<Task> items, Scanner scanner) throws TheOrangeRatchetCatException {
+    public static String addingToDo(String input, List<Task> items,
+                                    Scanner scanner) throws TheOrangeRatchetCatException {
         if (input.isEmpty()) {
             //throw new TheOrangeRatchetCatException("You can't do Nothing!");
             return "You can't Do Nothing";
@@ -142,13 +150,15 @@ public class TaskList {
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(nextTask);
-        System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
+        //System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
+        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
         System.out.println("____________________________________________________________");
         items.add(nextTask);
         //return scanner.nextLine();
-        return "Got it. I've added this task:\n" +
-                nextTask + "\n" +
-                "Now you have " + Task.taskCount + " tasks in the list.\n";
+        return "Got it. I've added this task:\n"
+                + nextTask + "\n"
+                + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
+        //+ "Now you have " + Task.taskCount + " tasks in the list.\n";
     }
 
     /**
@@ -159,7 +169,8 @@ public class TaskList {
      * @param scanner the scanner object to read next line of input
      * @return returns the next input command by user
      */
-    public static String addingDeadline(String input, List<Task> items, Scanner scanner) throws TheOrangeRatchetCatException {
+    public static String addingDeadline(String input, List<Task> items,
+                                        Scanner scanner) throws TheOrangeRatchetCatException {
         // Split the input string by "/by"
         String[] parts = input.split("/by");
         // The description is the first part after removing the word "deadline"
@@ -192,13 +203,15 @@ public class TaskList {
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(nextTask);
-        System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
+        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
+        //System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
         items.add(nextTask);
         //return scanner.nextLine();
-        return  "Got it. I've added this task:\n"
+        return "Got it. I've added this task:\n"
                 + nextTask + "\n"
-                + "Now you have " + Task.taskCount + " tasks in the list.\n";
+                + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
+        //+ "Now you have " + Task.taskCount + " tasks in the list.\n";
     }
 
     /**
@@ -209,13 +222,15 @@ public class TaskList {
      * @param scanner the scanner object to read next line of input
      * @return returns the next input command by user
      */
-    public static String addingEvent(String input, List<Task> items, Scanner scanner) throws TheOrangeRatchetCatException {
+    public static String addingEvent(String input, List<Task> items,
+                                     Scanner scanner) throws TheOrangeRatchetCatException {
         // Split the input string by "/from"
         String[] parts = input.split("/from");
         // The taskDescription is the first part after removing the word "event"
         String taskDescription = parts[0].replace("event", "").trim();
         if (taskDescription.isEmpty()) {
-            throw new TheOrangeRatchetCatException("You can't do Nothing! Correct input format for adding event: event <Task> /from <input> /to <input>");
+            throw new TheOrangeRatchetCatException("You can't do Nothing! "
+                    + "Correct input format for adding event: event <Task> /from <input> /to <input>");
         }
         // Further split the remaining part by "/to"
         String[] dateParts = parts[1].split("/to");
@@ -242,13 +257,15 @@ public class TaskList {
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println(nextTask);
-        System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
+        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
+        //System.out.println("Now you have " + Task.taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
         items.add(nextTask);
         //return scanner.nextLine();
-        return "Got it. I've added this task:\n" +
-                nextTask + "\n" +
-                "Now you have " + Task.taskCount + " tasks in the list.\n";
+        return "Got it. I've added this task:\n"
+                + nextTask + "\n"
+                + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
+        //+ "Now you have " + Task.taskCount + " tasks in the list.\n";
     }
 
     /**
@@ -314,8 +331,8 @@ public class TaskList {
         if (index == 1) {
             System.out.println("Looks Like there's no task with taskDescription that contains " + "'" + input + "'");
             System.out.println("Try Looking for something else!");
-            return "Looks like there's no task with taskDescription that contains '" + input + "'\n" +
-                    "Try looking for something else!";
+            return "Looks like there's no task with taskDescription that contains '" + input + "'\n"
+                    + "Try looking for something else!";
         }
         System.out.println("____________________________________________________________");
         //return scanner.nextLine();
