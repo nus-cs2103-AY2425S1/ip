@@ -10,45 +10,104 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+/**
+ * Represents the user's list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with the given tasks.
+     *
+     * @param tasks The tasks to be added to the TaskList.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns a copy of the list of tasks.
+     *
+     * @return A copy of the list of tasks.
+     */
     public ArrayList<Task> getAllTasks() {
         return new ArrayList<>(this.tasks);
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The number of tasks in the list.
+     */
     public int getSize() {
         return tasks.size();
     }
 
+    /**
+     * Returns the description of the task at the specified index.
+     *
+     * @param index The index of the task whose description is to be returned.
+     * @return The description of the task at the specified index.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
     public String getTaskString(int index) throws IndexOutOfBoundsException {
         return tasks.get(index).toString();
     }
 
+    /**
+     * Returns the status of the task at the specified index.
+     *
+     * @param index The index of the task whose status is to be returned.
+     * @return The status of the task at the specified index.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
     public String getTaskStatus(int index) throws IndexOutOfBoundsException {
         return tasks.get(index).getStatusIcon();
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task The task to be added to the list.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Deletes the task at the specified index.
+     *
+     * @param index The index of the task to be deleted.
+     * @return The task that was deleted.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
     public Task deleteTask(int index) throws IndexOutOfBoundsException{
         return tasks.remove(index);
     }
 
+    /**
+     * Marks the task at the specified index as done.
+     *
+     * @param index The index of the task to be marked as done.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
     public void markTaskDone(int index) throws IndexOutOfBoundsException{
         tasks.get(index).markAsDone();
     }
 
+    /**
+     * Marks the task at the specified index as undone.
+     *
+     * @param index The index of the task to be marked as undone.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
     public void markTaskUndone(int index) throws IndexOutOfBoundsException {
         tasks.get(index).markAsUndone();
     }
@@ -62,6 +121,11 @@ public class TaskList {
         }
     };
 
+    /**
+     * Returns a list of user's deadlines and events sorted by date (if applicable).
+     *
+     * @return A list of user's deadlines and event sorted by date.
+     */
     public ArrayList<Task> listTasksByDate() {
         return tasks.stream()
                 .filter(t -> t instanceof Deadline || t instanceof Event)
