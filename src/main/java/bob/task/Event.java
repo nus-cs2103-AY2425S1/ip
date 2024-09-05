@@ -49,4 +49,12 @@ public class Event extends Task {
         String part1 = super.getFileFormat();
         return part1 + " | " + startDay + " | " + startTime + " | " + endTime;
     }
+
+    /**
+     * Returns a string representation for an event task in the printed list.
+     */
+    @Override
+    public String getTaskListItem() {
+        return super.getTaskListItem() + " (from: " + startDay + " " + startTime + " to: " + endTime + ")";
+    }
 }

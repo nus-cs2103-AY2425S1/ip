@@ -36,7 +36,7 @@ public class Task {
     }
 
     /**
-     * Returns a string representation for a line item in the printed list,
+     * Returns a string representation for a task in the printed list.
      */
     public String getTaskListItem() {
         return ("[" + taskLetter() + "][" + this.getStatusIcon() + "] " + this.description);

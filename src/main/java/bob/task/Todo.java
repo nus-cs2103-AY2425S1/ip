@@ -38,4 +38,12 @@ public class Todo extends Task {
         String part1 = super.getFileFormat();
         return part1;
     }
+
+    /**
+     * Returns a string representation for a todo task in the printed list.
+     */
+    @Override
+    public String getTaskListItem() {
+        return super.getTaskListItem();
+    }
 }

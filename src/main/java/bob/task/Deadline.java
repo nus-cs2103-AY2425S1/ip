@@ -56,9 +56,18 @@ public class Deadline extends Task {
     @Override
     public String getFileFormat() {
         String part1 = super.getFileFormat();
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         String dateTimeOutput = (date != null) ? date.format(outputFormatter) : by;
         return part1 + " | " + dateTimeOutput;
+    }
+
+    /**
+     * Returns a string representation for a deadline task in the printed list.
+     */
+    @Override
+    public String getTaskListItem() {
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        String dateTimeOutput = (date != null) ? date.format(outputFormatter) : by;
+        return super.getTaskListItem() + " (by: " + dateTimeOutput + ")";
     }
 }
