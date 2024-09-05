@@ -173,7 +173,7 @@ public class Parser {
             return new InvalidCommand("Wrong format for mark command", MarkCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
-        return new MarkCommand(index - Ui.indexOffset);
+        return new MarkCommand(index - Temp.indexOffset);
     }
 
     /**
@@ -189,7 +189,7 @@ public class Parser {
             return new InvalidCommand("Wrong format for unmark command", UnmarkCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
-        return new UnmarkCommand(index - Ui.indexOffset);
+        return new UnmarkCommand(index - Temp.indexOffset);
     }
 
     /**
@@ -214,7 +214,7 @@ public class Parser {
             return new InvalidCommand("Wrong format for delete command", DeleteCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
-        return new DeleteCommand(index - Ui.indexOffset);
+        return new DeleteCommand(index - Temp.indexOffset);
     }
 
     /**

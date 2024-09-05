@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class Ui {
+public class Temp {
     static final String horizontalLine = "____________________________________________________________";
     static final String chatBotName = "denim";
 
@@ -15,11 +15,11 @@ public class Ui {
     private final Scanner in;
     private final PrintStream out;
 
-    public Ui() {
+    public Temp() {
         this(System.in, System.out);
     }
 
-    public Ui(InputStream in, PrintStream out) {
+    public Temp(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;
     }

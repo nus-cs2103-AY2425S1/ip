@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class Denim {
     static final String filePath = "data/denim.txt";
-    private Ui ui;
+    private Temp ui;
     private TaskIo taskIo;
 
     private TaskList taskList;
@@ -41,7 +41,7 @@ public class Denim {
             System.out.println(e.getMessage());
             return;
         }
-        this.ui = new Ui();
+        this.ui = new Temp();
         ui.displayGreetingMessage();
     }
 
