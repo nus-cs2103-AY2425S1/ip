@@ -66,6 +66,11 @@ public class Main extends Application {
         // dialogContainer
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
+        // displays the welcome message at the start
+        DialogBox janetDialog = DialogBox.getDukeDialog(janet.startMessage(), janetImage);
+        janetDialog.setColor(Color.ALICEBLUE);
+        dialogContainer.getChildren().addAll(janetDialog);
+
         // userInput and send button (textField and button)
         text.setPrefWidth(325.0);
         send.setPrefWidth(55.0);
