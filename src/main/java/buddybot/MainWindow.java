@@ -1,5 +1,5 @@
 package buddybot;
-//test
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.Timer;
 import java.util.TimerTask;
-//test
+
 /**
  * Controller for the main GUI.
  */
