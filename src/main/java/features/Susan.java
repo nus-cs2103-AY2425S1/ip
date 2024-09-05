@@ -1,12 +1,11 @@
-import config.Config;
+package features;
+
 import data.CSVTaskDAO;
 import data.TaskDAO;
 import features.command.Command;
 import features.command.CommandHandler;
 import features.task.TaskManagement;
 import features.ui.Ui;
-import utils.Utils;
-
 import java.util.*;
 
 public class Susan {
@@ -33,6 +32,14 @@ public class Susan {
         } catch (Exception e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        Command command = new Command(input);
+        return ch.handleCommand(command);
     }
 
     public void run() {

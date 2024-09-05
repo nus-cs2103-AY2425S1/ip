@@ -30,38 +30,42 @@ public class CommandHandler {
 	 *
 	 * @param cmd the command to be processed
 	 */
-	public void handleCommand(Command cmd) {
+	public String handleCommand(Command cmd) {
 		String command = cmd.getName();
+		String res = "";
 		try {
 			if (command.equals(CommandType.LIST.getType())) {
-				handleList();
+				res = handleList();
 			} else if (command.startsWith(CommandType.MARK.getType())
 					|| command.startsWith(CommandType.UNMARK.getType())) {
-				handleMark(command);
+				res = handleMark(command);
 			} else if (command.startsWith(CommandType.TODO.getType()) ||
 					command.startsWith(CommandType.DEADLINE.getType()) ||
 					command.startsWith(CommandType.EVENT.getType())) {
-				handleAddTask(command);
+				res = handleAddTask(command);
 			} else if (command.startsWith(CommandType.DELETE.getType())) {
-				handleDeleteTask(command);
+				res = handleDeleteTask(command);
 			} else if (command.startsWith(CommandType.FIND.getType())) {
-				handleFind(command);
+				res = handleFind(command);
 			} else {
 				throw new Exception("Unknown message :(. Please see below for the list of available commands:\n\n" + Config.commands);
 			}
 		} catch (Exception ex) {
-			Utils.printItem(ex.getMessage());
+			res = ex.getMessage();
+		} finally {
+			return res;
 		}
 	}
 
 	/**
 	 * Handles the 'list' command by printing all tasks.
 	 */
-	private void handleList() {
+	private String handleList() {
 		StringBuilder s = new StringBuilder();
 		s.append("Here are the tasks in your list:");
 		s.append("\n" + tm.getPrintTasks());
 		Utils.printItem(s.toString());
+		return s.toString();
 	}
 
 	/**
@@ -70,7 +74,7 @@ public class CommandHandler {
 	 * @param command the command string containing the action and task ID
 	 * @throws Exception if the command is invalid or the task ID is not found
 	 */
-	private void handleMark(String command) throws Exception {
+	private String handleMark(String command) throws Exception {
 		String[] parts = command.split(" ");
 		if (parts.length != 2) {
 			throw new Exception("Invalid command. Usage: mark/unmark <id>");
@@ -88,6 +92,7 @@ public class CommandHandler {
 		}
 		tm.findTaskById(id).ifPresent(t -> res.append("\n" + Config.INDENTATION + "  " + t.toString()));
 		Utils.printItem(res.toString());
+		return res.toString();
 	}
 
 	/**
@@ -96,7 +101,7 @@ public class CommandHandler {
 	 * @param command the command string containing the task ID
 	 * @throws Exception if the command is invalid or the task ID is not found
 	 */
-	private void handleDeleteTask(String command) throws Exception {
+	private String handleDeleteTask(String command) throws Exception {
 		String[] parts = command.split(" ");
 		if (parts.length != 2) {
 			throw new Exception("Invalid command. Usage: delete <id>");
@@ -104,7 +109,7 @@ public class CommandHandler {
 
 		int id = Integer.parseInt(parts[1]);
 		Task t = tm.remove(id);
-		printAfterEditList("Noted. I've removed this task:", t);
+		return printAfterEditList("Noted. I've removed this task:", t);
 	}
 
 	/**
@@ -115,7 +120,7 @@ public class CommandHandler {
 	 * @param command The full command string input by the user, including the find command and query.
 	 * @throws Exception If the command is improperly formatted or lacks a search query.
 	 */
-	private void handleFind(String command) throws Exception {
+	private String handleFind(String command) throws Exception {
 		String[] parts = command.split(" ");
 		if (parts.length <= 1) {
 			throw new Exception("Invalid command. Usage: find <query>.");
@@ -130,7 +135,7 @@ public class CommandHandler {
 		}
 
 		String res = tm.getPrintTasks(result);
-		Utils.printItem("Matching tasks in your list: \n" + res);
+		return "Matching tasks in your list: \n" + res;
 	}
 
 	/**
@@ -139,7 +144,7 @@ public class CommandHandler {
 	 * @param task the command string containing the task details
 	 * @throws Exception if the command is invalid or the task details are incomplete
 	 */
-	private void handleAddTask(String task) throws Exception {
+	private String handleAddTask(String task) throws Exception {
 		String[] parts = task.split(" ");
 		String type = parts[0];
 
@@ -199,7 +204,7 @@ public class CommandHandler {
 		}
 
 		tm.add(t);
-		printAfterEditList("Got it. I've added the following task:", t);
+		return printAfterEditList("Got it. I've added the following task:", t);
 	}
 
 	/**
@@ -208,7 +213,7 @@ public class CommandHandler {
 	 * @param message the message to display
 	 * @param t the task that was added or removed
 	 */
-	private void printAfterEditList(String message, Task t) {
+	private String printAfterEditList(String message, Task t) {
 		StringBuilder res = new StringBuilder();
 		res.append(message);
 		res.append("\n  " + Config.INDENTATION + t.toString());
@@ -216,6 +221,8 @@ public class CommandHandler {
 		res.append("\n" + Config.INDENTATION + "Now you have " + tm.length + " " + taskString + " in the list.");
 
 		Utils.printItem(res.toString());
+
+		return res.toString();
 	}
 }
 
