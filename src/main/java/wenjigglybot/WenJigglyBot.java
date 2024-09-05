@@ -161,8 +161,7 @@ public class WenJigglyBot {
             break;
         case TODO:
             taskName = task.replaceFirst("todo", "").trim();
-            addTask(new ToDoTask(taskName));
-            break;
+            return addTask(new ToDoTask(taskName));
         case DEADLINE:
             try {
                 String[] parts = Parser.processDeadlineTask(task);
@@ -256,13 +255,16 @@ public class WenJigglyBot {
      *
      * @param task The task to add.
      */
-    private void addTask(Task task) {
+    private String addTask(Task task) {
+        StringBuilder response = new StringBuilder("");
         tasks.addTask(task);
         Storage.saveTasksToFile(tasks);
         ui.showLine();
-        ui.showAddedTask(task);
-        ui.showTaskCount(tasks);
+        response.append(ui.showAddedTask(task));
+        response.append("\n");
+        response.append(ui.showTaskCount(tasks));
         ui.showLine();
+        return response.toString();
     }
 
     public String getResponse(String meow) {

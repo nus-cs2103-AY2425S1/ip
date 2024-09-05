@@ -35,8 +35,10 @@ public class Ui {
      *
      * @param tasks The {@link TaskList} containing the tasks.
      */
-    public void showTaskCount(TaskList tasks) {
-        System.out.println("You now have" + " " + tasks.size() + " tasks!");
+    public String showTaskCount(TaskList tasks) {
+        String output = String.format("You now have" + " " + tasks.size() + " tasks!");
+        System.out.println(output);
+        return output;
     }
 
     /**
