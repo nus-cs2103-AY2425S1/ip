@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane{
         String response = velma.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, velmaImage)
+                DialogBox.getVelmaDialog(response, velmaImage)
         );
         userInput.clear();
     }

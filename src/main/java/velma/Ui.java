@@ -9,117 +9,119 @@ import velma.task.Task;
  * Represents the user interface of Velma.
  */
 public class Ui {
+
     /**
-     * Prints welcome message when Velma is started.
+     * Returns welcome message when Velma is started.
      */
-    public void showWelcome() {
-        System.out.println("Hello! I'm Velma\nWhat can I do for you?");
+    public String showWelcome() {
+        return "Hello! I'm Velma\nWhat can I do for you?";
     }
 
     /**
-     * Prints goodbye message when Velma is exited.
+     * Returns goodbye message when Velma is exited.
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Prints error message when loading file fails.
+     * Returns error message when loading file fails.
      */
-    public void showLoadingError() {
-        System.out.println("Error loading file");
+    public String showLoadingError() {
+        return "Error loading file";
     }
 
     /**
-     *  Prints message when task is added.
+     * Returns message when task is added.
      * @param task - specify which task
      * @param taskCount - specify count of tasks
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String showTaskAdded(Task task, int taskCount) {
+        return "Got it. I've added this task:\n  " + task + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
-     * Prints message when task is deleted.
+     * Returns message when task is deleted.
      * @param task - specify which task
      * @param taskCount - specify count of tasks
      */
-    public void showTaskDeleted(Task task, int taskCount) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String showTaskDeleted(Task task, int taskCount) {
+        return "Noted. I've removed this task:\n  " + task + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
-     * Prints all tasks in the list.
+     * Returns all tasks in the list.
      * @param tasks - the tasks in the list
      */
-    public void showAllTasks(ArrayList<Task> tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public String showAllTasks(ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
+        return sb.toString();
     }
 
     /**
-     * Prints tasks on a specified date.
-     * @param tasks
+     * Returns tasks on a specified date.
+     * @param tasks - the tasks in the list
      * @param date - specified date
      */
-    public void showTasksOnDate(ArrayList<Task> tasks, LocalDate date) {
-        System.out.println("Here are the tasks on " + date + ":");
+    public String showTasksOnDate(ArrayList<Task> tasks, LocalDate date) {
+        StringBuilder sb = new StringBuilder("Here are the tasks on " + date + ":\n");
         boolean found = false;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task instanceof Deadline) {
                 Deadline deadlineTask = (Deadline) task;
                 if (deadlineTask.getBy().toLocalDate().isEqual(date)) {
-                    System.out.println((i + 1) + ". " + task);
+                    sb.append((i + 1)).append(". ").append(task).append("\n");
                     found = true;
                 }
             }
         }
         if (!found) {
-            System.out.println("No tasks found on this date.");
+            sb.append("No tasks found on this date.");
         }
+        return sb.toString();
     }
 
     /**
-     * Prints message when task is marked or unmarked.
-     * @param task
-     * @param isMarked
+     * Returns message when task is marked or unmarked.
+     * @param task - the task that was marked/unmarked
+     * @param isMarked - whether the task is marked
      */
-    public void showMarkUnmarkTask(Task task, boolean isMarked) {
+    public String showMarkUnmarkTask(Task task, boolean isMarked) {
+        StringBuilder sb = new StringBuilder();
         if (isMarked) {
-            System.out.println("Nice! I have marked this task as done:");
+            sb.append("Nice! I have marked this task as done:\n");
         } else {
-            System.out.println("OK! I have marked this task as not done yet:");
+            sb.append("OK! I have marked this task as not done yet:\n");
         }
-        System.out.println("  " + "[" + task.getStatusIcon() + "] " + task.getDescription());
+        sb.append("  ").append("[").append(task.getStatusIcon()).append("] ").append(task.getDescription());
+        return sb.toString();
     }
 
     /**
-     * Prints error message.
-     * @param message
+     * Returns error message.
+     * @param message - the error message to show
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
-     * Prints message when task is found.
+     * Returns message when task is found.
      * @param tasks - the tasks found
      */
-    public void showFoundTasks(ArrayList<Task> tasks) {
-        if (tasks.size() == 0) {
-            System.out.println("No tasks found.");
+    public String showFoundTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            return "No tasks found.";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
+                sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
+            return sb.toString();
         }
     }
 }
