@@ -2,12 +2,13 @@ package sage.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a collection of tasks in the task management application
  */
 public class TaskList {
-    private List<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructs an empty task list
@@ -22,7 +23,7 @@ public class TaskList {
      *
      * @param tasks A List of Task objects
      */
-    public TaskList(List<Task> tasks) {
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -50,7 +51,7 @@ public class TaskList {
      *
      * @return A List of all Task objects in the task list
      */
-    public List<Task> getAllTasks() {
+    public ArrayList<Task> getAllTasks() {
         return tasks;
     }
 
@@ -68,13 +69,10 @@ public class TaskList {
      * @param keyword The keyword to search for
      * @return A list of tasks that contain the keyword
      */
-    public List<Task> searchTasks(String keyword) {
-        List<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
-                matchingTasks.add(task);
-            }
-        }
-        return matchingTasks;
+    public TaskList searchTasks(String keyword) {
+        ArrayList<Task> filtered = tasks.stream()
+                .filter(task -> task.containsKeyword(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return new TaskList(filtered);
     }
 }

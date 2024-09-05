@@ -46,4 +46,8 @@ public abstract class Task {
         return getStatusIcon() + " " + description;
     }
     public abstract String toFileFormat();
+
+    public boolean containsKeyword(String keyword) {
+        return this.description.toLowerCase().contains(keyword.toLowerCase());
+    }
 }
