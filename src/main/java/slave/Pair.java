@@ -1,9 +1,21 @@
 package slave;
 
+/**
+ * This class contains a pair of values of any types T and U
+ *
+ * @param <T>
+ * @param <U>
+ */
 public class Pair<T, U> {
-    T t;
-    U u;
+    private T t;
+    private U u;
 
+    /**
+     * creates a pair containing values t of type T and u of type U
+     *
+     * @param t
+     * @param u
+     */
     public Pair(T t, U u) {
         this.t = t;
         this.u = u;

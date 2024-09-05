@@ -1,5 +1,8 @@
 package slave;
 
+/**
+ * Todo is a child class of Task that contains a description of the task only
+ */
 public class Todo extends Task {
     public Todo(String task) {
         super(task);

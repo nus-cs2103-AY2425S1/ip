@@ -3,16 +3,32 @@ package slave;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * a Deadline object is a Task with a deadline
+ */
 public class Deadline extends Task {
     private LocalDate deadline;
 
-    public Deadline(String task, LocalDate deadline) {
-        super(task);
+    /**
+     * Creates a Deadline object with the specified parameters
+     *
+     * @param taskName is the task name
+     * @param deadline is the deadline of the task
+     */
+    public Deadline(String taskName, LocalDate deadline) {
+        super(taskName);
         this.deadline = deadline;
     }
 
-    protected Deadline(boolean isCompleted, String task, LocalDate deadline) {
-        super(isCompleted, task);
+    /**
+     * Creates a Deadline object with the specified parameters
+     *
+     * @param isCompleted is the state of completeness fo the task
+     * @param taskName    is the task name
+     * @param deadline    is the deadline of the task
+     */
+    protected Deadline(boolean isCompleted, String taskName, LocalDate deadline) {
+        super(isCompleted, taskName);
         this.deadline = deadline;
     }
 

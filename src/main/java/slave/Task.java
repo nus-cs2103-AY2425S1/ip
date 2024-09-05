@@ -1,9 +1,18 @@
 package slave;
 
+/**
+ * Task is an abstract class which contains the name of the task and
+ * the state of the task, whether it was completed or not
+ */
 public abstract class Task {
     private boolean isCompleted;
     private String task;
 
+    /**
+     * creates a task of name task
+     *
+     * @param task is the name of the task
+     */
     public Task(String task) {
         this.isCompleted = false;
         this.task = task;

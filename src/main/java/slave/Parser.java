@@ -3,11 +3,14 @@ package slave;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Parser is an object that scans the user's input and performs the
+ * corresponding action
+ */
 public class Parser {
     private List<Task> list;
 
@@ -18,8 +21,7 @@ public class Parser {
     /**
      * prompts the user for input
      *
-     * @return a Pair<Boolean, Boolean> indicating if there are more actions, and if there is a need for storage
-     * to call the save() method respectively
+     * @return a Pair indicating if there are more actions, and if there is a need for storage to call the save() method
      */
     public Pair<Boolean, Boolean> getUserInput() {
         try {
@@ -104,8 +106,8 @@ public class Parser {
      * Prints out the items in the list of items provided by the user
      */
     protected void listItems() {
-        System.out.println("Can you not even remember the things you need to do?" +
-                " That should be your job, not mine!");
+        System.out.println("Can you not even remember the things you need to do?"
+                + " That should be your job, not mine!");
         if (list.isEmpty()) {
             System.out.println("You don't have anything on your list, and you can't even remember that?");
             return;
@@ -306,8 +308,8 @@ public class Parser {
      */
     protected boolean clear() {
         list.clear();
-        System.out.println("Starting off on a clean slate now are we, " +
-                "guess your previous tasks were too much for you to handle");
+        System.out.println("Starting off on a clean slate now are we, "
+                + "guess your previous tasks were too much for you to handle");
         return true;
     }
 
@@ -329,7 +331,8 @@ public class Parser {
                         System.out.println(task);
                     }
                 } else if (task instanceof Deadline) {
-                    if (((Deadline) task).getRawDeadline().isAfter(target) || ((Deadline) task).getRawDeadline().isEqual(target)) {
+                    if (((Deadline) task).getRawDeadline().isAfter(target)
+                            || ((Deadline) task).getRawDeadline().isEqual(target)) {
                         System.out.println(task);
                     }
                 }

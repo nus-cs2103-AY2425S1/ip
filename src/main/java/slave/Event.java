@@ -3,12 +3,24 @@ package slave;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * An Event object is a Task with a start and end date
+ */
 public class Event extends Task {
     private LocalDate start;
     private LocalDate end;
 
-    public Event(String task, LocalDate start, LocalDate end) throws InvalidChronologicalOrderException {
-        super(task);
+    /**
+     * Creates an event with the name taskName, starting at start and ending at end
+     * An InvalidChronologicalOrderException is thrown if the start date is after the end date
+     *
+     * @param taskName
+     * @param start
+     * @param end
+     * @throws InvalidChronologicalOrderException
+     */
+    public Event(String taskName, LocalDate start, LocalDate end) throws InvalidChronologicalOrderException {
+        super(taskName);
         if (start.isAfter(end)) {
             throw new InvalidChronologicalOrderException("Event cannot end before it starts");
         }
@@ -16,7 +28,8 @@ public class Event extends Task {
         this.end = end;
     }
 
-    protected Event(boolean isCompleted, String task, LocalDate start, LocalDate end) throws InvalidChronologicalOrderException {
+    protected Event(boolean isCompleted, String task, LocalDate start, LocalDate end)
+            throws InvalidChronologicalOrderException {
         super(isCompleted, task);
         if (start.isAfter(end)) {
             throw new InvalidChronologicalOrderException("Event cannot end before it starts");
