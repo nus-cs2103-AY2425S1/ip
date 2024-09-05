@@ -1,5 +1,7 @@
-import java.util.ArrayList;
+package R2D2;
+
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class R2D2 {
     private static final String FILE_PATH = "./data/R2D2.txt";
