@@ -2,10 +2,11 @@ package cstwooneohthree.glados.utils;
 
 import java.util.ArrayList;
 
+import cstwooneohthree.glados.enums.UiType;
 import cstwooneohthree.glados.tasks.Task;
 
 /**
- * Ui class to handle printing to command line.
+ * Ui class to handle printing to command line or returning strings in GUI.
  *
  * @author jayjay19630
  */
@@ -15,7 +16,7 @@ public class Ui {
     private static final String HORIZONTAL_LINE = "\n"
             + "-----------------------------------------------------------------------------\n";
     private static final String LOGO = "\n"
-            + " ░▒▓██████▓▒░░▒▓█▓▒░       ░▒▓██████▓▒░░▒▓███████▓▒░ ░▒▓██████▓▒░ ░▒▓███████▓▒░ \n"
+            + "\n ░▒▓██████▓▒░░▒▓█▓▒░       ░▒▓██████▓▒░░▒▓███████▓▒░ ░▒▓██████▓▒░ ░▒▓███████▓▒░ \n"
             + "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n"
             + "░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n"
             + "░▒▓█▓▒▒▓███▓▒░▒▓█▓▒░      ░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░  \n"
@@ -23,102 +24,136 @@ public class Ui {
             + "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n"
             + " ░▒▓██████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░  \n"
             + "\n";
+    private UiType uiType;
 
-    /**
-     * Prints greeting statement in terminal.
-     */
-    public static void greet() {
-        System.out.println(
-                HORIZONTAL_LINE
-                + "\nHello, welcome to the Aperture Science computer-aided enrichment center! My name is:\n"
-                + LOGO
-                + "What task would you like me to perform today?\n"
-                + HORIZONTAL_LINE);
+    public Ui(UiType uiType) {
+        this.uiType = uiType;
     }
 
     /**
-     * Prints user input in echo command.
+     * Prints or returns greeting statement.
+     */
+    public String greet() {
+        String message = "\nHello, welcome to the Aperture Science computer-aided enrichment center! My name is: " 
+                         + LOGO + "What task would you like me to perform today?" + "\n";
+
+        if (uiType == UiType.COMMAND_LINE_INTERFACE) {
+            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            return null;
+        } else {
+            return message.replace("\n", "");
+        }
+    }
+
+    /**
+     * Prints or returns user input in echo command.
      *
      * @param input Input to be echoed.
      */
-    public static void echo(String input) {
-        System.out.println(
-                HORIZONTAL_LINE
-                + "\nGLaDOS: " + input.trim() + "\n"
-                + HORIZONTAL_LINE);
+    public String echo(String input) {
+        String message = "\nGLaDOS: " + input.trim() + "\n";
+
+        if (uiType == UiType.COMMAND_LINE_INTERFACE) {
+            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            return null;
+        } else {
+            return input.trim();
+        }
     }
 
     /**
-     * Prints result after task has been added.
+     * Prints or returns result after task has been added.
      *
      * @param task Task description to be added.
      * @param index Number of tasks left.
      */
-    public static void add(String task, String index) {
-        System.out.println(
-                HORIZONTAL_LINE
-                + "\nGLaDOS: I have added the following task to the list...\n"
-                + "\n" + task + "\n"
-                + "\nNow you have " + index + (Integer.parseInt(index) == 1 ? " task.\n" : " tasks.\n")
-                + HORIZONTAL_LINE);
+    public String add(String task, String index) {
+        String message = "\nGLaDOS: I have added the following task to the list...\n" 
+                        + task + "\n" 
+                        + "Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.")
+                        + "\n";
+
+        if (uiType == UiType.COMMAND_LINE_INTERFACE) {
+            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            return null;
+        } else {
+            return "I have added the following task to the list: " 
+                   + task + " Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.");
+        }
     }
 
     /**
-     * Prints result after task has been deleted.
+     * Prints or returns result after task has been deleted.
      *
      * @param task Task description to be deleted.
      * @param index Number of tasks left.
      */
-    public static void delete(String task, String index) {
-        System.out.println(
-                HORIZONTAL_LINE
-                + "\nGLaDOS: I have removed the following task from the list...\n"
-                + "\n" + task + "\n"
-                + "\nNow you have " + index + (Integer.parseInt(index) == 1 ? " task.\n" : " tasks.\n")
-                + HORIZONTAL_LINE);
+    public String delete(String task, String index) {
+        String message = "\nGLaDOS: I have removed the following task from the list...\n"
+                        + task + "\n"
+                        + "Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.")
+                        + "\n";
+
+        if (uiType == UiType.COMMAND_LINE_INTERFACE) {
+            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            return null;
+        } else {
+            return "I have removed the following task from the list: " 
+                   + task + " Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.");
+        }
     }
 
     /**
-     * Prints all elements inside the tasklist.
+     * Prints or returns all elements inside the tasklist.
      *
      * @param taskList Task list to be printed.
      */
-    public static void list(ArrayList<Task> taskList, boolean shouldFindMatching) {
-        System.out.println(HORIZONTAL_LINE);
-        String findMatchingString = shouldFindMatching ? " that matches input...\n" : "...\n";
-        System.out.println("GLaDOS: Here is the list" + findMatchingString);
+    public String list(ArrayList<Task> taskList, boolean shouldFindMatching) {
+        String findMatchingString = shouldFindMatching ? " that matches input..." : "...";
+        StringBuilder message = new StringBuilder("\nGLaDOS: Here is the list" + findMatchingString + "\n");
 
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i + 1 + ". " + taskList.get(i).toString());
+            message.append(i + 1).append(". ").append(taskList.get(i).toString()).append("\n");
         }
 
-        System.out.println(HORIZONTAL_LINE);
+        if (uiType == UiType.COMMAND_LINE_INTERFACE) {
+            System.out.println(HORIZONTAL_LINE + message.toString() + HORIZONTAL_LINE);
+            return null;
+        } else {
+            return "Here is the list" + findMatchingString + " " + message.toString().replace("\n", "");
+        }
     }
 
     /**
-     * Prints task after it has been marked.
+     * Prints or returns task after it has been marked.
      *
      * @param input Description of task.
      */
-    public static void mark(String input) {
-        System.out.println(
-                HORIZONTAL_LINE
-                + "\nGLaDOS: I've marked this task as done...\n"
-                + "\n" + input + "\n"
-                + HORIZONTAL_LINE);
+    public String mark(String input) {
+        String message = "\nGLaDOS: I've marked this task as done...\n" + input + "\n";
+
+        if (uiType == UiType.COMMAND_LINE_INTERFACE) {
+            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            return null;
+        } else {
+            return "I've marked this task as done: " + input;
+        }
     }
 
     /**
-     * Prints task after it has been unmarked.
+     * Prints or returns task after it has been unmarked.
      *
      * @param input Description of task.
      */
-    public static void unmark(String input) {
-        System.out.println(
-                HORIZONTAL_LINE
-                + "\nGLaDOS: Oops, looks like this task is no longer done...\n"
-                + "\n" + input + "\n"
-                + HORIZONTAL_LINE);
+    public String unmark(String input) {
+        String message = "\nGLaDOS: Oops, looks like this task is no longer done...\n" + input + "\n";
+
+        if (uiType == UiType.COMMAND_LINE_INTERFACE) {
+            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            return null;
+        } else {
+            return "Oops, looks like this task is no longer done: " + input;
+        }
     }
 
     /**
@@ -126,14 +161,14 @@ public class Ui {
      *
      * @param e Exception to be printed.
      */
-    public static void error(Exception e) {
+    public static void printError(Exception e) {
         System.out.println(
                 HORIZONTAL_LINE
                 + "\nGLaDOS: " + e.getMessage() + "\n"
                 + HORIZONTAL_LINE);
     }
 
-    /**
+     /**
      * Prints appropriate statement during taskList initialization.
      *
      * @param str Statement to be printed.
@@ -143,12 +178,16 @@ public class Ui {
     }
 
     /**
-     * Prints exit statement after bye command.
+     * Prints or returns exit statement after bye command.
      */
-    public static void exit() {
-        System.out.println(
-                HORIZONTAL_LINE
-                + "\nGLaDOS: Goodbye, user.\n"
-                + HORIZONTAL_LINE);
+    public String exit() {
+        String message = "\nGLaDOS: Goodbye, user.\n";
+
+        if (uiType == UiType.COMMAND_LINE_INTERFACE) {
+            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            return null;
+        } else {
+            return "Goodbye, user.";
+        }
     }
 }

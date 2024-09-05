@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import cstwooneohthree.glados.enums.TaskType;
+import cstwooneohthree.glados.enums.UiType;
 import cstwooneohthree.glados.exceptions.CommandNotFoundException;
 import cstwooneohthree.glados.exceptions.GladosException;
 import cstwooneohthree.glados.exceptions.TaskNotFoundException;
@@ -20,18 +21,20 @@ import cstwooneohthree.glados.utils.Ui;
 public class Glados {
     /* TaskList object to manage tasks */
     private TaskList taskList;
+    private Ui ui;
 
     /**
      * Constructs Glados object by initializing TaskList.
      * TaskList object is created with loading tasks.
      */
-    public Glados() {
+    public Glados(UiType uiType) {
         this.taskList = new TaskList(true);
+        this.ui = new Ui(uiType);
     }
 
-    private void run() {
+    private void runCommandLineInterface() {
         // Greet the user
-        Ui.greet();
+        ui.greet();
 
         // Initialise a scanner for detecting input
         Scanner sc = new Scanner(System.in);
@@ -40,86 +43,82 @@ public class Glados {
         while (true) {
             String input = sc.nextLine().toLowerCase();
             if (Parser.parseCommand(input).equals("bye")) {
-                Ui.exit();
+                ui.exit();
                 break;
             } else {
-                try {
-                    String query = Parser.parseCommand(input);
-                    switch (query) {
-                    case "echo":
-                        String echoArgs = Parser.parseArguments(input);
-                        Ui.echo(echoArgs);
-                        break;
-                    case "todo":
-                        String todoArgs = Parser.parseArguments(input);
-                        add(TaskType.TODO, todoArgs);
-                        break;
-                    case "deadline":
-                        String deadlineArgs = Parser.parseArguments(input);
-                        add(TaskType.DEADLINE, deadlineArgs);
-                        break;
-                    case "event":
-                        String eventArgs = Parser.parseArguments(input);
-                        add(TaskType.EVENT, eventArgs);
-                        break;
-                    case "list":
-                        list();
-                        break;
-                    case "mark":
-                        String markArgs = Parser.parseArguments(input);
-                        mark(Integer.valueOf(markArgs));
-                        break;
-                    case "unmark":
-                        String unmarkArgs = Parser.parseArguments(input);
-                        unmark(Integer.valueOf(unmarkArgs));
-                        break;
-                    case "delete":
-                        String deleteArgs = Parser.parseArguments(input);
-                        delete(Integer.valueOf(deleteArgs));
-                        break;
-                    case "find":
-                        String findArgs = Parser.parseArguments(input);
-                        find(findArgs);
-                        break;
-                    default:
-                        throw new CommandNotFoundException();
-                    }
-                } catch (GladosException e) {
-                    Ui.error(e);
-                }
+                executeCommand(input);
             }
         }
         sc.close();
     }
 
-    private void add(TaskType taskType, String input) throws GladosException {
+    public String executeCommand(String input) {
+        try {
+            String query = Parser.parseCommand(input);
+            switch (query) {
+            case "echo":
+                String echoArgs = Parser.parseArguments(input);
+                return ui.echo(echoArgs);
+            case "todo":
+                String todoArgs = Parser.parseArguments(input);
+                return add(TaskType.TODO, todoArgs);
+            case "deadline":
+                String deadlineArgs = Parser.parseArguments(input);
+                return add(TaskType.DEADLINE, deadlineArgs);
+            case "event":
+                String eventArgs = Parser.parseArguments(input);
+                return add(TaskType.EVENT, eventArgs);
+            case "list":
+                return list();
+            case "mark":
+                String markArgs = Parser.parseArguments(input);
+                return mark(Integer.valueOf(markArgs));
+            case "unmark":
+                String unmarkArgs = Parser.parseArguments(input);
+                return unmark(Integer.valueOf(unmarkArgs));
+            case "delete":
+                String deleteArgs = Parser.parseArguments(input);
+                return delete(Integer.valueOf(deleteArgs));
+            case "find":
+                String findArgs = Parser.parseArguments(input);
+                return find(findArgs);
+            default:
+                throw new CommandNotFoundException();
+            }
+        } catch (GladosException e) {
+            Ui.printError(e);
+        }
+        return null; // Will never reach this point, but needed to satisfy return type
+    }
+
+    private String add(TaskType taskType, String input) throws GladosException {
         String[] res = taskList.add(taskType, input);
-        Ui.add(res[0], res[1]);
+        return ui.add(res[0], res[1]);
     }
 
-    private void delete(int index) throws TaskNotFoundException {
+    private String delete(int index) throws TaskNotFoundException {
         String[] res = taskList.delete(index);
-        Ui.delete(res[0], res[1]);
+        return ui.delete(res[0], res[1]);
     }
 
-    private void list() {
+    private String list() {
         ArrayList<Task> res = taskList.list();
-        Ui.list(res, false);
+        return ui.list(res, false);
     }
 
-    private void mark(int index) throws TaskNotFoundException {
+    private String mark(int index) throws TaskNotFoundException {
         String res = taskList.mark(index);
-        Ui.mark(res);
+        return ui.mark(res);
     }
 
-    private void unmark(int index) throws TaskNotFoundException {
+    private String unmark(int index) throws TaskNotFoundException {
         String res = taskList.unmark(index);
-        Ui.unmark(res);
+        return ui.unmark(res);
     }
 
-    private void find(String input) {
+    private String find(String input) {
         ArrayList<Task> res = taskList.find(input);
-        Ui.list(res, true);
+        return ui.list(res, true);
     }
 
     /**
@@ -128,6 +127,6 @@ public class Glados {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        new Glados().run();
+        new Glados(UiType.COMMAND_LINE_INTERFACE).runCommandLineInterface();
     }
 }

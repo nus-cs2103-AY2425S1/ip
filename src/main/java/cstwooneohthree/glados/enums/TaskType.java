@@ -1,7 +1,7 @@
 package cstwooneohthree.glados.enums;
 
 /**
- * Enums for different ask types.
+ * Enums for different task types.
  *
  * @author jayjay19630
  */
