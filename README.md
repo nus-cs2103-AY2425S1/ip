@@ -34,6 +34,14 @@ Welcome to the **Angel Chatbot** project! This chatbot is designed to help you m
 - [x] Managing Deadlines
 - [x] Managing Events
 
+If you are a Java Programmer you can use it to practice code too. Heres the 'main' method:
+```bash
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
+
 ## Additional Resources
-For more information, checkout the [Github Documentation] (https://docs.github.com/en)
+For more information, checkout the [Github Documentation](https://docs.github.com/en).
 > "Great things are not done by impulse, but by a series of small things brought together." — Vincent Van Gogh
