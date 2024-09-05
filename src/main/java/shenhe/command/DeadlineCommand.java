@@ -1,9 +1,10 @@
 package shenhe.command;
 
 import java.time.LocalDateTime;
+
+import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
-import shenhe.Storage;
 import shenhe.exception.EmptyTaskDescriptionException;
 import shenhe.parser.DateParser;
 import shenhe.task.Deadline;
@@ -17,7 +18,7 @@ import shenhe.task.Deadline;
  * </p>
  */
 public final class DeadlineCommand extends Command {
-    private String userInput;
+    private final String userInput;
 
     /**
      * Constructs a {@code DeadlineCommand} with the specified user input.

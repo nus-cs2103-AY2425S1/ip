@@ -1,8 +1,8 @@
 package shenhe.command;
 
+import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
-import shenhe.Storage;
 
 /**
  * Represents a command in the application.

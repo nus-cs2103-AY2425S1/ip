@@ -13,7 +13,8 @@ public class EmptyTaskDescriptionException extends Exception {
     /**
      * Constructs an {@code EmptyTaskDescriptionException} with a default error message.
      * <p>
-     * The default error message is: "My dear traveller, the task description cannot be empty. Please give me something specific."
+     * The default error message is: "My dear traveller, the task description cannot be empty. Please give me
+     * something specific."
      * </p>
      */
     public EmptyTaskDescriptionException() {

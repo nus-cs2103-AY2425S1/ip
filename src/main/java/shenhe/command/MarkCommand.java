@@ -1,8 +1,8 @@
 package shenhe.command;
 
+import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
-import shenhe.Storage;
 import shenhe.exception.EmptyTaskDescriptionException;
 
 /**
@@ -13,7 +13,7 @@ import shenhe.exception.EmptyTaskDescriptionException;
  * </p>
  */
 public final class MarkCommand extends Command {
-    private String userInput;
+    private final String userInput;
 
     /**
      * Constructs a {@code MarkCommand} object with the specified user input.

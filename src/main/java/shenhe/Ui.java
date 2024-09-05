@@ -29,9 +29,10 @@ public class Ui {
      * </p>
      */
     public void showWelcome() {
-        System.out.println("Hello, Ying. I'm Shenhe. The assumption that every person has somewhere to call home is\n" +
-                "naive. I got used to living in the mountains alongside the birds and beasts a long time ago.\n" +
-                "You, are not the only traveller, but the most interesting one.");
+        System.out.println("""
+                Hello, Ying. I'm Shenhe. The assumption that every person has somewhere to call home is
+                naive. I got used to living in the mountains alongside the birds and beasts a long time ago.
+                You, are not the only traveller, but the most interesting one.""");
         System.out.println("What do you want today?");
     }
 

@@ -1,8 +1,8 @@
 package shenhe.command;
 
+import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
-import shenhe.Storage;
 import shenhe.exception.EmptyTaskDescriptionException;
 import shenhe.task.Event;
 
@@ -15,7 +15,7 @@ import shenhe.task.Event;
  * </p>
  */
 public final class EventCommand extends Command {
-    private String userInput;
+    private final String userInput;
 
     /**
      * Constructs an {@code EventCommand} with the specified user input.

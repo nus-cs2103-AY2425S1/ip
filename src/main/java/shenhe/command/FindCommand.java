@@ -1,11 +1,11 @@
 package shenhe.command;
 
+import java.util.List;
+
+import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
-import shenhe.Storage;
 import shenhe.task.Task;
-
-import java.util.List;
 
 /**
  * Represents a command to find tasks by searching for a keyword in the task description.
@@ -15,7 +15,7 @@ import java.util.List;
  * </p>
  */
 public final class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     /**
      * Constructs a {@code FindCommand} object with the specified user input.

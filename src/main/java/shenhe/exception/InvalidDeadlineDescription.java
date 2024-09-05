@@ -13,10 +13,12 @@ public class InvalidDeadlineDescription extends Exception {
     /**
      * Constructs an {@code InvalidDeadlineDescription} with a default error message.
      * <p>
-     * The default error message is: "Sorry traveller. For deadlines, you need to have both the description and the deadline separated by '/'".
+     * The default error message is: "Sorry traveller. For deadlines, you need to have both the description and the
+     * deadline separated by '/'".
      * </p>
      */
     public InvalidDeadlineDescription() {
-        super("Sorry traveller. For deadlines, you need to have both the description and the deadline separated by '/'");
+        super("Sorry traveller. For deadlines, you need to have both the description and the "
+                + "deadline separated by '/'");
     }
 }

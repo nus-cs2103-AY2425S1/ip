@@ -1,9 +1,9 @@
 package shenhe;
 
-import shenhe.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import shenhe.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -14,7 +14,7 @@ import java.util.List;
  * </p>
  */
 public final class TaskList {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     /**
      * Constructs an empty {@code TaskList}.

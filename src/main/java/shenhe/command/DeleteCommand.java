@@ -1,8 +1,8 @@
 package shenhe.command;
 
+import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
-import shenhe.Storage;
 import shenhe.exception.EmptyTaskDescriptionException;
 
 /**
@@ -14,7 +14,7 @@ import shenhe.exception.EmptyTaskDescriptionException;
  * </p>
  */
 public final class DeleteCommand extends Command {
-    private String userInput;
+    private final String userInput;
 
     /**
      * Constructs a {@code DeleteCommand} with the specified user input.
