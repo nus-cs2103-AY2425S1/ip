@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 
 public class SecondMind {
     private static final String logo = "SecondMind";
-    private static final String DATA_FILE_PATH = "../../../SecondMind.txt";
+    private static final String DATA_FILE_PATH = "./SecondMind.txt";
     private Storage storage;
     private TaskList taskList;
     private Parser parser;

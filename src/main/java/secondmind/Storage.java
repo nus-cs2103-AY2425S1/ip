@@ -25,8 +25,8 @@ public class Storage {
     public void updateTaskInDataFile(int taskNumber, boolean done, int taskCount) throws FileNotFoundException, IOException {
         int lineNumber = 1;
         File oldFile = new File(DATA_FILE_PATH);
-        File newFile = new File("../../../tempDataFile.txt");
-        FileWriter fw = new FileWriter("../../../tempDataFile.txt", true);
+        File newFile = new File("./tempDataFile.txt");
+        FileWriter fw = new FileWriter("./tempDataFile.txt", true);
         Scanner s = new Scanner(oldFile);
         while (s.hasNext()) {
             String currentLine = s.nextLine();
@@ -68,8 +68,8 @@ public class Storage {
         //Remove line "taskNumber" from data file
         int lineNumber = 1;
         File oldFile = new File(DATA_FILE_PATH);
-        File newFile = new File("../../../tempDataFile.txt");
-        FileWriter fw = new FileWriter("../../../tempDataFile.txt", true);
+        File newFile = new File("./tempDataFile.txt");
+        FileWriter fw = new FileWriter("./tempDataFile.txt", true);
         Scanner s = new Scanner(oldFile);
         while (s.hasNext()) {
             String currentLine = s.nextLine();
