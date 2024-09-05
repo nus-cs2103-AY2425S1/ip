@@ -17,6 +17,12 @@ public class List {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
+    /**
+     * Returns a string that displays the current number of tasks in the list
+     *
+     * @return A string to be displayed
+     */
     public String numOfTasks() {
         if (tasks.size() < 2) {
             return "Now you have " + tasks.size() + " task in the list.\n";
@@ -24,14 +30,32 @@ public class List {
             return "Now you have " + tasks.size() + " tasks in the list.\n";
         }
     }
+
+    /**
+     * Adds a task to the current list
+     *
+     * @param task A task to be added
+     */
     public void addTaskToList(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Returns a string to be displayed when task is successfully added to list
+     * Displays that it has been added and the updated number of tasks
+     *
+     * @param task A task that was added
+     * @return A string to be displayed
+     */
     public String addedNotification(Task task) {
         return line + task.addedString() + numOfTasks() + line;
     }
 
+    /**
+     * Returns a string to be displayed when user commands "list"
+     *
+     * @return A string of list of tasks
+     */
     public String displayList() {
         StringBuilder list = new StringBuilder();
         list.append("Here are the tasks in your list:\n");
@@ -48,6 +72,12 @@ public class List {
         return tasks.get(index);
     }
 
+    /**
+     * Deletes a task of a specified index
+     *
+     * @param index Index of task specified by user
+     * @throws InvalidTaskException If index of task does not exist
+     */
     public void deleteTask(int index) throws InvalidTaskException {
         try {
             Task task = tasks.get(index);

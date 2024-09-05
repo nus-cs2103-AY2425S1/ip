@@ -12,7 +12,15 @@ public class Parser {
         this.kira = kira;
     }
 
-
+    /**
+     * Executes user's input commands and
+     * Prints out the respective response by Kira
+     *
+     * @param userInput User's input
+     * @throws EmptyException If user's input is empty
+     * @throws InvalidTaskException If index of task does not exist
+     * @throws UnreadableException If user's input does not correspond to any built-in commands
+     */
     public void parse(String userInput) throws EmptyException, InvalidTaskException, UnreadableException {
 
         List list = this.kira.getList();
