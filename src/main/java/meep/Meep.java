@@ -1,11 +1,12 @@
 package meep;
 
+import java.util.Scanner;
+
 import meep.parser.Parser;
 import meep.task.Storage;
 import meep.task.TaskList;
 import meep.ui.Ui;
 
-import java.util.Scanner;
 
 /**
  * The {@code Meep} class represents the main application that runs the task management system.
