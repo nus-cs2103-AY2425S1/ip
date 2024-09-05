@@ -1,10 +1,11 @@
 package denim;
 
-import denim.tasks.Task;
-import denim.tasks.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import denim.tasks.Task;
+import denim.tasks.Todo;
 
 public class TaskListTest {
 
