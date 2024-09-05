@@ -1,8 +1,8 @@
-package Tasks;
+package tasks;
 
 import java.util.ArrayList;
 
-import Exceptions.NotInTaskListException;
+import exceptions.NotInTaskListException;
 
 /**
  * Represents a list of tasks stored by the Testament chatbot.

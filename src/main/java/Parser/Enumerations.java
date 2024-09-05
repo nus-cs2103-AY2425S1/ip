@@ -1,4 +1,4 @@
-package Parser;
+package parser;
 
 /**
  * Set of constants that represents the commands that users can give to the testament chatbot

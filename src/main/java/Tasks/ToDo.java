@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 /**
  * Represents a Task with only a description.

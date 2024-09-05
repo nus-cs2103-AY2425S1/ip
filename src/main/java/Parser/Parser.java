@@ -1,14 +1,14 @@
-package Parser;
+package parser;
 
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import Tasks.TaskList;
-import Tasks.Task;
-import Exceptions.TestamentException;
-import Exceptions.CommandNotRecognisedException;
-import Ui.Ui;
-import Storage.Storage;
+import tasks.TaskList;
+import tasks.Task;
+import exceptions.TestamentException;
+import exceptions.CommandNotRecognisedException;
+import ui.Ui;
+import storage.Storage;
 
 /**
  * In charge of retrieving, parsing, and handling user input.

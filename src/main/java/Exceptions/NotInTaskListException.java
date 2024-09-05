@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * An exception that occurs when the specified task is not in the given taskList

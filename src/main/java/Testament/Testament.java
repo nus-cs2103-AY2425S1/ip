@@ -1,9 +1,9 @@
-package Testament;
+package testament;
 
-import Tasks.TaskList;
-import Ui.Ui;
-import Storage.Storage;
-import Parser.Parser;
+import tasks.TaskList;
+import ui.Ui;
+import storage.Storage;
+import parser.Parser;
 
 /**
  * Main class for Testament chatbot.

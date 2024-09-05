@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * An exception that occurs when an event description is missing the necessary dates

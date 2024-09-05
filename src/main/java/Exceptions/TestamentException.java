@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * Represents an exception from the Testament chatbot.

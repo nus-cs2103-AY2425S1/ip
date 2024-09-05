@@ -1,10 +1,10 @@
-package Tasks;
+package tasks;
 
-import Exceptions.TestamentException;
-import Exceptions.CommandNotRecognisedException;
-import Exceptions.TaskDescriptionEmptyException;
-import Exceptions.DeadlineNoDateException;
-import Exceptions.EventNoTimeException;
+import exceptions.TestamentException;
+import exceptions.CommandNotRecognisedException;
+import exceptions.TaskDescriptionEmptyException;
+import exceptions.DeadlineNoDateException;
+import exceptions.EventNoTimeException;
 
 /**
  * Represents a task stored in the testament chatbot.

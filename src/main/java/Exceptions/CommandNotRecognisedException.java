@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * An exception that occurs when the parser cannot recognise the userInput
