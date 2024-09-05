@@ -33,16 +33,18 @@ public class FindCommand extends Command {
      * @throws TudeeException If no tasks contain the specified keyword.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException {
         boolean haveKeyword = false;
+        TaskList matchingTasks = new TaskList();
         for (Task task: tasks.get()) {
             if (task.getDescription().contains(keyword)) {
-                ui.showTask(task);
+                matchingTasks.add(task);
                 haveKeyword = true;
             }
         }
         if (!haveKeyword) {
             throw new TudeeException("There is no such task with the keyword specified");
         }
+        return ui.showMatchingTasks(matchingTasks);
     }
 }

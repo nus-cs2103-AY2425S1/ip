@@ -5,41 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4ad28af-f8ea-43c7-bb32-b5f3cb649734" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apiguardian_apiguardian_api_1_1_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_api_5_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_engine_5_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_commons_1_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_engine_1_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_opentest4j_opentest4j_1_3_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/Tudee.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/Tudee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/TudeeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/TudeeException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/command/AddTaskCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/command/AddTaskCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/command/ByeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/command/ByeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/command/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/command/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/command/DateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/command/DateCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/command/DeleteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/command/DeleteCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/command/FindCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/command/FindCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/command/ListCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/command/ListCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/command/MarkCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/command/MarkCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/command/UnknownCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/command/UnknownCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/command/UnmarkCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/command/UnmarkCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/storage/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/storage/Storage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/task/Deadline.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/task/Deadline.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/task/Events.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/task/Events.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/task/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/task/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/task/TaskList.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/task/TaskList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/task/ToDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/task/ToDo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/tudee/ui/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/tudee/ui/Ui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test/java/tudee/task/DeadlineTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/tudee/task/DeadlineTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test/java/tudee/task/ToDoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/java/tudee/task/ToDoTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +55,10 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/repos/ip/build.gradle&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/repos/ip/build.gradle&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
 }</component>
   <component name="RunAnythingCache">

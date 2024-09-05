@@ -18,7 +18,7 @@ public class UnknownCommand extends Command {
      * @param storage The storage (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showError("Unknown command! Please try again.");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showError("Unknown command! Please try again.");
     }
 }

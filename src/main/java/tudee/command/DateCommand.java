@@ -47,20 +47,21 @@ public class DateCommand extends Command {
      * @throws TudeeException If no tasks are found on the specified date.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException {
         boolean haveTask = false;
+        TaskList matchingTasks = new TaskList();
         for (Task task : tasks.get()) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 if (deadline.getDateTime().isEqual(date)) {
-                    ui.showTask(deadline);
+                    matchingTasks.add(deadline);
                     haveTask = true;
                 }
             } else if (task instanceof Events) {
                 Events events = (Events) task;
                 if ((events.getStart().isBefore(date) && events.getEnd().isAfter(date))
                         || events.getStart().isEqual(date) || events.getEnd().isEqual(date)) {
-                    ui.showTask(events);
+                    matchingTasks.add(events);
                     haveTask = true;
                 }
             }
@@ -69,5 +70,6 @@ public class DateCommand extends Command {
             throw new TudeeException("You have no tasks on this date, "
                     + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".");
         }
+        return ui.showMatchingTasks(matchingTasks);
     }
 }

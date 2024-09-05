@@ -32,10 +32,10 @@ public class UnmarkCommand extends Command {
      * @param storage The storage to save the updated task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(index - 1);
         task.markAsNotDone();
-        ui.showUnMark(task);
         storage.save(tasks.get());
+        return ui.showUnMark(task);
     }
 }

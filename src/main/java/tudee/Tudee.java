@@ -50,6 +50,15 @@ public class Tudee {
         ui.close();
     }
 
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(taskList, ui, storage);
+        } catch (tudee.TudeeException e) {
+            return ui.showError(e.getMessage());
+        }
+    }
+
     /**
      * Starts the Tudee chatbot
      */

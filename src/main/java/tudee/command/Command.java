@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage The storage to be updated by the command.
      * @throws TudeeException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException;
 
     /**
      * Determines whether the command indicates the end of the application.
