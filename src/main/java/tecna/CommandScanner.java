@@ -94,6 +94,53 @@ public class CommandScanner {
         }
     }
 
+    public CommandType readRequest(String input) {
+        this.input = input;
+        String[] input_words = this.input.split(" ");
+        if (input.equalsIgnoreCase("bye")) {
+            return CommandType.BYE;
+        } else if (input.equalsIgnoreCase("list")) {
+            return CommandType.LIST;
+        } else if (input_words[0].equalsIgnoreCase("mark")) {
+            return this.generateIndex() ? CommandType.MARK : CommandType.INDEX_WRONG_FORMAT;
+        } else if (input_words[0].equalsIgnoreCase("unmark")) {
+            return this.generateIndex() ? CommandType.UNMARK : CommandType.INDEX_WRONG_FORMAT;
+        } else if (input_words[0].equalsIgnoreCase("delete")) {
+            return this.generateIndex() ? CommandType.DELETE : CommandType.INDEX_WRONG_FORMAT;
+        } else if (input_words[0].equalsIgnoreCase("find")) {
+            this.keyword = input_words[1];
+            return CommandType.FIND;
+        } else if (input_words[0].equalsIgnoreCase("todo")) {
+            if (input_words.length <= 1) {
+                return CommandType.TODO_WRONG_FORMAT;
+            } else {
+                String[] description = input.split("todo");
+                this.inputTask = new ToDo(description[1].trim());
+                return CommandType.TODO;
+            }
+        } else if (input_words[0].equalsIgnoreCase("deadline")) {
+            try {
+                String[] description = input.split("deadline | /by");
+                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                this.inputTask = new Deadline(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern));
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+                return CommandType.DEADLINE_WRONG_FORMAT;
+            }
+            return CommandType.DEADLINE;
+        } else if (input_words[0].equalsIgnoreCase("event")) {
+            try {
+                String[] description = input.split("event | /from | /to ");
+                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                this.inputTask =  new Event(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern), LocalDateTime.parse(description[3].trim(), pattern));
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+                return CommandType.EVENT_WRONG_FORMAT;
+            }
+            return CommandType.EVENT;
+        } else {
+            return CommandType.INVALID;
+        }
+    }
+
     /**
      * Generates the required index and stores in the <code>inputIndex</code> attribute.
      * @return <code>true</code> if the parsing process is success and <code>false</code> otherwise.
