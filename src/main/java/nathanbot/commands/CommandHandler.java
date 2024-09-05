@@ -63,10 +63,14 @@ public abstract class CommandHandler {
             int index = Integer.parseInt(input.substring(command.length()));
             if (isDone) {
                 taskList.markAsDone(index - 1);
-                System.out.println(LINE + "Nice! I've marked this task as done:\n  " + taskList.getTask(index - 1) + "\n" + LINE);
+                System.out.println(LINE 
+                    + "Nice! I've marked this task as done:\n  " 
+                    + taskList.getTask(index - 1) + "\n" + LINE);
             } else {
                 taskList.markAsUndone(index - 1);
-                System.out.println(LINE + "OK, I've marked this task as not done yet:\n  " + taskList.getTask(index - 1) + "\n" + LINE);
+                System.out.println(LINE 
+                    + "OK, I've marked this task as not done yet:\n  " 
+                    + taskList.getTask(index - 1) + "\n" + LINE);
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println(LINE + "Invalid task number. To see the list of tasks, use: list\n" + LINE);
@@ -85,7 +89,10 @@ public abstract class CommandHandler {
             int index = Integer.parseInt(input.substring(CommandType.DELETE.getCommand().length()));
             Task task = taskList.getTask(index - 1);
             taskList.deleteTask(index - 1);
-            System.out.println(LINE + "Noted. I've removed this task:\n  " + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n" + LINE);
+            System.out.println(LINE 
+                + "Noted. I've removed this task:\n  " + task 
+                + "\nNow you have " + taskList.listLength() 
+                + " tasks in the list.\n" + LINE);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println(LINE + "Invalid task number. To see the list of tasks, use: list\n" + LINE);
         }
@@ -152,7 +159,9 @@ public abstract class CommandHandler {
 
         String[] parts = input.split(" /from | /to ");
         if (parts.length < 3) {
-            System.out.println(LINE + "Invalid event format. Use: event <description> /from <start time> /to <end time>\n" + LINE);
+            System.out.println(LINE + 
+                "Invalid event format. Use: event <description> /from <start time> /to <end time>\n" 
+                + LINE);
             return;
         }
 
@@ -203,6 +212,8 @@ public abstract class CommandHandler {
      * @param taskList The list of tasks.
      */
     private static void printAddTaskLine(Task task, TaskList taskList) {
-        System.out.println(LINE + "Got it. I've added this task: \n    " + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n" + LINE);
+        System.out.println(LINE + "Got it. I've added this task: \n    " 
+            + task + "\nNow you have " + taskList.listLength() 
+            + " tasks in the list.\n" + LINE);
     }
 }

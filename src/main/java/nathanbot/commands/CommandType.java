@@ -13,37 +13,37 @@ public enum CommandType {
      * Command to break or exit.
      */
     BREAK("bye"),
-    
+
     /**
      * Command to display the list.
      */
     DISPLAY_LIST("list"),
-    
+
     /**
      * Command to mark an item as done.
      */
     MARK_DONE("mark "),
-    
+
     /**
      * Command to mark an item as undone.
      */
     MARK_UNDONE("unmark "),
-    
+
     /**
      * Command to add a todo item.
      */
     TODO("todo "),
-    
+
     /**
      * Command to add a deadline item.
      */
     DEADLINE("deadline "),
-    
+
     /**
      * Command to add an event item.
      */
     EVENT("event "),
-    
+
     /**
      * Command to delete an item.
      */
@@ -53,7 +53,7 @@ public enum CommandType {
      * Command to find an item.
      */
     FIND("find "),
-    
+
     /**
      * Unknown command type.
      */

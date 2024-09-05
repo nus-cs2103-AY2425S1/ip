@@ -12,9 +12,9 @@ import java.io.Serializable;
  * Parent class of Deadline, Event, and Todo.
  */
 public class Task implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final String description;
     private boolean isDone;
-    private static final long serialVersionUID = 1L;
 
     /**
      * Constructs a Task with the specified description.
