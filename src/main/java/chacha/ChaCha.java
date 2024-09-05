@@ -19,6 +19,7 @@ public class ChaCha {
     protected Ui ui;
 
     private boolean isEnd;
+    private String response;
 
     public ChaCha() {
         try {
@@ -53,8 +54,7 @@ public class ChaCha {
         System.out.println(this.ui.printGreeting());
         while (scanner.hasNextLine()) {
             String userInput = scanner.nextLine();
-            String output = parser.parseCommand(userInput);
-            System.out.println(output);
+            this.response = parser.parseCommand(userInput);
 
             if (this.isEnd) {
                 break;
@@ -66,15 +66,20 @@ public class ChaCha {
 
     /**
      * Generates a response for the user input.
-     * @param input
+     * @param userInput
      * @return
      */
-    public String getResponse(String input) {
-        return "ChaCha responds: " + input;
+    public String getResponse(String userInput) {
+        Parser parser = new Parser(this, this.storage, this.tasks, this.ui);
+        return parser.parseCommand(userInput);
     }
 
     public void updateIsEnd() {
         this.isEnd = true;
+    }
+
+    public boolean getIsEnd() {
+        return this.isEnd;
     }
 
 
@@ -87,6 +92,6 @@ public class ChaCha {
      */
     public static void main(String[] args) {
         ChaCha chatbot = new ChaCha();
-        chatbot.run();
+//        chatbot.run();
     }
 }
