@@ -20,6 +20,8 @@ public class Command {
      * @param message The full message provided by the user, which may contain additional information.
      */
     public Command(String command, String message) {
+        assert command != null && !command.isEmpty() : "Command should not be null or empty";
+        assert message != null : "Message should not be null";
         this.command = command;
         this.message = message;
     }
@@ -37,8 +39,10 @@ public class Command {
      * @throws MentalHealthException If an error occurs while processing the command.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MentalHealthException {
-        assert tasks != null && ui != null && storage != null : "Tasks, Ui, or Storage cannot be null";
 
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
         String message = this.message.strip().toLowerCase();
         String[] messageParts = message.split(" ");
 
@@ -93,8 +97,8 @@ public class Command {
      */
     private String markOrUnmarkTask(TaskList tasks, Storage storage, String checkMarkOrUnmark, IndividualTask curTask)
             throws MentalHealthException {
-        StringBuilder result = new StringBuilder();
 
+        StringBuilder result = new StringBuilder();
         switch (checkMarkOrUnmark) {
         case "mark":
             curTask.markOrUnmark("mark");
@@ -109,7 +113,6 @@ public class Command {
         default:
             result.append("Not a valid command.");
         }
-
         storage.saveTasksToFile(tasks.getListTask());
         return result.toString();
     }
@@ -123,14 +126,22 @@ public class Command {
      * @return A message indicating the result of the delete command.
      */
     private String handleDeleteCommand(String[] parts, TaskList tasks, Storage storage) {
+
         if (parts.length <= 1) {
             return "No Task found.";
         }
 
+        assert parts.length > 1 : "Delete command should have at least 2 parts (delete + task number)";
+
+        StringBuilder result = new StringBuilder();
+
         int number = Integer.parseInt(parts[parts.length - 1]);
+
+        // Ensure the task number is valid
+        assert number > 0 && number <= tasks.getListTask().size() : "Task number out of bounds";
+
         IndividualTask curTask = tasks.getListTask().get(number - 1);
         tasks.deleteTask(number - 1);
-
         storage.saveTasksToFile(tasks.getListTask());
 
         return "Alrighty! I will remove the task:\n" + formatMessage(curTask, tasks.getListTask().size());
@@ -144,9 +155,10 @@ public class Command {
      * @return A message listing the tasks that match the keyword.
      */
     private String handleFindCommand(String[] parts, TaskList tasks) {
-        if (parts.length <= 1) {
-            return "No keyword found for search.";
-        }
+
+        assert parts.length > 1 : "Find command should have at least 2 parts (find + keyword)";
+
+        StringBuilder result = new StringBuilder();
 
         String keyword = parts[parts.length - 1];
         ArrayList<IndividualTask> matchingTasks = findMatchingTasks(tasks, keyword);
@@ -163,15 +175,19 @@ public class Command {
      * description contains the keyword (case-insensitive).
      *
      * @param tasks   The {@code TaskList} object containing all tasks.
-     * @param keyword The keyword to search for within task descriptions.
+     * @param keyWord The keyword to search for within task descriptions.
      * @return A list of {@code IndividualTask} objects that match the keyword.
      */
-    private ArrayList<IndividualTask> findMatchingTasks(TaskList tasks, String keyword) {
+    private ArrayList<IndividualTask> findMatchingTasks(TaskList tasks, String keyWord) {
         ArrayList<IndividualTask> matchingTasks = new ArrayList<>();
+
         ArrayList<IndividualTask> allTasks = tasks.getListTask();
 
+        assert keyWord != null && !keyWord.isEmpty() : "Keyword should not be null or empty";
+
+
         for (IndividualTask task : allTasks) {
-            if (task.getTaskDescription().toLowerCase().contains(keyword.toLowerCase())) {
+            if (task.getTaskDescription().toLowerCase().contains(keyWord.toLowerCase())) {
                 matchingTasks.add(task);
             }
         }
@@ -338,6 +354,8 @@ public class Command {
      * @return The formatted task message.
      */
     public String formatMessage(IndividualTask task, int num) {
+        assert task != null : "Task to be formatted should not be null";
+        assert num >= 0 : "Number of tasks cannot be negative";
         return task + "\n" + "\n" + "Now you have " + num + " tasks in the list.\n";
     }
 }
