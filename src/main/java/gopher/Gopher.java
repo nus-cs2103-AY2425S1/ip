@@ -45,11 +45,11 @@ public class Gopher {
                 taskList.markAsDone(taskNumbers);
                 StringBuilder message = new StringBuilder();
                 for (int taskNumber: taskNumbers) {
-                    message.append(UI.getDeleteTaskMessage(taskList.getTask(taskNumber)));
+                    message.append(UI.getMarkAsDoneMessage(taskList.getTask(taskNumber)));
                 }
                 return message.toString();
             } else if (userInput.toLowerCase().startsWith("unmark")) {
-                int[] taskNumbers = Parser.parseUnMarkCommand(userInput);
+                int[] taskNumbers = Parser.parseUnmarkCommand(userInput);
                 taskList.markAsUndone(taskNumbers);
                 StringBuilder message = new StringBuilder();
                 for (int taskNumber: taskNumbers) {

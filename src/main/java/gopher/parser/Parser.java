@@ -199,7 +199,7 @@ public class Parser {
      * @param command unmark task command
      * @return task number of the task marked as not done
      */
-    public static int[] parseUnMarkCommand(String command) {
+    public static int[] parseUnmarkCommand(String command) {
         String[] tokens = command.split(" ");
         int[] taskNumbers = new int[tokens.length - 1];
         for (int i = 1; i < tokens.length; i++) {
