@@ -9,11 +9,19 @@ import monobot.util.Ui;
 
 import java.util.Scanner;
 
+/**
+ * Represents entry point of application.
+ */
 public class MonoBot {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initialises the Ui, TaskList and Storage of the chatbot.
+     *
+     * @param filePath Path to the file where tasks will be stored.
+     */
     public MonoBot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
