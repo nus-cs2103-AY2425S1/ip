@@ -28,9 +28,10 @@ public class DeadlineCommand extends CreateTaskCommand {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
         Deadline deadline = new Deadline(this.name, this.localDate);
         taskList.addTask(deadline);
-        ui.printTaskAddedMessage(deadline, taskList.getTasks().size());
+        String stringToReturn = ui.printTaskAddedMessage(deadline, taskList.getTasks().size());
+        return stringToReturn;
     }
 }

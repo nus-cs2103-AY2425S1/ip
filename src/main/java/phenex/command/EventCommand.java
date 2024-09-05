@@ -41,9 +41,9 @@ public class EventCommand extends CreateTaskCommand {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws PhenexException {
         Event event = new Event(this.name, this.fromDate, this.toDate);
         taskList.addTask(event);
-        ui.printTaskAddedMessage(event, taskList.getTasks().size());
+        return ui.printTaskAddedMessage(event, taskList.getTasks().size());
     }
 }
