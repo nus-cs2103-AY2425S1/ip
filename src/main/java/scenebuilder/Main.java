@@ -1,6 +1,7 @@
-package sceneBuilder;
+package scenebuilder;
 
 import java.io.IOException;
+
 import blue.Blue;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

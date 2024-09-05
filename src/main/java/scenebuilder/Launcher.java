@@ -1,4 +1,4 @@
-package sceneBuilder;
+package scenebuilder;
 
 import javafx.application.Application;
 

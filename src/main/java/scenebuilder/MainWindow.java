@@ -1,4 +1,4 @@
-package sceneBuilder;
+package scenebuilder;
 
 import blue.Blue;
 import javafx.fxml.FXML;

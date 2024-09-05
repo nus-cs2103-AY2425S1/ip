@@ -1,4 +1,4 @@
-package sceneBuilder;
+package scenebuilder;
 
 import java.io.IOException;
 import java.util.Collections;
