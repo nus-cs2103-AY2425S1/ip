@@ -9,7 +9,8 @@ import tira.task.TaskList;
 
 
 /**
- * Tira java
+ * Main class for Tira chatbot.
+ * Manages initialization and execution of the Tira app.
  *
  */
 
@@ -21,6 +22,13 @@ public class Tira {
     private TaskList tasks;
     private Storage storage;
     private Parser parser;
+
+    /**
+     * Initialises the Tira class with the input filepath.
+     * Loads task list from the file with the matching filename.
+     *
+     * @param filePath Filepath of the file to be updated.
+     */
 
     public Tira(String filePath) {
         ui = new Ui();
@@ -34,6 +42,11 @@ public class Tira {
         parser = new Parser(tasks);
 
     }
+
+    /**
+     * Runs Tira chatbot by accepting user input through Ui class.
+     * @throws TiraException
+     */
 
     public void run() throws TiraException{
         Ui ui = new Ui();
@@ -64,6 +77,13 @@ public class Tira {
         ui.bye();
         printer.close();
     }
+
+    /**
+     * Main method of Tira chatbot.
+     * @param args Terminal input.
+     * @throws TiraException
+     * @throws IOException
+     */
 
     public static void main(String[] args) throws TiraException, IOException {
         // variable declarations
