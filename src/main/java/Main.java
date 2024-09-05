@@ -1,15 +1,12 @@
-import nen.components.DialogBox;
-import nen.components.MainWindow;
-import nen.nen2.Nen2;
+import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
-import javafx.fxml.FXMLLoader;
+import nen.components.MainWindow;
+import nen.nen2.Nen2;
 
 /**
  * A GUI for Duke using FXML.

@@ -1,9 +1,10 @@
 package nen.utils;
 
-import nen.commands.DeleteCommand;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import nen.commands.DeleteCommand;
 
 public class ParserTest {
 
@@ -14,4 +15,3 @@ public class ParserTest {
     }
 
 }
-
