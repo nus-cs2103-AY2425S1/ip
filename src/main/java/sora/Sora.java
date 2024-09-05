@@ -47,38 +47,38 @@ public class Sora {
             String mainCommand = parsedCommand.get(0).toLowerCase();
             try {
                 switch (mainCommand) {
-                    case "bye":
-                        this.ui.printFarewell();
-                        isLive = false;
-                        break;
-                    case "list":
-                        this.taskList.displayList();
-                        break;
-                    case "mark":
-                        this.taskList.markTask(parsedCommand.get(1));
-                        break;
-                    case "unmark":
-                        this.taskList.unmarkTask(parsedCommand.get(1));
-                        break;
-                    case "todo":
-                        this.taskList.addTask("todo", parsedCommand);
-                        break;
-                    case "deadline":
-                        this.taskList.addTask("deadline", parsedCommand);
-                        break;
-                    case "event":
-                        this.taskList.addTask("event", parsedCommand);
-                        break;
-                    case "delete":
-                        this.taskList.deleteTask(parsedCommand.get(1));
-                        break;
-                    case "find":
-                        this.taskList.findTask(parsedCommand.get(1));
-                        break;
-                    case "":
-                        throw new SoraException("\tPlease Enter a Command\n" + Ui.HORIZONTAL_LINE);
-                    default:
-                        this.ui.printInvalidCommand();
+                case "bye":
+                    this.ui.printFarewell();
+                    isLive = false;
+                    break;
+                case "list":
+                    this.taskList.displayList();
+                    break;
+                case "mark":
+                    this.taskList.markTask(parsedCommand.get(1));
+                    break;
+                case "unmark":
+                    this.taskList.unmarkTask(parsedCommand.get(1));
+                    break;
+                case "todo":
+                    this.taskList.addTask("todo", parsedCommand);
+                    break;
+                case "deadline":
+                    this.taskList.addTask("deadline", parsedCommand);
+                    break;
+                case "event":
+                    this.taskList.addTask("event", parsedCommand);
+                    break;
+                case "delete":
+                    this.taskList.deleteTask(parsedCommand.get(1));
+                    break;
+                case "find":
+                    this.taskList.findTask(parsedCommand.get(1));
+                    break;
+                case "":
+                    throw new SoraException("\tPlease Enter a Command\n" + Ui.HORIZONTAL_LINE);
+                default:
+                    this.ui.printInvalidCommand();
                 }
                 this.storage.saveTaskList(taskList);
                 System.out.println(Ui.HORIZONTAL_LINE);
