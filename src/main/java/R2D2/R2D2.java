@@ -3,6 +3,10 @@ package R2D2;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Main class that contains the main program for the chatbot. It takes in input from the
+ * user and interprets it based on different commands.
+ */
 public class R2D2 {
     private static final String FILE_PATH = "./data/R2D2.txt";
 

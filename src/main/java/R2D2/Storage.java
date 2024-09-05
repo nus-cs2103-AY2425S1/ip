@@ -2,13 +2,28 @@ package R2D2;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * A class that takes care of loading and saving the tasks to the database of the chatbot
+ * so that it can help remember what the user has added to the list in the form of an
+ * output file.
+ */
 public class Storage {
     private String file;
 
+    /**
+     * Creates a storage object that stores the file to be written and read upon by the chatbot
+     *
+     * @param file file path that tells the program where to store the output task list
+     */
     public Storage(String file) {
         this.file = file;
     }
 
+    /**
+     * Saves the tasks in the database to the output file and keeps track of it
+     *
+     * @param database current list of tasks stored
+     */
     public void saveTasks(ArrayList<Task> database) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(this.file))) {
             for (Task task : database) {
@@ -19,6 +34,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task into a database and then returns the new database
+     *
+     * @return the new list of tasks after loading
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> database = new ArrayList<>();
         File file = new File(this.file);
