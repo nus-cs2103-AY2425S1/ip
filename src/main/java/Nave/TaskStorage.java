@@ -37,6 +37,7 @@ public class TaskStorage {
                 }
             }
         } catch (FileNotFoundException e) {
+            //Local storage file should be created beforehand at "./data/tasks.txt"
             if (!Files.isDirectory(Path.of("./data"))) {
                 System.out.println("Directory './data' does not exist. Please create it first.");
                 System.exit(0);
@@ -62,17 +63,21 @@ public class TaskStorage {
             BufferedReader reader = new BufferedReader(new FileReader(filePathString));
             FileWriter writer = new FileWriter("./data/temp.txt");
 
+            //Counts the lines to find task to delete
             int counter = 1;
             String currLine;
             while((currLine = reader.readLine() ) != null) {
                 if (counter == place) {
+                    //If is line to be deleted, it is not copied over
                     counter++;
                     continue;
                 }
+                //Else, copy the line to temp file
                 writer.write(currLine + System.lineSeparator());
                 counter++;
             }
             writer.close();
+            //Copy temp file back to original file
             Files.copy(Path.of("./data/temp.txt"), filePath, REPLACE_EXISTING);
         } catch (IOException e) {
             System.out.println("There was an error with the file input.");

@@ -7,6 +7,7 @@ public class Parser {
     public enum Command {
         LIST, HELP, MARK, UNMARK, TASK, DELETE, UNSURE
     }
+
     //Function to handle input checking
     public Command handleInput(String input) {
         //Regex checking for mark/unmark

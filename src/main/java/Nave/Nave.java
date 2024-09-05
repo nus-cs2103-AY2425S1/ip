@@ -19,13 +19,14 @@ public class Nave {
         //Greet User
         ui.greet();
 
+        //Load tasks from local file
         storage.onStart(tasks);
 
         Scanner inputReader = new Scanner(System.in);
 
         //Get user's input
         String userInput = inputReader.nextLine();
-        int place;
+        int place; //For commands that delete a certain task at x place
         while (!userInput.equals("bye")) {
             switch(parser.handleInput(userInput)) {
                 case LIST:
@@ -46,7 +47,7 @@ public class Nave {
                     try {
                         Task curr = parser.parseTask(userInput);
                         tasks.addTask(curr);
-                        storage.saveToFile(curr.toFileFormat());
+                        storage.saveToFile(curr.toFileFormat()); //Add task to local file
                         ui.showResponse(curr.creationResponse() + tasks.countTasks());
                     } catch (WrongInputException e) {
                         ui.showResponse(e.getMessage());
@@ -54,7 +55,7 @@ public class Nave {
                     break;
                 case DELETE:
                     place = parser.parseDelete(userInput);
-                    storage.deleteFromFile(place);
+                    storage.deleteFromFile(place); //Delete task from local file
                     ui.showResponse(tasks.deleteItem(place));
                     break;
                 case UNSURE:
