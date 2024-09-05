@@ -8,10 +8,11 @@ public class Events extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public Events(String task, String startDate, String endDate) {
+    public Events(String task, String startDate, String endDate)
+            throws ChatBotException {
         super(task);
         if (startDate.equals(" ") || endDate.equals(" ")){
-            throw new IllegalArgumentException("\t Oh no!!(;-;) Event period cannot be empty" +
+            throw new ChatBotException("\t Oh no!!(;-;) Event period cannot be empty" +
                     "\n\t Enter the event in the format: event <Task> " +
                     "/from <Start Date/Time> /to <End Date/Time>");
         }
@@ -30,15 +31,16 @@ public class Events extends Task {
                     Integer.valueOf(eMinutes));
             this.endDate = LocalDateTime.of(eDate, eTime);
         } catch (DateTimeException e) {
-            throw new IllegalArgumentException("\t Please enter the start and end timings in the following format:" +
+            throw new ChatBotException("\t Please enter the start and end timings in the following format:" +
                     "\n\t yyyy-mm-dd hhmm (e.g 2024-09-05 1440)");
         }
     }
 
-    public Events(String task, String startDate, String endDate, Boolean isCompleted) {
+    public Events(String task, String startDate, String endDate,
+                  boolean isCompleted) throws ChatBotException {
         super(task, isCompleted);
         if (startDate.equals(" ") || endDate.equals(" ")){
-            throw new IllegalArgumentException("\t Oh no!!(;-;) Event period cannot be empty" +
+            throw new ChatBotException("\t Oh no!!(;-;) Event period cannot be empty" +
                     "\n\t Enter the event in the format: event <Task> " +
                     "/from <Start Date/Time> /to <End Date/Time>");
         }
@@ -57,7 +59,7 @@ public class Events extends Task {
                     Integer.valueOf(eMinutes));
             this.endDate = LocalDateTime.of(eDate, eTime);
         } catch (DateTimeException e) {
-            throw new IllegalArgumentException("\t Please enter the start and end timings in the following format:" +
+            throw new ChatBotException("\t Please enter the start and end timings in the following format:" +
                     "\n\t yyyy-mm-dd hhmm (e.g 2024-09-05 1440)");
         }
     }
@@ -73,7 +75,7 @@ public class Events extends Task {
     @Override
     public String toPrint() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" uuuu-MM-dd HHmm ");
-        return "event " + super.toPrint() +
+        return "E " + super.toPrint() +
                 "|" + this.startDate.format(formatter) +
                 "|" + this.endDate.format(formatter);
     }

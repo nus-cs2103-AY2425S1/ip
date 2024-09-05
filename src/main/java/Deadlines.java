@@ -7,10 +7,10 @@ import java.time.format.DateTimeFormatter;
 public class Deadlines extends Task {
     private LocalDateTime deadline;
 
-    public Deadlines(String task, String deadline) {
+    public Deadlines(String task, String deadline) throws ChatBotException {
         super(task);
         if (deadline.equals(" ")){
-            throw new IllegalArgumentException("\t Oh no!![@.@] Deadline cannot be empty" +
+            throw new ChatBotException("\t Oh no!![@.@] Deadline cannot be empty" +
                     "\n\t Enter the deadline in the format: deadline <Task> /by <Deadline>");
         }
         try {
@@ -21,16 +21,17 @@ public class Deadlines extends Task {
                     Integer.valueOf(minutes));
             this.deadline = LocalDateTime.of(date, time);
         } catch (DateTimeException e) {
-            throw new IllegalArgumentException("\t Please enter the deadline in the following format:" +
+            throw new ChatBotException("\t Please enter the deadline in the following format:" +
                     "\n\t yyyy-mm-dd hhmm (e.g 2024-09-05 1440)");
         }
 
     }
 
-    public Deadlines(String task, String deadline, Boolean isCompleted) {
+    public Deadlines(String task, String deadline, boolean isCompleted)
+            throws ChatBotException {
         super(task, isCompleted);
         if (deadline.equals(" ")){
-            throw new IllegalArgumentException("\t Oh no!![@.@] Deadline cannot be empty" +
+            throw new ChatBotException("\t Oh no!![@.@] Deadline cannot be empty" +
                     "\n\t Enter the deadline in the format: deadline <Task> /by <Deadline>");
         }
         try {
@@ -41,7 +42,7 @@ public class Deadlines extends Task {
                     Integer.valueOf(minutes));
             this.deadline = LocalDateTime.of(date, time);
         } catch (DateTimeException e) {
-            throw new IllegalArgumentException("\t Please enter the deadline in the following format:" +
+            throw new ChatBotException("\t Please enter the deadline in the following format:" +
                     "\n\t yyyy-mm-dd hhmm (e.g 2024-09-05 1440)");
         }
     }
@@ -55,7 +56,7 @@ public class Deadlines extends Task {
     @Override
     public String toPrint() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" uuuu-MM-dd HHmm");
-        return "deadline " + super.toPrint() +
+        return "D " + super.toPrint() +
                 "|" + this.deadline.format(formatter);
     }
 }
