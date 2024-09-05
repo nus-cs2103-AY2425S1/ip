@@ -1,3 +1,5 @@
+package lemon.task;
+
 public abstract class Task {
     protected String type;
     protected String description;
@@ -15,6 +17,10 @@ public abstract class Task {
 
     public String getType() {
         return this.type;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     public void markDone() {

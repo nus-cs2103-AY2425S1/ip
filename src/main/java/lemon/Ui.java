@@ -1,10 +1,12 @@
+package lemon;
+
 /**
  * Represents the user interface class for displaying information
  * @author He Yiheng
  */
 public class Ui {
     private final String INTRO_MSG = "____________________________________________________________\n"
-            + " Hello! I'm Lemon\n"
+            + " Hello! I'm lemon.Lemon\n"
             + " What can I do for you?\n";
     private final String END_MSG = " Bye. Hope to see you again soon!\n"
             + "____________________________________________________________\n";

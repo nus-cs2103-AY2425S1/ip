@@ -1,3 +1,13 @@
+package lemon;
+
+import lemon.exception.DescriptionException;
+import lemon.exception.InvalidCommandException;
+import lemon.exception.InvalidFormatException;
+import lemon.task.Deadline;
+import lemon.task.Event;
+import lemon.task.Task;
+import lemon.task.Todo;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;

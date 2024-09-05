@@ -1,3 +1,5 @@
+package lemon;
+
 public class Parser {
     enum Commands {
         BYE,

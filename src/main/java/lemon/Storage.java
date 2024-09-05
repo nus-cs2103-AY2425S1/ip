@@ -1,3 +1,10 @@
+package lemon;
+
+import lemon.exception.DescriptionException;
+import lemon.task.Deadline;
+import lemon.task.Event;
+import lemon.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,3 +1,8 @@
+package lemon;
+
+import lemon.exception.DescriptionException;
+import lemon.task.Task;
+
 import java.util.ArrayList;
 /**
  * Represents the list of tasks stored
@@ -13,7 +18,7 @@ public class TaskList {
     }
 
     public void addNewTask(Task t) throws DescriptionException {
-        if (t.description.isEmpty() || t.description.equals(" "))
+        if (t.getDescription().isEmpty() || t.getDescription().equals(" "))
             throw new DescriptionException(" OOPS!!! The description of a " + t.getType() + " cannot be empty");
 
         list.add(t);
