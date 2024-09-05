@@ -1,5 +1,7 @@
 package cypherchatbot.controller;
 
+import cypherchatbot.Cypher;
+import cypherchatbot.components.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,8 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import cypherchatbot.Cypher;
-import cypherchatbot.components.DialogBox;
+
 
 public class MainWindow extends AnchorPane {
     @FXML

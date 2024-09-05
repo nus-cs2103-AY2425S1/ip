@@ -84,8 +84,9 @@ public class CommandReader {
             case FIND:
                 return new FindCommand(command[1]);
             default:
-                throw new CypherException(String.format("\"%s\" is not a valid command. Type help in order to see the list of valid commands"
-                        + "(This feature is still under construction)\n", command[0]));
+                throw new CypherException(String.format("\"%s\" is not a valid command. "
+                            + "Type help in order to see the list of valid commands"
+                                + "(This feature is still under construction)\n", command[0]));
             }
         } catch (NumberFormatException exp) {
             throw new CypherException("That is not a valid command. You need to enter a valid integer. "
