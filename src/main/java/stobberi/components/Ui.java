@@ -7,13 +7,20 @@ import java.util.Scanner;
  * Handles user greetings, farewells, and command input/output for the chatbot.
  */
 public class Ui {
-    private final Scanner scanner;
-    private final String NAME_OF_CHATBOT = "Stobberi";
-    private final String HELLO_GREETING =
+    private static final String NAME_OF_CHATBOT = "Stobberi";
+    private static final String HELLO_GREETING =
             "Hello! I'm " + NAME_OF_CHATBOT + ".\n"
                     + "What can I do for you?";
-    private final String GOODBYE_GREETING = "Byeeeeeeeeeeeeeeee! :)\n" +
-            "Hope to see you soon!";
+    private static final String GOODBYE_GREETING = "Byeeeeeeeeeeeeeeee! :)\n"
+            + "Hope to see you soon!";
+    private final Scanner scanner;
+
+    /**
+     * Constructs a new Ui object with an initialized scanner for user input.
+     */
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
 
     /**
      * Displays a formatted phrase within a border.
@@ -24,13 +31,6 @@ public class Ui {
         System.out.println("_________________________________________________________\n"
                 + phrase
                 + "\n_________________________________________________________\n");
-    }
-
-    /**
-     * Constructs a new Ui object with an initialized scanner for user input.
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
     }
 
     /**

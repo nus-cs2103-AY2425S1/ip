@@ -1,7 +1,7 @@
 package stobberi.command;
 
-import stobberi.stobberiException.StobberiException;
 import stobberi.components.TaskList;
+import stobberi.stobberiexception.StobberiException;
 
 /**
  * Represents a command to find and filter tasks in a {@link TaskList} based on a keyword.

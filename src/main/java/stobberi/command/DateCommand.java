@@ -1,10 +1,10 @@
 package stobberi.command;
 
-import stobberi.stobberiException.StobberiException;
-import stobberi.stobberiException.WrongDateTimeStobberiException;
-import stobberi.components.TaskList;
-
 import java.time.format.DateTimeParseException;
+
+import stobberi.components.TaskList;
+import stobberi.stobberiexception.StobberiException;
+import stobberi.stobberiexception.WrongDateTimeStobberiException;
 
 /**
  * Represents a command that filters tasks in a {@link TaskList} based on a specific date.
@@ -42,7 +42,9 @@ public class DateCommand extends Command {
         try {
             taskList.filterListByDate(date);
         } catch (DateTimeParseException e) {
-            throw new WrongDateTimeStobberiException("Date needs to be in the format dd-MM-yyyy\n Example: 27-12-2004\n" + e.getMessage());
+            throw new WrongDateTimeStobberiException(
+                    "Date needs to be in the format dd-MM-yyyy\n Example: 27-12-2004\n"
+                    + e.getMessage());
         }
     }
 }

@@ -1,11 +1,11 @@
 package stobberi;
 
 import stobberi.command.Command;
-import stobberi.stobberiException.StobberiException;
 import stobberi.components.Parser;
 import stobberi.components.Storage;
 import stobberi.components.TaskList;
 import stobberi.components.Ui;
+import stobberi.stobberiexception.StobberiException;
 
 /**
  * The Stobberi class is the main entry point for the task management application.

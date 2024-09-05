@@ -1,9 +1,9 @@
 package stobberi.task;
 
-import stobberi.stobberiException.NotPossibleDurationStobberiException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import stobberi.stobberiexception.NotPossibleDurationStobberiException;
 
 /**
  * The Event class represents a task that occurs within a specific time range.
@@ -21,7 +21,9 @@ public class Event extends Task {
      * @param endOfEvent    The end time of the event in the format "dd-MM-yyyy HHmm'hrs'".
      * @throws NotPossibleDurationStobberiException If the start time is after the end time.
      */
-    public Event(String description, String startOfEvent, String endOfEvent) throws NotPossibleDurationStobberiException {
+    public Event(String description,
+                 String startOfEvent,
+                 String endOfEvent) throws NotPossibleDurationStobberiException {
         super(description);
         this.startOfEvent = LocalDateTime.parse(startOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
         this.endOfEvent = LocalDateTime.parse(endOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
@@ -39,7 +41,10 @@ public class Event extends Task {
      * @param done          The completion status of the event ("1" if done, otherwise not done).
      * @throws NotPossibleDurationStobberiException If the start time is after the end time.
      */
-    public Event(String description, String startOfEvent, String endOfEvent, String done) throws NotPossibleDurationStobberiException {
+    public Event(String description,
+                 String startOfEvent,
+                 String endOfEvent,
+                 String done) throws NotPossibleDurationStobberiException {
         super(description);
         this.startOfEvent = LocalDateTime.parse(startOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
         this.endOfEvent = LocalDateTime.parse(endOfEvent, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
@@ -58,11 +63,12 @@ public class Event extends Task {
      * @return true if the event occurs during the specified date, false otherwise.
      */
     public boolean isDuring(String date) {
-        LocalDateTime start = LocalDateTime.parse(date + " 0000hrs", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
+        LocalDateTime start = LocalDateTime.parse(date + " 0000hrs",
+                DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
         LocalDateTime end = LocalDateTime.parse(date + " 2359hrs", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm'hrs'"));
 
-        return (endOfEvent.isAfter(start) || endOfEvent.isEqual(start)) &&
-                (startOfEvent.isBefore(end) || startOfEvent.isEqual(end));
+        return (endOfEvent.isAfter(start) || endOfEvent.isEqual(start))
+                && (startOfEvent.isBefore(end) || startOfEvent.isEqual(end));
     }
 
     /**
@@ -90,7 +96,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + startOfEvent.format(DateTimeFormatter.ofPattern("d MMMM yyyy ha"))
+        return "[E] " + super.toString()
+                + " (from: " + startOfEvent.format(DateTimeFormatter.ofPattern("d MMMM yyyy ha"))
                 + " to: " + endOfEvent.format(DateTimeFormatter.ofPattern("d MMMM yyyy ha")) + ")";
     }
 }
