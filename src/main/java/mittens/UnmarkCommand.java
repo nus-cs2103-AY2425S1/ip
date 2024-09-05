@@ -1,5 +1,7 @@
 package mittens;
 
+import mittens.ui.Ui;
+
 public class UnmarkCommand extends Command {
     protected int index;
 

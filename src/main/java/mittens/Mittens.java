@@ -1,6 +1,7 @@
 package mittens;
 
-import java.util.Scanner;
+import mittens.ui.TextUi;
+import mittens.ui.Ui;
 
 
 public class Mittens {

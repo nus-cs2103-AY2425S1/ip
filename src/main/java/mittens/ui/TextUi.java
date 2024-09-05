@@ -1,4 +1,6 @@
-package mittens;
+package mittens.ui;
+
+import mittens.MittensException;
 
 import java.io.InputStream;
 import java.io.PrintStream;

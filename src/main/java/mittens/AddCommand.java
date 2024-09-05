@@ -1,5 +1,7 @@
 package mittens;
 
+import mittens.ui.Ui;
+
 public class AddCommand extends Command {
     protected Task toAdd;
     

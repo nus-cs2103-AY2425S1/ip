@@ -1,5 +1,7 @@
 package mittens;
 
+import mittens.ui.Ui;
+
 import java.util.ArrayList;
 import java.util.List;
 

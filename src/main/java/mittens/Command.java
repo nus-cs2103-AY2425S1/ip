@@ -1,5 +1,7 @@
 package mittens;
 
+import mittens.ui.Ui;
+
 public abstract class Command {
     protected boolean isExit;
     
