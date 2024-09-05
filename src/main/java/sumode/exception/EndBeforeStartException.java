@@ -3,7 +3,7 @@ package sumode.exception;
 /**
  * Thrown when user input an event where start time is after end time
  */
-public class EndBeforeStartException extends Exception {
+public class EndBeforeStartException extends SumoDException {
 
     /**
     * Constructor for EndBeforeStartException Exception

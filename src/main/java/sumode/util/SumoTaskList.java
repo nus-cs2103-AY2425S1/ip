@@ -8,8 +8,10 @@ import sumode.exception.AlreadyMarkedException;
 import sumode.exception.AlreadyUnmarkedException;
 import sumode.exception.EndBeforeStartException;
 import sumode.exception.NonExistentTaskException;
+import sumode.exception.SumoDException;
 import sumode.exception.UnknownCommandException;
 import sumode.exception.WrongSyntaxForCommandException;
+import sumode.exception.latestSaveException;
 import sumode.task.Task;
 import sumode.ui.Ui;
 
@@ -71,9 +73,7 @@ public class SumoTaskList {
      * @throws AlreadyMarkedException due to user trying to mark an already marked task
      */
     public boolean execute(Command command, String item)
-            throws NonExistentTaskException, UnknownCommandException,
-            WrongSyntaxForCommandException, AlreadyMarkedException,
-            AlreadyUnmarkedException, EndBeforeStartException {
+            throws SumoDException {
         switch(command) {
         case BYE:
         case EXIT: // added this to allow flexibility though not required by qn

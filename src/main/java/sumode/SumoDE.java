@@ -8,12 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sumode.exception.AlreadyMarkedException;
-import sumode.exception.AlreadyUnmarkedException;
-import sumode.exception.EndBeforeStartException;
-import sumode.exception.NonExistentTaskException;
-import sumode.exception.UnknownCommandException;
-import sumode.exception.WrongSyntaxForCommandException;
+import sumode.exception.SumoDException;
 import sumode.ui.Ui;
 import sumode.util.Command;
 import sumode.util.Parser;
@@ -40,7 +35,7 @@ public class SumoDE extends Application {
 
         // handle Storage
         try {
-            this.storage = new Storage(filePath, this.ui);
+            this.storage = new Storage(filePath);
         } catch (IOException e) {
             // Note: this will only happen when file don't exist and we cannot create new file in the path.
             // New File will be created when file doesn't exist in first place.
@@ -82,9 +77,7 @@ public class SumoDE extends Application {
             canTerminate = this.tasks.execute(command, item);
         } catch (IllegalArgumentException e) {
             ui.unknownCommand(commandString);
-        } catch (WrongSyntaxForCommandException | UnknownCommandException
-                     | NonExistentTaskException | AlreadyUnmarkedException
-                     | AlreadyMarkedException | EndBeforeStartException e) {
+        } catch (SumoDException e) {
             ui.handleError(e);
         } finally {
             if (!canTerminate) {

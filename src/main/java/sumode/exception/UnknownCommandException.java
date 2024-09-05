@@ -5,7 +5,7 @@ import sumode.util.Command;
 /**
  * An Exception thrown for inputing unknown command.
  */
-public class UnknownCommandException extends Exception {
+public class UnknownCommandException extends SumoDException {
 
     /**
      * Constructor for AlreadyMarked Exception

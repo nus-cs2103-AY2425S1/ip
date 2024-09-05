@@ -3,7 +3,7 @@ package sumode.exception;
 /**
  * An Exception thrown for trying to find non-existent task.
  */
-public class NonExistentTaskException extends Exception {
+public class NonExistentTaskException extends SumoDException {
 
     /**
      * Constructor for AlreadyMarked Exception
