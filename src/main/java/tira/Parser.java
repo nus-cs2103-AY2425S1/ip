@@ -2,9 +2,6 @@ package tira;
 
 import tira.task.TaskList;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 /*
 Parser class:
 1. Splits the initial command and then calls the appropriate function
@@ -23,29 +20,33 @@ public class Parser {
         String [] splitCommand = command.split(" ");
         String taskType = splitCommand[0];
         try {
-            switch (taskType) {
-                case "list":
-                    ui.showTaskList(taskList);
-                case "mark":
-                    taskList.markTask(command, splitCommand);
-                    break;
-                case "unmark":
-                    taskList.unmarkTask(command, splitCommand);
-                    break;
-                case "delete":
-                    taskList.delete(splitCommand);
-                    break;
-                case "todo":
-                    taskList.addToDo(command, splitCommand);
-                    break;
-                case "deadline":
-                    taskList.addDeadline(command, splitCommand);
-                    break;
-                case "event":
-                    taskList.addDeadline(command, splitCommand);
-                    break;
-                default:
-                    throw new TiraException("What task is this??? Please rethink your task!");
+            switch(taskType) {
+            case "list":
+                ui.showTaskList(taskList);
+                break;
+            case "mark":
+                taskList.markTask(command, splitCommand);
+                break;
+            case "unmark":
+                taskList.unmarkTask(command, splitCommand);
+                break;
+            case "delete":
+                taskList.delete(splitCommand);
+                break;
+            case "todo":
+                taskList.addToDo(command, splitCommand);
+                break;
+            case "deadline":
+                taskList.addDeadline(command, splitCommand);
+                break;
+            case "event":
+                taskList.addDeadline(command, splitCommand);
+                break;
+            case "find" :
+                taskList.findTask(command, splitCommand);
+                break;
+            default:
+                throw new TiraException("What task is this??? Please rethink your task!");
             }
         } catch (TiraException e) {
             System.out.println(e.getMessage());
