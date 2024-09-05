@@ -1,7 +1,5 @@
 package joe.parser;
 
-import java.util.Scanner;
-
 import joe.controller.Controller;
 import joe.ui.Ui;
 
@@ -10,12 +8,10 @@ import joe.ui.Ui;
  */
 public class Parser<C extends Controller> {
     private final C controller;
-    private final Scanner scanner;
     private final Ui ui;
 
     public Parser(C controller, Ui ui) {
         this.controller = controller;
-        this.scanner = new Scanner(System.in);
         this.ui = ui;
     }
 
@@ -27,10 +23,10 @@ public class Parser<C extends Controller> {
      */
     public boolean parse(String input) {
         if (input.equals("bye")) {
-            scanner.close();
+            controller.endProgram();
             return false;
         } else if (input.contains("|")) {
-            System.out.println("| is a special character and cannot be used.");
+            ui.printBotResponse("| is a special character and cannot be used.");
         } else if (input.equals("list")) {
             controller.handleList();
         } else if (input.startsWith("mark")) {
@@ -70,7 +66,7 @@ public class Parser<C extends Controller> {
             String keyword = input.substring(5);
             controller.handleFind(keyword);
         } else {
-            System.out.println("Give me a valid command!");
+            ui.printBotResponse("Give me a valid command!");
         }
         return true;
     }
