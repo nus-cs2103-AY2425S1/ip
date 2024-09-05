@@ -37,6 +37,17 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Greets user by creating a dialog box
+     */
+    @FXML
+    private void welcomeUser() {
+        String message = dudu.welcomeUser();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDuduDialog(message, duduImage)
+        );
+    }
+
+    /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -46,7 +57,7 @@ public class MainWindow extends AnchorPane {
         String response = dudu.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, duduImage)
+                DialogBox.getDuduDialog(response, duduImage)
         );
         userInput.clear();
     }

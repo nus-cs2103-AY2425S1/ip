@@ -22,9 +22,11 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Dudu");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDudu(dudu);
             stage.show();
+            dudu.welcomeUser();
         } catch (IOException e) {
             e.printStackTrace();
         }

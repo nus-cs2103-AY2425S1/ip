@@ -27,6 +27,21 @@ public class Dudu {
         tasks = new TaskList(storage.load());
     }
 
+    /**
+     * Returns a welcome message
+     *
+     * @return Welcome message
+     */
+    public String welcomeUser() {
+        return ui.welcomeMessage();
+    }
+
+    /**
+     * Returns a response to a user input
+     *
+     * @param input User input
+     * @return Response to user
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
