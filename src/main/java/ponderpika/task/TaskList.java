@@ -51,11 +51,12 @@ public class TaskList {
      *
      * @throws PonderPikaException If the index is invalid (i.e. out of bounds).
      */
-    public void markTask(int index) throws PonderPikaException {
+    public String markTask(int index) throws PonderPikaException {
         if (index < 1 || index > tasks.size()) {
             throw new PonderPikaException("No task available at given index!");
         }
         tasks.get(index - 1).markDone();
+        return "Task " + index + " has been marked as done";
     }
 
     /**
@@ -80,9 +81,15 @@ public class TaskList {
     /**
      * Prints all tasks in the list, with each task preceded by its 1-based index.
      */
-    public void printTasks() {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+    public String printTasks() {
+        StringBuilder result = new StringBuilder();
+        if (tasks.isEmpty()) {
+            return result.append("Task list is Empty!").toString();
         }
+        result.append("Here is the following tasks:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            result.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
+        }
+        return result.toString();
     }
 }

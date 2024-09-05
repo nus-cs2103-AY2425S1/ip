@@ -1,6 +1,6 @@
 package ponderpika;
 
-//import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatter;
 //import java.util.Scanner;
 
 import ponderpika.exception.PonderPikaException;
@@ -21,7 +21,7 @@ public class PonderPika {
     private final TaskList taskList;
     private final Ui ui = new Ui();
     private final Parser parser = new Parser();
-    //private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
 
     /**
      * Constructs a new PonderPika instance.
@@ -42,26 +42,6 @@ public class PonderPika {
         }
         this.taskList = taskList1;
     }
-    //    public void echo() {
-    //        ui.greet();
-    //        Scanner scan = new Scanner(System.in);
-    //        String userCommand;
-    //
-    //        while (scan.hasNext()) {
-    //            userCommand = scan.nextLine().trim();
-    //
-    //            this.getResponse(userCommand);
-    //
-    //            if (userCommand.equals("bye")) {
-    //                break;
-    //            }
-    //        }
-    //        try {
-    //            io.saveData(taskList);
-    //        } catch (PonderPikaException e) {
-    //            System.out.println(e.toString());
-    //        }
-    //    }
 
     public String getResponse(String userInput) {
         Command command;
@@ -89,62 +69,49 @@ public class PonderPika {
     public String handleCommand(Command command) throws PonderPikaException {
         switch (command.getAction()) {
         case LIST:
-            taskList.printTasks();
-            ui.printDivider();
-            return "Your up-to-date list of tasks!";
-            //break;
+            return taskList.printTasks();
 
         case MARK:
-            taskList.markTask((Integer) command.getData());
-            return "Your task has been marked as done.";
-            //break;
+            return taskList.markTask((Integer) command.getData());
 
         case UNMARK:
             taskList.unmarkTask((Integer) command.getData());
             return "Your task has been undone.";
-            //break;
 
         case TODO:
             Task todo = new Todo((String) command.getData());
             taskList.addTask(todo);
             return "Pika! I have added your todo: " + command.getData()
                     + "\nPeek-A-Boo! We have " + taskList.getTasks().size() + " tasks in our list";
-            //ui.printDivider();
-            //break;
 
         case DEADLINE:
             Task deadline = (Task) command.getData();
             taskList.addTask(deadline);
             return "Pika! I have added a deadline: " + deadline.getDescription()
                     + "\nPeek-A-Boo! We have " + taskList.getTasks().size() + " tasks in our list";
-            //ui.printDivider();
-            //break;
 
         case EVENT:
             Task event = (Task) command.getData();
             taskList.addTask(event);
             return "Pika! I have added your event: " + event.getDescription()
                     + "\nPeek-A-Boo! We have " + taskList.getTasks().size() + " tasks in our list";
-            //ui.printDivider();
-            //break;
 
         case DELETE:
             taskList.deleteTask((Integer) command.getData());
             return "Your task has been deleted." + "\nPeek-A-Boo! We have "
                     + taskList.getTasks().size() + " tasks in our list";
-            //ui.printDivider();
-            //break;
 
         case FIND:
-            System.out.println("Found these tasks:");
+            System.out.println("Found these tasks:\n");
             String keyword = (String) command.getData();
+            StringBuilder result = new StringBuilder();
             for (int i = 0; i < taskList.getTasks().size(); i++) {
                 if (taskList.getTasks().get(i).getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                    System.out.println((i + 1) + ". " + taskList.getTasks().get(i).toString());
+                    result.append((i + 1)).append(". ").append(taskList.getTasks().get(i).toString()).append("\n");
                 }
             }
             //ui.printDivider();
-            return "Search complete!";
+            return result.toString();
             //break;
 
         case BYE:
@@ -152,7 +119,6 @@ public class PonderPika {
             ui.bidBye();
             System.out.println("\n----------------------------------------------------------");
             return "Exited!";
-            //break;
         default:
             throw new PonderPikaException("Unknown command: " + command.getAction());
         }

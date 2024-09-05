@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String greeting = "Hello I'm ponderpika" + "\nIt is a great day to ponder! How may I help you?";
+        String greeting = "HELLO I'm Ponder Pika" + "\nIt is a great day to ponder! How may I help you?";
         dialogContainer.getChildren().add(DialogBox.getPikaDialog(greeting, botImage));
     }
 
