@@ -14,8 +14,29 @@ import command.MarkTaskCommand;
 import command.UnknownCommand;
 import command.UnmarkTaskCommand;
 
-
+/**
+ * Parses user input into executable commands.
+ * <p>
+ * The {@code Parser} class is responsible for interpreting user input and
+ * converting it into appropriate {@link Command} objects. It handles various
+ * commands by analyzing the input string and creating the corresponding command
+ * instance.
+ * </p>
+ */
 public class Parser {
+
+    /**
+     * Parses the given user input and returns the corresponding command.
+     * <p>
+     * This method splits the user input into the command and its arguments, then
+     * maps the command to a specific {@link Command} subclass based on the
+     * command keyword. It also handles any exceptions that occur during command
+     * creation by returning an {@link UnknownCommand}.
+     * </p>
+     *
+     * @param fullCommand The full user input string to be parsed.
+     * @return A {@code Command} object corresponding to the user input.
+     */
     public static Command parse(String fullCommand) {
         // split user input into commands and argument (if applicable)
         String[] parts = fullCommand.split(" ", 2);
