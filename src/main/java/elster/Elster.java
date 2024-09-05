@@ -39,14 +39,13 @@ public class Elster {
      * Run function of the Elster instance, handles the loading of the save file from storage as
      * well as general logic of the chatbot.
      */
-    public void run() {
+    public String parse(String input) {
         boolean isStillRunning = true;
-        String input;
         Scanner myScanner = new Scanner(System.in);
         try {
             storage.loadFromFile(this.taskList);
         } catch (Elseption e) {
-            ui.printErrorMessage(e.getMessage());
+            return ui.printErrorMessage(e.getMessage());
         }
 
         ui.welcomeMessage();
