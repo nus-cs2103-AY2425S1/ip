@@ -20,3 +20,8 @@
 [T][ ] go home
 [T][ ] go home
 [T][ ] off aircon
+[T][ ] attend class
+[T][ ] go class
+[T][ ] open zoom
+[T][ ] go home
+[D][ ] homework (by: Apr 4 2024)

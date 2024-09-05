@@ -3,8 +3,8 @@ package papadom.utils;
  * Handles user interaction by displaying messages.
  */
 public class Ui {
-    private final String OPENING_LINE = "____________________________________________________________\n";
-    private final String CLOSING_LINE = "\n____________________________________________________________";
+    private static final String OPENING_LINE = "____________________________________________________________\n";
+    private static final String CLOSING_LINE = "\n____________________________________________________________";
     /**
      * Outputs a formatted message to the user.
      *
@@ -16,8 +16,8 @@ public class Ui {
     /**
      * Displays a welcome message when the chatbot starts.
      */
-    public void welcomeMessage() {
-        System.out.println(OPENING_LINE + " Hello! I'm Papadom\n What can I do for you?" + CLOSING_LINE);
+    public static String welcomeMessage() {
+       return OPENING_LINE + " Hello! I'm Papadom\n What can I do for you?" + CLOSING_LINE;
     }
     /**
      * Displays a farewell message when the chatbot exits.

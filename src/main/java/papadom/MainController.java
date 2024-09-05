@@ -9,6 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import papadom.utils.Papadom;
+import papadom.utils.Ui;
+
 
 
 
@@ -31,6 +33,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
+        addMessage(Ui.welcomeMessage(), Pos.CENTER_LEFT, "#FFFFFF"); // Display welcome message on the left
         // Attach a listener to the chat area to scroll down automatically when new messages are added
         chatArea.heightProperty().addListener((observable, oldValue, newValue) -> {
             scrollPane.setVvalue(1.0); // Scroll to the bottom

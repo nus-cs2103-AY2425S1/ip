@@ -27,17 +27,17 @@ public class AddDeadlineCommandTest {
         System.setOut(new PrintStream(outputStream));
 
         // Act
-        command.execute(taskList, ui, storage);
-        // Reset System.out to its original stream
-        System.setOut(originalOut);
+        String output = command.execute(taskList, ui, storage);
 
         // Assert
         String expectedOutput = "____________________________________________________________\n" +
                 " Got it. I've added this task:\n" +
                 "  [D][ ] return book (by: Dec 12 2024, 12:00 pm)\n" +
                 " Now you have 1 tasks in the list.\n" +
-                "____________________________________________________________\n";
-        assertEquals(expectedOutput, outputStream.toString());
+                "____________________________________________________________";
+        System.out.println("Expected: [" + expectedOutput + "]");
+        System.out.println("Actual: [" + output + "]");
+        assertEquals(expectedOutput, output);
     }
     @Test
     public void testExecuteWithoutTime() {

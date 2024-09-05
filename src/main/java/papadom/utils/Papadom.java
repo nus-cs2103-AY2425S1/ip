@@ -54,6 +54,7 @@ public class Papadom {
             String input = SCANNER.nextLine();
             String response = Papadom.getResponse(input);
             // Redundant
+            System.out.println(response);
         }
     }
 

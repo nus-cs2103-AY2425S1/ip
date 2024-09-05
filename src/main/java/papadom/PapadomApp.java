@@ -23,4 +23,10 @@ public class PapadomApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    /*
+    To run:
+    ./gradlew clean build
+    ./gradlew run
+     */
 }

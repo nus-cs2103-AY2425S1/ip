@@ -26,7 +26,7 @@ public class AddEventCommandTest {
         System.setOut(new PrintStream(outputStream));
 
         // Act
-        command.execute(taskList, ui, storage);
+        String output = command.execute(taskList, ui, storage);
         // Reset System.out to its original stream
         System.setOut(originalOut);
 
@@ -35,8 +35,8 @@ public class AddEventCommandTest {
                 " Got it. I've added this task:\n" +
                 "  [E][ ] project meeting (from: Mon 2pm to: 4pm)\n" +
                 " Now you have 1 tasks in the list.\n" +
-                "____________________________________________________________\n";
-        assertEquals(expectedOutput, outputStream.toString());
+                "____________________________________________________________";
+        assertEquals(expectedOutput, output);
     }
     @Test
     public void testExecuteWithInvalidInput() {
