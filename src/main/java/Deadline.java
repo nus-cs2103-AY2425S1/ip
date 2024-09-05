@@ -1,17 +1,23 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class Deadline extends Task {
-    private String deadline;
+    private LocalDateTime deadline;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public Deadline(String desc, String deadline) {
         super(desc);
-        this.deadline = deadline;
+        this.deadline = LocalDateTime.parse(deadline, formatter);
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), deadline);
+        return String.format("[D]%s (by: %s)", super.toString(), deadline.format(formatter));
     }
 
     public String toSaveFormat() {
-        return String.format("D_%s_%s_%s", isDone ? "1" : "0", getDesc(), deadline);
+        return String.format("D_%s_%s_%s", isDone ? "1" : "0", getDesc(), deadline.format(formatter));
     }
 }
