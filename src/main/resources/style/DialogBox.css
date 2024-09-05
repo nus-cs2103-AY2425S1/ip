@@ -1,0 +1,17 @@
+.message-box {
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, darkgrey, 5, 0, 2, 2);
+}
+
+.user-message-box {
+    -fx-background-color: #dceef8;
+}
+
+.duke-message-box {
+    -fx-background-color: lightpink;
+}
+
+.message-box-label {
+    -fx-label-padding: 10px;
+}
