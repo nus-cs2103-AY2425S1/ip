@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * It provides methods for adding, listing, marking, unmarking, and deleting tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> list;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty {@code TaskList}.
@@ -16,7 +16,7 @@ public class TaskList {
      * </p>
      */
     public TaskList() {
-        this.list = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -25,7 +25,7 @@ public class TaskList {
      * @param task the {@code Task} to be added to the list
      */
     public void addTask(Task task) {
-        list.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -34,7 +34,7 @@ public class TaskList {
      * @return a string message stating the number of tasks
      */
     public String countTasks() {
-        return "You have " + list.size() + " tasks now.";
+        return "You have " + tasks.size() + " tasks now.";
     }
 
     /**
@@ -47,12 +47,13 @@ public class TaskList {
      * @return a string containing all tasks in the list
      */
     public String listItems() {
-        if (list.isEmpty()) {
+        //Check if there are any tasks
+        if (tasks.isEmpty()) {
             return "You haven't added anything to the list, dummy!";
         }
         StringBuilder fullList = new StringBuilder("Here are your tasks:\n");
-        for (Task t : list) {
-            String currItem = list.indexOf(t) + 1 + "." + t + "\n";
+        for (Task t : tasks) {
+            String currItem = tasks.indexOf(t) + 1 + "." + t + "\n";
             fullList.append(currItem);
         }
         fullList.append("That's all, you can do this!");
@@ -67,7 +68,7 @@ public class TaskList {
      */
     public String markItem(int place) {
         try {
-            Task curr = list.get(place - 1);
+            Task curr = tasks.get(place - 1);
             return curr.mark()
                 ? "Well done! I have checked this item off the list:\n" + curr
                 : "This item was already marked as done previously!";
@@ -84,7 +85,7 @@ public class TaskList {
      */
     public String unmarkItem(int place) {
         try {
-            Task curr = list.get(place - 1);
+            Task curr = tasks.get(place - 1);
             return curr.unmark()
                 ? "Oh no! It's ok, I will uncheck this item for now:\n" + curr
                 : "This item was already unchecked previously!";
@@ -101,7 +102,7 @@ public class TaskList {
      */
     public String deleteItem(int place) {
         try {
-            Task deleted = list.remove(place - 1);
+            Task deleted = tasks.remove(place - 1);
             return "I have taken this item off the list:\n" + deleted +
                     "\n" + countTasks();
         } catch (IndexOutOfBoundsException e) {
