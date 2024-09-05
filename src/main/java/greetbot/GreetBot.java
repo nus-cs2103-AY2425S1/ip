@@ -144,6 +144,13 @@ public class GreetBot {
         }
     }
 
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getBotResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
     private String findTask(String description) {
         return this.ui.showFind(description, tasks);
     }
