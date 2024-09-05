@@ -28,5 +28,6 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 
 ## Running JAR File
 
-1. Ensure JDK-17.0.12 or other supported versions are installed
-2. Run the latest JAR file in releases 
+1. Ensure JDK-17.0.12 or equivalent is installed locally
+2. Download and run the latest JAR file in releases (note that current v0.1 is outdated and will be updated once features are complete)
+3. JAR file should be compatible across various Operating Systems (Windows, Mac etc.)
