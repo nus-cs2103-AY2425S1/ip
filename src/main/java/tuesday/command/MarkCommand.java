@@ -1,15 +1,31 @@
-package Tuesday.command;
+package tuesday.command;
 
-import Tuesday.util.Storage;
-import Tuesday.task.Task;
-import Tuesday.util.Ui;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import java.io.*;
+import tuesday.task.Task;
+import tuesday.util.Storage;
+import tuesday.util.Ui;
 
+/**
+ * Represents a command to mark as done or not done based on the index given
+ */
 public class MarkCommand extends Command {
     // variable
     private int taskIndex;
     private boolean isMarked;
+
+    /**
+     * Constructor for MarkCommand
+     *
+     * @param commandType Type of command
+     * @param taskIndex The index of the task
+     * @param isMarked Boolean for the task to be changed into
+     */
     public MarkCommand(String commandType, int taskIndex, boolean isMarked) {
         super(commandType);
         this.taskIndex = taskIndex;
@@ -25,11 +41,10 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(Task task, Ui ui, Storage storage) {
-        Task.taskArrayList.get(this.taskIndex - 1).changeDone(this.isMarked);
+        Task.getTaskArrayList().get(this.taskIndex - 1).changeDone(this.isMarked);
         ui.showMarkMessage(this.taskIndex - 1, this.isMarked);
         changeDataFromFile();
     }
-
 
     /**
      * Replaces a specific line in the data file and update the mark
@@ -43,11 +58,12 @@ public class MarkCommand extends Command {
                 String line = br.readLine();
 
                 while (line != null) {
-                    if (i != (this.taskIndex-1)) {
+                    if (i != (this.taskIndex - 1)) {
                         sb.append(line);
                         sb.append(System.lineSeparator());
                     } else {
-                        String newData = line.substring(0,4) + Task.taskArrayList.get(this.taskIndex - 1).getDone1()
+                        String newData = line.substring(0, 4)
+                                + Task.getTaskArrayList().get(this.taskIndex - 1).getDone1()
                                 + line.substring(5);
                         sb.append(newData);
                         sb.append(System.lineSeparator());
@@ -56,12 +72,12 @@ public class MarkCommand extends Command {
                     i++;
                 }
                 String everything = sb.toString();
-                //System.out.println(everything);
-                FileWriter wr = new FileWriter(new File("src/main/data/tuesday.txt"), false);
-                wr.write(everything);
+                FileWriter fw = new FileWriter(new File("src/main/data/tuesday.txt"), false);
+                fw.write(everything);
+
                 //flushing & closing the writer
-                wr.flush();
-                wr.close();
+                fw.flush();
+                fw.close();
             } finally {
                 br.close();
             }

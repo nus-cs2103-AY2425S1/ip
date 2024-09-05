@@ -1,10 +1,12 @@
-package Tuesday.util;
+package tuesday.util;
 
-import Tuesday.task.Task;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
+import tuesday.task.Task;
+
+/**
+ * Handles all the String outputs to be displayed and interact with the user.
+ */
 public class Ui {
     public Ui() {
 
@@ -51,8 +53,8 @@ public class Ui {
     public void showTaskCount() {
         this.showLine();
         System.out.println("    Got it. I've added this task:\n     "
-                + Task.taskArrayList.get(Task.count - 1).toString()
-                + "\n    Now you have " + Task.count + " task(s) in the list.");
+                + Task.getTaskArrayList().get(Task.getCount() - 1).toString()
+                + "\n    Now you have " + Task.getCount() + " task(s) in the list.");
         this.showLine();
     }
 
@@ -61,12 +63,12 @@ public class Ui {
      */
     public void showList() {
         this.showLine();
-        if (Task.count == 0) {
+        if (Task.getCount() == 0) {
             System.out.println("    You have no task in your list");
         } else {
             System.out.println("    Here are the task(s) in your list:");
-            for (int n = 0; n < Task.count; n++) {
-                System.out.println("    " + (n + 1) + "." + Task.taskArrayList.get(n).toString());
+            for (int n = 0; n < Task.getCount(); n++) {
+                System.out.println("    " + (n + 1) + "." + Task.getTaskArrayList().get(n).toString());
             }
         }
         this.showLine();
@@ -79,10 +81,10 @@ public class Ui {
         this.showLine();
         if (isMarked) {
             System.out.println("    Nice! I've marked this task as done: \n    "
-                    + Task.taskArrayList.get(index).toString());
+                    + Task.getTaskArrayList().get(index).toString());
         } else {
             System.out.println("    OK, I've marked this task as not done yet: \n    "
-                    + Task.taskArrayList.get(index).toString());
+                    + Task.getTaskArrayList().get(index).toString());
         }
         this.showLine();
     }
@@ -95,8 +97,8 @@ public class Ui {
     public void showDeleteMessage(int index) {
         this.showLine();
         System.out.println("    Got it. I've deleted this task:\n      "
-                + Task.taskArrayList.get(index).toString()
-                + "\n    Now you have " + (Task.count - 1) + " task(s) in the list.");
+                + Task.getTaskArrayList().get(index).toString()
+                + "\n    Now you have " + (Task.getCount() - 1) + " task(s) in the list.");
         this.showLine();
     }
 
@@ -108,8 +110,8 @@ public class Ui {
     public void showFindMessage(String keyMessageToFind) {
         this.showLine();
         int n = 1;
-        for (Task tasks : Task.taskArrayList) {
-            if(tasks.getDescription().contains(keyMessageToFind)){
+        for (Task tasks : Task.getTaskArrayList()) {
+            if (tasks.getDescription().contains(keyMessageToFind)) {
                 if (n == 1) {
                     System.out.println("    Here are the matching tasks in your list");
                 }
@@ -133,9 +135,9 @@ public class Ui {
     /**
      * Prints the error message
      *
-     * @param error_msg Error message
+     * @param errorMsg Error message
      */
-    public void showError(String error_msg) {
-
+    public void showError(String errorMsg) {
+        System.out.println("Error: There is a problem " + errorMsg);
     }
 }

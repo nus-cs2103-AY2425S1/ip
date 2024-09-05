@@ -1,19 +1,16 @@
-package Tuesday.command;
+package tuesday.command;
 
-import Tuesday.task.Task;
-import Tuesday.task.ToDo;
-import Tuesday.util.Storage;
-import Tuesday.util.TuesdayException;
-import Tuesday.util.Ui;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import tuesday.task.Task;
+import tuesday.task.ToDo;
+import tuesday.util.Storage;
+import tuesday.util.TuesdayException;
+import tuesday.util.Ui;
 
 public class CommandTest {
     private Task tasks;
@@ -28,21 +25,21 @@ public class CommandTest {
     }
 
     @Test
-    public void command_execute_mark() {
+    public void commandExecuteMark() {
         try {
             Command c = Parser.parse("todo readbook");
             c.execute(tasks, ui, storage);
 
             Command c2 = Parser.parse("mark 1");
             c2.execute(tasks, ui, storage);
-            assertEquals("1", Task.taskArrayList.get(0).getDone1());
+            assertEquals("1", Task.getTaskArrayList().get(0).getDone1());
         } catch (TuesdayException e) {
             System.out.println("e");
         }
     }
 
     @Test
-    public void command_execute_unmark() {
+    public void commandExecuteUnmark() {
         try {
             Command c = Parser.parse("todo readbook");
             c.execute(tasks, ui, storage);
@@ -53,13 +50,14 @@ public class CommandTest {
             Command c3 = Parser.parse("unmark 1");
             c3.execute(tasks, ui, storage);
 
-            assertEquals("0", Task.taskArrayList.get(0).getDone1());
+            assertEquals("0", Task.getTaskArrayList().get(0).getDone1());
         } catch (TuesdayException e) {
             System.out.println("e");
         }
     }
+
     @Test
-    void command_execute_todo_check_datafile() {
+    public void commandExecuteCheckDatafileForTodo() {
         ToDo todo = new ToDo("read book");
         Assertions.assertEquals("[T][ ] read book", todo.toString());
     }

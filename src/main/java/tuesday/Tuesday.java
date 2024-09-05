@@ -1,12 +1,15 @@
-package Tuesday;
+package tuesday;
 
-import Tuesday.command.Command;
-import Tuesday.command.Parser;
-import Tuesday.task.Task;
-import Tuesday.util.Storage;
-import Tuesday.util.TuesdayException;
-import Tuesday.util.Ui;
+import tuesday.command.Command;
+import tuesday.command.Parser;
+import tuesday.task.Task;
+import tuesday.util.Storage;
+import tuesday.util.TuesdayException;
+import tuesday.util.Ui;
 
+/**
+ * The chatbot class that the main code will run
+ */
 public class Tuesday {
     // variable
     private Storage storage;
@@ -14,7 +17,9 @@ public class Tuesday {
     private Ui ui;
 
     /**
-     * Creates Tuesday.Tuesday.util.Tuesday.util.Ui, Tuesday.Tuesday.util.Tuesday.util.Storage & Tuesday.Tuesday.task.Tuesday.task.Task Object, and checks whether there exist a datafile
+     * Constructor for Tuesday
+     *
+     * @param filePath Filepath of the data file
      */
     public Tuesday(String filePath) {
         ui = new Ui();
@@ -44,7 +49,6 @@ public class Tuesday {
                 ui.showError(e.getMessage());
             }
         }
-        return;
     }
 
     public static void main(String[] args) {

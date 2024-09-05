@@ -1,14 +1,17 @@
-package Tuesday.util;
+package tuesday.util;
 
-import Tuesday.task.Deadline;
-import Tuesday.task.Event;
-import Tuesday.task.Task;
-import Tuesday.task.ToDo;
-
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner; // Import the Scanner class
-import java.io.File;
 
+import tuesday.task.Deadline;
+import tuesday.task.Event;
+import tuesday.task.Task;
+import tuesday.task.ToDo;
+
+/**
+ * The Storage class handles reading from and writing to a local file that stores tasks, allowing for tasks
+ */
 public class Storage {
     // variable
     private String filePath;

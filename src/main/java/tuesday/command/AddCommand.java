@@ -1,13 +1,16 @@
-package Tuesday.command;
+package tuesday.command;
 
-import Tuesday.task.Deadline;
-import Tuesday.task.Event;
-import Tuesday.task.Task;
-import Tuesday.task.ToDo;
-import Tuesday.util.Storage;
-import Tuesday.util.Ui;
+import tuesday.task.Deadline;
+import tuesday.task.Event;
+import tuesday.task.Task;
+import tuesday.task.ToDo;
+import tuesday.util.Storage;
+import tuesday.util.Ui;
 
-public class AddCommand extends Command{
+/**
+ * Represents a command to add a todo, deadline or event task to the task list.
+ */
+public class AddCommand extends Command {
     // variables
     private final String commandType;
     private final String commandPostfix;
@@ -46,11 +49,13 @@ public class AddCommand extends Command{
             ui.showTaskCount();
             break;
         case "event":
-            String[] SplitFrom = this.commandPostfix.split("/from ", 2);
-            String[] SplitTo = SplitFrom[1].split(" /to ", 2);
-            Event eventItem = new Event(SplitFrom[0], SplitTo[0], SplitTo[1]);
+            String[] splitFrom = this.commandPostfix.split("/from ", 2);
+            String[] splitTo = splitFrom[1].split(" /to ", 2);
+            Event eventItem = new Event(splitFrom[0], splitTo[0], splitTo[1]);
             storage.saveToDatafile(eventItem);
             ui.showTaskCount();
+            break;
+        default:
             break;
         }
     }

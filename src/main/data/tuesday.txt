@@ -1,3 +1,3 @@
-T | 0 | readbook
-T | 0 | kill
+T | 1 | readbook
+T | 1 | kill
 T | 0 | sleep all day

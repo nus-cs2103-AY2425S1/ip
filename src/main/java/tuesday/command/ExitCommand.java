@@ -1,21 +1,25 @@
-package Tuesday.command;
+package tuesday.command;
 
-import Tuesday.util.Storage;
-import Tuesday.task.Task;
-import Tuesday.util.Ui;
+import tuesday.task.Task;
+import tuesday.util.Storage;
+import tuesday.util.Ui;
 
-public class ListCommand extends Command{
+/**
+ * Represents a command to exit the system
+ */
+public class ExitCommand extends Command {
+
     /**
-     * Constructor for ListCommand
+     * Constructor for ExitCommand
      *
      * @param command Description for the command
      */
-    public ListCommand(String command) {
+    public ExitCommand(String command) {
         super(command);
     }
 
     /**
-     * Prints the tasks in the current list
+     * Prints the bye message
      *
      * @param task The Task object
      * @param ui The UI object
@@ -23,16 +27,16 @@ public class ListCommand extends Command{
      */
     @Override
     public void execute(Task task, Ui ui, Storage storage) {
-        ui.showList();
+        ui.showBye();
     }
 
     /**
      * Use to exit the program
      *
-     * @return false and do not exit
+     * @return true and do exit
      */
     @Override
     public boolean isExit() {
-        return false;
+        return true;
     }
 }

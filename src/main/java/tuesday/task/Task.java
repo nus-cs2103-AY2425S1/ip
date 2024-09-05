@@ -1,16 +1,21 @@
-package Tuesday.task;
+package tuesday.task;
 
-import Tuesday.util.Storage;
-
-import java.util.ArrayList;
 import java.io.File;
+import java.util.ArrayList;
 
+import tuesday.util.Storage;
+
+/**
+ * All the specific tasks will inherit from the class.
+ * This class acts like an abstract class
+ */
 public class Task {
     // variables
+    private static ArrayList<Task> taskArrayList = new ArrayList<>();
+    private static int count = 0;
     private String description;
     private boolean isMarked;
-    public static ArrayList<Task> taskArrayList = new ArrayList<>();
-    public static int count = 0;
+
 
     /**
      * Constructor for Task
@@ -19,7 +24,7 @@ public class Task {
      * @param description Description of the Command
      */
     public Task(String description) {
-        if (description.isEmpty()){
+        if (description.isEmpty()) {
             return;
         }
         this.description = description;
@@ -33,7 +38,7 @@ public class Task {
      * Used for data collected from data file
      *
      * @param description Description of the command
-     * @param done Marked task
+     * @param isMarked Marked task
      */
     public Task(String description, boolean isMarked) {
         this.description = description;
@@ -58,10 +63,11 @@ public class Task {
      * @return X or " " depending on marked
      */
     public String getDoneX() {
-        if (this.isMarked)
+        if (this.isMarked) {
             return "X";
-        else
+        } else {
             return " ";
+        }
     }
 
     /**
@@ -70,10 +76,11 @@ public class Task {
      * @return 1 or 0 depending on marked
      */
     public String getDone1() {
-        if (this.isMarked)
+        if (this.isMarked) {
             return "1";
-        else
+        } else {
             return "0";
+        }
     }
 
     /**
@@ -104,9 +111,16 @@ public class Task {
      * @param dataFile Date file which stores the data
      * @return Description of the command
      */
-    public String writeToDatafile(File dataFile){
-
+    public String writeToDatafile(File dataFile) {
         return this.description;
+    }
+
+    public static ArrayList<Task> getTaskArrayList() {
+        return taskArrayList;
+    }
+
+    public static int getCount() {
+        return count;
     }
 
     /**
@@ -116,6 +130,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "["+ this.getDoneX() +"] "+ this.description;
+        return "[" + this.getDoneX() + "] " + this.description;
     }
 }

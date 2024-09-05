@@ -1,10 +1,14 @@
-package Tuesday.task;
+package tuesday.task;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ToDo extends Task{
+/**
+ * Represents a task with todo.
+ * A todo task has a description.
+ */
+public class ToDo extends Task {
     /**
      * Constructor for ToDo
      * Used for new task created
@@ -38,14 +42,14 @@ public class ToDo extends Task{
         try {
             if (dataFile.exists()) {
                 // boolean if true, then data will be written to the end of the file rather than the beginning.
-                FileWriter wr = new FileWriter(dataFile, true);
+                FileWriter fw = new FileWriter(dataFile, true);
 
-                builder = "T | "+ this.getDone1() + " | " + super.writeToDatafile(dataFile)+ "\n";
-                wr.write(builder);
+                builder = "T | " + this.getDone1() + " | " + super.writeToDatafile(dataFile) + "\n";
+                fw.write(builder);
 
                 //flushing & closing the writer
-                wr.flush();
-                wr.close();
+                fw.flush();
+                fw.close();
             }
         } catch (IOException e) {
             System.out.println("    An error occurred.");
