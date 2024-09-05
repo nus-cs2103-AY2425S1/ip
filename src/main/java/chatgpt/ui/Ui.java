@@ -1,3 +1,8 @@
+package chatgpt.ui;
+
+import chatgpt.task.Task;
+import chatgpt.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
