@@ -37,31 +37,31 @@ public class Parser {
             InputType inputType = parseInput(inputSplit[0]);
 
             switch (inputType) {
-                case FIND:
-                    return findTask(inputSplit[1]);
-                case BYE:
-                    return new ByeCommand();
-                case LIST:
-                    return new ListCommand();
-                case LISTBYDATE:
-                    return new ListByDateCommand();
-                case MARK:
-                    return markTask(inputSplit[1]);
-                case UNMARK:
-                    return unmarkTask(inputSplit[1]);
-                case DELETE:
-                    return deleteTask(inputSplit[1]);
-                case TODO:
-                    checkDescription(inputSplit, "todo");
-                    return addToDo(inputSplit[1]);
-                case DEADLINE:
-                    checkDescription(inputSplit, "deadline");
-                    return addDeadline(inputSplit[1]);
-                case EVENT:
-                    checkDescription(inputSplit, "event");
-                    return addEvent(inputSplit[1]);
-                case ERROR:
-                    return new ErrorCommand("Please enter a valid command");
+            case FIND:
+                return findTask(inputSplit[1]);
+            case BYE:
+                return new ByeCommand();
+            case LIST:
+                return new ListCommand();
+            case LISTBYDATE:
+                return new ListByDateCommand();
+            case MARK:
+                return markTask(inputSplit[1]);
+            case UNMARK:
+                return unmarkTask(inputSplit[1]);
+            case DELETE:
+                return deleteTask(inputSplit[1]);
+            case TODO:
+                checkDescription(inputSplit, "todo");
+                return addToDo(inputSplit[1]);
+            case DEADLINE:
+                checkDescription(inputSplit, "deadline");
+                return addDeadline(inputSplit[1]);
+            case EVENT:
+                checkDescription(inputSplit, "event");
+                return addEvent(inputSplit[1]);
+            case ERROR:
+                return new ErrorCommand("Please enter a valid command");
             }
         } catch (SpikeException e) {
             return new ErrorCommand(e.getMessage());
