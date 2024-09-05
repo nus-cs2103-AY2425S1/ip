@@ -37,7 +37,7 @@
 
 ## About The Project
 
-Susan Bot is a simple lightweight chat bot that lets you manage tasks easily from your desktop. In this PR, Susan Bot is a CLI program.
+Susan Bot is a simple lightweight chat bot that lets you manage tasks easily from your desktop.
 
 ## Features
 
