@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'application'
-    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -43,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("src.main.java.Dawn.Main")
+    mainClass.set("Dawn.Gui.Launcher")
 }
 
 shadowJar {
@@ -54,9 +53,5 @@ shadowJar {
 
 run{
     standardInput = System.in
-}
-
-checkstyle {
-    toolVersion = '10.2'
 }
 

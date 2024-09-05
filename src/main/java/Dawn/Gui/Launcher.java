@@ -1,5 +1,6 @@
-package Dawn;
+package Dawn.Gui;
 
+import Dawn.Dawn;
 import javafx.application.Application;
 
 /**
