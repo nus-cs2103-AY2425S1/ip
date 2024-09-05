@@ -75,8 +75,8 @@ public class Parser {
         } else if (cmd.equals("bye")) {
             return new ByeCommand();
         } else if (cmd.equals("find")) {
-            String word = input.split(" ")[1];
-            return new FindCommand(word);
+            String[] words = input.split(" ");
+            return new FindCommand(words);
 
         } else {
             throw new BimoException("Sorry, I do not understand you \n"

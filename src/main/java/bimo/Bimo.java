@@ -56,7 +56,7 @@ public class Bimo {
                 + "1. todo <task>\n\n2. deadline <task> /by yyyy-mm-dd\n\n"
                 + "3. event <task> /from yyyy-mm-dd /to yyyy-mm-dd\n\n"
                 + "4. mark <task number>\n\n5. unmark <task number>\n\n"
-                + "6. delete <task number>\n\n7. find <keyword>\n\n"
+                + "6. delete <task number>\n\n7. find <keyword keyword keyword>\n\n"
                 + "8. bye\n";
     }
 }
