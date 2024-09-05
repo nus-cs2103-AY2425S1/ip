@@ -7,19 +7,14 @@ public class Ui {
     // handles the interaction with the user
     // receives inputs (readline) and printing outputs to the command line
 
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    // private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
-    public String showLine() {
-        // System.out.println(HORIZONTAL_LINE);
-        return HORIZONTAL_LINE;
-    }
 
     /**
      * Prints the welcome message.
      */
     public String showWelcome() {
-        // System.out.println(HORIZONTAL_LINE + "\nHello! I'm Janet\n" + "What can I do for you?\n" + HORIZONTAL_LINE);
-        return HORIZONTAL_LINE + "\nHello! I'm Janet\n" + "What can I do for you?\n" + HORIZONTAL_LINE;
+        return "\nHello! I'm Janet\n" + "What can I do for you?\n";
     }
 
 
@@ -27,8 +22,7 @@ public class Ui {
      * Prints the exit message.
      */
     public String exitMessage() {
-        // System.out.println("Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE);
-        return "Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE;
+        return "Bye. Hope to see you again soon!\n";
     }
 
 
@@ -36,7 +30,6 @@ public class Ui {
      * Prints message if janet.txt is not found in the user's directory.
      */
     public String showLoadingError() {
-        // System.out.println("janet.txt not found! Creating janet.txt for you...");
         return "janet.txt not found! Creating janet.txt for you...";
     }
 
@@ -45,7 +38,6 @@ public class Ui {
      * Prints message if unable to write list of tasks into .txt file.
      */
     public String showSavingError() {
-        // System.out.println("WHOOPS! Having problems with saving your tasks...");
         return "WHOOPS! Having problems with saving your tasks...";
     }
 
@@ -59,12 +51,8 @@ public class Ui {
     public String showSuccessfulTaskAddition(Task task, int numberOfTasks) {
         // when janet.TaskList.addTaskToList is called (addition of task into listOfTasks)
         // task = newly added janet.Task object
-//        System.out.println(HORIZONTAL_LINE + "\nGot it. I've added this task:\n"
-//                + "  " + task + "\n" + String.format("Now you have %d tasks in the list\n", numberOfTasks)
-//                + HORIZONTAL_LINE);
-        return HORIZONTAL_LINE + "\nGot it. I've added this task:\n"
-                + "  " + task + "\n" + String.format("Now you have %d tasks in the list\n", numberOfTasks)
-                + HORIZONTAL_LINE;
+        return "\nGot it. I've added this task:\n"
+                + "  " + task + "\n" + String.format("Now you have %d tasks in the list\n", numberOfTasks);
     }
 
 
@@ -75,14 +63,12 @@ public class Ui {
      */
     public String showTasks(TaskList taskList) {
         // show all tasks inside the list (when user types in 'list')
-        String currentList = HORIZONTAL_LINE + "\nHere are the tasks in your list:\n";
+        String currentList = "\nHere are the tasks in your list:\n";
         if (taskList.isEmpty()) {
             // empty listOfTasks
-            // System.out.println(currentList + "*** Current list is empty ***\n" + HORIZONTAL_LINE);
-            return currentList + "*** Current list is empty ***\n" + HORIZONTAL_LINE;
+            return currentList + "*** Current list is empty ***\n";
         } else {
-            currentList += displayTasksInList(taskList) + "\n" + HORIZONTAL_LINE;
-            // System.out.println(currentList);
+            currentList += displayTasksInList(taskList) + "\n";
             return currentList;
         }
     }
@@ -99,13 +85,10 @@ public class Ui {
         // task = newly marked janet.Task object
         if (markResult.equals("already marked")) {
             // the desired task is already marked as done
-            // System.out.println(HORIZONTAL_LINE + "\nThis task is already done!\n" + HORIZONTAL_LINE);
-            return HORIZONTAL_LINE + "\nThis task is already done!\n" + HORIZONTAL_LINE;
+            return "\nThis task is already done!\n";
         } else {
-//            System.out.println(HORIZONTAL_LINE + "\nNice! I've marked this task as done:\n"
-//                    + String.format("  %s", task + "\n" + HORIZONTAL_LINE));
-            return HORIZONTAL_LINE + "\nNice! I've marked this task as done:\n"
-                    + String.format("  %s", task + "\n" + HORIZONTAL_LINE);
+            return "\nNice! I've marked this task as done:\n"
+                    + String.format("  %s", task + "\n");
         }
     }
 
@@ -121,13 +104,10 @@ public class Ui {
         // task = newly unmarked janet.Task object
         if (markResult.equals("already unmarked")) {
             // the desired task is already marked as done
-            // System.out.println(HORIZONTAL_LINE + "\nThis task is not already done!\n" + HORIZONTAL_LINE);
-            return HORIZONTAL_LINE + "\nThis task is not already done!\n" + HORIZONTAL_LINE;
+            return "\nThis task is not already done!\n";
         } else {
-//            System.out.println(HORIZONTAL_LINE + "\nOK, I've marked this task as not done yet:\n"
-//                    + String.format("  %s", task + "\n" + HORIZONTAL_LINE));
-            return HORIZONTAL_LINE + "\nOK, I've marked this task as not done yet:\n"
-                    + String.format("  %s", task + "\n" + HORIZONTAL_LINE);
+            return "\nOK, I've marked this task as not done yet:\n"
+                    + String.format("  %s", task + "\n");
         }
     }
 
@@ -140,15 +120,11 @@ public class Ui {
     public String showFindMessage(TaskList taskList) {
         // taskList is a subset of the current total taskList
         if (taskList.isEmpty()) {
-//            System.out.println(HORIZONTAL_LINE + "\nHere are the matching tasks in your list:\n"
-//                    + "OOPS! No tasks match what you were looking for!" + "\n" + HORIZONTAL_LINE);
-            return HORIZONTAL_LINE + "\nHere are the matching tasks in your list:\n"
-                    + "OOPS! No tasks match what you were looking for!" + "\n" + HORIZONTAL_LINE;
+            return "\nHere are the matching tasks in your list:\n"
+                    + "OOPS! No tasks match what you were looking for!" + "\n";
         } else {
-//            System.out.println(HORIZONTAL_LINE + "\nHere are the matching tasks in your list:\n"
-//                    + displayTasksInList(taskList) + "\n" + HORIZONTAL_LINE);
-            return HORIZONTAL_LINE + "\nHere are the matching tasks in your list:\n"
-                    + displayTasksInList(taskList) + "\n" + HORIZONTAL_LINE;
+            return "\nHere are the matching tasks in your list:\n"
+                    + displayTasksInList(taskList) + "\n";
         }
     }
 
@@ -180,11 +156,8 @@ public class Ui {
      * @param numberOfTasks The number of tasks in the list.
      */
     public String showDeleteTaskMessage(Task deletedTask, int numberOfTasks) {
-//        System.out.println(HORIZONTAL_LINE + "\nNoted. I've removed this task:\n"
-//                + String.format("    %s\nNow you have %d tasks in your list\n",
-//                        deletedTask, numberOfTasks) + HORIZONTAL_LINE);
-        return HORIZONTAL_LINE + "\nNoted. I've removed this task:\n"
+        return "\nNoted. I've removed this task:\n"
                 + String.format("    %s\nNow you have %d tasks in your list\n",
-                deletedTask, numberOfTasks) + HORIZONTAL_LINE;
+                deletedTask, numberOfTasks);
     }
 }
