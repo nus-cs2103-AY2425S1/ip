@@ -2,9 +2,6 @@ package bob;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import bob.parser.Parser;
-import bob.exception.InvalidTaskException;
-import bob.exception.BobException;
 import bob.task.Task;
 import bob.task.TaskList;
 import bob.storage.Storage;
@@ -93,8 +90,10 @@ public class Bob {
             case "todo":
                 taskList.addTask(input, inputWords);
                 break;
-            default:
-                taskList.addTask(input, inputWords);
+            case "find":
+                taskList.find(input);
+//            default:
+//                taskList.addTask(input, inputWords);
             }
             taskList.saveRecords(storage);
             input = scanner.nextLine().trim();

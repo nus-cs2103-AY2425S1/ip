@@ -2,6 +2,9 @@ package bob.task;
 
 import bob.ui.Ui;
 
+/**
+ * Task that user is keeping track of.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -36,7 +39,7 @@ public class Task {
      * Returns a string representation for a line item in the printed list,
      */
     public String getTaskListItem() {
-        return("[" + taskLetter() +"][" + this.getStatusIcon() + "] " + this.description);
+        return ("[" + taskLetter() + "][" + this.getStatusIcon() + "] " + this.description);
     }
 
     /**
@@ -76,5 +79,21 @@ public class Task {
     public String fileFormat() {
         String done = isDone ? "1" : "0";
         return this.taskLetter() + " | " + done + " | " + this.description;
+    }
+
+    /**
+     * Returns whether the target word can be found in the description of Task.
+     * @param target The keyword that user is searching for.
+     * @return
+     */
+    public boolean isTargetInDescription(String target) {
+        String[] descriptionArray = description.split("\s+");
+        boolean isPresent = false;
+        for (String word: descriptionArray) {
+            if (word.equals(target)) {
+                isPresent = true;
+            }
+        }
+        return isPresent;
     }
 }

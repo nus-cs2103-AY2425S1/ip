@@ -1,5 +1,9 @@
 package bob.task;
 
+
+/**
+ * Task that are meant to be done with no specified deadline.
+ */
 public class Todo extends Task{
 
     /**

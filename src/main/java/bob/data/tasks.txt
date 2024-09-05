@@ -1,1 +1,3 @@
-T | 0 | jumping around
+T | 1 | jumping around
+T | 0 | jumping high
+T | 0 | jump

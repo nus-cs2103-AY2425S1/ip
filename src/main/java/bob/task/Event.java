@@ -1,5 +1,8 @@
 package bob.task;
 
+/**
+ * Day task that has a start time and end time.
+ */
 public class Event extends Task {
 
     protected String startDay;
