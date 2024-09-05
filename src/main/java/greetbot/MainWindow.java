@@ -1,6 +1,11 @@
 package greetbot;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -33,6 +38,12 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setGreetBot(GreetBot g) {
         greetBot = g;
+        Ui ui = new Ui();
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(ui.greetUser(), dukeImage)
+        );
+
     }
 
     /**
@@ -47,6 +58,21 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+
+        // This part of code is reused from:
+        // https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/MainWindow.java
+        if (input.equals("bye")) {
+            TimerTask task = new TimerTask() {
+                public void run() {
+                    Platform.exit();
+                }
+            };
+            Timer timer = new Timer("Delay");
+            timer.schedule(task, 1000L);
+        }
+
         userInput.clear();
+
+
     }
 }

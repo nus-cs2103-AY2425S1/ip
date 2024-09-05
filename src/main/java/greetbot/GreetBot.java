@@ -148,7 +148,14 @@ public class GreetBot {
      * Generates a response for the user's chat message.
      */
     public String getBotResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            return this.getResponse(input);
+        } catch (RandomInputException e) {
+            return(e.getMessage());
+        } catch (EmptyDescriptionException e) {
+            return(e.getMessage());
+        }
+        
     }
 
     private String findTask(String description) {
