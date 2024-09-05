@@ -13,9 +13,9 @@ public class MarkCommand extends Command {
         this.taskId = taskId;
     }
 
-    public void execute(TaskList taskList, Ui ui) {
-        if (taskList.isValid(this.taskId)) {
-            ui.reply(taskList.markTask(this.isDone, this.taskId));
+    public void execute(TaskList tasks, Ui ui) {
+        if (tasks.isValid(this.taskId)) {
+            ui.reply(tasks.markTask(this.isDone, this.taskId));
         } else {
             ui.showError(LoafyException.ofInvalidAction());
         }

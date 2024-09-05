@@ -22,6 +22,7 @@ import loafy.task.Todo;
 public class Parser {
     public static Command parse(String line) throws LoafyException {
         String[] arr = line.split(" ");
+
         if (arr.length == 0) {
             throw LoafyException.ofEmptyInput();
         } else if (line.equals("bye")) {
@@ -36,7 +37,6 @@ public class Parser {
             } else {
                 try {
                     int taskId = Integer.parseInt(arr[1]);
-                    String msg;
                     if (arr[0].equals("delete")) {
                         return new DeleteCommand(taskId);
                     } else {
@@ -77,14 +77,14 @@ public class Parser {
                 throw LoafyException.ofNoEventDates();
             } else {
                 String name = joinRange(arr, 1, fromIndex);
-                String from = joinRange(arr, fromIndex + 1, toIndex);
-                String to = joinRange(arr, toIndex + 1, arr.length);
-                if (name.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                String startDateString = joinRange(arr, fromIndex + 1, toIndex);
+                String endDateString = joinRange(arr, toIndex + 1, arr.length);
+                if (name.isEmpty() || startDateString.isEmpty() || endDateString.isEmpty()) {
                     throw LoafyException.ofNoEventDates();
                 } else {
-                    LocalDateTime fromDateTime = parseDate(from);
-                    LocalDateTime toDateTime = parseDate(to);
-                    Task task = new Event(name, fromDateTime, toDateTime);
+                    LocalDateTime startDate = parseDate(startDateString);
+                    LocalDateTime endDate = parseDate(endDateString);
+                    Task task = new Event(name, startDate, endDate);
                     return new AddCommand(task);
                 }
             }
@@ -93,15 +93,15 @@ public class Parser {
         }
     }
 
-    public static String joinRange(String[] arr, int start, int end) {
-        String[] subArr = Arrays.copyOfRange(arr, start, end);
+    public static String joinRange(String[] arr, int startIndex, int endIndex) {
+        String[] subArr = Arrays.copyOfRange(arr, startIndex, endIndex);
         return String.join(" ", subArr);
     }
 
     public static LocalDateTime parseDate(String date) throws LoafyException {
         try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            return LocalDateTime.parse(date, dtf);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            return LocalDateTime.parse(date, formatter);
         } catch (DateTimeParseException e) {
             throw LoafyException.ofWrongDateFormat();
         }

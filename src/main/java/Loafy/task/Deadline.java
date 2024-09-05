@@ -17,10 +17,10 @@ public class Deadline extends Task {
     }
 
     public String toString() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return String.format(
                 "[D]%s (by: %s)",
-                super.toString(), this.date.format(dtf));
+                super.toString(), this.date.format(formatter));
     }
 
     public String convertToTxt() {

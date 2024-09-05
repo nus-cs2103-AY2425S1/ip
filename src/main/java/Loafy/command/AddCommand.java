@@ -11,7 +11,7 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
-    public void execute(TaskList taskList, Ui ui) {
-        ui.reply(taskList.add(this.task));
+    public void execute(TaskList tasks, Ui ui) {
+        ui.reply(tasks.add(this.task));
     }
 }

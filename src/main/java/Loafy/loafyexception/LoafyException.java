@@ -1,8 +1,8 @@
 package loafy.loafyexception;
 
 public class LoafyException extends Exception {
-    LoafyException(String s) {
-        super(s);
+    LoafyException(String message) {
+        super(message);
     }
 
     public static LoafyException ofEmptyInput() {

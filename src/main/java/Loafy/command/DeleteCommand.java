@@ -11,9 +11,9 @@ public class DeleteCommand extends Command {
         this.taskId = taskId;
     }
 
-    public void execute(TaskList taskList, Ui ui) {
-        if (taskList.isValid(this.taskId)) {
-            ui.reply(taskList.delete(this.taskId));
+    public void execute(TaskList tasks, Ui ui) {
+        if (tasks.isValid(this.taskId)) {
+            ui.reply(tasks.delete(this.taskId));
         } else {
             ui.showError(LoafyException.ofInvalidAction());
         }

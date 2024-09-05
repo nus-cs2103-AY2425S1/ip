@@ -4,29 +4,29 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
 public class Event extends Task {
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
 
-    public Event(String name, LocalDateTime from, LocalDateTime to) {
+    public Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
         super(name);
-        this.from = from;
-        this.to = to;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    public Event(boolean isDone, String name, LocalDateTime from, LocalDateTime to) {
+    public Event(boolean isDone, String name, LocalDateTime startDate, LocalDateTime endDate) {
         super(isDone, name);
-        this.from = from;
-        this.to = to;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public String toString() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return String.format(
                 "[E]%s (from: %s to: %s)",
-                super.toString(), this.from.format(dtf), this.to.format(dtf));
+                super.toString(), this.startDate.format(formatter), this.endDate.format(formatter));
     }
 
     public String convertToTxt() {
-        return String.format("%s,%s,%s,%s","E", super.convertToTxt(), this.from, this.to);
+        return String.format("%s,%s,%s,%s","E", super.convertToTxt(), this.startDate, this.endDate);
     }
 }

@@ -18,8 +18,8 @@ public class Loafy {
         Storage storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage, storage.getList());
-        } catch (LoafyException e) {
-            ui.showStartError(e);
+        } catch (LoafyException exception) {
+            ui.showStartError(exception);
             this.tasks = new TaskList(storage);
         }
     }
@@ -28,17 +28,17 @@ public class Loafy {
         this.ui.showGreeting();
 
         Scanner input = new Scanner(System.in);
-        boolean exit = false;
+        boolean isExit = false;
 
-        while (! exit) {
+        while (! isExit) {
             System.out.print("You: ");
             String line = input.nextLine();
             try {
                 Command command = Parser.parse(line);
                 command.execute(this.tasks, this.ui);
-                exit = command.isExit();
-            } catch (LoafyException e) {
-                this.ui.showError(e);
+                isExit = command.isExit();
+            } catch (LoafyException exception) {
+                this.ui.showError(exception);
             }
         }
     }
