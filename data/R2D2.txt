@@ -1,1 +1,3 @@
 T | 0 | watch movie
+T | 0 | movie
+T | 0 | read
