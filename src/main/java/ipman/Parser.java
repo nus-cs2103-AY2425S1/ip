@@ -5,7 +5,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * Parser class
+ * Parses user input and executes commands.
+ * This class interacts with the task list, storage, and user interface.
+ * It processes commands to manage tasks and handles input from various sources.
+ *
  * @author miloaisdino
  */
 public class Parser {
@@ -14,11 +17,11 @@ public class Parser {
     private final Ui ui;
 
     /**
-     * Constructor
+     * Constructs a Parser with the specified task list, storage, and user interface.
      *
-     * @param list Collection of tasks
-     * @param db   Storage handler
-     * @param ui   Display output engine
+     * @param list The list of tasks.
+     * @param db The storage for saving and loading tasks.
+     * @param ui The user interface for interacting with the user.
      */
     public Parser(ArrayList<Task> list, Storage db, Ui ui) {
         this.list = list;
@@ -27,7 +30,8 @@ public class Parser {
     }
 
     /**
-     * Sends text to parseLine method line by line
+     * Reads input from the specified scanner and processes each line.
+     * If reading from saved state, it skips adding entries to storage.
      *
      * @param scanner Specified scanner
      * @param isSaved True when reading from state history

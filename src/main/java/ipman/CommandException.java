@@ -2,6 +2,7 @@ package ipman;
 
 /**
  * Custom exception for command errors
+ *
  * @author miloaisdino
  */
 public class CommandException extends Exception {

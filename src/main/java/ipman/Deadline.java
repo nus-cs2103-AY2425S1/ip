@@ -5,17 +5,21 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Deadline class
+ * Represents a task with a deadline.
+ * Extends the Task class to include a due date and time.
+ * Provides methods to format and display the deadline.
+ *
  * @author miloaisdino
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Constructor
-     * @param description Name of deadline
-     * @param stringDate String in DD/MM/YYYY hh[0-23]mm format
-     * @throws CommandException Error
+     * Constructs a Deadline task with a specified description and due date.
+     *
+     * @param description The name or description of the deadline task.
+     * @param stringDate The due date and time in the format "DD/MM/YYYY hh[0-23]mm".
+     * @throws CommandException If the date format is incorrect.
      */
     public Deadline(String description, String stringDate) throws CommandException {
         super(description);

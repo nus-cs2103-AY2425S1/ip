@@ -1,7 +1,10 @@
 package ipman;
 
 /**
- * Task class
+ * Represents a task with a description and completion status.
+ * Provides methods to mark and unmark the task as done.
+ * This class serves as a base class for specific types of tasks.
+ *
  * @author miloaisdino
  */
 public class Task {
@@ -9,7 +12,9 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Task constructor
+     * Constructs a Task with the specified description.
+     * The task is initially not done.
+     *
      * @param description Name of task
      */
     public Task(String description) {
