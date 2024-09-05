@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import bob.task.Task;
-import bob.task.ToDo;
 import bob.task.Deadline;
 import bob.task.Event;
+import bob.task.Task;
+import bob.task.ToDo;
 
 /**
  * A utility class for parsing user input and task details in the Bob application.
@@ -69,7 +69,7 @@ public class Parser {
 
     /**
      * Extracts and returns the task details from the user input string.
-]
+     *
      * @param userInput The input string from the user.
      * @return The task details as a string.
      */

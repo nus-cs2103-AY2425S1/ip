@@ -1,17 +1,18 @@
 package bob;
 
-import bob.task.Deadline;
-import bob.task.Event;
-import bob.task.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import bob.task.Deadline;
+import bob.task.Event;
+import bob.task.ToDo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
     private TaskList taskList;
@@ -55,12 +56,13 @@ public class TaskListTest {
 
     @Test
     public void testPrintTasks_withTasks_printsCorrectly() {
-        String expected = "1. [T][ ] read book\n"
-                + "2. [T][ ] buy pencil\n"
-                + "3. [T][X] do laundry\n"
-                + "4. [D][ ] submit assignment (by: Dec 12 2024 11:59 pm)\n"
-                + "5. [E][ ] project meeting (from: Dec 10 2024 02:00 pm to: Dec 10 2024 04:00 pm)\n"
-                + "6. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)";
+        String expected = """
+                1. [T][ ] read book
+                2. [T][ ] buy pencil
+                3. [T][X] do laundry
+                4. [D][ ] submit assignment (by: Dec 12 2024 11:59 pm)
+                5. [E][ ] project meeting (from: Dec 10 2024 02:00 pm to: Dec 10 2024 04:00 pm)
+                6. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)""";
         assertEquals(expected, taskList.printTasks());
     }
 
@@ -73,9 +75,10 @@ public class TaskListTest {
     @Test
     void testGetRelevantTasks_validDate() throws BobException {
         String validDate1 = "2024-12-12";
-        String expected1 = "1. [D][ ] submit assignment (by: Dec 12 2024 11:59 pm)\n"
-                + "2. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)\n"
-                + "Total number of relevant tasks for Dec 12 2024: 2";
+        String expected1 = """
+                1. [D][ ] submit assignment (by: Dec 12 2024 11:59 pm)
+                2. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)
+                Total number of relevant tasks for Dec 12 2024: 2""";
         assertEquals(expected1, taskList.printRelevantTasksByDate(validDate1));
 
         String validDate2 = "2024-12-09";
@@ -84,9 +87,10 @@ public class TaskListTest {
         assertEquals(expected2, taskList.printRelevantTasksByDate(validDate2));
 
         String validDate3 = "2024-12-10";
-        String expected3 = "1. [E][ ] project meeting (from: Dec 10 2024 02:00 pm to: Dec 10 2024 04:00 pm)\n"
-                + "2. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)\n"
-                + "Total number of relevant tasks for Dec 10 2024: 2";
+        String expected3 = """
+                1. [E][ ] project meeting (from: Dec 10 2024 02:00 pm to: Dec 10 2024 04:00 pm)
+                2. [E][ ] trip (from: Dec 09 2024 12:00 am to: Dec 16 2024 12:00 am)
+                Total number of relevant tasks for Dec 10 2024: 2""";
         assertEquals(expected3, taskList.printRelevantTasksByDate(validDate3));
     }
 

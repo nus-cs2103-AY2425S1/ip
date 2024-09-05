@@ -52,6 +52,7 @@ public class Deadline extends Task {
      *
      * @return A string representation of the Deadline task to be saved.
      */
+    @SuppressWarnings("checkstyle:SingleSpaceSeparator")
     public String getTaskLine() {
         return getSymbol() +  "," + isDoneBinary() + "," + description + "," + Parser.getDateTimeStr(by);
     }

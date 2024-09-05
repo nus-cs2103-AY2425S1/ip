@@ -3,7 +3,6 @@ package bob;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class TaskList {
     }
 
     /**
-     * Intialises a TaskList with a given list of tasks.
+     * Initialises a TaskList with a given list of tasks.
      *
      * @param tasks A list of Task objects.
      */
@@ -35,7 +34,7 @@ public class TaskList {
 
     /**
      * Checks if the task list is empty.
-
+     *
      * @return true if the task list is empty, false otherwise.
      */
     boolean isEmpty() {
@@ -43,7 +42,7 @@ public class TaskList {
     }
 
     /**
-     * Retrives the list of tasks.
+     * Retrieves the list of tasks.
      *
      * @return A List of Task objects.
      */

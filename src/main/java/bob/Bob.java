@@ -3,10 +3,10 @@ package bob;
 import java.io.File;
 import java.time.LocalDateTime;
 
-import bob.task.Task;
-import bob.task.ToDo;
 import bob.task.Deadline;
 import bob.task.Event;
+import bob.task.Task;
+import bob.task.ToDo;
 
 /**
  * Represents the main class for Bob chatbot.
@@ -152,7 +152,7 @@ public class Bob {
         if (tasks.isEmpty()) {
             ui.showNoTasks();
         }
-            ui.showMessage("Your list of tasks:\n" + tasks.printTasks());
+        ui.showMessage("Your list of tasks:\n" + tasks.printTasks());
     }
 
     /**
@@ -311,8 +311,7 @@ public class Bob {
             }
             if (to.isBefore(from)) {
                 throw new BobException(
-                        "The end date cannot be before the start date. " +
-                        "Please try again.");
+                        "The end date cannot be before the start date. Please try again.");
             }
 
             // Create a new task
