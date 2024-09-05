@@ -19,30 +19,20 @@ public class Deadline extends Task{
      * @param by The due date and time of the task
      * @throws SageException if the description or due date is empty or deadline format is invalid
      */
-    public Deadline(String description, String by) throws SageException {
+    public Deadline(String description, LocalDateTime by) throws SageException {
         super(description);
-        try {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-d HHmm");
-            this.by = LocalDateTime.parse(by, inputFormatter);
-        } catch (DateTimeParseException e) {
-            throw new SageException("Invalid date format! Please use the format 'yyyy-mm-dd HHmm'.");
-        }
-        if (description.isEmpty() || by.isEmpty()) {
-            throw new SageException("You need to add a task and a deadline!! -_-");
-        }
-    }
-
-    public LocalDateTime getDate() {
-        return this.by;
+        this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a")) + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }
 
     @Override
     public String toFileFormat() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(formatter);
     }
 }

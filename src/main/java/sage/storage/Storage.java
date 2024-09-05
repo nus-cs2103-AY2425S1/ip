@@ -5,14 +5,17 @@ import sage.task.*;
 
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Storage class handles the loading and saving of tasks to a file
  */
 public class Storage {
-    private final String filePath;
+    private String filePath;
 
     /**
      * Constructor to initialise the storage with the given file path
@@ -27,17 +30,21 @@ public class Storage {
      * @return Lists of tasks loaded from the file
      * @throws SageException If there is an error loading the tasks
      */
-    public List<Task> load() throws SageException {
-        List<Task> tasks = new ArrayList<>();
+    public ArrayList<Task> load() throws SageException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(this.filePath);
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = parseTask(line);
-                tasks.add(task);
+        try {
+            if (!file.exists()) {
+                return tasks;
+            }
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                tasks.add(parseTask(line));
             }
         } catch (IOException e) {
-            throw new SageException("Error loading tasks from file");
+            throw new SageException("Error loading tasks");
         }
         return tasks;
     }
@@ -48,13 +55,22 @@ public class Storage {
      * @param tasks TaskList containing the tasks to be saved
      * @throws SageException If there is an error saving the tasks
      */
-    public void saveTasks(TaskList tasks) throws SageException{
-        try (FileWriter writer = new FileWriter(filePath)) {
-            for (Task task : tasks.getAllTasks()) {
-                writer.write(task.toFileFormat() + System.lineSeparator());
+    public void saveTasks(ArrayList<Task> tasks) throws SageException{
+        try {
+            File file = new File(filePath);
+            file.getParentFile().mkdirs();
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (Task task : tasks) {
+                bufferedWriter.write(task.toFileFormat());
+                bufferedWriter.newLine();
             }
+
+            bufferedWriter.close();
+            fileWriter.close();
         } catch (IOException e) {
-            throw new SageException("Error writing to file");
+            throw new SageException("Error saving tasks");
         }
     }
 
@@ -68,33 +84,30 @@ public class Storage {
     private Task parseTask(String line) throws SageException {
         String parts[] = line.split(" \\| ");
         String taskType = parts[0];
-        boolean isDone = parts[1].equals("1");
         String description = parts[2];
+        Task task;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
         switch(taskType) {
             case "T":
-                Task todo = new ToDo(description);
-                if (isDone) {
-                    todo.markAsDone();
-                }
-                return todo;
+                task = new ToDo(description);
+                break;
             case "D":
-                String by = parts[3];
-                Task deadline = new Deadline(description, by);
-                if (isDone) {
-                    deadline.markAsDone();
-                }
-                return deadline;
+                LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
+                task = new Deadline(description, by);
+                break;
             case "E":
-                String from = parts[3];
-                String to = parts[4];
-                Task event = new Event(description, from, to);
-                if (isDone) {
-                    event.markAsDone();
-                }
-                return event;
+                LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
+                LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
+                task = new Event(description, from, to);
+                break;
             default:
                 throw new SageException("Invalid task type");
         }
+        if (parts[1].equals("1")) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 }

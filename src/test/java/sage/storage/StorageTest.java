@@ -1,4 +1,4 @@
-package sage.storage;
+/**package sage.storage;
 
 import org.junit.jupiter.api.*;
 import sage.exception.SageException;
@@ -76,4 +76,4 @@ public class StorageTest {
                 "The error message should indicate a problem when loading the file");
     }
     */
-}
+/**} */

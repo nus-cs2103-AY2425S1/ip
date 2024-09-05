@@ -21,18 +21,10 @@ public class Event extends Task {
      * @param to The date and time the event ends
      * @throws SageException if the description is empty or if the time format is inavlid
      */
-    public Event(String description, String from, String to) throws SageException {
+    public Event(String description, LocalDateTime from, LocalDateTime to) throws SageException {
         super(description);
-        try {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            this.from = LocalDateTime.parse(from, inputFormatter);
-            this.to = LocalDateTime.parse(to, inputFormatter);
-        } catch (DateTimeParseException e) {
-            throw new SageException("Invalid date format! Please use the format 'yyyy-mm-dd HHmm'.");
-        }
-        if (description.isEmpty()) {
-            throw new SageException("What time is your event?? :o");
-        }
+        this.from = from;
+        this.to = to;
     }
 
     public LocalDateTime getFrom() {
@@ -45,12 +37,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a")) + " to: " + to.format(DateTimeFormatter.ofPattern("dd MMM yyyy h:mm a")) + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 
     @Override
     public String toFileFormat() {
-        DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(fileFormatter) + " | " + to.format(fileFormatter);
     }
 }
