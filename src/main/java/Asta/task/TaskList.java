@@ -1,7 +1,7 @@
 package Asta.task;
 
 import Asta.AstaException;
-import Asta.Ui;
+import Asta.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -64,14 +64,15 @@ public class TaskList {
     }
 
     /**
-     * Lists all tasks to the specified UI.
+     * Lists all tasks as a string.
      *
-     * @param ui The UI to display the tasks.
      */
-    public void listTasks(Ui ui) {
+    public String listTasks() {
+        StringBuilder response = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            ui.showMessage((i + 1) + ". " + tasks.get(i));
+            response.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
+        return response.toString();
     }
 
     /**
