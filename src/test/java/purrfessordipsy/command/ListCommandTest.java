@@ -58,7 +58,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_ListAllTasks() throws InvalidDateException {
+    public void execute_listAllTasks_displaysAllTasks() throws InvalidDateException {
         String userInput = "list";
         Task task1 = new TaskStub("Placeholder1", false, LocalDate.of(2024, 1, 1));
         Task task2 = new TaskStub("Placeholder2", false, LocalDate.of(2024, 1, 2));
@@ -74,7 +74,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_ListTasksByDate() throws InvalidDateException {
+    public void execute_listTasksByDate_displaysTasksOnSpecificDate() throws InvalidDateException {
         String userInput = "list 2024-01-01";
         Task task1 = new TaskStub("Placeholder1", false, LocalDate.of(2024, 1, 1));
         Task task2 = new TaskStub("Placeholder2", false, LocalDate.of(2024, 1, 2));
