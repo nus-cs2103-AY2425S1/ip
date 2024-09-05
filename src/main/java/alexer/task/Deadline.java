@@ -7,12 +7,25 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     protected LocalDateTime deadline;
 
+    /**
+     * Creates a new deadline task
+     *
+     * @param description The description of the task, inherited from Task class
+     * @param deadline The deadline in DateTime of the task deadline
+     */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
         type = TaskType.DEADLINE;
     }
 
+    /**
+     * Creates a deadline task from a task string, used
+     * when loading tasks from the save file.
+     *
+     * @param taskString the raw task string saved to file
+     * @return a new deadline task if the task string is valid, null otherwise
+     */
     public static Deadline fromTaskString(String taskString) {
         String[] parts = taskString.split("\\|");
         if (parts.length < 4) {
@@ -34,10 +47,18 @@ public class Deadline extends Task {
         return deadline;
     }
 
+    /** Returns the task type prefix **/
     protected String getTaskType() {
         return "D";
     }
 
+    /**
+     * Converts the task into the task string form for serialisation
+     * and saving to file. This also ensures a balance between human readability
+     * and ease of machine parsing
+     *
+     * @return the task string of the current task
+     */
     @Override
     public String toTaskString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
@@ -46,6 +67,12 @@ public class Deadline extends Task {
                 formatter.format(deadline));
     }
 
+    /**
+     * Converts the task into string form for printing, and
+     * primarily focuses on human readability.
+     *
+     * @return the human-readable string form of the task
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy h:mm a");
