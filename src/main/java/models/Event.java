@@ -15,9 +15,20 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(String description, boolean isDone, String from, String to) {
+        super(description, isDone);
+        this.from = from;
+        this.to = to;
+    }
+
 
     private String getFrom() {return this.from;}
     private String getTo() {return this.to;}
+
+    public String serialize() {
+        return String.format("E|%s|%s|%s|%s", this.getIsDone() ? "1" : "0", this.getDescription(),
+        this.getFrom(), this.getTo()  );
+    }
 
     @Override
     public String toString() {
