@@ -24,10 +24,12 @@ public class Peridot {
     }
 
     public String getResponse(String input) {
-        if (input.equals("hello")) {
-            return "hello";
-        } else {
-            return "hi";
+        try {
+            String response = Parser.answer(input, taskList);
+            storage.write(taskList.getTaskList());
+            return response;
+        } catch (Exception e) {
+            return("?");
         }
     }
 
