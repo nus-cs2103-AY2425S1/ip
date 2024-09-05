@@ -1,4 +1,9 @@
-import java.lang.reflect.Array;
+package yap.ui;
+import yap.task.ToDo;
+import yap.task.Event;
+import yap.task.EventException;
+import yap.task.Deadline;
+import yap.task.DeadlineException;
 
 public class Parser {
     public static ToDo parseInputAsToDo(String input) throws InputException {

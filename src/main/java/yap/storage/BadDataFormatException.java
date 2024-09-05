@@ -1,3 +1,4 @@
+package yap.storage;
 import java.io.IOException;
 
 public class BadDataFormatException extends IOException {

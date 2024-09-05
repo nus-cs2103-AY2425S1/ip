@@ -1,3 +1,5 @@
+package yap.task;
+import yap.storage.BadDataFormatException;
 public class Task {
 
     public static Task taskStringToTask(String taskString) throws BadDataFormatException {
