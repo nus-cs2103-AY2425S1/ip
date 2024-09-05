@@ -1,6 +1,18 @@
 package shenhe.parser;
 
-import shenhe.command.*;
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+import shenhe.command.Command;
+import shenhe.command.DeadlineCommand;
+import shenhe.command.DeleteCommand;
+import shenhe.command.EventCommand;
+import shenhe.command.ExitCommand;
+import shenhe.command.FindCommand;
+import shenhe.command.ListCommand;
+import shenhe.command.MarkCommand;
+import shenhe.command.TodoCommand;
+import shenhe.command.UnmarkCommand;
 import shenhe.exception.EmptyTaskDescriptionException;
 import shenhe.exception.InvalidListEnquiry;
 import shenhe.exception.UnknownTaskException;
@@ -9,8 +21,6 @@ import shenhe.task.Event;
 import shenhe.task.Task;
 import shenhe.task.Todo;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * The {@code Parser} class is responsible for interpreting user input and converting it into executable commands.
@@ -23,7 +33,8 @@ public class Parser {
      * The line format determines the type of task (Todo, Deadline, Event) and its attributes.
      *
      * @param line A string representing a task in the save file.
-     * @return A {@code Task} object corresponding to the parsed line, or {@code null} if parsing fails or the task type is unknown.
+     * @return A {@code Task} object corresponding to the parsed line,
+     *          or {@code null} if parsing fails or the task type is unknown.
      */
     public static Task parseFile(String line) {
         // Check the first character to determine the task type
@@ -49,8 +60,8 @@ public class Parser {
             boolean isDone = parts[1].equals("1");
             try {
                 String from = parts[3]; // Parse "from" date string
-                String to = parts[4];   // Parse "to" date string
-                return new Event(parts[2], isDone, from, to); // Adjust constructor as per your shenhe.task.Event class definition
+                String to = parts[4]; // Parse "to" date string
+                return new Event(parts[2], isDone, from, to);
             } catch (Exception e) {
                 System.out.println("Invalid date/time format.");
                 return null; // Return null if parsing fails

@@ -1,18 +1,23 @@
 package shenhe.command;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import shenhe.TaskList;
-import shenhe.Ui;
-import shenhe.Storage;
-import shenhe.exception.EmptyTaskDescriptionException;
-import shenhe.task.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import shenhe.Storage;
+import shenhe.TaskList;
+import shenhe.Ui;
+import shenhe.exception.EmptyTaskDescriptionException;
+import shenhe.task.Todo;
 
 public class TodoCommandTest {
 

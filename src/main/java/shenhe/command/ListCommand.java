@@ -1,9 +1,9 @@
 package shenhe.command;
 
-import shenhe.exception.InvalidListEnquiry;
+import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
-import shenhe.Storage;
+import shenhe.exception.InvalidListEnquiry;
 
 /**
  * Represents a command to list all tasks in the task list.
@@ -13,7 +13,7 @@ import shenhe.Storage;
  * </p>
  */
 public final class ListCommand extends Command {
-    private String userInput;
+    private final String userInput;
 
     /**
      * Constructs a {@code ListCommand} object with the specified user input.

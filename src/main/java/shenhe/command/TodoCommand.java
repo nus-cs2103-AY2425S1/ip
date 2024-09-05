@@ -1,10 +1,11 @@
 package shenhe.command;
 
-import shenhe.exception.EmptyTaskDescriptionException;
-import shenhe.task.Todo;
+import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
-import shenhe.Storage;
+import shenhe.exception.EmptyTaskDescriptionException;
+import shenhe.task.Todo;
+
 
 /**
  * Represents a command to add a new {@link Todo} task to the task list.
@@ -14,7 +15,7 @@ import shenhe.Storage;
  * </p>
  */
 public final class TodoCommand extends Command {
-    private String userInput;
+    private final String userInput;
 
     /**
      * Constructs a {@code TodoCommand} object with the specified user input.

@@ -1,9 +1,9 @@
 package shenhe.command;
 
-import shenhe.exception.EmptyTaskDescriptionException;
+import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
-import shenhe.Storage;
+import shenhe.exception.EmptyTaskDescriptionException;
 
 /**
  * Represents a command to unmark a task as not done in the task list.
@@ -14,7 +14,7 @@ import shenhe.Storage;
  * </p>
  */
 public final class UnmarkCommand extends Command {
-    private String userInput;
+    private final String userInput;
 
     /**
      * Constructs an {@code UnmarkCommand} object with the specified user input.
@@ -32,7 +32,8 @@ public final class UnmarkCommand extends Command {
      * Executes the command to unmark a task as not done in the task list.
      * <p>
      * This method extracts the task number from the user input and updates the status of the corresponding task
-     * to not done. It throws an {@link EmptyTaskDescriptionException} if the input does not contain a valid task number.
+     * to not done. It throws an {@link EmptyTaskDescriptionException} if the input does not contain a valid task
+     * number.
      * After updating the task, it provides feedback through the {@link Ui} instance and saves the updated tasks
      * using the {@link Storage} instance.
      * </p>
