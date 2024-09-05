@@ -1,3 +1,5 @@
+package UI;
+
 import java.util.Scanner;
 
 import Commands.Command;
@@ -5,10 +7,9 @@ import Exceptions.DelphiException;
 import Parser.Parser;
 import Storage.Storage;
 import TaskList.TaskList;
-import UI.Ui;
 
 /**
- * The main class for running the Delphi application.
+ * The main class for running the UI.Delphi application.
  * It manages the core components such as the task list, storage, parser, and user interface.
  */
 public class Delphi {
@@ -18,7 +19,7 @@ public class Delphi {
     private final Ui ui;
 
     /**
-     * Constructs a Delphi instance with the specified file path for storage.
+     * Constructs a UI.Delphi instance with the specified file path for storage.
      *
      * @param filePath The path to the file where task data is stored.
      */
@@ -53,8 +54,28 @@ public class Delphi {
     }
 
     /**
+     *
+     * @return the tasks stored in the hard drive at the time of starting the bot
+     */
+    public String currentTasks() {
+        taskList.loadStorageToTasks(this.storage);
+        String res = "current tasks: \n" + taskList.printTasks();
+        return res;
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = parser.parseInput(input);
+            //c.execute(taskList, storage, ui);
+            return c.execute(taskList, storage, ui);
+        } catch (DelphiException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
      * The entry point of the application.
-     * Creates an instance of Delphi and starts it with the specified storage file path.
+     * Creates an instance of UI.Delphi and starts it with the specified storage file path.
      *
      * @param args Command-line arguments.
      */

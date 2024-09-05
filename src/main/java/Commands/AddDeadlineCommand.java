@@ -33,12 +33,12 @@ public class AddDeadlineCommand extends Command {
      * @throws DelphiException if there is an error processing the input or adding the task.
      */
     @Override
-    public void execute(TaskList t, Storage s, Ui ui) throws DelphiException {
+    public String execute(TaskList t, Storage s, Ui ui) throws DelphiException {
         // Create a new DateParser instance to parse the date
         DateParser d = new DateParser();
 
         // Create a new Deadline task from the input string, starting from the 9th character
-        Deadline newDeadline = new Deadline(getInput().substring(9), d);
+        Deadline newDeadline = new Deadline(getInput().trim().substring(9), d);
 
         // Add the new Deadline task to the task list
         t.addTask(newDeadline);
@@ -47,6 +47,6 @@ public class AddDeadlineCommand extends Command {
         s.writeToHardDisk(t.getTasks());
 
         // Update the user interface to reflect the addition of the new Deadline task
-        Ui.taskMessage(newDeadline, t.getTasks().size());
+        return ui.taskMessage(newDeadline, t.getTasks().size());
     }
 }

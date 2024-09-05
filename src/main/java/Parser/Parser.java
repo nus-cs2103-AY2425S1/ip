@@ -14,7 +14,7 @@ import Exceptions.DelphiException;
 import Exceptions.InvalidInputException;
 
 /**
- * Provides the parsing functionality that allows Delphi to process different types of input.
+ * Provides the parsing functionality that allows UI.Delphi to process different types of input.
  * It identifies commands and creates corresponding Command objects or throws exceptions for invalid inputs.
  *
  * @author jordanchan

@@ -31,7 +31,7 @@ public class UnmarkTaskCommand extends Command {
      * @param ui The user interface to reflect the task status change.
      */
     @Override
-    public void execute(TaskList t, Storage s, Ui ui) {
+    public String execute(TaskList t, Storage s, Ui ui) {
         // Extract the task identifier from the input string (assuming the task ID starts at index 7)
         int taskId = Integer.parseInt(String.valueOf(getInput().charAt(7)));
 
@@ -42,7 +42,7 @@ public class UnmarkTaskCommand extends Command {
         s.writeToHardDisk(t.getTasks());
 
         // Update the user interface to reflect the task status change
-        Ui.markingTask(false, t.getTask(taskId));
+        return ui.markingTask(false, t.getTask(taskId));
     }
 }
 

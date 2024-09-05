@@ -28,8 +28,8 @@ public class BreakCommand extends Command {
      * @param ui The user interface to interact with (not used in this command).
      */
     @Override
-    public void execute(TaskList t, Storage s, Ui ui) {
-        // do nothing
+    public String execute(TaskList t, Storage s, Ui ui) {
+        return ui.goodbyeMessage();
     }
 
     /**

@@ -32,9 +32,9 @@ public class AddTodoCommand extends Command {
      * @throws DelphiException if there is an error processing the input or adding the task.
      */
     @Override
-    public void execute(TaskList t, Storage s, Ui ui) throws DelphiException {
+    public String execute(TaskList t, Storage s, Ui ui) throws DelphiException {
         // Create a new Todo task from the input string, starting from the 5th character
-        Todo newTodo = new Todo(getInput().substring(5));
+        Todo newTodo = new Todo(getInput().trim().substring(4));
 
         // Add the new Todo task to the task list
         t.addTask(newTodo); // Note: This will be removed once addTask is simplified to just add to the list
@@ -43,7 +43,7 @@ public class AddTodoCommand extends Command {
         s.writeToHardDisk(t.getTasks());
 
         // Update the user interface to reflect the addition of the new Todo task
-        Ui.taskMessage(newTodo, t.getTasks().size());
+        return ui.taskMessage(newTodo, t.getTasks().size());
     }
 }
 

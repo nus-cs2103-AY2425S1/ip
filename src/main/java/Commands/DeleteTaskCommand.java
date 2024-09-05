@@ -32,7 +32,7 @@ public class DeleteTaskCommand extends Command {
      * @throws InvalidListItemException if the task identifier is invalid or the task cannot be found.
      */
     @Override
-    public void execute(TaskList t, Storage s, Ui ui) throws InvalidListItemException {
+    public String execute(TaskList t, Storage s, Ui ui) throws InvalidListItemException {
         // Extract the task identifier from the input string (assuming the task ID starts at index 7)
         int taskId = Integer.parseInt(String.valueOf(getInput().charAt(7)));
 
@@ -46,7 +46,7 @@ public class DeleteTaskCommand extends Command {
         int remainingTasks = t.getTasks().size();
 
         // Update the user interface to reflect the task removal
-        Ui.removingTask(task, remainingTasks);
+        return ui.removingTask(task, remainingTasks);
     }
 }
 
