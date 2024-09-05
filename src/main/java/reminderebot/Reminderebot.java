@@ -1,8 +1,11 @@
 package reminderebot;
+
+import java.util.ArrayList;
+
 import reminderebot.commands.Command;
 import reminderebot.task.Task;
 
-import java.util.ArrayList;
+
 
 /**
  * The Reminderebot class represents the main application that interacts with the user.
