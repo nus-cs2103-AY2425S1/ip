@@ -1,14 +1,34 @@
 package hana;
 
-import hana.task.Task;
-import hana.task.TaskList;
-
-
 import java.io.IOException;
 import java.util.List;
 
+import hana.task.Task;
+import hana.task.TaskList;
+
+/**
+ * Represents an abstract command in the Hana application.
+ * Commands define operations that manipulate the task list and interact with the UI and storage.
+ */
 public abstract class Command {
+    /**
+     * Executes the command with the provided task list, UI, and storage.
+     * Each subclass of Command will provide its own implementation of this method.
+     *
+     * @param tasks The list of tasks that the command will act upon.
+     * @param ui The UI object that manages interactions with the user.
+     * @param storage The storage object responsible for saving and loading tasks.
+     * @throws HanaException If the command encounters an error related to Hana-specific logic.
+     * @throws IOException If an I/O error occurs during command execution (e.g., saving or loading tasks).
+     */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws HanaException, IOException;
+
+    /**
+     * Determines if the command is an exit command.
+     * Subclasses can override this method to indicate that they are exit commands.
+     *
+     * @return {@code true} if the command is an exit command; {@code false} otherwise.
+     */
     public boolean isExit() {
         return false;
     }

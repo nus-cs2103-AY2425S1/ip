@@ -1,12 +1,8 @@
-package hana.Task;
-
-import org.junit.jupiter.api.Test;
+package hana.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import hana.task.TaskList;
-import hana.task.Task;
-import hana.task.ToDo;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     private TaskList taskList;

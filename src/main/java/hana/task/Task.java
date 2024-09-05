@@ -4,8 +4,8 @@ package hana.task;
  * Represents a general task with a description and completion status.
  */
 public class Task {
-    public String description;
-    public boolean isDone;
+    private String description;
+    private boolean isDone;
 
     /**
      * Constructs a Task with a description. The task is initially not done.
@@ -15,6 +15,14 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 
     /**

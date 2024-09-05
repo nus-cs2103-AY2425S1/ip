@@ -5,7 +5,7 @@ package hana.task;
  */
 public class Deadline extends Task {
 
-    public String by;
+    private String by;
 
     /**
      * Constructs a Deadline task with a description and a due date.
@@ -16,6 +16,10 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+    }
+
+    public String getBy() {
+        return by;
     }
 
     /**

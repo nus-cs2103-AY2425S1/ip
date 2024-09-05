@@ -1,13 +1,10 @@
 package hana;
 
+import java.util.List;
+import java.util.Scanner;
+
 import hana.task.Task;
 import hana.task.TaskList;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-
-import java.util.Scanner;
-import java.util.List;
 
 /**
  * Handles interactions with the user.
@@ -23,7 +20,7 @@ public class Ui {
 
     public String getResponseMessage() {
         String message = responseMessage.toString();
-        responseMessage.setLength(0);  // Clear the message after returning
+        responseMessage.setLength(0); // Clear the message after returning
         return message;
     }
 
@@ -74,9 +71,9 @@ public class Ui {
      * @param taskCount The current number of tasks in the list.
      */
     public StringBuilder showTaskAdded(Task task, int taskCount) {
-        return responseMessage.append("Got it. I've added this task:\n" +
-                "      " + task + "\n" +
-                "Now you have " + taskCount + " tasks in the list.");
+        return responseMessage.append("Got it. I've added this task:\n"
+                + "      " + task + "\n"
+                + "Now you have " + taskCount + " tasks in the list.");
     }
 
     /**
@@ -86,9 +83,9 @@ public class Ui {
      * @param taskCount The current number of tasks in the list.
      */
     public StringBuilder showTaskDeleted(Task task, int taskCount) {
-        return responseMessage.append("Noted. I've removed this task:\n" +
-                "      " + task + "\n" +
-                "Now you have " + taskCount + " tasks in the list.");
+        return responseMessage.append("Noted. I've removed this task:\n"
+                + "      " + task + "\n"
+                + "Now you have " + taskCount + " tasks in the list.");
     }
 
     /**
@@ -97,8 +94,8 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public StringBuilder showTaskMarked(Task task) {
-        return responseMessage.append("Nice! I've marked this task as done:\n" +
-                "     " + task);
+        return responseMessage.append("Nice! I've marked this task as done:\n"
+                + "     " + task);
     }
 
     /**
@@ -114,6 +111,13 @@ public class Ui {
         return responseMessage;
     }
 
+    /**
+     * Appends the search results to the response message, showing tasks that match a keyword.
+     * If no tasks are found, a message indicating that no matches were found is returned.
+     *
+     * @param foundTasks The list of tasks that match the search keyword.
+     * @return The response message containing the search results or a message indicating no matches.
+     */
     public StringBuilder showFindResults(List<Task> foundTasks) {
         if (foundTasks.isEmpty()) {
             return responseMessage.append("No matching tasks found.");
