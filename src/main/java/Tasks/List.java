@@ -60,4 +60,15 @@ public class List {
             throw new InvalidTaskException(index);
         }
     }
+
+    public List filterByKeyword(String keyword) {
+        List filteredList = new List();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = this.tasks.get(i);
+            if (task.containsKeyword(keyword)) {
+                filteredList.addTaskToList(task);
+            }
+        }
+        return filteredList;
+    }
 }

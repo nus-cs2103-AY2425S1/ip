@@ -95,6 +95,14 @@ public class Parser {
                 int index = Integer.parseInt(restOfWords) - 1;
                 list.deleteTask(index);
             }
+            case "find" -> {
+                if (strings.length < 2) {
+                    throw new EmptyException("find");
+                }
+                String keyWord = strings[1];
+                List filteredList = list.filterByKeyword(keyWord);
+                System.out.println(filteredList.displayList());
+            }
             default -> {
                 throw new UnreadableException();
             }

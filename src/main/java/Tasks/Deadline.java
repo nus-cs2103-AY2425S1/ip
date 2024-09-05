@@ -12,6 +12,7 @@ public class Deadline extends Task {
 
     public Deadline(String input, String deadline) {
         super(input);
+        System.out.println(input);
         String[] strings = deadline.split("/");
         int dayOfMonth = Integer.parseInt(strings[0]);
         int month = Integer.parseInt(strings[1]);
