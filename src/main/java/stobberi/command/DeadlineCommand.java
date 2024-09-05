@@ -1,12 +1,12 @@
 package stobberi.command;
 
-import stobberi.task.Deadline;
-import stobberi.stobberiException.EmptyStobberiException;
-import stobberi.stobberiException.StobberiException;
-import stobberi.stobberiException.WrongDateTimeStobberiException;
-import stobberi.components.TaskList;
-
 import java.time.format.DateTimeParseException;
+
+import stobberi.components.TaskList;
+import stobberi.stobberiexception.EmptyStobberiException;
+import stobberi.stobberiexception.StobberiException;
+import stobberi.stobberiexception.WrongDateTimeStobberiException;
+import stobberi.task.Deadline;
 
 /**
  * Represents a command to add a new deadline task to a {@link TaskList}.
@@ -50,7 +50,8 @@ public class DeadlineCommand extends Command {
         try {
             taskList.addTask(new Deadline(parts[0], parts[1]));
         } catch (DateTimeParseException e) {
-            throw new WrongDateTimeStobberiException("Date and Time needs to be in the format dd-MM-yyyy HHmm'hrs'\n Example: 27-12-2004 1700hrs\n");
+            throw new WrongDateTimeStobberiException(
+                    "Date and Time needs to be in the format dd-MM-yyyy HHmm'hrs'\n Example: 27-12-2004 1700hrs\n");
         }
     }
 }

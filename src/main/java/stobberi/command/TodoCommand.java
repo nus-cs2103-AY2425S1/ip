@@ -1,8 +1,8 @@
 package stobberi.command;
 
-import stobberi.stobberiException.EmptyStobberiException;
-import stobberi.stobberiException.StobberiException;
 import stobberi.components.TaskList;
+import stobberi.stobberiexception.EmptyStobberiException;
+import stobberi.stobberiexception.StobberiException;
 import stobberi.task.Todo;
 
 /**

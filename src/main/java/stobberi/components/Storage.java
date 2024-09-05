@@ -1,11 +1,5 @@
 package stobberi.components;
 
-import stobberi.stobberiException.NotPossibleDurationStobberiException;
-import stobberi.task.Deadline;
-import stobberi.task.Event;
-import stobberi.task.Task;
-import stobberi.task.Todo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -13,6 +7,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import stobberi.stobberiexception.NotPossibleDurationStobberiException;
+import stobberi.task.Deadline;
+import stobberi.task.Event;
+import stobberi.task.Task;
+import stobberi.task.Todo;
 
 /**
  * The {@code Storage} class handles reading and writing {@code Task} objects to and from a file.
@@ -58,6 +58,8 @@ public class Storage {
                 case "E":
                     taskList.add(new Event(parts[1], parts[2], parts[3], parts[4]));
                     break;
+                default:
+                    // does nothing
                 }
             }
             reader.close();

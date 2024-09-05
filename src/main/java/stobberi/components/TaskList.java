@@ -1,11 +1,11 @@
 package stobberi.components;
 
-import stobberi.stobberiException.StobberiException;
+import java.util.ArrayList;
+
+import stobberi.stobberiexception.StobberiException;
 import stobberi.task.Deadline;
 import stobberi.task.Event;
 import stobberi.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks. Provides methods to manage, display, and filter tasks.
@@ -27,8 +27,8 @@ public class TaskList {
      */
     public void markTask(int number) {
         listOfTasks.get(number - 1).setDone();
-        String done = "Nice! I've marked this task as done:\n" +
-                "  ";
+        String done = "Nice! I've marked this task as done:\n"
+                + "  ";
         done += listOfTasks.get(number - 1).toString();
         Ui.displayForm(done);
     }
@@ -40,8 +40,8 @@ public class TaskList {
      */
     public void unmarkTask(int number) {
         listOfTasks.get(number - 1).setNotDone();
-        String done = "OK, I've marked this task as not done yet:\n" +
-                "  ";
+        String done = "OK, I've marked this task as not done yet:\n"
+                + "  ";
         done += listOfTasks.get(number - 1).toString();
         Ui.displayForm(done);
     }
@@ -65,8 +65,8 @@ public class TaskList {
     public void delete(int number) {
         Task temp = listOfTasks.get(number - 1);
         listOfTasks.remove(number - 1);
-        String done = "Noted. I've removed this task:\n" +
-                "  " + temp
+        String done = "Noted. I've removed this task:\n"
+                + "  " + temp
                 + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
         Ui.displayForm(done);
     }

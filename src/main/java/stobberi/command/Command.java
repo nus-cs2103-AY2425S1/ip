@@ -1,6 +1,6 @@
 package stobberi.command;
 
-import stobberi.stobberiException.StobberiException;
+import stobberi.stobberiexception.StobberiException;
 
 /**
  * Represents a command that can be executed. The command has an exit flag that indicates

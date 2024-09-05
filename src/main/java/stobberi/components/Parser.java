@@ -11,9 +11,9 @@ import stobberi.command.ListCommand;
 import stobberi.command.MarkCommand;
 import stobberi.command.TodoCommand;
 import stobberi.command.UnmarkCommand;
-import stobberi.stobberiException.NoNumberStobberiException;
-import stobberi.stobberiException.NoSuchTaskStobberiException;
-import stobberi.stobberiException.StobberiException;
+import stobberi.stobberiexception.NoNumberStobberiException;
+import stobberi.stobberiexception.NoSuchTaskStobberiException;
+import stobberi.stobberiexception.StobberiException;
 
 /**
  * This class is responsible for parsing user commands and creating the corresponding {@link Command} objects.
@@ -76,7 +76,8 @@ public class Parser {
             return new EventCommand(taskList, restOfCommand);
         case "find":
             return new FindCommand(taskList, restOfCommand);
+        default:
+            throw new NoSuchTaskStobberiException("I'm sorry! That is NOT an executable command");
         }
-        throw new NoSuchTaskStobberiException("I'm sorry! That is NOT an executable command");
     }
 }

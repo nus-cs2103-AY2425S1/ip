@@ -1,13 +1,14 @@
 package stobberi.components;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import stobberi.stobberiException.StobberiException;
+
+import stobberi.stobberiexception.StobberiException;
 import stobberi.task.Deadline;
 import stobberi.task.Event;
 import stobberi.task.Task;
 import stobberi.task.Todo;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskListTest {
     @Test
