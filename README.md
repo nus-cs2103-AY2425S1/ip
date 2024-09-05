@@ -35,29 +35,9 @@ Features: <br>
 
 If you are a Java programmer, you can use it to practice Java too. Here's the `main` method:
 ```
-    public static void main(String[] args) {
-        storage = new Storage(LOCAL_DIRECTORY_PATH, LOCAL_FILE_PATH);
-        ui = new UI();
-        taskManager = new TaskManager();
-        commandHandler = new CommandHandler(taskManager, ui);
-
-        try {
-            taskManager.setTasks(storage.loadTasks());
-        } catch (LocalFileException e) {
-            ui.output("Failed to load tasks: " + e.getMessage());
+    public class Launcher {
+        public static void main(String[] args) {
+            Application.launch(Main.class, args);
         }
-
-        ui.greet(name);
-        while (isRunning) {
-            try {
-                commandHandler.handle(ui.readCommand());
-            } catch (ChatsyException e) {
-                ui.output("Oops! " + e.getMessage());
-            } catch (Exception e) {
-                ui.output("An unexpected error occurred: " + e.getMessage());
-            }
-        }
-
-        exit();
     }
 ```
