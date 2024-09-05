@@ -6,7 +6,7 @@ package sumode.exception;
 public class NonExistentTaskException extends SumoDException {
 
     /**
-     * Constructor for AlreadyMarked Exception
+     * Constructor for NonExistentTaskException
      * @param index The index which user tried to find.
      */
     public NonExistentTaskException(int index) {

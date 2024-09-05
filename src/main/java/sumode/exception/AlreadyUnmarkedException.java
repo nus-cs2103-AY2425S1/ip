@@ -7,7 +7,7 @@ import sumode.task.Task;
  */
 public class AlreadyUnmarkedException extends SumoDException {
     /**
-     * Constructor for AlreadyMarked Exception
+     * Constructor for AlreadyUnmarked Exception
      * @param task The task which user tried to mark again.
      */
     public AlreadyUnmarkedException(Task task) {

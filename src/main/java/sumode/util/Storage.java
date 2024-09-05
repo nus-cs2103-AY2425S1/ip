@@ -7,9 +7,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import sumode.exception.latestSaveException;
+import sumode.exception.LatestSaveException;
 import sumode.task.Task;
-import sumode.ui.Ui;
 
 /**
  * In charge of saving/loading to the file path.
@@ -51,7 +50,7 @@ public class Storage {
      * Takes o(number of tasks) time as each task is re-analysed and put into the file.
      * @param tasks List of tasks to be save in file path.
      */
-    public void save(List<Task> tasks) throws latestSaveException {
+    public void save(List<Task> tasks) throws LatestSaveException {
         try {
             FileWriter fw = new FileWriter(this.filePath, false);
             for (Task task : tasks) {
@@ -59,7 +58,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new latestSaveException();
+            throw new LatestSaveException();
         }
     }
 
