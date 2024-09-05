@@ -30,7 +30,7 @@ public class Parser {
             .appendLiteral('/')
             // Year (4 digits)
             .appendValue(ChronoField.YEAR, 4)
-            .appendLiteral(' ')
+            .optionalStart().appendLiteral(' ').optionalEnd()
             .optionalStart().appendPattern("HH:mm").optionalEnd()
             .optionalStart().appendPattern("HHmm").optionalEnd()
             .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)

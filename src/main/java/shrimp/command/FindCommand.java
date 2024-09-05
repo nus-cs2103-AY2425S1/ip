@@ -4,9 +4,6 @@ import shrimp.task.Task;
 import shrimp.task.TaskList;
 import shrimp.utility.Ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Handles the finding of tasks in the list by a keyword.
  */

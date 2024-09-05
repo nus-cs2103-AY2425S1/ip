@@ -1,5 +1,7 @@
 package shrimp;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import shrimp.exception.ShrimpException;
@@ -7,9 +9,9 @@ import shrimp.task.TaskList;
 import shrimp.utility.Parser;
 import shrimp.utility.Ui;
 
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ShrimpTest {
 

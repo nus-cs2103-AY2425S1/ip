@@ -1,9 +1,9 @@
 package shrimp.utility;
 
+import java.util.Scanner;
+
 import shrimp.task.Task;
 import shrimp.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * The {@code Ui} class handles interactions with the user.
@@ -61,8 +61,8 @@ public class Ui {
      * The message signals the end of the session.
      */
     public void printExit() {
-        String exit = "Byebye~ It's time to say goodbye for the day~ Hope you enjoyed and had fuuun~ " +
-                "I'll see you later~";
+        String exit = "Byebye~ It's time to say goodbye for the day~ Hope you enjoyed and had fuuun~ "
+                + "I'll see you later~";
         System.out.println(exit);
     }
 

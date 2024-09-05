@@ -1,12 +1,5 @@
 package shrimp.utility;
 
-import shrimp.exception.ShrimpException;
-import shrimp.task.Deadline;
-import shrimp.task.Event;
-import shrimp.task.Task;
-import shrimp.task.TaskList;
-import shrimp.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +8,13 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+
+import shrimp.exception.ShrimpException;
+import shrimp.task.Deadline;
+import shrimp.task.Event;
+import shrimp.task.Task;
+import shrimp.task.TaskList;
+import shrimp.task.Todo;
 
 /**
  * The {@code Storage} class handles saving and loading tasks to and from a file.
@@ -81,7 +81,8 @@ public class Storage {
         }
         case "[E]" -> {
             Event event = (Event) task;
-            return String.format("E | %d | %s | %s | %s", task.isDone() ? 1 : 0, task.getDescription(), event.getFrom(), event.getTo());
+            return String.format("E | %d | %s | %s | %s", task.isDone() ? 1 : 0, task.getDescription(),
+                    event.getFrom(), event.getTo());
         }
         }
         return "";

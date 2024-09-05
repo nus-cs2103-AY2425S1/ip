@@ -1,5 +1,9 @@
 package shrimp;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import shrimp.command.AddCommand;
 import shrimp.command.ClearCommand;
 import shrimp.command.DeleteCommand;
@@ -17,10 +21,6 @@ import shrimp.utility.AnsiCode;
 import shrimp.utility.Parser;
 import shrimp.utility.Storage;
 import shrimp.utility.Ui;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * The {@code Shrimp} class serves as the entry point for the Shrimp chatbot application.
@@ -75,7 +75,7 @@ public class Shrimp {
 
         while (true) {
             try {
-                userInput = ui.nextLine();  //read the next line of user input
+                userInput = ui.nextLine(); //read the next line of user input
                 if (userInput == null || userInput.isEmpty()) {
                     throw new ShrimpException.InvalidCommandException();
                 }
@@ -178,8 +178,8 @@ public class Shrimp {
                     findCommand.run(taskList, ui);
                     break;
 
-                    default:
-                        throw new ShrimpException.InvalidCommandException();
+                default:
+                    throw new ShrimpException.InvalidCommandException();
                 }
 
                 Storage.saveTasks(taskList);
