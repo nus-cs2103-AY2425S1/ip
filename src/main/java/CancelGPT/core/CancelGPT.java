@@ -182,10 +182,25 @@ public class CancelGPT {
     public void saveTasks() throws IOException {
         this.tasksStorage.saveTasks();
     }
-
+    
+    /**
+     * Displays a list of tasks with the keyword given in their description.
+     * 
+     * @param keyword the keyword in the description of tasks to find
+     */
+    public void findTasks(String keyword) {
+        UI.printMessageToConsole("Here are the matching tasks in your list:");
+        
+        List<Task> tasksFound = this.TASKS_LIST.findTasksByDescriptionKeyword(keyword);
+        for (int i = 0; i < tasksFound.size(); i++) {
+            UI.printMessageToConsole((i + 1) + "." 
+                    + tasksFound.get(i));
+        }
+    }
+    
     /**
      * Returns the chatbot's task list
-     * 
+     *
      * @return the chatbot's task list
      */
     public List<Task> getTasks() {

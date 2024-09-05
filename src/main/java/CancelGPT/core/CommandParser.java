@@ -6,6 +6,7 @@ import CancelGPT.datetime.LocalDateTimeHandler;
 
 import CancelGPT.exception.command.UnknownInput;
 
+import CancelGPT.exception.task.FindTaskInputException;
 import CancelGPT.exception.task.InvalidTaskException;
 import CancelGPT.exception.task.TaskDoesNotExist;
 import CancelGPT.exception.task.MarkTaskInputException;
@@ -67,15 +68,38 @@ public class CommandParser {
             } else if (command.startsWith(Command.EVENT.toString())) {
                 Task eventTask = parseEventTaskCreationCommand(command);
                 this.CHATBOT.handleAddingTask(eventTask);
+            } else if (command.startsWith(Command.FIND.toString())) {
+                String keyword = parseFindTaskCommand(command);
+                this.CHATBOT.findTasks(keyword);
             } else {
                 throw new UnknownInput();
             }
-        } catch (MarkTaskInputException | UnmarkTaskInputException | InvalidTaskException 
-                 | TaskDoesNotExist | UnknownInput | DeleteTaskInputException e) {
+        } catch (MarkTaskInputException | UnmarkTaskInputException | InvalidTaskException
+                 | TaskDoesNotExist | UnknownInput | DeleteTaskInputException 
+                 | FindTaskInputException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * Returns the keyword to find task for after parsing the find task command
+     *
+     * @param command the command string
+     * @return the keyword to find task for
+     * @throws FindTaskInputException if there is no keyword given to find task for
+     */
+    public String parseFindTaskCommand(String command) throws FindTaskInputException {
+        command = command.trim();
+        // Only splits on the first space encountered to get ["find", <keyword>]
+        String[] commandArray  = command.split(" ", 2);
+
+        if (commandArray.length < 2) {
+            throw new FindTaskInputException();
+        }
+
+        return commandArray[1].trim();
+    }
+    
     /**
      * Parses a delete task command and return the task number to be deleted.
      * 

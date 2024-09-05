@@ -113,4 +113,24 @@ public class TasksList {
         UI.printMessageToConsole("OK, I've marked this task as not done yet:");
         UI.printMessageToConsole(" " + this.TASKS_LIST.get(taskNumber - 1));
     }
+
+    /**
+     * Returns a list of tasks with the keyword given in their description.
+     * If there is no matching task, returns an empty list.
+     * 
+     * @param keyword the keyword in the description of tasks to find
+     * @return the list of tasks with the keyword in their description
+     */
+    public List<Task> findTasksByDescriptionKeyword(String keyword) {
+        List<Task> tasksWithKeyword = new ArrayList<>();
+        
+        for (Task task : this.TASKS_LIST) {
+            if (task.getDescription().toLowerCase()
+                    .contains(keyword.toLowerCase())) {
+                tasksWithKeyword.add(task);
+            }
+        }
+        
+        return tasksWithKeyword;
+    }
 }
