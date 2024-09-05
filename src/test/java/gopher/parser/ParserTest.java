@@ -68,9 +68,15 @@ public class ParserTest {
     }
 
     @Test
-    public void parseMarkCommand_validCommand_parseSuccess() {
-        assertEquals(2,
+    public void parseMarkCommand_singleTaskNumber_parseSuccess() {
+        assertArrayEquals(new int[]{2},
                 Parser.parseMarkCommand("mark 2"));
+    }
+
+    @Test
+    public void parseMarkCommand_multipleTaskNumbers_parseSuccess() {
+        assertArrayEquals(new int[]{1, 2, 3},
+                Parser.parseMarkCommand("mark 1 2 3"));
     }
 
     @Test
@@ -80,7 +86,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseDeleteCommand_singleTaskNumber_parseSuccess() {
+    public void parseDeleteCommand_singleTaskNumbers_parseSuccess() {
         assertArrayEquals(new int[]{1}, Parser.parseDeleteCommand("delete 1"));
     }
 

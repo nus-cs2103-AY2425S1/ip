@@ -41,9 +41,13 @@ public class Gopher {
             } else if (userInput.equalsIgnoreCase("list")) {
                 return UI.getTaskListMessage(taskList);
             } else if (userInput.toLowerCase().startsWith("mark")) {
-                int taskNumber = Parser.parseMarkCommand(userInput);
-                taskList.markAsDone(taskNumber);
-                return UI.getMarkAsDoneMessage(taskList.getTask(taskNumber));
+                int[] taskNumbers = Parser.parseMarkCommand(userInput);
+                taskList.markAsDone(taskNumbers);
+                StringBuilder message = new StringBuilder();
+                for (int taskNumber: taskNumbers) {
+                    message.append(UI.getDeleteTaskMessage(taskList.getTask(taskNumber)));
+                }
+                return message.toString();
             } else if (userInput.toLowerCase().startsWith("unmark")) {
                 int taskNumber = Parser.parseUnMarkCommand(userInput);
                 taskList.markAsUndone(taskNumber);

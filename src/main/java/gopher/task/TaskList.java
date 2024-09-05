@@ -83,11 +83,13 @@ public class TaskList {
      * Triggers the TaskManager to update the local saved tasks.
      * Prints the mark as done message on the UI.
      *
-     * @param taskNumber number of the task to be marked as done
+     * @param taskNumbers numbers of the tasks to be marked as done
      */
-    public void markAsDone(int taskNumber) {
-        Task task = getTask(taskNumber);
-        task.markAsDone();
+    public void markAsDone(int... taskNumbers) {
+        for (int taskNumber: taskNumbers) {
+            Task task = getTask(taskNumber);
+            task.markAsDone();
+        }
         TaskManager.saveTasks(tasks);
     }
 

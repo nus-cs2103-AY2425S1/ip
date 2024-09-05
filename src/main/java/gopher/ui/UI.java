@@ -64,7 +64,7 @@ public class UI {
      * @param task task to be marked as done
      */
     public static String getMarkAsDoneMessage(Task task) {
-        return "Nice! I've marked this task as done:\n" + task;
+        return String.format("Nice! I've marked this task as done:\n%s\n", task);
     }
 
     /**
