@@ -109,6 +109,17 @@ public class LoafyException extends Exception {
     }
 
     /**
+     * Returns a Loafy Exception for unspecified keyword in 'find' command.
+     *
+     * @return A new Loafy Exception.
+     */
+    public static LoafyException ofEmptyFind() {
+        return new LoafyException(
+                "       'find' should be followed by a keyword\n" +
+                        "           eg. find dishes");
+    }
+    
+    /**
      * Returns a Loafy Exception for data file contents not being in the expected format.
      *
      * @return A new Loafy Exception.

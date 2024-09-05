@@ -10,6 +10,7 @@ import loafy.command.AddCommand;
 import loafy.command.Command;
 import loafy.command.DeleteCommand;
 import loafy.command.ExitCommand;
+import loafy.command.FindCommand;
 import loafy.command.ListCommand;
 import loafy.command.MarkCommand;
 import loafy.loafyexception.LoafyException;
@@ -88,6 +89,11 @@ public class Parser {
                     return new AddCommand(task);
                 }
             }
+        } else if (arr[0].equals("find")) {
+            if (arr.length == 1) {
+                throw LoafyException.ofEmptyFind();
+            }
+            return new FindCommand(arr[1]);
         } else {
             throw LoafyException.ofInvalidCommand();
         }
