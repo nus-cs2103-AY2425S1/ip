@@ -15,41 +15,6 @@ public class Duke {
     public static int DEADLINE = 1;
     public static int EVENT = 2;
 
-    // UI STUFF START 
-
-    // public static String horizontalLine = "----------------------------------------------------------";
-
-    // public static void printOpening() {
-    //     String openingText = "Hello! I'm Jeff\n " +
-    //             "What can I do for you?";
-
-    //     System.out.println(horizontalLine);
-    //     System.out.println(openingText);
-    //     System.out.println(horizontalLine);
-    // }
-
-    // public static void printMessage(String message) {
-    //     System.out.println(horizontalLine);
-    //     System.out.println(message);
-    //     System.out.println(horizontalLine);
-    // }
-
-    // public static void printClosing() {
-    //     String closingText = "Bye. Hope to see you again soon!";
-
-    //     System.out.println(horizontalLine);
-    //     System.out.println(closingText);
-    //     System.out.println(horizontalLine);
-    // }
-
-    // public static void printError(String str) {
-    //     System.out.println(horizontalLine);
-    //     System.out.println(str);
-    //     System.out.println(horizontalLine);
-    // }
-
-    // // UI STUFF END
-
     public static class Ui {
         Ui(String openingText, String closingText) {
             this.openingText = openingText;
@@ -519,40 +484,6 @@ public class Duke {
         private String[] eventTimings = new String[2];
     }
 
-    // // UI STUFF START 
-
-    // public static String horizontalLine = "----------------------------------------------------------";
-
-    // public static void printOpening() {
-    //     String openingText = "Hello! I'm Jeff\n " +
-    //             "What can I do for you?";
-
-    //     System.out.println(horizontalLine);
-    //     System.out.println(openingText);
-    //     System.out.println(horizontalLine);
-    // }
-
-    // public static void printMessage(String message) {
-    //     System.out.println(horizontalLine);
-    //     System.out.println(message);
-    //     System.out.println(horizontalLine);
-    // }
-
-    // public static void printClosing() {
-    //     String closingText = "Bye. Hope to see you again soon!";
-
-    //     System.out.println(horizontalLine);
-    //     System.out.println(closingText);
-    //     System.out.println(horizontalLine);
-    // }
-
-    // public static void printError(String str) {
-    //     System.out.println(horizontalLine);
-    //     System.out.println(str);
-    //     System.out.println(horizontalLine);
-    // }
-
-    // // UI STUFF END
 
     public static boolean isEmptyString(String str) {
         for(int i=0; i<str.length(); i++) {
