@@ -84,8 +84,8 @@ public class Parser {
             try {
                 description = split[0].split("deadline ")[1];
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidCommandArgumentException("The description of a deadline task cannot be "
-                        + "empty!");
+                throw new InvalidCommandArgumentException(
+                        "The description of a deadline task cannot be " + "empty!");
             }
             task = new DeadlineTask(description, deadline);
         } else {

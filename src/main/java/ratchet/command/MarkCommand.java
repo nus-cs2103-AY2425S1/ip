@@ -22,21 +22,13 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) throws InvalidCommandArgumentException {
+    public String execute(Storage storage, TaskList tasks, Ui ui) throws InvalidCommandArgumentException {
         try {
             Task task = tasks.markTask(index);
-            ui.printLine();
-            ui.printWithIndent("Nice! I've marked this task as done:");
-            ui.printWithIndent(task.toString());
-            ui.printWithIndent(tasks.toString());
-            ui.printLine();
+            return ui.printWithSeparator("Nice! I've marked this task as done:")
+                    + ui.printWithSeparator(task.toString()) + ui.printWithSeparator(tasks.toString());
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandArgumentException("Please enter a valid task index!");
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

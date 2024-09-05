@@ -27,26 +27,16 @@ public class Ratchet {
         storage.loadTasks(tasks);
     }
 
-    public static void main(String[] args) {
-        new Ratchet().run();
+    public Ui getUi() {
+        return ui;
     }
 
-    /**
-     * Runs the program.
-     */
-    public void run() {
-        ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            String input = ui.read();
-            Command command;
-            try {
-                command = parser.parse(input);
-                command.execute(storage, tasks, ui);
-                isExit = command.isExit();
-            } catch (RatchetException e) {
-                ui.error(e.getMessage());
-            }
+    public String getResponse(String input) {
+        try {
+            Command command = parser.parse(input);
+            return command.execute(storage, tasks, ui);
+        } catch (RatchetException e) {
+            return ui.printWithSeparator(e.getMessage());
         }
     }
 }

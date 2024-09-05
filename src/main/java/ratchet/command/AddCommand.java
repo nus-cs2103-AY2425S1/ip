@@ -21,17 +21,9 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) {
+    public String execute(Storage storage, TaskList tasks, Ui ui) {
         tasks.addTask(task);
-        ui.printLine();
-        ui.printWithIndent("Got it. I've added this task:");
-        ui.printWithIndent(task.toString());
-        ui.printWithIndent(tasks.toString());
-        ui.printLine();
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
+        return ui.printWithSeparator("Got it. I've added this task:") + ui.printWithSeparator(task.toString())
+                + ui.printWithSeparator(tasks.toString());
     }
 }

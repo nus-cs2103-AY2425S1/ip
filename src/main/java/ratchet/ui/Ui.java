@@ -1,76 +1,34 @@
 package ratchet.ui;
 
-import java.util.Scanner;
-
 /**
  * Class to handle interaction with the user.
  */
 public class Ui {
-    private static final String INDENT = "    ";
-    private final Scanner scanner;
-
     /**
-     * Constructor for Ui
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Reads user input from command line.
+     * Returns a greeting to the user.
      *
-     * @return User input string.
+     * @return Greeting to the user.
      */
-    public String read() {
-        if (scanner.hasNextLine()) {
-            String input = scanner.nextLine();
-            return input;
-        }
-        return "bye";
+    public String greet() {
+        return printWithSeparator("Hello! I'm Ratchet, What can I do for you?");
     }
 
     /**
-     * Greets the user when bot first starts.
-     */
-    public void greet() {
-        printLine();
-        printWithIndent("Hello! I'm Ratchet\n" + INDENT + "What can I do for you?");
-        printLine();
-    }
-
-    /**
-     * Farewells the user when user exits.
-     */
-    public void exit() {
-        printLine();
-        printWithIndent("Bye. Hope to see you again soon!");
-        printLine();
-    }
-
-    /**
-     * Prints an indented error message with dividers
+     * Returns a farewell to the user.
      *
-     * @param message The error message to be printed.
+     * @return Farewell to the user.
      */
-    public void error(String message) {
-        printLine();
-        printWithIndent(message);
-        printLine();
+    public String exit() {
+        return printWithSeparator("Bye. Hope to see you again soon!");
     }
 
     /**
-     * Prints a line to be used as divider by the bot
-     */
-    public void printLine() {
-        System.out.println("   ________________________________________________________");
-    }
-
-    /**
-     * Prints a line with an indent.
+     * Returns a string with a line separator
      *
-     * @param message The message to be indented.
+     * @param message The message to append a line separator to.
+     * @return String with a line separator.
      */
-    public void printWithIndent(String message) {
-        System.out.println(INDENT + message);
+    public String printWithSeparator(String message) {
+        return message + System.lineSeparator();
     }
 }
