@@ -58,7 +58,7 @@ public class Parser {
                 int index = Integer.parseInt(args) - 1;
                 tasks.getTask(index).mark();
                 storage.save(tasks.getTasks());
-                response.append("Bao has marked it as done!");
+                response.append("Bao has marked it as done!").append("\n");
                 response.append(tasks.getTask(index).toString());
             } catch (Exception e) {
                 response.append("Bao needs a valid task number to mark!");
@@ -69,7 +69,7 @@ public class Parser {
                 int index = Integer.parseInt(args) - 1;
                 tasks.getTask(index).unmark();
                 storage.save(tasks.getTasks());
-                response.append("Bao has marked it as not done!");
+                response.append("Bao has marked it as not done!").append("\n");
                 response.append(tasks.getTask(index).toString());
             } catch (Exception e) {
                 response.append("Bao needs a valid task number to unmark!");
@@ -132,7 +132,8 @@ public class Parser {
                 Task removed = tasks.getTask(index);
                 tasks.deleteTask(index);
                 storage.save(tasks.getTasks());
-                response.append("Bao has removed this task: ").append(removed.toString()).append("\n")
+                response.append("Bao has removed this task:").append("\n")
+                        .append(removed.toString()).append("\n")
                         .append("Bao is now tracking ").append(tasks.size()).append(" tasks");
             } catch (Exception e) {
                 response.append("Bao needs a task number to delete!");
