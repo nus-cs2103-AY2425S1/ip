@@ -42,7 +42,9 @@ public class Ui {
      * @param error the error message to display
      */
     public void showError(String error) {
+        this.showLine();
         System.err.println(error);
+        this.showLine();
     }
 
     /**
