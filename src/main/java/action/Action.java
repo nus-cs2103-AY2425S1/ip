@@ -18,4 +18,13 @@ public abstract class Action {
      * @throws BotException If the action could not be executed.
      */
     public abstract String execute(TaskList taskList) throws BotException;
+
+    /**
+     * Returns if the action is an exit action.
+     *
+     * @return False by default, true if the action is an exit action.
+     */
+    public boolean isExit() {
+        return false;
+    }
 }

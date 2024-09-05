@@ -1,7 +1,6 @@
-package botmanager;
+package model;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import action.Action;
 import exception.BotException;
@@ -24,10 +23,17 @@ public class BotManager {
     public BotManager() {
         parser = new Parser();
         storage = new Storage();
+    }
+
+    /**
+     * Attempts to load task data from the data file.
+     * @return <code>Response</code> describing the status of the action
+     */
+    public Response loadData() {
         try {
-            storage.loadTaskList(taskList);
+            return storage.loadTaskList(taskList);
         } catch (FileNotFoundException e) {
-            storage.initFile();
+            return storage.initFile();
         }
     }
 
@@ -35,21 +41,28 @@ public class BotManager {
      * Gets the response for BotManager for a given user input.
      *
      * @param input Input from the user.
-     * @return Response from BotManager.
+     * @return <code>Response</code> describing the status of the action.
      */
-    public String getResponse(String input) {
-        // parse and execute command
-        String response = "";
+    public Response[] getResponse(String input) {
         try {
             Action action = parser.parseInput(input.strip());
-            response += action.execute(taskList);
-            storage.saveTaskList(taskList);
-            return response;
+            Response actionResponse = new Response(action.execute(taskList), action.isExit());
+            Response saveResponse = storage.saveTaskList(taskList);
+            if (saveResponse != null) {
+                return new Response[] {actionResponse, saveResponse};
+            } else {
+                return new Response[] {actionResponse};
+            }
         } catch (BotException e) {
-            return e.getMessage();
-        } catch (IOException e) {
-            return response + "\n" + e.getMessage();
+            return new Response[]{new Response(e.getMessage(), false)};
         }
     }
 
+    /**
+     * Attempts to save task data to the data file.
+     * @return <code>Response</code> describing the status of the action.
+     */
+    private Response saveData() {
+        return storage.saveTaskList(taskList);
+    }
 }

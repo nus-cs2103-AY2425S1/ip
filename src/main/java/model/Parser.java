@@ -1,10 +1,11 @@
-package botmanager;
+package model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import action.Action;
 import action.AddTaskAction;
+import action.ByeAction;
 import action.DeleteTaskAction;
 import action.FindTasksAction;
 import action.HelpAction;
@@ -55,6 +56,7 @@ public class Parser {
         case FIND -> new FindTasksAction(parseSearchString(input));
         case DELETE -> new DeleteTaskAction(parseTaskIndex(input));
         case HELP -> new HelpAction();
+        case EXIT -> new ByeAction();
         default -> throw new InvalidCommandException(input);
         };
     }

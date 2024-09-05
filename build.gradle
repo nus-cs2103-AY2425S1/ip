@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("botmanager.BotManager")
+    mainClass.set("Launcher")
 }
 
 checkstyle {

@@ -120,7 +120,7 @@ public class TaskList {
         for (int i = 0; i < getTaskCount(); i++) {
             if (tasks.get(i).isMatch(searchString)) {
                 matchCount++;
-                stringBuilder.append(i + 1 ).append(". ");
+                stringBuilder.append(i + 1).append(". ");
                 stringBuilder.append(tasks.get(i).toString()).append("\n");
             }
         }
