@@ -48,12 +48,17 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    private Label getDialog() {
+        return this.dialog;
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        Label dialog = db.getDialog();
         db.flip();
         return db;
     }

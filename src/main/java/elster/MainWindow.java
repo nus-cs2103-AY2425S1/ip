@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -23,11 +24,12 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    private Stage stage;
 
     private Elster elster;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Ariane.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Elster.png"));
 
     private MainWindow() {
         try {
@@ -54,6 +56,9 @@ public class MainWindow extends AnchorPane {
         elster = e;
     }
 
+    /** Injects the stage instance */
+    public void setStage(Stage s) { stage = s; }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -61,11 +66,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = elster.getResponse(input);
+        String response = elster.parse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        if (response.equals("See you next time.")) {
+            stage.close();
+        }
     }
 }

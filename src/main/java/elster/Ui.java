@@ -64,7 +64,7 @@ public class Ui {
         String resultStr = "";
 
         resultStr += "Yes boss, marked the task as done.\n";
-        resultStr += task.toString();
+        resultStr += "  " + task.toString();
 
         return resultStr;
     }
@@ -77,7 +77,7 @@ public class Ui {
     public String taskUndoneMessage(Task task) {
         String resultStr = "";
         resultStr += "Interesting choice, I've marked the task as not done.\n";
-        resultStr += task.toString();
+        resultStr += "  " + task.toString();
         return resultStr;
     }
 
@@ -91,7 +91,7 @@ public class Ui {
 
         resultStr.append("Elster has trudged through the archives for your results:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            resultStr.append((i + 1)).append(".").append(taskList.get(i)).append("\n");
+            resultStr.append("  ").append((i + 1)).append(".").append(taskList.get(i)).append("\n");
         }
         return resultStr.toString();
     }
@@ -102,7 +102,7 @@ public class Ui {
     public String deleteTaskMessage(TaskList taskList, Task task) {
         String resultStr = "";
         resultStr += "Your bidding has been done, removed:\n";
-        resultStr += task.toString() + "\n";
+        resultStr += "  " + task.toString() + "\n";
 
         if (taskList.getSize() == 1) {
             resultStr += "thou now hath " + taskList.getSize() + " task to complete\n";
@@ -120,7 +120,7 @@ public class Ui {
     public String addTaskMessage(TaskList taskList, Task task) {
         String resultStr = "";
         resultStr += "The task hath been added\n";
-        resultStr += task + "\n";
+        resultStr += "  " + task + "\n";
 
         if (taskList.getSize() == 1) {
             resultStr += "thou now hath " + taskList.getSize() + " task to complete\n";

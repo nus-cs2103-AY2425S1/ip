@@ -1,12 +1,12 @@
 package elster;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * A GUI for Duke using FXML.
@@ -21,6 +21,7 @@ public class Main extends Application {
         MainWindow ap = MainWindow.of();
         Scene scene = new Scene(ap);
         stage.setScene(scene);
+        ap.setStage(stage);
         ap.setElster(elster); // inject the Elster instance
         stage.show();
     }
