@@ -1,3 +1,5 @@
+package chatgpt;
+
 import chatgpt.command.Command;
 import chatgpt.command.Parser;
 import chatgpt.exception.ChatBotException;
