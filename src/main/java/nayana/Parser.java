@@ -1,8 +1,43 @@
 package nayana;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import nayana.command.*;
-import nayana.task.*;
+
+import nayana.command.AddCommand;
+import nayana.command.Command;
+import nayana.command.DeleteCommand;
+import nayana.command.ExitCommand;
+import nayana.command.FindCommand;
+import nayana.command.ListCommand;
+import nayana.command.MarkCommand;
+import nayana.command.UnmarkCommand;
+import nayana.task.Deadlines;
+import nayana.task.Event;
+import nayana.task.Task;
+import nayana.task.ToDos;
+
+/**
+ * Parses user input commands and returns the corresponding {@code Command} object.
+ * This class is responsible for interpreting various user commands and creating
+ * the appropriate {@code Command} instances, such as adding, marking, unmarking,
+ * deleting tasks, or finding tasks based on search criteria.
+ * <p>
+ * The {@code parse} method handles different command types including:
+ * <ul>
+ *     <li>bye - Exits the application</li>
+ *     <li>list - Lists all tasks</li>
+ *     <li>mark - Marks a task as done</li>
+ *     <li>unmark - Marks a task as not done</li>
+ *     <li>delete - Deletes a task</li>
+ *     <li>deadline - Adds a task with a deadline</li>
+ *     <li>event - Adds an event task with a start and end date</li>
+ *     <li>todo - Adds a simple task without a deadline</li>
+ *     <li>find - Searches for tasks matching the specified query</li>
+ * </ul>
+ * <p>
+ * If the command format is invalid or parsing fails, a {@code NayanaException} is thrown.
+ * </p>
+ */
 public class Parser {
     /**
      * Parses the user input and returns the corresponding Command object.
@@ -44,8 +79,9 @@ public class Parser {
 
         } else if (command.startsWith("find")) {
             return createFindCommand(command);
-        }else {
-            throw new NayanaException("Invalid command. Please use one of the following: deadline, event, todo, mark, unmark, delete, list, bye.");
+        } else {
+            throw new NayanaException("Invalid command. Please use one of the following: deadline, event, todo, "
+                  + "mark, unmark, delete, list, bye.");
         }
     }
 

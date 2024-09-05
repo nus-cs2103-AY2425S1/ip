@@ -1,10 +1,11 @@
 package nayana;
-import nayana.task.*;
-import nayana.command.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import nayana.task.Task;
 
 /**
  * Handles loading tasks from and writing tasks to a file.
@@ -55,7 +56,8 @@ public class Storage {
             StringBuilder textToAdd = new StringBuilder();
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
-                String taskString = (i + 1) + ". " + task.getType() + task.getStatus() + " " + task.getDescription() + " " + task.getDates();
+                String taskString = (i + 1) + ". " + task.getType() + task.getStatus() + " " + task.getDescription()
+                      + " " + task.getDates();
                 textToAdd.append(taskString).append("\n");
             }
             fw.write(textToAdd.toString());

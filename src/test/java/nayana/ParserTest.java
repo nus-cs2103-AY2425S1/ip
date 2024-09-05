@@ -1,9 +1,22 @@
 package nayana;
 
-import nayana.command.*;
-import nayana.task.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import nayana.command.AddCommand;
+import nayana.command.Command;
+import nayana.command.DeleteCommand;
+import nayana.command.ExitCommand;
+import nayana.command.FindCommand;
+import nayana.command.ListCommand;
+import nayana.command.MarkCommand;
+import nayana.command.UnmarkCommand;
+import nayana.task.Deadlines;
+import nayana.task.Event;
+import nayana.task.ToDos;
 
 class ParserTest {
 
@@ -45,20 +58,31 @@ class ParserTest {
     @Test
     void testParseInvalidCommands() {
         // Test invalid commands
-        assertThrows(NayanaException.class, () -> Parser.parse("unknown"), "Should throw NayanaException for unknown command.");
+        assertThrows(NayanaException.class, () -> Parser.parse("unknown"),
+              "Should throw NayanaException for unknown command.");
 
-        assertThrows(NayanaException.class, () -> Parser.parse("mark"), "Should throw NayanaException for invalid mark command format.");
-        assertThrows(NayanaException.class, () -> Parser.parse("unmark"), "Should throw NayanaException for invalid unmark command format.");
-        assertThrows(NayanaException.class, () -> Parser.parse("delete"), "Should throw NayanaException for invalid delete command format.");
+        assertThrows(NayanaException.class, () -> Parser.parse("mark"),
+              "Should throw NayanaException for invalid mark command format.");
+        assertThrows(NayanaException.class, () -> Parser.parse("unmark"),
+              "Should throw NayanaException for invalid unmark command format.");
+        assertThrows(NayanaException.class, () -> Parser.parse("delete"),
+              "Should throw NayanaException for invalid delete command format.");
 
-        assertThrows(NayanaException.class, () -> Parser.parse("deadline Homework"), "Should throw NayanaException for missing /by in deadline command.");
-        assertThrows(NayanaException.class, () -> Parser.parse("event Meeting /from 2024-09-01"), "Should throw NayanaException for missing /to in event command.");
-        assertThrows(NayanaException.class, () -> Parser.parse("todo"), "Should throw NayanaException for empty description in todo command.");
+        assertThrows(NayanaException.class, () -> Parser.parse("deadline Homework"),
+              "Should throw NayanaException for missing /by in deadline command.");
+        assertThrows(NayanaException.class, () -> Parser.parse("event Meeting /from 2024-09-01"),
+              "Should throw NayanaException for missing /to in event command.");
+        assertThrows(NayanaException.class, () -> Parser.parse("todo"),
+              "Should throw NayanaException for empty description in todo command.");
 
         // Test invalid date formats
-        assertThrows(NayanaException.class, () -> Parser.parse("deadline Homework /by 01-09-2024"), "Should throw NayanaException for invalid date format.");
-        assertThrows(NayanaException.class, () -> Parser.parse("event Meeting /from 01-09-2024 /to 2024-09-02"), "Should throw NayanaException for invalid start date format.");
-        assertThrows(NayanaException.class, () -> Parser.parse("find "), "Parsing an invalid find command should throw NayanaException.");
+        assertThrows(NayanaException.class, () -> Parser.parse("deadline Homework /by 01-09-2024"),
+              "Should throw NayanaException for invalid date format.");
+        assertThrows(NayanaException.class, () ->
+                    Parser.parse("event Meeting /from 01-09-2024 /to 2024-09-02"),
+              "Should throw NayanaException for invalid start date format.");
+        assertThrows(NayanaException.class, () -> Parser.parse("find "),
+              "Parsing an invalid find command should throw NayanaException.");
     }
 }
 
