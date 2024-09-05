@@ -5,8 +5,6 @@
  */
 package nathanbot.ui;
 
-import java.util.Scanner;
-
 import nathanbot.commands.CommandHandler;
 import nathanbot.commands.CommandType;
 import nathanbot.tasks.TaskListStore;
@@ -29,47 +27,34 @@ public class UserInterface {
     /**
      * Starts the user interface, greeting the user and processing commands in a loop.
      */
-    public void start() {
-        CommandHandler.handleGreet();
-
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (scanner.hasNextLine()) {
-                String input = scanner.nextLine();
-                CommandType commandType = CommandType.fromInput(input);
-
-                switch (commandType) {
-                case BREAK:
-                    CommandHandler.handleExit();
-                    return;
-                case DISPLAY_LIST:
-                    CommandHandler.handleDisplayList(taskList);
-                    break;
-                case MARK_DONE:
-                    CommandHandler.handleMarkCommand(input, "mark ", taskList, true);
-                    break;
-                case MARK_UNDONE:
-                    CommandHandler.handleMarkCommand(input, "unmark ", taskList, false);
-                    break;
-                case TODO:
-                    CommandHandler.handleTodoCommand(input, taskList);
-                    break;
-                case DEADLINE:
-                    CommandHandler.handleDeadlineCommand(input, taskList);
-                    break;
-                case EVENT:
-                    CommandHandler.handleEventCommand(input, taskList);
-                    break;
-                case DELETE:
-                    CommandHandler.handleDeleteCommand(input, taskList);
-                    break;
-                case FIND:
-                    CommandHandler.handleFindCommand(input, taskList);
-                    break;
-                default:
-                    CommandHandler.handleUnknownCommand();
-                    break;
-                }
-            }
-        }
+    public String start() {
+        return CommandHandler.handleGreet();
     }
+
+    public String processInput(String input) {
+        CommandType commandType = CommandType.fromInput(input);
+            switch (commandType) {
+                case BREAK:
+                    return CommandHandler.handleExit();   
+                case DISPLAY_LIST:
+                    return CommandHandler.handleDisplayList(taskList);
+                case MARK_DONE:
+                    return CommandHandler.handleMarkCommand(input, "mark ", taskList, true);
+                case MARK_UNDONE:
+                    return CommandHandler.handleMarkCommand(input, "unmark ", taskList, false);
+                case TODO:
+                    return CommandHandler.handleTodoCommand(input, taskList);
+                case DEADLINE:
+                    return CommandHandler.handleDeadlineCommand(input, taskList);
+                case EVENT:
+                    return CommandHandler.handleEventCommand(input, taskList);
+                case DELETE:
+                    return CommandHandler.handleDeleteCommand(input, taskList);
+                case FIND:
+                    return CommandHandler.handleFindCommand(input, taskList);
+                default:
+                    return CommandHandler.handleUnknownCommand();
+            }
+    }
+    
 }

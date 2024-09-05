@@ -13,15 +13,28 @@ import nathanbot.ui.UserInterface;
  */
 public class NathanBot {
 
+    private UserInterface ui;
+
+    /**
+     * Constructor for NathanBot.
+     */
+    public NathanBot() {
+        Storage storage = new Storage("./data", "./data/TaskList.txt", "./data/TaskList.dat");
+        TaskListStore taskList = new TaskListStore(storage);
+        this.ui = new UserInterface(taskList);
+    }
+
     /**
      * The main method to run the NathanBot application.
      *
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        Storage storage = new Storage("./data", "./data/TaskList.txt", "./data/TaskList.dat");
-        TaskListStore taskList = new TaskListStore(storage);
-        UserInterface ui = new UserInterface(taskList);
-        ui.start();
+        NathanBot bot = new NathanBot();
+        bot.ui.start();
+    }
+
+    public String processInput(String input) {
+        return ui.processInput(input);
     }
 }

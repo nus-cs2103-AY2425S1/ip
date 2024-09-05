@@ -29,24 +29,25 @@ public abstract class CommandHandler {
     /**
      * Handles the greet command by printing a greeting message.
      */
-    public static void handleGreet() {
-        System.out.println(LINE + GREET + LINE);
+    public static String handleGreet() {
+        return GREET;
     }
 
     /**
      * Handles the exit command by printing a farewell message.
      */
-    public static void handleExit() {
-        System.out.println(LINE + EXIT + LINE);
+    public static String handleExit() {
+        return EXIT;
     }
 
     /**
      * Handles the display list command by printing the task list.
      *
      * @param taskList The task list to display.
+     * @return A string representation of the task list.
      */
-    public static void handleDisplayList(TaskList taskList) {
-        System.out.println(LINE + taskList + LINE);
+    public static String handleDisplayList(TaskList taskList) {
+        return taskList.toString();
     }
 
     /**
@@ -57,23 +58,21 @@ public abstract class CommandHandler {
      * @param taskList The list of tasks.
      * @param isDone True if the task should be marked as done, false otherwise.
      */
-    public static void handleMarkCommand(String input, String command, TaskList taskList, boolean isDone) {
+    public static String handleMarkCommand(String input, String command, TaskList taskList, boolean isDone) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
         try {
             int index = Integer.parseInt(input.substring(command.length()));
             if (isDone) {
                 taskList.markAsDone(index - 1);
-                System.out.println(LINE
-                    + "Nice! I've marked this task as done:\n  "
-                    + taskList.getTask(index - 1) + "\n" + LINE);
+                return "Nice! I've marked this task as done:\n  "
+                    + taskList.getTask(index - 1) + "\n";
             } else {
                 taskList.markAsUndone(index - 1);
-                System.out.println(LINE
-                    + "OK, I've marked this task as not done yet:\n  "
-                    + taskList.getTask(index - 1) + "\n" + LINE);
+                return "OK, I've marked this task as not done yet:\n  "
+                    + taskList.getTask(index - 1) + "\n";
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println(LINE + "Invalid task number. To see the list of tasks, use: list\n" + LINE);
+            return "Invalid task number. To see the list of tasks, use: list\n";
         }
     }
 
@@ -83,18 +82,17 @@ public abstract class CommandHandler {
      * @param input The user input containing the command and task number.
      * @param taskList The list of tasks.
      */
-    public static void handleDeleteCommand(String input, TaskList taskList) {
+    public static String handleDeleteCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
         try {
             int index = Integer.parseInt(input.substring(CommandType.DELETE.getCommand().length()));
             Task task = taskList.getTask(index - 1);
             taskList.deleteTask(index - 1);
-            System.out.println(LINE
-                + "Noted. I've removed this task:\n  " + task
+            return "Noted. I've removed this task:\n  " + task
                 + "\nNow you have " + taskList.listLength()
-                + " tasks in the list.\n" + LINE);
+                + " tasks in the list.\n";
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println(LINE + "Invalid task number. To see the list of tasks, use: list\n" + LINE);
+            return "Invalid task number. To see the list of tasks, use: list\n";
         }
     }
 
@@ -104,15 +102,14 @@ public abstract class CommandHandler {
      * @param input The user input containing the command.
      * @param taskList The list of tasks.
      */
-    public static void handleTodoCommand(String input, TaskList taskList) {
+    public static String handleTodoCommand(String input, TaskList taskList) {
         input = input.substring(CommandType.TODO.getCommand().length());
         if (input.length() == 0) {
-            System.out.println(LINE + "The description of a todo cannot be empty. Use: todo <description>\n" + LINE);
-            return;
+            return "The description of a todo cannot be empty. Use: todo <description>\n";
         }
         ToDo task = new ToDo(input);
         taskList.addTask(task);
-        printAddTaskLine(task, taskList);
+        return printAddTaskLine(task, taskList);
     }
 
     /**
@@ -122,14 +119,13 @@ public abstract class CommandHandler {
      * @param input The user input containing the command.
      * @param taskList The list of tasks.
      */
-    public static void handleDeadlineCommand(String input, TaskList taskList) {
+    public static String handleDeadlineCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
         input = input.substring(CommandType.DEADLINE.getCommand().length()).trim();
 
         String[] parts = input.split(" /by ");
         if (parts.length < 2) {
-            System.out.println(LINE + "Invalid deadline format. Use: deadline <description> /by <date>\n" + LINE);
-            return;
+            return "Invalid deadline format. Use: deadline <description> /by <date>\n";
         }
 
         String description = parts[0].trim();
@@ -140,9 +136,9 @@ public abstract class CommandHandler {
             Deadline task = new Deadline(description, deadline);
 
             taskList.addTask(task);
-            printAddTaskLine(task, taskList);
+            return printAddTaskLine(task, taskList);
         } catch (DateTimeParseException e) {
-            System.out.println(LINE + "Invalid date format. Please use dd/MM/yyyy HHmm.\n" + LINE);
+            return "Invalid date format. Please use dd/MM/yyyy HHmm.\n";
         }
     }
 
@@ -153,16 +149,13 @@ public abstract class CommandHandler {
      * @param input The user input containing the command.
      * @param taskList The list of tasks.
      */
-    public static void handleEventCommand(String input, TaskList taskList) {
+    public static String handleEventCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
         input = input.substring(CommandType.EVENT.getCommand().length()).trim();
 
         String[] parts = input.split(" /from | /to ");
         if (parts.length < 3) {
-            System.out.println(LINE
-                + "Invalid event format. Use: event <description> /from <start time> /to <end time>\n"
-                + LINE);
-            return;
+            return "Invalid event format. Use: event <description> /from <start time> /to <end time>\n";
         }
 
         String description = parts[0].trim();
@@ -175,9 +168,9 @@ public abstract class CommandHandler {
             Event task = new Event(description, fromDateTime, toDateTime);
 
             taskList.addTask(task);
-            printAddTaskLine(task, taskList);
+            return printAddTaskLine(task, taskList);
         } catch (DateTimeParseException e) {
-            System.out.println(LINE + "Invalid date format. Please use dd/MM/yyyy HHmm.\n" + LINE);
+            return "Invalid date format. Please use dd/MM/yyyy HHmm.\n";
         }
     }
 
@@ -187,13 +180,13 @@ public abstract class CommandHandler {
      * @param input The user input containing the command.
      * @param taskList The list of tasks.
      */
-    public static void handleFindCommand(String input, TaskList taskList) {
+    public static String handleFindCommand(String input, TaskList taskList) {
         String searchString = input.substring(CommandType.FIND.getCommand().length()).trim();
         TaskList tasksFound = taskList.find(searchString);
         if (tasksFound.listLength() == 0) {
-            System.out.println(LINE + "No tasks found containing: " + searchString + "\n" + LINE);
+            return "No tasks found containing: " + searchString + "\n";
         } else {
-            System.out.println(LINE + "Here are the matching tasks in your list:\n" + tasksFound + LINE);
+            return "Here are the matching tasks in your list:\n" + tasksFound;
         }
     }
 
@@ -201,8 +194,8 @@ public abstract class CommandHandler {
      * Handles unknown commands.
      * Prints Unknown Command, womp womp..
      */
-    public static void handleUnknownCommand() {
-        System.out.println(LINE + "Unknown Command, womp womp." + "\n" + LINE);
+    public static String handleUnknownCommand() {
+        return "Unknown Command, womp womp.\n";
     }
 
     /**
@@ -211,9 +204,9 @@ public abstract class CommandHandler {
      * @param task The task that was added.
      * @param taskList The list of tasks.
      */
-    private static void printAddTaskLine(Task task, TaskList taskList) {
-        System.out.println(LINE + "Got it. I've added this task: \n    "
+    private static String printAddTaskLine(Task task, TaskList taskList) {
+        return "Got it. I've added this task: \n    "
             + task + "\nNow you have " + taskList.listLength()
-            + " tasks in the list.\n" + LINE);
+            + " tasks in the list.\n";
     }
 }
