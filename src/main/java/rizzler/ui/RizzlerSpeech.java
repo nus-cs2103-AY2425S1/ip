@@ -35,7 +35,8 @@ public class RizzlerSpeech extends Speech {
     private static void initResponses() {
         RESPONSES.put("list", new String[]{"these are the things we gotta do:"});
         RESPONSES.put("add", new String[]{"add a new thing"});
-        RESPONSES.put("greet", new String[]{"how ya' doin. i'm the rizzler.",
+        RESPONSES.put("greet", new String[]{
+                "how ya' doin. i'm the rizzler.",
                 "how may i be of service to you today?"});
         RESPONSES.put("farewell", new String[]{"aight bet, cya."});
         RESPONSES.put("mark", new String[]{"niceeee, i'll note that you've completed this."});

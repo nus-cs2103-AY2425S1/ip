@@ -1,24 +1,25 @@
 package rizzler;
 
-import rizzler.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.time.format.DateTimeParseException;
-
 import java.util.Scanner;
+
+import rizzler.task.Deadline;
+import rizzler.task.Event;
+import rizzler.task.Task;
+import rizzler.task.TaskLog;
+import rizzler.task.ToDo;
 
 /**
  * Handles reading and writing TaskLog to file
  */
 public class Storage {
-    private static final Path STORAGE_PATH = Paths.get( "taskStorage", "taskLog.tsv");
+    private static final Path STORAGE_PATH = Paths.get("taskStorage", "taskLog.tsv");
     private File file;
 
     protected Storage() {

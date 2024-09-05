@@ -1,5 +1,9 @@
 package rizzler.ui.parser;
 
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.Scanner;
+
 import rizzler.command.Command;
 import rizzler.command.DeadlineCommand;
 import rizzler.command.DeleteCommand;
@@ -11,10 +15,6 @@ import rizzler.command.MarkCommand;
 import rizzler.command.NullCommand;
 import rizzler.command.TodoCommand;
 import rizzler.command.UnmarkCommand;
-
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * Takes in user input and processes it into the appropriate command type

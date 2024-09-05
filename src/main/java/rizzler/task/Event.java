@@ -1,9 +1,9 @@
 package rizzler.task;
 
-import rizzler.ui.parser.DateTimeParser;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import rizzler.ui.parser.DateTimeParser;
 
 public class Event extends Task {
     private final LocalDate eventStart;
