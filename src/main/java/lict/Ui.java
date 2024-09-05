@@ -10,14 +10,15 @@ import lict.task.Task;
  */
 public class Ui {
     private final Scanner sc = new Scanner(System.in);
+    private String lastOutput = "";
 
     /**
      * Starts the conversation with the user by displaying a greeting message.
      */
     public void startConversation() {
         showLine();
-        System.out.println("Hello! I'm Lict");
-        System.out.println("What can I do for you?");
+        lastOutput = "Hello! I'm Lict!\nWhat can I do for you?";
+        System.out.println(lastOutput);
         showLine();
     }
 
@@ -59,12 +60,16 @@ public class Ui {
     public void showTaskList(TaskList tasks) {
         int size = tasks.size();
         if (size == 0) {
-            System.out.println("There are no tasks in your list.");
+            lastOutput = "There are no tasks in your list.";
+            System.out.println(lastOutput);
         } else {
-            System.out.println("Here are the tasks in your list:");
+            StringBuilder listOutput = new StringBuilder();
+            listOutput.append("Here are the tasks in your list:\n");
             for (int i = 0; i < size; i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
+                listOutput.append((i + 1) + ". " + tasks.get(i) + "\n");
             }
+            lastOutput = listOutput.toString();
+            System.out.println(lastOutput);
         }
     }
 
@@ -84,7 +89,8 @@ public class Ui {
         TaskList filteredTasks = new TaskList();
         int listSize = tasks.size();
         if (listSize == 0 || filter.isEmpty()) {
-            System.out.println("There are no tasks in your list that matches the keyword '" + filter + "'.");
+            lastOutput = "There are no tasks in your list that matches the keyword '" + filter + "'.";
+            System.out.println(lastOutput);
         }
         for (int j = 0; j < listSize; j++) {
             Task t = tasks.get(j);
@@ -94,12 +100,16 @@ public class Ui {
         }
         int size = filteredTasks.size();
         if (size == 0) {
-            System.out.println("There are no tasks in your list that matches the keyword '" + filter + "'.");
+            lastOutput = "There are no tasks in your list that matches the keyword '" + filter + "'.";
+            System.out.println(lastOutput);
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder matchingTasksOutput = new StringBuilder();
+            matchingTasksOutput.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < size; i++) {
-                System.out.println((i + 1) + ". " + filteredTasks.get(i));
+                matchingTasksOutput.append((i + 1) + ". " + filteredTasks.get(i) + "\n");
             }
+            lastOutput = matchingTasksOutput.toString();
+            System.out.println(lastOutput);
         }
     }
 
@@ -109,8 +119,8 @@ public class Ui {
      * @param t The task that has been marked as done.
      */
     public void hasMarkedTask(Task t) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("    " + t);
+        lastOutput = "Nice! I've marked this task as done:\n    " + t;
+        System.out.println(lastOutput);
     }
 
     /**
@@ -119,8 +129,8 @@ public class Ui {
      * @param t The task that has been marked as not done.
      */
     public void hasUnmarkedTask(Task t) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("    " + t);
+        lastOutput = "OK, I've marked this task as not done yet:\n    " + t;
+        System.out.println(lastOutput);
     }
 
     /**
@@ -130,9 +140,9 @@ public class Ui {
      * @param numOfTasks The number of tasks remaining in the task list.
      */
     public void hasDeletedTask(Task t, int numOfTasks) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("    " + t);
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
+        lastOutput = "Noted. I've removed this task:\n    " + t
+                + "\nNow you have " + numOfTasks + " tasks in the list.";
+        System.out.println(lastOutput);
     }
 
     /**
@@ -141,7 +151,8 @@ public class Ui {
     public void endConversation() {
         sc.close();
         showLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        lastOutput = "Bye. Hope to see you again soon!";
+        System.out.println(lastOutput);
         showLine();
     }
 
@@ -152,8 +163,12 @@ public class Ui {
      * @param numOfTasks The number of tasks in the task list after adding the new task.
      */
     public void hasAddedTask(Task newTask, int numOfTasks) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("    " + newTask);
-        System.out.println("Now you have " + numOfTasks + " in the list.");
+        lastOutput = "Got it. I've added this task:\n    " + newTask
+                + "\nNow you have " + numOfTasks + " tasks in the list.";
+        System.out.println(lastOutput);
+    }
+
+    public String getLastOutput() {
+        return lastOutput;
     }
 }

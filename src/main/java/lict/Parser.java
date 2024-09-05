@@ -8,6 +8,7 @@ import lict.command.DeadlineCommand;
 import lict.command.DeleteCommand;
 import lict.command.EventCommand;
 import lict.command.FindCommand;
+import lict.command.HelloCommand;
 import lict.command.ListCommand;
 import lict.command.MarkCommand;
 import lict.command.TodoCommand;
@@ -36,8 +37,9 @@ public class Parser {
         UNMARK,
         DELETE,
         LIST,
-        BYE,
         FIND,
+        HELLO,
+        BYE,
     }
 
     /**
@@ -51,7 +53,8 @@ public class Parser {
         String[] commandParts = command.split("\\s+", 2);
         Command c = null;
         try {
-            CommandType type = CommandType.valueOf(commandParts[0].trim().toUpperCase());
+            String commandWord = commandParts[0].trim().toUpperCase();
+            CommandType type = CommandType.valueOf(commandWord);
             String info;
             if (commandParts.length == 2) {
                 info = commandParts[1].trim();
@@ -88,12 +91,16 @@ public class Parser {
                 c = new EventCommand(info);
                 break;
 
-            case BYE:
-                c = new ByeCommand();
-                break;
-
             case FIND:
                 c = new FindCommand(info);
+                break;
+
+            case HELLO:
+                c = new HelloCommand();
+                break;
+
+            case BYE:
+                c = new ByeCommand();
                 break;
 
             default:
@@ -103,8 +110,8 @@ public class Parser {
             throw new LictException(
                     """
                         OOPS!!! I'm sorry, but I don't know what that means.
-                        Please only input tasks which start with these words: """
-                            + Arrays.toString(CommandType.values()).toLowerCase());
+                        Please only input tasks which start with these words:
+                        """ + Arrays.toString(CommandType.values()).toLowerCase());
         }
         return c;
     }

@@ -11,7 +11,6 @@ import lict.Ui;
  * to define the specific behavior of the command.
  */
 public abstract class Command {
-
     /**
      * Returns whether the command is an exit command.
      * By default, commands do not exit the application, so this method returns {@code false}.
