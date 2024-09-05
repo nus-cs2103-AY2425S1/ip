@@ -84,16 +84,20 @@ class StorageTest {
     void load_missingArguments_throwsInvalidArgumentsException() throws IOException {
         Path tempFile = Files.createTempFile("test-", ".txt");
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile)) {
-            writer.write("T|1"); // Missing description
+            writer.write("T|true"); // Missing description
             writer.newLine();
-            writer.write("D|0|Finish report"); // Missing deadline
+            writer.write("D|false|Finish report"); // Missing deadline
             writer.newLine();
-            writer.write("E|1|Team meeting|2024-08-29 10:00"); // Missing end date
+            writer.write("E|true|Team meeting|2024-08-29 10:00"); // Missing end date
             writer.newLine();
         }
 
         Storage storage = new Storage(tempFile.toString());
-        assertThrows(FishmanException.InvalidArgumentsException.class, storage::load);
+        Storage.LoadResults result = storage.load();
+        assertNotNull(result.getErrorMessage());
+        assertTrue(result.getErrorMessage().contains("Missing arguments in line:"));
+        assertTrue(result.getErrorMessage().contains("Invalid Deadline arguments in line:"));
+        assertTrue(result.getErrorMessage().contains("Invalid Event arguments in line:"));
 
         Files.deleteIfExists(tempFile);
     }

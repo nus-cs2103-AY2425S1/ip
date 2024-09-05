@@ -147,9 +147,6 @@ public class Storage {
                             throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_DEADLINE, line);
                         }
                         String deadline = arguments[3].trim();
-                        if (deadline.isEmpty()) {
-                            throw new FishmanException.InvalidArgumentsException(ErrorType.INVALID_EVENT, line);
-                        }
                         LocalDateTime deadlineDate = parseDateTime(deadline, line);
                         tasks.addTask(new Deadline(description, isDone, deadlineDate));
                         break;
