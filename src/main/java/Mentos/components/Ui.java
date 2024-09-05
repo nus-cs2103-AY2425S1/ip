@@ -115,7 +115,7 @@ public class Ui {
 
     public void deleteEvent(Task task, int tasksSize){
         print_line();
-        System.out.printf("Alrights I have removed the following Mentos.task!\n%s%n",task.toString());
+        System.out.printf("Alrights I have removed the following task!\n%s%n",task.toString());
         System.out.printf("%d remaining tasks%n",tasksSize);
     }
 

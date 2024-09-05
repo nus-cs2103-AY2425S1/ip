@@ -9,6 +9,7 @@ import Mentos.task.ToDo;
 import java.time.DateTimeException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 public class Parser {
     private final String MARKED = "mark";
     private final String UNMARKED = "unmark";
@@ -20,111 +21,94 @@ public class Parser {
 
 
     /**
-     * Handles user input commands related to Mentos.task management.
+     * Handles various task-related actions based on the input command.
+     * <p>
+     * This method processes user input, identifies the type of task action (e.g., list, mark, unmark, delete, todo, deadline, event, or find),
+     * and returns an {@code ActionTaskIndexTuple} representing the action, task, and index (if applicable). It uses regular expressions
+     * to parse commands and throws an exception for invalid input.
      *
-     * This method processes various Mentos.task-related commands such as listing tasks,
-     * marking tasks as done, unmarking tasks, deleting tasks, and adding new tasks
-     * (todo, deadline, event). It uses regular expressions to parse and validate
-     * the input commands, and throws custom exceptions (`Mentos.MentosException.MentosException`)
-     * when inputs are invalid.
-     *
-     * The following commands are supported:
-     *   list - Lists all the current tasks.
-     *   mark X- Marks the task at index X as done.
-     *   unmark X - Unmarks the task at index X (marks it as not done).
-     *   delete X< - Deletes the task at index X.
-     *   todo DESCRIPTION - Adds a new ToDo task with the given description.
-     *   deadline DESCRIPTION /by DATETIME - Adds a new Deadline task with the given description and due date.
-     *   event DESCRIPTION /from DATETIME /to DATETIME - Adds a new task.Event task with the given description and time range.
-     *
-     * If an unrecognized command is given, the method responds with a message indicating
-     * that the command is not understood.
-     *
-     * @param input the user's input command as a string.
-     * @throws Mentos.MentosException.MentosException if the input is invalid or if the specified task index does not exist.
+     * @param input The user command string, which should start with a keyword such as "list", "mark", "unmark", "delete", "todo", "deadline", "event", or "find".
+     * @return An {@code ActionTaskIndexTuple} containing the action type, task object (if applicable), and index (if applicable). Returns {@code null} if the input is not recognized.
+     * @throws Exception If the input command is invalid or doesn't follow the expected format.
      */
-    public ActionTaskIndexTuple taskHandler(String input) {
-        try {
 
-            if (input.equals("list")) {
-                return new ActionTaskIndexTuple("list",null,-1);
-            }  else if (input.startsWith(MARKED)) {
-                Matcher match = regexHandler(input, "mark (\\d+)");
-                if (match == null) {
-                    throw new MentosException("Invalid input!");
-                }
-                String extracted = match.group(1);
-                int index = Integer.parseInt(extracted);
-                return new ActionTaskIndexTuple(MARKED,null,index);
+    public ActionTaskIndexTuple taskHandler(String input) throws Exception {
 
-            } else if (input.startsWith(UNMARKED)) {
-                Matcher match = regexHandler(input, "unmark (\\d+)");
-                if (match == null) {
-                    throw new MentosException("Invalid input!");
-                }
-                String extracted = match.group(1);
-                int index = Integer.parseInt(extracted);
-                return new ActionTaskIndexTuple(UNMARKED,null,index);
-            } else if (input.startsWith(DELETE)){
-                Matcher match = regexHandler(input,"delete (\\d+)$");
-                if (match == null){
-                    throw new MentosException("Invalid Delete input!");
-                }
-                String extracted = match.group(1);
-                int index = Integer.parseInt(extracted);
-                return new ActionTaskIndexTuple(DELETE,null,index);
+        if (input.equals("list")) {
+            return new ActionTaskIndexTuple("list", null, -1);
+        } else if (input.startsWith(MARKED)) {
+            Matcher match = regexHandler(input, "mark (\\d+)");
+            if (match == null) {
+                throw new MentosException("Invalid input!");
             }
-            else if (input.startsWith(TODO)) {
-                Matcher match = regexHandler(input, "todo (.+)");
-                if (match == null) {
-                    throw new MentosException("Todo cannot be empty!");
-                }
-                String extracted = match.group(1);
+            String extracted = match.group(1);
+            int index = Integer.parseInt(extracted);
+            return new ActionTaskIndexTuple(MARKED, null, index);
 
-                Task newTodo = new ToDo(extracted);
-                return new ActionTaskIndexTuple(TODO,newTodo,-1);
-            } else if (input.startsWith(DEADLINE)){
-                Matcher match = regexHandler(input,"deadline (.+) \\/by (\\d{4}-\\d{2}-\\d{2} \\d{4})$");
-                if (match == null){
-                    throw new MentosException("Invalid deadline input! usage:deadline <desc> /by <datetime> in yyyy-mm-dd hhmm");
-                }
-                String deadline_desc = match.group(1);
-                String by = match.group(2);
-                Task newDeadline = new Deadline(deadline_desc,by);
-                return new ActionTaskIndexTuple(DEADLINE,newDeadline,-1);
-            } else if (input.startsWith(EVENT)){
-                Matcher match = regexHandler(input,"event (.+) \\/from (\\d{4}-\\d{2}-\\d{2} \\d{4}) \\/to (\\d{4}-\\d{2}-\\d{2} \\d{4})$");
-                if (match == null){
-                    throw new MentosException("Invalid Event input! usage:event <desc> /from <datetime> yyyy-mm-dd hhmm /to <datetime> yyyy-mm-dd hhmm" );
-                }
-
-                String eventDesc = match.group(1);
-                String from = match.group(2);
-                String to = match.group(3);
-                Task newEvent = new Event(eventDesc,from,to);
-                return new ActionTaskIndexTuple(EVENT,newEvent,-1);
-
-            } else if (input.startsWith(FIND)){
-                Matcher match = regexHandler(input,"find (\\w+)");
-                if (match == null){
-                    throw new MentosException("Invalid find");
-                }
-                String keyword = match.group(1);
-                Task findKeyword = new ToDo(keyword);
-                return new ActionTaskIndexTuple(FIND,findKeyword,-1);
-            } else {
-                System.out.println("____________________________");
-                System.out.println("Sorry me no understand");
-                System.out.println("____________________________");
-                return null;
+        } else if (input.startsWith(UNMARKED)) {
+            Matcher match = regexHandler(input, "unmark (\\d+)");
+            if (match == null) {
+                throw new MentosException("Invalid input!");
             }
-        } catch (MentosException err){
-            System.out.println(err);
-        } catch (DateTimeException e){
-            System.out.println("Invalid Datetime inputted");
+            String extracted = match.group(1);
+            int index = Integer.parseInt(extracted);
+            return new ActionTaskIndexTuple(UNMARKED, null, index);
+        } else if (input.startsWith(DELETE)) {
+            Matcher match = regexHandler(input, "delete (\\d+)$");
+            if (match == null) {
+                throw new MentosException("Invalid Delete input!");
+            }
+            String extracted = match.group(1);
+            int index = Integer.parseInt(extracted);
+            return new ActionTaskIndexTuple(DELETE, null, index);
+        } else if (input.startsWith(TODO)) {
+            Matcher match = regexHandler(input, "todo (.+)");
+            if (match == null) {
+                throw new MentosException("Todo cannot be empty!");
+            }
+            String extracted = match.group(1);
+
+            Task newTodo = new ToDo(extracted);
+            return new ActionTaskIndexTuple(TODO, newTodo, -1);
+        } else if (input.startsWith(DEADLINE)) {
+            Matcher match = regexHandler(input, "deadline (.+) \\/by (\\d{4}-\\d{2}-\\d{2} \\d{4})$");
+            if (match == null) {
+                throw new MentosException("Invalid deadline input! usage:deadline <desc> /by <datetime> in yyyy-mm-dd hhmm");
+            }
+            String deadline_desc = match.group(1);
+            String by = match.group(2);
+            Task newDeadline = new Deadline(deadline_desc, by);
+            return new ActionTaskIndexTuple(DEADLINE, newDeadline, -1);
+        } else if (input.startsWith(EVENT)) {
+            Matcher match = regexHandler(input, "event (.+) \\/from (\\d{4}-\\d{2}-\\d{2} \\d{4}) \\/to " +
+                    "(\\d{4}-\\d{2}-\\d{2} \\d{4})$");
+            if (match == null) {
+                throw new MentosException("Invalid Event input! usage:event <desc> /from <datetime> " +
+                        "yyyy-mm-dd hhmm /to <datetime> yyyy-mm-dd hhmm");
+            }
+
+            String eventDesc = match.group(1);
+            String from = match.group(2);
+            String to = match.group(3);
+            Task newEvent = new Event(eventDesc, from, to);
+            return new ActionTaskIndexTuple(EVENT, newEvent, -1);
+
+        } else if (input.startsWith(FIND)) {
+            Matcher match = regexHandler(input, "find (\\w+)");
+            if (match == null) {
+                throw new MentosException("Invalid find");
+            }
+            String keyword = match.group(1);
+            Task findKeyword = new ToDo(keyword);
+            return new ActionTaskIndexTuple(FIND, findKeyword, -1);
+        } else {
+            System.out.println("____________________________");
+            System.out.println("Sorry me no understand");
+            System.out.println("____________________________");
+            return null;
         }
-        return null;
     }
+
 
     /**
      * Handles regular expression matching on a given input string.
@@ -137,10 +121,10 @@ public class Parser {
      * @param regex the regular expression used for matching.
      * @return `Matcher` object if a match is found; `null` otherwise.
      */
-    public Matcher regexHandler(String input,String regex){
+    public Matcher regexHandler(String input, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-        if (matcher.find()){
+        if (matcher.find()) {
             return matcher;
         }
         return null;
