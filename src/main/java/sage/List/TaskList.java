@@ -1,14 +1,15 @@
 package sage.List;
 
-import sage.Sage;
 import sage.SageException;
 import sage.Task.Task;
+import sage.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
     private final List<Task> tasks;
+    private Ui ui;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -62,7 +63,7 @@ public class TaskList {
      * @param isDone A boolean indicating if the task is marked as done or not.
      * @throws SageException If the task index is invalid.
      */
-    public void markTask(int index, boolean isDone) throws SageException {
+    public String markTask(int index, boolean isDone) throws SageException {
         if (index < 0 || index >= tasks.size()) {
             throw new SageException("Invalid task index.");
         }
@@ -72,7 +73,7 @@ public class TaskList {
 
         Task task = tasks.get(index);
         task.setDone(isDone);
-        Sage.ui.showResponse(String.valueOf(confirmationMessage.append(task)));
+        return String.valueOf(confirmationMessage.append(task));
     }
 
     /**
@@ -80,15 +81,15 @@ public class TaskList {
      *
      * @param text The text to display with the list of tasks.
      */
-    public void listTasks(String text) {
+    public String listTasks(String text) {
         if (tasks.isEmpty()) {
-            Sage.ui.showEmptyList();
+            return "There are no task!";
         } else {
             StringBuilder result = new StringBuilder(text + "\n");
             for (int i = 0; i < tasks.size(); i++) {
                 result.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
             }
-            Sage.ui.showResponse(result.toString());
+            return result.toString();
         }
     }
 }

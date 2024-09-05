@@ -2,8 +2,8 @@ package sage.Command;
 
 import sage.List.TaskList;
 import sage.SageException;
-import sage.Ui;
 import sage.Storage;
+import sage.Ui;
 
 public class MarkCommand extends Command {
 
@@ -30,7 +30,7 @@ public class MarkCommand extends Command {
      * @throws SageException If the provided task index is invalid or cannot be parsed.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SageException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SageException {
         int index;
         try {
             index = Integer.parseInt(indexString.trim()) - 1;
@@ -42,6 +42,6 @@ public class MarkCommand extends Command {
             throw new SageException("Invalid task number.");
         }
 
-        tasks.markTask(index, isDone);
+        return tasks.markTask(index, isDone);
     }
 }

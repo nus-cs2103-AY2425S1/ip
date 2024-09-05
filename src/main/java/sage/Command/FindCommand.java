@@ -27,7 +27,7 @@ public class FindCommand extends Command {
      * @param storage The Storage object for saving changes to the file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList result = new TaskList();
 
         for (Task task : tasks.getTasks()) {
@@ -38,6 +38,6 @@ public class FindCommand extends Command {
             }
         }
 
-        result.listTasks("Here are the matching tasks in your list:");
+        return result.listTasks("Here are the matching tasks in your list:");
     }
 }

@@ -13,7 +13,7 @@ public class ListCommand extends Command {
      * @param storage The Storage object for loading tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.listTasks("Here are the tasks in your list:");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.listTasks("Here are the tasks in your list:");
     }
 }
