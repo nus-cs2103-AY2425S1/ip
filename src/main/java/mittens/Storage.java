@@ -17,23 +17,23 @@ public class Storage {
     public void save(TaskList taskList) throws StorageFileException {
         try {
             ArrayList<String> encodedTasks = new ArrayList<>();
-            for (Task task : taskList.tasks) {
+            for (Task task : taskList.getTasks()) {
                 String taskEncoding = "";
                 if (task instanceof Todo) {
                     taskEncoding = String.format("T|%s|%s",
-                            task.isDone ? "1" : "0",
-                            task.description);
+                            task.getStatusIcon(),
+                            task.getDescription());
                 } else if (task instanceof Deadline) {
                     taskEncoding = String.format("D|%s|%s|%s",
-                            task.isDone ? "1" : "0",
-                            task.description,
-                            ((Deadline) task).by);
+                            task.getStatusIcon(),
+                            task.getDescription(),
+                            ((Deadline) task).getBy());
                 } else if (task instanceof Event) {
                     taskEncoding = String.format("E|%s|%s|%s|%s",
-                            task.isDone ? "1" : "0",
-                            task.description,
-                            ((Event) task).from,
-                            ((Event) task).to);
+                            task.getStatusIcon(),
+                            task.getDescription(),
+                            ((Event) task).getFrom(),
+                            ((Event) task).getTo());
                 }
                 encodedTasks.add(taskEncoding);
             }
@@ -74,7 +74,7 @@ public class Storage {
                     default:
                         throw new StorageFileException("Corrupted storage file");
                 }
-                if (taskComponents[1].equals("1")) {
+                if (taskComponents[1].equals("X")) {
                     task.markAsDone();
                 }
                 taskList.addTask(task);
