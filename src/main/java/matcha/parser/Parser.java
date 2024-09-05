@@ -68,37 +68,41 @@ public class Parser {
      */
     public static Task parseFileData(String data) throws MatchaException {
         String[] taskInfo = data.split(" \\| ");
-        String taskType = taskInfo[0];
         boolean isTaskDone = taskInfo[1].equals("1");
         Task task;
-
         try {
-            switch (taskType) {
-            case "T":
-                task = new Todo(taskInfo[2]);
-                if (isTaskDone) {
-                    task.markDone();
-                }
-                break;
-            case "D":
-                task = new Deadline(taskInfo[2], LocalDateTime.parse(taskInfo[3]));
-                if (isTaskDone) {
-                    task.markDone();
-                }
-                break;
-            case "E":
-                task = new Event(taskInfo[2], LocalDateTime.parse(taskInfo[3]),
-                        LocalDateTime.parse(taskInfo[4]));
-                if (isTaskDone) {
-                    task.markDone();
-                }
-                break;
-            default:
-                throw new MatchaException("Oh no! Task data was saved in the wrong format.");
+            task = createParsedTask(taskInfo);
+            if (isTaskDone) {
+                task.markDone();
             }
         } catch (DateTimeParseException e) {
             throw new MatchaException("Invalid date format! Please format the Date as 'YYYY-MM-DD' and Time as 'HHMM'");
         }
         return task;
+    }
+
+    /**
+     * Creates a Task object based on the parsed data from the file.
+     *
+     * @param taskInfo Parsed data on the task from the file.
+     * @return  Task object based on the parsed data.
+     * @throws MatchaException If the task data is saved in the wrong format.
+     */
+    private static Task createParsedTask(String[] taskInfo) throws MatchaException {
+        String taskType = taskInfo[0];
+        String taskDescription = taskInfo[2];
+        switch (taskType) {
+        case "T":
+            return new Todo(taskDescription);
+        case "D":
+            String taskDueDate = taskInfo[3];
+            return new Deadline(taskDescription, LocalDateTime.parse(taskDueDate));
+        case "E":
+            String taskStartDate = taskInfo[3];
+            String taskEndDate = taskInfo[4];
+            return new Event(taskDescription, LocalDateTime.parse(taskStartDate), LocalDateTime.parse(taskEndDate));
+        default:
+            throw new MatchaException("Oh no! Task data was saved in the wrong format.");
+        }
     }
 }

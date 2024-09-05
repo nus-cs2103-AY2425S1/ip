@@ -39,17 +39,15 @@ public class UpdateTaskCommand extends Command {
         switch (commandType) {
         case "mark":
             markTask(tasks);
-            //save tasks to file
-            storage.saveTasks(tasks.getTasks());
             break;
         case "unmark":
             unmarkTask(tasks);
-            //save tasks to file
-            storage.saveTasks(tasks.getTasks());
             break;
         default:
             throw new MatchaException("Invalid command to update tasks!");
         }
+        //save tasks to file
+        storage.saveTasks(tasks.getTasks());
         return super.getResponse();
     }
 
