@@ -1,11 +1,11 @@
 .label {
     background:white;
-    -fx-background-color: background;
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-background-color: #2a2f38;
+    -fx-border-color: #0088cc;
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
-    -fx-text-fill: ladder(background, white 49%, black 50%);
+    -fx-text-fill: ladder(#2a2f38, white 49%, #dcdcdc 50%);
 }
 
 .reply-label {
@@ -26,13 +26,13 @@
 }
 
 .add-label {
-    -fx-background-color: yellow;
+    -fx-background-color: #1f2833;
 }
 
 .marked-label {
-    -fx-background-color: palegreen;
+    -fx-background-color: #0088cc;
 }
 
 .delete-label {
-    -fx-background-color: lightpink;
+    -fx-background-color: #e63946;
 }
