@@ -9,16 +9,15 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
+    private static final DateTimeFormatter FILE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private final LocalDateTime endDateTime;
-    private static final DateTimeFormatter FILE_DATE_TIME_FORMATTER
-            = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Constructs a Deadline task with the specified status, description, and end date/time.
      *
-     * @param isCompleted      The completion status of the task (true if completed, false otherwise).
-     * @param description The description of the task.
-     * @param endDateTime         The end date and time of the deadline.
+     * @param isCompleted  The completion status of the task (true if completed, false otherwise).
+     * @param description  The description of the task.
+     * @param endDateTime  The end date and time of the deadline.
      */
     public Deadline(boolean isCompleted, String description, LocalDateTime endDateTime) {
         super(isCompleted, description);
@@ -32,8 +31,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + getStatus() + " | " + getDescription() + " | "
-                + endDateTime.format(FILE_DATE_TIME_FORMATTER);
+        return "D | " + getStatus() + " | " + getDescription() + " | " + endDateTime.format(FILE_DATE_TIME_FORMATTER);
     }
 
     /**
@@ -42,7 +40,7 @@ public class Deadline extends Task {
      * @return A user-friendly string that describes the urgency of meeting the deadline.
      */
     @Override
-    public String toUIString() {
+    public String toUiString() {
         return "Last night, Darth Vader came down from Planet Vulcan and told me that "
                 + "if you don't meet this deadline... he'd melt your brain! So, better get moving!\n";
     }

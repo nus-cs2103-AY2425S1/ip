@@ -1,19 +1,19 @@
 package drbrown.utils;
 
-import drbrown.task.Deadline;
-import drbrown.task.Event;
-import drbrown.task.Task;
-import drbrown.task.Todo;
+import static java.lang.Boolean.parseBoolean;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-import static java.lang.Boolean.parseBoolean;
+import drbrown.task.Deadline;
+import drbrown.task.Event;
+import drbrown.task.Task;
+import drbrown.task.Todo;
 
 /**
  * Handles the loading and saving of tasks to a file for the DrBrown application.
@@ -21,9 +21,8 @@ import static java.lang.Boolean.parseBoolean;
  */
 public class Storage {
 
-    private final String filePath;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
+    private final String filePath;
     /**
      * Constructs a Storage object with the specified file path for storing tasks.
      *

@@ -1,5 +1,11 @@
 package drbrown.utils;
 
+import static java.lang.Integer.parseInt;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import drbrown.command.AddCommand;
 import drbrown.command.Command;
 import drbrown.command.DeleteCommand;
@@ -8,17 +14,10 @@ import drbrown.command.FindCommand;
 import drbrown.command.ListCommand;
 import drbrown.command.MarkCommand;
 import drbrown.command.UnmarkCommand;
-
 import drbrown.task.Deadline;
 import drbrown.task.Event;
 import drbrown.task.Task;
 import drbrown.task.Todo;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-import static java.lang.Integer.parseInt;
 
 /**
  * Parses user input and returns the appropriate command for execution.
@@ -27,8 +26,7 @@ import static java.lang.Integer.parseInt;
  */
 public class Parser {
 
-    private static final DateTimeFormatter FILE_DATE_TIME_FORMATTER
-            = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter FILE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
      * Parses the user input and returns a corresponding command.

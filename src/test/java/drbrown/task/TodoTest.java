@@ -1,9 +1,9 @@
 package drbrown.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit tests for the Todo class.
@@ -43,10 +43,10 @@ public class TodoTest {
      * Tests the UI string representation of a Todo task.
      */
     @Test
-    void testToUIStringTodo() {
+    void testToUiStringTodo() {
         Todo todo = new Todo(false, description);
         assertEquals("Doc, you don't just walk into a store and buy plutonium! "
-                + "But you sure can add this task to your list!\n", todo.toUIString());
+                + "But you sure can add this task to your list!\n", todo.toUiString());
     }
 
     /**

@@ -1,11 +1,11 @@
 package drbrown;
 
 import drbrown.command.Command;
+import drbrown.utils.DrBrownException;
 import drbrown.utils.Parser;
 import drbrown.utils.Storage;
 import drbrown.utils.TaskList;
 import drbrown.utils.Ui;
-import drbrown.utils.DrBrownException;
 
 /**
  * The main class for the DrBrown application, which is a task management program.

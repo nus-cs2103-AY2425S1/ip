@@ -9,18 +9,17 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
+    private static final DateTimeFormatter FILE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private final LocalDateTime startDateTime;
     private final LocalDateTime endDateTime;
-    private static final DateTimeFormatter FILE_DATE_TIME_FORMATTER
-            = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Constructs an Event task with the specified status, description, start date/time, and end date/time.
      *
-     * @param isCompleted      The completion status of the task (true if completed, false otherwise).
-     * @param description The description of the event.
-     * @param start       The start date and time of the event.
-     * @param end         The end date and time of the event.
+     * @param isCompleted  The completion status of the task (true if completed, false otherwise).
+     * @param description  The description of the event.
+     * @param start        The start date and time of the event.
+     * @param end          The end date and time of the event.
      */
     public Event(boolean isCompleted, String description, LocalDateTime start, LocalDateTime end) {
         super(isCompleted, description);
@@ -46,15 +45,15 @@ public class Event extends Task {
      * @return A user-friendly string that describes the scheduled event.
      */
     @Override
-    public String toUIString() {
+    public String toUiString() {
         return "The appropriate question is: ‘When the hell are they?’ Your event is now set in time!\n";
     }
 
     /**
      * Returns the string representation of the event task.
      *
-     * @return A string representation of the event task with its status, description,
-     * start date/time, and end date/time.
+     * @return A string representation of the event task with its status,
+     *     description, start date/time, and end date/time.
      */
     @Override
     public String toString() {
