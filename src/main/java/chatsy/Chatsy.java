@@ -8,14 +8,14 @@ import chatsy.exceptions.LocalFileException;
  * It initializes the necessary components and handles the main program loop.
  */
 public class Chatsy {
-    static final String name = "Chatsy";
-    static final String LOCAL_DIRECTORY_PATH = "./data";
-    static final String LOCAL_FILE_PATH = LOCAL_DIRECTORY_PATH + "/chatsy.txt";
-    static boolean isRunning = true;
-    static TaskManager taskManager;
-    static Storage storage;
-    static UI ui;
-    static CommandHandler commandHandler;
+    private static final String NAME = "Chatsy";
+    private static final String LOCAL_DIRECTORY_PATH = "./data";
+    private static final String LOCAL_FILE_PATH = LOCAL_DIRECTORY_PATH + "/chatsy.txt";
+    private static boolean isRunning = true;
+    private static TaskManager taskManager;
+    private static Storage storage;
+    private static UI ui;
+    private static CommandHandler commandHandler;
 
     /**
      * The entry point for the Chatsy application.
@@ -35,8 +35,8 @@ public class Chatsy {
             ui.output("Failed to load tasks: " + e.getMessage());
         }
 
-        ui.greet(name);
-        while (isRunning) {
+        ui.greet(NAME);
+        while (isRunning()) {
             try {
                 commandHandler.handle(ui.readCommand());
             } catch (ChatsyException e) {
@@ -60,6 +60,47 @@ public class Chatsy {
             ui.output("Failed to save tasks: " + e.getMessage());
         }
         ui.output("Bye. Hope to see you again soon!");
-        isRunning = false;
+        setRunning(false);
+    }
+
+    // Getters and Setters
+    public static boolean isRunning() {
+        return isRunning;
+    }
+
+    public static void setRunning(boolean running) {
+        isRunning = running;
+    }
+
+    public static TaskManager getTaskManager() {
+        return taskManager;
+    }
+
+    public static void setTaskManager(TaskManager taskManager) {
+        Chatsy.taskManager = taskManager;
+    }
+
+    public static Storage getStorage() {
+        return storage;
+    }
+
+    public static void setStorage(Storage storage) {
+        Chatsy.storage = storage;
+    }
+
+    public static UI getUi() {
+        return ui;
+    }
+
+    public static void setUi(UI ui) {
+        Chatsy.ui = ui;
+    }
+
+    public static CommandHandler getCommandHandler() {
+        return commandHandler;
+    }
+
+    public static void setCommandHandler(CommandHandler commandHandler) {
+        Chatsy.commandHandler = commandHandler;
     }
 }

@@ -1,10 +1,11 @@
 package chatsy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import chatsy.exceptions.InvalidTaskIndexException;
 import chatsy.tasks.Task;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Manages the tasks in the Chatsy application.
@@ -89,12 +90,24 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Validates the index of a task to ensure it is within the valid range.
+     *
+     * @param index The index of the task to be validated.
+     * @throws InvalidTaskIndexException If the index is out of bounds.
+     */
     private void validateIndex(int index) throws InvalidTaskIndexException {
         if (index < 1 || index > tasks.size()) {
             throw new InvalidTaskIndexException();
         }
     }
 
+    /**
+     * Finds tasks that match the given keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A string representation of the matching tasks.
+     */
     public String findTasks(String keyword) {
         StringBuilder matchingTasks = new StringBuilder();
         int matchCount = 0;

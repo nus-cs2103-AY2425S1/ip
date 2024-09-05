@@ -64,7 +64,8 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
-        return "[E]" + getStatusIcon() + description + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
+        return "[E]" + getStatusIcon() + description + " (from: "
+                + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 
     /**
@@ -75,6 +76,7 @@ public class EventTask extends Task {
     @Override
     public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(formatter) + " | " + to.format(formatter);
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + from.format(formatter) + " | " + to.format(formatter);
     }
 }
