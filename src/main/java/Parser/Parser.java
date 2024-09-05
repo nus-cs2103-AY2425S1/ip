@@ -63,6 +63,10 @@ public class Parser {
         } else if (words[0].equals("find")) {
             return new FindCommand(userInput);
 
+            //if user inputs hi
+        } else if (words[0].equals("hi")) {
+            return new IntroCommand(userInput);
+
         } else {
             return new DefaultCommand("     OOPS!!! Sorry leh, but IDK what that means :-");
         }
