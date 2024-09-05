@@ -1,9 +1,6 @@
 package donna;
 
-import donna.task.Deadline;
-import donna.task.Event;
-import donna.task.Task;
-import donna.task.ToDo;
+import donna.task.*;
 
 import java.io.BufferedWriter;
 import java.io.File;

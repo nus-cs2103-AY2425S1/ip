@@ -1,6 +1,5 @@
-package donna;
+package donna.gui;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

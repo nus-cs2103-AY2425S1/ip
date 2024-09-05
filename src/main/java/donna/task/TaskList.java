@@ -1,5 +1,6 @@
-package donna;
+package donna.task;
 
+import donna.DonnaException;
 import donna.task.Task;
 
 import java.util.ArrayList;

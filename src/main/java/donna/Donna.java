@@ -1,9 +1,8 @@
 package donna;
 
-import donna.task.Deadline;
-import donna.task.Event;
-import donna.task.Task;
-import donna.task.ToDo;
+import donna.parse.ParsedCommand;
+import donna.parse.Parser;
+import donna.task.*;
 
 import java.util.List;
 import java.util.Scanner;

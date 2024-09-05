@@ -1,4 +1,6 @@
-package donna;
+package donna.parse;
+
+import donna.DonnaException;
 
 /**
  * Parses user input (commands and arguments) into ParsedCommand objects.
