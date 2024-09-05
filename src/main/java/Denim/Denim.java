@@ -32,7 +32,7 @@ public class Denim {
         denim.exit();
     }
 
-    private void start() {
+    void start() {
         taskIo = new TaskIo(FILE_PATH);
         taskList = new TaskList();
 
