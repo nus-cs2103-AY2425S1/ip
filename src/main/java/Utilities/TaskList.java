@@ -21,7 +21,7 @@ public class TaskList {
         String message = "";
 
         this.taskList.add(t);
-        message += UI.updateUserOnAddition(name, this.taskList.size());
+        message += Ui.updateUserOnAddition(name, this.taskList.size());
 
         return message;
     }
@@ -36,7 +36,7 @@ public class TaskList {
 
         Task t = this.taskList.get(index);
         this.taskList.remove(index);
-        message += UI.updateUserOnDeletion(t);
+        message += Ui.updateUserOnDeletion(t);
 
         return message;
     }
@@ -53,10 +53,10 @@ public class TaskList {
         Task t = this.taskList.get(index);
         if (status) {
             t.markAsDone();
-            message += UI.updateUserOnCompletion(t);
+            message += Ui.updateUserOnCompletion(t);
         } else {
             t.markAsNotDone();
-            message += UI.updateUserOnUncompletion(t);
+            message += Ui.updateUserOnUncompletion(t);
         }
 
         return message;

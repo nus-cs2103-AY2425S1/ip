@@ -88,7 +88,7 @@ public class CommandParser {
                     throw new UnknownCommandException();
                 }
             } catch (UnknownCommandException | BadDescriptionException | DateTimeException e) {
-                response += UI.updateUserOnError(e);
+                response += Ui.updateUserOnError(e);
             }
         }
 

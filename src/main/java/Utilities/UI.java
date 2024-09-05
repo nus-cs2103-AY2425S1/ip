@@ -3,7 +3,7 @@ package utilities;
 import tasks.Task;
 
 // Handles all system interactions
-public class UI {
+public class Ui {
     public static String updateUserOnAddition(String name, int size) {
         String message = "";
 

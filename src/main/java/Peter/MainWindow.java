@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
     private Peter peter;
 
     // ICONS FROM FREEPIK AT "https://www.freepik.com/icons/chatbot" and "https://www.freepik.com/icons/user"
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image peterImage = new Image(this.getClass().getResourceAsStream("/images/chatbot.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image peterImage = new Image(this.getClass().getResourceAsStream("/images/chatbot.png"));
 
     @FXML
     public void initialize() {
