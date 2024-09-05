@@ -8,8 +8,8 @@ public abstract class Speech {
         this(DEFAULT_LINEBREAK);
     }
 
-    Speech(String custom_line) {
-        this.line = custom_line;
+    Speech(String customLine) {
+        this.line = customLine;
     }
 
     public void changeLineBreak(String newLineBreak) {

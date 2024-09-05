@@ -1,10 +1,8 @@
 package rizzler.command;
 
 import rizzler.Storage;
-import rizzler.task.TaskLog;
-
 import rizzler.task.Task;
-
+import rizzler.task.TaskLog;
 import rizzler.ui.RizzlerException;
 
 /**

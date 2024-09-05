@@ -32,7 +32,7 @@ public class EventCommand extends Command {
         taskLog.addTask(event);
         storage.storeTasks(taskLog);
         return new String[] {"certainly, i'll keep track of this event for you ;)",
-        "\t" + event,
-        "now we have " + taskLog.getNumTasks() + " tasks to work on."};
+                "\t" + event,
+                "now we have " + taskLog.getNumTasks() + " tasks to work on."};
     }
 }
