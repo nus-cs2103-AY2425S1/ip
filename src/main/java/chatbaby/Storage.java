@@ -2,9 +2,9 @@ package chatbaby;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -65,14 +65,14 @@ public class Storage {
         try {
             Path parentDir = Path.of(filePath).getParent();
             if (parentDir != null) {
-                Files.createDirectories(parentDir);  // Creates the directory if it doesn't exist
+                Files.createDirectories(parentDir); // Creates the directory if it doesn't exist
             }
             BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
             for (Task task: tasks.getTasks()) {
                 bw.write(task.toFileText());
                 bw.newLine();
             }
-            bw.close();  // Close BufferedWriter to ensure all data is written
+            bw.close(); // Close BufferedWriter to ensure all data is written
         } catch (IOException e) {
             throw new ChatBabyException("Error while saving tasks: " + e.getMessage());
         }

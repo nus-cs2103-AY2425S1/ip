@@ -55,7 +55,7 @@ public class Event extends Task {
     @Override
     public String toFileText() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "E | " + (isDone ? "1" : "0") + " | " + name + " | "
+        return "E | " + (this.isDone() ? "1" : "0") + " | " + this.getName() + " | "
                 + from.format(formatter) + " | " + to.format(formatter);
     }
 

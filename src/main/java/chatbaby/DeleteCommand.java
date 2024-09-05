@@ -1,7 +1,5 @@
 package chatbaby;
 
-import java.util.ArrayList;
-
 /**
  * Represents a command to delete a task in the ChatBaby application.
  * Extends the Command class to perform the deletion of a specific task.

@@ -2,12 +2,12 @@ package chatbaby;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class FindCommandTest {
     private TaskList tasks;
@@ -36,12 +36,11 @@ public class FindCommandTest {
         Command command = new FindCommand("find report");
 
         String expectedOutput = "Here are the tasks in your list:\n1. [T][ ] Write report\n";
-            try {
-                command.execute(tasks, ui, storage);
-
-            } catch (ChatBabyException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            command.execute(tasks, ui, storage);
+        } catch (ChatBabyException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(expectedOutput.replace("\r\n", "\n"),
                 outputStream.toString().replace("\r\n", "\n"));
     }

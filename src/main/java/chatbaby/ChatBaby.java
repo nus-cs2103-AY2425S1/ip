@@ -9,8 +9,8 @@ import java.util.Locale;
  * and saving/loading of tasks.
  */
 public class ChatBaby {
-    private static final String FILE_PATH = "." + File.separator +
-            "data" + File.separator + "chatBaby.txt";
+    private static final String FILE_PATH = "." + File.separator
+            + "data" + File.separator + "chatBaby.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
