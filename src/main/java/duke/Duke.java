@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
@@ -10,7 +12,7 @@ public class Duke {
     private Ui ui;
 
 //    private static void addItem(String inp) {
-//        userInputs.add(new Task(inp));
+//        userInputs.add(new duke.Task(inp));
 //    }
     public Duke(String filePath) {
         ui = new Ui();
@@ -25,7 +27,7 @@ public class Duke {
 
     public void run() {
         // Tesla calls storage to pass the stored stuff to task list
-        // UI greets and then prompts user for response and returns the user's response to the program. Parser works through it
+        // UI greets and then prompts user for response and returns the user's response to the program. duke.Parser works through it
         // and modifies task list and signals ui accordingly for displaying necessary response to user
         // finally, when the user says bye and the
         ui.greet();
