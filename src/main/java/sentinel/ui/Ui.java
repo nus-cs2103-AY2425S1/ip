@@ -12,23 +12,30 @@ import sentinel.utils.SentinelList;
  * reading user input, and providing guidance on how to use the application's features.
  */
 public class Ui {
+    @SuppressWarnings("checkstyle:LineLength")
     private static final String logo =
-            """
-                   _____                                                                                      _____\s
-                  ( ___ )                                                                                    ( ___ )
-                   |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   |\s
-                   |   |                                                                                      |   |\s
-                   |   |   ________  _______   ________   _________  ___  ________   _______   ___            |   |\s
-                   |   |  |\\   ____\\|\\  ___ \\ |\\   ___  \\|\\___   ___\\\\  \\|\\   ___  \\|\\  ___ \\ |\\  \\           |   |\s
-                   |   |  \\ \\  \\___|\\ \\   __/|\\ \\  \\\\ \\  \\|___ \\  \\_\\ \\  \\ \\  \\\\ \\  \\ \\   __/|\\ \\  \\          |   |\s
-                   |   |   \\ \\_____  \\ \\  \\_|/_\\ \\  \\\\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\\\ \\  \\ \\  \\_|/_\\ \\  \\         |   |\s
-                   |   |    \\|____|\\  \\ \\  \\_|\\ \\ \\  \\\\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\\\ \\  \\ \\  \\_|\\ \\ \\  \\____    |   |\s
-                   |   |      ____\\_\\  \\ \\_______\\ \\__\\  \\__\\   \\ \\__\\ \\ \\__\\ \\__\\\\ \\__\\ \\_______\\ \\_______\\  |   |\s
-                   |   |     |\\_________\\|_______|\\|__| \\|__|    \\|__|  \\|__|\\|__| \\|_______|\\|_______|   |   |\s
-                   |   |     \\|_________|                                                                     |   |\s
-                   |   |                                                                                      |   |\s
-                   |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___|\s
-                  (_____)                                                                                    (_____)""";
+            "       _____                                                                                      _____\n"
+        + "      ( ___ )                                                                                    ( ___ )\n"
+        + "       |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   |\n"
+        + "       |   |                                                                                      |   |\n"
+        + "       |   |   ________  _______   ________   _________  ___  ________   _______   ___            |   |\n"
+        + "       |   |  |\\   ____\\|\\  ___ \\ |\\   ___  \\|\\___   ___\\\\  \\|\\   ___  \\|\\  ___ \\ |\\  \\   "
+                    + "        |   |\n"
+        + "       |   |  \\ \\  \\___|\\ \\   __/|\\ \\  \\\\ \\  \\|___ \\  \\_\\ \\  \\ \\  \\\\ \\  \\ \\   __/|\\"
+                    + " \\  \\          |   |\n"
+        + "       |   |   \\ \\_____  \\ \\  \\_|/_\\ \\  \\\\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\\\ \\  \\ \\  \\_|/"
+                    + "_\\ \\  \\         |   |\n"
+        + "       |   |    \\|____|\\  \\ \\  \\_|\\ \\ \\  \\\\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\\\ \\  \\ \\  \\_"
+                    + "|\\ \\ \\  \\____    |   |\n"
+        + "       |   |      ____\\_\\  \\ \\_______\\ \\__\\  \\__\\   \\ \\__\\ \\ \\__\\ \\__\\\\ \\__\\ \\_______"
+                    + "\\ \\_______\\  |   |\n"
+        + "       |   |     |\\_________\\|_______|\\|__| \\|__|    \\|__|  \\|__|\\|__| \\|_______|\\|_______|      "
+                    + "|   |\n"
+        + "       |   |     \\|_________|                                                                     |   |\n"
+        + "       |   |                                                                                      |   |\n"
+        + "       |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___|\n"
+        + "      (_____)                                                                                    (_____)\n";
+
 
     private static final String helpText = """
                     1. todo <task>                                Adds tasks without any date/time attached to list.
@@ -107,7 +114,8 @@ public class Ui {
      * Displays guidelines for using the 'event' command.
      */
     public void showEventCommandGuidelines() {
-        System.out.println("Please state the start and end date using /from <date> and /to <date> respectively (e.g., event project meeting /from 30 Aug 2024 2pm /to 30 Aug 2024 4pm)");
+        System.out.println("Please state the start and end date using /from <date> and /to <date> respectively "
+                + "(e.g., event project meeting /from 30 Aug 2024 2pm /to 30 Aug 2024 4pm)");
     }
 
     /**
@@ -121,7 +129,8 @@ public class Ui {
      * Displays guidelines for using the 'deadline' command.
      */
     public void showDeadlineCommandGuidelines() {
-        System.out.println("Please state the deadline using /by <date> (e.g., deadline return book /by 30 Aug 2024 5pm)");
+        System.out.println("Please state the deadline using /by <date> "
+                + "(e.g., deadline return book /by 30 Aug 2024 5pm)");
     }
 
     /**
@@ -144,7 +153,8 @@ public class Ui {
      * @param commandType The type of command that requires a task name.
      */
     public void showEmptyTaskNameError(Sentinel.CommandType commandType) {
-        System.out.println(commandType.name().substring(0, 1).toUpperCase() + commandType.name().substring(1) + " name cannot be empty");
+        System.out.println(commandType.name().substring(0, 1).toUpperCase()
+                + commandType.name().substring(1) + " name cannot be empty");
     }
 
     /**
@@ -170,7 +180,8 @@ public class Ui {
      * @param lst The list of tasks to display.
      */
     public void showList(SentinelList lst) {
-        System.out.println("Here " + (lst.isSizeOne() ? "is" : "are") + " the " + (lst.isSizeOne() ? "task" : "tasks") + " in your list:");
+        System.out.println("Here " + (lst.isSizeOne() ? "is" : "are") + " the "
+                + (lst.isSizeOne() ? "task" : "tasks") + " in your list:");
         for (int i = 0; i < lst.size(); i++) {
             System.out.println("\t" + (i + 1) + "." + lst.getListedString(i));
         }
@@ -181,10 +192,11 @@ public class Ui {
      *
      * @param lst The list of tasks to filter from.
      */
-    public void showFileredList(SentinelList lst, String keyword) {
+    public void showFilteredList(SentinelList lst, String keyword) {
         lst = lst.filter(keyword);
-        System.out.println("Here " + (lst.isSizeOne() ? "is" : "are") + " the " + (lst.isSizeOne() ? "task" : "tasks") +
-                " in your list that " + (lst.isSizeOne() ? "contains" : "contain") + " the keyword \"" + keyword + "\":");
+        System.out.println("Here " + (lst.isSizeOne() ? "is" : "are") + " the " + (lst.isSizeOne() ? "task" : "tasks")
+                + " in your list that " + (lst.isSizeOne() ? "contains" : "contain")
+                + " the keyword \"" + keyword + "\":");
         for (int i = 0; i < lst.size(); i++) {
             System.out.println("\t" + (i + 1) + "." + lst.getListedString(i));
         }
@@ -197,8 +209,8 @@ public class Ui {
      * @param removed The task that was removed.
      */
     public void showRemovedAndRemaining(SentinelList list, Task removed) {
-        System.out.println("I have deleted the following task:\n\t" + removed.listedString() +
-                "\nYou have " + list.size() + " remaining " + (list.isSizeOne() ? "task" : "tasks") + ".");
+        System.out.println("I have deleted the following task:\n\t" + removed.listedString()
+                + "\nYou have " + list.size() + " remaining " + (list.isSizeOne() ? "task" : "tasks") + ".");
     }
 
     /**

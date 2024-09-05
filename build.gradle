@@ -14,7 +14,7 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     testImplementation 'org.mockito:mockito-core:4.7.0'
 
-    checkstyle "com.puppycrawl.tools:checkstyle:${checkstyle.toolVersion}"
+//    checkstyle "com.puppycrawl.tools:checkstyle:${checkstyle.toolVersion}"
 }
 
 test {
@@ -45,31 +45,30 @@ run {
 }
 
 checkstyle {
-    toolVersion = '8.45' // Ensure this is the version you need
-    configFile = file('config/checkstyle/checkstyle.xml') // Correctly set the configuration file
+    toolVersion = '10.2'
 }
 
-checkstyleMain {
-    source 'src/main/java'
-    include '**/*.java'
-    reports {
-//        xml.enabled = true
-//        html.enabled = true
-    }
-}
-
-checkstyleTest {
-    source 'src/test/java'
-    include '**/*.java'
-    reports {
-//        xml.enabled = true
-//        html.enabled = true
-    }
-}
-
-tasks.withType(Checkstyle) {
-    reports {
-//        xml.required = true
-//        html.required = true
-    }
-}
+//checkstyleMain {
+//    source 'src/main/java'
+//    include '**/*.java'
+//    reports {
+////        xml.enabled = true
+////        html.enabled = true
+//    }
+//}
+//
+//checkstyleTest {
+//    source 'src/test/java'
+//    include '**/*.java'
+//    reports {
+////        xml.enabled = true
+////        html.enabled = true
+//    }
+//}
+//
+//tasks.withType(Checkstyle) {
+//    reports {
+////        xml.required = true
+////        html.required = true
+//    }
+//}

@@ -28,6 +28,6 @@ public class FindCommand extends Command {
     @Override
     public void execute(String input) {
         String keyword = Parser.parseKeyword(input);
-        ui.showFileredList(list, keyword);
+        ui.showFilteredList(list, keyword);
     }
 }

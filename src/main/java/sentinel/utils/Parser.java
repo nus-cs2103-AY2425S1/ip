@@ -1,5 +1,9 @@
 package sentinel.utils;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
+
+import sentinel.Sentinel;
 import sentinel.api.GeminiApi;
 import sentinel.exception.DeadlineException;
 import sentinel.exception.EventException;
@@ -9,16 +13,12 @@ import sentinel.task.Event;
 import sentinel.task.Task;
 import sentinel.task.ToDo;
 import sentinel.ui.Ui;
-import sentinel.Sentinel;
-import java.time.LocalDateTime;
-import java.util.Arrays;
 
 /**
  * The Parser class is responsible for parsing user input and converting it into commands or tasks.
  * It includes methods for parsing command types, task names, deadlines, events, and indices.
  */
 public class Parser {
-
     /**
      * Parses the user input to determine the command type.
      *
@@ -47,29 +47,32 @@ public class Parser {
         }
 
         switch (commandType) {
-            case todo -> {
-                return new ToDo(taskName);
+        case todo -> {
+            return new ToDo(taskName);
+        }
+        case deadline -> {
+            String deadlineTime = parseTime(input, "/by");
+            LocalDateTime deadlineDateTime = GeminiApi.formatDateTime(deadlineTime);
+            if (deadlineDateTime != null) {
+                return new Deadline(taskName, deadlineDateTime);
+            } else {
+                ui.showDeadlineCommandGuidelines();
             }
-            case deadline -> {
-                String deadlineTime = parseTime(input, "/by");
-                LocalDateTime deadlineDateTime = GeminiApi.formatDateTime(deadlineTime);
-                if (deadlineDateTime != null) {
-                    return new Deadline(taskName, deadlineDateTime);
-                } else {
-                    ui.showDeadlineCommandGuidelines();
-                }
+        }
+        case event -> {
+            String fromTime = parseTime(input, "/from");
+            String toTime = parseTime(input, "/to");
+            LocalDateTime fromDateTime = GeminiApi.formatDateTime(fromTime);
+            LocalDateTime toDateTime = GeminiApi.formatDateTime(toTime);
+            if (fromDateTime == null || toDateTime == null) {
+                ui.showEventCommandGuidelines();
+            } else if (fromDateTime.isAfter(toDateTime)) {
+                ui.showEventDateOrder();
+            } else {
+                return new Event(taskName, fromDateTime, toDateTime);
             }
-            case event -> {
-                String fromTime = parseTime(input, "/from");
-                String toTime = parseTime(input, "/to");
-                LocalDateTime fromDateTime = GeminiApi.formatDateTime(fromTime);
-                LocalDateTime toDateTime = GeminiApi.formatDateTime(toTime);
-                if (fromDateTime == null || toDateTime == null) {
-                    ui.showEventCommandGuidelines();
-                } else if (fromDateTime.isAfter(toDateTime)){
-                    ui.showEventDateOrder();
-                } else return new Event(taskName, fromDateTime, toDateTime);
-            }
+        }
+        default -> { }
         }
         return null;
     }
@@ -88,28 +91,29 @@ public class Parser {
         String taskName = "";
 
         switch (commandType) {
-            case todo -> taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, stringArr.length)).trim();
+        case todo -> taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, stringArr.length)).trim();
 
-            case deadline -> {
-                // For 'deadline', taskName is everything after the command and before "/by"
-                int byIndex = Arrays.asList(stringArr).indexOf("/by");
-                if (byIndex != -1) {
-                    taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, byIndex)).trim();
-                } else {
-                    ui.showDeadlineCommandGuidelines();
-                    throw new DeadlineException("Deadline task command requires a '/by' date.");
-                }
+        case deadline -> {
+            // For 'deadline', taskName is everything after the command and before "/by"
+            int byIndex = Arrays.asList(stringArr).indexOf("/by");
+            if (byIndex != -1) {
+                taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, byIndex)).trim();
+            } else {
+                ui.showDeadlineCommandGuidelines();
+                throw new DeadlineException("Deadline task command requires a '/by' date.");
             }
-            case event -> {
-                // For 'event', taskName is everything after the command and before "/from"
-                int fromIndex = Arrays.asList(stringArr).indexOf("/from");
-                if (fromIndex != -1) {
-                    taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, fromIndex)).trim();
-                } else {
-                    ui.showEventCommandGuidelines();
-                    throw new EventException("Event task command requires a '/from' time.");
-                }
+        }
+        case event -> {
+            // For 'event', taskName is everything after the command and before "/from"
+            int fromIndex = Arrays.asList(stringArr).indexOf("/from");
+            if (fromIndex != -1) {
+                taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, fromIndex)).trim();
+            } else {
+                ui.showEventCommandGuidelines();
+                throw new EventException("Event task command requires a '/from' time.");
             }
+        }
+        default -> { }
         }
 
         return taskName;

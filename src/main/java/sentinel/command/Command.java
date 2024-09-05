@@ -49,7 +49,6 @@ public abstract class Command {
         case todo, deadline, event -> new CreateTaskCommand(ui, list, commandType);
         case help -> new HelpCommand(ui, list);
         case bye -> new ByeCommand(ui, list);
-        default -> throw new IllegalArgumentException("Unknown command");
         };
     }
 }

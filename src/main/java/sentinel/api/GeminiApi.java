@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,8 +27,8 @@ public class GeminiApi {
         if (input.isBlank()) {
             return null;
         }
-        // Load environmnt variables from .env file
-        Map<String, String> envVars = loadEnvVars(".env");
+        // Load environment variables from .env file
+        Map<String, String> envVars = loadEnvVars();
         String apiKey = envVars.get("API_KEY");
 
         try {
@@ -40,10 +41,10 @@ public class GeminiApi {
             conn.setDoOutput(true);
             String jsonPayload = "{\"contents\":[{\"parts\":[{\"text\":\"" + input + "\"}]}]}";
             try (OutputStream os = conn.getOutputStream()) {
-                os.write(jsonPayload.getBytes("UTF-8"));
+                os.write(jsonPayload.getBytes(StandardCharsets.UTF_8));
                 os.flush();
             }
-            int responseCode = conn.getResponseCode();
+            //int responseCode = conn.getResponseCode();
 
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                 String line;
@@ -81,9 +82,9 @@ Don't give any explanation or any other answer other than 'null' or '{YYYY}-{MM}
     }
 
     // Method to load environment variables from .env file
-    private static Map<String, String> loadEnvVars(String filePath) {
+    private static Map<String, String> loadEnvVars() {
         Map<String, String> envVars = new HashMap<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(".env"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("=", 2);

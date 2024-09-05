@@ -1,7 +1,8 @@
 package sentinel.utils;
 
-import sentinel.task.Task;
 import java.util.ArrayList;
+
+import sentinel.task.Task;
 
 /**
  * SentinelList is a custom list implementation that extends ArrayList to store Task objects.
@@ -77,24 +78,30 @@ public class SentinelList extends ArrayList<Task> {
      */
     @Override
     public Task get(int index) {
-        if (index < 0 || index >= size()) return null;
+        if (index < 0 || index >= size()) {
+            return null;
+        }
         return super.get(index);
     }
 
     /**
      * Filters tasks in the list based on a keyword.
      * <p>
-     * This method iterates through all tasks in the list and adds those whose descriptions contain the specified keyword to a new `SentinelList`.
+     * This method iterates through all tasks in the list and adds those whose descriptions contain
+     * the specified keyword to a new `SentinelList`.
      * The filtering is case-sensitive.
      * </p>
      *
      * @param keyword The keyword to search for in the task descriptions.
-     * @return A `SentinelList` containing tasks whose descriptions include the given keyword. If no tasks match, an empty list is returned.
-     */
+     * @return A `SentinelList` containing tasks whose descriptions include the given keyword. If no tasks match,
+     *     an empty list is returned.
+     * */
     public SentinelList filter(String keyword) {
         SentinelList result = new SentinelList();
         for (Task t : this) {
-            if (t.toString().contains(keyword)) result.add(t);
+            if (t.toString().contains(keyword)) {
+                result.add(t);
+            }
         }
         return result;
     }
