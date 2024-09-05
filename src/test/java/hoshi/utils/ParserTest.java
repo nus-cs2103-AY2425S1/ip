@@ -4,8 +4,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.Scanner;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -207,10 +205,7 @@ public class ParserTest {
     public void handleAddTest_addCompleted_success() {
 
         // prepare mocked objects/behaviour and input
-        String input = "add todo";
-
-        // Simulating user input
-        Scanner scanner = new Scanner("Test Todo Description");
+        String input = "add todo description";
 
         // Mock the parser class to instruct handleSave to do nothing later on
         Parser parser = Mockito.spy(new Parser());
@@ -223,7 +218,7 @@ public class ParserTest {
 
         // assert
         verify(taskList).add(Mockito.any(Todo.class));
-        verify(ui).displayTodoTask();
+        verify(ui).displayTaskAdded("description");
 
     }
 
@@ -237,16 +232,12 @@ public class ParserTest {
 
         String input = "add todo";
 
-        Scanner scanner = new Scanner("\n"); // Simulating empty user input after the next line
-
         // test
-
         parser.handleAdd(input, taskList, ui);
 
         // assert
-
         verify(ui).displayTodoTask();
-        verify(ui).displayError("Hoshi doesn't understand! Is input empty? \n");
+        verify(ui).displayError("Hoshi wants you to try specifying the task!");
 
 
     }

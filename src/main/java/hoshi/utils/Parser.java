@@ -3,7 +3,6 @@ package hoshi.utils;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 import hoshi.exception.HoshiException;
 import hoshi.task.Deadline;
@@ -32,31 +31,25 @@ public class Parser {
     public String parseCommand(String input, TaskList taskList, Ui ui) {
 
         switch (input.split(" ")[0].toLowerCase()) {
+        case "initialize":
+            return ui.initialize();
         case "bye":
             return ui.displayBye();
-
         case "list":
             return ui.displayTasks(taskList);
-
         case "mark":
             return handleMark(input, taskList, ui);
-
         case "unmark":
             return handleUnmark(input, taskList, ui);
         case "delete":
-            handleDelete(input, taskList, ui);
-            break;
-
+            return handleDelete(input, taskList, ui);
         case "add":
             return handleAdd(input, taskList, ui);
-
         case "find":
-            handleFind(input, taskList, ui);
-            break;
+            return handleFind(input, taskList, ui);
         default:
             return ui.displayError("Hoshi doesn't understand, try a different input?");
         }
-        return "NOT WORKING - STRICTLY FOR DEBUGGING ONLY";
     }
 
     /**
@@ -154,10 +147,10 @@ public class Parser {
      * @param taskList the TaskList that stores 3 types of tasks
      * @param ui       Ui that handles displaying information to user
      */
-    public void handleDelete(String input, TaskList taskList, Ui ui) {
+    public String handleDelete(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() < 7) {
-            ui.displayError("Hoshi doesn't understand, try a different input?");
+            return ui.displayError("Hoshi doesn't understand, try a different input?");
 
         } else {
             String trimmedInput = input.trim();
@@ -172,19 +165,21 @@ public class Parser {
                 // if specified index is not out of bounds
                 if (markIndex <= taskList.size() - 1) {
 
-                    ui.displayTaskDeleted(taskList.get(markIndex));
-
+                    Task task = taskList.get(markIndex);
                     // delete the task
                     taskList.delete(markIndex);
 
                     handleSave(ui, taskList);
+
+                    return ui.displayTaskDeleted(task);
+
 
                 } else {
                     throw new HoshiException("Hoshi doesn't have such a task!");
                 }
 
             } catch (HoshiException e) {
-                ui.displayError(e.getMessage());
+                return ui.displayError(e.getMessage());
             }
         }
     }
@@ -212,13 +207,14 @@ public class Parser {
             case "todo" -> {
 
                 ui.displayTodoTask();
-                Scanner scanner = new Scanner(System.in);
-                String desc = scanner.nextLine();
 
                 try {
 
+                    String desc = splitInput[2];
+
                     if (desc.isEmpty()) {
-                        throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
+                        throw new HoshiException("Hoshi doesn't understand! Please follow the example input"
+                                + "Add todo Feed Parrot \n");
                     }
 
                     Todo newToDo = new Todo(desc);
@@ -226,32 +222,31 @@ public class Parser {
 
                     handleSave(ui, taskList);
 
-                    ui.displayTaskAdded(input);
+                    return ui.displayTaskAdded(desc);
 
 
                 } catch (HoshiException e) {
-                    ui.displayError(e.getMessage());
+                    return ui.displayError(e.getMessage());
+                } catch (IndexOutOfBoundsException e) {
+                    return ui.displayError("Hoshi wants you to try specifying the task!");
                 }
 
             }
             case "deadline" -> {
 
                 ui.displayDeadlineTask();
-                Scanner scanner = new Scanner(System.in);
-                String desc = scanner.nextLine();
 
                 try {
+
+                    String desc = splitInput[2];
 
                     if (desc.isEmpty()) {
                         throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
                     }
 
                     ui.displayDeadlineDue();
-
-                    // take in input
-                    String endTime = scanner.nextLine();
-
-                    LocalDate dateTime = LocalDate.parse(endTime);
+                    // parse endDate
+                    LocalDate dateTime = LocalDate.parse(splitInput[3]);
 
                     Deadline newDeadline = new Deadline(desc, dateTime);
                     taskList.add(newDeadline);
@@ -262,8 +257,11 @@ public class Parser {
 
                 } catch (HoshiException e) {
                     ui.displayError(e.getMessage());
+                } catch (IndexOutOfBoundsException e) {
+                    ui.displayError("Hoshi wants you to try specifying the task!");
                 } catch (DateTimeParseException e) {
-                    ui.displayError("Hoshi doesn't understand! Try YYYY-MY-DD format");
+                    ui.displayError("Hoshi doesn't understand! Try YYYY-MY-DD format and follow the example layout "
+                            + "Add deadline Assignment1 2021-12-20");
                 }
 
 
@@ -271,27 +269,24 @@ public class Parser {
             case "event" -> {
 
                 ui.displayEventTask();
-                Scanner scanner = new Scanner(System.in);
-                String desc = scanner.nextLine();
 
                 try {
+
+                    String desc = splitInput[2];
+
                     if (desc.isEmpty()) {
                         throw new HoshiException("Hoshi doesn't understand! Is input empty? \n");
                     }
-
+                    // display event start
                     ui.displayEventStart();
 
-                    // take in input
-                    String startTime = scanner.nextLine();
+                    // parse startTime
+                    LocalDate dateTimeStart = LocalDate.parse(splitInput[3]);
 
-                    LocalDate dateTimeStart = LocalDate.parse(startTime);
-
+                    // display event end
                     ui.displayEventEnd();
-
-                    // take in input
-                    String endTime = scanner.nextLine();
-
-                    LocalDate dateTimeEnd = LocalDate.parse(endTime);
+                    // parse endTime
+                    LocalDate dateTimeEnd = LocalDate.parse(splitInput[4]);
 
                     Event newEvent = new Event(desc, dateTimeStart, dateTimeEnd);
                     taskList.add(newEvent);
@@ -303,8 +298,11 @@ public class Parser {
 
                 } catch (HoshiException e) {
                     ui.displayError(e.getMessage());
+                } catch (IndexOutOfBoundsException e) {
+                    ui.displayError("Hoshi wants you to try specifying the task!");
                 } catch (DateTimeParseException e) {
-                    ui.displayError("Hoshi doesn't understand! Try YYYY-MY-DD format");
+                    ui.displayError("Hoshi doesn't understand! Try YYYY-MY-DD format and follow the example layout "
+                            + "Add deadline Assignment1 2021-12-20 2022-12-20");
                 }
 
             }
@@ -316,7 +314,7 @@ public class Parser {
             }
 
         }
-        return "STRICTLY FOR DEBUGGING ONLY - TO BE REMOVED";
+        return ui.displayError("Hoshi doesn't understand! Please try again with the above keywords");
     }
 
     /**
@@ -341,11 +339,10 @@ public class Parser {
      * @param taskList the TaskList that stores 3 types of tasks
      * @param ui       Ui that handles displaying information to user
      */
-    public void handleFind(String input, TaskList taskList, Ui ui) {
+    public String handleFind(String input, TaskList taskList, Ui ui) {
 
         if (input.trim().length() == 4) {
-            ui.displayError("Hoshi doesn't understand! Please try again with - Find {Keyword}");
-            return;
+            return ui.displayError("Hoshi doesn't understand! Please try again with - find {Keyword}");
         }
 
         String[] parts = input.split(" ");
@@ -365,8 +362,7 @@ public class Parser {
         }
 
         // call ui class to display matching tasks list
-        ui.displayMatchingList();
-        ui.displayTasks(matchingTasks);
+        return ui.displayFoundTasks(matchingTasks);
 
     }
 

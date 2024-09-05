@@ -2,7 +2,6 @@ package hoshi;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 import hoshi.task.TaskList;
 import hoshi.ui.Ui;
@@ -56,7 +55,6 @@ public class Hoshi {
 
         //ui.displayPrompt();
         //input = scanner.nextLine();
-
 
         try {
             storage.save(taskList);

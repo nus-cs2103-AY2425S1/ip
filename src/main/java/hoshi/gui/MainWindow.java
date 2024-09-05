@@ -31,12 +31,25 @@ public class MainWindow extends AnchorPane {
 
     private Hoshi hoshi;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.JPG"));
-    private Image hoshiImage = new Image(this.getClass().getResourceAsStream("/images/Hoshi.JPG"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.JPG"));
+    private final Image hoshiImage = new Image(this.getClass().getResourceAsStream("/images/Hoshi.JPG"));
 
+    /**
+     * Initializes GUi and initial message
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        userInput.setPromptText("Enter your input here...");
+
+        String initialMessage = "Welcome to Hoshi! Try the following commands out! \n"
+                + "1.) Add todo/deadline/event\n"
+                + "2.) Mark/Unmark\n"
+                + "3.) Delete\n"
+                + "4.) Find\n"
+                + "5.) Bye";
+        dialogContainer.getChildren().add(DialogBox.getHoshiDialog(initialMessage, hoshiImage));
     }
 
     /**
@@ -56,7 +69,7 @@ public class MainWindow extends AnchorPane {
         String response = hoshi.run(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, hoshiImage)
+                DialogBox.getHoshiDialog(response, hoshiImage)
         );
         userInput.clear();
 

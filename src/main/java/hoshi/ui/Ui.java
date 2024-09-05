@@ -42,7 +42,18 @@ public class Ui {
         } else {
             return "Hoshi doesn't have anything stored! Please add a task first";
         }
+    }
 
+    /**
+     * Displays all tasks that the user has previously added to Hoshi that match the search query
+     */
+    public String displayFoundTasks(TaskList tasks) {
+
+        if (!tasks.isEmpty()) {
+            return displayMatchingList() + "\n" + tasks;
+        } else {
+            return "Hoshi couldn't find tasks with that keyword, please try again!";
+        }
     }
 
     /**
@@ -147,15 +158,15 @@ public class Ui {
     /**
      * Displays text indicating task has been added
      */
-    public void displayTaskAdded(String input) {
-        System.out.println("added: " + input);
+    public String displayTaskAdded(String input) {
+        return "added: " + input;
     }
 
     /**
      * Displays text indicating search has returned several tasks
      */
-    public void displayMatchingList() {
-        System.out.println("Hoshi has found the following tasks matching your search!");
+    public String displayMatchingList() {
+        return "Hoshi has found the following tasks matching your search!";
     }
 
     /**
@@ -186,4 +197,15 @@ public class Ui {
         return "Bye, Hope to see you again soon! \n";
     }
 
+    /**
+     * Displays text indicating the program has started
+     */
+    public String initialize() {
+        return "Welcome to Hoshi! Try the following commands out!\n"
+                + "1.) Add todo/deadline/event\n"
+                + "2.) Mark/Unmark {1}\n"
+                + "3.) Delete {1}\n"
+                + "4.) Find\n"
+                + "5.) Bye";
+    }
 }
