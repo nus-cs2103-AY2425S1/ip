@@ -5,4 +5,8 @@ T , 1 , join sports club
 T , 1 , read book again
 T , 0 , borrow Jackson EM
 T , 0 , fix this code
-D , 0 , play Black Myth , 2024-09-06
+D , 1 , play Black Myth , 2024-09-06
+T , 0 , borrow book
+E , 0 , amazing race , Fri 6pm-7am
+D , 1 , finish after action review , 2024-09-12
+D , 0 , finish 2103 , 2024-09-06
