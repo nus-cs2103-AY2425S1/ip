@@ -1,9 +1,8 @@
 package ui;
 
-import tasks.Task;
-
-import java.util.ArrayList;
-
+/**
+ * Encapsulates the application and the means to communicate with users using messages.
+ */
 public class Ui {
     public Ui() {
 

@@ -1,14 +1,17 @@
-package taskList;
+package tasklist;
 
-import exceptions.GrokInvalidUserInputException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import tasks.Task;
-import tasks.TaskStub;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import exceptions.GrokInvalidUserInputException;
+import tasks.Task;
+import tasks.TaskStub;
 
 public class TaskListTest {
     private static TaskList tasks;

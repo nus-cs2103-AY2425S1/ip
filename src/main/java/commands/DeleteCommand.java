@@ -1,7 +1,7 @@
 package commands;
 
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import tasks.Task;
 import ui.Ui;
 
@@ -12,6 +12,10 @@ import ui.Ui;
 public class DeleteCommand extends Command {
     private final int taskIndex;
 
+    /**
+     * Initializes a delete command with the task index.
+     * @param taskIndex task index which the element to be deleted belongs at
+     */
     public DeleteCommand(int taskIndex) {
         super();
         this.taskIndex = taskIndex;
@@ -27,7 +31,8 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.deleteTaskAt(taskIndex);
         storage.writeToTextStorage(tasks);
-        ui.printGenericMessage( "Got it. I've deleted this task:\n  " +
-                task + "\nNow you have " + tasks.length() + " tasks in the list.");
+        ui.printGenericMessage("Got it. I've deleted this task:\n  "
+                + task
+                + "\nNow you have " + tasks.length() + " tasks in the list.");
     }
 }

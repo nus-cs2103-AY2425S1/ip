@@ -1,13 +1,13 @@
 package grok;
 
+import java.util.Scanner;
+
 import commands.Command;
 import exceptions.GrokInvalidUserInputException;
 import parser.Parser;
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
-
-import java.util.Scanner;
 
 /**
  * The main coordinator engine behind the application
@@ -22,6 +22,11 @@ public class Grok {
     private final Parser parser;
     private final Scanner scanner;
 
+
+    /**
+     * The main coordinator of this application. Contains the boot-up sequence to start different classes and
+     * initialize the application, and coordinate user inputs from user to relevant classes.
+     */
     public Grok() {
         storage = new Storage(TEXT_FILE_DIRECTORY);
         taskList = new TaskList(storage.parseTextStorage());

@@ -1,7 +1,7 @@
 package commands;
 
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import tasks.Task;
 import ui.Ui;
 
@@ -14,6 +14,10 @@ import ui.Ui;
 public class FindCommand extends Command {
     private final String searchQuery;
 
+    /**
+     * Searches for all tasks which fulfil a given search query.
+     * @param searchQuery current search query only
+     */
     public FindCommand(String searchQuery) {
         super();
         this.searchQuery = searchQuery;
