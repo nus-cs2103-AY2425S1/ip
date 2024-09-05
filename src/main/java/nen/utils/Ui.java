@@ -26,7 +26,6 @@ public class Ui {
      * Ends the conversation with ending messages
      */
     public void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
         System.out.println(SEPARATOR);
     }
 

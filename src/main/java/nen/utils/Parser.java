@@ -1,28 +1,24 @@
 package nen.utils;
 
+import nen.commands.Command;
+import nen.commands.DoNothingCommand;
 import nen.exceptions.ArgumentMissingException;
-import nen.exceptions.DateTimeFormatIncorrectException;
-import nen.exceptions.EmptyDescriptionException;
 import nen.exceptions.InvalidInputException;
-import nen.tasks.Task;
 
 /**
  * This class represents a parser deals with making sense of the user command
  * @author Gan Ren Yick (A0276246X)
  */
 public class Parser {
-    private Ui ui;
     private TaskList taskList;
 
     /**
      * Creates a parser which determined action of user input and make changes
      * to taskList and give reaction to ui to print out
      * @param taskList of tasks
-     * @param ui user interface to print out answer to user input
      */
-    public Parser(TaskList taskList, Ui ui) {
+    public Parser(TaskList taskList) {
         this.taskList = taskList;
-        this.ui = ui;
     }
 
     /**
@@ -30,66 +26,26 @@ public class Parser {
      * @param input by user
      * @return a boolean which determined if nen2 should continue read user input
      */
-    public boolean continueParsing(String input) {
-        int arg;
+    public Command parse(String input) {
+        String arg = "";
         String action = input.split(" ")[0];
         String react = "";
         try {
             switch(action) {
-            case "bye":
-                return false;
-            case "mark":
-                arg = getIndex(input);
-                taskList.get(arg - 1).markAsDone();
-                react += "Nice! I've marked this task as done:"
-                        + "\n"
-                        + taskList.get(arg - 1).toString() + "\n";
+            case "bye", "list", "find":
                 break;
-            case "unmark":
-                arg = getIndex(input);
-                taskList.get(arg - 1).markAsNotDone();
-                react += "OK, I've marked this task as not done yet:\n"
-                        + taskList.get(arg - 1).toString() + "\n";
+            case "mark", "delete", "unmark":
+                arg = String.valueOf(getIndex(input));
                 break;
-            case "delete":
-                arg = getIndex(input);
-                react += "Noted. I've removed this task:\n"
-                        + taskList.get(arg - 1).toString() + "\n";
-                taskList.remove(arg - 1);
-                react += "Now you have " + taskList.size() + " tasks in the list." + "\n";
-                break;
-            case "list":
-                react += "Here are the tasks in your list:\n"
-                        + taskList.toString();
-                break;
-            case "find":
-                try {
-                    int count = 1;
-                    react += "Here are the matching tasks in your list:\n";
-                    for (Task t : taskList.findTaskWithKeyword(input.split(" ")[1])) {
-                        react += count + "." + t.toString() + "\n";
-                        count++;
-                    }
-                    break;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new ArgumentMissingException("find what?");
-                }
             default:
-                Task t = Task.of(input);
-                taskList.add(t);
-                react += "Got it. I've added this task: \n" + t + "\n"
-                        + "Now you have " + taskList.size()
-                        + " tasks in the list." + "\n";
+                action = input;
+                break;
             }
-            ui.print(react);
+            return Command.of(action, arg);
         } catch (InvalidInputException
-                 | ArgumentMissingException
-                 | EmptyDescriptionException
-                 | DateTimeFormatIncorrectException e) {
-            ui.print(e.getMessage() + "\n");
+                 | ArgumentMissingException e) {
+            return new DoNothingCommand(e.getMessage() + "\n");
         }
-
-        return true;
     }
 
     /**
