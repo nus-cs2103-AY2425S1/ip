@@ -2,9 +2,40 @@ import java.util.ArrayList;
 
 public class InputHandler {
     private ArrayList<Task> data;
+    private Storage storage;
     private String hline = "____________________________________________________________";
-    public InputHandler(ArrayList<Task> database) {
-        this.data = database;
+    public InputHandler(ArrayList<Task> data, Storage storage) {
+        this.data = data;
+        this.storage = storage;
+    }
+    public void overallHandler(String input) throws BuzzException  {
+        if (input.startsWith("mark")) {
+            this.markHandle(input);
+            this.storage.saveTasks(data);
+        } else if (input.startsWith("unmark")) {
+            this.unmarkHandle(input);
+            this.storage.saveTasks(data);
+        } else if (input.startsWith("delete")) {
+            this.deleteHandle(input);
+            this.storage.saveTasks(data);
+        } else if (input.equals("list")) {
+            System.out.println(hline);
+            for (int i = 0; i < data.size(); i++) {
+                System.out.println((i + 1) + "." + data.get(i).toString());
+            }
+            System.out.println(hline);
+        } else if (input.startsWith("todo")) {
+            this.todoHandle(input);
+            this.storage.saveTasks(data);
+        } else if (input.startsWith("deadline")) {
+            this.deadlineHandle(input);
+            this.storage.saveTasks(data);
+        } else if (input.startsWith("event")) {
+            this.eventHandle(input);
+            this.storage.saveTasks(data);
+        } else {
+            throw new BuzzException("GRRR! I do not know what that means. Try again! *bzzrg*");
+        }
     }
     public void markHandle(String input) throws BuzzException {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
