@@ -63,7 +63,13 @@ public class MainWindow extends AnchorPane {
         this.ui = ui;
 
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
-        this.getStylesheets().add(Objects.requireNonNull(MainWindow.class.getResource("/css/dialog-box.css")).toExternalForm());
+        this.getStylesheets().add(
+                Objects.requireNonNull(
+                        MainWindow.class.getResource(
+                                "/css/dialog-box.css"
+                        )
+                ).toExternalForm()
+        );
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
