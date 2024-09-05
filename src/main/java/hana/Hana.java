@@ -25,7 +25,7 @@ public class Hana {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (IOException e) {
+        } catch (IOException | HanaException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -60,18 +60,10 @@ public class Hana {
         try {
             Command command = Parser.parse(input);
             command.execute(tasks, ui, storage);
-            return ui.getResponseMessage();  // A method in Ui class to return response message
+            return ui.getResponseMessage(); // A method in Ui class to return response message
         } catch (HanaException | IOException e) {
             return e.getMessage();
         }
     }
 
-//    /**
-//     * Main method to start the Hana application.
-//     *
-//     * @param args Command line arguments (not used).
-//     */
-//    public static void main(String[] args) {
-//        new Hana("data/hana.txt").run();
-//    }
 }

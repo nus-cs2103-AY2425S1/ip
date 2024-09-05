@@ -1,14 +1,14 @@
 package hana;
 
-import hana.task.ToDo;
-import hana.task.Deadline;
-import hana.task.Event;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import hana.task.Deadline;
+import hana.task.Event;
+import hana.task.ToDo;
 
 /**
  * Handles the parsing of user input into executable commands.
@@ -66,7 +66,7 @@ public class Parser {
             return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
         case "event":
             String[] eventParts = parts[1].split(" /from | /to ");
-            if (fullCommand.trim().equals("event")  || fullCommand.startsWith("event /from")) {
+            if (fullCommand.trim().equals("event") || fullCommand.startsWith("event /from")) {
                 throw new HanaException("OOPS!!! The description of an event cannot be empty.");
             } else if (!fullCommand.contains(" /from ") || !fullCommand.contains(" /to ")) {
                 throw new HanaException("OOPS!!! Please add event time by adding /from and /to");

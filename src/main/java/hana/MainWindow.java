@@ -25,11 +25,18 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the MainWindow controller and sets up the initial state of the UI.
+     * Binds the vertical scroll property of the ScrollPane to automatically scroll down as the dialog container grows.
+     * Displays the welcome message from Hana when the program starts.
+     *
+     * The welcome message is retrieved from the Ui class and shown in the dialog container as a Duke dialog.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         // Display welcome message when the program starts
-        String welcomeMessage = Ui.showWelcome();  // Get the welcome message
+        String welcomeMessage = Ui.showWelcome(); // Get the welcome message
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
     }
 
@@ -55,8 +62,8 @@ public class MainWindow extends AnchorPane {
 
         // Check if the user has entered "bye"
         if (input.equals("bye")) {
-            userInput.setDisable(true);    // Disable input field to stop further input
-            sendButton.setDisable(true);   // Disable the send button
+            userInput.setDisable(true); // Disable input field to stop further input
+            sendButton.setDisable(true); // Disable the send button
         }
     }
 }

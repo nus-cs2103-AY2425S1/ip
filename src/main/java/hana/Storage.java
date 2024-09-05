@@ -1,17 +1,17 @@
 package hana;
 
-import hana.task.Task;
-import hana.task.ToDo;
-import hana.task.Deadline;
-import hana.task.Event;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import hana.task.Deadline;
+import hana.task.Event;
+import hana.task.Task;
+import hana.task.ToDo;
 
 /**
  * Handles loading tasks from the file and saving tasks to the file.
@@ -34,7 +34,7 @@ public class Storage {
      * @return A list of tasks loaded from the file.
      * @throws IOException If there is an error reading the file.
      */
-    public List<Task> load() throws IOException {
+    public List<Task> load() throws IOException, HanaException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
@@ -67,6 +67,8 @@ public class Storage {
                     }
                     tasks.add(event);
                     break;
+                default:
+                    throw new HanaException("No such task");
                 }
             }
         }
@@ -98,13 +100,14 @@ public class Storage {
      */
     private String taskToString(Task task) {
         if (task instanceof ToDo) {
-            return "T | " + (task.isDone ? "1" : "0") + " | " + task.description;
+            return "T | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
-            return "D | " + (task.isDone ? "1" : "0") + " | " + d.description + " | " + d.by;
+            return "D | " + (task.getIsDone() ? "1" : "0") + " | " + d.getDescription() + " | " + d.getBy();
         } else if (task instanceof Event) {
             Event e = (Event) task;
-            return "E | " + (task.isDone ? "1" : "0") + " | " + e.description + " | " + e.from + " | " + e.to;
+            return "E | " + (task.getIsDone() ? "1" : "0") + " | " + e.getDescription() + " | " + e.getFrom()
+                    + " | " + e.getTo();
         }
         return "";
     }
