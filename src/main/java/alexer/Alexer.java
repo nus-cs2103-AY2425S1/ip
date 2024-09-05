@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 
 /**
  * lexer (ˈleksər) - A computer program that performs lexical analysis.
+ *
  * @author sayomaki
  */
 public class Alexer {
     private static final String BREAK = "____________________________________________________________";
 
+    /** Wordart logo of the chatbot **/
     public static final String LOGO = """
                      .     .                           
                     /|     |     ___  _  .-   ___  .___
@@ -26,6 +28,7 @@ public class Alexer {
                   /---'\\   |   |----'  /\\   |----' |   '
                 ,'      \\ /\\__ `.___, /  \\  `.___, /   """;
 
+    /** Name of the chatbot **/
     public static final String NAME = "Alexer";
 
     private static Alexer alexer;
@@ -38,10 +41,19 @@ public class Alexer {
 
     private final CommandHandler commandHandler;
 
+    /**
+     * Returns an instance of the chatbot.
+     *
+     * @return the current bot instance
+     */
     public static Alexer getInstance() {
         return alexer;
     }
 
+    /**
+     * Creates a new chatbot, and instantiate the relevant fields.
+     * Also populates the instance of the chatbot.
+     */
     public Alexer() {
         alexer = this;
         scanner = new Scanner(System.in);
@@ -50,10 +62,21 @@ public class Alexer {
         commandHandler = new CommandHandler();
     }
 
+    /**
+     * Returns the prompter instance that handles all bot responses
+     *
+     * @return An instance of the prompter
+     */
     public Prompter getPrompter() {
         return prompter;
     }
 
+    /**
+     * Returns the task manager instance for the bot, which
+     * handles all task-related actions and operations.
+     *
+     * @return An instance of the task manager
+     */
     public TaskManager getTaskManager() {
         return tasks;
     }
@@ -165,6 +188,11 @@ public class Alexer {
         System.out.println(BREAK);
     }
 
+    /**
+     * Prompts the user for input (in the form of commands)
+     * This function will repeatedly call itself until a
+     * terminating command (e.g. bye) is invoked.
+     */
     public void promptLoop() {
         String input = scanner.nextLine();
 
@@ -216,6 +244,10 @@ public class Alexer {
         }
     }
 
+    /**
+     * Starts the chatbot, load all the necessary
+     * data and greets the user.
+     */
     public void start() {
         prompter.printLogo();
         tasks.loadTasks();
