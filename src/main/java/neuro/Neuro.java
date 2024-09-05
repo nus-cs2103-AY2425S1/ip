@@ -50,6 +50,10 @@ public class Neuro {
         }
     }
 
+    public String getResponse(String input) {
+        return "Neuro heard: " + input;
+    }
+
 
     public static void main(String[] args) {
         new Neuro("data/Neuro.txt").run();
