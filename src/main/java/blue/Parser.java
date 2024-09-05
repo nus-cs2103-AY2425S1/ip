@@ -36,7 +36,78 @@ public class Parser {
      *
      * @param taskList The {@link TaskList} object that contains the user's tasks.
      */
-    public void parse(TaskList taskList) {
+    public String parse(String input, TaskList taskList) {
+
+        // Exit the application
+        if (input.equalsIgnoreCase("bye")) {
+            return UI.farewell();
+        }
+
+        // Print the task list if "list" is typed
+        if (input.equalsIgnoreCase("list")) {
+            return taskList.printList(); // You should implement TaskList's toString to print all tasks
+        }
+
+        // Mark a task as done
+        if (input.startsWith("mark ")) {
+            try {
+                int taskNumber = Integer.parseInt(input.substring(5));
+                taskList.mark(taskNumber);
+                return UI.displayAfterMark(taskList.getTask(taskNumber - 1));
+            } catch (NumberFormatException | WrongNumberOfItemException e) {
+                return "Invalid task number or format.";
+            }
+        }
+
+        // Unmark a task
+        if (input.startsWith("unmark ")) {
+            try {
+                int taskNumber = Integer.parseInt(input.substring(7));
+                taskList.unmark(taskNumber);
+                return UI.displayAfterUnMark(taskList.getTask(taskNumber - 1));
+            } catch (NumberFormatException | WrongNumberOfItemException e) {
+                return "Invalid task number or format.";
+            }
+        }
+
+        // Delete a task
+        if (input.startsWith("delete ")) {
+            try {
+                int taskNumber = Integer.parseInt(input.substring(7));
+                Task deletedTask = taskList.getTask(taskNumber - 1);
+                taskList.delete(taskNumber);
+                return UI.displayAfterDelete(deletedTask, taskList.getNumberOfTask());
+            } catch (NumberFormatException | WrongNumberOfItemException e) {
+                return "Invalid task number or format.";
+            }
+        }
+
+        // Find tasks by keyword
+        if (input.startsWith("find ")) {
+            String keyword = input.substring(5);
+            List<Task> matchingTasks = taskList.find(keyword);
+
+            StringBuilder result = new StringBuilder();
+            result.append("Here are the matching tasks in your list:\n");
+
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                result.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
+            }
+            return result.toString();
+        }
+
+        // Add a new task
+        try {
+            taskList.addToList(input);
+            return "Task added: " + input + ". Now you have " + taskList.getNumberOfTask() + " tasks.";
+        } catch (EmptyDescriptionException | InputErrorException e) {
+            return e.getMessage();
+        } catch (Exception e) {
+            return "An unexpected error occurred: " + e.getMessage();
+        }
+    }
+
+    public String parse(TaskList taskList) {
         String input = "";
 
         while (true) {
@@ -59,9 +130,9 @@ public class Parser {
                     int taskNumber = Integer.parseInt(input.substring(5));
                     taskList.mark(taskNumber);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid task number format! Please use 'mark <number>'.");
+                    return "Invalid task number format! Please use 'mark <number>'.";
                 } catch (WrongNumberOfItemException e) {
-                    System.out.println("Please check the number you input.");
+                    return "Please check the number you input.";
                 }
                 continue;
             }
@@ -72,9 +143,9 @@ public class Parser {
                     int taskNumber = Integer.parseInt(input.substring(7));
                     taskList.unmark(taskNumber);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid task number format! Please use 'unmark <number>'.");
+                    return "Invalid task number format! Please use 'unmark <number>'.";
                 } catch (WrongNumberOfItemException e) {
-                    System.out.println("Please check the number you input.");
+                    return "Please check the number you input.";
                 }
                 continue;
             }
@@ -85,9 +156,9 @@ public class Parser {
                     int taskNumber = Integer.parseInt(input.substring(7));
                     taskList.delete(taskNumber);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid task number format! Please use 'delete <number>'.");
+                    return "Invalid task number format! Please use 'delete <number>'.";
                 } catch (WrongNumberOfItemException e) {
-                    System.out.println("Please check the number you input.");
+                    return "Please check the number you input.";
                 }
                 continue;
             }
@@ -95,35 +166,35 @@ public class Parser {
             if (input.startsWith("find ")) {
                 String keyword = input.substring(5);
                 List<Task> matchingTasks = taskList.find(keyword);
-                System.out.println("    ____________________________________________________________");
-                System.out.println("     Here are the matching tasks in your list:");
+
+                // Use StringBuilder to construct the response
+                StringBuilder result = new StringBuilder();
+                result.append("Here are the matching tasks in your list:\n");
+
                 for (int i = 0; i < matchingTasks.size(); i++) {
-                    System.out.println("     " + (i + 1) + "." + matchingTasks.get(i));
+                    result.append("     ").append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
                 }
-                System.out.println("    ____________________________________________________________");
-                continue;
+                // Return the result as a string
+                return result.toString();
             }
+
 
             // Add a new task to the list
             try {
                 taskList.addToList(input);
                 String temp = "Now you have " + taskList.getNumberOfTask() + " tasks in the list.";
-                System.out.println(temp);
-                System.out.println("--------------------------------------------");
+                return temp;
             } catch (EmptyDescriptionException e) {
-                System.out.println("____________________________________________________________");
-                System.out.println(e.getMessage());
-                System.out.println("____________________________________________________________");
+                return e.getMessage();
             } catch (InputErrorException e) {
-                System.out.println("____________________________________________________________");
-                System.out.println(e.getMessage());
-                System.out.println("____________________________________________________________");
+                return e.getMessage();
             } catch (Exception e) {
                 // Optional: Catch any other exceptions not explicitly handled above
-                System.out.println("An unexpected error occurred: " + e.getMessage());
+                return "An unexpected error occurred: " + e.getMessage();
             }
         }
 
         scanner.close();
+        return "";
     }
 }

@@ -31,7 +31,7 @@ public class Blue {
     }
 
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        return parser.parse(input, tasklist);
     }
 
     /**

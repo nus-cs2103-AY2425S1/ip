@@ -23,19 +23,22 @@ public class UI {
     /**
      * Displays a farewell message to the user.
      */
-    public static void farewell() {
-        System.out.println("Bye Bye! Hope to see you again soon!");
-        System.out.println("_     /)---(\\          /~~~\\");
-        System.out.println("\\\\   (/ . . \\)        /  .. \\");
-        System.out.println(" \\\\__)-\\(*)/         (_,\\  |_)");
-        System.out.println(" \\_       (_         /   \\@/    /^^^\\");
-        System.out.println(" (___/-(____) _     /      \\   / . . \\");
-        System.out.println("              \\\\   /  `    |   V\\ Y /V");
-        System.out.println("               \\\\/  \\   | _\\    / - \\");
-        System.out.println("                \\   /__'|| \\\\_  |    \\");
-        System.out.println("                 \\_____)|_).\\_).||(__V");
-        System.out.println("--------------------------------------------");
+    public static String farewell() {
+        StringBuilder result = new StringBuilder();
+        result.append("Bye Bye! Hope to see you again soon!\n");
+        result.append("_     /)---(\\          /~~~\\\n");
+        result.append("\\\\   (/ . . \\)        /  .. \\\n");
+        result.append(" \\\\__)-\\(*)/         (_,\\  |_)\n");
+        result.append(" \\_       (_         /   \\@/    /^^^\\\n");
+        result.append(" (___/-(____) _     /      \\   / . . \\\n");
+        result.append("              \\\\   /  `    |   V\\ Y /V\n");
+        result.append("               \\\\/  \\   | _\\    / - \\\n");
+        result.append("                \\   /__'|| \\\\_  |    \\\n");
+        result.append("                 \\_____)|_).\\_).||(__V\n");
+
+        return result.toString();
     }
+
 
     /**
      * Displays a message after a task has been marked as done.
