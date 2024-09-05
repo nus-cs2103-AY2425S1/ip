@@ -1,6 +1,9 @@
 package donk.task;
 
-abstract public class Task {
+/**
+ * Parent class of deadline, event, todo
+ */
+public abstract class Task {
     protected String description;
 
     protected String taskType;
@@ -8,11 +11,9 @@ abstract public class Task {
 
     /**
      * Constructor for the Task class.
-     *
+     * Initializes the task with the given description and task type, and sets its completion status to false.
      * @param description The description of the task.
      * @param taskType The type of task (e.g., "T" for Todo, "D" for Deadline, "E" for Event).
-     *
-     * Initializes the task with the given description and task type, and sets its completion status to false.
      */
     public Task(String description, String taskType) {
         this.description = description;
@@ -86,7 +87,7 @@ abstract public class Task {
      *
      * @return A string representation of the task for file storage.
      */
-    abstract public String toFileSaveString();
+    public abstract String toFileSaveString();
 
 
 }

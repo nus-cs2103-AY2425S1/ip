@@ -1,9 +1,11 @@
 package donk;
 
-import donk.task.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import donk.task.TaskList;
+
 
 public class ParserTest {
     @Test
@@ -31,7 +33,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_find_success() throws Exception{
+    public void parse_find_success() throws Exception {
         StorageStub storageStub = new StorageStub("dummyPath");
         Ui ui = new Ui();
         TaskList tasks = new TaskList();

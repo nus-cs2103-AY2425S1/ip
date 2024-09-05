@@ -1,10 +1,20 @@
 package donk;
 
-import donk.task.*;
-
 import java.io.File;
 import java.io.IOException;
 
+import donk.task.Deadline;
+import donk.task.Event;
+import donk.task.Task;
+import donk.task.TaskList;
+import donk.task.TaskType;
+import donk.task.ToDo;
+
+
+
+/**
+ * Contains methods that parse the user input
+ */
 public class Parser {
 
     /**
@@ -25,23 +35,25 @@ public class Parser {
     /**
      * Parses the user's input command and executes the corresponding action.
      *
+     * Supported commands include:
+     * - "bye": Saves the current tasks to a file and exits the program.
+     * - "list": Displays all tasks.
+     * - "mark [index]": Marks the task at the given index as done.
+     * - "unmark [index]": Unmarks the task at the given index as not done.
+     * - "delete [index]": Deletes the task at the given index.
+     * - "todo [description]": Adds a new todo task with the given description.
+     * - "deadline [description] /by [date]": Adds a new deadline task with the given description and due date.
+     * - "event [description] /start [start] /end [end date]":
+     *          Adds a new event task with the given description, start time, and end time.
+     *
      * @param fullCommand The full command string entered by the user.
      * @param tasks The TaskList object containing the current list of tasks.
      * @param storage The Storage object responsible for saving tasks to a file.
      * @param ui The Ui object used to interact with the user.
      * @throws Exception If the command is not recognized or if there are issues processing the command.
-     *
-     * Supported commands include:
-     * - "bye": Saves the current tasks to a file and exits the program.
-     * - "list": Displays all tasks.
-     * - "mark <index>": Marks the task at the given index as done.
-     * - "unmark <index>": Unmarks the task at the given index as not done.
-     * - "delete <index>": Deletes the task at the given index.
-     * - "todo <description>": Adds a new todo task with the given description.
-     * - "deadline <description> /by <date>": Adds a new deadline task with the given description and due date.
-     * - "event <description> /start <start> /end <end>": Adds a new event task with the given description, start time, and end time.
      */
-    public static void parse (String fullCommand, TaskList tasks, Storage storage, Ui ui) throws Exception {
+
+    public static void parse(String fullCommand, TaskList tasks, Storage storage, Ui ui) throws Exception {
         String[] inputArray = fullCommand.split("\\s+");
         String command = inputArray[0];
         if (fullCommand.isBlank()) {
@@ -80,7 +92,7 @@ public class Parser {
             ui.unmarkedDone(temp);
         } else if (command.equals("delete")) {
             if (inputArray.length < 2) {
-                throw new IllegalArgumentException ("Please provide the index of the task to delete");
+                throw new IllegalArgumentException("Please provide the index of the task to delete");
             }
             if (!Parser.validNum(inputArray[1])) {
                 throw new IllegalArgumentException("Please provide a valid index");
@@ -88,7 +100,7 @@ public class Parser {
             int index = Integer.parseInt(inputArray[1]) - 1;
             tasks.remove(index);
             ui.delete(tasks.getTask(index), tasks.size());
-        }else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
+        } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
 
             Task t;
             if (inputArray[0].equals("todo")) {
@@ -131,7 +143,7 @@ public class Parser {
             System.out.println("    Got it. I've added this task:");
             System.out.println("        " + t.toString());
             System.out.println("    You now have " + tasks.size() + " tasks");
-        } else if(command.equals("find")) {
+        } else if (command.equals("find")) {
             String searchTerm = fullCommand.substring(5);
             TaskList results = tasks.find(searchTerm);
             ui.listTasks(results);

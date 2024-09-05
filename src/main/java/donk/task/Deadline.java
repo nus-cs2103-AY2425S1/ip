@@ -3,7 +3,10 @@ package donk.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+/**
+ * Representation of a task with deadline, child class of Task
+ */
+public class Deadline extends Task {
     protected LocalDateTime dt;
 
     /**
@@ -16,7 +19,7 @@ public class Deadline extends Task{
         super(description, "D");
         try {
             this.dt = LocalDateTime.parse(dt);
-        } catch(Exception e) {
+        } catch (Exception e) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
             this.dt = LocalDateTime.parse(dt, formatter);
         }

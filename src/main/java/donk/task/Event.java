@@ -5,7 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-public class Event extends Task{
+/**
+ * Representation of even with start and end date
+ *          extends from Task
+ */
+public class Event extends Task {
     protected LocalDateTime startDt;
     protected LocalDateTime endDt;
 
@@ -27,8 +31,8 @@ public class Event extends Task{
     /**
      * Parse datetime string using various strategies
      */
-    private LocalDateTime parseDatetimeString(String dtString) throws IllegalArgumentException{
-        if (dtString.split(" ").length == 1 ) {
+    private LocalDateTime parseDatetimeString(String dtString) throws IllegalArgumentException {
+        if (dtString.split(" ").length == 1) {
             dtString = dtString + " 2359";
         }
         List<DateTimeFormatter> formatters = List.of(
@@ -79,7 +83,8 @@ public class Event extends Task{
      */
     @Override
     public String toFileSaveString() {
-        return this.taskType + "|" + (this.isDone ? "1" : "0") + "|" + this.description + "|" + this.startDt + "|" + this.endDt;
+        return this.taskType + "|" + (this.isDone ? "1" : "0") + "|"
+                + this.description + "|" + this.startDt + "|" + this.endDt;
     }
 
 }

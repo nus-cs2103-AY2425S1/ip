@@ -4,6 +4,9 @@ import donk.task.Task;
 import donk.task.TaskList;
 import donk.task.TaskType;
 
+/**
+ * Handles all user interactions
+ */
 public class Ui {
 
     public Ui() {
@@ -22,10 +25,10 @@ public class Ui {
      * Greets the user with a welcome message when the application starts.
      */
     public void greet() {
-        String greetMsg = " ____________________________________________________________\n" +
-                " Hello! I'm donk.Donk, the super intelligent chatbot\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n";
+        String greetMsg = " ____________________________________________________________\n"
+                + " Hello! I'm donk.Donk, the super intelligent chatbot\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________\n";
 
         System.out.println(greetMsg);
     }
@@ -34,8 +37,8 @@ public class Ui {
      * Bids farewell to the user when the application is closed.
      */
     public void bye() {
-        String byeMsg = "    Bye bro, catch 'ya later\n" +
-                "____________________________________________________________\n";
+        String byeMsg = "    Bye bro, catch 'ya later\n"
+                + "____________________________________________________________\n";
         System.out.println(byeMsg);
     }
 
@@ -86,7 +89,7 @@ public class Ui {
      * @param task The task that has been deleted.
      * @param size The number of remaining tasks after deletion.
      */
-    public void delete (Task task, int size) {
+    public void delete(Task task, int size) {
         System.out.println("    Alright bro I deleted that for you");
         System.out.println("    deleted: " + task.toString());
         System.out.println("    You now have " + size + " tasks");

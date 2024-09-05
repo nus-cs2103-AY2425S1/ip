@@ -1,7 +1,5 @@
 package donk;
 
-import donk.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,15 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import donk.task.Deadline;
+import donk.task.Event;
+import donk.task.Task;
+import donk.task.TaskList;
+import donk.task.ToDo;
+
+/**
+ * Contains filepath, and handles IO operations with files
+ */
 public class Storage {
     private String filePath;
 
     /**
      * Constructor for the Storage class.
+     * Initializes the storage object with the specified file path.
      *
      * @param filePath The path to the file where tasks are stored.
-     *
-     * Initializes the storage object with the specified file path.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -30,11 +36,11 @@ public class Storage {
      * @return A list of tasks loaded from the file.
      * @throws DonkException If the file cannot be found or an error occurs while loading the tasks.
      */
-    public List<Task> load() throws DonkException{
+    public List<Task> load() throws DonkException {
         try {
             List<Task> tasks = readFile();
             return tasks;
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new DonkException("Couldn't find file");
         }
     }

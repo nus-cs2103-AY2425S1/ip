@@ -1,10 +1,11 @@
 package donk.task;
 
-import donk.task.Task;
-
+/**
+ * Representation of a simple todo
+ */
 public class ToDo extends Task {
 
-    public ToDo (String description) {
+    public ToDo(String description) {
         super(description, "T");
     }
 
