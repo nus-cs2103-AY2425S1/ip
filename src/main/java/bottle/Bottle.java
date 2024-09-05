@@ -1,5 +1,8 @@
 package bottle;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+
 import bottle.command.Command;
 import bottle.exception.BottleException;
 import bottle.task.TaskList;
@@ -52,6 +55,18 @@ public class Bottle {
             } catch (BottleException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command command = parser.parseCommand(input);
+            command.execute(taskList, ui, storage);
+            OutputStream outputStream = new ByteArrayOutputStream();
+            return outputStream.toString();
+        } catch (BottleException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 
