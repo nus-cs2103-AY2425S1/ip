@@ -12,9 +12,8 @@ import storage.Storage;
 import task.TaskList;
 
 /**
- * The main class for the ChattyBuddy application.
- * This class is responsible for generating responses for the GUI
- * and handling user commands through the Parser, TaskList, and Storage components.
+ * This class is responsible for creating a ChattyBuddy instance which
+ * handles user commands through the Parser, TaskList, and Storage components.
  */
 public class ChattyBuddy {
 

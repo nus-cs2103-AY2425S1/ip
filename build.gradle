@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("main.ChattyBuddy")
+    mainClass.set("main.Main")
 }
 
 shadowJar {
@@ -57,4 +57,9 @@ shadowJar {
 
 run {
     standardInput = System.in
+    jvmArgs = [
+            "--module-path",
+            "C:/Program Files/Java/jdk-17/lib",
+            "--add-modules", "javafx.controls,javafx.fxml"
+    ]
 }

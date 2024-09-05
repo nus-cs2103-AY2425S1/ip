@@ -14,11 +14,9 @@ import exceptions.TaskIndexOutOfBound;
 import task.Todo;
 import storage.StorageStub;
 import task.TaskListStub;
-import ui.UiStub;
 
 public class ParserTest {
 
-    private UiStub ui;
     private TaskListStub taskList;
     private StorageStub storage;
 
@@ -28,24 +26,38 @@ public class ParserTest {
         todo.convertStringToTask(new String[]{"todo", "finish homework"});
         taskList = new TaskListStub(new ArrayList<>());
         taskList.addTask(todo);
-        ui = new UiStub();
         storage = new StorageStub();
     }
 
     @Test
     public void testMarkCommandWithInitialTask() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
-        Parser.parseCommand("mark 1", taskList, ui, storage);
+        String response = Parser.parseCommand("mark 1", taskList, storage);
         assertTrue(taskList.getTask(0).getIsDone(), "The first task should be marked as done");
-        assertEquals("showMarkTask called for task: finish homework", ui.lastOutput);
+        assertEquals("OK, I've marked this task as done:\n[T][X] finish homework", response);
     }
 
     @Test
     void testTodoCommandWithStorage() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
-        Parser.parseCommand("todo read book", taskList, ui, storage);
+        String response = Parser.parseCommand("todo read book", taskList, storage);
 
         assertTrue(storage.getIsSaveTasksCalled(), "saveTasks should be called");
         assertEquals(2, storage.getSavedTasks().size(), "There should be two tasks saved");
-        assertEquals("read book", storage.getSavedTasks().get(1).toString(),
-                "The second task description should be 'read book'");
+        assertEquals("Got it. I've added this task:\n[T][ ] read book\nNow you have 2 tasks in the list", response);
+    }
+
+    @Test
+    void testUnmarkCommand() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
+        String response = Parser.parseCommand("unmark 1", taskList, storage);
+        assertTrue(!taskList.getTask(0).getIsDone(), "The first task should be marked as not done");
+        assertEquals("OK, I've marked this task as not done yet:\n[T][ ] finish homework", response);
+    }
+
+    @Test
+    void testDeleteCommand() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
+        String response = Parser.parseCommand("delete 1", taskList, storage);
+
+        assertTrue(storage.getIsSaveTasksCalled(), "saveTasks should be called after delete");
+        assertEquals(0, taskList.getTasks().size(), "There should be no tasks left in the list");
+        assertEquals("Noted. I've removed this task:\n[T][ ] finish homework\nNow you have 0 tasks in the list", response);
     }
 }

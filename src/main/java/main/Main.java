@@ -1,3 +1,5 @@
+package main;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -5,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import main.ChattyBuddy;
+import ui.MainWindow;
 
 /**
  * The main class to start the ChattyBuddy GUI application.
@@ -31,7 +33,7 @@ public class Main extends Application {
     }
 
     /**
-     * Main method to launch the application.
+     * main.Main method to launch the application.
      * @param args Command line arguments (not used in this application).
      */
     public static void main(String[] args) {

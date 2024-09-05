@@ -1,3 +1,5 @@
+package ui;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -20,7 +22,7 @@ public class MainWindow extends AnchorPane {
     private ChattyBuddy chattyBuddy;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image botImage = new Image(this.getClass().getResourceAsStream("/images/chatbot.jpg"));
 
     @FXML
     public void initialize() {

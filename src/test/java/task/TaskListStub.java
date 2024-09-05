@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class TaskListStub extends TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
-    private boolean isMarkCalled = false;
 
     public TaskListStub(ArrayList<Task> TaskList) {
         super(TaskList);
     }
+
 
     @Override
     public void addTask(Task task) {
@@ -31,7 +31,13 @@ public class TaskListStub extends TaskList {
             throw new TaskIndexOutOfBound();
         }
         tasks.get(index).setMarkStatus(true);
-        isMarkCalled = true;
+    }
+
+    public void unmarkTask(int index) throws TaskIndexOutOfBound {
+        if (index < 0 || index >= tasks.size()) {
+            throw new TaskIndexOutOfBound();
+        }
+        tasks.get(index).setMarkStatus(false);
     }
 
     @Override
