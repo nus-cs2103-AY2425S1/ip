@@ -73,7 +73,11 @@ class TaskList {
     }
 
     /**
-     * Prints all tasks in the TaskList to the console.
+     * Builds a formatted string representing all tasks in the TaskList.
+     * Each task is displayed on a new line, prefixed by its index number.
+     *
+     * @return A string containing all tasks in the TaskList, each prefixed
+     *         by its index and followed by a newline character.
      */
     public String printTasks() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -92,13 +96,15 @@ class TaskList {
     }
 
     /**
-     * Prints all tasks that contain the specified keyword in their description.
+     * Builds a formatted string of all tasks that contain the specified keyword in their description.
      *
-     * This method iterates through all tasks in the task list and prints those
+     * This method iterates through all tasks in the task list and includes those
      * whose description contains the provided keyword. Each matching task is
-     * printed with a sequential number starting from 1.
+     * listed with a sequential number starting from 1.
      *
-     * @param keyWord The keyword to search for in the task descriptions.
+     * @param keyWord The keyword to search for within task descriptions.
+     * @return A string containing all tasks that match the specified keyword,
+     *         each prefixed by a sequential number and followed by a newline character.
      */
     public String printMatchingTasks(String keyWord) {
         int count = 1;
