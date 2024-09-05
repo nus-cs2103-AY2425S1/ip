@@ -77,6 +77,6 @@ public class Event extends Task {
     public String toSaveFormat() {
         return "E | " + (this.isDone ? 1 : 0) + " | " + this.description
                 + " | " + this.from.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
-                + " - " + this.to.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                + " | " + this.to.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
     }
 }

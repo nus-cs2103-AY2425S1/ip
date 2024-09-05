@@ -8,6 +8,57 @@ import java.util.ArrayList;
 public class Parser {
 
     /**
+     * Parses and executes the user command, returning the response as a string.
+     *
+     * @param userInput The raw input from the user.
+     * @param tasks The TaskList object to manipulate tasks.
+     * @param ui The Ui object to handle user interactions.
+     * @param storage The Storage object to handle saving and loading of tasks.
+     * @return A string response to the user command.
+     */
+    public String executeCommandAndGetResponse(String userInput, TaskList tasks, Ui ui, Storage storage) {
+        Commands command = parseCommand(userInput);
+        StringBuilder response = new StringBuilder();
+
+        switch (command) {
+        case BYE:
+            storage.saveTasks(tasks.getTasks());
+            response.append("Bye. Hope to see you again soon!\n");
+            break;
+        case LIST:
+            response.append("Here are the tasks in your list:\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                response.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+            }
+            break;
+        case MARK:
+            response.append(markCommand(tasks, userInput, storage));
+            break;
+        case UNMARK:
+            response.append(unmarkCommand(tasks, userInput, storage));
+            break;
+        case TODO:
+            response.append(todoCommand(tasks, userInput, storage));
+            break;
+        case DEADLINE:
+            response.append(deadlineCommand(tasks, userInput, storage));
+            break;
+        case EVENT:
+            response.append(eventCommand(tasks, userInput, storage));
+            break;
+        case DELETE:
+            response.append(deleteCommand(tasks, userInput, storage));
+            break;
+        case FIND:
+            response.append(findCommand(tasks, userInput));
+            break;
+        default:
+            response.append("IDK what you are yapping about!!\n");
+        }
+        return response.toString();
+    }
+
+    /**
      * Parses the user input and returns the corresponding command as a {@link Commands} enum.
      *
      * @param userInput The input string from the user.
@@ -38,59 +89,54 @@ public class Parser {
     }
 
     /**
-     * Marks a class done based on user input, updates the storage and displays the results.
+     * Marks a task as done based on user input, updates the storage, and returns the result as a string.
      *
      * @param tasks The current list of tasks.
      * @param userInput The input string by the user.
      * @param storage The storage used to save the updated tasks list.
+     * @return A string response indicating the result of the mark command.
      */
-    public void markCommand(TaskList tasks, String userInput, Storage storage) {
+    public String markCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
             tasks.get(index).mark();
             storage.saveTasks(tasks.getTasks());
-            System.out.println("________________________________");
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + tasks.get(index));
-            System.out.println("________________________________");
+            return "Nice! I've marked this task as done:\n"
+                    + "  " + tasks.get(index) + "\n";
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("________________________________");
-            System.out.println("Invalid task number! Please enter a valid task number, between 1 - " + tasks.size());
-            System.out.println("________________________________");
+            return "Invalid task number! Please enter a valid task number, between 1 - " + tasks.size() + "\n";
         }
     }
 
     /**
-     * Unmarks a task as not done based on the user input, updates the storage, and displays the result.
+     * Unmarks a task as not done based on the user input, updates the storage, and returns the result as a string.
      *
      * @param tasks The current list of tasks.
      * @param userInput The input string from the user.
      * @param storage The storage to save the updated tasks list.
+     * @return A string response indicating the result of the unmark command.
      */
-    public void unmarkCommand(TaskList tasks, String userInput, Storage storage) {
+    public String unmarkCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
             tasks.get(index).unmark();
             storage.saveTasks(tasks.getTasks());
-            System.out.println("________________________________");
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + tasks.get(index));
-            System.out.println("________________________________");
+            return "OK, I've marked this task as not done yet:\n"
+                    + "  " + tasks.get(index) + "\n";
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("________________________________");
-            System.out.println("Invalid task number! Please enter a valid task number, between 1 - " + tasks.size());
-            System.out.println("________________________________");
+            return "Invalid task number! Please enter a valid task number, between 1 - " + tasks.size() + "\n";
         }
     }
 
     /**
-     * Adds a new Todo task based on the user input, updates the storage, and displays the result.
+     * Adds a new Todo task based on the user input, updates the storage, and returns the result as a string.
      *
      * @param tasks The current list of tasks.
      * @param userInput The input string from the user.
      * @param storage The storage to save the updated tasks list.
+     * @return A string response indicating the result of the todo command.
      */
-    public void todoCommand(TaskList tasks, String userInput, Storage storage) {
+    public String todoCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             String todoDescription = userInput.substring(5).trim();
             if (todoDescription.isEmpty()) {
@@ -98,31 +144,26 @@ public class Parser {
             }
             tasks.addTask(new Todo(todoDescription));
             storage.saveTasks(tasks.getTasks());
-            System.out.println("________________________________");
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + tasks.get(tasks.size() - 1));
-            System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
-            System.out.println("________________________________");
+            return "Got it. I've added this task:\n"
+                    + "  " + tasks.get(tasks.size() - 1) + "\n"
+                    + "Now you have " + tasks.size() + " task(s) in the list.\n";
         } catch (YapperBotException e) {
-            System.out.println("________________________________");
-            System.out.println(e.getMessage());
-            System.out.println("________________________________");
+            return e.getMessage() + "\n";
         } catch (StringIndexOutOfBoundsException e2) {
-            System.out.println("________________________________");
-            System.out.println("The description for a Todo task cannot be empty.");
-            System.out.println("________________________________");
+            return "The description for a Todo task cannot be empty.\n";
         }
     }
 
     /**
-     * Adds a new Deadline task based on the user input, updates the storage, and displays the result.
+     * Adds a new Deadline task based on the user input, updates the storage, and returns the result as a string.
      * The input must include a description and a valid deadline format.
      *
      * @param tasks The current list of tasks.
      * @param userInput The input string from the user.
      * @param storage The storage to save the updated tasks list.
+     * @return A string response indicating the result of the deadline command.
      */
-    public void deadlineCommand(TaskList tasks, String userInput, Storage storage) {
+    public String deadlineCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             String[] deadlineInput = userInput.substring(9).split(" /by ");
             if (deadlineInput.length < 2 || deadlineInput[0].trim().isEmpty()) {
@@ -134,31 +175,26 @@ public class Parser {
             String by = deadlineInput[1];
             tasks.addTask(new Deadline(deadlineDescription, by));
             storage.saveTasks(tasks.getTasks());
-            System.out.println("________________________________");
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + tasks.get(tasks.size() - 1));
-            System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
-            System.out.println("________________________________");
+            return "Got it. I've added this task:\n"
+                    + "  " + tasks.get(tasks.size() - 1) + "\n"
+                    + "Now you have " + tasks.size() + " task(s) in the list.\n";
         } catch (YapperBotException e) {
-            System.out.println("________________________________");
-            System.out.println(e.getMessage());
-            System.out.println("________________________________");
+            return e.getMessage() + "\n";
         } catch (StringIndexOutOfBoundsException e2) {
-            System.out.println("________________________________");
-            System.out.println("The description for a Deadline task cannot be empty.");
-            System.out.println("________________________________");
+            return "The description for a Deadline task cannot be empty.\n";
         }
     }
 
     /**
-     * Adds a new Event task based on the user input, updates the storage, and displays the result.
+     * Adds a new Event task based on the user input, updates the storage, and returns the result as a string.
      * The input must include a description and valid time frames for the event.
      *
      * @param tasks The current list of tasks.
      * @param userInput The input string from the user.
      * @param storage The storage to save the updated tasks list.
+     * @return A string response indicating the result of the event command.
      */
-    public void eventCommand(TaskList tasks, String userInput, Storage storage) {
+    public String eventCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             String[] eventInput = userInput.substring(6).split(" /from | /to ");
             if (eventInput.length < 3 || eventInput[0].trim().isEmpty()) {
@@ -171,71 +207,69 @@ public class Parser {
             String to = eventInput[2];
             tasks.addTask(new Event(eventDescription, from, to));
             storage.saveTasks(tasks.getTasks());
-            System.out.println("________________________________");
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + tasks.get(tasks.size() - 1));
-            System.out.println("________________________________");
-            System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+            return "Got it. I've added this task:\n"
+                    + "  " + tasks.get(tasks.size() - 1) + "\n"
+                    + "Now you have " + tasks.size() + " task(s) in the list.\n";
         } catch (YapperBotException e) {
-            System.out.println("________________________________");
-            System.out.println(e.getMessage());
-            System.out.println("________________________________");
+            return e.getMessage() + "\n";
         } catch (StringIndexOutOfBoundsException e2) {
-            System.out.println("________________________________");
-            System.out.println("The description for a Event task cannot be empty.");
-            System.out.println("________________________________");
+            return "The description for an Event task cannot be empty.\n";
         }
     }
 
     /**
-     * Deletes a task based on the user input, updates the storage, and displays the result.
+     * Deletes a task based on the user input, updates the storage, and returns the result as a string.
      *
      * @param tasks The current list of tasks.
      * @param userInput The input string from the user.
      * @param storage The storage to save the updated tasks list.
+     * @return A string response indicating the result of the delete command.
      */
-    public void deleteCommand(TaskList tasks, String userInput, Storage storage) {
+    public String deleteCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             int deleteTaskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
             Task deleteTargetTask = tasks.get(deleteTaskNumber);
             tasks.deleteTask(deleteTargetTask);
             storage.saveTasks(tasks.getTasks());
-            System.out.println("________________________________");
-            System.out.println("Noted. I've removed this task:");
-            System.out.println("  " + deleteTargetTask);
-            System.out.println("________________________________");
-            System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+            return "Noted. I've removed this task:\n"
+                    + "  " + deleteTargetTask + "\n"
+                    + "Now you have " + tasks.size() + " task(s) in the list.\n";
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("________________________________");
-            System.out.println("Invalid task number! Please enter a valid task number, between 1 - " + tasks.size());
-            System.out.println("________________________________");
+            return "Invalid task number! Please enter a valid task number, between 1 - " + tasks.size() + "\n";
         }
     }
 
     /**
-     * Handles the find command by searching for tasks containing the specified keyword.
+     * Handles the find command by searching for tasks containing the specified keyword and returns the result.
      *
      * @param tasks The list of tasks to search within.
      * @param userInput The user input containing the find command and keyword.
-     * @param ui The Ui instance for displaying results.
+     * @return A string response with the list of matching tasks.
      */
-    public void findCommand(TaskList tasks, String userInput, Ui ui) {
+    public String findCommand(TaskList tasks, String userInput) {
         try {
             String keyword = userInput.split(" ")[1].trim();
             ArrayList<Task> matchingTasks = new ArrayList<>();
+            StringBuilder response = new StringBuilder();
 
-            for (Task task: tasks.getTasks()) {
+            for (Task task : tasks.getTasks()) {
                 if (task.getDescription().contains(keyword)) {
                     matchingTasks.add(task);
                 }
             }
 
-            ui.showMatchingTasks(matchingTasks);
+            if (matchingTasks.isEmpty()) {
+                response.append("No matching tasks found.\n");
+            } else {
+                response.append("Here are the matching tasks in your list:\n");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    response.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
+                }
+            }
+            return response.toString();
+
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("________________________________");
-            System.out.println("You must enter a keyword after find to match tasks!");
-            System.out.println("________________________________");
+            return "You must enter a keyword after 'find' to match tasks!\n";
         }
     }
 }
-
