@@ -1,3 +1,5 @@
+package gui;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -6,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import main.Hyperion;
+import main.TaskList;
+import main.Ui;
 
 /**
  * Controller for the main GUI.
@@ -23,16 +27,19 @@ public class MainWindow extends AnchorPane {
     private Hyperion hyperion;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image hyperionImage = new Image(this.getClass().getResourceAsStream("/images/Hyperion.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getHyperionDialog(Ui.welcome(), hyperionImage)
+        );
     }
 
     /** Injects the Hyperion instance */
-    public void setHyperion(Hyperion d) {
-        hyperion = d;
+    public void setHyperion(Hyperion hyperion) {
+        this.hyperion = hyperion;
     }
 
     /**
@@ -45,7 +52,7 @@ public class MainWindow extends AnchorPane {
         String response = hyperion.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getHyperionDialog(response, hyperionImage)
         );
         userInput.clear();
     }
