@@ -68,12 +68,15 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = tecna.getResponse(input);
         DialogBox userDialogBox = DialogBox.getUserDialog(input, userImage);
+
         DialogBox dukeDialogBox = DialogBox.getDukeDialog(response, dukeImage);
         dialogContainer.getChildren().addAll(
                 userDialogBox, dukeDialogBox);
         userInput.clear();
         VBox.setVgrow(userDialogBox, Priority.ALWAYS);
         VBox.setVgrow(dukeDialogBox, Priority.ALWAYS);
+
+
     }
 
 }

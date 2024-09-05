@@ -27,37 +27,46 @@ public class TaskList {
     /**
      * Displays all the tasks in the task list
      */
-    public void listItems() {
-        System.out.println("Here are the tasks in your list:");
+    public String listItems() {
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < this.size; ++i) {
-            System.out.println(i + 1 + ". " + this.tasks.get(i));
+            sb.append(i + 1 + ". " + this.tasks.get(i) + "\n");
         }
+        String response = sb.toString();
+        System.out.println(response);
+        return response;
     }
 
     /**
      * Adds new item to the list of tasks
      * @param item extracted from the user input
      */
-    public void addItem(Task item) {
-       Task task = item;
-       this.tasks.add(task);
-       ++this.size;
-        System.out.println("Sure! I've added this task:");
-        System.out.println(task);
-        System.out.println(">> Now you have " + this.size + (size > 1 ? " tasks" : " task") + " in the list." );
+    public String addItem(Task item) {
+        Task task = item;
+        this.tasks.add(task);
+        ++this.size;
+        StringBuilder sb = new StringBuilder("Sure! I've added this tasks:\n");
+        sb.append(task + "\n");
+        sb.append(">> Now you have " + this.size + (size > 1 ? " tasks" : " task") + " in the list.\n");
+        String response = sb.toString();
+        System.out.println(response);
+        return response;
     }
 
     /**
      * Deletes the specified items.
      * @param index
      */
-    public void deleteItem(int index) {
-            String item = this.tasks.get(index).toString();
-            this.tasks.remove(index);
-            --this.size;
-            System.out.println("Sure! I've deleted this task:");
-            System.out.println(item);
-            System.out.println(">> Now you have " + this.size + (size > 1 ? " tasks" : " task") + " in the list." );
+    public String deleteItem(int index) {
+        String item = this.tasks.get(index).toString();
+        this.tasks.remove(index);
+        --this.size;
+        StringBuilder sb= new StringBuilder("Sure! I've deleted this task:");
+        sb.append(item);
+        sb.append(">> Now you have " + this.size + (size > 1 ? " tasks" : " task") + " in the list.");
+        String response = sb.toString();
+        System.out.println(response);
+        return response;
     }
 
     /**
@@ -80,23 +89,23 @@ public class TaskList {
      * Finds and prints all the matching tasks.
      * @param keyword is one word that user enters to filter the task.
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         int counter = 0;
-
-        System.out.println("Here are the matching tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         for (Task task : this.tasks) {
             String[] words = task.getTaskName().split(" ");
 
             for (String word : words) {
                 if (word.toLowerCase().contains(keyword.toLowerCase())) {
                     counter++;
-                    System.out.println(counter + "." + task);
+                    sb.append(counter + ". " + task + "\n");
                     break;
                 }
             }
         }
-
-
+        String response = sb.toString();
+        System.out.println(response);
+        return response;
     }
 }
 

@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * A GUI for Tecna using FXML.
  */
 public class Main extends Application {
-    private Tecna tecna = new Tecna();
+    private Tecna tecna = new Tecna("data/tecna.json");
 
     @Override
     public void start(Stage stage) {
@@ -24,8 +24,9 @@ public class Main extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("Duke");
+            stage.setTitle("Tecna");
 
+            tecna.greet();
 
             stage.show();
         } catch (IOException e) {
