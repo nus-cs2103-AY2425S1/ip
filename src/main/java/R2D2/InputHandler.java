@@ -34,6 +34,9 @@ public class InputHandler {
         } else if (input.startsWith("event")) {
             this.eventHandle(input);
             this.storage.saveTasks(data);
+        } else if (input.startsWith("find")) {
+            this.findHandle(input);
+            this.storage.saveTasks(data);
         } else {
             throw new BuzzException("GRRR! I do not know what that means. Try again! *bzzrg*");
         }
@@ -114,6 +117,27 @@ public class InputHandler {
         System.out.println("Understood boss. Added!");
         System.out.println(task.toString());
         System.out.println("You currently have " + data.size() + " missions available *reeeee* ");
+        System.out.println(hline);
+    }
+
+    public void findHandle(String input) throws BuzzException {
+        if (input.length() <= 5) {
+            throw new BuzzException("NOOO! Description is empty *crash*");
+        }
+        String wordSearch = input.substring(5).trim();
+        System.out.println(hline);
+        System.out.println("I have found a few matches sir! *wooop*");
+        int tasks = 1;
+        for (int i = 0; i < data.size(); i++) {
+            Task task = data.get(i);
+            if (task.description.contains(wordSearch)) {
+                System.out.println(tasks + "." + task.toString());
+                tasks++;
+            }
+        }
+        if (tasks == 1) {
+            System.out.println("Sorry boss can't find anything :(");
+        }
         System.out.println(hline);
     }
 }
