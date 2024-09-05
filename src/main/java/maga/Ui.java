@@ -2,13 +2,24 @@ package maga;
 
 import maga.task.TaskList;
 
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * The {@code Ui} class represents the user interface for interacting with the Maga bot.
+ * It handles user input, displays messages, and delegates command handling to the {@code Controller}.
+ * The class also provides greeting and closing messages in line with the bot's persona.
+ */
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
     private final Controller controller;
 
+    /**
+     * Constructs a new {@code Ui} instance with the specified {@code TaskList}.
+     * The {@code Ui} initializes a {@code Controller} to manage the interaction between
+     * the user and the task list.
+     *
+     * @param taskList The task list that the {@code Controller} will manage.
+     */
     public Ui(TaskList taskList) {
         controller = new Controller(scanner, taskList);
     }
@@ -24,6 +35,11 @@ public class Ui {
                 " US of A trust me everyone says I'm the best. How can I help you serve the American people?" );
     }
 
+    /**
+     * Starts the user interface by displaying a greeting message and
+     * waiting for user input in a loop. The input is processed by the {@code Controller}
+     * until an exit command is issued.
+     */
     public void start() {
         printGreeting();
         String input = scanner.nextLine();
@@ -38,6 +54,10 @@ public class Ui {
 
     }
 
+    /**
+     * Closes the user interface by printing a farewell message.
+     * This method is called when the bot is about to shut down.
+     */
     public void close() {
         System.out.println("Yeah I'ma see you in my next RALLY! A vote for me is a vote for America!");
     }
