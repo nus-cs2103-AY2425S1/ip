@@ -15,6 +15,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public Event(String description, boolean isDone, String from, String to) {
+        super(description, isDone);
+        this.from = from;
+        this.to = to;
+    }
+
 
     private String getFrom() {return this.from;}
     private String getTo() {return this.to;}

@@ -42,4 +42,17 @@ public class FileDbDriver implements DbDriverInterface {
         }
     }
 
+    public String read() {
+        try {
+            Path currentWorkingDirectory = Paths.get("").toAbsolutePath();
+            Path dbFilePath = currentWorkingDirectory.resolve("db.txt");
+            if (!Files.exists(dbFilePath)) {
+                return "";
+            }
+            return Files.readString(dbFilePath);
+        } catch (IOException e) {
+            return "";
+        }
+    }
+
 }
