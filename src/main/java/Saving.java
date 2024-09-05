@@ -14,12 +14,12 @@ public class Saving {
 
     private File file;
 
-    private TaskList taskList;
+    private ArrayList<Task> taskList;
 
     public Saving(String pathName) {
         this.pathName = pathName;
         this.saveFilePath = Path.of(pathName);
-        this.taskList = new TaskList();
+        this.taskList = new ArrayList<>();
     }
 
     private void load(String filePath) throws FileNotFoundException {
@@ -75,13 +75,13 @@ public class Saving {
                 fw.write(task.toFileFormat() + "\n");
             }
             fw.close();
-            //System.out.println("saved tasks");
+            System.out.println("saved tasks");
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks.");
         }
     }
 
-    public TaskList getTaskList() {
+    public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
 
