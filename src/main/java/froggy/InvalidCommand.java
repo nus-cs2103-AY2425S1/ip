@@ -1,5 +1,8 @@
 package froggy;
 
+/**
+ * Prints that invalid command is given.
+ */
 public class InvalidCommand extends Command {
 
     public InvalidCommand() {

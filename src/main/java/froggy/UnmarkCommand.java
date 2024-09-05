@@ -1,9 +1,17 @@
 package froggy;
 
+/**
+ * Marks a task as undone based on index.
+ */
 public class UnmarkCommand extends Command{
 
     private String input;
 
+    /**
+     * Constructor that takes in raw input given for Unmark command.
+     *
+     * @param input raw input.
+     */
     public UnmarkCommand(String input) {
         this.input = input;
     }
@@ -11,7 +19,7 @@ public class UnmarkCommand extends Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (input.length() <= 7) {
-            System.out.println("Error: Please enter the index of the task to be unmarked.");
+            System.out.println("[INFO] Error: Please enter the index of the task to be unmarked.");
             ui.showLine();
         } else {
             try {

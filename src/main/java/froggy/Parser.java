@@ -13,27 +13,28 @@ public class Parser {
 
     public Command parse(String input) {
 
-        if (input.equalsIgnoreCase("bye")) {
+        String keyword = input.split("\\s+")[0].toLowerCase();
+        switch (keyword) {
+        case "bye":
             return new ExitCommand();
-        } else if (input.equalsIgnoreCase("list")) {
+        case "list":
             return new ListCommand();
-        } else if (input.toLowerCase().startsWith("mark ") || input.equalsIgnoreCase("mark")) {
+        case "mark":
             return new MarkCommand(input);
-        } else if (input.toLowerCase().startsWith("unmark ") || input.equalsIgnoreCase("unmark")) {
+        case "unmark":
             return new UnmarkCommand(input);
-        } else if (input.toLowerCase().startsWith("delete ") || input.equalsIgnoreCase("delete")) {
+        case "delete":
             return new DeleteCommand(input);
-        } else {
-            //Handle Task input
-            if (input.toLowerCase().startsWith("todo ")) {
-                return new AddTodoCommand(input);
-            } else if (input.toLowerCase().startsWith("deadline ")) {
-                return new AddDeadlineCommand(input);
-            } else if (input.toLowerCase().startsWith("event ")) {
-                return new AddEventCommand(input);
-            } else {
-                return new InvalidCommand();
-            }
+        case "find":
+            return new FindCommand(input);
+        case "todo":
+            return new AddTodoCommand(input);
+        case "deadline":
+            return new AddDeadlineCommand(input);
+        case "event":
+            return new AddEventCommand(input);
+        default:
+            return new InvalidCommand();
         }
     }
 }

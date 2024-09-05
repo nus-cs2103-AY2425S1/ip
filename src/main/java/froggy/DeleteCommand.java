@@ -1,16 +1,25 @@
 package froggy;
 
+/**
+ * Deletes a task from task list based on index.
+ */
 public class DeleteCommand extends Command{
 
     private String input;
 
+    /**
+     * Constructor that takes in raw input.
+     *
+     * @param input raw input.
+     */
     public DeleteCommand(String input) {
         this.input = input;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (input.length() <= 7) {
-            System.out.println("Error: Please enter the index of the task to be deleted.");
+            System.out.println("[INFO] Error: Please enter the index of the task to be deleted.");
             ui.showLine();
         } else {
             try {

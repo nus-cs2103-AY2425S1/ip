@@ -4,12 +4,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with description and a deadline.
+ */
 public class Deadline extends Task {
 
-    protected String by;
+    protected final String by;
     protected LocalDate date;
     private boolean isDate = false;
 
+    /**
+     * Constructor that takes in a description and a deadline to do by.
+     * Parses the deadline if it is given in a valid date format and stores as LocalDate.
+     *
+     * @param description String input.
+     * @param by String input that can be turned into a date.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.date = parseDate(by);

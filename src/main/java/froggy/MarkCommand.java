@@ -1,9 +1,17 @@
 package froggy;
 
+/**
+ * Marks a task as done based on index.
+ */
 public class MarkCommand extends Command{
 
     private String input;
 
+    /**
+     * Constructor that takes in raw input given for Mark command.
+     *
+     * @param input raw input.
+     */
     public MarkCommand(String input) {
         this.input = input;
     }
@@ -11,7 +19,7 @@ public class MarkCommand extends Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (input.length() <= 5) {
-            System.out.println("Error: Please enter the index of the task to be marked.");
+            System.out.println("[INFO] Error: Please enter the index of the task to be marked.");
             ui.showLine();
         } else {
             try {

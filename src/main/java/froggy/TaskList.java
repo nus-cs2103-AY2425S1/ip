@@ -46,4 +46,14 @@ public class TaskList {
         storage.saveTasks(tasks);
     }
 
+    public List<Task> searchTasks(String searchInput) {
+        List<Task> output = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(searchInput.toLowerCase())) {
+                output.add(task);
+            }
+        }
+        return output;
+    }
+
 }
