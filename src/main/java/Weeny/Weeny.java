@@ -1,5 +1,9 @@
 package weeny;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import weeny.ui.DialogBox;
 import weeny.ui.Ui;
 import weeny.task.Todo;
 import weeny.task.Events;
@@ -43,7 +47,7 @@ public class Weeny extends Application {
 
     @Override
     public void start(Stage stage) {
-        WeenyGui weenyGui = new WeenyGui(this);
+        WeenyGui weenyGui = new WeenyGui();
         weenyGui.start(stage);
     }
 

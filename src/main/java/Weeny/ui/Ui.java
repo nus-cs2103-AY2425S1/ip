@@ -15,7 +15,7 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public String showWelcomeMessage() {
-        return String.format("Hello! I'm Weeny\nWhat can I do for you?\npig pig");
+        return String.format("Hello! I'm Weeny\nWhat can I do for you?\n");
     }
 
     /**
