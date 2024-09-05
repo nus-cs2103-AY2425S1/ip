@@ -9,22 +9,23 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    private final LocalDateTime start;
-    private final LocalDateTime end;
-    private static final DateTimeFormatter FILE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
+    private static final DateTimeFormatter FILE_DATE_TIME_FORMATTER
+            = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Constructs an Event task with the specified status, description, start date/time, and end date/time.
      *
-     * @param status      The completion status of the task (true if completed, false otherwise).
+     * @param isCompleted      The completion status of the task (true if completed, false otherwise).
      * @param description The description of the event.
      * @param start       The start date and time of the event.
      * @param end         The end date and time of the event.
      */
-    public Event(boolean status, String description, LocalDateTime start, LocalDateTime end) {
-        super(status, description);
-        this.start = start;
-        this.end = end;
+    public Event(boolean isCompleted, String description, LocalDateTime start, LocalDateTime end) {
+        super(isCompleted, description);
+        this.startDateTime = start;
+        this.endDateTime = end;
     }
 
     /**
@@ -34,7 +35,9 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + getStatus() + " | " + getDescription() + " | " + start.format(FILE_DATE_TIME_FORMATTER) + " | " + end.format(FILE_DATE_TIME_FORMATTER);
+        return "E | " + getStatus() + " | " + getDescription() + " | "
+                + startDateTime.format(FILE_DATE_TIME_FORMATTER) + " | "
+                + endDateTime.format(FILE_DATE_TIME_FORMATTER);
     }
 
     /**
@@ -50,10 +53,13 @@ public class Event extends Task {
     /**
      * Returns the string representation of the event task.
      *
-     * @return A string representation of the event task with its status, description, start date/time, and end date/time.
+     * @return A string representation of the event task with its status, description,
+     * start date/time, and end date/time.
      */
     @Override
     public String toString() {
-        return "[E][" + (getStatus() ? "X" : " ") + "] " + getDescription() + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " end: " + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "[E][" + (getStatus() ? "X" : " ") + "] " + getDescription()
+                + " (from: " + startDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " end: "
+                + endDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 }

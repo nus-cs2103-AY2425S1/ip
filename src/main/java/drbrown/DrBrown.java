@@ -21,7 +21,7 @@ public class DrBrown {
      * Constructs a new DrBrown instance with the specified file path for storage.
      * Initializes the UI, loads the task list from storage, and handles any exceptions during loading.
      *
-     * @param filePath the file path to load and save tasks
+     * @param filePath the file path to load and save tasks.
      */
     public DrBrown(String filePath) {
         ui = new Ui();
@@ -48,8 +48,8 @@ public class DrBrown {
                 String userInput = ui.readCommand();
                 ui.showLine();
                 Command command = Parser.parse(userInput);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
+                command.executeCommand(tasks, ui, storage);
+                isExit = command.shouldExit();
             } catch (DrBrownException e) {
                 ui.showError(e.getMessage());
             } finally {
@@ -62,7 +62,7 @@ public class DrBrown {
      * The main method to start the DrBrown application.
      * It creates a new instance of DrBrown with the specified file path and runs the application.
      *
-     * @param args command-line arguments (not used)
+     * @param args command-line arguments (not used).
      */
     public static void main(String[] args) {
         new DrBrown("data/DrBrown.txt").run();

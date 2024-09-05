@@ -83,7 +83,7 @@ public class TaskList {
                     ui.showFind();
                     isMatching = true;
                 }
-                System.out.println(listCount + ". " + item.toString());
+                System.out.println(listCount + ". " + item);
                 listCount++;
             }
         }

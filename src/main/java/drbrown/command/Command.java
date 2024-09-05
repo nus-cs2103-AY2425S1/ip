@@ -19,12 +19,12 @@ public abstract class Command {
      * @param storage The Storage object to save and load tasks.
      * @throws DrBrownException If there is an error executing the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException;
+    public abstract void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException;
 
     /**
      * Determines whether the command exits the program.
      *
      * @return true if the command exits the program, false otherwise.
      */
-    public abstract boolean isExit();
+    public abstract boolean shouldExit();
 }

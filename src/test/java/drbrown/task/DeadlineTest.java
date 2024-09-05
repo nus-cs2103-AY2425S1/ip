@@ -19,7 +19,7 @@ public class DeadlineTest {
     private String description;
     private String validTime;
     private String invalidTime;
-    private DateTimeFormatter formatter;
+    private DateTimeFormatter FILE_DATE_TIME_FORMATTER;
 
     /**
      * Sets up test data before each test case.
@@ -29,7 +29,7 @@ public class DeadlineTest {
         description = "Assignment";
         validTime = "03-09-2024 10:10";
         invalidTime = "03-09-24 10:10";
-        formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        FILE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     }
 
     /**
@@ -37,7 +37,8 @@ public class DeadlineTest {
      */
     @Test
     public void testSuccessfulCreationDeadline() {
-        Deadline deadline = new Deadline(false, description, LocalDateTime.parse(validTime, formatter));
+        Deadline deadline = new Deadline(false, description,
+                LocalDateTime.parse(validTime, FILE_DATE_TIME_FORMATTER));
         assertEquals("[D][ ] Assignment (by: Sep 03 2024 10:10)", deadline.toString());
     }
 
@@ -48,7 +49,8 @@ public class DeadlineTest {
     @Test
     public void testInvalidDateTimeDeadline() {
         try {
-            new Deadline(false, description, LocalDateTime.parse(invalidTime, formatter));
+            new Deadline(false, description,
+                    LocalDateTime.parse(invalidTime, FILE_DATE_TIME_FORMATTER));
             fail("Expected DateTimeParseException to be thrown");
         } catch (DateTimeParseException ignored) {
             // Exception is expected, so the test passes.
@@ -60,7 +62,8 @@ public class DeadlineTest {
      */
     @Test
     void testToFileStringDeadline() {
-        Deadline deadline = new Deadline(false, description, LocalDateTime.parse(validTime, formatter));
+        Deadline deadline = new Deadline(false, description,
+                LocalDateTime.parse(validTime, FILE_DATE_TIME_FORMATTER));
         assertEquals("D | false | Assignment | 2024-09-03 1010", deadline.toFileString());
     }
 
@@ -69,7 +72,8 @@ public class DeadlineTest {
      */
     @Test
     void testToUIStringDeadline() {
-        Deadline deadline = new Deadline(false, description, LocalDateTime.parse(validTime, formatter));
+        Deadline deadline = new Deadline(false, description,
+                LocalDateTime.parse(validTime, FILE_DATE_TIME_FORMATTER));
         assertEquals("Last night, Darth Vader came down from Planet Vulcan and told me that if you don't meet this deadline... he'd melt your brain! So, better get moving!\n", deadline.toUIString());
     }
 
@@ -78,7 +82,8 @@ public class DeadlineTest {
      */
     @Test
     public void testSuccessfulCreationMarkDoneDeadline() {
-        Deadline deadline = new Deadline(true, description, LocalDateTime.parse(validTime, formatter));
+        Deadline deadline = new Deadline(true, description,
+                LocalDateTime.parse(validTime, FILE_DATE_TIME_FORMATTER));
         assertEquals("[D][X] Assignment (by: Sep 03 2024 10:10)", deadline.toString());
     }
 }

@@ -1,6 +1,5 @@
 package drbrown.command;
 
-import drbrown.task.Task;
 import drbrown.utils.DrBrownException;
 import drbrown.utils.Storage;
 import drbrown.utils.TaskList;
@@ -34,13 +33,14 @@ public class DeleteCommand extends Command {
      * @throws DrBrownException If the index is out of bounds of the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         try {
             tasks.removeItem(itemIndex, ui);
             ui.showEnd();
             ui.showCount(tasks);
         } catch (IndexOutOfBoundsException e) {
-            throw new DrBrownException("You got the count wrong! That’s not how you calculate time travel – you're off by a few gigawatts!");
+            throw new DrBrownException("You got the count wrong! That’s not how you calculate time "
+                    + "travel – you're off by a few gigawatts!");
         }
     }
 
@@ -50,7 +50,7 @@ public class DeleteCommand extends Command {
      * @return false, since DeleteCommand does not cause the application to exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

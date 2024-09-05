@@ -21,7 +21,7 @@ public class ExitCommand extends Command {
      */
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         ui.showEnd();
         ui.closeCommand();
         storage.update(tasks);
@@ -34,7 +34,7 @@ public class ExitCommand extends Command {
      */
 
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return true;
     }
 }

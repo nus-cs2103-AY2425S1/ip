@@ -1,6 +1,5 @@
 package drbrown.command;
 
-import drbrown.task.Task;
 import drbrown.utils.DrBrownException;
 import drbrown.utils.Storage;
 import drbrown.utils.TaskList;
@@ -22,9 +21,10 @@ public class ListCommand extends Command {
      * @throws DrBrownException If the task list is empty.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         if (tasks.getCount() == 0) {
-            throw new DrBrownException("Wait a minute, Doc! There's nothing here! We can't go anywhere until you add something to the list!");
+            throw new DrBrownException("Wait a minute, Doc! There's nothing here! "
+                    + "We can't go anywhere until you add something to the list!");
         }
         tasks.listOut(ui);
     }
@@ -35,7 +35,7 @@ public class ListCommand extends Command {
      * @return false, as this command does not cause the application to exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

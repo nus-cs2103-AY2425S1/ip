@@ -9,11 +9,11 @@ public class Todo extends Task {
     /**
      * Constructs a Todo task with the specified status and description.
      *
-     * @param status      The completion status of the task (true if completed, false otherwise).
+     * @param isCompleted      The completion status of the task (true if completed, false otherwise).
      * @param description The description of the task.
      */
-    public Todo(boolean status, String description) {
-        super(status, description);
+    public Todo(boolean isCompleted, String description) {
+        super(isCompleted, description);
     }
 
     /**
@@ -33,7 +33,8 @@ public class Todo extends Task {
      */
     @Override
     public String toUIString() {
-        return "Doc, you don't just walk into a store and buy plutonium! But you sure can add this task to your list!\n";
+        return "Doc, you don't just walk into a store and buy plutonium! " +
+                "But you sure can add this task to your list!\n";
     }
 
     /**

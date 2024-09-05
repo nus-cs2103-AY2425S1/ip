@@ -52,21 +52,26 @@ public class Storage {
             while (scanner.hasNext()) {
                 String[] sentenceSplit = scanner.nextLine().split(" \\| ");
                 switch (sentenceSplit[0]) {
-                    case "T":
-                        taskList.add(new Todo(parseBoolean(sentenceSplit[1]), sentenceSplit[2]));
-                        break;
-                    case "D":
-                        taskList.add(new Deadline(parseBoolean(sentenceSplit[1]), sentenceSplit[2], LocalDateTime.parse(sentenceSplit[3], DATE_TIME_FORMATTER)));
-                        break;
-                    case "E":
-                        taskList.add(new Event(parseBoolean(sentenceSplit[1]), sentenceSplit[2], LocalDateTime.parse(sentenceSplit[3], DATE_TIME_FORMATTER), LocalDateTime.parse(sentenceSplit[4], DATE_TIME_FORMATTER)));
-                        break;
-                    default:
-                        throw new DrBrownException("The file provided might be corrupted since it does not follow the specified format.");
+                case "T":
+                    taskList.add(new Todo(parseBoolean(sentenceSplit[1]), sentenceSplit[2]));
+                    break;
+                case "D":
+                    taskList.add(new Deadline(parseBoolean(sentenceSplit[1]), sentenceSplit[2],
+                            LocalDateTime.parse(sentenceSplit[3], DATE_TIME_FORMATTER)));
+                    break;
+                case "E":
+                    taskList.add(new Event(parseBoolean(sentenceSplit[1]), sentenceSplit[2],
+                            LocalDateTime.parse(sentenceSplit[3], DATE_TIME_FORMATTER),
+                            LocalDateTime.parse(sentenceSplit[4], DATE_TIME_FORMATTER)));
+                    break;
+                default:
+                    throw new DrBrownException("The file provided might be corrupted since it does not "
+                            + "follow the specified format.");
                 }
             }
         } catch (IOException e) {
-            throw new DrBrownException("Oops! It seems like this is your first time. No worries, I've created a brand new file to get you started.");
+            throw new DrBrownException("Oops! It seems like this is your first time. "
+                    + "No worries, I've created a brand new file to get you started.");
         }
         return taskList;
     }

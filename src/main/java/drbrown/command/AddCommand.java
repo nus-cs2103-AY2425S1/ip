@@ -1,7 +1,7 @@
 package drbrown.command;
 
-import drbrown.utils.Storage;
 import drbrown.task.Task;
+import drbrown.utils.Storage;
 import drbrown.utils.TaskList;
 import drbrown.utils.Ui;
 
@@ -30,9 +30,9 @@ public class AddCommand extends Command {
      * @param storage The Storage object for saving tasks to a file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTaskCreation(task);
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
+        ui.showTaskCreation(task);
         ui.showCount(tasks);
     }
 
@@ -42,7 +42,7 @@ public class AddCommand extends Command {
      * @return false, as this command does not exit the program.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

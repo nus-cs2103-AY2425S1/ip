@@ -9,19 +9,20 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    private final LocalDateTime end;
-    private static final DateTimeFormatter FILE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private final LocalDateTime endDateTime;
+    private static final DateTimeFormatter FILE_DATE_TIME_FORMATTER
+            = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Constructs a Deadline task with the specified status, description, and end date/time.
      *
-     * @param status      The completion status of the task (true if completed, false otherwise).
+     * @param isCompleted      The completion status of the task (true if completed, false otherwise).
      * @param description The description of the task.
-     * @param end         The end date and time of the deadline.
+     * @param endDateTime         The end date and time of the deadline.
      */
-    public Deadline(boolean status, String description, LocalDateTime end) {
-        super(status, description);
-        this.end = end;
+    public Deadline(boolean isCompleted, String description, LocalDateTime endDateTime) {
+        super(isCompleted, description);
+        this.endDateTime = endDateTime;
     }
 
     /**
@@ -31,7 +32,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + getStatus() + " | " + getDescription() + " | " + end.format(FILE_DATE_TIME_FORMATTER);
+        return "D | " + getStatus() + " | " + getDescription() + " | "
+                + endDateTime.format(FILE_DATE_TIME_FORMATTER);
     }
 
     /**
@@ -41,7 +43,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toUIString() {
-        return "Last night, Darth Vader came down from Planet Vulcan and told me that if you don't meet this deadline... he'd melt your brain! So, better get moving!\n";
+        return "Last night, Darth Vader came down from Planet Vulcan and told me that "
+                + "if you don't meet this deadline... he'd melt your brain! So, better get moving!\n";
     }
 
     /**
@@ -51,6 +54,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D][" + (getStatus() ? "X" : " ") + "] " + getDescription() + " (by: " + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "[D][" + (getStatus() ? "X" : " ") + "] " + getDescription()
+                + " (by: " + endDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 }

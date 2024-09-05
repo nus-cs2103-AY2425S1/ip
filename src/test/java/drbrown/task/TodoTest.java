@@ -45,7 +45,8 @@ public class TodoTest {
     @Test
     void testToUIStringTodo() {
         Todo todo = new Todo(false, description);
-        assertEquals("Doc, you don't just walk into a store and buy plutonium! But you sure can add this task to your list!\n", todo.toUIString());
+        assertEquals("Doc, you don't just walk into a store and buy plutonium! "
+                + "But you sure can add this task to your list!\n", todo.toUIString());
     }
 
     /**

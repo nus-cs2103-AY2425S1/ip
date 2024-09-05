@@ -1,6 +1,5 @@
 package drbrown.command;
 
-import drbrown.task.Task;
 import drbrown.utils.DrBrownException;
 import drbrown.utils.Storage;
 import drbrown.utils.TaskList;
@@ -33,11 +32,12 @@ public class MarkCommand extends Command {
      * @throws DrBrownException If the task index is invalid (out of bounds).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         try {
             tasks.markTask(itemIndex, ui);
         } catch (IndexOutOfBoundsException e) {
-            throw new DrBrownException("You got the count wrong! That’s not how you calculate time travel – you're off by a few gigawatts!");
+            throw new DrBrownException("You got the count wrong! That’s not how you calculate "
+                    + "time travel – you're off by a few gigawatts!");
         }
     }
 
@@ -47,7 +47,7 @@ public class MarkCommand extends Command {
      * @return false, as this command does not cause the application to exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

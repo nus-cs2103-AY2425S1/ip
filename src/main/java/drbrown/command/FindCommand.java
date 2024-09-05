@@ -1,6 +1,5 @@
 package drbrown.command;
 
-import drbrown.task.Task;
 import drbrown.utils.DrBrownException;
 import drbrown.utils.Storage;
 import drbrown.utils.TaskList;
@@ -34,9 +33,10 @@ public class FindCommand extends Command {
      * @throws DrBrownException If there are no tasks in the list to search from.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         if (tasks.getCount() == 0) {
-            throw new DrBrownException("Wait a minute, Doc! There's nothing here! We can't go anywhere until you add something to the list!");
+            throw new DrBrownException("Wait a minute, Doc! There's nothing here! We can't go "
+                    + "anywhere until you add something to the list!");
         }
         tasks.findMatching(this.keyword, ui);
     }
@@ -47,7 +47,7 @@ public class FindCommand extends Command {
      * @return false, since FindCommand does not cause the application to exit.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

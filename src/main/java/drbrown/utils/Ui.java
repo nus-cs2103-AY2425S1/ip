@@ -13,29 +13,27 @@ public class Ui {
     private final Scanner scanner = new Scanner(System.in);
 
     /**
-     * Constructs a Ui object.
-     */
-    public Ui() {}
-
-    /**
      * Displays the greeting message to the user when the application starts.
      */
     public void showGreeting() {
-        System.out.println("\nRoads? Where We're Going, We Don't Need Roads?! So, what can I help you with today?");
+        System.out.println("\nRoads? Where We're Going, We Don't Need Roads?! "
+                + "So, what can I help you with today?");
     }
 
     /**
      * Displays a line separator for visual clarity in the console output.
      */
     public void showLine() {
-        System.out.println("——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————");
+        System.out.println("_____________________________________"
+                + "________________________________________________________");
     }
 
     /**
      * Displays the end message to the user when the application is closing.
      */
     public void showEnd() {
-        System.out.println("Your future is whatever you make it, so make it a good one! Until next time, keep the DeLorean ready!");
+        System.out.println("Your future is whatever you make it, so make it a good one! "
+                + "Until next time, keep the DeLorean ready!");
     }
 
     /**
@@ -63,7 +61,8 @@ public class Ui {
      * @param markTask The task that was marked as completed.
      */
     public void showMarkTask(Task markTask) {
-        System.out.println("Task complete! If my calculations are correct, when this baby hits 88 miles per hour... you're gonna see some serious progress!\n");
+        System.out.println("Task complete! If my calculations are correct, when this baby hits 88 miles per hour..."
+                + " you're gonna see some serious progress!\n");
         System.out.println(markTask);
     }
 
@@ -81,7 +80,8 @@ public class Ui {
      * Displays the list of tasks to the user.
      */
     public void showList() {
-        System.out.println("Here’s your list! Like Doc Brown’s flux capacitor, this will help keep everything in perfect sync!\n");
+        System.out.println("Here’s your list! Like Doc Brown’s flux capacitor, this will help keep everything"
+                + " in perfect sync!\n");
     }
 
     /**
@@ -90,7 +90,8 @@ public class Ui {
      * @param deleteTask The task that was deleted.
      */
     public void showDeleteTask(Task deleteTask) {
-        System.out.println("That task's history has been erased! Just like Marty’s fading photo—it's gone, like it never existed!\n");
+        System.out.println("That task's history has been erased! Just like Marty’s fading photo—it's gone, "
+                + "like it never existed!\n");
         System.out.println(deleteTask);
     }
 
@@ -100,7 +101,8 @@ public class Ui {
      * @param tasks The TaskList containing the current tasks.
      */
     public void showCount(TaskList tasks) {
-        System.out.println("\nYour total count is now " + tasks.getCount() + "! Like the time circuits, everything's in sync – keep those tasks ticking along!\"");
+        System.out.println("\nYour total count is now " + tasks.getCount() + "! Like the time circuits, "
+                + "everything's in sync – keep those tasks ticking along!\"");
     }
 
     /**
@@ -114,7 +116,8 @@ public class Ui {
      * Displays the matching tasks found in the list.
      */
     public void showFind() {
-        System.out.println("Here are the matching tasks in your list — it's your density... I mean, your destiny to get these done!\n");
+        System.out.println("Here are the matching tasks in your list — it's your density... "
+                + "I mean, your destiny to get these done!\n");
     }
 
     /**
