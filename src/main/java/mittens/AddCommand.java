@@ -1,3 +1,5 @@
+package mittens;
+
 public class AddCommand extends Command {
     protected Task toAdd;
     

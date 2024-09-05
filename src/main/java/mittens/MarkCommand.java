@@ -1,7 +1,9 @@
-public class UnmarkCommand extends Command {
+package mittens;
+
+public class MarkCommand extends Command {
     protected int index;
 
-    public UnmarkCommand(int index) {
+    public MarkCommand(int index) {
         super();
         this.index = index;
     }
@@ -9,7 +11,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            Task task = tasks.markTaskAsNotDone(this.index);
+            Task task = tasks.markTaskAsDone(this.index);
 
             storage.save(tasks);
 

@@ -1,3 +1,5 @@
+package mittens;
+
 public class ExitCommand extends Command {
     public ExitCommand() {
         super();

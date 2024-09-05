@@ -1,3 +1,5 @@
+package mittens;
+
 public class DeleteCommand extends Command {
     protected int index;
 
