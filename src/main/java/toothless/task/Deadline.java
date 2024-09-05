@@ -37,8 +37,9 @@ public class Deadline extends Task {
      * Constructor for Deadline.
      *
      * @param description the description of the deadline
-     * @param deadline    the deadline of the task
-     * @param isDone      the status of the deadline
+     * @param deadline the deadline of the task
+     * @param isDone the status of the deadline
+     * @throws ToothlessExceptions if the date and time format is invalid
      */
     public Deadline(String description, String deadline, boolean isDone) throws ToothlessExceptions {
         super(description, isDone);
