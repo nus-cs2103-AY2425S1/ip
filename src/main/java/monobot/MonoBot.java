@@ -33,20 +33,29 @@ public class MonoBot {
         while (!isExit) {
             try {
                 String input = sc.nextLine();
-                ui.printHorizontalLine();
                 Command command = Parser.parseCommand(input);
                 command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             } catch (MonoBotException e) {
                 ui.printError(e.toString());
-            } finally {
-                ui.printHorizontalLine();
             }
         }
         sc.close();
     }
 
+    public TaskList getTasks() {
+        return this.tasks;
+    }
+
+    public Ui getUi() {
+        return this.ui;
+    }
+
+    public Storage getStorage() {
+        return this.storage;
+    }
+
     public static void main(String[] args) {
-        new MonoBot("./data/monobot.txt").run();
+        MonoBotGUI.main(args);
     }
 }

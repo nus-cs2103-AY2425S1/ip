@@ -7,23 +7,32 @@ import monobot.task.Task;
  */
 public class Ui {
 
+    private String lastOutput = "";
+
+    public String getLastOutput() {
+        return lastOutput;
+    }
+
+    private void setLastOutput(String output) {
+        lastOutput = output;
+        System.out.println(output);
+    }
     /**
      * Prints welcome greeting.
      */
+    public String getGreeting() {
+        return "Hello! I'm MonoBot\nWhat can I do for you?";
+    }
+
     public void printGreeting() {
-        printHorizontalLine();
-        System.out.println("Hello! I'm MonoBot");
-        System.out.println("What can I do for you?");
-        printHorizontalLine();
+        setLastOutput(getGreeting());
     }
 
     /**
      * Prints farewell message.
      */
     public void printFarewell() {
-        printHorizontalLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printHorizontalLine();
+        setLastOutput("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -37,9 +46,7 @@ public class Ui {
      * Prints message from error when loading tasks from file.
      */
     public void showLoadingError() {
-        printHorizontalLine();
-        System.out.println("Error loading tasks from file.");
-        printHorizontalLine();
+        setLastOutput("Error loading tasks from file.");
     }
 
     /**
@@ -48,29 +55,29 @@ public class Ui {
      * @param taskList taskList contains all tasks to be printed
      */
     public void printTasks(TaskList taskList) {
-        printHorizontalLine();
+        StringBuilder sb = new StringBuilder();
         if (taskList.isEmpty()) {
-            System.out.println("No tasks added yet");
+            sb.append("No tasks added yet");
         } else {
-            System.out.println("Here are the tasks in your list");
+            sb.append("Here are the tasks in your list:\n");
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.printf("%d. %s%n", i + 1, taskList.getTask(i));
+                sb.append(String.format("%d. %s%n", i + 1, taskList.getTask(i)));
             }
         }
-        printHorizontalLine();
+        setLastOutput(sb.toString());
     }
 
     public void printMatchingTasks(TaskList taskList) {
-        printHorizontalLine();
+        StringBuilder sb = new StringBuilder();
         if (taskList.isEmpty()) {
-            System.out.println("No matching tasks found");
+            sb.append("No matching tasks found");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            sb.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.printf("%d. %s%n", i + 1, taskList.getTask(i));
+                sb.append(String.format("%d. %s%n", i + 1, taskList.getTask(i)));
             }
         }
-        printHorizontalLine();
+        setLastOutput(sb.toString());
     }
 
     /**
@@ -80,10 +87,7 @@ public class Ui {
      * @param totalTasks Total number of tasks currently in the taskList
      */
     public void printAddedTask(Task task, int totalTasks) {
-        printHorizontalLine();
-        System.out.println("Added: " + task);
-        System.out.println("Now you have " + totalTasks + " task(s) in the list");
-        printHorizontalLine();
+        setLastOutput("Added: " + task + "\nNow you have " + totalTasks + " task(s) in the list");
     }
 
     /**
@@ -93,10 +97,8 @@ public class Ui {
      * @param totalTasks Total number of tasks currently in the taskList
      */
     public void printDeletedTask(Task task, int totalTasks) {
-        printHorizontalLine();
-        System.out.println("Noted! I have removed this task:\n" + task);
-        System.out.println("Now you have " + totalTasks + " task(s) in the list");
-        printHorizontalLine();
+        setLastOutput("Noted! I have removed this task:\n" + task +
+                "\nNow you have " + totalTasks + " task(s) in the list");
     }
 
     /**
@@ -105,9 +107,7 @@ public class Ui {
      * @param task task that has just been marked by user
      */
     public void printMarkedTask(Task task) {
-        printHorizontalLine();
-        System.out.println("Nice! I have marked this task as completed:\n" + task);
-        printHorizontalLine();
+        setLastOutput("Nice! I have marked this task as completed:\n" + task);
     }
 
     /**
@@ -116,9 +116,7 @@ public class Ui {
      * @param task task that has just been unmarked by user
      */
     public void printUnmarkedTask(Task task) {
-        printHorizontalLine();
-        System.out.println("Ok! I have marked this task as incomplete:\n" + task);
-        printHorizontalLine();
+        setLastOutput("Ok! I have marked this task as incomplete:\n" + task);
     }
 
     /**
@@ -127,8 +125,6 @@ public class Ui {
      * @param message error to be displayed
      */
     public void printError(String message) {
-        printHorizontalLine();
-        System.out.println(message);
-        printHorizontalLine();
+        setLastOutput(message);
     }
 }

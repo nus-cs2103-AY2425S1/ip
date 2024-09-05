@@ -1,5 +1,8 @@
 package monobot.command;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import monobot.util.Storage;
 import monobot.util.TaskList;
 import monobot.util.Ui;
@@ -17,7 +20,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Executes bye command.
+     * Executes bye command by exiting platform.
      *
      * @param tasks list of tasks containing task to mark.
      * @param ui ui object to handle output to user.
@@ -26,5 +29,13 @@ public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printFarewell();
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+    }
+
+    @Override
+    public boolean isExit() {
+        return true;
     }
 }

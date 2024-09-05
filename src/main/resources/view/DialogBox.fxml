@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+
+<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" spacing="10">
+    <children>
+        <ImageView fx:id="profilePic" fitHeight="40" fitWidth="40" preserveRatio="true"/>
+        <VBox fx:id="wrapper" maxWidth="1.7976931348623157E308">
+            <children>
+                <TextFlow fx:id="textFlow" maxWidth="1.7976931348623157E308">
+                    <children>
+                        <Text fx:id="text" wrappingWidth="0"/>
+                    </children>
+                </TextFlow>
+            </children>
+            <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+            </padding>
+        </VBox>
+    </children>
+    <padding>
+        <Insets top="5" right="10" bottom="5" left="10" />
+    </padding>
+</fx:root>
