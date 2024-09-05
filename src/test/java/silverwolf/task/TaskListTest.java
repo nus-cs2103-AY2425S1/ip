@@ -110,10 +110,12 @@ public class TaskListTest {
         taskList.addTask(new Todo("return book by June 6th"));
         taskList.addTask(new Todo("attend meeting"));
         List<Task> foundTasks = taskList.findTasks("book");
+        String textMessageOne = "First task should contain the keyword 'book'";
+        String taskMessageTwo = "Second task should contain the keyword 'book'";
 
         assertEquals(2, foundTasks.size(), "Should find 2 tasks containing the keyword 'book'");
-        assertTrue(foundTasks.get(0).getDescription().contains("book"), "First task should contain the keyword 'book'");
-        assertTrue(foundTasks.get(1).getDescription().contains("book"), "Second task should contain the keyword 'book'");
+        assertTrue(foundTasks.get(0).getDescription().contains("book"), textMessageOne);
+        assertTrue(foundTasks.get(1).getDescription().contains("book"), taskMessageTwo);
     }
 
     /**
