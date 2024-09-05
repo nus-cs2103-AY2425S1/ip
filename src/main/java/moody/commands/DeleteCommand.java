@@ -35,13 +35,15 @@ public class DeleteCommand extends Command {
      * @throws IOException If an I/O error occurs while saving to storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         try {
             Task removedTask = tasks.remove(taskIndex);
             storage.save(tasks.toArrayList());
             ui.showTaskRemoved(removedTask, tasks.size());
+            return ui.showTaskRemovedAsString(removedTask, tasks.size());
         } catch (IndexOutOfBoundsException e) {
             ui.showError("Error: Cannot delete a task that does not exist");
+            return ui.showErrorAsString("Error: Cannot delete a task that does not exist");
         }
     }
 

@@ -18,7 +18,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException, IOException {
         if (keyword.trim().isEmpty()) {
             throw new InvalidCommandException("Error: The search keyword cannot be empty.\n");
         }
@@ -29,15 +29,25 @@ public class FindCommand extends Command {
                 matchingTasks.add(task);
             }
         }
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the matching tasks in your list:\n");
 
         if (matchingTasks.isEmpty()) {
             ui.showError("No tasks found with keyword: " + keyword);
+            ui.showErrorAsString("No tasks found with keyword: " + keyword);
         } else {
             ui.showMessage("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 System.out.println((i + 1) + ". " + matchingTasks.get(i));
+                response.append(i + 1)
+                        .append(". ")
+                        .append(matchingTasks.get(i))
+                        .append("\n");
+
             }
             ui.showLine();
+            response.append(ui.showLineAsString());
         }
+        return response.toString();
     }
 }

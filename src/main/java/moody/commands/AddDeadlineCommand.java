@@ -51,11 +51,13 @@ public class AddDeadlineCommand extends Command {
      * @throws IOException If there is an error while saving the task list to storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task newTask = new Deadline(this.description, this.deadline);
         tasks.add(newTask);
         storage.save(tasks.toArrayList());
         ui.showTaskAdded(newTask, tasks.size());
+
+        return ui.showTaskAddedAsString(newTask, tasks.size());
     }
 
     @Override

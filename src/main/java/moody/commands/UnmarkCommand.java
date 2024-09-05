@@ -33,12 +33,13 @@ public class UnmarkCommand extends Command {
      * @throws IOException If an I/O error occurs while saving the updated task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, TaskInputException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, TaskInputException {
         try {
             Task task = tasks.get(taskIndex);
             task.markAsNotDone();
             storage.save(tasks.toArrayList());
             ui.showUnmarkedTask(task);
+            return ui.showUnmarkedTaskAsString(task);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskInputException("Error: Cannot mark a task that does not exist");
         }
