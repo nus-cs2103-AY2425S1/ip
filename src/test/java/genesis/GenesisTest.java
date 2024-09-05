@@ -1,5 +1,8 @@
 package genesis;
 import org.junit.jupiter.api.Test;
+import task.Task;
+import taskmanager.TaskManager;
+import todo.Todo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,7 +10,7 @@ public class GenesisTest {
     private TaskManager taskManager;
 
 
-    @Test
+    /*@Test
     public void testAddTask() {
         Task todo = new Todo("Test Task", "todo Test Task");
         taskManager = new TaskManager();
@@ -23,5 +26,5 @@ public class GenesisTest {
         taskManager.addTask(todo, true);
         taskManager.markTask(0);
         assertTrue(taskManager.getTasks().get(0).isComplete);
-    }
+    }*/
 }

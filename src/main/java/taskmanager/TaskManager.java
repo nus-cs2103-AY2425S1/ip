@@ -1,0 +1,108 @@
+package taskmanager;
+
+import task.Task;
+
+import java.util.ArrayList;
+
+public class TaskManager {
+    protected ArrayList<Task> tasks;
+
+    /**
+     * Constructs a TaskManager.
+     */
+    public TaskManager() {
+        this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Returns the list of tasks.
+     *
+     * @return The list of tasks.
+     */
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
+
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to add.
+     * @param isSilent If true, suppress output messages.
+     */
+    public String addTask(Task task, boolean isSilent) {
+        tasks.add(task);
+        if (!isSilent) {
+            return "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + tasks.size()
+                    + " tasks in the list.";
+        }
+
+        return null;
+    }
+    /**
+     * Lists all the tasks in the task list.
+     */
+
+    public String listTasks() {
+        if (tasks.isEmpty()) {
+            return "No tasks in the list.";
+        }
+
+        StringBuilder response = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            response.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+
+        return response.toString();
+    }
+    /**
+     * Marks the task with the given index.
+     *
+     * @param index Index of the task to mark.
+     */
+    public String markTask(int index) {
+        if (isValidIndex(index)) {
+            tasks.get(index).mark();
+            return "Nice! I've marked this task as done:\n" + tasks.get(index).getDescription();
+        }
+        return "Invalid task number!";
+    }
+    /**
+     * Unmarks the task with the given index.
+     *
+     * @param index Index of the task to unmark.
+     */
+    public String unmarkTask(int index) {
+        if (isValidIndex(index)) {
+            tasks.get(index).unmark();
+            return "Ok. I've marked this task as not done yet:\n" + tasks.get(index).getDescription();
+        }
+        return "Invalid task number!";
+    }
+    /**
+     * Deletes the task with the given index.
+     *
+     * @param index Index of the task to delete.
+     */
+    public String deleteTask(int index) {
+        if (isValidIndex(index)) {
+            Task removedTask = tasks.remove(index);
+            return "Noted. I have removed the following task: \n" + removedTask.toString() +
+                    "\nNow you have " + tasks.size() + " tasks in the list.";
+        }
+        return "Invalid task number!";
+    }
+
+    /**
+     * Checks if index given is valid.
+     *
+     * @param index Index of the task to check.
+     */
+
+    private boolean isValidIndex(int index) {
+        if (index < 0 || index >= tasks.size()) {
+            return false;
+        }
+        return true;
+    }
+}
