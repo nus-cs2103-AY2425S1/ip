@@ -2,37 +2,36 @@ import java.util.Scanner;
 
 
 public class Mittens {
-    private Ui ui;
-    private Storage storage;
-    private TaskList taskList;
+    private final Ui ui;
+    private final Storage storage;
+    private final TaskList taskList;
     
     public Mittens(String storageFilePath) {
         this.ui = new TextUi();
         this.storage = new Storage(storageFilePath);
-        this.taskList = new TaskList();
-    }
-
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        CommandParser commandParser = new CommandParser();
         
+        TaskList temp;
         try {
-            this.taskList = this.storage.load();
+            temp = this.storage.load();
         } catch (StorageFileException e) {
-            e.echo();
-            
-            System.out.print("Would you like to continue with a new list instead? (y/n)\n> ");
-            String input = scanner.nextLine();
-            if (input.equals("y")) {
-                this.taskList = new TaskList();
+            ui.showErrorMessage(e);
+            ui.showRegularMessage("Would you like to continue with a new list instead? (y/n)");
+            if (ui.getUserInput().equals("y")) {
+                temp = new TaskList();
             } else {
-                return;
+                throw new RuntimeException("User chose to exit the program");
             }
         } catch (Exception e) {
             InitializationException newException = new InitializationException(e.getMessage());
-            newException.echo();
-            return;
+            ui.showErrorMessage(newException);
+            throw new RuntimeException("Error occurred during initialization");
         }
+        
+        this.taskList = temp;
+    }
+
+    public void run() {
+        CommandParser commandParser = new CommandParser();
         
         ui.showGreetingMessage();
 
