@@ -1,8 +1,8 @@
 package rose;
 
-import rose.command.Command;
-
 import java.io.IOException;
+
+import rose.command.Command;
 
 /**
  * The {@code Rose} class is the main entry point for the task management application.
