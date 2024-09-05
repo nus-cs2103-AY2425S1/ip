@@ -7,61 +7,115 @@ import Gary.task.ToDo;
 import Gary.task.Deadline;
 import Gary.task.Event;
 
-
+/**
+ * The {@code TaskList} class manages a list of tasks, providing functionalities
+ * to add, remove, and retrieve tasks. It also supports initializing tasks from a file.
+ */
 public class TaskList {
-    private ArrayList<Task> taskLists;
+    private ArrayList<Task> tasks;  // List to store tasks
 
+    /**
+     * Constructs an empty {@code TaskList}.
+     */
     public TaskList() {
-        this.taskLists = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
+
+    /**
+     * Constructs a {@code TaskList} by loading tasks from a {@code Scanner} object.
+     * This constructor reads each line from the scanner to initialize tasks.
+     *
+     * @param sc The {@code Scanner} object containing task data.
+     */
     public TaskList(Scanner sc) {
-        this.taskLists = new ArrayList<>();
+        this.tasks = new ArrayList<>();
         while (sc.hasNextLine()) {
             String nextLine = sc.nextLine();
             String[] split = nextLine.split(" \\| ");
             String taskType = split[0].trim();
-            Boolean isDone = split[1].equals("0") ? false : true;
-            if (taskType.equals("T")) {
-                Task task = new ToDo(split[2]);
-                taskLists.add(task);
-                if (isDone) {
-                    task.editStatus();
-                }
-            } else if (taskType.equals("D")) {
-                Task task = new Deadline(split[2], split[3]);
-                taskLists.add(task);
-                if (isDone) {
-                    task.editStatus();
-                }
-            } else if (taskType.equals("E")) {
-                Task task = new Event(split[2], split[3], split[4]);
-                taskLists.add(task);
-                if (isDone) {
-                    task.editStatus();
-                }
-            }
+            boolean isDone = split[1].equals("1");
 
+            switch (taskType) {
+            case "T":
+                Task todo = new ToDo(split[2].trim());
+                tasks.add(todo);
+                if (isDone) {
+                    todo.editStatus();
+                }
+                break;
+
+            case "D":
+                Task deadline = new Deadline(split[2].trim(), split[3].trim());
+                tasks.add(deadline);
+                if (isDone) {
+                    deadline.editStatus();
+                }
+                break;
+
+            case "E":
+                Task event = new Event(split[2].trim(), split[3].trim(), split[4].trim());
+                tasks.add(event);
+                if (isDone) {
+                    event.editStatus();
+                }
+                break;
+
+            default:
+                // Handle invalid task type if necessary
+                break;
+            }
         }
         sc.close();
     }
+
+    /**
+     * Adds a task to the {@code TaskList}.
+     *
+     * @param task The {@code Task} object to add.
+     */
     public void addTask(Task task) {
-        this.taskLists.add(task);
+        this.tasks.add(task);
     }
 
+    /**
+     * Removes a task from the {@code TaskList} at the specified index.
+     *
+     * @param index The index of the task to remove.
+     * @return The removed {@code Task} object.
+     * @throws IndexOutOfBoundsException if the index is out of range.
+     */
     public Task removeTask(int index) {
-        return this.taskLists.remove(index);
+        return this.tasks.remove(index);
     }
+
+    /**
+     * Retrieves the task at the specified index from the {@code TaskList}.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The {@code Task} object at the specified index.
+     * @throws IndexOutOfBoundsException if the index is out of range.
+     */
     public Task getTask(int index) {
-        return this.taskLists.get(index);
+        return this.tasks.get(index);
     }
 
+    /**
+     * Returns the number of tasks in the {@code TaskList}.
+     *
+     * @return The size of the {@code TaskList}.
+     */
     public int size() {
-        return this.taskLists.size();
+        return this.tasks.size();
     }
 
+    /**
+     * Returns a string representation of the {@code TaskList}.
+     *
+     * @return A string representation of the {@code TaskList}.
+     */
     @Override
     public String toString() {
-        return this.taskLists.toString();
+        return this.tasks.toString();
     }
 }
 
