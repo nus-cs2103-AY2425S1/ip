@@ -13,6 +13,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
 
+    private static final String DATE_FORMAT_ERROR = "Invalid date format. Please use the format: yyyy-MM-dd HHmm.";
     private LocalDateTime from;
     private LocalDateTime to;
 
@@ -29,38 +30,55 @@ public class Event extends Task {
      */
     public Event(String name, boolean isDone, String from, String to) throws TarsException {
         super(name, isDone);
-        try {
-            this.from = DateTimeParser.parse(from);
-            this.to = DateTimeParser.parse(to);
-        } catch (DateTimeParseException e) {
-            throw new TarsException("Invalid date format. Please use the format: yyyy-MM-dd HHmm.");
-        }
+        this.from = parseDate(from);
+        this.to = parseDate(to);
     }
 
     public void setFrom(String newFrom) throws TarsException {
-        try {
-            this.from = DateTimeParser.parse(newFrom);
-        } catch (DateTimeParseException e) {
-            throw new TarsException("Invalid date format. Please use the format: yyyy-MM-dd HHmm.");
-        }
+        this.from = parseDate(newFrom);
     }
 
     public void setTo(String newTo) throws TarsException {
+        this.to = parseDate(newTo);
+    }
+
+    /**
+     * Parses a given date string into a {@link LocalDateTime} object.
+     *
+     * <p>This method attempts to parse the date string using predefined date-time formats.
+     * If the string cannot be parsed, it throws a {@link TarsException} with a detailed error message.
+     * The accepted formats are "yyyy-MM-dd HHmm" and "dd MMM yyyy, HH:mm".
+     *
+     * @param date the date string to be parsed, in either "yyyy-MM-dd HHmm" or "dd MMM yyyy, HH:mm" format.
+     * @return the parsed {@link LocalDateTime} object.
+     * @throws TarsException if the date string cannot be parsed into a valid {@link LocalDateTime} object.
+     */
+    private LocalDateTime parseDate(String date) throws TarsException {
         try {
-            this.to = DateTimeParser.parse(newTo);
+            return DateTimeParser.parseDateTimeString(date);
         } catch (DateTimeParseException e) {
-            throw new TarsException("Invalid date format. Please use the format: yyyy-MM-dd HHmm.");
+            throw new TarsException(DATE_FORMAT_ERROR);
         }
     }
 
     public String getFrom() {
-        return DateTimeParser.format(this.from);
+        return DateTimeParser.formatDateTimeString(this.from);
     }
 
     public String getTo() {
-        return DateTimeParser.format(this.to);
+        return DateTimeParser.formatDateTimeString(this.to);
     }
 
+    /**
+     * Returns a string representation of this event task.
+     *
+     * <p>The format of the string includes the task type "[E]" for Event, followed by the task description,
+     * and the start and end times formatted using the {@link DateTimeParser} class.
+     * The returned string follows this format:
+     * "[E] {task description} (from: {start time} to: {end time})".
+     *
+     * @return a string representation of the event task, including its type, description, start time, and end time.
+     */
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " + getFrom() + " to: " + getTo() + ")";

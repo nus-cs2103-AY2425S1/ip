@@ -10,6 +10,7 @@ import java.util.List;
  * <p>The TaskList class also interacts with the Storage class to persist the tasks to a file.
  */
 public class TaskList {
+    private static final String ERROR_OUT_OF_BOUNDS = "The specified task number is out of bounds.";
     private List<Task> tasks;
     private Storage storage;
 
@@ -54,7 +55,7 @@ public class TaskList {
      */
     public void removeTask(int index) throws TarsException {
         if (index < 0 || index >= tasks.size()) {
-            throw new TarsException("The specified task number is out of bounds.");
+            throw new TarsException(ERROR_OUT_OF_BOUNDS);
         }
         tasks.remove(index);
         saveTasks();
@@ -82,7 +83,7 @@ public class TaskList {
      */
     public Task markTaskDone(int index) throws TarsException {
         if (index < 0 || index >= tasks.size()) {
-            throw new TarsException("The specified task number is out of bounds.");
+            throw new TarsException(ERROR_OUT_OF_BOUNDS);
         }
         Task task = tasks.get(index);
         task.setDone();
@@ -99,7 +100,7 @@ public class TaskList {
      */
     public Task markTaskUndone(int index) throws TarsException {
         if (index < 0 || index >= tasks.size()) {
-            throw new TarsException("The specified task number is out of bounds.");
+            throw new TarsException(ERROR_OUT_OF_BOUNDS);
         }
         Task task = tasks.get(index);
         task.setUndone();
@@ -136,7 +137,6 @@ public class TaskList {
         }
         return matchingTasks;
     }
-
 
     public int getSize() {
         return tasks.size();
