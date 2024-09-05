@@ -6,8 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import meep.ui.Ui;
 import meep.MeepException;
+import meep.ui.Ui;
 
 /**
  * The {@code Storage} class handles the loading and saving of tasks to and from a file.
@@ -60,6 +60,8 @@ public class Storage {
                     task.markAsDone();
                 }
                 taskList.addItem(task);
+                break;
+            default:
                 break;
             }
         } catch (IndexOutOfBoundsException e) {

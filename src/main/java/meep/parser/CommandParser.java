@@ -25,7 +25,8 @@ public class CommandParser {
      *
      * @param input   The full input string provided by the user.
      * @param command The command to check against.
-     * @return {@code true} if the input exactly matches the specified command (case-insensitive), {@code false} otherwise.
+     * @return {@code true} if the input exactly matches the specified command
+     *     (case-insensitive),{@code false} otherwise.
      */
     public static boolean checkEqualCommand(String input, String command) {
         return input.equalsIgnoreCase(command);

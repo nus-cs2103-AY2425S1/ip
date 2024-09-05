@@ -2,7 +2,8 @@ package meep.task;
 
 /**
  * The {@code Task} class represents a task with a description and a status indicating whether it is done.
- * It provides methods to mark the task as done or undone, and to retrieve the task's status and formatted representations.
+ * It provides methods to mark the task as done or undone,
+ * and to retrieve the task's status and formatted representations.
  */
 public class Task {
     private final String description;

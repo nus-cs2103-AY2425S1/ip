@@ -74,9 +74,9 @@ public class Ui {
         System.out.println("""
                 -----------------------------------------
                 Meep: Got it. I've added this task:
-                """ + task + "\n" +
-                "Now you have " + size + " tasks in the list\n" +
-                "-----------------------------------------"
+                """ + task + "\n"
+                + "Now you have " + size + " tasks in the list\n"
+                + "-----------------------------------------"
         );
     }
 
@@ -90,9 +90,11 @@ public class Ui {
         System.out.println("""
                 -----------------------------------------
                 Meep: Noted. I've removed this task:
-                """ + task + "\n" +
-                "Now you have " + (size - 1) + " tasks in the list\n" +
-                "-----------------------------------------"
+                """ + task + "\n"
+                + "Now you have "
+                + (size - 1)
+                + " tasks in the list\n"
+                + "-----------------------------------------"
         );
     }
 
@@ -105,8 +107,9 @@ public class Ui {
         System.out.println("""
                 -----------------------------------------
                 Meep: Here are the tasks in your list:
-                """ + tasks +
-                "-----------------------------------------"
+                """
+                + tasks
+                + "-----------------------------------------"
         );
     }
 
@@ -242,8 +245,9 @@ public class Ui {
         System.out.println("""
                 -----------------------------------------
                 Meep: Here are the matching tasks in your list:
-                """ + tasks +
-                "-----------------------------------------"
+                """
+                + tasks
+                + "-----------------------------------------"
         );
     }
 

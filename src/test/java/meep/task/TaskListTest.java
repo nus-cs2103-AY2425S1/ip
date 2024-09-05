@@ -1,9 +1,9 @@
 package meep.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
 
@@ -61,7 +61,7 @@ public class TaskListTest {
     public void getSaveFormatList_multipleTasks_correctFormatRetrieved() {
         taskList.addItem(task1);
         taskList.addItem(task2);
-        String expected = "0|Read book\n0|Write code\n";  // Assuming this is the save format
+        String expected = "0|Read book\n0|Write code\n"; // Assuming this is the save format
         assertEquals(expected, taskList.getSaveFormatList());
     }
 
