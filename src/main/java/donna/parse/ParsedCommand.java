@@ -1,4 +1,4 @@
-package donna;
+package donna.parse;
 
 /**
  * Represents a command parsed from user input.
