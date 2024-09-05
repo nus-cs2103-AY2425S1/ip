@@ -7,6 +7,7 @@ public class TaskList {
     /** The current list of tasks based on user input */
     private ArrayList<Task> tasks;
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Task list should not be null";
         this.tasks = tasks;
     }
 
@@ -16,6 +17,7 @@ public class TaskList {
      * @param taskNumber The task to be deleted.
      */
     public void deleteTask(int taskNumber) {
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Invalid task number for deletion";
         tasks.remove(taskNumber);
     }
 
@@ -25,6 +27,7 @@ public class TaskList {
      * @param taskNumber The task to be marked as done.
      */
     public void markTask(int taskNumber) {
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Invalid task number for marking";
         Task toMark = tasks.get(taskNumber);
         toMark.mark();
     }
@@ -35,6 +38,7 @@ public class TaskList {
      * @param taskNumber The task to be marked as undone.
      */
     public void unmarkTask(int taskNumber) {
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Invalid task number for unmarking";
         Task toUnmark = tasks.get(taskNumber);
         toUnmark.unmark();
     }
@@ -45,6 +49,7 @@ public class TaskList {
      * @param t The task to be added.
      */
     public void addTodo(Todo t) {
+        assert t != null : "Todo task should not be null";
         tasks.add(t);
     }
 
@@ -54,6 +59,7 @@ public class TaskList {
      * @param d The task to be added.
      */
     public void addDeadline(Deadline d) {
+        assert d != null : "Deadline task should not be null";
         tasks.add(d);
     }
 
@@ -63,7 +69,8 @@ public class TaskList {
      * @param e The task to be added.
      */
     public void addEvent(Event e) {
-       tasks.add(e);
+        assert e != null : "Event task should not be null";
+        tasks.add(e);
     }
 
     /**
@@ -83,6 +90,7 @@ public class TaskList {
      * @return The String representation at index i.
      */
     public String getStringAt(int taskNumber) {
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Invalid task number for getting string";
         return tasks.get(taskNumber).toString();
     }
 
@@ -94,6 +102,7 @@ public class TaskList {
      * @return The Task object at index i.
      */
     public Task get(int taskNumber) {
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Invalid task number for getting task";
         return tasks.get(taskNumber);
     }
 
@@ -105,6 +114,7 @@ public class TaskList {
      * contain the keyword s.
      */
     public ArrayList<Task> filter(String s) {
+        assert s != null && !s.isEmpty() : "Search keyword should not be null or empty";
         ArrayList<Task> copy = new ArrayList<>();
         copy.addAll(tasks);
         copy.removeIf(t -> !t.nameDoesContain(s));
@@ -119,9 +129,7 @@ public class TaskList {
     @Override
     public String toString() {
         String res = "";
-//        if (tasks.size() == 0) {
-//            return "The list is empty.\n";
-//        }
+
         for (int i = 0; i < tasks.size(); i++) {
             int listIndex = i + 1;
             res += listIndex + ". " + tasks.get(i).toString() + "\n";

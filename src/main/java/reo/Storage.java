@@ -15,6 +15,8 @@ import java.util.stream.Stream;
 public class Storage {
     private String filePath;
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
+        assert !filePath.isEmpty() : "File path cannot be empty";
         this.filePath = filePath;
     }
     /**
@@ -46,6 +48,7 @@ public class Storage {
                 System.out.println("Created new file to store list.");
                 return tasks;
             }
+
             try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
                 lines.forEach(line -> {
                     String[] split = line.split("\\|");
@@ -112,6 +115,7 @@ public class Storage {
      * @param lineNumber The line number (1-indexed) to be removed.
      */
     public void removeLine(int lineNumber) {
+        assert lineNumber > 0 : "Line number must be greater than 0";
         try {
             File f = new File(filePath);
             File temp = new File("./data/temp.txt");
@@ -144,6 +148,9 @@ public class Storage {
      * @param cmd The action to be performed on the completion status.
      */
     public void editLine(int lineNumber, String cmd) {
+        assert lineNumber > 0 : "Line number must be greater than 0"; // Ensure valid line number
+        assert cmd != null : "Command cannot be null";
+        assert cmd.equals("mark") || cmd.equals("unmark") : "Command must be 'mark' or 'unmark'";
         try {
             File f = new File(filePath);
             File temp = new File("./data/temp.txt");

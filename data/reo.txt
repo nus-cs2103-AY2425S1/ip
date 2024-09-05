@@ -1,3 +1,10 @@
+<<<<<<< HEAD
 T | 1 | wdfsnb
 E | 0 | dnjw  | nejefd | shbcd
 T | 1 | sjdbs
+=======
+T | 1 | cs2100 tutorial
+T | 0 | lab  | No deadline set
+T | 0 | lab  | Sep 09 2024
+E | 0 | training  | 9pm | 11pm
+>>>>>>> master
