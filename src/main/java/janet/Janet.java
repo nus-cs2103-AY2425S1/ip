@@ -30,6 +30,12 @@ public class Janet {
         return runProgram(input);
     }
 
+    /**
+     * Returns a string message to welcome the user.
+     * If 'janet.txt' does not exist yet, an additional loading error message will be appended.
+     *
+     * @return A string message.
+     */
     public String startMessage() {
         // if janet.txt cannot be found, ui.showLoadingError() is appended to the message.
         String message = ui.showWelcome();
