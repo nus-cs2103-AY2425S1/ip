@@ -17,21 +17,25 @@ public class HelpCommand extends Command{
 
     /**
      * Executes the help command by reading the help instructions from a file
-     * and displaying them to the user.
+     * and returning them as a string to be displayed to the user.
      *
-     * @param tasks   The task list (not used in this command).
-     * @param ui      The user interface used to display the help instructions.
-     * @param storage The storage object (not used in this command).
+     * @param tasks   The {@link TaskList}, not used in this command.
+     * @param ui      The {@link Ui} instance used to display the help instructions to the user.
+     * @param storage The {@link Storage} instance, not used in this command.
+     * @return The help instructions as a string, or an error message if the instructions are unavailable.
      * @throws SnipeException If an application-specific error occurs during execution.
+     * @throws IOException    If an I/O error occurs while reading the help instructions file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SnipeException {
+    public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
         String filePath = "src/main/txt/helpinstructions.txt"; // Instructions manual
         try {
             String content = new String(Files.readAllBytes(Paths.get(filePath)));
-            ui.printWithLines(content); // Print the instructions
+            return content;
         } catch (IOException e) {
             System.out.println("Error reading the file: " + e.getMessage());
+            return "Sorry, help list is not available at the current moment";
         }
     }
+
 }

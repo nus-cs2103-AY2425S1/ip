@@ -27,17 +27,18 @@ public class FindCommand extends Command{
     }
 
     /**
-     * Executes the find command by searching for tasks in the task list that contain the specified keyword.
-     * Displays the matching tasks to the user.
+     * Executes the find command by searching for tasks in the task list that contain the specified keyword
+     * and returns a list of matching tasks as a formatted string.
      *
-     * @param tasks The list of tasks to search within.
-     * @param ui The UI object used to interact with the user.
-     * @param storage The storage object used to save or load task data.
-     * @throws SnipeException If there is an error in executing the command.
-     * @throws IOException If there is an error reading from or writing to the storage.
+     * @param tasks   The {@link TaskList} to search within for matching tasks.
+     * @param ui      The {@link Ui} instance used to interact with the user.
+     * @param storage The {@link Storage} instance, used to save or load task data.
+     * @return A formatted string listing all tasks in the task list that contain the specified keyword.
+     * @throws SnipeException If an application-specific error occurs during execution.
+     * @throws IOException    If an I/O error occurs while accessing storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
+    public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
         ArrayList<Task> filteredTasks = tasks.findTasks(this.keyWord);
         StringBuilder message = new StringBuilder();
         message.append("Here are the matching tasks in your list:\n");
@@ -46,6 +47,7 @@ public class FindCommand extends Command{
             message.append(item);
         }
         String resultMessage = message.toString().stripTrailing();
-        ui.printWithLines(resultMessage);
+        return resultMessage;
     }
+
 }

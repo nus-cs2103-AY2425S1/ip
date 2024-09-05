@@ -10,21 +10,24 @@ import java.io.IOException;
 /**
  * The {@code Command} class represents an abstract command that can be executed
  * to perform an action on the task list. It serves as a base class for all specific commands.
- * Each command must implement the {@link #execute(TaskList, Ui, Storage)} method to define its behavior.
+ * Each command must implement the {@link #getResponse(TaskList, Ui, Storage)} method to define its behavior.
  */
 public abstract class Command {
 
     /**
-     * Executes the command with the specified task list, user interface, and storage.
-     * This method must be implemented by all subclasses to provide specific behavior for each command.
+     * Executes the command and returns the response as a string.
+     * This method must be implemented by all subclasses to define the specific behavior of each command
+     * based on the given task list, user interface, and storage.
      *
-     * @param tasks   The task list on which the command will operate.
-     * @param ui      The user interface used to display messages to the user.
-     * @param storage The storage object used to save or load the task list.
-     * @throws SnipeException If an error specific to the application occurs during execution.
-     * @throws IOException    If an input or output error occurs during execution.
+     * @param tasks   The {@link TaskList} that the command will manipulate or query.
+     * @param ui      The {@link Ui} instance used to interact with the user, display messages, and gather input.
+     * @param storage The {@link Storage} instance responsible for saving and loading the task list data.
+     * @return The response message as a string, typically used to provide feedback to the user.
+     * @throws SnipeException If an application-specific error occurs during command execution.
+     * @throws IOException    If an I/O error occurs while accessing or modifying storage.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException;
+    public abstract String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException;
+
 
     /**
      * Indicates whether this command is an exit command.

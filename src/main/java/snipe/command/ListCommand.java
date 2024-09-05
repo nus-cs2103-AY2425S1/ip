@@ -5,6 +5,8 @@ import snipe.storage.Storage;
 import snipe.core.TaskList;
 import snipe.util.Ui;
 
+import java.io.IOException;
+
 /**
  * The {@code ListCommand} class represents a command to display all tasks in the task list.
  * It formats the list of tasks and displays them to the user through the user interface.
@@ -12,16 +14,18 @@ import snipe.util.Ui;
 public class ListCommand extends Command {
 
     /**
-     * Executes the list command by formatting the tasks in the task list and displaying them to the user.
-     * The tasks are displayed in a numbered list format.
+     * Executes the list command by formatting all tasks in the task list into a numbered list format
+     * and returning the formatted string to be displayed to the user.
      *
-     * @param tasks   The task list containing all tasks to be displayed.
-     * @param ui      The user interface used to display the task list.
-     * @param storage The storage object (not used in this command).
+     * @param tasks   The {@link TaskList} containing all tasks to be displayed.
+     * @param ui      The {@link Ui} instance used to display the task list to the user.
+     * @param storage The {@link Storage} instance, not used in this command.
+     * @return A formatted string representing all tasks in the task list, in a numbered format.
      * @throws SnipeException If an application-specific error occurs during execution.
+     * @throws IOException    If an I/O error occurs during execution (not applicable in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SnipeException {
+    public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
         StringBuilder message = new StringBuilder();
         message.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
@@ -29,6 +33,7 @@ public class ListCommand extends Command {
             message.append(item);
         }
         String resultMessage = message.toString().stripTrailing();
-        ui.printWithLines(resultMessage);
+        return resultMessage;
     }
+
 }

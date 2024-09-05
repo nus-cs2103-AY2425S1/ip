@@ -26,19 +26,21 @@ public class AddCommand extends Command{
     }
 
     /**
-     * Executes the add command by adding the task to the task list, saving the updated list to storage,
-     * and displaying a confirmation message to the user.
+     * Executes the add command by adding a new task to the task list, saving the updated list to storage,
+     * and returning a confirmation message to the user.
      *
-     * @param tasks   The task list to which the new task will be added.
-     * @param ui      The user interface used to display messages to the user.
-     * @param storage The storage object used to save the updated task list.
-     * @throws SnipeException If an error occurs while saving the task list.
-     * @throws IOException    If an input or output error occurs during saving.
+     * @param tasks   The {@link TaskList} to which the new task will be added.
+     * @param ui      The {@link Ui} instance used to display messages and interact with the user.
+     * @param storage The {@link Storage} instance responsible for persisting the updated task list.
+     * @return A confirmation message indicating that the task has been successfully added, along with the updated task count.
+     * @throws SnipeException If an application-specific error occurs while saving the task list.
+     * @throws IOException    If an I/O error occurs during the saving process.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
+    public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
         tasks.addTask(this.task);
         storage.saveTaskList(tasks);
-        ui.printWithLines(" Got it. I've added this task:\n  " + this.task + tasks.listLength());
+        return "Got it. I've added this task:\n  " + this.task + tasks.listLength();
     }
+
 }

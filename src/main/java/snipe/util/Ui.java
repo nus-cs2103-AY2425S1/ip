@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 public class Ui {
     /** The name of the application. */
-    private static final String NAME = "snipe.core.Snipe";
+    private static final String NAME = "Snipe";
 
     /** The ASCII art logo for the application. */
     private static final String LOGO
@@ -21,6 +21,7 @@ public class Ui {
 
     /** A horizontal line used for formatting output. */
     private static final String HORIZONTAL_LINE = "_".repeat(60);
+    public static final String WELCOME_MESSAGE = "Hello! I'm\n" + NAME + "\nWhat can I do for you?";
 
     /** The {@link Scanner} object for reading user input. */
     private final Scanner scanner;
@@ -37,7 +38,7 @@ public class Ui {
      * Displays a welcome message to the user, including the application's logo.
      */
     public void showWelcome() {
-        printWithLines("Hello! I'm\n" + LOGO + "\nWhat can I do for you?");
+        printWithLines(WELCOME_MESSAGE);
     }
 
     /**
@@ -74,6 +75,10 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(message);
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    public String returnResponse(String message) {
+        return message;
     }
 
     /**
