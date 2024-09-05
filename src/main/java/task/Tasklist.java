@@ -4,14 +4,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Tasklist {
-    ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
 
     public Tasklist() {
         this.taskList = new ArrayList<>();
     }
 
-    
-    /** 
+    /**
      * Returns a string of all the tasks
      * @return String
      */
@@ -25,7 +24,7 @@ public class Tasklist {
         return retString;
     }
 
-    /** 
+    /**
      * Returns a string of all the tasks matching regex
      * @return String
      */
@@ -46,8 +45,7 @@ public class Tasklist {
         return retString;
     }
 
-    
-    /** 
+    /**
      * Return string of the task at that position
      * @param pos
      * @return Task
@@ -81,7 +79,6 @@ public class Tasklist {
         taskList.add(t);
     }
 
-    
     /**
      * Removes an element from the `taskList` at the specified position.
      * @param pos index of element to delete

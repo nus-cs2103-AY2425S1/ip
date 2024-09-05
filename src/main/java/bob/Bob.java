@@ -9,10 +9,10 @@ import task.Tasklist;
 
 
 public class Bob {
-    Storage storage;
-    Tasklist tasklist;
-    Ui ui;
-    Parser parser;
+    private Storage storage;
+    private Tasklist tasklist;
+    private Ui ui;
+    private Parser parser;
 
     public Bob() {
         this.storage = new Storage("src/main/data/dataFile.txt");
@@ -31,7 +31,7 @@ public class Bob {
 
 
         // main loop
-        while(!exit) {
+        while (!exit) {
             strArr = parser.requestInput();
             ui.retBlank();
             try {
@@ -79,18 +79,18 @@ public class Bob {
                 case "find":
                     ui.replyFind(strArr[1], tasklist);
                     break;
-                    
+
                 default:
                     throw new CommandNotFoundException();
                 }
             } catch (CommandNotFoundException | MissingParamsException | PositionException c) {
                 System.out.println(c + "\n" + ui.retBlank());
             }
-        }   
+        }
     }
 
-    public static void main(String[] args) throws CommandNotFoundException, 
-        MissingParamsException, PositionException {
+    public static void main(String[] args) throws CommandNotFoundException,
+            MissingParamsException, PositionException {
         new Bob().run();
     }
 }

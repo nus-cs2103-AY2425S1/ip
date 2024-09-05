@@ -14,7 +14,7 @@ public class UiTest {
     @Test
     public void blankline_standard_printLine() {
         String expectedOutput = ("____________________________________________________________ \s"
-        + "\n" + "Bye. Hope to see you again soon!");
+            + "\n" + "Bye. Hope to see you again soon!");
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
@@ -55,7 +55,7 @@ public class UiTest {
     public void markDone_missingTask_exceptionThrown() {
         Tasklist dummyTl = new Tasklist();
 
-        assertThrows(IndexOutOfBoundsException.class, 
-            () -> { new Ui().replyMarkDone(0, dummyTl); });
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            new Ui().replyMarkDone(0, dummyTl); });
     }
 }
