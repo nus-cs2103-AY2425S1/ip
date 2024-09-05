@@ -1,6 +1,8 @@
 package echo.backend;
 
+import echo.StateType;
 import echo.Ui;
+import echo.task.TaskType;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +26,8 @@ public class Parser {
                             "d MMM yyyy",
                             "MMM d yyyy"));
     private Ui ui;
+    private StateType statetype;
+    private String[] tempStrings; // Description, start, end, deadline
     /**
      * Constructs a Parser object with the specified Ui.
      *
@@ -31,13 +35,14 @@ public class Parser {
      */
     public Parser(Ui ui) {
         this.ui = ui;
+        this.tempStrings = new String[] {"", "", "", ""};
     }
     /**
      * Parses the user input and delegates the command to the Ui for execution.
      *
      * @param userInput the input string provided by the user
      */
-    public void parseInput(String userInput) {
+    public String parseInput(String userInput) {
         // Parses user input
         String[] userInputs = userInput.split(" ", 2);
         Command command = Command.fromString(userInputs[0]);
@@ -46,43 +51,64 @@ public class Parser {
         // Handles command
         switch (command) {
         case UNKNOWN:
-            ui.handleUnknown();
-            break;
+            switch (statetype) {
+            case TODO_DESCRIPTION:
+                changeState(StateType.NO_STATE);
+                return ui.handleTodo(userInput);
+            case DEADLINE_DESCRIPTION:
+                changeState(StateType.NO_STATE);
+                return ui.handleDeadline(userInput, tempStrings[3]);
+            case DEADLINE_DEADLINE:
+                changeState(StateType.NO_STATE);
+                return ui.handleDeadline(tempStrings[0], userInput.trim());
+            case EVENT_DESCRIPTION:
+                changeState(StateType.NO_STATE);
+                return ui.handleEvent(userInput, tempStrings[1]);
+            case EVENT_START:
+                changeState(StateType.NO_STATE);
+                return ui.handleEvent(tempStrings[0], userInput);
+            case EVENT_END:
+                changeState(StateType.NO_STATE);
+                return ui.handleEvent(tempStrings[0], tempStrings[1]+ " /to " + userInput);
+            }
+            return ui.handleUnknown();
         case LIST:
-            ui.handleList();
-            break;
+            return ui.handleList();
         case MARK:
-            ui.handleMark(arg);
-            break;
+            return ui.handleMark(arg);
         case UNMARK:
-            ui.handleUnmark(arg);
-            break;
+            return ui.handleUnmark(arg);
         case TODO:
-            ui.handleTodo(arg);
-            break;
+            return ui.handleTodo(arg);
         case DEADLINE:
             String[] parsedDeadline = parseDeadline(arg);
-            ui.handleDeadline(
+            return ui.handleDeadline(
                     parsedDeadline[0].trim(),
                     parsedDeadline.length > 1 ? parsedDeadline[1].trim() : ""
             );
-            break;
         case EVENT:
             String[] parsedEvent = parseEventFrom(arg);
-            ui.handleEvent(
+            return ui.handleEvent(
                     parsedEvent[0].trim(),
                     parsedEvent.length > 1 ? parsedEvent[1] : ""
             );
-            break;
         case FIND:
-            ui.handleFind(arg);
+            return ui.handleFind(arg);
         case DELETE:
-            ui.handleDelete(arg);
-            break;
+            return ui.handleDelete(arg);
         case BYE:
-            ui.handleBye();
-            break;
+            return ui.handleBye();
         }
+        return "";
+    }
+    public void changeState(StateType s) {
+        this.statetype = s;
+    }
+    public void keepTemp(String s, int index) {
+        tempStrings[index] = s;
+    }
+    public void resetTemp() {
+        this.tempStrings = new String[]{"", "", "", ""};
     }
     /**
      * Splits an event description from the "/from" keyword to separate the start date.

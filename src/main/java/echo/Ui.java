@@ -5,65 +5,55 @@ import echo.task.TaskList;
 import echo.task.TaskType;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+
 /**
  * The Ui class handles user interaction and command execution.
  * It accepts user input and interacts with the Parser class to process commands and the TaskList class.
  */
 public class Ui {
-    private Scanner sc;
     private Parser parser;
-    private Boolean isAcceptingInput;
     private TaskList taskList;
+    private Echo echo;
     /**
      * Constructs a Ui object with the specified TaskList.
      *
      * @param taskList the TaskList object to be referenced by the Ui
      */
-    public Ui(TaskList taskList) {
+    public Ui(TaskList taskList, Echo echo) {
         parser = new Parser(this);
         this.taskList = taskList;
+        this.echo = echo;
     }
     /**
      * Starts accepting user input and processes commands until the user inputs 'Bye'.
      */
-    public void acceptInput() {
-        printWelcome();
-        sc = new Scanner(System.in);
-        isAcceptingInput = true;
-
-        while (isAcceptingInput) { // handles input until user says bye
-            if (sc.hasNextLine()) {
-                parser.parseInput(sc.nextLine());
-            } else {
-                stopAcceptingInput();
-            }
-        }
+    public String handleInput(String input) {
+        return parser.parseInput(input);
     }
     /**
      * Stops accepting user input.
      */
     public void stopAcceptingInput() {
-        isAcceptingInput = false;
+        echo.stopRunning();
     }
     /**
      * Handles unknown commands by printing an error message.
      */
-    public void handleUnknown() {
-        printUnknown();
+    public String handleUnknown() {
+        return printUnknown();
     }
     /**
      * Handles the "bye" command and stops accepting user input.
      */
-    public void handleBye() {
-        printBye();
+    public String handleBye() {
         stopAcceptingInput();
+        return printBye();
     }
     /**
      * Handles the "list" command and prints all tasks in the TaskList.
      */
-    public void handleList() {
-        printList(taskList.getTasksString());
+    public String handleList() {
+        return printList(taskList.getTasksString());
     }
     /**
      * Handles the "find" command by searching for tasks that contain the specified
@@ -71,12 +61,10 @@ public class Ui {
      *
      * @param arg The substring to search for within the tasks.
      */
-    public void handleFind(String arg) {
-        System.out.printf(
-                "____________________________________________________________\n" +
+    public String handleFind(String arg) {
+        return String.format(
                 "Here are the matching tasks in your list:\n" +
-                "%s" +
-                "____________________________________________________________\n",
+                "%s",
                 taskList.getFoundTasks(arg));
     }
     /**
@@ -84,79 +72,75 @@ public class Ui {
      *
      * @param arg the argument provided with the "mark" command (task index)
      */
-    public void handleMark(String arg) {
+    public String handleMark(String arg) {
         // Error handling
         if (arg.length() != 1) { // Arg of incorrect length
-            System.out.println("Please input 'mark [index]'");
-            return;
+            return "Please input 'mark [index]'";
         }
 
         int index;
         try {
             index = Integer.valueOf(arg);
         } catch (NumberFormatException e) { // Index is not an integer
-            System.out.println("Please input 'mark [index]'");
-            return;
+            return "Please input 'mark [index]'";
         }
         if (index > taskList.getNumTasks()) { // Index is not within tasks length
-            System.out.println("Invalid index.");
-            return;
+            return "Invalid index.";
         }
 
         // Mark task
         taskList.markTask(index);
 
         // Print success message
-        printMarkedTask(taskList.getTaskString(index));
+        return printMarkedTask(taskList.getTaskString(index));
     }
     /**
      * Handles the "unmark" command to unmark a task as not done.
      *
      * @param arg the argument provided with the "unmark" command (task index)
      */
-    public void handleUnmark(String arg) {
+    public String handleUnmark(String arg) {
         if (arg.length() != 1) { // Incorrect argument length
-            System.out.println("Please input 'unmark [index]'");
-            return;
+            return "Please input 'unmark [index]'";
         }
         int index;
         try {
             index = Integer.valueOf(arg);
         } catch (NumberFormatException e) { // Not a number input
-            System.out.println("Please input 'unmark [index]'");
-            return;
+            return "Please input 'unmark [index]'";
         }
         if (index > taskList.getNumTasks()) { // Index exceeds tasks length
-            System.out.println("Invalid index.");
-            return;
+            return "Invalid index.";
         }
 
         // Unmark task
         taskList.unmarkTask(index);
 
         // Print success msg
-        printUnmarkedTask(taskList.getTaskString(index));
+        return printUnmarkedTask(taskList.getTaskString(index));
     }
     /**
      * Handles the "todo" command to add a new todo task.
      *
      * @param task the task description
      */
-    public void handleTodo(String task) {
-        while (task.isEmpty()) {
-            System.out.println("Enter task description: ");
-            task = sc.nextLine();
+    public String handleTodo(String task) {
+        if (task.isEmpty()) {
+            parser.changeState(StateType.TODO_DESCRIPTION);
+            return "Enter task description: ";
         }
+
         taskList.addTask(task.trim(), TaskType.TODO, "");
-        handleAddedTask();
+        return handleAddedTask();
     }
+
     /**
      * Handles the "event" command to add a new event task.
      *
      * @param description the event description
      * @param startDate   the event start date
      */
-    public void handleEvent(String description, String startDate) {
+    public String handleEvent(String description, String startDate) {
         String endDate = "";
         if (description.contains("/to")) { // No start date, end date provided
             String[] temp = parser.parseEventTo(description);
@@ -164,14 +148,17 @@ public class Ui {
             description = temp[0];
         }
 
-        while (description.isEmpty()) { // No echo.task description, start date provided
-            System.out.println("Enter task description: ");
-            description = sc.nextLine().trim();
+        if (description.isEmpty()) { // No echo.task description, start date provided
+            parser.keepTemp(startDate, 1);
+            parser.changeState(StateType.EVENT_DESCRIPTION);
+            return "Enter task description: ";
         }
 
-        while (startDate.isEmpty()) { // No start date provided
-            System.out.println("Start: ");
-            startDate = sc.nextLine();
+        if (startDate.isEmpty()) { // No start date provided
+            parser.keepTemp(description, 0);
+            parser.keepTemp(endDate, 2);
+            parser.changeState(StateType.EVENT_START);
+            return "Start: ";
         }
 
         if (startDate.contains("/to")) {
@@ -180,13 +167,16 @@ public class Ui {
             startDate = temp[0];
         }
 
-        while (endDate.isEmpty()) {
-            System.out.println("End: ");
-            endDate = sc.nextLine();
+        if (endDate.isEmpty()) {
+            parser.keepTemp(description, 0);
+            parser.keepTemp(startDate, 1);
+            parser.changeState(StateType.EVENT_END);
+            return "End: ";
         }
 
         taskList.addTask(description, TaskType.EVENT, startDate + "->" + endDate);
-        handleAddedTask();
+        parser.resetTemp();
+        return handleAddedTask();
     }
     /**
      * Handles the "deadline" command to add a new deadline task.
@@ -194,132 +184,112 @@ public class Ui {
      * @param description     the task description
      * @param deadlineToParse the deadline date string to be parsed
      */
-    public void handleDeadline(String description, String deadlineToParse) {
-        while (description.isEmpty()) {
-            System.out.println("Enter task description: ");
-            description = sc.nextLine().trim();
+    public String handleDeadline(String description, String deadlineToParse) {
+        if (description.isEmpty()) {
+            if (!deadlineToParse.isEmpty()) {
+                parser.keepTemp(deadlineToParse, 3);
+            }
+            parser.changeState(StateType.DEADLINE_DESCRIPTION);
+            return "Enter task description: ";
         }
 
-        LocalDate deadline = null;
-        while (deadline == null) {
-            if (deadlineToParse.isEmpty()) {
-                System.out.println("Deadline:");
-                deadlineToParse = sc.nextLine();
-            }
-            try {
-                deadline = parser.parseDate(deadlineToParse);
-            } catch (DateTimeParseException e) {
-                System.out.println("No matching date formats");
-                deadlineToParse = null;
-            }
+        if (deadlineToParse.isEmpty()) {
+            parser.keepTemp(description, 0);
+            parser.changeState(StateType.DEADLINE_DEADLINE);
+            return "Deadline:";
+        }
+
+        LocalDate deadline;
+        try {
+            deadline = parser.parseDate(deadlineToParse);
+        } catch (DateTimeParseException e) {
+            parser.changeState(StateType.DEADLINE_DEADLINE);
+            return "No matching date formats";
         }
 
         taskList.addDeadline(description, deadline);
-        handleAddedTask();
+        parser.resetTemp();
+        return handleAddedTask();
     }
     /**
      * Prints a message indicating that a task was successfully added.
      */
-    public void handleAddedTask() {
-        printAddedTask(taskList.getTaskString(taskList.getNumTasks()), taskList.getNumTasks());
+    public String handleAddedTask() {
+        return printAddedTask(taskList.getTaskString(taskList.getNumTasks()), taskList.getNumTasks());
     }
     /**
      * Handles the "delete" command to remove a task from the list.
      *
      * @param arg the argument provided with the "delete" command (task index)
      */
-    public void handleDelete(String arg) {
+    public String handleDelete(String arg) {
         if (arg.isEmpty()) {
-            System.out.println("Please input 'delete [item index]'");
-            return;
+            return "Please input 'delete [item index]'";
         }
         int index;
 
         try {
             index = Integer.valueOf(arg);
         } catch (NumberFormatException e) {
-            System.out.println("Please input 'delete [item index]'");
-            return;
+            return "Please input 'delete [item index]'";
         }
 
         if (index > taskList.getNumTasks()) {
-            System.out.println("Invalid index.");
-            return;
+            return "Invalid index.";
         }
 
-        printDelete(taskList.getTaskString(index));
         taskList.deleteTask(index);
+        return printDelete(taskList.getTaskString(index));
     }
-    private void printWelcome() {
+    public String printWelcomeMsg() {
         String welcomeMsg =
-                "____________________________________________________________\n" +
                 "Hello! I'm Echo!\n" +
-                "What can I do for you?\n" +
-                "____________________________________________________________\n";
-        System.out.print(welcomeMsg);
+                "What can I do for you?";
+        return welcomeMsg;
     }
-    private void printMarkedTask(String task) {
-        System.out.println(
-            "____________________________________________________________\n" +
+    private String printMarkedTask(String task) {
+        return
             "Nice! I've marked this task as done:\n" +
-            task +
-            "____________________________________________________________"
-        );
+            task;
     }
-    private void printUnmarkedTask(String task) {
-        System.out.println(
-        "____________________________________________________________\n" +
-        "Ok, I've marked this task as not done yet:\n"+
-        task +
-        "____________________________________________________________");
+    private String printUnmarkedTask(String task) {
+        return
+            "Ok, I've marked this task as not done yet:\n" +
+            task;
     }
-    private void printAddedTask(String task, int numTasks) {
-        System.out.printf(
-            "____________________________________________________________\n" +
-            "Got it. I've added this task:\n" +
-            task +
-            "Now you have %d task" +
-            (numTasks == 1 ? "" : "s") +
-            " in the list.\n" +
-            "____________________________________________________________\n",
-            numTasks
-        );
+    private String printAddedTask(String task, int numTasks) {
+        return
+            String.format(
+                    "Got it. I've added this task:\n" +
+                    task +
+                    "Now you have %d task" +
+                    (numTasks == 1 ? "" : "s") +
+                    " in the list.\n",
+                    numTasks
+            );
     }
-    private void printUnknown() {
-        System.out.println(
-            "____________________________________________________________\n" +
-            "OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
-            "____________________________________________________________");
+    private String printUnknown() {
+        return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
-    private void printList(String tasks) {
-        System.out.println(
-            "____________________________________________________________\n" +
+    private String printList(String tasks) {
+        return
             "Here are the tasks in your list:\n" +
-            tasks +
-            "____________________________________________________________");
+            tasks;
     }
-    private void printDelete(String task) {
-        System.out.println(
-            "____________________________________________________________\n" +
-            "Noted. I've removed this etask:\n" +
-            task +
-            "____________________________________________________________"
-        );
+    private String printDelete(String task) {
+        return
+            "Noted. I've removed this task:\n" +
+            task;
     }
-    private void printBye() {
-        System.out.println(
-            "____________________________________________________________\n" +
-            "Bye. Hope to see you again soon!\n" +
-            "____________________________________________________________");
+    private String printBye() {
+        return "Bye. Hope to see you again soon!";
     }
     /**
      * Prints an error message indicating that there was an issue loading from the file.
      */
-    public void showLoadingError() {
-        System.out.println(
-            "____________________________________________________________\n" +
-            "Oh no! Error loading from file!\n" +
-            "____________________________________________________________"
-        );
+    public String showLoadingError() {
+        return
+            "Oh no! Error loading from file!";
     }
+
 }

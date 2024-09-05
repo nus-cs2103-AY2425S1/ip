@@ -24,22 +24,21 @@ public class Echo {
             ui.showLoadingError();
             taskList = new TaskList();
         }
-        ui = new Ui(taskList);
+        ui = new Ui(taskList, this);
     }
+
     /**
-     * Runs the Echo application by accepting user input and
-     * saving tasks to the file when the user quits the app.
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        ui.acceptInput();
+    public String getResponse(String input) {
+        return ui.handleInput(input);
+    }
+
+    public void stopRunning() {
         storage.saveToFile();
     }
-    /**
-     * The main method that launches the Echo application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Echo("src/main/data/savedTasks.txt").run();
+
+    public String greetUser() {
+        return ui.printWelcomeMsg();
     }
 }
