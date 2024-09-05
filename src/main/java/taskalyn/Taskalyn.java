@@ -27,4 +27,14 @@ public class Taskalyn {
         }
         ui.close();
     }
+
+    /**
+     * Returns a response from Taskalyn for a given user input.
+     *
+     * @param input User input.
+     * @return Response from Taskalyn.
+     */
+    public String getResponse(String input) {
+        return "Hello World";
+    }
 }

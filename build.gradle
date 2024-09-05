@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("taskalyn.Taskalyn")
+    mainClass.set("taskalyn.Launcher")
 }
 
 shadowJar {
