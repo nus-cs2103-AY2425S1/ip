@@ -1,7 +1,6 @@
 package dudu.utils;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import dudu.task.Task;
 
@@ -13,51 +12,49 @@ public class UI {
             + "What can I do for you?");
     private static String goodbyeMessage = LineWrapper.wrap("Bye. Hope to see you again soon!");
 
-    private Scanner sc;
-
     /**
-     * Creates a scanner instance
+     * Returns a welcome message
+     *
+     * @return Welcome message
      */
-    public UI() {
-        this.sc = new Scanner(System.in);
+    public String welcomeMessage() {
+        return UI.welcomeMessage;
     }
 
     /**
-     * Prints a welcome message
-     */
-    public void welcomeMessage() {
-        System.out.println(UI.welcomeMessage);
-    }
-
-    /**
-     * Prints a goodbye message
+     * Returns a goodbye message
+     *
+     * @return Goodbye message
      */
     public String goodbyeMessage() {
-        this.sc.close();
         return goodbyeMessage;
     }
 
     /**
-     * Prints a help message
+     * Returns a help message
+     *
+     * @return Help message
      */
     public String helpMessage() {
         return "Please use help to get the list of commands";
     }
 
     /**
-     * Prints an error message
+     * Returns an error message
      *
-     * @param e The exception which contains the message to be printed
+     * @param e Exception which contains the message to be printed
+     * @return Error message
      */
     public String showError(Exception e) {
         return LineWrapper.wrap(e.toString());
     }
 
     /**
-     * Prints a message to notify user of successful task addition
+     * Returns a message to notify user of successful task addition
      *
-     * @param task The task to be added
-     * @param size The total number of tasks after adding the task
+     * @param task Task to be added
+     * @param size Total number of tasks after adding the task
+     * @return Message of successful task addition
      */
     public String addTask(Task task, int size) {
         String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n"
@@ -66,18 +63,20 @@ public class UI {
     }
 
     /**
-     * Prints a message to notify user of successful task being mark as completed
+     * Returns a message to notify user of task being mark as completed
      *
-     * @param task The task to be marked as completed
+     * @param task Task to be marked as completed
+     * @return Message of task being mark as completed
      */
     public String markTask(Task task) {
         return LineWrapper.wrap(String.format("Nice! I've marked this task as done:\n    %s", task));
     }
 
     /**
-     * Prints a message to notify user of successful task being mark as uncompleted
+     * Returns a message to notify user of task being mark as uncompleted
      *
-     * @param task The task to be marked as uncompleted
+     * @param task Task to be marked as uncompleted
+     * @return Message of task being mark as uncompleted
      */
     public String unmarkTask(Task task) {
         return LineWrapper.wrap(String.format("OK, I've marked this task as not done yet:\n    %s", task));
@@ -93,18 +92,10 @@ public class UI {
     }
 
     /**
-     * Gets user input
+     * Returns the current list of tasks
      *
-     * @return The user input
-     */
-    public String readCommand() {
-        return sc.nextLine();
-    }
-
-    /**
-     * Prints the current list of tasks
-     *
-     * @param tasklist The taskList instance containing the list of tasks to be printed
+     * @param tasklist TaskList instance containing the list of tasks to be printed
+     * @return List of tasks
      */
     public String printTasks(TaskList tasklist) {
         ArrayList<Task> tasks = tasklist.getTasks();
@@ -120,9 +111,10 @@ public class UI {
     }
 
     /**
-     * Prints a message to notify user of tasks that match the query
+     * Returns a message to notify user of tasks that match the query
      *
-     * @param tasks The tasks that match the query
+     * @param tasks Tasks that match the query
+     * @return List of tasks that matches the query
      */
     public String findTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {

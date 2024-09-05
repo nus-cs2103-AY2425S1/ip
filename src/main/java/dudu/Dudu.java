@@ -27,24 +27,6 @@ public class Dudu {
         tasks = new TaskList(storage.load());
     }
 
-    /**
-     * Starts the chatbot and persistently takes in user input until a "bye" command is issued
-     */
-    public void run() {
-        ui.welcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (IOException e) {
-                ui.showError(e);
-            }
-        }
-    }
-
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
@@ -52,9 +34,5 @@ public class Dudu {
         } catch (IOException e) {
             return ui.showError(e);
         }
-    }
-
-    public static void main(String[] args) {
-        new Dudu("./data/dudu.txt").run();
     }
 }
