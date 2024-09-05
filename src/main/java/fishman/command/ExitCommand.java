@@ -6,7 +6,7 @@ import fishman.utils.Ui;
 /**
  * Represents a command to exit the program.
  * This command implements the Command interface and exits the program when
- * the specified keyword is entered and displays the termination message to
+ * the specified keyword is entered and returns the termination message to
  * the user.
  */
 public class ExitCommand implements Command {
@@ -14,12 +14,13 @@ public class ExitCommand implements Command {
     /**
      * @inheritDoc
      *
-     * Constructs a ExitCommand, which executes the exit command by displaying
+     * Constructs a ExitCommand, which executes the exit command by returning
      * the termination message to the user.
      *
      * @param tasks The TaskList, which is not used in this command but required by
      *              the interface.
-     * @param ui The Ui object used to display the termination message.
+     * @param ui The Ui instance used to display the termination message.
+     * @return The termination message.
      */
     @Override
     public String execute(TaskList tasks, Ui ui) {

@@ -22,8 +22,15 @@ public class Fishman {
     private TaskList tasks = new TaskList();
     /** The storage object used to handle file operations. */
     private final Storage storage = new Storage("./data/fishman.csv");
+    /** The Ui object used to construct messages. */
     private final Ui ui = new Ui();
 
+    /**
+     * Processes user inputs and returns the appropriate response.
+     *
+     * @param input The user input to be processed.
+     * @return A string containing the response from command execution or error message
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input, tasks);
@@ -36,6 +43,14 @@ public class Fishman {
         }
     }
 
+    /**
+     * Loads task from the data file and saves them if specified. This method performs its actions based on the
+     * specified action parameter. "load" to load tasks from the data file and "save" to save the current tasks to
+     * the data file.
+     *
+     * @param action A string indicating the action to be taken.
+     * @return A string containing the result of the operation or any error messages.
+     */
     public String loadAndSaveTasks(String action) {
         try {
             Storage.LoadResults output = storage.load();

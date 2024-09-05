@@ -8,15 +8,13 @@ import fishman.task.TaskList;
 
 /**
  * Represents the user interface for fishman bot.
- * This class handles all the inputs and outputs operations.
+ * This class handles all the inputs and outputs in relation to the user interface.
  */
 public class Ui {
 
-    private String response;
-
-    /** Constructs a new Ui object and initializes the Scanner for user input. */
+    /** Constructs a new Ui object. */
     public Ui() {
-        this.response ="";
+        String response = "";
     }
 
 
@@ -33,9 +31,10 @@ public class Ui {
     }
 
     /**
-     * Displays all tasks in the task list.
+     * Constructs a string that contains all tasks in the task list.
      *
      * @param tasks The TaskList object containing all tasks.
+     * @return A string representing all the tasks in the task list.
      */
     public String getTaskListMessage(TaskList tasks) {
         if (tasks.isEmpty()) {
@@ -49,9 +48,10 @@ public class Ui {
     }
 
     /**
-     * Displays the confirmation message after the task is marked or unmarked.
+     * Constructs the confirmation message after the task is marked or unmarked.
      *
      * @param task The task object that is marked or unmarked.
+     * @return A string containing the confirmation message and task details.
      */
     public String getTaskStatusMessage(Task task) {
         String statusMessage;
@@ -76,9 +76,10 @@ public class Ui {
     }
 
     /**
-     * Displays the results after find command.
+     * Constructs the results after find command.
      *
      * @param tasks The tasks that have been found.
+     * @return A string representing the matching tasks.
      */
     public String getFindResultsMessage(List<Task> tasks) {
         if (tasks.isEmpty()) {

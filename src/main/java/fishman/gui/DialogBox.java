@@ -15,6 +15,9 @@ import javafx.scene.layout.Region;
 import java.io.IOException;
 import java.util.Collections;
 
+/**
+ * Represents a chat message in the user interface.
+ */
 public class DialogBox extends HBox {
 
     @FXML
@@ -22,6 +25,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a DialogBox instance.
+     *
+     * @param text The text to be displayed.
+     * @param img The image to be displayed which determines the user.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -47,10 +56,23 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Represents a user's chat message.
+     *
+     * @param text The message sent by the user.
+     * @param img The image which represents the user.
+     * @return A DialogBox instance with the user's image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Represents the chatbots chat message.
+     * @param text The message sent by the chatbot.
+     * @param img The image which represents the chatbot.
+     * @return A DialogBox instance with the chatbot image.
+     */
     public static DialogBox getFishmanDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

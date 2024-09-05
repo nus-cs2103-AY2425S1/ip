@@ -7,7 +7,7 @@ import fishman.utils.Ui;
 /**
  * Represents the command to delete a task in the task list.
  * This command implements the Command interface and is for
- * deleting a single task in the task list and displaying the confirmation message
+ * deleting a single task in the task list and returns the confirmation message
  * that the task has been successfully deleted to the user.
  */
 public class DeleteCommand implements Command {
@@ -25,11 +25,12 @@ public class DeleteCommand implements Command {
     /**
      * @inheritDoc
      *
-     * Deletes the task in the task list and displays a confirmation message alongside the
+     * Deletes the task in the task list and returns a confirmation message alongside the
      * current number of tasks in the list.
      *
      * @param tasks The Task List in which the task is deleted from.
-     * @param ui The Ui object used to display the confirmation message.
+     * @param ui The Ui instance used to generate the confirmation message.
+     * @return The confirmation message indicating the command execution.
      */
     @Override
     public String execute(TaskList tasks, Ui ui) {

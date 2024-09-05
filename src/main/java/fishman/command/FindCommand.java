@@ -29,7 +29,8 @@ public class FindCommand implements Command{
      * Filters the task matched based on the keyword and displays matched tasks in the list.
      *
      * @param tasks The Task List in which the task is matched from.
-     * @param ui The Ui object used to display the tasks.
+     * @param ui The Ui instance used to generate the tasks.
+     * @return The confirmation message indicating the command execution.
      */
     @Override
     public String execute(TaskList tasks, Ui ui) {

@@ -7,8 +7,8 @@ import fishman.utils.Ui;
 /**
  * Represent the command to add a new task to the task list.
  * This command implements the Command interface and is for
- * adding a single task to the task list and displaying the confirmation message
- * that the task has been successfully added to the user and displaying the number of
+ * adding a single task to the task list and returns the confirmation message
+ * that the task has been successfully added to the user and the number of
  * task in the task list.
  */
 public class AddCommand implements Command {
@@ -28,10 +28,12 @@ public class AddCommand implements Command {
     /**
      * @inheritDoc
      *
-     * Adds the task to the task list and displays a confirmation message alongside the
+     * Adds the task to the task list and returns a confirmation message alongside the
      * current number of tasks in the list.
      *
      * @param tasks The TaskList which the new task will be added.
+     * @param ui The Ui instance to generate the confirmation message.
+     * @return The confirmation message indicating the command execution.
      */
     @Override
     public String execute(TaskList tasks, Ui ui) {

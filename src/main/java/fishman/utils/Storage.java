@@ -57,7 +57,8 @@ public class Storage {
 
     /**
      * Saves the list of tasks to the save file as specified by the filepath. The tasks are converted to
-     * CSV string format before being written to the file.
+     * CSV string format before being written to the file. If there are no error messages, the tasks are written to the
+     * file from the task list. Otherwise, the original file contents are preserved.
      *
      * @param validTasks The list of tasks to be written to the save file.
      * @throws RuntimeException If an error occurs while writing to the file.
@@ -105,9 +106,12 @@ public class Storage {
 
     /**
      * Loads the tasks from the file specified by the filepath. Each line is read and parsed into the
-     * corresponding Task object.
+     * corresponding Task object. If any corrupted lines are detected during parsing, the invalid lines are skipped,
+     * and the error messages are collected. Returns a LoadResult Object with valid tasks, the original file
+     * lines and any error messages.
      *
-     * @return A TaskList object containing all the loaded tasks.
+     * @return A LoadResults object containing all valid tasks, original file lines, and any error messages.
+     * @throws RuntimeException If any other errors occurs while reading the file.
      */
     public LoadResults load() {
         TaskList tasks = new TaskList();
@@ -197,13 +201,20 @@ public class Storage {
 
 
     /**
-     *
+     * Represents the results of loading tasks from the save file.
      */
     public static class LoadResults {
         private final TaskList validTasks;
         private final String errorMessage;
         private final List<String> allFileLines;
 
+        /**
+         * Constructs a new LoadResult Object with the specified parameters
+         *
+         * @param validTasks The Task List of valid tasks from the file.
+         * @param allFileLines The list of all lines from the original file.
+         * @param errorMessage The combined error messages, containing the error of every corrupted line.
+         */
         public LoadResults(TaskList validTasks, List<String> allFileLines, String errorMessage) {
             this.validTasks = validTasks;
             this.allFileLines = allFileLines;

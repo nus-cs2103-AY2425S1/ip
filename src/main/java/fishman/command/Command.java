@@ -13,6 +13,8 @@ public interface Command {
      * Executes the command, performing actions on the task list and user interface.
      *
      * @param tasks The tasks to be added.
+     * @param ui The ui instance to generate the confirmation message.
+     * @return A confirmation message indicating the command execution.
      */
     String execute(TaskList tasks, Ui ui);
 

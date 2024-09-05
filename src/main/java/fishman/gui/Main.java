@@ -3,16 +3,23 @@ package fishman.gui;
 import java.io.IOException;
 
 import fishman.Fishman;
-import fishman.exception.FishmanException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Represents the graphical user interface that is used for user interactions.
+ */
 public class Main extends Application{
     private final Fishman fishman = new Fishman();
 
+    /**
+     * The main entry point for the application. This method is called when the application is launched.
+     *
+     * @param stage The primary stage of the application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -30,6 +37,9 @@ public class Main extends Application{
         }
     }
 
+    /**
+     * Stops the application when the command is given. It also saves data before the application exits.
+     */
     @Override
     public void stop() {
         fishman.loadAndSaveTasks("save");
