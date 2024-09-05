@@ -94,7 +94,7 @@ public class Ui {
     public String showTaskList() {
         return "Who works for money these days? Money is a means, "
                 + "not an end. Work should make you happy... That's the most fundamental principle.\n"
-                + "Don't forget your work~";
+                + "Don't forget your work~\n";
     }
 
     public String showDoneTaskStatus(Task task) {

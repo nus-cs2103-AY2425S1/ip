@@ -55,10 +55,12 @@ public class TaskList {
      * Lists all tasks in the task list, displaying their status.
      * Outputs each task with its index and status to the console.
      */
-    public void listTasks() {
+    public String listTasks() {
+        String listString = "";
         for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + this.tasks.get(i).getStatus());
+            listString += (i + 1) + ". " + this.tasks.get(i).getStatus() + "\n";
         }
+        return listString;
     }
 
     /**

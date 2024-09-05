@@ -19,6 +19,8 @@ public class Topaz {
     private TaskList taskList;
     private Storage storage;
 
+    private String commandType;
+
     /**
      * Enum representing the different types of tasks.
      * E represents Event, D represents Deadline, T represents Todo.
@@ -50,6 +52,7 @@ public class Topaz {
     public String getResponse(String userInput) {
         try {
             Command c = Parser.parse(userInput);
+            commandType = c.getClass().getSimpleName();
             return c.execute(taskList, ui, storage);
         } catch (InvalidCommandException e) {
             return ui.showException(e);
@@ -60,4 +63,7 @@ public class Topaz {
         Application.launch(MainUi.class, args);
     }
 
+    public String getCommandType() {
+        return commandType;
+    }
 }
