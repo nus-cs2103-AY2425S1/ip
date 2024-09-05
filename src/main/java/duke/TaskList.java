@@ -40,4 +40,14 @@ public class TaskList {
     public int size() {
         return userInputs.size();
     }
+
+    public TaskList findAll(String matching) {
+        TaskList taskList = new TaskList();
+        for (Task task : userInputs) {
+            if (task.name.contains(matching)) {
+                taskList.add(task);
+            }
+        }
+        return taskList;
+    }
 }

@@ -1,6 +1,7 @@
 package duke;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
@@ -72,6 +73,9 @@ public class Parser {
             Task taskToBeDeleted = tasks.get(idx);
             tasks.delete(idx);
             ui.taskAddOrDeleteDisplay(taskToBeDeleted, "delet", tasks);
+        } else if (instruction.equals("find")) {
+            TaskList matchingTasks = tasks.findAll(remainingInput);
+            ui.display_search(matchingTasks);
         } else {
             throw new InvalidInstructionException();
         }
