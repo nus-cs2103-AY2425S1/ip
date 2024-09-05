@@ -1,8 +1,8 @@
 package vuewee.command;
 
+import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.task.TaskList;
-import vuewee.TaskListUI;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -10,7 +10,7 @@ import vuewee.TaskListUI;
 class DeleteCommand extends Command {
     /**
      * Executes the delete command.
-     * 
+     *
      * @param ui       The user interface for displaying messages.
      * @param taskList The task list containing the tasks.
      * @param parser   The command parser for parsing user input.

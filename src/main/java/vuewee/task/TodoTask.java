@@ -15,7 +15,7 @@ public class TodoTask extends Task {
 
     /**
      * Constructor for TodoTask with description.
-     * 
+     *
      * @param description The description of the todo task.
      */
     public TodoTask(String description) {
@@ -24,7 +24,7 @@ public class TodoTask extends Task {
 
     /**
      * Constructor for TodoTask with description and marked status.
-     * 
+     *
      * @param description The description of the todo task.
      * @param isDone      The marked status of the todo task.
      */
@@ -35,7 +35,7 @@ public class TodoTask extends Task {
     /**
      * Deserializes the serialized task string and sets the task properties. Used in
      * task storage.
-     * 
+     *
      * @param serializedTask The serialized task string.
      * @throws IllegalArgumentException If the serialized task string has an invalid
      *                                  format.
@@ -57,7 +57,7 @@ public class TodoTask extends Task {
 
     /**
      * Serializes the task to a string representation for task storage.
-     * 
+     *
      * @return The serialized task string.
      */
     @Override

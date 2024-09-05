@@ -1,8 +1,8 @@
 package vuewee.command;
 
+import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.task.TaskList;
-import vuewee.TaskListUI;
 
 /**
  * The ListCommand class represents a command to list all tasks. It extends the

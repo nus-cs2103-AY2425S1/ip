@@ -6,12 +6,12 @@ package vuewee.task;
  * the task from file strings.
  */
 public abstract class Task {
+    static final String DELIMETER = "|";
+    static final String DELIMETER_SPACE = " " + DELIMETER + " ";
+
     protected String description;
     protected boolean isDone;
     protected TaskType type;
-
-    final static String DELIMETER = "|";
-    final static String DELIMETER_SPACE = " " + DELIMETER + " ";
 
     protected Task() {
     };
@@ -34,12 +34,22 @@ public abstract class Task {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Marks the task as completed.
+     *
+     * @return true if the task value was changed, false otherwise
+     */
     public boolean markAsDone() {
         boolean isSuccessful = !this.isDone;
         this.isDone = true;
         return isSuccessful;
     }
 
+    /**
+     * Marks the task as not completed.
+     *
+     * @return true if the task value was changed, false otherwise
+     */
     public boolean markAsUndone() {
         boolean isSuccessful = this.isDone;
         this.isDone = false;

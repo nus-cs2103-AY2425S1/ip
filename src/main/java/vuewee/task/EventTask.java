@@ -6,11 +6,14 @@ import java.util.regex.Pattern;
  * Represents a task that has a start date and an end date.
  */
 public class EventTask extends Task {
-    private TaskLocalDate from;
-    private TaskLocalDate to;
-
     private static final int EXPECTED_DELIMETED_PARAM_COUNT = 4;
 
+    private TaskLocalDate fromDate;
+    private TaskLocalDate toDate;
+
+    /**
+     * Constructs an EventTask object.
+     */
     public EventTask() {
         super();
         this.type = TaskType.EVENT;
@@ -26,8 +29,8 @@ public class EventTask extends Task {
      */
     public EventTask(String description, TaskLocalDate from, TaskLocalDate to) {
         super(description, TaskType.EVENT);
-        this.from = from;
-        this.to = to;
+        this.fromDate = from;
+        this.toDate = to;
     }
 
     /**
@@ -39,7 +42,7 @@ public class EventTask extends Task {
     String serialize() {
         return this.type.toChar() + Task.DELIMETER_SPACE + (this.isDone ? "1" : "0") + Task.DELIMETER_SPACE
                 + this.description.replace(Task.DELIMETER, "\\" + Task.DELIMETER) + Task.DELIMETER_SPACE
-                + this.from.serialize() + Task.DELIMETER_SPACE + this.to.serialize();
+                + this.fromDate.serialize() + Task.DELIMETER_SPACE + this.toDate.serialize();
     }
 
     /**
@@ -63,6 +66,6 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return super.toString() + " (from: " + this.fromDate + " to: " + this.toDate + ")";
     }
 }

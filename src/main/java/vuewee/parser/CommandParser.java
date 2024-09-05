@@ -19,7 +19,7 @@ public class CommandParser {
     /**
      * Creates a new CommandParser object with the given input string. Parses the
      * input string to extract the command type and arguments/parameters.
-     * 
+     *
      * @param input The input string to parse.
      * @throws IllegalCommandException
      */
@@ -31,7 +31,7 @@ public class CommandParser {
 
     /**
      * Parses the input string to extract the String description.
-     * 
+     *
      * @param hasDescription Whether the command has a description.
      */
     public void parse(boolean hasDescription) {
@@ -41,7 +41,7 @@ public class CommandParser {
     /**
      * Parses the input string to extract the description as an integer parameter
      * when isIntegerDescription is set to true.
-     * 
+     *
      * @param hasDescription       Whether the command has a description.
      * @param isIntegerDescription Whether the description is an integer.
      */
@@ -52,7 +52,7 @@ public class CommandParser {
     /**
      * Parses the input string and extracts the description. Uses expectedOptions to
      * parse the options in the input string.
-     * 
+     *
      * @param hasDescription       Whether the command has a description.
      * @param isIntegerDescription Whether the description is an integer.
      * @param expectedOptions      The expected options to parse as a CommandOption
@@ -78,6 +78,7 @@ public class CommandParser {
 
         // Parse options
         // All options should start with /option_name <option_value>
+        // Find the smallest option string index to get the description
         int minStartMatch = this.argument.length();
         for (CommandOption<?> option : expectedOptions) {
             try {

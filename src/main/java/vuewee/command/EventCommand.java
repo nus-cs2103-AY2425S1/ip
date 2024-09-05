@@ -1,13 +1,11 @@
 package vuewee.command;
 
+import vuewee.TaskListUI;
 import vuewee.parser.CommandOption;
 import vuewee.parser.CommandParser;
-
 import vuewee.task.EventTask;
 import vuewee.task.TaskList;
 import vuewee.task.TaskLocalDate;
-
-import vuewee.TaskListUI;
 
 /**
  * Represents a command that adds an event task to the task list which has a

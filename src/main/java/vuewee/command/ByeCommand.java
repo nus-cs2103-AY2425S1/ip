@@ -1,9 +1,9 @@
 package vuewee.command;
 
-import vuewee.parser.CommandParser;
-import vuewee.task.TaskList;
 import vuewee.EndProgramException;
 import vuewee.TaskListUI;
+import vuewee.parser.CommandParser;
+import vuewee.task.TaskList;
 
 /**
  * Represents a command to exit the program.

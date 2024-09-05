@@ -37,7 +37,7 @@ public enum TaskType {
      *
      * @param taskType the task type character
      * @return the TaskType enum constant
-     * 
+     *
      * @throws UnhandledTaskTypeException invalid task type character
      */
     public static TaskType fromChar(char taskType) {
@@ -54,7 +54,7 @@ public enum TaskType {
      *
      * @param params the task parameters
      * @return a new task instance depending on the task type
-     * 
+     *
      * @throws RuntimeException if the task cannot be created
      */
     public Task createTask(String params) {

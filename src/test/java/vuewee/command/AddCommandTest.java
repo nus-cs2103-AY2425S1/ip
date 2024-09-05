@@ -1,8 +1,9 @@
 package vuewee.command;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
@@ -16,8 +17,8 @@ public class AddCommandTest {
         TaskListUI taskListUI = new TaskListUI(taskList);
 
         TodoCommand command = new TodoCommand();
-        assertThrows(IllegalCommandException.class,
-                () -> command.execute(taskListUI, taskList, new CommandParser("todo")));
+        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "todo")));
 
         command.execute(taskListUI, taskList, new CommandParser("todo task"));
         assertEquals(1, taskList.size());
@@ -31,16 +32,16 @@ public class AddCommandTest {
 
         DeadlineCommand command = new DeadlineCommand();
         // Test missing params
-        assertThrows(IllegalCommandException.class,
-                () -> command.execute(taskListUI, taskList, new CommandParser("deadline")));
+        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "deadline")));
         // Test missing by date
-        assertThrows(IllegalCommandException.class,
-                () -> command.execute(taskListUI, taskList, new CommandParser("deadline desc /by")));
+        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "deadline desc /by")));
         // Test invalid date (yyyy-mm-dd)
-        assertThrows(IllegalCommandException.class,
-                () -> command.execute(taskListUI, taskList, new CommandParser("deadline a /by 2021-13-01")));
-        assertThrows(IllegalCommandException.class,
-                () -> command.execute(taskListUI, taskList, new CommandParser("deadline a /by 2021-01-32")));
+        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "deadline a /by 2021-13-01")));
+        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "deadline a /by 2021-01-32")));
 
         command.execute(taskListUI, taskList, new CommandParser("deadline a /by 2020-08-01"));
         assertEquals(1, taskList.size());
@@ -54,24 +55,24 @@ public class AddCommandTest {
 
         EventCommand command = new EventCommand();
         // Test missing params
-        assertThrows(IllegalCommandException.class,
-                () -> command.execute(taskListUI, taskList, new CommandParser("event")));
+        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "event")));
         // Test missing from and to
-        assertThrows(IllegalCommandException.class,
-                () -> command.execute(taskListUI, taskList, new CommandParser("event desc /from 2020-08-01")));
-        assertThrows(IllegalCommandException.class,
-                () -> command.execute(taskListUI, taskList, new CommandParser("event desc /to 2020-08-01")));
+        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "event desc /from 2020-08-01")));
+        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "event desc /to 2020-08-01")));
         // Test invalid date (yyyy-mm-dd)
-        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList,
-                new CommandParser("event a /from 2021-13-01 /to 2020-08-01")));
-        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList,
-                new CommandParser("event a /to 2021-01-32 /from 2020-08-01")));
+        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "event a /from 2021-13-01 /to 2020-08-01")));
+        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "event a /to 2021-01-32 /from 2020-08-01")));
 
         // Test 2 valid events with inverted from and to
         command.execute(taskListUI, taskList, new CommandParser("event a /from 2020-08-01 /to 2020-09-01"));
         command.execute(taskListUI, taskList, new CommandParser("event b /to 2020-09-01 /from 2020-08-01"));
         assertEquals(2, taskList.size());
-        assertEquals("E | 0 | a | 2020-08-01 | 2020-09-01\nE | 0 | b | 2020-08-01 | 2020-09-01\n",
-                taskList.serialize());
+        assertEquals("E | 0 | a | 2020-08-01 | 2020-09-01\nE | 0 | b | 2020-08-01 | 2020-09-01\n", taskList
+                .serialize());
     }
 }
