@@ -36,7 +36,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Sets the Bimo instance */
+    /**
+     * Sets the Bimo instance and displays dialogbox for introduction.
+     * */
     public void setBimo(Bimo bimo) {
         this.bimo = bimo;
         greetUser();
@@ -56,9 +58,13 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    /**
+     * Creates a dialogbox with user greeting and list of commands.
+     */
     @FXML
     private void greetUser() {
-        String input = bimo.greetUser("Bimo");
+        String input = bimo.greetUser();
         dialogContainer.getChildren().addAll(
                 DialogBox.getBimoDialog(input, bimoImage));
     }

@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * Represents a controlloer.
+ * Represents a controller.
  * A dialog box consisting of an ImageView to represent the user/chatbot's face
  * and a label containing text from the user or chatbot.
  */
@@ -51,10 +51,26 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Creates the user dialogBox with picture on the right and
+     * label on the left.
+     *
+     * @param text Text input of user.
+     * @param img Image picture of user.
+     * @return DialogBox controller that contains user input and picture.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates the Bimo dialogBox with picture on the left and
+     * label on the right.
+     *
+     * @param text Text response of Bimo.
+     * @param img Image picture of Bimo.
+     * @return DialogBox controller that contains Bimo response and picture.
+     */
     public static DialogBox getBimoDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

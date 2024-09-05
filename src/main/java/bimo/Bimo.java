@@ -40,11 +40,9 @@ public class Bimo {
 
     /**
      * Displays introduction to users.
-     *
-     * @param name Name of the chatbot.
      */
-    public String greetUser(String name) {
-        return String.format("Hello! I'm %s.", name)
+    public String greetUser() {
+        return String.format("Hello! I'm %s.", NAME)
                 + " What can I do for you? \n \n" + getListOfCommands();
     }
 
