@@ -14,6 +14,7 @@ public class DeleteCommand extends Command {
         int x = Integer.parseInt(tokens[1]) - 1;
         Task t = taskList.get(x);
         taskList.remove(x);
-        UI.wrappedLinePrint(String.format("Okay, I'll remove this task from the list!\n    %s\n You still have %d tasks left!!", t, taskList.size()));
+        UI.wrappedLinePrint(String.format("Okay, I'll remove this task from the list!\n    %s\n " +
+                "You still have %d tasks left!!", t, taskList.size()));
     }
 }
