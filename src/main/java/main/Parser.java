@@ -94,9 +94,9 @@ public class Parser {
     }
 
     /**
-     * Returns a boolean to determine if hyperion should carry on
+     * Returns a boolean to determine if the program should stop running
      *
-     * @return a boolean value depending on the command of the user
+     * @return a boolean value depending on the command input of user
      */
     public boolean isOver() {
         return this.isOver;
