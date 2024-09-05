@@ -4,6 +4,7 @@ import snowy.common.DeadlineCommand;
 import snowy.common.DeleteCommand;
 import snowy.common.EventCommand;
 import snowy.common.ExitCommand;
+import snowy.common.FindCommand;
 import snowy.common.InvalidCommand;
 import snowy.common.ListCommand;
 import snowy.common.MarkCommand;
@@ -23,6 +24,8 @@ public class Parser {
     public static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<taskNumber>\\d+)");
     public static final Pattern DEADLINE_ARGS_FORMAT = Pattern.compile("(?<description>.+) /by (?<date>.+)");
     public static final Pattern EVENT_ARGS_FORMAT = Pattern.compile("(?<description>.+) /from (?<from>.+) /to (?<to>.+)");
+    public static final Pattern FIND_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
+
 
     /**
      * Parses user input into a command for execution.
@@ -58,8 +61,11 @@ public class Parser {
                 return parseUnmarkCommand(arg);
             case "bye":
                 return new ExitCommand();
+            case "find":
+                return parseFindCommand(arg);
             default:
                 return new InvalidCommand("Sorry, I do not understand that command.");
+
             }
         } catch (SnowyException e) {
             return new InvalidCommand(e.getMessage());
@@ -175,4 +181,16 @@ public class Parser {
         int index = Integer.parseInt(matcher.group("taskNumber"));
         return new UnmarkCommand(index);
     }
+
+    private Command parseFindCommand(String arg) throws SnowyException {
+        final Matcher matcher = FIND_ARGS_FORMAT.matcher(arg.trim());
+
+        if (!matcher.matches()) {
+            throw new SnowyException("The find command requires at least one keyword.");
+        }
+
+        String keywords = matcher.group("keywords").trim();
+        return new FindCommand(keywords);
+    }
+
 }
