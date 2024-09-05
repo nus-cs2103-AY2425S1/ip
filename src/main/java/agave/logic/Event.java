@@ -1,4 +1,6 @@
-package agave;
+package agave.logic;
+
+import agave.Task.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

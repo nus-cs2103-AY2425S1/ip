@@ -1,4 +1,4 @@
-package agave;
+package agave.Util;
 
 public class AgaveException extends Exception {
 

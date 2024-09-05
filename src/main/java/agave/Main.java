@@ -1,24 +1,37 @@
 package agave;
 
+import agave.GUI.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     private Agave agave = new Agave("./data/agave.txt");
 
+    /**
+     * Starts the application.
+     *
+     * @param stage The stage to display the application.
+     * @throws Exception If an error occurs while starting the application.
+     */
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setScene(scene);
-        stage.setTitle("Agave Chatbot");
-        stage.show();
-    }
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
 
-    public static void main(String[] args) {
-        launch(args);
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            stage.setTitle("Agave Chatbot");
+
+            MainWindow controller = fxmlLoader.getController();
+            controller.setAgave(agave);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
