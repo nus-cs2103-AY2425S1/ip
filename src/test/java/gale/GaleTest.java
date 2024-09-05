@@ -1,12 +1,13 @@
 package gale;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class GaleTest {
     private Gale gale;
@@ -37,6 +38,7 @@ public class GaleTest {
         simulateUserInput("invalid command\nbye\n");
         gale.run();
         String output = outputCapture.toString();
-        assertTrue(output.contains("Whoosh! The wind blew away your command. Please use 'todo', 'deadline' or 'event'."));
+        assertTrue(output.contains("Whoosh! The wind blew away your command. "
+            + "Please use 'todo', 'deadline' or 'event'."));
     }
 }

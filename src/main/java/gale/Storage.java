@@ -1,10 +1,9 @@
 package gale;
-import java.io.IOException;
-import java.io.FileWriter;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.File;
-
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -102,7 +101,9 @@ public class Storage {
         } catch (DateTimeParseException e) {
             return null;
         }
-        if (isDone) task.markAsDone();
+        if (isDone) {
+            task.markAsDone();
+        }
         return task;
     }
 }

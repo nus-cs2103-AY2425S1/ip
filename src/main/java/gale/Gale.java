@@ -1,7 +1,8 @@
 package gale;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.IOException;
+
 
 /**
  * A simple task manager that allows users to manage their tasks such as ToDo's,
