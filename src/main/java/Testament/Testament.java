@@ -34,6 +34,10 @@ public class Testament {
         parser.getUserInput();
     }
 
+    public String getResponse(String input) {
+        return parser.parse(input);
+    }
+
     public static void main(String[] args) {
         new Testament().run();
     }

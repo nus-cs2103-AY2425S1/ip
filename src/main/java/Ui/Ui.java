@@ -13,99 +13,91 @@ public class Ui {
     static final String LINE = "_".repeat(60);
 
     /**
-     * Prints welcome message.
+     * Returns welcome message.
      */
-    public void welcome() {
-        printDialogue("Morning!\n Nice day for a stroll, don't you think?");
+    public String welcome() {
+        return "Morning!\n Nice day for a stroll, don't you think?";
     }
 
     /**
-     * Prints bye message.
+     * Returns bye message.
      */
-    public void bye() {
-        printDialogue("I'd say it's time for a tea break. Milk and sugar for you?");
+    public String bye() {
+        return "I'd say it's time for a tea break. Milk and sugar for you?";
     }
 
     /**
-     * Takes in a taskList, and prints the tasklist to the screen.
+     * Takes in a taskList, and returns the string representing the tasklist.
      *
-     * @param taskList TaskList containing tasks to print.
+     * @param taskList TaskList containing tasks to turn to string.
      */
-    public void schedule(TaskList taskList) {
-        printDialogue(taskList.toString());
+    public String schedule(TaskList taskList) {
+        return taskList.toString();
     }
 
     /**
-     * Prints the mark message and details for a specified task.
-     *
-     * @param task Task details to print.
-     */
-    public void mark(Task task) {
-        printDialogue("Congratulations on completing your task:\n" + task.toString());
-    }
-
-    /**
-     * Prints the unmark message and details for a specified task.
+     * Returns the mark message and details for a specified task.
      *
      * @param task Task details to print.
      */
-    public void unMark(Task task) {
-        printDialogue("This task has been unmarked:\n" + task.toString());
+    public String mark(Task task) {
+        return "Congratulations on completing your task:\n" + task.toString();
+    }
+
+    /**
+     * Returns the unmark message and details for a specified task.
+     *
+     * @param task Task details to return.
+     */
+    public String unMark(Task task) {
+        return "This task has been unmarked:\n" + task.toString();
     }
 
 
     /**
-     * Prints the add message and the details of the latest task in a taskList.
+     * Returns the add message and the details of the latest task in a taskList.
      *
      * @param taskList TaskList to retrieve latest task.
      */
-    public void add(TaskList taskList) {
+    public String add(TaskList taskList) {
         try {
-            printDialogue(
+            return
                     String.format("I've added the following task to your schedule:\n%s\n"
                                     + "You have %d tasks to complete",
-                            taskList.getTask(taskList.getSize()).toString(), taskList.getSize())
-            );
+                            taskList.getTask(taskList.getSize()).toString(), taskList.getSize());
         } catch (NotInTaskListException e) {
-            exception(e);
+            return exception(e);
         }
     }
 
     /**
-     * Prints the delete message and details for a specified task.
+     * Returns the delete message and details for a specified task.
      *
-     * @param task Task details to print.
+     * @param task Task details to return.
      */
-    public void delete(Task task) {
-        printDialogue("This task has been deleted:\n" + task.toString());
+    public String delete(Task task) {
+        return "This task has been deleted:\n" + task.toString();
     }
 
     /**
-     * Prints find message and the tasks in the given taskList
+     * Returns find message and the tasks in the given taskList
      *
-     * @param taskList taskList to print
+     * @param taskList taskList to return
      */
-    public void find(TaskList taskList) {
+    public String find(TaskList taskList) {
         if (taskList.getSize() == 0) {
-            printDialogue("There are no relevant tasks");
-            return;
+            return "There are no relevant tasks";
         }
-        printDialogue("Here are the relevant tasks:\n" + taskList.toString());
+        return "Here are the relevant tasks:\n" + taskList.toString();
     }
 
     /**
-     * Prints exception message for a specified exception.
+     * Returns exception message for a specified exception.
      *
      * @param e Exception to retrieve message from.
      */
-    public void exception(TestamentException e) {
-        printDialogue(e.getMessage());
-    }
-
-    private void printDialogue(String s) {
-        System.out.println(LINE);
-        System.out.println(s);
-        System.out.println(LINE);
+    public String exception(TestamentException e) {
+        return e.getMessage();
     }
 
 }

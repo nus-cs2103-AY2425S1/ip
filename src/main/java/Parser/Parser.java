@@ -38,7 +38,7 @@ public class Parser {
      *
      * @param userInput User input.
      */
-    public void parse(String userInput) {
+    public String parse(String userInput) {
         String[] splitUserInput = userInput.split(" ", 2);
         String identifier = splitUserInput[0];
         Enumerations enumeration = Enumerations.convertString(identifier);
@@ -47,67 +47,53 @@ public class Parser {
             Task retrievedTask;
             switch(enumeration) {
             case BYE:
-                ui.bye();
-                break;
+                return ui.bye();
             case SCHEDULE:
-                ui.schedule(taskList);
-                getUserInput();
-                break;
+                return ui.schedule(taskList);
             case MARK:
                 taskNumber = validateTaskNumber(splitUserInput);
 
                 //mark the task
                 taskList.mark(taskNumber);
                 retrievedTask = taskList.getTask(taskNumber);
+                storage.save();
 
-                //print mark message
-                ui.mark(retrievedTask);
-
-                getUserInput();
-                break;
+                //return mark message
+                return ui.mark(retrievedTask);
             case UNMARK:
                 taskNumber = validateTaskNumber(splitUserInput);
 
                 //unmark the task
                 taskList.unMark(taskNumber);
                 retrievedTask = taskList.getTask(taskNumber);
+                storage.save();
 
-                //print unmark message
-                ui.unMark(retrievedTask);
-
-                getUserInput();
-                break;
+                //return unmark message
+                return ui.unMark(retrievedTask);
             case DELETE:
                 taskNumber = validateTaskNumber(splitUserInput);
 
                 //delete the task
                 retrievedTask = taskList.getTask(taskNumber);
                 taskList.deleteTask(taskNumber);
+                storage.save();
 
-                //print delete message
-                ui.delete(retrievedTask);
-
-                getUserInput();
-                break;
+                //return delete message
+                return ui.delete(retrievedTask);
             case FIND:
-                findTask(splitUserInput);
-                getUserInput();
-                break;
+                return findTask(splitUserInput);
             default:
                 try {
                     taskList.add(Task.of(userInput));
+                    storage.save();
                 } catch (DateTimeParseException e) {
                     throw new CommandNotRecognisedException("Dates should be in the format below:\nyyyy-mm-dd");
                 }
 
-                ui.add(taskList);
-                getUserInput();
-                break;
+                return ui.add(taskList);
             }
-            storage.save();
         } catch (TestamentException e) {
-            ui.exception(e);
-            getUserInput();
+            return ui.exception(e);
         }
 
     }
@@ -143,7 +129,7 @@ public class Parser {
         return taskNumber;
     }
 
-    private void findTask(String[] userInput) throws TestamentException {
+    private String findTask(String[] userInput) throws TestamentException {
         //check if user has specified details
         if (userInput.length < 2) {
             throw new CommandNotRecognisedException("Please specify details");
@@ -151,7 +137,7 @@ public class Parser {
 
         String description = userInput[1];
         TaskList relevantTasks = taskList.findDescription(description);
-        ui.find(relevantTasks);
+        return ui.find(relevantTasks);
     }
 
 }
