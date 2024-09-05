@@ -1,10 +1,10 @@
 package optimus.commands;
 
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import optimus.Storage;
 import optimus.TaskList;
-import optimus.Ui;
 import optimus.exceptions.OptimusExceptions;
 import optimus.tasks.Task;
 
@@ -21,13 +21,18 @@ public class FindCommand extends Command {
     /**
      * @param storage
      * @param tasks
-     * @param ui
      * @throws OptimusExceptions
      */
+
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) throws OptimusExceptions {
+    public String execute(Storage storage, TaskList tasks) throws OptimusExceptions {
         Stream<Task> filteredTasks = tasks.filterByKeyword(filter);
-        ui.printToInterface("Here are the matching tasks in your list:");
-        filteredTasks.forEach(task -> ui.printToInterface(task.toString()));
+        String result = "Here are the matching tasks in your list:\n";
+
+        result += filteredTasks
+                .map(Task::toString)
+                .collect(Collectors.joining("\n"));
+
+        return result;
     }
 }

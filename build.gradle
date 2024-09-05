@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("optimus.Launcher")
+    mainClass.set("optimus.ui.Launcher")
 }
 
 shadowJar {

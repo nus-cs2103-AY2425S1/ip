@@ -1,4 +1,4 @@
-package optimus;
+package optimus.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import optimus.Optimus;
 
 
 /**
@@ -25,14 +26,17 @@ public class MainWindow extends AnchorPane {
     private Optimus optimus;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/optimus.png"));
+    private Image optimusImage = new Image(this.getClass().getResourceAsStream("/images/optimus.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        String welcomeMessage = "Greetings. I am Optimus. How can I assist you today?";
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, optimusImage));
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Optimus instance */
     public void setOptimus(Optimus o) {
         optimus = o;
     }
@@ -47,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = optimus.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, optimusImage)
         );
         userInput.clear();
     }
