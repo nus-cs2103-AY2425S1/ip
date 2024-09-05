@@ -30,6 +30,10 @@ public class Blue {
         UI.farewell();
     }
 
+    public String getResponse(String input) {
+        return parser.parse(input, tasklist);
+    }
+
     /**
      * The main method that starts the Blue application.
      *

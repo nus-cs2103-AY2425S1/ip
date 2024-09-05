@@ -24,6 +24,16 @@ public class TaskList {
     private int noOfTask;
 
     /**
+     * Returns the task at the specified index.
+     *
+     * @param taskNumber The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
+    public Task getTask(int taskNumber) {
+        return myList.get(taskNumber);
+    }
+
+    /**
      * Constructs a TaskList, loading tasks from storage if available.
      */
     public TaskList() {
@@ -84,16 +94,16 @@ public class TaskList {
                 throw new InputErrorException("The event must be specified in the format: "
                         + "'event <description> /from <start_time> /to <end_time>'");
             }
+
+            // Split the start and end times
             String[] timeParts = descParts[1].split(" /to ", 2);
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                LocalDateTime fromTime = LocalDateTime.parse(timeParts[0].trim(), formatter);
-                LocalDateTime toTime = LocalDateTime.parse(timeParts[1].trim(), formatter);
-                task = new EventTask(descParts[0].trim(), fromTime.toString(), toTime.toString());
-            } catch (DateTimeParseException e) {
-                throw new InputErrorException("The date format must be 'd/M/yyyy HHmm'. Example: '2/12/2019 1800'");
-            }
-        } else {
+            String fromTime = timeParts[0].trim();  // Extract the start time string
+            String toTime = timeParts[1].trim();    // Extract the end time string
+
+            // Create the EventTask with the description, fromTime, and toTime as strings
+            task = new EventTask(descParts[0].trim(), fromTime, toTime);
+        }
+        else {
             throw new InputErrorException("Unknown task type.");
         }
 
@@ -157,8 +167,8 @@ public class TaskList {
     /**
      * Prints the current list of tasks.
      */
-    public void printList() {
-        UI.displayList(myList, noOfTask);
+    public String printList() {
+        return UI.displayList(myList, noOfTask);
     }
 
     /**
