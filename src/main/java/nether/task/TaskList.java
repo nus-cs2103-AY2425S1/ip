@@ -79,11 +79,13 @@ public class TaskList {
     /**
      * Prints out the task list along with its status (done or not done).
      */
-    public void printList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printList() {
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the tasks in your list:\n");
         for (int i = 0; i < getSize(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+            response.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
         }
+        return response.toString();
     }
 
     /**

@@ -38,7 +38,7 @@ public abstract class MarkCommand extends Command {
      * @throws NetherException If the task number is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NetherException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NetherException {
         if (taskNumber > tasks.getSize() || taskNumber < 1) {
             throw new NetherException("invalid task number!");
         }
@@ -46,9 +46,8 @@ public abstract class MarkCommand extends Command {
         Task taskToMark = tasks.getTask(taskNumber - 1);
         markTask(taskToMark);
 
-        ui.printHorizontalLine();
-        ui.printMarkMessage(taskToMark, getMarkMessage());
         storage.saveTasks(tasks.getTasks());
+        return ui.printMarkMessage(taskToMark, getMarkMessage());
     }
 
     /**

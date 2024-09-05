@@ -20,13 +20,13 @@ import nether.task.TaskList;
  */
 
 public class Nether {
+    // the file path where task data is stored
+    private static final String STORAGE_FILE_PATH = "./data/nether.txt";
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
     private final Parser parser;
 
-    // the file path where task data is stored
-    private static final String STORAGE_FILE_PATH = "./data/nether.txt";
 
     /**
      * Constructs a new Nether instance.
@@ -41,6 +41,7 @@ public class Nether {
         tasks = new TaskList(storage.loadTasks());
     }
 
+    private boolean isExit = false;
     /**
      * Runs the Nether application, producing a welcome message, and processing user commands in a loop.
      * The loop continues until an exit command is issued by the user.
@@ -48,7 +49,6 @@ public class Nether {
      */
     public void run() {
         ui.printWelcome();
-        boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
@@ -60,6 +60,21 @@ public class Nether {
             } catch (NetherException e) {
                 ui.printError(e.getMessage());
             }
+        }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        StringBuilder response = new StringBuilder();
+        try {
+            Command c = parser.parse(input);
+            response.append(c.execute(tasks, ui, storage));
+            isExit = c.isExit();
+            return response.toString();
+        } catch (NetherException e) {
+            return e.getMessage();
         }
     }
 

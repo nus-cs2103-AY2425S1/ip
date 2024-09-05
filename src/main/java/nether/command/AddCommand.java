@@ -31,9 +31,9 @@ public class AddCommand extends Command {
      * @param storage The {@code Storage} instance used to save the updated task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(task);
-        ui.printTaskAdded(task);
         storage.saveTasks(tasks.getTasks());
+        return ui.printTaskAdded(task);
     }
 }

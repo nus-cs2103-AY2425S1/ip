@@ -36,14 +36,14 @@ public class DeleteCommand extends Command {
      * @throws NetherException If the task index is invalid (i.e., out of range or negative).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NetherException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NetherException {
         if (taskIndex > tasks.getSize() || taskIndex < 0) {
             throw new NetherException("invalid task number!");
         }
 
         Task removedTask = tasks.getTask(taskIndex - 1);
         tasks.deleteTask(taskIndex - 1);
-        ui.printTaskDeleted(removedTask, tasks.getSize());
         storage.saveTasks(tasks.getTasks());
+        return ui.printTaskDeleted(removedTask, tasks.getSize());
     }
 }
