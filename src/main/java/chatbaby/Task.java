@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter;
  * Subclasses define specific types of tasks (e.g., ToDo, Deadline, Event).
  */
 public abstract class Task {
-    public String name;
-    public boolean isDone;
+    private String name;
+    private boolean isDone;
 
     /**
      * Constructs a Task with the specified name. The task is initially marked as not done.
@@ -76,6 +76,12 @@ public abstract class Task {
      */
     public void unMarkAsDone() {
         isDone = false;
+    }
+    public String getName() {
+        return this.name;
+    }
+    public boolean isDone() {
+        return isDone;
     }
 
     /**

@@ -51,7 +51,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileText() {
-        return "D | " + (isDone ? "1" : "0") + " | " + name + " | "
+        return "D | " + (this.isDone() ? "1" : "0") + " | " + this.getName() + " | "
                 + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"));
     }
 
@@ -62,7 +62,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " +
-                deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
     }
 }

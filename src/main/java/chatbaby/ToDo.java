@@ -1,7 +1,5 @@
 package chatbaby;
 
-import chatbaby.Task;
-
 /**
  * Represents a to-do task.
  * A <code>ToDo</code> object corresponds to a task with a description
@@ -25,7 +23,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileText() {
-        return "T | " + (isDone ? "1" : "0") + " | " + name;
+        return "T | " + (this.isDone() ? "1" : "0") + " | " + this.getName();
     }
 
     /**
