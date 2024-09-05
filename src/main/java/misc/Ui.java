@@ -72,9 +72,8 @@ public class Ui {
      * Returns reply for todo command.
      */
     public Tasklist replyTodo(String s, Tasklist tasklist) throws MissingParamsException {
-        if (Objects.equals(s, "")) { 
-            throw new MissingParamsException("todo"); 
-        
+        if (Objects.equals(s, "")) {
+            throw new MissingParamsException("todo");
         }
 
         tasklist.add(new Todo(s));
