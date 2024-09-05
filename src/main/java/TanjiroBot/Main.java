@@ -2,7 +2,7 @@ package TanjiroBot;
 
 import java.io.IOException;
 
-import Controller.MainWindowController;
+import controller.MainWindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,7 +20,7 @@ public class Main extends Application {
      */
 
     private Tanjiro tanjiro = new Tanjiro();
-    private final Image BOT_IMAGE = new Image(this.getClass().getResourceAsStream("/images/dslogo.png"));
+    private Image logo = new Image(this.getClass().getResourceAsStream("/images/dslogo.png"));
 
     @Override
     public void start(Stage stage) {
@@ -30,7 +30,7 @@ public class Main extends Application {
             stage.setMinHeight(500);
             stage.setMinWidth(700);
             stage.setTitle("Tanjiro Bot");
-            stage.getIcons().add(BOT_IMAGE);
+            stage.getIcons().add(logo);
 
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);

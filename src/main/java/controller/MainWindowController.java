@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import TanjiroBot.Tanjiro;
 import javafx.fxml.FXML;
