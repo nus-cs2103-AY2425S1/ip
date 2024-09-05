@@ -22,6 +22,13 @@ public class Parser {
                 case "list":
                     taskManager.listTasks();
                     break;
+                case "find":
+                    if (items.length != 2) {
+                        throw new CommandFormatException("Aw... find command must have just 2 arguments: the command, and the keyword.");
+                    } else {
+                        taskManager.searchTasksByKeyword(items[1]);
+                    }
+                    break;
                 case "delete":
                     if (items.length != 2) {
                         throw new CommandFormatException("Aw... delete command must have just 2 arguments: the command, and the task number.");
