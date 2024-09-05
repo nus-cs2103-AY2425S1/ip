@@ -119,9 +119,6 @@ public class TaskList {
     @Override
     public String toString() {
         String res = "";
-//        if (tasks.size() == 0) {
-//            return "The list is empty.\n";
-//        }
         for (int i = 0; i < tasks.size(); i++) {
             int listIndex = i + 1;
             res += listIndex + ". " + tasks.get(i).toString() + "\n";
