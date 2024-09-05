@@ -18,31 +18,31 @@ public class Parser {
         String arguments = splitInput.length > 1 ? splitInput[1] : "";
 
         switch (commandWord.toLowerCase()) {
-            case "bye":
-                break;
-            case "list":
-                tasks.listTasks();
-                break;
-            case "delete":
-                handleDeleteCommand(arguments, tasks, ui);
-                break;
-            case "mark":
-                handleMarkCommand(arguments, tasks, ui);
-                break;
-            case "unmark":
-                handleUnmarkCommand(arguments, tasks, ui);
-                break;
-            case "todo":
-                handleAddToDoCommand(arguments, tasks, ui);
-                break;
-            case "deadline":
-                handleAddDeadlineCommand(arguments, tasks, ui);
-                break;
-            case "event":
-                handleAddEventCommand(arguments, tasks, ui);
-                break;
-            default:
-                throw new VoidException("AH!! My apologies, I don't know what that means =T^T=");
+        case "bye":
+            break;
+        case "list":
+            tasks.listTasks();
+            break;
+        case "delete":
+            handleDeleteCommand(arguments, tasks, ui);
+            break;
+        case "mark":
+            handleMarkCommand(arguments, tasks, ui);
+            break;
+        case "unmark":
+            handleUnmarkCommand(arguments, tasks, ui);
+            break;
+        case "todo":
+            handleAddToDoCommand(arguments, tasks, ui);
+            break;
+        case "deadline":
+            handleAddDeadlineCommand(arguments, tasks, ui);
+            break;
+        case "event":
+            handleAddEventCommand(arguments, tasks, ui);
+            break;
+        default:
+            throw new VoidException("AH!! My apologies, I don't know what that means =T^T=");
         }
 
         storage.save(tasks);  // Save tasks to file after every command that modifies the list
