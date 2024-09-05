@@ -5,6 +5,9 @@ import denim.exceptions.DenimException;
 import denim.storage.TaskIo;
 import denim.tasks.Task;
 
+/**
+ * Represents a delete command that can be executed.
+ */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     public static final String COMMAND_USAGE = "delete <taskNumber>";

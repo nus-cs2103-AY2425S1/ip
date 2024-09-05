@@ -1,13 +1,17 @@
 package denim.commands;
 
+import java.time.LocalDateTime;
+
 import denim.TaskList;
 import denim.exceptions.DenimException;
 import denim.storage.TaskIo;
 import denim.tasks.Deadline;
 import denim.tasks.Task;
 
-import java.time.LocalDateTime;
 
+/**
+ * Represents a deadline command that can be executed.
+ */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     public static final String COMMAND_USAGE = "deadline <task> /by <date>\nWhere date is in dd/MM/yyyy HHmm";

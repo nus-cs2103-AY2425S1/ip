@@ -3,6 +3,9 @@ package denim.commands;
 import denim.TaskList;
 import denim.storage.TaskIo;
 
+/**
+ * Represents an exit command that can be executed.
+ */
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";

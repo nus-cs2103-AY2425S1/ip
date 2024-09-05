@@ -3,6 +3,9 @@ package denim.commands;
 import denim.TaskList;
 import denim.storage.TaskIo;
 
+/**
+ * Represents a list command that can be executed.
+ */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
