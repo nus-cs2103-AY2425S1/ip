@@ -1,4 +1,4 @@
-package denim.UI;
+package denim.Ui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -13,8 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
-import javax.swing.*;
 
 /**
  * A class representing a Diaglog Box consisting of an avatar picture and a text message.

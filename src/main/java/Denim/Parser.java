@@ -173,7 +173,7 @@ public class Parser {
             return new InvalidCommand("Wrong format for mark command", MarkCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
-        return new MarkCommand(index - Temp.indexOffset);
+        return new MarkCommand(index - TextBasedUi.indexOffset);
     }
 
     /**
@@ -189,7 +189,7 @@ public class Parser {
             return new InvalidCommand("Wrong format for unmark command", UnmarkCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
-        return new UnmarkCommand(index - Temp.indexOffset);
+        return new UnmarkCommand(index - TextBasedUi.indexOffset);
     }
 
     /**
@@ -214,7 +214,7 @@ public class Parser {
             return new InvalidCommand("Wrong format for delete command", DeleteCommand.COMMAND_USAGE);
         }
         int index = Integer.parseInt(matcher.group("taskNumber"));
-        return new DeleteCommand(index - Temp.indexOffset);
+        return new DeleteCommand(index - TextBasedUi.indexOffset);
     }
 
     /**
@@ -235,13 +235,6 @@ public class Parser {
         return new HelpCommand();
     }
 
-    /**
-     * Checks if the provided date and time string represents a valid month of the year.
-     *
-     * @param formatter The date time formatter.
-     * @param args      The date time string.
-     * @return True if the date and time string is valid, false otherwise.
-     */
     private Command prepareFind(String args) {
         final Matcher matcher = FIND_ARGUMENT_FORMAT.matcher(args);
 
@@ -251,6 +244,13 @@ public class Parser {
         return new FindCommand(args);
     }
 
+    /**
+     * Checks if the provided date and time string represents a valid month of the year.
+     *
+     * @param formatter The date time formatter.
+     * @param args      The date time string.
+     * @return True if the date and time string is valid, false otherwise.
+     */
     private boolean isValidMonthOfYear(DateTimeFormatter formatter, String args) {
         try {
             LocalDateTime.parse(args, formatter);

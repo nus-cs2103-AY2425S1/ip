@@ -1,4 +1,4 @@
-package denim.UI;
+package denim.Ui;
 
 import javafx.stage.Stage;
 

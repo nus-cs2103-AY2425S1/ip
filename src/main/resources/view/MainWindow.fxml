@@ -11,7 +11,7 @@
       stylesheets="@../css/MainWindow.css"
       xmlns="http://javafx.com/javafx/22"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="denim.UI.MainWindow">
+      fx:controller="denim.Ui.MainWindow">
     <children>
         <ScrollPane fx:id="scrollPane"
                     fitToHeight="true"
