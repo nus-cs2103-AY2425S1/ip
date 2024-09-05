@@ -2,7 +2,7 @@ package buddybot;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
+//test
 /**
  * Class for UI
  */
