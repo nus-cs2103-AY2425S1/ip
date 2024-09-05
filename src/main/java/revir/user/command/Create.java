@@ -15,7 +15,7 @@ import revir.user.Ui;
  */
 public class Create extends Command {
     private Task task;
-    
+
     /**
      * Constructs a new Create object with the given task description.
      *

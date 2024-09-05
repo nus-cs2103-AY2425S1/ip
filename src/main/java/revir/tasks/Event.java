@@ -6,12 +6,10 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents an event that extends the Task class.
  * An event has a description, start time, and end time.
- * 
- * Usage: event <description> /from <start date> /to <end date>
+ *
+ * Usage: event &lt;description&gt; /from &lt;start date&gt; /to &lt;end date&gt;
  */
 public class Event extends Task {
-    public static String format = "event <description> /from <start date> /to <end date>";
-    
     private LocalDateTime start;
     private LocalDateTime end;
 
@@ -38,5 +36,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
                 + " to " + this.end.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")) + ")";
+    }
+
+    public static String format() {
+        return "event <description> /from <start date> /to <end date>";
     }
 }

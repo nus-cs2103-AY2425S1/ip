@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 /**
  * Represents a task that can be completed.
- * 
+ *
  * This class provides methods to set the completion status of the task and retrieve its description.
  */
 public class Task implements Serializable {

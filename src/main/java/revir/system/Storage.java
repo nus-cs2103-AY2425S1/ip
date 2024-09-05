@@ -7,8 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import revir.tasks.Task;
 import java.util.ArrayList;
+
+import revir.tasks.Task;
 
 /**
  * The Storage class represents a storage mechanism for saving and loading

@@ -17,7 +17,7 @@ public class TaskList {
 
     /**
      * Constructs a TaskList object.
-     * 
+     *
      * @param storage the storage object used to load tasks from a file
      * @param ui      the user interface object used to display error messages
      */
@@ -101,8 +101,9 @@ public class TaskList {
                 str.append(task.toString() + '\n');
             }
         });
-        if (!str.isEmpty())
+        if (!str.isEmpty()) {
             str.deleteCharAt(str.length() - 1);
+        }
         return str.toString();
     }
 

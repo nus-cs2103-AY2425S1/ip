@@ -49,7 +49,7 @@ public class FindTaskTest {
     @Test
     public void testMultipleResults() {
         TaskList taskList = generateTaskList();
-        assertEquals(taskList.find("task"), task1.toString() + "\n" 
+        assertEquals(taskList.find("task"), task1.toString() + "\n"
             + task2.toString() + "\n" + task3.toString());
     }
 }

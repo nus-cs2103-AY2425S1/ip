@@ -1,6 +1,7 @@
 package revir.user.command;
 
 import java.io.IOException;
+
 import revir.tasks.TaskList;
 import revir.user.Ui;
 
@@ -22,7 +23,7 @@ public class Delete extends Command {
 
     /**
      * Executes the delete command, which removes a task from the task list.
-     * 
+     *
      * @param ui       The user interface object used to display the result of the
      *                 command.
      * @param taskList The task list object from which the task will be removed.
