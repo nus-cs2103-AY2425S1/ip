@@ -37,29 +37,13 @@ public class Downy {
      * Runs the application, displaying the welcome message, processing user commands,
      * and continuing until the user issues an exit command.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(this.storage, this.tasks, this.ui);
-                isExit = c.isExit();
-            } catch (DownyException e) {
-                ui.showErrorMessage(e.getMessage());
-            }
+    public String executeCommand(String fullCommand) {
+        try {
+            Command c = Parser.parse(fullCommand);
+            return c.execute(this.storage, this.tasks, this.ui);
+        } catch (DownyException e) {
+            return Ui.showErrorMessage(e.getMessage());
         }
-        ui.showExitMessage();
     }
 
-    /**
-     * The main method of the application. Initializes a new {@code Downy} instance
-     * and starts the application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Downy("data/tasks.txt").run();
-    }
 }

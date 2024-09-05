@@ -2,11 +2,8 @@ package ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,53 +12,35 @@ import tasks.TaskList;
 
 class UiTest {
 
-    private static final String DIVIDER = "________________________________________\n";
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private Ui ui;
 
     @BeforeEach
     void setUp() {
         ui = new Ui();
-        System.setOut(new PrintStream(outputStreamCaptor));
-    }
-
-    @AfterEach
-    void tearDown() {
-        System.setOut(System.out);
     }
 
     @Test
     void testShowWelcome() {
-        ui.showWelcome();
-        String expectedOutput = DIVIDER + "Hello! I'm Downy.\nHow can I help?\n" + DIVIDER;
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
-    }
-
-    @Test
-    void testShowLine() {
-        ui.showLine();
-        assertEquals(DIVIDER.trim(), outputStreamCaptor.toString().trim());
+        String expectedOutput = "Hello! I'm Downy.\nHow can I help?\n";
+        assertEquals(expectedOutput.trim(), ui.showWelcome().trim());
     }
 
     @Test
     void testShowExitMessage() {
-        ui.showExitMessage();
-        String expectedOutput = DIVIDER + "Bye! Yippee!";
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        String expectedOutput = "Bye! Yippee!";
+        assertEquals(expectedOutput.trim(), ui.showExitMessage().trim());
     }
 
     @Test
     void testShowErrorMessage() {
-        Ui.showErrorMessage("An error occurred");
-        String expectedOutput = DIVIDER + "Error: An error occurred\n" + DIVIDER;
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        String expectedOutput = "Error: An error occurred\n";
+        assertEquals(expectedOutput.trim(), Ui.showErrorMessage("An error occurred").trim());
     }
 
     @Test
     void testShowMessage() {
-        Ui.showMessage("This is a message");
-        String expectedOutput = DIVIDER + "This is a message\n" + DIVIDER;
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        String expectedOutput = "This is a message\n";
+        assertEquals(expectedOutput.trim(), Ui.showMessage("This is a message").trim());
     }
 
     @Test
@@ -70,66 +49,48 @@ class UiTest {
         taskList.addTodo("Read a book");
         taskList.addDeadline("Submit report", LocalDateTime.of(2024, 8, 30, 18, 0));
 
-        ui.displayTasks(taskList);
-
-        String expectedOutput = DIVIDER
-                + "Here are the tasks in your list:\n"
+        String expectedOutput = "Here are the tasks in your list:\n"
                 + "1. [T] [ ] Read a book\n"
-                + "2. [D] [ ] Submit report (by: Aug 30 2024 1800)\n"
-                + DIVIDER;
+                + "2. [D] [ ] Submit report (by: Aug 30 2024 1800)\n";
 
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(expectedOutput.trim(), ui.displayTasks(taskList).trim());
     }
 
     @Test
     void testDisplayCompletedTask() {
         Task task = new Task("Read a book");
-        ui.displayCompletedTask(task);
-        String expectedOutput = DIVIDER
-                + "Nice! You've completed this task:\n  "
-                + task + "\n" + DIVIDER;
+        String expectedOutput = "Nice! You've completed this task:\n  " + task + "\n";
 
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(expectedOutput.trim(), ui.displayCompletedTask(task).trim());
     }
 
     @Test
     void testDisplayIncompleteTask() {
         Task task = new Task("Read a book");
-        ui.displayIncompleteTask(task);
-        String expectedOutput = DIVIDER
-                + "Ok! This task is not complete:\n  "
-                + task + "\n" + DIVIDER;
+        String expectedOutput = "Ok! This task is not complete:\n  " + task + "\n";
 
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(expectedOutput.trim(), ui.displayIncompleteTask(task).trim());
     }
 
     @Test
     void testDisplayDeletedTask() {
         Task task = new Task("Read a book");
-        ui.displayDeletedTask(task);
-        String expectedOutput = DIVIDER
-                + "Ok! This task has been removed:\n  "
-                + task + "\n" + DIVIDER;
+        String expectedOutput = "Ok! This task has been removed:\n  " + task + "\n";
 
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(expectedOutput.trim(), ui.displayDeletedTask(task).trim());
     }
 
     @Test
     void testDisplayTaskAdded() {
         Task task = new Task("Read a book");
-        ui.displayTaskAdded(task, 5);
-        String expectedOutput = DIVIDER
-                + "Okay! Added this task:\n  "
-                + task + "\n" + "Now you have 5 tasks in this list\n" + DIVIDER;
+        String expectedOutput = "Okay! Added this task:\n  " + task + "\nNow you have 5 tasks in this list\n";
 
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(expectedOutput.trim(), ui.displayTaskAdded(task, 5).trim());
     }
 
     @Test
     void testDisplayHelp() {
-        ui.displayHelp();
-        String expectedOutput = DIVIDER
-                + "Here are a list of valid commands:\n"
+        String expectedOutput = "Here are a list of valid commands:\n"
                 + " - list\n"
                 + " - mark <taskNumber>\n"
                 + " - unmark <taskNumber>\n"
@@ -139,9 +100,9 @@ class UiTest {
                 + " - event <taskDescription> /from <startTime> /to <endTime>\n"
                 + " - bye\n"
                 + " - help\n"
-                + DIVIDER;
+                + " - find <keyword>\n";
 
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(expectedOutput.trim(), ui.displayHelp().trim());
     }
 
     @Test
@@ -151,15 +112,11 @@ class UiTest {
         taskList.addTodo("Complete the assignment");
         taskList.addTodo("Read the news");
 
-        ui.displayMatchingTasks(taskList, "read");
-
-        String expectedOutput = DIVIDER
-                + "Here are the tasks in your list that match the keyword:\n"
+        String expectedOutput = "Here are the tasks in your list that match the keyword:\n"
                 + "1. [T] [ ] Read a book\n"
-                + "2. [T] [ ] Read the news\n"
-                + DIVIDER;
+                + "2. [T] [ ] Read the news\n";
 
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(expectedOutput.trim(), ui.displayMatchingTasks(taskList, "read").trim());
     }
 
     @Test
@@ -169,14 +126,10 @@ class UiTest {
         taskList.addTodo("Complete the assignment");
         taskList.addTodo("Read the news");
 
-        ui.displayMatchingTasks(taskList, "exercise");
+        String expectedOutput = "Here are the tasks in your list that match the keyword:\n"
+                + "No matching tasks found.\n";
 
-        String expectedOutput = DIVIDER
-                + "Here are the tasks in your list that match the keyword:\n"
-                + "No matching tasks found.\n"
-                + DIVIDER;
-
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(expectedOutput.trim(), ui.displayMatchingTasks(taskList, "exercise").trim());
     }
 
     @Test
@@ -186,14 +139,10 @@ class UiTest {
         taskList.addTodo("Complete the assignment");
         taskList.addTodo("Read the news");
 
-        ui.displayMatchingTasks(taskList, "READ");
-
-        String expectedOutput = DIVIDER
-                + "Here are the tasks in your list that match the keyword:\n"
+        String expectedOutput = "Here are the tasks in your list that match the keyword:\n"
                 + "1. [T] [ ] Read a book\n"
-                + "2. [T] [ ] Read the news\n"
-                + DIVIDER;
+                + "2. [T] [ ] Read the news\n";
 
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(expectedOutput.trim(), ui.displayMatchingTasks(taskList, "READ").trim());
     }
 }

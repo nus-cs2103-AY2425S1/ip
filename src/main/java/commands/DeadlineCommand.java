@@ -38,20 +38,10 @@ public class DeadlineCommand implements Command {
      * @param ui      The UI handler used for interacting with the user.
      * @throws DownyException If an error occurs during the execution of the command.
      */
-    public void execute(Storage storage, TaskList tasks, Ui ui) throws DownyException {
+    public String execute(Storage storage, TaskList tasks, Ui ui) throws DownyException {
         Deadline d = tasks.addDeadline(this.taskDescription, this.time);
         storage.writeDeadlineToFile(d);
-        ui.displayTaskAdded(d, tasks.getSize());
-    }
-
-    /**
-     * Indicates that this command does not signal the application to exit.
-     *
-     * @return {@code false}, indicating that this command does not cause the
-     *         application to terminate.
-     */
-    public boolean isExit() {
-        return false;
+        return ui.displayTaskAdded(d, tasks.getSize());
     }
 
     /**

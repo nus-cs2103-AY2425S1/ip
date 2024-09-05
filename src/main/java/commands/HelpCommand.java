@@ -20,18 +20,7 @@ public class HelpCommand implements Command {
      * @param ui      The UI handler used for interacting with the user.
      */
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) {
-        ui.displayHelp();
-    }
-
-    /**
-     * Indicates that this command does not signal the application to exit.
-     *
-     * @return {@code false}, indicating that this command does not cause the
-     *         application to terminate.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+    public String execute(Storage storage, TaskList tasks, Ui ui) {
+        return ui.displayHelp();
     }
 }

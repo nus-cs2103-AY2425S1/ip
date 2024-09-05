@@ -36,28 +36,17 @@ public class DeleteCommand implements Command {
      *                        an invalid task number format or a task number that does not exist.
      */
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) throws DownyException {
+    public String execute(Storage storage, TaskList tasks, Ui ui) throws DownyException {
         try {
             int taskNum = Integer.parseInt(this.taskNumber);
             Task t = tasks.deleteTaskInList(taskNum);
             storage.deleteTask(t);
-            ui.displayDeletedTask(t);
+            return ui.displayDeletedTask(t);
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("Task number has to be a positive integer.");
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidFormatException("Task number does not exist.");
         }
-    }
-
-    /**
-     * Indicates that this command does not signal the application to exit.
-     *
-     * @return {@code false}, indicating that this command does not cause the
-     *         application to terminate.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 
     /**

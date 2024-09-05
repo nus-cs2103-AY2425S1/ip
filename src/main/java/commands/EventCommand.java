@@ -42,21 +42,10 @@ public class EventCommand implements Command {
      * @throws DownyException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) throws DownyException {
+    public String execute(Storage storage, TaskList tasks, Ui ui) throws DownyException {
         Event e = tasks.addEvent(this.taskDescription, this.startTime, this.endTime);
         storage.writeEventToFile(e);
-        ui.displayTaskAdded(e, tasks.getSize());
-    }
-
-    /**
-     * Indicates that this command does not signal the application to exit.
-     *
-     * @return {@code false}, indicating that this command does not cause the
-     *         application to terminate.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+        return ui.displayTaskAdded(e, tasks.getSize());
     }
 
     /**

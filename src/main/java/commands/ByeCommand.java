@@ -19,17 +19,8 @@ public class ByeCommand implements Command {
      * @param ui      The UI handler used for interacting with the user. Not used in this implementation.
      */
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) {
-        // No action needed, as the Bye command only signals termination.
+    public String execute(Storage storage, TaskList tasks, Ui ui) {
+        return ui.showExitMessage();
     }
 
-    /**
-     * Indicates that this command should cause the application to exit.
-     *
-     * @return {@code true}, signalling the application's termination.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }
