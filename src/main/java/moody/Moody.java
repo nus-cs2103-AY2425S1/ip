@@ -65,6 +65,16 @@ public class Moody {
         }
     }
 
+    public String getResponse(String input) {
+        try {
+            return Parser.parse(input).execute(tasks, ui, storage);
+        } catch (InvalidCommandException | TaskInputException e) {
+            return e.getMessage();
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+    }
+
     public static void main(String[] args) {
         new Moody("./data/moody.txt").run();
     }

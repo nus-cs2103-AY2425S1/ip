@@ -38,7 +38,7 @@ public class AddTodoCommand extends Command {
      * @throws InvalidCommandException If the description of the todo task is missing.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         if (description.isEmpty()) {
             throw new InvalidCommandException("Error: Missing task description\n\nPlease use the following format: todo <description>");
         }
@@ -47,8 +47,10 @@ public class AddTodoCommand extends Command {
         ui.showTaskAdded(task, tasks.size());
         try {
             storage.save(tasks.toArrayList());
+            return ui.showTaskAddedAsString(task, tasks.size());
         } catch (IOException e) {
             ui.showError("Error: Unable to save tasks to file");
+            return ui.showErrorAsString("Error: Unable to save tasks to file");
         }
     }
 }
