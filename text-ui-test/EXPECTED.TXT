@@ -1,5 +1,5 @@
 _________________________________________
-Hello! I'm PandaBot.
+Hello! I'm main.PandaBot.
 What can I do for you?
 Type 'help' if you are unsure of how to get started!
 _________________________________________

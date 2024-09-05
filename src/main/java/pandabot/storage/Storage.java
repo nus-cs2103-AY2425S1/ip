@@ -1,4 +1,4 @@
-package storage;
+package pandabot.storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import tasks.Task;
+import pandabot.tasks.Task;
 
 /**
  * Handles the loading and saving of tasks from and to a file.

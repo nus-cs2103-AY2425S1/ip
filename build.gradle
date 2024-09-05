@@ -47,11 +47,11 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("pandabot.gui.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "PandaBot"
+    archiveBaseName = "main.PandaBot"
     archiveClassifier = null
 }
 

@@ -1,6 +1,6 @@
-package tasks;
+package pandabot.tasks;
 
-import exceptions.InputException;
+import pandabot.exceptions.InputException;
 
 /**
  * Represents a ToDo task.

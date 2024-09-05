@@ -1,3 +1,5 @@
+package pandabot.gui;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -5,19 +7,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import pandabot.main.PandaBot;
 
 /**
- * Main class to launch the GUI for PandaBot using FXML.
+ * gui.Main class to launch the GUI for main.PandaBot using FXML.
  * This class extends {@code Application} and serves as the entry point
  * for the JavaFX application.
  */
 public class Main extends Application {
 
     /**
-     * Instance of PandaBot that will be used by the GUI.
-     * The PandaBot is initialized with the file path to the saved data.
+     * Instance of main.PandaBot that will be used by the GUI.
+     * The main.PandaBot is initialized with the file path to the saved data.
      */
-    private final PandaBot pandaBot = new PandaBot("./data/PandaBot.txt");
+    private final PandaBot pandaBot = new PandaBot("./data/main.PandaBot.txt");
 
     /**
      * The main entry point for all JavaFX applications. The start method is called after

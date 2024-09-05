@@ -1,14 +1,16 @@
+package pandabot.main;
+
 import java.io.IOException;
 
-import commands.Command;
-import exceptions.InputException;
-import parser.Parser;
-import storage.Storage;
-import storage.TaskList;
-import ui.Ui;
+import pandabot.commands.Command;
+import pandabot.exceptions.InputException;
+import pandabot.parser.Parser;
+import pandabot.storage.Storage;
+import pandabot.storage.TaskList;
+import pandabot.ui.Ui;
 
 /**
- * PandaBot is a simple task management bot that allows users to manage their tasks.
+ * main.PandaBot is a simple task management bot that allows users to manage their tasks.
  * It supports operations such as adding, listing, marking, unmarking, deleting tasks, and finding tasks by keywords.
  * The bot can handle different types of tasks including ToDos, Deadlines, and Events.
  */
@@ -19,7 +21,7 @@ public class PandaBot {
     private final Storage storage;
 
     /**
-     * The list of tasks managed by PandaBot.
+     * The list of tasks managed by main.PandaBot.
      */
     private final TaskList tasks;
 
@@ -29,7 +31,7 @@ public class PandaBot {
     private final Ui ui;
 
     /**
-     * Constructs a new PandaBot with the specified file path for task storage.
+     * Constructs a new main.PandaBot with the specified file path for task storage.
      * Initializes the UI, storage, and loads the existing tasks from the specified file.
      *
      * @param filePath the file path where tasks are stored and loaded from.
@@ -52,7 +54,7 @@ public class PandaBot {
      * This method parses the user's input, executes the corresponding command,
      * and returns the result as a response message.
      *
-     * @param input The user's input message that contains a command for PandaBot to execute.
+     * @param input The user's input message that contains a command for main.PandaBot to execute.
      * @return The response message after processing the user's input.
      */
     public String getResponse(String input) {

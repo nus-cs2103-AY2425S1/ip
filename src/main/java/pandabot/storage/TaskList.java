@@ -1,7 +1,7 @@
-package storage;
+package pandabot.storage;
 
 import java.util.ArrayList;
-import tasks.Task;
+import pandabot.tasks.Task;
 
 /**
  * Manages a list of tasks, providing methods to add, remove, and retrieve tasks.

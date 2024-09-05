@@ -1,16 +1,16 @@
-package commands;
+package pandabot.commands;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import exceptions.InputException;
-import storage.Storage;
-import storage.TaskList;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
-import ui.Ui;
+import pandabot.exceptions.InputException;
+import pandabot.storage.TaskList;
+import pandabot.tasks.Deadline;
+import pandabot.tasks.Task;
+import pandabot.storage.Storage;
+import pandabot.tasks.Event;
+import pandabot.tasks.ToDo;
+import pandabot.ui.Ui;
 
 /**
  * Represents a command to add a new task to the task list.

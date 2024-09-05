@@ -1,17 +1,17 @@
-package parser;
+package pandabot.parser;
 
 // used '*' import as all items are imported
 
-import commands.AddCommand;
-import commands.Command;
-import commands.DeleteCommand;
-import commands.ExitCommand;
-import commands.FindCommand;
-import commands.HelpCommand;
-import commands.ListCommand;
-import commands.MarkCommand;
-import commands.UnmarkCommand;
-import exceptions.InputException;
+import pandabot.commands.AddCommand;
+import pandabot.commands.Command;
+import pandabot.commands.DeleteCommand;
+import pandabot.commands.ExitCommand;
+import pandabot.commands.FindCommand;
+import pandabot.commands.HelpCommand;
+import pandabot.commands.ListCommand;
+import pandabot.commands.MarkCommand;
+import pandabot.commands.UnmarkCommand;
+import pandabot.exceptions.InputException;
 
 /**
  * Parses user input into commands that can be executed by the application.

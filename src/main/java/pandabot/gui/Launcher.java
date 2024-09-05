@@ -1,3 +1,5 @@
+package pandabot.gui;
+
 import javafx.application.Application;
 
 /**

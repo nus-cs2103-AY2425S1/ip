@@ -1,12 +1,12 @@
-package commands;
+package pandabot.commands;
 
 
 import java.util.ArrayList;
 
-import storage.Storage;
-import storage.TaskList;
-import tasks.Task;
-import ui.Ui;
+import pandabot.storage.Storage;
+import pandabot.storage.TaskList;
+import pandabot.tasks.Task;
+import pandabot.ui.Ui;
 
 /**
  * The FindCommand class implements the Command interface and represents a command to find tasks

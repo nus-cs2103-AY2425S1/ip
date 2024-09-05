@@ -1,9 +1,11 @@
 package tasks;
 
-import exceptions.InputException;
+import pandabot.exceptions.InputException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import pandabot.tasks.Task;
+import pandabot.tasks.ToDo;
 
 /**
  * Unit tests for the ToDo class.

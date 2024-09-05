@@ -1,11 +1,13 @@
 package tasks;
 
-import exceptions.InputException;
+import pandabot.exceptions.InputException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+import pandabot.tasks.Event;
+import pandabot.tasks.Task;
 
 /**
  * Unit tests for the Event class.

@@ -1,4 +1,4 @@
-package exceptions;
+package pandabot.exceptions;
 
 /**
  * Represents an exception that is thrown when there is an issue with the user's input.

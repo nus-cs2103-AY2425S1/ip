@@ -1,9 +1,9 @@
-package tasks;
+package pandabot.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import exceptions.InputException;
+import pandabot.exceptions.InputException;
 
 /**
  * Represents a Deadline task.

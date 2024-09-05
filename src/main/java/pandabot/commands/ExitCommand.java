@@ -1,8 +1,8 @@
-package commands;
+package pandabot.commands;
 
-import storage.Storage;
-import storage.TaskList;
-import ui.Ui;
+import pandabot.storage.Storage;
+import pandabot.storage.TaskList;
+import pandabot.ui.Ui;
 
 /**
  * Represents a command to exit the application.
