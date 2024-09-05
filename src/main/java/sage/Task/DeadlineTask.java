@@ -7,16 +7,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DeadlineTask extends Task {
-
-    protected LocalDateTime by;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
+    protected LocalDateTime by;
+
 
     /**
      * Constructs a DeadlineTask with a description and a deadline.
      *
      * @param description The description of the task.
-     * @param by The deadline of the task in yyyy-MM-dd HHmm format.
+     * @param by          The deadline of the task in yyyy-MM-dd HHmm format.
      * @throws SageException If the deadline format is invalid.
      */
     public DeadlineTask(String description, String by) throws SageException {

@@ -17,9 +17,9 @@ public class Ui {
     }
 
     public void showResponse(String text) {
-        String HORIZONTAL_LINE = "_________________________________________________";
+        String horizontalLine = "_________________________________________________";
         String indentedText = text.indent(4);
-        System.out.println(HORIZONTAL_LINE + "\n" + indentedText + HORIZONTAL_LINE);
+        System.out.println(horizontalLine + "\n" + indentedText + horizontalLine);
     }
 
     public void showWelcome() {
