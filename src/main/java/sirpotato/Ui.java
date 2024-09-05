@@ -33,117 +33,149 @@ public class Ui {
     }
 
     /**
-     * Displays the welcome message when the user first starts the chat
+     * Displays & returns the welcome message when the user first starts the chat
+     * 
+     * @return Welcome message
      */
-    public void displayWelcomeMessage() {
-        System.out.println("Hello from\n" + logo);
-        System.out.println("What can I do ya for?\n" + HORIZONTAL_LINE);
+    public String displayWelcomeMessage() {
+        String response = "Hello from\n" + logo + 
+                "What can I do ya for?\n" + HORIZONTAL_LINE;
+        System.out.println(response);
+        return response;
     }
 
     /**
-     * Displays the bye message when the user types 'bye'.
+     * Displays & returns the bye message when the user types 'bye'.
+     * 
+     * @return Bye message
      */
-    public void displayByeMessage() {
-        System.out.println("Bye mate, see you around.");
+    public String displayByeMessage() {
+        String response = "Bye mate, see you around.";
+        System.out.println(response);
+        return response;
     }
 
     /**
-     * Displays the message that a task has been added to the list
+     * Displays & returns the message that a task has been added to the list
      * 
      * @param task the task that is being added to the toDoList.
      * @param toDoList the toDoList the task is being added to.
+     * @return Added task message
      */
-    public void displayAddedTask(Task task, ArrayList<Task> toDoList) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(INDENT + "Got it. I've added this task for ya.");
-        System.out.println(INDENT + task);
-        System.out.println(INDENT + "Now you've got " + toDoList.size() + " tasks in the list mate");
-        System.out.println(HORIZONTAL_LINE);
+    public String displayAddedTask(Task task, ArrayList<Task> toDoList) {
+        String response = HORIZONTAL_LINE + 
+                INDENT + "Got it. I've added this task for ya." + 
+                INDENT + task + 
+                INDENT + "Now you've got " + toDoList.size() + " tasks in the list mate" + 
+                HORIZONTAL_LINE;
+        System.out.println(response);
+        return response;
     }
 
     /**
-     * Prints out the deletion message 
+     * Prints & returns out the deletion message 
      * 
      * @param task Task being deleted
      * @param toDoList The to-do list being deleted from
+     * @return Deletion of task message
      */
-    public void displayDeletionMessage(Task task, ArrayList<Task> toDoList) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Gotcha mate, I've deleted the following task: ");
-        System.out.println(task);
-        System.out.println("Now you've got " + (toDoList.size() - 1) + " tasks left.");
-        System.out.println(HORIZONTAL_LINE);
+    public String displayDeletionMessage(Task task, ArrayList<Task> toDoList) {
+        String response = HORIZONTAL_LINE +
+                "Gotcha mate, I've deleted the following task: " + 
+                task + 
+                "Now you've got " + (toDoList.size() - 1) + " tasks left." + 
+                HORIZONTAL_LINE;
+        System.out.println(response);
+        return response;
     }
 
     /**
-     * Prints the tasks in the current tasklist 
+     * Prints & returns the tasks in the current tasklist 
      * 
      * @param tasks The TaskList containing the current tasks
+     * @return the formatted list of tasks
      */
-    public void listTasks(TaskList tasks) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(INDENT + "Here are the tasks in your list:");
-        System.out.println(INDENT + "List: ");
+    public String listTasks(TaskList tasks) {
+        String response = HORIZONTAL_LINE + 
+                INDENT + "Here are the tasks in your list:" + 
+                INDENT + "List: ";
 
         for (int i = 0; i < tasks.getList().size(); i++) {
-            System.out.println(INDENT + (i+1) + ". " + tasks.getList().get(i));
+            response = response + INDENT + (i+1) + ". " + tasks.getList().get(i);
         }
-        System.out.println(HORIZONTAL_LINE + "\n");
+        response = response + HORIZONTAL_LINE + "\n";
+        System.out.println(response);
+        return response;
     }
 
     /**
      * When a user marks an item complete, this is the message that will be displayed
+     * Prints and returns the marked item
      * 
      * @param itemNumber the index number(starts at 1) of the item to be deleted
      * @param toDoList the TaskList's arrayList containing the current to-do list.
+     * @return the marked item message
      */
-    public void displayMarkedItem(int itemNumber, ArrayList<Task> toDoList) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(INDENT + "Good on ya! I've marked it done:");
-        System.out.println(INDENT + INDENT + toDoList.get(itemNumber));
-        System.out.println(HORIZONTAL_LINE);
+    public String displayMarkedItem(int itemNumber, ArrayList<Task> toDoList) {
+        String response = HORIZONTAL_LINE + 
+                INDENT + "Good on ya! I've marked it done:" + 
+                INDENT + INDENT + toDoList.get(itemNumber) + 
+                HORIZONTAL_LINE;
+        System.out.println(response);
+        return response;
     }
 
     /**
      * When a user unmarks an item to incomplete, this is the message that will be displayed
+     * Prints and returns unmarked item  
      * 
      * @param itemNumber the index number(starts at 1) of the item to be deleted
      * @param toDoList the TaskList's arrayList containing the current to-do list.
+     * @return the unmarked item message
      */
-    public void displayUnmarkedItem(int itemNumber, ArrayList<Task> toDoList) {
-        System.out.println(INDENT + "What's happened here mate? I've unmarked it for ya.");
-        System.out.println(INDENT + INDENT + toDoList.get(itemNumber));
-        System.out.println(HORIZONTAL_LINE);
+    public String displayUnmarkedItem(int itemNumber, ArrayList<Task> toDoList) {
+        String response = HORIZONTAL_LINE + 
+                INDENT + "What's happened here mate? I've unmarked it for ya." + 
+                INDENT + INDENT + toDoList.get(itemNumber) + 
+                HORIZONTAL_LINE;
+        System.out.println(response);
+        return response;
     }
 
     /**
      * Formats the chatbot's response by sandwiching it between a dashed line
-     * And automatically indents the response
+     * And automatically indents the response then returns it and prints it
      * 
-     * @param response the response that the chatbot wishes to format
+     * @param input the text that the chatbot wishes to format
+     * @return the response sandwiched between horizontal lines
      */
-    public void respond(String response) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(INDENT + response);
-        System.out.println(HORIZONTAL_LINE);
+    public String respond(String input) {
+        String response = HORIZONTAL_LINE + 
+                INDENT + input +
+                HORIZONTAL_LINE;
+        System.out.println(response);
+        return response;
     }
 
     /**
-     * Prints all the tasks in the tasklist that match the search string 
+     * Prints & returns all the tasks in the tasklist that match the search string 
      * 
      * @param tasks The Tasklist in which we wish to search
      * @param searchString The string we wish to search for
+     * @return the formatted list of tasks that match the search
      */
-    public void findTasks(TaskList tasks, String searchString) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(INDENT + "Here are the matching tasks found:");
+    public String findTasks(TaskList tasks, String searchString) {
+        String response = HORIZONTAL_LINE + 
+                INDENT + "Here are the matching tasks found:";
 
         for (int i = 0; i < tasks.getList().size(); i++) {
             if (tasks.getList().get(i).containsString(searchString)) {
-                System.out.println(INDENT + (i+1) + ". " + tasks.getList().get(i));
+                response = response + INDENT + (i+1) + ". " + tasks.getList().get(i);
             }
         }
-        System.out.println(HORIZONTAL_LINE + "\n");
+        response = response + HORIZONTAL_LINE + "\n";
+        System.out.println(response);
+        return response;
     }
 
 }

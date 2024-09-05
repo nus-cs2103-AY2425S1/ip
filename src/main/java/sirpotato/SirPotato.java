@@ -40,6 +40,22 @@ public class SirPotato {
         }
     }
 
+    /**
+     * Alternate constructor for the chatbot, named SirPotato
+     * Allows you to specify file path of data file
+     * Initialises the scanner and the toDoList.
+     */
+    public SirPotato(String filepath) {
+        this.storage = new Storage(filepath);
+        this.ui = new Ui();
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (FileNotFoundException e) {
+            System.out.println("No history detected. Will create new file");
+            tasks = new TaskList();
+        }
+    }
+
 
 
     /**
@@ -70,4 +86,17 @@ public class SirPotato {
         potato.startChat();
 
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parseCommand(input);
+            return command.execute(tasks, ui, storage);
+        } catch (DukeException | IOException e) {
+            return ui.respond(e.getMessage());
+        }
+    }
+
 }
