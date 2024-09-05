@@ -1,4 +1,5 @@
-package jarvis;
+package jarvis.logic;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 

@@ -1,4 +1,4 @@
-package jarvis;
+package jarvis.logic;
 
 import java.io.*;
 import java.nio.file.Files;

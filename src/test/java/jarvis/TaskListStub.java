@@ -1,12 +1,13 @@
 package jarvis;
 
-import java.util.ArrayList;
+import jarvis.logic.TaskList;
 
-public class TaskListStub extends TaskList{
-    public void list() {
+public class TaskListStub extends TaskList {
+    public String list() {
+        return "hello";
     }
-    public void add(String input){
-
+    public String add(String input){
+        return "add";
     }
 
     public void unmark(int i) {

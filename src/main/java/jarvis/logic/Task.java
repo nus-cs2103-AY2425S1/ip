@@ -1,4 +1,4 @@
-package jarvis;
+package jarvis.logic;
 
 public abstract class Task {
     private String name;

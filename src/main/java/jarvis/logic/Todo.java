@@ -1,4 +1,4 @@
-package jarvis;
+package jarvis.logic;
 
 /**
  * Represents a Todo task.
