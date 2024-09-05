@@ -1,5 +1,6 @@
 package rex;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import rex.util.Ui;
+
 /**
  * Controller for the main GUI.
  */
@@ -31,8 +35,12 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Rex instance */
-    public void setRex(Rex d) {
-        rex = d;
+    public void setRex(Rex rex) {
+        this.rex = rex;
+        String greetingMessage = Ui.getGreeting();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getRexDialog(greetingMessage, rexImage)
+        );
     }
 
     /**
@@ -47,6 +55,13 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getRexDialog(response, rexImage)
         );
+
+        // Exit application if bye command entered
+        if (input.equalsIgnoreCase("bye")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> Main.exit());
+            delay.play();
+        }
         userInput.clear();
     }
 }

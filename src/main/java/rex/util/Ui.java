@@ -43,18 +43,17 @@ public class Ui {
     /**
      * Displays a greeting message to the user.
      */
-    public void greeting() {
-        printDivider();
+    public static String getGreeting() {
         System.out.println("Hello! I'm Rex! " + RAWR);
         System.out.println("What can I do for you? " + RAWR);
+        return "Hello! I'm Rex! " + RAWR + "\nWhat can I do for you? " + RAWR;
     }
 
     /**
      * Displays a help message listing available commands.
      */
-    public void help() {
-        printDivider();
-        System.out.println(Command.getCommandList());
+    public String getHelp() {
+        return Command.getCommandList();
     }
 
     /**
@@ -62,9 +61,8 @@ public class Ui {
      *
      * @param output The list string to be displayed.
      */
-    public void displayList(String output) {
-        printDivider();
-        System.out.print(output);
+    public String displayList(String output) {
+        return output;
     }
 
     /**
@@ -73,9 +71,8 @@ public class Ui {
      * @param output A formatted string containing the list of tasks that match the search criteria.
      *               This string is printed as is to the console.
      */
-    public void findTask(String output) {
-        printDivider();
-        System.out.print(output);
+    public String findTask(String output) {
+        return output;
     }
 
     /**
@@ -83,11 +80,11 @@ public class Ui {
      *
      * @param task The {@code Task} that was added to the list.
      */
-    public void addTask(Task task) {
-        printDivider();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
+    public String addTask(Task task) {
+        String output = "Got it. I've added this task:\n";
+        output += "  " + task;
+        output += "\nNow you have " + Task.getNumberOfTasks() + " tasks in the list.";
+        return output;
     }
 
     /**
@@ -95,10 +92,10 @@ public class Ui {
      *
      * @param task The {@code Task} that was marked as done.
      */
-    public void markTask(Task task) {
-        printDivider();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
+    public String markTask(Task task) {
+        String output = "Nice! I've marked this task as done:\n";
+        output += "  " + task;
+        return output;
     }
 
     /**
@@ -106,10 +103,10 @@ public class Ui {
      *
      * @param task The {@code Task} that was marked as not done.
      */
-    public void unmarkTask(Task task) {
-        printDivider();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
+    public String unmarkTask(Task task) {
+        String output = "OK, I've marked this task as not done yet:\n";
+        output += "  " + task;
+        return output;
     }
 
     /**
@@ -117,29 +114,26 @@ public class Ui {
      *
      * @param task The {@code Task} that was removed from the list.
      */
-    public void deleteTask(Task task) {
-        printDivider();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
+    public String deleteTask(Task task) {
+        String output = "Noted. I've removed this task:";
+        output += "  " + task;
+        output += "Now you have " + Task.getNumberOfTasks() + " tasks in the list.";
+        return output;
     }
 
     /**
      * Prints a playful "rawr" message to the user.
      */
-    public void rawr() {
-        printDivider();
-        System.out.println(RAWR + "!");
+    public String rawr() {
+        return RAWR + "!";
     }
 
     /**
      * Displays a goodbye message and closes the {@code Scanner}.
      */
-    public void goodbye() {
-        printDivider();
-        System.out.println("Bye. Hope to see you again soon! " + RAWR);
-        printDivider();
+    public String getGoodbye() {
         scanner.close();
+        return "Bye. Hope to see you again soon! " + RAWR;
     }
 
     /**
@@ -147,8 +141,8 @@ public class Ui {
      *
      * @param e The {@code InvalidInputException} containing the error message.
      */
-    public void errorMessage(InvalidInputException e) {
-        errorMessage(e.getMessage());
+    public String errorMessage(InvalidInputException e) {
+        return errorMessage(e.getMessage());
     }
 
     /**
@@ -156,9 +150,8 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void errorMessage(String message) {
-        printDivider();
-        System.out.println(ERROR_PREFIX + " " + message);
+    public String errorMessage(String message) {
+        return ERROR_PREFIX + " " + message;
     }
 
     /**
