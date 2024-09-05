@@ -1,15 +1,21 @@
 package denim;
 
-import denim.Ui.MainWindow;
+import java.io.IOException;
+
+import denim.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
-
+/**
+ * The Main class is the entry point for the Denim application, extending JavaFX's Application class.
+ * It initializes the main window from the FXML file, sets up the primary scene, and displays the stage.
+ * An instance of Denim is created and injected into the MainWindow controller to manage application interactions.
+ * Any IOExceptions during the FXML loading are handled and wrapped in a RuntimeException.
+ */
 public class Main extends Application {
 
     private Denim denim = new Denim();

@@ -19,10 +19,16 @@ public class TextBasedUi {
     private final Scanner in;
     private final PrintStream out;
 
+    /**
+     * Constructs a new TextBasedUi with the default input and output.
+     */
     public TextBasedUi() {
         this(System.in, System.out);
     }
 
+    /**
+     * Constructs a new TextBasedUi with the specified InputStream and PrintStream.
+     */
     public TextBasedUi(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;

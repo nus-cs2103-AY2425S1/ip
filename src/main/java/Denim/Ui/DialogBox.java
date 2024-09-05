@@ -1,4 +1,4 @@
-package denim.Ui;
+package denim.ui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * A class representing a Diaglog Box consisting of an avatar picture and a text message.
+ * A class representing a Dialog Box consisting of an avatar picture and a text message.
  */
 public class DialogBox extends HBox {
 

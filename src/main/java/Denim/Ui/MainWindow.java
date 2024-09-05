@@ -1,7 +1,9 @@
-package denim.Ui;
+package denim.ui;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import denim.Denim;
-
 import denim.commands.Command;
 import denim.commands.CommandResult;
 import javafx.fxml.FXML;
@@ -11,9 +13,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
+/**
+ * A class representing the main container for the other components of the UI.
+ */
 public class MainWindow extends VBox {
 
     @FXML

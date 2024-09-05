@@ -61,6 +61,13 @@ public class Denim {
         } while (!command.isExit());
     }
 
+    /**
+     * parses the input from the GUI using a Parser object.
+     *
+     * @param input the user input received from the GUI.
+     *
+     * @return command
+     */
     public Command parseGuiCommand(String input) {
         Command command = parser.parseCommand(input);
         return command;
