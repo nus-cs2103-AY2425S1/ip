@@ -1,7 +1,1 @@
-T | 1 | borrow book
-T | 0 | study
-D | 1 | return book | 2/12/2019 1800
-T | 0 | borrow book
-T | 0 | borrow book
-T | 1 | borrow book
 T | 0 | borrow book

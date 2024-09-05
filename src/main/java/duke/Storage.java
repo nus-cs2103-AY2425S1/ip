@@ -66,12 +66,13 @@ public class Storage {
                 case "E" -> new Event(descriptionOfTask, parts[3], parts[4]);
                 default -> null;
                 };
-                if (task != null) {
-                    if (isTaskDone) {
-                        task.markOrUnmark("mark");
-                    }
-                    this.tasks.add(task);
+                if (task == null) {
+                    continue;
                 }
+                if (isTaskDone) {
+                    task.markOrUnmark("mark");
+                }
+                this.tasks.add(task);
             }
             scanner.close();
         } catch (FileNotFoundException e) {
