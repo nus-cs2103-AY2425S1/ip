@@ -74,18 +74,14 @@ public class TodoTest {
 
     @Test
     public void testMarkError() {
-        Exception exception = assertThrows(AlreadyMarkedException.class, this::testMarkErrorHelper);
+        Exception exception = assertThrows(AlreadyMarkedException.class, () -> {
+            Task test = Task.createFromData("T | 1 | parktour with my hand 2024-08-06");
+            test.mark();
+        });
         assertEquals("""
                         Sumo confused. This task is marked as done in the first place!
                         But SUMO will mark it as done again!
                         [T][X]parktour with my hand 2024-08-06""",
                 exception.getMessage());
     }
-
-    private void testMarkErrorHelper() throws AlreadyMarkedException {
-        Task test = Task.createFromData("T | 1 | parktour with my hand 2024-08-06");
-        test.mark();
-    }
-
-
 }

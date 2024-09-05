@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+import sumode.exception.LatestSaveException;
 import sumode.task.Task;
-import sumode.ui.Ui;
 
 /**
  * In charge of saving/loading to the file path.
@@ -17,7 +17,6 @@ public class Storage {
 
     private final String filePath;
     private final File f;
-    private final Ui ui;
 
     /**
      * Constructor for Storage
@@ -25,16 +24,14 @@ public class Storage {
      * @param filePath File path to save data for tasks in lists.
      * @param ui UI for all outputs.
      */
-    public Storage(String filePath, Ui ui) throws IOException {
+    public Storage(String filePath) throws IOException {
         this.filePath = filePath;
-        this.ui = ui;
         this.f = new File(filePath);
 
         // Ensure parent directories exist
         File parentDir = f.getParentFile();
         if (parentDir != null && !parentDir.exists()) {
             if (!parentDir.mkdirs()) {
-                System.out.println("ZZZ"); // Attempt to create the directory
                 throw new IOException("Failed to create required directories for path: " + filePath);
             }
         }
@@ -53,7 +50,7 @@ public class Storage {
      * Takes o(number of tasks) time as each task is re-analysed and put into the file.
      * @param tasks List of tasks to be save in file path.
      */
-    public void save(List<Task> tasks) {
+    public void save(List<Task> tasks) throws LatestSaveException {
         try {
             FileWriter fw = new FileWriter(this.filePath, false);
             for (Task task : tasks) {
@@ -61,7 +58,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            this.ui.latestSaveError();
+            throw new LatestSaveException();
         }
     }
 

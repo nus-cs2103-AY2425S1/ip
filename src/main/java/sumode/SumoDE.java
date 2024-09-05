@@ -8,12 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sumode.exception.AlreadyMarkedException;
-import sumode.exception.AlreadyUnmarkedException;
-import sumode.exception.EndBeforeStartException;
-import sumode.exception.NonExistentTaskException;
-import sumode.exception.UnknownCommandException;
-import sumode.exception.WrongSyntaxForCommandException;
+import sumode.exception.SumoDException;
 import sumode.ui.Ui;
 import sumode.util.Command;
 import sumode.util.Parser;
@@ -40,24 +35,18 @@ public class SumoDE extends Application {
 
         // handle Storage
         try {
-            this.storage = new Storage(filePath, this.ui);
+            this.storage = new Storage(filePath);
         } catch (IOException e) {
             // Note: this will only happen when file don't exist and we cannot create new file in the path.
             // New File will be created when file doesn't exist in first place.
             ui.unknownSaveError();
         }
 
-        //handle SumoTaskList
-        if (this.storage == null) {
-            this.tasks = new SumoTaskList(this.ui); // we will use the version where we cannot save
-        } else {
-            try {
-                this.tasks = new SumoTaskList(this.storage, this.ui);
-            } catch (IOException e) {
-                //unlikely will happen since we already successfully initialise storage
-                ui.unknownSaveError();
-                this.tasks = new SumoTaskList(this.ui); // we will use the version where we cannot save
-            }
+        try {
+            this.tasks = new SumoTaskList(this.storage, this.ui);
+        } catch (IOException e) {
+            //unlikely will happen since we already successfully initialise storage
+            ui.unknownSaveError();
         }
     }
 
@@ -69,7 +58,7 @@ public class SumoDE extends Application {
      * Runs a task-management chatbot SumoDE
      */
     public void execute(String input) {
-        boolean terminate = false;
+        boolean canTerminate = false;
         // Splitting command and action
         String[] splitString = Parser.splitCommandAndAction(input);
         String commandString = splitString[0];
@@ -79,15 +68,13 @@ public class SumoDE extends Application {
         // find correct matching command
         try {
             command = Command.valueOf(commandString.toUpperCase());
-            terminate = this.tasks.execute(command, item);
+            canTerminate = this.tasks.execute(command, item);
         } catch (IllegalArgumentException e) {
             ui.unknownCommand(commandString);
-        } catch (WrongSyntaxForCommandException | UnknownCommandException
-                     | NonExistentTaskException | AlreadyUnmarkedException
-                     | AlreadyMarkedException | EndBeforeStartException e) {
+        } catch (SumoDException e) {
             ui.handleError(e);
         } finally {
-            if (!terminate) {
+            if (!canTerminate) {
                 ui.next();
             } else {
                 ui.bye();

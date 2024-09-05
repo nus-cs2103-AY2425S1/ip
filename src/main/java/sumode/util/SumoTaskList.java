@@ -6,8 +6,8 @@ import java.util.List;
 
 import sumode.exception.AlreadyMarkedException;
 import sumode.exception.AlreadyUnmarkedException;
-import sumode.exception.EndBeforeStartException;
 import sumode.exception.NonExistentTaskException;
+import sumode.exception.SumoDException;
 import sumode.exception.UnknownCommandException;
 import sumode.exception.WrongSyntaxForCommandException;
 import sumode.task.Task;
@@ -47,18 +47,6 @@ public class SumoTaskList {
 
     }
 
-    /**
-     * Constructor for SumoTaskList.
-     * <p>
-     * Should only be used when storage not available.
-     *
-     * @param ui UI for all output.
-     */
-    public SumoTaskList(Ui ui) {
-        this.tasks = new ArrayList<>();
-        this.storage = null;
-        this.ui = ui;
-    }
 
     /**
      * Returns a boolean that indicates whether to terminate the programme after this command is finish.
@@ -71,9 +59,7 @@ public class SumoTaskList {
      * @throws AlreadyMarkedException due to user trying to mark an already marked task
      */
     public boolean execute(Command command, String item)
-            throws NonExistentTaskException, UnknownCommandException,
-            WrongSyntaxForCommandException, AlreadyMarkedException,
-            AlreadyUnmarkedException, EndBeforeStartException {
+            throws SumoDException {
         switch(command) {
         case BYE:
         case EXIT: // added this to allow flexibility though not required by qn
@@ -88,35 +74,16 @@ public class SumoTaskList {
             this.ui.printTask(filtered, true);
             break;
         case MARK: {
-            int index;
-            try {
-                index = Integer.parseInt(item);
-            } catch (IllegalArgumentException e) {
-                throw new WrongSyntaxForCommandException(command);
-            }
-
-            if (index > tasks.size() || index <= 0) {
-                throw new NonExistentTaskException(index);
-            }
+            int index = getIndex(command, item);
             tasks.get(index - 1).mark();
             ui.mark(tasks.get(index - 1));
-
         }
             if (storage != null) {
                 storage.save(this.tasks);
             }
             break;
         case UNMARK: {
-            int index;
-            try {
-                index = Integer.parseInt(item);
-            } catch (IllegalArgumentException e) {
-                throw new WrongSyntaxForCommandException(command);
-            }
-
-            if (index > tasks.size() || index <= 0) {
-                throw new NonExistentTaskException(index);
-            }
+            int index = getIndex(command, item);
             tasks.get(index - 1).unmark();
             ui.unmark(tasks.get(index - 1));
         }
@@ -126,15 +93,7 @@ public class SumoTaskList {
 
             break;
         case DELETE: {
-            int index;
-            try {
-                index = Integer.parseInt(item);
-            } catch (IllegalArgumentException e) {
-                throw new WrongSyntaxForCommandException(command);
-            }
-            if (index > tasks.size() || index <= 0) {
-                throw new NonExistentTaskException(index);
-            }
+            int index = getIndex(command, item);
             ui.removeTask(tasks.get(index - 1), tasks.size() - 1);
             tasks.remove(index - 1);
         }
@@ -156,5 +115,19 @@ public class SumoTaskList {
             throw new UnknownCommandException(command);
         }
         return false;
+    }
+
+    private int getIndex(Command command, String item) throws WrongSyntaxForCommandException, NonExistentTaskException {
+        int index;
+        try {
+            index = Integer.parseInt(item);
+        } catch (IllegalArgumentException e) {
+            throw new WrongSyntaxForCommandException(command);
+        }
+
+        if (index > tasks.size() || index <= 0) {
+            throw new NonExistentTaskException(index);
+        }
+        return index;
     }
 }

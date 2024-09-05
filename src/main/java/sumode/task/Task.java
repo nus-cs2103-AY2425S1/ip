@@ -14,7 +14,7 @@ import sumode.util.Parser;
 public class Task {
     private static final String done = "[X]";
     private static final String undone = "[ ]";
-    private boolean completed;
+    private boolean isCompleted;
     private final String name;
 
     /**
@@ -86,10 +86,10 @@ public class Task {
      * Mark the task.
      */
     public void mark() throws AlreadyMarkedException {
-        if (completed) {
+        if (isCompleted) {
             throw new AlreadyMarkedException(this);
         } else {
-            this.completed = true;
+            this.isCompleted = true;
         }
     }
 
@@ -97,10 +97,10 @@ public class Task {
      * Unmark the task.
      */
     public void unmark() throws AlreadyUnmarkedException {
-        if (!completed) {
+        if (!isCompleted) {
             throw new AlreadyUnmarkedException(this);
         } else {
-            this.completed = false;
+            this.isCompleted = false;
         }
     }
 
@@ -109,11 +109,11 @@ public class Task {
      * @return a String in the format to be stored in data file.
      */
     public String savedString() {
-        return (this.completed ? "1" : "0") + " | " + this.name;
+        return (this.isCompleted ? "1" : "0") + " | " + this.name;
     }
 
     @Override
     public String toString() {
-        return (completed ? done : undone) + this.name;
+        return (isCompleted ? done : undone) + this.name;
     }
 }

@@ -5,7 +5,7 @@ import sumode.util.Command;
 /**
  * An Exception thrown for wrong syntax of command
  */
-public class WrongSyntaxForCommandException extends Exception {
+public class WrongSyntaxForCommandException extends SumoDException {
 
     /**
      * Constructor for WrongSyntaxForCommandException

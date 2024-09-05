@@ -5,10 +5,10 @@ import sumode.task.Task;
 /**
  * An Exception thrown for trying to mark a marked Task.
  */
-public class AlreadyMarkedException extends Exception {
+public class AlreadyMarkedException extends SumoDException {
 
     /**
-     * Constructor for AlreadyMarked Exception
+     * Constructor for AlreadyMarkedException
      * @param task The task which user tried to mark again.
      */
     public AlreadyMarkedException(Task task) {
