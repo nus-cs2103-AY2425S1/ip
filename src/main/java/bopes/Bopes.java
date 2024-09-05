@@ -41,7 +41,7 @@ public class Bopes {
         try {
             return Parser.parse(input, tasks, storage);
         } catch (BopesException e) {
-            return "Error: " + e.getMessage();
+            return e.getMessage();
         }
     }
 
