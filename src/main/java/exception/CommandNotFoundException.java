@@ -3,7 +3,7 @@ package exception;
 /**
  * Exception thrown when the command is not any of the command specified in the {@code Command} class
  */
-public class CommandNotFoundException extends Exception {
+public class CommandNotFoundException extends HyperionException {
 
     /**
      * Constructs a {@code CommandNotFoundException} with a detailed message constructed from the input

@@ -3,7 +3,7 @@ package exception;
 /**
  * Exception thrown when nothing is keyed in
  */
-public class EmptyStringException extends Exception {
+public class EmptyStringException extends HyperionException {
 
     /**
      * Constructs a {@code EmptyStringException} with a detailed message
