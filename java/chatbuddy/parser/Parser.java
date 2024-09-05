@@ -4,6 +4,7 @@ import chatbuddy.command.AddCommand;
 import chatbuddy.command.Command;
 import chatbuddy.command.DeleteCommand;
 import chatbuddy.command.ExitCommand;
+import chatbuddy.command.FindCommand;
 import chatbuddy.command.ListCommand;
 import chatbuddy.command.MarkCommand;
 import chatbuddy.command.UnmarkCommand;
@@ -30,6 +31,8 @@ public class Parser {
                 return new AddCommand(parts[1], "E");
             case "delete":
                 return new DeleteCommand(parts[1]);
+            case "find":
+                return new FindCommand(parts[1]);
             case "bye":
                 return new ExitCommand();
             default:
