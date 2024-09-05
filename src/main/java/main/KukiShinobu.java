@@ -3,18 +3,37 @@ package main;
 import exception.KukiShinobuException;
 import parser.Parser;
 import storage.Storage;
-import task.*;
+import task.TaskList;
+import command.Command;
 import ui.Ui;
-import command.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
+/**
+ * The main class for the Kuki Shinobu application.
+ * <p>
+ * The {@code KukiShinobu} class initializes the application, manages the main program flow,
+ * and handles user commands. It sets up the user interface, task storage, and task list,
+ * and processes commands entered by the user.
+ * </p>
+ * <p>
+ * The application reads commands from the user, executes them, and updates the task list
+ * and storage accordingly. It continues to run until an exit command is received.
+ * </p>
+ */
 public class KukiShinobu {
     private final String name = "Kuki Shinobu";
     // IMPORTANT: Relative Filepath Specified must always be relative to root directory of the entire project
     private static final String FILE_PATH = "./data/database.txt";
+
+
+    /**
+     * The entry point of the Kuki Shinobu application.
+     * <p>
+     * Initializes the application with the specified file path for storage and starts
+     * listening for user commands.
+     * </p>
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         KukiShinobu kukiShinobu = new KukiShinobu(FILE_PATH);
         kukiShinobu.listen();
@@ -24,6 +43,15 @@ public class KukiShinobu {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a {@code KukiShinobu} instance with the specified file path for storage.
+     * <p>
+     * Initializes the user interface, storage, and task list. If an error occurs during
+     * loading the tasks, a default empty task list is created, and an error message is displayed.
+     * </p>
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public KukiShinobu(String filePath) {
         // TODO: Create constructor that takes in a filePath and then self instantiates everything else needed
         this.ui = new Ui();
@@ -37,10 +65,25 @@ public class KukiShinobu {
         }
     }
 
+    /**
+     * Converts an integer to a boolean.
+     *
+     * @param i The integer to convert.
+     * @return True if the integer is non-zero, otherwise false.
+     */
+
     public static boolean readBoolean(int i) {
         return i != 0;
     }
 
+    /**
+     * Starts the command listening loop for the application.
+     * <p>
+     * Displays a welcome message, reads and executes user commands in a loop,
+     * and updates the task list and storage. The loop continues until an exit
+     * command is received. Displays a goodbye message when the application exits.
+     * </p>
+     */
     public void listen() {
         ui.showWelcome();
         boolean isExit = false;

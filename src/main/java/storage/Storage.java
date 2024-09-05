@@ -13,18 +13,41 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the storage and retrieval of tasks in a file.
+ * <p>
+ * The {@code Storage} class provides functionality to load tasks from a file and
+ * write tasks to a file. It handles reading and parsing the file contents into
+ * task objects, as well as serializing task objects into a format suitable for
+ * file storage.
+ * </p>
+ */
 public class Storage {
     private static final String DELIMITER = " \\| ";
 
     private final String filePath;
 
-    // TODO: Constructor that instantiates the storage.Storage class while also ensuring that the filepath is valid and a file exists
-    // If the file doesn't exist, create the file and any intermediate directories inside it
+    /**
+     * Constructs a {@code Storage} instance with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    // TODO: load method that reads from the specified file path and returns a task list
+    /**
+     * Loads tasks from the file specified by the file path.
+     * <p>
+     * This method reads the file contents, parses the tasks, and returns a list
+     * of tasks. If the file does not exist or an error occurs while accessing
+     * the file, a {@link FileNotFoundKukiShinobuException} is thrown.
+     * </p>
+     *
+     * @return An {@code ArrayList} of tasks loaded from the file.
+     * @throws FileNotFoundKukiShinobuException If the file is not found or cannot
+     *                                          be accessed.
+     */
     public ArrayList<Task> load() throws FileNotFoundKukiShinobuException {
         // Step 1: Read the file, and throw an error is the file can't be found
         File file = new File(this.filePath);
@@ -47,14 +70,11 @@ public class Storage {
             System.err.println("File not found: " + filePath);
             e.printStackTrace();
             throw new FileNotFoundKukiShinobuException();
-//            return new ArrayList<task.Task>();
         } catch (IOException e) {
             System.err.println("Error creating or accessing the file: " + filePath);
             e.printStackTrace();
             throw new FileNotFoundKukiShinobuException();
-//            return new ArrayList<task.Task>();
         }
-//        System.out.println(input);
 
         // Step 2: Parse the tasks
         ArrayList<Task> existingTasks = new ArrayList<>();
@@ -99,26 +119,34 @@ public class Storage {
     }
 
 
-    // TODO: write method that takes in ArrayList<task.Task>, formats it and writes it to the file
+    /**
+     * Writes the specified list of tasks to the file.
+     * <p>
+     * This method serializes the tasks into a format suitable for storage and writes
+     * them to the file specified by the file path.
+     * </p>
+     *
+     * @param tasks An {@code ArrayList} of tasks to be written to the file.
+     */
     public void write(ArrayList<Task> tasks) {
         // TODO: Takes this.tasks and write it to the database file
-        StringBuilder stringToWrite = new StringBuilder();
+        StringBuilder stringToBeWritten = new StringBuilder();
         // Step 1: Parse the file into a single string
-        for (Task task: tasks) {
-            stringToWrite.append(task.getDatabaseString()).append(System.lineSeparator());
+        for (Task task : tasks) {
+            stringToBeWritten.append(task.getDatabaseString()).append(System.lineSeparator());
         }
 
         // Step 2: Insert the entire text string into the file
-        FileWriter fw = null;
+        FileWriter fileWriter = null;
         try {
-            fw = new FileWriter(this.filePath);
-            fw.write(stringToWrite.toString());
+            fileWriter = new FileWriter(this.filePath);
+            fileWriter.write(stringToBeWritten.toString());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (fw != null) {
+            if (fileWriter != null) {
                 try {
-                    fw.close();
+                    fileWriter.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
