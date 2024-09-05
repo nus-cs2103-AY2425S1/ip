@@ -27,4 +27,8 @@ public abstract class Task {
         }
         return false;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }

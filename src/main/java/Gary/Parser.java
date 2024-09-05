@@ -4,6 +4,7 @@ import Gary.command.AddCommand;
 import Gary.command.ByeCommand;
 import Gary.command.DeleteCommand;
 import Gary.command.EditTaskCommand;
+import Gary.command.FindCommand;
 import Gary.command.ShowListCommand;
 import Gary.command.Command;
 import Gary.task.ToDo;
@@ -68,6 +69,12 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(split[1].trim()) - 1);
         case "list":
             return new ShowListCommand();
+        case "find":
+            if (split.length != 2) {
+                throw new GaryException("Please provide a keyword to search for tasks:\n" +
+                        "find <keyword>\n");
+            }
+            return new FindCommand(split[1].trim());
         case "bye":
             return new ByeCommand();
         }
