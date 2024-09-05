@@ -73,7 +73,7 @@ public class UI {
      * @param task task to be marked as not done
      */
     public static String getMarkAsUndoneMessage(Task task) {
-        return "Ok, I've marked this task as not done yet:\n" + task;
+        return String.format("Ok, I've marked this task as not done yet:\n%s\n", task);
     }
 
     /**

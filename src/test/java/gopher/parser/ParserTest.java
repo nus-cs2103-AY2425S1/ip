@@ -80,9 +80,15 @@ public class ParserTest {
     }
 
     @Test
-    public void parseUnmarkCommand_validCommand_parseSuccess() {
-        assertEquals(3,
-                Parser.parseUnMarkCommand("unmark 3"));
+    public void parseUnmarkCommand_singleTaskNumber_parseSuccess() {
+        assertArrayEquals(new int[]{2},
+                Parser.parseUnMarkCommand("unmark 2"));
+    }
+
+    @Test
+    public void parseUnmarkCommand_multipleTaskNumbers_parseSuccess() {
+        assertArrayEquals(new int[]{1, 2, 3},
+                Parser.parseUnMarkCommand("unmark 1 2 3"));
     }
 
     @Test

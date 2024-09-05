@@ -98,11 +98,13 @@ public class TaskList {
      * Triggers the TaskManager to update the local saved tasks.
      * Prints the mark as not done message on the UI.
      *
-     * @param taskNumber number of the task to be marked as not done
+     * @param taskNumbers numbers of the tasks to be marked as not done
      */
-    public void markAsUndone(int taskNumber) {
-        Task task = getTask(taskNumber);
-        task.markAsNotDone();
+    public void markAsUndone(int... taskNumbers) {
+        for (int taskNumber: taskNumbers) {
+            Task task = getTask(taskNumber);
+            task.markAsNotDone();
+        }
         TaskManager.saveTasks(tasks);
     }
 

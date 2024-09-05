@@ -49,9 +49,13 @@ public class Gopher {
                 }
                 return message.toString();
             } else if (userInput.toLowerCase().startsWith("unmark")) {
-                int taskNumber = Parser.parseUnMarkCommand(userInput);
-                taskList.markAsUndone(taskNumber);
-                return UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber));
+                int[] taskNumbers = Parser.parseUnMarkCommand(userInput);
+                taskList.markAsUndone(taskNumbers);
+                StringBuilder message = new StringBuilder();
+                for (int taskNumber: taskNumbers) {
+                    message.append(UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber)));
+                }
+                return message.toString();
             } else if (userInput.toLowerCase().startsWith("delete")) {
                 int[] taskNumbers = Parser.parseDeleteCommand(userInput);
                 StringBuilder message = new StringBuilder();
@@ -82,4 +86,3 @@ public class Gopher {
         }
     }
 }
-
