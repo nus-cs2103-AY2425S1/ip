@@ -50,13 +50,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+        userInput.clear();
+
         // Check if the user has entered "bye"
         if (input.equals("bye")) {
-            userInput.clear();
-            userInput.setDisable(true);  // Disable input field to stop further input
-            sendButton.setDisable(true); // Disable send button as well
-        } else {
-            userInput.clear();  // Clear input for the next command
+            userInput.setDisable(true);    // Disable input field to stop further input
+            sendButton.setDisable(true);   // Disable the send button
         }
     }
 }
