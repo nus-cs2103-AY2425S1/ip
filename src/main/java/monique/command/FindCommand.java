@@ -17,17 +17,18 @@ import monique.ui.Ui;
  */
 public class FindCommand extends Command {
 
-    private final String searchKey;
+    private final String[] searchKeys;
     private String findResults = "";
 
     /**
      * Constructs a {@code FindCommand} with the specified search key.
-     *
-     * @param searchKey the key to search for in task descriptions
+     * Uses a variable number of arguments
+     * @param searchKeys the keys to search for in task descriptions
      */
-    public FindCommand(String searchKey) {
+    //Overloaded Constructor
+    public FindCommand(String ...searchKeys) {
         super();
-        this.searchKey = searchKey;
+        this.searchKeys = searchKeys;
     }
 
     /**
@@ -43,8 +44,11 @@ public class FindCommand extends Command {
         //create a new arrayList<Task> for UI to print through
         ArrayList<Task> resultList = new ArrayList<>();
         for (Task task: tasks.getTaskList()) {
-            if (task.getDescription().contains(this.searchKey)) {
-                resultList.add(task);
+            for (String searchKey: searchKeys) {
+                if (task.getDescription().contains(searchKey)) {
+                    resultList.add(task);
+                    break; //exits inner loop, moving on to next task.
+                }
             }
         }
         this.findResults = ui.showFindResults(resultList);

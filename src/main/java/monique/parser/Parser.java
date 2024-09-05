@@ -95,8 +95,8 @@ public class Parser {
                     if (!hasSecondWord) {
                         throw new ParseException();
                     }
-                    String searchKey = fullCommand.split("find ")[1];
-                    command = new FindCommand(searchKey);
+                    String[] searchKeys = fullCommand.split("find ")[1].split(" ");
+                    command = new FindCommand(searchKeys);
                     break;
                 } catch (ParseException pe) {
                     pe.advice();
