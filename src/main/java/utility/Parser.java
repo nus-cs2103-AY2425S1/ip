@@ -1,14 +1,17 @@
 package utility;
 
-import exceptions.LukeException;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import exceptions.LukeException;
 
 /** A class used for parsing command */
 public class Parser {
     private Command command;
-    private String description, by, from, to;
+    private String description;
+    private String by;
+    private String from;
+    private String to;
     private int index;
 
     /**
@@ -54,7 +57,7 @@ public class Parser {
             throw new LukeException(String.format("Yo! This command \"%s\" doesn't exist.", parameters[0].trim()));
         }
         switch (command) {
-        case list, bye -> {}
+        case list, bye -> { }
         case mark, unmark, delete -> {
             try {
                 index = Integer.parseInt(parameters[1].trim());
@@ -66,6 +69,7 @@ public class Parser {
         case todo -> description = line.substring(4).trim();
         case event -> parseEvent(line.substring(5));
         case deadline -> parseDeadLine(line.substring(8));
+        default -> { }
         }
     }
 
@@ -117,13 +121,14 @@ public class Parser {
         }
         description = input.substring(0, firstSlashIndex).trim();
         try {
-            from = DateTime.parseDate(input.substring(firstSlashIndex + 6, secondSlashIndex).trim()).format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            to = DateTime.parseDate(input.substring(secondSlashIndex + 4).trim()).format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            from = DateTime.parseDate(input.substring(firstSlashIndex + 6, secondSlashIndex).trim())
+                    .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            to = DateTime.parseDate(input.substring(secondSlashIndex + 4).trim())
+                    .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         } catch (DateTimeParseException e) {
             from = "";
             to = "";
             throw new LukeException("Invalid Date format");
         }
     }
-
 }

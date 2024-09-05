@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import exceptions.LukeException;
 import presentation.Ui;
 import tasks.DeadLine;
@@ -8,9 +12,7 @@ import utility.Parser;
 import utility.Storage;
 import utility.TaskList;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
 
 /**
  * Main class of the application.
@@ -86,7 +88,9 @@ public class Luke {
                 ui.addTaskDialog(t, taskList.getTasksSize());
             }
             case bye -> flag = false;
+            default -> { }
             }
+
         }
         taskList.save(storage);
         ui.closingDialog();
@@ -97,6 +101,3 @@ public class Luke {
         new Luke("./data/Luke.txt").run();
     }
 }
-
-
-
