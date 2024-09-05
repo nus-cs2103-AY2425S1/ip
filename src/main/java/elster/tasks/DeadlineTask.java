@@ -1,10 +1,11 @@
 package elster.tasks;
 
-import elster.Elseption;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import elster.Elseption;
+
 
 /**
  * Deadline tasks are tasks that have a deadline on top of the base task functionalities

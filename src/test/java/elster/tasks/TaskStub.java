@@ -1,6 +1,9 @@
 package elster.tasks;
 
-public class TaskStub extends Task{
+/**
+ * TaskStub that replaces a regular Task in testing.
+ */
+public class TaskStub extends Task {
     public TaskStub(String description) {
         super(description);
     }

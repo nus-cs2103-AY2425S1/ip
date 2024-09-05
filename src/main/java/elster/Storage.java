@@ -12,11 +12,19 @@ import elster.tasks.EventTask;
 import elster.tasks.Task;
 import elster.tasks.ToDoTask;
 
+/**
+ * Storage component of Elster, handles writing to and reading from the save file.
+ */
 public class Storage {
     private final Path dirPath;
     private final Path filePath;
 
-    public Storage(Path filePath, Ui ui) {
+    /**
+     * Constructor of Storage, initialises the file path of the save file.
+     *
+     * @param filePath File path of the save file.
+     */
+    public Storage(Path filePath) {
         this.dirPath = filePath;
         this.filePath = dirPath.resolve("data.txt");
     }

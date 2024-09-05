@@ -1,17 +1,17 @@
 package elster;
 
-import elster.tasks.Task;
-import elster.tasks.TaskStub;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import elster.tasks.Task;
+import elster.tasks.TaskStub;
+
 public class TaskListTest {
-    TaskList taskList;
-    Task task;
+    private TaskList taskList;
+    private Task task;
     @BeforeEach
     void initialise() {
         taskList = new TaskList();
