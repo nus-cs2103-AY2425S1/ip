@@ -1,6 +1,7 @@
 package duke.javafx;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import duke.commands.Command;
 import duke.exceptions.InvalidInputException;
@@ -62,6 +63,7 @@ public class MainWindow extends AnchorPane {
         this.ui = ui;
 
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
+        this.getStylesheets().add(Objects.requireNonNull(MainWindow.class.getResource("/css/dialog-box.css")).toExternalForm());
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
@@ -94,7 +96,7 @@ public class MainWindow extends AnchorPane {
      * Displays a welcome message from Duke in the dialog container.
      */
     private void showWelcomeMessage() {
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.showWelcome(), dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.showWelcome(), dukeImage, "duke-success"));
     }
 
     /**
@@ -112,11 +114,15 @@ public class MainWindow extends AnchorPane {
             Command command = InputParser.parseUserInput(input);
             String response = command.execute(taskList, ui, storage);
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
+                    DialogBox.getUserDialog(input, userImage, "duke-success"),
+                    DialogBox.getDukeDialog(response, dukeImage, "duke-success") // Green for successful response
             );
         } catch (InvalidInputException e) {
             System.out.println("Invalid input: " + e.getMessage());
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage, "duke-error"),
+                    DialogBox.getDukeDialog(e.getMessage(), dukeImage, "duke-error") // Red for error message
+            );
         }
         userInput.clear();
     }

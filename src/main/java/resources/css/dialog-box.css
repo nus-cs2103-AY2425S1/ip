@@ -1,0 +1,15 @@
+/* Green background for valid Duke dialog */
+.duke-success {
+    -fx-background-color: #4CAF50;  /* Green background */
+    -fx-text-fill: white;           /* White text for Label inside HBox */
+    -fx-background-radius: 15px;    /* Rounded corners */
+    -fx-padding: 10px;              /* Padding inside the HBox */
+}
+
+/* Red background for invalid Duke dialog */
+.duke-error {
+    -fx-background-color: #FF6347;  /* Red background */
+    -fx-text-fill: white;           /* White text for Label inside HBox */
+    -fx-background-radius: 15px;    /* Rounded corners */
+    -fx-padding: 10px;              /* Padding inside the HBox */
+}

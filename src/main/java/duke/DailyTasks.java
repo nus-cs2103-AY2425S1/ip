@@ -9,6 +9,7 @@ import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -35,6 +36,10 @@ public class DailyTasks extends Application {
      */
     @Override
     public void start(Stage stage) {
+        stage.setTitle("My JavaFX Application");
+        // Add an icon to the window
+        stage.getIcons().add(new Image("/images/DaDuke.png"));
+
         this.storage = new Storage();
         this.taskList = new TaskList();
         this.ui = new Ui();

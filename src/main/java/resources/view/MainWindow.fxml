@@ -15,7 +15,8 @@
                    prefHeight="41.0"
                    AnchorPane.bottomAnchor="0.0"
                    AnchorPane.leftAnchor="0.0"
-                   AnchorPane.rightAnchor="76.0" />
+                   AnchorPane.rightAnchor="76.0"
+                   promptText="Type your message..." />
         <Button fx:id="sendButton"
                 mnemonicParsing="false"
                 onAction="#handleUserInput"

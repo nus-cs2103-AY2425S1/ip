@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.exceptions.InvalidInputException;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
@@ -38,19 +39,17 @@ public class MarkTaskCommand extends Command {
      * @param storage The storage system responsible for saving and loading tasks (not used in this implementation).
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
         if (this.taskIndex != -1) {
             Task task = taskList.getTask(this.taskIndex);
             if (this.markAsDone) {
                 task.setDone();
-                // ui.showMessage(ui.formatMarkTask(task));
                 return ui.formatMarkTask(task);
             } else {
                 task.setNotDone();
-                // ui.showMessage(ui.formatUnmarkTask(task));
                 return ui.formatUnmarkTask(task);
             }
         }
-        return "Please enter a valid task!";
+        throw new InvalidInputException("Please enter a valid task!");
     }
 }

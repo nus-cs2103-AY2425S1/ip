@@ -53,7 +53,6 @@ public class FindTaskCommand extends Command {
             }
         }
 
-        // ui.showMessage(ui.formatTaskListings(foundTasks, false));
         return ui.formatTaskListings(foundTasks, false);
     }
 }

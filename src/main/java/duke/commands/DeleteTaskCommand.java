@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.exceptions.InvalidInputException;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
@@ -40,12 +41,11 @@ public class DeleteTaskCommand extends Command {
      *                loading tasks (not used in this implementation).
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
         if (this.taskIndex != -1) {
             Task task = taskList.deleteTask(this.taskIndex);
-            // ui.showMessage(ui.formatDeleteTask(task, taskList.getTasks().size()));
             return ui.formatDeleteTask(task, taskList.getTasks().size());
         }
-        return "Please enter a valid task!";
+        throw new InvalidInputException("Please enter a valid task!");
     }
 }

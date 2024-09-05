@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.exceptions.InvalidInputException;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
@@ -27,7 +28,7 @@ public class ListTaskCommand extends Command {
      * @param storage The storage system responsible for saving and loading tasks (not used in this implementation).
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
         return ui.formatTaskListings(taskList.getTasks(), false);
     }
 }

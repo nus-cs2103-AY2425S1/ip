@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.exceptions.InvalidInputException;
 import duke.exceptions.InvalidTodoDescriptionException;
 import duke.exceptions.UnknownMessageException;
 import duke.storage.Storage;
@@ -34,12 +35,12 @@ public class AddTaskCommand extends Command {
      * @param storage The storage system responsible for saving and loading tasks.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
         try {
             return taskList.addTask(this.userInput);
         } catch (UnknownMessageException | InvalidTodoDescriptionException e) {
             // ui.showMessage(ui.formatOutputMessage("Please enter a valid task!"));
-            return "Please enter a valid task!";
+            throw new InvalidInputException("Please enter a valid task!");
         }
     }
 }

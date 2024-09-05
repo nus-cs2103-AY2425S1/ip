@@ -3,6 +3,7 @@ package duke.commands;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import duke.exceptions.InvalidInputException;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
@@ -36,9 +37,8 @@ public class FilterTaskCommand extends Command {
      * @param storage The storage system responsible for saving and loading tasks (not used in this implementation).
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidInputException {
         List<Task> tasks = taskList.getTasksOccurring(dateTime);
-        // ui.showMessage(ui.formatTaskListings(tasks, true));
         return ui.formatTaskListings(tasks, true);
     }
 }
