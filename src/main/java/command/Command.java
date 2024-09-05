@@ -24,10 +24,10 @@ public abstract class Command {
     }
 
     /**
-     * Randomly selects and returns a prefix for a command from a given list
+     * Randomly selects and returns a prefix for a command from a given list.
      * 
      * @param prefixes
-     * @return a randomly selected prefix from the given list of prefixes
+     * @return a randomly selected prefix from the given list of prefixes.
      */
     public String generateRandomPrefix(String[] prefixes) {
         return prefixes[this.RNG.nextInt(prefixes.length)];
@@ -35,10 +35,10 @@ public abstract class Command {
 
     /**
      * Executes the command that the object is encapsulating
-     * (adding/deleting/editing a task, listing the tasks, etc.)
+     * (adding/deleting/editing a task, listing the tasks, etc.).
      * 
-     * @param tasks the task list for reference
-     * @return a string that will be output by the chatbot upon completion of the command
+     * @param tasks the task list for reference.
+     * @return a string that will be output by the chatbot upon completion of the command.
      */
     public abstract String execute(TaskList tasks);
 

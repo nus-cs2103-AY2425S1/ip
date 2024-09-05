@@ -35,9 +35,9 @@ public class TaskList {
     }
 
      /**
-     * Creates and returns an enumeration of the tasks added and stored by the user
+     * Creates and returns an enumeration of the tasks added and stored by the user.
      * 
-     * @return an enumeration of the tasks in the list
+     * @return an enumeration of the tasks in the list.
      */
     public String taskListToString() {
         int numTasks = this.tasks.size();
@@ -60,9 +60,9 @@ public class TaskList {
 
     /**
      * Creates and returns the list of tasks in a format
-     * that is used to store in the text file
+     * that is used to store in the text file.
      * 
-     * @return the list of tasks in a writeable format
+     * @return the list of tasks in a writeable format.
      */
     public String taskListToFile() {
         return this.tasks.stream().map(
@@ -70,6 +70,12 @@ public class TaskList {
                 ).reduce("----TASKS----", (x, y) -> x + "\n" + y);
     }
 
+    /**
+     * Searches for the tasks that have a particular word/phrase in them.
+     * 
+     * @param query the phrase in question.
+     * @return the list of tasks that contain the phrase.
+     */
     public TaskList search(String query) {
         return new TaskList(
             new ArrayList<>(this.tasks.stream().filter(t -> t.contains(query)).toList())

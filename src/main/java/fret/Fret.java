@@ -1,16 +1,18 @@
 package fret;
 
-import command.Command;
 import javafx.util.Pair;
+
+import command.Command;
+
 import psu.Storage;
 import psu.Ui;
 
 import task.TaskList;
 
 public class Fret {
-    Storage storage;
-    Ui fretUi;
-    TaskList userTasks;
+    private Storage storage;
+    private Ui fretUi;
+    private TaskList userTasks;
 
     public Fret(String filepath) {
         this.storage = new Storage(filepath);
@@ -23,7 +25,7 @@ public class Fret {
     }
 
     /**
-     * Runs the Fret chatbot program
+     * Runs the Fret chatbot program.
      */
     public void run() {
         fretUi.welcomeUser();
@@ -40,10 +42,10 @@ public class Fret {
     }
 
     /**
-     * gets the response from Fret based on user input
+     * Gets the response from Fret based on user input.
      * 
-     * @param input input from the user
-     * @return Fret's reply to the user
+     * @param input input from the user.
+     * @return Fret's reply to the user.
      */
     public Pair<String, Boolean> getResponse(String input) {
         Command userCommand = fretUi.processUserInput(input);

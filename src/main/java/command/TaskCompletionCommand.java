@@ -4,7 +4,7 @@ import task.TaskList;
 
 public class TaskCompletionCommand extends Command {
     private boolean isCompleted;
-    private final String[] TASK_COMPLETED_PREFIXES = new String[] {
+    private static final String[] TASK_COMPLETED_PREFIXES = new String[] {
         "Nice! Task marked as completed\n",
         "Nice! Task marked as completed\n",
         "Nice! Task marked as completed\n",
@@ -17,7 +17,7 @@ public class TaskCompletionCommand extends Command {
         "Done and done! Should we do it again?\n"
     };
 
-    private final String[] TASK_UNCOMPLETED_PREFIXES = new String[] {
+    private static final String[] TASK_UNCOMPLETED_PREFIXES = new String[] {
         "Marking as incomplete.\n",
         "Booooo\n",
         "Booooo\n",

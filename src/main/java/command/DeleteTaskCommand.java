@@ -3,7 +3,7 @@ package command;
 import task.TaskList;
 
 public class DeleteTaskCommand extends Command {
-    private final String[] TASK_DELETED_PREFIXES = new String[] {
+    private static final String[] TASK_DELETED_PREFIXES = new String[] {
         "O-Okay, deleting task now.\n",
         "Alright, task removed.\n",
         "Whatever you say! Task deleted.\n",

@@ -4,7 +4,7 @@ import task.Task;
 import task.TaskList;
 
 public class AddTaskCommand extends Command {
-    private final String[] ADD_TASK_PREFIXES = new String[] {
+    private static final String[] ADD_TASK_PREFIXES = new String[] {
         "You got it! Adding task:\n",
         "You got it! Adding task:\n",
         "You got it! Adding task:\n",

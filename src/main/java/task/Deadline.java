@@ -11,9 +11,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts the LocalDateTime object attribute to a clean looking string
+     * Converts the LocalDateTime object attribute to a clean looking string.
      * 
-     * @return the date and time formatted like "10:30pm on AUGUST 29, 2024"
+     * @return the date and time formatted like "10:30pm on AUGUST 29, 2024".
      */
     private String dateTimeToCleanString() {
         int hour = this.endTime.getHour() > 12 ? this.endTime.getHour() - 12 : this.endTime.getHour() == 0 ? 12 : this.endTime.getHour();

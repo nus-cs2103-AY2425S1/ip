@@ -14,9 +14,9 @@ public class Ui {
     }
 
     /**
-     * Prints chatbot output to console with surrounding lines
+     * Prints chatbot output to console with surrounding lines.
      * 
-     * @param output the output string
+     * @param output the output string.
      */
     public void printBotOutputString(String output) {
         System.out.println("\t-----------------------------------------");
@@ -25,9 +25,9 @@ public class Ui {
     }
 
     /**
-     * Welcomes the user with ASCII art and a greeting
+     * Welcomes the user with ASCII art and a greeting.
      * 
-     * @return the greeting
+     * @return the greeting.
      */
     public String welcomeUser() {
         String logo = "________                ___ \n"
@@ -45,17 +45,17 @@ public class Ui {
 
     /**
      * Gets command-line input from user and
-     * passes it to the parser for parsing
+     * passes it to the parser for parsing.
      * 
-     * @param input the input from the user
-     * @return the Command object returned by the Parser
+     * @param input the input from the user.
+     * @return the Command object returned by the Parser.
      */
     public Command processUserInput(String input) {
         return this.inputParser.parse(input);
     }
 
     /**
-     * Closes the Scanner object at the end of execution to prevent leaks
+     * Closes the Scanner object at the end of execution to prevent leaks.
      */
     public void closeUi() {
         this.uinput.close();

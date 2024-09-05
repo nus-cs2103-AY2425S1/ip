@@ -32,8 +32,8 @@ public class Storage {
     /**
      * Takes each line from the task file and parses it using regex.
      * 
-     * @param taskLine the line from the text file
-     * @return a Task object representing the task in the line
+     * @param taskLine the line from the text file.
+     * @return a Task object representing the task in the line.
      */
     private Task processTaskLine(String taskLine) {
          // try to match the task as a todo
@@ -85,7 +85,7 @@ public class Storage {
      * If the file does not exist, it is created
      * and an empty list is returned instead.
      * 
-     * @return an arraylist of tasks
+     * @return an arraylist of tasks.
      */
     public ArrayList<Task> loadTasksFromMemory() {
         ArrayList<Task> taskList = new ArrayList<>();
@@ -113,9 +113,9 @@ public class Storage {
     }
 
     /**
-     * Writes the tasks to the given text file at the end of the program
+     * Writes the tasks to the given text file at the end of the program.
      * 
-     * @param taskList the list of tasks in directly writeable string format
+     * @param taskList the list of tasks in directly writeable string format.
      */
     public void writeTasksToMemory(String taskList) {
         try {

@@ -3,7 +3,7 @@ package command;
 import task.TaskList;
 
 public class SearchTaskCommand extends Command {
-    String searchTerm;
+    private String searchTerm;
 
     public SearchTaskCommand(String s) {
         super(0, null);

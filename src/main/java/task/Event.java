@@ -3,8 +3,8 @@ package task;
 import java.time.LocalDateTime;
 
 public class Event extends Task {
-    LocalDateTime startDate;
-    LocalDateTime endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     public Event(String taskName, LocalDateTime start, LocalDateTime end) {
         super(taskName);
@@ -14,10 +14,10 @@ public class Event extends Task {
 
     /**
      * Converts the LocalDateTime object to a cleaner looking string.
-     * Similar to Deadline::dateTimeToCleanString
+     * Similar to Deadline::dateTimeToCleanString.
      * 
-     * @param dt the LocalDateTime object to be converted
-     * @return the date and time formatted like "10:30pm on AUGUST 29, 2024"
+     * @param dt the LocalDateTime object to be converted.
+     * @return the date and time formatted like "10:30pm on AUGUST 29, 2024".
      */
     private String dateTimeToCleanString(LocalDateTime dt) {
         int hour = dt.getHour() > 12 ? dt.getHour() - 12 : dt.getHour() == 0 ? 12 : dt.getHour();
@@ -29,7 +29,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + dateTimeToCleanString(this.startDate) + ", to: " + dateTimeToCleanString(this.endDate) + ")";
+        return "[E]" + super.toString() + " (from: " + dateTimeToCleanString(this.startDate)
+                + ", to: " + dateTimeToCleanString(this.endDate) + ")";
     }
 
     @Override
