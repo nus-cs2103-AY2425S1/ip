@@ -15,7 +15,10 @@ public class Echoa {
     private final Ui ui;
     public final Storage storage;
     private final Parser parser;
-    private final TaskList taskList;
+    private TaskList taskList;
+    boolean isStarted = false;
+
+    private String response;
 
     Echoa(String filePath) {
         this.ui = new Ui();
@@ -29,97 +32,113 @@ public class Echoa {
      * It also handles any exceptions and errors thrown within the program
      *
      */
-    public void start() throws IOException {
+    public void start(String input) {
 
-        storage.setUpFile();
-        storage.loadInformation(taskList);
+        if (!isStarted) {
+            response = "Hello, I'm Echoa.\n" +
+                       "How can I help you today?\n";
+            isStarted = true;
+            return;
+        }
 
-        Scanner scanner = new Scanner(System.in);
-
-        ui.greetUserStart();
+        taskList = new TaskList();
 
         try {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String command = parser.parseCommand(line);
-                String task = line.replace(command, "").trim();
-
-                switch (command) {
-                    case "list":
-                        ui.printListOfTasks(taskList);
-                        break;
-                    case "find":
-                        TaskList tasks = parser.parseFindTask(taskList, task);
-                        ui.printListOfTasks(tasks);
-                        break;
-                    case "mark":
-                        int markIndex = parser.parseIndex(task);
-                        taskList.markTaskAsDone(markIndex);
-                        ui.printMarkTaskMessage(taskList, markIndex);
-                        storage.handleChange(taskList);
-                        break;
-                    case "unmark":
-                        int unmarkIndex = parser.parseIndex(task);
-                        taskList.markTaskAsUndone(unmarkIndex);
-                        ui.printUnmarkTaskMessage(taskList, unmarkIndex);
-                        storage.handleChange(taskList);
-                        break;
-                    case "delete":
-                        int deleteIndex = parser.parseIndex(task);
-                        ui.printDeleteTaskMessage(taskList, deleteIndex);
-                        taskList.deleteTask(deleteIndex);
-                        storage.handleChange(taskList);
-                        break;
-                    case "todo":
-                        Object[] todo = parser.parseToDoTask(task);
-                        String todoDescription = (String) todo[0];
-                        taskList.addTask(new ToDo(todoDescription));
-                        ui.printAddTaskMessage(taskList);
-                        storage.handleChange(taskList);
-                        break;
-                    case "deadline":
-                        Object[] deadline = parser.parseDeadlineTask(task);
-                        String deadlineDescription = (String) deadline[0];
-                        LocalDateTime dateAndTime = (LocalDateTime) deadline[1];
-                        taskList.addTask(new Deadline(deadlineDescription, dateAndTime));
-                        ui.printAddTaskMessage(taskList);
-                        storage.handleChange(taskList);
-                        break;
-                    case "event":
-                        Object[] event = parser.parseEventTask(task);
-                        String eventDescription = (String) event[0];
-                        LocalDateTime startDateAndTime = (LocalDateTime) event[1];
-                        LocalDateTime endDateAndTime = (LocalDateTime) event[2];
-                        taskList.addTask(new Event(eventDescription, startDateAndTime, endDateAndTime));
-                        ui.printAddTaskMessage(taskList);
-                        storage.handleChange(taskList);
-                        break;
-                    case "bye":
-                        ui.greetUserEnd();
-                        break;
-                    case "":
-                        throw new InvalidInstructionException("Blank");
-                    default:
-                        throw new InvalidInstructionException(command);
-                }
-            }
-        } catch (InvalidToDoContentException e) {
-            ui.printInvalidToDoContentException(e);
-        } catch (InvalidDeadlineContentException e) {
-            ui.printInvalidDeadlineContentException(e);
-        } catch (InvalidEventContentException e) {
-            ui.printInvalidEventContentException(e);
-        } catch (InvalidInstructionException e) {
-            ui.printInvalidInstructionExceptionMessage(e);
-            ui.askUserToTryAgain();
-        } catch (ListOutOfBoundsException e) {
-            ui.printListOutOfBoundsException(e);
-        } catch (InvalidIndexInputException e) {
-            ui.printInvalidIndexInputException(e);
-        } catch (DateTimeParseException e) {
-            ui.printDateTimeException();
-        } finally {
-            scanner.close();
+            storage.setUpFile();
+            storage.loadInformation(taskList);
+        } catch (FileNotFoundException e) {
+            response = "File not found.\n";
         }
+
+        response = ui.greetUserStart();
+
+        try {
+            String command = parser.parseCommand(input);
+            String task = input.replace(command, "").trim();
+
+            switch (command) {
+            case "list":
+                response = ui.printListOfTasks(taskList);
+                break;
+            case "find":
+                TaskList tasks = parser.parseFindTask(taskList, task);
+                response = ui.printListOfTasks(tasks);
+                break;
+            case "mark":
+                int markIndex = parser.parseIndex(task);
+                taskList.markTaskAsDone(markIndex);
+                response = ui.printMarkTaskMessage(taskList, markIndex);
+                storage.handleChange(taskList);
+                break;
+            case "unmark":
+                int unmarkIndex = parser.parseIndex(task);
+                taskList.markTaskAsUndone(unmarkIndex);
+                response = ui.printUnmarkTaskMessage(taskList, unmarkIndex);
+                storage.handleChange(taskList);
+                break;
+            case "delete":
+                int deleteIndex = parser.parseIndex(task);
+                response = ui.printDeleteTaskMessage(taskList, deleteIndex);
+                taskList.deleteTask(deleteIndex);
+                storage.handleChange(taskList);
+                break;
+            case "todo":
+                Object[] todo = parser.parseToDoTask(task);
+                String todoDescription = (String) todo[0];
+                taskList.addTask(new ToDo(todoDescription));
+                response = ui.printAddTaskMessage(taskList);
+                storage.handleChange(taskList);
+                break;
+            case "deadline":
+                Object[] deadline = parser.parseDeadlineTask(task);
+                String deadlineDescription = (String) deadline[0];
+                LocalDateTime dateAndTime = (LocalDateTime) deadline[1];
+                taskList.addTask(new Deadline(deadlineDescription, dateAndTime));
+                response = ui.printAddTaskMessage(taskList);
+                storage.handleChange(taskList);
+                break;
+            case "event":
+                Object[] event = parser.parseEventTask(task);
+                String eventDescription = (String) event[0];
+                LocalDateTime startDateAndTime = (LocalDateTime) event[1];
+                LocalDateTime endDateAndTime = (LocalDateTime) event[2];
+                taskList.addTask(new Event(eventDescription, startDateAndTime, endDateAndTime));
+                response = ui.printAddTaskMessage(taskList);
+                storage.handleChange(taskList);
+                break;
+            case "bye":
+                response = ui.greetUserEnd();
+                break;
+            case "":
+                throw new InvalidInstructionException("Blank");
+            default:
+                throw new InvalidInstructionException(command);
+            }
+        }
+//        catch (InvalidToDoContentException e) {
+//            ui.printInvalidToDoContentException(e);
+//        } catch (InvalidDeadlineContentException e) {
+//            ui.printInvalidDeadlineContentException(e);
+//        } catch (InvalidEventContentException e) {
+//            ui.printInvalidEventContentException(e);
+//        } catch (InvalidInstructionException e) {
+//            ui.printInvalidInstructionExceptionMessage(e);
+//            ui.askUserToTryAgain();
+//        } catch (ListOutOfBoundsException e) {
+//            ui.printListOutOfBoundsException(e);
+//        } catch (InvalidIndexInputException e) {
+//            ui.printInvalidIndexInputException(e);
+//        } catch (DateTimeParseException e) {
+//            ui.printDateTimeException();
+//        }
+        catch (IOException e) {
+            response = "An error has occurred to the IO.";
+        } catch (Exception e) {
+            response = ui.printExceptionMessage(e);
+        }
+    }
+
+    public String getResponse() {
+        return this.response;
     }
 }

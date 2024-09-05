@@ -122,6 +122,11 @@ public class Storage {
      */
     public void handleChange(TaskList taskList) throws IOException {
         FileWriter fw1 = new FileWriter(file);
+
+        if (taskList.getSize() == 0) {
+            return;
+        }
+
         fw1.write(taskList.getSpecificTask(0).toText() + System.lineSeparator());
         fw1.close();
 

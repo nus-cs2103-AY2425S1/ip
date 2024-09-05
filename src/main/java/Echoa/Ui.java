@@ -3,34 +3,36 @@ package Echoa;
 public class Ui {
     public static final String[] INSTRUCTION_LIST = {"todo", "deadline", "event", "mark", "unmark", "delete", "list", "bye"};
 
-    public void greetUserStart() {
-        System.out.println("Hello, I'm Echoa!");
-        System.out.println("What can I do for you?\n");
+    public String greetUserStart() {
+        return "Hello, I'm Echoa!\n" +
+               "What can I do for you?\n";
     }
 
-    public void greetUserEnd() {
-        System.out.println("Bye. Hope to see you again soon!\n");
+
+    public String greetUserEnd() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
-    public void printAddTaskMessage(TaskList taskList) {
-        System.out.println("Task added!");
-        System.out.println(taskList.getSpecificTask(taskList.getSize() - 1).toString());
+    public String printAddTaskMessage(TaskList taskList) {
+        return "Task added!\n" +
+                taskList.getSpecificTask(taskList.getSize() - 1).toString() +
+                "\n";
     }
 
-    public void printDeleteTaskMessage(TaskList taskList, int index) {
-        System.out.println("Task deleted :/");
-        System.out.println(taskList.getSpecificTask(index).toString() + "\n");
-        System.out.println("Now you have " + (taskList.getSize()) + " task(s).\n");
+    public String printDeleteTaskMessage(TaskList taskList, int index) {
+        return "Task deleted :/\n" +
+                taskList.getSpecificTask(index).toString() + "\n" +
+                "Now you have " + (taskList.getSize()) + " task(s).\n";
     }
 
-    public void printMarkTaskMessage(TaskList taskList, int index) {
-        System.out.println("Task marked :)");
-        System.out.println(taskList.getSpecificTask(index).toString() + "\n");
+    public String printMarkTaskMessage(TaskList taskList, int index) {
+        return "Task marked :)\n" +
+                taskList.getSpecificTask(index).toString() + "\n";
     }
 
-    public void printUnmarkTaskMessage(TaskList taskList, int index) {
-        System.out.println("Task unmarked :(");
-        System.out.println(taskList.getSpecificTask(index).toString() + "\n");
+    public String printUnmarkTaskMessage(TaskList taskList, int index) {
+        return "Task unmarked :(\n" +
+                taskList.getSpecificTask(index).toString() + "\n";
     }
 
     /**
@@ -38,55 +40,25 @@ public class Ui {
      *
      * @param taskList taskList to be printed.
      */
-    public void printListOfTasks(TaskList taskList) {
+    public String printListOfTasks(TaskList taskList) {
+        String message = "";
         for (int i = 0; i < taskList.getSize(); i++) {
             int label = i + 1;
-            System.out.print(label + ". ");
-            System.out.println(taskList.getSpecificTask(i).toString());
+            message += label + ". ";
+            message += taskList.getSpecificTask(i).toString() + "\n";
         }
         if (taskList.getSize() == 0) {
-            System.out.println("No tasks in the requested list.");
+            message = "No tasks in the requested list.";
         }
+
+        return message += "\n";
     }
 
-    public void informNumberOfTasks(TaskList taskList) {
-        System.out.println("Now you have " + (taskList.getSize()) + " task(s).\n");
+    public String informNumberOfTasks(TaskList taskList) {
+        return "Now you have " + (taskList.getSize()) + " task(s).\n";
     }
 
-    public void askUserToTryAgain() {
-        System.out.println("Please try again.");
+    public String printExceptionMessage(Exception e) {
+        return e.getMessage() + "\n" + "Please try again.\n";
     }
-
-    public void printInvalidInstructionExceptionMessage(InvalidInstructionException e) {
-        System.out.println(e.getMessage());
-    }
-
-    public void printInvalidContentException(InvalidTaskContentException e) {
-        System.out.println(e.getMessage());
-    }
-
-    public void printInvalidToDoContentException(InvalidToDoContentException e) {
-        System.out.println(e.getMessage());
-    }
-
-    public void printInvalidDeadlineContentException(InvalidDeadlineContentException e) {
-        System.out.println(e.getMessage());
-    }
-
-    public void printInvalidEventContentException(InvalidEventContentException e) {
-        System.out.println(e.getMessage());
-    }
-
-    public void printListOutOfBoundsException(ListOutOfBoundsException e) {
-        System.out.println(e.getMessage());
-    }
-
-    public void printInvalidIndexInputException(InvalidIndexInputException e) {
-        System.out.println(e.getMessage());
-    }
-
-    public void printDateTimeException() {
-        System.out.println("Date and/or time is inputted in the incorrect format.");
-    }
-
 }
