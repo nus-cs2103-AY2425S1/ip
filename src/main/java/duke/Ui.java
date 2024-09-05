@@ -58,11 +58,20 @@ public class Ui {
 
     }
 
-    public void display(TaskList tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public void printList(TaskList tasks) {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i+1) + "." + tasks.get(i));
         }
+    }
+
+    public void display(TaskList tasks) {
+        System.out.println("Here are the tasks in your list:");
+        printList(tasks);
+    }
+
+    public void display_search(TaskList tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        printList(tasks);
     }
 
     public void taskAddOrDeleteDisplay(Task task, String addOrDelete, TaskList tasks) {
