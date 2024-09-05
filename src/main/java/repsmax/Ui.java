@@ -33,10 +33,6 @@ public class Ui {
 
     /**
      * Displays a welcome message to the user.
-     * <p>
-     * The message includes a greeting and a prompt asking what the user
-     * would like to do.
-     * </p>
      */
     public void showWelcome() {
         output.append("Hello! I'm Repsmax\nWhat can I do for you?\n");
