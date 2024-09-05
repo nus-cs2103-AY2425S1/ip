@@ -36,12 +36,12 @@ public class Ui {
      */
     public String getGreeting() {
         StringBuilder greeting = new StringBuilder();
-        greeting.append(donnaLogo());
-        greeting.append("Hello! I'm Donna\n");
+//        greeting.append(donnaLogo());
         if (wasDataLoaded) {
+            greeting.append("Hello! I'm Donna, I know everything :)\n");
             greeting.append("We have had a chat before! Let's resume :)\n");
         } else {
-            greeting.append("What can I do for you?\n");
+            greeting.append("Hello! I'm Donna\nWhat can I do for you?");
         }
         return greeting.toString();
     }
@@ -163,7 +163,7 @@ public class Ui {
     }
 
     /**
-     * Displays Donna's response
+     * Displays Donna's response (for Text UI).
      */
     public void display(String response) {
         System.out.println(dashedLine());

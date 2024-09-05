@@ -25,15 +25,20 @@ public class MainWindow {
     private Donna donna;
     private Ui ui;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image donnaImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user-img.png"));
+    private Image donnaImage = new Image(this.getClass().getResourceAsStream("/images/donna-img.png"));
 
+    /**
+     * Initialises the GUI.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Donna instance **/
+    /**
+     * Injects the Donna and UI instance.
+     */
     public void setDonna(Donna d, Ui u) {
         donna = d;
         ui = u;
@@ -48,8 +53,7 @@ public class MainWindow {
         String response = donna.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDonnaDialog(response, donnaImage)
-        );
+                DialogBox.getDonnaDialog(response, donnaImage));
         userInput.clear();
     }
 

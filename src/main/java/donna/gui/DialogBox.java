@@ -14,6 +14,10 @@ import javafx.scene.layout.HBox;
 import java.io.IOException;
 import java.util.Collections;
 
+/**
+ * Represents a dialog box.
+ * Contains a message and a picture.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
@@ -40,12 +44,27 @@ public class DialogBox extends HBox {
         Collections.reverse(temp);
         getChildren().setAll(temp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Creates a dialog box for the user's messages.
+     *
+     * @param s The text to display in the dialog box.
+     * @param i The image to display in the dialog box.
+     * @return A DialogBox instance with the user's message and image.
+     */
     public static DialogBox getUserDialog(String s, Image i) {
         return new DialogBox(s, i);
     }
 
+    /**
+     * Creates a dialog box for Donna's message.
+     *
+     * @param s The text to display in the dialog box.
+     * @param i The image to display in the dialog box.
+     * @return A DialogBox instance with Donna's image and message.
+     */
     public static DialogBox getDonnaDialog(String s, Image i) {
         var db = new DialogBox(s, i);
         db.flip();

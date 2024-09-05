@@ -16,13 +16,24 @@ public class Main extends Application {
     private Donna donna = new Donna();
     private Ui ui = donna.getDonnaUi();
 
+    /**
+     * Starts the JavaFX application by setting up the scene and stage.
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle("Donna");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setMinHeight(634);
+            stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setDonna(donna, ui);
             stage.show();
         } catch (IOException e) {

@@ -96,6 +96,7 @@ public class Donna {
         try {
             int taskIdx = Integer.parseInt(taskNum) - 1;
             Task task = tasks.markTask(taskIdx, true);
+            storage.saveTasks(tasks);
             return ui.getTaskMarkedMessage(task, true);
         } catch (NumberFormatException e) {
             return ui.getErrorMessage(DonnaException.invalidTaskNumber().getMessage());
@@ -113,6 +114,7 @@ public class Donna {
         try {
             int taskIdx = Integer.parseInt(taskNum) - 1;
             Task task = tasks.markTask(taskIdx, false);
+            storage.saveTasks(tasks);
             return ui.getTaskMarkedMessage(task, false);
         } catch (NumberFormatException e) {
             return ui.getErrorMessage(DonnaException.invalidTaskNumber().getMessage());
@@ -130,6 +132,7 @@ public class Donna {
         try {
             int taskIndex = Integer.parseInt(taskNum) - 1;
             Task task = tasks.deleteTask(taskIndex);
+            storage.saveTasks(tasks);
             return ui.getTaskDeletedMessage(task, tasks.getTaskCount());
         } catch (NumberFormatException e) {
             return ui.getErrorMessage(DonnaException.invalidTaskNumber().getMessage());
@@ -173,9 +176,15 @@ public class Donna {
             throw DonnaException.invalidTaskType(type);
         }
         tasks.addTask(newTask);
+        storage.saveTasks(tasks);
         return ui.getTaskAddedMessage(newTask, tasks.getTaskCount());
     }
 
+    /**
+     * Returns Donna's response based on the input.
+     *
+     * @return Donna's response
+     */
     public String getResponse(String input) {
         try {
 

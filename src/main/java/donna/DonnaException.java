@@ -20,16 +20,15 @@ public class DonnaException extends Exception{
     }
 
     public static DonnaException invalidTaskType(String taskType) {
-        return new DonnaException("Invalid request: " + taskType + "!"
-                + "\n" + "Please use a valid task type (todo / deadline / event);" + "\n"
-                + "type list to view the list of tasks, " + "\n"
-                + "or type delete to remove tasks from the list." + "\n"
-                + "Use /by (for a deadline) and /from and /to (for an event) to specify"
-                + "\n" + "timings for the task.");
+        return new DonnaException("I'm sorry I don't understand that :(\n"
+                + "Please use a valid task type \n"
+                + "(todo / deadline / event)\n"
+                + "or you may type list , delete or mark / unmark\n"
+                + "to view, delete or mark tasks");
     }
 
     public static DonnaException invalidTaskNumber() {
-        return new DonnaException("Invalid task number :(" + "\n"
-            + "No task assigned to this number yet. Retry with a valid task number!");
+        return new DonnaException("No task assigned to this number yet.\n"
+                + "Retry with a valid task number!");
     }
 }
