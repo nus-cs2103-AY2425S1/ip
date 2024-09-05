@@ -8,6 +8,8 @@ plugins {
 repositories {
     mavenCentral()
 }
+
+mainClassName = 'duke.Launcher'
 dependencies {
     String javaFxVersion = '17.0.7'
 
@@ -60,4 +62,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }

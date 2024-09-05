@@ -19,6 +19,8 @@ public class Command {
      * @param message The full message provided by the user, which may contain additional information.
      */
     public Command(String command, String message) {
+        assert command != null && !command.isEmpty() : "Command should not be null or empty";
+        assert message != null : "Message should not be null";
         this.command = command;
         this.message = message;
     }
@@ -36,6 +38,9 @@ public class Command {
      * @throws MentalHealthException If an error occurs while processing the command.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MentalHealthException {
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
         String message = this.message.strip().toLowerCase();
         String[] parts = message.split(" ");
 
@@ -70,29 +75,30 @@ public class Command {
      */
     private String handleMarkCommand(String[] parts, TaskList tasks, Storage storage)
             throws MentalHealthException {
+        assert parts.length > 1 : "Mark command should have at least 2 parts (mark/unmark + task number)";
+
         StringBuilder result = new StringBuilder();
 
-        if (parts.length > 1) {
-            int number = Integer.parseInt(parts[parts.length - 1]);
-            String checkMarkOrUnmark = parts[0];
-            result.append("Extracted Task number: ").append(number).append("\n");
-            IndividualTask curTask = tasks.getListTask().get(number - 1);
+        int number = Integer.parseInt(parts[parts.length - 1]);
+        String checkMarkOrUnmark = parts[0];
 
-            if (checkMarkOrUnmark.equals("mark")) {
-                curTask.markOrUnmark("mark");
-                result.append("Okays! I've marked this task as done:\n")
-                        .append(formatMessage(curTask, tasks.getListTask().size()))
-                        .append("\n");
-            } else if (checkMarkOrUnmark.equals("unmark")) {
-                curTask.markOrUnmark("unmark");
-                result.append("Okay! I've marked this task as not done:\n")
-                        .append(formatMessage(curTask, tasks.getListTask().size()))
-                        .append("\n");
-            } else {
-                result.append("Not a valid command.\n");
-            }
+        // Ensure the task number is valid
+        assert number > 0 && number <= tasks.getListTask().size() : "Task number out of bounds";
+
+        IndividualTask curTask = tasks.getListTask().get(number - 1);
+
+        if (checkMarkOrUnmark.equals("mark")) {
+            curTask.markOrUnmark("mark");
+            result.append("Okays! I've marked this task as done:\n")
+                    .append(formatMessage(curTask, tasks.getListTask().size()))
+                    .append("\n");
+        } else if (checkMarkOrUnmark.equals("unmark")) {
+            curTask.markOrUnmark("unmark");
+            result.append("Okay! I've marked this task as not done:\n")
+                    .append(formatMessage(curTask, tasks.getListTask().size()))
+                    .append("\n");
         } else {
-            result.append("No Task found after 'mark'.\n");
+            result.append("Not a valid command.\n");
         }
 
         storage.saveTasksToFile(tasks.getListTask());
@@ -109,19 +115,20 @@ public class Command {
      * @return A message indicating the result of the delete command.
      */
     private String handleDeleteCommand(String[] parts, TaskList tasks, Storage storage) {
+        assert parts.length > 1 : "Delete command should have at least 2 parts (delete + task number)";
+
         StringBuilder result = new StringBuilder();
 
-        if (parts.length > 1 && parts[0].equals("delete")) {
-            int number = Integer.parseInt(parts[parts.length - 1]);
-            result.append("Extracted Task number: ").append(number).append("\n");
-            IndividualTask curTask = tasks.getListTask().get(number - 1);
-            tasks.deleteTask(number - 1);
-            result.append("Alrighty! I will remove the task:\n")
-                    .append(formatMessage(curTask, tasks.getListTask().size()))
-                    .append("\n");
-        } else {
-            result.append("No Task found.\n");
-        }
+        int number = Integer.parseInt(parts[parts.length - 1]);
+
+        // Ensure the task number is valid
+        assert number > 0 && number <= tasks.getListTask().size() : "Task number out of bounds";
+
+        IndividualTask curTask = tasks.getListTask().get(number - 1);
+        tasks.deleteTask(number - 1);
+        result.append("Alrighty! I will remove the task:\n")
+                .append(formatMessage(curTask, tasks.getListTask().size()))
+                .append("\n");
 
         storage.saveTasksToFile(tasks.getListTask());
 
@@ -136,11 +143,16 @@ public class Command {
      * @return A message listing the tasks that match the keyword.
      */
     private String handleFindCommand(String[] parts, TaskList tasks) {
+        assert parts.length > 1 : "Find command should have at least 2 parts (find + keyword)";
+
         StringBuilder result = new StringBuilder();
 
         String keyWord = parts[parts.length - 1];
         ArrayList<IndividualTask> allTasks = tasks.getListTask();
         ArrayList<IndividualTask> matchingTasks = new ArrayList<>();
+
+        assert keyWord != null && !keyWord.isEmpty() : "Keyword should not be null or empty";
+
         for (IndividualTask task : allTasks) {
             if (task.getTaskDescription().toLowerCase().contains(keyWord.toLowerCase())) {
                 matchingTasks.add(task);
@@ -312,6 +324,8 @@ public class Command {
      * @return The formatted task message.
      */
     public String formatMessage(IndividualTask task, int num) {
+        assert task != null : "Task to be formatted should not be null";
+        assert num >= 0 : "Number of tasks cannot be negative";
         return task + "\n" + "\n" + "Now you have " + num + " tasks in the list.\n";
     }
 }
