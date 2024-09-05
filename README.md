@@ -4,7 +4,7 @@ Welcome to the **Angel Chatbot** project! This chatbot is designed to help you m
 
 ## Features
 
-- Supports various task types: `todo`, `deadline`, and `event`.
+- Supports various task types: `todo`, `deadline`, `event`, and 'find'.
 - Easily mark tasks as done or undone.
 - Search for tasks using keywords.
 - Saves tasks automatically to a file for persistence.
@@ -28,4 +28,12 @@ Welcome to the **Angel Chatbot** project! This chatbot is designed to help you m
    ```bash
    java -cp bin main.java.angel.Angel
 
-   
+## Task List
+
+- [x] Managing Tasks
+- [x] Managing Deadlines
+- [x] Managing Events
+
+## Additional Resources
+For more information, checkout the [Github Documentation] (https://docs.github.com/en)
+> "Great things are not done by impulse, but by a series of small things brought together." — Vincent Van Gogh
