@@ -40,11 +40,11 @@ public class DeadlineCommand extends Command {
      * @throws GuttiException If there is an error during command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
         Task deadlineTask = new Deadline(description, by, false);
         tasks.addTask(deadlineTask);
         storage.saveTasksToFile(tasks.getTasks());
-        ui.showTaskList(tasks);
+        return ui.showTaskList(tasks);
     }
 
     /**

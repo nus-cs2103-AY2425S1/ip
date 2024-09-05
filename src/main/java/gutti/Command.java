@@ -13,7 +13,7 @@ public abstract class Command {
      * @param storage The Storage object to handle saving tasks to a file.
      * @throws GuttiException If there is an error during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException;
 
     /**
      * Returns boolean on whether this command should terminate the application.

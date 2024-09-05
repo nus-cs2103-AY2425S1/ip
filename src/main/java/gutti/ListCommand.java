@@ -13,8 +13,8 @@ public class ListCommand extends Command {
      * @param storage The Storage object to handle saving tasks to a file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTaskList(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showTaskList(tasks);
     }
 
 

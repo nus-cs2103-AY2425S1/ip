@@ -29,20 +29,25 @@ public class DeleteCommand extends Command {
      * @throws GuttiException If there is an error during command execution, such as an invalid task index.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
         try {
+            // Remove the task and update storage
             Task removedTask = tasks.getTasks().remove(index);
-            storage.saveTasksToFile(tasks.getTasks()); // Pass tasks to save
-            ui.showTaskList(tasks); // Show updated task list
-            System.out.println("____________________________________________________________");
-            System.out.println("Meow. I've removed this task:");
-            System.out.println(removedTask);
-            System.out.println("Now you have " + tasks.getTasks().size() + " tasks in the list.");
-            System.out.println("____________________________________________________________");
+            storage.saveTasksToFile(tasks.getTasks()); // Save updated task list
+
+            // Prepare the response string
+            StringBuilder response = new StringBuilder();
+            response.append("Meow. I've removed this task:\n");
+            response.append(removedTask).append("\n");
+            response.append("Now you have ").append(tasks.getTasks().size()).append(" tasks in the list.");
+
+            return response.toString(); // Return the response string
+
         } catch (IndexOutOfBoundsException e) {
             throw new GuttiException("No such task to delete!");
         }
     }
+
 
     /**
      * Returns boolean on whether this command should terminate the application.
