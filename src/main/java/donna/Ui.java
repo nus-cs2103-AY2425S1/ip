@@ -9,144 +9,164 @@ import java.util.List;
  * Handles displaying messages, task lists, and error information to the user.
  */
 public class Ui {
+    private boolean wasDataLoaded;
 
-    static private void printDashedLine() {
-        System.out.println("____________________________________________________________________");
+    public Ui(boolean wasDataLoaded) {
+        this.wasDataLoaded = wasDataLoaded;
     }
-    static private void printDonnaLogo() {
-        System.out.println(" ____      ");
-        System.out.println("|  _ \\  ___  _ __  _ __   __ _ ");
-        System.out.println("| | | |/ _ \\| '_ \\| '_ \\ / _` |");
-        System.out.println("| |_| | (_) | | | | | | | (_| |");
-        System.out.println("|____/ \\___/|_| |_|_| |_|\\__,_|");
-        System.out.println();
+
+    static private String dashedLine() {
+        return "____________________________________________________________________\n";
     }
+
+    static private String donnaLogo() {
+        return " __      \n"
+                + "|  _  \\  __  _ __   _ _   __  \n"
+                + "|  |  |  | / _ \\| '_  \\ | '_ \\ / _` |\n"
+                + "|  |_| |  (_) |  | |  |  |  |   | (_|  |\n"
+                + "|___/ \\__/|_| |_|_|  |_|\\_,_|\n";
+    }
+
 
     /**
-     * Prints a greeting message to the user.
+     * Returns a greeting message to the user.
      *
-     * @param dataWasLoaded True if any previously saved tasks were loaded; false otherwise.
+     * @return The greeting message.
      */
-    public void printGreeting(boolean dataWasLoaded) {
-        printDashedLine();
-        printDonnaLogo();
-        System.out.println("Hello! I'm Donna");
-        if (dataWasLoaded) {
-            System.out.println("We have had a chat before! Let's resume :)");
+    public String getGreeting() {
+        StringBuilder greeting = new StringBuilder();
+        greeting.append(donnaLogo());
+        greeting.append("Hello! I'm Donna\n");
+        if (wasDataLoaded) {
+            greeting.append("We have had a chat before! Let's resume :)\n");
         } else {
-            System.out.println("What can I do for you?");
+            greeting.append("What can I do for you?\n");
         }
-        printDashedLine();
+        return greeting.toString();
     }
 
     /**
-     * Prints a goodbye message to the user.
+     * Returns a goodbye message to the user.
+     *
+     * @return Exit message.
      */
-    public void printGoodbyeMessage() {
-        printDashedLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printDashedLine();
+    public String getGoodbyeMessage() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
-     * Prints a message confirming that a task has been added.
+     * Returns a message confirming that a task has been added.
      *
      * @param task The task that was added.
      * @param taskCount The current number of tasks in the list.
+     * @return The task added message.
      */
-    public void printTaskAddedMessage(Task task, int taskCount) {
-        printDashedLine();
-        System.out.println("Got it. I've added this task: " );
-        System.out.println("    " + task);
+    public String getTaskAddedMessage(Task task, int taskCount) {
+        StringBuilder message = new StringBuilder();
+        message.append("Got it. I've added this task: \n");
+        message.append("    ").append(task).append("\n");
+
         if (taskCount == 1) {
-            System.out.println("This is the first task in the list. ");
+            message.append("This is the first task in the list. ");
         } else {
-            System.out.println("You now have " + taskCount + " tasks in the list. ");
+            message.append("You now have ").append(taskCount).append(" tasks in the list. \n");
         }
-        printDashedLine();
+        return message.toString();
     }
 
     /**
-     * Prints a message confirming that a task has been deleted.
+     * Returns a message confirming that a task has been deleted.
      *
      * @param task The task that was deleted.
      * @param taskCount The current number of tasks in the list.
+     * @return The task deleted message.
      */
-    public void printTaskDeletedMessage(Task task, int taskCount) {
-        printDashedLine();
-        System.out.println("Alright. The following task has been deleted: ");
-        System.out.println("    " + task);
+    public String getTaskDeletedMessage(Task task, int taskCount) {
+        StringBuilder message = new StringBuilder();
+        message.append("Alright. The following task has been deleted: \n");
+        message.append("    ").append(task);
         if (taskCount != 1){
-            System.out.println("You now have " + taskCount + " tasks in the list.");
+            message.append("You now have ").append(taskCount).append(" tasks in the list.\n");
         } else {
-            System.out.println("You now have 1 task left in the list.");
+            message.append("You now have 1 task left in the list.");
         }
-        printDashedLine();
+        return message.toString();
     }
 
     /**
-     * Prints a message confirming the status of a task.
+     * Returns a message confirming the status of a task.
      *
      * @param task The task that was marked.
      * @param isMarked True if the task is marked as done; false otherwise.
+     * @return Message confirming status of a task.
      */
-    public void printTaskMarkedMessage(Task task, boolean isMarked) {
-        printDashedLine();
+    public String getTaskMarkedMessage(Task task, boolean isMarked) {
+        StringBuilder message = new StringBuilder();
         if (isMarked) {
-            System.out.println("Nice! I've marked this task as done: ");
+            message.append("Nice! I've marked this task as done: \n");
         } else {
-            System.out.println("OK, I have marked this task as not done yet: ");
+            message.append("OK, I have marked this task as not done yet: \n");
         }
-        System.out.println("    " + task);
-        printDashedLine();
+        message.append("    ").append(task).append("\n");
+        return message.toString();
     }
 
     /**
-     * Prints the list of all tasks.
+     * Returns the list of all tasks.
      *
      * @param tasks The TaskList containing tasks to be displayed.
+     * @return String representation of list of all tasks.
      */
-    public void printTaskList(TaskList tasks) {
-        printDashedLine();
+    public String getTaskList(TaskList tasks) {
+        StringBuilder message = new StringBuilder();
         if (tasks.isEmpty()) {
-            System.out.println("No tasks added to the list yet."+ "\n"
-                    + "use todo / deadline / event to add tasks to the list!");
-
+            message.append("No tasks added to the list yet.\n").append(
+                    "use todo / deadline / event to add tasks to the list!\n");
         } else {
-            System.out.println("There are " + tasks.size() + " task(s) in the list: ");
+            message.append("There are ").append(tasks.size()).append(" task(s) in the list: \n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
+                message.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
         }
-        printDashedLine();
+        return message.toString();
     }
 
     /**
-     * Prints an error message.
+     * Returns an error message.
      *
      * @param message The error message to be printed.
+     * @return The generated error message.
      */
-    public void printErrorMessage(String message) {
-        printDashedLine();
-        System.out.println(message);
-        printDashedLine();
+    public String getErrorMessage(String message) {
+        return  message + "\n";
     }
 
     /**
-     * Prints the results of a search query.
+     * Returns the results of a search query.
      *
      * @param tasks The list of tasks that match the search.
+     * @return The results of the user's search.
      */
-    public void printFindResults(List<Task> tasks) {
-        printDashedLine();
+    public String FindResults(List<Task> tasks) {
+        StringBuilder results = new StringBuilder();
+        results.append(results);
         if (tasks.isEmpty()) {
-            System.out.println("No tasks found matching the search criteria :(");
+            results.append("No tasks found matching the search criteria :(\n");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            results.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                results.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
             }
         }
-        printDashedLine();
+        return results.toString();
+    }
+
+    /**
+     * Displays Donna's response
+     */
+    public void display(String response) {
+        System.out.println(dashedLine());
+        System.out.println(response);
+        System.out.println(dashedLine());
     }
 }
