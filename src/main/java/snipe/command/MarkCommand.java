@@ -26,17 +26,18 @@ public class MarkCommand extends Command{
 
     /**
      * Executes the mark command by changing the status of the specified task to "done" if it is not already marked,
-     * saving the updated list to storage, and displaying a confirmation message to the user.
-     * If the task is already marked as done, it displays a message indicating that.
+     * saving the updated task list to storage, and returning a confirmation message to the user.
+     * If the task is already marked as done, returns a message indicating that.
      *
-     * @param tasks   The task list containing the task to be marked.
-     * @param ui      The user interface used to display messages to the user.
-     * @param storage The storage object used to save the updated task list.
-     * @throws SnipeException If the specified task index is out of range or an error occurs while saving the task list.
-     * @throws IOException    If an input or output error occurs during saving.
+     * @param tasks   The {@link TaskList} containing the task to be marked.
+     * @param ui      The {@link Ui} instance used to display messages to the user.
+     * @param storage The {@link Storage} instance used to save the updated task list.
+     * @return A message confirming the task has been marked as done, or a message indicating the task was already marked.
+     * @throws SnipeException If the specified task index is out of range or if an error occurs while saving the task list.
+     * @throws IOException    If an I/O error occurs during the saving process.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
+    public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
         if (this.num > tasks.size() - 1) {
             throw new SnipeException("This list item does not exist!\n"
                     + tasks.listLength());
@@ -47,11 +48,12 @@ public class MarkCommand extends Command{
                 String msg = "Nice! I've marked this task as done:\n" +
                         task.toString();
                 storage.saveTaskList(tasks);
-                ui.printWithLines(msg);
+                return msg;
             } else {
                 String msg = "This task is already marked done!";
-                ui.printWithLines(msg);
+                return msg;
             }
         }
     }
+
 }

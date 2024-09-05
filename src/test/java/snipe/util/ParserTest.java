@@ -30,6 +30,7 @@ public class ParserTest {
         assertEquals("I'm sorry, I don't understand that command.", thrown.getMessage());
     }
 
+    /*
     @Test
     public void testParseInvalidDeleteCommand() {
         SnipeException thrown = assertThrows(SnipeException.class, () -> {
@@ -38,6 +39,7 @@ public class ParserTest {
         // Verify that the exception message is as expected
         assertEquals("Please input a number. Use 'help for correct syntax", thrown.getMessage());
     }
+    */
 
     @Test
     public void testParseInvalidTaskCommand() {

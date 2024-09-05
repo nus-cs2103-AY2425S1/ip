@@ -51,13 +51,31 @@ public class Snipe {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, taskListStorage);
+                String response = c.getResponse(tasks, ui, taskListStorage);
+                ui.printWithLines(response);
                 isExit = c.isExit();
             } catch (SnipeException e) {
                 ui.showError(e.getMessage());
             }
         }
         ui.close();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) throws IOException, SnipeException {
+        try {
+            Command c = Parser.parse(input);
+            return c.getResponse(tasks, ui, taskListStorage);
+        } catch (SnipeException e) {
+            return e.getMessage();
+        }
+
+    }
+
+    public String getWelcomeMessage() {
+        return Ui.WELCOME_MESSAGE;
     }
 
     /**

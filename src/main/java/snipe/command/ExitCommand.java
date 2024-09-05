@@ -5,6 +5,8 @@ import snipe.storage.Storage;
 import snipe.core.TaskList;
 import snipe.util.Ui;
 
+import java.io.IOException;
+
 /**
  * The {@code ExitCommand} class represents a command to exit the application.
  * This command signals the termination of the program and provides a closing message to the user.
@@ -23,17 +25,18 @@ public class ExitCommand extends Command{
     }
 
     /**
-     * Executes the exit command by displaying a closing message to the user.
-     * The method provides feedback to the user that the application is terminating.
+     * Executes the exit command by returning a closing message to the user.
+     * This method provides feedback to the user indicating that the application is terminating.
      *
-     * @param tasks   The task list (not used in this command).
-     * @param ui      The user interface used to display the closing message.
-     * @param storage The storage object (not used in this command).
+     * @param tasks   The {@link TaskList}, not used in this command.
+     * @param ui      The {@link Ui} instance used to display messages to the user.
+     * @param storage The {@link Storage} instance, not used in this command.
+     * @return A closing message indicating that the application is terminating.
      * @throws SnipeException If an application-specific error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SnipeException {
-        String CLOSING_MESSAGE = "Bye. Hope to see you again soon!";
-        ui.printWithLines(CLOSING_MESSAGE);
+    public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException {
+        return "Bye. Hope to see you again soon!";
     }
+
 }
