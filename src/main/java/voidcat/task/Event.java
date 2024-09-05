@@ -5,17 +5,37 @@ import voidcat.task.Task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event task, which has a start and end time.
+ * The start and end, known as from and to, each consists of a date and time.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
     protected static final DateTimeFormatter FORMATTER_DATETIME = DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm");
 
+    /**
+     * Constructs a new Event task with the specified description, start, and end time.
+     *
+     * @param description The description of the event.
+     * @param from The start date and time of the event in the format "uuuu-MM-dd HHmm".
+     * @param to The end date and time of the event in the format "uuuu-MM-dd HHmm".
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = LocalDateTime.parse(from, FORMATTER_DATETIME);
         this.to = LocalDateTime.parse(to, FORMATTER_DATETIME);
     }
 
+    /**
+     * Constructs a new Event task with the specified description, start and end time,
+     * and completion status to save to a file.
+     *
+     * @param description The description of the event.
+     * @param from The start date and time of the event in the format "uuuu-MM-dd HHmm".
+     * @param to The end date and time of the event in the format "uuuu-MM-dd HHmm".
+     * @param done 1 if the task is done, 0 if not done.
+     */
     public Event(String description, String from, String to, int done) {
         super(description);
         this.from = LocalDateTime.parse(from, FORMATTER_DATETIME);
