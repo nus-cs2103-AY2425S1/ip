@@ -5,6 +5,7 @@ import Majima.task.Deadline;
 import Majima.task.Event;
 import Majima.task.Task;
 import Majima.task.Todo;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,8 +16,8 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Storage {
     private String filePath;

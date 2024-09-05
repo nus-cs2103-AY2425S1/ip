@@ -1,6 +1,7 @@
 package Majima.task;
 
 import Majima.MajimaException;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,14 +1,14 @@
 package Majima;
 
 
-import Majima.command.AddTodoCommand;
-import Majima.command.Command;
-import Majima.command.ExitCommand;
-import Majima.command.FindCommand;
 import Majima.command.AddDeadlineCommand;
 import Majima.command.AddEventCommand;
-import Majima.command.ListCommand;
+import Majima.command.AddTodoCommand;
+import Majima.command.Command;
 import Majima.command.DeleteCommand;
+import Majima.command.ExitCommand;
+import Majima.command.FindCommand;
+import Majima.command.ListCommand;
 import Majima.command.MarkCommand;
 import Majima.command.UnmarkCommand;
 import Majima.task.Task;
@@ -27,26 +27,26 @@ public class Parser {
         String args = (parts.length > 1) ? parts[1] : "";
 
         switch (command) {
-            case "list":
-            return new ListCommand();
-            case "todo":
-            return parseAddCommand(Task.TaskType.TODO, args);
-            case "deadline":
-            return parseAddCommand(Task.TaskType.DEADLINE, args);
-            case "event":
-            return parseAddCommand(Task.TaskType.EVENT, args);
-            case "delete":
-            return parseDeleteCommand(args);
-            case "mark":
-            return parseMarkCommand(args);
-            case "unmark":
-            return parseUnmarkCommand(args);
-            case "bye":
-            return new ExitCommand();
-            case "find":
-            return new FindCommand(args);
-            default:
-            throw new MajimaException("Kiryu? I ain't got the faintest idea of what ya just said!");
+        case "list":
+        return new ListCommand();
+        case "todo":
+        return parseAddCommand(Task.TaskType.TODO, args);
+        case "deadline":
+        return parseAddCommand(Task.TaskType.DEADLINE, args);
+        case "event":
+        return parseAddCommand(Task.TaskType.EVENT, args);
+        case "delete":
+        return parseDeleteCommand(args);
+        case "mark":
+        return parseMarkCommand(args);
+        case "unmark":
+        return parseUnmarkCommand(args);
+        case "bye":
+        return new ExitCommand();
+        case "find":
+        return new FindCommand(args);
+        default:
+        throw new MajimaException("Kiryu? I ain't got the faintest idea of what ya just said!");
         }
     }
 
@@ -89,7 +89,7 @@ public class Parser {
         }
     }
 
-    private static int parseTaskNumber (String args) {
+    private static int parseTaskNumber(String args) {
         return Integer.parseInt(args.trim()) - 1;
     }
 
