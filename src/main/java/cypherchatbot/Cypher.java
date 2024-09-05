@@ -3,6 +3,7 @@ package cypherchatbot;
 import java.io.FileNotFoundException;
 
 import cypherchatbot.command.Command;
+import cypherchatbot.controller.MainWindow;
 import cypherchatbot.util.CommandReader;
 import cypherchatbot.util.Storage;
 import cypherchatbot.util.TaskList;
@@ -23,6 +24,8 @@ public class Cypher {
     private TaskList tasks;
     private Ui ui;
 
+    private MainWindow mainWindow;
+
     /**
      *  Initializes the Ui, Storage  and TaskList required for the functionality
      *  of the Cypher ChatBot Application
@@ -30,7 +33,7 @@ public class Cypher {
      * @param filePath filepath for the location on the hard disk to store the tasks created
      */
     public Cypher(String filePath) {
-        this.ui = new Ui();
+        this.ui = new Ui(this);
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage.load());
@@ -39,6 +42,7 @@ public class Cypher {
             tasks = new TaskList();
         }
     }
+
 
     /**
      *  Main event loop of the Cypher Chat Bot Application.
@@ -67,6 +71,22 @@ public class Cypher {
 
     public static void main(String[] args) {
         new Cypher("./data/tasks.txt").run();
+    }
+
+    public void getResponse(String fullCommand) {
+        try {
+            Command c = CommandReader.parse(fullCommand);
+            c.execute(tasks, ui, storage);
+        } catch (CypherException e) {
+            ui.showError(e.getMessage());
+        }
+    }
+
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+    }
+    public void sendDialog(String response) {
+        this.mainWindow.addDialogFromCypher(response);
     }
 }
 
