@@ -23,10 +23,17 @@ public class Parser {
     private final Scanner scanner;
 
 
+    /**
+     * Constructor for a Parser object, creating a scanner to take in user input.
+     */
     public Parser() {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads the user input, parses it and returns the appropriate command.
+     * @return Command of varying types depending on user input.
+     */
     public Command processInput() {
         String userInput = readInput();
         return parseInput(userInput);
