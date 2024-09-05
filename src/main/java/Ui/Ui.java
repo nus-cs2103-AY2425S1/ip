@@ -1,16 +1,16 @@
 package ui;
 
-import tasks.TaskList;
-import tasks.Task;
-import exceptions.TestamentException;
 import exceptions.NotInTaskListException;
+import exceptions.TestamentException;
+import tasks.Task;
+import tasks.TaskList;
 
 /**
  * Prints outputs of the testament chatbot to the screen.
  */
 public class Ui {
 
-    final static String LINE = "_".repeat(60);
+    static final String LINE = "_".repeat(60);
 
     /**
      * Prints welcome message.
@@ -62,8 +62,8 @@ public class Ui {
     public void add(TaskList taskList) {
         try {
             printDialogue(
-                    String.format("I've added the following task to your schedule:\n%s\n" +
-                                    "You have %d tasks to complete",
+                    String.format("I've added the following task to your schedule:\n%s\n"
+                                    + "You have %d tasks to complete",
                             taskList.getTask(taskList.getSize()).toString(), taskList.getSize())
             );
         } catch (NotInTaskListException e) {

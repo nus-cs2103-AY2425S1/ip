@@ -3,12 +3,12 @@ package parser;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import tasks.TaskList;
-import tasks.Task;
-import exceptions.TestamentException;
 import exceptions.CommandNotRecognisedException;
-import ui.Ui;
+import exceptions.TestamentException;
 import storage.Storage;
+import tasks.Task;
+import tasks.TaskList;
+import ui.Ui;
 
 /**
  * In charge of retrieving, parsing, and handling user input.
@@ -42,7 +42,7 @@ public class Parser {
         String[] splitUserInput = userInput.split(" ", 2);
         String identifier = splitUserInput[0];
         Enumerations enumeration = Enumerations.convertString(identifier);
-        try{
+        try {
             int taskNumber;
             Task retrievedTask;
             switch(enumeration) {
@@ -105,7 +105,7 @@ public class Parser {
                 break;
             }
             storage.save();
-        } catch(TestamentException e) {
+        } catch (TestamentException e) {
             ui.exception(e);
             getUserInput();
         }

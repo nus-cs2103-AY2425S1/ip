@@ -6,20 +6,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import tasks.TaskList;
-import tasks.Task;
-import tasks.ToDo;
 import tasks.Deadline;
 import tasks.Events;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.ToDo;
 
 /**
  * Deals with loading tasks from memory and saving tasks into memory.
  */
 public class Storage {
 
-    File memory;
-    File parent;
-    TaskList taskList;
+    private File memory;
+    private File parent;
+    private TaskList taskList;
 
     /**
      * Constructor for Storage.
@@ -30,7 +30,7 @@ public class Storage {
     public Storage(String s) {
         memory = new File(s);
         parent = new File("src/main/java/Memory");
-        try{
+        try {
             if (!parent.exists()) {
                 //create parent directory
                 parent.mkdirs();
@@ -64,10 +64,10 @@ public class Storage {
      */
     public TaskList load() {
         taskList = new TaskList();
-        try{
+        try {
             Scanner s = new Scanner(memory);
 
-            while(s.hasNext()) {
+            while (s.hasNext()) {
                 String str = s.nextLine();
                 String[] fileInput = str.split(" / ", 3);
                 String identifier = fileInput[0];

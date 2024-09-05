@@ -3,7 +3,7 @@ package tasks;
 /**
  * Represents a Task with only a description.
  */
-public class ToDo  extends Task{
+public class ToDo extends Task {
 
     /**
      * Takes in a string as the task description.
@@ -19,7 +19,7 @@ public class ToDo  extends Task{
      */
     @Override
     public String infoForFile() {
-        String str =  "[T] / " + super.getDetails();
+        String str = "[T] / " + super.getDetails();
         return str;
     }
 
