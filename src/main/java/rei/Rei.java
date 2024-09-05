@@ -1,11 +1,16 @@
 package rei;
 
+import javax.sound.sampled.FloatControl;
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
+
 
 /**
  * Main class for Rei bot.
@@ -41,9 +46,6 @@ public class Rei {
         System.out.println("-----------YOU------------");
 
 
-        // IDE : COBA STORE LIST NYA TTP DLM TXT, TERUS WAKTU LOAD, MASUKIN KE LIST OF TASKS LAGI
-        // WAKTU MAU KELUAR DARI BOT, BARU DEH DISAVE BALIK KE TXTNYA
-
         List<Task> listOfTasks = new ArrayList<>();
 
         List<String> storedTasks = Files.readAllLines(FILE_PATH);
@@ -57,14 +59,15 @@ public class Rei {
                 }
             } else if (taskPrompt.startsWith("D ")) {
                 listOfTasks.add(Task.createDeadline(taskPrompt.substring(8, taskPrompt.lastIndexOf('|')),
-                        taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2)));
+                        LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2))));
                 if (taskPrompt.charAt(4) == '1') {
                     listOfTasks.get(i).markAsDone();
                 }
             } else { // Event
+
                 listOfTasks.add(Task.createEvent(taskPrompt.substring(8, taskPrompt.lastIndexOf('|')),
-                        taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2, taskPrompt.lastIndexOf('-')) + " ",
-                        taskPrompt.substring(taskPrompt.lastIndexOf('-') + 1)));
+                        LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2, taskPrompt.lastIndexOf("to") - 1)),
+                        LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf("to") + 3))));
             }
         }
 
@@ -75,7 +78,6 @@ public class Rei {
             if (scanner.hasNext("list")) {
                 System.out.println("-----------REI♥-----------");
                 System.out.println("Here are the tasks in your list: ");
-//                List<String> taskFromFile = Files.readAllLines(fileName);
 
 
                 for (int i = 0; i < listOfTasks.size(); i++) {
@@ -132,7 +134,7 @@ public class Rei {
                         || scanner.hasNext("event")) {
 
                 String prompt = scanner.nextLine();
-
+                DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 System.out.println("-----------REI♥-----------");
 
                 if (prompt.startsWith("todo")) {
@@ -155,8 +157,14 @@ public class Rei {
                         continue;
                     }
 
-                    listOfTasks.add(Task.createDeadline(prompt.substring(9, prompt.indexOf("/by")),
-                                                        prompt.substring(prompt.indexOf("/by") + 4)));
+                    try {
+                        listOfTasks.add(Task.createDeadline(prompt.substring(9, prompt.indexOf("/by")),
+                                LocalDateTime.parse(prompt.substring(prompt.indexOf("/by") + 4))));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Wrong date format");
+                        continue;
+                    }
+
 
                 } else { // event
                     if (isAllWhitespace(prompt.substring(5))) {
@@ -171,9 +179,15 @@ public class Rei {
                         continue;
                     }
 
-                    listOfTasks.add(Task.createEvent(prompt.substring(6, prompt.indexOf("/from")),
-                                                     prompt.substring(prompt.indexOf("/from") + 6, prompt.indexOf("/to")),
-                                                     prompt.substring(prompt.indexOf("/to") + 4)));
+                    try {
+                        listOfTasks.add(Task.createEvent(prompt.substring(6, prompt.indexOf("/from")),
+                                        LocalDateTime.parse(prompt.substring(prompt.indexOf("/from") + 6, prompt.indexOf("/to") - 1)),
+                                        LocalDateTime.parse(prompt.substring(prompt.indexOf("/to") + 4))));
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Input date in the format of yyyy-mm-dd");
+                        continue;
+                    }
+
                 }
                 System.out.println("Got it. I've added this task:");
                 System.out.println("    " + listOfTasks.get(listOfTasks.size() - 1));

@@ -1,5 +1,10 @@
 package rei;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 /**
  * Abstract class for tasks.
  */
@@ -65,7 +70,7 @@ public abstract class Task {
      * @return a new instance of Deadline with the corresponding
      * taskName and deadline.
      */
-    public static Task createDeadline(String task, String deadline) {
+    public static Task createDeadline(String task, LocalDateTime deadline) {
         return new Deadline(task, deadline);
     }
 
@@ -77,7 +82,7 @@ public abstract class Task {
      * @return a new instance of Event with the corresponding
      * taskName, start time, and end time.
      */
-    public static Task createEvent(String task, String from, String to) {
+    public static Task createEvent(String task, LocalDateTime from, LocalDateTime to) {
         return new Event(task, from, to);
     }
 
@@ -112,15 +117,18 @@ public abstract class Task {
      * Deadline class that inherits from Task.
      */
     private static class Deadline extends Task {
-        private String deadline;
-        private Deadline(String task, String deadline) {
+        private LocalDateTime deadline;
+        private DateTimeFormatter outputFormat
+                = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm:ss");
+        private DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        private Deadline(String task, LocalDateTime deadline) {
             super(task);
             this.deadline = deadline;
         }
 
         @Override
         public String toString() {
-            return String.format("[D]%s(by: %s)", this.printTask(), this.deadline);
+            return String.format("[D]%s(by: %s)", this.printTask(), this.deadline.format(outputFormat));
         }
 
         @Override
@@ -133,9 +141,12 @@ public abstract class Task {
      * Event class that inherits from Task.
      */
     private static class Event extends Task {
-        private String from;
-        private String to;
-        private Event(String task, String from, String to) {
+        private LocalDateTime from;
+        private LocalDateTime to;
+        private DateTimeFormatter outputFormat
+                = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm:ss");
+        private DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        private Event(String task, LocalDateTime from, LocalDateTime to) {
             super(task);
             this.from = from;
             this.to = to;
@@ -143,12 +154,14 @@ public abstract class Task {
 
         @Override
         public String toString() {
-            return String.format("[E]%s(from: %sto: %s)", this.printTask(), this.from, this.to);
+            return String.format("[E]%s(from: %s to: %s)", this.printTask(),
+                    this.from.format(outputFormat), this.to.format(outputFormat));
         }
 
         @Override
         public String storeData() {
-            return String.format("D | %d | %s| %s-%s", this.isDone() ? 1 : 0, super.taskName, this.from, this.to);
+            return String.format("D | %d | %s| %s-%s", this.isDone() ? 1 : 0, super.taskName,
+                    this.from, this.to);
         }
     }
 
