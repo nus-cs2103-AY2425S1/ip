@@ -1,7 +1,8 @@
 T , 1 , read book
-D , 0 , return book , June 6th
+D , 0 , return book , 2012-06-06
 E , 0 , project meeting , Aug 6th 2pm-4pm
 T , 1 , join sports club
 T , 1 , read book again
 T , 0 , borrow Jackson EM
 T , 0 , fix this code
+D , 0 , play Black Myth , 2024-09-06

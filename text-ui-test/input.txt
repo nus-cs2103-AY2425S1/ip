@@ -1,6 +1,6 @@
 todo borrow book
 list
-deadline return book /by Sunday
+deadline return book /by 2012-06-06
 mark 2
 event project meeting /from Mon 2pm /to 4pm
 list
@@ -8,7 +8,7 @@ mark 3
 deadline do homework /by no idea :-p
 list
 todo play nintendo
-event astronomy event /from Mon 2am /to 6am
+event astronomy event /from 2012-06-06
 mark 6
 unmark 2
 list

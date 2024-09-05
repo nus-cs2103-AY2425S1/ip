@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -63,7 +65,7 @@ public class Duke {
             taskAddOrDeleteDisplay(task, "add");
         } else if (instruction.equals("deadline")) {
             String name = remainingInput.split(" /by ", 2)[0];
-            String endDate = remainingInput.split(" /by ", 2)[1];
+            LocalDate endDate = LocalDate.parse(remainingInput.split(" /by ", 2)[1]);
             Deadline task = new Deadline(name, endDate);
             userInputs.add(task);
             taskAddOrDeleteDisplay(task, "add");
@@ -103,7 +105,7 @@ public class Duke {
             taskToBeAdded.setDone(flag);
             userInputs.add(taskToBeAdded);
         } else if (Objects.equals(task, "D")) {
-            Deadline taskToBeAdded = new Deadline(items[2], items[3]);
+            Deadline taskToBeAdded = new Deadline(items[2], LocalDate.parse(items[3]));
             taskToBeAdded.setDone(flag);
             userInputs.add(taskToBeAdded);
         } else if (Objects.equals(task, "E")) {
@@ -168,13 +170,17 @@ public class Duke {
                 System.out.println("An empty command has been received.");
             } catch (InvalidInstructionException e) {
                 System.out.println("The instruction provided is deemed invalid.");
+            } catch (DateTimeParseException e) {
+                System.out.println("Ah, esteemed inquirer, the date format you have provided is not correct." +
+                                   " It must be expressed as \"yyyy-mm-dd\".");
             }
             inp = scanner.nextLine();
         }
         try {
             writeToFile(filePath);
         } catch (IOException e) {
-            System.out.println("An I/O error has occurred, your updates were not saved. Please try again later. Till then: ");
+            System.out.println("An I/O error has transpired, preventing the salvation of your updates." +
+                               " I kindly suggest you attempt again later. Till then: ");
         }
         System.out.println("Farewell! Until we meet again.\n");
     }
