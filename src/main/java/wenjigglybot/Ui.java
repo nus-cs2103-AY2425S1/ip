@@ -5,10 +5,11 @@ public class Ui {
     /**
      * Displays an introduction message when the application starts.
      */
-    public void intro() {
+    public String intro() {
         String name = "WenJigglyBot";
         System.out.println("Sup im " + name);
         System.out.println("What can I do for you?");
+        return String.format("Sup im %s! What can I do for you?", name);
     }
 
     /**
@@ -63,9 +64,10 @@ public class Ui {
      *
      * @param task The {@link Task} that was added.
      */
-    public void showAddedTask(Task task) {
+    public String showAddedTask(Task task) {
         System.out.printf("\tAdding %s\n", task.taskType());
         System.out.printf("\tDone! Added: %s\n", task.getDescription());
+        return String.format("Adding %s\n Done! Added: %s\n", task.taskType(), task.getDescription());
     }
 
     /**
@@ -73,12 +75,18 @@ public class Ui {
      *
      * @param tasks The {@link TaskList} containing the tasks.
      */
-    public void displayTasks(TaskList tasks) {
-        showLine();
-        System.out.println("Here are your tasks :)");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("\t%d. %s%n", i + 1, tasks.get(i).toString());
+    public String displayTasks(TaskList tasks) {
+        if (tasks.size() == 0) {
+            return "No tasks added! You lazy pig...";
         }
         showLine();
+        System.out.println("Here are your tasks :)");
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("\t%d. %s%n", i + 1, tasks.get(i).toString());
+            output.append(String.format("%d. %s%n", i + 1, tasks.get(i).toString()));
+        }
+        showLine();
+        return output.toString();
     }
 }

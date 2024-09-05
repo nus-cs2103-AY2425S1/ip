@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import wenjigglybot.WenJigglyBot;
+import wenjigglybot.Ui;
 
 /**
  * Controller for the main GUI.
@@ -25,11 +26,13 @@ public class MainWindow extends AnchorPane {
     private WenJigglyBot wenJigglyBot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image wenJigglyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        Ui ui = new Ui();
+        dialogContainer.getChildren().add(DialogBox.getWenJigglyDialog(ui.intro(), wenJigglyImage));
     }
 
     /**
@@ -45,11 +48,13 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        // User input
         String input = userInput.getText();
-        String response = wenJigglyBot.getResponse(input);
+        // Parse user input and process
+        String response = wenJigglyBot.parseAndProcess(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getWenJigglyDialog(response, wenJigglyImage)
         );
         userInput.clear();
     }
