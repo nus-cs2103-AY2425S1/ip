@@ -27,24 +27,12 @@ public class Deadline extends Task {
      */
     public Deadline(String name, boolean done, String date) throws TarsException {
         super(name, done);
-        this.dueDate = DateTimeParser.parseDateTimeString(date);
-    }
-
-    /**
-     * Parses a given date string into a {@link LocalDateTime} object.
-     *
-     * <p>This method attempts to parse the date string using the {@link DateTimeParser} class.
-     * If the string does not match the expected formats, a {@link TarsException} is thrown.
-     * The accepted date formats are "yyyy-MM-dd HHmm" or "dd MMM yyyy, HH:mm".
-     *
-     * @param date the date string to be parsed, in either "yyyy-MM-dd HHmm" or "dd MMM yyyy, HH:mm" format.
-     * @return the parsed {@link LocalDateTime} object.
-     * @throws TarsException if the date string cannot be parsed into a valid {@link LocalDateTime} object.
-     */
-    private LocalDateTime parseDueDate(String date) throws TarsException {
+        System.out.println("Creating Deadline task with date: " + date);
         try {
-            return DateTimeParser.parseDateTimeString(date);
+            this.dueDate = DateTimeParser.parse(date);
+            System.out.println("Successfully parsed date for Deadline: " + this.dueDate);
         } catch (DateTimeParseException e) {
+            System.out.println("Failed to parse date for Deadline: " + date);
             throw new TarsException("Invalid date format. Please use the format: yyyy-MM-dd HHmm.");
         }
     }
@@ -54,9 +42,11 @@ public class Deadline extends Task {
      *
      * <p>The new date is parsed using the {@link DateTimeParser} class. If the new date cannot
      * be parsed, a {@link TarsException} is thrown.
+     *
+     * @throws TarsException if the new date cannot be parsed into a {@link java.time.LocalDateTime}.
      */
     public String getDate() {
-        return DateTimeParser.formatDateTimeString(this.dueDate);
+        return DateTimeParser.format(this.dueDate);
     }
 
     /**
@@ -69,7 +59,11 @@ public class Deadline extends Task {
      * @throws TarsException if the new date cannot be parsed into a {@link java.time.LocalDateTime}.
      */
     public void changeDate(String newDate) throws TarsException {
-        this.dueDate = DateTimeParser.parseDateTimeString(newDate);
+        try {
+            this.dueDate = DateTimeParser.parse(newDate);
+        } catch (DateTimeParseException e) {
+            throw new TarsException("Invalid date format. Please use the format: yyyy-MM-dd HHmm.");
+        }
     }
 
     /**

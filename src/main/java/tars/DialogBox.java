@@ -43,9 +43,12 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        assert text != null && !text.isEmpty() : "Text for dialog should not be null or empty.";
+        assert img != null : "Image for dialog should not be null.";
         dialog.setText(text);
         displayPicture.setImage(img);
+        assert dialog.getText().equals(text) : "Dialog text was not set correctly.";
+        assert displayPicture.getImage() == img : "Display picture was not set correctly.";
     }
 
     /**
@@ -56,6 +59,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        assert getAlignment() == Pos.TOP_LEFT : "Alignment should be TOP_LEFT after flipping.";
         dialog.getStyleClass().add("reply-label");
     }
 

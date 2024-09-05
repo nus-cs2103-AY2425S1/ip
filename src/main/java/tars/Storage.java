@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,95 +43,51 @@ public class Storage {
     public List<Task> loadTasks() throws TarsException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-
-        // Early return if file doesn't exist
         if (!file.exists()) {
             return tasks;
         }
-
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                Task task = parseTask(line);
-                tasks.add(task);
+                String[] parts = line.split(" \\| ");
+                if (parts.length < 3) {
+                    throw new TarsException("Corrupt task data: " + line);
+                }
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                try {
+                    switch (type) {
+                    case "T":
+                        tasks.add(new Todo(description, isDone));
+                        break;
+                    case "D":
+                        if (parts.length < 4) {
+                            throw new TarsException("Corrupt deadline task data: " + line);
+                        }
+                        String by = parts[3];
+                        tasks.add(new Deadline(description, isDone, by));
+                        break;
+                    case "E":
+                        if (parts.length < 5) {
+                            throw new TarsException("Corrupt event task data: " + line);
+                        }
+                        String from = parts[3];
+                        String to = parts[4];
+                        tasks.add(new Event(description, isDone, from, to));
+                        break;
+                    default:
+                        throw new TarsException("Unknown task type: " + type);
+                    }
+                } catch (DateTimeParseException e) {
+                    throw new TarsException("Invalid date format in task data: " + line);
+                }
             }
         } catch (IOException e) {
             throw new TarsException("Error reading from file: " + e.getMessage());
         }
         return tasks;
-    }
-
-    /**
-     * Parses a single line from the file into a Task object.
-     *
-     * @param line the line of task data to be parsed.
-     * @return the parsed Task object.
-     * @throws TarsException if the data is corrupt or in an invalid format.
-     */
-    private Task parseTask(String line) throws TarsException {
-        String[] parts = line.split(" \\| ");
-        // Guard clause for invalid task data
-        if (parts.length < 3) {
-            throw new TarsException("Corrupt task data: " + line);
-        }
-        String type = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
-        switch (type) {
-        case "T":
-            return new Todo(description, isDone);
-        case "D":
-            return parseDeadline(parts, description, isDone);
-        case "E":
-            return parseEvent(parts, description, isDone);
-        default:
-            throw new TarsException("Unknown task type: " + type);
-        }
-    }
-
-    /**
-     * Parses a string array into a {@link Deadline} object.
-     *
-     * <p>This method expects an array of strings representing a serialized deadline task.
-     * The array should contain at least four elements: the task type, completion status,
-     * description, and due date. If any of the required elements are missing, a {@link TarsException}
-     * is thrown.
-     *
-     * @param parts the array of strings containing the serialized deadline task.
-     * @param description the description of the task.
-     * @param isDone the completion status of the task; {@code true} if the task is completed, {@code false} otherwise.
-     * @return the parsed {@link Deadline} object.
-     * @throws TarsException if the input data is corrupt or incomplete.
-     */
-    private Deadline parseDeadline(String[] parts, String description, boolean isDone) throws TarsException {
-        if (parts.length < 4) {
-            throw new TarsException("Corrupt deadline task data");
-        }
-        String by = parts[3];
-        return new Deadline(description, isDone, by);
-    }
-
-    /**
-     * Parses a string array into an {@link Event} object.
-     *
-     * <p>This method expects an array of strings representing a serialized event task.
-     * The array should contain at least five elements: the task type, completion status,
-     * description, start time, and end time. If any of the required elements are missing,
-     * a {@link TarsException} is thrown.
-     *
-     * @param parts the array of strings containing the serialized event task.
-     * @param description the description of the task.
-     * @param isDone the completion status of the task; {@code true} if the task is completed, {@code false} otherwise.
-     * @return the parsed {@link Event} object.
-     * @throws TarsException if the input data is corrupt or incomplete.
-     */
-    private Event parseEvent(String[] parts, String description, boolean isDone) throws TarsException {
-        if (parts.length < 5) {
-            throw new TarsException("Corrupt event task data");
-        }
-        String from = parts[3];
-        String to = parts[4];
-        return new Event(description, isDone, from, to);
     }
 
     /**

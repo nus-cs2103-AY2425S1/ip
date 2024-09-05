@@ -25,7 +25,7 @@ public class DateTimeParser {
      * @return The parsed {@link LocalDateTime} object.
      * @throws DateTimeParseException if the string cannot be parsed.
      */
-    public static LocalDateTime parseDateTimeString(String dateTimeString) throws DateTimeParseException {
+    public static LocalDateTime parse(String dateTimeString) throws DateTimeParseException {
         try {
             System.out.println("Attempting to parse date: " + dateTimeString);
             return LocalDateTime.parse(dateTimeString.trim(), DATE_TIME_FORMATTER);
@@ -42,7 +42,7 @@ public class DateTimeParser {
      * @param dateTime The {@link LocalDateTime} object to be formatted.
      * @return The formatted date-time string.
      */
-    public static String formatDateTimeString(LocalDateTime dateTime) {
+    public static String format(LocalDateTime dateTime) {
         return dateTime.format(OUTPUT_FORMATTER);
     }
 }
