@@ -2,7 +2,6 @@ package bottle.command;
 
 import bottle.Storage;
 import bottle.Ui;
-import bottle.exception.BottleException;
 import bottle.task.TaskList;
 
 /**
