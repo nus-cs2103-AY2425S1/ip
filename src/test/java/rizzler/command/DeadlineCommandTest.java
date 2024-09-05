@@ -1,9 +1,10 @@
 package rizzler.command;
 
-import org.junit.jupiter.api.Test;
-import rizzler.task.Deadline;
-
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
+import org.junit.jupiter.api.Test;
+
+import rizzler.task.Deadline;
 
 public class DeadlineCommandTest {
 

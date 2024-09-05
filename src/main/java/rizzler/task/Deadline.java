@@ -13,14 +13,22 @@ public class Deadline extends Task {
     private final LocalDate deadlineTime;
 
     /**
-     * Create a <code>Deadline</code> object.
+     * Constructor for a <code>Deadline</code> object.
      * @param deadlineDesc <code>String</code> describing the deadline task.
      * @param deadlineTime <code>String</code> describing the time/date of the deadline.
+     * @throws DateTimeParseException If the user entered deadlineTime is of the wrong format.
      */
-    public Deadline(String deadlineDesc, String deadlineTime) {
+    public Deadline(String deadlineDesc, String deadlineTime) throws DateTimeParseException {
         this(deadlineDesc, deadlineTime, false);
     }
 
+    /**
+     * Constructor for a <code>Deadline</code> object.
+     * @param deadlineDesc <code>String</code> describing the deadline task.
+     * @param deadlineTime <code>String</code> describing the time/date of the deadline.
+     * @param isDone Boolean to indicate if the task being created has been marked as done.
+     * @throws DateTimeParseException If the user entered deadlineTime is of the wrong format.
+     */
     public Deadline(String deadlineDesc, String deadlineTime, boolean isDone) throws DateTimeParseException {
         super(deadlineDesc, isDone);
         this.deadlineTime = DateTimeParser.to_datetime(deadlineTime);

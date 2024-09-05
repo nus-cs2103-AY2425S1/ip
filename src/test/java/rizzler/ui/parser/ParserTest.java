@@ -1,9 +1,11 @@
 package rizzler.ui.parser;
 
-import org.junit.jupiter.api.Test;
-import rizzler.command.EventCommand;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import rizzler.command.EventCommand;
 
 public class ParserTest {
 

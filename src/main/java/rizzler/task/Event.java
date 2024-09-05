@@ -17,11 +17,23 @@ public class Event extends Task {
      * @param eventDesc Text description of the event.
      * @param eventStart Date of the event start in <code>YYYY-MM-DD</code> format.
      * @param eventEnd Date of the event end in <code>YYYY-MM-DD</code> format.
+     * @throws DateTimeParseException Throws this exception if the user's input does not match the
+     *     <code>YYYY-MM-DD</code> format.
      */
-    public Event(String eventDesc, String eventStart, String eventEnd) {
+    public Event(String eventDesc, String eventStart, String eventEnd) throws DateTimeParseException {
         this(eventDesc, eventStart, eventEnd, false);
     }
 
+    /**
+     * Alternative constructor to create an <code>Event</code> object, with an additional parameter to create
+     * a completed event.
+     * @param eventDesc Text description of the event.
+     * @param eventStart Date of the event start in <code>YYYY-MM-DD</code> format.
+     * @param eventEnd Date of the event end in <code>YYYY-MM-DD</code> format.
+     * @param isDone Boolean indicating whether the task has already been completed.
+     * @throws DateTimeParseException Throws this exception if the user's input does not match
+     *         the <code>YYYY-MM-DD</code> format.
+     */
     public Event(String eventDesc, String eventStart, String eventEnd, boolean isDone) throws DateTimeParseException {
         super(eventDesc, isDone);
         this.eventStart = DateTimeParser.to_datetime(eventStart);

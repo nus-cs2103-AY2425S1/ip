@@ -1,5 +1,8 @@
 package rizzler.ui;
 
+/**
+ * Represents an abstract class that's able to print out messages to the user with formatting.
+ */
 public abstract class Speech {
     private static final String DEFAULT_LINEBREAK = "#################################################################";
     private String line;

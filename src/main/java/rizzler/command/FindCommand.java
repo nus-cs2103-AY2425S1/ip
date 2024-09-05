@@ -17,6 +17,12 @@ public class FindCommand extends Command {
         super(strToMatch);
     }
 
+    /**
+     * Executes the search throughout all tasks in taskLog for those with descriptions that match the search term.
+     * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
+     * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
+     * @return Multiple lines of input of a numbered list of all tasks that satisfy the user's search.
+     */
     @Override
     public String[] execute(Storage storage, TaskLog taskLog) {
         Task[] tasks = taskLog.getLog();
