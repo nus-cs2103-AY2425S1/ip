@@ -33,14 +33,14 @@ public class ListCommand extends Command {
      *                to save or retrieve data from storage. This parameter is
      *                not necessary here.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("\nEl Primo:");
-        System.out.println("Here are the tasks in your list:");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder output = new StringBuilder();
+        output.append("Here are the tasks in your list:\n");
         ArrayList<Task> list = tasks.getTasks();
         int len = list.size();
         for (int i = 0; i < len; i++) {
-            String output = i + 1 + "." + list.get(i);
-            System.out.println(output);
+            output.append(i + 1).append(".").append(list.get(i)).append("\n");
         }
+        return output.toString();
     }
 }

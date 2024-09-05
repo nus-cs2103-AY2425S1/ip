@@ -29,9 +29,7 @@ public class ByeCommand extends Command {
      * @param storage The storage component. This parameter is not used in this method.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String byeMessage = "\nEl Primo:\n"
-                + "Bye. Hope to see you again soon!";
-        System.out.println(byeMessage);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return "Bye. Hope to see you again soon!";
     }
 }

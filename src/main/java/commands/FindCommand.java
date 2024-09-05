@@ -48,16 +48,17 @@ public class FindCommand extends Command {
      *         required by the method signature).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("\nEl Primo:");
-        System.out.println("Here are the filtered tasks:");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder output = new StringBuilder();
+        output.append("Here are the filtered tasks:\n");
         ArrayList<Task> list = tasks.getTasks();
         int len = list.size();
         for (int i = 0; i < len; i++) {
             if (list.get(i).toString().contains(word)) {
-                String output = i + 1 + "." + list.get(i);
-                System.out.println(output);
+                String item = i + 1 + "." + list.get(i) + "\n";
+                output.append(item);
             }
         }
+        return output.toString();
     }
 }

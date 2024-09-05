@@ -49,15 +49,14 @@ public class DeleteCommand extends Command {
      * @throws PrimoException If the index is out of the valid range of the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws PrimoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws PrimoException {
         ArrayList<Task> list = tasks.getTasks();
         if (index >= list.size() || index < 0) {
             throw new PrimoException("Please select within the indexes of the task list!");
         }
-        System.out.println("\nEl Primo:");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(list.get(index));
+        String output = "Noted. I've removed this task:\n" + list.get(index);
         list.remove(index);
         storage.updateStorage(tasks);
+        return output;
     }
 }

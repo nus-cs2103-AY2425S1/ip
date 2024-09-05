@@ -36,5 +36,5 @@ public abstract class Command {
      * @throws PrimoException If an error occurs during command execution, such as
      *                        issues with task manipulation, UI interaction, or storage access.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws PrimoException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws PrimoException;
 }
