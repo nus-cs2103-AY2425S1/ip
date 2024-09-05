@@ -1,4 +1,4 @@
-package botmanager;
+package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,15 +26,17 @@ public class Storage {
      * Reads tasks from data file and adds them to the given <code>taskList</code>.
      *
      * @param taskList Task list to add tasks to.
+     * @return <code>Response</code> describing the file loaded.
      * @throws FileNotFoundException If data file is not found.
      */
-    public void loadTaskList(TaskList taskList) throws FileNotFoundException {
+    public Response loadTaskList(TaskList taskList) throws FileNotFoundException {
         File f = new File(TASK_FILE_PATH);
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
             String data = s.nextLine();
             taskList.addTask(fromData(data));
         }
+        return new Response("Data file successfully loaded!", false);
     }
 
     private Task fromData(String data) {
@@ -52,17 +54,18 @@ public class Storage {
 
     /**
      * Initialises data directory and an empty data file.
-     * If the directory/file cannot be initialised, the program exits.
+     *
+     * @return <code>Response</code> describing the action taken.
      */
-    public void initFile() {
+    public Response initFile() {
         try {
             File dir = new File(DIRECTORY_PATH);
             dir.mkdir();
             File f = new File(TASK_FILE_PATH);
             f.createNewFile();
+            return new Response("Data file successfully initialised!", false);
         } catch (IOException e) {
-            System.out.println("Error initialising file, BotManager will now exit");
-            System.exit(0);
+            return new Response("Error initialising file, BotManager will now exit!", true);
         }
     }
 
@@ -70,11 +73,16 @@ public class Storage {
      * Saves the tasks in a <code>taskList</code> to the data file.
      *
      * @param taskList Task list to save.
-     * @throws IOException If file cannot be saved.
+     * @return <code>Response</code> describing the action taken.
      */
-    public void saveTaskList(TaskList taskList) throws IOException {
-        FileWriter fw = new FileWriter(TASK_FILE_PATH);
-        fw.write(taskList.toData());
-        fw.close();
+    public Response saveTaskList(TaskList taskList) {
+        try {
+            FileWriter fw = new FileWriter(TASK_FILE_PATH);
+            fw.write(taskList.toData());
+            fw.close();
+            return null;
+        } catch (IOException e) {
+            return new Response("Error saving task list!", false);
+        }
     }
 }
