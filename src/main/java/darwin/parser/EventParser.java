@@ -17,6 +17,7 @@ public class EventParser implements TaskParser {
         LocalDateTime to = stringToDateTime(args[2].trim());
         return new Event(args[0].trim(), from, to);
     }
+
     @Override
     public Task parseFromDb(String taskStr) throws IllegalTaskArgumentException {
         String[] args = taskStr.split(",");

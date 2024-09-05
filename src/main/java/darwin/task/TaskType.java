@@ -11,13 +11,16 @@ public enum TaskType {
     EVENT("event", "E");
     private final String name;
     private final String symbol;
+
     TaskType(String name, String symbol) {
         this.name = name;
         this.symbol = symbol;
     }
+
     public String getName() {
         return this.name;
     }
+
     public String getSymbol() { return this.symbol;}
 
     /**

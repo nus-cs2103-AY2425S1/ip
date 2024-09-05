@@ -7,10 +7,8 @@ import darwin.task.TaskManager;
 import darwin.ui.Ui;
 
 public class Darwin {
-
     static final String NAME = "darwin";
     private final TaskManager taskManager = new TaskManager();
-
     private final Ui ui = new Ui();
     private final InputParser parser = new InputParser();
 

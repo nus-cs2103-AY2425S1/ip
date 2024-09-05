@@ -7,9 +7,7 @@ import darwin.ui.Ui;
  * StartCommand class to represent a command to start the chat bot.
  */
 public class StartCommand extends Command {
-
     private static final String START_MSG = "Hello! I'm %s\nWhat can I do for you?";
-
     private String name;
 
     /**

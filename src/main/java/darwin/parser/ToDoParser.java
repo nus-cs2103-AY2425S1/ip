@@ -12,6 +12,7 @@ public class ToDoParser implements TaskParser {
         }
         return new ToDo(taskArgs);
     }
+
     @Override
     public Task parseFromDb(String taskStr) throws IllegalTaskArgumentException {
         String[] args = taskStr.split(",");

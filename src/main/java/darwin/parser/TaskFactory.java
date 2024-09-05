@@ -11,7 +11,6 @@ import java.util.HashMap;
  * TaskFactory class to create Task instances from user input or database string.
  */
 public class TaskFactory {
-
     private static final HashMap<TaskType, TaskParser> TASK_TYPE_PARSER_MAP = new HashMap<>() {{
         put(TaskType.TODO, new ToDoParser());
         put(TaskType.DEADLINE, new DeadlineParser());

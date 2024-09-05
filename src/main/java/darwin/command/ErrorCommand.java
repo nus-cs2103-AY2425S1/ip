@@ -6,7 +6,6 @@ import darwin.ui.Ui;
 
 public class ErrorCommand extends Command {
     public static final String CMD_WORD = "";
-
     private DarwinException e;
 
     public ErrorCommand(DarwinException e) {

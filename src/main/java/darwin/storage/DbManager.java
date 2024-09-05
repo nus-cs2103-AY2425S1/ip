@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class DbManager {
     private final String TASK_TB_PATH = "./tasks.txt";
+
     private void ensureFileExists(String filePath) {
         File file = new File(filePath);
         try {
@@ -61,5 +62,4 @@ public class DbManager {
             System.out.println("Failed to write tasks to file");
         }
     }
-
 }

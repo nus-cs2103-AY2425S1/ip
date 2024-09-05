@@ -9,7 +9,6 @@ import darwin.ui.Ui;
  */
 public class AddTaskCommand extends Command {
     private static final String ADD_TASK_MSG = "Got it. I've added this task:";
-
     private static final String TASK_COUNT_MSG = "Now you have %d tasks in the list.";
     private final Task task;
 

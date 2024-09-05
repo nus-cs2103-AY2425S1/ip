@@ -16,6 +16,7 @@ public class DeadlineParser implements TaskParser {
         LocalDateTime deadline = stringToDateTime(args[1].trim());
         return new Deadline(args[0].trim(), deadline);
     }
+
     @Override
     public Task parseFromDb(String taskStr) throws IllegalTaskArgumentException {
         String[] args = taskStr.split(",");

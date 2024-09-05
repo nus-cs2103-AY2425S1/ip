@@ -9,10 +9,8 @@ import darwin.ui.Ui;
  * MarkCommand class to represent a command to mark a task as done.
  */
 public class MarkCommand extends Command {
-
     public static final String CMD_WORD = "mark";
     private static final String MARK_MSG = "Nice! I've marked this task as done:";
-
     private final int taskIdx;
 
     /**

@@ -9,10 +9,8 @@ import darwin.ui.Ui;
  * DeleteCommand class to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-
     public static final String CMD_WORD = "delete";
     private static final String DELETE_TASK_MSG = "Noted. I've removed this task:";
-
     private static final String TASK_COUNT_MSG = "Now you have %d tasks in the list.";
     private final int taskIdx;
 

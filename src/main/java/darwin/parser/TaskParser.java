@@ -14,6 +14,7 @@ import java.time.format.DateTimeParseException;
 public interface TaskParser {
     Task parse(String taskArgs) throws IllegalTaskArgumentException;
     Task parseFromDb(String taskStr) throws IllegalTaskTypeException, IllegalTaskArgumentException;
+
     default void handleTaskStatus(Task task, String taskStatus) throws IllegalTaskArgumentException {
         switch (taskStatus) {
         case "1" -> task.markDone();
