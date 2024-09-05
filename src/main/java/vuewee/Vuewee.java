@@ -3,6 +3,7 @@ package vuewee;
 import java.util.Scanner;
 
 import vuewee.ui.TaskListCli;
+import vuewee.ui.TaskListGui;
 import vuewee.ui.TaskListUi;
 
 /**
@@ -11,8 +12,8 @@ import vuewee.ui.TaskListUi;
 public class Vuewee {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        TaskListUi ui = new TaskListCli(scanner);
-        // TaskListUI ui = new TaskListGUI();
+        // TaskListUi ui = new TaskListCli(scanner);
+        TaskListUi ui = new TaskListGui();
         ui.run();
         ui.close();
     }

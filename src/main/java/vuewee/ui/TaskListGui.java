@@ -2,6 +2,17 @@ package vuewee.ui;
 
 import java.util.Scanner;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 import vuewee.EndProgramException;
 import vuewee.command.Command;
 import vuewee.command.CommandType;
@@ -11,10 +22,10 @@ import vuewee.task.Task;
 import vuewee.task.TaskList;
 
 /**
- * The TaskListCli class represents the user interface for Vuewee. It contains
+ * The TaskListGui class represents the user interface for Vuewee. It contains
  * methods to add, delete, display, and mark tasks as done or not done.
  */
-public class TaskListCli extends TaskListUi {
+public class TaskListGui extends TaskListUi {
     private Scanner scanner = new Scanner(System.in);
 
     /**
@@ -23,18 +34,15 @@ public class TaskListCli extends TaskListUi {
      *
      * @param taskList Existing task list to be used
      */
-    public TaskListCli(TaskList taskList) {
+    public TaskListGui(TaskList taskList) {
         super(taskList);
     }
 
     /**
      * Creates a new TaskListUI object with the specified scanner.
-     *
-     * @param scanner Input scanner for reading user input
      */
-    public TaskListCli(Scanner scanner) {
+    public TaskListGui() {
         super();
-        this.scanner = scanner;
     }
 
     /**
@@ -116,6 +124,7 @@ public class TaskListCli extends TaskListUi {
     @Override
     public void run() {
         this.taskList = this.storage.readTasks();
+        Application.launch(Gui.class);
 
         if (this.taskList.size() > 0) {
             System.out.println("Loaded " + this.taskList.size() + " " + this.taskWord() + " into your task list.");
@@ -154,5 +163,65 @@ public class TaskListCli extends TaskListUi {
     public void close() {
         this.storage.storeTasks(this.taskList);
         this.scanner.close();
+    }
+
+    public static class Gui extends Application {
+        private ScrollPane scrollPane;
+        private VBox dialogContainer;
+        private TextField userInput;
+        private Button sendButton;
+        private Scene scene;
+
+        private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+
+        @Override
+        public void start(Stage stage) {
+            // Setting up required components
+
+            scrollPane = new ScrollPane();
+            dialogContainer = new VBox();
+            scrollPane.setContent(dialogContainer);
+
+            userInput = new TextField();
+            sendButton = new Button("Send");
+
+            DialogBox dialogBox = new DialogBox("Hello!", userImage);
+            dialogContainer.getChildren().addAll(dialogBox);
+
+            AnchorPane mainLayout = new AnchorPane();
+            mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+            scene = new Scene(mainLayout);
+
+            stage.setScene(scene);
+            stage.show();
+            stage.setTitle("Duke");
+            stage.setResizable(false);
+            stage.setMinHeight(600.0);
+            stage.setMinWidth(400.0);
+
+            mainLayout.setPrefSize(400.0, 600.0);
+
+            scrollPane.setPrefSize(385, 535);
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+            scrollPane.setVvalue(1.0);
+            scrollPane.setFitToWidth(true);
+
+            dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+            userInput.setPrefWidth(325.0);
+
+            sendButton.setPrefWidth(55.0);
+
+            AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+            AnchorPane.setBottomAnchor(sendButton, 1.0);
+            AnchorPane.setRightAnchor(sendButton, 1.0);
+
+            AnchorPane.setLeftAnchor(userInput, 1.0);
+            AnchorPane.setBottomAnchor(userInput, 1.0);
+        }
     }
 }

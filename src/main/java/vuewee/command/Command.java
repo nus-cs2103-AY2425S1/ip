@@ -2,7 +2,7 @@ package vuewee.command;
 
 import vuewee.parser.CommandParser;
 import vuewee.task.TaskList;
-import vuewee.ui.TaskListCli;
+import vuewee.ui.TaskListUi;
 
 /**
  * The Command class is an abstract class that represents a Vuewee command.
@@ -17,5 +17,5 @@ public abstract class Command {
      * @param taskList The task list that the command operates on.
      * @param parser   The command parser for parsing user input.
      */
-    public abstract void execute(TaskListCli ui, TaskList taskList, CommandParser parser);
+    public abstract void execute(TaskListUi ui, TaskList taskList, CommandParser parser);
 }
