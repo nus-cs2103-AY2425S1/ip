@@ -33,7 +33,7 @@ test {
 }
 
 application {
-    mainClass.set("cs2103w10.glados.Launcher")
+    mainClass.set("cstwooneohthree.glados.Launcher")
 }
 
 shadowJar {

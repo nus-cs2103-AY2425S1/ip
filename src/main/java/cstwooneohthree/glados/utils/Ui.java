@@ -41,7 +41,8 @@ public class Ui {
             System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
             return null;
         } else {
-            return message.replace("\n", "");
+            return "Hello, welcome to the Aperture Science computer-aided enrichment center!"
+                    + "My name is GLaDOS. What task would you like me to perform today?";
         }
     }
 
@@ -120,7 +121,9 @@ public class Ui {
             System.out.println(HORIZONTAL_LINE + message.toString() + HORIZONTAL_LINE);
             return null;
         } else {
-            return "Here is the list" + findMatchingString + " " + message.toString().replace("\n", "");
+            return message.toString()
+                    .replace("\n", " ")
+                    .replace("GLaDOS: ", "");
         }
     }
 
@@ -161,11 +164,14 @@ public class Ui {
      *
      * @param e Exception to be printed.
      */
-    public static void printError(Exception e) {
-        System.out.println(
-                HORIZONTAL_LINE
-                + "\nGLaDOS: " + e.getMessage() + "\n"
-                + HORIZONTAL_LINE);
+    public String printError(Exception e) {
+        String message = "\nGLaDOS: " + e.getMessage() + "\n";
+        if (uiType == UiType.COMMAND_LINE_INTERFACE) {
+            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            return null;
+        } else {
+            return message.replace("\n", "").replace("GLaDOS: ", "");
+        }
     }
 
      /**

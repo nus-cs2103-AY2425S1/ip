@@ -46,7 +46,7 @@ public class Storage {
                         + task.getSaveFormat() + "\n");
             }
         } catch (IOException e) {
-            Ui.printError(e);
+            System.err.println(e);
         }
     }
 

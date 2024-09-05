@@ -34,7 +34,7 @@ public class Glados {
 
     private void runCommandLineInterface() {
         // Greet the user
-        ui.greet();
+        greet();
 
         // Initialise a scanner for detecting input
         Scanner sc = new Scanner(System.in);
@@ -86,9 +86,12 @@ public class Glados {
                 throw new CommandNotFoundException();
             }
         } catch (GladosException e) {
-            Ui.printError(e);
+            return ui.printError(e);
         }
-        return null; // Will never reach this point, but needed to satisfy return type
+    }
+
+    public String greet() {
+        return ui.greet();
     }
 
     private String add(TaskType taskType, String input) throws GladosException {

@@ -16,7 +16,7 @@ import cstwooneohthree.glados.enums.UiType;
  */
 public class Main extends Application {
 
-    private Glados duke = new Glados(UiType.GRAPHICAL_USER_INTERFACE);
+    private Glados glados = new Glados(UiType.GRAPHICAL_USER_INTERFACE);
 
     @Override
     public void start(Stage stage) {
@@ -25,7 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setGlados(duke);  // inject the Glados instance
+            fxmlLoader.<MainWindow>getController().setGlados(glados);  // inject the Glados instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

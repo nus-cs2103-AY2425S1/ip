@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Glados glados;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image gladosImage = new Image(this.getClass().getResourceAsStream("/images/DaGlados.png"));
 
     @FXML
     public void initialize() {
@@ -33,6 +33,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Glados instance */
     public void setGlados(Glados g) {
         glados = g;
+        dialogContainer.getChildren().add(
+            DialogBox.getGladosDialog(glados.greet(), gladosImage)
+        );
     }
 
     /**
@@ -43,9 +46,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = glados.executeCommand(input);
+        System.out.println(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getGladosDialog(response, gladosImage)
         );
         userInput.clear();
     }
