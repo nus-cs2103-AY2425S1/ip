@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class StorageTest {
     String TESTFILENAME = "test_save.txt";
-    private final Ui testUi = new Ui();
+    private final TextUi testTextUi = new TextUi();
 
     @BeforeEach
     public void setUp() throws Exception {

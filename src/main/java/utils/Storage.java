@@ -23,7 +23,7 @@ import tasks.ToDo;
 public class Storage {
     private final Path saveFilePath;
     private final Path saveDirectoryPath;
-    private final Ui ui = new Ui();
+    private final TextUi textUi = new TextUi();
     private final StoredList saveList = new StoredList();
 
     /**
@@ -58,16 +58,16 @@ public class Storage {
                         doCommand(commands[1] + taskCount);
                     }
                 } catch (ChatterBoxError e) {
-                    ui.printMessage(e.getMessage());
+                    textUi.printMessage(e.getMessage());
                 }
             }
             fileReader.close();
-            ui.printMessage("Save file " + saveFilePath + " loaded");
+            textUi.printMessage("Save file " + saveFilePath + " loaded");
         } catch (FileNotFoundException e) {
             try {
                 saveFile.createNewFile();
             } catch (IOException e1) {
-                ui.printMessage("Error Reading Chatterbox save file");
+                textUi.printMessage("Error Reading Chatterbox save file");
             }
             throw new ChatterBoxDataFileError();
         }

@@ -6,14 +6,14 @@ import java.util.Scanner;
 /**
  * Representation of a text UI for ChatterBox.
  */
-public class Ui {
+public class TextUi {
     private final Scanner in;
     private final PrintStream out;
 
     /**
      * Initialisation of a ChatterBox Ui
      */
-    public Ui() {
+    public TextUi() {
         this.in = new Scanner(System.in);
         this.out = System.out;
     }

@@ -31,7 +31,12 @@ public class Parser {
     public static String[] processInput(String input) throws ChatterBoxError {
         String[] userCommand = new String[4];
         String[] command = input.split(" ", 2);
-        Commands commandType = Commands.valueOf(command[0].toUpperCase());
+        Commands commandType;
+        try {
+            commandType = Commands.valueOf(command[0].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ChatterBoxError();
+        }
         userCommand[0] = command[0];
         switch (commandType) {
         case BYE, LIST:
