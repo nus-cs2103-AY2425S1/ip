@@ -11,7 +11,7 @@ import mylo.ui.Ui;
  *
  * @author cweijin
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
 
     /**
      * Executes the exit command, triggering the application to terminate.

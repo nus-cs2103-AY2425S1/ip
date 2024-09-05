@@ -7,7 +7,7 @@ import mylo.ui.Ui;
 /**
  * Represents a command to mark or unmark a task's completion status in the task list.
  * <p></p>
- * <p>The {@code MarkStatusCommand} can either mark a task as done or mark it as undone, 
+ * <p>The {@code MarkStatusCommand} can either mark a task as done or mark it as undone,
  * depending on the provided flag.</p>
  * <p></p>
  * <p>This command requires the task index to identify the task whose status will be updated.</p>

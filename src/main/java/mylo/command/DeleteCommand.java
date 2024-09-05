@@ -14,7 +14,7 @@ import mylo.ui.Ui;
  *
  * @author cweijin
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private final int INDEX;
 
     /**

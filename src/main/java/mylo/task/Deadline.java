@@ -1,10 +1,10 @@
 package mylo.task;
 
+import java.time.LocalDateTime;
+
 import mylo.utils.exceptions.IllegalValueException;
 import mylo.utils.formatters.Formatter;
 import mylo.utils.helpers.HelperFunctions;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents a task with a deadline in the task list.
@@ -72,7 +72,8 @@ public class Deadline extends Task {
      */
     @Override
     public String storageFormat() {
-        return String.format("DEADLINE | %s | %s | %s", super.getStatus(), super.getTitle(), Formatter.dateTimeStorage(DEADLINE));
+        return String.format("DEADLINE | %s | %s | %s", super.getStatus(), super.getTitle(),
+                Formatter.dateTimeStorage(DEADLINE));
     }
 
     /**
@@ -97,7 +98,7 @@ public class Deadline extends Task {
      * @return A string representing the formatted deadline.
      */
     private String getDeadlineString() {
-        return  " (by: " + Formatter.dateTimeDisplay(DEADLINE) + ")";
+        return " (by: " + Formatter.dateTimeDisplay(DEADLINE) + ")";
     }
 
 }

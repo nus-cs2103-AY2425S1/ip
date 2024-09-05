@@ -1,11 +1,11 @@
 package mylo.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import mylo.utils.exceptions.IllegalValueException;
 import mylo.utils.formatters.Formatter;
 import mylo.utils.helpers.HelperFunctions;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Represents an event task with a start and end date/time in the task list.

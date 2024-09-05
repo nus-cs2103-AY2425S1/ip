@@ -1,9 +1,9 @@
 package mylo.command;
 
+import java.time.LocalDateTime;
+
 import mylo.task.TaskList;
 import mylo.ui.Ui;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents a command to list tasks from the task list.
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  *
  * @author cweijin
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     private LocalDateTime dateTime;
 
     /**

@@ -1,13 +1,13 @@
 package mylo.task;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import mylo.data.InsufficientInfoException;
 import mylo.storage.Storage;
 import mylo.storage.StorageOperationException;
 import mylo.utils.exceptions.IllegalValueException;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a list of tasks in the task management system.
@@ -82,8 +82,10 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the provided index is out of range.
      */
     public void deleteTask(int index) throws StorageOperationException, IndexOutOfBoundsException {
-        if (index > LIST.size()) throw new IndexOutOfBoundsException(String.format(
-                "There is only %s tasks in the list.", LIST.size()));
+        if (index > LIST.size()) {
+            throw new IndexOutOfBoundsException(String.format(
+                    "There is only %s tasks in the list.", LIST.size()));
+        }
         Task removed = LIST.remove(index - 1);
         STORAGE.rewrite(LIST);
         System.out.printf("Noted. I've removed this task:\n %s\nNow you have %s tasks in the list.\n",
@@ -153,7 +155,7 @@ public class TaskList {
         ArrayList<Task> result = new ArrayList<>();
 
         for (Task task: LIST) {
-            if ((task instanceof Deadline && ((Deadline) task).dueOnDate(date) )
+            if ((task instanceof Deadline && ((Deadline) task).dueOnDate(date))
                     || (task instanceof Event && ((Event) task).isOngoing(date))) {
                 result.add(task);
             }
@@ -196,10 +198,11 @@ public class TaskList {
     public String toString() {
         StringBuilder string = new StringBuilder();
 
-        if (LIST.isEmpty())
+        if (LIST.isEmpty()) {
             string.append("Your task list is empty. Try adding tasks: \n1. todo <Task Title> "
                     + "\n2. event <Task Title> /from <Start Date> /to <End Date>"
                     + " \n3. deadline <Task Title> /by <Due Date>");
+        }
         for (int i = 0; i < LIST.size(); i++) {
             if (i > 0) {
                 string.append("\n");

@@ -8,7 +8,7 @@ package mylo.task;
  *
  * @author cweijin
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Creates a Todo task with the specified title and sets the status to not done.

@@ -1,9 +1,5 @@
 package mylo.storage;
 
-import mylo.task.Task;
-import mylo.task.TaskList;
-import mylo.utils.exceptions.IllegalValueException;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,6 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import mylo.task.Task;
+import mylo.task.TaskList;
+import mylo.utils.exceptions.IllegalValueException;
 
 /**
  * Handles the storage of tasks in a file.
@@ -39,7 +38,9 @@ public class Storage {
      */
     public void save(Task task) throws StorageOperationException {
         try (FileWriter fileWriter = new FileWriter(STORAGE_FILEPATH, true)) {
-            if (!Files.exists(PATH)) Files.createFile(PATH);
+            if (!Files.exists(PATH)) {
+                Files.createFile(PATH);
+            }
             fileWriter.write(task.storageFormat() + System.lineSeparator());
         } catch (IOException e) {
             throw new StorageOperationException("Error writing to file: " + PATH);

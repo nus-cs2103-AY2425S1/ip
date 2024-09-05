@@ -1,15 +1,19 @@
 package mylo.task;
 
-import mylo.data.InsufficientInfoException;
-import mylo.storage.StorageOperationException;
-import mylo.utils.exceptions.IllegalValueException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import mylo.data.InsufficientInfoException;
+import mylo.storage.StorageOperationException;
+import mylo.utils.exceptions.IllegalValueException;
+
+
+
 
 public class TaskListTest {
 
