@@ -9,6 +9,7 @@ import rizzler.command.DeadlineCommand;
 import rizzler.command.DeleteCommand;
 import rizzler.command.EndCommand;
 import rizzler.command.EventCommand;
+import rizzler.command.FindCommand;
 import rizzler.command.HelpCommand;
 import rizzler.command.ListCommand;
 import rizzler.command.MarkCommand;
@@ -56,6 +57,16 @@ public class Parser {
             break;
         case "list":
             outputCommand = new ListCommand();
+            break;
+        case "find":
+            try {
+                String stringToMatch = userInputArr[1].trim();
+                outputCommand = new FindCommand(stringToMatch);
+            } catch (IndexOutOfBoundsException e) {
+                outputCommand = new NullCommand("we need a term to find, love.");
+            } catch (Exception e) {
+                outputCommand = new NullCommand("dreadfully sorry darlin', but there's an unexpected error");
+            }
             break;
         case "delete":
             try {
