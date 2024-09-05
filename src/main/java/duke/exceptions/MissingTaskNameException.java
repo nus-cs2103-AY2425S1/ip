@@ -1,7 +1,8 @@
+package duke.exceptions;
+
 /**
  * This exception is thrown when a task is created without the necessary name.
  */
-package duke.exceptions;
 public class MissingTaskNameException extends Exception {
     private String taskType;
 

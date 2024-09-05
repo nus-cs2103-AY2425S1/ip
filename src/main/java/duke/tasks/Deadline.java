@@ -1,11 +1,11 @@
-/**
- * This class represents tasks that need to be done before a specific date/time.
- */
 package duke.tasks;
 
 import duke.exceptions.InvalidDateException;
 import duke.parsers.Time;
 
+/**
+ * This class represents tasks that need to be done before a specific date/time.
+ */
 public class Deadline extends Task {
     private Time by;
 

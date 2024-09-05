@@ -1,16 +1,18 @@
+package duke.tasks;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import duke.data.TaskDataBase;
+import duke.exceptions.InvalidDateException;
+import duke.exceptions.TaskNotFoundException;
+import duke.ui.Ui;
+
 /**
  * This class represents a list containing tasks.
  * It provides methods to add, mark, unmark and print tasks in the list.
  */
-package duke.tasks;
-import duke.ui.Ui;
-import duke.data.TaskDataBase;
-import duke.exceptions.TaskNotFoundException;
-import duke.exceptions.InvalidDateException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import duke.tasks.Task;
 public class TaskList {
     private static TaskList tasks;
     private List<Task> listOfTasks;
@@ -50,7 +52,7 @@ public class TaskList {
         TaskDataBase.save(listOfTasks, ui);
         ui.printMessage("Got it. I've added this task:" + "\n"
                 + "  " + task.toString() + "\n"
-                + "Now you have "  + listOfTasks.size() + " tasks in the list.");
+                + "Now you have " + listOfTasks.size() + " tasks in the list.");
     }
 
     /**
@@ -95,8 +97,7 @@ public class TaskList {
         if (index > 0 && index <= listOfTasks.size()) {
             Task removedTask = listOfTasks.remove(index - 1);
             TaskDataBase.save(listOfTasks, ui);
-            ui.printMessage("Noted. I've removed this task:" + "\n" +
-                    "  " + removedTask + "\n" + "Now you have "
+            ui.printMessage("Noted. I've removed this task:" + "\n" + "  " + removedTask + "\n" + "Now you have "
                     + listOfTasks.size() + " tasks in the list." );
         } else {
             throw new TaskNotFoundException();
@@ -108,7 +109,7 @@ public class TaskList {
      *
      * @return The description of all tasks added.
      */
-    public String printList(){
+    public String printList() {
         StringBuilder tasks = new StringBuilder("Here are the tasks in your list:" + "\n");
 
         for (int i = 0; i < listOfTasks.size(); i++) {

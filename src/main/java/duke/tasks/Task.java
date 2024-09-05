@@ -1,8 +1,9 @@
+package duke.tasks;
+
 /**
  * This class represents a task.
  * It contains the name of the task.
  */
-package duke.tasks;
 public class Task {
     private String name;
     private boolean isDone;

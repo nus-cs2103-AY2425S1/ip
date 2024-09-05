@@ -1,8 +1,8 @@
+package duke.exceptions;
+
 /**
  * This exception is thrown when a task is created without the necessary date or time information.
  */
-
-package duke.exceptions;
 public class MissingDateException extends Exception {
     private String taskType;
 

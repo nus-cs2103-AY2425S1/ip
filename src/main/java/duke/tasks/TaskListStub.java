@@ -1,14 +1,21 @@
 package duke.tasks;
-
-import duke.data.TaskDataBase;
-import duke.ui.Ui;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.ui.Ui;
+
+/**
+ * The `TaskListStub` class is a class created for isolated testing of the parser independent of tasklist.
+ */
 public class TaskListStub extends TaskList {
 
-    List<Task> listOfTasks;
+    private List<Task> listOfTasks;
+
+    /**
+     * Constructs a `TaskListStub` object with ui.
+     *
+     * @param ui The Ui passed.
+     */
     public TaskListStub(Ui ui) {
         super(ui);
         this.listOfTasks = new ArrayList<>();

@@ -1,12 +1,12 @@
-/**
- * This class represents tasks that start at a specific date/time
- * and ends at a specific date/time.
- */
 package duke.tasks;
 
 import duke.exceptions.InvalidDateException;
 import duke.parsers.Time;
 
+/**
+ * This class represents tasks that start at a specific date/time
+ * and ends at a specific date/time.
+ */
 public class Event extends Task {
     private Time from;
     private Time to;

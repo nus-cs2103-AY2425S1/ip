@@ -2,11 +2,12 @@ package duke.data;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.exceptions.InvalidDateException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-import duke.tasks.Event;
-import duke.tasks.Deadline;
-import duke.exceptions.InvalidDateException;
 import duke.ui.Ui;
 
 /**
@@ -44,8 +45,8 @@ public class TaskDataBase {
                 task = new Deadline(parts[2], parts[3]);
                 break;
             case "E":
-                 task = new Event(parts[2], parts[3], parts[4]);
-                 break;
+                task = new Event(parts[2], parts[3], parts[4]);
+                break;
             default:
                 throw new IllegalStateException("Unexpected task type: " + parts[0]);
             }

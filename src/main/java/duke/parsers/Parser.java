@@ -1,19 +1,20 @@
+package duke.parsers;
+
+import duke.exceptions.InvalidDateException;
+import duke.exceptions.InvalidInputException;
+import duke.exceptions.MissingDateException;
+import duke.exceptions.MissingTaskNameException;
+import duke.exceptions.TaskNotFoundException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.TaskList;
+import duke.tasks.Todo;
+import duke.ui.Ui;
+
 /**
  * The `Parser` class is responsible for interpreting user input and executing
  * the corresponding commands on the task list.
  */
-package duke.parsers;
-import duke.tasks.Todo;
-import duke.tasks.Event;
-import duke.tasks.Deadline;
-import duke.tasks.TaskList;
-import duke.exceptions.MissingDateException;
-import duke.exceptions.InvalidDateException;
-import duke.exceptions.TaskNotFoundException;
-import duke.exceptions.MissingTaskNameException;
-import duke.exceptions.InvalidInputException;
-import duke.ui.Ui;
-
 public class Parser {
     private TaskList taskList;
     private Ui ui;
@@ -58,7 +59,7 @@ public class Parser {
             handleAddEvent(userInput);
         } else if (userInput.startsWith("delete")) {
             handleDeleteTask(userInput);
-        } else if (userInput.startsWith("find")){
+        } else if (userInput.startsWith("find")) {
             handleFindTask(userInput);
         } else {
             throw new InvalidInputException();

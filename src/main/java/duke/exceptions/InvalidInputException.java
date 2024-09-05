@@ -1,7 +1,8 @@
+package duke.exceptions;
+
 /**
  * This exception is thrown when the user inputs a command that is not recognized by the system.
  */
-package duke.exceptions;
 public class InvalidInputException extends Exception {
     @Override
     public String toString() {

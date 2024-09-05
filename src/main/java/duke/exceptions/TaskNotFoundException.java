@@ -1,7 +1,8 @@
+package duke.exceptions;
+
 /**
  * This exception is thrown when a task is not found in the task list.
  */
-package duke.exceptions;
 public class TaskNotFoundException extends Exception {
     @Override
     public String toString() {
