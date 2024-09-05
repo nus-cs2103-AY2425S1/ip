@@ -3,8 +3,8 @@ package sirpotato;
 public class ListCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.listTasks(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.listTasks(tasks);
     }
     
 }
