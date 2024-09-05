@@ -71,7 +71,7 @@ public class Task {
         return newTask;
     }
 
-    Task(String name) throws TorneInvalidCommandException {
+    protected Task(String name) throws TorneInvalidCommandException {
         if (name == null || name.isEmpty()) {
             throw new TorneInvalidCommandException("torne.task.Task cannot have an empty name");
         }
