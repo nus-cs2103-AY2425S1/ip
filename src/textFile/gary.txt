@@ -1,3 +1,1 @@
-T | 0 | buy bread
-D | 0 | finish quiz | 2024-08-23
-E | 0 | competition | 2024-08-24 0800 | 2024-08-24 1300
+T | 0 | read book

@@ -19,7 +19,7 @@ public class AddCommand extends Command {
             try {
                 storage.saveTask(taskLists);
             } catch(IOException e) {
-
+                System.out.println(e.getMessage());
             }
         }
         @Override

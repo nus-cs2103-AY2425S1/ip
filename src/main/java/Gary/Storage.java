@@ -24,7 +24,7 @@ public class Storage {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-
+                System.out.println(e.getMessage());
             }
         }
         return new Scanner(file);
