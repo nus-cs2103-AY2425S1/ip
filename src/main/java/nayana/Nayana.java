@@ -57,4 +57,11 @@ public class Nayana {
         String filePath = "data/nayana.txt";
         new Nayana(filePath).run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Nayana heard: " + input;
+    }
 }

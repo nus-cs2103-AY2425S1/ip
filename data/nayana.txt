@@ -1,3 +1,2 @@
 1. T | 0 | nothing 
-2. D | 0 | everything | Sept 1 2024
-3. E | 0 | nothing | Sept 1 2024 - Sept 2 2024
+2. D | 0 | something | Sept 1 2024
