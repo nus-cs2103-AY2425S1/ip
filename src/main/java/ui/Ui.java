@@ -63,6 +63,7 @@ public class Ui {
      */
     public void show(String message) {
         System.out.println(message);
+        printLine();
     }
 
     /**
@@ -73,5 +74,6 @@ public class Ui {
      */
     public void showError(String message) {
         System.out.println("Error: " + message);
+        printLine();
     }
 }
