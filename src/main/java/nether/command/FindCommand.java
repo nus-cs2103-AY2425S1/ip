@@ -1,10 +1,13 @@
 package nether.command;
 
-import nether.storage.Storage;
 import nether.Ui;
-import nether.task.Task;
+import nether.storage.Storage;
 import nether.task.TaskList;
 
+/**
+ * A command that searches for tasks in the task list that match the user's input string.
+ * The search is case-insensitive and returns a list of all tasks that contain the input string.
+ */
 public class FindCommand extends Command {
     private final String searchString;
 

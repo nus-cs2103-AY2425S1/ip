@@ -1,9 +1,10 @@
 package nether;
 
+import java.util.Scanner;
+
 import nether.task.Task;
 import nether.task.TaskList;
 
-import java.util.Scanner;
 
 /**
  * Handles all interactions with the user, including displaying messages and reading user input.
@@ -13,7 +14,7 @@ import java.util.Scanner;
  */
 
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Constructs a new {@code Ui} object with a {@link Scanner} to read user input.
@@ -96,7 +97,8 @@ public class Ui {
         StringBuilder response = new StringBuilder();
         response.append("Noted, I've removed this task from the list:\n");
         response.append("  ").append(task.toString()).append("\n");
-        response.append("Now you have " + size + " task" + (size > 1 ? "s" : "") + " in the list.");
+        response.append("Now you have ").append(size).append(" task").append(size > 1 ? "s" : "")
+                .append(" in the list.");
         return response.toString();
     }
 
@@ -113,6 +115,13 @@ public class Ui {
         return response.toString();
     }
 
+    /**
+     * Returns a list of tasks that match the search criteria.
+     * If no matching tasks are found, it returns a message indicating that no matches were found.
+     *
+     * @param matchingTasks The TaskList containing tasks that match the search criteria.
+     * @return A string of all matching tasks or a message indicating no matches found.
+     */
     public String printMatchingTasks(TaskList matchingTasks) {
         StringBuilder response = new StringBuilder();
         if (matchingTasks.getSize() > 0) {

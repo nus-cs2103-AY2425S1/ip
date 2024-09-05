@@ -26,7 +26,7 @@ public class Nether {
     private final TaskList tasks;
     private final Ui ui;
     private final Parser parser;
-
+    private boolean isExit = false;
 
     /**
      * Constructs a new Nether instance.
@@ -41,7 +41,6 @@ public class Nether {
         tasks = new TaskList(storage.loadTasks());
     }
 
-    private boolean isExit = false;
     /**
      * Runs the Nether application, producing a welcome message, and processing user commands in a loop.
      * The loop continues until an exit command is issued by the user.

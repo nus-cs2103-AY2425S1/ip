@@ -1,5 +1,6 @@
 package nether.storage;
 
+import nether.NetherException;
 import nether.task.DeadlineTask;
 import nether.task.EventTask;
 import nether.task.Task;
@@ -99,9 +100,11 @@ public class Storage {
         case "E":
             task = new EventTask(taskParts[2], taskParts[3], taskParts[4]);
             break;
+        default:
+            throw new NetherException("this should not have happened");
         }
 
-        if (task != null && taskParts[1].equals("X")) {
+        if (taskParts[1].equals("X")) {
             task.markAsDone();
         }
         return task;
