@@ -12,7 +12,7 @@ import nathanbot.tasks.Task;
 import nathanbot.tasks.TaskListStore;
 
 public class TaskListTest {
-    // built with Copilot's assistance 
+    // built with Copilot's assistance
     private Storage storage;
     private TaskListStore taskList;
     private Task task1;
