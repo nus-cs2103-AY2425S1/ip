@@ -49,7 +49,7 @@ public class Parser {
             case "deadline" -> new DeadlineCommand(args);
             case "event" -> new EventCommand(args);
             case "bye" -> new ByeCommand();
-            default -> throw new MorganaException("Unknown command: %s".formatted(cmd));
+            default -> throw new MorganaException("Unknown command: " + cmd);
         };
     }
 

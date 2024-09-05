@@ -9,9 +9,9 @@ import morgana.task.TaskList;
 public class ListCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        StringBuilder sb = new StringBuilder("Here are the tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            sb.append("%n%d. %s".formatted(i + 1, tasks.get(i)));
+            sb.append("%d. %s\n".formatted(i + 1, tasks.get(i)));
         }
         return sb.toString();
     }

@@ -36,7 +36,7 @@ public class Storage {
                 file.createNewFile();
             }
         } catch (IOException e) {
-            throw new MorganaException("Failed to initialize storage: %s".formatted(e.getMessage()));
+            throw new MorganaException("Failed to initialize storage: " + e.getMessage());
         }
     }
 
@@ -57,7 +57,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new MorganaException("Failed to load tasks from file: %s".formatted(e.getMessage()));
+            throw new MorganaException("Failed to load tasks from file: " + e.getMessage());
         }
         return tasks;
     }
@@ -72,10 +72,10 @@ public class Storage {
     public void save(TaskList tasks) throws MorganaException {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (int i = 0; i < tasks.size(); i++) {
-                writer.write("%s%n".formatted(tasks.get(i).toFileFormat()));
+                writer.write(tasks.get(i).toFileFormat() + "\n");
             }
         } catch (IOException e) {
-            throw new MorganaException("Failed to save tasks to file: %s".formatted(e.getMessage()));
+            throw new MorganaException("Failed to save tasks to file: " + e.getMessage());
         }
     }
 }

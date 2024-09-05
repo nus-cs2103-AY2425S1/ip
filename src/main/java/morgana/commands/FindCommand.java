@@ -25,11 +25,11 @@ public class FindCommand extends Command {
         if (keyword.isEmpty()) {
             throw new MorganaException("Please enter a keyword to search for.");
         }
-        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.getDescription().contains(keyword)) {
-                sb.append("%n%d. %s".formatted(i + 1, task));
+                sb.append("%d. %s\n".formatted(i + 1, task));
             }
         }
         return sb.toString();
