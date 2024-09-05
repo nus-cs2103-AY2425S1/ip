@@ -1,6 +1,5 @@
 package mylo.command;
 
-
 import mylo.storage.StorageOperationException;
 import mylo.task.TaskList;
 import mylo.ui.Ui;
@@ -17,7 +16,7 @@ import mylo.ui.Ui;
  */
 public class MarkStatusCommand extends Command {
     private final boolean IS_MARK_COMMAND;
-    private final int index;
+    private final int INDEX;
 
     /**
      * Constructs a {@code MarkStatusCommand} to mark or unmark a task's completion status.
@@ -30,7 +29,7 @@ public class MarkStatusCommand extends Command {
      */
     public MarkStatusCommand(boolean isMarkCommand, int index) {
         this.IS_MARK_COMMAND = isMarkCommand;
-        this.index = index;
+        this.INDEX = index;
     }
 
     /**
@@ -45,7 +44,7 @@ public class MarkStatusCommand extends Command {
      */
     @Override
     public void execute(TaskList list, Ui ui) throws StorageOperationException {
-        String message = IS_MARK_COMMAND ? list.markTaskAsDone(index) : list.markTaskAsUndone(index);
+        String message = IS_MARK_COMMAND ? list.markTaskAsDone(INDEX) : list.markTaskAsUndone(INDEX);
         ui.show(message);
     }
 }

@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  * @author cweijin
  */
 public class Deadline extends Task {
-    private final LocalDateTime deadline;
+    private final LocalDateTime DEADLINE;
 
     /**
      * Constructs a {@code Deadline} task with the specified title and deadline.
@@ -46,7 +46,7 @@ public class Deadline extends Task {
      */
     public Deadline(String title, String deadline, boolean isDone) throws IllegalValueException {
         super(title, isDone);
-        this.deadline = HelperFunctions.stringToDateTime(deadline);
+        this.DEADLINE = HelperFunctions.stringToDateTime(deadline);
     }
 
     /**
@@ -59,7 +59,7 @@ public class Deadline extends Task {
      * @return {@code true} if the task is due on the specified date, {@code false} otherwise.
      */
     public boolean dueOnDate(LocalDateTime dateTime) {
-        return deadline.toLocalDate().equals(dateTime.toLocalDate());
+        return DEADLINE.toLocalDate().equals(dateTime.toLocalDate());
     }
 
     /**
@@ -72,7 +72,7 @@ public class Deadline extends Task {
      */
     @Override
     public String storageFormat() {
-        return String.format("DEADLINE | %s | %s | %s", super.getStatus(), super.getTitle(), Formatter.dateTimeStorage(deadline));
+        return String.format("DEADLINE | %s | %s | %s", super.getStatus(), super.getTitle(), Formatter.dateTimeStorage(DEADLINE));
     }
 
     /**
@@ -97,7 +97,7 @@ public class Deadline extends Task {
      * @return A string representing the formatted deadline.
      */
     private String getDeadlineString() {
-        return  " (by: " + Formatter.dateTimeDisplay(deadline) + ")";
+        return  " (by: " + Formatter.dateTimeDisplay(DEADLINE) + ")";
     }
 
 }

@@ -25,8 +25,8 @@ import java.util.List;
  */
 
 public class TaskList {
-    private final ArrayList<Task> list;
-    private final Storage storage = new Storage();
+    private final ArrayList<Task> LIST;
+    private final Storage STORAGE = new Storage();
 
     /**
      * Constructs an empty {@code TaskList}.
@@ -34,7 +34,7 @@ public class TaskList {
      * <p>This constructor initializes a new task list with no tasks.</p>
      */
     public TaskList() {
-        this.list = new ArrayList<>();
+        this.LIST = new ArrayList<>();
     }
 
     /**
@@ -43,7 +43,7 @@ public class TaskList {
      * @param taskList An {@code ArrayList} of {@code Task} objects to initialize the task list.
      */
     public TaskList(ArrayList<Task> taskList) {
-        this.list = taskList;
+        this.LIST = taskList;
     }
 
     /**
@@ -59,14 +59,16 @@ public class TaskList {
      * @throws StorageOperationException If an error occurs while saving the task to storage.
      * @throws IllegalValueException If the provided values are invalid.
      */
-    public String addTask(String info, TaskType type) throws InsufficientInfoException, StorageOperationException, IllegalValueException {
+    public String addTask(String info, TaskType type) throws InsufficientInfoException,
+            StorageOperationException, IllegalValueException {
         if (info.isBlank()) {
             throw new InsufficientInfoException(type);
         } else {
             Task task = Task.of(info.substring(1), type);
-            list.add(task);
-            storage.save(task);
-            return String.format("Got it. I've added this task:\n %s\nNow you have %s tasks in the list.", task, list.size());
+            LIST.add(task);
+            STORAGE.save(task);
+            return String.format("Got it. I've added this task:\n %s\nNow you have %s tasks in the list.",
+                    task, LIST.size());
         }
     }
 
@@ -80,10 +82,12 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the provided index is out of range.
      */
     public void deleteTask(int index) throws StorageOperationException, IndexOutOfBoundsException {
-        if (index > list.size()) throw new IndexOutOfBoundsException(String.format("There is only %s tasks in the list.", list.size()));
-        Task removed = list.remove(index - 1);
-        storage.rewrite(list);
-        System.out.printf("Noted. I've removed this task:\n %s\nNow you have %s tasks in the list.\n", removed, list.size());
+        if (index > LIST.size()) throw new IndexOutOfBoundsException(String.format(
+                "There is only %s tasks in the list.", LIST.size()));
+        Task removed = LIST.remove(index - 1);
+        STORAGE.rewrite(LIST);
+        System.out.printf("Noted. I've removed this task:\n %s\nNow you have %s tasks in the list.\n",
+                removed, LIST.size());
     }
 
     /**
@@ -96,8 +100,8 @@ public class TaskList {
      * @throws StorageOperationException If an error occurs while rewriting the storage.
      */
     public String markTaskAsDone(int index) throws StorageOperationException {
-        storage.rewrite(this.list);
-        return list.get(index - 1).markAsDone();
+        STORAGE.rewrite(this.LIST);
+        return LIST.get(index - 1).markAsDone();
     }
 
     /**
@@ -110,8 +114,8 @@ public class TaskList {
      * @throws StorageOperationException If an error occurs while rewriting the storage.
      */
     public String markTaskAsUndone(int index) throws StorageOperationException {
-        storage.rewrite(list);
-        return list.get(index - 1).markAsUndone();
+        STORAGE.rewrite(LIST);
+        return LIST.get(index - 1).markAsUndone();
     }
 
     /**
@@ -148,7 +152,7 @@ public class TaskList {
     public TaskList tasksOnDate(LocalDateTime date) {
         ArrayList<Task> result = new ArrayList<>();
 
-        for (Task task: list) {
+        for (Task task: LIST) {
             if ((task instanceof Deadline && ((Deadline) task).dueOnDate(date) )
                     || (task instanceof Event && ((Event) task).isOngoing(date))) {
                 result.add(task);
@@ -171,13 +175,15 @@ public class TaskList {
     public String toString() {
         StringBuilder string = new StringBuilder();
 
-        if (list.isEmpty())
-            string.append("Your task list is empty. Try adding tasks: \n1. todo <Task Title> \n2. event <Task Title> /from <Start Date> /to <End Date> \n3. deadline <Task Title> /by <Due Date>");
-        for (int i = 0; i < list.size(); i++) {
+        if (LIST.isEmpty())
+            string.append("Your task list is empty. Try adding tasks: \n1. todo <Task Title> "
+                    + "\n2. event <Task Title> /from <Start Date> /to <End Date>"
+                    + " \n3. deadline <Task Title> /by <Due Date>");
+        for (int i = 0; i < LIST.size(); i++) {
             if (i > 0) {
                 string.append("\n");
             }
-            string.append(Integer.toString(i + 1)).append(". ").append(list.get(i).toString());
+            string.append(Integer.toString(i + 1)).append(". ").append(LIST.get(i).toString());
         }
 
         return string.toString();

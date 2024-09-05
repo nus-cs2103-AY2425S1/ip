@@ -17,7 +17,7 @@ import mylo.utils.exceptions.IllegalValueException;
  * @author cweijin
  */
 public abstract class Task {
-    private final String title;
+    private final String TITLE;
     private boolean status;
 
     /**
@@ -38,7 +38,7 @@ public abstract class Task {
      * @param isDone Whether the task is marked as done upon creation.
      */
     public Task(String title, boolean isDone) {
-        this.title = title;
+        this.TITLE = title;
         this.status = isDone;
     }
 
@@ -101,7 +101,7 @@ public abstract class Task {
     public abstract String storageFormat();
 
     public String getTitle() {
-        return this.title;
+        return this.TITLE;
     }
 
     public String getStatus() {

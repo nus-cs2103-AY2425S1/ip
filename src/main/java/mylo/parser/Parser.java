@@ -1,9 +1,12 @@
 package mylo.parser;
 
-import mylo.command.*;
-import mylo.data.InsufficientInfoException;
+import mylo.command.Command;
+import mylo.command.MarkStatusCommand;
+import mylo.command.ExitCommand;
+import mylo.command.ListCommand;
+import mylo.command.AddCommand;
+import mylo.command.DeleteCommand;
 import mylo.data.NoSuchCommandException;
-import mylo.task.TaskList;
 import mylo.task.TaskType;
 import mylo.utils.exceptions.IllegalValueException;
 import mylo.utils.helpers.HelperFunctions;
@@ -38,7 +41,9 @@ public class Parser {
 
         switch (keys[0]) {
         case "list":
-            if (keys.length == 1) return new ListCommand();
+            if (keys.length == 1) {
+                return new ListCommand();
+            }
             LocalDateTime dateTime;
             switch (keys[1]) {
             case "today" -> dateTime = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT);
