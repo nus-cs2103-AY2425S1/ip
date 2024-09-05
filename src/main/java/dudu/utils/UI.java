@@ -8,9 +8,8 @@ import dudu.task.Task;
  * Represents the user interaction portion of the chatbot
  */
 public class UI {
-    private static String welcomeMessage = LineWrapper.wrap("Hello! I'm dudu\n"
-            + "What can I do for you?");
-    private static String goodbyeMessage = LineWrapper.wrap("Bye. Hope to see you again soon!");
+    private static String welcomeMessage = "Hello! I'm dudu\nWhat can I do for you?";
+    private static String goodbyeMessage = "Bye. Hope to see you again soon!";
 
     /**
      * Returns a welcome message
@@ -46,7 +45,7 @@ public class UI {
      * @return Error message
      */
     public String showError(Exception e) {
-        return LineWrapper.wrap(e.toString());
+        return e.toString();
     }
 
     /**
@@ -57,8 +56,8 @@ public class UI {
      * @return Message of successful task addition
      */
     public String addTask(Task task, int size) {
-        String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n"
-                + "    %s\nNow you have %d tasks in the list.", task, size));
+        String output = String.format("Got it. I've added this task:\n"
+                + "    %s\nNow you have %d tasks in the list.", task, size);
         return output;
     }
 
@@ -69,7 +68,7 @@ public class UI {
      * @return Message of task being mark as completed
      */
     public String markTask(Task task) {
-        return LineWrapper.wrap(String.format("Nice! I've marked this task as done:\n    %s", task));
+        return String.format("Nice! I've marked this task as done:\n    %s", task);
     }
 
     /**
@@ -79,7 +78,7 @@ public class UI {
      * @return Message of task being mark as uncompleted
      */
     public String unmarkTask(Task task) {
-        return LineWrapper.wrap(String.format("OK, I've marked this task as not done yet:\n    %s", task));
+        return String.format("OK, I've marked this task as not done yet:\n    %s", task);
     }
 
     /**
@@ -88,7 +87,7 @@ public class UI {
      * @param task The task to be deleted
      */
     public String deleteTask(Task task) {
-        return LineWrapper.wrap(String.format("Noted. I've removed this task:\n    %s", task));
+        return String.format("Noted. I've removed this task:\n    %s", task);
     }
 
     /**
@@ -100,13 +99,13 @@ public class UI {
     public String printTasks(TaskList tasklist) {
         ArrayList<Task> tasks = tasklist.getTasks();
         if (tasks.isEmpty()) {
-            return LineWrapper.wrap("No tasks");
+            return "No tasks";
         } else {
             StringBuilder output = new StringBuilder("Here are the tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
                 output.append("\n" + (i + 1) + ". " + tasks.get(i));
             }
-            return LineWrapper.wrap(output.toString());
+            return output.toString();
         }
     }
 
@@ -118,13 +117,13 @@ public class UI {
      */
     public String findTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            return LineWrapper.wrap("No matching tasks in your list");
+            return "No matching tasks in your list";
         } else {
             StringBuilder output = new StringBuilder("Here are the matching tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
                 output.append("\n" + (i + 1) + ". " + tasks.get(i));
             }
-            return LineWrapper.wrap(output.toString());
+            return output.toString();
         }
     }
 }
