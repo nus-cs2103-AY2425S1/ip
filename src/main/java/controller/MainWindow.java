@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Arrays;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -42,10 +44,9 @@ public class MainWindow extends AnchorPane {
      */
     public void setup() {
         botManager = new BotManager();
-        addBotDialog(botManager.loadData().getMessage());
         String welcomeMessage = "Hello, I'm BotManager, your friendly task assistant!\n"
                 + "What can I do for you? (Type 'help' to view all available commands)";
-        addBotDialog(welcomeMessage);
+        addBotDialog(botManager.loadData().getMessage(), welcomeMessage);
     }
 
     /**
@@ -56,16 +57,15 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         userInput.clear();
-        Response[] responses = botManager.getResponse(input);
         addUserDialog(input);
-        for (Response response : responses) {
-            addBotDialog(response.getMessage());
-        }
-        for (Response response : responses) {
-            if (response.isTerminating()) {
-                closeWindow();
-                break;
-            }
+
+        Response[] responses = botManager.getResponse(input);
+        String [] messages = Arrays.stream(responses).map(Response::getMessage).toArray(String[]::new);
+        addBotDialog(messages);
+
+        boolean shouldTerminate = Arrays.stream(responses).anyMatch(Response::isTerminating);
+        if (shouldTerminate) {
+            Platform.exit();
         }
     }
 
@@ -73,8 +73,10 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getUserDialog(message, userImage));
     }
 
-    private void addBotDialog(String message) {
-        dialogContainer.getChildren().add(DialogBox.getBotDialog(message, botManagerImage));
+    private void addBotDialog(String... messages) {
+        for (String message : messages) {
+            dialogContainer.getChildren().add(DialogBox.getBotDialog(message, botManagerImage));
+        }
     }
 
     private void closeWindow() {
