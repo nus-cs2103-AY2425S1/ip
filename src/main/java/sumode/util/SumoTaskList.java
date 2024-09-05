@@ -74,35 +74,16 @@ public class SumoTaskList {
             this.ui.printTask(filtered, true);
             break;
         case MARK: {
-            int index;
-            try {
-                index = Integer.parseInt(item);
-            } catch (IllegalArgumentException e) {
-                throw new WrongSyntaxForCommandException(command);
-            }
-
-            if (index > tasks.size() || index <= 0) {
-                throw new NonExistentTaskException(index);
-            }
+            int index = getIndex(command, item);
             tasks.get(index - 1).mark();
             ui.mark(tasks.get(index - 1));
-
         }
             if (storage != null) {
                 storage.save(this.tasks);
             }
             break;
         case UNMARK: {
-            int index;
-            try {
-                index = Integer.parseInt(item);
-            } catch (IllegalArgumentException e) {
-                throw new WrongSyntaxForCommandException(command);
-            }
-
-            if (index > tasks.size() || index <= 0) {
-                throw new NonExistentTaskException(index);
-            }
+            int index = getIndex(command, item);
             tasks.get(index - 1).unmark();
             ui.unmark(tasks.get(index - 1));
         }
@@ -112,15 +93,7 @@ public class SumoTaskList {
 
             break;
         case DELETE: {
-            int index;
-            try {
-                index = Integer.parseInt(item);
-            } catch (IllegalArgumentException e) {
-                throw new WrongSyntaxForCommandException(command);
-            }
-            if (index > tasks.size() || index <= 0) {
-                throw new NonExistentTaskException(index);
-            }
+            int index = getIndex(command, item);
             ui.removeTask(tasks.get(index - 1), tasks.size() - 1);
             tasks.remove(index - 1);
         }
@@ -142,5 +115,19 @@ public class SumoTaskList {
             throw new UnknownCommandException(command);
         }
         return false;
+    }
+
+    private int getIndex(Command command, String item) throws WrongSyntaxForCommandException, NonExistentTaskException {
+        int index;
+        try {
+            index = Integer.parseInt(item);
+        } catch (IllegalArgumentException e) {
+            throw new WrongSyntaxForCommandException(command);
+        }
+
+        if (index > tasks.size() || index <= 0) {
+            throw new NonExistentTaskException(index);
+        }
+        return index;
     }
 }
