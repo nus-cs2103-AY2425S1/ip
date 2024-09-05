@@ -10,17 +10,17 @@ import ui.Ui;
  */
 public class Testament {
 
+    private static final String FILE_PATH = "Memory.TaskList.txt";
     private final Storage storage;
     private final Ui ui;
     private final TaskList taskList;
     private final Parser parser;
-    private final String FILEPATH = "Memory.TaskList.txt";
 
     /**
      * Constructor for testament
      */
     public Testament() {
-        storage = new Storage(FILEPATH);
+        storage = new Storage(FILE_PATH);
         ui = new Ui();
         taskList = storage.load();
         parser = new Parser(ui, taskList, storage);
