@@ -1,9 +1,9 @@
 public class Todo extends Task {
-    public Todo (String description) throws EmptyDescriptionException {
+    public Todo (String description) {
         super(description);
     }
 
-    public Todo (String description, boolean done) throws EmptyDescriptionException {
+    public Todo (String description, boolean done) {
         super(description);
         if (done) {
             this.markTask();

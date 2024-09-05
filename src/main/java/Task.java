@@ -6,9 +6,13 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) throws EmptyDescriptionException {
+    public Task(String description){
         if (description.isEmpty()) {
-            throw new EmptyDescriptionException();
+            try {
+                throw new EmptyDescriptionException();
+            } catch (EmptyDescriptionException e) {
+                System.out.println("This task ain't it pal.");
+            }
         }
         this.description = description;
         isDone = false;

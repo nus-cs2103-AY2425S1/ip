@@ -1,11 +1,11 @@
 public class Deadline extends Task {
     protected String by;
-    public Deadline (String description, String by) throws EmptyDescriptionException {
+    public Deadline (String description, String by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline (String description, String by, boolean done) throws EmptyDescriptionException {
+    public Deadline (String description, String by, boolean done) {
         super(description);
         this.by = by;
         if (done) {
@@ -18,20 +18,25 @@ public class Deadline extends Task {
      *
      * @param str Un-separated String
      */
-    public Deadline (String str) throws IncompleteEventOrDeadlineException, EmptyDescriptionException {
+    public Deadline (String str) {
         if (!str.contains("/by ")) {
-            throw new IncompleteEventOrDeadlineException();
+            try {
+                throw new IncompleteEventOrDeadlineException();
+            } catch (IncompleteEventOrDeadlineException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             String desc = (str.substring(0, str.toLowerCase().indexOf("/by ")));
-            if (desc.isEmpty()) {
-                throw new EmptyDescriptionException();
+            try {
+                this.description = desc;
+                this.by = parseDate(str.substring(str.toLowerCase().indexOf("/by ") + 4, str.length()));
+                if (by.isEmpty() || desc.isEmpty()) {
+                    throw new IncompleteEventOrDeadlineException();
+                }
+                isDone = false;
+            } catch (IncompleteEventOrDeadlineException e) {
+                System.out.println("THIS AINT IT."); //TODO PUT PROPER WORDING HERE
             }
-            this.description = desc;
-            this.by = parseDate(str.substring(str.toLowerCase().indexOf("/by ") + 4, str.length()));
-            if (by.isEmpty()) {
-                throw new IncompleteEventOrDeadlineException();
-            }
-            isDone = false;
         }
     }
 
