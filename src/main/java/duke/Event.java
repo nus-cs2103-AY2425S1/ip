@@ -6,8 +6,8 @@ package duke;
  */
 public class Event extends IndividualTask {
 
-    private final String from;
-    private final String to;
+    private String from;
+    private String to;
 
     /**
      * Constructs an {@code Event} object with the specified task description, start time, and end time.
@@ -19,6 +19,12 @@ public class Event extends IndividualTask {
     public Event(String taskDescription, String from, String to) {
         super(taskDescription);
         this.from = from;
+        this.to = to;
+    }
+    public void setFrom(String from) {
+        this.from = from;
+    }
+    public void setTo(String to) {
         this.to = to;
     }
 

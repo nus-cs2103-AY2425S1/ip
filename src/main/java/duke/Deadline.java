@@ -10,8 +10,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends IndividualTask {
 
-    private final String returnBy;
-    private final LocalDateTime formatReturnBy;
+    private String returnBy;
+    private LocalDateTime formatReturnBy;
 
     /**
      * Constructs a {@code Deadline} object with the specified task description and return by date/time.
@@ -25,6 +25,10 @@ public class Deadline extends IndividualTask {
         this.formatReturnBy = parseDateTime(returnBy);
     }
 
+    public void setReturnBy(String returnBy) {
+        this.returnBy = returnBy;
+        this.formatReturnBy = parseDateTime(this.returnBy);
+    }
     /**
      * Parses the date/time string into a {@code LocalDateTime} object.
      *

@@ -7,7 +7,7 @@ package duke;
  */
 public abstract class IndividualTask {
 
-    private final String taskDescription;
+    private String taskDescription;
     private boolean isTaskDone;
 
     /**
@@ -18,6 +18,10 @@ public abstract class IndividualTask {
     public IndividualTask(String taskDescription) {
         this.taskDescription = taskDescription;
         this.isTaskDone = false;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
     }
 
     /**
