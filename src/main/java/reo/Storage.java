@@ -5,9 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 /** Supports the required file operations for reo.Reo. */
 public class Storage {
@@ -46,32 +48,35 @@ public class Storage {
                 System.out.println("Created new file to store list.");
                 return tasks;
             }
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String line = s.nextLine();
-                String[] split = line.split("\\|");
-                assert split.length >= 3 : "Invalid file format";
 
-                switch (split[0].trim()) {
-                    case "T":
-                        boolean isDoneT = convertIntToBool(Integer.parseInt(split[1].trim()));
-                        String nameT = split[2].trim();
-                        tasks.add(new Todo(nameT, isDoneT));
-                        break;
-                    case "E":
-                        boolean isDoneE = convertIntToBool(Integer.parseInt(split[1].trim()));
-                        String nameE = split[2].trim();
-                        String from = split[3].trim();
-                        String to = split[4].trim();
-                        tasks.add(new Event(nameE, isDoneE, to, from));
-                        break;
-                    case "D":
-                        boolean isDoneD = convertIntToBool(Integer.parseInt(split[1].trim()));
-                        String nameD = split[2].trim();
-                        String deadline = split[3].trim();
-                        tasks.add(new Deadline(nameD, isDoneD, deadline));
-                        break;
-                }
+            try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+                lines.forEach(line -> {
+                    String[] split = line.split("\\|");
+                    assert split.length >= 3 : "Invalid file format";
+
+                    switch (split[0].trim()) {
+                        case "T":
+                            boolean isDoneT = convertIntToBool(Integer.parseInt(split[1].trim()));
+                            String nameT = split[2].trim();
+                            tasks.add(new Todo(nameT, isDoneT));
+                            break;
+                        case "E":
+                            boolean isDoneE = convertIntToBool(Integer.parseInt(split[1].trim()));
+                            String nameE = split[2].trim();
+                            String from = split[3].trim();
+                            String to = split[4].trim();
+                            tasks.add(new Event(nameE, isDoneE, to, from));
+                            break;
+                        case "D":
+                            boolean isDoneD = convertIntToBool(Integer.parseInt(split[1].trim()));
+                            String nameD = split[2].trim();
+                            String deadline = split[3].trim();
+                            tasks.add(new Deadline(nameD, isDoneD, deadline));
+                            break;
+                        default:
+                            assert false : "Unrecognized task type in file";
+                    }
+                });
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found! Ensure the file path starts with ./data");
@@ -179,6 +184,5 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("IO Exception!");
         }
-
     }
 }
