@@ -158,8 +158,7 @@ public class TaskList {
     public void listTasks() {
         int counter = 1;
         for (Task t : tasks) {
-            System.out.println(String.format("%d. [%s][%s] %s",
-                    counter, t.getTaskType(), t.getStatusIcon(), t.getTaskInfo()));
+            System.out.println(String.format("%d. [%s][%s] %s", counter, t.getTaskType(), t.getStatusIcon(), t.getTaskInfo()));
             counter++;
         }
     }
