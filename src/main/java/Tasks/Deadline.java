@@ -20,9 +20,12 @@ public class Deadline extends Task {
         String time = yearTime[1];
         String hour = time.substring(0, 2);
         String minute = time.substring(2);
-        LocalDate localDate = LocalDate.of(year, month, dayOfMonth);
-        LocalTime localTime = LocalTime.of(Integer.parseInt(hour), Integer.parseInt(minute));
-        LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+        LocalDate localDate = LocalDate.of(
+                year, month, dayOfMonth);
+        LocalTime localTime = LocalTime.of(
+                Integer.parseInt(hour), Integer.parseInt(minute));
+        LocalDateTime localDateTime = LocalDateTime.of(
+                localDate, localTime);
         this.localDateTime = localDateTime;
     }
 

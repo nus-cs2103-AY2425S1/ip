@@ -35,8 +35,8 @@ public class List {
     public String displayList() {
         StringBuilder list = new StringBuilder();
         list.append("Here are the tasks in your list:\n");
-        for (int i=0; i < tasks.size(); i++) {
-            list.append(i+1).append(".").append(tasks.get(i).displayTask());
+        for (int i = 0; i < tasks.size(); i++) {
+            list.append(i + 1).append(".").append(tasks.get(i).displayTask());
         }
         return line + list + line;
     }

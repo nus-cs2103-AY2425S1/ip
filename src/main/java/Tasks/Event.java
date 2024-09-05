@@ -22,9 +22,12 @@ public class Event extends Task {
         String startTime = startYearTime[1];
         String startHour = startTime.substring(0, 2);
         String startMinute = startTime.substring(2);
-        LocalDate startLocalDate = LocalDate.of(startYear, startMonth, startDayOfMonth);
-        LocalTime startLocalTime = LocalTime.of(Integer.parseInt(startHour), Integer.parseInt(startMinute));
-        LocalDateTime startLocalDateTime = LocalDateTime.of(startLocalDate, startLocalTime);
+        LocalDate startLocalDate = LocalDate.of(
+                startYear, startMonth, startDayOfMonth);
+        LocalTime startLocalTime = LocalTime.of(
+                Integer.parseInt(startHour), Integer.parseInt(startMinute));
+        LocalDateTime startLocalDateTime = LocalDateTime.of(
+                startLocalDate, startLocalTime);
         this.startLocalDateTime = startLocalDateTime;
 
         String[] endStrings = end.split("/");
@@ -35,9 +38,12 @@ public class Event extends Task {
         String endTime = endYearTime[1];
         String endHour =endTime.substring(0, 2);
         String endMinute = endTime.substring(2).split("\\)")[0];
-        LocalDate endLocalDate = LocalDate.of(endYear, endMonth, endDayOfMonth);
-        LocalTime endLocalTime = LocalTime.of(Integer.parseInt(endHour), Integer.parseInt(endMinute));
-        LocalDateTime endLocalDateTime = LocalDateTime.of(endLocalDate, endLocalTime);
+        LocalDate endLocalDate = LocalDate.of(
+                endYear, endMonth, endDayOfMonth);
+        LocalTime endLocalTime = LocalTime.of(
+                Integer.parseInt(endHour), Integer.parseInt(endMinute));
+        LocalDateTime endLocalDateTime = LocalDateTime.of(
+                endLocalDate, endLocalTime);
         this.endLocalDateTime = endLocalDateTime;
 
     }
@@ -52,14 +58,18 @@ public class Event extends Task {
         }
         String startMonth = this.startLocalDateTime.getMonth().getDisplayName(
                 TextStyle.valueOf("SHORT"), new Locale("English"));
-        String startDayOfMonth = String.valueOf(this.startLocalDateTime.getDayOfMonth());
-        String startYear = String.valueOf(this.startLocalDateTime.getYear());
+        String startDayOfMonth = String.valueOf(
+                this.startLocalDateTime.getDayOfMonth());
+        String startYear = String.valueOf(
+                this.startLocalDateTime.getYear());
         String startTime = this.startLocalDateTime.toLocalTime().toString();
 
         String endMonth = this.endLocalDateTime.getMonth().getDisplayName(
                 TextStyle.valueOf("SHORT"), new Locale("English"));
-        String endDayOfMonth = String.valueOf(this.endLocalDateTime.getDayOfMonth());
-        String endYear = String.valueOf(this.endLocalDateTime.getYear());
+        String endDayOfMonth = String.valueOf(
+                this.endLocalDateTime.getDayOfMonth());
+        String endYear = String.valueOf(
+                this.endLocalDateTime.getYear());
         String endTime = this.endLocalDateTime.toLocalTime().toString();
 
         return "[E]" + cross + " " + super.getInput()
