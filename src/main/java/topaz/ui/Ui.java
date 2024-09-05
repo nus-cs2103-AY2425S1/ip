@@ -13,52 +13,37 @@ import topaz.task.Task;
  * Provides methods to read user input, display messages, and show errors.
  */
 public class Ui {
-
-    private Scanner scanner;
     /**
      * Initializes the Ui with a new {@link Scanner} for reading user input.
      */
     public Ui() {
-        scanner = new Scanner(System.in);
     }
 
-
-    /**
-     * Reads the next line of user input.
-     *
-     * @return The line of user input as a {@link String}.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-    public void welcome() {
-        showLine();
-        System.out.println(" Hello! I'm Topaz - I work in the IPC's Strategic Investment Department. "
-                + "Long time no see! How have you been? Clocking in a lot of overtime?");
-        System.out.println(" What can I do for you?");
-        showLine();
+    public String welcome() {
+        return "Hello! I'm Topaz - I work in the IPC's Strategic Investment Department. "
+                + "Long time no see! How have you been? Clocking in a lot of overtime?"
+                + " What can I do for you?";
     }
 
-    public void showUserIobError() {
-        System.out.println("Please enter valid information after the keyword!");
-        System.out.println("Try again!");
+    public String showUserIobError() {
+        return "Please enter valid information after the keyword!\n"
+                + "Try again!";
     }
 
-    public void showMarkIobError(int index) {
-        System.out.println("Invalid index number: " + index + " Please refer to your list.");
+    public String showMarkIobError(int index) {
+        return "Invalid index number: " + index + " Please refer to your list.";
     }
-    public void showException(Exception e) {
-        System.out.println(e);
-        System.out.println("Try again!");
-    }
-
-    public void goodbye() {
-        System.out.println(" Ugh, why do they have to call me for such a trivial matter... Sorry, something just came up at work, I've got to get going!");
-        System.out.println(" Bye. Hope to see you again soon!");
-        scanner.close();
+    public String showException(Exception e) {
+        return e + "Try agian!";
     }
 
-    public void showHelp() {
+    public String goodbye() {
+        return "Ugh, why do they have to call me for such a trivial matter... "
+                + "Sorry, something just came up at work, I've got to get going!\n"
+                + "Bye. Hope to see you again soon!";
+    }
+
+    public String showHelp() {
         String guide = """
                     1. Adding Tasks
                     1) ToDos: Tasks without specific dates/times.
@@ -83,68 +68,65 @@ public class Ui {
                     3. Mark task status
                     1) Mark task as done: mark <index of task in list>
                     2) Mark task as undo: unmark <index of task in list>""";
-        System.out.println(guide);
+        return guide;
     }
 
-    public void showTimeParseException(DateTimeParseException dateTimeParseException) {
-        System.out.println("Invalid input date time: " + dateTimeParseException);
+    public String showTimeParseException(DateTimeParseException dateTimeParseException) {
+        return "Invalid input date time: " + dateTimeParseException;
     }
-    public void showFileIobError(IndexOutOfBoundsException e) {
-        System.out.println("Invalid input task file format: " + e
-                + " Remove the file and try again!");
+    public String showFileIobError(IndexOutOfBoundsException e) {
+        return "Invalid input task file format: " + e
+                + "Remove the file and try again!";
     }
-    public void showInvalidStateException(InvalidStateException e) {
-        System.out.println("Invalid input task file format: " + e
-                + " Remove the file and try again!");
+    public String showInvalidStateException(InvalidStateException e) {
+        return "Invalid input task file format: " + e
+                + "Remove the file and try again!";
     }
-    public void showInitializeIoeException(IOException e) {
-        System.out.println("Error in ininializing lists: " + e + " Try again!");
-    }
-
-    public void showSaveIoeException(IOException e) {
-        System.out.println("Error in creating file for current list: " + e);
+    public String showInitializeIoeException(IOException e) {
+        return "Error in ininializing lists: " + e + " Try again!";
     }
 
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String showSaveIoeException(IOException e) {
+        return "Error in creating file for current list: " + e;
     }
 
-    public void showTaskList() {
-        System.out.println(" Who works for money these days? Money is a means, "
-                           + "not an end. Work should make you happy... That's the most fundamental principle.");
-        System.out.println(" Don't forget your work~");
+
+    public String showTaskList() {
+        return "Who works for money these days? Money is a means, "
+                + "not an end. Work should make you happy... That's the most fundamental principle.\n"
+                + "Don't forget your work~";
     }
 
-    public void showDoneTaskStatus(Task task) {
-        System.out.println(" Another project over the finish line! I've marked this task as done:");
-        System.out.println("    " + task.getStatus());
+    public String showDoneTaskStatus(Task task) {
+        return "Another project over the finish line! I've marked this task as done:\n"
+                + "    " + task.getStatus();
     }
 
-    public void showUndoneTaskStatus(Task task, int size) {
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("    " + task.getStatus());
-        System.out.println(" Now you have " + size + " tasks in the list.");
+    public String showUndoneTaskStatus(Task task, int size) {
+        return "Noted. I've removed this task:\n"
+                + "    " + task.getStatus()
+                + "Now you have " + size + " tasks in the list.";
     }
 
-    public void showAddTask(Task task, int size) {
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("    " + task.getStatus());
-        System.out.println(" Hard work pays off~");
-        System.out.println(" Now you have " + size + " tasks in the list.");
+    public String showAddTask(Task task, int size) {
+        return "Got it. I've added this task:\n"
+                + "    " + task.getStatus() + "\n"
+                + "Hard work pays off~\n"
+                + "Now you have " + size + " tasks in the list.";
     }
 
-    public void showDeleteTask(Task task, int size) {
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("    " + task.getStatus());
-        System.out.println(" Now you have " + size + " tasks in the list.");
+    public String showDeleteTask(Task task, int size) {
+        return "Noted. I've removed this task:\n"
+                + "    " + task.getStatus()
+                + "Now you have " + size + " tasks in the list.";
     }
 
-    public void showTargetTask(TaskList taskList) {
+    public String showTargetTask(TaskList taskList) {
         if (taskList.getSize() == 0) {
-            System.out.println("No matching task found. Enter \"list\" to see current tasks.");
+            return "No matching task found. Enter \"list\" to see current tasks.";
         } else {
-            System.out.println("Here are matching tasks in your list:");
-            System.out.println(taskList);
+            return "Here are matching tasks in your list:\n"
+                    + taskList;
         }
     }
 }

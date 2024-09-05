@@ -39,7 +39,7 @@ public class CreateCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task task;
             switch (super.keyword) {
@@ -53,14 +53,14 @@ public class CreateCommand extends Command {
                 task = addEvent(tasks);
                 break;
             default:
-                return;
+                return "";
             }
-            ui.showAddTask(task, tasks.getSize());
             storage.save(tasks);
+            return ui.showAddTask(task, tasks.getSize());
         } catch (InvalidTaskException e) {
-            ui.showException(e);
+            return ui.showException(e);
         } catch (IOException e) {
-            ui.showSaveIoeException(e);
+            return ui.showSaveIoeException(e);
         }
     }
 

@@ -30,7 +30,9 @@ public class Command {
      * @param ui       The Ui object that handles user interaction.
      * @param storage  The Storage object that handles saving and loading data.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {}
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return null;
+    }
 
     public boolean isExit() {
         return isExit;

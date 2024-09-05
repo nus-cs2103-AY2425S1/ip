@@ -27,20 +27,21 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             if (super.keyword.equals("mark")) {
                 Task task = taskList.markAsDone(index);
-                ui.showDoneTaskStatus(task);
+                storage.save(taskList);
+                return ui.showDoneTaskStatus(task);
             } else {
                 Task task = taskList.markAsUndone(index);
-                ui.showUndoneTaskStatus(task, taskList.getSize());
+                storage.save(taskList);
+                return ui.showUndoneTaskStatus(task, taskList.getSize());
             }
-            storage.save(taskList);
         } catch (IndexOutOfBoundsException e) {
-            ui.showMarkIobError(index);
+            return ui.showMarkIobError(index);
         } catch (IOException e) {
-            ui.showSaveIoeException(e);
+            return ui.showSaveIoeException(e);
         }
     }
 }

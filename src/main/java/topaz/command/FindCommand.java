@@ -2,7 +2,6 @@ package topaz.command;
 
 import topaz.main.Storage;
 import topaz.main.TaskList;
-import topaz.task.Task;
 import topaz.ui.Ui;
 
 /**
@@ -22,8 +21,8 @@ public class FindCommand extends TextCommand {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList target = tasks.find(filter);
-        ui.showTargetTask(target);
+        return ui.showTargetTask(target);
     }
 }

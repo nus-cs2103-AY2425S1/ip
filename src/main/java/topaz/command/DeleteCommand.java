@@ -35,13 +35,13 @@ public class DeleteCommand extends Command {
      * @param storage The Storage used to save the updated task list to file after deletion completed.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task task = tasks.removeTask(index - 1);
             storage.save(tasks);
-            ui.showDeleteTask(task, tasks.getSize());
+            return ui.showDeleteTask(task, tasks.getSize());
         } catch (IOException e) {
-            ui.showSaveIoeException(e);
+            return ui.showSaveIoeException(e);
         }
     }
 }

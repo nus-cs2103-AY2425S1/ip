@@ -1,13 +1,10 @@
 package topaz.task;
 
-import java.util.ArrayList;
-
 import topaz.exception.InvalidStateException;
 /**
  * Represents a task with a description and a completion status.
  * A {@link Task} object has a description and a boolean flag indicating whether the task is done.
  */
-
 public class Task {
     protected String description;
     protected Boolean isDone = false;

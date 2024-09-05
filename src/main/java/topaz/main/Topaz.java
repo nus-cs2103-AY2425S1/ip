@@ -2,8 +2,10 @@ package topaz.main;
 
 import java.io.IOException;
 
+import javafx.application.Application;
 import topaz.command.Command;
 import topaz.exception.InvalidCommandException;
+import topaz.ui.MainUi;
 import topaz.ui.Ui;
 
 /**
@@ -45,32 +47,17 @@ public class Topaz {
         }
     }
 
-    /**
-     * Runs the main loop of the application.
-     * Continuously reads commands from the user, parses them into {@link Command} objects,
-     * executes the commands, and handles any exceptions that occur.
-     * The loop continues until an exit command is received.
-     */
-    public void run() {
-        ui.welcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
-            } catch (InvalidCommandException e) {
-                ui.showException(e);
-            } finally {
-                ui.showLine();
-            }
+    public String getResponse(String userInput) {
+        try {
+            Command c = Parser.parse(userInput);
+            return c.execute(taskList, ui, storage);
+        } catch (InvalidCommandException e) {
+            return ui.showException(e);
         }
     }
-    public static void main(String[] args) {
-        new Topaz("data/Topaz.txt").run();
-    }
 
+    public static void main(String[] args) {
+        Application.launch(MainUi.class, args);
+    }
 
 }

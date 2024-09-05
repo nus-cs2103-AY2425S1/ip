@@ -41,20 +41,17 @@ public class TextCommand extends Command {
      * @param storage The Storage, which is not used by this command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         switch (super.keyword) {
         case "bye":
-            ui.goodbye();
-            break;
+            return ui.goodbye();
         case "help":
-            ui.showHelp();
-            break;
+            return ui.showHelp();
         case "list":
-            ui.showTaskList();
             tasks.listTasks();
-            break;
+            return ui.showTaskList();
         default:
-            break;
+            return "";
         }
     }
 
