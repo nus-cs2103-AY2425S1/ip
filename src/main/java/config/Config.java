@@ -16,7 +16,7 @@ public class Config {
 		"   \\:\\/:/  /     \\:\\/:/  /     \\:\\/:/  /        /:/  /       |::/  /  \n" +
 		"    \\::/  /       \\::/  /       \\::/  /        /:/  /        /:/  /   \n" +
 		"     \\/__/         \\/__/         \\/__/         \\/__/         \\/__/    \n";
-	public static final String intro = "Meow. I'm Susan!\n" + INDENTATION + "What can I do for you?";
+	public static final String intro = "Meow. I'm features.Susan!\n" + INDENTATION + "What can I do for you?";
 	public static final String outro = "Meow. Hope to see you again soon!";
 	public static final ArrayList<CommandDescriptor> cmds = new ArrayList<>(Arrays.asList(
 		new CommandDescriptor("todo <description>", "Adds tasks without any date/time attached to it e.g., visit new theme park"),
