@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Bob {
@@ -6,7 +7,7 @@ public class Bob {
     private static final String LINE_PREFIX = "    ";
 
     private static String argument = "";
-    private static final ArrayList<Task> list = new ArrayList<>();
+    private static final List<Task> list = new ArrayList<>();
 
     private enum Command {
         BYE("bye") {
@@ -27,15 +28,54 @@ public class Bob {
                 say(text.toString());
             }
         },
-        ADD("add", 1) {
+        TODO("todo") {
             @Override
             public void run() {
-                Task task = new Task(argument);
+                Task task = new Todo(argument);
                 list.add(task);
                 say("added: " + task);
             }
         },
-        MARK("mark", 1) {
+        DEADLINE("deadline") {
+            @Override
+            public void run() {
+                int byIndex = argument.lastIndexOf(" /by ");
+                if (byIndex == -1) {
+                    say("Deadlines require a 'by' argument!");
+                } else {
+                    Task task = new Deadline(
+                            argument.substring(0, byIndex),
+                            argument.substring(byIndex + 5)
+                    );
+                    list.add(task);
+                    say("added: " + task);
+                }
+            }
+        },
+        EVENT("event") {
+            @Override
+            public void run() {
+                int fromIndex = argument.lastIndexOf(" /from ");
+                int toIndex = argument.lastIndexOf(" /to ");
+                if (fromIndex == -1 || toIndex == -1) {
+                    say("Events require a 'from' and 'to' argument!");
+                } else {
+                    String desc = fromIndex < toIndex
+                                    ? argument.substring(0, fromIndex)
+                                    : argument.substring(0, toIndex);
+                    String from = fromIndex < toIndex
+                                    ? argument.substring(fromIndex + 7, toIndex)
+                                    : argument.substring(fromIndex + 7);
+                    String to = fromIndex < toIndex
+                                    ? argument.substring(toIndex + 5)
+                                    : argument.substring(toIndex + 5, fromIndex);
+                    Task task = new Event(desc, from, to);
+                    list.add(task);
+                    say("added: " + task);
+                }
+            }
+        },
+        MARK("mark") {
             @Override
             public void run() {
                 if (!argument.isBlank()) {
@@ -46,7 +86,7 @@ public class Bob {
                 }
             }
         },
-        UNMARK("unmark", 1) {
+        UNMARK("unmark") {
             @Override
             public void run() {
                 if (!argument.isBlank()) {
@@ -65,16 +105,10 @@ public class Bob {
         };
 
         public final String CMD;
-        public final int ARGS;
         public abstract void run();
 
         Command(String cmd) {
             CMD = cmd;
-            ARGS = 0;
-        }
-        Command(String cmd, int args) {
-            CMD = cmd;
-            ARGS = args;
         }
     }
 
