@@ -13,13 +13,16 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     /**
-     * Parses the input string to a LocalDateTime if the input contains both date and time.
-     * If the input contains only a date, a default time of 0000 is appended and parsed.
-     * Supports multiple date and time formats.
+     * Parses the input string into a {@link LocalDateTime} object. The method handles various date and time formats:
+     * - "dd/MM/yyyy HHmm" for both date and time.
+     * - "MMM dd yyyy" for date only (with default time 00:00).
+     * - "MMM dd yyyy h:mma" and "MMM dd yyyy hh:mma" for date and time with optional AM/PM notation.
      *
-     * @param input The input string to be parsed.
-     * @return A LocalDateTime object representing the parsed date and time.
-     * @throws IllegalArgumentException If the input format is invalid.
+     * If the input string does not match any of these formats, an {@link IllegalArgumentException} is thrown.
+     *
+     * @param input The string representing the date and/or time to be parsed.
+     * @return A {@link LocalDateTime} object corresponding to the parsed input.
+     * @throws IllegalArgumentException If the input string does not match any supported format.
      */
     public static LocalDateTime parseToDateTime(String input) {
         DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -52,11 +55,18 @@ public class Parser {
     }
 
     /**
-     * Creates a Task object from its string representation.
+     * Parses the string representation of a task and returns the corresponding {@link Task} object.
+     * The string must be in a specific format with the task type indicated (e.g., "D" for Deadline, "E" for Event).
      *
-     * @param taskString The string representation of the task.
-     * @return The Task object.
-     * @throws IllegalArgumentException If the string representation is null or empty.
+     * - Deadline tasks are expected to be in the format: "[D][status] description (by: dueDate)"
+     * - Event tasks are expected to be in the format: "[E][status] description (from: startDate to: endDate)"
+     * - ToDo tasks are expected to be in the format: "[T][status] description"
+     *
+     * The status is indicated by the character at position 8 (e.g., 'X' for completed).
+     *
+     * @param taskString The string representation of the task to be parsed.
+     * @return The corresponding {@link Task} object (either a {@link Deadline}, {@link Event}, or {@link ToDo}).
+     * @throws IllegalArgumentException If the string is null, empty, or does not match the expected format.
      */
     public static Task parseToTask(String taskString) {
         if (taskString == null || taskString.isEmpty()) {
