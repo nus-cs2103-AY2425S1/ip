@@ -7,6 +7,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
+    private String lastResponse;
 
     private static void reply(String txt) {
         String line = "-".repeat(50);
@@ -21,6 +22,7 @@ public class Ui {
      */
     public void send(String txt) {
         Ui.reply(txt);
+        this.lastResponse = txt;
     }
 
     /**
@@ -31,4 +33,11 @@ public class Ui {
         return this.scanner.nextLine();
     }
 
+    /**
+     * Returns the last response sent to the user.
+     * @return last response sent to the user
+     */
+    public String getLastResponse() {
+        return this.lastResponse;
+    }
 }
