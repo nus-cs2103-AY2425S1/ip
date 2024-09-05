@@ -12,15 +12,14 @@ public class Event extends Task {
         this.to = to;
     }
 
-    
-    /** 
+    /**
      * Returns string format of event
      * @return String
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + 
-            this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) 
-            + " to: "  + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + super.toString() + "(from: "
+            + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+            + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

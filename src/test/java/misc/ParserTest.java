@@ -36,6 +36,4 @@ public class ParserTest {
         String[] expected = {"todo", ""};
         assertArrayEquals(expected, result);
     }
-
-    
 }

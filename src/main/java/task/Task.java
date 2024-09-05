@@ -38,7 +38,7 @@ public class Task {
         this.isDone = false;
     }
 
-    /** 
+    /**
      * Returns string format of task
      * @return String
      */

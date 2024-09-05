@@ -12,8 +12,8 @@ import task.Tasklist;
 import task.Todo;
 
 public class Ui {
-    String blankline = "____________________________________________________________ \s";
-    
+    private String blankline = "____________________________________________________________ \s";
+
     /**
      * Prints a farewell message to the user.
      */
@@ -25,7 +25,7 @@ public class Ui {
      * Prints a start message.
      */
     public void startGame() {
-        System.out.println(  """
+        System.out.println("""
             ____________________________________________________________ \s
             Hello! I'm Bob \s
             What can I do for you? \s
@@ -45,7 +45,7 @@ public class Ui {
      */
     public void replyGetList(Tasklist tasklist) {
         System.out.println("Here are the tasks in your list:" + "\n"
-        + tasklist.getList() + blankline);
+            + tasklist.getList() + blankline);
     }
 
     /**
@@ -90,7 +90,7 @@ public class Ui {
         String[] splitString = s.split("/from|/to", 3);
 
         // error handling
-        if (splitString.length != 3 || Objects.equals(splitString[0].trim(), "") 
+        if (splitString.length != 3 || Objects.equals(splitString[0].trim(), "")
             || Objects.equals(splitString[1].trim(), "") || Objects.equals(splitString[2].trim(), "")) {
             throw new MissingParamsException("event");
         }
@@ -100,10 +100,10 @@ public class Ui {
             LocalDate d2 = LocalDate.parse(splitString[2].trim());
             tasklist.add(new Event(splitString[0], d1, d2));
             System.out.println(String.format(" Got it. I've added this task:" + "\n"
-            + tasklist.getLast()+ "\n"
-            + "Now you have %s tasks in the list", tasklist.getSize()) + "\n" + blankline);
+                + tasklist.getLast() + "\n"
+                + "Now you have %s tasks in the list", tasklist.getSize()) + "\n" + blankline);
         } catch (DateTimeException e) {
-            System.out.println("Error parsing date: " + e.getMessage() 
+            System.out.println("Error parsing date: " + e.getMessage()
                 + ". Please enter your dates in yyyy-mm-dd format" + blankline);
         }
         return tasklist;
@@ -114,7 +114,7 @@ public class Ui {
      */
     public Tasklist replyDeadline(String s, Tasklist tasklist) throws MissingParamsException {
         String[] splitString = s.split("/by");
-        if (splitString.length != 2 || Objects.equals(splitString[0], "") 
+        if (splitString.length != 2 || Objects.equals(splitString[0], "")
             || Objects.equals(splitString[1], "")) {
             throw new MissingParamsException("deadline");
         }
@@ -126,8 +126,8 @@ public class Ui {
                     + tasklist.getStr(tasklist.getSize() - 1) + "\n"
                     + "Now you have %s tasks in the list", tasklist.getSize()) + "\n" + blankline);
         } catch (DateTimeException e) {
-            System.out.println("Error parsing date: " + e.getMessage() 
-            + ". Please enter your dates in yyyy-mm-dd format");
+            System.out.println("Error parsing date: " + e.getMessage()
+                + ". Please enter your dates in yyyy-mm-dd format");
         }
         return tasklist;
     }
@@ -135,7 +135,7 @@ public class Ui {
     /**
      * Returns reply for delete command.
      */
-    public Tasklist replyDelete(int pos, Tasklist tasklist) throws PositionException{
+    public Tasklist replyDelete(int pos, Tasklist tasklist) throws PositionException {
         if (pos >= tasklist.getSize() || pos < 0) {
             throw new PositionException(pos);
         }
@@ -144,7 +144,7 @@ public class Ui {
         System.out.println(String.format("Noted. I've removed this task:" + "\n"
                 + currTask + "\n"
                 + "Now you have %s tasks in the list", tasklist.getSize()) + "\n" + blankline);
-        return tasklist; 
+        return tasklist;
     }
 
     /**

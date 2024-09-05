@@ -2,7 +2,7 @@ package misc;
 import java.util.Scanner;
 
 public class Parser {
-    Scanner scanner;
+    private Scanner scanner;
 
     public Parser() {
         this.scanner = new Scanner(System.in);
@@ -14,7 +14,7 @@ public class Parser {
      *
      * @return An array of two strings is being returned. The first element of the array contains the
      * command extracted from the user input, and the second element contains the rest of the input text
-     * after the command.
+     *  after the command.
      */
     public String[] requestInput() {
         System.out.print("Text: ");
