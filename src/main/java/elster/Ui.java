@@ -15,10 +15,8 @@ public class Ui {
      *
      * @param list Task list from which to print tasks.
      */
-    public void printList(TaskList list) {
-        printLine();
-        System.out.println(list.printString());
-        printLine();
+    public String printList(TaskList list) {
+        return list.printString();
     }
 
     /**
@@ -31,36 +29,30 @@ public class Ui {
     /**
      * Prints a message to bid the user goodbye.
      */
-    public void goodbyeMessage() {
-        printLine();
-        System.out.println("    See you next time.");
-        printLine();
+    public String goodbyeMessage() {
+        return "See you next time.";
     }
 
     /**
      * Prints an error message when a command that is not allowed is given.
      */
-    public void nonsenseErrorMessage() {
-        printLine();
-        System.out.println("    Could you, like, write a sensible command please? \n");
-        printLine();
+    public String nonsenseErrorMessage() {
+        return "Could you, like, write a sensible command please? \n";
     }
 
     /**
      * Prints a welcome message for users. Has a pretty ASCII logo.
      */
-    public void welcomeMessage() {
-        String logo = "___________.__            __\n"
+    public String welcomeMessage() {
+        String resultStr = "___________.__            __\n"
                 + "\\_   _____/|  |   _______/  |_  ___________\n"
                 + " |    __)_ |  |  /  ___/\\   __\\/ __ \\_  __ \\\n"
                 + " |        \\|  |__\\___ \\  |  | \\  ___/|  | \\/\n"
                 + "/_______  /|____/____  > |__|  \\___  >__|\n"
-                + "        \\/           \\/            \\/";
-        System.out.println(logo);
-        printLine();
-        System.out.println("    Hello, \"greetings\" from your friendly neighbourhood chatbot Elster..");
-        System.out.println("    How can I help you today :|");
-        printLine();
+                + "        \\/           \\/            \\/\n";
+        resultStr += "Hello, \"greetings\" from your friendly neighbourhood chatbot Elster..\n";
+        resultStr += "How can I help you today :|";
+        return resultStr;
     }
 
     /**
@@ -68,11 +60,13 @@ public class Ui {
      *
      * @param task Task done, details needed for the function to display details.
      */
-    public void taskDoneMessage(Task task) {
-        printLine();
-        System.out.println("    Yes boss, marked the task as done.");
-        System.out.println("      " + task.toString());
-        printLine();
+    public String taskDoneMessage(Task task) {
+        String resultStr = "";
+
+        resultStr += "Yes boss, marked the task as done.\n";
+        resultStr += "  " + task.toString();
+
+        return resultStr;
     }
 
     /**
@@ -80,11 +74,11 @@ public class Ui {
      *
      * @param task Task undone, details needed for the function to display details.
      */
-    public void taskUndoneMessage(Task task) {
-        printLine();
-        System.out.println("    Interesting choice, I've marked the task as not done.");
-        System.out.println("      " + task.toString());
-        printLine();
+    public String taskUndoneMessage(Task task) {
+        String resultStr = "";
+        resultStr += "Interesting choice, I've marked the task as not done.\n";
+        resultStr += "  " + task.toString();
+        return resultStr;
     }
 
     /**
@@ -92,48 +86,49 @@ public class Ui {
      *
      * @param taskList List of tasks which match the search query.
      */
-    public void findByDescriptionMessage(List<Task> taskList) {
-        printLine();
-        System.out.println("    Elster has trudged through the archives for your results:");
+    public String findByDescriptionMessage(List<Task> taskList) {
+        StringBuilder resultStr = new StringBuilder();
+
+        resultStr.append("Elster has trudged through the archives for your results:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println("    " + (i + 1) + "." + taskList.get(i));
+            resultStr.append("  ").append((i + 1)).append(".").append(taskList.get(i)).append("\n");
         }
-        printLine();
+        return resultStr.toString();
     }
 
     /**
      * Prints a message when the user successfully deletes a task.
      */
-    public void deleteTaskMessage(TaskList taskList, Task task) {
-        printLine();
-        System.out.println("    Your bidding has been done, removed:");
-        System.out.println("      " + task.toString());
+    public String deleteTaskMessage(TaskList taskList, Task task) {
+        String resultStr = "";
+        resultStr += "Your bidding has been done, removed:\n";
+        resultStr += "  " + task.toString() + "\n";
 
         if (taskList.getSize() == 1) {
-            System.out.println("    thou now hath " + taskList.getSize() + " task to complete");
+            resultStr += "thou now hath " + taskList.getSize() + " task to complete\n";
         } else if (taskList.isEmpty()) {
-            System.out.println("    thou hath no tasks to be completed");
+            resultStr += "thou hath no tasks to be completed\n";
         } else {
-            System.out.println("    thou now hath " + taskList.getSize() + " tasks to complete");
+            resultStr += "thou now hath " + taskList.getSize() + " tasks to complete\n";
         }
-        printLine();
+        return resultStr;
     }
 
     /**
      * Prints a message when the user successfully adds a task.
      */
-    public void addTaskMessage(TaskList taskList, Task task) {
-        printLine();
-        System.out.println("    The task hath been added");
-        System.out.println("      " + task);
+    public String addTaskMessage(TaskList taskList, Task task) {
+        String resultStr = "";
+        resultStr += "The task hath been added\n";
+        resultStr += "  " + task + "\n";
 
         if (taskList.getSize() == 1) {
-            System.out.println("    thou now hath " + taskList.getSize() + " task to complete");
+            resultStr += "thou now hath " + taskList.getSize() + " task to complete\n";
         } else {
-            System.out.println("    thou now hath " + taskList.getSize() + " tasks to complete");
+            resultStr += "thou now hath " + taskList.getSize() + " tasks to complete\n";
         }
-        printLine();
-        System.out.println();
+
+        return resultStr;
     }
 
     /**
@@ -142,9 +137,7 @@ public class Ui {
      *
      * @param message Error message to be printed.
      */
-    public void printErrorMessage(String message) {
-        printLine();
-        System.out.println("    " + message);
-        printLine();
+    public String printErrorMessage(String message) {
+        return message;
     }
 }
