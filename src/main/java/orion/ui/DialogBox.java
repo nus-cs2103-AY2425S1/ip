@@ -22,7 +22,7 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -33,6 +33,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         if (img != null) {
             displayPicture.setImage(img);
+            displayPicture.setVisible(true);
         } else {
             displayPicture.setVisible(false);
         }

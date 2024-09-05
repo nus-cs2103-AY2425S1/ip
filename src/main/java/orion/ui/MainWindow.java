@@ -1,5 +1,7 @@
 package orion.ui;
 
+import java.net.URL;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -26,15 +28,23 @@ public class MainWindow extends AnchorPane {
 
     public MainWindow() {
         try {
-            userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-        } catch (NullPointerException e) {
-            System.out.println("Couldn't find user image: " + e.getMessage());
-        }
+            System.out.println("Loading user image...");
+            userImage = new Image(getClass().getResourceAsStream("/images/user.png"));
+            System.out.println("User image loaded: " + (userImage != null) + ", width: " + userImage.getWidth()
+                    + ", height: " + userImage.getHeight());
 
-        try {
-            orionImage = new Image(this.getClass().getResourceAsStream("/images/orion.png"));
-        } catch (NullPointerException e) {
-            System.out.println("Couldn't find orion image: " + e.getMessage());
+            System.out.println("Loading orion image...");
+            URL orionUrl = getClass().getResource("/images/orion.png");
+            if (orionUrl != null) {
+                orionImage = new Image(orionUrl.toExternalForm());
+                System.out.println("Orion image loaded: " + (orionImage != null) + ", width: " + orionImage.getWidth()
+                        + ", height: " + orionImage.getHeight());
+            } else {
+                System.out.println("Orion image URL is null");
+            }
+        } catch (Exception e) {
+            System.out.println("Couldn't load images: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -51,10 +61,11 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = orion.getResponse(input);
+        System.out.println("User input: " + input);
+        System.out.println("Orion response: " + response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getOrionDialog(response, orionImage)
-        );
+                DialogBox.getOrionDialog(response, orionImage));
         userInput.clear();
     }
 }

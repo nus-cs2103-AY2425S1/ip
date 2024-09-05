@@ -18,8 +18,19 @@ import orion.ui.MainWindow;
 import java.io.IOException;
 
 public class Orion extends Application {
-    private static TaskList taskList;
-    private static Parser parser;
+    private TaskList taskList;
+    private Parser parser;
+
+    public Orion() {
+        try {
+            Storage storage = new Storage();
+            taskList = new TaskList(storage);
+            parser = new Parser();
+        } catch (FileInitializationException e) {
+            System.out.println("Failed to initialize TaskList: " + e.getMessage());
+            System.exit(1);
+        }
+    }
 
     @Override
     public void start(Stage stage) {
@@ -31,6 +42,7 @@ public class Orion extends Application {
             MainWindow mainWindow = fxmlLoader.getController();
             mainWindow.setOrion(this);
 
+            stage.setTitle("Orion Task Manager");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,14 +50,6 @@ public class Orion extends Application {
     }
 
     public static void main(String[] args) {
-        try {
-            Storage storage = new Storage();
-            taskList = new TaskList(storage);
-            parser = new Parser();
-        } catch (FileInitializationException e) {
-            System.out.println("Failed to initialize TaskList: " + e.getMessage());
-            System.exit(1);
-        }
         launch(args);
     }
 
