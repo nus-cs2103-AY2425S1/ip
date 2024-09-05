@@ -20,15 +20,22 @@ public class FindTaskCommand extends Command {
      * @param ui The ui object that handles user interface requests.
      */
     public FindTaskCommand(TaskList taskList, Ui ui) {
+        super();
         this.taskList = taskList;
         this.ui = ui;
     }
 
     @Override
-    public void execute() {
+    public void prompt() {
 
-        String input = this.ui.requestSearchPrompt();
+        ui.requestSearchPrompt();
+    }
+
+    @Override
+    public void execute(String input) {
+
         TaskList filteredTask = taskList.filterTasks(input);
         ui.printSearchResult(filteredTask);
+        this.completeCommand();
     }
 }

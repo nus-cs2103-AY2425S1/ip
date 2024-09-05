@@ -19,6 +19,30 @@ public class AddTaskCommand extends Command {
     private TaskList taskList;
     /** List to store all tasks by Quack */
     private Ui ui;
+    /** Type of task*/
+    private TaskTypes taskType;
+    /** Description of the task*/
+    private String taskDescription;
+    /** Start Date of the task*/
+    private String startDate;
+    /** End Date of the task*/
+    private String endDate;
+    /** Store next prompt */
+    private PromptTypes nextPrompt;
+    /** Store the types of prompts */
+    private enum PromptTypes {
+        TASKTYPE,
+        DESCRIPTION,
+        STARTDATE,
+        ENDDATE,
+        DONE
+    }
+    /** A list of all possible task types */
+    private enum TaskTypes {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
 
     /**
      * Creates a AddTaskCommand object.
@@ -26,18 +50,72 @@ public class AddTaskCommand extends Command {
      * @param ui The ui object that handles user interface requests.
      */
     public AddTaskCommand(TaskList taskList, Ui ui) {
+        super();
         this.taskList = taskList;
         this.ui = ui;
+        this.nextPrompt = PromptTypes.TASKTYPE;
     }
 
     @Override
-    public void execute() {
+    public void prompt() {
+        this.execute(null);
+    }
 
-        try {
-            String taskType = ui.requestTaskType();
-            this.getTaskDetails(taskType.toUpperCase());
-        } catch (InvalidTaskTypeException taskTypeError) {
-            ui.printExceptionMessage(taskTypeError);
+    @Override
+    public void execute(String input) {
+
+        if (this.nextPrompt == PromptTypes.TASKTYPE) {
+            ui.requestTaskType();
+            this.nextPrompt = PromptTypes.DESCRIPTION;
+        } else if (this.nextPrompt == PromptTypes.DESCRIPTION) {
+            try {
+                this.checkTaskType(input);
+                this.ui.requestTaskDescription(this.taskType.toString());
+            } catch (InvalidTaskTypeException taskTypeError) {
+                ui.printExceptionMessage(taskTypeError);
+                this.completeCommand();
+                return;
+            }
+
+            switch (this.taskType) {
+            case DEADLINE:
+                this.nextPrompt = PromptTypes.ENDDATE;
+                break;
+            case EVENT:
+                this.nextPrompt = PromptTypes.STARTDATE;
+                break;
+            default:
+                this.nextPrompt = PromptTypes.DONE;
+                break;
+            }
+
+        } else if (this.nextPrompt == PromptTypes.STARTDATE) {
+
+            this.taskDescription = input;
+            ui.requestStartDate(this.taskType.toString());
+            this.nextPrompt = PromptTypes.ENDDATE;
+
+        } else if (this.nextPrompt == PromptTypes.ENDDATE) {
+
+            if (this.taskType == TaskTypes.DEADLINE) {
+                this.taskDescription = input;
+                System.out.println(input);
+            } else if (this.taskType == TaskTypes.EVENT) {
+
+                this.startDate = input;
+            }
+
+            ui.requestEndDate(this.taskType.toString());
+            this.nextPrompt = PromptTypes.DONE;
+        } else {
+
+            if (this.taskType == TaskTypes.TODO) {
+
+                this.taskDescription = input;
+            } else {
+                this.endDate = input;
+            }
+            createTask();
         }
     }
 
@@ -46,26 +124,10 @@ public class AddTaskCommand extends Command {
      * <p>
      * After retrieving the task details, the task will be created and added,
      * into the tasklist.
-     * @param taskType The type of tasks to be created.
      */
-    private void getTaskDetails(String taskType) {
+    private void createTask() {
 
-        String taskDescription = ui.requestTaskDescription(taskType);
-        String startDate = null;
-        String endDate = null;
-
-        switch (taskType) {
-        case "EVENT":
-            startDate = ui.requestStartDate(taskType);
-            endDate = ui.requestEndDate(taskType);
-            break;
-        case "DEADLINE":
-            startDate = ui.requestEndDate(taskType);
-            break;
-        default:
-        }
-
-        String[] information = {taskType, taskDescription, startDate, endDate};
+        String[] information = {taskType.toString(), taskDescription, startDate, endDate};
 
         try {
             Task newTask = Task.createTask(information);
@@ -77,6 +139,25 @@ public class AddTaskCommand extends Command {
                 + "ensure that it is in this format: DD/MM/YYYY HH:MM:SS"));
         } catch (InvalidDateTimeException dateTimeError) {
             ui.printExceptionMessage(dateTimeError);
+        } finally {
+            this.completeCommand();
         }
+    }
+
+    /**
+     * Checks if the task type given by the user is a valid one.
+     * @param taskType The type of tasks to be created.
+     * @throws InvalidTaskTypeException If the user inputs a invalid task type.
+     */
+    private void checkTaskType(String taskType) throws InvalidTaskTypeException {
+
+        String upperCasedTaskType = taskType.toUpperCase();
+        for (TaskTypes tasktypes : TaskTypes.values()) {
+            if (tasktypes.name().equals(upperCasedTaskType)) {
+                this.taskType = tasktypes;
+                return;
+            }
+        }
+        throw new InvalidTaskTypeException(taskType);
     }
 }

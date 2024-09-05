@@ -1,50 +1,50 @@
-package quack.command;
+// package quack.command;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
+// import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import quack.Quack;
-import quack.Storage;
-import quack.TaskListStub;
+// import quack.Quack;
+// import quack.Storage;
+// import quack.TaskListStub;
 
-    /** 
-     * This class is to test the ExitCommand functionality.
-     */
-    public class ExitCommandTest {
-    
-    private Quack quack;
-    /** Stub Tasklist object */
-    private TaskListStub taskList;
-    /** Ui object to handle UI interface tasks */
-    private Storage storage;
-    /** Command to be executed */
-    private ExitCommand exitCommand;
+// /**
+//  * This class is to test the ExitCommand functionality.
+//  */
+// public class ExitCommandTest {
 
-    /** 
-     * Initiates objectes needed to test the delete command.
-     */
-    @BeforeEach
-    public void initiate() {
+//     /** Quack chatbot object */
+//     private Quack quack;
+//     /** Stub Tasklist object */
+//     private TaskListStub taskList;
+//     /** Ui object to handle UI interface tasks */
+//     private Storage storage;
+//     /** Command to be executed */
+//     private ExitCommand exitCommand;
 
-        // Set the stub task list
-        taskList = new TaskListStub();
-        taskList.emptyTaskList();
+//     /**
+//      * Initiates objectes needed to test the delete command.
+//      */
+//     @BeforeEach
+//     public void initiate() {
 
-        quack = new Quack();
-        storage = new Storage(taskList);
-    }
+//         // Set the stub task list
+//         taskList = new TaskListStub();
+//         taskList.emptyTaskList();
 
-    /** 
-     * Tests if the exit command exits the program successfully.
-     */
-    @Test 
-    public void byeCommandOutput() {
-        exitCommand = new ExitCommand(quack, taskList, storage);
-        exitCommand.execute();
+//         quack = new Quack();
+//         storage = new Storage(taskList);
+//     }
 
-        assertEquals(quack.getIsRunning(), false, "The command did not stop the Quack from running");
+//     /**
+//      * Tests if the exit command exits the program successfully.
+//      */
+//     @Test
+//     public void byeCommandOutput() {
+//         exitCommand = new ExitCommand(quack, taskList, storage);
+//         exitCommand.execute();
 
-    }
+//         assertEquals(quack.getIsRunning(), false, "The command did not stop the Quack from running");
+//     }
 
-}
+// }

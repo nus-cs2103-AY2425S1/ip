@@ -19,12 +19,20 @@ public class ListCommand extends Command {
      * @param ui The ui object that handles user interface requests.
      */
     public ListCommand(TaskList taskList, Ui ui) {
+        super();
         this.taskList = taskList;
         this.ui = ui;
     }
 
     @Override
-    public void execute() {
-        ui.printObject(taskList);
+    public void prompt() {
+        this.execute("");
+    }
+
+    @Override
+    public void execute(String input) {
+        String output = ui.objectToString(taskList);
+        ui.outputToScreen(output);
+        this.completeCommand();
     }
 }

@@ -12,10 +12,8 @@ import quack.exception.InvalidCommandException;
 /**
  * This class is responsible for handling user input commands.
  */
-public class Paser {
+public class Parser {
 
-    /** Quack chatbot object */
-    private Quack quack;
     /** Ui object to handle UI interface tasks */
     private Ui ui;
     /** To store all of the users tasks */
@@ -25,37 +23,22 @@ public class Paser {
 
     /**
      * Creates a Paser object.
-     * @param quack The chatbot object quack.
      * @param taskList A list that stores all the tasks tracked by Quack.
      * @param storage Storage object to save and load data from the save file.
      * @param ui The ui object that handles user interface requests.
      */
-    public Paser(Quack quack, TaskList taskList, Storage storage, Ui ui) {
-        this.quack = quack;
+    public Parser(TaskList taskList, Storage storage, Ui ui) {
         this.taskList = taskList;
         this.storage = storage;
         this.ui = ui;
     }
 
     /**
-     * Retrieves the next input command by the user.
-     * @throws InvalidCommandException Signals that the command given is invalid.
-     */
-    public Command getUserInput() throws InvalidCommandException {
-        try {
-            String userCommand = ui.requestUserCommand();
-            return this.processCommand(userCommand.toLowerCase());
-        } catch (InvalidCommandException commandError) {
-            throw commandError;
-        }
-    }
-
-    /**
      * Processes the command entered by the user.
-     * @param input The command in string form which the user inputed.
+     * @param userCommand The command in string form which the user inputed.
      * @throws InvalidCommandException Signals that the command given is invalid.
      */
-    private Command processCommand(String userCommand) throws InvalidCommandException {
+    public Command processCommand(String userCommand) {
         Command command;
         switch (userCommand) {
         case "list":
@@ -64,7 +47,7 @@ public class Paser {
 
         case "bye":
         case "exit":
-            command = new ExitCommand(quack, taskList, storage);
+            command = new ExitCommand(taskList, storage, ui);
             return command;
 
         case "add":
@@ -85,7 +68,8 @@ public class Paser {
             return command;
 
         default:
-            throw new InvalidCommandException(userCommand);
+            ui.printExceptionMessage(new InvalidCommandException(userCommand));
+            return null;
         }
     }
 }

@@ -47,7 +47,7 @@ public abstract class Task {
             break;
 
         case "DEADLINE":
-            startDate = LocalDateTime.parse(taskDetails[2], Task.DATE_FORMAT);
+            startDate = LocalDateTime.parse(taskDetails[3], Task.DATE_FORMAT);
 
             task = new DeadlineTask(taskDetails[1], startDate);
             break;

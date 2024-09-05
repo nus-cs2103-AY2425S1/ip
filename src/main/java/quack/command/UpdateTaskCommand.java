@@ -25,33 +25,42 @@ public class UpdateTaskCommand extends Command {
      * @param ui The ui object that handles user interface requests.
      */
     public UpdateTaskCommand(String command, TaskList taskList, Ui ui) {
+        super();
         this.command = command;
         this.taskList = taskList;
         this.ui = ui;
     }
 
     @Override
-    public void execute() {
+    public void prompt() {
 
         Command listCommand = new ListCommand(taskList, ui);
-        listCommand.execute();
+        listCommand.prompt();
 
-        String input = null;
+        if (taskList.getLength() == 0) {
+            this.completeCommand();
+            return;
+        }
 
-        if (taskList.getLength() != 0) {
-            try {
-                input = ui.requestIndexFromUser(this.command);
-                // Convert the input into a integer
-                int index = Integer.parseInt(input);
-                Task task = taskList.updateTask(index, this.command);
-                ui.printUpdateSuccessfulMessage(task, command, taskList);
-            } catch (NumberFormatException invalidIdxError) {
-                ui.printExceptionMessage(new InvalidIndexException(input));
-            } catch (IndexOutOfBoundsException indexError) {
-                ui.printExceptionMessage(indexError);
-            } catch (FailedUpdateException failUpdateError) {
-                ui.printExceptionMessage(failUpdateError);
-            }
+        ui.requestIndexFromUser(command);
+    }
+
+    @Override
+    public void execute(String input) {
+
+        try {
+            // Convert the input into a integer
+            int index = Integer.parseInt(input);
+            Task task = taskList.updateTask(index, this.command);
+            ui.printUpdateSuccessfulMessage(task, command, taskList);
+        } catch (NumberFormatException invalidIdxError) {
+            ui.printExceptionMessage(new InvalidIndexException(input));
+        } catch (IndexOutOfBoundsException indexError) {
+            ui.printExceptionMessage(indexError);
+        } catch (FailedUpdateException failUpdateError) {
+            ui.printExceptionMessage(failUpdateError);
+        } finally {
+            this.completeCommand();
         }
     }
 }

@@ -1,18 +1,19 @@
 package quack;
 
-import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import quack.tasks.Task;
-import quack.tasks.ToDoTask;
+import java.util.ArrayList;
+
 import quack.tasks.DeadlineTask;
 import quack.tasks.EventTask;
+import quack.tasks.Task;
+import quack.tasks.ToDoTask;
 
-/** 
+/**
  * This class is to act as a Stub for the Task List class.
  */
-public class TaskListStub extends TaskList{
-    
+public class TaskListStub extends TaskList {
+
     /** Date time format */
     protected static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
@@ -22,7 +23,7 @@ public class TaskListStub extends TaskList{
     public TaskListStub() {
         super();
     }
-    
+
     /**
      * Populates the task list with predefined tasks.
      */
@@ -49,5 +50,4 @@ public class TaskListStub extends TaskList{
         toDoList = new ArrayList<Task>();
         this.length = 0;
     }
-
 }

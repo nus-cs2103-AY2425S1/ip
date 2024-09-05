@@ -21,31 +21,39 @@ public class DeleteTaskCommand extends Command {
      * @param ui The ui object that handles user interface requests.
      */
     public DeleteTaskCommand(TaskList taskList, Ui ui) {
+        super();
         this.taskList = taskList;
         this.ui = ui;
     }
 
     @Override
-    public void execute() {
+    public void prompt() {
 
         Command listCommand = new ListCommand(taskList, ui);
-        listCommand.execute();
+        listCommand.prompt();
 
-        String input = null;
+        if (taskList.getLength() == 0) {
+            this.completeCommand();
+            return;
+        }
 
-        if (taskList.getLength() != 0) {
+        ui.requestIndexFromUser("delete");
+    }
 
-            try {
-                input = ui.requestIndexFromUser("delete");
-                // Convert the input into a integer
-                int index = Integer.parseInt(input);
-                Task removedTask = taskList.deleteTask(index);
-                ui.printUpdateSuccessfulMessage(removedTask, "delete", taskList);
-            } catch (NumberFormatException invalidIdxError) {
-                ui.printExceptionMessage(new InvalidIndexException(input));
-            } catch (IndexOutOfBoundsException indexError) {
-                ui.printExceptionMessage(indexError);
-            }
+    @Override
+    public void execute(String input) {
+
+        try {
+            // Convert the input into a integer
+            int index = Integer.parseInt(input);
+            Task task = taskList.deleteTask(index);
+            ui.printUpdateSuccessfulMessage(task, "delete", taskList);
+        } catch (NumberFormatException invalidIdxError) {
+            ui.printExceptionMessage(new InvalidIndexException(input));
+        } catch (IndexOutOfBoundsException indexError) {
+            ui.printExceptionMessage(indexError);
+        } finally {
+            this.completeCommand();
         }
     }
 }
