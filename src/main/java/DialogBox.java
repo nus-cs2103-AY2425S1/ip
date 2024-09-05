@@ -14,7 +14,9 @@ import javafx.scene.layout.HBox;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
- * and a label containing text from the speaker.
+ * and a Label containing text from the speaker. This class handles the layout of
+ * dialogs between the user and PandaBot, placing text and images appropriately
+ * depending on the speaker.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -22,6 +24,13 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Private constructor for the DialogBox class. It loads the FXML layout and sets the
+     * dialog text and display picture (ImageView) based on the provided parameters.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img  The image to display representing the speaker.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -37,7 +46,8 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Flips the dialog box such that the ImageView is on the left and the text is on the right.
+     * This is used to differentiate between the user and PandaBot's messages.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -46,10 +56,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a dialog box for the user, with the ImageView on the right and the text on the left.
+     *
+     * @param text The text message from the user.
+     * @param img  The image representing the user.
+     * @return A DialogBox object representing the user's dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a dialog box for PandaBot, with the ImageView on the left and the text on the right.
+     * This is achieved by flipping the dialog box after creating it.
+     *
+     * @param text The text message from PandaBot.
+     * @param img  The image representing PandaBot.
+     * @return A DialogBox object representing PandaBot's dialog.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

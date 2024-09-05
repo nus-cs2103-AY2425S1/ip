@@ -11,7 +11,7 @@ import ui.Ui;
  * Represents a command to unmark a task as not done in the task list.
  * This command handles the unmarking of a task at a specified index, indicating it is not completed.
  */
-public class UnmarkCommand implements Command {
+public class UnmarkCommand extends Command {
     private final int taskIndex;
 
     /**
@@ -33,22 +33,15 @@ public class UnmarkCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.get(taskIndex).unmark();
             storage.saveTaskList(tasks.getTasks());
 
-            ui.printLine();
-            ui.show("OK, I've marked this task as not done yet:");
-            ui.show(tasks.get(taskIndex).toString());
-            ui.printLine();
+            return "OK, I've marked this task as not done yet:"
+                    + tasks.get(taskIndex).toString();
         } else {
-            ui.show("The specified task does not exist.");
+            return "The specified task does not exist.";
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

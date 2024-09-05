@@ -18,15 +18,6 @@ public class Ui {
     }
 
     /**
-     * Reads the next line of user input from the command line.
-     *
-     * @return the input line entered by the user.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
      * Prints a line separator for visual clarity in the console output.
      */
     public void printLine() {
@@ -38,31 +29,19 @@ public class Ui {
      * Displays a welcome message to the user when the application starts.
      * This includes a brief introduction and a prompt to get started.
      */
-    public void showWelcome() {
-        printLine();
-        System.out.println("Hello! I'm PandaBot.");
-        System.out.println("What can I do for you?");
-        System.out.println("Type 'help' if you are unsure of how to get started!");
-        printLine();
+    public static String showWelcome() {
+        return """
+                Hello! I'm PandaBot.
+                What can I do for you?
+                Type 'help' if you are unsure of how to get started!""";
     }
 
     /**
      * Displays a goodbye message to the user when the application exits.
      * This is shown after the user issues a command to end the session.
      */
-    public void showGoodbye() {
-        printLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
-    }
-
-    /**
-     * Displays a message to the user.
-     *
-     * @param message the message to display.
-     */
-    public void show(String message) {
-        System.out.println(message);
+    public static String showGoodbye() {
+        return "Bye! Hope to see you again soon!";
     }
 
     /**

@@ -8,19 +8,15 @@ import ui.Ui;
  * Represents a command to list all tasks in the task list.
  * This command displays the current tasks in the list to the user.
  */
-public class ListCommand implements Command {
+public class ListCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
-            ui.show("There are currently no items in the list.");
+            return "There are currently no items in the list.";
         } else {
-            tasks.printTasks(ui);
+            return "Here are the tasks in your list:\n"
+                    + tasks.printTasks();
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

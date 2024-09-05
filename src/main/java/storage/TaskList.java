@@ -1,9 +1,7 @@
 package storage;
 
 import java.util.ArrayList;
-
 import tasks.Task;
-import ui.Ui;
 
 /**
  * Manages a list of tasks, providing methods to add, remove, and retrieve tasks.
@@ -90,13 +88,12 @@ public class TaskList {
      * Prints the list of tasks using the specified Ui.
      * The tasks are printed with their index numbers.
      *
-     * @param ui the Ui instance used to print the tasks.
      */
-    public void printTasks(Ui ui) {
-        ui.printLine();
+    public String printTasks() {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            ui.show((i + 1) + ". " + tasks.get(i));
+            sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
-        ui.printLine();
+        return sb.toString();
     }
 }
