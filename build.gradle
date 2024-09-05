@@ -3,18 +3,29 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.0.13'  // Add the JavaFX plugin
 }
 
 checkstyle {
     toolVersion = '10.2'
 }
+
 repositories {
     mavenCentral()
+}
+
+ext {
+    javaFxVersion = '17.0.7'
 }
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+}
+
+javafx {
+    version = javaFxVersion
+    modules = [ 'javafx.controls', 'javafx.fxml' ]  // List only the JavaFX modules you need
 }
 
 test {
@@ -40,6 +51,6 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }

@@ -20,108 +20,98 @@ public class Parser {
      *
      * @param fullCommand the full command string entered by the user
      * @param tasks       the TaskList object containing the current list of tasks
-     * @param ui          the Ui object for interacting with the user
      * @param storage     the Storage object for saving and loading tasks
+     * @return the response after executing the command
      * @throws BopesException if the command is invalid or an error occurs during execution
      */
-    public static void parse(String fullCommand, TaskList tasks, Ui ui, Storage storage) throws BopesException {
+    public static String parse(String fullCommand, TaskList tasks, Storage storage) throws BopesException {
         String[] commandWords = fullCommand.split(" ", 2);
         String commandType = commandWords[0];
 
         switch (commandType) {
-        case "find":
-            handleFindCommand(commandWords[1], tasks, ui);
-            break;
+        case "bye":
+            return handleByeCommand();  // Handle the "bye" command to display message and exit
         case "list":
-            ui.showTasks(tasks);
-            break;
+            return tasks.toString(); // The `list` command doesn't need any arguments
+        case "find":
+            if (commandWords.length > 1) {
+                return handleFindCommand(commandWords[1], tasks);
+            } else {
+                throw new BopesException("The 'find' command requires a keyword.");
+            }
         case "mark":
-            handleMarkCommand(commandWords[1], tasks, ui, storage);
-            break;
+            if (commandWords.length > 1) {
+                return handleMarkCommand(commandWords[1], tasks, storage);
+            } else {
+                throw new BopesException("The 'mark' command requires a task index.");
+            }
         case "unmark":
-            handleUnmarkCommand(commandWords[1], tasks, ui, storage);
-            break;
+            if (commandWords.length > 1) {
+                return handleUnmarkCommand(commandWords[1], tasks, storage);
+            } else {
+                throw new BopesException("The 'unmark' command requires a task index.");
+            }
         case "delete":
-            handleDeleteCommand(commandWords[1], tasks, ui, storage);
-            break;
+            if (commandWords.length > 1) {
+                return handleDeleteCommand(commandWords[1], tasks, storage);
+            } else {
+                throw new BopesException("The 'delete' command requires a task index.");
+            }
         default:
-            handleAddTaskCommand(fullCommand, tasks, ui, storage);
-            break;
+            return handleAddTaskCommand(fullCommand, tasks, storage);
         }
     }
 
-    /**
-     * Handles the "mark" command, marking the specified task as done.
-     *
-     * @param input    the task index as a string
-     * @param tasks    the TaskList object containing the current list of tasks
-     * @param ui       the Ui object for interacting with the user
-     * @param storage  the Storage object for saving the updated task list
-     * @throws BopesException if the input is not a valid number or if the index is out of range
-     */
-    private static void handleMarkCommand(String input, TaskList tasks, Ui ui, Storage storage) throws BopesException {
+    private static String handleByeCommand() {
+        String goodbyeMessage = "Goodbye! The program will exit in 5 seconds...";
+        new Thread(() -> {
+            try {
+                // Pause for 5 seconds
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.exit(0);
+        }).start();
+    
+    return goodbyeMessage;
+    }
+
+    private static String handleMarkCommand(String input, TaskList tasks, Storage storage) throws BopesException {
         try {
             int index = Integer.parseInt(input) - 1;
             Task task = tasks.markTask(index);
-            ui.showMarkedTask(task);
             storage.saveTasks(tasks);
+            return "Marked task: " + task.toString();
         } catch (NumberFormatException e) {
             throw BopesException.invalidNumberFormat();
         }
     }
 
-    /**
-     * Handles the "unmark" command, marking the specified task as not done.
-     *
-     * @param input    the task index as a string
-     * @param tasks    the TaskList object containing the current list of tasks
-     * @param ui       the Ui object for interacting with the user
-     * @param storage  the Storage object for saving the updated task list
-     * @throws BopesException if the input is not a valid number or if the index is out of range
-     */
-    private static void handleUnmarkCommand(String input, TaskList tasks, Ui ui, Storage storage) throws BopesException {
+    private static String handleUnmarkCommand(String input, TaskList tasks, Storage storage) throws BopesException {
         try {
             int index = Integer.parseInt(input) - 1;
             Task task = tasks.unmarkTask(index);
-            ui.showUnmarkedTask(task);
             storage.saveTasks(tasks);
+            return "Unmarked task: " + task.toString();
         } catch (NumberFormatException e) {
             throw BopesException.invalidNumberFormat();
         }
     }
 
-    /**
-     * Handles the "delete" command, deleting the specified task from the list.
-     *
-     * @param input    the task index as a string
-     * @param tasks    the TaskList object containing the current list of tasks
-     * @param ui       the Ui object for interacting with the user
-     * @param storage  the Storage object for saving the updated task list
-     * @throws BopesException if the input is not a valid number or if the index is out of range
-     */
-    private static void handleDeleteCommand(String input, TaskList tasks, Ui ui, Storage storage) throws BopesException {
+    private static String handleDeleteCommand(String input, TaskList tasks, Storage storage) throws BopesException {
         try {
             int index = Integer.parseInt(input) - 1;
             Task task = tasks.getTasks().get(index);
             tasks.deleteTask(index);
-            ui.showDeletedTask(task, tasks.getTasks().size());
             storage.saveTasks(tasks);
+            return "Deleted task: " + task.toString();
         } catch (NumberFormatException e) {
             throw BopesException.invalidNumberFormat();
         }
     }
 
-    /**
-     * Handles the addition of a new task based on the user's input command.
-     * The task can be of type ToDo, Deadline, or Event.
-     *
-     * @param input    the full command string entered by the user
-     * @param tasks    the TaskList object containing the current list of tasks
-     * @param ui       the Ui object for interacting with the user
-     * @param storage  the Storage object for saving the updated task list
-     * @throws BopesException if the command format is invalid or if an error occurs during task creation
-     */
-    private static void handleAddTaskCommand(String input, TaskList tasks, Ui ui, Storage storage) throws BopesException {
+    private static String handleAddTaskCommand(String input, TaskList tasks, Storage storage) throws BopesException {
         Task newTask = null;
         try {
             if (input.startsWith("todo ")) {
@@ -144,11 +134,16 @@ public class Parser {
                 throw BopesException.unknownCommand();
             }
             tasks.addTask(newTask);
-            ui.showAddedTask(newTask, tasks.getTasks().size());
             storage.saveTasks(tasks);
+            return "Added task: " + newTask.toString();
         } catch (IllegalArgumentException e) {
             throw new BopesException(e.getMessage());
         }
+    }
+
+    private static String handleFindCommand(String keyword, TaskList tasks) {
+        TaskList matchingTasks = tasks.findTasks(keyword);
+        return matchingTasks.toString();  // Assuming `toString` returns the matching tasks
     }
 
     /**
@@ -165,23 +160,27 @@ public class Parser {
             throw new BopesException("Corrupted data: Insufficient task data in file.");
         }
         String taskType = data[0];
-        boolean isDone = data[1].equals("1");  // Parse the done status
-        String description = data[2];
+        boolean isDone = data[1].trim().equals("1");  // Parse the done status
+        String description = data[2].trim();
 
         switch (taskType) {
-        case "T":
-            return new ToDo(description, isDone);
-        case "D":
-            return new Deadline(description, data[3], isDone);
-        case "E":
-            return new Event(description, data[3], data[4], isDone);
-        default:
-            throw new BopesException("Error: Unknown task type in file.");
+            case "T":
+                return new ToDo(description, isDone);
+            case "D":
+                if (data.length < 4) {
+                    throw new BopesException("Corrupted data: Missing deadline information.");
+                }
+                String by = data[3].trim();
+                return new Deadline(description, by, isDone);
+            case "E":
+                if (data.length < 5) {
+                    throw new BopesException("Corrupted data: Missing event start/end information.");
+                }
+                String from = data[3].trim();
+                String to = data[4].trim();
+                return new Event(description, from, to, isDone);
+            default:
+                throw new BopesException("Error: Unknown task type in file.");
         }
-    }
-
-    private static void handleFindCommand(String keyword, TaskList tasks, Ui ui) {
-        TaskList matchingTasks = tasks.findTasks(keyword);
-        ui.showFoundTasks(matchingTasks);
     }
 }
