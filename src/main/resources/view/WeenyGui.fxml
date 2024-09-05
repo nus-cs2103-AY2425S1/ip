@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="mainLayout"
+            maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="weeny.ui.WeenyGui"
+            prefHeight="600.0" prefWidth="400.0"
+            style="-fx-background-color: lightgray;">
+    <children>
+        <TextField fx:id="userInput"
+                   onAction="#handleUserInput"
+                   prefWidth="340.0"
+                   prefHeight="30.0"
+                   AnchorPane.bottomAnchor="1.0"
+                   AnchorPane.leftAnchor="1.0"
+                   style="-fx-background-color: lightblue;">
+        </TextField>
+        <Button fx:id="sendButton"
+                text="Send"
+                prefWidth="55.0"
+                AnchorPane.bottomAnchor="1.0"
+                AnchorPane.rightAnchor="1.0"
+                style="-fx-background-color: white;">
+        </Button>
+        <ScrollPane fx:id="scrollPane"
+                    hbarPolicy="NEVER"
+                    hvalue="1.0"
+                    prefHeight="570"
+                    prefWidth="400"
+                    vbarPolicy="ALWAYS"
+                    vvalue="1.0"
+                    fitToHeight="true"
+                    AnchorPane.topAnchor="1.0"
+                    style="-fx-background-color: white;">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      prefHeight="552.0"
+                      prefWidth="388.0"
+                      style="-fx-background-color: lightblue;">
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>
