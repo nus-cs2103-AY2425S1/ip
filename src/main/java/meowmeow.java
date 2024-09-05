@@ -1,11 +1,21 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class meowmeow {
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
+
+        Saving saver = new Saving("./data/duke.txt");
+        saver.getData();
+
         System.out.println("Hello! I'm meowmeow\n" + "What can I do for you?\n");
 
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> list = saver.getTaskList();
+
         Scanner s = new Scanner(System.in);
         String input = s.nextLine();
 
@@ -22,6 +32,7 @@ public class meowmeow {
                     list.get(taskNumber).markDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + list.get(taskNumber));
+                    saver.saveData();
                 } else {
                     System.out.println("Invalid task number.");
                 }
@@ -32,6 +43,7 @@ public class meowmeow {
                     list.get(taskNumber).unMark();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + list.get(taskNumber));
+                    saver.saveData();
                 } else {
                     System.out.println("Invalid task number.");
                 }
@@ -43,6 +55,7 @@ public class meowmeow {
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + todo);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
+                saver.saveData();
             } else if (input.startsWith("deadline ")) {
                 // Add a Deadline task
                 String[] parts = input.substring(9).split(" /by ");
@@ -56,6 +69,7 @@ public class meowmeow {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + deadline);
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    saver.saveData();
                 }
             } else if (input.startsWith("event ")) {
                 // Add an Event task
@@ -71,6 +85,7 @@ public class meowmeow {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + event);
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    saver.saveData();
                 }
             } else if (input.startsWith("delete ")) {
                 // Delete a task
@@ -80,6 +95,7 @@ public class meowmeow {
                     System.out.println("Noted. I've removed this task:");
                     System.out.println("  " + removedTask);
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    saver.saveData();
                 } else {
                     System.out.println("Invalid task number.");
                 }
