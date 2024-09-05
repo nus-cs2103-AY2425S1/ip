@@ -1,4 +1,8 @@
-package agave;
+package agave.Task;
+
+import agave.logic.Deadline;
+import agave.logic.Event;
+import agave.logic.ToDo;
 
 import java.util.ArrayList;
 

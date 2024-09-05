@@ -1,4 +1,6 @@
-package agave;
+package agave.Task;
+
+import agave.Util.AgaveException;
 
 import java.util.ArrayList;
 
@@ -120,5 +122,15 @@ public class TaskList {
      */
     public int size() {
         return tasks.size();
+    }
+
+    public ArrayList<Task> findTasks(String key) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(key)) {
+                result.add(task);
+            }
+        }
+        return result;
     }
 }

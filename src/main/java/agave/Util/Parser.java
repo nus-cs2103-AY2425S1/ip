@@ -1,4 +1,9 @@
-package agave;
+package agave.Util;
+
+import agave.Task.Task;
+import agave.logic.Deadline;
+import agave.logic.Event;
+import agave.logic.ToDo;
 
 import java.time.format.DateTimeParseException;
 
@@ -96,6 +101,14 @@ public class Parser {
             throw new AgaveException("Please enter the event in the correct format: 'event <description> /from <yyyy/MM/dd HHmm> /to <yyyy/MM/dd HHmm>'.");
         } catch (DateTimeParseException e) {
             throw new AgaveException("Please enter the date and time in the correct format: 'yyyy/MM/dd HHmm'.");
+        }
+    }
+
+    public String getKey() throws AgaveException {
+        try {
+            return userInput.split(" ")[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new AgaveException("Please enter a keyword to search for.");
         }
     }
 }
