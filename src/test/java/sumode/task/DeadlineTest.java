@@ -60,11 +60,9 @@ public class DeadlineTest {
 
     @Test
     public void eventTestCorruptedFile() {
-        assertThrows(IndexOutOfBoundsException.class, this::eventTestCorruptedFileHelper);
-    }
-
-    private void eventTestCorruptedFileHelper() {
-        Task test = Task.createFromData("D | 0  parktour with myself  now | morrow");
-        System.out.println(test.toString());
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            Task test = Task.createFromData("D | 0  parktour with myself  now | morrow");
+            System.out.println(test.toString());
+        });
     }
 }

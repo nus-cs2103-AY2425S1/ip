@@ -72,12 +72,8 @@ public class EventTest {
 
     @Test
     public void eventTestCorruptedFile() {
-        assertThrows(IndexOutOfBoundsException.class, this::eventTestCorruptedFileHelper);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            Task test = Task.createFromData("E | 0  parktour with myself | now | morrow");
+        });
     }
-
-    private void eventTestCorruptedFileHelper() {
-        Task test = Task.createFromData("E | 0  parktour with myself | now | morrow");
-    }
-
-
 }
