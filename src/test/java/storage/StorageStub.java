@@ -33,6 +33,6 @@ public class StorageStub extends Storage {
 
     // Additional method to check the saved tasks directly (useful for assertions in tests)
     public ArrayList<Task> getSavedTasks() {
-        return new ArrayList<>(tasks);
+        return tasks;
     }
 }
