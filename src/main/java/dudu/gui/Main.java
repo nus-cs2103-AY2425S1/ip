@@ -26,7 +26,6 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDudu(dudu);
             stage.show();
-            dudu.welcomeUser();
         } catch (IOException e) {
             e.printStackTrace();
         }
