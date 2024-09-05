@@ -38,23 +38,23 @@ public class Task {
     /**
      * Marks the task as done and prints a confirmation message.
      */
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
-        System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.toString());
-        System.out.println("____________________________________________________________");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nice! I've marked this task as done:\n");
+        sb.append(this.toString());
+        return sb.toString();
     }
 
     /**
      * Unmarks the task as not done and prints a confirmation message.
      */
-    public void unmark() {
+    public String unmark() {
         this.isDone = false;
-        System.out.println("____________________________________________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.toString());
-        System.out.println("____________________________________________________________");
+        StringBuilder sb = new StringBuilder();
+        sb.append("OK, I've marked this task as not done yet:\n" );
+        sb.append(this.toString());
+        return sb.toString();
 
     }
 

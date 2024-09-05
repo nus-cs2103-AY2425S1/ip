@@ -36,10 +36,10 @@ public class FindCommand extends Command {
      * @throws GuttiException If an error occurs during the execution of the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
         ArrayList<Task> taskList = tasks.getTasks();
         ArrayList<Integer> integerList = new ArrayList<>();
-
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             Task specificTask = taskList.get(i);
             if (specificTask.description.toLowerCase().contains(wordToMatch.toLowerCase())) {
@@ -47,14 +47,13 @@ public class FindCommand extends Command {
             }
         }
         if (!integerList.isEmpty()) {
-            System.out.println("____________________________________________________________");
-            System.out.println("Here are the matching tasks in your list:");
+            sb.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < integerList.size(); i++) {
-                System.out.println((i + 1) + ". " + taskList.get(integerList.get(i)));
+                sb.append((i + 1)).append(". ").append(taskList.get(integerList.get(i))).append("\n");
             }
-            System.out.println("____________________________________________________________");
+           return sb.toString();
         } else {
-            System.out.println("Task with a description containing \"" + wordToMatch + "\" not found.");
+            return "Task with a description containing \"" + wordToMatch + "\" not found.";
         }
     }
 

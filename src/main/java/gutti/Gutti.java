@@ -18,33 +18,19 @@ public class Gutti {
         storage = new Storage(FILE_PATH);
         ui = new Ui();
         tasks = new TaskList();
-    }
-
-    /**
-     * The entry point of the program.
-     * @param args (not used)
-     */
-    public static void main(String[] args) {
-        new Gutti().run();
-    }
-
-    /**
-     * Executes the main logic of the application, including reading commands and executing them.
-     */
-    public void run() {
-        boolean isExit = false;
-        ui.greetings();
         storage.loadTasksFromFile(tasks);
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (GuttiException e) {
-                ui.generateError(e);
-            }
+    }
+
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (GuttiException e) {
+            return ui.generateError(e);
         }
-        ui.goodBye();
     }
 }

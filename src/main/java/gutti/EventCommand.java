@@ -48,11 +48,11 @@ public class EventCommand extends Command {
      * @throws GuttiException If there is an error during command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
         Task eventTask = new Event(description, from, to, false);
         tasks.addTask(eventTask);
         storage.saveTasksToFile(tasks.getTasks());
-        ui.showTaskList(tasks);
+        return ui.showTaskList(tasks);
     }
 
     /**

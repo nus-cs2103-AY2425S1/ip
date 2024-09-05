@@ -13,8 +13,8 @@ public class ExitCommand extends Command {
      * @param storage The Storage object to handle saving tasks to a file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-    // does nothing
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return "Bye. Hope to see you again soon! Meow";
     }
 
     /**

@@ -29,12 +29,15 @@ public class UnmarkCommand extends Command {
      * @throws GuttiException If there is an error during command execution, such as an invalid task index.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
+        StringBuilder sb = new StringBuilder();
         try {
             Task task = tasks.getTasks().get(taskIndex);
-            task.unmark();
+            sb.append(task.unmark());
             storage.saveTasksToFile(tasks.getTasks());
-            ui.showTaskList(tasks);
+            sb.append("\n");
+            sb.append(ui.showTaskList(tasks));
+            return sb.toString();
         } catch (IndexOutOfBoundsException e) {
             throw new GuttiException("Task index out of range.");
         }
