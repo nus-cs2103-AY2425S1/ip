@@ -46,6 +46,13 @@ public class Velma {
         System.out.println("--------------------------------------------------\n");
     }
 
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Velma heard: " + input;
+    }
+
 
     /**
      * Checks user input to determine which command to carry out.

@@ -22,6 +22,8 @@ public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/andrew.jpeg"));
     private Image velmaImage = new Image(this.getClass().getResourceAsStream("/images/Velma.jpg"));
+
+    private Velma velma = new Velma("./data/velma.txt");
     @Override
     public void start(Stage stage) {
         //Setting up required components
@@ -29,9 +31,6 @@ public class Main extends Application {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
-
-        DialogBox dialogBox = new DialogBox("Hello!", userImage);
-        dialogContainer.getChildren().addAll(dialogBox);
 
         userInput = new TextField();
         sendButton = new Button("Send");
@@ -72,6 +71,33 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //More code to be added here later
+        //Handling user input
+
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+
     }
+
+    /**
+     * Creates a dialog box containing user input, and appends it to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        String userText = userInput.getText();
+        String velmaText = velma.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getDukeDialog(velmaText, velmaImage)
+        );
+        userInput.clear();
+    }
+
 }
