@@ -18,28 +18,49 @@ public class Duke {
     public static int EVENT = 2;
 
     public static class Ui {
+        /**
+         * Returns a Ui object which is used to output
+         * to the terminal to communicate with user
+         *
+         * @param openingText the opening message sent to users.
+         * @param closingText the final message sent to users.
+         * @return Ui object
+         */
         Ui(String openingText, String closingText) {
             this.openingText = openingText;
             this.closingText = closingText;
             this.horizontalLine = horizontalLine = "----------------------------------------------------------";
         }
 
+        /**
+         * Returns void, just prints a horizontal line
+         */
         void printHorizontalLine() {
             System.out.println(horizontalLine);
         }
 
+        /**
+         * Returns void, just prints the opening text
+         */
         void printOpening() {
             System.out.println(horizontalLine);
             System.out.println(openingText);
             System.out.println(horizontalLine);
         }
-
+         /**
+         * Returns void, just prints a message
+         * 
+         * @param message message to be printed.
+         */
         void printMessage(String message) {
             System.out.println(horizontalLine);
             System.out.println(message);
             System.out.println(horizontalLine);
         }
 
+         /**
+         * Returns void, just prints the closing tex
+         */
         void printClosing() {
 
             System.out.println(horizontalLine);
@@ -47,6 +68,12 @@ public class Duke {
             System.out.println(horizontalLine);
         }
 
+         /**
+         * Returns void, just prints the latest task added
+         * 
+         * @param task the task that was added
+         * @param len the length of the task list after adding the task
+         */
         void printTaskAdded(Task task, int len) {
             System.out.println(horizontalLine);
             System.out.println("Got it. I've added this task:");
@@ -55,6 +82,12 @@ public class Duke {
             System.out.println(horizontalLine);
         }
 
+         /**
+         * Returns void, just prints the latest task deleted
+         * 
+         * @param task the task that was added
+         * @param len the length of the task list after deleting the task
+         */
         void printTaskDeleted(Task task, int len) {
             System.out.println(horizontalLine);
             System.out.println("Noted. I've removed this task:");
@@ -63,6 +96,11 @@ public class Duke {
             System.out.println(horizontalLine);
         }
 
+         /**
+         * Returns void, just prints the latest task marked
+         * 
+         * @param task the task that was marked
+         */
         void printTaskMarked(Task task) {
             System.out.println(horizontalLine);
             System.out.println("Nice! I've marked this task as done:");
@@ -70,6 +108,11 @@ public class Duke {
             System.out.println(horizontalLine);
         }
 
+         /**
+         * Returns void, just prints the latest task unmarked
+         * 
+         * @param task the task that was unmarked
+         */
         void printTaskUnmarked(Task task) {
             System.out.println(horizontalLine);
             System.out.println("OK, I've marked this task as not done yet:");
@@ -77,6 +120,11 @@ public class Duke {
             System.out.println(horizontalLine);
         }
 
+         /**
+         * Returns void, just prints error messages
+         * 
+         * @param str the error message to print
+         */
         void printError(String str) {
             System.out.println(horizontalLine);
             System.out.println(str);
@@ -90,21 +138,46 @@ public class Duke {
 
     public static class Parser {
 
+        /**
+         * Returns a Parser object for parsing user commands
+         */
         public Parser() {
             userInput = "";
             this.ptr = 0;
         }
-        
+
+        /**
+         * Returns a Parser object for parsing user commands
+         * 
+         * @param userInput the entire command the user has sent
+         * @return Parser object
+         */
         public Parser(String userInput) {
             this.userInput = userInput;
             this.ptr = 0;
         }
 
+
+        /**
+         * Returns void, just resets the parser state to match new
+         * user command that was inputted
+         * 
+         * @param newUserInput the new command the user has inputted
+         */
         public void readInput(String newUserInput) {
             this.userInput = newUserInput;
             this.ptr = 0;
         }
 
+        /**
+         * Returns a substring of this.userInput starting from ptr
+         * until the first instance of the escapeCharacter that
+         * appears past ptr.
+         * 
+         * @param escapeCharacter the escape character that determines
+         * the end of the substring we should return
+         * @return the substring from ptr to escapeCharacter (exclusive)
+         */
         public String getArgument(char escapeCharacter) {
             int len = userInput.length();
             int startIndex = ptr;
@@ -119,6 +192,15 @@ public class Duke {
             return userInput.substring(startIndex, ptr++);
         }
 
+        /**
+         * Returns a substring of this.userInput starting from ptr
+         * until the first instance of the escapeCharacter that
+         * appears past ptr, and then advances the ptr by advanceAmount
+         * 
+         * @param escapeCharacter the escape character that determines
+         * the end of the substring we should return
+         * @return the substring from ptr to escapeCharacter (exclusive)
+         */
         public String getArgument(char escapeCharacter, int advanceAmount) {
             int len = userInput.length();
             int startIndex = ptr;
@@ -141,27 +223,58 @@ public class Duke {
     }
 
     public static class TaskList {
-
+        /**
+         * Returns a TaskList object
+         * 
+         * @param ui a ui object for printing to the terminal when
+         * the TaskList object is modified
+         */
         TaskList(Ui ui) {
             this.tasks = new ArrayList<Task>();
             this.ui = ui;
         }
 
-        TaskList(ArrayList<Task> tasks) {
+        /**
+         * Returns a TaskList object
+         * 
+         * @param tasks an array list of Task objects which we
+         * can directly copy into our tasks field
+         * @param ui a ui object for printing to the terminal when
+         * the TaskList object is modified
+         */
+        TaskList(ArrayList<Task> tasks, Ui ui) {
             this.tasks = tasks;
             this.ui = ui;
         }
 
-        TaskList(TaskList taskList) {
+        /**
+         * Returns a TaskList object
+         * 
+         * @param taskList an existing taskList object that we can
+         * copy into this object
+         * @param ui a ui object for printing to the terminal when
+         * the TaskList object is modified
+         */
+        TaskList(TaskList taskList, Ui ui) {
             this.tasks = taskList.tasks;
             this.ui = ui;
         }
 
+        /**
+         * Returns void, just adds task to our array of tasks
+         * 
+         * @param task the task to add
+         */
         void addTask(Task task) {
             tasks.add(task);
             ui.printTaskAdded(task, tasks.size());
         }
 
+        /**
+         * Returns void, just deletes a task from our array of tasks
+         * 
+         * @param rank the 1-indexed index of the task we wish to remove
+         */
         void deleteTask(int rank) {
 
             if(rank < 1 || rank > tasks.size()) {
@@ -175,6 +288,9 @@ public class Duke {
             ui.printTaskDeleted(toRemove, tasks.size());
         }
 
+        /**
+         * Returns void, prints all the tasks out to the terminal
+         */
         void listTasks() {
             int numberOfMessages = tasks.size();
 
@@ -187,6 +303,12 @@ public class Duke {
             ui.printHorizontalLine();
         }
 
+        /**
+         * Returns void, just marks a task in our array of tasks
+         * 
+         * @param rank the 1-indexed index of the task we wish to mark
+         * in our array of tasks
+         */
         void markTask(int rank) {
             if(rank < 1 || rank > tasks.size()) {
                 System.out.println("Error: The task number is out of bounds. Terminating program.");
@@ -199,6 +321,12 @@ public class Duke {
             ui.printTaskMarked(task);
         }
 
+        /**
+         * Returns void, just unmarks a task in our array of tasks
+         * 
+         * @param rank the 1-indexed index of the task we wish to unmark
+         * in our array of tasks
+         */
         void unmarkTask(int rank) {
 
             if(rank < 1 || rank > tasks.size()) {
@@ -219,11 +347,25 @@ public class Duke {
 
     public static class Storage {
 
+        /**
+         * Returns a storage object for saving and loading Task Lists
+         * 
+         * @param filepath the path to the storage file where we store
+         * the task list data
+         * @param ui a ui object for printing to terminal
+         */
         Storage(String filepath, Ui ui) {
             this.filepath = filepath;
             this.ui = ui;
         }
 
+        /**
+         * Returns void, saves a taskList to a storage file.
+         * The data format is TASK_TYPE|MARKED|TASK_NAME|DEADLINE1|DEADLINE2|
+         * 
+         * @param taskList the task list that we wish to save
+         * to a storage file
+         */
         public void save(TaskList taskList) {
 
             ArrayList<Task> tasks = taskList.tasks;
@@ -246,7 +388,7 @@ public class Duke {
                         toWrite += "E|";
                     }
 
-                    if(task.marked) {
+                    if(task.isMarked) {
                         toWrite += "1|";
                     } else {
                         toWrite += "0|";
@@ -282,6 +424,13 @@ public class Duke {
             };
         }
 
+        /**
+         * Returns a TaskList, loads a taskList from a storage file into an arraylist.
+         * The data format is TASK_TYPE|MARKED|TASK_NAME|DEADLINE1|DEADLINE2|
+         * 
+         * @return a TaskList that stores tasks matching the data stored in
+         * the storage file
+         */
         public TaskList load() {
             TaskList taskList = new TaskList(ui);
 
@@ -341,6 +490,15 @@ public class Duke {
         Ui ui;
     }
 
+    /**
+     * Returns a substring of message from [startIndex, z) where z is the index
+     * of the first escapeCharacter that occurs in message from startIndex onwards.
+     * 
+     * @param message the entire message we want to analyze
+     * @param startIndex the starting index for our substring
+     * @param escapeCharacter the character that we wish to use as a terminating character
+     * @return the desired substring from startIndex up until the first escapeCharacter
+     */
     public static String getCommand(String message, int startIndex, char escapeCharacter) {
         int len = message.length();
         int ptr = startIndex;
@@ -357,20 +515,38 @@ public class Duke {
 
     public static class Task {
 
+        /**
+         * Returns a Task object
+         * 
+         * @param name the name of the task
+         */
         Task(String name) {
             this.name = name;
-            this.marked = false;
+            this.isMarked = false;
         }
 
+        /**
+         * Returns a Task object
+         * 
+         * @param name the name of the task
+         * @param type the type of the task (todo/deadline/event)
+         */
         Task(String name, int type) {
             this.name = name;
-            this.marked = false;
+            this.isMarked = false;
             this.type = type;
         }
 
+        /**
+         * Returns a Task object
+         * 
+         * @param name the name of the task
+         * @param type the type of the task (todo/deadline/event)
+         * @param deadline the deadline for the task in case the type is deadline
+         */
         Task(String name, int type, String deadline) {
             this.name = name;
-            this.marked = false;
+            this.isMarked = false;
             this.type = type;
             
             try {
@@ -383,9 +559,17 @@ public class Duke {
             }
         }
 
+        /**
+         * Returns a Task object
+         * 
+         * @param name the name of the task
+         * @param type the type of the task (todo/deadline/event)
+         * @param eventTimings the start and end timings for the task in
+         * case its type is event
+         */
         Task(String name, int type, String[] eventTimings) {
             this.name = name;
-            this.marked = false;
+            this.isMarked = false;
             this.type = type;
 
             try {
@@ -410,15 +594,15 @@ public class Duke {
             this.eventTimings = eventTimings;
         }
 
-        public void mark() {
-            this.marked = true;
+        private void mark() {
+            this.isMarked = true;
         }
 
-        public void unmark() {
-            this.marked = false;
+        private void unmark() {
+            this.isMarked = false;
         }
 
-        public void print() {
+        private void print() {
             String message = "";
 
             if(this.type == TODO) {
@@ -431,7 +615,7 @@ public class Duke {
                 message += "[ ]";
             }
 
-            if(this.marked) {
+            if(this.isMarked) {
                 message += "[X] ";
             } else {
                 message += "[ ] ";
@@ -448,7 +632,7 @@ public class Duke {
             System.out.println(message);
         }
 
-        public void print(int rank) {
+        private void print(int rank) {
             String message = rank + ".";
 
             if(this.type == TODO) {
@@ -461,7 +645,7 @@ public class Duke {
                 message += "[ ]";
             }
 
-            if(this.marked) {
+            if(this.isMarked) {
                 message += "[X] ";
             } else {
                 message += "[ ] ";
@@ -478,7 +662,7 @@ public class Duke {
             System.out.println(message);
         }
         private String name;
-        private boolean marked;
+        private boolean isMarked;
         private int type;
 
         private String deadline;
@@ -495,11 +679,6 @@ public class Duke {
 
         return true;
     }
-
-    /*
-        file format:
-            - TODO/DEADLINE/EVENT|MARKED?|description|Deadline1|Deadline2|
-    */
 
     public static void main(String[] args) {
 
