@@ -1,10 +1,8 @@
 package bob.command;
 
-import bob.exceptions.InvalidTaskNumberException;
-
-import bob.tasks.TaskList;
-
 import bob.UI;
+import bob.exceptions.InvalidTaskNumberException;
+import bob.tasks.TaskList;
 
 /**
  * UnmarkCommand is a child class of Command
@@ -12,7 +10,7 @@ import bob.UI;
  * when executed.
  * Sets the isRunning param of the parent class to be true signalling that the program is still running.
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
 
     private final int index;
 

@@ -1,13 +1,13 @@
 package bob.tasks;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class ToDoTest {
 
     @Test
-    public void EventTaskExportTest() {
+    public void toDoTaskExportTest() {
         ToDo toDo = new ToDo("Test");
         assertEquals("todo false Test", toDo.export());
 
@@ -17,7 +17,7 @@ public class ToDoTest {
     }
 
     @Test
-    public void DeadlineToStringTest() {
+    public void toDoToStringTest() {
         ToDo toDo = new ToDo("Test");
         assertEquals("[T][ ] Test", toDo.toString());
 

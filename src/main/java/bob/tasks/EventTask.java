@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * EventTask is a child class of Task
  * EventTask is a task which has a from field and to field to indicate the duration of the event task
  */
-public class EventTask extends Task{
+public class EventTask extends Task {
 
     private final LocalDate startDate;
     private final LocalDate endDate;
@@ -96,7 +96,7 @@ public class EventTask extends Task{
      */
     @Override
     public String toString() {
-        return String.format("[%s]%s (from: %s%s to: %s%s)","E", super.toString(),
+        return String.format("[%s]%s (from: %s%s to: %s%s)", "E", super.toString(),
                 this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
                 this.startTime != null ? " " + this.startTime : "",
                 this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")),

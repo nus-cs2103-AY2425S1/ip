@@ -1,17 +1,18 @@
 package bob.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import bob.exceptions.InvalidTaskNumberException;
 import bob.tasks.TaskList;
 import bob.tasks.ToDo;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UnmarkCommandTest {
 
     @Test
-    public void IsRunningTest() {
+    public void isRunningTest() {
         UnmarkCommand unmarkCommand = new UnmarkCommand(1);
         assertTrue(unmarkCommand.isRunning());
     }

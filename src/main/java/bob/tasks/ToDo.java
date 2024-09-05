@@ -1,6 +1,10 @@
 package bob.tasks;
 
-public class ToDo extends Task{
+/**
+ * To Do is a child class of Task
+ * To Do is a simple task with no special fields
+ */
+public class ToDo extends Task {
 
     /**
      * Constructor for To Do
@@ -28,6 +32,6 @@ public class ToDo extends Task{
      */
     @Override
     public String toString() {
-        return String.format("[%s]%s","T", super.toString());
+        return String.format("[%s]%s", "T", super.toString());
     }
 }

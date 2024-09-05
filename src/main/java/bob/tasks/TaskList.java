@@ -1,10 +1,10 @@
 package bob.tasks;
 
-import bob.exceptions.InvalidTaskNumberException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import bob.exceptions.InvalidTaskNumberException;
 
 /**
  * TaskList stores a list of Task objects
@@ -80,7 +80,8 @@ public class TaskList {
     }
 
     /**
-     * Filters all the tasks in the task list based on the search string given and returns a string of all the match cases
+     * Filters all the tasks in the task list based on the search string given and
+     * returns a string of all the match cases
      * @param searchString String to search for in the task name of the tasks
      * @return String format of all the match cases in the task list for printing
      */
@@ -115,7 +116,7 @@ public class TaskList {
     public String toString() {
         String taskString = " Here are the tasks in your list:";
         for (int i = 1; i < this.taskList.size() + 1; i++) {
-            taskString = taskString + "\n " + i + "." + this.taskList.get(i-1);
+            taskString = taskString + "\n " + i + "." + this.taskList.get(i - 1);
         }
         return taskString;
     }

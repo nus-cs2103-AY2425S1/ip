@@ -1,20 +1,17 @@
 package bob;
 
-import bob.exceptions.EmptyArgumentException;
-import bob.exceptions.MissingArgumentException;
-
-import bob.tasks.Task;
-import bob.tasks.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-
 import java.time.format.DateTimeParseException;
-
 import java.util.Objects;
 import java.util.Scanner;
+
+import bob.exceptions.EmptyArgumentException;
+import bob.exceptions.MissingArgumentException;
+import bob.tasks.Task;
+import bob.tasks.TaskList;
 
 /**
  * Handles all the storage related actions
@@ -28,7 +25,7 @@ public class Storage {
      * @param filePath File path to the file from which the data is to be read from
      */
     public static void readData(TaskList taskList, String filePath) {
-        try (Scanner scanner =  new Scanner(new File(filePath), "UTF-8")) {
+        try (Scanner scanner = new Scanner(new File(filePath), "UTF-8")) {
             while (scanner.hasNextLine()) {
                 String in = scanner.nextLine();
                 try {

@@ -1,7 +1,6 @@
 package bob.command;
 
 import bob.UI;
-
 import bob.tasks.TaskList;
 
 /**
@@ -9,7 +8,7 @@ import bob.tasks.TaskList;
  * It takes in a search string during initialization and then filters the TaskList for the search string when executed.
  * Sets the isRunning param of the parent class to be true signalling that the program is still running.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     private final String searchString;
 

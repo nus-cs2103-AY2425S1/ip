@@ -1,12 +1,12 @@
 package bob.command;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.junit.jupiter.api.Test;
 
 public class ByeCommandTest {
     @Test
-    public void IsRunningTest() {
+    public void isRunningTest() {
         ByeCommand byeCommand = new ByeCommand();
         assertFalse(byeCommand.isRunning());
     }

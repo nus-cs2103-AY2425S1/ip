@@ -1,17 +1,17 @@
 package bob.tasks;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
 
     @Test
-    public void DeadlineExportTest() {
+    public void deadlineExportTest() {
         Deadline deadlineWithDate = new Deadline("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")));
         assertEquals("deadline false Test /by 12/01/2001", deadlineWithDate.export());
@@ -34,7 +34,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void DeadlineToStringTest() {
+    public void deadlineToStringTest() {
         Deadline deadlineWithDate = new Deadline("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")));
         assertEquals("[D][ ] Test (by: Jan 12 2001)", deadlineWithDate.toString());

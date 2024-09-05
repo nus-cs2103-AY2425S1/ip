@@ -1,22 +1,22 @@
 package bob.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
+
 import bob.tasks.Deadline;
 import bob.tasks.EventTask;
 import bob.tasks.TaskList;
 import bob.tasks.ToDo;
 
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class AddTaskCommandTest {
 
     @Test
-    public void IsRunningTest() {
+    public void isRunningTest() {
         AddTaskCommand addTaskCommandToDo = new AddTaskCommand(new ToDo("Hello"));
         AddTaskCommand addTaskCommandDeadline = new AddTaskCommand(new Deadline("Hello",
                 LocalDate.parse("18/12/2024", DateTimeFormatter.ofPattern("dd/MM/uuuu"))));
@@ -30,7 +30,7 @@ public class AddTaskCommandTest {
     }
 
     @Test
-    public void AddTaskTest() {
+    public void addTaskTest() {
         AddTaskCommand addTaskCommandToDo = new AddTaskCommand(new ToDo("Hello"));
         AddTaskCommand addTaskCommandDeadline = new AddTaskCommand(new Deadline("Hello",
                 LocalDate.parse("18/12/2024", DateTimeFormatter.ofPattern("dd/MM/uuuu"))));

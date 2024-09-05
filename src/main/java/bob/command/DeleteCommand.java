@@ -1,18 +1,16 @@
 package bob.command;
 
+import bob.UI;
 import bob.exceptions.InvalidTaskNumberException;
-
 import bob.tasks.Task;
 import bob.tasks.TaskList;
-
-import bob.UI;
 
 /**
  * DeleteCommand is a child class of Command
  * It takes in an index during initialization and then removes the task at that index from the TaskList when executed.
  * Sets the isRunning param of the parent class to be true signalling that the program is still running.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     private final int index;
 

@@ -1,17 +1,17 @@
 package bob.tasks;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class EventTaskTest {
 
     @Test
-    public void EventTaskExportTest() {
+    public void eventTaskExportTest() {
         EventTask eventTaskStandard = new EventTask("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
                 LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")));
@@ -66,7 +66,7 @@ public class EventTaskTest {
     }
 
     @Test
-    public void DeadlineToStringTest() {
+    public void eventToStringTest() {
         EventTask eventTaskStandard = new EventTask("Test",
                 LocalDate.parse("12/01/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
                 LocalDate.parse("12/01/2002", DateTimeFormatter.ofPattern("dd/MM/uuuu")));

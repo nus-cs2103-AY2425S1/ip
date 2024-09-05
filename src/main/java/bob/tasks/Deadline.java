@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Deadline is a child class of Task
  * Deadline is a task which has a by field to indicate when the task has to be completed by
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     private final LocalDate deadlineDate;
     private LocalTime deadlineTime;
@@ -56,7 +56,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return String.format("[%s]%s (by: %s%s)","D", super.toString(),
+        return String.format("[%s]%s (by: %s%s)", "D", super.toString(),
                 this.deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
                 this.deadlineTime != null ? " " + this.deadlineTime : "");
     }

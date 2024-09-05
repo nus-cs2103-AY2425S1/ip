@@ -1,22 +1,23 @@
 package bob.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
+
 import bob.exceptions.InvalidTaskNumberException;
 import bob.tasks.Deadline;
 import bob.tasks.EventTask;
 import bob.tasks.TaskList;
 import bob.tasks.ToDo;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DeleteCommandTest {
 
     @Test
-    public void IsRunningTest() {
+    public void isRunningTest() {
         DeleteCommand deleteCommand = new DeleteCommand(1);
         assertTrue(deleteCommand.isRunning());
     }

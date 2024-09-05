@@ -1,5 +1,11 @@
 package bob;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
 import bob.command.AddTaskCommand;
 import bob.command.ByeCommand;
 import bob.command.Command;
@@ -8,22 +14,14 @@ import bob.command.FindCommand;
 import bob.command.ListCommand;
 import bob.command.MarkCommand;
 import bob.command.UnmarkCommand;
-
 import bob.exceptions.EmptyArgumentException;
 import bob.exceptions.InvalidInputException;
 import bob.exceptions.InvalidTaskNumberException;
 import bob.exceptions.MissingArgumentException;
-
 import bob.tasks.Deadline;
 import bob.tasks.EventTask;
 import bob.tasks.ToDo;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-import java.util.Scanner;
 
 /**
  * Handles the parsing of string into commands and task objects
@@ -33,27 +31,28 @@ public class Parser {
     /**
      * Parses the given user input into an appropriate command
      *
-     * @param UserCommand String of the user command entered
+     * @param userCommand String of the user command entered
      * @return Command object based on the input from the user
      * @throws EmptyArgumentException If any of the required argument is empty
      * @throws MissingArgumentException If user does not include a required argument in the command
      * @throws InvalidInputException If user inputs an unrecognized command
      * @throws InvalidTaskNumberException If user inputs an invalid Task Number
      */
-    public static Command parseCommand(String UserCommand) throws EmptyArgumentException, MissingArgumentException, InvalidInputException, InvalidTaskNumberException {
-        Scanner scanner = new Scanner(UserCommand);
+    public static Command parseCommand(String userCommand)
+            throws EmptyArgumentException, MissingArgumentException, InvalidInputException, InvalidTaskNumberException {
+        Scanner scanner = new Scanner(userCommand);
         String input = scanner.next();
         Command command = switch (input) {
-            case "bye" -> new ByeCommand();
-            case "list" -> new ListCommand();
-            case "mark" -> new MarkCommand(scanner.nextInt() - 1);
-            case "unmark" -> new UnmarkCommand(scanner.nextInt() - 1);
-            case "todo" -> new AddTaskCommand(Parser.newToDo(scanner.nextLine().trim()));
-            case "deadline" -> new AddTaskCommand(Parser.newDeadline(scanner.nextLine().trim()));
-            case "event" -> new AddTaskCommand(Parser.newEvent(scanner.nextLine().trim()));
-            case "delete" -> new DeleteCommand(scanner.nextInt() - 1);
-            case "find" -> new FindCommand(scanner.nextLine().trim());
-            default -> throw new InvalidInputException();
+        case "bye" -> new ByeCommand();
+        case "list" -> new ListCommand();
+        case "mark" -> new MarkCommand(scanner.nextInt() - 1);
+        case "unmark" -> new UnmarkCommand(scanner.nextInt() - 1);
+        case "todo" -> new AddTaskCommand(Parser.newToDo(scanner.nextLine().trim()));
+        case "deadline" -> new AddTaskCommand(Parser.newDeadline(scanner.nextLine().trim()));
+        case "event" -> new AddTaskCommand(Parser.newEvent(scanner.nextLine().trim()));
+        case "delete" -> new DeleteCommand(scanner.nextInt() - 1);
+        case "find" -> new FindCommand(scanner.nextLine().trim());
+        default -> throw new InvalidInputException();
         };
         return command;
     }
@@ -81,7 +80,8 @@ public class Parser {
      * @throws MissingArgumentException If the "by" field is not specified
      * @throws DateTimeParseException If the inputted date is in the wrong format or invalid
      */
-    public static Deadline newDeadline(String input) throws EmptyArgumentException, MissingArgumentException, DateTimeParseException {
+    public static Deadline newDeadline(String input)
+            throws EmptyArgumentException, MissingArgumentException, DateTimeParseException {
 
         if (!input.matches("^\\S.+")) {
             throw new EmptyArgumentException("description", "deadline");
@@ -112,7 +112,8 @@ public class Parser {
      * @throws MissingArgumentException If the "from" or "to" field is not specified
      * @throws DateTimeParseException If the inputted date is in the wrong format or invalid
      */
-    public static EventTask newEvent(String input) throws EmptyArgumentException, MissingArgumentException, DateTimeParseException {
+    public static EventTask newEvent(String input)
+            throws EmptyArgumentException, MissingArgumentException, DateTimeParseException {
 
         if (!input.matches("^\\S.+")) {
             throw new EmptyArgumentException("description", "event");

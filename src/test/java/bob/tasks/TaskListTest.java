@@ -1,17 +1,19 @@
 package bob.tasks;
 
-import bob.exceptions.InvalidTaskNumberException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import bob.exceptions.InvalidTaskNumberException;
 
 public class TaskListTest {
 
     @Test
-    public void SizeTest() throws InvalidTaskNumberException {
+    public void sizeTest() throws InvalidTaskNumberException {
         TaskList myTasks = new TaskList();
         myTasks.addTask(new ToDo("Hello"));
         assertEquals(1, myTasks.size());
@@ -42,7 +44,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void AddTaskTest() {
+    public void addTaskTest() {
         TaskList myTasks = new TaskList();
         Task todo = new ToDo("TEST");
         assertEquals(0, myTasks.size());
@@ -51,7 +53,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void RemoveTaskAtIndexTest() throws InvalidTaskNumberException {
+    public void removeTaskAtIndexTest() throws InvalidTaskNumberException {
         TaskList myTasks = new TaskList();
         Task todo = new ToDo("TEST");
         myTasks.addTask(todo);
@@ -59,14 +61,14 @@ public class TaskListTest {
     }
 
     @Test
-    public void RemoveTaskAtIndexWithInvalidIndexTest() {
+    public void removeTaskAtIndexWithInvalidIndexTest() {
         TaskList myTasks = new TaskList();
         assertThrows(InvalidTaskNumberException.class, () -> myTasks.removeTaskAtIndex(-1));
         assertThrows(InvalidTaskNumberException.class, () -> myTasks.removeTaskAtIndex(1));
     }
 
     @Test
-    public void MarkTaskTest() throws InvalidTaskNumberException {
+    public void markTaskTest() throws InvalidTaskNumberException {
         TaskList myTasks = new TaskList();
         Task todo = new ToDo("TEST");
         myTasks.addTask(todo);
@@ -75,14 +77,14 @@ public class TaskListTest {
     }
 
     @Test
-    public void MarkTaskAtIndexWithInvalidIndexTest() {
+    public void markTaskAtIndexWithInvalidIndexTest() {
         TaskList myTasks = new TaskList();
         assertThrows(InvalidTaskNumberException.class, () -> myTasks.markTaskAtIndex(-1));
         assertThrows(InvalidTaskNumberException.class, () -> myTasks.markTaskAtIndex(1));
     }
 
     @Test
-    public void UnmarkTaskTest() throws InvalidTaskNumberException {
+    public void unmarkTaskTest() throws InvalidTaskNumberException {
         TaskList myTasks = new TaskList();
         Task todo = new ToDo("TEST");
         myTasks.addTask(todo);
@@ -93,14 +95,14 @@ public class TaskListTest {
     }
 
     @Test
-    public void UnmarkTaskAtIndexWithInvalidIndexTest() {
+    public void unmarkTaskAtIndexWithInvalidIndexTest() {
         TaskList myTasks = new TaskList();
         assertThrows(InvalidTaskNumberException.class, () -> myTasks.unmarkTaskAtIndex(-1));
         assertThrows(InvalidTaskNumberException.class, () -> myTasks.unmarkTaskAtIndex(1));
     }
 
     @Test
-    public void ExportTaskListTest() {
+    public void exportTaskListTest() {
         TaskList myTasks = new TaskList();
         myTasks.addTask(new ToDo("Hello"));
         myTasks.addTask(new Deadline("Hello",
@@ -130,7 +132,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void ToStringTaskListTest() {
+    public void toStringTaskListTest() {
         TaskList myTasks = new TaskList();
         myTasks.addTask(new ToDo("Hello"));
         myTasks.addTask(new Deadline("Hello",

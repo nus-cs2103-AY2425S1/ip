@@ -1,6 +1,18 @@
 package bob;
 
-import bob.command.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.format.DateTimeParseException;
+
+import org.junit.jupiter.api.Test;
+
+import bob.command.AddTaskCommand;
+import bob.command.ByeCommand;
+import bob.command.DeleteCommand;
+import bob.command.ListCommand;
+import bob.command.MarkCommand;
+import bob.command.UnmarkCommand;
 import bob.exceptions.EmptyArgumentException;
 import bob.exceptions.InvalidInputException;
 import bob.exceptions.InvalidTaskNumberException;
@@ -8,16 +20,11 @@ import bob.exceptions.MissingArgumentException;
 import bob.tasks.Deadline;
 import bob.tasks.EventTask;
 import bob.tasks.ToDo;
-import org.junit.jupiter.api.Test;
-
-import java.time.format.DateTimeParseException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
 
     @Test
-    public void ParseCommandTest() throws InvalidInputException, MissingArgumentException, InvalidTaskNumberException, EmptyArgumentException {
+    public void parseCommandTest() throws InvalidInputException, MissingArgumentException, InvalidTaskNumberException, EmptyArgumentException {
         assertInstanceOf(ByeCommand.class, Parser.parseCommand("bye"));
         assertInstanceOf(ListCommand.class, Parser.parseCommand("list"));
         assertInstanceOf(MarkCommand.class, Parser.parseCommand("mark 0"));
@@ -30,29 +37,29 @@ public class ParserTest {
     }
 
     @Test
-    public void ParseCommandWithInvalidInputTest() {
+    public void parseCommandWithInvalidInputTest() {
         assertThrows(InvalidInputException.class, () -> Parser.parseCommand("RANDOMINPUT"));
     }
 
     @Test
-    public void NewToDoTest() throws EmptyArgumentException {
+    public void newToDoTest() throws EmptyArgumentException {
         assertInstanceOf(ToDo.class, Parser.newToDo("Hello"));
         assertThrows(EmptyArgumentException.class, () -> Parser.newToDo(""));
     }
 
     @Test
-    public void NewToDoTestWithInvalidInput() {
+    public void newToDoTestWithInvalidInput() {
         assertThrows(EmptyArgumentException.class, () -> Parser.newToDo(""));
     }
 
     @Test
-    public void NewDeadlineTest() throws MissingArgumentException, EmptyArgumentException {
+    public void newDeadlineTest() throws MissingArgumentException, EmptyArgumentException {
         assertInstanceOf(Deadline.class, Parser.newDeadline("TEST /by 19/12/2001 1800"));
         assertInstanceOf(Deadline.class, Parser.newDeadline("TEST /by 19/12/2001"));
     }
 
     @Test
-    public void NewDeadlineTestWithInvalidInput() {
+    public void newDeadlineTestWithInvalidInput() {
         assertThrows(DateTimeParseException.class, () -> Parser.newDeadline("TEST /by 19/20/2001"));
         assertThrows(DateTimeParseException.class, () -> Parser.newDeadline("TEST /by 19/20/2001 1800"));
         assertThrows(DateTimeParseException.class, () -> Parser.newDeadline("TEST /by 19-12-2001"));
@@ -65,7 +72,7 @@ public class ParserTest {
     }
 
     @Test
-    public void NewEventTaskTest() throws MissingArgumentException, EmptyArgumentException {
+    public void newEventTaskTest() throws MissingArgumentException, EmptyArgumentException {
         assertInstanceOf(EventTask.class, Parser.newEvent("TEST /from 19/12/2001 /to 19/12/2001"));
         assertInstanceOf(EventTask.class, Parser.newEvent("TEST /from 19/12/2001 /to 19/12/2001 2000"));
         assertInstanceOf(EventTask.class, Parser.newEvent("TEST /from 19/12/2001 1800 /to 19/12/2001"));
@@ -73,7 +80,7 @@ public class ParserTest {
     }
 
     @Test
-    public void NewEventTaskWithInvalidInputTest() {
+    public void newEventTaskWithInvalidInputTest() {
         assertThrows(DateTimeParseException.class, () -> Parser.newEvent("TEST /from 19/13/2001 /to 19/12/2001"));
         assertThrows(DateTimeParseException.class, () -> Parser.newEvent("TEST /from 19/12/2001 /to 19/13/2001"));
         assertThrows(DateTimeParseException.class, () -> Parser.newEvent("TEST /from 19/12/2001 2500 /to 19/12/2001"));

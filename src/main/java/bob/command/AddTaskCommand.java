@@ -1,9 +1,8 @@
 package bob.command;
 
+import bob.UI;
 import bob.tasks.Task;
 import bob.tasks.TaskList;
-
-import bob.UI;
 
 /**
  * AddTaskCommand is a child class of Command

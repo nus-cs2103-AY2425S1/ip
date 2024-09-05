@@ -1,14 +1,13 @@
 package bob.command;
 
-import bob.tasks.TaskList;
-
 import bob.UI;
+import bob.tasks.TaskList;
 
 /**
  * ByeCommand is a child class of Command
  * Sets the isRunning param of the parent class to be false signalling the end of the program.
  */
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
 
     /**
      * Constructor for ByeCommand
