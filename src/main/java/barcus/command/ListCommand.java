@@ -1,8 +1,8 @@
 package barcus.command;
 
+import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
-import barcus.storage.Storage;
 
 /**
  * Command to list out all tasks

@@ -1,8 +1,10 @@
 package barcus.tasklist;
 
-import barcus.task.Task;
 import java.util.ArrayList;
 import java.util.List;
+
+import barcus.task.Task;
+
 
 /**
  * Class to encapsulate the list of tasks
@@ -34,9 +36,9 @@ public class TaskList {
     public void showTaskList() {
         for (int i = 0; i < this.length; i++) {
             System.out.println(String.valueOf(i + 1) + ". " + tasks.get(i).toString());
-//            System.out.println(i);
+            //System.out.println(i);
         }
-//        System.out.println(tasks);
+        //System.out.println(tasks);
     }
 
     /**
@@ -45,7 +47,7 @@ public class TaskList {
      */
     public String convertToSavable() {
         List<String> temp = new ArrayList<>();
-        this.tasks.forEach( task -> temp.add(task.convertToSavedString() + "\n"));
+        this.tasks.forEach(task -> temp.add(task.convertToSavedString() + "\n"));
         return String.join("", temp);
     }
 

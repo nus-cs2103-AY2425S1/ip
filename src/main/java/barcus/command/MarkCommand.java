@@ -1,8 +1,8 @@
 package barcus.command;
 
+import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
-import barcus.storage.Storage;
 
 /**
  * Command to mark item at pos
@@ -21,7 +21,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (pos > 0 && pos <= tasks.getLength()) {
-//                        tasks.get(pos - 1).markDone();
+            // tasks.get(pos - 1).markDone();
             tasks.markTask(pos - 1);
             ui.talk("Good job! Have marked as done: " + tasks.getTaskString(pos - 1));
         } else {

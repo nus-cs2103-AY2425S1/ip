@@ -1,10 +1,10 @@
 package barcus.command;
 
-import barcus.tasklist.TaskList;
-import barcus.ui.Ui;
 import barcus.storage.Storage;
 import barcus.task.Task;
 import barcus.task.Todo;
+import barcus.tasklist.TaskList;
+import barcus.ui.Ui;
 
 /**
  * Command to add in a todo task

@@ -1,6 +1,5 @@
 package barcus.command;
 
-import barcus.exception.BarcusException;
 import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
@@ -8,7 +7,7 @@ import barcus.ui.Ui;
 /**
  * Command to find tasks w certain string in description
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private String toFind;
 
     /**
