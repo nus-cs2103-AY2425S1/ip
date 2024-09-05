@@ -1,7 +1,17 @@
 package cypherchatbot.util;
 
 import cypherchatbot.CypherException;
-import cypherchatbot.command.*;
+import cypherchatbot.command.ByeCommand;
+import cypherchatbot.command.Command;
+import cypherchatbot.command.DeadlineCommand;
+import cypherchatbot.command.DeleteCommand;
+import cypherchatbot.command.EventCommand;
+import cypherchatbot.command.FindCommand;
+import cypherchatbot.command.HelpCommand;
+import cypherchatbot.command.ListCommand;
+import cypherchatbot.command.MarkCommand;
+import cypherchatbot.command.ToDoCommand;
+import cypherchatbot.command.UnmarkCommand;
 
 public class CommandReader {
 
@@ -28,8 +38,8 @@ public class CommandReader {
                 return new ListCommand();
             case TODO:
                 if (command.length != 2 || command[1].trim().isEmpty()) {
-                    throw new CypherException("No task is given. " +
-                            "The format of the todo command is:\n todo <Description of task>");
+                    throw new CypherException("No task is given. "
+                            + "The format of the todo command is:\n todo <Description of task>");
                 }
                 return new ToDoCommand(command);
 
@@ -74,14 +84,14 @@ public class CommandReader {
             case FIND:
                 return new FindCommand(command[1]);
             default:
-                System.out.printf("\"%s\" is not a valid command. Type help in order to see the list of valid commands " +
-                        "(This feature is still under construction)\n", command[0]);
+                System.out.printf("\"%s\" is not a valid command. Type help in order to see the list of valid commands "
+                        + "(This feature is still under construction)\n", command[0]);
                 return new HelpCommand();
             }
         } catch (NumberFormatException exp) {
-            throw new CypherException("That is not a valid command. You need to enter a valid integer. " +
-                    "Type help in order to see the list of valid commands " +
-                    "(This feature is still under construction)");
+            throw new CypherException("That is not a valid command. You need to enter a valid integer. "
+                    + "Type help in order to see the list of valid commands "
+                        + "(This feature is still under construction)");
         } catch (IllegalArgumentException exp) {
             throw new CypherException("That is not a valid command. "
                     + "Type help in order to see the list of valid commands "

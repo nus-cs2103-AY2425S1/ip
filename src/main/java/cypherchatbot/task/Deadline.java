@@ -32,8 +32,8 @@ public class Deadline extends Task {
         }
 
         if (o.getClass() == this.getClass()) {
-            return Objects.equals(this.description,
-                    ((Deadline) o).description) && this.deadline == ((Deadline) o).deadline;
+            return Objects.equals(this.description, ((Deadline) o).description)
+                    && this.deadline == ((Deadline) o).deadline;
         }
         return false;
     }

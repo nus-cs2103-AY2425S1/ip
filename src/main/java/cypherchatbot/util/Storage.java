@@ -82,7 +82,7 @@ public class Storage {
                     task.completeTask();
                 }
                 taskList.add(task);
-            } else if(taskLine[0].equals("E")){
+            } else if (taskLine[0].equals("E")) {
                 LocalDateTime from = LocalDateTime.parse(taskLine[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                 LocalDateTime to = LocalDateTime.parse(taskLine[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
