@@ -30,6 +30,10 @@ public class Blue {
         UI.farewell();
     }
 
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
     /**
      * The main method that starts the Blue application.
      *

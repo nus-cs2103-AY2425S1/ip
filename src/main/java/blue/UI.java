@@ -15,12 +15,10 @@ public class UI {
     /**
      * Displays a greeting message to the user.
      */
-    public static void greet() {
-        System.out.println("--------------------------------------------");
-        System.out.println("Hello! I'm Blue! Woof Woof! Yap Yap!");
-        System.out.println("What can I do for you?");
-        System.out.println("--------------------------------------------");
+    public static String greet() {
+        return "Hello! I'm Blue! Woof Woof! Yap Yap!\nWhat can I do for you?";
     }
+
 
     /**
      * Displays a farewell message to the user.
@@ -44,24 +42,22 @@ public class UI {
      *
      * @param task The task that has been marked as done.
      */
-    public static void displayAfterMark(Task task) {
-        System.out.println("--------------------------------------------");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
-        System.out.println("--------------------------------------------");
+
+    public static String displayAfterMark(Task task) {
+        return "Nice! I've marked this task as done:\n" + task.toString();
     }
+
 
     /**
      * Displays a message after a task has been unmarked (marked as not done).
      *
      * @param task The task that has been unmarked.
      */
-    public static void displayAfterUnMark(Task task) {
-        System.out.println("--------------------------------------------");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString());
-        System.out.println("--------------------------------------------");
+
+    public static String displayAfterUnMark(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task.toString();
     }
+
 
     /**
      * Displays a message after a task has been deleted, along with the updated number of tasks.
@@ -69,14 +65,15 @@ public class UI {
      * @param task The task that has been deleted.
      * @param noOfTask The number of remaining tasks in the list.
      */
-    public static void displayAfterDelete(Task task, int noOfTask) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        String result = "Now you have " + noOfTask + " tasks in the list.";
-        System.out.println(result);
-        System.out.println("____________________________________________________________");
+
+    public static String displayAfterDelete(Task task, int noOfTask) {
+        StringBuilder result = new StringBuilder();
+        result.append("Noted. I've removed this task:\n");
+        result.append(task.toString()).append("\n");
+        result.append("Now you have ").append(noOfTask).append(" tasks in the list.");
+        return result.toString();
     }
+
 
     /**
      * Displays the current list of tasks.
@@ -84,13 +81,14 @@ public class UI {
      * @param myList The list of tasks to display.
      * @param noOfTask The number of tasks in the list.
      */
-    public static void displayList(ArrayList<Task> myList, int noOfTask) {
-        System.out.println("Here are the tasks in your list:");
-        System.out.println("--------------------------------------------");
+
+    public static String displayList(ArrayList<Task> myList, int noOfTask) {
+        StringBuilder result = new StringBuilder();
+        result.append("Here are the tasks in your list:\n");
         for (int i = 0; i < noOfTask; i++) {
-            String result = (i + 1) + ". " + myList.get(i).toString();
-            System.out.println(result);
+            result.append(i + 1).append(". ").append(myList.get(i).toString()).append("\n");
         }
-        System.out.println("--------------------------------------------");
+        return result.toString();
     }
+
 }
