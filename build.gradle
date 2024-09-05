@@ -34,14 +34,15 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "loafy"
     archiveClassifier = null
+    archiveVersion = "v0"
 }
 
-run{
+run {
     standardInput = System.in
 }
 
-run{
+run {
     enableAssertions = true
 }
