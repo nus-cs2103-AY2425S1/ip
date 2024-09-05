@@ -51,6 +51,8 @@ public class Parser {
                     return new ExitCommand();
                 case "list":
                     return new ListCommand();
+                case "find":
+                    return new FindCommand(arguments);
                 case "mark":
                     // argument is task index
                     return new MarkTaskCommand(arguments);

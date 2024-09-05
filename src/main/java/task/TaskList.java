@@ -2,7 +2,6 @@ package task;
 
 import java.util.ArrayList;
 
-
 /**
  * Represents a list of tasks.
  * <p>
@@ -13,7 +12,6 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> tasks;
-
 
     /**
      * Constructs an empty {@code TaskList}.
@@ -137,5 +135,22 @@ public class TaskList {
             output.append((i + 1)).append(".").append(this.tasks.get(i)).append(System.lineSeparator());
         }
         return output.toString();
+    }
+
+    // TODO: Add javadocs to this method
+    //Return list of matching tasks in an ArrayList
+    public ArrayList<Task> findMatchingTasks(String keyword) {
+        // Initialise an empty list to store matching tasks
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        // Loop through the tasks and find matching tasks
+        for (Task task: this.tasks) {
+            // Note that this is case sensitive
+            if (task.description.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
     }
 }
