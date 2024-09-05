@@ -1,17 +1,21 @@
 package ned;
-import ned.commands.Command;
-import ned.exceptions.NedException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import ned.commands.Command;
+import ned.exceptions.NedException;
 
+/**
+ * Represents the chatbot, Ned, which will read and react to user commands.
+ */
 public class Ned {
-    public static final String cachedTasksPath = Paths.get("src", "data", "cachedTasks.txt").toString();
+    public static final String CACHED_TASKS_PATH = Paths.get("src", "data", "cachedTasks.txt").toString();
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
 
     /**
-     * Creates an instance of the Ned chatbot
+     * Creates an instance of the Ned chatbot.
+     *
      * @param filePath The address of the cache file, relative to the project folder
      */
     public Ned(String filePath) {
@@ -26,7 +30,7 @@ public class Ned {
     }
 
     public static void main(String[] args) {
-        new Ned(Ned.cachedTasksPath).run();
+        new Ned(Ned.CACHED_TASKS_PATH).run();
     }
 
     public String getResponse(String input) {

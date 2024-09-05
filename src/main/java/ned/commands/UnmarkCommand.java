@@ -4,6 +4,10 @@ import ned.TaskList;
 import ned.Ui;
 import ned.exceptions.NedException;
 
+/**
+ * Represents the unmark command, which when executed, retrieves the selected task, by index from the list of tasks
+ * and marks it as not done. The status change is shown to the user.
+ */
 public class UnmarkCommand implements Command {
     private final String REGEX = "^unmark.*";
 
@@ -11,21 +15,22 @@ public class UnmarkCommand implements Command {
     }
 
     /**
-     * Unmarks a task in the list of tasks, making it not done
+     * Unmarks a task in the list of tasks, making it not done.
      *
      * @param taskList        An object which contains the ArrayList that stores the list of tasks. In addition, also
-     *                        handles modifications and reading from the ArrayList
-     * @param uiInstance      An object which handles output that is displayed to users and input from users
-     * @param storageInstance An object which handles loading in and modifications to the cached list of tasks
-     * @param userInput       A string which represents input from users into Ned
-     * @throws NedException Thrown if the index is not a number or a valid index
+     *                        handles modifications and reading from the ArrayList.
+     * @param uiInstance      An object which handles output that is displayed to users and input from users.
+     * @param storageInstance An object which handles loading in and modifications to the cached list of tasks.
+     * @param userInput       A string which represents input from users into Ned.
+     * @throws NedException Thrown if the index is not a number or a valid index.
      */
     @Override
-    public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput) throws NedException {
+    public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput)
+            throws NedException {
         String[] words = userInput.split(" ");
         if (words.length != 2) {
-            throw new NedException("Sorry m'lord, you must give me a list index with the mark command. No more, no " +
-                    "less" + uiInstance.getCommandMessage());
+            throw new NedException("Sorry m'lord, you must give me a list index with the mark command. No more, no "
+                    + "less" + uiInstance.getCommandMessage());
         }
         String possibleIndex = words[1];
         try {
@@ -33,9 +38,11 @@ public class UnmarkCommand implements Command {
             taskList.markTaskAsUndone(index, uiInstance);
             storageInstance.save(taskList);
         } catch (NumberFormatException e) {
-            throw new NedException("Sorry m'lord, your command must specify a valid number" + uiInstance.getCommandMessage());
+            throw new NedException("Sorry m'lord, your command must specify a valid number"
+                    + uiInstance.getCommandMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new NedException("Sorry m'lord, seems the item number you specified is not valid" + uiInstance.getCommandMessage());
+            throw new NedException("Sorry m'lord, seems the item number you specified is not valid"
+                    + uiInstance.getCommandMessage());
         }
     }
 

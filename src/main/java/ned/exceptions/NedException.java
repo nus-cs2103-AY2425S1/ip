@@ -1,8 +1,11 @@
 package ned.exceptions;
 
+/**
+ * Represents a generic exception, used to wrap other types of exceptions from method calls involved in running Ned
+ */
 public class NedException extends Exception {
     /**
-     * A generic exception, used to wrap other types of exceptions from method calls involved in running Ned
+     * A generic exception, used to wrap other types of exceptions from method calls involved in running Ned.
      *
      * @param errorMsg The error message that is shown to users
      */

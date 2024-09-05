@@ -27,7 +27,7 @@ public class ToDo extends Task {
         if (this == obj) {
             return true;
         } else if (obj instanceof ToDo) {
-            ToDo typeCastedObj = (ToDo)obj;
+            ToDo typeCastedObj = (ToDo) obj;
             return (typeCastedObj.taskDescription.equals(this.taskDescription) && typeCastedObj.isDone == this.isDone);
         }
         return false;

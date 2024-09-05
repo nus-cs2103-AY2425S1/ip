@@ -1,11 +1,14 @@
 package ned;
 import ned.commands.Command;
-import ned.tasks.ToDo;
 import ned.exceptions.NedException;
 import ned.tasks.Deadline;
 import ned.tasks.Event;
 import ned.tasks.Task;
+import ned.tasks.ToDo;
 
+/**
+ * Represents the parser class, which handles interpreting user input into commands, which are then ran.
+ */
 public class Parser {
     /**
      * Constructs an object which is responsible for converting input from users into commands and their parameters
@@ -22,8 +25,8 @@ public class Parser {
         CommandTypes command = CommandTypes.findMatchingCommand(userInput);
         switch (command) {
         case UNKNOWN:
-            throw new NedException("M'lord, you seem to have given me a nonsensical command." +
-                    " Input a correct command, for we have little time! Winter is coming....");
+            throw new NedException("M'lord, you seem to have given me a nonsensical command."
+                    + " Input a correct command, for we have little time! Winter is coming....");
         default:
             return command.getCommand();
         }
@@ -31,7 +34,7 @@ public class Parser {
 
     /**
      * Parses lines from the cached list of tasks, and converts them into Task objects. Returns null if the line
-     * cannot be converted into a task
+     * cannot be converted into a task.
      *
      * @param savedLine Line from the cached list of tasks
      * @return Task objects
@@ -52,15 +55,18 @@ public class Parser {
                 return Deadline.createDeadline(splitLine[2], splitLine[3], isTaskDone);
             case "event":
                 return Event.createEvent(splitLine[2], splitLine[3], splitLine[4], isTaskDone);
+            default:
+                throw new NedException(String.format("M'lord, it appears that this line: %s is an unknown task type.",
+                        savedLine));
             }
         } catch (IndexOutOfBoundsException e) {
             throw new NedException(String.format("M'lord, it appears that this line: %s is saved in the wrong format.",
                     savedLine));
         } catch (NumberFormatException e) {
-            throw new NedException(String.format("M'lord, it appears that this line: %s is saved with an invalid status number.",
-                    savedLine));
+            throw new NedException(
+                    String.format("M'lord, it appears that this line: %s is saved with an invalid status number."
+                            , savedLine));
         }
-        return null;
     }
 
 }

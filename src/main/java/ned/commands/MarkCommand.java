@@ -4,6 +4,10 @@ import ned.TaskList;
 import ned.Ui;
 import ned.exceptions.NedException;
 
+/**
+ * Represents the mark command, which when executed, retrieves the selected task, by index from the list of tasks and
+ * marks it as done. The status change is shown to the user.
+ */
 public class MarkCommand implements Command {
 
     private final String REGEX = "^mark.*";
@@ -22,7 +26,8 @@ public class MarkCommand implements Command {
      * @throws NedException Thrown if the index is not a number or a valid index
      */
     @Override
-    public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput) throws NedException {
+    public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput)
+            throws NedException {
         String[] words = userInput.split(" ");
         if (words.length != 2) {
             throw new NedException("Sorry m'lord, you must give me a list index with the mark command. No more, no " +
@@ -34,16 +39,17 @@ public class MarkCommand implements Command {
             taskList.markTaskAsDone(index, uiInstance);
             storageInstance.save(taskList);
         } catch (NumberFormatException e) {
-            throw new NedException("Sorry m'lord, your command must specify a valid number" + uiInstance.getCommandMessage());
+            throw new NedException("Sorry m'lord, your command must specify a valid number"
+                    + uiInstance.getCommandMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new NedException("Sorry m'lord, seems the item number you specified is not valid" + uiInstance.getCommandMessage());
+            throw new NedException("Sorry m'lord, seems the item number you specified is not valid"
+                    + uiInstance.getCommandMessage());
         }
     }
 
     /**
      * Returns the regex expression used to identify the mark command
      * Used in Parser class to find the associated command
-     *
      * @return The regex pattern associated with this command
      */
     @Override

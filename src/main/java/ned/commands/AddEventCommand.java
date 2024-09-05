@@ -1,26 +1,30 @@
 package ned.commands;
+import java.util.regex.Pattern;
 import ned.Storage;
 import ned.TaskList;
 import ned.exceptions.NedException;
-import ned.tasks.Task;
-import ned.tasks.Event;
 import ned.Ui;
-import java.util.regex.Pattern;
+import ned.tasks.Event;
+import ned.tasks.Task;
 
+/**
+ * Represents the event command, which when executed, adds a new event to the list of tasks.
+ */
 public class AddEventCommand implements Command {
     private final String REGEX = "^event.*";
-    private String EventRegexWithoutTo = "^event (.+) /from (.+)";
-    private String EventRegexWithEmptyTo = "^event (.+) /from (.+) /to\\s";
-    private String EventRegexWithoutFrom = "^event (.+) /to (.+)";
-    private String EventRegexWithEmptyFrom = "^event (.+) /from\\s/to (.+)";
+    private String eventRegexWithoutTo = "^event (.+) /from (.+)";
+    private String eventRegexWithEmptyTo = "^event (.+) /from (.+) /to\\s";
+    private String eventRegexWithoutFrom = "^event (.+) /to (.+)";
+    private String eventRegexWithEmptyFrom = "^event (.+) /from\\s/to (.+)";
 
     /**
-     * This method creates a new Event object and then adds it to the taskList instance belonging to the Ned instance
-     * . It Will throw NedException if the command is incomplete, be it missing a description, a /from timing or a
-     * /to timing
+     * This method creates a new Event object and then adds it to the taskList instance belonging to the Ned instance.
      *
-     * @param taskList        The TaskList instance associated with the Ned instance, used to store the list of tasks and
-     *                        to modify them
+     * It will throw NedException if the command is incomplete, be it missing a description, a /from timing or a
+     * /to timing.
+     *
+     * @param taskList        The TaskList instance associated with the Ned instance, used to store the list of tasks
+     *                        and to modify them
      * @param uiInstance      The Ui instance associated with the Ned instance, used to display user output, and take in
      *                        user input
      * @param storageInstance The storage instance associated with the Ned instance, used to load in saved tasks
@@ -30,16 +34,19 @@ public class AddEventCommand implements Command {
      *                      to the user
      */
     @Override
-    public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput) throws NedException {
+    public void execute(TaskList taskList, Ui uiInstance, Storage storageInstance, String userInput)
+            throws NedException {
         String[] parsed_inputs = userInput.split("event|/from|/to", 4);
         int parsed_inputs_len = Task.checkSizeOfInput(parsed_inputs);
         if (parsed_inputs[1].strip().isBlank()) {
-            throw new NedException("M'lord, you cannot create an event task with no description" + uiInstance.getCommandMessage());
+            throw new NedException("M'lord, you cannot create an event task with no description"
+                    + uiInstance.getCommandMessage());
         } else if (parsed_inputs_len <= 2) {
-            if (Pattern.matches(EventRegexWithoutTo, userInput) || Pattern.matches(EventRegexWithEmptyTo, userInput)) {
+            if (Pattern.matches(eventRegexWithoutTo, userInput) || Pattern.matches(eventRegexWithEmptyTo, userInput)) {
                 throw new NedException("M'lord, you cannot create an event task with no 'to' date."
                         + " Gods be good, fill both up!" + uiInstance.getCommandMessage());
-            } else if (Pattern.matches(EventRegexWithoutFrom, userInput) || Pattern.matches(EventRegexWithEmptyFrom, userInput)) {
+            } else if (Pattern.matches(eventRegexWithoutFrom, userInput)
+                    || Pattern.matches(eventRegexWithEmptyFrom, userInput)) {
                 throw new NedException("M'lord, you cannot create an event task with no 'from' date."
                         + " Gods be good, fill both up!" + uiInstance.getCommandMessage());
             } else {
@@ -54,8 +61,9 @@ public class AddEventCommand implements Command {
     }
 
     /**
-     * Returns the regex expression used to identify the event command
-     * Used in Parser class to find the associated command
+     * Returns the regex expression used to identify the event command.
+     *
+     * Used in Parser class to find the associated command.
      *
      * @return The regex pattern associated with this command
      */

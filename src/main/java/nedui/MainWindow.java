@@ -1,4 +1,5 @@
 package nedui;
+import java.util.Objects;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -10,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import ned.Ned;
-import java.util.Objects;
 
 /**
  * Controller for the main GUI.
@@ -29,8 +29,8 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     //    private Image NedImage = new Image(this.getClass().getResourceAsStream("/images/Ned_Stark-Sean_Bean.jpg"));
-    private Image nedImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/Ned_Stark" +
-            "-Sean_Bean.jpg")));
+    private Image nedImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/Ned_Stark-Sean_Bean.jpg")));
 
 
     @FXML

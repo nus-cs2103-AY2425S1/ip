@@ -13,17 +13,17 @@ public class Ui {
             + Ui.INDENTATIONS + "  | |\\ \\| | / /__\\\\/ /'`\\' |  \n"
             + Ui.INDENTATIONS + " _| |_\\   |_| \\__.,| \\__/  |  \n"
             + Ui.INDENTATIONS + "|_____|\\____|'.__.' '.__.;__]";
-    public final static String COMMAND_MESSAGE = "\n"
+    public static final String COMMAND_MESSAGE = "\n"
             + Ui.INDENTATIONS + "Usage: \n"
             + Ui.INDENTATIONS + "list                             - Shows the list of all tasks\n"
             + Ui.INDENTATIONS + "<item-index>                - Marks the item at the specified index as done\n"
             + Ui.INDENTATIONS + "unmark <item-index>              - Marks the item at the specified index as undone\n"
-            + Ui.INDENTATIONS + "delete <item-index>              - Removes the item at the specified index from the " +
-            "list\n"
+            + Ui.INDENTATIONS + "delete <item-index>              - Removes the item at the specified index from the "
+            + "list\n"
             + Ui.INDENTATIONS + "todo <description>               - Creates a new todo task and adds it to the list\n"
             + Ui.INDENTATIONS + "<description> /by <date> - Creates a new deadline task and adds it to the list"
-            + Ui.INDENTATIONS + "<description> /from <date> /to <date> - Creates a new event task and adds it to the " +
-            "list";
+            + Ui.INDENTATIONS + "<description> /from <date> /to <date> - Creates a new event task and adds it to the "
+            + "list";
 
     /**
      * Is a class responsible for displaying output to users and to take in input from them as well.
@@ -91,8 +91,8 @@ public class Ui {
      * Displays a message to the user if the cached tasks file is unable to be found.
      */
     public void showLoadingError() {
-        addToNedDialogue("M'lord, do not be alarmed, but it appears that there was no previous saved task file. Not to " +
-                "worry, we'll sort this out yet...");
+        addToNedDialogue("M'lord, do not be alarmed, but it appears that there was no previous saved task file. " +
+                "Not to worry, we'll sort this out yet...");
     }
 
     /**

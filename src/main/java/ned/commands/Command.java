@@ -4,6 +4,9 @@ import ned.TaskList;
 import ned.Ui;
 import ned.exceptions.NedException;
 
+/**
+ * Represents a command, which when executed, causes the command logic to be carried out.
+ */
 public interface Command {
     /**
      * A generic method with each command class implementing the logic needed to carry out the command.
