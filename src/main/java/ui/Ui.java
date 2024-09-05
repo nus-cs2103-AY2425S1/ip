@@ -7,7 +7,6 @@ public class Ui {
     // TODO: Provide reading of input, showline, and print capability (perhaps create printWithDivider r sth like that
     private Scanner scanner = new Scanner(System.in);
 
-
     // Reads the user-input command and returns it to the program
     public String readCommand() {
         return scanner.nextLine();
