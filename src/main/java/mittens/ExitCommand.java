@@ -1,5 +1,6 @@
 package mittens;
 
+import mittens.storage.Storage;
 import mittens.task.TaskList;
 import mittens.ui.Ui;
 

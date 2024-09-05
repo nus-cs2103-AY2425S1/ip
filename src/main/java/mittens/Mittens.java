@@ -1,5 +1,7 @@
 package mittens;
 
+import mittens.storage.Storage;
+import mittens.storage.StorageFileException;
 import mittens.task.TaskList;
 import mittens.ui.TextUi;
 import mittens.ui.Ui;
