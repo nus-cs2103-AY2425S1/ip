@@ -1,10 +1,10 @@
-package revir.system.Exceptions;
+package revir.system.exceptions;
 
 /**
  * Represents an exception that is thrown when an illegal command is encountered.
  * This exception is typically thrown when a command is not recognized or is not valid.
  */
-public class IllegalCommandException extends Exception{
+public class IllegalCommandException extends Exception {
     /**
      * Constructs a new IllegalCommandException with the specified command.
      *

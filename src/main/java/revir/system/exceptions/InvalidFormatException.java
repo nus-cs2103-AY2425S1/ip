@@ -1,4 +1,4 @@
-package revir.system.Exceptions;
+package revir.system.exceptions;
 
 /**
  * Represents an exception that is thrown when an invalid format is encountered.

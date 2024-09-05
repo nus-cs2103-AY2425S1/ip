@@ -1,12 +1,16 @@
 package revir.user.command;
 
 import java.io.IOException;
+
 import revir.tasks.TaskList;
 import revir.user.Ui;
 
+/**
+ * Represents a command to mark a task as completed.
+ */
 public class Mark extends Command {
     private int taskIndex;
-    private boolean state; 
+    private boolean state;
 
     /**
      * Creates a new Mark object with the specified task index and state.
@@ -30,5 +34,5 @@ public class Mark extends Command {
     public void execute(Ui ui, TaskList taskList) throws IOException {
         ui.showResult(taskList.setCompleted(taskIndex, state));
     }
-    
+
 }

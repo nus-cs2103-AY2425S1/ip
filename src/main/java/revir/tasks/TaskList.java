@@ -1,9 +1,10 @@
 package revir.tasks;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import revir.system.Storage;
 import revir.user.Ui;
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.
@@ -16,7 +17,7 @@ public class TaskList {
 
     /**
      * Constructs a TaskList object.
-     * 
+     *
      * @param storage the storage object used to load tasks from a file
      * @param ui      the user interface object used to display error messages
      */
@@ -79,8 +80,9 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             str.append(tasks.get(i).toString() + '\n');
         }
-        if (!str.isEmpty())
+        if (!str.isEmpty()) {
             str.deleteCharAt(str.length() - 1);
+        }
         return str.toString();
     }
 
@@ -99,8 +101,9 @@ public class TaskList {
                 str.append(task.toString() + '\n');
             }
         });
-        if (!str.isEmpty())
+        if (!str.isEmpty()) {
             str.deleteCharAt(str.length() - 1);
+        }
         return str.toString();
     }
 
@@ -116,14 +119,14 @@ public class TaskList {
      *                                   tasks to a file
      */
     public String setCompleted(int index, boolean status) throws IndexOutOfBoundsException, IOException {
-        if (index < 1 || index > tasks.size()) {
+        if (index < 0 || index >= tasks.size()) {
             throw new IndexOutOfBoundsException(
                     "Invalid task index. Expected index between 1 and " + tasks.size());
         }
         Task task = tasks.get(index);
         task.setCompleted(status);
         storage.saveToFile(this.tasks);
-        return "Task marked as" + (status ? "completed" : "incomplete") + ": " + task.toString();
+        return "Task marked as " + (status ? "completed" : "incomplete") + ": " + task.toString();
     }
 
 }

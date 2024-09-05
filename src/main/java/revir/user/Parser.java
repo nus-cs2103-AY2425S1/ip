@@ -1,24 +1,33 @@
 package revir.user;
 
-import revir.system.Exceptions.IllegalCommandException;
-import revir.system.Exceptions.InvalidFormatException;
-import revir.tasks.*;
-import revir.user.command.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
+import revir.system.exceptions.IllegalCommandException;
+import revir.system.exceptions.InvalidFormatException;
+import revir.tasks.Deadline;
+import revir.tasks.Event;
+import revir.tasks.Todo;
+import revir.user.command.Command;
+import revir.user.command.Create;
+import revir.user.command.Delete;
+import revir.user.command.Find;
+import revir.user.command.ListTasks;
+import revir.user.command.Mark;
+import revir.user.command.Nop;
+
+/**
+ * Parses the command string and returns the corresponding Command object.
+ */
 public class Parser {
-    // use java enum to define command types
-    enum Action {
+    private enum Action {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, INVALID
     }
 
-    static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
-    // create and statically define hashmap to map string to command type
+    private static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final Map<String, Action> actionMap = new HashMap<>();
     static {
         actionMap.put("bye", Action.BYE);
@@ -32,35 +41,43 @@ public class Parser {
         actionMap.put("find", Action.FIND);
     }
 
+    /**
+     * Parses the command string and returns the corresponding Command object.
+     *
+     * @param commandString The command string to parse.
+     * @return The Command object corresponding to the command string.
+     * @throws IllegalCommandException If the command is not recognized.
+     * @throws InvalidFormatException If the command is recognized but the format is invalid.
+     */
     public Command parse(String commandString) throws IllegalCommandException, InvalidFormatException {
-        String split[] = commandString.split(" ", 2);
+        String[] split = commandString.trim().split(" ", 2);
         String commandWord = split[0].toLowerCase();
         String args = split.length > 1 ? split[1] : "";
         Action action = Parser.actionMap.getOrDefault(commandWord, Action.INVALID);
         // use switch case to return different methods based on command type
         switch (action) {
-            case BYE:
-                return new Nop(true);
-            case LIST:
-                return new ListTasks();
-            case MARK:
-                return parseMark(args);
-            case UNMARK:
-                return parseUnmark(args);
-            case TODO:
-                return parseTodo(args);
-            case DEADLINE:
-                return parseDeadline(args);
-            case EVENT:
-                return parseEvent(args);
-            case DELETE:
-                return parseDelete(args);
-            case FIND:
-                return parseFind(args);
-            case INVALID:
-                throw new IllegalCommandException(commandWord);
-            default:
-                return new Nop(false);
+        case BYE:
+            return new Nop(true);
+        case LIST:
+            return new ListTasks();
+        case MARK:
+            return parseMark(args);
+        case UNMARK:
+            return parseUnmark(args);
+        case TODO:
+            return parseTodo(args);
+        case DEADLINE:
+            return parseDeadline(args);
+        case EVENT:
+            return parseEvent(args);
+        case DELETE:
+            return parseDelete(args);
+        case FIND:
+            return parseFind(args);
+        case INVALID:
+            throw new IllegalCommandException(commandWord);
+        default:
+            return new Nop(false);
         }
     }
 
@@ -80,7 +97,7 @@ public class Parser {
 
     Command parseTodo(String args) throws InvalidFormatException {
         if (args.isEmpty()) {
-            throw new InvalidFormatException(Todo.format);
+            throw new InvalidFormatException(Todo.format());
         }
         return new Create(args);
     }
@@ -94,10 +111,10 @@ public class Parser {
                 LocalDateTime deadline = LocalDateTime.parse(deadlineStr, dateFormat);
                 return new Create(taskDescription, deadline);
             } catch (DateTimeParseException e) {
-                throw new InvalidFormatException(Deadline.format);
+                throw new InvalidFormatException(Deadline.format());
             }
         } else {
-            throw new InvalidFormatException(Deadline.format);
+            throw new InvalidFormatException(Deadline.format());
         }
     }
 
@@ -112,10 +129,10 @@ public class Parser {
                 LocalDateTime endDate = LocalDateTime.parse(endDateStr, dateFormat);
                 return new Create(taskDescription, startDate, endDate);
             } catch (DateTimeParseException e) {
-                throw new InvalidFormatException(Event.format);
+                throw new InvalidFormatException(Event.format());
             }
         } else {
-            throw new InvalidFormatException(Event.format);
+            throw new InvalidFormatException(Event.format());
         }
     }
 

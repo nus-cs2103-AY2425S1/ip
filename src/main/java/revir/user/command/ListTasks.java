@@ -3,6 +3,9 @@ package revir.user.command;
 import revir.tasks.TaskList;
 import revir.user.Ui;
 
+/**
+ * Represents a command to list tasks.
+ */
 public class ListTasks extends Command {
     /**
      * Represents a command to list tasks.
@@ -14,13 +17,13 @@ public class ListTasks extends Command {
 
     /**
      * Executes the command to list all tasks.
-     * 
-     * @param ui The user interface to display the result.
+     *
+     * @param ui       The user interface to display the result.
      * @param taskList The task list containing the tasks to be listed.
      */
     @Override
     public void execute(Ui ui, TaskList taskList) {
         String list = taskList.list();
-        ui.showResult("List:\n"+list);
+        ui.showResult("List:\n" + list);
     }
 }
