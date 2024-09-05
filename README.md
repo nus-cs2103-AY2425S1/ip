@@ -1,3 +1,21 @@
+# Angel Chatbot Project 🚀
+
+Welcome to the **Angel Chatbot** project! This chatbot is designed to help you manage your tasks with ease. It supports various commands to add, mark, and delete tasks, making your life more organized.
+
+## Features
+
+- Supports various task types: `todo`, `deadline`, and `event`.
+- Easily mark tasks as done or undone.
+- Search for tasks using keywords.
+- Saves tasks automatically to a file for persistence.
+- User-friendly command parsing with detailed feedback.
+
+## How to Use
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/username/angel-chatbot.git
+
 # Duke project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
