@@ -26,7 +26,7 @@ public class Event extends Task {
     /**
      * Constructs an event task with the specified status (done or undone), name and start and end date and time.
      *
-     * @param isDone The state of the task ({@code true} for done and @code false} for undone).
+     * @param isDone The state of the task ({@code true} for done and {@code false} for undone).
      * @param name The name of the event.
      * @param startDate The start date and time of the event of type {@code LocalDateTime}.
      * @param endDate The end date and time of the event of type {@code LocalDateTime}.
@@ -47,10 +47,10 @@ public class Event extends Task {
      * @return a string representation of this event task.
      */
     public String toString() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return String.format(
                 "[E]%s (from: %s to: %s)",
-                super.toString(), this.startDate.format(dtf), this.endDate.format(dtf));
+                super.toString(), this.startDate.format(formatter), this.endDate.format(formatter));
     }
 
     /**

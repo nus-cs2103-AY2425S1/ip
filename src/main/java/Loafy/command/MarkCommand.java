@@ -27,12 +27,12 @@ public class MarkCommand extends Command {
      * Prints a message to confirm marking of the task.
      * If the task id is invalid, an error message is shown to inform the user.
      *
-     * @param taskList Task list on which the task will be marked.
+     * @param tasks Task list on which the task will be marked.
      * @param ui User interface which will print the message.
      */
-    public void execute(TaskList taskList, Ui ui) {
-        if (taskList.isValid(this.taskId)) {
-            ui.reply(taskList.markTask(this.isDone, this.taskId));
+    public void execute(TaskList tasks, Ui ui) {
+        if (tasks.isValid(this.taskId)) {
+            ui.reply(tasks.markTask(this.isDone, this.taskId));
         } else {
             ui.showError(LoafyException.ofInvalidAction());
         }

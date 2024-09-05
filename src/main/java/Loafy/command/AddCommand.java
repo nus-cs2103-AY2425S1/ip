@@ -24,10 +24,10 @@ public class AddCommand extends Command {
      * Adds the task in this command to the end of the specified task list.
      * Prints a message to confirm the addition of the task.
      *
-     * @param taskList Task list to which the task will be added to.
+     * @param tasks Task list to which the task will be added to.
      * @param ui User interface which will print the message.
      */
-    public void execute(TaskList taskList, Ui ui) {
-        ui.reply(taskList.add(this.task));
+    public void execute(TaskList tasks, Ui ui) {
+        ui.reply(tasks.add(this.task));
     }
 }

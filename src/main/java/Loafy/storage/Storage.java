@@ -21,20 +21,20 @@ import loafy.task.Todo;
 
 public class Storage {
     private final String filePath;
-    private boolean working;
+    private boolean isWorking;
 
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.working = true;
+        this.isWorking = true;
     }
 
     public void writeToFile(String text) {
-        if (this.working) {
+        if (this.isWorking) {
             try {
-                FileWriter fw = new FileWriter(this.filePath);
-                fw.write(text);
-                fw.close();
-            } catch (IOException e) {
+                FileWriter writer = new FileWriter(this.filePath);
+                writer.write(text);
+                writer.close();
+            } catch (IOException exception) {
                 System.out.println("Error: Changes failed to save to hard drive");
             }
         }
@@ -46,8 +46,8 @@ public class Storage {
             new File(this.filePath).createNewFile();
             Path path = Paths.get(this.filePath);
             return Files.readAllLines(path);
-        } catch (SecurityException | IOException | NullPointerException e) {
-            this.working = false;
+        } catch (SecurityException | IOException | NullPointerException exception) {
+            this.isWorking = false;
             throw LoafyException.ofLoadingError();
         }
     }
@@ -60,22 +60,22 @@ public class Storage {
                 boolean isDone = arr[1].equals("true");
                 switch (arr[0]) {
                 case "T":
-                    Todo td = new Todo(isDone, arr[2]);
-                    tasks.add(td);
+                    Todo todo = new Todo(isDone, arr[2]);
+                    tasks.add(todo);
                     break;
                 case "D" :
-                    Deadline dl = new Deadline(isDone, arr[2], LocalDateTime.parse(arr[3]));
-                    tasks.add(dl);
+                    Deadline deadline = new Deadline(isDone, arr[2], LocalDateTime.parse(arr[3]));
+                    tasks.add(deadline);
                     break;
                 case "E":
-                    Event e = new Event(isDone, arr[2], LocalDateTime.parse(arr[3]), LocalDateTime.parse(arr[4]));
-                    tasks.add(e);
+                    Event event = new Event(isDone, arr[2], LocalDateTime.parse(arr[3]), LocalDateTime.parse(arr[4]));
+                    tasks.add(event);
                     break;
                 default:
                     throw LoafyException.ofCorruptedList();
                 }
             }
-        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
+        } catch (IndexOutOfBoundsException | DateTimeParseException exception) {
             throw LoafyException.ofCorruptedList();
         }
         return tasks;

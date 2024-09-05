@@ -11,10 +11,10 @@ public class ExitCommand extends Command {
     /**
      * Prints the exit message.
      *
-     * @param taskList Task list used in the program.
+     * @param tasks Task list used in the program.
      * @param ui User interface which will print the message.
      */
-    public void execute(TaskList taskList, Ui ui) {
+    public void execute(TaskList tasks, Ui ui) {
         ui.showExit();
     }
 

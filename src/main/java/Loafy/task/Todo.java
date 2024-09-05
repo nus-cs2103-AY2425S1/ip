@@ -16,7 +16,7 @@ public class Todo extends Task {
     /**
      * Constructs a todo task with the specified status (done or undone) and name.
      *
-     * @param isDone The state of the task ({@code true} for done and @code false} for undone).
+     * @param isDone The state of the task ({@code true} for done and {@code false} for undone).
      * @param name The name of the todo task.
      */
     public Todo(boolean isDone, String name) {

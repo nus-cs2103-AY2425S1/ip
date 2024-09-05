@@ -23,7 +23,7 @@ public class Deadline extends Task {
     /**
      * Constructs a deadline task with the specified status (done or undone), name and deadline.
      *
-     * @param isDone The state of the task ({@code true} for done and @code false} for undone).
+     * @param isDone The state of the task ({@code true} for done and {@code false} for undone).
      * @param name The name of the deadline task.
      * @param date The deadline of the task of type {@code LocalDateTime}.
      */
@@ -42,10 +42,10 @@ public class Deadline extends Task {
      * @return a string representation of this deadline task.
      */
     public String toString() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return String.format(
                 "[D]%s (by: %s)",
-                super.toString(), this.date.format(dtf));
+                super.toString(), this.date.format(formatter));
     }
 
     /**

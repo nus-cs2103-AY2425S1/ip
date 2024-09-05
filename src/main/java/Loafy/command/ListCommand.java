@@ -11,10 +11,10 @@ public class ListCommand extends Command {
     /**
      * Displays the current tasks in the task list.
      *
-     * @param taskList Task list to be displayed.
+     * @param tasks Task list to be displayed.
      * @param ui User interface which will print the display.
      */
-    public void execute(TaskList taskList, Ui ui) {
-        ui.reply(taskList.view());
+    public void execute(TaskList tasks, Ui ui) {
+        ui.reply(tasks.view());
     }
 }

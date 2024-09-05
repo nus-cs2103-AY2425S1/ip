@@ -57,10 +57,10 @@ public class TaskList {
     }
 
     private void writeToFile() {
-        String s = "";
+        String text = "";
         for (Task task : this.tasks) {
-            s += task.convertToTxt() + "\n";
+            text += task.convertToTxt() + "\n";
         }
-        this.storage.writeToFile(s);
+        this.storage.writeToFile(text);
     }
 }
