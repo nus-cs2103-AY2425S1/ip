@@ -88,7 +88,7 @@ public class Commands {
      * @param userList TaskList to be searched.
      */
     public static void deleteTask(int i, TaskList userList) {
-        Task t = userList.delete(i);
+        Task t = userList.deleteTask(i);
         MultilineStringBuilder msb = new MultilineStringBuilder();
         msb.addLine(ReplyTextMessages.DELETED_TEXT);
         msb.addLine(
@@ -223,7 +223,7 @@ public class Commands {
                               newTask.getTaskDoneCheckmark(),
                               newTask)
         );
-        userList.add(newTask);
+        userList.addTask(newTask);
         msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
         msb.print();
     }

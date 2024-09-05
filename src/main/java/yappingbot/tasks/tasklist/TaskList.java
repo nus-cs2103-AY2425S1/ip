@@ -40,7 +40,7 @@ public class TaskList implements Iterable<Task> {
         for (String taskIndividualRaw : tasksRaw) {
             String[] s = taskIndividualRaw.split(":");
             try {
-                userList.add(parseSingleTask(s));
+                userList.addTask(parseSingleTask(s));
             } catch (YappingBotException e) {
                 errorLists.add(e);
             }
@@ -73,7 +73,7 @@ public class TaskList implements Iterable<Task> {
      *
      * @param task Task to be added.
      */
-    public void add(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
         size += 1;
     }
@@ -85,7 +85,7 @@ public class TaskList implements Iterable<Task> {
      * @return Task that was deleted.
      * @throws YappingBotOobException Exception if index provided is out of bounds.
      */
-    public Task delete(int index) throws YappingBotOobException {
+    public Task deleteTask(int index) throws YappingBotOobException {
         Task t = get(index);
         tasks.remove(index);
         size -= 1;

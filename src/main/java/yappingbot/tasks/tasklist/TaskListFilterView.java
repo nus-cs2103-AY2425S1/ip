@@ -66,18 +66,18 @@ public class TaskListFilterView extends TaskList {
     }
 
     @Override
-    public void add(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
-        parentTaskList.add(task);
+        parentTaskList.addTask(task);
         indexInParentTaskList.add(parentTaskList.size());
         size += 1;
     }
 
     @Override
-    public Task delete(int index) throws YappingBotOobException {
+    public Task deleteTask(int index) throws YappingBotOobException {
         tasks.remove(index);
         size -= 1;
-        Task t = parentTaskList.delete(indexInParentTaskList.get(index));
+        Task t = parentTaskList.deleteTask(indexInParentTaskList.get(index));
         indexInParentTaskList.remove(index);
         return t;
     }

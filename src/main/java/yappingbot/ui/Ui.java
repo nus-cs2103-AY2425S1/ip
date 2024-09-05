@@ -45,7 +45,7 @@ public class Ui {
 
     /**
      * Decorates the given string, to denote that it is the bot's output.
-     * This accepts multiple lines
+     * This accepts multiple lines.
      *
      * @param text String message to be decorated.
      * @return String of the newly decorated message.

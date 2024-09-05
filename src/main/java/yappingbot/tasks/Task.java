@@ -10,7 +10,7 @@ import yappingbot.tasks.tasklist.TaskTypes;
  */
 public abstract class Task {
     private String taskName;
-    private boolean taskDone;
+    private boolean isTaskDone;
     private TaskTypes taskType;
 
     /**
@@ -24,11 +24,11 @@ public abstract class Task {
      * Creates a task.
      *
      * @param taskName String name of this task.
-     * @param taskDone Boolean of whether the task is marked or unmarked as done.
+     * @param isTaskDone Boolean of whether the task is marked or unmarked as done.
      */
-    public Task(String taskName, boolean taskDone) {
+    public Task(String taskName, boolean isTaskDone) {
         this.taskName = taskName;
-        this.taskDone = taskDone;
+        this.isTaskDone = isTaskDone;
     }
 
     /**
@@ -51,7 +51,7 @@ public abstract class Task {
     }
 
     public void setTaskDone(boolean taskDone) {
-        this.taskDone = taskDone;
+        this.isTaskDone = taskDone;
     }
 
     public void setTaskName(String taskName) {
@@ -59,7 +59,7 @@ public abstract class Task {
     }
 
     public boolean isTaskDone() {
-        return taskDone;
+        return isTaskDone;
     }
 
     public String getTaskName() {
@@ -80,7 +80,7 @@ public abstract class Task {
      * @return String "X" or " " depending on whether task is marked done.
      */
     public String getTaskDoneCheckmark() {
-        if (this.taskDone) {
+        if (this.isTaskDone) {
             return "X";
         } else {
             return " ";
@@ -89,7 +89,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("Name: %s, Completed: %s", this.taskName, this.taskDone);
+        return String.format("Name: %s, Completed: %s", this.taskName, this.isTaskDone);
     }
 
 
@@ -103,7 +103,7 @@ public abstract class Task {
         return String.format("%s:%s:%s",
                 taskType,
                 taskName.replaceAll(":", "/colon"),
-                taskDone
+                isTaskDone
         );
     }
 
@@ -126,7 +126,7 @@ public abstract class Task {
         try {
             taskType = TaskTypes.valueOf(stringDataSlices[0]);
             taskName = stringDataSlices[1].replaceAll("/colon", ":");
-            taskDone = Boolean.parseBoolean(stringDataSlices[2]);
+            isTaskDone = Boolean.parseBoolean(stringDataSlices[2]);
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
