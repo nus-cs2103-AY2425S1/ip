@@ -17,7 +17,7 @@ import mylo.utils.exceptions.IllegalValueException;
  *
  * @author cweijin
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private final TaskType TYPE;
     private final String DETAILS;
 

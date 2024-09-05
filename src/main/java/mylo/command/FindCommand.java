@@ -11,7 +11,7 @@ import mylo.ui.Ui;
  *
  * @author cweijin
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private final String KEYWORD;
 
     /**

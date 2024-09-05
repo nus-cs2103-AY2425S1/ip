@@ -36,10 +36,10 @@ public class Ui {
      */
     public void showWelcomeMessage() {
         String greet = "Hello! Thanks for using " + name + ".";
-        String opening_query = "What can I help you?";
+        String openingQuery = "What can I help you?";
 
         System.out.println(greet);
-        System.out.println(opening_query);
+        System.out.println(openingQuery);
     }
 
     /**
@@ -60,7 +60,9 @@ public class Ui {
     public String readCommand() {
         String input = scanner.nextLine();
 
-        if (input.isBlank()) return "bye";
+        if (input.isBlank()) {
+            return "bye";
+        }
 
         return input;
     }

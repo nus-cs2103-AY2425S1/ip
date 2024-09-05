@@ -53,24 +53,30 @@ public abstract class Task {
      * @param type The type of the task to create.
      * @return A new {@code Task} object of the specified type.
      * @throws InsufficientInfoException If not enough information is provided for task creation.
-     * @throws IllegalValueException      If the provided values are invalid.
+     * @throws IllegalValueException     If the provided values are invalid.
      */
     public static Task of(String info, TaskType type) throws InsufficientInfoException, IllegalValueException {
 
         return switch (type) {
-            case TODO -> new Todo(info);
-            case EVENT -> {
-                String[] split = info.split(" /from ");
-                if (split.length < 2) throw new InsufficientInfoException(TaskType.EVENT);
-                String[] from_to = split[1].split(" /to ");
-                if (from_to.length < 2) throw new InsufficientInfoException(TaskType.EVENT);
-                yield new Event(split[0], from_to[0], from_to[1]);
+        case TODO -> new Todo(info);
+        case EVENT -> {
+            String[] split = info.split(" /from ");
+            if (split.length < 2) {
+                throw new InsufficientInfoException(TaskType.EVENT);
             }
-            case DEADLINE -> {
-                String[] split = info.split(" /by ");
-                if (split.length < 2) throw new InsufficientInfoException(TaskType.EVENT);
-                yield new Deadline(split[0], split[1]);
+            String[] fromTo = split[1].split(" /to ");
+            if (fromTo.length < 2) {
+                throw new InsufficientInfoException(TaskType.EVENT);
             }
+            yield new Event(split[0], fromTo[0], fromTo[1]);
+        }
+        case DEADLINE -> {
+            String[] split = info.split(" /by ");
+            if (split.length < 2) {
+                throw new InsufficientInfoException(TaskType.EVENT);
+            }
+            yield new Deadline(split[0], split[1]);
+        }
         };
     }
 
@@ -86,10 +92,10 @@ public abstract class Task {
      */
     public static Task of(String[] info) throws IllegalValueException {
         return switch (info[0]) {
-            case "TODO" -> new Todo(info[2], Boolean.parseBoolean(info[1]));
-            case "EVENT" -> new Event(info[2], info[3], info[4], Boolean.parseBoolean(info[1]));
-            case "DEADLINE" -> new Deadline(info[2], info[3], Boolean.parseBoolean(info[1]));
-            default -> throw new IllegalStateException("Unexpected value: " + info[0]);
+        case "TODO" -> new Todo(info[2], Boolean.parseBoolean(info[1]));
+        case "EVENT" -> new Event(info[2], info[3], info[4], Boolean.parseBoolean(info[1]));
+        case "DEADLINE" -> new Deadline(info[2], info[3], Boolean.parseBoolean(info[1]));
+        default -> throw new IllegalStateException("Unexpected value: " + info[0]);
         };
     }
 

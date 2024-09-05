@@ -15,6 +15,6 @@ package mylo.task;
  *
  * @author cweijin
  */
-public enum TaskType{
+public enum TaskType {
     TODO, EVENT, DEADLINE
 }

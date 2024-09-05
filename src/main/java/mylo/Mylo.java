@@ -48,8 +48,8 @@ public class Mylo {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui);
                 isExit = c.isExit();
-            } catch (NoSuchCommandException | StorageOperationException | InsufficientInfoException |
-                     IllegalValueException | IndexOutOfBoundsException e) {
+            } catch (NoSuchCommandException | StorageOperationException | InsufficientInfoException
+                     | IllegalValueException | IndexOutOfBoundsException e) {
                 System.out.println(e.getMessage());
             } finally {
                 ui.separator();
