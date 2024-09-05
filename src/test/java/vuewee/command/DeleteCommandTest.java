@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.task.TaskList;
 import vuewee.task.TodoTask;
+import vuewee.ui.TaskListCli;
 
 public class DeleteCommandTest {
     @Test
@@ -17,7 +17,7 @@ public class DeleteCommandTest {
         taskList.add(new TodoTask("task1"));
         taskList.add(new TodoTask("task2"));
         taskList.add(new TodoTask("task3"));
-        TaskListUI taskListUI = new TaskListUI(taskList);
+        TaskListCli taskListUI = new TaskListCli(taskList);
 
         DeleteCommand command = new DeleteCommand();
 

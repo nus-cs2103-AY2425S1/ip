@@ -5,16 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.parser.IllegalCommandException;
 import vuewee.task.TaskList;
+import vuewee.ui.TaskListCli;
 
 public class AddCommandTest {
     @Test
     public void testTodoTask() {
         TaskList taskList = new TaskList();
-        TaskListUI taskListUI = new TaskListUI(taskList);
+        TaskListCli taskListUI = new TaskListCli(taskList);
 
         TodoCommand command = new TodoCommand();
         assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
@@ -28,7 +28,7 @@ public class AddCommandTest {
     @Test
     public void testDeadlineTask() {
         TaskList taskList = new TaskList();
-        TaskListUI taskListUI = new TaskListUI(taskList);
+        TaskListCli taskListUI = new TaskListCli(taskList);
 
         DeadlineCommand command = new DeadlineCommand();
         // Test missing params
@@ -51,7 +51,7 @@ public class AddCommandTest {
     @Test
     public void testEventTask() {
         TaskList taskList = new TaskList();
-        TaskListUI taskListUI = new TaskListUI(taskList);
+        TaskListCli taskListUI = new TaskListCli(taskList);
 
         EventCommand command = new EventCommand();
         // Test missing params

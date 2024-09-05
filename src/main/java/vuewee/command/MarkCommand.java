@@ -1,8 +1,8 @@
 package vuewee.command;
 
-import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.task.TaskList;
+import vuewee.ui.TaskListCli;
 
 /**
  * Represents a command to mark a task as completed in the task list.
@@ -15,7 +15,7 @@ class MarkCommand extends Command {
      * @param taskList The list of tasks.
      * @param parser   The command parser for parsing user input.
      */
-    public void execute(TaskListUI ui, TaskList taskList, CommandParser parser) {
+    public void execute(TaskListCli ui, TaskList taskList, CommandParser parser) {
         parser.parse(true, true);
         ui.markTask(parser.getIntParam(), true);
     }

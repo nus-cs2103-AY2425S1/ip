@@ -1,11 +1,11 @@
 package vuewee.command;
 
-import vuewee.TaskListUI;
 import vuewee.parser.CommandOption;
 import vuewee.parser.CommandParser;
 import vuewee.task.DeadlineTask;
 import vuewee.task.TaskList;
 import vuewee.task.TaskLocalDate;
+import vuewee.ui.TaskListCli;
 
 /**
  * Represents a command to add a deadline task to the task list which has a by
@@ -20,7 +20,7 @@ class DeadlineCommand extends Command {
      * @param taskList The task list to add the task to.
      * @param parser   The command parser for parsing command options.
      */
-    public void execute(TaskListUI ui, TaskList taskList, CommandParser parser) {
+    public void execute(TaskListCli ui, TaskList taskList, CommandParser parser) {
         CommandOption<TaskLocalDate> byOption = new CommandOption<TaskLocalDate>("by", "date", TaskLocalDate::parse);
         parser.parse(true, false, byOption);
         ui.addTask(new DeadlineTask(parser.getDescription(), byOption.getParsedValue()));

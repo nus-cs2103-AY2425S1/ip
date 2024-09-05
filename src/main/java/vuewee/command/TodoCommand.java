@@ -1,9 +1,9 @@
 package vuewee.command;
 
-import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.task.TaskList;
 import vuewee.task.TodoTask;
+import vuewee.ui.TaskListCli;
 
 /**
  * Represents a command to add a todo task.
@@ -17,7 +17,7 @@ class TodoCommand extends Command {
      * @param taskList the task list to add the todo task to
      * @param parser   the command parser for parsing the input
      */
-    public void execute(TaskListUI ui, TaskList taskList, CommandParser parser) {
+    public void execute(TaskListCli ui, TaskList taskList, CommandParser parser) {
         parser.parse(true);
         ui.addTask(new TodoTask(parser.getDescription()));
     }
