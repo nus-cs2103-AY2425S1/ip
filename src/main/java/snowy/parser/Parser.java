@@ -16,6 +16,8 @@ public class Parser {
     public static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<taskNumber>\\d+)");
     public static final Pattern DEADLINE_ARGS_FORMAT = Pattern.compile("(?<description>.+) /by (?<date>.+)");
     public static final Pattern EVENT_ARGS_FORMAT = Pattern.compile("(?<description>.+) /from (?<from>.+) /to (?<to>.+)");
+    public static final Pattern FIND_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
+
 
     public Command parseCommand(String input) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
@@ -49,6 +51,9 @@ public class Parser {
 
                 case "unmark":
                     return parseUnmarkCommand(arg);
+
+            case "find":
+                return parseFindCommand(arg);
 
                 case "bye":
                     return new ExitCommand();
@@ -128,4 +133,16 @@ public class Parser {
         int index = Integer.parseInt(matcher.group("taskNumber"));
         return new UnmarkCommand(index);
     }
+
+    private Command parseFindCommand(String arg) throws SnowyException {
+        final Matcher matcher = FIND_ARGS_FORMAT.matcher(arg.trim());
+
+        if (!matcher.matches()) {
+            throw new SnowyException("The find command requires at least one keyword.");
+        }
+
+        String keywords = matcher.group("keywords").trim();
+        return new FindCommand(keywords);
+    }
+
 }
