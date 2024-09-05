@@ -6,9 +6,6 @@ import java.time.format.DateTimeFormatter;
 /**
  * A deadline object is for tasks that have to be completed by a certain date.
  *
- * @param name Stores the task description of the deadline object.
- * @param deadline The date the task should be completed by, using the {@link LocalDate} format.
- *
  */
 public class Deadline extends Task {
     private LocalDate deadline;
@@ -26,7 +23,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Set the deadline of the Deadline object to a new value, by inputting the new deadline using the {@link LocalDate} format.
+     * Set the deadline of the Deadline object to a new value, by inputting the new deadline using the
+     * {@link LocalDate} format.
      *
      * @param deadline The date the task should be completed by, using the {@link LocalDate} format.
      *
@@ -41,7 +39,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Overrides the existing toString() method in the Task class to fit the required display requirement for Deadline objects.
+     * Overrides the existing toString() method in the Task class to fit the required display requirement for
+     * Deadline objects.
      */
     @Override
     public String toString() {

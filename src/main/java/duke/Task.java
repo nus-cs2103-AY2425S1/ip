@@ -34,7 +34,8 @@ public class Task {
     }
 
     /**
-     * Overrides the existing toString() method in the Task class to fit the required display requirement for Task objects.
+     * Overrides the existing toString() method in the Task class to fit the required display requirement for
+     * Task objects.
      */
     @Override
     public String toString() {
