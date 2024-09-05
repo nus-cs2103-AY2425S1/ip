@@ -10,7 +10,6 @@ import java.io.IOException;
 import bob.task.Deadline;
 import bob.task.Event;
 import bob.task.Task;
-import bob.task.TaskList;
 import bob.task.Todo;
 
 
@@ -115,7 +114,7 @@ public class Storage {
             FileWriter fileWriter = new FileWriter(file);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for (Task x: records) {
-                String fileFormatLine = x.fileFormat();
+                String fileFormatLine = x.getFileFormat();
                 bufferedWriter.write(fileFormatLine);
                 bufferedWriter.newLine();
             }

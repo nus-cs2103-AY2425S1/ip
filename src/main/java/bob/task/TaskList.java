@@ -1,12 +1,13 @@
 package bob.task;
 
-import bob.exception.InvalidTaskException;
-import bob.storage.Storage;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import bob.exception.InvalidTaskException;
 import bob.parser.Parser;
+import bob.storage.Storage;
 import bob.ui.Ui;
 
 /**
@@ -16,16 +17,23 @@ import bob.ui.Ui;
 public class TaskList {
 
     private ArrayList<Task> records;
-    private int LATEST_RECORD_INDEX;
+    private int latestRecordedIndex;
 
+    /**
+     * Initialises TaskList with an existing record.
+     * @param recordedList Arraylist of existing records.
+     */
     public TaskList(ArrayList<Task> recordedList) {
         this.records = recordedList;
-        this.LATEST_RECORD_INDEX = recordedList.size();
+        this.latestRecordedIndex = recordedList.size();
     }
 
+    /**
+     * Initialises a new TaskList.
+     */
     public TaskList() {
         this.records = new ArrayList<>();
-        this.LATEST_RECORD_INDEX = 0;
+        this.latestRecordedIndex = 0;
     }
 
 
@@ -78,11 +86,11 @@ public class TaskList {
                     + taskToDelete.getTaskListItem()
                     + "\n\t"
                     + "Now you have "
-                    + (String.valueOf(LATEST_RECORD_INDEX - 1))
+                    + (String.valueOf(latestRecordedIndex - 1))
                     + " tasks in the list.";
             Ui.printLines(immediateAdd);
             this.records.remove(Integer.parseInt((separateKeyword[1]).trim()) - 1);
-            this.LATEST_RECORD_INDEX -= 1;
+            this.latestRecordedIndex -= 1;
         } catch (InvalidTaskException e) {
             System.err.println((e.getMessage()));
         }
@@ -113,7 +121,7 @@ public class TaskList {
      * @param input Input given by a user.
      * @param inputWords Partially processed array of input.
      */
-    public void addTask(String input, String[] inputWords)  {
+    public void addTask(String input, String[] inputWords) {
         try {
             String keyword = inputWords[0];
             Task newTask = getTask(keyword, input); //initialise the exact Task class
@@ -124,11 +132,11 @@ public class TaskList {
                     + this.getInputDescription(input)
                     + "\n\t"
                     + "Now you have "
-                    + (String.valueOf(LATEST_RECORD_INDEX + 1))
+                    + (String.valueOf(latestRecordedIndex + 1))
                     + " tasks in the list.";
             Ui.printLines(immediateAdd);
-            this.records.add(this.LATEST_RECORD_INDEX, newTask);
-            this.LATEST_RECORD_INDEX += 1;
+            this.records.add(this.latestRecordedIndex, newTask);
+            this.latestRecordedIndex += 1;
         } catch (InvalidTaskException e) {
             System.err.println(e.getMessage());
         }

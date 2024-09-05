@@ -45,8 +45,8 @@ public class Event extends Task {
      * Returns a string representation of the file format in which we store the Event.
      */
     @Override
-    public String fileFormat () {
-        String part1 = super.fileFormat();
+    public String getFileFormat() {
+        String part1 = super.getFileFormat();
         return part1 + " | " + startDay + " | " + startTime + " | " + endTime;
     }
 }

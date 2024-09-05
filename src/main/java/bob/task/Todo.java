@@ -4,8 +4,7 @@ package bob.task;
 /**
  * Task that are meant to be done with no specified deadline.
  */
-public class Todo extends Task{
-
+public class Todo extends Task {
     /**
      * Constructor to initialise a task.
      *
@@ -35,8 +34,8 @@ public class Todo extends Task{
      * Returns a string representation of the file format in which we store the Todo.
      */
     @Override
-    public String fileFormat () {
-        String part1 = super.fileFormat();
+    public String getFileFormat() {
+        String part1 = super.getFileFormat();
         return part1;
     }
 }

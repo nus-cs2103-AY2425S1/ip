@@ -54,8 +54,8 @@ public class Deadline extends Task {
      * Returns a string representation of the file format in which we store the Deadline.
      */
     @Override
-    public String fileFormat () {
-        String part1 = super.fileFormat();
+    public String getFileFormat() {
+        String part1 = super.getFileFormat();
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         String dateTimeOutput = (date != null) ? date.format(outputFormatter) : by;
