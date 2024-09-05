@@ -49,7 +49,7 @@ class ParserTest {
         taskList.addTodo("Sample Task"); // Assuming addTodo adds a task to the list
 
         String[] parts = { "mark", "1" };
-        int index = parser.validateMarkAndUnMarkCommand(parts, taskList);
+        int index = parser.validateMarkAndUnMarkCommand(taskList, parts);
         assertEquals(1, index);
     }
 
@@ -58,7 +58,7 @@ class ParserTest {
         TaskList taskList = new TaskList(new Storage());
 
         String[] parts = { "mark", "abc" };
-        assertThrows(InvalidMarkException.class, () -> parser.validateMarkAndUnMarkCommand(parts, taskList));
+        assertThrows(InvalidMarkException.class, () -> parser.validateMarkAndUnMarkCommand(taskList, parts));
     }
 
     @Test
@@ -108,7 +108,7 @@ class ParserTest {
         taskList.addTodo("Sample Task"); // Assuming addTodo adds a task to the list
 
         String[] parts = { "delete", "1" };
-        int index = parser.validateDeleteCommand(parts, taskList);
+        int index = parser.validateDeleteCommand(taskList, parts);
         assertEquals(1, index);
     }
 
@@ -117,6 +117,7 @@ class ParserTest {
         TaskList taskList = new TaskList(new Storage());
 
         String[] parts = { "delete", "abc" };
-        assertThrows(InvalidDeleteException.class, () -> parser.validateDeleteCommand(parts, taskList));
+        assertThrows(InvalidDeleteException.class, () -> parser.validateDeleteCommand(taskList, parts));
+
     }
 }

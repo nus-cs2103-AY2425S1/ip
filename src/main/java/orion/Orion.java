@@ -86,7 +86,7 @@ public class Orion extends Application {
         }
     }
 
-    private String handleList(String[] parts) throws OrionException {
+    private String handleList(String... parts) throws OrionException {
         parser.validateListCommand(parts);
         StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.getSize(); i++) {
@@ -95,43 +95,43 @@ public class Orion extends Application {
         return response.toString();
     }
 
-    private String handleMark(String[] parts) throws OrionException {
-        int index = parser.validateMarkAndUnMarkCommand(parts, taskList);
+    private String handleMark(String... parts) throws OrionException {
+        int index = parser.validateMarkAndUnMarkCommand(taskList, parts);
         Task task = taskList.markAsDone(index);
         return "Marked task as done: " + task;
     }
 
-    private String handleUnmark(String[] parts) throws OrionException {
-        int index = parser.validateMarkAndUnMarkCommand(parts, taskList);
+    private String handleUnmark(String... parts) throws OrionException {
+        int index = parser.validateMarkAndUnMarkCommand(taskList, parts);
         Task task = taskList.unmarkAsDone(index);
         return "Unmarked task: " + task;
     }
 
-    private String handleTodo(String[] parts) throws OrionException {
+    private String handleTodo(String... parts) throws OrionException {
         String description = parser.validateTodoCommand(parts);
         Task task = taskList.addTodo(description);
         return "Added: " + task;
     }
 
-    private String handleEvent(String[] parts) throws OrionException {
+    private String handleEvent(String... parts) throws OrionException {
         EventDetails details = parser.validateEventCommand(parts);
         Task task = taskList.addEvent(details);
         return "Added: " + task;
     }
 
-    private String handleDeadline(String[] parts) throws OrionException {
+    private String handleDeadline(String... parts) throws OrionException {
         DeadlineDetails details = parser.validateDeadlineCommand(parts);
         Task task = taskList.addDeadline(details);
         return "Added: " + task;
     }
 
-    private String handleDelete(String[] parts) throws OrionException {
-        int index = parser.validateDeleteCommand(parts, taskList);
+    private String handleDelete(String... parts) throws OrionException {
+        int index = parser.validateDeleteCommand(taskList, parts);
         Task task = taskList.deleteTask(index);
         return "Deleted: " + task;
     }
 
-    private String handleFind(String[] parts) throws OrionException {
+    private String handleFind(String... parts) throws OrionException {
         String keyword = parser.validateFindCommand(parts);
         StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
         for (Task task : taskList.findTasks(keyword)) {
