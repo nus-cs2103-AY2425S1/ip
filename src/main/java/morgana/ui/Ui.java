@@ -42,22 +42,6 @@ public class Ui {
     }
 
     /**
-     * Displays a welcome message.
-     *
-     * @param name The name of the application.
-     */
-    public void showWelcomeMessage(String name) {
-        showToUser("Hello! I'm %s.".formatted(name), "What can I do for you?");
-    }
-
-    /**
-     * Displays a goodbye message.
-     */
-    public void showGoodbyeMessage() {
-        showToUser("Bye! Hope to see you again soon!");
-    }
-
-    /**
      * Displays one or more messages framed by horizontal lines.
      *
      * @param messages The messages to be displayed.

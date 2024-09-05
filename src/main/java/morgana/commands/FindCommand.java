@@ -4,7 +4,6 @@ import morgana.exceptions.MorganaException;
 import morgana.storage.Storage;
 import morgana.task.Task;
 import morgana.task.TaskList;
-import morgana.ui.Ui;
 
 /**
  * Represents a command to find tasks that match a given keyword in their description.
@@ -22,7 +21,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MorganaException {
+    public String execute(TaskList tasks, Storage storage) throws MorganaException {
         if (keyword.isEmpty()) {
             throw new MorganaException("Please enter a keyword to search for.");
         }
@@ -33,6 +32,6 @@ public class FindCommand extends Command {
                 sb.append("%n%d. %s".formatted(i + 1, task));
             }
         }
-        ui.showToUser(sb.toString());
+        return sb.toString();
     }
 }

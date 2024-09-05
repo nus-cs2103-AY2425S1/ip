@@ -2,15 +2,14 @@ package morgana.commands;
 
 import morgana.storage.Storage;
 import morgana.task.TaskList;
-import morgana.ui.Ui;
 
 /**
  * Represents a command to exit the application.
  */
 public class ByeCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showGoodbyeMessage();
+    public String execute(TaskList tasks, Storage storage) {
+        return "Bye! Hope to see you again soon!";
     }
 
     @Override
