@@ -1,14 +1,21 @@
-package chatBot.bot;
-
-import chatBot.command.*;
-import chatBot.exception.EmptyDescException;
-import chatBot.exception.InvalidCommandException;
-import chatBot.task.Deadline;
-import chatBot.task.Event;
-import chatBot.task.Task;
-import chatBot.task.ToDoTask;
+package chatbot.bot;
 
 import java.time.format.DateTimeParseException;
+
+import chatbot.command.AddCommand;
+import chatbot.command.Command;
+import chatbot.command.DeleteCommand;
+import chatbot.command.ExitCommand;
+import chatbot.command.FindCommand;
+import chatbot.command.ListCommand;
+import chatbot.command.MarkCommand;
+import chatbot.command.UnmarkCommand;
+import chatbot.exception.EmptyDescException;
+import chatbot.exception.InvalidCommandException;
+import chatbot.task.Deadline;
+import chatbot.task.Event;
+import chatbot.task.Task;
+import chatbot.task.ToDoTask;
 
 /**
  * Parser is a class to parse input Strings. It has 2 methods

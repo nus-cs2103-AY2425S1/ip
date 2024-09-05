@@ -1,8 +1,8 @@
-package chatBot.task;
-
-import chatBot.exception.EmptyDescException;
+package chatbot.task;
 
 import java.time.format.DateTimeFormatter;
+
+import chatbot.exception.EmptyDescException;
 
 /**
  * Task can be a ToDoTask, Deadline or an Event.

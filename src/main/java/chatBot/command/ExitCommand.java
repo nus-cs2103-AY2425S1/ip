@@ -1,8 +1,8 @@
-package chatBot.command;
+package chatbot.command;
 
-import chatBot.bot.Storage;
-import chatBot.bot.TaskList;
-import chatBot.bot.Ui;
+import chatbot.bot.Storage;
+import chatbot.bot.TaskList;
+import chatbot.bot.Ui;
 
 /** ExitCommand is a subclass of Command to close the application */
 public class ExitCommand extends Command {

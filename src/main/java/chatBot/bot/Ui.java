@@ -1,21 +1,21 @@
-package chatBot.bot;
+package chatbot.bot;
 
 import java.util.Scanner;
 
 /** Ui deals with all the interactions with the user */
 public class Ui {
-    private Scanner scanner;
     public static final String HLINE = "____________________________________________________________\n";
+    private Scanner scanner;
 
     Ui() {
         this.scanner = new Scanner(System.in);
     }
 
     void showWelcome() {
-        System.out.print(HLINE +
-                " Hello! I'm 'B word'\n" +
-                " What can I do for you?\n" +
-                HLINE);
+        System.out.print(HLINE
+                + " Hello! I'm 'B word'\n"
+                + " What can I do for you?\n"
+                + HLINE);
     }
 
     /** Prints the exiting message */

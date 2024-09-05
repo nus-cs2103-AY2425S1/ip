@@ -1,11 +1,11 @@
-package chatBot.command;
-
-import chatBot.bot.TaskList;
-import chatBot.bot.Ui;
-import chatBot.bot.Storage;
-import chatBot.task.Task;
+package chatbot.command;
 
 import java.util.ArrayList;
+
+import chatbot.bot.Storage;
+import chatbot.bot.TaskList;
+import chatbot.bot.Ui;
+import chatbot.task.Task;
 
 /** FindCommand is a subclass of Command that finds the specified keywords in task list */
 public class FindCommand extends Command {

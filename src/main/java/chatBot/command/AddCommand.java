@@ -1,21 +1,22 @@
-package chatBot.command;
-
-import chatBot.bot.Storage;
-import chatBot.bot.TaskList;
-import chatBot.bot.Ui;
-import chatBot.exception.EmptyDescException;
-import chatBot.task.Deadline;
-import chatBot.task.Event;
-import chatBot.task.Task;
-import chatBot.task.ToDoTask;
+package chatbot.command;
 
 import java.time.format.DateTimeParseException;
+
+import chatbot.bot.Storage;
+import chatbot.bot.TaskList;
+import chatbot.bot.Ui;
+import chatbot.exception.EmptyDescException;
+import chatbot.task.Deadline;
+import chatbot.task.Event;
+import chatbot.task.Task;
+import chatbot.task.ToDoTask;
 
 /** AddCommand is a subclass of Command to add tasks */
 public class AddCommand extends Command {
     private final String action;
     private final String desc;
 
+    /** Constructor */
     public AddCommand(String action, String desc) {
         this.action = action;
         this.desc = desc.stripLeading();

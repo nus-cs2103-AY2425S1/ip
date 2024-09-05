@@ -1,8 +1,8 @@
-package chatBot.bot;
-
-import chatBot.task.Task;
+package chatbot.bot;
 
 import java.util.ArrayList;
+
+import chatbot.task.Task;
 
 /** TaskList serves the purpose of storing tasks */
 public class TaskList {
@@ -45,7 +45,7 @@ public class TaskList {
     public void listTasks() {
         String s = "";
         for (int i = 0; i < this.tasks.size(); i++) {
-            s += String.format("%d.", i + 1) +  this.tasks.get(i) + "\n";
+            s += String.format("%d.", i + 1) + this.tasks.get(i) + "\n";
         }
         System.out.println(s.stripTrailing());
     }

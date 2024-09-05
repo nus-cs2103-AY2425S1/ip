@@ -1,9 +1,9 @@
-package chatBot.command;
+package chatbot.command;
 
-import chatBot.bot.Storage;
-import chatBot.bot.TaskList;
-import chatBot.bot.Ui;
-import chatBot.task.Task;
+import chatbot.bot.Storage;
+import chatbot.bot.TaskList;
+import chatbot.bot.Ui;
+import chatbot.task.Task;
 
 /** UnmarkCommand is a subclass of Command to mark tasks as not completed */
 public class UnmarkCommand extends Command {

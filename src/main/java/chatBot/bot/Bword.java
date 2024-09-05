@@ -1,6 +1,6 @@
-package chatBot.bot;
+package chatbot.bot;
 
-import chatBot.command.Command;
+import chatbot.command.Command;
 
 /**
  * Bword is a chatbot that helps with planning tasks

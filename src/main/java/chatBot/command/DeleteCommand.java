@@ -1,8 +1,8 @@
-package chatBot.command;
+package chatbot.command;
 
-import chatBot.bot.Storage;
-import chatBot.bot.TaskList;
-import chatBot.bot.Ui;
+import chatbot.bot.Storage;
+import chatbot.bot.TaskList;
+import chatbot.bot.Ui;
 
 /** DeleteCommand is a subclass of Command to delete tasks */
 public class DeleteCommand extends Command {

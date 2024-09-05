@@ -1,9 +1,9 @@
-package chatBot.command;
+package chatbot.command;
 
-import chatBot.bot.Storage;
-import chatBot.bot.TaskList;
-import chatBot.bot.Ui;
-import chatBot.task.Task;
+import chatbot.bot.Storage;
+import chatbot.bot.TaskList;
+import chatbot.bot.Ui;
+import chatbot.task.Task;
 
 /** MarkCommand is a subclass of Command to mark tasks as completed */
 public class MarkCommand extends Command {

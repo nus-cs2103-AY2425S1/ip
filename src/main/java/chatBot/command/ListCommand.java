@@ -1,8 +1,8 @@
-package chatBot.command;
+package chatbot.command;
 
-import chatBot.bot.TaskList;
-import chatBot.bot.Ui;
-import chatBot.bot.Storage;
+import chatbot.bot.Storage;
+import chatbot.bot.TaskList;
+import chatbot.bot.Ui;
 
 /** ListCommand is a subclass of Command to list tasks */
 public class ListCommand extends Command {

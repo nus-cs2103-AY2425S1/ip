@@ -1,9 +1,9 @@
-package chatBot.task;
+package chatbot.task;
 
-import chatBot.exception.EmptyDescException;
+import chatbot.exception.EmptyDescException;
 
 /** ToDoTask is a subclass of Task and requires no storing of time */
-public class ToDoTask extends Task{
+public class ToDoTask extends Task {
     public ToDoTask(String desc) throws EmptyDescException {
         super(desc);
     }
@@ -14,7 +14,7 @@ public class ToDoTask extends Task{
         return "todo " + super.getOriginalCommand();
     }
 
-    public String toString(){
+    public String toString() {
         return "[T]" + super.toString();
     }
 }

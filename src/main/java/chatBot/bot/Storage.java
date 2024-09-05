@@ -1,14 +1,15 @@
-package chatBot.bot;
+package chatbot.bot;
 
-import chatBot.task.Task;
-
-import java.io.File;  // Import the File class
-import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.io.File; // Import the File class
+import java.io.FileNotFoundException; // Import this class to handle errors
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileWriter;
 
+import chatbot.task.Task;
+
+/** Storage handles the loading and writing to filepath provided */
 public class Storage {
     private File file;
     private final String filePath;
@@ -45,6 +46,7 @@ public class Storage {
         return tasks;
     }
 
+    /** Writes to file given string s */
     public void writeToFile(String s) {
         try {
             FileWriter myWriter = new FileWriter(filePath);
