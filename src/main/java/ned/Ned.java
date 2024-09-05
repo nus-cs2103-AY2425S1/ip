@@ -64,7 +64,7 @@ public class Ned {
                 c.execute(tasks, ui, storage, fullCommand);
                 isExit = c.isExit();
             } catch (NedException e) {
-                ui.print(e.getMessage());
+                ui.addToNedDialogue(e.getMessage());
             }
         }
     }

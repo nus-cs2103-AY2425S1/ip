@@ -1,6 +1,7 @@
 package ned;
 import java.util.ArrayList;
 import java.util.Scanner;
+import ned.tasks.Task;
 
 public class Ui {
     public static final String INDENTATIONS = "    ";
@@ -36,17 +37,34 @@ public class Ui {
      *
      * @param line - String to be printed with 1 tab indentation.
      */
-    public void print(String line) {
+    public void addToNedDialogue(String line) {
         // adds indentation to any printed lines
         // changes the box
         builtUpNedDialogue.add(INDENTATIONS + line + "\n");
     }
 
+    public void addTasksToNedDialogue(Task newTask, int listOfTasksSize) {
+        addToNedDialogue("Aye, I've added this task m'lord:");
+        addToNedDialogue(Ui.INDENTATIONS + newTask);
+        addToNedDialogue("Now you've " + listOfTasksSize + " tasks left. Get to it then!");
+    }
+
+    public void removeTasksToNedDialogue(Task selectedTask, int listOfTasksSize) {
+        addToNedDialogue("Aye, I've added this task m'lord:");
+        addToNedDialogue(Ui.INDENTATIONS + selectedTask);
+        addToNedDialogue("Now you've " + listOfTasksSize + " tasks left. Get to it then!");
+    }
+
+    /**
+     * Concatenates all strings within the arraylist used to store them when ui::print is called.
+     * Shows all of Ned's messages in 1 message box to the user
+     * @return Ned's message to the user, in response to the input
+     */
     public String getAllBuiltUpDialogue() {
         int builtUpNedDialogueSize = builtUpNedDialogue.size();
         StringBuilder nedDialogue = new StringBuilder();
-        for (int index = 0; index < builtUpNedDialogueSize; index++){
-            nedDialogue.append(builtUpNedDialogue.get(index));
+        for (String s : builtUpNedDialogue) {
+            nedDialogue.append(s);
         }
         builtUpNedDialogue.clear();
         return nedDialogue.toString();
@@ -73,7 +91,7 @@ public class Ui {
      * Displays a message to the user if the cached tasks file is unable to be found.
      */
     public void showLoadingError() {
-        print("M'lord, do not be alarmed, but it appears that there was no previous saved task file. Not to " +
+        addToNedDialogue("M'lord, do not be alarmed, but it appears that there was no previous saved task file. Not to " +
                 "worry, we'll sort this out yet...");
     }
 

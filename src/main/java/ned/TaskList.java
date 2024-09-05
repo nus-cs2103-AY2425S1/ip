@@ -24,9 +24,7 @@ public class TaskList {
         try {
             Task selectedTask = getTask(index);
             this.listOfTasks.remove(index);
-            uiInstance.print("Noted m'lord. The following task has been removed:");
-            uiInstance.print(Ui.INDENTATIONS + selectedTask);
-            uiInstance.print(String.format("Now you've %d tasks in the list. Get to it then.", listOfTasks.size()));
+            uiInstance.removeTasksToNedDialogue(selectedTask, this.listOfTasks.size());
         } catch (IndexOutOfBoundsException e) {
             throw new NedException("Sorry m'lord, your command must specify an index within the bounds of the list " +
                     "size");
@@ -44,30 +42,28 @@ public class TaskList {
 
     public void addTask(Task newTask, Ui uiInstance) {
         this.listOfTasks.add(newTask);
-        uiInstance.print("Aye, I've added this task m'lord:");
-        uiInstance.print(Ui.INDENTATIONS + newTask);
-        uiInstance.print("Now you've " + this.listOfTasks.size() + " tasks left. Get to it then!");
+        uiInstance.addTasksToNedDialogue(newTask, this.listOfTasks.size());
     }
 
     public void listTasks(Ui uiInstance) {
         for (int i = 0; i < listOfTasks.size(); i++) {
             String task = Ui.INDENTATIONS + String.format("%d.%s \n", i + 1, listOfTasks.get(i));
-            uiInstance.print(task);
+            uiInstance.addToNedDialogue(task);
         }
     }
 
     public void markTaskAsDone(int index, Ui uiInstance) throws NedException {
         Task selectedTask = getTask(index);
         selectedTask.markAsDone();
-        uiInstance.print("Good work. One down, more to go!");
-        uiInstance.print(selectedTask.toString());
+        uiInstance.addToNedDialogue("Good work. One down, more to go!");
+        uiInstance.addToNedDialogue(selectedTask.toString());
     }
 
     public void markTaskAsUndone(int index, Ui uiInstance) throws NedException {
         Task selectedTask = getTask(index);
         selectedTask.markAsNotDone();
-        uiInstance.print("Oh no. One back up, more to go!");
-        uiInstance.print(selectedTask.toString());
+        uiInstance.addToNedDialogue("Oh no. One back up, more to go!");
+        uiInstance.addToNedDialogue(selectedTask.toString());
     }
 
     public int getSize() {
