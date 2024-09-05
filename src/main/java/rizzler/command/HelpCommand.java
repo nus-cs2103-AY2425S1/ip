@@ -2,7 +2,6 @@ package rizzler.command;
 
 import rizzler.Storage;
 import rizzler.task.TaskLog;
-import rizzler.ui.RizzlerSpeech;
 
 public class HelpCommand extends Command {
 
@@ -11,10 +10,8 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void execute(RizzlerSpeech speech, Storage storage, TaskLog taskLog) {
-        speech.say();
-        speech.say("T");
-        speech.say();
+    public String[] execute(Storage storage, TaskLog taskLog) {
+        return new String[] {"sorry, this command is not available yet."};
     }
 
 }

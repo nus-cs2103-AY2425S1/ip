@@ -3,7 +3,6 @@ package rizzler.command;
 import rizzler.Storage;
 import rizzler.task.Task;
 import rizzler.task.TaskLog;
-import rizzler.ui.RizzlerSpeech;
 
 public class ListCommand extends Command {
 
@@ -12,17 +11,20 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(RizzlerSpeech speech, Storage storage, TaskLog taskLog) {
-        speech.say();
+    public String[] execute(Storage storage, TaskLog taskLog) {
         Task[] tasks = taskLog.getLog();
+        StringBuilder output = new StringBuilder();
         if (tasks.length == 0) {
-            speech.say("our list is empty right now dear, no tasks to list!");
+            output.append("our list is empty right now dear, no tasks to list!\n");
         } else {
-            speech.say("these are the things we gotta do:");
+            output.append("these are the things we gotta do:\n");
             for (int i = 0; i < tasks.length; i++) {
-                speech.say((i + 1) + ". " + tasks[i]);
+                output.append(i + 1);
+                output.append(". ");
+                output.append(tasks[i]);
+                output.append("\n");
             }
         }
-        speech.say();
+        return output.toString().split("\n");
     }
 }

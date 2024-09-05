@@ -6,7 +6,6 @@ import rizzler.task.TaskLog;
 import rizzler.task.Task;
 
 import rizzler.ui.RizzlerException;
-import rizzler.ui.RizzlerSpeech;
 
 public class UnmarkCommand extends Command {
     private final int taskToUnmark;
@@ -17,17 +16,14 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(RizzlerSpeech speech, Storage storage, TaskLog taskLog) {
-        speech.say();
+    public String[] execute(Storage storage, TaskLog taskLog) {
         try {
             Task unmarkedTask = taskLog.undoTask(taskToUnmark);
             storage.storeTasks(taskLog);
-            speech.say("no worries, we'll circle back around to this.");
-            speech.say("\t" + unmarkedTask.toString());
-            speech.say();
+            return new String[] {"no worries, we'll circle back around to this.",
+                    "\t" + unmarkedTask.toString()};
         } catch (RizzlerException e) {
-            speech.say(e.getMessage());
-            speech.say();
+            return new String[] {e.getMessage()};
         }
     }
 }

@@ -2,7 +2,6 @@ package rizzler.command;
 
 import rizzler.Storage;
 import rizzler.task.TaskLog;
-import rizzler.ui.RizzlerSpeech;
 
 /**
  * Represents abstract commands within the Rizzler.
@@ -20,7 +19,7 @@ public abstract class Command {
         this.shouldEnd = false;
     }
 
-    public abstract void execute(RizzlerSpeech speech, Storage storage, TaskLog taskLog);
+    public abstract String[] execute(Storage storage, TaskLog taskLog);
 
     public boolean shouldEnd() {
         return shouldEnd;

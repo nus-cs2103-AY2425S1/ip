@@ -2,7 +2,6 @@ package rizzler.command;
 
 import rizzler.Storage;
 import rizzler.task.TaskLog;
-import rizzler.ui.RizzlerSpeech;
 
 public class EndCommand extends Command {
 
@@ -11,7 +10,8 @@ public class EndCommand extends Command {
     }
 
     @Override
-    public void execute(RizzlerSpeech speech, Storage storage, TaskLog taskLog) {
+    public String[] execute(Storage storage, TaskLog taskLog) {
         setShouldEnd(true);
+        return new String[0];
     }
 }
