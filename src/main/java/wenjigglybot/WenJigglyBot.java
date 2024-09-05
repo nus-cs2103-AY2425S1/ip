@@ -180,4 +180,8 @@ public class WenJigglyBot {
         ui.showTaskCount(tasks);
         ui.showLine();
     }
+
+    public String getResponse(String meow) {
+        return "Meow";
+    }
 }
