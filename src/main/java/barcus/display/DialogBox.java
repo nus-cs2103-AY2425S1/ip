@@ -1,4 +1,4 @@
-package barcus.gui;
+package barcus.display;
 
 import java.io.IOException;
 import java.util.Collections;

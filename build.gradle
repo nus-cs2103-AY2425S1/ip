@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("barcus.gui.Launcher")
+    mainClass.set("barcus.display.Launcher")
 }
 
 shadowJar {

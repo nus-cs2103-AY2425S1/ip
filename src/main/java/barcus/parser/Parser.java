@@ -79,7 +79,7 @@ public class Parser {
         } else if (words[0].equals("event")) {
             List<String> wordsList = Arrays.asList(words);
             if (!wordsList.contains("/from") || !wordsList.contains("/to")) {
-                throw new BarcusException("please include '/from' and '/to'"
+                throw new BarcusException("please include '/from' and '/to' "
                         + "as well as dates after each of those words");
             } else {
                 int fromI = wordsList.indexOf("/from");

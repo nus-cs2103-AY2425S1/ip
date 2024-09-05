@@ -1,14 +1,13 @@
-package barcus.gui;
+package barcus.display;
 
 import java.io.IOException;
 
+import barcus.Barcus;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import barcus.Barcus;
 
 /**
  * A GUI for Duke using FXML.
@@ -26,7 +25,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setBarcus(barcus);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setBarcus(barcus); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
