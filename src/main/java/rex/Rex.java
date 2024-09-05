@@ -149,4 +149,8 @@ public class Rex {
         Rex rex = new Rex();
         rex.run();
     }
+
+    public String getResponse(String input) {
+        return "Rex heard " + input;
+    }
 }
