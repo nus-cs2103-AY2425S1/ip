@@ -50,7 +50,7 @@ public abstract class Command {
                 throw new InvalidArgumentException("The " + arg + " of a " + name + " cannot be empty!");
             }
         }
-        if (argumentMap.size() > CommandManager.CommandType.fromString(this.name).commandArgs.length) {
+        if (argumentMap.size() > CommandManager.CommandType.fromString(this.name).commandArgs.length + 1) {
             throw new InvalidArgumentException("Extra arguments found for " + name + "!");
         }
     }
