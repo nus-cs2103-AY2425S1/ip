@@ -1,14 +1,26 @@
 package julie.misc;
+
 import julie.command.*;
 import julie.exception.InvalidCommandException;
 import julie.exception.JulieException;
 
+/**
+ * A class that encapsulates the methods used to parse user inputs to the Chat Bot.
+ */
 public class Parser {
-    public enum CommandToken {
+    /** Private enum that encapsulates the valid commands allowed for user input */
+    private enum CommandToken {
         MARK, UNMARK, LIST, DELETE,
         DEADLINE, TODO, EVENT,
         BYE, FIND;
 
+        /**
+         * Returns the corresponding enum when given a user input string.
+         *
+         * @param s The user input string.
+         * @return The enum that corresponds to the user input.
+         * @throws InvalidCommandException if the command is not supported by the Chat Bot.
+         */
         public static CommandToken fromString(String s) throws InvalidCommandException {
             try {
                 return CommandToken.valueOf(getFirstWord(s).toUpperCase());
@@ -19,10 +31,11 @@ public class Parser {
     }
 
     /**
-     * Public method used to parse the user inputs for valid commands.
-     * @param input The string representation of the user input
-     * @return The command object that represents the command run by the user
-     * @throws JulieException when an invalid input is given
+     * Returns the corresponding command when given a user input string.
+     *
+     * @param input The user input string.
+     * @return The command that corresponds with the user input.
+     * @throws JulieException if the command is not supported by the Chat Bot.
      */
     public static Command parse(String input) throws JulieException {
         CommandToken cmd = CommandToken.fromString(input);
@@ -40,6 +53,7 @@ public class Parser {
     }
     /**
      * Public method that extracts the first word from a string and returns it in uppercase.
+     *
      * @param s the string to be extracted from
      * @return the first word in the line
      */

@@ -3,11 +3,24 @@ package julie.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A class that represents a task with a start and end date.
+ */
 public class Event extends Task {
+    /** The start date of the task */
     private LocalDate start;
+    /** The end date of the task */
     private LocalDate end;
-    public Event(String task, LocalDate start, LocalDate end) {
-        super(task);
+
+    /**
+     * Public constructors for the event class.
+     *
+     * @param taskDescription The string description for the event.
+     * @param start The start time of the event.
+     * @param end The end time of the event.
+     */
+    public Event(String taskDescription, LocalDate start, LocalDate end) {
+        super(taskDescription);
         this.start = start;
         this.end = end;
     }

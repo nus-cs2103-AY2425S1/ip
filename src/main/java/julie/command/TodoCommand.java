@@ -6,7 +6,14 @@ import julie.task.ToDo;
 
 import java.util.List;
 
+/**
+ * The command that handles the creation of a ToDo Task.
+ */
 public class TodoCommand extends Command {
+    /**
+     * Public constructor for a TodoCommand
+     * @param commandString The string to be processed.
+     */
     public TodoCommand(String commandString) {
         super(commandString);
     }

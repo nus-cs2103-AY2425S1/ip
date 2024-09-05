@@ -11,7 +11,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/**
+ * The Command that handles the creation of a event task.
+ */
 public class EventCommand extends Command {
+    /**
+     * Public constructor for a EventCommand.
+     *
+     * @param commandString The string to be processed.
+     */
     public EventCommand(String commandString) {
         super(commandString);
     }

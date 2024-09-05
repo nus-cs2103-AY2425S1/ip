@@ -1,6 +1,5 @@
 package julie.command;
 
-import julie.command.Command;
 import julie.misc.UI;
 import julie.task.Task;
 import java.util.List;
@@ -14,7 +13,7 @@ public class UnmarkCommand extends Command {
         String[] tokens = commandString.split(" ");
         int x = Integer.parseInt(tokens[1]) - 1;
         Task t = taskList.get(x);
-        t.unmark();
+        t.unmarkCompleted();
         UI.wrappedLinePrint(String.format("Oop, this task is not yet done\n%s", t));
     }
 }
