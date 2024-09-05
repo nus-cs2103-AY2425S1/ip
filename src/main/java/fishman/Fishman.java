@@ -1,11 +1,17 @@
 package fishman;
 
+import java.util.ArrayList;
+
 import fishman.command.Command;
 import fishman.exception.FishmanException;
 import fishman.task.TaskList;
 import fishman.utils.Parser;
 import fishman.utils.Storage;
 import fishman.utils.Ui;
+import javafx.application.Platform;
+
+
+
 
 /**
  * The main class for the Fishman bot.
@@ -13,63 +19,65 @@ import fishman.utils.Ui;
  * and manages the main program.
  */
 public class Fishman {
-    /** The user interface object for handling input and output operations. */
-    private final Ui ui;
+
     /** The task list object to store and manage tasks. */
-    private TaskList tasks;
+    private TaskList tasks = new TaskList();
     /** The storage object used to handle file operations. */
-    private final Storage storage;
+    private final Storage storage = new Storage("./data/fishman.csv");
+    /** The Ui object used to construct messages. */
+    private final Ui ui = new Ui();
 
     /**
-     * Constructs a new instance of Fishman
-     * Initializes the UI, task list and parser.
-     */
-    public Fishman() {
-        ui = new Ui();
-        tasks = new TaskList();
-
-        storage = new Storage("./data/fishman.csv");
-    }
-
-    /**
-     * Starts the Fishman bot.
-     * Displays the logo and welcome message, before entering the main loop.
-     * The loop will continue until the exit command is received.
-     * The method will handle exceptions that may occur during execution.
-     * Any unchecked exception is caught and reported as well.
-     */
-    public void start() {
-        ui.displayLogo();
-        ui.displayWelcome();
-        boolean isExit = false;
-        try {
-            tasks = storage.load();
-        } catch (FishmanException e) {
-            ui.displayError(e.getMessage());
-        }
-        while (!isExit) {
-            try {
-                String userInput = ui.readCommands();
-                Command command = Parser.parse(userInput, tasks);
-                command.execute(tasks, ui);
-                isExit = command.isExit();
-            } catch (FishmanException e) {
-                ui.displayError(e.getMessage());
-            } catch (Exception e) {
-                ui.displayError("Uh oh, an unexpected error has occured: " + e.getMessage());
-            }
-        }
-        storage.save(tasks);
-    }
-
-    /**
-     * The main entry point for Fishman bot.
-     * Creates a new Fishman instance and starts the bot.
+     * Processes user inputs and returns the appropriate response.
      *
-     * @param args The command line arguments.
+     * @param input The user input to be processed.
+     * @return A string containing the response from command execution or error message
      */
-    public static void main(String[] args) throws FishmanException {
-        new Fishman().start();
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input, tasks);
+            if (command.isExit()) {
+                Platform.exit();
+            }
+            return command.execute(tasks, ui);
+        } catch (FishmanException e) {
+            return e.getMessage();
+        }
     }
+
+    /**
+     * Loads task from the data file and saves them if specified. This method performs its actions based on the
+     * specified action parameter. "load" to load tasks from the data file and "save" to save the current tasks to
+     * the data file.
+     *
+     * @param action A string indicating the action to be taken.
+     * @return A string containing the result of the operation or any error messages.
+     */
+    public String loadAndSaveTasks(String action) {
+        try {
+            Storage.LoadResults output = storage.load();
+            String errorMessage = output.getErrorMessage();
+            switch (action) {
+            case "load":
+                tasks = output.getValidTasks();
+                return errorMessage;
+
+            case "save":
+                if (errorMessage == null || errorMessage.isEmpty()) {
+                    storage.save(tasks, new ArrayList<>());
+                    return "successfully saved file.";
+                } else {
+                    storage.save(tasks, output.getAllTasksLines());
+                    return "successfully saved file with corrupt lines";
+                }
+            default:
+                return "Invalid action specified.";
+            }
+
+        } catch (Exception e) {
+            return "An unexpected error has occurred: " + e.getMessage();
+        }
+    }
+
 }
 

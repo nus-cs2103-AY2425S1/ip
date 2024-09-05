@@ -13,15 +13,16 @@ public interface Command {
      * Executes the command, performing actions on the task list and user interface.
      *
      * @param tasks The tasks to be added.
-     * @param ui The Ui object used when displaying the message.
+     * @param ui The ui instance to generate the confirmation message.
+     * @return A confirmation message indicating the command execution.
      */
-    void execute(TaskList tasks, Ui ui);
+    String execute(TaskList tasks, Ui ui);
 
     /**
      * Indicator for whether the program should exit.
      *
      * @return true if the program should exit after executing
-     * this command, false otherwise
+     *      this command, false otherwise
      */
     default boolean isExit() {
         return false;

@@ -70,6 +70,10 @@ public class TaskList implements Iterable<Task> {
         return tasks.size();
     }
 
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
     public ArrayList<Task> getTasks() {
         return tasks;
     }

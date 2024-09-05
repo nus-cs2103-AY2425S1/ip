@@ -116,15 +116,51 @@ public class FishmanException extends Exception {
      *  The exception thrown when a line in the data file contains invalid information.
      */
     public static class InvalidArgumentsException extends FishmanException {
-        private static final String MESSAGE = "Insufficient/Extra information retrieved from line: ";
+        private static final String MESSAGE_PREFIX = "Error: ";
+        private static final String MESSAGE_SUFFIX = " Skipping.....\n";
 
         /**
-         * Constructs a new InvalidArgumentException with message.
+         * Constructs a new InvalidArgumentsException with a message based on the type of error.
          *
-         * @param line The line containing the invalid information.
+         * @param errorType The type of error (e.g., "INVALID_EVENT", "INVALID_DEADLINE").
+         * @param line      The line containing the invalid information.
          */
-        public InvalidArgumentsException(String line) {
-            super(MESSAGE + line + " Skipping.....\n" );
+        public InvalidArgumentsException(ErrorType errorType, String line) {
+            super(MESSAGE_PREFIX + getErrorMessage(errorType, line) + MESSAGE_SUFFIX);
+        }
+
+        private static String getErrorMessage(ErrorType errorType, String line) {
+            switch (errorType) {
+            case INVALID_TODO:
+                return "Invalid ToDo arguments in line: " + line;
+            case INVALID_DEADLINE:
+                return "Invalid Deadline arguments in line: " + line;
+            case INVALID_EVENT:
+                return "Invalid Event arguments in line: " + line;
+            case INVALID_TASK_TYPE:
+                return "Unknown task type in line: " + line;
+            case INVALID_IS_DONE:
+                return "Invalid isDone value (must be 'true' or 'false') in line: " + line;
+            case INVALID_ARGUMENTS:
+                return "Missing arguments in line: " + line;
+            case INVALID_DATE_FORMAT:
+                return "Invalid date format in line: " + line;
+            default:
+                return "Unknown error in line: " + line;
+            }
+        }
+
+        /**
+         * The possible error types when loading the data file.
+         */
+        public enum ErrorType {
+            INVALID_TODO,
+            INVALID_DEADLINE,
+            INVALID_EVENT,
+            INVALID_TASK_TYPE,
+            INVALID_IS_DONE,
+            INVALID_ARGUMENTS,
+            INVALID_DATE_FORMAT
         }
     }
 

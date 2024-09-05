@@ -6,7 +6,7 @@ import fishman.utils.Ui;
 /**
  * Represents the command to mark a task in the task list.
  * This command implements the Command interface and is for
- * marking a single task to the task list and displaying the confirmation message
+ * marking a single task to the task list and returns the confirmation message
  * that the task has been successfully marked or unmarked to the user.
  */
 public class MarkCommand implements Command {
@@ -29,20 +29,19 @@ public class MarkCommand implements Command {
     /**
      * @inheritDoc
      *
-     * Marks or unmarks the specified task in the task list and display a confirmation message.
+     *      Marks or unmarks the specified task in the task list and returns a confirmation message.
      *
      * @param tasks The TaskList which the specified task will be added.
-     * @param ui The Ui object used to display the confirmation message.
+     * @param ui The Ui object used to generate the confirmation message.
+     * @return The confirmation message indicating the command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
         if (isMark) {
             tasks.markAsDone(index);
-            ui.displayTaskStatus(tasks.getTask(index));
         } else {
             tasks.markAsNotDone(index);
-            ui.displayTaskStatus(tasks.getTask(index));
         }
-
+        return ui.getTaskStatusMessage(tasks.getTask(index));
     }
 }
