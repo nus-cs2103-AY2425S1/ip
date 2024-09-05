@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 /**
  * The TaskType enum represents the types of tasks that can exist in the GPT application.
  * It defines three types of tasks: TODO, DEADLINE, and EVENT.

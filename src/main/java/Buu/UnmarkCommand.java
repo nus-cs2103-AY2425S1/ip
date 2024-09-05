@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 /**
  * Represents a command to unmark a task as not done in the GPT application.
  * This command identifies the task to be unmarked based on the user input and updates its status.
@@ -30,7 +30,8 @@ public class UnmarkCommand extends Command {
         try {
             taskList.unmarkTask(index);
             storage.saveTasks(taskList.getTasks());
-            ui.showTaskAdded(taskList.getTasks().get(index), taskList.getTasks().size());
+            // Show confirmation message that the task is unmarked
+            ui.showTaskUnmarked(taskList.getTasks().get(index));
         } catch (GPTException e) {
             ui.showError(e.getMessage());
         }

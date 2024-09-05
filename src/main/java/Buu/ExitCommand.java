@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 /**
  * Represents a command to exit the GPT application.
  * This command displays a goodbye message and signals the application to terminate.

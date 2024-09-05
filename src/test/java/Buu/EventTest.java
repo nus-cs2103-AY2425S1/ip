@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

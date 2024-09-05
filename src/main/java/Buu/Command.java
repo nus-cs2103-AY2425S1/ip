@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 
 /**
  * Represents an abstract command that can be executed in the GPT application.

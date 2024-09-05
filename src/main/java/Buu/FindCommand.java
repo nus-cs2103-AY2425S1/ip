@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,12 @@ public class FindCommand extends Command {
      * @param input The user input string containing the command to find tasks.
      */
     public FindCommand(String input) {
-        this.keyword = input.substring(5).trim(); // Extract keyword after "find "
+        // Extract keyword after "find ", but check if input length is valid to avoid errors.
+        if (input.trim().equals("find") || input.length() <= 5) {
+            this.keyword = ""; // No keyword provided
+        } else {
+            this.keyword = input.substring(5).trim();
+        }
     }
 
     /**
@@ -29,13 +34,28 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        // Check if the keyword is empty or invalid
+        if (keyword.isEmpty()) {
+            ui.showError(
+                    "Invalid command format for find.\nUsage: find [keyword]\n"
+                            + "Example: find project"
+            );
+            return;
+        }
+
+        // Proceed with the search if the keyword is valid
         List<Task> matchedTasks = new ArrayList<>();
         for (Task task : taskList.getTasks()) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchedTasks.add(task);
             }
         }
 
-        ui.showMatchingTasks(matchedTasks);
+        // Show results or message if no matching tasks are found
+        if (matchedTasks.isEmpty()) {
+            ui.showError("No tasks found matching the keyword: " + keyword);
+        } else {
+            ui.showMatchingTasks(matchedTasks);
+        }
     }
 }

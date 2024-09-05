@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 /**
  * Represents a command to mark a task as completed in the GPT application.
  * This command identifies the task to be marked based on the user input and updates its status.
@@ -29,7 +29,8 @@ public class MarkCommand extends Command {
         try {
             taskList.markTask(index);
             storage.saveTasks(taskList.getTasks());
-            ui.showTaskAdded(taskList.getTasks().get(index), taskList.getTasks().size());
+            // Show confirmation message that the task is marked as done
+            ui.showTaskMarkedDone(taskList.getTasks().get(index));
         } catch (GPTException e) {
             ui.showError(e.getMessage());
         }

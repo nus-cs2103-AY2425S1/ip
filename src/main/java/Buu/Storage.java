@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;

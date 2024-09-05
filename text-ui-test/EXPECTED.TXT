@@ -1,5 +1,5 @@
 Type 'list' to display saved tasks, 'mark <index>' to mark a task, 'unmark <index>' to unmark a task, or 'bye' to exit.
 ____________________________________________________________
-Hello! I'm GPT
+Hello! I'm Buu
 What can I do for you?
 ____________________________________________________________

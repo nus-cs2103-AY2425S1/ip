@@ -1,2 +1,2 @@
-T | 0 | read a book
-E | 0 | project meeting | 2019-12-02 1400 | 2019-12-02 1600
+T | 0 | run and eat
+T | 0 | running

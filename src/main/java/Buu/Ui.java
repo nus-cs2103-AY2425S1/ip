@@ -1,4 +1,5 @@
-package GPT;
+package Buu;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,12 +10,14 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
+    private List<String> outputBuffer; // Buffer to store output messages
 
     /**
      * Constructs a Ui object that uses a Scanner to read user input from the console.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
+        this.outputBuffer = new ArrayList<>();
     }
 
     /**
@@ -23,25 +26,14 @@ public class Ui {
      * @param chatbotName The name of the chatbot to be displayed in the welcome message.
      */
     public void showWelcomeMessage(String chatbotName) {
-        System.out.println("Type 'list' to display saved tasks or 'bye' to exit.");
-        printLine();
-        System.out.println("Hello! I'm " + chatbotName);
-        System.out.println("What can I do for you?");
-        printLine();
+        outputBuffer.add("Hello! I'm " + chatbotName + "\nWhat can I do for you?");
     }
 
     /**
      * Displays a goodbye message to the user when the application exits.
      */
     public void showGoodbyeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Displays a horizontal line to separate different sections of output.
-     */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+        outputBuffer.add("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -59,9 +51,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public void showError(String message) {
-        printLine();
-        System.out.println(message);
-        printLine();
+        outputBuffer.add(message);
     }
 
     /**
@@ -71,11 +61,26 @@ public class Ui {
      * @param taskCount The total number of tasks in the list after adding the new task.
      */
     public void showTaskAdded(Task task, int taskCount) {
-        printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        printLine();
+        outputBuffer.add("Got it. I've added this task:\n  "
+                + task + "\nNow you have " + taskCount + " tasks in the list.");
+    }
+    /**
+     * Displays a confirmation message indicating that the task has been marked as done.
+     *
+     * @param task The task that has been marked as completed.
+     */
+    public void showTaskMarkedDone(Task task) {
+        outputBuffer.add("Nice! I've marked this task as done:");
+        outputBuffer.add("  " + task);
+    }
+    /**
+     * Displays a confirmation message indicating that the task has been unmarked as not done.
+     *
+     * @param task The task that has been unmarked as not completed.
+     */
+    public void showTaskUnmarked(Task task) {
+        outputBuffer.add("OK, I've marked this task as not done yet:");
+        outputBuffer.add("  " + task);
     }
 
     /**
@@ -85,11 +90,8 @@ public class Ui {
      * @param taskCount The total number of tasks remaining in the list after removing the task.
      */
     public void showTaskRemoved(Task task, int taskCount) {
-        printLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        printLine();
+        outputBuffer.add("Noted. I've removed this task:\n  "
+                + task + "\nNow you have " + taskCount + " tasks in the list.");
     }
 
     /**
@@ -98,39 +100,51 @@ public class Ui {
      * @param tasks The list of tasks to be displayed.
      */
     public void showTaskList(ArrayList<Task> tasks) {
-        printLine();
         if (tasks.isEmpty()) {
-            System.out.println("No tasks to show.");
+            outputBuffer.add("No tasks to show.");
         } else {
-            System.out.println("Here are the tasks in your list:");
+            StringBuilder taskListMessage = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                taskListMessage.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
             }
+            outputBuffer.add(taskListMessage.toString());
         }
-        printLine();
     }
+
     /**
      * Displays the list of tasks that match the search keyword.
      *
      * @param tasks The list of tasks that match the search keyword.
      */
     public void showMatchingTasks(List<Task> tasks) {
-        showLine();
         if (tasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            outputBuffer.add("No matching tasks found.");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder matchingTasksMessage = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                matchingTasksMessage.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
             }
+            outputBuffer.add(matchingTasksMessage.toString());
         }
-        showLine();
     }
 
     /**
-     * Prints a horizontal line to separate different sections of output.
+     * Clears the output buffer.
      */
-    private void printLine() {
-        System.out.println("____________________________________________________________");
+    public void clearOutputBuffer() {
+        outputBuffer.clear();
+    }
+
+    /**
+     * Retrieves all the messages stored in the output buffer.
+     *
+     * @return The list of buffered messages.
+     */
+    public List<String> getOutputBuffer() {
+        return new ArrayList<>(outputBuffer);
+    }
+
+    public void addToOutputBuffer(String message) {
+        outputBuffer.add(message);
     }
 }

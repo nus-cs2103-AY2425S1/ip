@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 /**
  * Represents an abstract task in the GPT application.
  * This class provides common functionality for tasks, such as tracking the task's description,

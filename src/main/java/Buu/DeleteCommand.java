@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 /**
  * Represents a command to delete a task from the task list in the GPT application.
  * This command parses the user input to determine which task to delete by its index.

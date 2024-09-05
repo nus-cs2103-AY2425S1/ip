@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 
 /**
  * Represents a ToDo task in the GPT application.

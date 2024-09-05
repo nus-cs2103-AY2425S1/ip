@@ -7,6 +7,6 @@
 <suppressions>
   <suppress checks="JavadocType" files=".*Test\.java"/>
   <suppress checks="MissingJavadocMethodCheck" files=".*Test\.java"/>
-  <suppress checks="PackageName" files=".*GPT.*"/>
-  <suppress checks="AbbreviationAsWordInName" files=".*GPT.*"/>
+  <suppress checks="PackageName" files=".*Buu.*"/>
+  <suppress checks="AbbreviationAsWordInName" files=".*Buu.*"/>
 </suppressions>

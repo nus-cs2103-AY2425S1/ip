@@ -1,4 +1,4 @@
-package GPT;
+package Buu;
 /**
  * Represents a custom exception used in the GPT application.
  * This exception is thrown when an error specific to the GPT application occurs.
