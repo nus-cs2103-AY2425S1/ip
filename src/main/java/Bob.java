@@ -19,13 +19,17 @@ public class Bob {
         LIST("list") {
             @Override
             public void run() {
-                StringBuilder text = new StringBuilder();
-                int i;
-                for (i = 0; i < list.size() - 1; ++i) {
-                    text.append(i + 1).append(".").append(list.get(i)).append("\n");
+                if (list.isEmpty()) {
+                    say("You have not added any tasks yet.");
+                } else {
+                    StringBuilder text = new StringBuilder();
+                    int i;
+                    for (i = 0; i < list.size() - 1; ++i) {
+                        text.append(i + 1).append(".").append(list.get(i)).append("\n");
+                    }
+                    text.append(i + 1).append(".").append(list.get(i));
+                    say(text.toString());
                 }
-                text.append(i + 1).append(".").append(list.get(i));
-                say(text.toString());
             }
         },
         TODO("todo") {
