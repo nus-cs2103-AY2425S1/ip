@@ -1,10 +1,12 @@
 package phenex.task;
 
-import org.junit.jupiter.api.Test;
-import phenex.exception.PhenexException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import phenex.exception.PhenexException;
 
 /**
  * Unit tests for the TaskList class.
