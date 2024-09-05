@@ -142,13 +142,6 @@ public class Ui {
     }
 
     /**
-     * Prints a notice that user's latest change is unable to be saved.
-     */
-    public void latestSaveError() {
-        this.respondDanger("Sumo cannot save latest change.");
-    }
-
-    /**
      * Prints a notice that user's saved file is corrupted and inform user which line it is at.
      * @param line line where the file is corrupted.
      */
