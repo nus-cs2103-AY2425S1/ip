@@ -1,13 +1,11 @@
-package alice.task;
+package alice.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import org.junit.jupiter.api.Test;
 
-import alice.parser.TaskParser;
-
-public class ParserTest {
+public class TaskParserTest {
     @Test
     public void parseDescriptionTest() {
         String expected = "expected description";

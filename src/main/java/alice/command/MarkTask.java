@@ -3,13 +3,13 @@ package alice.command;
 import java.io.IOException;
 
 import alice.storage.TaskList;
+import alice.task.InvalidTaskException;
 import alice.task.Task;
-import alice.ui.Ui;
 
 /** Command to mark task. */
 public class MarkTask extends Command {
-    public MarkTask(Ui ui, TaskList taskList) {
-        super(ui, taskList);
+    public MarkTask(TaskList taskList) {
+        super(taskList);
     }
 
     /**
@@ -17,37 +17,30 @@ public class MarkTask extends Command {
      *
      * Input should be: mark &lt;task number&gt;
      *
-     * @param line the input line from the user
+     * @param input the input line from the user
      */
     @Override
-    public void execute(String line) {
-        String[] tokens = line.split(" ", 2);
+    public String execute(String input) throws InvalidTaskException {
+        String[] tokens = input.split(" ", 2);
         if (tokens.length != 2) {
-            ui.warn("Missing task number. Usage: mark <task number>");
-            return;
+            throw new InvalidTaskException("Missing task number. Usage: mark <task number>");
         }
 
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(tokens[1]);
         } catch (NumberFormatException exception) {
-            ui.warn("Invalid task number. Usage: mark <task number>");
-            return;
+            throw new InvalidTaskException("Invalid task number. Usage: mark <task number>");
         }
 
         try {
             int index = taskNumber - 1;
             Task markedTask = taskList.markTask(index);
-
-            String[] lines = new String[]{
-                "Nice! I've marked this task as done:",
-                markedTask.toString()
-            };
-            ui.say(lines);
-        } catch (IndexOutOfBoundsException e) {
-            ui.warn("Task number out of bounds. Usage: mark <task number>");
-        } catch (IOException e) {
-            ui.warn("Unable to save task.");
+            return String.format("Nice! I've marked this task as done:\n\t%s", markedTask);
+        } catch (IndexOutOfBoundsException exception) {
+            throw new InvalidTaskException("Task number out of bounds. Usage: mark <task number>");
+        } catch (IOException exception) {
+            throw new InvalidTaskException("Unable to save task.");
         }
     }
 }

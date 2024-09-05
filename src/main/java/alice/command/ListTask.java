@@ -1,15 +1,16 @@
 package alice.command;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 import alice.storage.TaskList;
+import alice.task.InvalidTaskException;
 import alice.task.Task;
-import alice.ui.Ui;
 
 /** Command to list tasks. */
 public class ListTask extends Command {
-    public ListTask(Ui ui, TaskList taskList) {
-        super(ui, taskList);
+    public ListTask(TaskList taskList) {
+        super(taskList);
     }
 
     /**
@@ -17,20 +18,18 @@ public class ListTask extends Command {
      *
      * Input should be: list
      *
-     * @param line the input line from the user
+     * @param input the input line from the user
      */
     @Override
-    public void execute(String line) {
+    public String execute(String input) throws InvalidTaskException {
         List<Task> tasks = taskList.getTasks();
         if (tasks.isEmpty()) {
-            ui.say("You have no tasks.");
+            return "You have no tasks.";
         } else {
-            String[] lines = new String[tasks.size() + 1];
-            lines[0] = "These are your tasks:";
-            for (int i = 0; i < tasks.size(); i++) {
-                lines[i + 1] = String.format("%d. %s", i + 1, tasks.get(i));
-            }
-            ui.say(lines);
+            List<String> taskLines = IntStream.range(0, tasks.size())
+                    .mapToObj((index) -> String.format("\t%d. %s", index + 1, tasks.get(index)))
+                    .toList();
+            return String.format("These are your tasks:\n%s", String.join("\n", taskLines));
         }
     }
 }

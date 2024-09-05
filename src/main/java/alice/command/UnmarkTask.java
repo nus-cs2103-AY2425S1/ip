@@ -3,13 +3,13 @@ package alice.command;
 import java.io.IOException;
 
 import alice.storage.TaskList;
+import alice.task.InvalidTaskException;
 import alice.task.Task;
-import alice.ui.Ui;
 
 /** Command to unmark task. */
 public class UnmarkTask extends Command {
-    public UnmarkTask(Ui ui, TaskList taskList) {
-        super(ui, taskList);
+    public UnmarkTask(TaskList taskList) {
+        super(taskList);
     }
 
     /**
@@ -17,37 +17,30 @@ public class UnmarkTask extends Command {
      *
      * Input should be: unmark &lt;task number&gt;
      *
-     * @param line the input line from the user
+     * @param input the input line from the user
      */
     @Override
-    public void execute(String line) {
-        String[] tokens = line.split(" ", 2);
+    public String execute(String input) throws InvalidTaskException {
+        String[] tokens = input.split(" ", 2);
         if (tokens.length != 2) {
-            ui.warn("Missing task number. Usage: unmark <task number>");
-            return;
+            throw new InvalidTaskException("Missing task number. Usage: unmark <task number>");
         }
 
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(tokens[1]);
         } catch (NumberFormatException exception) {
-            ui.warn("Invalid task number. Usage: unmark <task number>");
-            return;
+            throw new InvalidTaskException("Invalid task number. Usage: unmark <task number>");
         }
 
         try {
             int index = taskNumber - 1;
             Task unmarkedTask = taskList.unmarkTask(index);
-
-            String[] lines = new String[]{
-                "OK, I've marked this task as not done yet:",
-                unmarkedTask.toString()
-            };
-            ui.say(lines);
-        } catch (IndexOutOfBoundsException e) {
-            ui.warn("Task number out of bounds. Usage: unmark <task number>");
-        } catch (IOException e) {
-            ui.warn("Unable to save task.");
+            return String.format("OK, I've marked this task as not done yet:", unmarkedTask);
+        } catch (IndexOutOfBoundsException exception) {
+            throw new InvalidTaskException("Task number out of bounds. Usage: unmark <task number>");
+        } catch (IOException exception) {
+            throw new InvalidTaskException("Unable to save task.");
         }
     }
 }

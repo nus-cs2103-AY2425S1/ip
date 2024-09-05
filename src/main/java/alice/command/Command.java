@@ -1,7 +1,7 @@
 package alice.command;
 
 import alice.storage.TaskList;
-import alice.ui.Ui;
+import alice.task.InvalidTaskException;
 
 /** Commands for all actions. */
 public abstract class Command {
@@ -17,11 +17,9 @@ public abstract class Command {
         FIND,
     }
 
-    protected final Ui ui;
     protected final TaskList taskList;
 
-    protected Command(Ui ui, TaskList taskList) {
-        this.ui = ui;
+    protected Command(TaskList taskList) {
         this.taskList = taskList;
     }
 
@@ -31,36 +29,35 @@ public abstract class Command {
      * which can be used to choose which type of Command to return.
      *
      * @param  line     the input line from the user
-     * @param  ui       the ui instance
      * @param  taskList the taskList instance
      * @return          the parsed command
      */
-    public static Command fromInput(String line, Ui ui, TaskList taskList) throws IllegalArgumentException {
+    public static Command fromInput(String line, TaskList taskList) throws IllegalArgumentException {
         String input = line.toUpperCase();
         if (input.startsWith(Action.TODO.name())
                 || input.startsWith(Action.DEADLINE.name())
                 || input.startsWith(Action.EVENT.name())) {
-            return new AddTask(ui, taskList);
+            return new AddTask(taskList);
         }
 
         if (input.startsWith(Action.LIST.name())) {
-            return new ListTask(ui, taskList);
+            return new ListTask(taskList);
         }
 
         if (input.startsWith(Action.MARK.name())) {
-            return new MarkTask(ui, taskList);
+            return new MarkTask(taskList);
         }
 
         if (input.startsWith(Action.UNMARK.name())) {
-            return new UnmarkTask(ui, taskList);
+            return new UnmarkTask(taskList);
         }
 
         if (input.startsWith(Action.DELETE.name())) {
-            return new DeleteTask(ui, taskList);
+            return new DeleteTask(taskList);
         }
 
         if (input.startsWith(Action.FIND.name())) {
-            return new FindTask(ui, taskList);
+            return new FindTask(taskList);
         }
 
         throw new IllegalArgumentException("Unsupported command.");
@@ -70,7 +67,7 @@ public abstract class Command {
      * Runs the given command based on the input.
      * The argument parsing will be implemented by subclasses.
      *
-     * @param line the input line from the user
+     * @param input the input line from the user
      */
-    public abstract void execute(String line);
+    public abstract String execute(String input) throws InvalidTaskException;
 }

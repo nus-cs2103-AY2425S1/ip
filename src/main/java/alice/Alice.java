@@ -1,11 +1,9 @@
 package alice;
 
-import java.util.Scanner;
-
 import alice.command.Command;
 import alice.storage.Storage;
 import alice.storage.TaskList;
-import alice.ui.Ui;
+import alice.task.InvalidTaskException;
 
 /** Handles input/event loop. */
 public class Alice {
@@ -13,57 +11,30 @@ public class Alice {
     private static final String DATA_DIRECTORY_PATH = "./data";
     private static final String TASKS_FILE_NAME = "tasks.jsonl";
 
-    private final Ui ui;
     private final Storage storage;
-    private final TaskList taskManager;
+    private final TaskList taskList;
 
     /**
      * Creates an instance of the chatbot.
      */
     public Alice() {
-        this.ui = new Ui();
         this.storage = new Storage(DATA_DIRECTORY_PATH, TASKS_FILE_NAME);
-        this.taskManager = new TaskList(this.storage);
+        this.taskList = new TaskList(this.storage);
     }
 
-    private void greet() {
-        ui.say(String.format("Hello! I'm %s. What can I do for you?", NAME));
+    public String getGreeting() {
+        return String.format("Hello! I'm %s. What can I do for you?", NAME);
     }
 
-    private void bye() {
-        ui.say("Bye. Hope to see you again soon!");
-    }
-
-    private void echo(String line) {
-        // echo user inputs
-        ui.say(String.format("%s", line));
-    }
-
-    private void listen() {
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String input = line.trim().toUpperCase();
-            if (input.startsWith("BYE")) {
-                break;
-            }
-
-            try {
-                Command command = Command.fromInput(line, ui, taskManager);
-                command.execute(line);
-            } catch (IllegalArgumentException e) {
-                // default behavior
-                echo(line);
-            }
+    public String getReponse(String input) {
+        try {
+            Command command = Command.fromInput(input, taskList);
+            return command.execute(input);
+        } catch (InvalidTaskException exception) {
+            return exception.getMessage();
+        } catch (IllegalArgumentException exception) {
+            // default behavior is to echo
+            return input;
         }
-        scanner.close();
-    }
-
-    public static void main(String[] args) {
-        Alice alice = new Alice();
-
-        alice.greet();
-        alice.listen();
-        alice.bye();
     }
 }

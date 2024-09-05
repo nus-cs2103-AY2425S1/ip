@@ -1,6 +1,7 @@
 package alice.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
@@ -12,7 +13,6 @@ import alice.storage.TaskList;
 import alice.task.InvalidTaskException;
 import alice.task.Task;
 import alice.task.ToDo;
-import alice.ui.Ui;
 
 public class DeleteTaskTest {
     private static final String DATA_DIRECTORY_PATH = "./data";
@@ -20,7 +20,6 @@ public class DeleteTaskTest {
 
     @Test
     public void deleteTaskTest() {
-        Ui ui = new Ui();
         Storage storage = new Storage(DATA_DIRECTORY_PATH, TASKS_FILE_NAME);
         TaskList taskList = new TaskList(storage);
         taskList.getTasks().clear();
@@ -36,8 +35,12 @@ public class DeleteTaskTest {
         assertEquals(expected, isEmpty);
         // after
         String input = "delete 1";
-        Command command = Command.fromInput(input, ui, taskList);
-        command.execute(input);
+        Command command = Command.fromInput(input, taskList);
+        try {
+            command.execute(input);
+        } catch (Exception e) {
+            fail();
+        }
         isEmpty = taskList.getTasks().isEmpty();
         expected = true;
         assertEquals(expected, isEmpty);
@@ -45,15 +48,11 @@ public class DeleteTaskTest {
 
     @Test
     public void deleteInvalidTaskTest() {
-        Ui ui = new Ui();
         Storage storage = new Storage(DATA_DIRECTORY_PATH, TASKS_FILE_NAME);
         TaskList taskList = new TaskList(storage);
         taskList.getTasks().clear();
         String input = "delete 1";
-        Command command = Command.fromInput(input, ui, taskList);
-        command.execute(input);
-        boolean isEmpty = taskList.getTasks().isEmpty();
-        boolean expected = true;
-        assertEquals(expected, isEmpty);
+        Command command = Command.fromInput(input, taskList);
+        assertThrowsExactly(InvalidTaskException.class, () -> command.execute(input));
     }
 }
