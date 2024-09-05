@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("ponderpika.gui.Launcher")
 }
 
 shadowJar {

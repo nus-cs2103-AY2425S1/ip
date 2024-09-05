@@ -2,15 +2,15 @@ package ponderpika.gui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * This Gui class helps in creating GUI for our PonderPika bot
@@ -25,6 +25,11 @@ public class Gui extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/pikabot.png"));
+
+    private void handleUserInput() {
+        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        userInput.clear();
+    }
 
     @Override
     public void start(Stage stage) {
@@ -48,7 +53,7 @@ public class Gui extends Application {
 
         //Formatting the window to look as expected
 
-        stage.setTitle("Duke");
+        stage.setTitle("PonderPika");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -75,5 +80,16 @@ public class Gui extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        //Handling user input
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
     }
 }
