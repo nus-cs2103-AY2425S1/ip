@@ -7,6 +7,7 @@ import lict.command.Command;
  */
 
 public class Lict {
+    private static final String DEFAULT_FILE_PATH = "data/LictData.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -27,6 +28,9 @@ public class Lict {
         }
     }
 
+    public Lict() {
+        this(DEFAULT_FILE_PATH);
+    }
     /**
      * Starts the Lict application, handling user interactions in a loop until the user chooses to exit.
      */
@@ -51,4 +55,18 @@ public class Lict {
     public static void main(String[] args) {
         new Lict("data/LictData.txt").run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            return ui.getLastOutput();
+        } catch (LictException e) {
+            return e.getMessage();
+        }
+    }
+
 }
