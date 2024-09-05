@@ -13,8 +13,9 @@ public class Ui {
     private Parser parser;
 
     /**
-     * Prints the text enclosed in between lines.
-     * @param text Text to be printed.
+     * Prints lines above and below a given String input.
+     *
+     * @param text String input.
      */
     public static void printLines(String text) {
         String textToPrint = "\t____________________________________________________________\n"
@@ -26,7 +27,7 @@ public class Ui {
     }
 
     /**
-     * Prints welcome message upon launching the chatbot.
+     * Prints welcome message.
      */
     public void showWelcome() {
         String welcome = "Hello! I'm Bob\n"

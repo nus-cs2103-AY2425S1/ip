@@ -19,7 +19,6 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        this.marker = "/by";
     }
 
     /**
@@ -30,7 +29,6 @@ public class Deadline extends Task {
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
         this.by = by;
-        this.marker = "/by";
     }
 
     /**
@@ -41,12 +39,11 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDate date) {
         super(description);
         this.date = date;
-        this.marker = "/by";
     }
 
     // Returns the letter representing deadline.
     @Override
-    public String taskLetter() {
+    public String getTaskLetter() {
         return "D";
     }
 

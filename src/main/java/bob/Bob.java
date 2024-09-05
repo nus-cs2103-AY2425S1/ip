@@ -9,20 +9,19 @@ import bob.task.TaskList;
 import bob.ui.Ui;
 
 /**
- * This is a chatbot class named Bob.
+ * This is a chatBot class named Bob.
  */
 public class Bob {
     private ArrayList<Task> records;
-    private int counter;
-
-    private String savedFilePath;
-
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
     /**
-     * Initialises an instance of Bob.
+     * Initialises an instance of the chatBot Bob.
+     * Bob's ui, storage and taskList is also initialised.
+     *
+     * @param filePath Relative file path of where the records will be saved.
      */
     public Bob(String filePath) {
         ui = new Ui();
@@ -45,13 +44,12 @@ public class Bob {
     }
 
     /**
-     * Runs the Bob chatBot program.
+     * Starts the main program for the chatBot.
      */
-    void run() {
+    public void run() {
         ui.showWelcome();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().trim(); //input with NO whitespace in front/back
-
         while (!input.equals("bye")) {
             String[] inputWords = input.split("\s+");
             String keyword = inputWords[0];
@@ -88,5 +86,6 @@ public class Bob {
             input = scanner.nextLine().trim();
         }
         Ui.showGoodBye();
+
     }
 }

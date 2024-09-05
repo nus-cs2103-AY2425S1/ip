@@ -1,6 +1,5 @@
 package bob.task;
 
-
 /**
  * Task that are meant to be done with no specified deadline.
  */
@@ -26,7 +25,7 @@ public class Todo extends Task {
 
     // Returns the letter representing todo.
     @Override
-    public String taskLetter() {
+    public String getTaskLetter() {
         return "T";
     }
 

@@ -19,7 +19,6 @@ public class Event extends Task {
         this.startDay = startDay;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.marker = "/from";
     }
 
     /**
@@ -32,12 +31,11 @@ public class Event extends Task {
         this.startDay = startDay;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.marker = "/from";
     }
 
     // Returns the letter representing event.
     @Override
-    public String taskLetter() {
+    public String getTaskLetter() {
         return "E";
     }
 

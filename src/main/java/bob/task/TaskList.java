@@ -13,7 +13,6 @@ import bob.ui.Ui;
 /**
  * Performs operations on the list of Tasks.
  */
-
 public class TaskList {
 
     private ArrayList<Task> records;
@@ -127,7 +126,7 @@ public class TaskList {
             Task newTask = getTask(keyword, input); //initialise the exact Task class
             String immediateAdd = "Got it. I've added this task:\n\t"
                     + "  ["
-                    + newTask.taskLetter()
+                    + newTask.getTaskLetter()
                     + "][ ] "
                     + this.getInputDescription(input)
                     + "\n\t"
