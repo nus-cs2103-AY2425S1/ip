@@ -1,4 +1,4 @@
-package optimus;
+package optimus.ui;
 
 import java.io.IOException;
 import java.util.Collections;

@@ -2,7 +2,6 @@ package optimus.commands;
 
 import optimus.Storage;
 import optimus.TaskList;
-import optimus.Ui;
 import optimus.tasks.Task;
 
 /**
@@ -21,15 +20,13 @@ public class AddTaskCommand extends Command {
      *
      * @param storage - permenant storage
      * @param tasks   - session storage
-     * @param ui      - user interface
      */
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) {
+    public String execute(Storage storage, TaskList tasks) {
         tasks.addTask(task);
         storage.appendToStorage(task.getStorageString());
-        ui.printToInterface("Got it. I've added this task:");
-        ui.printToInterface(task.toString());
-        ui.printToInterface(String.format("Now you have %d tasks in the list", tasks.getNumOfTasks()));
+        return "Got it. I've added this task:\n" + task + "\n" + String.format("Now you have %d tasks in the list",
+                tasks.getNumOfTasks());
     }
 
     public Task getTask() {

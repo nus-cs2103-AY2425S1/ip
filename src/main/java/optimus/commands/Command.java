@@ -2,7 +2,6 @@ package optimus.commands;
 
 import optimus.Storage;
 import optimus.TaskList;
-import optimus.Ui;
 import optimus.exceptions.OptimusExceptions;
 
 /**
@@ -19,5 +18,5 @@ public abstract class Command {
         return true;
     }
 
-    public abstract void execute(Storage storage, TaskList tasks, Ui ui) throws OptimusExceptions;
+    public abstract String execute(Storage storage, TaskList tasks) throws OptimusExceptions;
 }

@@ -1,4 +1,4 @@
-package optimus;
+package optimus.ui;
 
 import javafx.application.Application;
 

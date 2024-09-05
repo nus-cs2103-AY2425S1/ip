@@ -2,7 +2,6 @@ package optimus.commands;
 
 import optimus.Storage;
 import optimus.TaskList;
-import optimus.Ui;
 import optimus.exceptions.InvalidTaskNumberException;
 import optimus.tasks.Task;
 
@@ -21,16 +20,15 @@ public class DeleteTaskCommand extends Command {
      *
      * @param storage - permanent storage
      * @param tasks   - session storage
-     * @param ui      - user interface
+     * @return - Success message
      * @throws InvalidTaskNumberException - when task number does not exist or is not valid
      */
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) throws InvalidTaskNumberException {
+    public String execute(Storage storage, TaskList tasks) throws InvalidTaskNumberException {
         Task removed = tasks.removeTask(taskIndex);
         storage.rewriteEntireFile(tasks.getList());
-        ui.printToInterface("Noted. I've removed this task:");
-        ui.printToInterface(removed.toString());
-        ui.printToInterface(String.format("Now you have %d tasks in the list", tasks.getNumOfTasks()));
+        return "Noted. I've removed this task:\n" + removed + "\n" + String.format("Now you have %d tasks in the list",
+                tasks.getNumOfTasks());
     }
 
     public int getTaskIndex() {

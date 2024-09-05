@@ -2,7 +2,6 @@ package optimus.commands;
 
 import optimus.Storage;
 import optimus.TaskList;
-import optimus.Ui;
 import optimus.exceptions.InvalidTaskNumberException;
 import optimus.tasks.Task;
 
@@ -21,17 +20,15 @@ public class MarkCommand extends Command {
      *
      * @param storage - permanent storage
      * @param tasks   - session storage
-     * @param ui      - user interface
      * @throws InvalidTaskNumberException - when task number does not exist or is not valid
      */
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) throws InvalidTaskNumberException {
+    public String execute(Storage storage, TaskList tasks) throws InvalidTaskNumberException {
         Task task = tasks.getTask(taskIndex);
 
         task.markAsComplete();
         storage.rewriteEntireFile(tasks.getList());
-        ui.printToInterface("Nice! I've marked this task as complete:");
-        ui.printToInterface(task.toString());
+        return "Nice! I've marked this task as complete:\n" + task;
     }
 
     /**
