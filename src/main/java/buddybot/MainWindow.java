@@ -33,10 +33,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String welcome = "Welcome! I'm BuddyBot.\nHow may I help you?";
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(welcome, buddyImage)
+        );
     }
 
     /** Injects the Duke instance */
-    public void setDuke(BuddyBot b) {
+    public void setBuddy(BuddyBot b) {
         buddy = b;
     }
 
@@ -54,13 +58,13 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         if (input.equals("bye")) {
-            TimerTask task = new TimerTask() {
+            TimerTask myTask = new TimerTask() {
                 public void run() {
                     Platform.exit();
                 }
             };
             Timer timer = new Timer("Delay");
-            timer.schedule(task, 1000L);
+            timer.schedule(myTask, 1000L);
         }
     }
 }
