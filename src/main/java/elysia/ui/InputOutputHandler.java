@@ -53,7 +53,7 @@ public class InputOutputHandler {
             } else {
                 Todo newTodo = new Todo(input.substring(5));
                 taskList.addTask(newTodo);
-                output = "Added the task below to your list~\n" + newTodo.toString();
+                output = "Added the task below to your list~\n" + newTodo.toString() + "\n";
                 output += "Wow! You now have " + taskList.size() + " tasks in your list!";
             }
         } else if (input.startsWith("deadline")) {
@@ -68,13 +68,13 @@ public class InputOutputHandler {
                     date = parsedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
                 } catch (DateTimeParseException e) {
                     output = "This doesn't look like a date... I won't be able to do anything with it but as long" +
-                            "as you understand it :)";
+                            "as you understand it :)" + "\n";
                     date = rawDate;
                 }
 
                 Deadline newDeadline = new Deadline(input.substring(9,index), date);
                 taskList.addTask(newDeadline);
-                output += "Added the task below to your list~\n" + newDeadline.toString();
+                output += "Added the task below to your list~\n" + newDeadline.toString() + "\n";
                 output += "Wow! You now have " + taskList.size() + " tasks in your list!";
             }
         } else if (input.startsWith("event")) {
@@ -87,7 +87,7 @@ public class InputOutputHandler {
                         input.substring(index0 + 6, index1),
                         input.substring(index1+4));
                 taskList.addTask(newEvent);
-                output = "Added the task below to your list~\n" + newEvent.toString();
+                output = "Added the task below to your list~\n" + newEvent.toString() + "\n";
                 output += "Wow! You now have " + taskList.size() + " tasks in your list!";
             }
         } else if (input.startsWith("delete")) {

@@ -5,7 +5,7 @@ import elysia.tasks.Task;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> list;
+    protected ArrayList<Task> list;
 
     public TaskList() {
         list = new ArrayList<Task>();

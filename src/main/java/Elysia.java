@@ -13,8 +13,7 @@ public class Elysia {
                 "How can I help you today? I'm all ears!");
 
         Scanner command = new Scanner(System.in);
-        String input = "";
-        String output = "";
+        String input;
         boolean repeat = true;
         InputOutputHandler handler = new InputOutputHandler();
 
