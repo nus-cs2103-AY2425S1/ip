@@ -104,7 +104,7 @@ public class Task {
      *
      * @return The icon representing the task's completion status.
      */
-    public String doneIcon() {
+    public String getDoneIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
@@ -117,7 +117,7 @@ public class Task {
             dateStr = " (from: " + date.format(OUTPUT_DATE_FORMATTER)
                     + " to: " + endDate.format(OUTPUT_DATE_FORMATTER) + ")";
         }
-        return this.type + doneIcon() + " " + name + dateStr;
+        return this.type + getDoneIcon() + " " + name + dateStr;
     }
 
     /**
@@ -125,7 +125,7 @@ public class Task {
      *
      * @return The string representation of the task for saving.
      */
-    public String toFileString() {
+    public String convertToFileString() {
         StringBuilder sb = new StringBuilder();
         sb.append(type.charAt(1)).append(" | ").append(isDone ? "1" : "0").append(" | ").append(name);
         if (type.equals("[D]")) {
