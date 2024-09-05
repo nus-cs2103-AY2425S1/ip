@@ -17,7 +17,7 @@ public class Jag {
      * @param path Path of the file to read and write outputs
      */
     public Jag(String path) {
-        ui = new Ui();
+        ui = new UiCLI();
         storage = new Storage(path);
         try {
             tasks = storage.load();
@@ -28,7 +28,7 @@ public class Jag {
     }
 
     public Jag() {
-        ui = new Ui();
+        ui = new UiGUI();
         storage = new Storage("./data/jag.txt");
         try {
             tasks = storage.load();

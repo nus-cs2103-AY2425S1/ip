@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 public class StorageTest {
     // Creation of Task and TaskList objects
-    private Ui testUi = new Ui();
+    private UiCLI testUi = new UiCLI();
 
     private Task testTodo = new Todo("read book");
 
