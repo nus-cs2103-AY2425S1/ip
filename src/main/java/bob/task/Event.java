@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import bob.Parser;
 
 /**
- * Represents a Event task.
+ * Represents an Event task.
  * <p>
  * An Event task is a type of task that has a description, a completion status,
  * a start date and an end date.
@@ -58,6 +58,7 @@ public class Event extends Task {
      *
      * @return A string representation of the Event task to be saved.
      */
+    @SuppressWarnings("checkstyle:SingleSpaceSeparator")
     public String getTaskLine() {
         return getSymbol() +  "," + isDoneBinary() + "," + description + ","
                 + Parser.getDateTimeStr(from) + "," + Parser.getDateTimeStr(to);

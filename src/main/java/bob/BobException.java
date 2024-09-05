@@ -4,7 +4,7 @@ package bob;
  * Represents an exception specific to the Bob application.
  * The BobException class allows custom error messages to be displayed to the user.
  */
-public class BobException extends Exception{
+public class BobException extends Exception {
 
     /**
      * Constructs a new BobException with the specified detail message.

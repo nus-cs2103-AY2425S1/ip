@@ -23,7 +23,7 @@ public class ToDo extends Task {
 
     /**
      * Constructs a new ToDo task with a given description.
-     *The completion status is initialised as false.
+     * The completion status is initialised as false.
      *
      * @param description The description of the task.
      */
@@ -45,6 +45,7 @@ public class ToDo extends Task {
      *
      * @return A string representation of the ToDo task to be saved.
      */
+    @SuppressWarnings("checkstyle:SingleSpaceSeparator")
     public String getTaskLine() {
         return getSymbol() +  "," + isDoneBinary() + "," + description;
     }

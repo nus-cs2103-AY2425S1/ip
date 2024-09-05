@@ -1,8 +1,8 @@
 package bob;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Represents the user interface for interacting with Bob chatbot.

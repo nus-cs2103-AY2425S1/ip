@@ -11,6 +11,17 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
+     * Constructs a new Task with a given description and completion status.
+     *
+     * @param description The description of the task.
+     * @param isDone      The completion status of the task.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    /**
      * Returns a symbol that indicates the type of task.
      *
      * @return A string symbol representing the task type.
@@ -31,17 +42,6 @@ public abstract class Task {
      * @return true if the task occurs on the specified date, false otherwise.
      */
     public abstract boolean isRelevant(LocalDate date);
-
-    /**
-     * Constructs a new Task with a given description and completion status.
-     *
-     * @param description The description of the task.
-     * @param isDone      The completion status of the task.
-     */
-    public Task(String description, boolean isDone) {
-        this.description = description;
-        this.isDone = isDone;
-    }
 
     /**
      * Returns task description.
