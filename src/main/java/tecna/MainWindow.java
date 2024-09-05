@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
     private Stage stage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image tecnaImage = new Image(this.getClass().getResourceAsStream("/images/TecnaAvatar.jpg"));
 
     @FXML
     public void initialize() {
@@ -69,14 +69,12 @@ public class MainWindow extends AnchorPane {
         String response = tecna.getResponse(input);
         DialogBox userDialogBox = DialogBox.getUserDialog(input, userImage);
 
-        DialogBox dukeDialogBox = DialogBox.getDukeDialog(response, dukeImage);
+        DialogBox dukeDialogBox = DialogBox.getTecnaDialog(response, tecnaImage);
         dialogContainer.getChildren().addAll(
                 userDialogBox, dukeDialogBox);
         userInput.clear();
         VBox.setVgrow(userDialogBox, Priority.ALWAYS);
         VBox.setVgrow(dukeDialogBox, Priority.ALWAYS);
-
-
     }
 
 }

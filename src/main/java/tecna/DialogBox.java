@@ -60,7 +60,7 @@ public class DialogBox extends HBox {
         return userDialog;
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getTecnaDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         db.messageBox.getStyleClass().add("duke-message-box");
