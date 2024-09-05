@@ -51,7 +51,12 @@ public class Neuro {
     }
 
     public String getResponse(String input) {
-        return "Neuro heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (IllegalArgumentException e) {
+            return ui.showError(e.getMessage());
+        }
     }
 
 

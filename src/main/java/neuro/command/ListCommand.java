@@ -16,14 +16,19 @@ public class ListCommand extends Command {
      * @param storage the storage for saving and loading tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
-            ui.showMessage("You currently have no tasks.");
+            return "You currently have no tasks.";
+            // ui.showMessage("You currently have no tasks.");
         } else {
-            ui.showMessage("Here is a list of all your tasks:");
+            StringBuilder message = new StringBuilder("Here is a list of all your tasks:\n");
+            // ui.showMessage("Here is a list of all your tasks:");
             for (int i = 0; i < tasks.getSize(); i++) {
-                ui.showMessage((i + 1) + ". " + tasks.getTask(i));
+                message.append(i + 1).append(". ").append(tasks.getTask(i)).append("\n");
+                //ui.showMessage((i + 1) + ". " + tasks.getTask(i));
             }
+
+            return message.toString();
         }
     }
 }

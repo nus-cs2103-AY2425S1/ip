@@ -28,11 +28,12 @@ public class MarkCommand extends Command {
      * @param storage the storage for saving and loading tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index < 0) {
-            ui.showError("Missing or invalid index for 'mark' command! Add a valid "
-                    + "index for a task to mark, like 'mark 2'.");
-            return;
+            // ui.showError("Missing or invalid index for 'mark' command! Add a valid "
+            //        + "index for a task to mark, like 'mark 2'.");
+            return "Missing or invalid index for 'mark' command! Add a valid "
+                   + "index for a task to mark, like 'mark 2'.";
         }
 
         try {
@@ -40,11 +41,16 @@ public class MarkCommand extends Command {
             task.markDone();
             storage.updateTaskFile(tasks);
 
-            ui.showMessage("Nice! I've marked this task as done:");
-            ui.showMessage(task.toString());
+            // ui.showMessage("Nice! I've marked this task as done:");
+            // ui.showMessage(task.toString());
+
+            return "Nice! I've marked this task as done:\n"
+                   + "     " + task;
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Index out of bounds! Try calling the command 'list' to "
-                    + "verify the index of the desired task.");
+            // ui.showError("Index out of bounds! Try calling the command 'list' to "
+            //        + "verify the index of the desired task.");
+            return "Index out of bounds! Try calling the command 'list' to "
+                   + "verify the index of the desired task.";
         }
     }
 }
