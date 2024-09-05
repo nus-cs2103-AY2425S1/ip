@@ -54,3 +54,4 @@ public class GPT {
         new GPT("data/tasks.txt").run();
     }
 }
+

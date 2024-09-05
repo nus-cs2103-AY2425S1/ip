@@ -35,7 +35,7 @@ public class Parser {
             return new DeadlineCommand(input);
         } else if (input.startsWith("event")) {
             return new EventCommand(input);
-        } else if (input.startsWith("find")) {  // Added "find" command
+        } else if (input.startsWith("find")) { // Added "find" command
             return new FindCommand(input);
         } else {
             return new HelpCommand(); // Return a HelpCommand when an unrecognized input is entered
@@ -74,7 +74,8 @@ public class Parser {
                             LocalDate date = LocalDate.parse(dateTimeStr, formatter5);
                             return date.atStartOfDay();
                         } catch (DateTimeParseException exc3) {
-                            System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm, d/M/yyyy HHmm, or yyyy-MM-dd format.");
+                            System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm, "
+                                    + "d/M/yyyy HHmm, or yyyy-MM-dd format.");
                             return null;
                         }
                     }

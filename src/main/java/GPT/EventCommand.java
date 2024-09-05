@@ -43,7 +43,11 @@ public class EventCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (description == null || from == null || to == null) {
-            ui.showError("Invalid command format for event.\nUsage: event [task description] /from [start date/time] /to [end date/time]\nExample: event project meeting /from 2/12/2019 1400 /to 2/12/2019 1600");
+            ui.showError(
+                    "Invalid command format for event.\nUsage: event [task description] /from [start date/time] "
+                            + "/to [end date/time]\n"
+                            + "Example: event project meeting /from 2/12/2019 1400 /to 2/12/2019 1600"
+            );
             return;
         }
 

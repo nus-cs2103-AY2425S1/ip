@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter;
  * This class extends the Task class to include specific start and end times for the event.
  */
 class Event extends Task {
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
     private LocalDateTime from;
     private LocalDateTime to;
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -33,7 +33,8 @@ class Event extends Task {
     @Override
     public String toString() {
         if (from != null && to != null) {
-            return super.toString() + " (from: " + from.format(OUTPUT_FORMATTER) + " to: " + to.format(OUTPUT_FORMATTER) + ")";
+            return super.toString() + " (from: " + from.format(OUTPUT_FORMATTER) + " to: "
+                    + to.format(OUTPUT_FORMATTER) + ")";
         } else {
             return super.toString() + " (from: [Invalid Date] to: [Invalid Date])";
         }

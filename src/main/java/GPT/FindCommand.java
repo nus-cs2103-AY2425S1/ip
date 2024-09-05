@@ -16,7 +16,7 @@ public class FindCommand extends Command {
      * @param input The user input string containing the command to find tasks.
      */
     public FindCommand(String input) {
-        this.keyword = input.substring(5).trim();  // Extract keyword after "find "
+        this.keyword = input.substring(5).trim(); // Extract keyword after "find "
     }
 
     /**

@@ -1,7 +1,8 @@
 package GPT;
 /**
  * Represents a command to add a new ToDo task in the GPT application.
- * This command parses the user input to extract the task description and adds the task to the task list if the input is valid.
+ * This command parses the user input to extract the task description
+ * and adds the task to the task list if the input is valid.
  */
 public class TodoCommand extends Command {
     private String description;
@@ -27,7 +28,8 @@ public class TodoCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (description.isEmpty()) {
-            ui.showError("The description of a todo cannot be empty.\nUsage: todo [task description]\nExample: todo read a book");
+            ui.showError("The description of a todo cannot be empty. "
+                    + "\nUsage: todo [task description]\nExample: todo read a book");
             return;
         }
         Task newTask = new ToDo(description);

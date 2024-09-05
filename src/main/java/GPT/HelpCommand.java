@@ -18,7 +18,8 @@ public class HelpCommand extends Command {
         System.out.println("You can try these commands:");
         System.out.println("  todo [task description] - To add a ToDo task");
         System.out.println("  deadline [task description] /by [date/time] - To add a Deadline task");
-        System.out.println("  event [task description] /from [start date/time] /to [end date/time] - To add an Event task");
+        System.out.println("  event [task description] /from [start date/time]"
+                + "/to [end date/time] - To add an Event task");
         System.out.println("  list - To display all tasks");
         System.out.println("  mark [task number] - To mark a task as done");
         System.out.println("  unmark [task number] - To unmark a task");

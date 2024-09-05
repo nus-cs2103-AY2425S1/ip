@@ -39,7 +39,10 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (description == null || by == null) {
-            ui.showError("Invalid command format for deadline.\nUsage: deadline [task description] /by [date/time]\nExample: deadline return book /by 2/12/2019 1800");
+            ui.showError(
+                    "Invalid command format for deadline.\nUsage: deadline [task description] /by [date/time]\n"
+                            + "Example: deadline return book /by 2/12/2019 1800"
+            );
             return;
         }
 

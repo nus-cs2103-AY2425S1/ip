@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  * This class extends the Task class to include a specific date and time by which the task should be completed.
  */
 class Deadline extends Task {
-    private LocalDateTime by;
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+    private LocalDateTime by;
 
     /**
      * Constructs a Deadline task with the specified description and deadline.
