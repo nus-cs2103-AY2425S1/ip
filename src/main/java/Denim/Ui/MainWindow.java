@@ -30,6 +30,7 @@ public class MainWindow extends VBox {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image denimImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -46,6 +47,12 @@ public class MainWindow extends VBox {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDenimDialog(reply, denimImage));
+    }
+
+    @FXML
+    private void initialize() {
+        // Bind the vertical scroll value to the height property of the dialog container
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     private void handleExit(Command command) {

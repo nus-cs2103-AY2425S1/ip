@@ -85,8 +85,8 @@ public class Parser {
             return prepareFind(arguments);
 
         default:
-            return new InvalidCommand("Invalid Denim.Commands.Command",
-                    "Denim.Commands.Command for help: help");
+            return new InvalidCommand("Invalid Command",
+                    "Command for help: help");
         }
     }
 
