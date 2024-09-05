@@ -10,18 +10,11 @@ import java.util.ArrayList;
  * Represents the object that handles all user interactions.
  */
 public class Ui {
-    private final static String LINE = "     ____________________________________________________________ \n";
-    private final static String INDENTATION = "     ";
-    private final static String GREETING = "     ____________________________________________________________ \n"
-            + "     Hello! I'm ChaCha the ChatBot. :) \n"
-            + "     What can I do for you? \n"
-            + "     ____________________________________________________________ \n";
-    private final static String EXIT = "     ____________________________________________________________ \n"
-            + "     Bye! Hope to talk to you again soon! \n"
-            + "     ____________________________________________________________ \n";
+    private final static String GREETING = "Hello! I'm ChaCha the ChatBot. :) \n"
+            + "What can I do for you? \n";
+    private final static String EXIT = "Bye! Hope to talk to you again soon! ";
 
     public Ui() {
-
     }
 
     /**
@@ -50,11 +43,9 @@ public class Ui {
      * @return Add Task string.
      */
     public String printAdd(Task task, TaskList tasks) {
-        return LINE
-                + INDENTATION + "Got it. I've added this task: \n"
-                + INDENTATION + "  " + task.printTask() + "\n"
-                + INDENTATION + "Now you have " + tasks.getTotalNumber() + " tasks in the list. \n"
-                + LINE;
+        return "Got it. I've added this task: \n"
+                + "  " + task.printTask() + "\n"
+                + "Now you have " + tasks.getTotalNumber() + " tasks in the list. \n";
     }
 
     /**
@@ -65,11 +56,9 @@ public class Ui {
      * @return Delete Task string.
      */
     public String printDelete(Task task, TaskList tasks) {
-        return LINE
-                + INDENTATION + "Okay! I've removed this task: \n"
-                + INDENTATION + "  " + task.printTask() + "\n"
-                + INDENTATION + "Now you have " + tasks.getTotalNumber() + " tasks in the list. \n"
-                + LINE;
+        return "Okay! I've removed this task: \n"
+                + "  " + task.printTask() + "\n"
+                + "Now you have " + tasks.getTotalNumber() + " tasks in the list. \n";
     }
 
     /**
@@ -79,10 +68,8 @@ public class Ui {
      * @return Mark Task done string.
      */
     public String printMark(Task task) {
-        return LINE
-                + INDENTATION + "Nice! I've marked this task as done: \n"
-                + INDENTATION + "  " + task.printTask() + "\n"
-                + LINE;
+        return "Nice! I've marked this task as done: \n"
+                + "  " + task.printTask() + "\n";
     }
 
     /**
@@ -92,10 +79,8 @@ public class Ui {
      * @return Mark Task undone string.
      */
     public String printUnmark(Task task) {
-        return LINE
-                + INDENTATION + "Okay! I've marked this task as not done yet: \n"
-                + INDENTATION + "  " + task.printTask() + "\n"
-                + LINE;
+        return "Okay! I've marked this task as not done yet: \n"
+                + "  " + task.printTask() + "\n";
     }
 
 
@@ -106,18 +91,17 @@ public class Ui {
      * @return String representation.
      */
     public String printList(ArrayList<Task> arrOfTasks, String text) {
-        String result = LINE
-                + INDENTATION + text;
+        String result = text;
         for (int i = 0; i < arrOfTasks.size(); i++) {
             String index = String.valueOf(i + 1);
-            result += INDENTATION + index + ". " + arrOfTasks.get(i).printTask() + "\n";
+            result += index + ". " + arrOfTasks.get(i).printTask() + "\n";
         }
 
-        return result + LINE;
+        return result;
     }
 
     public String printError() {
-        return LINE + "     Hmmm... I don't seem to understand this. Please input another command! \n" + LINE;
+        return "Hmmm... I don't seem to understand this. Please input another command! \n";
     }
     /**
      * Returns string representation for the array of String..
@@ -126,11 +110,11 @@ public class Ui {
      * @return String representation.
      */
     public String printStrings(String[] arrOfString) {
-        String result = LINE;
+        String result = "";
         for (int i = 0; i < arrOfString.length; i++) {
-            result += INDENTATION + arrOfString[i] + "\n";
+            result += arrOfString[i] + "\n";
         }
-        return result + LINE;
+        return result;
     }
 
     /**
