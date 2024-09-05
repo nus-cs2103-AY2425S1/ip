@@ -5,11 +5,14 @@ import bocchi.command.Parser;
 
 import java.util.Scanner;
 
+/**
+ * A UI wrapper that exposes methods to be invoked by backend code.
+ */
 public class Ui {
     /**
      * The name of this chatbot.
      */
-    static private final String NAME = "Bocchi";
+    private static final String NAME = "Bocchi";
 
     /**
      * Prints a greeting with an ASCII art.

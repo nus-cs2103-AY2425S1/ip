@@ -152,7 +152,7 @@ public class Bocchi {
      * - mark [index]: mark the bocchi.task in the specified index as done;
      * - unmark [index]: mark the bocchi.task in the specified index as not done;
      * - todo [description]: adds a new todo with the specified description;
-     * - ddl/deadline [description] /by [dueDateTime]: adds a new deadline with the specified description and due date/time;
+     * - ddl/deadline [description] /by [dueDateTime]: adds a new deadline with the given description and due date/time;
      * - event [description] /from [fromDateTime] /to [toDateTime]: adds a new event with the specified description,
      * start date/time and end date/time;
      * - del/delete [index]: delete the bocchi.task in the specified index.
@@ -191,7 +191,11 @@ public class Bocchi {
                 } catch (NumberFormatException e) {
                     printError(new BocchiException("So sorry... I can't understand the number you entered. ( T_T )"));
                 } catch (DateTimeParseException e) {
-                    printError(new BocchiException("So sorry... I can't understand the date/time format you entered. ( T_T )"));
+                    printError(
+                            new BocchiException(
+                                    "So sorry... I can't understand the date/time format you entered. ( T_T )"
+                            )
+                    );
                 } catch (BocchiException e) {
                     printError(e);
                 }

@@ -12,7 +12,7 @@ import java.time.temporal.ChronoField;
  */
 public class BocchiDateTimeFormatter {
 
-    static private final String[] DATE_FORMATS = {
+    private static final String[] DATE_FORMATS = {
             "yyyy-M-d",
             "yyyy-MM-dd",
             "yyyy-MMM-dd",
@@ -31,16 +31,16 @@ public class BocchiDateTimeFormatter {
             "dd MMM",
     };
 
-    static private final String[] TIME_FORMATS = {
+    private static final String[] TIME_FORMATS = {
             "HH:mm:ss",
             "HH:mm",
             "H:mm:ss",
             "H:mm",
     };
 
-    static private final DateTimeFormatter[] DATE_TIME_FORMATTERS;
-    static private final DateTimeFormatter[] DATE_FORMATTERS;
-    static private final DateTimeFormatter[] TIME_FORMATTERS;
+    private static final DateTimeFormatter[] DATE_TIME_FORMATTERS;
+    private static final DateTimeFormatter[] DATE_FORMATTERS;
+    private static final DateTimeFormatter[] TIME_FORMATTERS;
 
     static {
         // Initialize TIME_FORMATTERS
@@ -84,7 +84,7 @@ public class BocchiDateTimeFormatter {
      * @return The LocalDateTime object.
      * @throws DateTimeParseException If the date/time format is invalid against all predefined formats.
      */
-    static public LocalDateTime parse(String dateTime) throws DateTimeParseException {
+    public static LocalDateTime parse(String dateTime) throws DateTimeParseException {
         for (DateTimeFormatter formatter : TIME_FORMATTERS) {
             try {
                 // Default date to current date if not specified.
@@ -117,7 +117,7 @@ public class BocchiDateTimeFormatter {
      * @param dateTime The LocalDateTime object.
      * @return The string representation of the LocalDateTime object.
      */
-    static public String toString(LocalDateTime dateTime) {
+    public static String toString(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }
