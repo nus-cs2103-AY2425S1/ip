@@ -1,3 +1,5 @@
+package meowmeow;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -10,7 +12,7 @@ public class Ui {
     }
 
     public static String start() {
-        System.out.println("Hello! I'm meowmeow\n" + "What can I do for you?\n");
+        System.out.println("Hello! I'm meowmeow.meowmeow\n" + "What can I do for you?\n");
         input = s.nextLine();
         return input;
 

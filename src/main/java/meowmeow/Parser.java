@@ -1,3 +1,5 @@
+package meowmeow;
+
 import java.io.IOException;
 
 public class Parser {
@@ -43,7 +45,7 @@ public class Parser {
                     System.out.println("Invalid task number.");
                 }
             } else if (initInput.startsWith("todo ")) {
-                // Add a ToDo task
+                // Add a meowmeow.ToDo task
                 String description = initInput.substring(5);
                 ToDo todo = new ToDo(description);
                 list.add(todo);
@@ -52,7 +54,7 @@ public class Parser {
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 saver.saveData();
             } else if (initInput.startsWith("deadline ")) {
-                // Add a Deadline task
+                // Add a meowmeow.Deadline task
                 String[] parts = initInput.substring(9).split(" /by ");
                 if (parts.length <= 1) {
                     System.out.println("invalid deadline");
@@ -67,7 +69,7 @@ public class Parser {
                     saver.saveData();
                 }
             } else if (initInput.startsWith("event ")) {
-                // Add an Event task
+                // Add an meowmeow.Event task
                 String[] parts = initInput.substring(6).split(" /from | /to ");
                 if (parts.length <= 1) {
                     System.out.println("invalid event");
