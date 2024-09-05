@@ -3,6 +3,7 @@ package mortalreminder;
 import mortalreminder.backend.Processor;
 import mortalreminder.backend.Storage;
 import mortalreminder.backend.TaskList;
+import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 
 /**
@@ -20,7 +21,11 @@ public class MortalReminder {
      * @return string of welcome message with initial greeting to the user.
      */
     public String welcome() {
-        this.taskList = Storage.loadTaskListFromFile();
+        try {
+            this.taskList = Storage.loadTaskListFromFile();
+        } catch (MortalReminderException e) {
+            return e.getMessage();
+        }
         return FormattedPrinting.welcome();
     }
 

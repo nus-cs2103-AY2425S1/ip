@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import mortalreminder.backend.TaskList;
 import mortalreminder.commands.CommandTypes;
+import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.tasks.Task;
 
 /**
@@ -46,7 +47,7 @@ public class FormattedPrinting {
      * @param taskList the current total list of tasks to be printed out
      * @return a string of the list of all tasks currently tracked.
      */
-    public static String printList(TaskList taskList) {
+    public static String printList(TaskList taskList) throws MortalReminderException {
         if (taskList.getSize() == 0) {
             return emptyList();
         } else {
@@ -62,7 +63,7 @@ public class FormattedPrinting {
      * @param taskList the list of similar tasks to be printed out.
      * @return a string of all similar tasks to the search term(s) queried by user.
      */
-    public static String printSimilarTasks(TaskList taskList) {
+    public static String printSimilarTasks(TaskList taskList) throws MortalReminderException {
         if (taskList.getSize() == 0) {
             return getResponse("No matching tasks!");
         } else {
@@ -72,7 +73,7 @@ public class FormattedPrinting {
         }
     }
 
-    private static String addListItems(TaskList taskList, StringBuilder currentList) {
+    private static String addListItems(TaskList taskList, StringBuilder currentList) throws MortalReminderException {
         for (int i = 1; i < taskList.getSize() + 1; i++) {
             currentList.append(i).append(".").append(printTask(taskList.getTask(i - 1)));
             if (i < taskList.getSize()) {
@@ -141,69 +142,8 @@ public class FormattedPrinting {
         return getResponse("OK, I've marked this task as not done yet:\n" + printTask(task));
     }
 
-    public static String descriptionEmptyError() {
-        return getResponse("You have an empty description. Please try again.");
-    }
-
-    public static String markError() {
-        return getResponse("This task has already been marked as done.");
-    }
-
-    public static String unmarkError() {
-        return getResponse("This task has already been marked as not done.");
-    }
-
-    /**
-     * Returns the output message when an unknown command is passed in by the user.
-     *
-     * @return string of feedback message telling user the command is unrecognisable by the program.
-     */
-    public static String unknownCommand() {
-        String outputMessage = "I do not recognise this command, please check again!\n"
-                + "Available commands are:\n"
-                + Arrays.toString(CommandTypes.class.getEnumConstants()).toLowerCase();
-        return getResponse(outputMessage);
-    }
-
-    public static String unknownNumber() {
-        return getResponse("Please enter a valid number after the command!");
-    }
-
     public static String emptyList() {
         return getResponse("You have no tasks in your list.");
-    }
-
-    /**
-     * Returns a string feedback that the queried index of the list does not exist.
-     *
-     * @param taskList The current list of all tasks tracked by the backend.
-     */
-    public static String outOfListBounds(TaskList taskList) {
-        return getResponse("Invalid task number!\n"
-                + "Please input a number between 1 and "
-                + taskList.getSize());
-    }
-
-    public static String invalidNumberOfDetails() {
-        return getResponse("Please give the correct amount of information for the command!");
-    }
-
-    public static String taskUnableToBeStoredInFile() {
-        return getResponse("There was an error in adding the task to the storage file!");
-    }
-
-    /**
-     * Returns an error message when the file cannot be loaded properly due to a corrupted text file.
-     *
-     * @return a string feedback message that the file used to store the tasks is corrupted and how to fix it.
-     */
-    public static String fileCorrupted() {
-        return getResponse("The storage file has been corrupted.\n"
-                + "Use the clear_tasks command to get rid of this!");
-    }
-
-    public static String invalidDate() {
-        return getResponse("Please enter a valid date in dd-MM-yyy HHmm (24hr format)!.");
     }
 
     /**
@@ -213,9 +153,9 @@ public class FormattedPrinting {
      * @param tasks The list of all tasks that are upcoming from today and is tracked by the backend.
      * @return a string formatted version of all upcoming tasks from now that have not been marked as done.
      */
-    public static String upcomingDeadlinesEvents(ArrayList<Task> tasks) {
+    public static String upcomingDeadlinesEvents(ArrayList<Task> tasks) throws MortalReminderException {
         if (tasks.isEmpty()) {
-            return getResponse("There are no upcoming tasks.");
+            throw new MortalReminderException("There are no upcoming tasks!");
         } else {
             StringBuilder output = new StringBuilder("The following tasks are due soon:\n");
             for (Task task : tasks) {

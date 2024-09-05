@@ -2,6 +2,8 @@ package mortalreminder.tasks;
 
 // Class and constructor JavaDocs was autocompleted using ChatGPT with minor edits
 
+import mortalreminder.errorhandling.MortalReminderException;
+
 /**
  * Represents a simple task without any specific time constraints.
  * <p>
@@ -15,7 +17,7 @@ public class ToDo extends Task {
      *
      * @param description the description of the task.
      */
-    public ToDo(String description) {
+    public ToDo(String description) throws MortalReminderException {
         super(description);
         this.type = "T";
         this.description = description;
@@ -31,7 +33,7 @@ public class ToDo extends Task {
      * @param description the description of the task.
      * @param isDone      whether the task is marked as done.
      */
-    public ToDo(String description, boolean isDone) {
+    public ToDo(String description, boolean isDone) throws MortalReminderException {
         super(description);
         this.type = "T";
         this.description = description.trim();

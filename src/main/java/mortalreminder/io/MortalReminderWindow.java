@@ -12,6 +12,7 @@ import mortalreminder.backend.Processor;
 import mortalreminder.backend.TaskList;
 import mortalreminder.commands.Command;
 import mortalreminder.commands.CommandTypes;
+import mortalreminder.errorhandling.MortalReminderException;
 
 /**
  * Controller for the main GUI.
@@ -53,7 +54,12 @@ public class MortalReminderWindow extends AnchorPane {
         TaskList taskList = mortalReminder.getTaskList();
         String input = userInput.getText();
         Command command = Parser.parseInputFromUser(input);
-        String response = processor.handleCommand(command, taskList);
+        String response;
+        try {
+            response = processor.handleCommand(command, taskList);
+        } catch (MortalReminderException e) {
+            response = e.getMessage();
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getMortalReminderDialog(response, mortalReminderImage, command.commandType())

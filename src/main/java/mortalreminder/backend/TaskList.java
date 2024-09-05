@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import mortalreminder.MortalReminder;
+import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 import mortalreminder.tasks.Task;
 
@@ -29,8 +31,17 @@ public class TaskList {
      * @param index the index of the task to retrieve.
      * @return the {@link Task} at the specified index, or {@code null} if the index is invalid.
      */
-    public Task getTask(int index) throws IndexOutOfBoundsException {
-        return this.taskList.get(index);
+    public Task getTask(int index) throws MortalReminderException {
+        try {
+            return this.taskList.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            if (this.getSize() == 0) {
+                throw new MortalReminderException("List is empty!");
+            }
+            throw new MortalReminderException("Invalid task number!\n"
+                    + "Please input a number between 1 and "
+                    + this.getSize());
+        }
     }
 
     public boolean isEmpty() {
@@ -47,17 +58,13 @@ public class TaskList {
      * @param task the {@link Task} to add.
      * @return string of confirmation message if adding was successful and an error message if not.
      */
-    public String addTask(Task task) {
+    public String addTask(Task task) throws MortalReminderException {
         if (!Objects.equals(task.getDescription().trim(), "")) {
-            try {
-                Storage.appendToListFile(task);
-            } catch (IOException e) {
-                return FormattedPrinting.taskUnableToBeStoredInFile();
-            }
+            Storage.appendToListFile(task);
             this.taskList.add(task);
             return FormattedPrinting.addTask(task, this);
         } else {
-            return FormattedPrinting.descriptionEmptyError();
+            throw new MortalReminderException("Description cannot be empty!");
         }
     }
 
@@ -85,17 +92,13 @@ public class TaskList {
      * @param task the {@link Task} to delete.
      * @return a string of confirmation or error message if the task cannot be deleted.
      */
-    public String deleteTask(Task task) {
+    public String deleteTask(Task task) throws MortalReminderException {
         if (!Objects.equals(task.getDescription().trim(), "")) {
             this.taskList.remove(task);
-            try {
-                Storage.refreshStorageFile(this);
-            } catch (IOException e) {
-                return FormattedPrinting.fileCorrupted();
-            }
+            Storage.refreshStorageFile(this);
             return FormattedPrinting.deleteTask(task, this);
         } else {
-            return FormattedPrinting.descriptionEmptyError();
+            throw new MortalReminderException("Invalid Task to be deleted!");
         }
     }
 
@@ -110,7 +113,7 @@ public class TaskList {
         for (Task task : this.taskList) {
             for (String description : descriptions) {
                 if (task.getDescription().contains(description.trim())
-                    && !similarTasks.taskList.contains(task)) {
+                        && !similarTasks.taskList.contains(task)) {
                     similarTasks.loadTask(task);
                 }
             }

@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 import mortalreminder.io.Parser;
 import mortalreminder.tasks.Task;
@@ -29,11 +30,15 @@ public class Storage {
      *
      * @param task the {@link Task} to append to the file.
      */
-    public static void appendToListFile(Task task) throws IOException {
-        FileWriter fw = new FileWriter(STORAGE_LIST_FILE_PATH, true);
-        String textToAdd = task.convertToFileFormat();
-        fw.write(textToAdd + System.lineSeparator());
-        fw.close();
+    public static void appendToListFile(Task task) throws MortalReminderException {
+        try {
+            FileWriter fw = new FileWriter(STORAGE_LIST_FILE_PATH, true);
+            String textToAdd = task.convertToFileFormat();
+            fw.write(textToAdd + System.lineSeparator());
+            fw.close();
+        } catch (IOException e) {
+            throw new MortalReminderException("Corrupted storage file! Please refresh using clear_tasks.");
+        }
     }
 
     /**
@@ -42,13 +47,13 @@ public class Storage {
      * This method deletes all content from the storage file by opening it in write mode
      * and writing an empty string. If an {@link IOException} occurs, an error message is printed.
      */
-    public static void clearListFile() {
+    public static void clearListFile() throws MortalReminderException {
         try {
             FileWriter fw = new FileWriter(STORAGE_LIST_FILE_PATH);
             fw.write("");
             fw.close();
         } catch (IOException e) {
-            FormattedPrinting.fileCorrupted();
+            throw new MortalReminderException("File cannot be found!");
         }
     }
 
@@ -64,7 +69,7 @@ public class Storage {
      *
      * @param taskList the {@link TaskList} containing tasks to re-append to the file.
      */
-    public static void refreshStorageFile(TaskList taskList) throws IOException {
+    public static void refreshStorageFile(TaskList taskList) throws MortalReminderException {
         clearListFile();
         for (int i = 0; i < taskList.getSize(); i++) {
             appendToListFile(taskList.getTask(i));
@@ -80,7 +85,7 @@ public class Storage {
      *
      * @return a {@link TaskList} containing tasks loaded from the file, or an empty {@link TaskList} if loading fails.
      */
-    public static TaskList loadTaskListFromFile() {
+    public static TaskList loadTaskListFromFile() throws MortalReminderException {
         try {
             File f = new File(STORAGE_LIST_FILE_PATH);
             TaskList taskList = new TaskList();
@@ -88,7 +93,7 @@ public class Storage {
             // Check if the file/folder already exists and create if it is not,
             // send warning if unable to create either if file still does not exist.
             if ((!f.getParentFile().mkdirs() || !f.createNewFile()) && !f.exists()) {
-                FormattedPrinting.fileCorrupted();
+                throw new MortalReminderException("File cannot be created!");
             }
             Scanner s = new Scanner(f);
             while (s.hasNextLine()) {
@@ -99,7 +104,7 @@ public class Storage {
             s.close();
             return taskList;
         } catch (RuntimeException | IOException e) {
-            return new TaskList();
+            throw new MortalReminderException("Corrupted storage file!");
         }
     }
 }

@@ -1,5 +1,7 @@
 package mortalreminder.tasks;
 
+import mortalreminder.errorhandling.MortalReminderException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -25,7 +27,7 @@ public class Events extends Task implements TimedTask {
      * @param description the description of the event, including start and end times.
      * @throws IllegalArgumentException if the description is improperly formatted.
      */
-    public Events(String description) {
+    public Events(String description) throws MortalReminderException {
         super(description);
         String[] descriptionString = description.split("/from|/to");
         checkInitialisationDetails(descriptionString);
@@ -49,7 +51,7 @@ public class Events extends Task implements TimedTask {
      * @param toTime      the end time of the event as a {@link String}.
      * @param isDone      whether the event is marked as done.
      */
-    public Events(String description, String fromTime, String toTime, boolean isDone) {
+    public Events(String description, String fromTime, String toTime, boolean isDone) throws MortalReminderException {
         super(description);
         this.type = "E";
         this.description = description;
@@ -100,12 +102,18 @@ public class Events extends Task implements TimedTask {
      */
     // the following function was optimised using chatGPT
     public void checkInitialisationDetails(String[] descriptionString)
-            throws DateTimeParseException {
+            throws MortalReminderException {
         if (descriptionString.length != 3) {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new MortalReminderException("Please input the correct number of details for deadlines! " +
+                    "Remember that you need to include /from and /to in the command.");
         }
-        getTime(descriptionString[1].trim());
-        getTime(descriptionString[2].trim());
+        try {
+            getTime(descriptionString[1].trim());
+            getTime(descriptionString[2].trim());
+        } catch (DateTimeParseException e) {
+            throw new MortalReminderException("Please enter a valid date in dd-MM-yyy HHmm (24hr format)!");
+        }
+
     }
 
     /**

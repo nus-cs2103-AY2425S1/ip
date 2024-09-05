@@ -1,6 +1,9 @@
 package mortalreminder.tasks;
 
+import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
+
+import java.util.Objects;
 
 // solution is adapted from the Course Level 3 extension
 // class and constructor Javadocs were autocompleted using ChatGPT
@@ -14,8 +17,8 @@ import mortalreminder.io.FormattedPrinting;
  */
 public abstract class Task {
     protected String description;
-    protected boolean isDone;
     protected String type;
+    protected boolean isDone;
 
     /**
      * Constructs a new {@code Task} with the specified description.
@@ -24,7 +27,10 @@ public abstract class Task {
      *
      * @param description the description of the task.
      */
-    public Task(String description) {
+    public Task(String description) throws MortalReminderException {
+        if (Objects.equals(description, "")) {
+            throw new MortalReminderException("Description cannot be empty!");
+        }
         this.isDone = false;
     }
 
@@ -68,12 +74,12 @@ public abstract class Task {
      *
      * @return the confirmation if the task was marked successfully or an error if the task has already been marked.
      */
-    public String markDone() {
+    public String markDone() throws MortalReminderException {
         if (!this.isDone) {
             this.isDone = true;
             return FormattedPrinting.printMarked(this);
         } else {
-            return FormattedPrinting.markError();
+            throw new MortalReminderException("This task has already been marked as done.");
         }
     }
 
@@ -88,12 +94,12 @@ public abstract class Task {
      *
      * @return the confirmation if the task was unmarked successfully or an error if the task has already been unmarked.
      */
-    public String markUndone() {
+    public String markUndone() throws MortalReminderException {
         if (this.isDone) {
             this.isDone = false;
             return FormattedPrinting.printUnmarked(this);
         } else {
-            return FormattedPrinting.unmarkError();
+            throw new MortalReminderException("This task has already been marked as not done.");
         }
     }
 

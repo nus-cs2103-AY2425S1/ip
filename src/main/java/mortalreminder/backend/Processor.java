@@ -1,13 +1,13 @@
 package mortalreminder.backend;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
 import mortalreminder.commands.Command;
 import mortalreminder.commands.CommandTypes;
+import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 import mortalreminder.tasks.Deadline;
 import mortalreminder.tasks.Events;
@@ -37,7 +37,7 @@ public class Processor {
      * @param taskList the {@link TaskList} to modify based on the command.
      * @return response string which is the output message of the entire command.
      */
-    public String handleCommand(Command command, TaskList taskList) {
+    public String handleCommand(Command command, TaskList taskList) throws MortalReminderException {
         CommandTypes commandType = command.commandType();
 
         String commandDetails = Arrays.stream(command.commandDetails())
@@ -70,7 +70,9 @@ public class Processor {
             return upcomingTasks(taskList);
 
         default:
-            return FormattedPrinting.unknownCommand();
+            throw new MortalReminderException("I do not recognise this command, please check again!\n"
+                    + "Available commands are:\n"
+                    + Arrays.toString(CommandTypes.class.getEnumConstants()).toLowerCase());
         }
     }
 
@@ -86,9 +88,10 @@ public class Processor {
      * @param commandType    the {@link CommandTypes} indicating the action to perform.
      * @return returns a confirmation message of the corresponding type of command done.
      */
-    public String markUnmarkOrDelete(String commandDetails, TaskList taskList, CommandTypes commandType) {
-        String response = "";
+    public String markUnmarkOrDelete(String commandDetails, TaskList taskList, CommandTypes commandType)
+            throws MortalReminderException {
         try {
+            String response = "";
             int index = Integer.parseInt(commandDetails) - 1;
             Task newTask = taskList.getTask(index);
             if (newTask != null) {
@@ -102,15 +105,11 @@ public class Processor {
                     response = taskList.deleteTask(newTask);
                 }
             }
+            return response;
         } catch (NumberFormatException e) {
-            response = FormattedPrinting.unknownNumber();
-        } catch (Exception e) {
-            if (taskList.isEmpty()) {
-                return FormattedPrinting.emptyList();
-            }
-            return FormattedPrinting.outOfListBounds(taskList);
+            throw new MortalReminderException("Please enter a valid number after the command!");
         }
-        return response;
+
     }
 
     /**
@@ -126,22 +125,17 @@ public class Processor {
      * @param commandType    the {@link CommandTypes} indicating the type of task to create.
      * @return returns a confirmation message of type of task created or the reason why the task could not be created.
      */
-    public String createTask(String commandDetails, TaskList taskList, CommandTypes commandType) {
-        try {
-            Task newTask;
-            if (commandType == CommandTypes.TODO) {
-                newTask = new ToDo(commandDetails);
-            } else if (commandType == CommandTypes.DEADLINE) {
-                newTask = new Deadline(commandDetails);
-            } else {
-                newTask = new Events(commandDetails);
-            }
-            return taskList.addTask(newTask);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return FormattedPrinting.invalidNumberOfDetails();
-        } catch (DateTimeParseException e) {
-            return FormattedPrinting.invalidDate();
+    public String createTask(String commandDetails, TaskList taskList, CommandTypes commandType)
+            throws MortalReminderException {
+        Task newTask;
+        if (commandType == CommandTypes.TODO) {
+            newTask = new ToDo(commandDetails);
+        } else if (commandType == CommandTypes.DEADLINE) {
+            newTask = new Deadline(commandDetails);
+        } else {
+            newTask = new Events(commandDetails);
         }
+        return taskList.addTask(newTask);
     }
 
     /**
@@ -153,7 +147,7 @@ public class Processor {
      * @param taskList the {@link TaskList} containing the tasks to check for upcoming due dates.
      * @return a string message containing list of upcoming tasks that have not been marked yet.
      */
-    public String upcomingTasks(TaskList taskList) {
+    public String upcomingTasks(TaskList taskList) throws MortalReminderException {
         ArrayList<Task> tasks = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);

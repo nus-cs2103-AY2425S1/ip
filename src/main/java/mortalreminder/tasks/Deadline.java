@@ -1,5 +1,7 @@
 package mortalreminder.tasks;
 
+import mortalreminder.errorhandling.MortalReminderException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -24,7 +26,7 @@ public class Deadline extends Task implements TimedTask {
      * @param description the description of the task and its deadline.
      * @throws IllegalArgumentException if the description is improperly formatted.
      */
-    public Deadline(String description) {
+    public Deadline(String description) throws MortalReminderException {
         super(description);
         String[] descriptionString = description.split("/by");
         checkInitialisationDetails(descriptionString);
@@ -47,7 +49,7 @@ public class Deadline extends Task implements TimedTask {
      * @param deadline    the deadline of the task as a {@link String}.
      * @param isDone      whether the task is marked as done.
      */
-    public Deadline(String description, String deadline, boolean isDone) {
+    public Deadline(String description, String deadline, boolean isDone) throws MortalReminderException {
         super(description);
         this.type = "D";
         this.description = description;
@@ -96,11 +98,16 @@ public class Deadline extends Task implements TimedTask {
      * @throws DateTimeParseException The string passed in as the date or time is incorrect and unable to be parsed.
      */
     public void checkInitialisationDetails(String[] descriptionString)
-            throws DateTimeParseException {
+            throws MortalReminderException {
         if (descriptionString.length != 2) {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new MortalReminderException("Please input the correct number of details for deadlines! " +
+                    "Remember that you need to include /by in the command.");
         }
-        getTime(descriptionString[1].trim());
+        try {
+            getTime(descriptionString[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new MortalReminderException("Please enter a valid date in dd-MM-yyy HHmm (24hr format)!");
+        }
     }
 
     /**

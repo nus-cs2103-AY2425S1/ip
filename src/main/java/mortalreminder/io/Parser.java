@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import mortalreminder.commands.Command;
 import mortalreminder.commands.CommandTypes;
+import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.tasks.Deadline;
 import mortalreminder.tasks.Events;
 import mortalreminder.tasks.Task;
@@ -68,7 +69,7 @@ public class Parser {
      * @param input the input string read from a file.
      * @return the corresponding {@code Task} object, or {@code null} if the input is invalid.
      */
-    public static Task parseInputFromFile(String input) {
+    public static Task parseInputFromFile(String input) throws MortalReminderException {
 
         String[] parts = input.split("\\|");
         String taskType = parts[0]; // The first letter indicating the task type
@@ -87,8 +88,7 @@ public class Parser {
             String toTime = parts[4].trim();
             return new Events(description, fromTime, toTime, isDone);
         default:
-            FormattedPrinting.fileCorrupted();
-            return null;
+            throw new MortalReminderException("File might be corrupted! Please use clear_tasks to restart the file.");
         }
     }
 

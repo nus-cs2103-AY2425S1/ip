@@ -1,5 +1,6 @@
 package mortalreminder.backend;
 
+import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.tasks.Task;
 import mortalreminder.tasks.ToDoStub;
 
@@ -36,10 +37,15 @@ public class TaskListTest {
 
     @Test
     public void getTask_success() {
-        TaskList taskList = new TaskListStub();
-        Task testingTask = new ToDoStub("This is a task.");
-        taskList.addTask(testingTask);
-        assertEquals(testingTask, taskList.getTask(0));
-        taskList.clearList();
+
+        try {
+            TaskList taskList = new TaskListStub();
+            Task testingTask = new ToDoStub("This is a task.");
+            taskList.addTask(testingTask);
+            assertEquals(testingTask, taskList.getTask(0));
+            taskList.clearList();
+        } catch (MortalReminderException e) {
+            fail();
+        }
     }
 }
