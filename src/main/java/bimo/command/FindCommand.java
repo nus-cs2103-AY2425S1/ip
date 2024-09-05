@@ -13,18 +13,18 @@ import bimo.tasks.Task;
  */
 public class FindCommand extends Command {
 
-    private String word;
+    private String[] words;
 
     /**
      * Instantiates a command to list tasks by words
-     * @param word
+     * @param words Array of words specified by user.
      */
-    public FindCommand(String word) {
-        this.word = word;
+    public FindCommand(String... words) {
+        this.words = words;
     }
 
     /**
-     * Lists all tasks that contains word specified.
+     * Lists all tasks that contains the words specified.
      *
      * @param tasks List of user tasks.
      * @param ui User interface that interacts with users.
@@ -35,10 +35,12 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> results = new ArrayList<>();
 
-        for (int i = 0; i < tasks.getLength(); i++) {
-            Task task = tasks.getTask(i);
-            if (task.getDetails().contains(this.word)) {
-                results.add(task);
+        for (int i = 1; i < this.words.length; i++) {
+            for (int j = 0; j < tasks.getLength(); j++) {
+                Task task = tasks.getTask(j);
+                if (task.getDetails().contains(this.words[i])) {
+                    results.add(task);
+                }
             }
         }
         String response = "Here are the matching tasks in your list:";
