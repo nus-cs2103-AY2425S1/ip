@@ -163,6 +163,27 @@ public class TaskList {
     }
 
     /**
+     * Retrieves tasks that contain the keyword in their description.
+     * <p></p>
+     * <p>This method returns a new {@code TaskList} containing tasks that have description
+     * matching the keyword.</p>
+     *
+     * @param keyword The keyword to filter tasks by.
+     * @return A {@code TaskList} containing tasks with description matching the keyword.
+     */
+    public TaskList tasksWithKeyword(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+
+        for (Task task: LIST) {
+            if (task.matchKeyword(keyword)) {
+                result.add(task);
+            }
+        }
+
+        return new TaskList(result);
+    }
+
+    /**
      * Returns a string representation of the task list.
      * <p></p>
      * <p>This method provides a formatted string that displays all tasks in the list,

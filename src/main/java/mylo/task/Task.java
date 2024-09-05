@@ -94,6 +94,16 @@ public abstract class Task {
     }
 
     /**
+     * Checks if the task title contains the specified keyword.
+     *
+     * @param keyword The keyword to search for within the task title.
+     * @return {@code true} if the task title contains the keyword, {@code false} otherwise.
+     */
+    public boolean matchKeyword(String keyword) {
+        return getTitle().toLowerCase().contains(keyword.toLowerCase());
+    }
+
+    /**
      * Convert task data into a {@code String} to be stored in storage file.
      *
      * @return {@code String} containing data to the task.
