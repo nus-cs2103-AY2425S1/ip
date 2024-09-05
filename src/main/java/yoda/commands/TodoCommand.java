@@ -25,9 +25,10 @@ public class TodoCommand extends Command {
     /**
      * Executes a TodoCommand and adds a new to-do task to the list.
      *
+     * @return
      * @throws YodaException if input format is invalid.
      */
-    public void run() throws YodaException {
+    public String run() throws YodaException {
         if (!hasValidFormat()) {
             throw new YodaException("A todo must have a description, no...?");
         }
@@ -35,8 +36,9 @@ public class TodoCommand extends Command {
         String task = splitInput[1];
         Todo newTask = new Todo(task);
         taskList.add(newTask);
-        System.out.println("Added task:\n" + newTask + "\n"
-                + String.format("Now you have %d tasks in the list", taskList.getLength()));
+        String message = "Added task:\n" + newTask + "\n"
+                + String.format("Now you have %d tasks in the list", taskList.getLength());
+        return message;
     }
 
     /**

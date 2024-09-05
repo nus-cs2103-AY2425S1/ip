@@ -26,9 +26,10 @@ public class UnmarkCommand extends Command {
     /**
      * Executes the command to mark a task as not done.
      *
+     * @return
      * @throws YodaException if input format is valid or task is out of bounds
      */
-    public void run() throws YodaException {
+    public String run() throws YodaException {
         if (!hasValidFormat(input)) {
             throw new YodaException("Unmark... which one?");
         }
@@ -36,8 +37,8 @@ public class UnmarkCommand extends Command {
         int index = Integer.parseInt(splitInput[1]);
         Task currentTask = taskList.get(index - 1);
         currentTask.markNotDone();
-        System.out.println("Marked this as not done, I have");
-        System.out.printf("%s\n", taskList.get(index - 1));
+        String message = "Marked this as not done, I have" + String.format("%s\n", taskList.get(index - 1));
+        return message;
     }
 
     /**

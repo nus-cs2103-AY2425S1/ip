@@ -26,9 +26,10 @@ public class MarkCommand extends Command {
     /**
      * Executes the command to mark a task as done.
      *
+     * @return
      * @throws YodaException if input format is valid or task is out of bounds
      */
-    public void run() throws YodaException {
+    public String run() throws YodaException {
         if (!hasValidFormat()) {
             throw new YodaException("Mark... which one?");
         }
@@ -36,8 +37,8 @@ public class MarkCommand extends Command {
         int index = Integer.parseInt(splitInput[1]);
         Task currentTask = taskList.get(index - 1);
         currentTask.markDone();
-        System.out.println("Good job! Marked this as done, I have");
-        System.out.printf("%s\n", taskList.get(index - 1));
+        String message = "Good job! Marked this as done, I have" + String.format("%s\n", taskList.get(index - 1));
+        return message;
     }
 
     /**

@@ -22,12 +22,17 @@ public class ListCommand extends Command {
 
     /**
      * Executes the ListCommand and displays the task list.
+     *
+     * @return
      */
-    public void run() {
-        System.out.println("Do or do not, there is no try.");
+    public String run() {
+        StringBuilder message = new StringBuilder();
+        message.append("Do or do not, there is no try.\n");
         Task[] taskArray = tasks.toArray(new Task[0]);
         for (int i = 0; i < taskArray.length; i++) {
-            System.out.printf("%d. %s\n", i + 1, taskArray[i]);
+            message.append(i + 1).append(". ").append(taskArray[i]).append("\n");
         }
+        return message.toString();
     }
+
 }

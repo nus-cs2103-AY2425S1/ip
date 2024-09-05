@@ -9,7 +9,9 @@ public abstract class Command {
 
     /**
      * Executes the command. Specific implementation provided by subclasses.
+     *
+     * @return
      * @throws YodaException if input was invalid.
      */
-    public abstract void run() throws YodaException;
+    public abstract String run() throws YodaException;
 }

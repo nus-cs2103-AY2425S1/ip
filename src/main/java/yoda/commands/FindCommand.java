@@ -28,9 +28,10 @@ public class FindCommand extends Command {
     /**
      * Executes the FindCommand and displays a list of matching tasks.
      *
+     * @return
      * @throws YodaException if input format is invalid.
      */
-    public void run() throws YodaException {
+    public String run() throws YodaException {
         if (!checkValidInput()) {
             throw new YodaException("Find... what?");
         }
@@ -38,10 +39,14 @@ public class FindCommand extends Command {
         String keyword = splitInput[1];
         ArrayList<Task> matchingTasks = findTasks(keyword);
 
-        System.out.println("Matching tasks:");
+        StringBuilder message = new StringBuilder();
+        message.append("Matching tasks:\n");
+
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, matchingTasks.get(i));
+            message.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
         }
+
+        return message.toString();
     }
 
     /**

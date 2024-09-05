@@ -9,8 +9,10 @@ public class ByeCommand extends Command {
     /**
      * Executes the ByeCommand by printing a goodbye message to the console.
      * This message indicates the end of the session.
+     *
+     * @return
      */
-    public void run() {
-        System.out.println("Bye. See you again soon, I hope to.");
+    public String run() {
+        return "Bye. See you again soon, I hope to.";
     }
 }

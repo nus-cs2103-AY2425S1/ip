@@ -29,13 +29,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getYodaDialog(
+                "Hello! For you, what can I do?", yodaImage));
+
     }
 
     /** Injects the Duke instance */
     public void setYoda(Yoda y) {
         yoda = y;
-        yoda.run();
     }
+
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -47,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = yoda.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, yodaImage)
+                DialogBox.getYodaDialog(response, yodaImage)
         );
         userInput.clear();
     }

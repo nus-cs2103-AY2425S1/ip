@@ -28,9 +28,10 @@ public class DeadlineCommand extends Command {
     /**
      * Executes the command to add a new deadline task to the tasklist.
      *
+     * @return
      * @throws YodaException if input format was invalid.
      */
-    public void run() throws YodaException {
+    public String run() throws YodaException {
         if (!hasValidFormat(input)) {
             throw new YodaException("A deadline must have a description and due by time, no...?");
         }
@@ -38,15 +39,17 @@ public class DeadlineCommand extends Command {
         String task = splitInput[1];
         String[] splitTask = task.split(" /by ", 2);
         Deadline newTask = null;
+        String message = null;
         try {
             LocalDate by = LocalDate.parse(splitTask[1]);
             newTask = new Deadline(splitTask[0], by);
             taskList.add(newTask);
-            System.out.println("Added task:\n" + newTask + "\n"
-                    + String.format("Now you have %d tasks in the list", taskList.getLength()));
+            message = "Added task:\n" + newTask + "\n"
+                    + String.format("Now you have %d tasks in the list", taskList.getLength());
         } catch (DateTimeParseException e) {
             throw new YodaException("Deadline must be in format yyyy-mm-dd");
         }
+        return message;
     }
 
     /**

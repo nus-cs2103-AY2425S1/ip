@@ -26,9 +26,10 @@ public class DeleteCommand extends Command {
      * Executes a delete command and deletes the task at the specified
      * index from the task list.
      *
+     * @return
      * @throws YodaException if input formatting is invalid.
      */
-    public void run() throws YodaException {
+    public String run() throws YodaException {
         if (!hasValidFormat(input)) {
             throw new YodaException("Delete... which one?");
         }
@@ -36,9 +37,9 @@ public class DeleteCommand extends Command {
         int index = Integer.parseInt(splitInput[1]);
         Task currentTask = taskList.get(index - 1);
         taskList.delete(index - 1);
-        System.out.println("Deleted this, I have.");
-        System.out.printf("%s\n", currentTask);
-        System.out.println(String.format("Now you have %d tasks in the list\n", taskList.getLength()));
+        String message = "Deleted this, I have." + "\n" + currentTask + "\n"
+                + String.format("Now you have %d tasks in the list\n", taskList.getLength());
+        return message;
     }
 
     /**
