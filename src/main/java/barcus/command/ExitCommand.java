@@ -1,14 +1,14 @@
 package barcus.command;
 
+import barcus.exception.BarcusException;
+import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
-import barcus.storage.Storage;
-import barcus.exception.BarcusException;
 
 /**
  * Command to execute exit
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BarcusException {
         ui.showGoodbye();

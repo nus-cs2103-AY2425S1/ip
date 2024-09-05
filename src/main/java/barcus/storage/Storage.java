@@ -1,11 +1,20 @@
 package barcus.storage;
 
-import barcus.tasklist.TaskList;
-import barcus.exception.BarcusException;
-import barcus.task.*;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import barcus.exception.BarcusException;
+import barcus.task.Deadline;
+import barcus.task.Event;
+import barcus.task.Todo;
+import barcus.tasklist.TaskList;
+
+
 
 /**
  * Storage class to handle loading to and from save file
@@ -47,12 +56,12 @@ public class Storage {
         try {
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
-//                String line = s.next();
+                //String line = s.next();
                 String[] lineSplit = s.nextLine().split(" \\| ");
 
                 if (lineSplit[0].equals("T")) {
                     tasks.addTask(new Todo(lineSplit[2], lineSplit[1].equals("1")));
-//                    System.out.println("added");
+                    //System.out.println("added");
                 } else if (lineSplit[0].equals("D")) {
                     tasks.addTask(new Deadline(
                             lineSplit[2],
@@ -84,9 +93,9 @@ public class Storage {
     public void upload(TaskList tasks) throws BarcusException {
         try (FileWriter writer = new FileWriter(this.filePath);
              BufferedWriter bfWriter = new BufferedWriter(writer)) {
-//            for (Task task: tasks) {
-//                bfWriter.write(task.convertToSavedString() + "\n");
-//            }
+            //for (Task task: tasks) {
+            //    bfWriter.write(task.convertToSavedString() + "\n");
+            //}
             bfWriter.write(tasks.convertToSavable());
         } catch (IOException e) {
             throw new BarcusException("error updating txt save file");

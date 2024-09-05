@@ -1,8 +1,8 @@
 package barcus.command;
 
+import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
-import barcus.storage.Storage;
 
 /**
  * Command to unmark item at the position
@@ -21,7 +21,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (pos > 0 && pos <= tasks.getLength()) {
-//                        tasks.get(pos - 1).unmarkDone();
+            //tasks.get(pos - 1).unmarkDone();
             tasks.unmarkTask(pos - 1);
             ui.talk("No prob, have marked as undone: " + tasks.getTaskString(pos - 1));
         } else {

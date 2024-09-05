@@ -28,8 +28,8 @@ public class Ui {
      * Prints welcome message
      */
     public void showWelcome() {
-        talk("Beep bop! Hello I am Barcus, ready to be of assistance!\n" +
-                "Write 'bye' to leave!\n");
+        talk("Beep bop! Hello I am Barcus, ready to be of assistance!\n"
+                + "Write 'bye' to leave!\n");
     }
 
     /**

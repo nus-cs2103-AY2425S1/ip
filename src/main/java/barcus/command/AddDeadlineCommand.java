@@ -1,12 +1,13 @@
 package barcus.command;
 
+import java.time.format.DateTimeParseException;
+
+import barcus.exception.BarcusException;
+import barcus.storage.Storage;
+import barcus.task.Deadline;
+import barcus.task.Task;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
-import barcus.storage.Storage;
-import barcus.exception.BarcusException;
-import barcus.task.Task;
-import barcus.task.Deadline;
-import java.time.format.DateTimeParseException;
 
 /**
  * Command to ass new deadline task

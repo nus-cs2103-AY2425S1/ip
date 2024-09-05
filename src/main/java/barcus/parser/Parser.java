@@ -1,17 +1,28 @@
 package barcus.parser;
 
-import barcus.command.*;
-import barcus.exception.BarcusException;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
-import java.time.format.DateTimeFormatter;
+
+import barcus.command.AddDeadlineCommand;
+import barcus.command.AddEventCommand;
+import barcus.command.AddTodoCommand;
+import barcus.command.Command;
+import barcus.command.DeleteCommand;
+import barcus.command.ExitCommand;
+import barcus.command.FindCommand;
+import barcus.command.ListCommand;
+import barcus.command.MarkCommand;
+import barcus.command.UnknownCommand;
+import barcus.command.UnmarkCommand;
+import barcus.exception.BarcusException;
 
 /**
  * Class to parse the user input
  */
 public class Parser {
-    private final static DateTimeFormatter FROM_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-    private final static DateTimeFormatter TO_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter FROM_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter TO_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     /**
      * Returns the correct command with the correct arguments
@@ -68,7 +79,8 @@ public class Parser {
         } else if (words[0].equals("event")) {
             List<String> wordsList = Arrays.asList(words);
             if (!wordsList.contains("/from") || !wordsList.contains("/to")) {
-                throw new BarcusException("please include '/from' and '/to' as well as dates after each of those words");
+                throw new BarcusException("please include '/from' and '/to'"
+                        + "as well as dates after each of those words");
             } else {
                 int fromI = wordsList.indexOf("/from");
                 int toI = wordsList.indexOf("/to");

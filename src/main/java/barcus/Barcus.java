@@ -1,11 +1,11 @@
 package barcus;
 
+import barcus.command.Command;
+import barcus.exception.BarcusException;
+import barcus.parser.Parser;
 import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
-import barcus.exception.BarcusException;
-import barcus.command.Command;
-import barcus.parser.Parser;
 
 /**
  * Main class for Barcus chatbot
