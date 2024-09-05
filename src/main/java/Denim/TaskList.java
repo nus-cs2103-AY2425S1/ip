@@ -54,13 +54,15 @@ public class TaskList {
      * Finds all the tasks with the given keyword in the TaskList and returns a new TaskList
      * with all the tasks found.
      *
-     * @param keyword The index of the task to be deleted.
+     * @param keywords an array of String keywords to find.
      */
-    public TaskList findTasks(String keyword) {
+    public TaskList findTasks(String ... keywords) {
         TaskList matchingTasks = new TaskList();
         for (Task task: taskList) {
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.addTask(task);
+            for (String keyword: keywords) {
+                if (task.getDescription().contains(keyword)) {
+                    matchingTasks.addTask(task);
+                }
             }
         }
         return matchingTasks;

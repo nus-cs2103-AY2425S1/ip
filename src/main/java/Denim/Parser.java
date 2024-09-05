@@ -241,7 +241,9 @@ public class Parser {
         if (!matcher.matches()) {
             return new InvalidCommand("Wrong format for find command", FindCommand.USAGE);
         }
-        return new FindCommand(args);
+
+        String[] keywords = args.split(" ");
+        return new FindCommand(keywords);
     }
 
     /**
