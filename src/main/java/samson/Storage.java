@@ -59,33 +59,33 @@ public class Storage {
             String description = parts[2];
 
             switch (type) {
-                case "T":
-                    Task todo = new ToDo(description);
-                    if (isDone) {
-                        todo.complete();
-                    }
-                    tasks.add(todo);
-                    break;
-                case "D":
-                    String by = parts[3];
-                    Task deadline = new Deadline(description, by);
-                    if (isDone) {
-                        deadline.complete();
-                    }
-                    tasks.add(deadline);
-                    break;
-                case "E":
-                    String from = parts[3];
-                    String to = parts[4];
-                    Task event = new Event(description, from, to);
-                    if (isDone) {
-                        event.complete();
-                    }
-                    tasks.add(event);
-                    break;
-                default:
-                    System.out.println("Invalid data detected: " + line);
-                    break;
+            case "T":
+                Task todo = new ToDo(description);
+                if (isDone) {
+                    todo.complete();
+                }
+                tasks.add(todo);
+                break;
+            case "D":
+                String by = parts[3];
+                Task deadline = new Deadline(description, by);
+                if (isDone) {
+                    deadline.complete();
+                }
+                tasks.add(deadline);
+                break;
+            case "E":
+                String from = parts[3];
+                String to = parts[4];
+                Task event = new Event(description, from, to);
+                if (isDone) {
+                    event.complete();
+                }
+                tasks.add(event);
+                break;
+            default:
+                System.out.println("Invalid data detected: " + line);
+                break;
             }
         }
         return tasks;

@@ -1,8 +1,13 @@
 package samson;
 
 import org.junit.jupiter.api.Test;
-import samson.command.*;
-
+import samson.command.Command;
+import samson.command.ExitCommand;
+import samson.command.ListCommand;
+import samson.command.MarkCommand;
+import samson.command.UnmarkCommand;
+import samson.command.DeleteCommand;
+import samson.command.AddCommand;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
