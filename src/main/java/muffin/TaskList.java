@@ -11,7 +11,7 @@ public class TaskList {
     /**
      * The list of tasks.
      */
-    ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     /**
      * Constructs a new TaskList with the specified list of tasks.
@@ -101,6 +101,15 @@ public class TaskList {
         for (int i = 0; i < newList.size(); i++) {
             System.out.println((i + 1) + "." + newList.get(i));
         }
+    }
+
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return an ArrayList of Task objects representing the current list of tasks.
+     */
+    public ArrayList<Task> getList() {
+        return this.list;
     }
 
     /**

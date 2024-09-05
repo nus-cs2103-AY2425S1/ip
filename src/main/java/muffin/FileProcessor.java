@@ -52,7 +52,11 @@ public class FileProcessor {
                         markStatus(parts[1], e);
                         tasks.add(e);
                         break;
+
+                    default:
+                        break;
                     }
+
                 }
             }
         } catch (IOException e) {
