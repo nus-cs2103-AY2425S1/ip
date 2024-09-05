@@ -14,14 +14,13 @@ public class Testament {
     private final Ui ui;
     private final TaskList taskList;
     private final Parser parser;
+    private final String FILEPATH = "Memory.TaskList.txt";
 
     /**
-     * Constructor for Testament.
-     *
-     * @param filePath filepath of memory file.
+     * Constructor for testament
      */
-    public Testament(String filePath) {
-        storage = new Storage(filePath);
+    public Testament() {
+        storage = new Storage(FILEPATH);
         ui = new Ui();
         taskList = storage.load();
         parser = new Parser(ui, taskList, storage);
@@ -36,6 +35,6 @@ public class Testament {
     }
 
     public static void main(String[] args) {
-        new Testament("Memory.TaskList.txt").run();
+        new Testament().run();
     }
 }
