@@ -1,6 +1,7 @@
 package elon;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Provides user interface functions for interacting with the task list and its tasks.
@@ -236,5 +237,23 @@ public class Ui {
         System.out.println("\t " + list.getTask(index));
         list.removeTask(index);
         endAddTask(list.listSize());
+    }
+
+    /**
+     * Displays the tasks that match the given keyword.
+     *
+     * @param matchingTasks the list of tasks that match the keyword
+     */
+    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        drawLine();
+        if (matchingTasks.isEmpty()) {
+            System.out.println("\t No matching tasks found.");
+        } else {
+            System.out.println("\t Here are the matching tasks in your list: ");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println(String.format("\t %d.%s", i + 1, matchingTasks.get(i).toString()));
+            }
+        }
+        drawLine();
     }
 }

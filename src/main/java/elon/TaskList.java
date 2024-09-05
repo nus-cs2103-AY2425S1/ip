@@ -1,6 +1,7 @@
 package elon;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks and provides operations to carry out on them.
@@ -89,5 +90,17 @@ public class TaskList {
      */
     public int listSize() {
         return this.list.size();
+    }
+
+    /**
+     * Finds and returns a list of tasks whose descriptions contain the specified keyword.
+     *
+     * @param keyword the keyword to find in the tasks' descriptions
+     * @return an ArrayList of matching Task objects
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        return this.list.stream()
+                .filter(task -> task.description.toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList<Task>::new));
     }
 }

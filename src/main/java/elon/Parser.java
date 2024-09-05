@@ -1,7 +1,10 @@
 package elon;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+
 
 /**
  * Parses user input commands and interacts with the UI, TaskList, and Storage.
@@ -73,6 +76,12 @@ public class Parser {
                 } catch (IOException e) {
                     System.out.println(e);
                 }
+                inputArr = this.nextInput(scanner);
+                continue;
+            } else if (inputArr[0].equals("find")) {
+                String keyword = String.join(" ", Arrays.copyOfRange(inputArr, 1, inputArr.length));
+                ArrayList<Task> matchingTasks = list.findTasks(keyword);
+                ui.showMatchingTasks(matchingTasks);
                 inputArr = this.nextInput(scanner);
                 continue;
             } else {
