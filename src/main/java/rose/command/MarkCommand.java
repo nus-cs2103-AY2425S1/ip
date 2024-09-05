@@ -1,18 +1,17 @@
 package rose.command;
 
-import rose.RoseException;
+import java.io.IOException;
+
 import rose.Storage;
 import rose.TaskList;
 import rose.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command used by user to mark one of task in the list as 'Done'.
  * <p>A <code>MarkCommand</code> object is represented by the index of the task in the list.
  */
 public class MarkCommand extends Command {
-    private int idx;
+    private final int idx;
 
     public MarkCommand(int idx) {
         this.idx = idx;

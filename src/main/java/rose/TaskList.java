@@ -1,8 +1,8 @@
 package rose;
 
-import rose.task.Task;
-
 import java.util.ArrayList;
+
+import rose.task.Task;
 
 /**
  * The {@code TaskList} class manages a list of tasks in the application.

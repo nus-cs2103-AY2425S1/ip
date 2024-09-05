@@ -1,11 +1,11 @@
 package rose.command;
 
-import rose.TaskList;
-import rose.Storage;
-import rose.Ui;
-import rose.task.*;
-
 import java.io.IOException;
+
+import rose.Storage;
+import rose.TaskList;
+import rose.Ui;
+import rose.task.Task;
 
 /**
  * Represents a command used by user to delete task from the list.

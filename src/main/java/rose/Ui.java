@@ -1,9 +1,9 @@
 package rose;
 
-import rose.task.Task;
-
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import rose.task.Task;
 
 /**
  * The {@code Ui} class handles interactions with the user through the command line interface.

@@ -1,10 +1,10 @@
 package rose.command;
 
+import java.io.IOException;
+
 import rose.Storage;
 import rose.TaskList;
 import rose.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command used by user to unmark one of task in the list to become 'not done'.
