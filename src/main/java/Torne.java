@@ -217,7 +217,7 @@ Aww, bye to you as well :c""";
      * @param name name of task to be added
      */
     private void addTaskTodo(String name) throws TorneException {
-        Task toAdd = new TaskTodo(name);
+        Task toAdd = TaskTodo.fromCommand(name);
         addTask(toAdd);
     }
 
@@ -228,7 +228,7 @@ Aww, bye to you as well :c""";
      * @param by date/time to do the task by
      */
     private void addTaskDeadline(String name, String by) throws TorneException {
-        Task toAdd = new TaskDeadline(name, by);
+        Task toAdd = TaskDeadline.fromCommand(name, by);
         addTask(toAdd);
     }
 
@@ -241,7 +241,7 @@ Aww, bye to you as well :c""";
      * @param to ending datetime
      */
     private void addTaskEvent(String name, String from, String to) throws TorneException {
-        Task toAdd = new TaskEvent(name, from, to);
+        Task toAdd = TaskEvent.fromCommand(name, from, to);
         addTask(toAdd);
     }
 

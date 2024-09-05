@@ -2,8 +2,16 @@
  * Task with no date/time attached.
  */
 public class TaskTodo extends Task {
-    TaskTodo(String name) throws TorneInvalidCommandException {
+    private TaskTodo(String name) throws TorneInvalidCommandException, TorneInvalidDataException {
         super(name);
+    }
+
+    public static TaskTodo fromStorage(String name) throws TorneInvalidCommandException, TorneInvalidDataException {
+        return new TaskTodo(name);
+    }
+
+    public static TaskTodo fromCommand(String name) throws TorneInvalidCommandException, TorneInvalidDataException {
+        return new TaskTodo(name);
     }
 
     @Override

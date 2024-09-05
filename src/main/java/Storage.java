@@ -12,9 +12,9 @@ public class Storage {
     /**
      * Checks for the existence of the required storage directories and files. Creates them if they do not exist.
      *
-     * @Return True if storage files had to be created.
+     * @return True if storage files had to be created.
      */
-    private Boolean checkAndCreateStorageFiles() {
+    private boolean checkAndCreateStorageFiles() {
         // first check for ./data
         File folder = new File("data");
         if (!folder.exists() || !folder.isDirectory()) {

@@ -2,17 +2,36 @@
  * Task with a deadline.
  */
 public class TaskDeadline extends Task {
-    protected String by;
+    protected TorneDateTime by;
 
-    TaskDeadline(String name, String by) throws TorneInvalidCommandException {
+    private TaskDeadline(String name, TorneDateTime by) throws TorneInvalidCommandException, TorneInvalidDataException {
         super(name);
 
-        // check if by is empty
+        this.by = by;
+    }
+
+    public static TaskDeadline fromStorage(String name, String by) throws TorneInvalidDataException,
+            TorneInvalidCommandException {
+        if (by == null || by.isBlank()) {
+            throw new TorneInvalidDataException("Datetime by is empty");
+        }
+
+        return new TaskDeadline(
+                name,
+                TorneDateTime.parseStorageString(by.trim())
+        );
+    }
+
+    public static TaskDeadline fromCommand(String name, String by) throws TorneInvalidCommandException,
+            TorneInvalidDataException {
         if (by == null || by.isBlank()) {
             throw new TorneInvalidCommandException("Option /by cannot be empty");
         }
 
-        this.by = by.trim();
+        return new TaskDeadline(
+                name,
+                TorneDateTime.parseInputDateTimeString(by.trim())
+        );
     }
 
     @Override
@@ -20,7 +39,10 @@ public class TaskDeadline extends Task {
         String status = isDone ? "X" : " ";
 
         // format based on the toString output of `Task`
-        return String.format("[D]%s (by: %s)", super.toString(), by);
+        return String.format(
+                "[D]%s (by: %s)",
+                super.toString(),
+                by.toRelativeString());
     }
 
     @Override
@@ -30,6 +52,6 @@ public class TaskDeadline extends Task {
                 "D",
                 isDone ? 1 : 0,
                 name,
-                by);
+                by.toStorageString());
     }
 }

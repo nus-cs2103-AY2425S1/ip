@@ -1,20 +1,44 @@
+import java.time.LocalDateTime;
+
 /**
  * Task that starts and ends at specific datetimes.
  */
 public class TaskEvent extends Task {
-    protected String from;
-    protected String to;
+    protected TorneDateTime from;
+    protected TorneDateTime to;
 
-    TaskEvent(String name, String from, String to) throws TorneInvalidCommandException {
+    private TaskEvent(String name, TorneDateTime from, TorneDateTime to) throws TorneInvalidCommandException {
         super(name);
 
-        // now check from and to
+        this.from = from;
+        this.to = to;
+
+    }
+
+    public static TaskEvent fromStorage(String name, String from, String to) throws TorneInvalidDataException,
+            TorneInvalidCommandException {
+        if (from == null || to == null || from.isBlank() || to.isBlank()) {
+            throw new TorneInvalidDataException("Datetimes from or to are empty");
+        }
+
+        return new TaskEvent(
+                name,
+                TorneDateTime.parseStorageString(from.trim()),
+                TorneDateTime.parseStorageString(to.trim())
+        );
+    }
+
+    public static TaskEvent fromCommand(String name, String from, String to) throws TorneInvalidDataException,
+            TorneInvalidCommandException {
         if (from == null || to == null || from.isBlank() || to.isBlank()) {
             throw new TorneInvalidCommandException("Options /from and /to cannot be empty");
         }
 
-        this.from = from.trim();
-        this.to = to.trim();
+        return new TaskEvent(
+                name,
+                TorneDateTime.parseInputDateTimeString(from.trim()),
+                TorneDateTime.parseInputDateTimeString(to.trim())
+        );
     }
 
     @Override
@@ -22,7 +46,11 @@ public class TaskEvent extends Task {
         String status = isDone ? "X" : " ";
 
         // format based on the toString output of `Task`
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
+        return String.format(
+                "[E]%s (from: %s to: %s)",
+                super.toString(),
+                from.toRelativeString(),
+                to.toRelativeString());
     }
 
     @Override
@@ -32,7 +60,7 @@ public class TaskEvent extends Task {
                 "E",
                 isDone ? 1 : 0,
                 name,
-                from,
-                to);
+                from.toStorageString(),
+                to.toStorageString());
     }
 }

@@ -9,9 +9,9 @@ public class Task {
      * Creates a Task object from a given storage string.
      *
      * @return Task created from the input string.
-     * @throws TorneInvalidDataException if the input string is invalid.
+     * @throws TorneException for issues with loading the Task.
      */
-    public static Task fromStorageString(String input) throws TorneInvalidDataException, TorneInvalidCommandException {
+    public static Task fromStorageString(String input) throws TorneInvalidCommandException, TorneInvalidDataException {
         String[] parts = input.split(" / ");
         if (parts.length < 3) {
             // min length is 3. If less than that, raise error
@@ -40,21 +40,21 @@ public class Task {
             if (parts.length != 3) {
                 throw new TorneInvalidDataException("Invalid todo storage string.");
             }
-            newTask = new TaskTodo(parts[2]);
+            newTask = TaskTodo.fromStorage(parts[2]);
             break;
         case "D":
             // TaskDeadline
             if (parts.length != 4) {
                 throw new TorneInvalidDataException("Invalid deadline storage string.");
             }
-            newTask = new TaskDeadline(parts[2], parts[3]);
+            newTask = TaskDeadline.fromStorage(parts[2], parts[3]);
             break;
         case "E":
             // TaskDeadline
             if (parts.length != 5) {
                 throw new TorneInvalidDataException("Invalid event storage string.");
             }
-            newTask = new TaskEvent(parts[2], parts[3], parts[4]);
+            newTask = TaskEvent.fromStorage(parts[2], parts[3], parts[4]);
             break;
         default:
             throw new TorneInvalidDataException("Storage string task type code invalid.");
@@ -93,6 +93,7 @@ public class Task {
 
     /**
      * Returns a string used to store the task in a local file.
+     *
      * @return String representation of task used for local storage.
      */
     public String toStorageString() {
