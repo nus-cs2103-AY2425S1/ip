@@ -41,8 +41,7 @@ public class Storage {
                     break;
                 case "E":
                     tasks.addTask(new EventTask(info[1], Boolean.parseBoolean(info[2]),
-                            LocalDate.parse(info[3]),
-                            LocalDate.parse(info[4])));
+                            LocalDate.parse(info[3]), LocalDate.parse(info[4])));
                     break;
                 default:
                     System.out.println("Unexpected type");

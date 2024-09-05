@@ -9,13 +9,8 @@ import ratchet.ui.Ui;
  */
 public class ExitCommand extends Command {
     @Override
-    public void execute(Storage storage, TaskList tasks, Ui ui) {
-        ui.exit();
+    public String execute(Storage storage, TaskList tasks, Ui ui) {
         storage.saveTasks(tasks);
-    }
-
-    @Override
-    public boolean isExit() {
-        return true;
+        return ui.exit();
     }
 }
