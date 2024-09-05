@@ -18,24 +18,20 @@ public abstract class Task {
         this.isCompleted = isCompleted;
     }
 
-    public String setCompleted(boolean completed) {
-        if (this.isCompleted == completed) {
-            throw new IllegalArgumentException("\t It seems the task has already been marked as such");
+    public void setCompleted(boolean isCompleted)
+            throws ChatBotException {
+        if (this.isCompleted == isCompleted) {
+            throw new ChatBotException("\t It seems the task has already been marked as such");
         }
-        this.isCompleted = completed;
-        String output = completed ?
-                "\t Nice! I've marked this task as done: \n\t  " + this.toString()
-                : "\t OK, I've marked this task as not done yet: \n\t " + this.toString();
-        return output;
+        this.isCompleted = isCompleted;
     }
 
     @Override
     public String toString() {
-        String output = isCompleted ? "[X] " + task : "[ ] " + task;
-        return output;
+        return isCompleted ? "[X] " + task : "[ ] " + task;
     }
 
-    public String toPrint(){
+    public String toPrint() {
         return isCompleted ? "|1|" + task : "|0|" + task;
     }
 }

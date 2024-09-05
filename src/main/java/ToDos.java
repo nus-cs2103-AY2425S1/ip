@@ -4,7 +4,7 @@ public class ToDos extends Task {
         super(task);
     }
 
-    public ToDos(String task, Boolean isCompleted) {
+    public ToDos(String task, boolean isCompleted) {
         super(task, isCompleted);
     }
 
@@ -15,6 +15,6 @@ public class ToDos extends Task {
 
     @Override
     public String toPrint() {
-        return "todo " + super.toPrint();
+        return "T " + super.toPrint();
     }
 }
