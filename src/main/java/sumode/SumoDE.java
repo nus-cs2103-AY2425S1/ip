@@ -69,7 +69,7 @@ public class SumoDE extends Application {
      * Runs a task-management chatbot SumoDE
      */
     public void execute(String input) {
-        boolean terminate = false;
+        boolean canTerminate = false;
         // Splitting command and action
         String[] splitString = Parser.splitCommandAndAction(input);
         String commandString = splitString[0];
@@ -79,7 +79,7 @@ public class SumoDE extends Application {
         // find correct matching command
         try {
             command = Command.valueOf(commandString.toUpperCase());
-            terminate = this.tasks.execute(command, item);
+            canTerminate = this.tasks.execute(command, item);
         } catch (IllegalArgumentException e) {
             ui.unknownCommand(commandString);
         } catch (WrongSyntaxForCommandException | UnknownCommandException
@@ -87,7 +87,7 @@ public class SumoDE extends Application {
                      | AlreadyMarkedException | EndBeforeStartException e) {
             ui.handleError(e);
         } finally {
-            if (!terminate) {
+            if (!canTerminate) {
                 ui.next();
             } else {
                 ui.bye();
