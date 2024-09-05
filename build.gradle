@@ -33,6 +33,7 @@ application {
 
 shadowJar {
     archiveBaseName = "elara"
+    archiveFileName = "elara.jar"
     archiveClassifier = null
 }
 
