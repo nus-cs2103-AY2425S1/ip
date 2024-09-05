@@ -2,6 +2,7 @@ package Boombotroz;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.nio.file.Files;
 
 /**
  Main class where execution occurs
@@ -92,7 +93,9 @@ public class Boombotroz {
     }
 
     public static void main(String[] args) {
-        new Boombotroz("../data.txt").run();
+        String home = System.getProperty("user.home");
+        java.nio.file.Path path = java.nio.file.Paths.get(home, "ip", "src", "main");
+        new Boombotroz(path.toString() + "/data.txt").run();
 
     }
 
