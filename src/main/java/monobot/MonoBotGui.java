@@ -1,21 +1,25 @@
 package monobot;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
-public class MonoBotGUI extends Application {
+/**
+ * Handles the GUI of the application.
+ */
+public class MonoBotGui extends Application {
 
     private MonoBot monoBot = new MonoBot("./data/monobot.txt");
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MonoBotGUI.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MonoBotGui.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

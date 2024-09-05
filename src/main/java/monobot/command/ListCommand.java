@@ -1,6 +1,5 @@
 package monobot.command;
 
-import monobot.exception.MonoBotException;
 import monobot.util.Storage;
 import monobot.util.TaskList;
 import monobot.util.Ui;

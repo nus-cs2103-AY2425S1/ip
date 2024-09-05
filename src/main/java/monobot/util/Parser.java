@@ -1,13 +1,22 @@
 package monobot.util;
 
-import monobot.command.*;
+import java.time.format.DateTimeParseException;
+
+import monobot.command.AddCommand;
+import monobot.command.Command;
+import monobot.command.CommandType;
+import monobot.command.DeleteCommand;
+import monobot.command.ExitCommand;
+import monobot.command.FindCommand;
+import monobot.command.InvalidCommand;
+import monobot.command.ListCommand;
+import monobot.command.MarkCommand;
+import monobot.command.UnmarkCommand;
 import monobot.exception.MonoBotException;
 import monobot.task.Deadline;
 import monobot.task.Event;
 import monobot.task.Task;
 import monobot.task.Todo;
-
-import java.time.format.DateTimeParseException;
 
 /**
  * Interprets user input and executes the appropriate actions.
@@ -142,9 +151,9 @@ public class Parser {
     private static Task parseDeadline(String details) throws MonoBotException {
         String[] deadlineDetails = details.split("/by", 2);
         if (deadlineDetails.length != 2 || deadlineDetails[1].trim().isEmpty()) {
-            throw new MonoBotException("Due date/time of task is missing. " +
-                    "Note that format for adding a DEADLINE task is \n" +
-                    "deadline <task description> /by <due date/time>");
+            throw new MonoBotException("Due date/time of task is missing. "
+                    + "Note that format for adding a DEADLINE task is \n"
+                    + "deadline <task description> /by <due date/time>");
         }
         try {
             return new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
@@ -164,14 +173,15 @@ public class Parser {
         String[] eventDetails = details.split("/from|/to ", 3);
         if (eventDetails.length != 3 || eventDetails[1].trim().isEmpty()
                 || eventDetails[2].trim().isEmpty()) {
-            throw new MonoBotException("Start and/or end time of event is missing. " +
-                    "Note that format for adding an event is \n" +
-                    "event <task description> /from <start date/time> /to <end date/time>");
+            throw new MonoBotException("Start and/or end time of event is missing. "
+                    + "Note that format for adding an event is \n"
+                    + "event <task description> /from <start date/time> /to <end date/time>");
         }
         try {
             return new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2].trim());
         } catch (DateTimeParseException e) {
-            throw new MonoBotException("Invalid date/time format. Please use d/M/yyyy HHmm format for both start and end times.");
+            throw new MonoBotException("Invalid date/time format"
+                    + "Please use d/M/yyyy HHmm format for both start and end times.");
         }
     }
 }

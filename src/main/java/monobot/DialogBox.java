@@ -1,5 +1,7 @@
 package monobot;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -10,8 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-import java.io.IOException;
-
+/**
+ * Handles formatting of dialogues between user and bot.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Text text;
@@ -22,6 +25,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView profilePic;
 
+    /**
+     * Constructs a new dialoguebox with given message.
+     *
+     * @param message message to be contained in dialogue box
+     * @param isUser boolean to decipher if message is from user or bot
+     */
     public DialogBox(String message, boolean isUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/DialogBox.fxml"));
@@ -33,8 +42,8 @@ public class DialogBox extends HBox {
         }
 
         text.setText(message);
-        wrapper.setStyle("-fx-background-color: " + (isUser ? "#DCF8C6" : "#FFFFFF") + "; " +
-                "-fx-background-radius: 10;");
+        wrapper.setStyle("-fx-background-color: " + (isUser ? "#DCF8C6" : "#FFFFFF") + "; "
+                + "-fx-background-radius: 10;");
 
         textFlow.prefWidthProperty().bind(this.widthProperty().multiply(0.75));
         text.wrappingWidthProperty().bind(textFlow.widthProperty());

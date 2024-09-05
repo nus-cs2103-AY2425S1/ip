@@ -1,13 +1,9 @@
 package monobot;
 
-import monobot.command.Command;
 import monobot.exception.MonoBotException;
-import monobot.util.Parser;
 import monobot.util.Storage;
 import monobot.util.TaskList;
 import monobot.util.Ui;
-
-import java.util.Scanner;
 
 /**
  * Represents entry point of application.
@@ -33,24 +29,6 @@ public class MonoBot {
         }
     }
 
-    public void run() {
-        ui.printGreeting();
-        Scanner sc = new Scanner(System.in);
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String input = sc.nextLine();
-                Command command = Parser.parseCommand(input);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (MonoBotException e) {
-                ui.printError(e.toString());
-            }
-        }
-        sc.close();
-    }
-
     public TaskList getTasks() {
         return this.tasks;
     }
@@ -64,6 +42,6 @@ public class MonoBot {
     }
 
     public static void main(String[] args) {
-        MonoBotGUI.main(args);
+        MonoBotGui.main(args);
     }
 }

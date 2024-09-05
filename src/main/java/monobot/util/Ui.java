@@ -101,8 +101,9 @@ public class Ui {
      * @param totalTasks Total number of tasks currently in the taskList
      */
     public void printDeletedTask(Task task, int totalTasks) {
-        setLastOutput("Noted! I have removed this task:\n" + task +
-                "\nNow you have " + totalTasks + " task(s) in the list");
+        setLastOutput("Noted! I have removed this task:\n"
+                + task
+                + "\nNow you have " + totalTasks + " task(s) in the list");
     }
 
     /**

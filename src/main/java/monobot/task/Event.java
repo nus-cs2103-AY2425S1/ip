@@ -7,10 +7,10 @@ import java.time.format.DateTimeFormatter;
  * Represents an Event task.
  */
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
     private static final DateTimeFormatter PARSER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructs an Event task with the specified description
@@ -21,7 +21,7 @@ public class Event extends Task {
      */
     public Event(String desc, String from, String to) {
         super(desc);
-        this.from =  LocalDateTime.parse(from.trim(), PARSER);
+        this.from = LocalDateTime.parse(from.trim(), PARSER);
         this.to = LocalDateTime.parse(to.trim(), PARSER);
     }
 
@@ -49,6 +49,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String status = this.isDone ? "[E][X] " : "[E][ ] ";
-        return status + this.description.trim() + " (from: " + from.format(FORMATTER) + " to: " + to.format(FORMATTER) + ")";
+        return status + this.description.trim() + " (from: " + from.format(FORMATTER) + " to: "
+                + to.format(FORMATTER) + ")";
     }
 }

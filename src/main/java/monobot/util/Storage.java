@@ -1,11 +1,5 @@
 package monobot.util;
 
-import monobot.exception.MonoBotException;
-import monobot.task.Deadline;
-import monobot.task.Event;
-import monobot.task.Task;
-import monobot.task.Todo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,6 +9,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import monobot.exception.MonoBotException;
+import monobot.task.Deadline;
+import monobot.task.Event;
+import monobot.task.Task;
+import monobot.task.Todo;
 
 /**
  * Handles the loading and saving of tasks to a file.
@@ -105,7 +105,8 @@ public class Storage {
 
         if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return String.format("%s | %s | %s | %s", taskType, isDone, deadline.getDescription(), deadline.getDueBy().format(FILE_DATE_FORMAT));
+            return String.format("%s | %s | %s | %s", taskType, isDone, deadline.getDescription(),
+                    deadline.getDueBy().format(FILE_DATE_FORMAT));
         } else if (task instanceof Event) {
             Event event = (Event) task;
             return String.format("%s | %s | %s | %s | %s", taskType, isDone, event.getDescription(),

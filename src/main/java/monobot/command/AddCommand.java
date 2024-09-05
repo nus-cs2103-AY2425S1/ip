@@ -1,10 +1,10 @@
 package monobot.command;
 
-import monobot.util.Storage;
+import monobot.exception.MonoBotException;
 import monobot.task.Task;
+import monobot.util.Storage;
 import monobot.util.TaskList;
 import monobot.util.Ui;
-import monobot.exception.MonoBotException;
 
 /**
  * Represents add command to add a task to list.
