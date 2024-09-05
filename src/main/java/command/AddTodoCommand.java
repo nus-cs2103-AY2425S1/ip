@@ -10,7 +10,6 @@ public class AddTodoCommand extends Command {
     private final Todo todo;
 
     public AddTodoCommand(String arguments) throws KukiShinobuException {
-        // TODO: Check for missing description
         if (arguments.isEmpty()) {
             throw new KukiShinobuException("Todo is missing description!");
         }

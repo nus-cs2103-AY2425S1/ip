@@ -1,22 +1,28 @@
 package parser;
 
-import command.*;
-import command.AddEventCommand;
 import exception.KukiShinobuException;
 
-public class Parser {
+// Import all the Commands
+import command.AddDeadlineCommand;
+import command.AddEventCommand;
+import command.AddTodoCommand;
+import command.Command;
+import command.DeleteTaskCommand;
+import command.ExitCommand;
+import command.ListCommand;
+import command.MarkTaskCommand;
+import command.UnknownCommand;
+import command.UnmarkTaskCommand;
 
-    // TODO: Create a method that takes in a command string and returns a command
+
+public class Parser {
     public static Command parse(String fullCommand) {
         // split user input into commands and argument (if applicable)
         String[] parts = fullCommand.split(" ", 2);
         String command = parts[0];
+
         //prevents index out of bounds error if no arguments provided after command
         String arguments = parts.length > 1 ? parts[1] : "";
-
-        // break out of while loop if user issues "bye" command
-
-
         try {
             // otherwise, handle all other commands as appropriate
             switch (command) {

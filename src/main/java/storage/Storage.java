@@ -18,13 +18,10 @@ public class Storage {
 
     private final String filePath;
 
-    // TODO: Constructor that instantiates the storage.Storage class while also ensuring that the filepath is valid and a file exists
-    // If the file doesn't exist, create the file and any intermediate directories inside it
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    // TODO: load method that reads from the specified file path and returns a task list
     public ArrayList<Task> load() throws FileNotFoundKukiShinobuException {
         // Step 1: Read the file, and throw an error is the file can't be found
         File file = new File(this.filePath);
@@ -47,14 +44,11 @@ public class Storage {
             System.err.println("File not found: " + filePath);
             e.printStackTrace();
             throw new FileNotFoundKukiShinobuException();
-//            return new ArrayList<task.Task>();
         } catch (IOException e) {
             System.err.println("Error creating or accessing the file: " + filePath);
             e.printStackTrace();
             throw new FileNotFoundKukiShinobuException();
-//            return new ArrayList<task.Task>();
         }
-//        System.out.println(input);
 
         // Step 2: Parse the tasks
         ArrayList<Task> existingTasks = new ArrayList<>();
@@ -99,26 +93,25 @@ public class Storage {
     }
 
 
-    // TODO: write method that takes in ArrayList<task.Task>, formats it and writes it to the file
     public void write(ArrayList<Task> tasks) {
         // TODO: Takes this.tasks and write it to the database file
-        StringBuilder stringToWrite = new StringBuilder();
+        StringBuilder stringToBeWritten = new StringBuilder();
         // Step 1: Parse the file into a single string
         for (Task task: tasks) {
-            stringToWrite.append(task.getDatabaseString()).append(System.lineSeparator());
+            stringToBeWritten.append(task.getDatabaseString()).append(System.lineSeparator());
         }
 
         // Step 2: Insert the entire text string into the file
-        FileWriter fw = null;
+        FileWriter fileWriter = null;
         try {
-            fw = new FileWriter(this.filePath);
-            fw.write(stringToWrite.toString());
+            fileWriter = new FileWriter(this.filePath);
+            fileWriter.write(stringToBeWritten.toString());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (fw != null) {
+            if (fileWriter != null) {
                 try {
-                    fw.close();
+                    fileWriter.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

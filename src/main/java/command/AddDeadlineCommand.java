@@ -11,7 +11,6 @@ public class AddDeadlineCommand extends Command {
     private final Deadline deadline;
 
     public AddDeadlineCommand(String arguments) throws KukiShinobuException {
-        // TODO: Check for missing description or /by
         String[] parts = arguments.split(" /by ", 2);
 
         // Checks for missing arguments
