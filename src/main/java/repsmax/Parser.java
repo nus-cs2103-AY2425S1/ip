@@ -28,50 +28,40 @@ public class Parser {
      * @param ui        The user interface to interact with the user.
      * @param storage   The storage handler for saving and loading tasks.
      */
-    public void parse(String userInput, TaskList tasks, Ui ui, Storage storage) {
+    public String parse(String userInput, TaskList tasks, Ui ui, Storage storage) {
         String[] splitInput = userInput.split(" ", 2);
         String command = splitInput[0];
 
         switch (command) {
             case COMMAND_LIST:
-                handleListCommand(tasks, ui);
-                break;
+                return handleListCommand(tasks, ui);
 
             case COMMAND_MARK:
-                handleMarkCommand(splitInput, tasks, ui, storage);
-                break;
+                return handleMarkCommand(splitInput, tasks, ui, storage);
 
             case COMMAND_UNMARK:
-                handleUnmarkCommand(splitInput, tasks, ui, storage);
-                break;
+                return handleUnmarkCommand(splitInput, tasks, ui, storage);
 
             case COMMAND_TODO:
-                handleTodoCommand(splitInput, tasks, ui, storage);
-                break;
+                return handleTodoCommand(splitInput, tasks, ui, storage);
 
             case COMMAND_DEADLINE:
-                handleDeadlineCommand(splitInput, tasks, ui, storage);
-                break;
+                return handleDeadlineCommand(splitInput, tasks, ui, storage);
 
             case COMMAND_EVENT:
-                handleEventCommand(splitInput, tasks, ui, storage);
-                break;
+                return handleEventCommand(splitInput, tasks, ui, storage);
 
             case COMMAND_DELETE:
-                handleDeleteCommand(splitInput, tasks, ui, storage);
-                break;
+                return handleDeleteCommand(splitInput, tasks, ui, storage);
 
             case COMMAND_BYE:
-                handleByeCommand(tasks, ui, storage);
-                break;
+                return handleByeCommand(tasks, ui, storage);
 
             case COMMAND_FIND:
-                handleFindCommand(splitInput, tasks, ui);
-                break;
+                return handleFindCommand(splitInput, tasks, ui);
 
             default:
-                ui.showError("Unknown command: " + userInput);
-                break;
+                return ("Unknown command: " + userInput);
         }
     }
 
@@ -81,13 +71,13 @@ public class Parser {
      * @param tasks The list of tasks to display.
      * @param ui    The user interface to interact with the user.
      */
-    private void handleListCommand(TaskList tasks, Ui ui) {
-        ui.showLine();
-        ui.showMessage("Here are the tasks in your list:");
+    private String handleListCommand(TaskList tasks, Ui ui) {
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            ui.showMessage((i + 1) + "." + tasks.get(i));
+            response.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
         }
-        ui.showLine();
+        return response.toString();
     }
 
     /**
@@ -98,18 +88,18 @@ public class Parser {
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
      */
-    private void handleMarkCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
+    private String handleMarkCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
             int markIndex = Integer.parseInt(splitInput[1]) - 1;
             if (markIndex >= 0 && markIndex < tasks.size()) {
                 tasks.get(markIndex).setDone();
-                ui.showMessage("Nice! I've marked this task as done:\n" + tasks.get(markIndex));
                 storage.save(tasks);
+                return ("Nice! I've marked this task as done:\n" + tasks.get(markIndex));
             } else {
-                ui.showError("OOPS!!! The task number is out of range.");
+                return ("OOPS!!! The task number is out of range.");
             }
         } catch (NumberFormatException e) {
-            ui.showError("OOPS!!! The task number must be an integer.");
+            return ("OOPS!!! The task number must be an integer.");
         }
     }
 
@@ -121,18 +111,18 @@ public class Parser {
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
      */
-    private void handleUnmarkCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
+    private String handleUnmarkCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
             int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
             if (unmarkIndex >= 0 && unmarkIndex < tasks.size()) {
                 tasks.get(unmarkIndex).setUndone();
-                ui.showMessage("OK, I've marked this task as not done yet:\n" + tasks.get(unmarkIndex));
                 storage.save(tasks);
+                return ("OK, I've marked this task as not done yet:\n" + tasks.get(unmarkIndex));
             } else {
-                ui.showError("OOPS!!! The task number is out of range.");
+                return ("OOPS!!! The task number is out of range.");
             }
         } catch (NumberFormatException e) {
-            ui.showError("OOPS!!! The task number must be an integer.");
+            return ("OOPS!!! The task number must be an integer.");
         }
     }
 
@@ -144,15 +134,17 @@ public class Parser {
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
      */
-    private void handleTodoCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
+    private String handleTodoCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         if (splitInput.length > 1) {
             String description = splitInput[1];
-            tasks.add(new Todo(description));
-            ui.showMessage("Got it. I've added this task:\n" + tasks.get(tasks.size() - 1));
-            ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
+            Todo newTodo = new Todo(description);
+            tasks.add(newTodo);
             storage.save(tasks);
+            System.out.println("Task list after adding: " + tasks);
+            return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) +
+                    "\nNow you have " + tasks.size() + " tasks in the list.";
         } else {
-            ui.showError("OOPS!!! The description of a todo cannot be empty.");
+            return ("OOPS!!! The description of a todo cannot be empty.");
         }
     }
 
@@ -164,17 +156,17 @@ public class Parser {
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
      */
-    private void handleDeadlineCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
+    private String handleDeadlineCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
             String[] parts = splitInput[1].split("/by ", 2);
             String description = parts[0];
             String by = parts[1];
             tasks.add(new Deadline(description, by));
-            ui.showMessage("Got it. I've added this task:\n" + tasks.get(tasks.size() - 1));
-            ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
             storage.save(tasks);
+            return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) +
+            ("\nNow you have " + tasks.size() + " tasks in the list.");
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showError("OOPS!!! The deadline command must include '/by <date/time>'.");
+            return ("OOPS!!! The deadline command must include '/by <date/time>'.");
         }
     }
 
@@ -186,7 +178,7 @@ public class Parser {
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
      */
-    private void handleEventCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
+    private String handleEventCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
             String[] parts = splitInput[1].split("/from ", 2);
             String[] fromTo = parts[1].split("/to ", 2);
@@ -194,11 +186,11 @@ public class Parser {
             String from = fromTo[0];
             String to = fromTo[1];
             tasks.add(new Event(description, from, to));
-            ui.showMessage("Got it. I've added this task:\n" + tasks.get(tasks.size() - 1));
-            ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
             storage.save(tasks);
+            return ("Got it. I've added this task:\n" + tasks.get(tasks.size() - 1)) +
+            ("\nNow you have " + tasks.size() + " tasks in the list.");
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showError("OOPS!!! The event command must include '/from <start date/time>' and '/to <end date/time>'.");
+            return ("OOPS!!! The event command must include '/from <start date/time>' and '/to <end date/time>'.");
         }
     }
 
@@ -210,18 +202,19 @@ public class Parser {
      * @param ui         The user interface to interact with the user.
      * @param storage    The storage handler for saving the updated tasks.
      */
-    private void handleDeleteCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
+    private String handleDeleteCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
             int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
-            if (deleteIndex >= 0 && deleteIndex < tasks.size()) {
-                ui.showMessage("Noted. I've removed this task:\n" + tasks.remove(deleteIndex));
-                ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
-                storage.save(tasks);
+            if (deleteIndex >= 0 && deleteIndex < tasks.size()) {  // Check index bounds
+                Task removedTask = tasks.remove(deleteIndex);  // Remove the task
+                storage.save(tasks);  // Save after deletion
+                return ("Noted. I've removed this task:\n" + removedTask) +
+                        "\nNow you have " + tasks.size() + " tasks in the list.";
             } else {
-                ui.showError("OOPS!!! The task number is out of range.");
+                return ("OOPS!!! The task number is out of range.");
             }
         } catch (NumberFormatException e) {
-            ui.showError("OOPS!!! The task number must be an integer.");
+            return ("OOPS!!! The task number must be an integer.");
         }
     }
 
@@ -232,10 +225,9 @@ public class Parser {
      * @param ui      The user interface to interact with the user.
      * @param storage The storage handler for saving the tasks.
      */
-    private void handleByeCommand(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("Bye. Hope to see you again soon!");
+    private String handleByeCommand(TaskList tasks, Ui ui, Storage storage) {
         storage.save(tasks);
-        System.exit(0);
+        return ("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -245,14 +237,25 @@ public class Parser {
      * @param tasks      The list of tasks to be searched.
      * @param ui         The user interface to interact with the user.
      */
-    private void handleFindCommand(String[] splitInput, TaskList tasks, Ui ui) {
+    private String handleFindCommand(String[] splitInput, TaskList tasks, Ui ui) {
         if (splitInput.length > 1) {
             String keyword = splitInput[1];
             List<Task> results = tasks.find(keyword);
             ui.showSearchResults(results);
         } else {
-            ui.showError("OOPS!!! The find command must include a keyword.");
+            return ("OOPS!!! The find command must include a keyword.");
         }
+        String keyword = splitInput[1];
+        List<Task> foundTasks = tasks.find(keyword);
+        if (foundTasks.isEmpty()) {
+            return "There are no matching tasks in your list.";
+        }
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            response.append((i + 1)).append(".").append(foundTasks.get(i)).append("\n");
+        }
+        return response.toString();
     }
 }
 

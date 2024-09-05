@@ -12,14 +12,14 @@ import java.util.List;
  * </p>
  */
 public class Ui {
-    private Scanner scanner;
+    private StringBuilder output;
 
     /**
      * Constructs a {@code Ui} object and initializes the scanner for reading
      * user input.
      */
     public Ui() {
-        scanner = new Scanner(System.in);
+        output = new StringBuilder();
     }
 
     /**
@@ -27,8 +27,8 @@ public class Ui {
      *
      * @return the input line entered by the user.
      */
-    public String readCommand() {
-        return scanner.nextLine();
+    public void readCommand() {
+
     }
 
     /**
@@ -39,10 +39,7 @@ public class Ui {
      * </p>
      */
     public void showWelcome() {
-        System.out.println("  ____________________________________________________________");
-        System.out.println("   Hello! I'm Repsmax");
-        System.out.println("   What can I do for you?");
-        System.out.println("  ____________________________________________________________");
+        output.append("Hello! I'm Repsmax\nWhat can I do for you?\n");
     }
 
     /**
@@ -52,10 +49,10 @@ public class Ui {
      * soon.
      * </p>
      */
-    public void showGoodbye() {
-        System.out.println("  ____________________________________________________________");
-        System.out.println("   Bye. Hope to see you again soon!");
-        System.out.println("  ____________________________________________________________");
+    public String showGoodbye() {
+        return "  ____________________________________________________________\n" +
+                "   Bye. Hope to see you again soon!\n" +
+                "  ____________________________________________________________\n";
     }
 
     /**
@@ -66,7 +63,7 @@ public class Ui {
      * </p>
      */
     public void showLoadingError() {
-        System.out.println("An error occurred while loading tasks.");
+        output.append("An error occurred while loading tasks.\n");
     }
 
     /**
@@ -75,7 +72,8 @@ public class Ui {
      * @param message the error message to be displayed.
      */
     public void showError(String message) {
-        System.out.println(message);
+        output.append(message + "\n");
+        ;
     }
 
     /**
@@ -85,7 +83,7 @@ public class Ui {
      * </p>
      */
     public void showLine() {
-        System.out.println("____________________________");
+        output.append("____________________________\n");
     }
 
     /**
@@ -94,7 +92,7 @@ public class Ui {
      * @param message the message to be displayed.
      */
     public void showMessage(String message) {
-        System.out.println(message);
+        output.append(message + "\n");
     }
 
     /**
@@ -109,5 +107,13 @@ public class Ui {
                 showMessage((i + 1) + ". " + tasks.get(i));
             }
         }
+    }
+
+    public String getOutput() {
+        return output.toString();
+    }
+
+    public void clearOutput() {
+        output.setLength(0);
     }
 }

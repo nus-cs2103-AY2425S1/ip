@@ -1,5 +1,7 @@
 package repsmax;
 
+import javafx.application.Application;
+
 /**
  * The main class of the Repsmax application.
  * This class initializes the necessary components and manages the flow of the program.
@@ -28,34 +30,18 @@ public class Repsmax {
         }
     }
 
-    /**
-     * Runs the main program loop.
-     * This method continuously reads user input, parses commands, and manages tasks until the user exits.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isRunning = true;
-
-        while (isRunning) {
-            String userInput = ui.readCommand();
-            if (userInput.equals("bye")) {
-                isRunning = false;
-            } else {
-                parser.parse(userInput, tasks, ui, storage);
-            }
+    public String getResponse(String userInput) {
+        if (userInput.equals("bye")) {
+            storage.save(tasks);
+            return ui.showGoodbye();
+        } else {
+            return parser.parse(userInput, tasks, ui, storage);
         }
-
-        ui.showGoodbye();
-        storage.save(tasks);
     }
 
-    /**
-     * The main entry point of the Repsmax application.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Repsmax("C:/Users/nicla/OneDrive/Desktop/Cs2103/repo/src/data.txt").run();
+    public void parse(String userInput) {
+        parser.parse(userInput, tasks, ui, storage);
     }
+
 }
 
