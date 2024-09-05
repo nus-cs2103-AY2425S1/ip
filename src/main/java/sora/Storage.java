@@ -102,27 +102,27 @@ public class Storage {
     private void loadTaskListHelper(int lineNumber, String fileTaskDetails, TaskList taskList) throws SoraException {
         String[] parsedFileTaskDetails = fileTaskDetails.split(" \\| ", 5);
         switch (parsedFileTaskDetails[0]) {
-            case "T":
-                if (parsedFileTaskDetails.length != 3) {
-                    throw new SoraException("\tSora is unable to read file from line " + lineNumber);
-                }
-                taskList.getTaskList().add(new ToDo(parsedFileTaskDetails[2]));
-                break;
-            case "D":
-                if (parsedFileTaskDetails.length != 4) {
-                    throw new SoraException("\tSora is unable to read file from line " + lineNumber);
-                }
-                taskList.getTaskList().add(new Deadline(parsedFileTaskDetails[2],
-                        parsedFileTaskDetails[3]));
-                break;
-            case "E":
-                if (parsedFileTaskDetails.length != 5) {
-                    throw new SoraException("\tSora is unable to read file from line " + lineNumber);
-                }
-                taskList.getTaskList().add(new Event(parsedFileTaskDetails[2],
-                        parsedFileTaskDetails[3],
-                        parsedFileTaskDetails[4]));
-                break;
+        case "T":
+            if (parsedFileTaskDetails.length != 3) {
+                throw new SoraException("\tSora is unable to read file from line " + lineNumber);
+            }
+            taskList.getTaskList().add(new ToDo(parsedFileTaskDetails[2]));
+            break;
+        case "D":
+            if (parsedFileTaskDetails.length != 4) {
+                throw new SoraException("\tSora is unable to read file from line " + lineNumber);
+            }
+            taskList.getTaskList().add(new Deadline(parsedFileTaskDetails[2],
+                    parsedFileTaskDetails[3]));
+            break;
+        case "E":
+            if (parsedFileTaskDetails.length != 5) {
+                throw new SoraException("\tSora is unable to read file from line " + lineNumber);
+            }
+            taskList.getTaskList().add(new Event(parsedFileTaskDetails[2],
+                    parsedFileTaskDetails[3],
+                    parsedFileTaskDetails[4]));
+            break;
         }
         if (parsedFileTaskDetails[1].equalsIgnoreCase("X")) {
             taskList.getTaskList().get(taskList.getSize() - 1).markAsDone();
