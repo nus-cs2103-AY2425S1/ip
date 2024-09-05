@@ -197,4 +197,7 @@ public class BuddyBot {
     public static void main(String[] args) {
         new BuddyBot("./data/BuddyBot.txt").run();
     }
+    public String getResponse(String input) {
+        return "BuddyBot heard: " + input;
+    }
 }
