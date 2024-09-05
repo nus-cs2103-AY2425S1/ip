@@ -208,10 +208,13 @@ public class Parser {
      * @param command delete task command
      * @return task number of the task to be deleted
      */
-    public static int parseDeleteCommand(String command) {
+    public static int[] parseDeleteCommand(String command) {
         String[] tokens = command.split(" ");
-        String taskNumber = tokens[1];
-        return Integer.parseInt(taskNumber);
+        int[] taskNumbers = new int[tokens.length - 1];
+        for (int i = 1; i < tokens.length; i++) {
+            taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+        }
+        return taskNumbers;
     }
 
     /**

@@ -1,5 +1,6 @@
 package gopher.parser;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -79,8 +80,12 @@ public class ParserTest {
     }
 
     @Test
-    public void parseDeleteCommand_validCommand_parseSuccess() {
-        assertEquals(1,
-                Parser.parseDeleteCommand("delete 1"));
+    public void parseDeleteCommand_singleTaskNumber_parseSuccess() {
+        assertArrayEquals(new int[]{1}, Parser.parseDeleteCommand("delete 1"));
+    }
+
+    @Test
+    public void parseDeleteCommand_multipleTaskNumber_parseSuccess() {
+        assertArrayEquals(new int[]{1, 2, 3}, Parser.parseDeleteCommand("delete 1 2 3"));
     }
 }

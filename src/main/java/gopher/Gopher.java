@@ -49,10 +49,13 @@ public class Gopher {
                 taskList.markAsUndone(taskNumber);
                 return UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber));
             } else if (userInput.toLowerCase().startsWith("delete")) {
-                int taskNumber = Parser.parseDeleteCommand(userInput);
-                String message = UI.getDeleteTaskMessage(taskList.getTask(taskNumber));
-                taskList.delete(taskNumber);
-                return message;
+                int[] taskNumbers = Parser.parseDeleteCommand(userInput);
+                StringBuilder message = new StringBuilder();
+                for (int taskNumber: taskNumbers) {
+                    message.append(UI.getDeleteTaskMessage(taskList.getTask(taskNumber)));
+                }
+                taskList.delete(taskNumbers);
+                return message.toString();
             } else if (userInput.toLowerCase().startsWith("find")) {
                 String keyword = Parser.parseFindCommand(userInput);
                 TaskList matchedTasks = taskList.find(keyword);

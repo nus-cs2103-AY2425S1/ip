@@ -82,7 +82,7 @@ public class UI {
      * @param task     task to be deleted
      */
     public static String getDeleteTaskMessage(Task task) {
-        return "Noted. I've removed this task:\n" + task;
+        return String.format("Noted. I've removed this task:\n%s\n", task);
     }
 
     /**
