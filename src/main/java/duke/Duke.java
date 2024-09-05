@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File; 
@@ -88,17 +90,17 @@ public class Duke {
 
     public static class Parser {
 
-        Parser() {
+        public Parser() {
             userInput = "";
             this.ptr = 0;
         }
         
-        Parser(String userInput) {
+        public Parser(String userInput) {
             this.userInput = userInput;
             this.ptr = 0;
         }
 
-        void readInput(String newUserInput) {
+        public void readInput(String newUserInput) {
             this.userInput = newUserInput;
             this.ptr = 0;
         }
