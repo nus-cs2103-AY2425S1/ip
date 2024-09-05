@@ -1,8 +1,13 @@
 package colby;
 
+<<<<<<< HEAD
 /**
  * Includes the methods used to print messages for the user to see
  */
+=======
+import java.util.List;
+
+>>>>>>> branch-A-checkstyle
 public class Ui {
     /**
      * Prints welcome message of the chatbot introdui=cing it's name and asking what it can do
