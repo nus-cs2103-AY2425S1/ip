@@ -16,21 +16,31 @@ public class TaskList {
      *
      * @param t Task to be added.
      * @param name Name of the task to be added.
+     * @return String of user response
      */
-    public void addToTaskList(Task t, String name) {
+    public String addToTaskList(Task t, String name) {
+        String message = "";
+
         this.taskList.add(t);
-        UI.updateUserOnAddition(name, this.taskList.size());
+        message += Ui.updateUserOnAddition(name, this.taskList.size());
+
+        return message;
     }
 
     /**
      * Removes task from the TaskList.
      *
      * @param index Index of task to be removed.
+     * @return String of user response
      */
-    public void removeFromTaskList(int index) {
+    public String removeFromTaskList(int index) {
+        String message = "";
+
         Task t = this.taskList.get(index);
         this.taskList.remove(index);
-        UI.updateUserOnDeletion(t);
+        message += Ui.updateUserOnDeletion(t);
+
+        return message;
     }
 
     /**
@@ -38,24 +48,32 @@ public class TaskList {
      *
      * @param index Index of task to be updated.
      * @param status Boolean status to update.
+     * @return String of user response
      */
-    public void updateTaskListStatus(int index, boolean status) {
+    public String updateTaskListStatus(int index, boolean status) {
+        String message = "";
+
         Task t = this.taskList.get(index);
         if (status) {
             t.markAsDone();
-            UI.updateUserOnCompletion(t);
+            message += Ui.updateUserOnCompletion(t);
         } else {
             t.markAsNotDone();
-            UI.updateUserOnUncompletion(t);
+            message += Ui.updateUserOnUncompletion(t);
         }
+
+        return message;
     }
 
     /**
      * Finds and prints matching tasks for given keyword.
      *
      * @param input String pattern to be matched for search.
+     * @return String of user response
      */
-    public void findTasks(String input) {
+    public String findTasks(String input) {
+        String message = "";
+
         System.out.println("I found some matching tasks in your list:");
         int count = 1;
         for (Task t : this.taskList) {
@@ -64,6 +82,8 @@ public class TaskList {
                 count++;
             }
         }
+
+        return message;
     }
 
     public int getSize() {

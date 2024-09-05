@@ -56,7 +56,7 @@ public class Storage {
             try {
                 this.file.createNewFile();
             } catch (IOException ex) {
-                UI.updateUserOnError(ex);
+                System.out.println(Ui.updateUserOnError(ex));
             }
         }
 
@@ -88,7 +88,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            UI.updateUserOnError(e);
+            System.out.println(Ui.updateUserOnError(e));
         }
     }
 
@@ -114,7 +114,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            UI.updateUserOnError(e);
+            System.out.println(Ui.updateUserOnError(e));
         }
     }
 
@@ -129,7 +129,7 @@ public class Storage {
             fw.write(details + "\n"); // for readibility
             fw.close();
         } catch (IOException e) {
-            UI.updateUserOnError(e);
+            System.out.println(Ui.updateUserOnError(e));
         }
     }
 }
