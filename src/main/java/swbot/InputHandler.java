@@ -1,4 +1,4 @@
-package R2D2;
+package swbot;
 import java.util.ArrayList;
 
 /**
@@ -27,7 +27,7 @@ public class InputHandler {
      * @param input user input that is being passed to the chatbot
      * @throws BuzzException if any of the commands given by the user is not a valid one
      */
-    public void overallHandler(String input) throws BuzzException  {
+    public void overallHandler(String input) throws BuzzException {
         if (input.startsWith("mark")) {
             this.markHandle(input);
             this.storage.saveTasks(data);
@@ -177,6 +177,12 @@ public class InputHandler {
         System.out.println(hline);
     }
 
+    /**
+     * Handles the find command by the user and tries to find the corresponding keyword.
+     *
+     * @param input user input provided to the chatbot
+     * @throws BuzzException if description is empty
+     */
     public void findHandle(String input) throws BuzzException {
         if (input.length() <= 5) {
             throw new BuzzException("NOOO! Description is empty *crash*");

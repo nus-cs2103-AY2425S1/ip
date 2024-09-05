@@ -1,5 +1,11 @@
-package R2D2;
-import java.io.*;
+package swbot;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -63,13 +69,16 @@ public class Storage {
                 try {
                     switch (parts[0]) {
                         case "T":
-                            task = new Todo(parts[2]); // Create Todo task
+                            task = new Todo(parts[2]);
                             break;
                         case "D":
-                            task = new Deadline(parts[2], parts[3]); // Create Deadline task
+                            task = new Deadline(parts[2], parts[3]);
                             break;
                         case "E":
-                            task = new Event(parts[2], parts[3], parts[4]); // Create Event task
+                            task = new Event(parts[2], parts[3], parts[4]);
+                            break;
+                        default:
+                            task = task;
                             break;
                     }
                     if (task != null) {

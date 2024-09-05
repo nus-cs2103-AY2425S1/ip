@@ -1,4 +1,4 @@
-package R2D2;
+package swbot;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -24,7 +24,8 @@ public class Deadline extends Task {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             this.date = LocalDateTime.parse(date, dateTimeFormatter);
         } catch (DateTimeParseException e) {
-            throw new BuzzException("WRONG!!! The date and time format should be d/M/yyyy HHmm (e.g., 5/10/2024 0500).");
+            throw new BuzzException("WRONG!!! The date and time format should be d/M/yyyy HHmm "
+                    + "(e.g., 5/10/2024 0500).");
         }
     }
 
@@ -37,6 +38,12 @@ public class Deadline extends Task {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + this.date.format(dateTimeFormatter);
     }
+
+    /**
+     * Returns a string of the parsed date and time of the deadline event
+     *
+     * @return string of the formatted date and time
+     */
     public String formatBy() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
         return this.date.format(dateTimeFormatter);

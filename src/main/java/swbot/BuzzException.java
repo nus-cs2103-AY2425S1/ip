@@ -1,4 +1,4 @@
-package R2D2;
+package swbot;
 
 /**
  * Exception created to handle invalid inputs and to handle any errors in computation
@@ -8,4 +8,4 @@ public class BuzzException extends Exception {
     public BuzzException(String message) {
         super(message);
     }
- }
+}
