@@ -41,6 +41,16 @@ public class TaskList {
         //System.out.println(tasks);
     }
 
+    public String getTaskListDisplay() {
+        List<String> result = new ArrayList<>();
+
+        for (int i = 0; i < this.length; i++) {
+            result.add(String.valueOf(i + 1) + ". " + tasks.get(i).toString());
+        }
+
+        return String.join("\n", result);
+    }
+
     /**
      * Converts into savable string
      * @return string of tasklist

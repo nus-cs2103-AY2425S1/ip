@@ -34,6 +34,7 @@ public class AddEventCommand extends AddCommand {
             Task t = new Event(this.description, this.from, this.to);
             tasks.addTask(t);
             ui.talk("Added task: " + t + "\nThere are " + tasks.getLength() + " task(s) in the list.");
+            output = "Added task: " + t + "\nThere are " + tasks.getLength() + " task(s) in the list.";
         } catch (DateTimeParseException e) {
             throw new BarcusException("please format date as dd/MM/yyyy HH:mm");
         }
@@ -43,5 +44,10 @@ public class AddEventCommand extends AddCommand {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 }

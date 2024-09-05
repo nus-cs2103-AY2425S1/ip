@@ -12,10 +12,16 @@ public class ListCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.talk("Okie, here are your tasks!");
         tasks.showTaskList();
+        output = "Okie, here are your tasks!\n" + tasks.getTaskListDisplay();
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 }

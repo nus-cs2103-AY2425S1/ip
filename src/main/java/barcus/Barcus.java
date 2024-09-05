@@ -14,6 +14,7 @@ public class Barcus {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private String commandType;
 
     /**
      * Constructor for Barcus, creates a new instance of Barcus with path to saved task data
@@ -46,6 +47,30 @@ public class Barcus {
                 ui.showError(e.getMessage());
             }
         }
+    }
+
+    /**
+     * Executes command and gets output
+     * @param input full command from user
+     * @return barcus's string output
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            commandType = c.getClass().getSimpleName();
+            return c.getString();
+        } catch (BarcusException e) {
+            return "Uh oh, " + e.getMessage();
+        }
+    }
+
+    /**
+     * Returns last command type used
+     * @return string of command type name
+     */
+    public String getCommandType() {
+        return commandType;
     }
 
     /**

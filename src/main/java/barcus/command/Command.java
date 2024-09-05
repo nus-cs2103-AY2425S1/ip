@@ -9,6 +9,9 @@ import barcus.ui.Ui;
  * Abstract command class
  */
 public abstract class Command {
+    protected String output;
+
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BarcusException;
     public abstract boolean isExit();
+    public abstract String getString();
 }
