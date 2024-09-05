@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import main.Hyperion;
-import main.TaskList;
 import main.Ui;
 
 /**
@@ -29,6 +28,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image hyperionImage = new Image(this.getClass().getResourceAsStream("/images/Hyperion.png"));
 
+    /**
+     * Initializes the Mainwindow with a Hyperion Dialog that contains a welcome message
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

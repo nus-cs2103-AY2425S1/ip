@@ -56,6 +56,13 @@ public class Parser {
         return this.isOver;
     }
 
+    /**
+     * Returns a string of the command performed. Otherwise, it throws an exception.
+     *
+     * @return a String that corresponds to the success message of the command executed
+     * @throws CommandNotFoundException if the Command is not recognized
+     * @throws CommandFoundButInvalidException if the Command is recognized but syntax is invalid
+     */
     public String run() throws CommandNotFoundException, CommandFoundButInvalidException {
         Commands cmd = Commands.fromString(command);
         switch(cmd) {
