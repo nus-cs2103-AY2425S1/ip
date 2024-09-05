@@ -13,35 +13,48 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
+import javax.swing.*;
+
 /**
  * A class representing a Diaglog Box consisting of an avatar picture and a text message.
  */
 public class DialogBox extends HBox {
 
-    private Label text;
+    @FXML
+    private Label dialog;
+    @FXML
     private ImageView displayPicture;
-
 
     /**
      * Constructs a new DialogBox.
      *
-     * @param message The message to appear in the DialogBox.
-     * @param i The image that will appear in the DialogBox
+     * @param text The message to appear in the DialogBox.
+     * @param img The image that will appear in the DialogBox
      */
-    public DialogBox(String message, Image i) {
-        text = new Label(message);
-        displayPicture = new ImageView(i);
-        this.getChildren().addAll(text, displayPicture);
+    private DialogBox(String text, Image img) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        dialog.setText(text);
+        displayPicture.setImage(img);
+        this.setAlignment(Pos.TOP_RIGHT);
     }
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
+        this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

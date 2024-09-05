@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      minHeight="600.0" minWidth="600.0"
-      fx:controller="denim.UI.MainWindow"
-      stylesheets="@../css/MainWindow.css">
+<VBox minHeight="600.0"
+      minWidth="600.0"
+      stylesheets="@../css/MainWindow.css"
+      xmlns="http://javafx.com/javafx/22"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="denim.UI.MainWindow">
     <children>
-        <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
+        <ScrollPane fx:id="scrollPane"
+                    fitToHeight="true"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    prefHeight="200.0"
+                    prefWidth="400.0"
+                    VBox.vgrow="ALWAYS">
             <content>
-                <VBox />
+                <VBox fx:id="dialogContainer"
+                      spacing="10"
+                      VBox.vgrow="ALWAYS" />
             </content>
         </ScrollPane>
-        <HBox spacing="10" alignment="CENTER">
-            <TextField minHeight="100.0" minWidth="400.0" promptText="Your wish is my command UwU"/>
-            <Button text="Send"/>
+        <HBox alignment="CENTER" spacing="10">
+            <TextField fx:id="userInput"
+                       minHeight="100.0"
+                       minWidth="400.0"
+                       onAction="#handleUserInput"
+
+                       promptText="Your wish is my command UwU" />
+            <Button fx:id="sendButton" onAction="#handleUserInput" text="Send" />
         </HBox>
     </children>
 </VBox>
