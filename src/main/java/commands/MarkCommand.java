@@ -25,11 +25,15 @@ public class MarkCommand extends Command {
      * @param taskList The task list containing the task to be marked as done.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public String execute(TaskList taskList) {
         try {
+            StringBuilder resultString = new StringBuilder();
             taskList.changeTaskStatus("mark", indexToMark);
+            resultString.append("\"GOOD RIDDANCE! Finally, this task is done: \n")
+                    .append(taskList.get(indexToMark));
+            return resultString.toString();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No valid index was given!!");
+            return "No valid index was given!!";
         }
     }
 }

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
-import parser.Parser;
+import io.Parser;
 import storage.Storage;
 
 /**
@@ -107,10 +107,10 @@ public class TaskList {
      *
      * @param action The action to perform ("mark" or "unmark").
      * @param indexToChange The index of the task to change.
+     * @return True if task is done. False otherwise.
      * @throws IndexOutOfBoundsException If the provided index is out of range.
      */
-    public void changeTaskStatus(String action, int indexToChange) throws IndexOutOfBoundsException {
-        System.out.println("---------------");
+    public boolean changeTaskStatus(String action, int indexToChange) throws IndexOutOfBoundsException {
         Task task = inputHistory.get(indexToChange);
         if (action.equals("mark")) {
             task.changeStatus(true);
@@ -121,20 +121,10 @@ public class TaskList {
             System.out.println("Alright, this task is not done yet faster finish leh:\n"
                     + task);
         }
-        System.out.println("---------------");
+        return task.isDone;
     }
 
-    /**
-     * Displays the current list of tasks.
-     * Each task is printed along with its index and status.
-     */
-    public void displayList() {
-        System.out.println("---------------");
-        inputHistory.forEach(task -> System.out.println((this.inputHistory.indexOf(task) + 1)
-                + ". "
-                + task));
-        System.out.println("---------------\n");
-    }
+
 
     public ArrayList<Task> matchTaskDescription(String desc) {
         return inputHistory.stream()
@@ -152,5 +142,28 @@ public class TaskList {
 
     public int indexOf(Task task) {
         return inputHistory.indexOf(task);
+    }
+
+    public Task get(int index) {
+        return inputHistory.get(index);
+    }
+
+
+    /**
+     * Returns the current list of tasks.
+     * Each task is printed along with its index and status.
+     */
+    @Override
+    public String toString() {
+        StringBuilder resultString = new StringBuilder();
+
+        inputHistory.forEach(task ->
+                resultString.append((inputHistory.indexOf(task) + 1))
+                        .append(". ")
+                        .append(task)
+                        .append("\n")
+        );
+
+        return resultString.toString();
     }
 }

@@ -23,17 +23,24 @@ public class DeleteCommand extends Command {
      * @param taskList The task list from which the task will be removed.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public String execute(TaskList taskList) {
+        StringBuilder result = new StringBuilder();
+
         try {
             Task removedTask = taskList.removeTask(indexToDelete);
-            System.out.println("----------------\n"
-                    + "WOOHOO! The following task has been ELIMINATED:\n "
-                    + removedTask + "\n"
-                    + "HUH you still have " + taskList.getSize() + " tasks remaining??\n"
-                    + "----------------\n");
+
+            result.append("----------------\n")
+                    .append("WOOHOO! The following task has been ELIMINATED:\n ")
+                    .append(removedTask).append("\n")
+                    .append("HUH you still have ").append(taskList.getSize()).append(" tasks remaining??\n")
+                    .append("----------------\n");
+
             taskList.writeToStorage();
+
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No valid index was given!!");
+            result.append("No valid index was given!!");
         }
+
+        return result.toString();
     }
 }

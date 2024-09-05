@@ -29,20 +29,25 @@ public class AddTaskCommand extends Command {
      * @param taskList The task list to which the new task will be added.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public String execute(TaskList taskList) {
+        StringBuilder result = new StringBuilder();
         try {
             Task newTask = Task.createTask(userInput);
             taskList.addTask(newTask);
-            System.out.println("----------------\n"
-                    + "Alrighty! The following task has been added:\n "
-                    + newTask + "\n"
-                    + "Oh my goodness you have " + taskList.getSize() + " tasks remaining\n"
-                    + "----------------\n");
+
+            // Construct the message
+            result.append("Alrighty! The following task has been added:\n ")
+                    .append(newTask).append("\n")
+                    .append("Oh my goodness you have ").append(taskList.getSize()).append(" tasks remaining\n");
+
             taskList.writeToStorage();
+
         } catch (NoTaskDescriptionException e) {
-            System.out.println("Wah, no description then I record what?");
+            result.append("Wah, no description then I record what?");
         } catch (InvalidTaskException e) {
-            System.out.println("THIS IS NOT A VALID TASK LAH");
+            result.append("THIS IS NOT A VALID TASK LAH");
         }
+
+        return result.toString();
     }
 }

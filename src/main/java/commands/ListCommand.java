@@ -14,7 +14,7 @@ public class ListCommand extends Command {
      * @param taskList The task list whose tasks will be displayed.
      */
     @Override
-    public void execute(TaskList taskList) {
-        taskList.displayList();
+    public String execute(TaskList taskList) {
+        return taskList.toString();
     }
 }

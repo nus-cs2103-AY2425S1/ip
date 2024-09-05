@@ -26,11 +26,15 @@ public class UnmarkCommand extends Command {
      * @param taskList The task list containing the task to be unmarked as not done.
      */
     @Override
-    public void execute(TaskList taskList) {
+    public String execute(TaskList taskList) {
         try {
+            StringBuilder resultString = new StringBuilder();
             taskList.changeTaskStatus("unmark", indexToUnmark);
+            resultString.append("Alright, this task is not done yet faster finish leh:\n")
+                    .append(taskList.get(indexToUnmark));
+            return resultString.toString();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("No valid index was given!!");
+            return "No valid index was given!!";
         }
     }
 }
