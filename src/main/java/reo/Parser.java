@@ -19,6 +19,10 @@ public class Parser {
     private TaskList tasks;
     private Storage storage;
     public Parser(String input, TaskList tasks, Storage storage) {
+        assert input != null : "Input string should not be null";
+        assert tasks != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
+
         this.input = input;
         this.tasks = tasks;
         this.words = input.split("\\s+");
@@ -43,6 +47,7 @@ public class Parser {
                 return tasks.toString();
             case TODO:
                 try {
+                    assert words.length > 1 : "TODO command should have a task name following it";
                     String[] parts1 = input.split(" ", 2);
                     Todo toPush = new Todo(parts1[1], false);
                     tasks.addTodo(toPush);
@@ -54,6 +59,7 @@ public class Parser {
                 }
             case MARK:
                 try {
+                    assert words.length > 1 : "MARK command should have a task number following it";
                     tasks.markTask(Integer.valueOf(words[1]) - 1);
                     storage.editLine(Integer.parseInt(words[1]), "mark");
                     Task toMark = tasks.get(Integer.parseInt(words[1]) - 1);
@@ -63,6 +69,7 @@ public class Parser {
                 }
             case UNMARK:
                 try {
+                    assert words.length > 1 : "UNMARK command should have a task number following it";
                     tasks.unmarkTask(Integer.valueOf(words[1]) - 1);
                     storage.editLine(Integer.valueOf(words[1]), "unmark");
                     Task toUnmark = tasks.get(Integer.valueOf(words[1]) - 1);
@@ -71,8 +78,10 @@ public class Parser {
                     return "Please enter a valid task number.\n";
                 }
             case DEADLINE:
+                assert input.contains("/by") : "DEADLINE command must include /by with a deadline date";
                 try {
                     String[] parts = input.split("/by", 2);
+                    assert parts.length > 1 : "Input should contain both the task and the deadline";
                     String[] firstPart = parts[0].split(" ", 2);
 
                     String name = firstPart[1];
@@ -88,6 +97,7 @@ public class Parser {
                 }
             case EVENT:
                 try {
+                    assert input.contains("/from") && input.contains("/to") : "EVENT command must include /from and /to dates";
                     String[] parts = input.split("/from", 2);
                     String[] firstPart = parts[0].split(" ", 2);
                     String[] secondPart = parts[1].split("/to", 2);
@@ -106,6 +116,7 @@ public class Parser {
                 }
             case DELETE:
                 try {
+                    assert words.length > 1 : "DELETE command should have a task number following it";
                     int index = Integer.valueOf(words[1]) - 1;
                     // reo.Task toRemove = tasks.get(index);
                     tasks.deleteTask(index);
@@ -118,6 +129,7 @@ public class Parser {
                 }
             case FIND:
                 try {
+                    assert words.length > 1 : "FIND command should have a keyword following it";
                     String keyword = words[1];
                     TaskList filtered = new TaskList(tasks.filter(keyword));
                     return "Here are the matching tasks in your list:\n" + filtered.toString() + "\n";
