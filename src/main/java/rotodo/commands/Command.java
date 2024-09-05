@@ -1,7 +1,7 @@
 package rotodo.commands;
 
 import rotodo.processes.Storage;
-import rotodo.processes.Ui;
+import rotodo.processes.Gui;
 import rotodo.tasklist.TaskList;
 
 /**
@@ -20,7 +20,7 @@ public abstract class Command {
      * @param ui
      * @param st storage
      */
-    public abstract void execute(TaskList tl, Ui ui, Storage st);
+    public abstract void execute(TaskList tl, Gui ui, Storage st);
 
     public boolean isExit() {
         return false;
