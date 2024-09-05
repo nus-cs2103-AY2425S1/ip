@@ -1,1 +1,1 @@
-T | 1 | borrow book
+D | 0 | return book2019-01-23

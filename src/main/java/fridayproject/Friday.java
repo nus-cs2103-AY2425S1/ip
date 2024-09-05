@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents the main class of the program.
@@ -136,12 +139,19 @@ public class Friday {
                     }
                     String remainingInput = inputString.substring(inputString.indexOf(" ") + 1);
                     String[] deadlineParts = remainingInput.split(" /by ");
-                    Tasks deadline = new Deadline(deadlineParts[0] , deadlineParts[1]);
-                    tasks.add(deadline);
-                    saveTasksToFile(tasks);
-                    System.out.println("Got it. I've added this task:\n  " + deadline.getTypeIcon() 
-                    + deadline.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");
-                    System.out.println(line);
+
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        LocalDate date = LocalDate.parse(deadlineParts[1], formatter);
+                        Tasks deadline = new Deadline(deadlineParts[0] , deadlineParts[1]);
+                        tasks.add(deadline);
+                        saveTasksToFile(tasks);
+                        System.out.println("Got it. I've added this task:\n  " + deadline.getTypeIcon() 
+                        + deadline.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");
+                        System.out.println(line);
+                    } catch (Exception e) {
+                        throw new FridayException("Invalid date format! Please enter in yyyy-MM-dd.");
+                    }
                 } else if (inputString.startsWith("event")) {
                     if (inputString.length() < 7) {
                         throw new FridayException("I'm sorry, but I don't know what that means :(((\n Please enter a valid task description.");

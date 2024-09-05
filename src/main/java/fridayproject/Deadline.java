@@ -1,16 +1,24 @@
 package fridayproject;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+/*
+ * Represents a deadline task.
+ */
 public class Deadline extends Tasks {
-    protected String date;
+    protected LocalDate date;
 
     public Deadline(String description, String date) {
         super(description);
-        this.date = date;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.date = LocalDate.parse(date, formatter);
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + date + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+        return "[D]" + super.toString() + " (by: " + date.format(formatter) + ")";
     }
 
     @Override
@@ -20,6 +28,6 @@ public class Deadline extends Tasks {
 
     @Override 
     public String toFileString() {
-        return "D | " + (this.isDone ? "1" : "0") + " | " + this.description;
+        return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + this.date;
     }
 }
