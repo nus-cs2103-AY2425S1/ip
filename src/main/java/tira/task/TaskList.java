@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.PrintWriter;
-import java.io.IOException;
 
 
 public class TaskList {
@@ -67,7 +66,6 @@ public class TaskList {
         } else
             throw new TiraException("No such command exists");
     }
-
 
 
     public void addToDo(String command, String[] splitCommand) throws TiraException {
