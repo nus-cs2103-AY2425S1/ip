@@ -48,10 +48,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a DialogBox for the user with the specified text and image.
+     *
+     * @param text The text to show in the DialogBox.
+     * @param img The profile picture of the user.
+     * @return A new DialogBox instance containing the user's text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a DialogBox for Neuro with the specified text and image.
+     *
+     * @param text The text to show in the DialogBox.
+     * @param img The profile picture of Neuro.
+     * @return A new DialogBox instance containing Neuro's response and image.
+     */
     public static DialogBox getNeuroDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

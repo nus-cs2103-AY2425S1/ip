@@ -37,9 +37,9 @@ public class Ui {
     /**
      * Shows the Goodbye message for Neuro.
      */
-    public void showGoodbye() {
-        System.out.println("    Goodbyeee!");
-        System.out.println("""
+    public String showGoodbye() {
+        // System.out.println("    Goodbyeee!");
+        return """
 
 
                                                                    @@=+==%@
@@ -84,7 +84,7 @@ public class Ui {
                 @%*****%-=================-#-%+*%%+#%=-=#%#+=====+%*%@@%**%=======+##******
                 %******##==================+%@++=%@@@#%%%*=========%*****%======+=@********
 
-                """);
+                """;
     }
 
     /**

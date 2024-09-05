@@ -25,6 +25,7 @@ public class Neuro {
         try {
             tasks = storage.load();
         } catch (FileNotFoundException e) {
+            // Should not reach this line since if no save file is found, one will be created automatically
             ui.showError("Save file missing!");
         }
     }
@@ -50,6 +51,12 @@ public class Neuro {
         }
     }
 
+    /**
+     * Generates and returns Neuro's response to the user's input.
+     *
+     * @param input The input command by the user.
+     * @return A String containing Neuro's response.
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);

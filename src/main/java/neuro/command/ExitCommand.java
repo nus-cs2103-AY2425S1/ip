@@ -10,9 +10,9 @@ import neuro.task.TaskList;
 public class ExitCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showGoodbye();
         storage.updateTaskFile(tasks);
-        return "Goodbye!";
+        // return ui.showGoodbye();
+        return "Goodbyee~~";
     }
 
     @Override
