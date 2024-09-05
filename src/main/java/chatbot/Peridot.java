@@ -23,7 +23,17 @@ public class Peridot {
         storage.write(taskList.getTaskList());
     }
 
+    public String getResponse(String input) {
+        try {
+            String response = Parser.answer(input, taskList);
+            storage.write(taskList.getTaskList());
+            return response;
+        } catch (Exception e) {
+            return("?");
+        }
+    }
+
     public static void main(String[] args) {
-        new Peridot("./src/data/chatData.txt").start();
+        System.out.println("Hello!");
     }
 }

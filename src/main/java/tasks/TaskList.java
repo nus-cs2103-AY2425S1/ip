@@ -21,22 +21,27 @@ public class TaskList {
      * @param task Task to be added.
      * @param saved True if the task to added should be pre-marked as done, otherwise False.
      */
-    public void add(Task task, boolean saved) {
+    public String add(Task task, boolean saved) {
         this.list.add(task);
+        String reply = "I've added the task: \n" + task
+                + "\n Now you have " + this.list.size() + " tasks in the list";
         if (!saved) {
-            System.out.println("I've added the task: ");
-            System.out.println(task);
-            System.out.println("Now you have " + this.list.size() + " tasks in the list");
+            return reply;
+        } else {
+            return "Tasks Loaded";
         }
     }
 
     /**
      * Lists out all the tasks in the task list.
      */
-    public void listOut() {
-        for (int i = 1; i <= this.list.size(); i++) {
-            System.out.println(i + "." + this.list.get(i - 1));
+    public String listOut() {
+        StringBuilder reply = new StringBuilder();
+        for (int i = 1; i < this.list.size(); i++) {
+            reply.append(i).append(".").append(this.list.get(i - 1)).append("\n");
         }
+        reply.append(this.list.size()).append(".").append(this.list.get(this.list.size() - 1));
+        return reply.toString();
     }
 
     /**
@@ -44,10 +49,10 @@ public class TaskList {
      *
      * @param index Index of task to be marked as done.
      */
-    public void markTask(int index) {
+    public String markTask(int index) {
         this.list.get(index).mark();
-        System.out.println("You have marked the following task as done!");
-        System.out.println(this.list.get(index));
+        String reply = "You have marked the following task as done!\n" + this.list.get(index);
+        return reply;
     }
 
     /**
@@ -55,10 +60,10 @@ public class TaskList {
      *
      * @param index Index of task to be marked as done.
      */
-    public void unmarkTask(int index) {
+    public String unmarkTask(int index) {
         this.list.get(index).unmark();
-        System.out.println("You have unmarked the following task!");
-        System.out.println(this.list.get(index));
+        String reply = "You have unmarked the following task!\n" + this.list.get(index);
+        return reply;
     }
 
     /**
@@ -66,11 +71,11 @@ public class TaskList {
      *
      * @param index Index of task to be deleted.
      */
-    public void delete(int index) {
+    public String delete(int index) {
         Task deleted = this.list.get(index);
         this.list.remove(index);
-        System.out.println("Let's go deleting!");
-        System.out.println("Deleted task " + deleted);
+        String reply = "Let's go deleting!\nDeleted task " + deleted;
+        return reply;
     }
 
     /**
