@@ -9,6 +9,7 @@ import sage.Task.Task;
 import sage.Task.ToDoTask;
 import sage.Ui;
 
+
 public class AddCommand extends Command {
     private final String commandType;
     private final String description;
@@ -34,7 +35,7 @@ public class AddCommand extends Command {
      * @throws SageException If the command type is invalid or required details are missing.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SageException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SageException {
         Task task;
         switch (commandType) {
         case "todo" -> {
@@ -92,6 +93,6 @@ public class AddCommand extends Command {
         }
 
         tasks.addTask(task);
-        ui.showAddedTask(task, tasks.getSize());
+        return ui.showAddedTask(task, tasks.getSize());
     }
 }

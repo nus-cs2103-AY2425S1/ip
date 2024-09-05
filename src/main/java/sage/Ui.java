@@ -16,35 +16,31 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void showResponse(String text) {
-        String horizontalLine = "_________________________________________________";
-        String indentedText = text.indent(4);
-        System.out.println(horizontalLine + "\n" + indentedText + horizontalLine);
+//    public void showResponse(String text) {
+//        String horizontalLine = "_________________________________________________";
+//        String indentedText = text.indent(4);
+//        System.out.println(horizontalLine + "\n" + indentedText + horizontalLine);
+//    }
+
+    public String showWelcome() {
+        return String.format("Hello! I'm %s\nWhat can i do for you?", NAME);
     }
 
-    public void showWelcome() {
-        showResponse(String.format("Hello! I'm %s\nWhat can i do for you?", NAME));
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    public void showGoodbye() {
-        showResponse("Bye. Hope to see you again soon!");
+    public String showAddedTask(Task addedTask, int size) {
+        return String.format(
+                "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", addedTask, size);
     }
 
-    public void showEmptyList() {
-        showResponse("There are no task!");
+    public String showDeletedTask(Task deletedTask, int size)  {
+        return String.format(
+                "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.", deletedTask, size);
     }
 
-    public void showAddedTask(Task addedTask, int size) {
-        showResponse(String.format(
-                "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", addedTask, size));
-    }
-
-    public void showDeletedTask(Task deletedTask, int size) {
-        showResponse(String.format(
-                "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.", deletedTask, size));
-    }
-
-    public void showError(String errorMessage) {
-        showResponse("ERROR: " + errorMessage);
+    public String showError(String errorMessage) {
+        return String.format("ERROR: " + errorMessage);
     }
 }

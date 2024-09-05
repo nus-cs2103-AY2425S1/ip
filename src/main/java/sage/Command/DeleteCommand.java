@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
      * @throws SageException If the index is not a valid number or is out of bounds.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SageException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws SageException {
         int index;
         try {
             index = Integer.parseInt(indexString.trim()) - 1;
@@ -36,6 +36,6 @@ public class DeleteCommand extends Command {
             throw new SageException("Invalid delete command. Index must be a number.");
         }
         Task deletedTask = tasks.deleteTask(index);
-        ui.showDeletedTask(deletedTask, tasks.getSize());
+        return ui.showDeletedTask(deletedTask, tasks.getSize());
     }
 }

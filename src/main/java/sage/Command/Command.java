@@ -20,7 +20,7 @@ public abstract class Command {
      * @param storage The Storage object for saving changes to the file.
      * @throws SageException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws SageException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws SageException;
 
     public boolean isExit() {
         return isExit;
