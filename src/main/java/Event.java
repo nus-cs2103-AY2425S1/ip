@@ -1,19 +1,28 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public Event(String desc, String startTime, String endTime) {
         super(desc);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = LocalDateTime.parse(startTime, formatter);
+        this.endTime = LocalDateTime.parse(endTime, formatter);
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s(from: %s to: %s)", super.toString(), startTime, endTime);
+        return String.format("[E]%s(from: %s to: %s)", super.toString()
+                , startTime.format(formatter), endTime.format(formatter));
+                
     }
 
     public String toSaveFormat() {
-        return String.format("E_%s_%s_%s_%s", isDone ? "1" : "0", getDesc(), startTime, endTime);
+        return String.format("E_%s_%s_%s_%s", isDone ? "1" : "0", getDesc()
+                , startTime.format(formatter), endTime.format(formatter));
     }
 }
