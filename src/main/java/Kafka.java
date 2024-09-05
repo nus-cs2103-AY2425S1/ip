@@ -91,6 +91,7 @@ public class Kafka {
         Kafka kafka = new Kafka();
         boolean isExitChat = false;
         String filePath = "C:/Users/Nicholas/Downloads/Kafka.txt";
+        Ui ui = new Ui();
         try {
             kafka.getNewFile(filePath);
             KafkaTextReader.printFileContents(filePath, kafka.tasks);
@@ -98,9 +99,7 @@ public class Kafka {
             System.out.println("  " + e.getMessage());
         }
 
-        System.out.println("  Hello from\n" + logo);
-        kafka.greet();
-        System.out.println("  What do you need me for?");
+        ui.greet();
         while (!isExitChat) {
             String[] userInput = scanner.nextLine().trim().split(" ", 2);
             try {
@@ -159,9 +158,9 @@ public class Kafka {
                     throw new KafkaException("Hmm... I'm not sure what you're getting at. Care to enlighten me?");
                 }
             } catch (KafkaException | IOException e) {
-                System.out.println("  " + e.getMessage());
+                ui.showError(e);
             } catch (DateTimeParseException e) {
-                System.out.println("  Ah, it seems you have made a mistake with the date. Please align your date with this format: yyyy-mm-dd hhmm (2024-01-01 2300)");
+                ui.incorrectDateDetails();
             }
         }
         kafka.goodbye();
