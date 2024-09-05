@@ -1,8 +1,8 @@
 package vuewee.command;
 
+import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.task.TaskList;
-import vuewee.TaskListUI;
 
 /**
  * Represents a command to find a task by description.

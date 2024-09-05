@@ -1,8 +1,8 @@
 package vuewee.command;
 
+import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.task.TaskList;
-import vuewee.TaskListUI;
 
 /**
  * The Command class is an abstract class that represents a Vuewee command.

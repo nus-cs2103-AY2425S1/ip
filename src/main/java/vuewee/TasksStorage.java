@@ -1,9 +1,9 @@
 package vuewee;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.Files;
 
 import vuewee.task.TaskList;
 
@@ -13,7 +13,7 @@ import vuewee.task.TaskList;
  */
 class TasksStorage {
     private static final Path DATA_DIRECTORY = Paths.get("data");
-    private final Path TASKS_FILE_PATH = Paths.get(DATA_DIRECTORY.toString(), "tasks.txt");
+    private static final Path TASKS_FILE_PATH = Paths.get(DATA_DIRECTORY.toString(), "tasks.txt");
     private static TasksStorage instance;
 
     private TasksStorage() {

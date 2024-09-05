@@ -1,8 +1,8 @@
 package vuewee.command;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
@@ -21,8 +21,8 @@ public class FindCommandTest {
 
         FindCommand command = new FindCommand();
 
-        assertThrows(IllegalCommandException.class,
-                () -> command.execute(taskListUI, taskList, new CommandParser("find xxx")));
+        assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "find xxx")));
 
         // Can only test successful execution
         command.execute(taskListUI, taskList, new CommandParser("find task2"));

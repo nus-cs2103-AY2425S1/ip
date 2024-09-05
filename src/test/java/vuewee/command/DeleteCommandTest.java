@@ -1,8 +1,9 @@
 package vuewee.command;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
@@ -21,11 +22,11 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand();
 
         // Test edge case deletion (1-index)
-        assertThrows(IndexOutOfBoundsException.class,
-                () -> command.execute(taskListUI, taskList, new CommandParser("delete 0")));
+        assertThrows(IndexOutOfBoundsException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "delete 0")));
         assertEquals(3, taskList.size());
-        assertThrows(IndexOutOfBoundsException.class,
-                () -> command.execute(taskListUI, taskList, new CommandParser("delete 4")));
+        assertThrows(IndexOutOfBoundsException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
+                "delete 4")));
         assertEquals(3, taskList.size());
 
         command.execute(taskListUI, taskList, new CommandParser("delete 3"));

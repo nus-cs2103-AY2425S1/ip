@@ -93,17 +93,17 @@ public class TaskList {
      * Marks a task as done or not done.
      *
      * @param taskNumber the index of the task to be marked (0-based)
-     * @param done       true if the task state changed
+     * @param isDone     true if the task state changed
      * @return true if the task was successfully marked, false otherwise
      * @throws IndexOutOfBoundsException if the index is out of range
      */
-    public boolean markTask(int taskNumber, boolean done) throws IndexOutOfBoundsException {
+    public boolean markTask(int taskNumber, boolean isDone) throws IndexOutOfBoundsException {
         if (taskNumber >= this.tasks.size() || taskNumber < 0) {
             throw new IndexOutOfBoundsException();
         }
 
         Task task = this.tasks.get(taskNumber);
-        if (done) {
+        if (isDone) {
             boolean success = task.markAsDone();
             return success;
         } else {
@@ -116,7 +116,7 @@ public class TaskList {
      * Finds tasks that contain the specified search keyword in their description.
      *
      * @param keyword the keyword to search for (case-insensitive)
-     * @return ArrayList<Task> containing tasks that match the keyword
+     * @return ArrayList containing tasks that match the keyword
      */
     public TaskList findTasks(String keyword) {
         TaskList matchingTasks = new TaskList();

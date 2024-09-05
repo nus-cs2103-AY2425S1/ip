@@ -1,9 +1,9 @@
 package vuewee.command;
 
+import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.task.TaskList;
 import vuewee.task.TodoTask;
-import vuewee.TaskListUI;
 
 /**
  * Represents a command to add a todo task.

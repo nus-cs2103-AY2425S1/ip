@@ -1,16 +1,15 @@
 package vuewee.command;
 
+import vuewee.TaskListUI;
 import vuewee.parser.CommandParser;
 import vuewee.task.TaskList;
-import vuewee.TaskListUI;
 
 /**
  * Represents a command to unmark a task in the task list.
  */
 class UnmarkCommand extends Command {
     /**
-     * Executes the unmark command. Throws an exception if the task index is
-     * invalid.
+     * Executes the unmark command.
      *
      * @param ui       The user interface for displaying the task list.
      * @param taskList The task list containing the tasks.

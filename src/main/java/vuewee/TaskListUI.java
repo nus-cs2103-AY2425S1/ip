@@ -9,25 +9,46 @@ import vuewee.parser.IllegalCommandException;
 import vuewee.task.Task;
 import vuewee.task.TaskList;
 
+/**
+ * The TaskListUI class represents the user interface for Vuewee. It contains
+ * methods to add, delete, display, and mark tasks as done or not done.
+ */
 public class TaskListUI {
     private Scanner scanner = new Scanner(System.in);
     private TaskList taskList = new TaskList();
     private TasksStorage storage = TasksStorage.getInstance();
 
+    /**
+     * Creates a new TaskListUI object with the specified task list. Used for
+     * reading and writing tasks to a file and for testing purposes.
+     *
+     * @param taskList Existing task list to be used
+     */
     public TaskListUI(TaskList taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Creates a new TaskListUI object with the specified scanner.
+     *
+     * @param scanner Input scanner for reading user input
+     */
     public TaskListUI(Scanner scanner) {
         this.scanner = scanner;
     }
 
-    // Simple helper method to determine if the task count is 1 or more
+    /**
+     * Simple helper method to determine if the task count is 1 or more
+     */
     private String taskWord() {
         return this.taskList.size() == 1 ? "task" : "tasks";
     }
 
-    // Add a task to the list
+    /**
+     * Adds a task to the list.
+     *
+     * @param task Task to be added
+     */
     public void addTask(Task task) {
         taskList.add(task);
 
@@ -36,7 +57,12 @@ public class TaskListUI {
         System.out.println("Now you have " + this.taskList.size() + " " + this.taskWord() + " in the list.");
     }
 
-    // Delete a task from the list at the specified index
+    /**
+     * Delete a task from the list
+     *
+     * @param taskNumber The index of the task to be deleted (1-based)
+     * @throws IndexOutOfBoundsException
+     */
     public void deleteTask(int taskNumber) throws IndexOutOfBoundsException {
         taskNumber--; // Adjust task number to match array index
 
@@ -53,12 +79,22 @@ public class TaskListUI {
         this.taskList.remove(taskNumber);
     }
 
-    // Display all tasks in the list
+    /**
+     * Display all tasks in the list
+     *
+     * @throws IllegalCommandException
+     */
     public void displayTasks() throws IllegalCommandException {
         displayTasks(this.taskList);
     }
 
-    // Display all tasks in the list that match the keyword
+    /**
+     * Display all tasks in the list that match the keyword Search is done by
+     * another method that returns a new TaskList with matching tasks.
+     *
+     * @param tasks TaskList to search for matching tasks
+     * @throws IllegalCommandException
+     */
     public void displayTasks(TaskList tasks) throws IllegalCommandException {
         if (tasks.size() == 0) {
             throw new IllegalCommandException("No tasks found.");
@@ -70,7 +106,13 @@ public class TaskListUI {
         }
     }
 
-    // Mark a task as done or not done
+    /**
+     * Mark a task as done or not done
+     *
+     * @param taskNumber The index of the task to be marked (1-based)
+     * @param isDone     The new status of the task
+     * @throws IllegalCommandException
+     */
     public void markTask(int taskNumber, boolean isDone) throws IllegalCommandException {
         taskNumber--; // Adjust task number to match array index
 
@@ -91,6 +133,9 @@ public class TaskListUI {
         }
     }
 
+    /**
+     * Starts the Vuewee program and reads user input until the user types "bye".
+     */
     public void run() {
         this.taskList = storage.readTasks();
         if (this.taskList.size() > 0) {
@@ -120,7 +165,6 @@ public class TaskListUI {
                 storage.storeTasks(this.taskList);
             }
         } catch (EndProgramException e) {
-        } finally {
             System.out.println("Bye. Hope to see you again soon!");
             System.out.println("____________________________________________________________");
             scanner.close();

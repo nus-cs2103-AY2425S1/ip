@@ -77,7 +77,7 @@ public class CommandOption<T> {
      * Parses the input string for the option value and saves the parsed value.
      *
      * @param input        the input string to parse
-     * @param endDelimiter the delimiter marking the end of the option value
+     * @param endDelimeter the delimiter marking the end of the option value
      * @return the index of the start of the match
      * @throws IllegalArgumentException if the option is not found in the input
      *                                  string

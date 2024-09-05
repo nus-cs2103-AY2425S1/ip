@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
  * Represents a task with a deadline.
  */
 public class DeadlineTask extends Task {
-    private TaskLocalDate by;
-
     private static final int EXPECTED_DELIMETED_PARAM_COUNT = 3;
+
+    private TaskLocalDate byDate;
 
     DeadlineTask() {
         super();
@@ -23,7 +23,7 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, TaskLocalDate by) {
         super(description, TaskType.DEADLINE);
-        this.by = by;
+        this.byDate = by;
     }
 
     /**
@@ -35,7 +35,7 @@ public class DeadlineTask extends Task {
     String serialize() {
         return this.type.toChar() + Task.DELIMETER_SPACE + (this.isDone ? "1" : "0") + Task.DELIMETER_SPACE
                 + this.description.replace(Task.DELIMETER, "\\" + Task.DELIMETER) + Task.DELIMETER_SPACE
-                + this.by.serialize();
+                + this.byDate.serialize();
     }
 
     /**
@@ -59,11 +59,11 @@ public class DeadlineTask extends Task {
 
         this.description = description;
         this.isDone = isDone;
-        this.by = TaskLocalDate.deserialize(parts[2]);
+        this.byDate = TaskLocalDate.deserialize(parts[2]);
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + this.by.toString() + ")";
+        return super.toString() + " (by: " + this.byDate.toString() + ")";
     }
 }

@@ -1,13 +1,11 @@
 package vuewee.command;
 
+import vuewee.TaskListUI;
 import vuewee.parser.CommandOption;
 import vuewee.parser.CommandParser;
-
 import vuewee.task.DeadlineTask;
 import vuewee.task.TaskList;
 import vuewee.task.TaskLocalDate;
-
-import vuewee.TaskListUI;
 
 /**
  * Represents a command to add a deadline task to the task list which has a by
@@ -16,7 +14,7 @@ import vuewee.TaskListUI;
 class DeadlineCommand extends Command {
     /**
      * Executes the deadline command by parsing the input, creating a new deadline
-     * task, and adding it to the task list
+     * task, and adding it to the task list.
      *
      * @param ui       The user interface for displaying messages.
      * @param taskList The task list to add the task to.
