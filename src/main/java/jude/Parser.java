@@ -55,13 +55,13 @@ public class Parser {
                 return new ListCommand();
             case "mark":
                 index = Integer.parseInt(split[1]);
-                return new MarkCommand(index);
+                return new MarkCommand(index - 1);
             case "unmark":
                 index = Integer.parseInt(split[1]);
-                return new UnmarkCommand(index);
+                return new UnmarkCommand(index - 1);
             case "delete":
                 index = Integer.parseInt(split[1]);
-                return new DeleteCommand(index);
+                return new DeleteCommand(index - 1);
             case "find":
                 return new FindCommand(split[1]);
             case "to-do":
