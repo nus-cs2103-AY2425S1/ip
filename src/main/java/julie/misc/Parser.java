@@ -7,7 +7,7 @@ public class Parser {
     public enum CommandToken {
         MARK, UNMARK, LIST, DELETE,
         DEADLINE, TODO, EVENT,
-        BYE;
+        BYE, FIND;
 
         public static CommandToken fromString(String s) throws InvalidCommandException {
             try {
@@ -17,6 +17,13 @@ public class Parser {
             }
         }
     }
+
+    /**
+     * Public method used to parse the user inputs for valid commands.
+     * @param input The string representation of the user input
+     * @return The command object that represents the command run by the user
+     * @throws JulieException when an invalid input is given
+     */
     public static Command parse(String input) throws JulieException {
         CommandToken cmd = CommandToken.fromString(input);
         return switch (cmd) {
@@ -28,10 +35,11 @@ public class Parser {
             case TODO -> new TodoCommand(input);
             case DEADLINE -> new DeadlineCommand(input);
             case EVENT -> new EventCommand(input);
+            case FIND -> new FindCommand(input);
         };
     }
     /**
-     * Public method that extracts the first word from a string and returns it in uppercase
+     * Public method that extracts the first word from a string and returns it in uppercase.
      * @param s the string to be extracted from
      * @return the first word in the line
      */
