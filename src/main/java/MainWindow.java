@@ -78,11 +78,12 @@ public class MainWindow extends AnchorPane {
      * Shows the welcome message to the user
      */
     public void showWelcomeMessage() {
-        String logo = " ____        _           \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "  _____ _           _   ______            _     _      \n"
+                + " /  __ \\ |         | |  | ___ \\          | |   (_)     \n"
+                + " | /  \\/ |__   __ _| |_| |_/ /_ _ ___ ___| |__  _ _ __ \n"
+                + " | |   | '_ \\ / _` | __|  __/ _` / __/ __| '_ \\| | '__|\n"
+                + " | \\__/\\ | | | (_| | |_| | | (_| \\__ \\__ \\ | | | | |   \n"
+                + "  \\____/_| |_|\\__,_|\\__\\_|  \\__,_|___/___/_| |_|_|_|   \n";
         addDialog(DialogBox.getBotDialog("Hello from\n" + logo
                                           + "\nHello! I'm ChattyBuddy\nWhat can I do for you?", botImage));
     }
