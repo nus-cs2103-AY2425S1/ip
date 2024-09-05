@@ -3,7 +3,6 @@ package Kira;
 import Exceptions.EmptyException;
 import Exceptions.InvalidTaskException;
 import Exceptions.UnreadableException;
-import Kira.Kira;
 import Tasks.*;
 
 import java.util.Objects;
@@ -95,6 +94,14 @@ public class Parser {
             String restOfWords = strings[1];
             int index = Integer.parseInt(restOfWords) - 1;
             list.deleteTask(index);
+
+        } else if (Objects.equals(firstWord, "find")) {
+            if (strings.length < 2) {
+                throw new EmptyException("find");
+            }
+            String keyWord = strings[1];
+            List filteredList = list.filterByKeyword(keyWord);
+            System.out.println(filteredList.displayList());
 
         } else {
             throw new UnreadableException();

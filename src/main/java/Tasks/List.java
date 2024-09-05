@@ -90,4 +90,20 @@ public class List {
             throw new InvalidTaskException(index);
         }
     }
+
+    /**
+     * Returns a list of tasks containing a specific keyword
+     *
+     * @param keyword Keyword specified by user
+     * @return List of tasks containing the keyword
+     */
+    public List filterByKeyword(String keyword) {
+        List filteredList = new List();
+        for (Task task : tasks) {
+            if (task.containsKeyword(keyword)) {
+                filteredList.addTaskToList(task);
+            }
+        }
+        return filteredList;
+    }
 }

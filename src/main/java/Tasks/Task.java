@@ -128,4 +128,14 @@ public abstract class Task {
             return new Event(input, start, end);
         }
     }
+
+    /**
+     * Returns true if this task name contains the keyword, false if otherwise
+     *
+     * @param keyword A string that the user is searching for
+     * @return boolean of whether the task name contains the keyword or not
+     */
+    public boolean containsKeyword(String keyword) {
+        return this.input.contains(keyword);
+    }
 }
