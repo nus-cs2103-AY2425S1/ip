@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 import java.util.ArrayList;
 

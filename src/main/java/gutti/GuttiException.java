@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 /**
  * The {@code GuttiException} class represents a custom exception used in the {@code Gutti} chatbot.
@@ -7,7 +7,7 @@ package Gutti;
  * such as incorrect command formats or invalid task operations.
  * </p>
  */
-public class GuttiException extends Exception{
+public class GuttiException extends Exception {
 
     /**
      * Constructs a new {@code GuttiException} with the specified detail message.

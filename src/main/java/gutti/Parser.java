@@ -1,7 +1,8 @@
-package Gutti;
+package gutti;
 
 /**
- * The {@code Parser} class is responsible for interpreting user commands and returning the corresponding command object.
+ * The {@code Parser} class is responsible for interpreting user
+ * commands and returning the corresponding command object.
  */
 public class Parser {
 

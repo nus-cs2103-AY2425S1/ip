@@ -1,6 +1,10 @@
-package Gutti;
-import org.junit.jupiter.api.Test;
+package gutti;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+
 
 public class TaskListTest {
 

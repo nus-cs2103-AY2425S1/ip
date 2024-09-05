@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 import java.util.ArrayList;
 
@@ -9,16 +9,16 @@ import java.util.ArrayList;
  * and output tasks that match the search criteria.
  * </p>
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     /** The word to match in the task descriptions. */
-    public String wordToMatch;
+    private String wordToMatch;
 
     /**
      * Constructs a {@code FindCommand} with the specified word to match.
      *
      * @param wordToMatch The word to search for in task descriptions.
      */
-    public FindCommand (String wordToMatch) {
+    public FindCommand(String wordToMatch) {
         this.wordToMatch = wordToMatch;
     }
 

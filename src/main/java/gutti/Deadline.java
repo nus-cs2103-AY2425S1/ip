@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +32,7 @@ public class Deadline extends Task {
      * @param by The deadline by which the task should be completed.
      */
     public Deadline(String description, String by, boolean isDone) {
-        super(description,isDone);
+        super(description, isDone);
         this.by = parseDateTime(by);
     }
 
@@ -51,7 +51,8 @@ public class Deadline extends Task {
                 // Continue trying other formats
             }
         }
-        System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm,d/MM/yyyy HHmm, dd/MM/yyyy HHmm format or MMM dd yyyy h:mma.");
+        System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm,d/MM/yyyy HHmm"
+                + ", dd/MM/yyyy HHmm format or MMM dd yyyy h:mma.");
         return null; // Return null if no format matched
     }
 
@@ -67,6 +68,8 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
-        return "[D][" + (isDone ? "X" : " ") + "] " + description + " (by: " + (by != null ? by.format(formatter) : "Invalid date") + ")";
+        return "[D][" + (isDone ? "X" : " ") + "] " + description
+                + " (by: " + (by != null ? by.format(formatter) : "Invalid date") + ")";
+
     }
 }

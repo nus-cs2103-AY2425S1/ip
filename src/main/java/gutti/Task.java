@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 /**
  * Represents a task with a description and a completion status.
@@ -20,7 +20,7 @@ public class Task {
      *
      * @param description The description of the task.
      */
-    public Task(String description,boolean isDone) {
+    public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }

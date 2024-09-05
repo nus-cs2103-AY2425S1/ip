@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 /**
  * The main class for the Gutti application.
@@ -7,7 +7,7 @@ package Gutti;
 public class Gutti {
 
     private static final String FILE_PATH = "./data/gutti.txt";
-    public TaskList tasks;
+    private TaskList tasks;
     private Storage storage;
     private Ui ui;
 

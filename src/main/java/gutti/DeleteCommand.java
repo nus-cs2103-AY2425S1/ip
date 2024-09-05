@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -32,8 +32,8 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
         try {
             Task removedTask = tasks.getTasks().remove(index);
-            storage.saveTasksToFile(tasks.getTasks());  // Pass tasks to save
-            ui.showTaskList(tasks);  // Show updated task list
+            storage.saveTasksToFile(tasks.getTasks()); // Pass tasks to save
+            ui.showTaskList(tasks); // Show updated task list
             System.out.println("____________________________________________________________");
             System.out.println("Meow. I've removed this task:");
             System.out.println(removedTask);
