@@ -73,16 +73,16 @@ public class Storage {
      *
      * @param taskList the {@code TaskList} containing the tasks to be saved.
      */
-    public void saveFile(TaskList taskList) {
+    public String saveFile(TaskList taskList) {
         FileWriter writer;
         try {
             writer = new FileWriter(this.file);
             writer.write(taskList.getSaveFormat());
             writer.close();
         } catch (IOException e) {
-            Printer.prettyPrint(new String[]{"OOPS! There was a problem saving the file."});
+            return Printer.format(new String[]{"OOPS! There was a problem saving the file."});
         }
 
-        Printer.prettyPrint(new String[]{"Your tasks have been successfully saved."});
+        return Printer.format(new String[]{"Your tasks have been successfully saved."});
     }
 }

@@ -30,12 +30,12 @@ public class DeleteCommand extends Command {
      * @param storage the {@code Storage} for saving or loading tasks (not used in this method).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.idx <= 0 || this.idx > tasks.getSize()) {
             throw new TaskIndexException(String.format("%d", this.idx));
         }
         Task deleted = tasks.delete(idx);
-        Printer.prettyPrint(new String[] {"Noted. I've removed this task:",
+        return Printer.format(new String[] {"Noted. I've removed this task:",
             deleted.toString(),
             String.format("Now you have %d tasks in the list.", tasks.getSize())});
     }

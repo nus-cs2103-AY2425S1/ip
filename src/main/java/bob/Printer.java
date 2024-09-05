@@ -1,5 +1,7 @@
 package bob;
 
+import java.lang.StringBuilder;
+
 /**
  * The {@code Printer} class provides printing methods for printing formatted text to the console.
  */
@@ -15,12 +17,28 @@ public class Printer {
      * @param texts an array of strings to be printed, each on a new line.
      */
     public static void prettyPrint(String[] texts) {
+        System.out.println(Printer.format(texts));
+    }
+
+    /*public static String format(String[] texts) {
         String separator = Printer.lineIndent + Printer.line;
-        System.out.println(separator);
+        StringBuilder result = new StringBuilder(separator);
+        result.append('\n');
         for (String text: texts) {
-            System.out.print(Printer.indentation);
-            System.out.println(text);
+            result.append(Printer.indentation);
+            result.append(text);
+            result.append('\n');
         }
-        System.out.println(separator);
+        result.append(separator);
+        return result.toString();
+    }*/
+
+    public static String format(String[] texts) {
+        StringBuilder result = new StringBuilder();
+        for (String text: texts) {
+            result.append(text);
+            result.append('\n');
+        }
+        return result.toString();
     }
 }

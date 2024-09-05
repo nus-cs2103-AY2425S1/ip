@@ -30,7 +30,7 @@ class ExitCommand extends Command {
      * @param storage the {@code Storage} where the tasks will be saved.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        storage.saveFile(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return storage.saveFile(tasks);
     }
 }

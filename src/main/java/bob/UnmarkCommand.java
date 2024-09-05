@@ -31,9 +31,9 @@ public class UnmarkCommand extends Command {
      * @throws TaskIndexException if the index is out of bounds.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.unmark(idx);
-        Printer.prettyPrint(new String[] {
+        return Printer.format(new String[] {
             "OK, I've marked this task as not done yet:",
             tasks.describeTask(idx) });
     }

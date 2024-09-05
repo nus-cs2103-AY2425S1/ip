@@ -31,9 +31,9 @@ public class MarkCommand extends Command {
      * @throws TaskIndexException if the index is out of bounds.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.mark(idx);
-        Printer.prettyPrint(new String[] {
+        return Printer.format(new String[] {
             "Nice! I've marked this task as done:",
             tasks.describeTask(idx) });
     }
