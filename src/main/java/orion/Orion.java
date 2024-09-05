@@ -1,7 +1,9 @@
 package orion;
 
-import java.util.List;
-
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import orion.commands.Command;
 import orion.orionExceptions.FileInitializationException;
 import orion.orionExceptions.OrionException;
@@ -11,198 +13,126 @@ import orion.task.DeadlineDetails;
 import orion.task.EventDetails;
 import orion.task.Task;
 import orion.taskList.TaskList;
-import orion.ui.UI;
+import orion.ui.MainWindow;
 
-/**
- * The Orion class is the main entry point for the task management application.
- * It initializes the necessary components and handles the main program loop
- * that processes user input commands.
- */
-public class Orion {
-    private static TaskList manager;
-    private static UI ui = new UI();
+import java.io.IOException;
 
-    static {
+public class Orion extends Application {
+    private static TaskList taskList;
+    private static Parser parser;
+
+    @Override
+    public void start(Stage stage) {
         try {
-            Storage storage = new Storage();
-            manager = new TaskList(storage);
-        } catch (FileInitializationException e) {
-            ui.showError("Failed to initialize TaskList: " + e.getMessage());
-            System.exit(1);
+            FXMLLoader fxmlLoader = new FXMLLoader(Orion.class.getResource("/view/MainWindow.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setScene(scene);
+
+            MainWindow mainWindow = fxmlLoader.getController();
+            mainWindow.setOrion(this);
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static Parser parser = new Parser();
-
-    /**
-     * The main method that starts the application and handles the main loop
-     * for processing user commands.
-     *
-     * @param args Command-line arguments passed to the program (not used).
-     */
     public static void main(String[] args) {
-        ui.showWelcome();
+        try {
+            Storage storage = new Storage();
+            taskList = new TaskList(storage);
+            parser = new Parser();
+        } catch (FileInitializationException e) {
+            System.out.println("Failed to initialize TaskList: " + e.getMessage());
+            System.exit(1);
+        }
+        launch(args);
+    }
 
-        while (true) {
-            String input = ui.readUserInput();
+    public String getResponse(String input) {
+        try {
             String[] parts = input.split(" ", 2);
             Command command = Command.fromString(parts[0]);
 
             switch (command) {
-                case BYE:
-                    ui.showGoodbye();
-                    return;
                 case LIST:
-                    handleList(parts);
-                    break;
+                    return handleList(parts);
                 case MARK:
-                    handleMark(parts);
-                    break;
+                    return handleMark(parts);
                 case UNMARK:
-                    handleUnmark(parts);
-                    break;
+                    return handleUnmark(parts);
                 case TODO:
-                    handleTodo(parts);
-                    break;
+                    return handleTodo(parts);
                 case EVENT:
-                    handleEvent(parts);
-                    break;
+                    return handleEvent(parts);
                 case DEADLINE:
-                    handleDeadline(parts);
-                    break;
+                    return handleDeadline(parts);
                 case DELETE:
-                    handleDelete(parts);
-                    break;
+                    return handleDelete(parts);
                 case FIND:
-                    handleFind(parts);
-                    break;
+                    return handleFind(parts);
+                case BYE:
+                    return "Goodbye!";
                 case UNKNOWN:
                 default:
-                    ui.showError("Unknown command: " + parts[0]);
+                    return "Unknown command: " + parts[0];
             }
-        }
-    }
-
-    /**
-     * Handles the 'list' command by validating the input and displaying the current
-     * list of tasks.
-     *
-     * @param parts The split user input containing the command and its arguments.
-     */
-    private static void handleList(String[] parts) {
-        try {
-            parser.validateListCommand(parts);
-            List<Task> taskList = manager.loadTasksFromFile();
-            ui.showTaskList(taskList);
         } catch (OrionException e) {
-            ui.showError(e.getMessage());
+            return "Error: " + e.getMessage();
         }
     }
 
-    /**
-     * Handles the 'event' command by validating the input, creating an event task,
-     * and adding it to the task list.
-     *
-     * @param parts The split user input containing the command and its arguments.
-     */
-    private static void handleEvent(String[] parts) {
-        try {
-            EventDetails details = parser.validateEventCommand(parts);
-            Task temp = manager.addEvent(details);
-            ui.showTaskAdded(temp, manager.getSize());
-        } catch (OrionException e) {
-            ui.showError(e.getMessage());
+    private String handleList(String[] parts) throws OrionException {
+        parser.validateListCommand(parts);
+        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < taskList.getSize(); i++) {
+            response.append(i + 1).append(". ").append(taskList.loadTasksFromFile().get(i)).append("\n");
         }
+        return response.toString();
     }
 
-    /**
-     * Handles the 'deadline' command by validating the input, creating a deadline
-     * task, and adding it to the task list.
-     *
-     * @param parts The split user input containing the command and its arguments.
-     */
-    private static void handleDeadline(String[] parts) {
-        try {
-            DeadlineDetails deadlineDetails = parser.validateDeadlineCommand(parts);
-            Task newDeadline = manager.addDeadline(deadlineDetails);
-            ui.showTaskAdded(newDeadline, manager.getSize());
-        } catch (OrionException e) {
-            ui.showError(e.getMessage());
-        }
+    private String handleMark(String[] parts) throws OrionException {
+        int index = parser.validateMarkAndUnMarkCommand(parts, taskList);
+        Task task = taskList.markAsDone(index);
+        return "Marked task as done: " + task;
     }
 
-    /**
-     * Handles the 'todo' command by validating the input, creating a todo task, and
-     * adding it to the task list.
-     *
-     * @param parts The split user input containing the command and its arguments.
-     */
-    private static void handleTodo(String[] parts) {
-        try {
-            String description = parser.validateTodoCommand(parts);
-            Task temp = manager.addTodo(description);
-            ui.showTaskAdded(temp, manager.getSize());
-        } catch (OrionException e) {
-            ui.showError(e.getMessage());
-        }
+    private String handleUnmark(String[] parts) throws OrionException {
+        int index = parser.validateMarkAndUnMarkCommand(parts, taskList);
+        Task task = taskList.unmarkAsDone(index);
+        return "Unmarked task: " + task;
     }
 
-    /**
-     * Handles the 'mark' command by validating the input and marking the specified
-     * task as done.
-     *
-     * @param parts The split user input containing the command and its arguments.
-     */
-    private static void handleMark(String[] parts) {
-        try {
-            int index = parser.validateMarkAndUnMarkCommand(parts, manager);
-            Task temp = manager.markAsDone(index);
-            ui.showTaskMarked(temp);
-        } catch (OrionException e) {
-            ui.showError(e.getMessage());
-        }
+    private String handleTodo(String[] parts) throws OrionException {
+        String description = parser.validateTodoCommand(parts);
+        Task task = taskList.addTodo(description);
+        return "Added: " + task;
     }
 
-    /**
-     * Handles the 'unmark' command by validating the input and marking the
-     * specified task as not done.
-     *
-     * @param parts The split user input containing the command and its arguments.
-     */
-    private static void handleUnmark(String[] parts) {
-        try {
-            int index = parser.validateMarkAndUnMarkCommand(parts, manager);
-            Task temp = manager.unmarkAsDone(index);
-            ui.showTaskUnmarked(temp);
-        } catch (OrionException e) {
-            ui.showError(e.getMessage());
-        }
+    private String handleEvent(String[] parts) throws OrionException {
+        EventDetails details = parser.validateEventCommand(parts);
+        Task task = taskList.addEvent(details);
+        return "Added: " + task;
     }
 
-    /**
-     * Handles the 'delete' command by validating the input and deleting the
-     * specified task from the task list.
-     *
-     * @param parts The split user input containing the command and its arguments.
-     */
-    private static void handleDelete(String[] parts) {
-        try {
-            int index = parser.validateDeleteCommand(parts, manager);
-            Task deletedTask = manager.deleteTask(index);
-            ui.showTaskDeleted(deletedTask, manager.getSize());
-        } catch (OrionException e) {
-            ui.showError(e.getMessage());
-        }
+    private String handleDeadline(String[] parts) throws OrionException {
+        DeadlineDetails details = parser.validateDeadlineCommand(parts);
+        Task task = taskList.addDeadline(details);
+        return "Added: " + task;
     }
 
-    private static void handleFind(String[] parts) {
-        try {
-            String keyword = parser.validateFindCommand(parts);
-            List<Task> matchingTasks = manager.findTasks(keyword);
-            ui.showTaskList(matchingTasks, true);
-        } catch (OrionException e) {
-            ui.showError(e.getMessage());
-        }
+    private String handleDelete(String[] parts) throws OrionException {
+        int index = parser.validateDeleteCommand(parts, taskList);
+        Task task = taskList.deleteTask(index);
+        return "Deleted: " + task;
     }
 
+    private String handleFind(String[] parts) throws OrionException {
+        String keyword = parser.validateFindCommand(parts);
+        StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (Task task : taskList.findTasks(keyword)) {
+            response.append(task).append("\n");
+        }
+        return response.toString();
+    }
 }
