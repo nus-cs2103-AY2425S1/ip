@@ -3,14 +3,18 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description, String type) {
+    public Task(String description, String type, boolean isDone) {
         this.description = description;
         this.type = type;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public String getType() {
+        return this.type;
     }
 
     public void markDone() {
@@ -20,6 +24,8 @@ public abstract class Task {
     public void unmarkDone() {
         this.isDone = false;
     }
+
+    public abstract String toFileString();
 
     @Override
     public String toString() {

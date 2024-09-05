@@ -1,11 +1,16 @@
 public class Event extends Task{
     protected String from, to;
 
-    public Event(String description, String fromTo) {
-        super(description, "event");
-        String[] temp = fromTo.split("/to ");
-        this.from = temp[0];
-        this.to = temp[1];
+    public Event(String description, String from, String to, boolean isDone) {
+        super(description, "event", isDone);
+
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toFileString() {
+        return "E|" + isDone + "|" + description + "|" + from + "/to " + to + "\n";
     }
 
     @Override

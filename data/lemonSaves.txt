@@ -1,0 +1,5 @@
+T|true| 1
+T|false| heal me
+D|false| get home |2pm
+D|false| homework |3pm /to 5pm
+E|false| die |now /to now
