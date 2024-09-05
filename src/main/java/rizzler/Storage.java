@@ -15,7 +15,8 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
- * Handles reading and writing TaskLog to file
+ * Handles reading and writing between TaskLogs and files.
+ * Default directory is <code>taskStorage/taskLog.tsv</code>, relative to where <code>Rizzler</code> is run.
  */
 public class Storage {
     private static final Path STORAGE_PATH = Paths.get( "taskStorage", "taskLog.tsv");
@@ -32,6 +33,10 @@ public class Storage {
         this.file = file;
     }
 
+    /**
+     * Reads the tab-separated values file and parses it into a <code>TaskLog</code>.
+     * @return <code>TaskLog</code> with all valid tasks read from the file
+     */
     public TaskLog getTasks() {
         Scanner scanner;
         TaskLog taskLog = new TaskLog();
@@ -53,6 +58,10 @@ public class Storage {
         return taskLog;
     }
 
+    /**
+     * Writes a <code>TaskLog</code> to a tab-separated values file for storage.
+     * @param taskLog Input <code>TaskLog</code> to be written to the file.
+     */
     public void storeTasks(TaskLog taskLog) {
         try {
             FileWriter fw = new FileWriter(STORAGE_PATH.toString());

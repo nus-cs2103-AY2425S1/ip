@@ -9,8 +9,17 @@ import rizzler.task.TaskLog;
 import rizzler.ui.RizzlerSpeech;
 import rizzler.ui.parser.Parser;
 
+/**
+ * Represents the entire chatbot.
+ * Rizzler helps you to manage your tasks, and is definitely not interested in you.
+ */
 public class Rizzler {
 
+    /**
+     * Executes continuously once run, as long as the user does not say "bye".
+     * Wrapper for all the logic within the chatbot at the highest level.
+     * @param args Irrelevant to the functioning of this chatbot.
+     */
     public static void main(String[] args) {
         Parser parser = new Parser();
         RizzlerSpeech rizzlerSpeech = new RizzlerSpeech();

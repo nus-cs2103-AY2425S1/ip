@@ -4,12 +4,24 @@ import rizzler.Storage;
 import rizzler.task.Task;
 import rizzler.task.TaskLog;
 
+/**
+ * Represents the user's request to list all tasks in the taskLog.
+ */
 public class ListCommand extends Command {
 
+    /**
+     * Constructor for ListCommand.
+     */
     public ListCommand() {
         super();
     }
 
+    /**
+     * Runs through every task in the taskLog and prints it out for the user.
+     * @param storage <code>Storage</code> object instantiated in main <code>Rizzler</code> class.
+     * @param taskLog <code>TaskLog</code> object instantiated in main <code>Rizzler</code> class.
+     * @return Numbered lines representing each task.
+     */
     @Override
     public String[] execute(Storage storage, TaskLog taskLog) {
         Task[] tasks = taskLog.getLog();
