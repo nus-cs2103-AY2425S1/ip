@@ -10,16 +10,15 @@ import Gary.Storage;
 public class ShowListCommand extends Command {
 
     /**
-     * Executes the ShowListCommand. Displays the current list of tasks to the user
-     * through the UI.
+     * Executes the show list command, which displays all tasks in the {@code TaskList}.
      *
-     * @param taskLists The task list that contains all the tasks.
-     * @param ui        The UI object to interact with the user and display the task list.
-     * @param storage   The storage object (unused in this command).
+     * @param taskList The {@code TaskList} object containing tasks to be displayed.
+     * @param ui The {@code Ui} object for user interaction, used to display the tasks.
+     * @param storage The {@code Storage} object for saving and loading tasks (not used in this command).
      */
     @Override
-    public void execute(TaskList taskLists, Ui ui, Storage storage) {
-        ui.showTaskLists(taskLists);
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        ui.showTaskLists(taskList);
     }
 
     /**
@@ -32,5 +31,3 @@ public class ShowListCommand extends Command {
         return false;
     }
 }
-
-

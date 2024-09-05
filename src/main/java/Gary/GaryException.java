@@ -9,9 +9,10 @@ public class GaryException extends Exception {
     /**
      * Constructs a new {@code GaryException} with the specified detail message.
      *
-     * @param s The detail message for the exception.
+     * @param message The detail message for the exception.
      */
-    public GaryException(String s) {
-        super(s);
+    public GaryException(String message) {
+        super(message);
     }
 }
+

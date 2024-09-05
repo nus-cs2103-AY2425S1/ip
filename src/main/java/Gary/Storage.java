@@ -33,9 +33,11 @@ public class Storage {
     public Scanner loadTaskList() throws FileNotFoundException {
         File file = new File(this.filePath);
         File directory = new File("src/textFile");
+
         if (!directory.exists()) {
             directory.mkdir();  // Create the directory if it does not exist
         }
+
         if (!file.exists()) {
             try {
                 file.createNewFile();  // Create the file if it does not exist
@@ -43,6 +45,7 @@ public class Storage {
                 // Exception is ignored since we're only checking for file creation
             }
         }
+
         return new Scanner(file);
     }
 
@@ -50,20 +53,19 @@ public class Storage {
      * Saves the given {@code TaskList} to the file specified by {@code filePath}.
      * Each task in the list is written to the file on a new line.
      *
-     * @param taskLists The {@code TaskList} object containing tasks to be saved.
+     * @param taskList The {@code TaskList} object containing tasks to be saved.
      * @throws IOException If an I/O error occurs during writing.
      */
-    public void saveTask(TaskList taskLists) throws IOException {
+    public void saveTask(TaskList taskList) throws IOException {
         File file = new File(filePath);
         FileWriter fileWriter = new FileWriter(file);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-        // Write each task to the file
-        for (int i = 0; i < taskLists.size(); i++) {
-            Task task = taskLists.getTask(i);
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.getTask(i);
             bufferedWriter.write(task.parseToFile());
             bufferedWriter.newLine();
         }
         bufferedWriter.close();
     }
 }
+

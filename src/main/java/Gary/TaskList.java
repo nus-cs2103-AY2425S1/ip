@@ -12,13 +12,13 @@ import Gary.task.Event;
  * to add, remove, and retrieve tasks. It also supports initializing tasks from a file.
  */
 public class TaskList {
-    private ArrayList<Task> taskLists;  // List to store tasks
+    private ArrayList<Task> tasks;  // List to store tasks
 
     /**
      * Constructs an empty {@code TaskList}.
      */
     public TaskList() {
-        this.taskLists = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -28,27 +28,37 @@ public class TaskList {
      * @param sc The {@code Scanner} object containing task data.
      */
     public TaskList(Scanner sc) {
-        this.taskLists = new ArrayList<>();
+        this.tasks = new ArrayList<>();
         while (sc.hasNextLine()) {
             String nextLine = sc.nextLine();
             String[] split = nextLine.split(" \\| ");
             String taskType = split[0].trim();
             boolean isDone = split[1].equals("1");
-
-            Task task;
-            if (taskType.equals("T")) {
-                task = new ToDo(split[2]);
-            } else if (taskType.equals("D")) {
-                task = new Deadline(split[2], split[3]);
-            } else if (taskType.equals("E")) {
-                task = new Event(split[2], split[3], split[4]);
-            } else {
-                continue; // Skip if the task type is unrecognized
-            }
-
-            taskLists.add(task);
-            if (isDone) {
-                task.editStatus();
+            switch (taskType) {
+            case "T":
+                Task todo = new ToDo(split[2].trim());
+                tasks.add(todo);
+                if (isDone) {
+                    todo.editStatus();
+                }
+                break;
+            case "D":
+                Task deadline = new Deadline(split[2].trim(), split[3].trim());
+                tasks.add(deadline);
+                if (isDone) {
+                    deadline.editStatus();
+                }
+                break;
+            case "E":
+                Task event = new Event(split[2].trim(), split[3].trim(), split[4].trim());
+                tasks.add(event);
+                if (isDone) {
+                    event.editStatus();
+                }
+                break;
+            default:
+                // Handle invalid task type if necessary
+                break;
             }
         }
         sc.close();
@@ -60,7 +70,7 @@ public class TaskList {
      * @param task The {@code Task} object to add.
      */
     public void addTask(Task task) {
-        this.taskLists.add(task);
+        this.tasks.add(task);
     }
 
     /**
@@ -71,7 +81,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of range.
      */
     public Task removeTask(int index) {
-        return this.taskLists.remove(index);
+        return this.tasks.remove(index);
     }
 
     /**
@@ -82,7 +92,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of range.
      */
     public Task getTask(int index) {
-        return this.taskLists.get(index);
+        return this.tasks.get(index);
     }
 
     /**
@@ -91,7 +101,7 @@ public class TaskList {
      * @return The size of the {@code TaskList}.
      */
     public int size() {
-        return this.taskLists.size();
+        return this.tasks.size();
     }
 
     /**
@@ -101,7 +111,7 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        return this.taskLists.toString();
+        return this.tasks.toString();
     }
 }
 

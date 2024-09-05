@@ -8,9 +8,9 @@ import Gary.command.Command;
  * It handles the initialization of the necessary components and manages the main program loop.
  */
 public class Gary {
-    protected Storage storage;
-    protected TaskList taskLists;
-    protected Ui ui;
+    protected Storage storage;    // Storage object for saving and loading tasks
+    protected TaskList taskList;  // TaskList object for managing tasks
+    protected Ui ui;              // Ui object for interacting with the user
 
     /**
      * Constructs a {@code Gary} object with the specified file path for storing tasks.
@@ -22,9 +22,9 @@ public class Gary {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
-            this.taskLists = new TaskList(this.storage.loadTaskList());
+            this.taskList = new TaskList(this.storage.loadTaskList());
         } catch (FileNotFoundException e) {
-            this.taskLists = new TaskList();
+            this.taskList = new TaskList();
         }
     }
 
@@ -38,11 +38,11 @@ public class Gary {
         while (!isBye) {
             try {
                 String commandInput = this.ui.read();
-                Command c = Parser.parse(commandInput);
-                c.execute(this.taskLists, this.ui, this.storage);
-                isBye = c.isBye();
-            } catch (GaryException ge) {
-                this.ui.showError(ge.getMessage());
+                Command command = Parser.parse(commandInput);
+                command.execute(this.taskList, this.ui, this.storage);
+                isBye = command.isBye();
+            } catch (GaryException garyException) {
+                this.ui.showError(garyException.getMessage());
             }
         }
     }

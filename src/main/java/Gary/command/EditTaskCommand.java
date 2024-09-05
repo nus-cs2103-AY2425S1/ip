@@ -11,43 +11,45 @@ import Gary.task.Task;
  * The task can either be marked as done or unmarked as not done.
  */
 public class EditTaskCommand extends Command {
-    protected boolean isDone;
-    protected int index;
+
+    private boolean isDone;  // Flag indicating whether to mark or unmark the task as done
+
+    private int index;  // The index of the task to be edited
 
     /**
-     * Constructs an EditTaskCommand to mark or unmark a task at a given index.
+     * Constructs an {@code EditTaskCommand} object with the specified status and task index.
      *
-     * @param isDone True if the task is to be marked as done, false if to be unmarked.
-     * @param index  The index of the task to be edited in the task list.
+     * @param isDone The flag indicating whether to mark or unmark the task as done.
+     * @param index The index of the task to edit.
      */
-    public EditTaskCommand(Boolean isDone, int index) {
+    public EditTaskCommand(boolean isDone, int index) {
         this.isDone = isDone;
         this.index = index;
     }
 
     /**
-     * Executes the edit command. Marks the task as done or unmarks it as not done,
-     * depending on the command. Saves the updated task list to storage.
+     * Executes the edit task command, which marks or unmarks a task as done in the {@code TaskList},
+     * updates the user through {@code Ui}, and saves the updated task list to storage.
      *
-     * @param taskLists The task list where the task's status will be edited.
-     * @param ui        The UI object to interact with the user and display messages.
-     * @param storage   The storage object to save the updated task list.
+     * @param taskList The {@code TaskList} object containing tasks to be manipulated.
+     * @param ui The {@code Ui} object for user interaction, used to display messages.
+     * @param storage The {@code Storage} object for saving and loading tasks.
      */
     @Override
-    public void execute(TaskList taskLists, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            Task task = taskLists.getTask(index);
+            Task task = taskList.getTask(index);
             if (isDone) {
-                task.editStatus();
                 ui.markTask(task);
+                task.editStatus();
             } else {
                 ui.unmarkTask(task);
             }
-            storage.saveTask(taskLists);
+            storage.saveTask(taskList);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Task list index is out of bounds!");
         } catch (IOException e) {
-            System.out.println("An error occurred while saving the task list.");
+            System.out.println("An error occurred while saving the task list: " + e.getMessage());
         }
     }
 

@@ -39,9 +39,9 @@ public abstract class Task {
     public abstract String parseToFile();
 
     /**
-     * Returns a string representation of the task, showing its description and whether it is done.
+     * Returns a string representation of the {@code Task}.
      *
-     * @return A string in the format "[X] description" if done, or "[ ] description" if not done.
+     * @return A string representation of the {@code Task}.
      */
     @Override
     public String toString() {
@@ -67,3 +67,4 @@ public abstract class Task {
         return false;
     }
 }
+

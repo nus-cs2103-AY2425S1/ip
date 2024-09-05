@@ -16,11 +16,10 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns a string representation of the ToDo task, including its type indicator "[T]"
-     * and its completion status.
+     * Returns a string representation of the {@code ToDo} task.
+     * The format includes the type of task and its status.
      *
-     * @return A string representing the ToDo task in the format "[T][X] description" if done,
-     * or "[T][ ] description" if not done.
+     * @return A string representation of the {@code ToDo} task.
      */
     @Override
     public String toString() {
@@ -28,10 +27,9 @@ public class ToDo extends Task {
     }
 
     /**
-     * Converts the ToDo task to a string that can be written to a file.
+     * Converts the {@code ToDo} task into a string format suitable for saving to a file.
      *
-     * @return A formatted string in the format "T | {isDone} | {description}" where
-     * {isDone} is "1" if the task is done and "0" if it is not.
+     * @return A string representation of the {@code ToDo} task for file storage.
      */
     @Override
     public String parseToFile() {

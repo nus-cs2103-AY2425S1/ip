@@ -22,21 +22,21 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the delete command. Removes the task at the specified index from the task list,
-     * displays a confirmation message, and saves the updated task list to storage.
+     * Executes the delete command, which removes a task from the {@code TaskList},
+     * updates the user through {@code Ui}, and saves the updated task list to storage.
      *
-     * @param taskLists The task list from which a task will be removed.
-     * @param ui The UI object for interacting with the user.
-     * @param storage The storage object to save the updated task list.
+     * @param taskList The {@code TaskList} object containing tasks to be manipulated.
+     * @param ui The {@code Ui} object for user interaction, used to display messages.
+     * @param storage The {@code Storage} object for saving and loading tasks.
      */
     @Override
-    public void execute(TaskList taskLists, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            Task deletedTask = taskLists.removeTask(deletedIndex);
-            ui.deleteTask(deletedTask, taskLists.size());
-            storage.saveTask(taskLists);
+            Task deletedTask = taskList.removeTask(deletedIndex);
+            ui.deleteTask(deletedTask, taskList.size());
+            storage.saveTask(taskList);
         } catch (IOException e) {
-            System.out.println("An error occurred while saving the task list.");
+            System.out.println("An error occurred while saving the task list: " + e.getMessage());
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Task list index is out of bounds!");
         }

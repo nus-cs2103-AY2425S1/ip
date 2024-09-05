@@ -7,18 +7,17 @@ import java.time.format.DateTimeFormatter;
  * Represents a Deadline task, which has a description and a date by which the task is due.
  */
 public class Deadline extends Task {
-    protected String dueDate;
-    private LocalDate deadline;
+    private LocalDate deadline;  // The due date of the deadline task
 
-    // Formatters for outputting and parsing dates.
-    static DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
-     * Constructs a Deadline object with a description and a due date.
+     * Constructs a {@code Deadline} object with the specified description and due date.
      *
-     * @param description The description of the task.
-     * @param dueDate The due date of the task in the format "yyyy-MM-dd".
+     * @param description The description of the deadline task.
+     * @param dueDate The due date of the task in "yyyy-MM-dd" format.
      */
     public Deadline(String description, String dueDate) {
         super(description);
@@ -32,49 +31,51 @@ public class Deadline extends Task {
      * @return A LocalDate object representing the parsed date.
      */
     private LocalDate parseDate(String dateTime) {
-        return LocalDate.parse(dateTime, inputFormatter);
+        return LocalDate.parse(dateTime, INPUT_FORMATTER);
     }
 
     /**
      * Returns a string representation of the Deadline task, including its type "[D]", completion status,
      * description, and due date.
      *
-     * @return A string in the format "[D][X] description (by: MMM dd yyyy)" if done, or "[D][ ] description (by: MMM dd yyyy)" if not done.
+     * @return A string in the format "[D][X] description (by: MMM dd yyyy)" if done, or
+     * "[D][ ] description (by: MMM dd yyyy)" if not done.
      */
     @Override
     public String toString() {
         return "[D][" + (this.isDone ? "X" : " ") + "] " + this.description +
-                " (by: " + this.deadline.format(outputFormatter) + ")";
+                " (by: " + this.deadline.format(OUTPUT_FORMATTER) + ")";
     }
 
     /**
      * Converts the Deadline task into a string that can be written to a file.
      *
-     * @return A string in the format "D | {isDone} | {description} | {dueDate}", where {isDone} is "1" if done and "0" if not.
+     * @return A string in the format "D | {isDone} | {description} | {dueDate}", where
+     * {isDone} is "1" if done and "0" if not.
      */
     @Override
     public String parseToFile() {
         return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " +
-                this.deadline.format(inputFormatter);
+                this.deadline.format(INPUT_FORMATTER);
     }
 
     /**
-     * Checks if this Deadline object is equal to another object.
+     * Checks if this {@code Deadline} is equal to another object.
+     * Two deadlines are considered equal if they have the same description and due date.
      *
-     * @param o The object to be compared.
-     * @return True if both objects are Deadline objects with the same description, completion status, and due date.
+     * @param obj The object to compare with this {@code Deadline}.
+     * @return {@code true} if the specified object is equal to this {@code Deadline}, {@code false} otherwise.
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (o == null || this.getClass() != o.getClass()) {
+        if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
-        Deadline deadline = (Deadline) o;
-        return super.equals(o) &&
-                (dueDate == null ? deadline.dueDate == null : this.dueDate.equals(deadline.dueDate));
+        Deadline otherDeadline = (Deadline) obj;
+        return super.equals(otherDeadline) && this.deadline.equals(otherDeadline.deadline);
     }
 }
 

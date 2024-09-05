@@ -51,15 +51,20 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Checks if two AddCommand objects are equal by comparing their tasks.
+     * Checks if this {@code AddCommand} is equal to another object.
+     * Two add commands are considered equal if they add the same task.
      *
-     * @param o The object to compare with.
-     * @return true if the given object is an AddCommand with the same task, false otherwise.
+     * @param obj The object to compare with this {@code AddCommand}.
+     * @return {@code true} if the specified object is equal to this {@code AddCommand}, {@code false} otherwise.
      */
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof AddCommand) {
-            return ((AddCommand) o).task.equals(this.task);
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof AddCommand) {
+            AddCommand other = (AddCommand) obj;
+            return this.task.equals(other.task);
         }
         return false;
     }

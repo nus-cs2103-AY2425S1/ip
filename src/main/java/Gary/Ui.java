@@ -60,8 +60,9 @@ public class Ui {
      * @param size The new size of the task list after the task has been removed.
      */
     public void deleteTask(Task task, int size) {
-        System.out.println("Noted. I've removed this task from the list:\n " + task.toString() +
-                "\nNow you have " + size + " tasks in the list.\n");
+        System.out.println("Noted. I've removed this task from the list:\n"
+                + task.toString() + "\nNow you have " + size
+                + " tasks in the list.\n");
     }
 
     /**
