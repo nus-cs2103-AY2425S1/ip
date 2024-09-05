@@ -10,21 +10,33 @@ import java.util.List;
  * Handles interactions with the user.
  */
 public class Ui {
-    private final String line = "    ____________________________________________________________\n";
     private final Scanner scanner = new Scanner(System.in);
+
+    private StringBuilder responseMessage;
+
+    public Ui() {
+        responseMessage = new StringBuilder();
+    }
+
+    public String getResponseMessage() {
+        String message = responseMessage.toString();
+        responseMessage.setLength(0);  // Clear the message after returning
+        return message;
+    }
 
     /**
      * Displays the welcome message to the user.
      */
-    public void showWelcome() {
-        System.out.println(line + "    Hello I'm Hana\n" + "    What can I do for you?\n" + line);
+    public static String showWelcome() {
+        String message = "Hello I'm Hana. \n" + "What can I do for you?\n";
+        return message;
     }
 
     /**
      * Displays the goodbye message to the user.
      */
-    public void showGoodbye() {
-        System.out.println(line + "    Bye. Hope to see you again soon!\n" + line);
+    public StringBuilder showGoodbye() {
+        return responseMessage.append("Bye. Hope to see you again soon!\n");
     }
 
     /**
@@ -39,8 +51,8 @@ public class Ui {
     /**
      * Displays an error message indicating that loading the task list failed.
      */
-    public void showLoadingError() {
-        System.out.println("    OOPS!!! Error loading the task list.");
+    public StringBuilder showLoadingError() {
+        return responseMessage.append("OOPS!!! Error loading the task list.");
     }
 
     /**
@@ -48,8 +60,8 @@ public class Ui {
      *
      * @param message The error message to display.
      */
-    public void showError(String message) {
-        System.out.println(line + "    " + message + "\n" + line);
+    public StringBuilder showError(String message) {
+        return responseMessage.append(message);
     }
 
     /**
@@ -58,10 +70,10 @@ public class Ui {
      * @param task The task that was added.
      * @param taskCount The current number of tasks in the list.
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        System.out.println(line + "    Got it. I've added this task:\n" +
+    public StringBuilder showTaskAdded(Task task, int taskCount) {
+        return responseMessage.append("Got it. I've added this task:\n" +
                 "      " + task + "\n" +
-                "    Now you have " + taskCount + " tasks in the list.\n" + line);
+                "Now you have " + taskCount + " tasks in the list.");
     }
 
     /**
@@ -70,10 +82,10 @@ public class Ui {
      * @param task The task that was deleted.
      * @param taskCount The current number of tasks in the list.
      */
-    public void showTaskDeleted(Task task, int taskCount) {
-        System.out.println(line + "    Noted. I've removed this task:\n" +
+    public StringBuilder showTaskDeleted(Task task, int taskCount) {
+        return responseMessage.append("Noted. I've removed this task:\n" +
                 "      " + task + "\n" +
-                "    Now you have " + taskCount + " tasks in the list.\n" + line);
+                "Now you have " + taskCount + " tasks in the list.");
     }
 
     /**
@@ -81,9 +93,9 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void showTaskMarked(Task task) {
-        System.out.println(line + "    Nice! I've marked this task as done:\n" +
-                "     " + task + "\n" + line);
+    public StringBuilder showTaskMarked(Task task) {
+        return responseMessage.append("Nice! I've marked this task as done:\n" +
+                "     " + task);
     }
 
     /**
@@ -91,23 +103,23 @@ public class Ui {
      *
      * @param tasks The TaskList containing the tasks to display.
      */
-    public void showTaskList(TaskList tasks) {
-        System.out.println(line + "    Here are the tasks in your list:");
+    public StringBuilder showTaskList(TaskList tasks) {
+        responseMessage.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("    " + (i + 1) + "." + tasks.get(i));
+            responseMessage.append("    " + (i + 1) + "." + tasks.get(i) + "\n");
         }
-        System.out.println(line);
+        return responseMessage;
     }
 
-    public void showFindResults(List<Task> foundTasks) {
+    public StringBuilder showFindResults(List<Task> foundTasks) {
         if (foundTasks.isEmpty()) {
-            System.out.println(line + "    No matching tasks found.\n" + line);
+            return responseMessage.append("No matching tasks found.");
         } else {
-            System.out.println(line + "    Here are the matching tasks in your list:");
+            responseMessage.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < foundTasks.size(); i++) {
-                System.out.println("    " + (i + 1) + "." + foundTasks.get(i));
+                responseMessage.append("    " + (i + 1) + "." + foundTasks.get(i) + "\n");
             }
-            System.out.println(line);
+            return responseMessage;
         }
     }
 }

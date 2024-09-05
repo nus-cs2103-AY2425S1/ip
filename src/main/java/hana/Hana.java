@@ -33,6 +33,7 @@ public class Hana {
 
     /**
      * Runs the Hana application, which listens for user input and executes commands.
+     * Not used in GUI
      */
     public void run() {
         ui.showWelcome();
@@ -50,11 +51,27 @@ public class Hana {
     }
 
     /**
-     * Main method to start the Hana application.
+     * Processes a single user command and returns the response as a string.
      *
-     * @param args Command line arguments (not used).
+     * @param input The user's command input.
+     * @return The response of Hana based on the user command.
      */
-    public static void main(String[] args) {
-        new Hana("data/hana.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            command.execute(tasks, ui, storage);
+            return ui.getResponseMessage();  // A method in Ui class to return response message
+        } catch (HanaException | IOException e) {
+            return e.getMessage();
+        }
     }
+
+//    /**
+//     * Main method to start the Hana application.
+//     *
+//     * @param args Command line arguments (not used).
+//     */
+//    public static void main(String[] args) {
+//        new Hana("data/hana.txt").run();
+//    }
 }
