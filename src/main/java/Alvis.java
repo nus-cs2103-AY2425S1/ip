@@ -91,11 +91,7 @@ public class Alvis {
             Task task = null;
             while (sc.hasNext()) {
                 String nextLine = sc.nextLine();
-                System.out.println(nextLine);
                 String[] taskData = nextLine.split("_");
-                System.out.println(taskData[0]);
-                System.out.println(taskData[1]);
-                System.out.println(taskData[2]);
                 switch (taskData[0]) {
                 case "T":
                     task = new ToDo(taskData[2]);
@@ -126,9 +122,8 @@ public class Alvis {
     public static void writeToFile(List<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task task : taskList) {
-            System.out.println(task.toSaveFormat());
             fw.write(task.toSaveFormat() + "\n");
-        }
+        } 
         fw.close();
     }
 }
