@@ -35,6 +35,7 @@ application {
 shadowJar {
     archiveBaseName = "elon"
     archiveClassifier = null
+    archiveFileName = 'elon.jar'
 }
 
 run{

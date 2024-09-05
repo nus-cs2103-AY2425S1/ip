@@ -8,12 +8,21 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ */
 public class Storage {
     private final String path;
 
     private File file;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * If the file does not exist at the given path, it attempts to create a new file.
+     *
+     * @param path the path to the file where tasks are stored
+     * @throws IOException if an I/O error occurs when creating the file
+     */
     public Storage(String path) throws IOException {
         this.path = path;
         this.file = new File(this.path);
@@ -28,6 +37,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line from the file into a Task object then returns it.
+     * The line format should be "type | status | description | [additional details]".
+     *
+     * @param line the line from the file to be parsed
+     * @return the Task object represented by the line
+     * @throws ElonException if the line format is invalid or cannot be parsed
+     */
     private Task parseTask(String line) throws ElonException {
         String[] elements = line.split(" \\| ");
         String type = elements[0];
@@ -49,7 +66,12 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Loads tasks from the file, each line in the file is parsed into a Task object.
+     * Returns the Tasks as an ArrayList of Task objects.
+     *
+     * @return an ArrayList of Task objects loaded from the file
+     */
     public ArrayList<Task> loadFile() {
         ArrayList<Task> taskList = new ArrayList<>();
         if (this.file.exists()) {
@@ -71,6 +93,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the tasks from the TaskList to the file.
+     * Each task is written to the file in a format suitable for later loading.
+     *
+     * @param list the TaskList containing the tasks to be saved
+     * @throws IOException if an I/O error occurs while writing to the file
+     */
     public void saveFile(TaskList list) throws IOException {
         try(FileWriter fileWriter = new FileWriter(this.file)) {
             int i = 0;
