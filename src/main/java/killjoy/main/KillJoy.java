@@ -58,6 +58,7 @@ public class KillJoy {
 
     /**
      * Adds a task to the task list.
+     *
      * @param description
      * @param by
      */
@@ -68,6 +69,7 @@ public class KillJoy {
 
     /**
      * Adds a task to the task list.
+     *
      * @param description
      * @param from
      * @param to
@@ -83,6 +85,7 @@ public class KillJoy {
 
     /**
      * Removes a task from the task list.
+     *
      * @param taskIndex
      */
     public void removeTask(int taskIndex) {
@@ -100,7 +103,7 @@ public class KillJoy {
 
         saveAndLoad.loadTasks();
 
-        while(true) {
+        while (true) {
             String input = user.nextLine();
             if (input.equals("")) {
                 ui.displayNoStringMessage();

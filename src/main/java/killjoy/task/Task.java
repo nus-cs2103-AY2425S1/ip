@@ -1,5 +1,7 @@
 package killjoy.task;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents the Task class of the KillJoy application.
  * Contains methods to create and manage tasks.
@@ -8,6 +10,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType taskType = null;
+    protected static final DateTimeFormatter DATE_TIME_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
 
     /**
      * Represents the type of task.

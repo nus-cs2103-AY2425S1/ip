@@ -1,7 +1,6 @@
 package killjoy.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task of type Event.
@@ -9,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
 
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description, TaskType.EVENT);
@@ -26,7 +24,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (from: " + this.from.format(FORMATTER) + " to: "
-                + this.to.format(FORMATTER) + ")";
+        return "[D] " + super.toString() + " (from: " + this.from.format(DATE_TIME_OUTPUT_FORMATTER) + " to: "
+                + this.to.format(DATE_TIME_OUTPUT_FORMATTER) + ")";
     }
 }

@@ -22,6 +22,7 @@ public class Parser {
 
     /**
      * Parses the user input to determine the type of task.
+     *
      * @param input The user input.
      * @return The type of task.
      */
@@ -39,10 +40,11 @@ public class Parser {
 
     /**
      * Parses the user input to determine the description of the task.
+     *
      * @param input The user input.
      * @return The description of the task.
      */
-    public static String getDescription(String input) {
+    public static String getDescriptionFromInput(String input) {
         String[] inputSplitBySlash = input.split("/");
         return inputSplitBySlash[0].replaceFirst("todo ", "")
                 .replaceFirst("deadline ", "").replaceFirst("event ", "");
@@ -50,10 +52,11 @@ public class Parser {
 
     /**
      * Parses the user input to determine the by date of the task.
+     *
      * @param input The user input.
      * @return The by date of the task.
      */
-    public static String getBy(String input) {
+    public static String getByTimeString(String input) {
         String[] inputSplitBySlash = input.split("/");
         if (inputSplitBySlash.length < 2) {
             return null;
@@ -63,10 +66,11 @@ public class Parser {
 
     /**
      * Parses the user input to determine the from date of the task.
+     *
      * @param input The user input.
      * @return The from date of the task.
      */
-    public static String getFrom(String input) {
+    public static String getFromTimeString(String input) {
         String[] inputSplitBySlash = input.split("/");
         if (inputSplitBySlash.length < 2) {
             return null;
@@ -76,10 +80,11 @@ public class Parser {
 
     /**
      * Parses the user input to determine the to date of the task.
+     *
      * @param input The user input.
      * @return The to date of the task.
      */
-    public static String getTo(String input) {
+    public static String getToTimeString(String input) {
         String[] inputSplitBySlash = input.split("/");
         if (inputSplitBySlash.length < 3) {
             return null;
@@ -89,6 +94,7 @@ public class Parser {
 
     /**
      * Parses the input to get index of task to mark, unmark or delete.
+     *
      * @param input The user input.
      * @return The index and type of action.
      */
@@ -113,10 +119,11 @@ public class Parser {
 
     /**
      * Parses the input to get the date and time.
+     *
      * @param dateTime The date and time.
      * @return The date and time.
      */
-    public static LocalDateTime parseDateTime(String dateTime) {
+    public static LocalDateTime parseStringToLocalDateTime(String dateTime) {
         try {
             return LocalDateTime.parse(dateTime.trim() + "T00:00");
         } catch (DateTimeParseException d) {

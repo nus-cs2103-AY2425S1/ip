@@ -1,14 +1,12 @@
 package killjoy.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task of type Deadline.
  */
 public class Deadline extends Task {
     private LocalDateTime by;
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
 
     public Deadline(String description, LocalDateTime by) {
         super(description, TaskType.DEADLINE);
@@ -26,7 +24,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + by.format(FORMATTER) + ")";
+        return "[D] " + super.toString() + " (by: "
+                + by.format(DATE_TIME_OUTPUT_FORMATTER) + ")";
     }
 
 }

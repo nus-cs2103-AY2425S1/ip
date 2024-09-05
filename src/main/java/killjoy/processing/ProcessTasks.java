@@ -23,6 +23,7 @@ public class ProcessTasks {
 
     /**
      * Processes the user input.
+     *
      * @param input The user input.
      */
     public void processUserInput(String input) {
@@ -52,14 +53,14 @@ public class ProcessTasks {
         ui.printLine();
         switch (taskType) {
         case TODO: {
-            String description = Parser.getDescription(input);
+            String description = Parser.getDescriptionFromInput(input);
             kj.addTask(description);
             break;
         }
         case DEADLINE: {
-            String description = Parser.getDescription(input);
-            String by = Parser.getBy(input);
-            LocalDateTime byDateTime = Parser.parseDateTime(by);
+            String description = Parser.getDescriptionFromInput(input);
+            String by = Parser.getByTimeString(input);
+            LocalDateTime byDateTime = Parser.parseStringToLocalDateTime(by);
             if (byDateTime == null) {
                 ui.displayInvalidCommandFormatMessage();
                 ui.printLine();
@@ -69,11 +70,11 @@ public class ProcessTasks {
             break;
             }
         case EVENT: {
-            String description = Parser.getDescription(input);
-            String from = Parser.getFrom(input);
-            LocalDateTime fromDateTime = Parser.parseDateTime(from);
-            String to = Parser.getTo(input);
-            LocalDateTime toDateTime = Parser.parseDateTime(to);
+            String description = Parser.getDescriptionFromInput(input);
+            String from = Parser.getFromTimeString(input);
+            LocalDateTime fromDateTime = Parser.parseStringToLocalDateTime(from);
+            String to = Parser.getToTimeString(input);
+            LocalDateTime toDateTime = Parser.parseStringToLocalDateTime(to);
             if (fromDateTime == null || toDateTime == null) {
                 ui.displayInvalidCommandFormatMessage();
                 ui.printLine();
@@ -89,6 +90,7 @@ public class ProcessTasks {
 
     /**
      * Marks or deletes a task.
+     *
      * @param input The user input.
      */
     public void markOrDelete(String input) {
@@ -132,6 +134,7 @@ public class ProcessTasks {
 
     /**
      * Creates tasks from the task information that is loaded from the save file.
+     *
      * @param taskInfo The task information.
      */
     public void createTasks(String taskInfo) {
@@ -146,15 +149,15 @@ public class ProcessTasks {
         }
         case DEADLINE: {
             String description = parts[2];
-            LocalDateTime by = Parser.parseDateTime(parts[3]);
+            LocalDateTime by = Parser.parseStringToLocalDateTime(parts[3]);
             kj.addTask(description, by);
             changeStatusOfTask(kj.getTask(kj.getTaskCount() - 1), Integer.valueOf(parts[1]));
             break;
         }
         case EVENT: {
             String description = parts[2];
-            LocalDateTime from = Parser.parseDateTime(parts[3]);
-            LocalDateTime to = Parser.parseDateTime(parts[4]);
+            LocalDateTime from = Parser.parseStringToLocalDateTime(parts[3]);
+            LocalDateTime to = Parser.parseStringToLocalDateTime(parts[4]);
             kj.addTask(description, from, to);
             changeStatusOfTask(kj.getTask(kj.getTaskCount() - 1), Integer.valueOf(parts[1]));
             break;
@@ -162,6 +165,12 @@ public class ProcessTasks {
         }
     }
 
+    /**
+     * Finds tasks that contain the keyword.
+     *
+     * @param input The user input.
+     * @param taskList The list of tasks.
+     */
     public void findTask(String input, ArrayList<Task> taskList) {
         String[] inputAsList = input.split(" ");
         if (inputAsList.length == 1) {
