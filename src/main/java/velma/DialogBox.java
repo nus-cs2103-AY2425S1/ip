@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
+
 public class DialogBox extends HBox {
 
     @FXML
@@ -31,6 +33,13 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        displayPicture.setFitWidth(120); // Example width
+        displayPicture.setFitHeight(120); // Example height
+
+        // Create a circular clip
+        Circle clip = new Circle(50, 50, 50); // Center X, Center Y, Radius
+        displayPicture.setClip(clip);
     }
 
     private void flip() {
@@ -38,6 +47,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String s, Image i) {

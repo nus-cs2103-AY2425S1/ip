@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import velma.exception.VelmaException;
 import velma.task.Deadline;
@@ -96,7 +95,7 @@ public class Velma {
             case EVENT:
                 parts = input.replaceFirst("event\\s+", "").split(" /from | /to ");
                 if (parts.length < 3) {
-                    throw new VelmaException("Sorry boss! An event needs a valid start time and end time!");
+                    throw new VelmaException("Sorry boss! An event needs a valid start time and end time! Please use /from HHmm /to HHmm");
                 }
                 description = parts[0];
                 String startTime = parts[1];
@@ -127,8 +126,7 @@ public class Velma {
                             .append(":\n")
                             .append(ui.showTasksOnDate(tasks.getTasks(), date));
                 } else {
-                    response.append("Here are all your tasks:\n")
-                            .append(ui.showAllTasks(tasks.getTasks()));
+                    response.append(ui.showAllTasks(tasks.getTasks()));
                 }
                 break;
 
