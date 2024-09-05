@@ -46,7 +46,12 @@ public class Dudu {
     }
 
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (IOException e) {
+            return ui.showError(e);
+        }
     }
 
     public static void main(String[] args) {

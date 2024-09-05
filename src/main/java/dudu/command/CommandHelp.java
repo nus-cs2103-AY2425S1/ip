@@ -18,8 +18,8 @@ public class CommandHelp extends Command {
      * @param storage The storage (not used in this command).
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws IOException {
-        ui.helpMessage();
+    public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+        return ui.helpMessage();
     }
 
     /**

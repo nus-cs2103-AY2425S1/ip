@@ -21,10 +21,9 @@ public class CommandFind extends Command {
 
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         ArrayList<Task> filteredTasks = taskList.findTasks(this.query);
-        ui.findTasks(filteredTasks);
-        storage.rewriteFile(taskList);
+        return ui.findTasks(filteredTasks);
     }
 
     @Override

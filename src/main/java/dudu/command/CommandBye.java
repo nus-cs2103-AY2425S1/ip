@@ -16,8 +16,8 @@ public class CommandBye extends Command {
      * @param storage The storage (not used in this command).
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
-        ui.goodbyeMessage();
+    public String execute(TaskList taskList, UI ui, Storage storage) {
+        return ui.goodbyeMessage();
     }
 
     /**

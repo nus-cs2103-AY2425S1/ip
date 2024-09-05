@@ -32,10 +32,10 @@ public class CommandDeadline extends Command {
      * @throws IOException If there is an error during saving the task to storage.
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         int size = taskList.addTask(task);
-        ui.addTask(task, size);
         storage.rewriteFile(taskList);
+        return ui.addTask(task, size);
     }
 
     /**

@@ -32,16 +32,16 @@ public class UI {
     /**
      * Prints a goodbye message
      */
-    public void goodbyeMessage() {
-        System.out.println(goodbyeMessage);
+    public String goodbyeMessage() {
         this.sc.close();
+        return goodbyeMessage;
     }
 
     /**
      * Prints a help message
      */
-    public void helpMessage() {
-        System.out.println("Please use help to get the list of commands");
+    public String helpMessage() {
+        return "Please use help to get the list of commands";
     }
 
     /**
@@ -49,8 +49,8 @@ public class UI {
      *
      * @param e The exception which contains the message to be printed
      */
-    public void showError(Exception e) {
-        System.out.println(LineWrapper.wrap(e.toString()));
+    public String showError(Exception e) {
+        return LineWrapper.wrap(e.toString());
     }
 
     /**
@@ -59,10 +59,10 @@ public class UI {
      * @param task The task to be added
      * @param size The total number of tasks after adding the task
      */
-    public void addTask(Task task, int size) {
+    public String addTask(Task task, int size) {
         String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n"
                 + "    %s\nNow you have %d tasks in the list.", task, size));
-        System.out.println(output);
+        return output;
     }
 
     /**
@@ -70,9 +70,8 @@ public class UI {
      *
      * @param task The task to be marked as completed
      */
-    public void markTask(Task task) {
-        String output = LineWrapper.wrap(String.format("Nice! I've marked this task as done:\n    %s", task));
-        System.out.println(output);
+    public String markTask(Task task) {
+        return LineWrapper.wrap(String.format("Nice! I've marked this task as done:\n    %s", task));
     }
 
     /**
@@ -80,9 +79,8 @@ public class UI {
      *
      * @param task The task to be marked as uncompleted
      */
-    public void unmarkTask(Task task) {
-        String output = LineWrapper.wrap(String.format("OK, I've marked this task as not done yet:\n    %s", task));
-        System.out.println(output);
+    public String unmarkTask(Task task) {
+        return LineWrapper.wrap(String.format("OK, I've marked this task as not done yet:\n    %s", task));
     }
 
     /**
@@ -90,9 +88,8 @@ public class UI {
      *
      * @param task The task to be deleted
      */
-    public void deleteTask(Task task) {
-        String output = LineWrapper.wrap(String.format("Noted. I've removed this task:\n    %s", task));
-        System.out.println(output);
+    public String deleteTask(Task task) {
+        return LineWrapper.wrap(String.format("Noted. I've removed this task:\n    %s", task));
     }
 
     /**
@@ -109,16 +106,16 @@ public class UI {
      *
      * @param tasklist The taskList instance containing the list of tasks to be printed
      */
-    public void printTasks(TaskList tasklist) {
+    public String printTasks(TaskList tasklist) {
         ArrayList<Task> tasks = tasklist.getTasks();
         if (tasks.isEmpty()) {
-            System.out.println(LineWrapper.wrap("No tasks"));
+            return LineWrapper.wrap("No tasks");
         } else {
             StringBuilder output = new StringBuilder("Here are the tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
                 output.append("\n" + (i + 1) + ". " + tasks.get(i));
             }
-            System.out.println(LineWrapper.wrap(output.toString()));
+            return LineWrapper.wrap(output.toString());
         }
     }
 
@@ -127,15 +124,15 @@ public class UI {
      *
      * @param tasks The tasks that match the query
      */
-    public void findTasks(ArrayList<Task> tasks) {
+    public String findTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println(LineWrapper.wrap("No matching tasks in your list"));
+            return LineWrapper.wrap("No matching tasks in your list");
         } else {
             StringBuilder output = new StringBuilder("Here are the matching tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
                 output.append("\n" + (i + 1) + ". " + tasks.get(i));
             }
-            System.out.println(LineWrapper.wrap(output.toString()));
+            return LineWrapper.wrap(output.toString());
         }
     }
 }

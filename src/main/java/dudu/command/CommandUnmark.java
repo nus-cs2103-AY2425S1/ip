@@ -32,10 +32,10 @@ public class CommandUnmark extends Command {
      * @throws IOException If there is an error during saving the task to storage.
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         Task unmarkedTask = taskList.unmarkTask(this.index);
         storage.rewriteFile(taskList);
-        ui.unmarkTask(unmarkedTask);
+        return ui.unmarkTask(unmarkedTask);
     }
 
     /**
