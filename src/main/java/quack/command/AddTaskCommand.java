@@ -120,20 +120,33 @@ public class AddTaskCommand extends Command {
     }
 
     /**
-     * Retrieves the tasks details based on the task type the user input.
+     * Retrieves the tasks that have been gathered and creates a task object.
      * <p>
      * After retrieving the task details, the task will be created and added,
      * into the tasklist.
      */
     private void createTask() {
 
-        String[] information = {taskType.toString(), taskDescription, startDate, endDate};
-
         try {
-            Task newTask = Task.createTask(information);
-            taskList.addTask(newTask);
-            ui.printUpdateSuccessfulMessage(newTask, "add", taskList);
+            Task newTask = null;
+            switch (taskType) {
+            case TODO:
+                newTask = Task.createTask(taskType.toString(), taskDescription);
+                break;
+            case DEADLINE:
+                newTask = Task.createTask(taskType.toString(), taskDescription, endDate);
+                break;
+            case EVENT:
+                newTask = Task.createTask(taskType.toString(), taskDescription, startDate, endDate);
+                break;
+            default:
+                break;
+            }
 
+            if (newTask != null) {
+                taskList.addTask(newTask);
+                ui.printUpdateSuccessfulMessage(newTask, "add", taskList);
+            }
         } catch (DateTimeParseException dateParseError) {
             ui.printExceptionMessage(new InvalidDateTimeException("Im sorry but the date input is invalid, "
                 + "ensure that it is in this format: DD/MM/YYYY HH:MM:SS"));
