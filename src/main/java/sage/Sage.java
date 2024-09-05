@@ -10,10 +10,6 @@ public class Sage {
     public static Ui ui;
     public static Storage storage;
 
-    public static void main(String[] args) {
-        new Sage("data/sage.txt").run();
-    }
-
     public Sage(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +20,10 @@ public class Sage {
             ui.showError(e.getMessage());
             tasks = new TaskList();
         }
+    }
+
+    public static void main(String[] args) {
+        new Sage("data/sage.txt").run();
     }
 
     public void run() {
