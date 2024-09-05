@@ -27,8 +27,8 @@ public class DeleteCommand extends Command {
      * Executes the delete command by removing the task at the specified index
      * from the task list, updating the storage, and printing the task deletion result.
      *
-     * @param tasks The list of tasks to delete from.
-     * @param ui The user interface to print the result.
+     * @param tasks   The list of tasks to delete from.
+     * @param ui      The user interface to print the result.
      * @param storage The storage to update with the current list of tasks.
      * @throws NayanaException If an error occurs during the execution of the command.
      */

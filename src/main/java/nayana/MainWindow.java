@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Nayana nayana;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Nayana.png"));
+    private Image nayanaImage = new Image(this.getClass().getResourceAsStream("/images/Nayana.png"));
 
     @FXML
     public void initialize() {
@@ -33,6 +33,8 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setNayana(Nayana n) {
         nayana = n;
+        nayana.getUi().setVbox(dialogContainer);
+        nayana.getUi().showWelcomeMessage();
     }
 
     /**
@@ -42,11 +44,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = nayana.getResponse(input);
         dialogContainer.getChildren().addAll(
-              DialogBox.getUserDialog(input, userImage),
-              DialogBox.getNayanaDialog(response, dukeImage)
+              DialogBox.getUserDialog(input, userImage)
         );
+        nayana.parseCommand(input);
         userInput.clear();
     }
 }

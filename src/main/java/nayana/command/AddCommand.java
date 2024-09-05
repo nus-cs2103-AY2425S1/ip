@@ -29,8 +29,8 @@ public class AddCommand extends Command {
      * Executes the add task command.
      * Adds the task to the task list, updates the storage, and prints a message.
      *
-     * @param tasks The task list to which the task will be added.
-     * @param ui The user interface for displaying messages.
+     * @param tasks   The task list to which the task will be added.
+     * @param ui      The user interface for displaying messages.
      * @param storage The storage for saving tasks.
      * @throws NayanaException If an error occurs while executing the command.
      */

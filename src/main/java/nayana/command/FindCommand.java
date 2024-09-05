@@ -27,8 +27,8 @@ public class FindCommand extends Command {
     /**
      * Executes the command to find and display tasks that match the search query.
      *
-     * @param tasks The list of tasks to search within.
-     * @param ui The user interface to interact with the user.
+     * @param tasks   The list of tasks to search within.
+     * @param ui      The user interface to interact with the user.
      * @param storage The storage system for tasks.
      * @throws NayanaException If an error occurs while processing the tasks.
      */
