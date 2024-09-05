@@ -1,5 +1,6 @@
 package buddybot;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Controller for the main GUI.
  */
@@ -48,5 +53,14 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, buddyImage)
         );
         userInput.clear();
+        if (input.equals("bye")) {
+            TimerTask task = new TimerTask() {
+                public void run() {
+                    Platform.exit();
+                }
+            };
+            Timer timer = new Timer("Delay");
+            timer.schedule(task, 1000L);
+        }
     }
 }
