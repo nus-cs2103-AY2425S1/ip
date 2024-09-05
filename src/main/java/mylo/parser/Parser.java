@@ -1,11 +1,6 @@
 package mylo.parser;
 
-import mylo.command.Command;
-import mylo.command.MarkStatusCommand;
-import mylo.command.ExitCommand;
-import mylo.command.ListCommand;
-import mylo.command.AddCommand;
-import mylo.command.DeleteCommand;
+import mylo.command.*;
 import mylo.data.NoSuchCommandException;
 import mylo.task.TaskType;
 import mylo.utils.exceptions.IllegalValueException;
@@ -51,6 +46,9 @@ public class Parser {
             default -> throw new NoSuchCommandException(input);
             }
             result = new ListCommand(dateTime);
+            break;
+        case "find":
+            result = new FindCommand(keys[1]);
             break;
         case "delete":
             index = Integer.parseInt(keys[1]);

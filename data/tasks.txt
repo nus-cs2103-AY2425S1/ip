@@ -1,12 +1,7 @@
-TODO | False | Todo task
-DEADLINE | False | Deadline Task | 04-09-2024 1500
-EVENT | False | Event Task | 02-09-2024 1200 | 06-09-2024 1200
-TODO | False | odo Task
 TODO | False | Todo Task
 TODO | False | Todo Task
 TODO | False | Todo Task
 TODO | False | Todo Task
 TODO | False | Todo Task
 TODO | False | Todo Task
-TODO | False | Todo Task
-TODO | False | Todo Task
+TODO | False | Task
