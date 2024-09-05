@@ -34,13 +34,17 @@ public class TaskList {
     }
 
     /**
-     * Prints current list of task.
+     * returns current list of task in a string.
+     *
+     * @return String representation of the task list.
      */
-    public static void printlist() {
+    public static String printlist() {
+        String listString = "";
         for (int i = 1; i <= currentList.size(); i++) {
             Task task = currentList.get(i - 1);
-            System.out.println(i + "." + task.toString());
+            listString = listString + i + "." + task.toString() + "\n";
         }
+        return listString;
     }
 
 }
