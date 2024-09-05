@@ -30,20 +30,3 @@ jobs:
         run: ./gradlew clean build test
         env:
           JAVA_HOME: ${{ steps.setup-java.outputs.java-home }}
-
-
-  # Deploy only if all tests pass
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: success()
-
-    steps:
-      # Checkout repository for deployment
-      - name: Set up repository for deployment
-        uses: actions/checkout@v2
-
-      # Example deploy step
-      # You can replace this with your actual deployment step
-      - name: Deploy to Production
-        run: echo "Deploying to production..."

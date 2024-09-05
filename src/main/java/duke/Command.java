@@ -228,21 +228,21 @@ public class Command {
      * This method parses the message to extract task details
      * and then creates and adds the appropriate task to the {@code TaskList}.
      *
-     * @param msg      The message containing the command and task details.
+     * @param message      The message containing the command and task details.
      * @param tasks    The {@code TaskList} object to which the new task will be added.
      * @param storage  The {@code Storage} object for saving the updated task list to a file.
      * @return The result of processing the task-related command as a {@code String}.
      * @throws MentalHealthException If an error occurs while processing the task command.
      */
-    public String processMessage(String msg, TaskList tasks, Storage storage) throws MentalHealthException {
+    public String processMessage(String message, TaskList tasks, Storage storage) throws MentalHealthException {
         StringBuilder result = new StringBuilder();
 
-        String[] message = msg.split(" ");
-        String commandType = message[0].toLowerCase();
+        String[] messageList = message.split(" ");
+        String commandType = messageList[0].toLowerCase();
 
         switch (commandType) {
         case "todo":
-            result.append(processTodoCommand(message, tasks));
+            result.append(processTodoCommand(messageList, tasks));
             break;
         case "deadline":
             result.append(processDeadlineCommand(tasks));
