@@ -49,15 +49,15 @@ public class UnmarkCommand extends Command {
      * @throws PrimoException If the index is out of the valid range of the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws PrimoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws PrimoException {
         ArrayList<Task> list = tasks.getTasks();
         if (index >= list.size() || index < 0) {
             throw new PrimoException("Please select within the indexes of the task list!");
         }
         list.get(index).markAsUndone();
-        System.out.println("\nEl Primo:");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(list.get(index));
+        String output = "OK, I've marked this task as not done yet:\n" +
+                list.get(index);
         storage.updateStorage(tasks);
+        return output;
     }
 }

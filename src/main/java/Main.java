@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Primo primo = new Primo("data/data.txt");
 
     @Override
     public void start(Stage stage) {
@@ -20,7 +20,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setDuke(primo);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

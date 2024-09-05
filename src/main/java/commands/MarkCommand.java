@@ -49,15 +49,15 @@ public class MarkCommand extends Command {
      * @throws PrimoException If the index is out of the valid range of the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws PrimoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws PrimoException {
         ArrayList<Task> list = tasks.getTasks();
         if (index >= list.size() || index < 0) {
             throw new PrimoException("Please select within the indexes of the task list!");
         }
         list.get(index).markAsDone();
-        System.out.println("\nEl Primo:");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(list.get(index));
+        String output = "Nice! I've marked this task as done:\n" +
+                list.get(index);
         storage.updateStorage(tasks);
+        return output;
     }
 }

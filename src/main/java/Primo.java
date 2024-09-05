@@ -1,8 +1,3 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import commands.Command;
 import exception.PrimoException;
 import parser.Parser;
@@ -10,29 +5,28 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
-/**
- * The Primo class is the entry point for the task management application.
- * It initializes the UI, storage, and task list, and runs the main application loop.
- */
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Primo {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
-    /**
-     * Constructs a Primo instance with the specified file path.
-     * Initializes the UI, storage, and task list.
-     * If loading tasks from storage fails, it initializes an empty task list and shows an error message.
-     *
-     * @param filePathString The path to the file where tasks are stored.
-     */
-    public Primo(String filePathString) throws IOException {
+    public Primo(String filePathString) {
         this.ui = new Ui();
         this.storage = new Storage(filePathString);
         try {
             this.tasks = new TaskList(storage.load()); // Throws PrimoException and IOException
         } catch (PrimoException | IOException e) {
+            createDataFile();
+        }
+    }
+
+    private void createDataFile() {
+        try {
             Path directoryPath = Paths.get("./data");
             Path filePath = directoryPath.resolve("data.txt");
             Files.createDirectories(directoryPath);
@@ -40,39 +34,31 @@ public class Primo {
             ui.showLoadingError();
             tasks = new TaskList(); // Initializes an empty task list on error
             this.tasks = new TaskList();
+        } catch (IOException e) {
+            System.out.println(e);
         }
     }
 
     /**
-     * Starts the main application loop.
-     * Reads user commands, parses them, executes the commands, and shows appropriate UI messages.
-     * The loop continues until an exit command is encountered.
+     * Generates a response for the user's chat message.
      */
-    public void run() {
+    public String getResponse(String input) {
         ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand(); // Reads command from user
-                ui.showLine(); // Shows a divider line
-                Command c = Parser.parse(fullCommand); // Parses the command, may throw PrimoException
-                c.execute(tasks, ui, storage); // Executes the command, may throw PrimoException
-                isExit = c.isExit(); // Checks if the command indicates exit
-            } catch (PrimoException e) {
-                ui.showError(e.getMessage()); // Displays error message if an exception occurs
-            } finally {
-                ui.showLine(); // Shows a divider line after each command execution
-            }
+        String output;
+        try {
+            String fullCommand = input; // Reads command from user
+            // ui.showLine(); // Shows a divider line
+            Command c = Parser.parse(fullCommand); // Parses the command, may throw PrimoException
+            return c.execute(tasks, ui, storage); // Executes the command, may throw PrimoException
+        } catch (PrimoException e) {
+            ui.showError(e.getMessage()); // Displays error message if an exception occurs
+            return e.getMessage();
+        } finally {
+            ui.showLine(); // Shows a divider line after each command execution
         }
     }
 
-    /**
-     * The main method to start the application.
-     * Creates an instance of Primo with the specified file path and starts the application loop.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) throws IOException {
-        new Primo("data/data.txt").run(); // Runs the application with the specified file path
+    public static void main(String[] args) {
+        System.out.println("Hello!");
     }
 }
