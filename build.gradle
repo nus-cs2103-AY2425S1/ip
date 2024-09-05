@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("testament.Testament")
+    mainClass.set("gui.Launcher")
 }
 
 shadowJar {
