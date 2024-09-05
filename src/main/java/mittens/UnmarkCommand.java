@@ -1,5 +1,7 @@
 package mittens;
 
+import mittens.task.Task;
+import mittens.task.TaskList;
 import mittens.ui.Ui;
 
 public class UnmarkCommand extends Command {

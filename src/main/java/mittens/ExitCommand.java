@@ -1,5 +1,6 @@
 package mittens;
 
+import mittens.task.TaskList;
 import mittens.ui.Ui;
 
 public class ExitCommand extends Command {

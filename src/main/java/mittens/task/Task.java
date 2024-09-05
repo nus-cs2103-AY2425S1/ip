@@ -1,4 +1,4 @@
-package mittens;
+package mittens.task;
 
 public abstract class Task {
     protected String description;

@@ -1,5 +1,9 @@
 package mittens;
 
+import mittens.task.Deadline;
+import mittens.task.Event;
+import mittens.task.Todo;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
