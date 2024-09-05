@@ -29,16 +29,11 @@ public class Testament {
     /**
      * Starts running the testament chatbot.
      */
-    public void run() {
-        ui.welcome();
-        parser.getUserInput();
-    }
 
     public String getResponse(String input) {
         return parser.parse(input);
     }
 
     public static void main(String[] args) {
-        new Testament().run();
     }
 }
