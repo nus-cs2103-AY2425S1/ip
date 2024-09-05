@@ -88,7 +88,7 @@ public class Parser {
         if (args.length > 0 && !args[0].isEmpty() && args[0].charAt(0) != '/') {
             // the arg array is always nonEmpty, so, to determine the existence of a default arg,
             // we check if the first arg is nonEmpty does not start with a '\'
-            argMap.put("", args[0]);
+            argMap.put("", args[0].trim());
             // System.out.println("Default arg added! - " + args[0]);
         }
 

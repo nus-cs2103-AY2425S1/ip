@@ -1,6 +1,7 @@
 package torne.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles the list of tasks, as well as all operations concerning tasks.
@@ -71,5 +72,18 @@ public class TaskHandler {
         }
 
         return taskListString.toString().trim();
+    }
+
+    /**
+     * Searches for tasks using a keyword and returns the list of tasks.
+     *
+     * @param keyword Keyword used to search. Matches if the name of a task contains the keyword.
+     * @return The list of matching tasks
+     */
+    public List<Task> findTasksWithKeyword(String keyword) {
+        return taskList
+                .stream()
+                .filter((task) -> task.name.contains(keyword))
+                .toList();
     }
 }

@@ -10,7 +10,7 @@ import java.util.Map;
 public class UnmarkTask extends Command {
     protected UnmarkTask() {
         super(
-                "mark",
+                "unmark",
                 "Marks a particular task as incomplete",
                 new CommandArgumentList(List.of(
                         new CommandArgument("", "Index", "Index of task to be unmarked")

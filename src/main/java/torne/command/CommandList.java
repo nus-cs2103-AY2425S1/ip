@@ -17,6 +17,7 @@ public class CommandList {
         addCommand(new AddTaskDeadline());
         addCommand(new AddTaskEvent());
         addCommand(new DeleteTask());
+        addCommand(new FindTask());
         addCommand(new MarkTask());
         addCommand(new UnmarkTask());
     }
