@@ -17,6 +17,10 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    public boolean hasMatch(String keyword) {
+        return this.name.contains(keyword);
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }

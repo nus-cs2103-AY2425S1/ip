@@ -56,6 +56,23 @@ public class TaskList {
         return 0 <= taskId && taskId <= this.tasks.size();
     }
 
+    public String find(String keyword) {
+        boolean hasMatch = false;
+        int i = 1;
+        String message = "Here are the matching tasks in your list:";
+        for (Task task : this.tasks) {
+            if (task.hasMatch(keyword)) {
+                hasMatch = true;
+                message += "\n" + i + ". " + task;
+            }
+            i++;
+        }
+        if (!hasMatch) {
+            message = "There were no matching tasks in your list.";
+        }
+        return message;
+    }
+
     private void writeToFile() {
         String s = "";
         for (Task task : this.tasks) {

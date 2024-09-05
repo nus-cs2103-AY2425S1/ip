@@ -52,6 +52,12 @@ public class LoafyException extends Exception {
                 "           eg. 1/9/2024 2359");
     }
 
+    public static LoafyException ofEmptyFind() {
+        return new LoafyException(
+                "       'find' should be followed by a keyword\n" +
+                        "           eg. find dishes");
+    }
+
     public static LoafyException ofLoadingError() {
         return new LoafyException(
                 "Error: Cannot load storage file :(\n" +
