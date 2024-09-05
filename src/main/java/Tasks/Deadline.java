@@ -29,7 +29,7 @@ public class Deadline extends Task {
 
     @Override
     public String displayTask() {
-        String cross ="";
+        String cross;
         if (super.getDone()) {
             cross = "[X]";
         } else {
