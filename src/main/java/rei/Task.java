@@ -160,7 +160,7 @@ public abstract class Task {
 
         @Override
         public String storeData() {
-            return String.format("D | %d | %s| %s-%s", this.isDone() ? 1 : 0, super.taskName,
+            return String.format("E | %d | %s| %s to %s", this.isDone() ? 1 : 0, super.taskName,
                     this.from, this.to);
         }
     }
