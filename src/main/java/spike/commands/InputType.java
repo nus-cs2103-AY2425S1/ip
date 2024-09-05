@@ -14,5 +14,6 @@ public enum InputType {
     EVENT,
     TASK,
     DELETE,
+    FIND,
     ERROR
 }

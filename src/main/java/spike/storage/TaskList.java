@@ -93,6 +93,28 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks that contain the keyword in their description.
+     * Returns a TaskList containing the matching tasks.
+     *
+     * @param keyword Keyword to search for.
+     * @return TaskList containing tasks that match the keyword.
+     * @throws SpikeException If no tasks match the keyword.
+     */
+    public TaskList findTask(String keyword) throws SpikeException {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        if (matchingTasks.getSize() > 0) {
+            return matchingTasks;
+        } else {
+            throw new SpikeException("No matching tasks found");
+        }
+    }
+
+    /**
      * Marks the task at the specified index as done.
      *
      * @param index The index of the task to be marked as done.

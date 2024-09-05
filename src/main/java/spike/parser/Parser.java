@@ -1,11 +1,12 @@
 package spike.parser;
 
-import spike.commands.InputType;
 import spike.commands.AddTaskCommand;
 import spike.commands.ByeCommand;
 import spike.commands.Command;
 import spike.commands.DeleteTaskCommand;
 import spike.commands.ErrorCommand;
+import spike.commands.FindCommand;
+import spike.commands.InputType;
 import spike.commands.ListByDateCommand;
 import spike.commands.ListCommand;
 import spike.commands.MarkCommand;
@@ -36,6 +37,8 @@ public class Parser {
             InputType inputType = parseInput(inputSplit[0]);
 
             switch (inputType) {
+                case FIND:
+                    return findTask(inputSplit[1]);
                 case BYE:
                     return new ByeCommand();
                 case LIST:
@@ -85,6 +88,8 @@ public class Parser {
             return InputType.DEADLINE;
         } else if (input.equalsIgnoreCase("event")) {
             return InputType.EVENT;
+        } else if (input.equalsIgnoreCase("find")) {
+            return InputType.FIND;
         } else {
             return InputType.ERROR;
         }
@@ -176,4 +181,10 @@ public class Parser {
         }
     }
 
+    private static Command findTask(String input) throws SpikeException {
+        if (input.isEmpty()) {
+            throw new SpikeException("Please enter a keyword to search for");
+        }
+        return new FindCommand(input);
+    }
 }
