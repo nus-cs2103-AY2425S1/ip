@@ -33,7 +33,8 @@ public class TaskManager {
     public void addTask(Task task) {
         tasks.add(task);
         ui.printLines("Got it, I've added this task to your list!\n" +
-                "      " + task.toString() + "\n" + "    Wah bro... " + getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
+                "      " + task.toString() + "\n" + "    Wah bro... " +
+                getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
         updateDatabase();
     }
 
@@ -47,7 +48,8 @@ public class TaskManager {
             Task task = tasks.get(taskId - 1);
             tasks.remove(task);
             ui.printLines("Awesome bro! One task gone :D\n" +
-                    "      " + task.toString() + "\n" + "    Wah bro... " + getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
+                    "      " + task.toString() + "\n" + "    Wah bro... " +
+                    getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
         }
         updateDatabase();
     }
@@ -114,8 +116,8 @@ public class TaskManager {
 
     private void loadDatabase() {
         try {
-            List<String> txtLines = this.database.readFromDatabase();
-            for (String line : txtLines) {
+            List<String> textLines = this.database.readFromDatabase();
+            for (String line : textLines) {
                 Task task = findTask(line);
                 tasks.add(task);
             }
@@ -157,10 +159,10 @@ public class TaskManager {
     }
 
     private void updateDatabase() {
-        List<String> txtLines = new ArrayList<>();
+        List<String> textLines = new ArrayList<>();
         for (Task task : tasks) {
-            txtLines.add(task.toDatabaseFormat());
+            textLines.add(task.toDatabaseFormat());
         }
-        database.writeToDatabase(txtLines);
+        database.writeToDatabase(textLines);
     }
 }

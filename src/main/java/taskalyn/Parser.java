@@ -10,7 +10,7 @@ public class Parser {
     /**
      * Constructs the Parser object with ui and taskmanager.
      *
-     * @param ui Ui object to manage user interaction.
+     * @param ui          Ui object to manage user interaction.
      * @param taskManager TaskManager object to manage tasks.
      */
     public Parser(Ui ui, TaskManager taskManager) {
@@ -40,7 +40,8 @@ public class Parser {
                     break;
                 case "delete":
                     if (items.length != 2) {
-                        throw new CommandFormatException("Aw... delete command must have just 2 arguments: the command, and the task number.");
+                        throw new CommandFormatException("Aw... delete command must have just 2 arguments: the " +
+                                "command, and the task number.");
                     }
                     try {
                         Integer i = Integer.parseInt(items[1]);
@@ -54,12 +55,14 @@ public class Parser {
                     } catch (IndexOutOfBoundsException e) {
                         throw new NoSuchTaskException("Aw, that task doesn't exist. Try again!");
                     } catch (Exception e) {
-                        throw new CommandFormatException("Aw... delete command must have just 2 arguments: the command, and the task number.");
+                        throw new CommandFormatException("Aw... delete command must have just 2 arguments: the " +
+                                "command, and the task number.");
                     }
                     break;
                 case "mark":
                     if (items.length != 2) {
-                        throw new CommandFormatException("Aw... mark command must have just 2 arguments: the command, and the task number.");
+                        throw new CommandFormatException("Aw... mark command must have just 2 arguments: the command," +
+                                " and the task number.");
                     }
                     try {
                         Integer i = Integer.parseInt(items[1]);
@@ -76,7 +79,8 @@ public class Parser {
                     break;
                 case "unmark":
                     if (items.length != 2) {
-                        throw new CommandFormatException("Aw... unmark command must have 2 arguments: the command and the task number.");
+                        throw new CommandFormatException("Aw... unmark command must have 2 arguments: the command and" +
+                                " the task number.");
                     }
                     try {
                         Integer i = Integer.parseInt(items[1]);
@@ -93,17 +97,20 @@ public class Parser {
                     break;
                 case "todo":
                     if (items.length != 2) {
-                        throw new CommandFormatException("Aw... todo command must contain 2 arguments: todo and the task at hand!");
+                        throw new CommandFormatException("Aw... todo command must contain 2 arguments: todo and the " +
+                                "task at hand!");
                     }
                     try {
                         taskManager.addTask(new TodoTask(items[1], false));
                     } catch (Exception e) {
-                        throw new CommandFormatException("Aw... todo command must contain 2 arguments: todo and the task at hand!");
+                        throw new CommandFormatException("Aw... todo command must contain 2 arguments: todo and the " +
+                                "task at hand!");
                     }
                     break;
                 case "deadline":
                     if (items.length != 2) {
-                        throw new CommandFormatException("Aw... your deadline command is incomplete. Try this: deadline {task} /by {yyyy-MM-dd HHmm}");
+                        throw new CommandFormatException("Aw... your deadline command is incomplete. Try this: " +
+                                "deadline {task} /by {yyyy-MM-dd HHmm}");
                     }
                     try {
                         if (items[1].contains("/by")) {
@@ -116,18 +123,22 @@ public class Parser {
                                     throw new CommandFormatException("Aw... the date format must be yyyy-MM-dd HHmm");
                                 }
                             } else {
-                                throw new CommandFormatException("Aw... your deadline command must contain the task, /by, and the deadline.");
+                                throw new CommandFormatException("Aw... your deadline command must contain the task, " +
+                                        "/by, and the deadline.");
                             }
                         } else {
-                            throw new CommandFormatException("Aw... your deadline command doesn't have a deadline date set!");
+                            throw new CommandFormatException("Aw... your deadline command doesn't have a deadline " +
+                                    "date set!");
                         }
                     } catch (Exception e) {
-                        throw new CommandFormatException("Aw... your deadline command is incorrect. Try this: deadline {task} /by {yyyy-MM-dd HHmm}");
+                        throw new CommandFormatException("Aw... your deadline command is incorrect. Try this: " +
+                                "deadline {task} /by {yyyy-MM-dd HHmm}");
                     }
                     break;
                 case "event":
                     if (items.length != 2) {
-                        throw new CommandFormatException("Aw your event command is incomplete. Try this: event {event} /from {from} /to {to}");
+                        throw new CommandFormatException("Aw your event command is incomplete. Try this: event " +
+                                "{event} /from {from} /to {to}");
                     }
                     try {
                         if (items[1].contains("/from")) {
@@ -141,19 +152,22 @@ public class Parser {
                                         String toDate = dates[1];
                                         taskManager.addTask(new EventTask(taskString, fromDate, toDate, false));
                                     } else {
-                                        throw new CommandFormatException("Aw... you might be missing a from or to date!");
+                                        throw new CommandFormatException("Aw... you might be missing a from or to " +
+                                                "date!");
                                     }
                                 } else {
                                     throw new CommandFormatException("Aw... you might be missing the to date!");
                                 }
                             } else {
-                                throw new CommandFormatException("Aw... you might be missing the task description and /from date!");
+                                throw new CommandFormatException("Aw... you might be missing the task description and" +
+                                        " /from date!");
                             }
                         } else {
                             throw new CommandFormatException("Aw... you might be missing the /from date!");
                         }
                     } catch (Exception e) {
-                        throw new CommandFormatException("Aw... your event command might be incorrect. Try this: event {event} /from {from} /to {to}");
+                        throw new CommandFormatException("Aw... your event command might be incorrect. Try this: " +
+                                "event {event} /from {from} /to {to}");
                     }
                     break;
                 default:
