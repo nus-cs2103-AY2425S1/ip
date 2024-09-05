@@ -2,6 +2,7 @@ package asura.ui;
 
 import java.util.Scanner;
 
+import asura.Asura;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,6 +30,7 @@ public class Ui extends Application {
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
+    private Asura asura = new Asura();
     private Scene scene;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/avatar1.png"));
     private Image asuraImage = new Image(this.getClass().getResourceAsStream("/images/avatar2.png"));
@@ -52,12 +54,12 @@ public class Ui extends Application {
 
         userInput = new TextField();
         sendButton = new Button("Send");
-        DialogBox dialogBox = new DialogBox("Heaalo!", userImage);
-        dialogContainer.getChildren().addAll(dialogBox);
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
         Scene scene = new Scene(mainLayout);
+        stage.setScene(scene);
+        stage.show();
 
         //Formatting the window to look as expected
 
@@ -89,8 +91,16 @@ public class Ui extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        stage.setScene(scene);
-        stage.show();
+        // Handle user input
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        //Scroll down to the end every time dialogContainer's height changes.
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
     /**
@@ -129,6 +139,20 @@ public class Ui extends Application {
      */
     public void printString(String s) {
         System.out.println(formatResponse(s));
+    }
+
+    /**
+     * Creates a dialog box containing user input, and appends it to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        String userText = userInput.getText();
+        String dukeText = asura.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getDukeDialog(dukeText, asuraImage)
+        );
+        userInput.clear();
     }
 
     /**

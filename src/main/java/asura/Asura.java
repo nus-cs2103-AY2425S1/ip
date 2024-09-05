@@ -38,6 +38,13 @@ public class Asura {
     }
 
     /**
+     * Generates a response for the user's chat message
+     */
+    public String getResponse(String input) {
+        return "Asura heard: " + input;
+    }
+
+    /**
      * The main program loop
      */
     public void run() {
@@ -66,6 +73,9 @@ public class Asura {
      */
     public static void main(String[] args) {
         new Asura(DEFAULT_FILE_PATH).run();
+    }
+
+    public Asura() {
     }
 
 }
