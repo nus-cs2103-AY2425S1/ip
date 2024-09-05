@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner myObj = new Scanner(System.in);
-
+//test
     /**
      * Allow the user to input
      * @return
