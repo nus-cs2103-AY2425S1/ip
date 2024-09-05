@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.PrintWriter;
+import java.io.IOException;
 
 
 public class TaskList {
@@ -29,7 +30,7 @@ public class TaskList {
     }
 
     public void markTask(String command, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2) {
+        if (splitCommand.length < 2 && command.equals("mark")){
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         int currNum = Integer.parseInt(splitCommand[1]) - 1;
@@ -40,7 +41,7 @@ public class TaskList {
     }
 
     public void unmarkTask(String command, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2) {
+        if (splitCommand.length < 2 && command.equals("unmark")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         int currNum= Integer.parseInt(splitCommand[1]) - 1;
@@ -50,26 +51,8 @@ public class TaskList {
         printer.flush();
     }
 
-    public void modifyTask(String taskType, String command, String[] splitCommand) throws TiraException {
-        if (taskType.equals("mark")) {
-            this.markTask(command, splitCommand);
-        } else if (taskType.equals("unmark")) {
-            this.unmarkTask(command, splitCommand);
-        } else if (taskType.equals("todo")) {
-            this.addToDo(command, splitCommand);
-        } else if (taskType.equals("deadline")) {
-            this.addDeadline(command, splitCommand);
-        } else if (taskType.equals("event")) {
-            this.addEvent(command, splitCommand);
-        } else if (taskType.equals("delete")) {
-            this.delete(splitCommand);
-        } else
-            throw new TiraException("No such command exists");
-    }
-
-
     public void addToDo(String command, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2) {
+        if (splitCommand.length < 2 && command.equals("ToDo")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         String description = "";
@@ -85,7 +68,7 @@ public class TaskList {
     }
 
     public void addDeadline(String command, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2) {
+        if (splitCommand.length < 2 && command.equals("Deadline")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         String[] dateCommands = command.split("/");
@@ -101,7 +84,7 @@ public class TaskList {
     }
 
     public void addEvent(String command, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2) {
+        if (splitCommand.length < 2 && command.equals("Event")) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         String[] dateCommands = command.split("/");

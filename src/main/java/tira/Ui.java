@@ -68,4 +68,17 @@ public class Ui {
     public void showLoadingError() {
         System.out.println("Oh no... There is an error while loading the file! ");
     }
+
+    public void showNoMatchingTask() {
+        printer.println("Miao... No such task... Sorry!");
+        printer.flush();
+    }
+
+    public void showMatchingTasks(ArrayList<Task> tasks) {
+        printer.println("Miao!!!! I found the tasks in my cat brain! They are:");
+        for(Task task: tasks) {
+            printer.println(task);
+        }
+        printer.flush();
+    }
 }
