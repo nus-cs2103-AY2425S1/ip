@@ -8,7 +8,7 @@ public class ParserTest {
     public void validFileFormat() {
         Todo todo = new Todo("Code assignment");
         String expected = "T | 0 | Code assignment";
-        String actual = todo.fileFormat();
+        String actual = todo.getFileFormat();
         assertEquals(expected, actual);
     }
 }

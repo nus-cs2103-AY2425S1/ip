@@ -1,15 +1,12 @@
 package bob;
 
-import java.util.Scanner;
 import java.util.ArrayList;
-import bob.parser.Parser;
-import bob.exception.InvalidTaskException;
-import bob.exception.BobException;
+import java.util.Scanner;
+
+import bob.storage.Storage;
 import bob.task.Task;
 import bob.task.TaskList;
-import bob.storage.Storage;
 import bob.ui.Ui;
-
 
 /**
  * This is a chatbot class named Bob.
@@ -27,41 +24,29 @@ public class Bob {
     /**
      * Initialises an instance of Bob.
      */
-//    public Bob() {
-//        this.records = new ArrayList<>();
-//        this.counter = 0;
-//        this.savedFilePath = "src/main/java/savedFile.txt";
-//        ui = new Ui();
-//        storage = new Storage(savedFilePath);
-//    }
-
-
-//    public static void main(String[] args)  {
-//        String welcome = "Hello! I'm Bob\n"
-//                + "\tWhat can I do for you?";
-//        Bob.printLines(welcome);
-//        Bob bob = new Bob();
-//        Bob.chat(bob);
-//    }
-
     public Bob(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         ArrayList<Task> records = storage.loadTaskList();
-//        taskList = new TaskList(storage.loadTaskList()); //records are loaded
-        if(records == null) {
+        if (records == null) {
             taskList = new TaskList();
         } else {
             taskList = new TaskList(records); //records are loaded
         }
     }
 
-
+    /**
+     * Runs the main method of the program.
+     * @param args
+     */
     public static void main(String[] args) {
         Bob bob = new Bob("src/main/java/bob/data/tasks.txt");
         bob.run();
     }
 
+    /**
+     * Runs the Bob chatBot program.
+     */
     void run() {
         ui.showWelcome();
         Scanner scanner = new Scanner(System.in);
@@ -93,17 +78,15 @@ public class Bob {
             case "todo":
                 taskList.addTask(input, inputWords);
                 break;
+            case "find":
+                taskList.find(input);
+                break;
             default:
-                taskList.addTask(input, inputWords);
+                Ui.requestValidCommand();
             }
             taskList.saveRecords(storage);
             input = scanner.nextLine().trim();
         }
-        Ui.printLines("Bye. Hope to see you again soon!");
-
+        Ui.showGoodBye();
     }
-
-
-
-
 }

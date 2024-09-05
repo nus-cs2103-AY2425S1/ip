@@ -1,5 +1,8 @@
 package bob.task;
 
+/**
+ * Day task that has a start time and end time.
+ */
 public class Event extends Task {
 
     protected String startDay;
@@ -42,8 +45,16 @@ public class Event extends Task {
      * Returns a string representation of the file format in which we store the Event.
      */
     @Override
-    public String fileFormat () {
-        String part1 = super.fileFormat();
+    public String getFileFormat() {
+        String part1 = super.getFileFormat();
         return part1 + " | " + startDay + " | " + startTime + " | " + endTime;
+    }
+
+    /**
+     * Returns a string representation for an event task in the printed list.
+     */
+    @Override
+    public String getTaskListItem() {
+        return super.getTaskListItem() + " (from: " + startDay + " " + startTime + " to: " + endTime + ")";
     }
 }

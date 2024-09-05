@@ -1,17 +1,13 @@
 package bob.task;
 
-import bob.exception.InvalidTaskException;
-import bob.storage.Storage;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import bob.exception.InvalidTaskException;
 import bob.parser.Parser;
+import bob.storage.Storage;
 import bob.ui.Ui;
 
 /**
@@ -21,16 +17,23 @@ import bob.ui.Ui;
 public class TaskList {
 
     private ArrayList<Task> records;
-    private int LATEST_RECORD_INDEX;
+    private int latestRecordedIndex;
 
+    /**
+     * Initialises TaskList with an existing record.
+     * @param recordedList Arraylist of existing records.
+     */
     public TaskList(ArrayList<Task> recordedList) {
         this.records = recordedList;
-        this.LATEST_RECORD_INDEX = recordedList.size();
+        this.latestRecordedIndex = recordedList.size();
     }
 
+    /**
+     * Initialises a new TaskList.
+     */
     public TaskList() {
         this.records = new ArrayList<>();
-        this.LATEST_RECORD_INDEX = 0;
+        this.latestRecordedIndex = 0;
     }
 
 
@@ -83,11 +86,11 @@ public class TaskList {
                     + taskToDelete.getTaskListItem()
                     + "\n\t"
                     + "Now you have "
-                    + (String.valueOf(LATEST_RECORD_INDEX - 1))
+                    + (String.valueOf(latestRecordedIndex - 1))
                     + " tasks in the list.";
             Ui.printLines(immediateAdd);
             this.records.remove(Integer.parseInt((separateKeyword[1]).trim()) - 1);
-            this.LATEST_RECORD_INDEX -= 1;
+            this.latestRecordedIndex -= 1;
         } catch (InvalidTaskException e) {
             System.err.println((e.getMessage()));
         }
@@ -116,8 +119,9 @@ public class TaskList {
     /**
      * Adds a task to records.
      * @param input Input given by a user.
+     * @param inputWords Partially processed array of input.
      */
-    public void addTask(String input, String[] inputWords)  {
+    public void addTask(String input, String[] inputWords) {
         try {
             String keyword = inputWords[0];
             Task newTask = getTask(keyword, input); //initialise the exact Task class
@@ -128,12 +132,11 @@ public class TaskList {
                     + this.getInputDescription(input)
                     + "\n\t"
                     + "Now you have "
-                    + (String.valueOf(LATEST_RECORD_INDEX + 1))
+                    + (String.valueOf(latestRecordedIndex + 1))
                     + " tasks in the list.";
-
             Ui.printLines(immediateAdd);
-            this.records.add(this.LATEST_RECORD_INDEX, newTask);
-            this.LATEST_RECORD_INDEX += 1;
+            this.records.add(this.latestRecordedIndex, newTask);
+            this.latestRecordedIndex += 1;
         } catch (InvalidTaskException e) {
             System.err.println(e.getMessage());
         }
@@ -172,9 +175,6 @@ public class TaskList {
             if (taskDescription.equals("")) {
                 throw new InvalidTaskException("OOPS!!! The description of a event cannot be empty.");
             }
-//            for (String x : inputWords) {
-//                System.out.println(x);
-//            }
             if (!inputWords[Arrays.asList(inputWords).indexOf("/from") + 3].equals("/to")) {
                 throw new InvalidTaskException("Invalid use of event format."
                         + "Should be  '<description> /from <day> <start_time> /to <end_time>'");
@@ -231,12 +231,14 @@ public class TaskList {
                 if (subString2.length == 0) {
                     throw new InvalidTaskException("OOPS!!! The event description cannot be empty.");
                 }
-                throw new InvalidTaskException("Invalid use of event format. Should be  '<description> /from <day> <start_time> /to <end_time>'");
+                throw new InvalidTaskException("Invalid use of event format. "
+                        + "Should be  '<description> /from <day> <start_time> /to <end_time>'");
             }
 
             String[] subString3 = subString2[1].split("/to");
             if (subString3.length <= 1) {
-                throw new InvalidTaskException("Invalid use of event format. Should be '<description> /from <day> <start_time> /to <end_time>'.");
+                throw new InvalidTaskException("Invalid use of event format. Should be '<description> "
+                        + "/from <day> <start_time> /to <end_time>'.");
             }
             if (subString3[0].trim().isEmpty()) {
                 throw new InvalidTaskException("OOPS!!! The start time for the event cannot be empty.");
@@ -299,5 +301,33 @@ public class TaskList {
      */
     public void saveRecords(Storage storage) {
         storage.saveRecordsToStorage(records);
+    }
+
+    /**
+     * Finds the tasks that has a description matching keyword entered by user.
+     * @param input String representation of the command given by user.
+     */
+    public void find(String input) {
+        String[] inputArray = input.split("\s+");
+        if (inputArray.length > 2) {
+            System.out.println("find command can only be used to find 1 keyword.");
+        } else if (inputArray.length <= 1) {
+            System.out.println("Please enter the exact keyword you want to find.");
+        } else {
+            boolean isTargetPresent = false;
+            String target = inputArray[1];
+            ArrayList<Task> matchingRecords = new ArrayList<>();
+            for (Task x : records) {
+                if (x.isTargetInDescription(target) == true) {
+                    matchingRecords.add(x);
+                    isTargetPresent = true;
+                }
+            }
+            if (isTargetPresent == true) {
+                Ui.showSearchResults(matchingRecords);
+            } else {
+                Ui.showEmptySearchResults();
+            }
+        }
     }
 }

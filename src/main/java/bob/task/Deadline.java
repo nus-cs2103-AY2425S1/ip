@@ -3,6 +3,10 @@ package bob.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+
+/**
+ * Task to be done by a specified deadline.
+ */
 public class Deadline extends Task {
 
     protected String by;
@@ -50,11 +54,20 @@ public class Deadline extends Task {
      * Returns a string representation of the file format in which we store the Deadline.
      */
     @Override
-    public String fileFormat () {
-        String part1 = super.fileFormat();
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public String getFileFormat() {
+        String part1 = super.getFileFormat();
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         String dateTimeOutput = (date != null) ? date.format(outputFormatter) : by;
         return part1 + " | " + dateTimeOutput;
+    }
+
+    /**
+     * Returns a string representation for a deadline task in the printed list.
+     */
+    @Override
+    public String getTaskListItem() {
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        String dateTimeOutput = (date != null) ? date.format(outputFormatter) : by;
+        return super.getTaskListItem() + " (by: " + dateTimeOutput + ")";
     }
 }

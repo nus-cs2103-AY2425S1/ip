@@ -2,6 +2,9 @@ package bob.task;
 
 import bob.ui.Ui;
 
+/**
+ * Task that user is keeping track of.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -33,16 +36,15 @@ public class Task {
     }
 
     /**
-     * Returns a string representation for a line item in the printed list,
+     * Returns a string representation for a task in the printed list.
      */
     public String getTaskListItem() {
-        return("[" + taskLetter() +"][" + this.getStatusIcon() + "] " + this.description);
+        return ("[" + taskLetter() + "][" + this.getStatusIcon() + "] " + this.description);
     }
 
     /**
      * Marks the task as completed or not completed.
      * @param value Whether the task is completed.
-     * @return String representation based on whether the task is marked as completed or not completed.
      */
     public void markTask(boolean value) {
         if (value) {
@@ -73,8 +75,24 @@ public class Task {
     /**
      * Returns a string representation of the file format in which we store the task.
      */
-    public String fileFormat() {
+    public String getFileFormat() {
         String done = isDone ? "1" : "0";
         return this.taskLetter() + " | " + done + " | " + this.description;
+    }
+
+    /**
+     * Returns whether the target word can be found in the description of Task.
+     * @param target The keyword that user is searching for.
+     * @return
+     */
+    public boolean isTargetInDescription(String target) {
+        String[] descriptionArray = description.split("\s+");
+        boolean isPresent = false;
+        for (String word: descriptionArray) {
+            if (word.equals(target)) {
+                isPresent = true;
+            }
+        }
+        return isPresent;
     }
 }
