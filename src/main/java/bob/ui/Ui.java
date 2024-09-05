@@ -1,8 +1,10 @@
 package bob.ui;
 
+import java.util.ArrayList;
+
 import bob.parser.Parser;
 import bob.task.Task;
-import java.util.ArrayList;
+
 
 /**
  * Class that handles interactions with the user.
@@ -10,6 +12,10 @@ import java.util.ArrayList;
 public class Ui {
     private Parser parser;
 
+    /**
+     * Prints the text enclosed in between lines.
+     * @param text Text to be printed.
+     */
     public static void printLines(String text) {
         String textToPrint = "\t____________________________________________________________\n"
                 + "\t"
@@ -29,10 +35,27 @@ public class Ui {
     }
 
     /**
+     * Prints a goodBye message to user when program is terminated by user.
+     */
+    public static void showGoodBye() {
+        String goodByeMessage = "Bye. Hope to see you again soon!";
+        Ui.printLines(goodByeMessage);
+    }
+
+    /**
      * Prints error if Bob is unable to load file.
      */
     public void showLoadingError() {
         String loadingError = "Sorry! I'm unable to load the file\n";
+        Ui.printLines(loadingError);
+    }
+
+    /**
+     * Prints a request for the user to key in a valid command.
+     */
+    public static void requestValidCommand() {
+        String loadingError = "Please input a valid command\n"
+                + "Valid Commands: list|mark|unmark|delete|event|deadline|todo|find";
         Ui.printLines(loadingError);
     }
 
