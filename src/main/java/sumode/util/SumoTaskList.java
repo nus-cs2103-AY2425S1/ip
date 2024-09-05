@@ -6,12 +6,10 @@ import java.util.List;
 
 import sumode.exception.AlreadyMarkedException;
 import sumode.exception.AlreadyUnmarkedException;
-import sumode.exception.EndBeforeStartException;
 import sumode.exception.NonExistentTaskException;
 import sumode.exception.SumoDException;
 import sumode.exception.UnknownCommandException;
 import sumode.exception.WrongSyntaxForCommandException;
-import sumode.exception.latestSaveException;
 import sumode.task.Task;
 import sumode.ui.Ui;
 
@@ -49,18 +47,6 @@ public class SumoTaskList {
 
     }
 
-    /**
-     * Constructor for SumoTaskList.
-     * <p>
-     * Should only be used when storage not available.
-     *
-     * @param ui UI for all output.
-     */
-    public SumoTaskList(Ui ui) {
-        this.tasks = new ArrayList<>();
-        this.storage = null;
-        this.ui = ui;
-    }
 
     /**
      * Returns a boolean that indicates whether to terminate the programme after this command is finish.

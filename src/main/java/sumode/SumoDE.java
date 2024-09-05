@@ -42,17 +42,11 @@ public class SumoDE extends Application {
             ui.unknownSaveError();
         }
 
-        //handle SumoTaskList
-        if (this.storage == null) {
-            this.tasks = new SumoTaskList(this.ui); // we will use the version where we cannot save
-        } else {
-            try {
-                this.tasks = new SumoTaskList(this.storage, this.ui);
-            } catch (IOException e) {
-                //unlikely will happen since we already successfully initialise storage
-                ui.unknownSaveError();
-                this.tasks = new SumoTaskList(this.ui); // we will use the version where we cannot save
-            }
+        try {
+            this.tasks = new SumoTaskList(this.storage, this.ui);
+        } catch (IOException e) {
+            //unlikely will happen since we already successfully initialise storage
+            ui.unknownSaveError();
         }
     }
 
