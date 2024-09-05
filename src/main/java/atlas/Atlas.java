@@ -5,7 +5,6 @@ import atlas.exceptions.AtlasException;
 import atlas.parser.Parser;
 import atlas.storage.Storage;
 import atlas.tasks.TaskList;
-import atlas.ui.DialogBox;
 
 /**
  * Represents the Atlas chatbot containing the methods to instantiate it and run it.
@@ -23,34 +22,22 @@ public class Atlas {
      */
     public Atlas(String filepath) {
         this.storage = new Storage(filepath);
-        try {
-            this.tasks = new TaskList(this.storage.load());
-        } catch (AtlasException e) {
-//            this.ui.showErrorMessage(e.getMessage());
-            this.tasks = new TaskList();
-        }
+        this.tasks = new TaskList();
     }
 
-    /**
-     * Starts the chatbot which greets the user. The chatbot will read the command, parse and execute
-     * it until the user exits the chatbot. If there is any error, it will be caught and displayed.
-     */
-//    public void run() {
-//        this.ui.showWelcomeMessage();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String fullCommand = ui.readCommand();
-//                Command c = Parser.parse(fullCommand);
-//                c.execute(this.tasks, this.ui, this.storage);
-//                isExit = c.isExit();
-//            } catch (AtlasException e) {
-//                this.ui.showErrorMessage(e.getMessage());
-//            } finally {
-//                ui.showLine();
-//            }
-//        }
-//    }
+    public String init() {
+        StringBuilder s = new StringBuilder();
+        try {
+            this.tasks = new TaskList(this.storage.load());
+            s.append("Loaded previously saved tasks!");
+        } catch (AtlasException e) {
+            s.append("Failed to load saved tasks!");
+        } finally {
+            s.append("\n\n\n").append("Hello! I'm Atlas\n" + "What can I do for you?");
+        }
+
+        return s.toString();
+    }
 
     /**
      * Generates a response for the user's chat message.

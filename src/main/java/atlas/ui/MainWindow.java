@@ -1,6 +1,7 @@
 package atlas.ui;
 
 import atlas.Atlas;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -30,15 +31,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        // Welcome text
-        dialogContainer.getChildren().addAll(
-                DialogBox.getAtlasDialog("Hello! I'm Atlas\n" + "What can I do for you?", atlasImage)
-        );
     }
 
-    /** Injects the Atlas instance */
+    /** Injects the Atlas instance, loads tasks and displays the welcome message */
     public void setAtlas(Atlas a) {
         atlas = a;
+        this.handleWelcome();
     }
 
     /**
@@ -57,13 +55,18 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates an error dialog box, containing the error message.
+     * Loads tasks and displays welcome text.
      */
-    @FXML
-    private void handleError(String response) {
+    private void handleWelcome() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getAtlasDialog(response, atlasImage)
+                DialogBox.getAtlasDialog(atlas.init(), atlasImage)
         );
-        userInput.clear();
+    }
+
+    /**
+     * Exits the application.
+     */
+    public static void handleExit() {
+        Platform.exit();
     }
 }
