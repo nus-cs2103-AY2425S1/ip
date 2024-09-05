@@ -19,7 +19,7 @@ ____________________________________________________________
 
 ```
 
-## About Hoshi
+## About Hoshi - Your Task Assistant
 
 Hoshi is a user-friendly chatbot that keeps tracks of your todos, events and deadlines! 
 It is  currently still in development and features are yet to be finalized.
