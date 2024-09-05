@@ -1,12 +1,16 @@
-package Yapper;
+package yapper;
 
 import java.io.File;
 
+/**
+ * Represent a Yapper
+ *
+ */
 public class Yapper {
-    public static Ui ui;
-    public static Parser parser;
-    public static Storage storage;
-    public static TaskList taskList;
+    private static Ui ui;
+    private static Parser parser;
+    private static Storage storage;
+    private static TaskList taskList;
 
     /**
      * Creates an instance of Yapper.
@@ -23,9 +27,13 @@ public class Yapper {
 
     public static void main(String[] args) {
         String fileName = "./src/main/java/Yapper/YapperHistoryFile";
-        (new Yapper(fileName)).run();
+        new Yapper(fileName).run();
     }
 
+    /**
+     * Runs the program.
+     */
+    @SuppressWarnings("checkstyle:JavadocContentLocation")
     public void run() {
         System.out.println("Hello! I'm Yapper\nWhat can I do for you?\n");
         taskList.returnList();
