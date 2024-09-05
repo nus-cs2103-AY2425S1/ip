@@ -9,6 +9,10 @@ public class Tasklist {
 
     private ArrayList<Task> tasksList;
 
+    public Tasklist() {
+        this.tasksList = new ArrayList<>();
+    }
+
     public Tasklist(Storage storage) {
         this.tasksList = storage.getTaskLists();
     }
