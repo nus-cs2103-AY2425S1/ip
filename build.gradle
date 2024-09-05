@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("main.Hyperion")
+    mainClass.set("gui.Launcher")
 }
 
 shadowJar {
