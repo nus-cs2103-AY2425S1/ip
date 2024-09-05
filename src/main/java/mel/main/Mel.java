@@ -78,9 +78,9 @@ public class Mel {
      * Only used in GUI.
      * @param input user input.
      */
-    public String getResponse(String input) {
+    public String getResponse(String... input) {
         isUsingGui = true;
-        gui.read(input);
+        gui.read(input[0]);
         String s = response;
         response = "";
         return s;
