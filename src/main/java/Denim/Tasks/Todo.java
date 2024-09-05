@@ -1,5 +1,10 @@
 package denim.tasks;
 
+
+/**
+ * Represents a task with a description and a completion status.
+ * This class provides methods to manage and retrieve the task's details.
+ */
 public class Todo extends Task {
 
     public Todo(String description) {

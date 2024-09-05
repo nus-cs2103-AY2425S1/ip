@@ -1,9 +1,9 @@
 package denim;
 
-import denim.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import denim.tasks.Task;
 
 /**
  * Represents a list of tasks that can be managed by the user.
@@ -50,10 +50,16 @@ public class TaskList {
         taskList.remove(index);
     }
 
+    /**
+     * Finds all the tasks with the given keyword in the TaskList and returns a new TaskList
+     * with all the tasks found.
+     *
+     * @param keyword The index of the task to be deleted.
+     */
     public TaskList findTasks(String keyword) {
         TaskList matchingTasks = new TaskList();
-        for (Task task : taskList) {
-            if (task.getDescription().contains(keyword)) {  // Assuming Task has a getName() method
+        for (Task task: taskList) {
+            if (task.getDescription().contains(keyword)) {
                 matchingTasks.addTask(task);
             }
         }

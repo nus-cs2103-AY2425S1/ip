@@ -1,14 +1,20 @@
 package denim.commands;
 
-import denim.exceptions.DenimException;
 import denim.TaskList;
+import denim.exceptions.DenimException;
 import denim.storage.TaskIo;
 
+/**
+ * Represents a mark command that can be executed.
+ */
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
     public static final String COMMAND_USAGE = "mark <taskNumber>";
     private int index;
 
+    /**
+     * Represents a mark command that can be executed.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }

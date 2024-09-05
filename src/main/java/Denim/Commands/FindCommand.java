@@ -1,13 +1,17 @@
 package denim.commands;
 
-import denim.storage.TaskIo;
 import denim.TaskList;
+import denim.storage.TaskIo;
 
+/**
+ * Represents a find command that can be executed.
+ */
 public class FindCommand extends Command {
 
-    public String keyword;
     public static final String COMMAND_WORD = "find";
     public static final String USAGE = "find <taskDescription>";
+
+    private String keyword;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
@@ -19,6 +23,12 @@ public class FindCommand extends Command {
                 resultList.printList());
         return new CommandResult(returnMessage);
     }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+
 
     @Override
     public boolean isExit() {

@@ -1,11 +1,14 @@
 package denim.commands;
 
-import denim.tasks.Todo;
-import denim.exceptions.DenimException;
 import denim.TaskList;
+import denim.exceptions.DenimException;
 import denim.storage.TaskIo;
 import denim.tasks.Task;
+import denim.tasks.Todo;
 
+/**
+ * Represents a todo command that can be executed.
+ */
 public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";

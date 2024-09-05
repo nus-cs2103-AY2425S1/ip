@@ -1,12 +1,16 @@
 package denim.commands;
 
+import java.time.LocalDateTime;
+
 import denim.TaskList;
 import denim.exceptions.DenimException;
 import denim.storage.TaskIo;
 import denim.tasks.Event;
 
-import java.time.LocalDateTime;
 
+/**
+ * Represents an Event command that can be executed.
+ */
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
     public static final String COMMAND_USAGE = "event <eventDescription> /from <startDateTime /to <endDateTime>\n"

@@ -3,6 +3,9 @@ package denim.commands;
 import denim.TaskList;
 import denim.storage.TaskIo;
 
+/**
+ * Represents a Help command that can be executed.
+ */
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";

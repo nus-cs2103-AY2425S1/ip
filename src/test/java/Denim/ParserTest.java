@@ -1,12 +1,13 @@
 package denim;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import denim.commands.Command;
 import denim.commands.DeadlineCommand;
 import denim.commands.EventCommand;
 import denim.commands.InvalidCommand;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
 

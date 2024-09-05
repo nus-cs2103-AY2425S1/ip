@@ -1,9 +1,12 @@
 package denim.commands;
 
-import denim.exceptions.DenimException;
 import denim.TaskList;
+import denim.exceptions.DenimException;
 import denim.storage.TaskIo;
 
+/**
+ * Represents an unmark command that can be executed.
+ */
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
     public static final String COMMAND_USAGE = "unmark <taskNumber>";
