@@ -13,8 +13,7 @@ public class Ui {
     }
 
     public String readCommand() {
-        String command = sc.nextLine();
-        return command;
+        return sc.nextLine();
     }
 
     public void displayErrorMessage(TrackieException e) {

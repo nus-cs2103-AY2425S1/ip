@@ -10,18 +10,36 @@ import trackie.ui.TrackieException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-
+/**
+ * Represents a task list designed for Trackie.
+ * This class manages a collection of <code>Tasks</code> and provides methods to add, list, mark, unmark, and delete tasks.
+ */
 public class TaskList {
     ArrayList<Task> tasks;
 
+    /**
+     * Constructs a new TaskList with an empty list of tasks.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Checks if the task list is empty.
+     *
+     * @return true if the task list contains no tasks, false otherwise.
+     */
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
 
+
+    /**
+     * Adds a task of type Todo to the task list.
+     *
+     * @param arguments An array of strings containing the task description.
+     * @throws TrackieException if the usage deviates from the required format or if the description is empty.
+     */
     public void addTodoTask(String[] arguments) throws TrackieException {
         if (arguments.length == 1) {
             throw new TrackieException("Correct usage: todo [desc]");
@@ -40,6 +58,12 @@ public class TaskList {
         System.out.printf("You now have %d task(s) in total.\n", tasks.size());
     }
 
+    /**
+     * Adds a task of type Deadline to the task list.
+     *
+     * @param arguments An array of strings containing the task description and deadline.
+     * @throws TrackieException if the usage deviates from the required format, or if the description or deadline is empty.
+     */
     public void addDeadlineTask(String[] arguments) throws TrackieException {
         if (arguments.length == 1) {
             throw new TrackieException("Correct usage: deadline [desc] /by [yyyy-mm-dd]");
@@ -92,6 +116,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Adds a task of type Event to the task list.
+     *
+     * @param arguments An array of strings containing the task description, start time, and end time.
+     * @throws TrackieException if the usage deviates from the required format, or if the description, start time, or end time is empty.
+     */
     public void addEventTask(String[] arguments) throws TrackieException {
         if (arguments.length == 1) {
             throw new TrackieException("Correct usage: event [desc] /from [start] /to [end]");
@@ -156,14 +186,30 @@ public class TaskList {
         System.out.printf("You now have %d task(s) in total.\n", tasks.size());
     }
 
+    /**
+     * Lists all tasks in the task list(if there are any).
+     * Prints each task with its type, completion status, and information.
+     * If there are no tasks, the user is notified that they have no tasks.
+     */
     public void listTasks() {
         int counter = 1;
+        if (tasks.isEmpty()) {
+            System.out.println("You currently have no tasks.");
+            return;
+        }
+
         for (Task t : tasks) {
             System.out.println(String.format("%d. [%s][%s] %s", counter, t.getTaskType(), t.getStatusIcon(), t.getTaskInfo()));
             counter++;
         }
     }
 
+    /**
+     * Marks a task as completed.
+     *
+     * @param arguments An array of strings containing the index of the task to be marked.
+     * @throws TrackieException if no index is specified or if the index is invalid.
+     */
     public void markTask(String[] arguments) throws TrackieException {
         if (arguments.length == 1) {
             throw new TrackieException("Please specify an index to mark!");
@@ -180,6 +226,12 @@ public class TaskList {
         System.out.println(String.format("[%s] %s", t.getStatusIcon(), t.getTaskInfo()));
     }
 
+    /**
+     * Marks a task as not completed.
+     *
+     * @param arguments An array of strings containing the index of the task to be unmarked.
+     * @throws TrackieException if no index is specified or if the index is invalid.
+     */
     public void unmarkTask(String[] arguments) throws TrackieException {
         if (arguments.length == 1) {
             throw new TrackieException("Please specify an index to unmark!");
@@ -196,6 +248,13 @@ public class TaskList {
         System.out.println(String.format("[%s] %s", t.getStatusIcon(), t.getTaskInfo()));
     }
 
+
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param arguments An array of strings containing the index of the task to be deleted.
+     * @throws TrackieException if no index is specified or if the index is invalid.
+     */
     public void deleteTask(String[] arguments) throws TrackieException {
         if (arguments.length == 1) {
             throw new TrackieException("Please specify an index to unmark!");
@@ -213,6 +272,7 @@ public class TaskList {
         System.out.println(String.format("[%s] %s", t.getStatusIcon(), t.getTaskInfo()));
     }
 
+<<<<<<< HEAD
     public void findTasks(String[] arguments) {
         int ptr = 1;
         StringBuilder sb = new StringBuilder();
@@ -226,10 +286,19 @@ public class TaskList {
             return;
         }
 
+=======
+    public void findTasks(String[] arguments) throws TrackieException {
+        StringBuilder sb = new StringBuilder();
+        int ptr = 1;
+        if (arguments.length == 1) {
+            throw new TrackieException("Please provide a valid query to find!");
+        }
+>>>>>>> branch-A-JavaDoc
         while (ptr < arguments.length) {
             sb.append(arguments[ptr]).append(" ");
             ptr++;
         }
+<<<<<<< HEAD
         String query = sb.substring(0, sb.length() - 1);
 
         int noOfTasksFound = 0;
@@ -246,4 +315,15 @@ public class TaskList {
             System.out.printf("%d matching task(s) found\n", noOfTasksFound);
         }
     }
+=======
+
+        String query = sb.substring(0, sb.length() - 1);
+        for (Task t : this.tasks) {
+            if (t.getDescription().contains(query)) {
+                System.out.println(t.getTaskInfo());
+            }
+        }
+    }
+
+>>>>>>> branch-A-JavaDoc
 }
