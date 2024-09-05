@@ -7,6 +7,7 @@ import dave.command.ExitCommand;
 import dave.command.ListCommand;
 import dave.command.MarkCommand;
 import dave.command.UnmarkCommand;
+import dave.command.FindCommand;
 import dave.exceptions.InvalidCommandException;
 import dave.exceptions.InvalidDateTimeFormatException;
 import dave.exceptions.InvalidDescriptionException;
@@ -24,7 +25,7 @@ public class Parser {
      * Enum representing different task types or commands that the parser can handle.
      */
     public enum TaskType {
-        bye, list, mark, unmark, todo, deadline, event, delete
+        bye, list, mark, unmark, todo, deadline, event, delete, find
     }
 
     /**
@@ -70,6 +71,8 @@ public class Parser {
                 return new MarkCommand(Integer.parseInt(commandArgs));
             case unmark:
                 return new UnmarkCommand(Integer.parseInt(commandArgs));
+            case find:
+                return new FindCommand(commandArgs);
             case list:
                 return new ListCommand();
             case bye:
