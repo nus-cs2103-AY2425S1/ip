@@ -15,12 +15,11 @@ import tasks.ToDos;
 public class CommandParser {
     /**
      * Parses and performs actions for the given command.
-     * Returns false only if the "bye" command is given.
      *
      * @param input String command for processing.
      * @param tl TaskList class for maintaining tasks.
      * @param store Storage class for writing to files.
-     * @return Boolean value for termination of program.
+     * @return String value for user response.
      */
     public static String parseCommand(String input, TaskList tl, Storage store) {
         String response = "";

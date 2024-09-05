@@ -14,6 +14,9 @@ public class Peter {
         this.tasklist = new TaskList(this.store);
     }
 
+    /**
+     * Returns string response based on input command.
+     */
     public String getResponse(String input) { 
         return CommandParser.parseCommand(input, tasklist, store); 
     }

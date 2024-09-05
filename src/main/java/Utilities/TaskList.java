@@ -16,6 +16,7 @@ public class TaskList {
      *
      * @param t Task to be added.
      * @param name Name of the task to be added.
+     * @return String of user response
      */
     public String addToTaskList(Task t, String name) {
         String message = "";
@@ -30,6 +31,7 @@ public class TaskList {
      * Removes task from the TaskList.
      *
      * @param index Index of task to be removed.
+     * @return String of user response
      */
     public String removeFromTaskList(int index) {
         String message = "";
@@ -46,6 +48,7 @@ public class TaskList {
      *
      * @param index Index of task to be updated.
      * @param status Boolean status to update.
+     * @return String of user response
      */
     public String updateTaskListStatus(int index, boolean status) {
         String message = "";
@@ -66,6 +69,7 @@ public class TaskList {
      * Finds and prints matching tasks for given keyword.
      *
      * @param input String pattern to be matched for search.
+     * @return String of user response
      */
     public String findTasks(String input) {
         String message = "";
