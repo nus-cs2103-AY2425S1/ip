@@ -1,6 +1,5 @@
 package mylo.command;
 
-import mylo.storage.StorageOperationException;
 import mylo.task.TaskList;
 import mylo.ui.Ui;
 

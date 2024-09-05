@@ -1,11 +1,9 @@
 package mylo.storage;
 
-import mylo.data.InsufficientInfoException;
 import mylo.task.Task;
 import mylo.task.TaskList;
 import mylo.utils.exceptions.IllegalValueException;
 
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;

@@ -53,7 +53,8 @@ public class HelperFunctions {
 
             return LocalDateTime.of(year, month, day, 0, 0);
         } catch (Exception e) {
-            throw new IllegalValueException("Date and time provided is not of correct format (dd-mm-yyyy hhmm): " + str);
+            throw new IllegalValueException("Date and time provided is not of correct format "
+                    + "(dd-mm-yyyy hhmm): " + str);
         }
     }
 }

@@ -13,13 +13,14 @@ import java.time.LocalDateTime;
  * <p>The {@code Event} class stores the task title, start date/time, and end date/time.
  * It extends the {@code Task} class and adds functionality specific to tasks that have a duration.</p>
  * <p></p>
- * <p>The event is represented by two {@code LocalDateTime} objects: one for the start time and one for the end time.</p>
+ * <p>The event is represented by two {@code LocalDateTime} objects: one for the start time and one for the
+ *  end time.</p>
  *
  * @author cweijin
  */
 public class Event extends Task {
-    private final LocalDateTime startDateTime;
-    private final LocalDateTime endDateTime;
+    private final LocalDateTime START_DATETIME;
+    private final LocalDateTime END_DATETIME;
 
     /**
      * Constructs an {@code Event} task with the specified title, start date/time, and end date/time.
@@ -28,29 +29,37 @@ public class Event extends Task {
      * The task is considered incomplete upon creation.</p>
      *
      * @param title        The title or description of the event task.
-     * @param startDateTime The start date and time of the event in string format, which will be parsed into {@code LocalDateTime}.
-     * @param endDateTime  The end date and time of the event in string format, which will be parsed into {@code LocalDateTime}.
-     * @throws IllegalValueException If the provided date/time strings cannot be parsed into valid date and time values.
+     * @param startDateTime The start date and time of the event in string format, which will be parsed
+     *                      into {@code LocalDateTime}.
+     * @param endDateTime  The end date and time of the event in string format, which will be parsed into
+     *                     {@code LocalDateTime}.
+     * @throws IllegalValueException If the provided date/time strings cannot be parsed into valid date and
+     *                               time values.
      */
     public Event(String title, String startDateTime, String endDateTime) throws IllegalValueException {
         this(title, startDateTime, endDateTime, false);
     }
 
     /**
-     * Constructs an {@code Event} task with the specified title, start date/time, end date/time, and completion status.
+     * Constructs an {@code Event} task with the specified title, start date/time, end date/time, and
+     * completion status.
      * <p></p>
      * <p>This constructor allows specifying whether the event task is done at the time of creation.</p>
      *
      * @param title         The title or description of the event task.
-     * @param startDateTime The start date and time of the event in string format, which will be parsed into {@code LocalDateTime}.
-     * @param endDateTime   The end date and time of the event in string format, which will be parsed into {@code LocalDateTime}.
+     * @param startDateTime The start date and time of the event in string format, which will be parsed
+     *                      into {@code LocalDateTime}.
+     * @param endDateTime   The end date and time of the event in string format, which will be parsed
+     *                      into {@code LocalDateTime}.
      * @param isDone        Whether the task is marked as done upon creation.
-     * @throws IllegalValueException If the provided date/time strings cannot be parsed into valid date and time values.
+     * @throws IllegalValueException If the provided date/time strings cannot be parsed into valid date
+     *                               and time values.
      */
-    public Event(String title, String startDateTime, String endDateTime, boolean isDone) throws IllegalValueException {
+    public Event(String title, String startDateTime, String endDateTime, boolean isDone)
+            throws IllegalValueException {
         super(title, isDone);
-        this.startDateTime = HelperFunctions.stringToDateTime(startDateTime);
-        this.endDateTime = HelperFunctions.stringToDateTime(endDateTime);
+        this.START_DATETIME = HelperFunctions.stringToDateTime(startDateTime);
+        this.END_DATETIME = HelperFunctions.stringToDateTime(endDateTime);
     }
 
     /**
@@ -63,10 +72,11 @@ public class Event extends Task {
      * @return {@code true} if the event is happening on the specified date, {@code false} otherwise.
      */
     public boolean isOngoing(LocalDateTime dateTime) {
-        LocalDate startDate = startDateTime.toLocalDate();
-        LocalDate endDate = endDateTime.toLocalDate();
+        LocalDate startDate = START_DATETIME.toLocalDate();
+        LocalDate endDate = END_DATETIME.toLocalDate();
         LocalDate date = dateTime.toLocalDate();
-        return (startDate.isBefore(date) && endDate.isAfter(date)) || startDate.isEqual(date) || endDate.isEqual(date);
+        return (startDate.isBefore(date) && endDate.isAfter(date)) || startDate.isEqual(date)
+                || endDate.isEqual(date);
     }
 
     /**
@@ -79,7 +89,8 @@ public class Event extends Task {
      */
     @Override
     public String storageFormat() {
-        return String.format("EVENT | %s | %s | %s | %s", super.getStatus(), super.getTitle(), Formatter.dateTimeStorage(this.startDateTime), Formatter.dateTimeStorage(this.endDateTime));
+        return String.format("EVENT | %s | %s | %s | %s", super.getStatus(), super.getTitle(),
+                Formatter.dateTimeStorage(this.START_DATETIME), Formatter.dateTimeStorage(this.END_DATETIME));
     }
 
     /**
@@ -103,7 +114,8 @@ public class Event extends Task {
      * @return A string representing the formatted start and end dates.
      */
     private String getStartDateString() {
-        return String.format(" (from: %s to: %s)", Formatter.dateTimeDisplay(startDateTime), Formatter.dateTimeDisplay(endDateTime));
+        return String.format(" (from: %s to: %s)", Formatter.dateTimeDisplay(START_DATETIME),
+                Formatter.dateTimeDisplay(END_DATETIME));
     }
 
 }

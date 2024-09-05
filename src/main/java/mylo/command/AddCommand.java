@@ -42,7 +42,8 @@ public class AddCommand extends Command{
      * @throws IllegalValueException     If the date time provided is not in correct format.
      */
     @Override
-    public void execute(TaskList list, Ui ui) throws StorageOperationException, InsufficientInfoException, IllegalValueException {
+    public void execute(TaskList list, Ui ui) throws StorageOperationException, InsufficientInfoException,
+            IllegalValueException {
         String message = list.addTask(DETAILS, TYPE);
         ui.show(message);
     }

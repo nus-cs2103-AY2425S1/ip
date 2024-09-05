@@ -36,7 +36,8 @@ public abstract class Command {
      * @throws IllegalValueException     If the command encounters invalid values or operations.
      * @throws IndexOutOfBoundsException If an invalid index is used when accessing the task list.
      */
-    public abstract void execute(TaskList list, Ui ui) throws StorageOperationException, InsufficientInfoException, IllegalValueException, IndexOutOfBoundsException;
+    public abstract void execute(TaskList list, Ui ui) throws StorageOperationException, InsufficientInfoException,
+            IllegalValueException, IndexOutOfBoundsException;
 
     /**
      * Checks if this command is an {@code ExitCommand}, which signals the application to terminate.
