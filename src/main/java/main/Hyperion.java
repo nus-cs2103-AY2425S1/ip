@@ -3,6 +3,7 @@ package main;
 import exception.CommandFoundButInvalidException;
 import exception.CommandNotFoundException;
 import exception.EmptyStringException;
+import exception.HyperionException;
 
 /**
  * The main class for the Hyperion application.
@@ -41,9 +42,7 @@ public class Hyperion {
         try {
             Parser parser = new Parser(input, allTasks, this.storage, this.ui);
             return parser.run();
-        } catch (EmptyStringException
-                 | CommandFoundButInvalidException
-                 | CommandNotFoundException e) {
+        } catch (HyperionException e) {
             return e.getMessage();
         }
     }
