@@ -1,55 +1,50 @@
 plugins {
     id 'java'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'checkstyle'
 }
+
+group 'orion'
+version '0.2.0'
 
 repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
+
+
+application {
+    mainClassName = 'orion.Launcher'
+}
+
+javafx {
+    version = "17"
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
 dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
 test {
     useJUnitPlatform()
-    testLogging {
-        events "passed", "skipped", "failed"
-        showExceptions true
-        exceptionFormat "full"
-        showCauses true
-        showStackTraces true
-        showStandardStreams = false
-    }
-}
-
-application {
-    mainClass.set("orion.Orion")
 }
 
 shadowJar {
-    archiveFileName = "orion.jar"
-    archiveClassifier = null
+    archiveBaseName.set("orion")
+    archiveClassifier.set("")
+    archiveVersion.set("")
 }
 
 run {
     standardInput = System.in
-}
-
-checkstyle {
-    toolVersion = "8.45" // You can update this to a more recent version if desired
-    configFile = file("${rootDir}/checkstyle.xml")
-    ignoreFailures = false
-    maxWarnings = 0
-    configDirectory = file("${rootDir}")  // This replaces the configProperties
-}
-
-tasks.withType(Checkstyle) {
-    reports {
-        xml.required = false
-        html.required = true
-    }
 }
