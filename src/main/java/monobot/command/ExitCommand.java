@@ -34,6 +34,11 @@ public class ExitCommand extends Command {
         delay.play();
     }
 
+    /**
+     * Returns exit status to true.
+     *
+     * @return true to mark end of program.
+     */
     @Override
     public boolean isExit() {
         return true;

@@ -9,10 +9,16 @@ public class Ui {
 
     private String lastOutput = "";
 
+    /**
+     * Retrieves last output.
+     */
     public String getLastOutput() {
         return lastOutput;
     }
 
+    /**
+     * Sets last output.
+     */
     private void setLastOutput(String output) {
         lastOutput = output;
         System.out.println(output);
@@ -33,13 +39,6 @@ public class Ui {
      */
     public void printFarewell() {
         setLastOutput("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Prints line break.
-     */
-    public void printHorizontalLine() {
-        System.out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
     }
 
     /**
@@ -67,6 +66,11 @@ public class Ui {
         setLastOutput(sb.toString());
     }
 
+    /**
+     * Prints all matching tasks is the task list.
+     *
+     * @param taskList taskList contains all matching tasks to be printed
+     */
     public void printMatchingTasks(TaskList taskList) {
         StringBuilder sb = new StringBuilder();
         if (taskList.isEmpty()) {

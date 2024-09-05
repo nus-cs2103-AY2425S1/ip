@@ -102,6 +102,12 @@ public class TaskList {
         return new ArrayList<>(tasks);
     }
 
+    /**
+     * Filters tasks based on keyword.
+     *
+     * @param filter keyword to filter tasks.
+     * @return List of tasks containing the keyword.
+     */
     public TaskList filterTasks(String filter) {
         ArrayList<Task> filteredTasks = tasks.stream()
                 .filter(task -> task.toString().toLowerCase().contains(filter.toLowerCase()))
