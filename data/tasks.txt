@@ -1,2 +1,4 @@
 T | 0 | run and eat
 T | 0 | running
+T | 0 | run and eat
+T | 0 | run and eat todo walk
