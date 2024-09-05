@@ -1,26 +1,83 @@
+package rei;
+
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
+/**
+ * Main class for Rei bot.
+ */
 public class Rei {
-    public static void main(String[] args) {
-        String logo = "  ____  _____ ___ \n"
-                + " |  _ \\| ____|_ _|\n"
-                + " | |_) |  _|  | | \n"
-                + " |  _ <| |___ | | \n"
-                + " |_| \\_\\_____|___|\n";
+    /**
+     * Runs the bot.
+     * Loads database if exist.
+     * @param args
+     * @throws Exception
+     */
+    private static final String LOGO = "  ____  _____ ___ \n"
+            + " |  _ \\| ____|_ _|\n"
+            + " | |_) |  _|  | | \n"
+            + " |  _ <| |___ | | \n"
+            + " |_| \\_\\_____|___|\n";
+    private static final Path FILE_PATH = Path.of("/Users/macbookpro/Documents/CS2103T/rei/rei.txt");
 
-        System.out.println("Annyeong! I'm\n" + logo);
+    public static void main(String[] args) throws Exception {
+        System.out.println("Annyeong! I'm\n" + LOGO);
+        System.out.println("Here's your list of tasks!");
+
+        try {
+            String fileContent = Files.readString(FILE_PATH);
+            // Printing the content inside the file
+            System.out.println(fileContent);
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot read file : " + e.getMessage());
+        }
+
+
         System.out.println("What can I do for you?");
         System.out.println("-----------YOU------------");
 
+
+        // IDE : COBA STORE LIST NYA TTP DLM TXT, TERUS WAKTU LOAD, MASUKIN KE LIST OF TASKS LAGI
+        // WAKTU MAU KELUAR DARI BOT, BARU DEH DISAVE BALIK KE TXTNYA
+
         List<Task> listOfTasks = new ArrayList<>();
+
+        List<String> storedTasks = Files.readAllLines(FILE_PATH);
+        String taskPrompt;
+        for (int i = 0; i < storedTasks.size(); i++) {
+            taskPrompt = storedTasks.get(i);
+            if (taskPrompt.startsWith("T ")) {
+                listOfTasks.add(Task.createToDo(taskPrompt.substring(8)));
+                if (taskPrompt.charAt(4) == '1') {
+                    listOfTasks.get(i).markAsDone();
+                }
+            } else if (taskPrompt.startsWith("D ")) {
+                listOfTasks.add(Task.createDeadline(taskPrompt.substring(8, taskPrompt.lastIndexOf('|')),
+                        taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2)));
+                if (taskPrompt.charAt(4) == '1') {
+                    listOfTasks.get(i).markAsDone();
+                }
+            } else { // Event
+                listOfTasks.add(Task.createEvent(taskPrompt.substring(8, taskPrompt.lastIndexOf('|')),
+                        taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2, taskPrompt.lastIndexOf('-')) + " ",
+                        taskPrompt.substring(taskPrompt.lastIndexOf('-') + 1)));
+            }
+        }
+
+
         Scanner scanner = new Scanner(System.in);
 
         while (!scanner.hasNext("annyeong") && !scanner.hasNext("Annyeong")) {
             if (scanner.hasNext("list")) {
                 System.out.println("-----------REI♥-----------");
                 System.out.println("Here are the tasks in your list: ");
+//                List<String> taskFromFile = Files.readAllLines(fileName);
+
+
                 for (int i = 0; i < listOfTasks.size(); i++) {
                     System.out.println((i + 1) + ". " + listOfTasks.get(i));
                 }
@@ -64,7 +121,7 @@ public class Rei {
 
                 int id = Integer.parseInt(prompt);
                 if (id <= listOfTasks.size() && id > 0) {
-                    listOfTasks.get(id - 1).markAsUndone();
+                    listOfTasks.get(id - 1).markAsNotDone();
                     System.out.println("Okay! I've marked this task as not done yet: ");
                     System.out.println(listOfTasks.get(id - 1));
                 } else {
@@ -155,6 +212,12 @@ public class Rei {
         }
 
         scanner.close();
+
+        String dataStorage = "";
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            dataStorage += listOfTasks.get(i).storeData() + "\n";
+        }
+        Files.writeString(FILE_PATH, dataStorage);
 
         System.out.println("-----------REI♥-----------");
         System.out.println("Annyeong. Hope to see you soon.");
