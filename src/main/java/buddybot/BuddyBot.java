@@ -8,19 +8,20 @@ import java.time.format.DateTimeParseException;
  * This is the class for the chat bot with OOP added
  */
 public class BuddyBot {
-
+    private static String FILEPATH = "./data/BuddyBot.txt";
     private final FileStorage storage;
     private TaskList taskList;
 
     private final Ui ui;
+    private boolean isRunning;
 
     /**
      * Constructor for BuddyBot
-     * @param filePath
      */
-    public BuddyBot(String filePath) {
-        this.storage = new FileStorage(filePath);
+    public BuddyBot() {
+        this.storage = new FileStorage(BuddyBot.FILEPATH);
         this.ui = new Ui();
+        this.isRunning = true;
         try {
             this.taskList = new TaskList(this.storage.readFileContents());
         } catch (BuddyBotException e) {
@@ -29,45 +30,44 @@ public class BuddyBot {
         }
     }
 
+    private void run() {
+        System.out.println(this.ui.welcomeMsg());
+        while (this.isRunning) {
+            String input = this.ui.readInput();
+            System.out.println(this.getResponse(input));
+        }
+    }
+
     /**
      * Method to run BuddyBot, taking in the user input and making sense of the commands
      */
-    private void run() {
-        this.ui.welcomeMsg();
-        running:
-        while (true) {
+    protected String getResponse(String userInput) {
             try {
-                String userInput = this.ui.readInput();
+                //String userInput = this.ui.readInput();
                 switch (Parser.parseCmd(userInput)) {
                     case BYE:
                         this.exit();
-                        break running;
+                        return this.ui.goodbyeMsg();
                     case LIST:
-                        this.ui.showList(this.taskList);
-                        break;
+                        return this.ui.showList(this.taskList);
                     case TODO:
-                        this.addTodo(Parser.parseArgs(userInput));
-                        break;
+                        return this.addTodo(Parser.parseArgs(userInput));
                     case EVENT:
-                        this.addEvent(Parser.parseArgs(userInput));
-                        break;
+                        return this.addEvent(Parser.parseArgs(userInput));
                     case DEADLINE:
-                        this.addDeadline(Parser.parseArgs(userInput));
-                        break;
+                        return this.addDeadline(Parser.parseArgs(userInput));
                     case DONE:
-                        this.markAsDone(Parser.parseArgs(userInput));
-                        break;
+                        return this.markAsDone(Parser.parseArgs(userInput));
                     case DELETE:
-                        this.delete(Parser.parseArgs(userInput));
-                        break;
+                        return this.delete(Parser.parseArgs(userInput));
                     case FIND:
-                        this.find(Parser.parseArgs(userInput));
+                        return this.find(Parser.parseArgs(userInput));
+                    default:
+                        throw new BuddyBotException("Unknown input");
                 }
             } catch (BuddyBotException e) {
-                this.ui.showBuddyBotException(e);
+                return this.ui.showBuddyBotException(e);
             }
-        }
-        this.ui.goodbyeMsg();
     }
 
     /**
@@ -84,11 +84,11 @@ public class BuddyBot {
      * @param description
      * @throws BuddyBotException
      */
-    private void addTodo(String description) throws BuddyBotException {
+    private String addTodo(String description) throws BuddyBotException {
         try {
             Task todo = new Todo(description);
             this.taskList.add(todo);
-            this.ui.addTask(todo, this.taskList.size());
+            return this.ui.addTask(todo, this.taskList.size());
         } catch (IndexOutOfBoundsException e) {
             throw new BuddyBotException("BuddyBot.Todo error");
         }
@@ -99,7 +99,7 @@ public class BuddyBot {
      * @param args
      * @throws BuddyBotException
      */
-    private void addEvent(String args) throws BuddyBotException {
+    private String addEvent(String args) throws BuddyBotException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String[] splits = args.split(" /from ", 2);
@@ -109,17 +109,16 @@ public class BuddyBot {
             LocalDate startTime = LocalDate.parse(start, formatter);
             LocalDate endTime = LocalDate.parse(end, formatter);
             if (startTime.isAfter(endTime)) {
-                this.ui.showInvalidDateRange();
-                return;
+                return this.ui.showInvalidDateRange();
             }
 
             Task event = new Event(splits[0], startTime, endTime);
             this.taskList.add(event);
-            this.ui.addTask(event, this.taskList.size());
+            return this.ui.addTask(event, this.taskList.size());
         } catch (IndexOutOfBoundsException e) {
             throw new BuddyBotException("BuddyBot.Event error");
         } catch (DateTimeParseException e) {
-            this.ui.showInvalidDateFormat();
+            return this.ui.showInvalidDateFormat();
         }
     }
 
@@ -128,7 +127,7 @@ public class BuddyBot {
      * @param args
      * @throws BuddyBotException
      */
-    private void addDeadline(String args) throws BuddyBotException {
+    private String addDeadline(String args) throws BuddyBotException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String[] splits = args.split(" /by ", 2);
@@ -136,11 +135,11 @@ public class BuddyBot {
 
             Task deadline = new Deadline(splits[0], time);
             this.taskList.add(deadline);
-            this.ui.addTask(deadline, this.taskList.size());
+            return this.ui.addTask(deadline, this.taskList.size());
         } catch (IndexOutOfBoundsException e) {
             throw new BuddyBotException("BuddyBot.Deadline error");
         } catch (DateTimeParseException e) {
-            this.ui.showInvalidDateFormat();
+            return this.ui.showInvalidDateFormat();
         }
     }
 
@@ -149,14 +148,14 @@ public class BuddyBot {
      * @param args
      * @throws BuddyBotException
      */
-    private void markAsDone(String args) throws BuddyBotException {
+    private String markAsDone(String args) throws BuddyBotException {
         try {
             int taskNum = Integer.parseInt(args);
             if (taskNum > this.taskList.size()) {
                 throw new BuddyBotException("test");
             }
             this.taskList.get(taskNum).mark();
-            this.ui.showDone(this.taskList.get(taskNum));
+            return this.ui.showDone(this.taskList.get(taskNum));
         } catch (NumberFormatException e) {
             throw new BuddyBotException("This is not a number");
         } catch (IndexOutOfBoundsException e) {
@@ -169,15 +168,16 @@ public class BuddyBot {
      * @param args
      * @throws BuddyBotException
      */
-    private void delete(String args) throws BuddyBotException {
+    private String delete(String args) throws BuddyBotException {
         try {
             int taskNum = Integer.parseInt(args);
             if (taskNum > this.taskList.size()) {
                 throw new BuddyBotException("Your list is too small");
             }
             Task taskToDelete = this.taskList.get(taskNum);
-            this.ui.showDelete(taskToDelete, this.taskList.size());
+            String message = this.ui.showDelete(taskToDelete, this.taskList.size());
             this.taskList.delete(taskNum);
+            return message;
         } catch (NumberFormatException e) {
             throw new BuddyBotException("This is not a number");
         } catch (IndexOutOfBoundsException e) {
@@ -185,9 +185,9 @@ public class BuddyBot {
         }
     }
 
-    private  void find(String args) throws BuddyBotException {
+    private String find(String args) throws BuddyBotException {
         String descript = args.split("find ")[0];
-        this.ui.showFound(taskList, descript);
+        return this.ui.showFound(taskList, descript);
     }
 
     /**
@@ -195,9 +195,7 @@ public class BuddyBot {
      * @param args
      */
     public static void main(String[] args) {
-        new BuddyBot("./data/BuddyBot.txt").run();
+        new BuddyBot().run();
     }
-    public String getResponse(String input) {
-        return "BuddyBot heard: " + input;
-    }
+
 }

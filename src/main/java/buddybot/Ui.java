@@ -2,7 +2,7 @@ package buddybot;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
+//test
 /**
  * Class for UI
  */
@@ -27,19 +27,19 @@ public class Ui {
     /**
      * Print a welcome message
      */
-    public void welcomeMsg() {
-        System.out.println(" Hello! I'm BuddyBot" + "\n" +
-                " What can I do for you?");
+    public String welcomeMsg() {
+        return " Hello! I'm BuddyBot" + "\n" +
+                " What can I do for you?";
     }
 
     /**
      * Print a goodbye message
      */
-    public void goodbyeMsg() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String goodbyeMsg() {
+        return "Bye. Hope to see you again soon!";
     }
-    public void showLoadingError(String msg) {
-        System.out.println(msg);
+    public String showLoadingError(String msg) {
+        return msg;
     }
 
     /**
@@ -47,9 +47,8 @@ public class Ui {
      * @param task
      * @param i
      */
-    public void addTask(Task task, int i) {
-        System.out.println("Got it. I've added this task: \n" + task);
-        System.out.println("Now you have " + i + " tasks in the list.");
+    public String addTask(Task task, int i) {
+        return "Got it. I've added this task: \n" + task.toString() + "\n" + "Now you have " + i + " tasks in the list.";
     }
 
     /**
@@ -57,41 +56,38 @@ public class Ui {
      * @param task
      * @param i
      */
-    public void showDelete(Task task, int i) {
-        System.out.println("Got it. I've removed this task: \n" + task);
-        System.out.printf("Now you have " + i + "\" tasks in the list.\"" );
+    public String showDelete(Task task, int i) {
+        return "Got it. I've removed this task: \n" + task + "\n" + "Now you have " + i + "\" tasks in the list.\"";
     }
 
     /**
      * Print a message when Task is marked as done
      * @param task
      */
-    public void showDone(Task task) {
-        System.out.println("I've marked this task as done!");
-        System.out.printf(task.toString());
+    public String showDone(Task task) {
+        return "I've marked this task as done!" + "\n" + task.toString();
     }
 
     /**
      * Display the list of tasks the user has
      * @param taskList
      */
-    public void showList(TaskList taskList) {
+    public String showList(TaskList taskList) {
         if (taskList.isEmpty()) {
-            System.out.println("There are no tasks in your list.");
-            return;
+            return "There are no tasks in your list.";
         }
 
-        System.out.println("These are the tasks in your list:");
+        String s = "These are the tasks in your list:";
         for (int i = 1; i <= taskList.size(); i++) {
-            System.out.println(i + ". " + taskList.get(i));
+            s = s + "\n" + i + ". " + taskList.get(i).toString();
         }
-        System.out.println();
+        return s;
     }
 
-    public void showFound(TaskList taskList, String input) {
+    public String showFound(TaskList taskList, String input) {
         if (taskList.isEmpty()) {
-            System.out.println("There are no tasks in your list.");
-            return;
+            return "There are no tasks in your list.";
+
         }
         TaskList temp = new TaskList();
         for (int i = 1; i <= taskList.size(); i++) {
@@ -101,36 +97,36 @@ public class Ui {
             }
         }
         if (temp.isEmpty()) {
-            System.out.println("There are no matching tasks in your list.");
+            return "There are no matching tasks in your list.";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+             StringBuilder s = new StringBuilder("Here are the matching tasks in your list:");
             for (int i = 1; i <= temp.size(); i++) {
-                System.out.println(i + ". " + temp.get(i));
+                s.append("\n").append(i).append(". ").append(temp.get(i).toString());
             }
+            return s.toString();
         }
-        System.out.println();
     }
 
     /**
      * Print an error message from BuddyBotException
      * @param e
      */
-    public void showBuddyBotException(BuddyBotException e) {
-        System.out.printf(e.getMessage());
+    public String showBuddyBotException(BuddyBotException e) {
+        return e.getMessage();
     }
 
     /**
      * Print a message when the end date is before the start date
      */
-    public void showInvalidDateRange() {
-        System.out.println("\tEnd date must be after the start date!\n");
+    public String showInvalidDateRange() {
+       return "\tEnd date must be after the start date!\n";
     }
 
     /**
      * Print message when date is in the wrong format
      */
-    public void showInvalidDateFormat() {
-        System.out.println("\tPlease enter the start/end time in the format of <YYYY/MM/DD>!\n");
+    public String showInvalidDateFormat() {
+        return "\tPlease enter the start/end time in the format of <YYYY/MM/DD>!\n";
     }
 
 }

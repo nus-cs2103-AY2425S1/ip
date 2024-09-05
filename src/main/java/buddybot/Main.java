@@ -129,7 +129,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private BuddyBot buddy = new BuddyBot("./data/BuddyBot.txt");
+    private BuddyBot buddy = new BuddyBot();
 
     @Override
     public void start(Stage stage) {
