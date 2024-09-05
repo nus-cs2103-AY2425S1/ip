@@ -12,19 +12,19 @@ import java.util.Scanner;
  * @author miloaisdino
  */
 public class Parser {
-    private final ArrayList<Task> list;
+    private final ArrayList<Task> taskList;
     private final Storage db;
     private final Ui ui;
 
     /**
      * Constructs a Parser with the specified task list, storage, and user interface.
      *
-     * @param list The list of tasks.
+     * @param taskList The list of tasks.
      * @param db The storage for saving and loading tasks.
      * @param ui The user interface for interacting with the user.
      */
-    public Parser(ArrayList<Task> list, Storage db, Ui ui) {
-        this.list = list;
+    public Parser(ArrayList<Task> taskList, Storage db, Ui ui) {
+        this.taskList = taskList;
         this.db = db;
         this.ui = ui;
     }
@@ -74,8 +74,8 @@ public class Parser {
         switch (command) {
         case "list": {
             ui.addToBuffer("Here are the tasks in your list:");
-            for (int i = 0; i < list.size(); i++) {
-                ui.addToBuffer((i + 1) + ". " + list.get(i));
+            for (int i = 0; i < taskList.size(); i++) {
+                ui.addToBuffer((i + 1) + ". " + taskList.get(i));
             }
             break;
         }
@@ -86,7 +86,7 @@ public class Parser {
             String query = line.split(" ", 2)[1];
             ui.addToBuffer("Here are the matching tasks in your list:");
             int displayIndex = 1;
-            for (Task task : list) {
+            for (Task task : taskList) {
                 if (String.valueOf(task).contains(query)) {
                     ui.addToBuffer((displayIndex++) + ". " + task);
                 }
@@ -95,31 +95,31 @@ public class Parser {
         }
         case "delete": {
             int idx = Integer.parseInt(line.split(" ")[1]) - 1;
-            if (idx < 0 || idx >= list.size()) {
+            if (idx < 0 || idx >= taskList.size()) {
                 throw new CommandException("The item to delete does not exist.");
             }
             ui.addToBuffer("Noted. I've removed this task:");
-            ui.addToBuffer(String.valueOf(list.get(idx)));
-            list.remove(idx);
-            ui.addToBuffer("Now you have " + list.size() + " tasks in the list.");
+            ui.addToBuffer(String.valueOf(taskList.get(idx)));
+            taskList.remove(idx);
+            ui.addToBuffer("Now you have " + taskList.size() + " tasks in the list.");
             break;
         }
         case "unmark": {
             int idx = Integer.parseInt(line.split(" ")[1]) - 1;
-            if (idx < 0 || idx >= list.size()) {
+            if (idx < 0 || idx >= taskList.size()) {
                 return;
             }
             ui.addToBuffer("OK, I've marked this task as not done yet:");
-            ui.addToBuffer(list.get(idx).unmarkStatus());
+            ui.addToBuffer(taskList.get(idx).unmarkStatus());
             break;
         }
         case "mark": {
             int idx = Integer.parseInt(line.split(" ")[1]) - 1;
-            if (idx < 0 || idx >= list.size()) {
+            if (idx < 0 || idx >= taskList.size()) {
                 return;
             }
             ui.addToBuffer("Nice! I've marked this task as done:");
-            ui.addToBuffer(list.get(idx).markStatus());
+            ui.addToBuffer(taskList.get(idx).markStatus());
             break;
         }
         case "todo": {
@@ -127,7 +127,7 @@ public class Parser {
                 throw new CommandException("The description of the todo must not be empty.");
             }
             String desc = line.split(" ", 2)[1];
-            list.add(new Todo(desc));
+            taskList.add(new Todo(desc));
             break;
         }
         case "deadline": {
@@ -135,7 +135,7 @@ public class Parser {
                 throw new CommandException("The description of the deadline must not be empty.");
             }
             String[] tail = line.split(" ", 2)[1].split(" /by ");
-            list.add(new Deadline(tail[0], tail[1]));
+            taskList.add(new Deadline(tail[0], tail[1]));
             break;
         }
         case "event": {
@@ -145,7 +145,7 @@ public class Parser {
             String desc = line.split(" ", 2)[1].split(" /from ")[0];
             String from = line.split(" ", 2)[1].split(" /from ")[1].split(" /to ")[0];
             String to = line.split(" ", 2)[1].split(" /from ")[1].split(" /to ")[1];
-            list.add(new Event(desc, from, to));
+            taskList.add(new Event(desc, from, to));
             break;
         }
         case "":
@@ -157,8 +157,8 @@ public class Parser {
 
         if (Arrays.asList("todo", "deadline", "event").contains(line.split(" ")[0])) {
             ui.addToBuffer("Got it. I've added this task:");
-            ui.addToBuffer(String.valueOf(list.get(list.size() - 1)));
-            ui.addToBuffer("Now you have " + list.size() + " tasks in the list.");
+            ui.addToBuffer(String.valueOf(taskList.get(taskList.size() - 1)));
+            ui.addToBuffer("Now you have " + taskList.size() + " tasks in the list.");
         }
     }
 }
