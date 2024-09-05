@@ -28,6 +28,8 @@ public abstract class CommandHandler {
 
     /**
      * Handles the greet command by printing a greeting message.
+     *
+     * @return A greeting message.
      */
     public static String handleGreet() {
         return GREET;
@@ -35,6 +37,8 @@ public abstract class CommandHandler {
 
     /**
      * Handles the exit command by printing a farewell message.
+     *
+     * @return A farewell message.
      */
     public static String handleExit() {
         return EXIT;
@@ -57,19 +61,18 @@ public abstract class CommandHandler {
      * @param command The command string (e.g., "mark" or "unmark").
      * @param taskList The list of tasks.
      * @param isDone True if the task should be marked as done, false otherwise.
+     * @return A message indicating the result of the mark command.
      */
     public static String handleMarkCommand(String input, String command, TaskList taskList, boolean isDone) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
         try {
-            int index = Integer.parseInt(input.substring(command.length()));
+            int index = Integer.parseInt(input.substring(command.length()).trim());
             if (isDone) {
                 taskList.markAsDone(index - 1);
-                return "Nice! I've marked this task as done:\n  "
-                    + taskList.getTask(index - 1) + "\n";
+                return "Nice! I've marked this task as done:\n  " + taskList.getTask(index - 1) + "\n";
             } else {
                 taskList.markAsUndone(index - 1);
-                return "OK, I've marked this task as not done yet:\n  "
-                    + taskList.getTask(index - 1) + "\n";
+                return "OK, I've marked this task as not done yet:\n  " + taskList.getTask(index - 1) + "\n";
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return "Invalid task number. To see the list of tasks, use: list\n";
@@ -81,16 +84,15 @@ public abstract class CommandHandler {
      *
      * @param input The user input containing the command and task number.
      * @param taskList The list of tasks.
+     * @return A message indicating the result of the delete command.
      */
     public static String handleDeleteCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
         try {
-            int index = Integer.parseInt(input.substring(CommandType.DELETE.getCommand().length()));
+            int index = Integer.parseInt(input.substring(CommandType.DELETE.getCommand().length()).trim());
             Task task = taskList.getTask(index - 1);
             taskList.deleteTask(index - 1);
-            return "Noted. I've removed this task:\n  " + task
-                + "\nNow you have " + taskList.listLength()
-                + " tasks in the list.\n";
+            return "Noted. I've removed this task:\n  " + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n";
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return "Invalid task number. To see the list of tasks, use: list\n";
         }
@@ -101,10 +103,12 @@ public abstract class CommandHandler {
      *
      * @param input The user input containing the command.
      * @param taskList The list of tasks.
+     * @return A message indicating the result of the todo command.
      */
     public static String handleTodoCommand(String input, TaskList taskList) {
-        input = input.substring(CommandType.TODO.getCommand().length());
-        if (input.length() == 0) {
+        // Logic implemented by me; syntax and formatting recommended by Copilot.
+        input = input.substring(CommandType.TODO.getCommand().length()).trim();
+        if (input.isEmpty()) {
             return "The description of a todo cannot be empty. Use: todo <description>\n";
         }
         ToDo task = new ToDo(input);
@@ -118,6 +122,7 @@ public abstract class CommandHandler {
      *
      * @param input The user input containing the command.
      * @param taskList The list of tasks.
+     * @return A message indicating the result of the deadline command.
      */
     public static String handleDeadlineCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
@@ -148,6 +153,7 @@ public abstract class CommandHandler {
      *
      * @param input The user input containing the command.
      * @param taskList The list of tasks.
+     * @return A message indicating the result of the event command.
      */
     public static String handleEventCommand(String input, TaskList taskList) {
         // Logic implemented by me; syntax and formatting recommended by Copilot.
@@ -179,8 +185,10 @@ public abstract class CommandHandler {
      *
      * @param input The user input containing the command.
      * @param taskList The list of tasks.
+     * @return A message indicating the result of the find command.
      */
     public static String handleFindCommand(String input, TaskList taskList) {
+        // Logic implemented by me; syntax and formatting recommended by Copilot.
         String searchString = input.substring(CommandType.FIND.getCommand().length()).trim();
         TaskList tasksFound = taskList.find(searchString);
         if (tasksFound.listLength() == 0) {
@@ -192,7 +200,8 @@ public abstract class CommandHandler {
 
     /**
      * Handles unknown commands.
-     * Prints Unknown Command, womp womp..
+     *
+     * @return A message indicating an unknown command.
      */
     public static String handleUnknownCommand() {
         return "Unknown Command, womp womp.\n";
@@ -203,10 +212,9 @@ public abstract class CommandHandler {
      *
      * @param task The task that was added.
      * @param taskList The list of tasks.
+     * @return A message indicating the task was added.
      */
     private static String printAddTaskLine(Task task, TaskList taskList) {
-        return "Got it. I've added this task: \n    "
-            + task + "\nNow you have " + taskList.listLength()
-            + " tasks in the list.\n";
+        return "Got it. I've added this task: \n    " + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n";
     }
 }
