@@ -14,6 +14,8 @@ public class TaskList {
 
     /**
      * Constructor for TaskList.
+     *
+     * @param list The list of tasks.
      */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
