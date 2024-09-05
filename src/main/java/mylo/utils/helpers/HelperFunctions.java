@@ -4,11 +4,36 @@ import mylo.utils.exceptions.IllegalValueException;
 
 import java.time.LocalDateTime;
 
+/**
+ * Utility class for helper functions related to date and time manipulation.
+ * <p></p>
+ * <p>This class provides methods to convert strings into {@code LocalDateTime} objects
+ * with specified formats.</p>
+ *
+ * @author cweijin
+ *
+ */
 public class HelperFunctions {
+    /**
+     * Converts a string representation of date and time into a {@code LocalDateTime} object.
+     *
+     * @param str The string representation of date and time in the format "dd-mm-yyyy hhmm".
+     * @return A {@code LocalDateTime} object representing the parsed date and time.
+     * @throws IllegalValueException if the provided string is not in the correct format.
+     */
     public static LocalDateTime stringToDateTime(String str) throws IllegalValueException {
         return stringToDateTime(str, false);
     }
 
+    /**
+     * Converts a string representation of date into a {@code LocalDateTime} object.
+     *
+     * @param str The string representation of date and time in the format "dd-mm-yyyy hhmm".
+     * @param dateOnly A boolean indicating whether to ignore the time component.
+     * @return A {@code LocalDateTime} object representing the parsed date and time.
+     *         If {@code dateOnly} is true, the time will be set to 00:00.
+     * @throws IllegalValueException if the provided string is not in the correct format.
+     */
     public static LocalDateTime stringToDateTime(String str, boolean dateOnly) throws IllegalValueException {
         try {
             String[] dateTime = str.split(" ");

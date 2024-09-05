@@ -14,6 +14,8 @@ import mylo.utils.exceptions.IllegalValueException;
 /**
  * Entry point of Mylo.
  * Initializes the application and starts the interaction with the user.
+ *
+ * @author cweijin
  */
 public class Mylo {
     private Storage storage;

@@ -14,6 +14,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
+/**
+ * Handles the storage of tasks in a file.
+ * <p></p>
+ * <p>This class is responsible for saving tasks to a file, loading tasks from the file,
+ * and rewriting the file with updated task data.</p>
+ *
+ * @author cweijin
+ */
 public class Storage {
     /**
      * File path to store task list.
@@ -26,10 +34,10 @@ public class Storage {
     private final Path PATH = Paths.get(STORAGE_FILEPATH);
 
     /**
-     * Saves the {@code task} data to the storage file.
+     * Saves the specified {@code task} data to the storage file.
      *
-     * @param task task instance containing data to be stored in the storage file.
-     * @throws StorageOperationException if there were errors converting and/or storing data to file.
+     * @param task The task instance containing data to be stored in the storage file.
+     * @throws StorageOperationException if there are errors converting and/or storing data to the file.
      */
     public void save(Task task) throws StorageOperationException {
         try (FileWriter fileWriter = new FileWriter(STORAGE_FILEPATH, true)) {
@@ -41,10 +49,12 @@ public class Storage {
     }
 
     /**
-     * Loads the {@code TaskList} data from this storage file, and then returns it.
-     * Returns an empty {@code TaskList} if the file does not exist, or is not a regular file.
+     * Loads the {@code TaskList} data from the storage file and returns it.
+     * Returns an empty {@code TaskList} if the file does not exist or is not a regular file.
      *
-     * @throws StorageOperationException if there were errors reading and/or converting data from file.
+     * @return A {@code TaskList} containing tasks loaded from the storage file.
+     * @throws StorageOperationException if there are errors reading and/or converting data from the file.
+     * @throws FileCorruptedException if the file content is not in the expected format.
      */
     public TaskList load() throws StorageOperationException, FileCorruptedException {
 
@@ -63,10 +73,10 @@ public class Storage {
     }
 
     /**
-     * Rewrite the storage file with updated task list.
+     * Rewrites the storage file with the updated task list.
      *
-     * @param list updated task list to be rewritten into the storage file.
-     * @throws StorageOperationException if there were errors reading and/or converting data from file.
+     * @param list The updated task list to be rewritten into the storage file.
+     * @throws StorageOperationException if there are errors reading and/or converting data from the file.
      */
     public void rewrite(ArrayList<Task> list) throws StorageOperationException {
         try {
