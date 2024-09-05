@@ -13,6 +13,10 @@ public abstract class Task {
         return this.description;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public String getStatusIcon() {
         return (this.isDone ? "X" : " ");
     }

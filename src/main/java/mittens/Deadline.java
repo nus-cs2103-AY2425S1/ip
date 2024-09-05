@@ -11,6 +11,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public LocalDate getBy() {
+        return this.by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (due "
