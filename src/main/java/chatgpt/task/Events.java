@@ -1,3 +1,7 @@
+package chatgpt.task;
+
+import chatgpt.exception.ChatBotException;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +17,7 @@ public class Events extends Task {
         super(task);
         if (startDate.equals(" ") || endDate.equals(" ")){
             throw new ChatBotException("\t Oh no!!(;-;) Event period cannot be empty" +
-                    "\n\t Enter the event in the format: event <Task> " +
+                    "\n\t Enter the event in the format: event <chatgpt.task.Task> " +
                     "/from <Start Date/Time> /to <End Date/Time>");
         }
         try {
@@ -41,7 +45,7 @@ public class Events extends Task {
         super(task, isCompleted);
         if (startDate.equals(" ") || endDate.equals(" ")){
             throw new ChatBotException("\t Oh no!!(;-;) Event period cannot be empty" +
-                    "\n\t Enter the event in the format: event <Task> " +
+                    "\n\t Enter the event in the format: event <chatgpt.task.Task> " +
                     "/from <Start Date/Time> /to <End Date/Time>");
         }
         try {

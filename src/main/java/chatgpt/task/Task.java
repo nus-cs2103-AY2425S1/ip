@@ -1,3 +1,7 @@
+package chatgpt.task;
+
+import chatgpt.exception.ChatBotException;
+
 public abstract class Task {
     private String task;
     private boolean isCompleted;

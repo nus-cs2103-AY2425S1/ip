@@ -1,3 +1,14 @@
+package chatgpt.command;
+
+import chatgpt.exception.ChatBotException;
+import chatgpt.task.TaskList;
+import chatgpt.task.Task;
+import chatgpt.task.ToDos;
+import chatgpt.task.Deadlines;
+import chatgpt.task.Events;
+import chatgpt.ui.Ui;
+import chatgpt.storage.Storage;
+
 public class AddCommand extends Command {
 
     private enum Type {

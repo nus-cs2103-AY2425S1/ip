@@ -1,3 +1,7 @@
+package chatgpt.command;
+
+import chatgpt.exception.ChatBotException;
+
 public abstract class Parser {
     private enum Commands {
         BYE,
@@ -25,6 +29,8 @@ public abstract class Parser {
             };
         } catch (IllegalArgumentException e) {
             throw new ChatBotException("\t Oops!! I don't understand what that means :((");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ChatBotException("\t Oh no!! Inputs after the command cannot be empty");
         }
     }
 

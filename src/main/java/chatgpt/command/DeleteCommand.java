@@ -1,3 +1,11 @@
+package chatgpt.command;
+
+import chatgpt.exception.ChatBotException;
+import chatgpt.task.TaskList;
+import chatgpt.task.Task;
+import chatgpt.ui.Ui;
+import chatgpt.storage.Storage;
+
 public class DeleteCommand extends Command {
 
     private int index;
@@ -10,7 +18,7 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws ChatBotException {
         if (index > tasks.size()) {
-            throw new ChatBotException("\tNo Task exists for that index");
+            throw new ChatBotException("\tNo task exists for that index");
         }
 
         Task removedTask = tasks.get(index-1);

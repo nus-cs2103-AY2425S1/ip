@@ -1,3 +1,7 @@
+package chatgpt.task;
+
+import chatgpt.exception.ChatBotException;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,7 +15,7 @@ public class Deadlines extends Task {
         super(task);
         if (deadline.equals(" ")){
             throw new ChatBotException("\t Oh no!![@.@] Deadline cannot be empty" +
-                    "\n\t Enter the deadline in the format: deadline <Task> /by <Deadline>");
+                    "\n\t Enter the deadline in the format: deadline <chatgpt.task.Task> /by <Deadline>");
         }
         try {
             LocalDate date = LocalDate.parse(deadline.split(" ")[1]);
@@ -32,7 +36,7 @@ public class Deadlines extends Task {
         super(task, isCompleted);
         if (deadline.equals(" ")){
             throw new ChatBotException("\t Oh no!![@.@] Deadline cannot be empty" +
-                    "\n\t Enter the deadline in the format: deadline <Task> /by <Deadline>");
+                    "\n\t Enter the deadline in the format: deadline <chatgpt.task.Task> /by <Deadline>");
         }
         try {
             LocalDate date = LocalDate.parse(deadline.split(" ")[1]);
