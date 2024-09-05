@@ -37,9 +37,9 @@ public class Ui {
     /**
      * Shows the Goodbye message for Neuro.
      */
-    public void showGoodbye() {
-        System.out.println("    Goodbyeee!");
-        System.out.println("""
+    public String showGoodbye() {
+        // System.out.println("    Goodbyeee!");
+        return """
 
 
                                                                    @@=+==%@
@@ -84,7 +84,7 @@ public class Ui {
                 @%*****%-=================-#-%+*%%+#%=-=#%#+=====+%*%@@%**%=======+##******
                 %******##==================+%@++=%@@@#%%%*=========%*****%======+=@********
 
-                """);
+                """;
     }
 
     /**
@@ -92,8 +92,9 @@ public class Ui {
      *
      * @param message the message to be shown
      */
-    public void showMessage(String message) {
-        System.out.println("    " + message);
+    public String showMessage(String message) {
+        // System.out.println("    " + message);
+        return message;
     }
 
     /**
@@ -101,8 +102,9 @@ public class Ui {
      *
      * @param errorMessage the error message to be shown
      */
-    public void showError(String errorMessage) {
-        System.out.println("    Oops! " + errorMessage);
+    public String showError(String errorMessage) {
+        // System.out.println("    Oops! " + errorMessage);
+        return errorMessage;
     }
 
     /**

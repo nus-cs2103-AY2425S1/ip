@@ -38,7 +38,7 @@ public class AddCommand extends Command {
      * @param storage the storage for saving and loading tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task;
 
         switch (taskType) {
@@ -105,8 +105,9 @@ public class AddCommand extends Command {
 
         tasks.addTask(task);
         storage.updateTaskFile(tasks);
-        ui.showMessage("Ok, I've added this task:");
-        ui.showMessage("    " + task);
-        ui.showMessage("You now have " + tasks.getSize() + " tasks in the list.");
+
+        return "Ok, I've added this task:\n"
+               + "    " + task + "\n"
+               + "You now have " + tasks.getSize() + " tasks in the list.";
     }
 }

@@ -28,22 +28,30 @@ public class DeleteCommand extends Command {
      * @param storage the storage for saving and loading tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index < 0) {
-            ui.showError("Missing or invalid index for 'delete' command! Add a valid "
-                    + "index for a task to delete, like 'delete 2'.");
-            return;
+            return "Missing or invalid index for 'delete' command! Add a valid "
+                   + "index for a task to delete, like 'delete 2'.";
+            // ui.showError("Missing or invalid index for 'delete' command! Add a valid "
+            //         + "index for a task to delete, like 'delete 2'.");
         }
 
         try {
             Task task = tasks.removeTask(index - 1);
             storage.updateTaskFile(tasks);
-            ui.showMessage("Ok, I've removed this task:");
-            ui.showMessage(task.toString());
-            ui.showMessage("Now you have " + tasks.getSize() + " tasks in the list.");
+
+            return "Ok, I've removed this task:\n"
+                    + "     " + task.toString() + "\n"
+                    + "Now you have " + tasks.getSize() + " tasks in the list.";
+
+            // ui.showMessage("Ok, I've removed this task:");
+            // ui.showMessage(task.toString());
+            // return ui.showMessage("Now you have " + tasks.getSize() + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Index out of bounds! Try calling the command 'list' to "
-                    + "verify the index of the desired task.");
+            // ui.showError("Index out of bounds! Try calling the command 'list' to "
+            //        + "verify the index of the desired task.");
+            return "Index out of bounds! Try calling the command 'list' to "
+                   + "verify the index of the desired task.";
         }
     }
 }
