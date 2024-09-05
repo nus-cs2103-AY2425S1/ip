@@ -60,5 +60,9 @@ public class Ui {
         System.out.println("    " + "_____________________________________________________________________\n");
     }
 
+    public String getStartingMessage() {
+        return "What can I do to help? Meow!";
+    }
+
     
 }

@@ -18,7 +18,7 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 application {
-    mainClass = 'com.meow.Meow.main';
+    mainClass = 'com.meow.gui.Launcher';
 }
 
 

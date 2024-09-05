@@ -24,6 +24,7 @@ public class Meow {
         } catch (IOException e) {
             ui.showMeowceptionError("Meowception 007: meow meow error creating file meow");
         }
+        parser = new Parser(tasks);
     }
 
     /*
@@ -58,5 +59,18 @@ public class Meow {
      */
     public static final void main(String[] args) throws Meowception, IOException {
         new Meow().run();
+    }
+
+    public String getResponse(String input) {
+        try {
+            
+            return parser.commandValidation(input);
+        } catch (Meowception e) {
+            return e.toString();
+        }
+    }
+
+    public String getWelcomeMessage() {
+        return ui.getStartingMessage();
     }
 }
