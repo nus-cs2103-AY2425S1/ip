@@ -3,6 +3,12 @@ package purrfessordipsy.command;
 import purrfessordipsy.tasklist.TaskList;
 import purrfessordipsy.ui.Ui;
 
+/**
+ * Represents a command that handles exiting the application.
+ * The {@code ByeCommand} is responsible for printing a farewell message and
+ * terminating the program when executed. This command is issued when the
+ * user wants to close the application.
+ */
 public class ByeCommand extends Command {
 
     /**

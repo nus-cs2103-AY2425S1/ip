@@ -1,6 +1,7 @@
 package purrfessordipsy;
 
-import purrfessordipsy.command.*;
+import purrfessordipsy.command.ByeCommand;
+import purrfessordipsy.command.Command;
 import purrfessordipsy.exception.InvalidCommandException;
 import purrfessordipsy.exception.InvalidDateException;
 import purrfessordipsy.exception.UnknownCommandException;
@@ -27,7 +28,7 @@ public class PurrfessorDipsy {
      */
     public PurrfessorDipsy() {
         this.ui = new Ui();
-        this.taskList = Storage.load();  // Load tasks from local disk when the application starts
+        this.taskList = Storage.load(); // Load tasks from local disk when the application starts
     }
 
     /**

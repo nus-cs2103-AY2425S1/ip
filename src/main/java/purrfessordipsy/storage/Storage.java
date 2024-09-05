@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import purrfessordipsy.parser.*;
-import purrfessordipsy.task.*;
+import purrfessordipsy.parser.DateParser;
+import purrfessordipsy.task.Deadline;
+import purrfessordipsy.task.Event;
+import purrfessordipsy.task.Task;
+import purrfessordipsy.task.ToDo;
 import purrfessordipsy.tasklist.TaskList;
 
 /**
@@ -46,7 +49,8 @@ public class Storage {
      * If the file does not exist, an empty TaskList is returned.
      * If an error occurs during loading, an error message is printed.
      *
-     * @return A TaskList containing the loaded tasks, or an empty TaskList if the file does not exist or an error occurs.
+     * @return A TaskList containing the loaded tasks, or an empty TaskList if the file does not
+     *     exist or an error occurs.
      */
     public static TaskList load() {
         if (!TASK_FILE.isFile()) {
@@ -77,7 +81,7 @@ public class Storage {
     private static String formatTasks(ArrayList<Task> tasks) {
         StringBuilder res = new StringBuilder();
         for (Task t: tasks) {
-            res.append(t.formatToCSV());
+            res.append(t.formatToCsv());
             res.append("\n");
         }
         return res.toString();
@@ -151,29 +155,29 @@ public class Storage {
         String description = parts.get(2);
 
         switch (taskType) {
-            case "ToDo":
-                return new ToDo(description, isDone);
-            case "Deadline":
-                if (parts.size() < 4) {
-                    System.out.println("Invalid Deadline task format: " + line);
-                    return null;
-                }
-                String by = parts.get(3);
-                LocalDate parsedBy = DateParser.parseDate(by);
-                return new Deadline(description, isDone, parsedBy);
-            case "Event":
-                if (parts.size() < 5) {
-                    System.out.println("Invalid Event task format: " + line);
-                    return null;
-                }
-                String start = parts.get(3);
-                String end = parts.get(4);
-                LocalDate parsedStart = DateParser.parseDate(start);
-                LocalDate parsedEnd = DateParser.parseDate(end);
-                return new Event(description, isDone, parsedStart, parsedEnd);
-            default:
-                System.out.println("Unknown task type: " + taskType);
-                return null; // Unknown task type, do not add to list
+        case "ToDo":
+            return new ToDo(description, isDone);
+        case "Deadline":
+            if (parts.size() < 4) {
+                System.out.println("Invalid Deadline task format: " + line);
+                return null;
+            }
+            String by = parts.get(3);
+            LocalDate parsedBy = DateParser.parseDate(by);
+            return new Deadline(description, isDone, parsedBy);
+        case "Event":
+            if (parts.size() < 5) {
+                System.out.println("Invalid Event task format: " + line);
+                return null;
+            }
+            String start = parts.get(3);
+            String end = parts.get(4);
+            LocalDate parsedStart = DateParser.parseDate(start);
+            LocalDate parsedEnd = DateParser.parseDate(end);
+            return new Event(description, isDone, parsedStart, parsedEnd);
+        default:
+            System.out.println("Unknown task type: " + taskType);
+            return null; // Unknown task type, do not add to list
         }
     }
 }

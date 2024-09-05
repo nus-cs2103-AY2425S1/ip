@@ -1,16 +1,18 @@
 package purrfessordipsy.command;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import purrfessordipsy.exception.InvalidCommandException;
 import purrfessordipsy.task.Task;
 import purrfessordipsy.tasklist.TaskList;
 import purrfessordipsy.ui.Ui;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 /**
  * Represents a command to delete a task from the task list.
- * The command follows the format "delete <task_number>".
+ * The command follows the format "delete &lt;task_number&gt;".
  */
 public class DeleteCommand extends Command {
 

@@ -1,13 +1,13 @@
 package purrfessordipsy.command;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import purrfessordipsy.exception.InvalidCommandException;
 import purrfessordipsy.task.Task;
 import purrfessordipsy.tasklist.TaskList;
 import purrfessordipsy.ui.Ui;
-
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * The {@code FindCommand} class handles the execution of the 'find' command,

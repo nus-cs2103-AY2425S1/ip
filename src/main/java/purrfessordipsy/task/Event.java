@@ -1,8 +1,9 @@
 package purrfessordipsy.task;
 
-import java.time.LocalDate;
+import static purrfessordipsy.parser.DateParser.formatDateForDisplay;
+import static purrfessordipsy.parser.DateParser.formatDateForStorage;
 
-import static purrfessordipsy.parser.DateParser.*;
+import java.time.LocalDate;
 
 /**
  * Represents an event task with a start and end date.
@@ -12,10 +13,10 @@ import static purrfessordipsy.parser.DateParser.*;
 public class Event extends Task {
 
     /** The start date of the event. */
-    LocalDate start;
+    private LocalDate start;
 
     /** The end date of the event. */
-    LocalDate end;
+    private LocalDate end;
 
     /**
      * Constructs a new {@code Event} task with the specified description, start date, and end date.
@@ -73,8 +74,8 @@ public class Event extends Task {
      * @return A string representing the Event task in CSV format.
      */
     @Override
-    public String formatToCSV() {
-        String res = super.formatToCSV();
+    public String formatToCsv() {
+        String res = super.formatToCsv();
         res += DELIMITER + wrapInQuotes(formatDateForStorage(start));
         res += DELIMITER + wrapInQuotes(formatDateForStorage(end));
         return res;
@@ -82,13 +83,14 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of the Event task, including its description, start date, and end date.
-     * This method is used to display the task in a human-readable format, showing its type, description, and relevant dates.
+     * This method is used to display the task in a human-readable format, showing its type, description, and
+     * relevant dates.
      *
      * @return A string representation of the Event task.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + formatDateForDisplay(start) +
-                " to: " + formatDateForDisplay(end) + ")";
+        return "[E]" + super.toString() + " (from: " + formatDateForDisplay(start)
+                + " to: " + formatDateForDisplay(end) + ")";
     }
 }

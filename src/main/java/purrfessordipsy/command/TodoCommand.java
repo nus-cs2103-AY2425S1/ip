@@ -2,6 +2,7 @@ package purrfessordipsy.command;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import purrfessordipsy.exception.InvalidCommandException;
 import purrfessordipsy.task.ToDo;
 import purrfessordipsy.tasklist.TaskList;
@@ -9,7 +10,7 @@ import purrfessordipsy.ui.Ui;
 
 /**
  * Represents a command to add a ToDo task to the task list.
- * The command follows the format "todo <description>".
+ * The command follows the format "todo &lt;description&gt;".
  */
 public class TodoCommand extends Command {
 

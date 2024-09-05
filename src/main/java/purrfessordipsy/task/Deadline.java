@@ -1,11 +1,12 @@
 package purrfessordipsy.task;
 
-import purrfessordipsy.parser.DateParser;
-
 import java.time.LocalDate;
 
+import purrfessordipsy.parser.DateParser;
+
 /**
- * Represents a task with a deadline. A Deadline task has a description and a specific due date by which it needs to be completed.
+ * Represents a task with a deadline. A Deadline task has a description and a specific due date by which it
+ * needs to be completed.
  * This class extends the base {@link Task} class and adds functionality specific to handling deadlines.
  */
 public class Deadline extends Task {
@@ -65,8 +66,8 @@ public class Deadline extends Task {
      * @return A string representing the Deadline task in CSV format.
      */
     @Override
-    public String formatToCSV() {
-        String res = super.formatToCSV();
+    public String formatToCsv() {
+        String res = super.formatToCsv();
         res += DELIMITER + wrapInQuotes(DateParser.formatDateForStorage(by));
         return res;
     }

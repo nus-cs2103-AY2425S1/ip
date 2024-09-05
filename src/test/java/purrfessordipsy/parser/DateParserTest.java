@@ -1,13 +1,14 @@
 package purrfessordipsy.parser;
 
-import org.junit.jupiter.api.Test;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class DateParserTest{
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+import org.junit.jupiter.api.Test;
+
+public class DateParserTest {
     @Test
     public void parseDate_ValidDate() {
         String dateStr = "2024-08-28";

@@ -2,6 +2,7 @@ package purrfessordipsy.command;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import purrfessordipsy.exception.InvalidCommandException;
 import purrfessordipsy.task.Task;
 import purrfessordipsy.tasklist.TaskList;
@@ -9,7 +10,7 @@ import purrfessordipsy.ui.Ui;
 
 /**
  * Represents a command to mark a task as done or undone in the task list.
- * The command follows the format "mark <task_number>" or "unmark <task_number>".
+ * The command follows the format "mark &lt;task_number&gt;" or "unmark &lt;task_number&gt;".
  */
 public class MarkCommand extends Command {
 

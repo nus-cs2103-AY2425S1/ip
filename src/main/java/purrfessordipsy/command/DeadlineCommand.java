@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import purrfessordipsy.exception.InvalidCommandException;
 import purrfessordipsy.exception.InvalidDateException;
 import purrfessordipsy.parser.DateParser;
@@ -13,9 +14,10 @@ import purrfessordipsy.ui.Ui;
 
 /**
  * Represents a command to add a deadline task to the task list.
- * The command follows the format "deadline <description> /by <date>".
+ * The command follows the format "deadline &lt;description&gt; /by &lt;date&gt;".
  * The date must be in the format "yyyy-MM-dd".
  */
+
 public class DeadlineCommand extends Command {
     /** Regular exppression(regen) pattern to parse the deadline command input.**/
     private static final Pattern DEADLINE_PATTERN = Pattern.compile("^deadline (.+) /by (.+)$");

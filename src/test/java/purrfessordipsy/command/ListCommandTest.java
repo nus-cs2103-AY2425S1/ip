@@ -1,17 +1,18 @@
 package purrfessordipsy.command;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import purrfessordipsy.exception.InvalidDateException;
-import purrfessordipsy.task.Task;
-import purrfessordipsy.tasklist.TaskList;
-import purrfessordipsy.ui.Ui;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import purrfessordipsy.exception.InvalidDateException;
+import purrfessordipsy.task.Task;
+import purrfessordipsy.tasklist.TaskList;
+import purrfessordipsy.ui.Ui;
 
 public class ListCommandTest {
 
@@ -48,7 +49,7 @@ public class ListCommandTest {
 
         @Override
         public void printListOfTasks(ArrayList<Task> tasks) {
-            displayedTasks.addAll(tasks);  // Simulate displaying tasks
+            displayedTasks.addAll(tasks); // Simulate displaying tasks
         }
 
         public List<Task> getDisplayedTasks() {

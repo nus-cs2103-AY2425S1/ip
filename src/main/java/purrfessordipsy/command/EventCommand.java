@@ -1,19 +1,20 @@
 package purrfessordipsy.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import purrfessordipsy.exception.InvalidCommandException;
 import purrfessordipsy.exception.InvalidDateException;
 import purrfessordipsy.parser.DateParser;
 import purrfessordipsy.task.Event;
 import purrfessordipsy.tasklist.TaskList;
 import purrfessordipsy.ui.Ui;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents a command to delete a task from the task list.
- * The command follows the format "deadline <description> /from <date> /by <date>".
+ * The command follows the format "deadline &lt;description&gt; /from &lt;date&gt; /by &lt;date&gt;".
  * The date must be in the format "yyyy-MM-dd".
  */
 public class EventCommand extends Command {
