@@ -1,4 +1,8 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -75,29 +79,41 @@ public class MySutong {
                         throw new NoDescriptionException("The description or deadline of a task cannot be empty.");
                     }
                     String description = parts[0].trim();
-                    String by = parts[1].trim();
-                    tasks.add(new Deadline(description, by));
-                    System.out.println(horizontalLine);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println(horizontalLine);
-                    saveTasksToFile(); // Save tasks after modifying
+                    try {
+                        // Parsing the date in the format "d/M/yyyy HHmm"
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime by = LocalDateTime.parse(parts[1].trim(), formatter);
+                        tasks.add(new Deadline(description, by));
+                        System.out.println(horizontalLine);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println(horizontalLine);
+                        saveTasksToFile(); // Save tasks after modifying
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Error: Invalid date format! Please use d/M/yyyy HHmm (e.g., 2/12/2019 1800).");
+                    }
                 } else if (input.startsWith("event ")) {
                     String[] parts = input.substring(6).split("/from|/to");
                     if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
                         throw new NoDescriptionException("The description, start time, or end time of an event cannot be empty.");
                     }
                     String description = parts[0].trim();
-                    String from = parts[1].trim();
-                    String to = parts[2].trim();
-                    tasks.add(new Event(description, from, to));
-                    System.out.println(horizontalLine);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println(horizontalLine);
-                    saveTasksToFile(); // Save tasks after modifying
+                    try {
+                        // Parsing the dates in the format "d/M/yyyy HHmm"
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime from = LocalDateTime.parse(parts[1].trim(), formatter);
+                        LocalDateTime to = LocalDateTime.parse(parts[2].trim(), formatter);
+                        tasks.add(new Event(description, from, to));
+                        System.out.println(horizontalLine);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println(horizontalLine);
+                        saveTasksToFile(); // Save tasks after modifying
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Error: Invalid date/time format! Please use d/M/yyyy HHmm (e.g., 2/12/2019 1800).");
+                    }
                 } else if (input.startsWith("delete ")) {
                     int taskNumber = Integer.parseInt(input.substring(7)) - 1;
                     if (taskNumber >= 0 && taskNumber < tasks.size()) {
@@ -117,6 +133,10 @@ public class MySutong {
             } catch (SutongException e) {
                 System.out.println(horizontalLine);
                 System.out.println("Error: " + e.getMessage());
+                System.out.println(horizontalLine);
+            } catch (NumberFormatException e) {
+                System.out.println(horizontalLine);
+                System.out.println("Error: Please enter a valid number for the task.");
                 System.out.println(horizontalLine);
             }
         }
@@ -144,10 +164,10 @@ public class MySutong {
                         tasks.add(new Todo(parts[2]));
                         break;
                     case "D":
-                        tasks.add(new Deadline(parts[2], parts[3]));
+                        tasks.add(new Deadline(parts[2], LocalDateTime.parse(parts[3])));
                         break;
                     case "E":
-                        tasks.add(new Event(parts[2], parts[3], parts[4]));
+                        tasks.add(new Event(parts[2], LocalDateTime.parse(parts[3]), LocalDateTime.parse(parts[4])));
                         break;
                 }
                 if (parts[1].equals("1")) {
@@ -181,7 +201,7 @@ public class MySutong {
     }
 }
 
-// Task and its subclasses remain unchanged
+// Task and its subclasses remain unchanged except for date handling in Deadline and Event
 class Task {
     protected String description;
     protected boolean isDone;
@@ -222,24 +242,24 @@ class Todo extends Task {
 }
 
 class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + ")";
     }
 }
 
 class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -247,7 +267,7 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mma")) + ")";
     }
 }
 
