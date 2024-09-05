@@ -35,10 +35,8 @@ public class MainWindow extends AnchorPane {
     /** Injects the Downy instance */
     public void setDowny(Downy d) {
         downy = d;
-        String welcomeMessage = Ui.showWelcome();  // Get welcome message from Downy
-        dialogContainer.getChildren().add(
-                DialogBox.getDownyDialog(welcomeMessage, downyImage)  // Display it using a dialog box
-        );
+        String welcomeMessage = Ui.showWelcome();
+        dialogContainer.getChildren().add(DialogBox.getDownyDialog(welcomeMessage, downyImage));
     }
 
     /**
@@ -57,8 +55,8 @@ public class MainWindow extends AnchorPane {
         // Check if the command is the exit command (e.g., "bye")
         if (input.equalsIgnoreCase("bye")) {
             // Show the goodbye message and then close the app after a delay
-            PauseTransition delay = new PauseTransition(Duration.seconds(2));  // 2-second delay
-            delay.setOnFinished(event -> Main.exitApp());  // Close the app after the delay
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> Main.exitApp());
             delay.play();
         }
         userInput.clear();
