@@ -15,6 +15,10 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        tasklist.findTasks(this.arguments);
+        try {
+            tasklist.findTasks(this.arguments);
+        } catch (TrackieException e) {
+            ui.displayErrorMessage(e);
+        }
     }
 }

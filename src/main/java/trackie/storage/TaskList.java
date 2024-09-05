@@ -272,33 +272,22 @@ public class TaskList {
         System.out.println(String.format("[%s] %s", t.getStatusIcon(), t.getTaskInfo()));
     }
 
-<<<<<<< HEAD
-    public void findTasks(String[] arguments) {
-        int ptr = 1;
-        StringBuilder sb = new StringBuilder();
-        if (this.tasks.isEmpty()) {
-            System.out.println("Nothing to find =P");
-            return;
-        }
-
-        if (arguments.length == 1) {
-            System.out.println("Please provide a valid query!");
-            return;
-        }
-
-=======
     public void findTasks(String[] arguments) throws TrackieException {
-        StringBuilder sb = new StringBuilder();
-        int ptr = 1;
         if (arguments.length == 1) {
             throw new TrackieException("Please provide a valid query to find!");
         }
->>>>>>> branch-A-JavaDoc
+
+        if (tasks.isEmpty()) {
+            throw new TrackieException("Nothing to find =/");
+        }
+
+        int ptr = 1;
+        StringBuilder sb = new StringBuilder();
         while (ptr < arguments.length) {
             sb.append(arguments[ptr]).append(" ");
             ptr++;
         }
-<<<<<<< HEAD
+
         String query = sb.substring(0, sb.length() - 1);
 
         int noOfTasksFound = 0;
@@ -315,15 +304,4 @@ public class TaskList {
             System.out.printf("%d matching task(s) found\n", noOfTasksFound);
         }
     }
-=======
-
-        String query = sb.substring(0, sb.length() - 1);
-        for (Task t : this.tasks) {
-            if (t.getDescription().contains(query)) {
-                System.out.println(t.getTaskInfo());
-            }
-        }
-    }
-
->>>>>>> branch-A-JavaDoc
 }

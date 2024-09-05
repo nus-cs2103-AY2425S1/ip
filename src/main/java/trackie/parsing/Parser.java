@@ -20,8 +20,8 @@ public class Parser {
             return new ListCommand();
         case "bye":
             return new ExitCommand();
-            default:
-                return new InvalidCommand();
+        default:
+            return new InvalidCommand();
 
         }
     }
