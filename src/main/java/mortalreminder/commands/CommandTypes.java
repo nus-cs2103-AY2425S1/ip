@@ -4,16 +4,15 @@ package mortalreminder.commands;
  * Contains all types of commands in an Enum list.
  */
 public enum CommandTypes {
-    CLEAR_TASKS,
-    DEADLINE,
-    DELETE,
-    EVENT,
-    FIND,
-    LIST,
-    MARK,
     TODO,
-    UNKNOWN,
+    DEADLINE,
+    EVENT,
+    LIST,
+    FIND,
+    MARK,
     UNMARK,
-    UPCOMING_TASKS
-
+    DELETE,
+    UNKNOWN,
+    UPCOMING_TASKS,
+    CLEAR_TASKS,
 }

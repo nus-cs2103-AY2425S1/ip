@@ -35,13 +35,6 @@ public class FormattedPrinting {
     }
 
     /**
-     * Returns the goodbye message to the user when the user types bye into the command-line.
-     */
-    public static String goodbye() {
-        return getResponse("Bye. Hope to see you again soon!");
-    }
-
-    /**
      * Returns all current tasks inside the list when the LIST {@link CommandTypes} is used.
      *
      * @param taskList the current total list of tasks to be printed out

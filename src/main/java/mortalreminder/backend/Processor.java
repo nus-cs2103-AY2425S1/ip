@@ -70,9 +70,14 @@ public class Processor {
             return upcomingTasks(taskList);
 
         default:
-            throw new MortalReminderException("I do not recognise this command, please check again!\n"
-                    + "Available commands are:\n"
-                    + Arrays.toString(CommandTypes.class.getEnumConstants()).toLowerCase());
+            StringBuilder message = new StringBuilder("I do not recognise this command, please check again!\n"
+                    + "Available commands are:\n");
+            for (CommandTypes type : CommandTypes.values()) {
+                if (type != CommandTypes.UNKNOWN) {
+                    message.append(type.name().toLowerCase()).append("\n");
+                }
+            }
+            throw new MortalReminderException(message.toString());
         }
     }
 

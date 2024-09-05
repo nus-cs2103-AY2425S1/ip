@@ -3,6 +3,7 @@ package mortalreminder;
 import mortalreminder.backend.Processor;
 import mortalreminder.backend.Storage;
 import mortalreminder.backend.TaskList;
+import mortalreminder.commands.Command;
 import mortalreminder.errorhandling.MortalReminderException;
 import mortalreminder.io.FormattedPrinting;
 
@@ -29,12 +30,12 @@ public class MortalReminder {
         return FormattedPrinting.welcome();
     }
 
-    public Processor getProcessor() {
-        return this.processor;
-    }
-
-    public TaskList getTaskList() {
-        return this.taskList;
+    public String executeCommand(Command command) {
+        try {
+            return processor.handleCommand(command, taskList);
+        } catch (MortalReminderException e) {
+            return e.getMessage();
+        }
     }
 
 }

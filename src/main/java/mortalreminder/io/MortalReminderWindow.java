@@ -8,11 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import mortalreminder.MortalReminder;
-import mortalreminder.backend.Processor;
-import mortalreminder.backend.TaskList;
 import mortalreminder.commands.Command;
 import mortalreminder.commands.CommandTypes;
-import mortalreminder.errorhandling.MortalReminderException;
 
 /**
  * Controller for the main GUI.
@@ -50,16 +47,9 @@ public class MortalReminderWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        Processor processor = mortalReminder.getProcessor();
-        TaskList taskList = mortalReminder.getTaskList();
         String input = userInput.getText();
         Command command = Parser.parseInputFromUser(input);
-        String response;
-        try {
-            response = processor.handleCommand(command, taskList);
-        } catch (MortalReminderException e) {
-            response = e.getMessage();
-        }
+        String response = mortalReminder.executeCommand(command);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getMortalReminderDialog(response, mortalReminderImage, command.commandType())
