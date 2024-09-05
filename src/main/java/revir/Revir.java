@@ -19,12 +19,13 @@ public class Revir {
         storage = new Storage(Path.of("data", "tasks.dat"));
         taskList = new TaskList(storage, ui);
         ui.showWelcome();
-        while (ui.isOpen()) {
+        boolean exit = false;
+        while (!exit) {
             String input = ui.readInput();
             try {
                 Command c = parser.parse(input);
                 c.execute(ui, taskList);
-
+                exit = c.isExit();
             } catch (NumberFormatException e) {
                 ui.showError("Invalid task index. Expected a number.");
             } catch (IOException e) {

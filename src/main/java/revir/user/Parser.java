@@ -43,7 +43,7 @@ public class Parser {
     }
 
     public Command parse(String commandString) throws IllegalCommandException, InvalidFormatException {
-        String[] split = commandString.split(" ", 2);
+        String[] split = commandString.trim().split(" ", 2);
         String commandWord = split[0].toLowerCase();
         String args = split.length > 1 ? split[1] : "";
         Action action = Parser.actionMap.getOrDefault(commandWord, Action.INVALID);

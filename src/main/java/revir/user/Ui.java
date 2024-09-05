@@ -14,6 +14,11 @@ public class Ui {
     public void showWelcome() {
         System.out.println("Hello! I'm " + this.name);
         System.out.println("What can I do for you?");
+        this.showLine();
+    }
+
+    private void showLine() {
+        System.out.println("----------------------------------------");
     }
 
     public void showError(String error) {
@@ -21,11 +26,14 @@ public class Ui {
     }
 
     public void showExit() {
+        this.showLine();
         System.out.println("Bye. Hope to see you again soon!");
     }
 
     public void showResult(String result) {
+        this.showLine();
         System.out.println(result);
+        this.showLine();
     }
 
     public String readInput() {

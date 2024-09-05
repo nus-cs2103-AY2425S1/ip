@@ -25,7 +25,7 @@ public abstract class Command {
      */
     public abstract void execute(Ui ui, TaskList taskList) throws IOException;
 
-    boolean isExit() {
+    public boolean isExit() {
         return this.isExit;
     }
 }

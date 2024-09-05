@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 import revir.tasks.Deadline;
 import revir.tasks.Event;
+import revir.tasks.Task;
+import revir.tasks.TaskList;
 import revir.tasks.Todo;
 import revir.user.Ui;
 

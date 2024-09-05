@@ -118,14 +118,14 @@ public class TaskList {
      *                                   tasks to a file
      */
     public String setCompleted(int index, boolean status) throws IndexOutOfBoundsException, IOException {
-        if (index < 1 || index > tasks.size()) {
+        if (index < 0 || index >= tasks.size()) {
             throw new IndexOutOfBoundsException(
                     "Invalid task index. Expected index between 1 and " + tasks.size());
         }
         Task task = tasks.get(index);
         task.setCompleted(status);
         storage.saveToFile(this.tasks);
-        return "Task marked as" + (status ? "completed" : "incomplete") + ": " + task.toString();
+        return "Task marked as " + (status ? "completed" : "incomplete") + ": " + task.toString();
     }
 
 }
