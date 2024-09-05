@@ -1,14 +1,14 @@
 package drbrown.task;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for the Event class.
@@ -20,7 +20,7 @@ public class EventTest {
     private String validStartTime;
     private String validEndTime;
     private String invalidTime;
-    private DateTimeFormatter FILE_DATE_TIME_FORMATTER;
+    private DateTimeFormatter fileDateTimeFormatter;
 
     /**
      * Sets up test data before each test case.
@@ -31,7 +31,7 @@ public class EventTest {
         validStartTime = "03-09-2024 09:00";
         validEndTime = "03-09-2024 10:00";
         invalidTime = "03-09-24 09:00";
-        FILE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        fileDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     }
 
     /**
@@ -40,8 +40,8 @@ public class EventTest {
     @Test
     public void testSuccessfulCreationEvent() {
         Event event = new Event(false, description,
-                LocalDateTime.parse(validStartTime, FILE_DATE_TIME_FORMATTER),
-                LocalDateTime.parse(validEndTime, FILE_DATE_TIME_FORMATTER));
+                LocalDateTime.parse(validStartTime, fileDateTimeFormatter),
+                LocalDateTime.parse(validEndTime, fileDateTimeFormatter));
         assertEquals("[E][ ] Meeting (from: Sep 03 2024 end: Sep 03 2024 10:00)", event.toString());
     }
 
@@ -53,8 +53,8 @@ public class EventTest {
     public void testInvalidDateTimeEvent() {
         try {
             new Event(false, description,
-                    LocalDateTime.parse(invalidTime, FILE_DATE_TIME_FORMATTER),
-                    LocalDateTime.parse(validEndTime, FILE_DATE_TIME_FORMATTER));
+                    LocalDateTime.parse(invalidTime, fileDateTimeFormatter),
+                    LocalDateTime.parse(validEndTime, fileDateTimeFormatter));
             fail("Expected DateTimeParseException to be thrown");
         } catch (DateTimeParseException ignored) {
             // Exception is expected, so the test passes.
@@ -67,8 +67,8 @@ public class EventTest {
     @Test
     void testToFileStringEvent() {
         Event event = new Event(false, description,
-                LocalDateTime.parse(validStartTime, FILE_DATE_TIME_FORMATTER),
-                LocalDateTime.parse(validEndTime, FILE_DATE_TIME_FORMATTER));
+                LocalDateTime.parse(validStartTime, fileDateTimeFormatter),
+                LocalDateTime.parse(validEndTime, fileDateTimeFormatter));
         assertEquals("E | false | Meeting | 2024-09-03 0900 | 2024-09-03 1000", event.toFileString());
     }
 
@@ -76,12 +76,12 @@ public class EventTest {
      * Tests the UI string representation of an Event task.
      */
     @Test
-    void testToUIStringEvent() {
+    void testToUiStringEvent() {
         Event event = new Event(false, description,
-                LocalDateTime.parse(validStartTime, FILE_DATE_TIME_FORMATTER),
-                LocalDateTime.parse(validEndTime, FILE_DATE_TIME_FORMATTER));
+                LocalDateTime.parse(validStartTime, fileDateTimeFormatter),
+                LocalDateTime.parse(validEndTime, fileDateTimeFormatter));
         assertEquals("The appropriate question is: ‘When the hell are they?’ "
-                + "Your event is now set in time!\n", event.toUIString());
+                + "Your event is now set in time!\n", event.toUiString());
     }
 
     /**
@@ -90,8 +90,8 @@ public class EventTest {
     @Test
     public void testSuccessfulCreationMarkDoneEvent() {
         Event event = new Event(true, description,
-                LocalDateTime.parse(validStartTime, FILE_DATE_TIME_FORMATTER),
-                LocalDateTime.parse(validEndTime, FILE_DATE_TIME_FORMATTER));
+                LocalDateTime.parse(validStartTime, fileDateTimeFormatter),
+                LocalDateTime.parse(validEndTime, fileDateTimeFormatter));
         assertEquals("[E][X] Meeting (from: Sep 03 2024 end: Sep 03 2024 10:00)", event.toString());
     }
 }

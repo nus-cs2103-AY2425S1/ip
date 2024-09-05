@@ -1,9 +1,8 @@
 package drbrown.utils;
 
-import drbrown.task.Task;
-
 import java.util.ArrayList;
 
+import drbrown.task.Task;
 /**
  * Represents a list of tasks in the DrBrown application.
  * Provides methods to add, remove, mark, unmark, find, and list tasks.

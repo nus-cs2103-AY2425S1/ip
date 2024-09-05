@@ -1,8 +1,8 @@
 package drbrown.utils;
 
-import drbrown.task.Task;
-
 import java.util.Scanner;
+
+import drbrown.task.Task;
 
 /**
  * Handles the user interface for the DrBrown application.
@@ -51,7 +51,7 @@ public class Ui {
      * @param task The task that was created.
      */
     public void showTaskCreation(Task task) {
-        System.out.println(task.toUIString());
+        System.out.println(task.toUiString());
         System.out.println(task);
     }
 

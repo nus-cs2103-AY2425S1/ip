@@ -13,8 +13,8 @@ public abstract class Task {
     /**
      * Constructs a Task with the specified status and description.
      *
-     * @param isCompleted      The completion status of the task (true if completed, false otherwise).
-     * @param description The description of the task.
+     * @param isCompleted  The completion status of the task (true if completed, false otherwise).
+     * @param description  The description of the task.
      */
     public Task(boolean isCompleted, String description) {
         this.isCompleted = isCompleted;
@@ -26,6 +26,7 @@ public abstract class Task {
      * The default description is an empty string, and the task status is not set.
      */
     public Task() {
+        this.isCompleted = false;
         this.description = "";
     }
 
@@ -68,5 +69,5 @@ public abstract class Task {
      *
      * @return A user-friendly string that describes the task.
      */
-    public abstract String toUIString();
+    public abstract String toUiString();
 }
