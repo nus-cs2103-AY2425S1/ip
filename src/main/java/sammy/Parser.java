@@ -1,11 +1,9 @@
 package sammy;
 
-import sammy.command.AddCommand;
-import sammy.command.DeleteCommand;
-import sammy.command.ExitCommand;
-import sammy.command.ListCommand;
+import sammy.command.*;
 import sammy.task.Deadline;
 import sammy.task.Event;
+import sammy.task.Task;
 import sammy.task.Todo;;
 
 public class Parser {
@@ -37,6 +35,10 @@ public class Parser {
                 return new ListCommand();
             case "delete":
                 return new DeleteCommand(Integer.parseInt(arguments) - 1);
+            case "mark":
+                return new MarkCommand(Integer.parseInt(arguments) - 1);
+            case "unmark":
+                return new UnmarkCommand(Integer.parseInt(arguments) - 1);
             case "bye":
                 return new ExitCommand();
             default:
@@ -45,7 +47,10 @@ public class Parser {
     }
 
     public static Task parseTask(String line) {
+        System.out.println("Parsing line: " + line);
+
         String[] parts = line.split(" \\| ");
+
         String taskType = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();

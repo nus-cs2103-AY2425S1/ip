@@ -1,7 +1,5 @@
 package sammy.task;
 
-import sammy.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -25,6 +23,7 @@ public class Deadline extends Task {
                 DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"),
                 DateTimeFormatter.ofPattern("M/d/yyyy HHmm"),
                 DateTimeFormatter.ofPattern("MM-dd-yyyy HHmm"),
+                DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"),
         };
 
         for (DateTimeFormatter formatter : formatters) {

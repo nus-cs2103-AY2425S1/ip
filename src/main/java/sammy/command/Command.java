@@ -1,7 +1,8 @@
-package sammy;
+package sammy.command;
 
+import sammy.SammyException;
 import sammy.Storage;
-import sammy.TaskList;
+import sammy.task.TaskList;
 import sammy.Ui;
 
 import java.io.IOException;

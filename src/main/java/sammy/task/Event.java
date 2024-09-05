@@ -1,13 +1,13 @@
 package sammy.task;
 
-import sammy.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+
+
 
     public Event(String description, String startTime, String endTime) {
         super(description);

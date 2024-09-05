@@ -1,4 +1,6 @@
-package sammy;
+package sammy.task;
+
+import sammy.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;

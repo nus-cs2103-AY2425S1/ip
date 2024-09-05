@@ -1,9 +1,8 @@
 package sammy.command;
 
 import sammy.Storage;
-import sammy.TaskList;
+import sammy.task.TaskList;
 import sammy.Ui;
-import sammy.Command;
 
 public class ExitCommand extends Command {
     @Override

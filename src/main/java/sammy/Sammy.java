@@ -1,5 +1,8 @@
 package sammy;
 
+import sammy.command.Command;
+import sammy.task.TaskList;
+
 import java.io.IOException;
 public class Sammy {
 
@@ -37,7 +40,7 @@ public class Sammy {
     }
 
     public static void main(String[] args) {
-        new Sammy("./data/sammy.ui.sammy.Sammy.txt").run();
+        new Sammy("./data/Sammy.txt").run();
     }
 }
 

@@ -1,5 +1,8 @@
 package sammy;
 
+import sammy.task.Task;
+import sammy.task.TaskList;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,8 +28,8 @@ public class Storage {
         }
 
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line;
-        while ((line = reader.readLine()) != null) {
+        String line = reader.readLine();
+        while (line != null && !line.isEmpty()){
             Task task = Parser.parseTask(line);
             if (task != null) {
                 tasks.add(task);

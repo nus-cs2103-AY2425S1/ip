@@ -1,4 +1,6 @@
-package sammy;
+package sammy.exceptions;
+
+import sammy.SammyException;
 
 public class InvalidTaskNumberException extends SammyException {
     public InvalidTaskNumberException() {

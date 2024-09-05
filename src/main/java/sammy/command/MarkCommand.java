@@ -1,18 +1,18 @@
-
 package sammy.command;
 
 import sammy.task.TaskList;
 import sammy.Ui;
 import sammy.SammyException;
 import sammy.Storage;
-import java.io.IOException;
 import sammy.task.Task;
 import sammy.exceptions.InvalidTaskNumberException;
 
-public class DeleteCommand extends Command {
+import java.io.IOException;
+
+public class MarkCommand extends Command {
     private int index;
 
-    public DeleteCommand(int index) {
+    public MarkCommand(int index) {
         this.index = index;
     }
 
@@ -21,8 +21,9 @@ public class DeleteCommand extends Command {
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskNumberException();
         }
-        Task removedTask = tasks.remove(index);
-        ui.showRemoveTask(removedTask, tasks.size());
+        Task task = tasks.get(index);
+        task.markAsDone();
+        ui.showMarkTask(task);
         storage.save(tasks);
     }
 }
