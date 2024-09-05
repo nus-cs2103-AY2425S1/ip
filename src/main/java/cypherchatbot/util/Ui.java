@@ -1,6 +1,13 @@
 package cypherchatbot.util;
 
 import java.util.Scanner;
+
+import cypherchatbot.Cypher;
+import cypherchatbot.controller.MainWindow;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
+
 /**
  *  The UI class handles all interactions with the user for the Cypher Chat Bot Application such as
  *  reading user commands from the console, displaying various outputs depending on the command. All user
@@ -9,11 +16,13 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
 
+    private Cypher cypher;
     /**
      * Initializes a new scanner instance for reading user input from the console.
      * */
-    public Ui() {
+    public Ui(Cypher cypher) {
         this.scanner = new Scanner(System.in);
+        this.cypher = cypher;
     }
 
     /**
@@ -25,6 +34,7 @@ public class Ui {
         Ui.lineBreak();
         System.out.println(s);
         Ui.lineBreak();
+        this.cypher.sendDialog(s);
     }
 
     /**
@@ -53,6 +63,8 @@ public class Ui {
         lineBreak();
         System.out.println("Hello! I am Cypher\nWhat can I do for you!");
         lineBreak();
+        this.cypher.sendDialog("Hello! I am Cypher\nWhat can I do for you!");
+
     }
 
     /**
@@ -60,10 +72,11 @@ public class Ui {
      * that the application has ended and the scanner is closed.
      */
     public void goodBye() {
-        lineBreak();
-        System.out.println("Bye. Hope to see you again soon!");
-        lineBreak();
         this.scanner.close();
+        this.cypher.sendDialog("Bye! See you again. This application will close in 3 seconds");
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        delay.setOnFinished((e) -> Platform.exit());
+        delay.play();
     }
 
     /**
@@ -76,6 +89,7 @@ public class Ui {
         lineBreak();
         System.out.println(String.format("Given filepath [%s] does not work. Please try again", filePath));
         lineBreak();
+        this.cypher.sendDialog(String.format("Given filepath [%s] does not work. Please try again", filePath));
     }
 
     /**
@@ -88,6 +102,7 @@ public class Ui {
         lineBreak();
         System.out.println(e);
         lineBreak();
+        this.cypher.sendDialog(e);
     }
 
 
