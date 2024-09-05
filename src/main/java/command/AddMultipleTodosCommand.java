@@ -15,7 +15,7 @@ public class AddMultipleTodosCommand extends Command {
     public AddMultipleTodosCommand(String... todos) {
         this.todos = new ArrayList<>();
         for (String name: todos) {
-            this.todos.add(new Todo(name));
+            this.todos.add(new Todo(name)); 
         }
     }
 
