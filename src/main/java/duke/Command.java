@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public class Command {
 
+    private static final String ERROR_MESSAGE_UNKNOWN_COMMAND = "I'm sorry, but I don't know what that means :-(";
     private String command;
     private String message;
 
@@ -36,8 +37,10 @@ public class Command {
      * @throws MentalHealthException If an error occurs while processing the command.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MentalHealthException {
+        assert tasks != null && ui != null && storage != null : "Tasks, Ui, or Storage cannot be null";
+
         String message = this.message.strip().toLowerCase();
-        String[] parts = message.split(" ");
+        String[] messageParts = message.split(" ");
 
         switch (this.command) {
         case "bye":
@@ -45,18 +48,16 @@ public class Command {
         case "list":
             return tasks.getTasks(tasks.getListTask());
         case "mark":
-            return handleMarkCommand(parts, tasks, storage);
+            return handleMarkCommand(messageParts, tasks, storage);
         case "delete":
-            return handleDeleteCommand(parts, tasks, storage);
+            return handleDeleteCommand(messageParts, tasks, storage);
         case "find":
-            return handleFindCommand(parts, tasks);
+            return handleFindCommand(messageParts, tasks);
         default:
-            if (!this.message.isEmpty()) {
-                return processCustomCommand(tasks, storage);
-            }
+            return handleUnknownCommand(tasks, storage);
         }
-        return "Unknown message";
     }
+
 
     /**
      * Marks the task as either done or not done.
@@ -68,35 +69,48 @@ public class Command {
      * @return A message indicating the result of the mark/unmark command.
      * @throws MentalHealthException If an error occurs while processing the command.
      */
-    private String handleMarkCommand(String[] parts, TaskList tasks, Storage storage)
+    private String handleMarkCommand(String[] parts, TaskList tasks, Storage storage) throws MentalHealthException {
+        if (parts.length <= 1) {
+            return "No Task found after 'mark'.";
+        }
+
+        int index = Integer.parseInt(parts[parts.length - 1]);
+        String checkMarkOrUnmark = parts[0];
+        IndividualTask curTask = tasks.getListTask().get(index - 1);
+
+        return markOrUnmarkTask(tasks, storage, checkMarkOrUnmark, curTask);
+    }
+    /**
+     * Marks or unmarks a given task as done or not done based on the command ("mark" or "unmark").
+     * Saves the updated task list to storage after marking/unmarking.
+     *
+     * @param tasks             The {@code TaskList} object containing all tasks.
+     * @param storage           The {@code Storage} object for saving the task list to a file.
+     * @param checkMarkOrUnmark A {@code String} indicating whether to mark ("mark") or unmark ("unmark") the task.
+     * @param curTask           The {@code IndividualTask} object to be marked/unmarked.
+     * @return A {@code String} message indicating the result of the mark/unmark operation.
+     * @throws MentalHealthException If an error occurs while processing the mark/unmark operation.
+     */
+    private String markOrUnmarkTask(TaskList tasks, Storage storage, String checkMarkOrUnmark, IndividualTask curTask)
             throws MentalHealthException {
         StringBuilder result = new StringBuilder();
 
-        if (parts.length > 1) {
-            int number = Integer.parseInt(parts[parts.length - 1]);
-            String checkMarkOrUnmark = parts[0];
-            result.append("Extracted Task number: ").append(number).append("\n");
-            IndividualTask curTask = tasks.getListTask().get(number - 1);
-
-            if (checkMarkOrUnmark.equals("mark")) {
-                curTask.markOrUnmark("mark");
-                result.append("Okays! I've marked this task as done:\n")
-                        .append(formatMessage(curTask, tasks.getListTask().size()))
-                        .append("\n");
-            } else if (checkMarkOrUnmark.equals("unmark")) {
-                curTask.markOrUnmark("unmark");
-                result.append("Okay! I've marked this task as not done:\n")
-                        .append(formatMessage(curTask, tasks.getListTask().size()))
-                        .append("\n");
-            } else {
-                result.append("Not a valid command.\n");
-            }
-        } else {
-            result.append("No Task found after 'mark'.\n");
+        switch (checkMarkOrUnmark) {
+        case "mark":
+            curTask.markOrUnmark("mark");
+            result.append("Okays! I've marked this task as done:\n")
+                    .append(formatMessage(curTask, tasks.getListTask().size()));
+            break;
+        case "unmark":
+            curTask.markOrUnmark("unmark");
+            result.append("Okay! I've marked this task as not done:\n")
+                    .append(formatMessage(curTask, tasks.getListTask().size()));
+            break;
+        default:
+            result.append("Not a valid command.");
         }
 
         storage.saveTasksToFile(tasks.getListTask());
-
         return result.toString();
     }
 
@@ -109,23 +123,17 @@ public class Command {
      * @return A message indicating the result of the delete command.
      */
     private String handleDeleteCommand(String[] parts, TaskList tasks, Storage storage) {
-        StringBuilder result = new StringBuilder();
-
-        if (parts.length > 1 && parts[0].equals("delete")) {
-            int number = Integer.parseInt(parts[parts.length - 1]);
-            result.append("Extracted Task number: ").append(number).append("\n");
-            IndividualTask curTask = tasks.getListTask().get(number - 1);
-            tasks.deleteTask(number - 1);
-            result.append("Alrighty! I will remove the task:\n")
-                    .append(formatMessage(curTask, tasks.getListTask().size()))
-                    .append("\n");
-        } else {
-            result.append("No Task found.\n");
+        if (parts.length <= 1) {
+            return "No Task found.";
         }
+
+        int number = Integer.parseInt(parts[parts.length - 1]);
+        IndividualTask curTask = tasks.getListTask().get(number - 1);
+        tasks.deleteTask(number - 1);
 
         storage.saveTasksToFile(tasks.getListTask());
 
-        return result.toString();
+        return "Alrighty! I will remove the task:\n" + formatMessage(curTask, tasks.getListTask().size());
     }
 
     /**
@@ -136,25 +144,39 @@ public class Command {
      * @return A message listing the tasks that match the keyword.
      */
     private String handleFindCommand(String[] parts, TaskList tasks) {
-        StringBuilder result = new StringBuilder();
+        if (parts.length <= 1) {
+            return "No keyword found for search.";
+        }
 
-        String keyWord = parts[parts.length - 1];
-        ArrayList<IndividualTask> allTasks = tasks.getListTask();
+        String keyword = parts[parts.length - 1];
+        ArrayList<IndividualTask> matchingTasks = findMatchingTasks(tasks, keyword);
+
+        if (matchingTasks.isEmpty()) {
+            return "No matching tasks found.";
+        }
+
+        return "Here are your matching tasks!\n" + tasks.getTasks(matchingTasks);
+    }
+
+    /**
+     * Finds tasks in the task list that match the given keyword. A task matches if its
+     * description contains the keyword (case-insensitive).
+     *
+     * @param tasks   The {@code TaskList} object containing all tasks.
+     * @param keyword The keyword to search for within task descriptions.
+     * @return A list of {@code IndividualTask} objects that match the keyword.
+     */
+    private ArrayList<IndividualTask> findMatchingTasks(TaskList tasks, String keyword) {
         ArrayList<IndividualTask> matchingTasks = new ArrayList<>();
+        ArrayList<IndividualTask> allTasks = tasks.getListTask();
+
         for (IndividualTask task : allTasks) {
-            if (task.getTaskDescription().toLowerCase().contains(keyWord.toLowerCase())) {
+            if (task.getTaskDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.add(task);
             }
         }
 
-        if (!matchingTasks.isEmpty()) {
-            result.append("Here are your matching tasks!\n");
-            result.append(tasks.getTasks(matchingTasks));
-        } else {
-            result.append("No matching tasks found.\n");
-        }
-
-        return result.toString();
+        return matchingTasks;
     }
 
     /**
@@ -164,15 +186,26 @@ public class Command {
      * @param storage  The {@code Storage} object for saving the task list to a file.
      * @return The result of processing the custom command as a {@code String}.
      */
-    private String processCustomCommand(TaskList tasks, Storage storage) {
-        try {
-            return processMessage(this.message, tasks, storage);
-        } catch (MentalHealthException e) {
-            StringBuilder result = new StringBuilder();
-            result.append("OOPS!!! ").append(e.getMessage()).append("\n");
-            return result.toString();
-        }
+    private String processCustomCommand(TaskList tasks, Storage storage) throws MentalHealthException {
+        return processMessage(this.message, tasks, storage);
     }
+
+    /**
+     * Handles the case where an unknown command is received. If a message is present,
+     * it processes the custom command; otherwise, returns an "Unknown message" response.
+     *
+     * @param tasks   The {@code TaskList} object containing all tasks.
+     * @param storage The {@code Storage} object for saving the task list to a file.
+     * @return The result of processing the custom command, or "Unknown message" if no message is present.
+     * @throws MentalHealthException If an error occurs while processing the custom command.
+     */
+    private String handleUnknownCommand(TaskList tasks, Storage storage) throws MentalHealthException {
+        if (!this.message.isEmpty()) {
+            return processCustomCommand(tasks, storage);
+        }
+        return "Unknown message";
+    }
+
 
     /**
      * Processes specific task-related commands such as "todo", "deadline", and "event".
@@ -196,13 +229,13 @@ public class Command {
             result.append(processTodoCommand(message, tasks));
             break;
         case "deadline":
-            result.append(processDeadlineCommand(message, tasks));
+            result.append(processDeadlineCommand(tasks));
             break;
         case "event":
-            result.append(processEventCommand(message, tasks));
+            result.append(processEventCommand(tasks));
             break;
         default:
-            throw new MentalHealthException("I'm sorry, but I don't know what that means :-(");
+            throw new MentalHealthException(ERROR_MESSAGE_UNKNOWN_COMMAND);
         }
         storage.saveTasksToFile(tasks.getListTask());
 
@@ -236,12 +269,11 @@ public class Command {
     /**
      * Processes "deadline" commands.
      *
-     * @param message  The message containing the command and task details.
      * @param tasks    The {@code TaskList} object to which the new task will be added.
      * @return The result of processing the "deadline" command as a {@code String}.
      * @throws MentalHealthException If an error occurs while processing the task command.
      */
-    private String processDeadlineCommand(String[] message, TaskList tasks) throws MentalHealthException {
+    private String processDeadlineCommand(TaskList tasks) throws MentalHealthException {
         StringBuilder result = new StringBuilder();
 
         String[] parts = this.message.split(" /by ", 2);
@@ -263,34 +295,28 @@ public class Command {
     /**
      * Processes "event" commands.
      *
-     * @param message  The message containing the command and task details.
      * @param tasks    The {@code TaskList} object to which the new task will be added.
      * @return The result of processing the "event" command as a {@code String}.
      * @throws MentalHealthException If an error occurs while processing the task command.
      */
-    private String processEventCommand(String[] message, TaskList tasks) throws MentalHealthException {
-        StringBuilder result = new StringBuilder();
-
+    private String processEventCommand(TaskList tasks) throws MentalHealthException {
         String[] parts = this.message.split(" /from ", 2);
-        if (parts.length == 2) {
-            String type = "event";
-            String description = parts[0].substring(type.length()).trim();
-            String[] secondPart = parts[1].split(" /to ", 2);
-            if (secondPart.length == 2) {
-                String from = secondPart[0].trim();
-                String to = secondPart[1].trim();
-                Event newEvent = new Event(description, from, to);
-                tasks.addTask(newEvent);
-                result.append("Okays! I've added this task:\n")
-                        .append(formatMessage(newEvent, tasks.getListTask().size()));
-            } else {
-                throw new MentalHealthException("The string doesn't contain the '/to' part.");
-            }
-        } else {
+        if (parts.length != 2) {
             throw new MentalHealthException("The string doesn't contain the '/from' part.");
         }
 
-        return result.toString();
+        String description = parts[0].substring("event".length()).trim();
+        String[] secondPart = parts[1].split(" /to ", 2);
+        if (secondPart.length != 2) {
+            throw new MentalHealthException("The string doesn't contain the '/to' part.");
+        }
+
+        String from = secondPart[0].trim();
+        String to = secondPart[1].trim();
+        Event newEvent = new Event(description, from, to);
+        tasks.addTask(newEvent);
+
+        return "Okays! I've added this task:\n" + formatMessage(newEvent, tasks.getListTask().size());
     }
 
     /**

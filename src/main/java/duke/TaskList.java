@@ -9,13 +9,6 @@ import java.util.ArrayList;
 public class TaskList {
 
     private ArrayList<IndividualTask> tasks = new ArrayList<IndividualTask>();
-
-
-
-    private String message = "";
-
-
-
     /**
      * Constructs a duke.TaskList with the specified list of tasks.
      *
