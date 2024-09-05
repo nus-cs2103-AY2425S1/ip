@@ -23,39 +23,33 @@ public class Ui {
         System.out.println("  Farewell. I look forward to our next meeting, wherever destiny may lead us.");
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task, TaskList taskList) {
         System.out.println("  Got it. I've added this task.");
         System.out.println("    " + task);
-        System.out.println("  Now you have " + TaskList.tasks.size() + " task(s) in the list.");
+        System.out.println("  Now you have " + taskList.getSize() + " task(s) in the list.");
     }
 
     public void getList() {
         System.out.println("  Here are the tasks in your list:");
     }
 
-    public void mark(int taskNumber) {
-        Task t = TaskList.tasks.get(taskNumber - 1);
+    public void mark(Task t) {
         String message = "  Good work on this task. Want a prize?:\n"
                 + "    " + t;
         System.out.println(message);
     }
 
-    public void unmark(int taskNumber) {
-        Task t = TaskList.tasks.get(taskNumber - 1);
+    public void unmark(Task t) {
         String message = "  Hurry up. This task is necessary for Elio's script:\n"
                 + "    " + t;
         System.out.println(message);
     }
 
-    public void delete(int taskNumber) {
-        if (TaskList.tasks.isEmpty()) {
-            return;
-        }
-        Task t = TaskList.tasks.get(taskNumber - 1);
+    public void delete(Task t, TaskList taskList) {
         String message = "  I've removed this task:\n"
                 + "    " + t;
         System.out.println(message);
-        System.out.println("  Now you have " + TaskList.tasks.size() + " task(s) in the list.");
+        System.out.println("  Now you have " + taskList.getSize() + " task(s) in the list.");
     }
 
     public void incorrectDateDetails() {

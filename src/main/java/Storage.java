@@ -15,14 +15,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws FileNotFoundException {
         this.getNewFile(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
-        this.printFileContents(filePath, tasks);
+        this.printFileContents(tasks);
         return tasks;
     }
 
-    public void printFileContents(String filePath, ArrayList<Task> tasks) {
+    public void printFileContents(ArrayList<Task> tasks) {
         try {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
@@ -54,7 +54,7 @@ public class Storage {
         }
     }
 
-    public void writeToFile(String filePath, ArrayList<Task> tasks) throws IOException {
+    public void writeToFile(ArrayList<Task> tasks) {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task t : tasks) {
                 if (t instanceof Todo todo) {
