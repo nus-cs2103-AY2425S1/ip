@@ -1,3 +1,5 @@
+package Diomon;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 public class Parser {
@@ -16,7 +18,7 @@ public class Parser {
         case Deadline.TYPEICON:
             return parseStoredDeadline(dataArr);
         default:
-            throw new RuntimeException("Error loading Task");
+            throw new RuntimeException("Error loading Diomon.Task");
         }
     }
 

@@ -1,7 +1,7 @@
-import java.nio.file.Paths;
 import java.util.Scanner;
+import Diomon.*;
 
-public class Diomon {
+public class Main {
     private Storage storage;
     private Commands commands;
     private static void greeting() {
@@ -28,6 +28,6 @@ public class Diomon {
     }
 
     public static void main(String[] args) {
-        new Diomon().run();
+        new Main().run();
     }
 }

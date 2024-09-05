@@ -1,3 +1,5 @@
+package Diomon;
+
 public class Commands {
     private boolean exit;
     public enum Types {
@@ -90,14 +92,14 @@ public class Commands {
     public void todo(TaskList taskList, String input) {
         Task newTask = Task.of(input, Task.TaskType.TODO);
         taskList.add(newTask);
-        System.out.printf("New Task: [%s] has been added.\n", newTask);
+        System.out.printf("New Diomon.Task: [%s] has been added.\n", newTask);
         System.out.print(taskList);
     }
     public void deadline(TaskList taskList, String input) {
         try {
             Task newTask = Task.of(input, Task.TaskType.DEADLINE);
             taskList.add(newTask);
-            System.out.printf("New Task: [%s] has been added.\n", newTask);
+            System.out.printf("New Diomon.Task: [%s] has been added.\n", newTask);
             System.out.print(taskList);
         } catch (Exception e) {
             System.out.println("Incorrect/ missing details given");
@@ -108,20 +110,20 @@ public class Commands {
         try {
             Task newTask = Task.of(input, Task.TaskType.EVENT);
             taskList.add(newTask);
-            System.out.printf("New Task: [%s] has been added.\n", newTask);
+            System.out.printf("New Diomon.Task: [%s] has been added.\n", newTask);
             System.out.print(taskList);
         } catch (Exception e) {
             System.out.println("Incorrect/ missing details given");
         }
     }
     public void list(TaskList taskList) {
-        System.out.println("TaskList:");
+        System.out.println("Diomon.TaskList:");
         System.out.print(taskList);
     }
     public void mark(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
-            System.out.printf("Task %d: [%s] has been marked", i, taskList.get(i - 1));
+            System.out.printf("Diomon.Task %d: [%s] has been marked", i, taskList.get(i - 1));
             taskList.mark( i- 1);
         } catch (NumberFormatException e) {
             System.out.println("Param given for marking a task is wrong, please try again");
@@ -132,7 +134,7 @@ public class Commands {
     public void unmark(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
-            System.out.printf("Task %d: [%s] has been unmarked\n", i, taskList.get(i - 1));
+            System.out.printf("Diomon.Task %d: [%s] has been unmarked\n", i, taskList.get(i - 1));
             taskList.unmark( i- 1);
         } catch (NumberFormatException e) {
             System.out.println("Param given for unmarking a task is wrong, please try again");
@@ -146,13 +148,13 @@ public class Commands {
         this.exit = true;
     }
     public void help() {
-        String helpMessage = "Commands:\n-TODO\n-DEADLINE\n-EVENT\n-LIST\n-MARK\n-UNMARK\n-BYE\n-HELP";
+        String helpMessage = "Diomon.Commands:\n-TODO\n-DEADLINE\n-EVENT\n-LIST\n-MARK\n-UNMARK\n-BYE\n-HELP";
         System.out.print(helpMessage);
     }
     public void delete(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
-            System.out.printf("Task %d: [%s] has been deleted", i, taskList.get(i - 1));
+            System.out.printf("Diomon.Task %d: [%s] has been deleted", i, taskList.get(i - 1));
             taskList.remove( i- 1);
         } catch (NumberFormatException e) {
             System.out.println("Param given for marking a task is wrong, please try again");
