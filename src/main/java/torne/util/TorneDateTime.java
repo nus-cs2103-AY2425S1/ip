@@ -10,9 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * This encapsulates a date-time object to be used by `torne.ui.Torne`.
+ * This encapsulates a date-time object to be used by Torne.
  */
-
 public class TorneDateTime {
     private final LocalDateTime localDateTime;
 
@@ -21,7 +20,7 @@ public class TorneDateTime {
     }
 
     /**
-     * Creates a `torne.util.TorneDateTime` from date time input string of the format `yyyy-MM-dd HHmm`,
+     * Creates a {@link TorneDateTime} from date time input string of the format `yyyy-MM-dd HHmm`,
      * for instance
      * 2024-09-30 1820, or 1970-01-01 0000.
      *
@@ -43,7 +42,7 @@ public class TorneDateTime {
     }
 
     /**
-     * Creates a `torne.util.TorneDateTime` from date input string of the format `yyyy-MM-dd`,
+     * Creates a {@link TorneDateTime} from date input string of the format `yyyy-MM-dd`,
      * for instance
      * 2024-09-30, or 1970-01-01.
      *
@@ -64,7 +63,7 @@ public class TorneDateTime {
     }
 
     /**
-     * Creates a `torne.util.TorneDateTime` from datetime storage string as seconds since epoch
+     * Creates a {@link TorneDateTime} from datetime storage string as seconds since epoch
      * (1970-01-01T00:00:00Z).
      *
      * @param input Input string.
@@ -83,7 +82,7 @@ public class TorneDateTime {
     }
 
     /**
-     * Creates a `torne.util.TorneDateTime` from datetime storage string of the ISO-8601 format.
+     * Creates a {@link TorneDateTime} from datetime storage string of the ISO-8601 format.
      * Used when loading date time strings from local storage
      *
      * @param input Input string.

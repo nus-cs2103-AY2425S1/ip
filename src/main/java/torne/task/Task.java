@@ -63,7 +63,7 @@ public class Task {
             newTask = TaskEvent.fromStorage(parts[2], parts[3], parts[4]);
             break;
         default:
-            throw new TorneInvalidDataException("torne.storage.Storage string task type code invalid.");
+            throw new TorneInvalidDataException("Storage string task type code invalid.");
         }
 
         // set completion status
@@ -73,7 +73,7 @@ public class Task {
 
     protected Task(String name) throws TorneInvalidCommandException {
         if (name == null || name.isEmpty()) {
-            throw new TorneInvalidCommandException("torne.task.Task cannot have an empty name");
+            throw new TorneInvalidCommandException("Task cannot have an empty name");
         }
         this.name = name.trim();
     }
