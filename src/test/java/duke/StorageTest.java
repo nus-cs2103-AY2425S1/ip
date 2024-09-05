@@ -23,7 +23,7 @@ public class StorageTest {
         tasksToSave = new ArrayList<>();
         tasksToSave.add(new ToDo("read book"));
         tasksToSave.add(new Event("project meeting", "2pm", "4pm"));
-        tasksToSave.get(0).markOrUnmark("mark"); // Mark the first task as done
+        tasksToSave.get(0).setMarkStatus("mark"); // Mark the first task as done
     }
 
     @Test

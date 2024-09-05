@@ -31,13 +31,6 @@ public class Ui {
     }
 
     /**
-     * Displays a separator line to visually separate sections of output.
-     */
-    public void showSeparator() {
-        System.out.println(SEPARATOR);
-    }
-
-    /**
      * Displays a greeting message to the user.
      */
     public void greeting() {

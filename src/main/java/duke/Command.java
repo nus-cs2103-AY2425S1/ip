@@ -82,9 +82,9 @@ public class Command {
 
         int index = Integer.parseInt(parts[parts.length - 1]);
         String checkMarkOrUnmark = parts[0];
-        IndividualTask curTask = tasks.getListTask().get(index - 1);
+        IndividualTask currentTask = tasks.getListTask().get(index - 1);
 
-        return markOrUnmarkTask(tasks, storage, checkMarkOrUnmark, curTask);
+        return markOrUnmarkTask(tasks, storage, checkMarkOrUnmark, currentTask);
     }
     /**
      * Marks or unmarks a given task as done or not done based on the command ("mark" or "unmark").
@@ -93,21 +93,22 @@ public class Command {
      * @param tasks             The {@code TaskList} object containing all tasks.
      * @param storage           The {@code Storage} object for saving the task list to a file.
      * @param checkMarkOrUnmark A {@code String} indicating whether to mark ("mark") or unmark ("unmark") the task.
-     * @param curTask           The {@code IndividualTask} object to be marked/unmarked.
+     * @param currentTask           The {@code IndividualTask} object to be marked/unmarked.
      * @return A {@code String} message indicating the result of the mark/unmark operation.
      */
-    private String markOrUnmarkTask(TaskList tasks, Storage storage, String checkMarkOrUnmark, IndividualTask curTask) {
+    private String markOrUnmarkTask(TaskList tasks, Storage storage, String checkMarkOrUnmark,
+                                    IndividualTask currentTask) {
         StringBuilder result = new StringBuilder();
         switch (checkMarkOrUnmark) {
         case "mark":
-            curTask.markOrUnmark("mark");
+            currentTask.setMarkStatus("mark");
             result.append("Okays! I've marked this task as done:\n")
-                    .append(formatMessage(curTask, tasks.getListTask().size()));
+                    .append(formatMessage(currentTask, tasks.getListTask().size()));
             break;
         case "unmark":
-            curTask.markOrUnmark("unmark");
+            currentTask.setMarkStatus("unmark");
             result.append("Okay! I've marked this task as not done:\n")
-                    .append(formatMessage(curTask, tasks.getListTask().size()));
+                    .append(formatMessage(currentTask, tasks.getListTask().size()));
             break;
         default:
             result.append("Not a valid command.");
@@ -132,10 +133,10 @@ public class Command {
 
         // Ensure the task number is valid
         assert number > 0 && number <= tasks.getListTask().size() : "Task number out of bounds";
-        IndividualTask curTask = tasks.getListTask().get(number - 1);
+        IndividualTask currentTask = tasks.getListTask().get(number - 1);
         tasks.deleteTask(number - 1);
         storage.saveTasksToFile(tasks.getListTask());
-        return "Alrighty! I will remove the task:\n" + formatMessage(curTask, tasks.getListTask().size());
+        return "Alrighty! I will remove the task:\n" + formatMessage(currentTask, tasks.getListTask().size());
     }
 
     private String handleUpdateCommand(String[] parts, TaskList tasks, Storage storage) throws MentalHealthException {
@@ -148,27 +149,27 @@ public class Command {
         // Ensure the task number is valid
         assert number > 0 && number <= tasks.getListTask().size() : "Task number out of bounds";
 
-        IndividualTask curTask = tasks.getListTask().get(number - 1);
+        IndividualTask currentTask = tasks.getListTask().get(number - 1);
 
         // Extract the specific field to update (e.g., "description", "time")
         String fieldToUpdate = parts[2]; // Example: "description", "by", "from", "to"
         String newValue = String.join(" ", Arrays.copyOfRange(parts, 3, parts.length));
 
-        handleUpdateTask(curTask, fieldToUpdate, newValue);
+        handleUpdateTask(currentTask, fieldToUpdate, newValue);
 
         storage.saveTasksToFile(tasks.getListTask());
 
-        return "Alrighty! I have updated this task:\n" + formatMessage(curTask, tasks.getListTask().size());
+        return "Alrighty! I have updated this task:\n" + formatMessage(currentTask, tasks.getListTask().size());
     }
 
-    private void handleUpdateTask(IndividualTask curTask, String fieldToUpdate, String newValue)
+    private void handleUpdateTask(IndividualTask currentTask, String fieldToUpdate, String newValue)
             throws MentalHealthException {
-        if (curTask instanceof ToDo) {
-            updateToDoTask((ToDo) curTask, fieldToUpdate, newValue);
-        } else if (curTask instanceof Deadline) {
-            updateDeadlineTask((Deadline) curTask, fieldToUpdate, newValue);
-        } else if (curTask instanceof Event) {
-            updateEventTask((Event) curTask, fieldToUpdate, newValue);
+        if (currentTask instanceof ToDo) {
+            updateToDoTask((ToDo) currentTask, fieldToUpdate, newValue);
+        } else if (currentTask instanceof Deadline) {
+            updateDeadlineTask((Deadline) currentTask, fieldToUpdate, newValue);
+        } else if (currentTask instanceof Event) {
+            updateEventTask((Event) currentTask, fieldToUpdate, newValue);
         } else {
             throw new MentalHealthException("Unknown task type");
         }

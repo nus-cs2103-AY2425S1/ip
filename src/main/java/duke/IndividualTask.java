@@ -50,7 +50,7 @@ public abstract class IndividualTask {
      *
      * @param msg A string indicating whether to mark or unmark the task.
      */
-    public void markOrUnmark(String msg) {
+    public void setMarkStatus(String msg) {
         this.isTaskDone = "mark".equals(msg);
     }
 

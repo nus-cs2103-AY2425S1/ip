@@ -70,7 +70,7 @@ public class Storage {
                     continue;
                 }
                 if (isTaskDone) {
-                    task.markOrUnmark("mark");
+                    task.setMarkStatus("mark");
                 }
                 this.tasks.add(task);
             }
