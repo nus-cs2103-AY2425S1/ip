@@ -31,7 +31,7 @@ public class Event extends Task {
         this.end = endDateTime;
     }
 
-    public static Event of(String args) throws StartAfterEndException {
+    public static Event of(String[] args) throws StartAfterEndException {
         Event event = new Event(args[2], args[3], args[4]);
         if (Boolean.parseBoolean(args[1])) {
             try {
