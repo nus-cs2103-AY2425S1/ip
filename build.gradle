@@ -32,7 +32,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "alexer"
+    archiveFileName = "alexer.jar"
     archiveClassifier = null
 }
 
