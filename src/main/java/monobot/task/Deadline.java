@@ -8,9 +8,9 @@ import java.time.format.DateTimeParseException;
  * Represents a Deadline task.
  */
 public class Deadline extends Task {
-    private LocalDateTime dueBy;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
     private static final DateTimeFormatter PARSER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private LocalDateTime dueBy;
 
     /**
      * Constructs a Deadline task with the specified details.

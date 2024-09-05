@@ -1,9 +1,9 @@
 package monobot.util;
 
-import monobot.task.Task;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import monobot.task.Task;
 
 /**
  * Manages a ArrayList of Task objects.
@@ -32,7 +32,6 @@ public class TaskList {
      * Adds a new task to the list.
      *
      * @param task Task to be added to the list.
-     * @return Task added to list
      */
     public void addTask(Task task) {
         tasks.add(task);

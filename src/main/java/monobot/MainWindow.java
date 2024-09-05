@@ -9,6 +9,9 @@ import monobot.command.Command;
 import monobot.exception.MonoBotException;
 import monobot.util.Parser;
 
+/**
+ * Handles formatting for main GUI page.
+ */
 public class MainWindow {
 
     @FXML

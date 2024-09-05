@@ -1,9 +1,9 @@
 package monobot.command;
 
+import monobot.exception.MonoBotException;
 import monobot.util.Storage;
 import monobot.util.TaskList;
 import monobot.util.Ui;
-import monobot.exception.MonoBotException;
 
 /**
  * Represents mark command to mark a task as complete.
