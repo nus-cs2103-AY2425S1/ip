@@ -2,6 +2,8 @@ package trackbot.task;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,16 +50,21 @@ public class TrackList {
      * @param task The task to be added to the list.
      * @throws TrackBotException If the task is null.
      */
-    public void addToList(Task task) throws TrackBotException {
+    public String addToList(Task task) throws TrackBotException {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter, true);
         if (task == null) {
             throw new TrackBotException("No task found.");
         }
         list.add(task);
         saveList();
-        System.out.println("````````````````````````````````````````````````````````````");
-        System.out.println("Successfully added this task:\n  " + task);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        System.out.println("````````````````````````````````````````````````````````````");
+        // System.out.println("````````````````````````````````````````````````````````````");
+        // System.out.println("Successfully added this task:\n  " + task);
+        // System.out.println("Now you have " + list.size() + " tasks in the list.");
+        // System.out.println("````````````````````````````````````````````````````````````");
+        writer.println("Successfully added this task:\n  " + task);
+        writer.println("Now you have " + list.size() + " tasks in the list.");
+        return stringWriter.toString();
     }
 
     /**
@@ -66,16 +73,21 @@ public class TrackList {
      * @param num The index of the task to be marked as done (0-based index).
      * @throws TrackBotException If the task number is invalid.
      */
-    public void markTask(int num) throws TrackBotException {
+    public String markTask(int num) throws TrackBotException {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter, true);
         if (num < 0 || num > list.size() - 1) {
             throw new TrackBotException("Please enter a valid task number.");
         }
         list.get(num).mark();
         saveList();
-        System.out.println("````````````````````````````````````````````````````````````");
-        System.out.println("Successfully marked task " + (num + 1) + " as done:");
-        System.out.println("  " + list.get(num).toString());
-        System.out.println("````````````````````````````````````````````````````````````");
+        // System.out.println("````````````````````````````````````````````````````````````");
+        // System.out.println("Successfully marked task " + (num + 1) + " as done:");
+        // System.out.println("  " + list.get(num).toString());
+        // System.out.println("````````````````````````````````````````````````````````````");
+        writer.println("Successfully marked task " + (num + 1) + " as done:");
+        writer.println("  " + list.get(num).toString());
+        return stringWriter.toString();
 
     }
 
@@ -85,16 +97,21 @@ public class TrackList {
      * @param num The index of the task to be unmarked (0-based index).
      * @throws TrackBotException If the task number is invalid.
      */
-    public void unmarkTask(int num) throws TrackBotException {
+    public String unmarkTask(int num) throws TrackBotException {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter, true);
         if (num < 0 || num > list.size() - 1) {
             throw new TrackBotException("Please enter a valid task number.");
         }
         list.get(num).unmark();
         saveList();
-        System.out.println("````````````````````````````````````````````````````````````");
-        System.out.println("Successfully marked task " + (num + 1) + " as not done yet:");
-        System.out.println("  " + list.get(num).toString());
-        System.out.println("````````````````````````````````````````````````````````````");
+        // System.out.println("````````````````````````````````````````````````````````````");
+        // System.out.println("Successfully marked task " + (num + 1) + " as not done yet:");
+        // System.out.println("  " + list.get(num).toString());
+        // System.out.println("````````````````````````````````````````````````````````````");
+        writer.println("Successfully marked task " + (num + 1) + " as not done yet:");
+        writer.println("  " + list.get(num).toString());
+        return stringWriter.toString();
     }
 
     /**
@@ -103,18 +120,24 @@ public class TrackList {
      * @param num The index of the task to be deleted (0-based index).
      * @throws TrackBotException If the task number is invalid.
      */
-    public void deleteFromList(int num) throws TrackBotException {
+    public String deleteFromList(int num) throws TrackBotException {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter, true);
         if (num < 0 || num > list.size() - 1) {
             throw new TrackBotException("Please enter a valid task number.");
         }
         String deletedTask = list.get(num).toString();
         list.remove(num);
         saveList();
-        System.out.println("````````````````````````````````````````````````````````````");
-        System.out.println("Successfully deleted task " + (num + 1) + " from list:");
-        System.out.println("  " + deletedTask);
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        System.out.println("````````````````````````````````````````````````````````````");
+        // System.out.println("````````````````````````````````````````````````````````````");
+        // System.out.println("Successfully deleted task " + (num + 1) + " from list:");
+        // System.out.println("  " + deletedTask);
+        // System.out.println("Now you have " + list.size() + " tasks in the list.");
+        // System.out.println("````````````````````````````````````````````````````````````");
+        writer.println("Successfully deleted task " + (num + 1) + " from list:");
+        writer.println("  " + deletedTask);
+        writer.println("Now you have " + list.size() + " tasks in the list.");
+        return stringWriter.toString();
     }
 
     /**
@@ -138,16 +161,23 @@ public class TrackList {
      *
      * @param matchingTasks the list of matching tasks.
      */
-    public void showFoundTasks(List<Task> matchingTasks) {
+    public String showFoundTasks(List<Task> matchingTasks) {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter, true);
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            // System.out.println("No matching tasks found.");
+            writer.println("No matching tasks found.");
+            return writer.toString();
         } else {
-            System.out.println("````````````````````````````````````````````````````````````");
-            System.out.println("Here are the matching tasks in your list:");
+            // System.out.println("````````````````````````````````````````````````````````````");
+            // System.out.println("Here are the matching tasks in your list:");
+            writer.println("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + ". " + matchingTasks.get(i));
+                // System.out.println((i + 1) + ". " + matchingTasks.get(i));
+                writer.println((i + 1) + ". " + matchingTasks.get(i));
             }
-            System.out.println("````````````````````````````````````````````````````````````");
+            // System.out.println("````````````````````````````````````````````````````````````");
+            return stringWriter.toString();
         }
     }
 
@@ -156,16 +186,21 @@ public class TrackList {
      *
      * @throws TrackBotException If the list is currently empty.
      */
-    public void printList() throws TrackBotException {
+    public String printList() throws TrackBotException {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter, true);
         if (list.isEmpty()) {
             throw new TrackBotException("The list is currently empty.");
         }
-        System.out.println("````````````````````````````````````````````````````````````\n" + "List:");
+        // System.out.println("````````````````````````````````````````````````````````````\n" + "List:");
+        writer.println("List:");
         int i = 1;
         for (Task item : list) {
-            System.out.print(i + ". " + item.toString() + "\n");
+            // System.out.print(i + ". " + item.toString() + "\n");
+            writer.println(i + ". " + item.toString() + "\n");
             i++;
         }
-        System.out.println("````````````````````````````````````````````````````````````");
+        // System.out.println("````````````````````````````````````````````````````````````");
+        return stringWriter.toString();
     }
 }

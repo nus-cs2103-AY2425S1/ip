@@ -18,7 +18,7 @@ public abstract class Command {
      * @param storage trackbot storage to store data.
      * @throws TrackBotException If any error occurs while executing the command.
      */
-    public abstract void execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException;
+    public abstract String execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException;
 
     /**
      * Boolean function to exit trackbot.

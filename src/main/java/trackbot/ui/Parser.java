@@ -7,14 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 import trackbot.TrackBotException;
-import trackbot.commands.AddCommand;
-import trackbot.commands.Command;
-import trackbot.commands.DeleteCommand;
-import trackbot.commands.ExitCommand;
-import trackbot.commands.FindCommand;
-import trackbot.commands.ListCommand;
-import trackbot.commands.MarkCommand;
-import trackbot.commands.UnmarkCommand;
+import trackbot.commands.*;
 import trackbot.task.Deadline;
 import trackbot.task.Event;
 import trackbot.task.Task;
@@ -105,7 +98,8 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         default:
-            throw new TrackBotException("Sorry, I did not understand that command.");
+            return new UnknownCommand();
+            // throw new TrackBotException("Sorry, I did not understand that command.");
         }
     }
 

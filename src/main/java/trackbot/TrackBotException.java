@@ -4,6 +4,7 @@ package trackbot;
  * Custom exception class for handling errors in trackbot.
  */
 public class TrackBotException extends Exception {
+    private final String message;
 
     /**
      * Constructs a new TrackBotException with the specified detail message.
@@ -12,6 +13,7 @@ public class TrackBotException extends Exception {
      */
     public TrackBotException(String message) {
         super(message);
+        this.message = message;
     }
 
     /**
@@ -23,6 +25,11 @@ public class TrackBotException extends Exception {
      */
     public static TrackBotException invalidFormat(String command, String correctFormat) {
         return new TrackBotException("Invalid format for '" + command + "'. \nCorrect usage: " + correctFormat);
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
     }
 
 }

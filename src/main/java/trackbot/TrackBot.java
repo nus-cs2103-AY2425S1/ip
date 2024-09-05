@@ -67,7 +67,17 @@ public class TrackBot {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        // return "Duke heard: " + input;
+        String output = "";
+        boolean isExit = false;
+        try {
+            Command command = parser.parse(input);
+            output = command.execute(trackList, ui, storage);
+            // isExit = command.isExit();
+        } catch (TrackBotException e) {
+            System.out.println(e.getMessage());
+        }
+        return output;
     }
     public static void main(String[] args) {
         String filePath = "src/main/java/trackbot/data/trackbot.txt";

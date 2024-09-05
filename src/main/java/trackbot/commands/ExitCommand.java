@@ -9,8 +9,8 @@ import trackbot.ui.Ui;
  */
 public class ExitCommand extends Command {
     @Override
-    public void execute(TrackList trackList, Ui ui, TrackBotStorage storage) {
-        ui.showBye();
+    public String execute(TrackList trackList, Ui ui, TrackBotStorage storage) {
+        return ui.showBye();
     }
 
     /**
