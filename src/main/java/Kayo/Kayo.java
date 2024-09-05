@@ -27,6 +27,56 @@ public class Kayo {
         parser = new Parser();
         ui.greet();
     }
+
+    /**
+     * Gets response from chatbot
+     */
+    public String getResponse(String inputString) {
+        String[] splitList = parser.splitString(inputString);
+        if (inputString.equals("bye")) {
+            return "See you next time!";
+        } else if (splitList[0].equals("list")) {
+            return ui.listItems(listTasks);
+        } else if (splitList[0].equals("unmark")) {
+            int index = Integer.parseInt(splitList[1])-1;
+            listTasks.get(index).setDone(false);
+            return ui.unmarkTask(listTasks.get(index));
+        } else if (splitList[0].equals("mark")) {
+            int index = Integer.parseInt(splitList[1])-1;
+            listTasks.get(index).setDone(true);
+            return ui.markTask(listTasks.get(index));
+        }else if (splitList[0].equals("todo")) {
+            if (splitList.length==1) {
+                new DukeException("OOPS !! The description of a todo can't be empty");
+            } else {
+                ToDo todo = new ToDo(splitList[1],false);
+                listTasks.add(todo);
+                return ui.addTodo(todo) + "\n" + ui.showTotalTasks(listTasks);
+            }
+        } else if (splitList[0].equals("deadline")) {
+            Deadline deadline = parser.addDeadline(inputString);
+            listTasks.add(deadline);
+            return ui.addDeadline(deadline) + "\n" + ui.showTotalTasks(listTasks);
+        } else if (splitList[0].equals("event")) {
+            Event event = parser.addEvent(inputString);
+            listTasks.add(event);
+            return ui.addEvent(event) + "\n" + ui.showTotalTasks(listTasks);
+        } else if(splitList[0].equals("delete")) {
+            int index = Integer.parseInt(splitList[1])-1;
+            Task taskToDelete = listTasks.get(index);
+            listTasks.remove(index);
+            return ui.deleteTask(taskToDelete);
+        } else if(splitList[0].equals("find")) {
+            List<Task> filteredList = listTasks.stream()
+                    .filter(c -> c.getTask().contains(splitList[1]))
+                    .collect(Collectors.toList());
+            return ui.find(filteredList);
+        } else {
+            new DukeException("OOPS !! Sorry i dont know what that means!");
+        }
+        storage.updateData(listTasks);
+        return "";
+    }
     /**
      * Runs the Kayo chatbot
      */
@@ -37,52 +87,53 @@ public class Kayo {
             inputString = input.nextLine();
             String[] splitList = parser.splitString(inputString);
             if (inputString.equals("bye")) {
+                System.out.println("See you next time!");
                 break;
             } else if (splitList[0].equals("list")) {
-                ui.listItems(listTasks);
+                System.out.println(ui.listItems(listTasks));
             } else if (splitList[0].equals("unmark")) {
                 int index = Integer.parseInt(splitList[1])-1;
                 listTasks.get(index).setDone(false);
-                ui.unmarkTask(listTasks.get(index));
+                System.out.println(ui.unmarkTask(listTasks.get(index)));
             } else if (splitList[0].equals("mark")) {
                 int index = Integer.parseInt(splitList[1])-1;
                 listTasks.get(index).setDone(true);
-                ui.markTask(listTasks.get(index));
+                System.out.println(ui.markTask(listTasks.get(index)));
             }else if (splitList[0].equals("todo")) {
                 if (splitList.length==1) {
                     new DukeException("OOPS !! The description of a todo can't be empty");
                 } else {
                     ToDo todo = new ToDo(splitList[1],false);
                     listTasks.add(todo);
-                    ui.addTodo(todo);
-                    ui.showTotalTasks(listTasks);
+                    System.out.println(ui.addTodo(todo));
+                    System.out.println(ui.showTotalTasks(listTasks));
                 }
             } else if (splitList[0].equals("deadline")) {
                 Deadline deadline = parser.addDeadline(inputString);
                 listTasks.add(deadline);
-                ui.addDeadline(deadline);
-                ui.showTotalTasks(listTasks);
+                System.out.println(ui.addDeadline(deadline));
+                System.out.println(ui.showTotalTasks(listTasks));
             } else if (splitList[0].equals("event")) {
                 Event event = parser.addEvent(inputString);
                 listTasks.add(event);
-                ui.addEvent(event);
-                ui.showTotalTasks(listTasks);
+                System.out.println(ui.addEvent(event));
+                System.out.println(ui.showTotalTasks(listTasks));
             } else if(splitList[0].equals("delete")) {
                 int index = Integer.parseInt(splitList[1])-1;
                 Task taskToDelete = listTasks.get(index);
                 listTasks.remove(index);
-                ui.deleteTask(taskToDelete);
+                System.out.println(ui.deleteTask(taskToDelete));
             } else if(splitList[0].equals("find")) {
                 List<Task> filteredList = listTasks.stream()
-                                  .filter(c -> c.getTask().contains(splitList[1]))
-                                  .collect(Collectors.toList());
-                ui.find(filteredList);
+                        .filter(c -> c.getTask().contains(splitList[1]))
+                        .collect(Collectors.toList());
+                System.out.println(ui.find(filteredList));
             } else {
                 new DukeException("OOPS !! Sorry i dont know what that means!");
             }
             storage.updateData(listTasks);
         }
-        ui.exit();
+        System.out.println(ui.exit());
     }
     public static void main(String[] args) {
         Kayo kayo = new Kayo("data/kayo.txt");
@@ -92,63 +143,58 @@ public class Kayo {
         /**
          * Prints deadline in format
          */
-        public void addDeadline(Deadline deadline) {
-            System.out.print("Got it. I've added this task: \n");
-            System.out.print(deadline + "\n");
+        public String addDeadline(Deadline deadline) {
+            return "Got it. I've added this task: \n "+ deadline + "\n";
         }
         /**
          * Prints event in format
          */
-        public void addEvent(Event event) {
-            System.out.print("Got it. I've added this task: \n");
-            System.out.print(event + "\n");
+        public String addEvent(Event event) {
+            return "Got it. I've added this task: \n" + event + "\n";
         }
         /**
          * Prints todo in format
          */
-        public void addTodo(ToDo todo) {
-            System.out.print("Got it. I've added this task: \n");
-            System.out.print(todo + "\n");
+        public String addTodo(ToDo todo) {
+            return "Got it. I've added this task: \n" + todo + "\n";
         }
         /**
          * shows total tasks in format
          */
-        public void showTotalTasks(List<Task> listTasks) {
-            System.out.print("Now you have " + listTasks.size() + " tasks in the list.\n");
+        public String showTotalTasks(List<Task> listTasks) {
+            return "Now you have " + listTasks.size() + " tasks in the list.\n";
         }
         /**
          * displays deleted task
          */
-        public void deleteTask(Task task) {
-            System.out.print("Noted. I've removed this task: \n");
-            System.out.print(task + "\n");
+        public String deleteTask(Task task) {
+            return "Noted. I've removed this task: \n" + task + "\n";
         }
-        public void markTask(Task task) {
-            System.out.print("Nice! I've marked this task at done: \n");
-            System.out.print(task + "\n");
+        public String markTask(Task task) {
+            return "Nice! I've marked this task at done: \n" + task + "\n";
         }
-        public void unmarkTask(Task task){
-            System.out.print("OK, I've marked this task as not done yet: \n");
-            System.out.print(task + "\n");
+        public String unmarkTask(Task task){
+            return "OK, I've marked this task as not done yet: \n" + task + "\n";
         }
-        public void listItems(List<Task> listTasks) {
-            System.out.println("Here are the tasks in your list:");
+        public String listItems(List<Task> listTasks) {
+            String returnedString = "Here are the tasks in your list:";
             for(int i = 0; i < listTasks.size(); i++) {
-                System.out.println(i+1 + ". "+ listTasks.get(i));
+                returnedString += "\n" + i+1 + ". "+ listTasks.get(i);
             }
+            return returnedString;
         }
-        public void greet() {
-            System.out.println("Hello! I'm Kayo! ");
-            System.out.println("What can I do for you?");
+        public String greet() {
+            return "Hello! I'm Kayo! " + "\n" + "What can I do for you?";
         }
-        public void exit(){
-            System.out.println("Bye. I hope to see you again soon!");
+        public String exit(){
+            return "Bye. I hope to see you again soon!";
         }
-        public void find(List<Task> taskList) {
-            System.out.println("Here are the matching tasks in your list:");
+        public String find(List<Task> taskList) {
+            String returnedString = "Here are the matching tasks in your list:";
             for(int i = 0; i < taskList.size(); i++) {
-                System.out.println(i+1 + ". "+ taskList.get(i));
+                returnedString += "\n" + i+1 + ". "+ taskList.get(i);
             }
+            return returnedString;
         }
     }
     /**
