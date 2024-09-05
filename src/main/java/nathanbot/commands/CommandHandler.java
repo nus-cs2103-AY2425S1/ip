@@ -92,7 +92,8 @@ public abstract class CommandHandler {
             int index = Integer.parseInt(input.substring(CommandType.DELETE.getCommand().length()).trim());
             Task task = taskList.getTask(index - 1);
             taskList.deleteTask(index - 1);
-            return "Noted. I've removed this task:\n  " + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n";
+            return "Noted. I've removed this task:\n" 
+                + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n";
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return "Invalid task number. To see the list of tasks, use: list\n";
         }
@@ -130,7 +131,8 @@ public abstract class CommandHandler {
 
         String[] parts = input.split(" /by ");
         if (parts.length < 2) {
-            return "Invalid deadline format. Use: deadline <description> /by <date>\n";
+            return "Invalid deadline format."
+                + "Use: deadline <description> /by <date>\n";
         }
 
         String description = parts[0].trim();
@@ -215,6 +217,7 @@ public abstract class CommandHandler {
      * @return A message indicating the task was added.
      */
     private static String printAddTaskLine(Task task, TaskList taskList) {
-        return "Got it. I've added this task: \n    " + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n";
+        return "Got it. I've added this task: \n"
+            + task + "\nNow you have " + taskList.listLength() + " tasks in the list.\n";
     }
 }

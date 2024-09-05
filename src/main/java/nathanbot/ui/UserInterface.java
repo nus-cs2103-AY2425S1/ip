@@ -26,35 +26,42 @@ public class UserInterface {
 
     /**
      * Starts the user interface, greeting the user and processing commands in a loop.
+     *
+     * @return A greeting message.
      */
     public String start() {
         return CommandHandler.handleGreet();
     }
 
+    /**
+     * Processes the given user input, and responds with an appropriate output.
+     *
+     * @param input The user input to process.
+     * @return The response based on the input command.
+     */
     public String processInput(String input) {
         CommandType commandType = CommandType.fromInput(input);
-            switch (commandType) {
-                case BREAK:
-                    return CommandHandler.handleExit();   
-                case DISPLAY_LIST:
-                    return CommandHandler.handleDisplayList(taskList);
-                case MARK_DONE:
-                    return CommandHandler.handleMarkCommand(input, "mark ", taskList, true);
-                case MARK_UNDONE:
-                    return CommandHandler.handleMarkCommand(input, "unmark ", taskList, false);
-                case TODO:
-                    return CommandHandler.handleTodoCommand(input, taskList);
-                case DEADLINE:
-                    return CommandHandler.handleDeadlineCommand(input, taskList);
-                case EVENT:
-                    return CommandHandler.handleEventCommand(input, taskList);
-                case DELETE:
-                    return CommandHandler.handleDeleteCommand(input, taskList);
-                case FIND:
-                    return CommandHandler.handleFindCommand(input, taskList);
-                default:
-                    return CommandHandler.handleUnknownCommand();
-            }
+        switch (commandType) {
+        case BREAK:
+            return CommandHandler.handleExit();
+        case DISPLAY_LIST:
+            return CommandHandler.handleDisplayList(taskList);
+        case MARK_DONE:
+            return CommandHandler.handleMarkCommand(input, "mark ", taskList, true);
+        case MARK_UNDONE:
+            return CommandHandler.handleMarkCommand(input, "unmark ", taskList, false);
+        case TODO:
+            return CommandHandler.handleTodoCommand(input, taskList);
+        case DEADLINE:
+            return CommandHandler.handleDeadlineCommand(input, taskList);
+        case EVENT:
+            return CommandHandler.handleEventCommand(input, taskList);
+        case DELETE:
+            return CommandHandler.handleDeleteCommand(input, taskList);
+        case FIND:
+            return CommandHandler.handleFindCommand(input, taskList);
+        default:
+            return CommandHandler.handleUnknownCommand();
+        }
     }
-    
 }
