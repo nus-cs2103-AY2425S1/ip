@@ -41,7 +41,7 @@ public class TaskManager {
         String taskString = "Here are the tasks in your list:\n" + "    ";
 
         if (!tasks.isEmpty()) {
-            for (int i=0; i<tasks.size(); i++) {
+            for (int i = 0; i < tasks.size(); i++) {
                 if (i != tasks.size() - 1) {
                     taskString += i + 1 + "." + tasks.get(i).toString() + "\n    ";
                 }
@@ -75,11 +75,41 @@ public class TaskManager {
         updateDatabase();
     }
 
+    /**
+     * Searches for tasks with the given keyword in their descriptions.
+     *
+     * @param keyword Keyword input from user.
+     */
+    public void searchTasksByKeyword(String keyword) {
+        List<Task> matchedTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getTaskDescription().contains(keyword)) {
+                matchedTasks.add(task);
+            }
+        }
+        if (!matchedTasks.isEmpty()) {
+            String matchingTasks = "Here are the matching tasks in your list:\n" + "    ";
+            for (int i = 0; i < matchedTasks.size(); i++) {
+                if (i != matchedTasks.size() - 1) {
+                    matchingTasks += i + 1 + "." + matchedTasks.get(i).toString() + "\n    ";
+                } else {
+                    matchingTasks += i + 1 + "." + matchedTasks.get(i).toString();
+                }
+            }
+            ui.printLines(matchingTasks);
+        } else {
+            ui.printLines("Aw... there are no matching tasks :(");
+        }
+    }
+
+    /**
+     * Loads database when TaskManager is initialised.
+     */
     private void loadDatabase() {
         try {
             List<String> txtLines = this.database.readFromDatabase();
             for (String line : txtLines) {
-                Task task = findTask(line);
+                Task task = parseTaskFromString(line);
                 tasks.add(task);
             }
         } catch (IOException e) {
@@ -87,7 +117,13 @@ public class TaskManager {
         }
     }
 
-    private Task findTask(String line) {
+    /**
+     * Parses type of task and creates a new Task object of that type.
+     *
+     * @param line String line from each line in database file.
+     * @return A new TodoTask, DeadlineTask, or EventTask object.
+     */
+    private Task parseTaskFromString(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length >= 3) {
             String taskType = parts[0];
@@ -119,6 +155,9 @@ public class TaskManager {
         return null;
     }
 
+    /**
+     * Updates database with new task information.
+     */
     private void updateDatabase() {
         List<String> txtLines = new ArrayList<>();
         for (Task task : tasks) {
