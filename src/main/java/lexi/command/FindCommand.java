@@ -1,13 +1,17 @@
 package lexi.command;
 
+import java.util.ArrayList;
+
 import lexi.exception.LexiException;
 import lexi.storage.Storage;
 import lexi.task.Task;
 import lexi.task.TaskList;
 import lexi.ui.Ui;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a command to find a task from the task list.
+ * When executed, this command finds a task based on user input in the list.
+ */
 public class FindCommand extends Command {
     private final String query;
     private final ArrayList<Task> results = new ArrayList<>();

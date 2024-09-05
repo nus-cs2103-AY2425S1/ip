@@ -48,7 +48,7 @@ public class Event extends DatedTask {
      * @return The formatted date and time as a string.
      */
     public String getFormattedDateAndTime(LocalDateTime range) {
-        return range.format(DatedTask.outputFormatter);
+        return range.format(super.getOutputFormatter());
     }
 
     /**

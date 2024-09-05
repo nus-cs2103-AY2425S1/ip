@@ -8,7 +8,8 @@ import lexi.ui.Ui;
 
 /**
  * Represents a command to add a task to the task list.
- * When executed, this command adds the specified task, updates the storage, and displays a confirmation message to the user.
+ * When executed, this command adds the specified task, updates the storage,
+ * and displays a confirmation message to the user.
  */
 public class AddCommand extends Command {
     private final Task task;

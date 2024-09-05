@@ -1,31 +1,15 @@
 package lexi.ui;
 
+import java.util.ArrayList;
+
 import lexi.task.Task;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.stream.Stream;
 
 /**
  * Handles all interactions with the user.
  * This class is responsible for displaying messages to the user and reading input from the user.
  */
 public class Ui {
-    private final static String LINE_BREAK = "____________________________________________________________\n";
-
-    /**
-     * Displays a line break for better readability of the output.
-     */
-    public void showLine() {
-        System.out.println(LINE_BREAK);
-    }
-
-    /**
-     * Displays a welcome message to the user when the application starts.
-     */
-    public void showWelcome() {
-        System.out.println(" Hello! I'm Lexi\n What can I do for you?");
-    }
 
     /**
      * Displays a goodbye message when the user exits the application.
