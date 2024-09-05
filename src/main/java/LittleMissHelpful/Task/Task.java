@@ -17,6 +17,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public boolean checkIsDone() {
+        return isDone;
+    }
+
     public Task markTask() {
         /** 
          * Marks the task if unmarked & returns task.
