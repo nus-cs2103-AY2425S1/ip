@@ -1,7 +1,11 @@
-package Boombotroz;
-import org.junit.jupiter.api.Test;
-import java.io.IOException;
+package boombotroz;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+
+
 
 /**
  * Test methods in Parser class.
@@ -9,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
 
-    Parser p = new Parser();
-    TaskList tl = new TaskList();
-    Storage s = new Storage("../data-test.txt");
-    Ui ui = new Ui();
+    private Parser p = new Parser();
+    private TaskList tl = new TaskList();
+    private Storage s = new Storage("../data-test.txt");
+    private Ui ui = new Ui();
 
     /**
      * Tests if deleteTask method in Parser class works as intended.

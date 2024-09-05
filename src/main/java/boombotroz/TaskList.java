@@ -1,5 +1,4 @@
-package Boombotroz;
-import java.io.IOException;
+package boombotroz;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,17 +6,17 @@ import java.util.List;
  * Contains the task list and its operands.
  */
 public class TaskList {
-    List<Task> task_list;
+    private List<Task> taskList;
 
     public TaskList() {
-        task_list = new ArrayList<>();
+        taskList = new ArrayList<>();
     }
 
     /**
      * Returns size of task list.
      */
     public int size() {
-        return task_list.size();
+        return taskList.size();
     }
 
 
@@ -27,7 +26,7 @@ public class TaskList {
      * @param index
      */
     public Task getTask(int index) {
-        return task_list.get(index);
+        return taskList.get(index);
     }
 
     /**
@@ -37,13 +36,13 @@ public class TaskList {
      * @param task task to be added
      */
     public void addTaskWithMessage(Task task) {
-        task_list.add(task);
+        taskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(String.format(
                 "  %s", task));
         System.out.println(String.format(
                 "Now you have %d tasks in the list.",
-                task_list.size()));
+                taskList.size()));
     }
 
     /**
@@ -52,7 +51,7 @@ public class TaskList {
      * @param task task to be added
      */
     public void addTask(Task task) {
-        task_list.add(task);
+        taskList.add(task);
     }
 
     /**
@@ -75,11 +74,11 @@ public class TaskList {
 
         System.out.println("Noted. I've removed this task:");
         System.out.println(String.format(
-                "  %s", task_list.get(index)));
-        task_list.remove(task_list.get(index));
+                "  %s", taskList.get(index)));
+        taskList.remove(taskList.get(index));
         System.out.println(String.format(
                 "Now you have %d tasks in the list.",
-                task_list.size()));
+                taskList.size()));
     }
 
     /**
@@ -100,10 +99,10 @@ public class TaskList {
         // check if the task number falls within the task list range
         ui.wrongRange(index, this);
 
-        task_list.get(index).mark = true;
+        taskList.get(index).setMark(true);
         System.out.println("Nice! I've marked this as done:");
         System.out.println(String.format(
-                "  %s", task_list.get(index)));
+                "  %s", taskList.get(index)));
 
     }
 
@@ -115,7 +114,7 @@ public class TaskList {
      * @param ui handles errors that may occur.
      * @throws BoomException If position not given OR position out of range.
      */
-    public void unmarkTask(String input, Ui ui) throws BoomException{
+    public void unmarkTask(String input, Ui ui) throws BoomException {
         // check if there is a given task number to unmark
         ui.isTaskNumber(input);
 
@@ -125,10 +124,10 @@ public class TaskList {
         // check if the task number falls within the task list range
         ui.wrongRange(index, this);
 
-        task_list.get(index).mark = false;
+        taskList.get(index).setMark(false);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(String.format(
-                "  %s", task_list.get(index)));
+                "  %s", taskList.get(index)));
     }
 
     /**
@@ -136,9 +135,9 @@ public class TaskList {
      */
     public void printAll() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < task_list.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             System.out.println(String.format(
-                    "%d.%s", i + 1, task_list.get(i)));
+                    "%d.%s", i + 1, taskList.get(i)));
         }
     }
 
@@ -147,8 +146,8 @@ public class TaskList {
      */
     public String getAll() {
         String s = "";
-        for (int i = 0; i < task_list.size(); i++) {
-            s = s.concat(task_list.get(i) + "\n");
+        for (int i = 0; i < taskList.size(); i++) {
+            s = s.concat(taskList.get(i) + "\n");
         }
         return s;
     }

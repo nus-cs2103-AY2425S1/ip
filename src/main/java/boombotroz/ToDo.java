@@ -1,12 +1,15 @@
-package Boombotroz;
-
-import java.io.FileNotFoundException;
+package boombotroz;
 
 /**
  * Deals with TODO typed task.
  */
 public class ToDo extends Task {
-    
+    /**
+     * Creates ToDo object.
+     *
+     * @param mark state of completion for task.
+     * @param task task description.
+     */
     public ToDo(boolean mark, String task) {
         super(mark, task);
 

@@ -1,4 +1,4 @@
-package Boombotroz;
+package boombotroz;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -6,8 +6,15 @@ import java.time.format.DateTimeFormatter;
  * Deals with DEADLINE typed task.
  */
 public class Deadline extends Task {
-    String time;
+    private String time;
 
+    /**
+     * Creates Deadline object.
+     *
+     * @param mark state of completion for task.
+     * @param task task description.
+     * @param time time the task is due.
+     */
     public Deadline(boolean mark, String task, String time) {
         super(mark, task);
         this.time = time;

@@ -1,4 +1,4 @@
-package Boombotroz;
+package boombotroz;
 
 /**
  * Creates exceptions that needs to be caught.

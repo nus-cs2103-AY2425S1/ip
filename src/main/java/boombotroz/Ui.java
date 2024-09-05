@@ -1,4 +1,4 @@
-package Boombotroz;
+package boombotroz;
 import java.time.LocalDate;
 
 /**
@@ -78,12 +78,12 @@ public class Ui {
      * Throws exception when invalid range given.
      *
      * @param index task index.
-     * @param task_list list of all the tasks
+     * @param taskList list of all the tasks
      * @throws BoomException If invalid range given.
      */
-    public void wrongRange(int index, TaskList task_list) throws BoomException {
+    public void wrongRange(int index, TaskList taskList) throws BoomException {
         if (index + 1 <= 0
-                || index + 1 > task_list.size()) {
+                || index + 1 > taskList.size()) {
             throw new BoomException(
                     "You are out of range !!");
         }
@@ -118,6 +118,12 @@ public class Ui {
 
     }
 
+    /**
+     * Throws exception when no description given.
+     *
+     * @param wordInput task description.
+     * @throws BoomException If no description given.
+     */
     public void emptyWord(String wordInput) throws BoomException {
         String[] parts = wordInput.split(" ");
         if (parts.length < 2) {

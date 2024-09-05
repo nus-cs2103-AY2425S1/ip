@@ -1,12 +1,18 @@
-package Boombotroz;
+package boombotroz;
 
 /**
  * Deals with creation of task.
  */
 public abstract class Task {
-    boolean mark;
-    String task;
+    private boolean mark;
+    private String task;
 
+    /**
+     * Creates Task object.
+     *
+     * @param mark state of completion for task.
+     * @param task task description.
+     */
     public Task(boolean mark, String task) {
         this.mark = mark;
         this.task = task;
@@ -21,6 +27,14 @@ public abstract class Task {
      */
     public abstract void hasDate(Ui ui) throws BoomException;
 
+    /**
+     * Sets completion state of the task.
+     *
+     * @param mark completion state of task.
+     */
+    public void setMark(boolean mark) {
+        this.mark = mark;
+    }
 
     /**
      * Returns string representation of the task.

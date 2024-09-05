@@ -1,30 +1,34 @@
-package Boombotroz;
+package boombotroz;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-import java.nio.file.Files;
 
 /**
- Main class where execution occurs
+ * Main class where execution occurs.
  */
 
 public class Boombotroz {
     private Ui ui;
     private Storage storage;
     private Parser parser;
-    private TaskList task_list;
+    private TaskList taskList;
 
-    public Boombotroz(String file_path) {
-        System.out.println("Hello! I'm Boombotroz" +
-                "\nWhat can I do for you?");
+    /**
+     * Creates necessary objects and existence of text file to be written into.
+     *
+     * @param filePath file path to text file.
+     */
+    public Boombotroz(String filePath) {
+        System.out.println("Hello! I'm Boombotroz"
+                + "\nWhat can I do for you?");
 
         ui = new Ui();
-        storage = new Storage(file_path);
-        task_list = new TaskList();
+        storage = new Storage(filePath);
+        taskList = new TaskList();
         parser = new Parser();
 
         try {
-            storage.printTasks(task_list);
+            storage.printTasks(taskList);
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -43,35 +47,35 @@ public class Boombotroz {
         while (!input.equals("bye")) {
             try {
                 if (input.equals("list")) {
-                    parser.getList(task_list);
+                    parser.getList(taskList);
                     input = scanner.nextLine();
 
                 } else if (input.startsWith("mark ")) {
-                    parser.markTask(task_list, input, storage, ui);
+                    parser.markTask(taskList, input, storage, ui);
                     input = scanner.nextLine();
 
                 } else if (input.startsWith("unmark ")) {
-                    parser.unmarkTask(task_list, input, storage, ui);
+                    parser.unmarkTask(taskList, input, storage, ui);
                     input = scanner.nextLine();
 
                 } else if (input.startsWith("delete ")) {
-                    parser.deleteTask(task_list, input, storage, ui);
+                    parser.deleteTask(taskList, input, storage, ui);
                     input = scanner.nextLine();
 
                 } else if (input.startsWith("find ")) {
-                    parser.findTask(task_list, input, ui);
+                    parser.findTask(taskList, input, ui);
                     input = scanner.nextLine();
 
                 } else if (input.startsWith("todo ")) {
-                    parser.toDoTask(task_list, input, storage, ui);
+                    parser.toDoTask(taskList, input, storage, ui);
                     input = scanner.nextLine();
 
                 } else if (input.startsWith("deadline ")) {
-                    parser.deadlineTask(task_list, input, storage, ui);
+                    parser.deadlineTask(taskList, input, storage, ui);
                     input = scanner.nextLine();
 
                 } else if (input.startsWith("event ")) {
-                    parser.eventTask(task_list, input, storage, ui);
+                    parser.eventTask(taskList, input, storage, ui);
                     input = scanner.nextLine();
 
                 } else {
