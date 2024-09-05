@@ -2,6 +2,7 @@ package bottle.command;
 
 import bottle.Storage;
 import bottle.Ui;
+import bottle.exception.BottleException;
 import bottle.task.TaskList;
 
 /**
@@ -10,8 +11,14 @@ import bottle.task.TaskList;
 public class ExitCommand extends Command {
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printByeMsg();
-        System.exit(0);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        try {
+            return ui.printByeMsg();
+        } catch (BottleException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            System.exit(0);
+        }
     }
 }

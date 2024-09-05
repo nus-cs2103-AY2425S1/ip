@@ -23,13 +23,13 @@ public class FindCommand extends Command {
         this.filterString = filterString;
     }
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         TaskList filteredList = new TaskList();
         for (Task task : taskList.getTaskList()) {
             if (task.getTaskDesc().contains(filterString)) {
                 filteredList.addTask(task);
             }
         }
-        ui.printTaskList(filteredList);
+        return ui.printTaskList(filteredList);
     }
 }
