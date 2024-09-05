@@ -3,7 +3,6 @@ package cypherchatbot.util;
 import java.util.Scanner;
 
 import cypherchatbot.Cypher;
-import cypherchatbot.controller.MainWindow;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;

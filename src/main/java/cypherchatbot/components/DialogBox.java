@@ -2,6 +2,8 @@ package cypherchatbot.components;
 
 import java.io.IOException;
 import java.util.Collections;
+
+import cypherchatbot.controller.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,8 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
-import cypherchatbot.controller.MainWindow;
 import javafx.scene.shape.Circle;
 
 /**
@@ -63,7 +63,8 @@ public class DialogBox extends HBox {
         for (var node : db.getChildren()) {
             if (node instanceof Label chatBox) {
                 chatBox.setStyle("-fx-background-color: #f88379; -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2; "
-                        + "-fx-border-width: 2px; -fx-background-radius: 1em 1em 1em 0; -fx-border-radius: 1em 1em 1em 0;");
+                        + "-fx-border-width: 2px; -fx-background-radius: 1em 1em 1em 0; "
+                            + "-fx-border-radius: 1em 1em 1em 0;");
             }
         }
         return db;
