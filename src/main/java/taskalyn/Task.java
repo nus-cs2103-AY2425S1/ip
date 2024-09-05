@@ -21,7 +21,7 @@ public abstract class Task {
         this.isCompleted = false;
     }
 
-    public String getTaskItem() {
+    public String getTaskDescription() {
         return taskItem;
     }
 
