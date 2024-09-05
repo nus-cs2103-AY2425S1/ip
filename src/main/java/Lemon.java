@@ -1,37 +1,17 @@
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.IOException;
-import java.io.FileWriter;
 import java.time.LocalDate;
 
 public class Lemon {
-    /*** Messages ***/
-    String logoMsg = "____________________________________________________________\n"
-            + " Hello! I'm Lemon\n"
-            + " What can I do for you?\n";
-    String endMsg = " Bye. Hope to see you again soon!\n"
-            + "____________________________________________________________\n";
-    String barMsg = "____________________________________________________________";
-    String emptyListMsg = " Sowwy, theres currently no tasks in your list.\n Ill be happy to add some for you OwO!";
-    String listMsg = " Here are the tasks in your list:";
-    String markMsg = " Nice! I've marked this task as done:";
-    String unmarkMsg = " OK, I've marked this task as not done yet:";
-    String addTaskMsg = " Got it. I've added this task:";
-    String deleteTaskMsg = " Noted. I've removed this task:";
-
     /*** Initialising ***/
-    ArrayList<Task> tasks = new ArrayList<>();
-    int numTasks = 0;
+    Ui ui = new Ui();
+    Storage s = new Storage();
+    TaskList tasks = new TaskList();
     boolean isInitialised = false;
 
-    Scanner systemScanner, fileScanner;
-    String filePath = "data/lemonSaves.txt";
-    File f;
+    Scanner systemScanner;
 
     enum Commands {
         BYE,
@@ -45,50 +25,13 @@ public class Lemon {
     }
 
     public Lemon(){
-        try {
-            f = new File(filePath);
-            f.getParentFile().mkdirs();
-            f.createNewFile();
-            fileScanner = new Scanner(f);
-            systemScanner = new Scanner(System.in);
-
-            numTasks = 0;
-            tasks = new ArrayList<>();
-            while (fileScanner.hasNextLine()) {
-                System.out.println(numTasks);
-                String[] temp = fileScanner.nextLine().split("\\|");
-                switch (temp[0]) {
-                    case "T":
-                        addNewTask(new Todo(temp[2], Boolean.parseBoolean(temp[1])));
-                        break;
-                    case "D":
-                        addNewTask(new Deadline(temp[2],
-                                LocalDate.parse(temp[3], DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                                Boolean.parseBoolean(temp[1])));
-                        break;
-                    case "E":
-                        addNewTask(new Event(temp[2],
-                                LocalDate.parse(temp[3], DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                                LocalDate.parse(temp[4], DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                                Boolean.parseBoolean(temp[1])));
-                        break;
-                }
-            }
-
-            isInitialised = true;
-        } catch (IOException e) {
-            isInitialised = false;
-            System.out.print(" Im sowwy... Something went wrong, QwQ. Unable to create file.\n" +
-                    " I dont think i can do this anymore");
-        } catch (DescriptionException e) {
-            isInitialised = false;
-            System.out.println(e.getMessage());
-            // theres an invalid line
-        }
+        systemScanner = new Scanner(System.in);
+        tasks = new TaskList();
+        isInitialised = s.loadTasks(tasks);
     }
 
     public Lemon(String newFileLocation){
-        try {
+        /*try {
             filePath = newFileLocation;
             f = new File(filePath);
             f.getParentFile().mkdirs();
@@ -108,7 +51,7 @@ public class Lemon {
             isInitialised = false;
             System.out.print(" Im sowwy... Something went wrong, QwQ. Unable to create/find file.\n" +
                     " I dont think i can do this anymore");
-        }
+        }*/
     }
 
     public void runLemon() {
@@ -120,40 +63,39 @@ public class Lemon {
 
         boolean isRunning = true;
 
-        System.out.print(logoMsg);
+        ui.printIntroMsg();
 
         while (isRunning) {
-            System.out.println(barMsg);
+            ui.printBarMsg();
 
             String input = systemScanner.next().toUpperCase();
-            System.out.println(barMsg);
+            ui.printBarMsg();
             try {
                 Commands command = Commands.valueOf(input);
                 switch (command) {
                 case BYE: {
-                    boolean isAbleToSave = saveTasks();
+                    boolean isAbleToSave = s.saveTasks(tasks);
                     if (isAbleToSave) {
                         isRunning = false;
-                        System.out.println(endMsg);
+                        ui.printEndingMsg();
                     }
                     break;
                 }
                 case LIST:
-                    if (numTasks == 0) {
-                        System.out.println(emptyListMsg);
+                    if (tasks.size() == 0) {
+                        ui.printEmptyListMsg();
                     }
                     else {
-                        System.out.println(listMsg);
-                        printList();
+                        ui.printListMsg(tasks.toString());
                     }
                     break;
                 case MARK: {
                     int next = systemScanner.nextInt();
-                    if (next > numTasks || next <= 0) {
+                    if (next > tasks.size() || next <= 0) {
                         throw new InvalidCommandException(" OOPS!!! Please select a valid task");
                     }
 
-                    System.out.println(markMsg);
+                    ui.printMarkMsg();
                     tasks.get(next - 1).markDone();
 
                     System.out.println("   " + tasks.get(next - 1).toString());
@@ -161,11 +103,11 @@ public class Lemon {
                 }
                 case UNMARK: {
                     int next = systemScanner.nextInt();
-                    if (next > numTasks || next <= 0) {
+                    if (next > tasks.size() || next <= 0) {
                         throw new InvalidCommandException(" OOPS!!! Please select a valid task");
                     }
 
-                    System.out.println(unmarkMsg);
+                    ui.printUnmarkMsg();
                     tasks.get(next - 1).unmarkDone();
 
                     System.out.println("   " + tasks.get(next - 1).toString());
@@ -174,7 +116,9 @@ public class Lemon {
                 case TODO: {
                     String next = systemScanner.nextLine();
 
-                    addNewTask(new Todo(next, false));
+                    Task todo = new Todo(next, false);
+                    tasks.addNewTask(todo);
+                    ui.printAddTaskMsg(todo.toString(), tasks.size());
                     break;
                 }
                 case DEADLINE: {
@@ -186,7 +130,9 @@ public class Lemon {
 
                     LocalDate by = LocalDate.parse(next[1], DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
-                    addNewTask(new Deadline(next[0], by, false));
+                    Task deadline = new Deadline(next[0], by, false);
+                    tasks.addNewTask(deadline);
+                    ui.printAddTaskMsg(deadline.toString(), tasks.size());
                     break;
                 }
                 case EVENT: {
@@ -200,16 +146,19 @@ public class Lemon {
                     LocalDate from = LocalDate.parse(next[1], DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                     LocalDate to = LocalDate.parse(next[1], DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
-                    addNewTask(new Event(next[0], from, to, false));
+                    Task event = new Event(next[0], from, to, false);
+                    tasks.addNewTask(event);
+                    ui.printAddTaskMsg(event.toString(), tasks.size());
                     break;
                 }
                 case DELETE: {
                     int next = systemScanner.nextInt();
-                    if (next > numTasks || next <= 0) {
+                    if (next > tasks.size() || next <= 0) {
                         throw new InvalidCommandException(" OOPS!!! Please select a valid task");
                     }
 
-                    deleteTask(next);
+                    Task t = tasks.deleteTask(next);
+                    ui.printDeleteTaskMsg(t.toString(), tasks.size());
                     break;
                 }
                 }
@@ -236,51 +185,5 @@ public class Lemon {
     public static void main(String[] args) {
         Lemon lemon = new Lemon();
         lemon.runLemon();
-    }
-
-    /*** Functions ***/
-    private void printList() {
-        for (int i = 0; i < numTasks; i++) {
-            System.out.println(" " + (i + 1) + "." + tasks.get(i).toString());
-        }
-    }
-
-    private void addNewTask(Task t) throws DescriptionException {
-        if (t.description.isEmpty() || t.description.equals(" "))
-            throw new DescriptionException(" OOPS!!! The description of a " + t.getType() + " cannot be empty");
-        System.out.println(addTaskMsg);
-
-        tasks.add(t);
-        numTasks++;
-
-        System.out.println("   " + t.toString());
-        System.out.println(" Now you have " + numTasks + " tasks in the list.");
-    }
-
-    private void deleteTask(int index) {
-        Task t = tasks.remove(index - 1);
-        numTasks--;
-
-        System.out.println(deleteTaskMsg);
-        System.out.println("   " + t.toString());
-        System.out.println(" Now you have " + numTasks + " tasks in the list.");
-    }
-
-    private boolean saveTasks() {
-        try {
-            FileWriter fw = new FileWriter(filePath);
-
-            for (Task task : tasks) {
-                fw.write(task.toFileString());
-            }
-
-            fw.close();
-            return true;
-        } catch (IOException e) {
-            System.out.println("Unable to save into file.\n" +
-                    " Please make sure that \"lemonSaves.txt\" exists properly in\n" +
-                    filePath);
-            return false;
-        }
     }
 }
