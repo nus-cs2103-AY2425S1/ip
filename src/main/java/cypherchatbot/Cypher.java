@@ -1,11 +1,14 @@
 package cypherchatbot;
+
+import java.io.FileNotFoundException;
+
 import cypherchatbot.command.Command;
 import cypherchatbot.util.CommandReader;
 import cypherchatbot.util.Storage;
 import cypherchatbot.util.TaskList;
 import cypherchatbot.util.Ui;
 
-import java.io.FileNotFoundException;
+
 
 /**
  *  Represents the entry point for the Cypher ChatBot Application.
@@ -49,7 +52,7 @@ public class Cypher {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = CommandReader.parse(fullCommand);
-                c.execute(tasks,ui,storage);
+                c.execute(tasks, ui, storage);
                 shouldEnd = c.isExit();
             } catch (CypherException e) {
                 ui.showError(e.getMessage());

@@ -18,7 +18,7 @@ public class ListCommand extends Command {
      * @param ui      The Ui used to interact with the user and display the tasks.
      * @param storage The Storage used for saving tasks, though not used in this command.
      */
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         String task = tasks.toString();
         ui.output(task);
     };

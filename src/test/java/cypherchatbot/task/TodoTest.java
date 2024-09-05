@@ -10,7 +10,7 @@ public class TodoTest {
 
     @Test
     public void testFileStringWithCompletion(){
-        Task task =new ToDo("task description test");
+        Task task = new ToDo("task description test");
         task.completeTask();
         assertEquals("T|1|task description test", task.toStringinFile());
     }

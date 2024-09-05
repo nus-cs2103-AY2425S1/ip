@@ -7,13 +7,13 @@ import java.util.Scanner;
  *  interaction in the chatbot occurs in this class.
  * */
 public class Ui {
-    Scanner scanner;
+    private Scanner scanner;
 
     /**
      * Initializes a new scanner instance for reading user input from the console.
      * */
-    public Ui () {
-        this.scanner =  new Scanner(System.in);
+    public Ui() {
+        this.scanner = new Scanner(System.in);
     }
 
     /**
@@ -32,7 +32,8 @@ public class Ui {
      * used to separate different sections of the output for clarity.
      */
     public static void lineBreak() {
-        System.out.println("--------------------------------------------------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------"
+                + "-------------------------------------------------------------");
     }
 
     /**

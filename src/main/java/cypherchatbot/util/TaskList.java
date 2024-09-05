@@ -1,8 +1,9 @@
 package cypherchatbot.util;
+import java.util.ArrayList;
 
 import cypherchatbot.task.Task;
 
-import java.util.ArrayList;
+
 
 /**
  * The TaskList class manages a ArrayList of Task objects, providing
@@ -38,7 +39,8 @@ public class TaskList {
      */
     public String addToList(Task task) {
         this.taskList.add(task);
-        return String.format("Got it. I have added this task:\n  %s\nNow you have %d task in the list\n" ,task, this.taskList.size());
+        return String.format("Got it. I have added this task:\n  %s\nNow you have %d task in the list\n",
+                task, this.taskList.size());
     }
 
     /**
@@ -53,7 +55,7 @@ public class TaskList {
         String oldLine = task.toStringinFile();
         task.completeTask();
         String newLine = task.toStringinFile();
-        storage.editTask(oldLine,newLine);
+        storage.editTask(oldLine, newLine);
         return "Nice! I have marked this task as completed:\n " + task;
     }
 
@@ -69,7 +71,7 @@ public class TaskList {
         String oldLine = task.toStringinFile();
         task.incompleteTask();
         String newLine = task.toStringinFile();
-        storage.editTask(oldLine,newLine);
+        storage.editTask(oldLine, newLine);
         return "Ok! I have marked this task as incomplete:\n " + task;
     }
 
@@ -83,7 +85,8 @@ public class TaskList {
     public String delTask(int i, Storage storage) {
         Task task = this.taskList.remove(i);
         storage.delTaskFromStorage(task.toStringinFile());
-        return "Noted! I have removed this task:\n " + task + String.format("Now you have %d task in the list%n", this.taskList.size());
+        return "Noted! I have removed this task:\n " + task
+                + String.format("Now you have %d task in the list%n", this.taskList.size());
     }
 
 
@@ -115,7 +118,7 @@ public class TaskList {
      */
 
     public int size() {
-       return this.taskList.size();
+        return this.taskList.size();
     }
     @Override
     public String toString() {

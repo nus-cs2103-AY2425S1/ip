@@ -22,7 +22,8 @@ public class Deadline extends Task {
     @Override
     public String toStringinFile() {
         int val = this.completed ? 1 : 0;
-        return String.format("D|%d|%s|%s", val, this.description, this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        return String.format("D|%d|%s|%s", val, this.description,
+                this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 
     public boolean equals(Object o) {
@@ -31,7 +32,8 @@ public class Deadline extends Task {
         }
 
         if (o.getClass() == this.getClass()) {
-            return Objects.equals(this.description, ((Deadline) o).description) && this.deadline == ((Deadline) o).deadline;
+            return Objects.equals(this.description, ((Deadline) o).description)
+                    && this.deadline == ((Deadline) o).deadline;
         }
         return false;
     }
