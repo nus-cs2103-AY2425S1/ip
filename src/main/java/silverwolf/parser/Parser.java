@@ -47,7 +47,7 @@ public class Parser {
         case "unmark":
             return new UnmarkCommand(arguments); // Unmark a task as not done
         case "todo":
-            return new AddCommand(new Todo(arguments)); // Add a todo task
+            return new AddCommand(parseTodo(arguments)); // Add a todo task
         case "deadline":
             return new AddCommand(parseDeadLine(arguments)); // Add a Deadline task
         case "event":
@@ -57,6 +57,20 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the arguments for a todo command and returns a Todo object.
+     *
+     * @param arguments The string containing the description of the todo task.
+     * @return The Todo object created from the parsed input.
+     * @throws SilverWolfException If the input is empty or only contains whitespace.
+     */
+    private static Todo parseTodo(String arguments) throws SilverWolfException {
+        if (arguments == null || arguments.trim().isEmpty()) {
+            throw new SilverWolfException("The description of a todo cannot be empty.");
+        }
+        String description = arguments.trim();
+        return new Todo(description);
+    }
     /**
      * Parses the arguments for an event command and returns an Event object.
      *

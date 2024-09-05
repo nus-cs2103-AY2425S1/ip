@@ -1,4 +1,4 @@
-package silverwolf;
+package silverwolf.gui;
 
 import silverwolf.command.Command;
 import silverwolf.exception.SilverWolfException;
@@ -46,7 +46,6 @@ public class SilverWolf {
      * until the exit command is issued.
      */
     public void run() {
-        this.ui.showWelcome(); // Display the welcome message to the user
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -59,6 +58,23 @@ public class SilverWolf {
             }
         }
     }
+
+    /**
+     * Handles user input and returns a response from the chatbot.
+     *
+     * @param input The user's command input.
+     * @return The chatbot's response to the input.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input); // Parse the command
+            command.execute(this.tasks, this.ui, this.storage); // Execute it
+            return command.getFeedback(); // Return feedback for the executed command
+        } catch (SilverWolfException e) {
+            return e.getMessage(); // Return any error messages
+        }
+    }
+
 
     /**
      * The main method for running the SilverWolf chatbot application.

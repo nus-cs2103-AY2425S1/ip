@@ -47,7 +47,7 @@ public class MarkCommand extends Command {
             // Mark the task as not done
             specificTask.markAsDone();
             // Provide feedback to the user
-            ui.showMarkTask(specificTask); // Assuming `Ui` has a method to show unmarked task
+            feedback = ui.showMarkTask(specificTask); // Assuming `Ui` has a method to show unmarked task
             // Save the updated task list to storage
             storage.save(tasks.getTasks());
         } catch (IndexOutOfBoundsException e) {

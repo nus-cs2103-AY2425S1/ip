@@ -21,13 +21,11 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showLine(); // Display a line to separate sections in the UI.
-        System.out.println("Here are the tasks in your list:");
+        String outputToGui = "Here are the tasks in your list:\n";
         // Iterate through the tasks and display each one with its corresponding index.
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println((i + 1) + "" + tasks.getTasks().get(i));
+            outputToGui = outputToGui + (i + 1) + "" + tasks.getTasks().get(i) + "\n";
         }
-        ui.showLine();
-        ui.newline();
+        feedback = outputToGui;
     }
 }
