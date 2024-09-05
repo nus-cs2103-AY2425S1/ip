@@ -28,7 +28,8 @@ public class Event extends Task {
      * @throws BocchiException        If any parameter is empty.
      * @throws DateTimeParseException If the date/time format is invalid.
      */
-    public Event(String description, String fromDateTime, String toDateTime) throws BocchiException, DateTimeParseException {
+    public Event(String description, String fromDateTime, String toDateTime)
+            throws BocchiException, DateTimeParseException {
         super(description);
         if (fromDateTime == null || toDateTime == null) {
             throw new BocchiException("So..sorry, but you have specify both start and end time for an event.");
@@ -54,7 +55,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[EVENT]" + super.toString() + " (from: " + BocchiDateTimeFormatter.toString(fromDateTime) +
-                "; to: " + BocchiDateTimeFormatter.toString(toDateTime) + ")";
+        return "[EVENT]" + super.toString() + " (from: " + BocchiDateTimeFormatter.toString(fromDateTime)
+                + "; to: " + BocchiDateTimeFormatter.toString(toDateTime) + ")";
     }
 }

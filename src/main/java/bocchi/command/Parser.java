@@ -3,6 +3,9 @@ package bocchi.command;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A utility class to parse string inputs to commands objects.
+ */
 public class Parser {
     /**
      * Parses the input as a command.
@@ -10,7 +13,7 @@ public class Parser {
      * @param input The input to parse.
      * @return The command.
      */
-    static public Command parse(String input) {
+    public static Command parse(String input) {
         String name;
         String param;
         Map<String, String> keywordParams = new HashMap<>();
@@ -25,7 +28,7 @@ public class Parser {
             param = paramAndKeywordParams[0]; // extract param
             for (int i = 1; i < paramAndKeywordParams.length; i++) { // extract keyword params
                 String keywordParamString = paramAndKeywordParams[i];
-                String[] keyAndValue = keywordParamString.split(" +", 2);  // split key and value
+                String[] keyAndValue = keywordParamString.split(" +", 2); // split key and value
                 keywordParams.put(keyAndValue[0].substring(1), keyAndValue[1]);
             }
         }
