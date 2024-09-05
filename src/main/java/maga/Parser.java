@@ -1,19 +1,20 @@
 package maga;
 
-import com.sun.source.tree.TryTree;
-import maga.task.DeadlineTask;
-import maga.task.EventTask;
-import maga.task.TaskList;
-import maga.task.TodoTask;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
-import java.util.Scanner;
 
+/**
+ * The {@code Parser} class is responsible for interpreting user input and converting it
+ * into commands that the {@code TaskManager} can execute. It handles commands for tasks such as
+ * listing, marking, unmarking, deleting, finding, and adding tasks like todo, event, and deadline tasks.
+ */
 public class Parser {
 
+    /**
+     * Constructs a new {@code Parser} instance.
+     * This constructor initializes the parser with a default date formatter.
+     */
     public Parser() {
     }
 
@@ -79,6 +80,16 @@ public class Parser {
     }
 
 
+    /**
+     * Parses and processes user input to determine which command to execute.
+     * This method supports commands such as 'list', 'mark', 'unmark', 'delete', 'find',
+     * 'todo', 'event', and 'deadline'.
+     *
+     * @param input The user's input as a string.
+     * @return A {@code Command} object representing the action to be performed.
+     * @throws InvalidCommandException If the input does not match any known command.
+     * @throws DateTimeParseException If the input contains an invalid date format.
+     */
     public Command<?> handleInput(String input) throws InvalidCommandException, DateTimeParseException {
         input = input.toLowerCase();
         String command = input.split(" ")[0];
