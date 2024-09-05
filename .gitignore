@@ -20,3 +20,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 .devcontainer/
 .devcontainer/*
 Dockerfile
+db.txt
