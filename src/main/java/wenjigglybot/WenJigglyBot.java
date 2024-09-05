@@ -137,6 +137,7 @@ public class WenJigglyBot {
             command = Parser.parseCommand(task);
         } catch (InvalidCommandException e) {
             System.out.println(e);
+            return "Invalid command!";
         }
 
         String[] strings;
@@ -151,14 +152,12 @@ public class WenJigglyBot {
             strings = task.split(" ");
             action = "mark";
             idx = Integer.parseInt(strings[1].trim()) - 1;
-            toggleTask(action, idx);
-            break;
+            return toggleTask(action, idx);
         case UNMARK:
             action = "unmark";
             strings = task.split(" ");
             idx = Integer.parseInt(strings[1].trim()) - 1;
-            toggleTask(action, idx);
-            break;
+            return toggleTask(action, idx);
         case TODO:
             taskName = task.replaceFirst("todo", "").trim();
             return addTask(new ToDoTask(taskName));
@@ -230,24 +229,26 @@ public class WenJigglyBot {
      * @param action The action to perform ("mark" or "unmark").
      * @param idx    The index of the task to toggle.
      */
-    private void toggleTask(String action, int idx) {
+    private String toggleTask(String action, int idx) {
         // Handle invalid index
         if (idx < 0 || idx > tasks.size() - 1) {
             System.out.println("You entered an invalid index you fool!");
-            return;
+            return "You entered an invalid index you fool!";
         }
         Task task = tasks.get(idx);
+        StringBuilder output = new StringBuilder();
         if (action.equals("mark")) {
             ui.showLine();
             task.markTask();
-            ui.showCompletedTask(task);
+            output.append(ui.showCompletedTask(task));
             ui.showLine();
         } else {
             ui.showLine();
-            tasks.get(idx).unmarkTask();
-            ui.showUncompletedTask(task);
+            task.unmarkTask();
+            output.append(ui.showUncompletedTask(task));
             ui.showLine();
         }
+        return output.toString();
     }
 
     /**

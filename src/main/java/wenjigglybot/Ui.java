@@ -46,9 +46,10 @@ public class Ui {
      *
      * @param task The {@link Task} that was completed.
      */
-    public void showCompletedTask(Task task) {
-        System.out.println("\tYay! wenjigglybot.Task Completed!");
+    public String showCompletedTask(Task task) {
+        System.out.println("\tYay! Task Completed!");
         System.out.println("\t" + task);
+        return String.format("Yay! Task completed!\n%s", task);
     }
 
     /**
@@ -56,9 +57,10 @@ public class Ui {
      *
      * @param task The {@link Task} that is not yet completed.
      */
-    public void showUncompletedTask(Task task) {
+    public String showUncompletedTask(Task task) {
         System.out.println("\tGet to work boy, why not done!!!");
         System.out.println("\t" + task);
+        return String.format("Get to work boy, why not done!!!\n%s", task);
     }
 
     /**
