@@ -25,9 +25,10 @@ public class Ui {
      * @param tasks The {@link TaskList} containing the task.
      * @param idx   The index of the task to be removed.
      */
-    public void showDeleteTask(TaskList tasks, int idx) {
+    public String showDeleteTask(TaskList tasks, int idx) {
         System.out.println("\tRemoving this task!");
         System.out.println("\t\t" + tasks.get(idx));
+        return String.format("Removing this task!\n%s", tasks.get(idx));
     }
 
     /**
@@ -71,7 +72,7 @@ public class Ui {
     public String showAddedTask(Task task) {
         System.out.printf("\tAdding %s\n", task.taskType());
         System.out.printf("\tDone! Added: %s\n", task.getDescription());
-        return String.format("Adding %s\n Done! Added: %s\n", task.taskType(), task.getDescription());
+        return String.format("Adding %s\nDone! Added: %s\n", task.taskType(), task.getDescription());
     }
 
     /**
@@ -88,7 +89,7 @@ public class Ui {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("\t%d. %s%n", i + 1, tasks.get(i).toString());
-            output.append(String.format("%d. %s%n", i + 1, tasks.get(i).toString()));
+            output.append(String.format("%d. %s\n", i + 1, tasks.get(i).toString()));
         }
         showLine();
         return output.toString();

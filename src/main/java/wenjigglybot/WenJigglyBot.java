@@ -169,36 +169,38 @@ public class WenJigglyBot {
                 LocalDate date;
                 try {
                     date = LocalDate.parse(deadline);
-                    addTask(new DeadlineTask(taskName, date));
+                    return addTask(new DeadlineTask(taskName, date));
                 } catch (DateTimeParseException e) {
                     System.out.println("Incorrect date format, please input in yyyy-mm-dd format!");
+                    return "Incorrect date format, please input in yyyy-mm-dd format!";
                 }
             } catch (DeadlineException deadlineException) {
                 System.out.println(deadlineException);
+                return deadlineException.toString();
             }
-            break;
         case EVENT:
             // Split the string by "/from" and "/to"
             try {
                 String[] processedEvent = Parser.processEventTask(task);
-                addTask(new EventTask(processedEvent[0], processedEvent[1], processedEvent[2]));
+                return addTask(new EventTask(processedEvent[0], processedEvent[1], processedEvent[2]));
             } catch (EventException eventException) {
                 System.out.println(eventException);
+                return eventException.toString();
             }
-            break;
         case FIND:
             strings = task.split(" ");
             String title = strings[1];
             List<Task> matchingTasks = tasks.searchAndListTasks(title);
-            ui.displayTasks(new TaskList(matchingTasks));
-            break;
+            if (matchingTasks.isEmpty()) {
+                return "No tasks found :(";
+            }
+            return ui.displayTasks(new TaskList(matchingTasks));
         case DELETE:
             strings = task.split(" ");
             idx = Integer.parseInt(strings[1].trim()) - 1;
-            deleteTask(idx);
-            break;
+            return deleteTask(idx);
         case BYE:
-            break;
+            return "Bye bye!";
         default:
             System.out.println("Invalid command!");
         }
@@ -211,16 +213,19 @@ public class WenJigglyBot {
      *
      * @param idx The index of the task to delete.
      */
-    private void deleteTask(int idx) {
+    private String deleteTask(int idx) {
         if (idx < 0 || idx > tasks.size() - 1) {
             System.out.println("You entered an invalid index you fool!");
-            return;
+            return "You entered an invalid index you fool!";
         }
+        StringBuilder output = new StringBuilder();
         ui.showLine();
-        ui.showDeleteTask(tasks, idx);
+        output.append(ui.showDeleteTask(tasks, idx) + "\n");
         tasks.remove(idx);
-        ui.showTaskCount(tasks);
+        Storage.saveTasksToFile(tasks);
+        output.append(ui.showTaskCount(tasks));
         ui.showLine();
+        return output.toString();
     }
 
     /**

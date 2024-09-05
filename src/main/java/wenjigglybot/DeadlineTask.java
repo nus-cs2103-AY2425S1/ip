@@ -21,7 +21,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String taskType() {
-        return "Event wenjigglybot.Task";
+        return "Deadline Task";
     }
 
     @Override

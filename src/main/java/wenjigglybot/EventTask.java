@@ -12,7 +12,7 @@ public class EventTask extends Task {
 
     @Override
     public String taskType() {
-        return "Event wenjigglybot.Task";
+        return "Event Task";
     }
 
     @Override
