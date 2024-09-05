@@ -160,7 +160,10 @@ public class TaskList {
      *
      * @return the string representation of the {@code Task} in the {@code ArrayList}
      */
-    public String list() {
+    public String list(String input) throws CommandFoundButInvalidException {
+        if (!input.isEmpty()) {
+            throw new InvalidSyntaxException("list");
+        }
         String s1 = "Here are the tasks in your list:";
         for (int i = 0; i < allTasks.size(); i++) {
             String index = String.format("%d", i + 1);

@@ -38,12 +38,12 @@ public class Parser {
             throw new EmptyStringException();
         }
         if (input.split(" ", 2).length == 1) {
-            this.command = input.split(" ", 2)[0];
+            this.command = input.split(" ", 2)[0].trim();
             this.remainder = "";
         }
         if (input.split(" ", 2).length == 2) {
-            this.command = input.split(" ", 2)[0];
-            this.remainder = input.split(" ", 2)[1];
+            this.command = input.split(" ", 2)[0].trim();
+            this.remainder = input.split(" ", 2)[1].trim();
         }
     }
 
@@ -83,7 +83,7 @@ public class Parser {
             storage.put(allTasks);
             return ui.deleteMessage(this.allTasks.getLastDeleted(), this.allTasks.getSize());
         case LIST:
-            return allTasks.list();
+            return allTasks.list(remainder);
         case MARK:
             allTasks.mark(remainder);
             storage.put(allTasks);
@@ -93,7 +93,7 @@ public class Parser {
             storage.put(allTasks);
             return ui.unmarkedMessage(allTasks.getLastUnmarked());
         case FIND:
-            return ui.findMessage() + "\n" + new TaskList(allTasks.find(remainder)).list();
+            return ui.findMessage() + "\n" + new TaskList(allTasks.find(remainder)).list("");
         case BYE:
             this.isOver = true;
             return ui.bye();
