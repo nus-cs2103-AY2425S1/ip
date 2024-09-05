@@ -1,12 +1,5 @@
 package denim.storage;
 
-import denim.exceptions.DenimException;
-import denim.TaskList;
-import denim.tasks.Deadline;
-import denim.tasks.Event;
-import denim.tasks.Task;
-import denim.tasks.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +7,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import denim.TaskList;
+import denim.exceptions.DenimException;
+import denim.tasks.Deadline;
+import denim.tasks.Event;
+import denim.tasks.Task;
+import denim.tasks.Todo;
 
 /**
  * Handles the input and output operations for task data in the Denim application.
@@ -25,7 +24,7 @@ public class TaskIo {
     /**
      * Represents the status of the file or directory during task I/O operations.
      */
-    enum fileStatus {
+    enum FileStatus {
         DIRECTORY_DOES_NOT_EXIST,
         FILE_DOES_NOT_EXIST
     }
@@ -52,7 +51,7 @@ public class TaskIo {
      * @param sc     The scanner to receive user input for creating the necessary files.
      * @throws DenimException If an error occurs during file or directory creation.
      */
-    private void createSavePoint(fileStatus status, Scanner sc) throws DenimException {
+    private void createSavePoint(FileStatus status, Scanner sc) throws DenimException {
         switch (status) {
         case DIRECTORY_DOES_NOT_EXIST:
             handleDirectoryNotFound(sc);
@@ -65,13 +64,13 @@ public class TaskIo {
         }
     }
 
-/**
- * Handles the case where the directory is not found.
- * Prompts the user to create the directory and the corresponding file.
- *
- * @param sc The scanner to receive user input for directory and file creation.
- * @throws DenimException If the directory or file cannot be created.
- */
+    /**
+     * Handles the case where the directory is not found.
+     * Prompts the user to create the directory and the corresponding file.
+     *
+     * @param sc The scanner to receive user input for directory and file creation.
+     * @throws DenimException If the directory or file cannot be created.
+     */
     private void handleDirectoryNotFound(Scanner sc) throws DenimException {
         System.out.println("data directory and corresponding denim.txt not found. Create both? (y / n)\n");
         String input = sc.nextLine();
@@ -80,8 +79,7 @@ public class TaskIo {
         case "y":
             File directory = new File("data");
             directory.mkdir();
-            File dataFile = new File(directory,"denim.txt");
-
+            File dataFile = new File(directory, "denim.txt");
             try {
                 dataFile.createNewFile();
             } catch (IOException e) {
@@ -102,13 +100,12 @@ public class TaskIo {
      * @param sc The scanner to receive user input for file creation.
      * @throws DenimException If the file cannot be created.
      */
-    private void handleFileNotFound(Scanner sc) throws DenimException{
+    private void handleFileNotFound(Scanner sc) throws DenimException {
         System.out.println("denim.txt not found in data directory. Create denim.txt? (y / n)\n");
         String input = sc.nextLine();
         switch (input) {
         case "y":
             File denimFile = new File("data", "denim.txt");
-
             try {
                 denimFile.createNewFile();
             } catch (IOException e) {
@@ -133,13 +130,13 @@ public class TaskIo {
         // Checks for Parent Directory ./data
         File dataDirectory = taskFile.getParentFile();
         if (dataDirectory == null || !dataDirectory.isDirectory()) {
-            createSavePoint(fileStatus.DIRECTORY_DOES_NOT_EXIST, sc);
+            createSavePoint(FileStatus.DIRECTORY_DOES_NOT_EXIST, sc);
             return;
         }
 
         //Checks for denim.txt file
         if (!taskFile.exists()) {
-            createSavePoint(fileStatus.FILE_DOES_NOT_EXIST, sc);
+            createSavePoint(FileStatus.FILE_DOES_NOT_EXIST, sc);
             return;
         }
 
@@ -182,9 +179,8 @@ public class TaskIo {
      * @throws DenimException If an error occurs during file overwriting.
      */
     public void deleteTask(TaskList taskList) throws DenimException {
-        File overridingFile = new File("data","denim.txt");
+        File overridingFile = new File("data", "denim.txt");
         Task task;
-
         try {
             FileWriter fw = new FileWriter(overridingFile);
             for (int i = 0; i < taskList.getTaskListSize(); i++) {
@@ -204,9 +200,8 @@ public class TaskIo {
      * @throws DenimException If an error occurs during file overwriting.
      */
     public void markTask(TaskList taskList) throws DenimException {
-        File overridingFile = new File("data","denim.txt");
+        File overridingFile = new File("data", "denim.txt");
         Task task;
-
         try {
             FileWriter fw = new FileWriter(overridingFile);
             for (int i = 0; i < taskList.getTaskListSize(); i++) {
@@ -226,9 +221,8 @@ public class TaskIo {
      * @throws DenimException If an error occurs during file overwriting.
      */
     public void unmarkTask(TaskList taskList) throws DenimException {
-        File overridingFile = new File("data","denim.txt");
+        File overridingFile = new File("data", "denim.txt");
         Task task;
-
         try {
             FileWriter fw = new FileWriter(overridingFile);
             for (int i = 0; i < taskList.getTaskListSize(); i++) {
