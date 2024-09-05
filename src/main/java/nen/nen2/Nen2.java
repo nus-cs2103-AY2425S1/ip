@@ -2,6 +2,7 @@ package nen.nen2;
 
 import java.util.Scanner;
 
+import nen.commands.Command;
 import nen.utils.Parser;
 import nen.utils.Storage;
 import nen.utils.TaskList;
@@ -17,6 +18,7 @@ public class Nen2 {
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
+    private String commandType;
 
     /**
      * Constructs Nen2 chatbot
@@ -26,7 +28,7 @@ public class Nen2 {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
-        parser = new Parser(tasks, ui);
+        parser = new Parser(tasks);
     }
 
     /**
@@ -37,7 +39,10 @@ public class Nen2 {
 
         ui.greet();
         while (true) {
-            if (!parser.continueParsing(messageReader.nextLine())) {
+            Command c = parser.parse(messageReader.nextLine());
+            c.execute(tasks);
+            ui.print(c.getDescription());
+            if (c.isEnd()) {
                 break;
             }
         }
@@ -45,4 +50,21 @@ public class Nen2 {
         ui.exit();
     }
 
+    /**
+     * @param text input from user
+     * @return response to the text
+     */
+    public String getResponse(String text) {
+        Command c = parser.parse(text);
+        c.execute(tasks);
+        commandType = c.getName();
+        return c.getDescription();
+    }
+
+    /**
+     * @return command type of the latest command
+     */
+    public String getCommandType() {
+        return commandType;
+    }
 }
