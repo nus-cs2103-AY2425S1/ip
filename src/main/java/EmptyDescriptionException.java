@@ -1,4 +1,4 @@
-public class EmptyDescriptionException extends Exception {
+public class EmptyDescriptionException extends DashException {
     public EmptyDescriptionException(String message) {
         super(message);
     }
