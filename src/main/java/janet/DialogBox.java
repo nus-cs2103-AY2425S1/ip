@@ -2,6 +2,8 @@ package janet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -13,28 +15,27 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+
+import java.io.IOException;
 
 public class DialogBox extends HBox {
-
-    private Label text;
+    @FXML
+    private Label dialog;
+    @FXML
     private ImageView displayPicture;
-    private final Circle circle = new Circle(50, 50, 50);
 
-    public DialogBox(String s, Image i) {
-        text = new Label(s);
-        text.setPadding(new Insets(10, 5, 0, 5));
+    DialogBox(String text, Image img) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        displayPicture = new ImageView(i);
-        displayPicture.setClip(circle); // places the image into a circle
-
-        // Styling the dialog box
-        text.setWrapText(true);
-        displayPicture.setFitWidth(100);
-        displayPicture.setFitHeight(100);
-        this.setAlignment(Pos.CENTER_RIGHT);   // aligns its children
-
-        this.getChildren().addAll(text, displayPicture);
+        dialog.setText(text);
+        displayPicture.setImage(img);
     }
 
     /**
@@ -49,13 +50,16 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String s, Image i) {
         // returns a new dialogBox with the String message and the image of the user
-        return new DialogBox(s, i);
+        DialogBox user = new DialogBox(s, i);
+        user.setColor(Color.PAPAYAWHIP);
+        return user;
     }
 
-    public static DialogBox getDukeDialog(String s, Image i) {
+    public static DialogBox getJanetDialog(String s, Image i) {
         // returns a new FLIPPED dialogBox with the String message and the image of Duke
         var db = new DialogBox(s, i);
         db.flip();
+        db.setColor(Color.ALICEBLUE);
         return db;
     }
 
