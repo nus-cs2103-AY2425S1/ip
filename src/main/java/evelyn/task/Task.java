@@ -20,19 +20,21 @@ public class Task {
     /**
      * Marks a task as completed.
      */
-    public void mark() {
+    public String mark() {
         this.isMarked = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("    " + this.toString());
+        String str = "Nice! I've marked this task as done:\n";
+        str = str + "    " + this.toString() + "\n";
+        return  str;
     };
 
     /**
      * Marks a task as incomplete.
      */
-    public void unmark() {
+    public String unmark() {
         this.isMarked = false;
-        System.out.println("Ok! I've unmarked this task:");
-        System.out.println("    " + this.toString());
+        String str = "Ok! I've unmarked this task:\n";
+        str = str + "    " + this.toString() + "\n";
+        return str;
     };
 
     /**

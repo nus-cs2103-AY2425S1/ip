@@ -43,46 +43,45 @@ public class TaskList {
     /**
      * Lists all the tasks that have been input.
      */
-    public void listTask() {
-        System.out.println(TextBasedUi.horizontalLine);
-        System.out.println("Here are the tasks in your list: ");
+    public String listTask() {
+        String str = "Here are the tasks in your list: \n";
         for (int i = 0; i < this.listSize(); i++) {
-            System.out.println((i + 1) + "." + this.getTask(i).toString());
+            str = str + (i + 1) + ". " + this.getTask(i).toString() + "\n";
         }
-        System.out.println(TextBasedUi.horizontalLine);
+        return str;
     }
 
     /**
      * Removes a task from the list at a particular index.
      * @param index Index of the task
      */
-    public void removeTask(int index) {
+    public String removeTask(int index) {
         Task task = (Task) list.get(index);
         list.remove(index);
-        System.out.println(TextBasedUi.horizontalLine);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("   " + task.toString());
-        System.out.println(this.listSize() > 1 ? "Now you have " + this.listSize() + " tasks in this list"
+        String str = "Noted. I've removed this task: \n";
+        str = str + "   " + task.toString() + "\n";
+        str = str + ((this.listSize() > 1) ? "Now you have " + this.listSize() + " tasks in this list"
                 : "Now you have " + this.listSize() + " task in this list");
-        System.out.println(TextBasedUi.horizontalLine);
+       return str;
     }
 
     /**
      * Adds a task to the list.
      * @param task Task to be added to the list.
+     *
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         try {
             list.add(task);
             storage.writeToFile(task);
-            System.out.println(TextBasedUi.horizontalLine);
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + task.toString());
-            System.out.println(this.listSize() > 1 ? "Now you have " + this.listSize() + " tasks in this list"
+            String str = "Got it. I've added this task: \n";
+            str = str + "  " + task.toString() + "\n";
+            str = str + (this.listSize() > 1 ? "Now you have " + this.listSize() + " tasks in this list"
                     : "Now you have " + this.listSize() + " task in this list");
-            System.out.println(TextBasedUi.horizontalLine);
+            return str;
         } catch (IOException e) {
             System.err.println("Error reading/writing to file: " + e);
+            return "E";
         }
     }
 
@@ -99,22 +98,18 @@ public class TaskList {
      * Marks the Task at a specified index as complete.
      * @param index Index of the task in the list to be marked.
      */
-    public void markTask(int index) {
+    public String markTask(int index) {
         Task task = (Task) list.get(index);
-        System.out.println(TextBasedUi.horizontalLine);
-        task.mark();
-        System.out.println(TextBasedUi.horizontalLine);
+        return task.mark();
     }
 
     /**
      * Unmarks a completed Task at a specified index.
      * @param index Index of the task to be unmarked.
      */
-    public void unmarkTask(int index) {
+    public String unmarkTask(int index) {
         Task task = (Task) list.get(index);
-        System.out.println(TextBasedUi.horizontalLine);
-        task.unmark();
-        System.out.println(TextBasedUi.horizontalLine);
+        return task.unmark();
     }
 
     /**
@@ -144,25 +139,24 @@ public class TaskList {
      * Finds all tasks that contain the specified keyword
      * @param keyword
      */
-    public void find(String keyword) {
+    public String find(String keyword) {
         boolean foundSomething = false;
-       System.out.println(TextBasedUi.horizontalLine);
-       System.out.println("The following are all tasks and their indexes that contain the keyword: " + keyword);
-       for (int i = 0; i < list.size(); i++) {
-           String taskString = list.get(i).toString();
-           if (taskString.contains(keyword)) {
-               foundSomething = true;
-               System.out.println(i + ". " + taskString);
-           }
-       }
+        String str = "The following are all tasks and their indexes that contain the keyword: " + keyword + "\n";
+        for (int i = 0; i < list.size(); i++) {
+            String taskString = list.get(i).toString();
+            if (taskString.contains(keyword)) {
+                foundSomething = true;
+                str = str + i + ". " + taskString + "\n";
+            }
+        }
 
-       if (foundSomething) {
-           System.out.println(TextBasedUi.horizontalLine);
-       } else {
-           System.out.println("It seems like there is no task that matches your specified keyword." +
-                   " Try checking your spelling");
-           System.out.println(TextBasedUi.horizontalLine);
-       }
+        if (foundSomething) {
+           return str;
+        } else {
+           str = "It seems like there is no task that matches your specified keyword."
+                   + " Try checking your spelling";
+           return str;
+        }
     }
 
     /**
