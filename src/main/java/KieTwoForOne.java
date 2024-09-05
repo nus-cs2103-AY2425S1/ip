@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileOutputStream;
@@ -15,7 +16,7 @@ public class KieTwoForOne {
     private static String filePath = "data/tasks.txt";
 
     public enum Instructions {
-        LIST, MARK, UNMARK, BYE, TODO, EVENT, DEADLINE, DELETE
+        LIST, MARK, UNMARK, BYE, TODO, EVENT, DEADLINE, DELETE, DATE
     }
 
     public static void addTasks(Task newTask) {
@@ -34,6 +35,7 @@ public class KieTwoForOne {
         System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
         System.out.println(separationLine);
     }
+
     public static void printTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -58,7 +60,7 @@ public class KieTwoForOne {
     }
 
     public static boolean isCompleteInput(String[] input) throws KieTwoForOneException {
-        if (input.length <= 1 && !input[0].equalsIgnoreCase("list") && !input[0]. equalsIgnoreCase("bye")) {
+        if (input.length <= 1 && !input[0].equalsIgnoreCase("list") && !input[0].equalsIgnoreCase("bye")) {
             throw new KieTwoForOneException();
         }
         return true;
@@ -78,7 +80,7 @@ public class KieTwoForOne {
         return true;
     }
 
-    public static void saveToFile() {
+    public static void saveFile() {
         try {
             ObjectOutputStream fileSaver = new ObjectOutputStream(new FileOutputStream(filePath));
             for (int i = 0; i < tasks.size(); i++) {
@@ -90,7 +92,7 @@ public class KieTwoForOne {
         }
     }
 
-    public static void main(String[] args) {
+    public static void loadFile() {
         try {
             ObjectInputStream fileLoader = new ObjectInputStream(new FileInputStream(filePath));
             while (true) {
@@ -107,6 +109,25 @@ public class KieTwoForOne {
         } catch (ClassNotFoundException e) {
             System.out.println("Not a Task!");
         }
+    }
+
+    public static void findDates(String date) {
+        ArrayList<Task> taskList = new ArrayList<>(100);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currTask = tasks.get(i);
+            if (currTask.compareDates(date)) {
+                taskList.add(currTask);
+            }
+        }
+        System.out.println("Here are the tasks occurring on this date:");
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(String.format("%d. %s", i + 1, taskList.get(i).toString()));
+        }
+        System.out.println(separationLine);
+    }
+
+    public static void main(String[] args) {
+        KieTwoForOne.loadFile();
         Scanner scanner = new Scanner(System.in);
         System.out.println(separationLine);
         System.out.println("Hello! I'm " + chatBotName + ".");
@@ -167,12 +188,22 @@ public class KieTwoForOne {
                 case EVENT:
                     try  {
                         isCompleteEventInput(taskDetails);
-                    } catch (KieTwoForOneException e){
+                    } catch (KieTwoForOneException e) {
                         System.out.println("Please input a start and end time!");
                         System.out.println(separationLine);
                         break;
                     }
-                    KieTwoForOne.addTasks(new Event(taskDetails[0], taskDetails[1], taskDetails[2]));
+                    try {
+                        KieTwoForOne.addTasks(new Event(taskDetails[0], taskDetails[1], taskDetails[2]));
+                    } catch (DateTimeException e) {
+                        System.out.println("Date must be valid and in the form YYYY-MM-DD!");
+                        System.out.println(separationLine);
+                        break;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please input a date and time for your start and end time!");
+                        System.out.println(separationLine);
+                        break;
+                    }
                     break;
                 case DEADLINE:
                     try {
@@ -182,13 +213,36 @@ public class KieTwoForOne {
                         System.out.println(separationLine);
                         break;
                     }
-                    KieTwoForOne.addTasks(new Deadline(taskDetails[0], taskDetails[1]));
+                    try {
+                        KieTwoForOne.addTasks(new Deadline(taskDetails[0], taskDetails[1]));
+                    } catch (DateTimeException e) {
+                        System.out.println("Date must be valid and in the form YYYY-MM-DD!");
+                        System.out.println(separationLine);
+                        break;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please input a date and time for your deadline!");
+                        System.out.println(separationLine);
+                        break;
+                    }
                     break;
                 case DELETE:
                     try {
                         deleteTask(Integer.valueOf(instruction[1]));
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Task does not exist!");
+                        System.out.println("Please input a task!");
+                        System.out.println(separationLine);
+                        break;
+                    }
+                    break;
+                case DATE:
+                    try {
+                        findDates(instruction[1]);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Please input a valid date!");
+                        System.out.println(separationLine);
+                        break;
+                    } catch (DateTimeException e) {
+                        System.out.println("Date must be valid and in the form YYYY-MM-DD!");
                         System.out.println(separationLine);
                         break;
                     }
@@ -200,7 +254,7 @@ public class KieTwoForOne {
                 break;
             }
         }
-        KieTwoForOne.saveToFile();
+        KieTwoForOne.saveFile();
         scanner.close();
     }
 }

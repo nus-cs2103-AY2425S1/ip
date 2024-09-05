@@ -18,6 +18,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public boolean compareDates(String date) {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return String.format("[T] %s", this.task.toString());
     }

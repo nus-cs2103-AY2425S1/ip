@@ -31,6 +31,10 @@ public class Task implements Serializable {
         return this.toString();
     }
 
+    public boolean compareDates(String date) {
+        return false;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
