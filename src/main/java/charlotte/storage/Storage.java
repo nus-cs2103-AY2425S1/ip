@@ -119,7 +119,6 @@ public class Storage {
         } catch (CharlotteException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
-
         return tasks;
     }
 }
