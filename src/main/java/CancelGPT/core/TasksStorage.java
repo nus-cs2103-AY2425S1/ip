@@ -10,10 +10,25 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * Represents the storage that saves the tasks persistently.
+ */
 public class TasksStorage {
     private CancelGPT chatbot;
     private Path tasksStoragePath;
 
+    /**
+     * Initialises TasksStorage for the chatbot, using
+     * the tasks storage directory path given.
+     * If the tasks storage file for the chatbot does not exist, creates the file,
+     * along with any required parent directories.
+     * Else, uses the file for the storage.
+     * 
+     * @param chatbot the chatbot the TasksStorage is storing for
+     * @param tasksStorageDirectoryPath the storage directory path to store the data
+     * @throws IOException if the storage directory cannot be found or the file to store data cannot
+     * be created.
+     */
     public TasksStorage(CancelGPT chatbot, Path tasksStorageDirectoryPath) throws IOException {
         this.chatbot = chatbot;
 
@@ -27,6 +42,11 @@ public class TasksStorage {
         this.readTaskStorageToTasksList();
     }
 
+    /**
+     * Reads tasks from the storage file to the storage.
+     * 
+     * @throws IOException if tasks in the file to read from cannot be read
+     */
     private void readTaskStorageToTasksList() throws IOException {
         Scanner tasksStorageReader = new Scanner(this.tasksStoragePath);
         while (tasksStorageReader.hasNextLine()) {
@@ -39,6 +59,11 @@ public class TasksStorage {
         tasksStorageReader.close();
     }
 
+    /**
+     * Writes the tasks in TasksStorage persistently to the file to be stored.
+     * 
+     * @throws IOException if the tasks in the TasksStorage cannot be written to the storage file
+     */
     public void saveTasks() throws IOException {
         FileWriter tasksStorageSaver = new FileWriter(this.tasksStoragePath.toString());
         for (Task task : this.chatbot.getTasks()) {
