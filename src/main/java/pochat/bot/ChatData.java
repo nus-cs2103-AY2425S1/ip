@@ -1,10 +1,13 @@
-package poChat.bot;
+package pochat.bot;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import poChat.tasks.Task;
-import poChat.exceptions.ChatHistoryFileMissingException;
+import pochat.tasks.Task;
+import pochat.exceptions.ChatHistoryFileMissingException;
 
 class ChatData {
     private final String filename;

@@ -1,4 +1,4 @@
-package poChat.exceptions;
+package pochat.exceptions;
 
 public class TaskDescriptionEmptyException extends Exception {
     public TaskDescriptionEmptyException() {

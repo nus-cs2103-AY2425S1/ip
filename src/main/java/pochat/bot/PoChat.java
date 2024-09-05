@@ -1,6 +1,6 @@
-package poChat.bot;
+package pochat.bot;
 
-import poChat.exceptions.TaskDescriptionEmptyException;
+import pochat.exceptions.TaskDescriptionEmptyException;
 
 class PoChat {
     private TaskList taskList;
@@ -27,7 +27,7 @@ class PoChat {
     }
 
     /**
-     * This method takes in the input from the user as a <code>String</code>
+     * Takes in the input from the user as a <code>String</code>
      * and passes it to the Parser for processing.
      *
      * @param textInput the String input from the user

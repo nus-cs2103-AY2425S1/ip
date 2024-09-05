@@ -1,4 +1,4 @@
-package poChat.bot;
+package pochat.bot;
 
 import java.util.Scanner;
 

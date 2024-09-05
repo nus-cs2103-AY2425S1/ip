@@ -1,4 +1,4 @@
-package poChat.tasks;
+package pochat.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -51,6 +51,7 @@ public abstract class Task {
     }
 
     /**
+     * Checks whether the Task description contains the keyword
      * @param keyword: the task should contain this keyword
      * @return <code>true</code> if the Task description contains this keyword,
      * otherwise <code>false</code>.

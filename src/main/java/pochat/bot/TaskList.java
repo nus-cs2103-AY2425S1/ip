@@ -1,6 +1,6 @@
-package poChat.bot;
+package pochat.bot;
 
-import poChat.tasks.Task;
+import pochat.tasks.Task;
 
 import java.util.ArrayList;
 

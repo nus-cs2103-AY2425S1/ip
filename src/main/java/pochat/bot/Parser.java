@@ -1,10 +1,10 @@
-package poChat.bot;
+package pochat.bot;
 
-import poChat.exceptions.TaskDescriptionEmptyException;
-import poChat.tasks.Deadline;
-import poChat.tasks.Event;
-import poChat.tasks.Task;
-import poChat.tasks.ToDo;
+import pochat.exceptions.TaskDescriptionEmptyException;
+import pochat.tasks.Deadline;
+import pochat.tasks.Event;
+import pochat.tasks.Task;
+import pochat.tasks.ToDo;
 
 class Parser {
     private final TaskList taskList;
@@ -18,7 +18,7 @@ class Parser {
     }
 
     /**
-     * This method takes in the input and parses it to determine the
+     * Takes in the input and parses it to determine the
      * right response from the chatbot. Also updates the TaskList with any
      * new tasks created.
      *

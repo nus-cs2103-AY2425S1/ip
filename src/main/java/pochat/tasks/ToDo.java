@@ -1,4 +1,4 @@
-package poChat.tasks;
+package pochat.tasks;
 
 public class ToDo extends Task {
     public ToDo(String taskDescription, boolean isDone) {

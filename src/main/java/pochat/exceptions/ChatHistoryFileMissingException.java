@@ -1,4 +1,4 @@
-package poChat.exceptions;
+package pochat.exceptions;
 
 public class ChatHistoryFileMissingException extends RuntimeException {
     public ChatHistoryFileMissingException() {
