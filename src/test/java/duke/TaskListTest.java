@@ -50,7 +50,7 @@ public class TaskListTest {
 
     @Test
     public void testFormatListMessage() {
-        String expected = "      1.[T][ ] Finish assignment";
+        String expected = "1.[T][ ] Finish assignment";
         String formattedMessage = taskList.formatListMessage("1", task1);
         Assertions.assertEquals(expected, formattedMessage);
     }

@@ -1,1 +1,3 @@
-T | 0 | borrow book
+T | 0 | study
+D | 0 | return book | 2/12/2019 1800
+E | 0 | project meeting | Mon 2pm | 4pm
