@@ -1,4 +1,5 @@
-package main.LittleMissHelpful;
+package LittleMissHelpful;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.BufferedWriter;
@@ -7,9 +8,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-import main.LittleMissHelpful.Exception.InvalidCommandException;
-import main.LittleMissHelpful.Exception.InvalidTaskFormatException;
-import main.LittleMissHelpful.Task.Task;
+import LittleMissHelpful.Exception.InvalidCommandException;
+import LittleMissHelpful.Exception.InvalidTaskFormatException;
+import LittleMissHelpful.Task.Task;
 
 public class Storage {
     private String filePath;

@@ -1,4 +1,4 @@
-package main.LittleMissHelpful.Exception;
+package LittleMissHelpful.Exception;
 public class InvalidCommandException extends Exception {
     public InvalidCommandException(String message) {
         super(message);

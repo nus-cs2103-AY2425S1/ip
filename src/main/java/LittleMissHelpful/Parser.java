@@ -1,15 +1,15 @@
-package main.LittleMissHelpful;
+package LittleMissHelpful;
 
-import main.LittleMissHelpful.Exception.InvalidCommandException;
-import main.LittleMissHelpful.Command.Command;
-import main.LittleMissHelpful.Command.ExitCommand;
-import main.LittleMissHelpful.Command.ListCommand;
-import main.LittleMissHelpful.Command.AddTodoCommand;
-import main.LittleMissHelpful.Command.AddDeadlineCommand;
-import main.LittleMissHelpful.Command.AddEventCommand;
-import main.LittleMissHelpful.Command.MarkTaskCommand;
-import main.LittleMissHelpful.Command.UnmarkTaskCommand;
-import main.LittleMissHelpful.Command.DeleteTaskCommand;
+import LittleMissHelpful.Exception.InvalidCommandException;
+import LittleMissHelpful.Command.Command;
+import LittleMissHelpful.Command.ExitCommand;
+import LittleMissHelpful.Command.ListCommand;
+import LittleMissHelpful.Command.AddTodoCommand;
+import LittleMissHelpful.Command.AddDeadlineCommand;
+import LittleMissHelpful.Command.AddEventCommand;
+import LittleMissHelpful.Command.MarkTaskCommand;
+import LittleMissHelpful.Command.UnmarkTaskCommand;
+import LittleMissHelpful.Command.DeleteTaskCommand;
 
 public class Parser {
     public static Command parse(String fullCommand) throws InvalidCommandException {

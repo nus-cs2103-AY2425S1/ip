@@ -1,11 +1,11 @@
-package main.LittleMissHelpful.Command;
+package LittleMissHelpful.Command;
 
-import main.LittleMissHelpful.Exception.InvalidCommandException;
-import main.LittleMissHelpful.Exception.InvalidTaskFormatException;
-import main.LittleMissHelpful.Task.Task;
-import main.LittleMissHelpful.TaskList;
-import main.LittleMissHelpful.Ui;
-import main.LittleMissHelpful.Storage;
+import LittleMissHelpful.Exception.InvalidCommandException;
+import LittleMissHelpful.Exception.InvalidTaskFormatException;
+import LittleMissHelpful.Task.Task;
+import LittleMissHelpful.TaskList;
+import LittleMissHelpful.Ui;
+import LittleMissHelpful.Storage;
 
 public class MarkTaskCommand extends Command {
     private final int taskIndex;

@@ -1,20 +1,9 @@
-package main.LittleMissHelpful;
+package LittleMissHelpful;
 
 import java.io.IOException;
 
-import main.LittleMissHelpful.Exception.InvalidCommandException;
-import main.LittleMissHelpful.Exception.InvalidTaskFormatException;
-import main.LittleMissHelpful.Task.*;
-import main.LittleMissHelpful.Command.Command;
-import main.LittleMissHelpful.Command.ExitCommand;
-import main.LittleMissHelpful.Command.ListCommand;
-import main.LittleMissHelpful.Command.AddTodoCommand;
-import main.LittleMissHelpful.Command.AddDeadlineCommand;
-import main.LittleMissHelpful.Command.AddEventCommand;
-import main.LittleMissHelpful.Command.MarkTaskCommand;
-import main.LittleMissHelpful.Command.UnmarkTaskCommand;
-import main.LittleMissHelpful.Command.DeleteTaskCommand;
-import main.LittleMissHelpful.*;
+import LittleMissHelpful.Exception.InvalidCommandException;
+import LittleMissHelpful.Command.Command;
 
 public class LittleMissHelpful {
     private Storage storage;

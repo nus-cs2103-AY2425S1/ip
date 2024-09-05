@@ -1,11 +1,11 @@
-package main.LittleMissHelpful;
+package LittleMissHelpful;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import main.LittleMissHelpful.Task.Task;
+import LittleMissHelpful.Task.Task;
 
 public class Ui {
     private static final String LINE_BREAK = "---------------------------------";

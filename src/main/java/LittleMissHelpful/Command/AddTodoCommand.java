@@ -1,10 +1,10 @@
-package main.LittleMissHelpful.Command;
+package LittleMissHelpful.Command;
 
-import main.LittleMissHelpful.Exception.InvalidCommandException;
-import main.LittleMissHelpful.Task.Todo;
-import main.LittleMissHelpful.TaskList;
-import main.LittleMissHelpful.Ui;
-import main.LittleMissHelpful.Storage;
+import LittleMissHelpful.Exception.InvalidCommandException;
+import LittleMissHelpful.Task.Todo;
+import LittleMissHelpful.TaskList;
+import LittleMissHelpful.Ui;
+import LittleMissHelpful.Storage;
 
 public class AddTodoCommand extends Command {
     private String description;

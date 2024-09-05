@@ -1,6 +1,6 @@
-package main.LittleMissHelpful.Task;
+package LittleMissHelpful.Task;
 
-import main.LittleMissHelpful.Exception.InvalidTaskFormatException;
+import LittleMissHelpful.Exception.InvalidTaskFormatException;
 import java.time.LocalDateTime;
 
 public class Task {

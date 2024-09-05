@@ -1,14 +1,14 @@
-package main.LittleMissHelpful.Command;
+package LittleMissHelpful.Command;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import main.LittleMissHelpful.Exception.InvalidCommandException;
-import main.LittleMissHelpful.Task.Deadline;
-import main.LittleMissHelpful.TaskList;
-import main.LittleMissHelpful.Ui;
-import main.LittleMissHelpful.Storage;
+import LittleMissHelpful.Exception.InvalidCommandException;
+import LittleMissHelpful.Task.Deadline;
+import LittleMissHelpful.TaskList;
+import LittleMissHelpful.Ui;
+import LittleMissHelpful.Storage;
 
 public class AddDeadlineCommand extends Command {
     private String description;
