@@ -1,14 +1,21 @@
 package snowy.parser;
 
-import snowy.common.*;
+import snowy.common.DeadlineCommand;
+import snowy.common.DeleteCommand;
+import snowy.common.EventCommand;
+import snowy.common.ExitCommand;
+import snowy.common.InvalidCommand;
+import snowy.common.ListCommand;
+import snowy.common.MarkCommand;
+import snowy.common.TodoCommand;
+import snowy.common.UnmarkCommand;
+import snowy.common.Command;
+import snowy.common.CommandResult;
 import snowy.data.SnowyException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Parses user commands.
- */
 public class Parser {
 
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
@@ -29,32 +36,24 @@ public class Parser {
 
         try {
             switch (command) {
-                case "todo":
-                    return parseTodoCommand(arg);
-
-                case "deadline":
-                    return parseDeadlineCommand(arg);
-
-                case "event":
-                    return parseEventCommand(arg);
-
-                case "delete":
-                    return parseDeleteCommand(arg);
-
-                case "list":
-                    return new ListCommand();
-
-                case "mark":
-                    return parseMarkCommand(arg);
-
-                case "unmark":
-                    return parseUnmarkCommand(arg);
-
-                case "bye":
-                    return new ExitCommand();
-
-                default:
-                    return new InvalidCommand("Sorry, I do not understand that command.");
+            case "todo":
+                return parseTodoCommand(arg);
+            case "deadline":
+                return parseDeadlineCommand(arg);
+            case "event":
+                return parseEventCommand(arg);
+            case "delete":
+                return parseDeleteCommand(arg);
+            case "list":
+                return new ListCommand();
+            case "mark":
+                return parseMarkCommand(arg);
+            case "unmark":
+                return parseUnmarkCommand(arg);
+            case "bye":
+                return new ExitCommand();
+            default:
+                return new InvalidCommand("Sorry, I do not understand that command.");
             }
         } catch (SnowyException e) {
             return new InvalidCommand(e.getMessage());

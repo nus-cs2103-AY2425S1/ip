@@ -1,6 +1,6 @@
 package snowy.common;
 
-public class CommandResult extends Command {
+public class CommandResult {
     private final String feedbackToUser;
 
     public CommandResult(String feedbackToUser) {

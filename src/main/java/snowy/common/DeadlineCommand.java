@@ -3,7 +3,7 @@ package snowy.common;
 import snowy.tasklist.Deadline;
 
 public class DeadlineCommand extends Command {
-    public static final String DEADLINE = "deadline";
+
     private final String description;
     private final String date;
 
@@ -20,4 +20,3 @@ public class DeadlineCommand extends Command {
         return new CommandResult("Added a task with a deadline to your list of tasks");
     }
 }
-
