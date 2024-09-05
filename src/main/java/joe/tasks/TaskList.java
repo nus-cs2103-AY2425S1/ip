@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import joe.Main.Parser;
+import joe.main.Parser;
 import joe.exceptions.InvalidIndexException;
 import joe.utils.Formatter;
 

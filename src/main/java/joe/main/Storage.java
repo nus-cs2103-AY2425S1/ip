@@ -1,4 +1,4 @@
-package joe.Main;
+package joe.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private static final String line =
+    private static final String LINE =
             "____________________________________________________________";
     private final File file;
 
@@ -29,7 +29,7 @@ public class Storage {
      * @throws FileNotFoundException if the file is not found
      */
     public String[] load() throws FileNotFoundException {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Attempting to sync your data......");
         Scanner sc = new Scanner(file);
         String[] lines = new String[100];

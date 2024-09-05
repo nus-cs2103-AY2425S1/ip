@@ -1,4 +1,4 @@
-package joe.Main;
+package joe.main;
 
 import java.util.Scanner;
 
@@ -15,7 +15,7 @@ import joe.tasks.TaskList;
  * Represents the user interface of the programme.
  */
 public class Ui {
-    private static final String line =
+    private static final String LINE =
             "____________________________________________________________";
     private final Scanner reader;
     private TaskList tasks;
@@ -88,8 +88,8 @@ public class Ui {
      * Displays the welcome message when the program starts.
      */
     private static void showWelcome() {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Hello! I'm Joe\nWhat can I do for you?\nType /help to see the list of available commands.");
-        System.out.println(line);
+        System.out.println(LINE);
     }
 }

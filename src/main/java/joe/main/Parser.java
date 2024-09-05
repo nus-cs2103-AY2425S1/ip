@@ -1,4 +1,4 @@
-package joe.Main;
+package joe.main;
 
 import joe.commands.AddTaskCommand;
 import joe.commands.Command;
@@ -20,7 +20,7 @@ import joe.tasks.ToDo;
  */
 public class Parser {
 
-    private static final String splitRegex = " \\| ";
+    private static final String DELIMITER = " \\| ";
     private final TaskList tasks;
 
     public Parser(TaskList tasks) {
@@ -44,13 +44,13 @@ public class Parser {
         } else if (userCmd.startsWith("todo")) {
             c = new AddTaskCommand(tasks, new ToDo(userCmd.substring(4)));
         } else if (userCmd.startsWith("deadline")) {
-            String[] params = userCmd.substring(8).split(splitRegex);
+            String[] params = userCmd.substring(8).split(DELIMITER);
             if (params.length < 2) {
                 throw new IllegalArgumentException("Deadline: You did not provide a due date/time.");
             }
             c = new AddTaskCommand(tasks, new Deadline(params[0], params[1]));
         } else if (userCmd.startsWith("event")) {
-            String[] params = userCmd.substring(5).split(splitRegex);
+            String[] params = userCmd.substring(5).split(DELIMITER);
             if (params.length < 2) {
                 throw new IllegalArgumentException("Event: Did not provide start and end date/time");
             } else if (params.length < 3) {
@@ -96,7 +96,7 @@ public class Parser {
      * @throws CorruptedFileException if the file is corrupted
      */
     public static Task parseTask(String line) throws CorruptedFileException {
-        String[] params = line.split(splitRegex);
+        String[] params = line.split(DELIMITER);
         Task t;
         String type = params[0];
 

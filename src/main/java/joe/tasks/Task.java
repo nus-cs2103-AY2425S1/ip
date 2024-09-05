@@ -35,10 +35,10 @@ public abstract class Task {
     /**
      * Sets the status of the task.
      *
-     * @param done a boolean that determines whether a task is done
+     * @param isDone a boolean that determines whether a task is done
      */
-    public void setDone(boolean done) {
-        this.isDone = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
 

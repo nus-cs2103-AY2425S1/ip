@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import javafx.util.Duration;
-import joe.Main.Joe;
+import joe.main.Joe;
 
 /**
  * Controller for the main GUI.
