@@ -20,25 +20,25 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public Event(String description, LocalDate from, LocalDate to) {
-        /**
-         * Instatiate event without needing to input time
-         * Defaults from time to start of the day and end time to end of the day
-         */
-        super(description);
-        this.from = from.atStartOfDay(); // Set default time to start of day
-        this.to = to.atStartOfDay().plusDays(1).minusSeconds(1); // Set end of day time
-    }
+    // public Event(String description, LocalDate from, LocalDate to) {
+    //     /**
+    //      * Instatiate event without needing to input time
+    //      * Defaults from time to start of the day and end time to end of the day
+    //      */
+    //     super(description);
+    //     this.from = from.atStartOfDay(); // Set default time to start of day
+    //     this.to = to.atStartOfDay().plusDays(1).minusSeconds(1); // Set end of day time
+    // }
 
-    public Event(String description, boolean isDone, LocalDate from, LocalDate to) {
-        /**
-         * Instatiate event without needing to input time && isDone
-         * Defaults from time to start of the day and end time to end of the day
-         */
-        super(description, isDone);
-        this.from = from.atStartOfDay(); // Set default time to start of day
-        this.to = to.atStartOfDay().plusDays(1).minusSeconds(1); // Set end of day time
-    }
+    // public Event(String description, boolean isDone, LocalDate from, LocalDate to) {
+    //     /**
+    //      * Instatiate event without needing to input time && isDone
+    //      * Defaults from time to start of the day and end time to end of the day
+    //      */
+    //     super(description, isDone);
+    //     this.from = from.atStartOfDay(); // Set default time to start of day
+    //     this.to = to.atStartOfDay().plusDays(1).minusSeconds(1); // Set end of day time
+    // }
 
     @Override
     public String toString() {
@@ -67,6 +67,6 @@ public class Event extends Task {
             toString = this.to.format(dateFormatter);
         }
 
-        return "[E] " + super.toString() + " | " + fromString + " - " + toString;
+        return "[E]" + super.toString() + " | " + fromString + " - " + toString;
     }
 }
