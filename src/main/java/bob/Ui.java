@@ -14,6 +14,14 @@ public class Ui {
         " Bye. Hope to see you again soon!"
     };
 
+    public static String getWelcomeMessage() {
+        return Ui.welcome[0];
+    }
+
+    public static String getFarewellMessage() {
+        return Ui.welcome[0];
+    }
+
     /**
      * Displays the welcome message to the user.
      */

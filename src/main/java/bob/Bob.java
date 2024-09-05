@@ -49,6 +49,21 @@ public class Bob {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        boolean isExit = false;
+        try {
+            Command c = Parser.parse(input);
+            String response = c.execute(tasks, ui, storage);
+            isExit = c.isExit();
+            return response;
+        } catch (IllegalInputException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
      * The main method to start the Bob application.
      * It initializes a new {@code Bob} instance with a predefined file path and starts the application.
      *
