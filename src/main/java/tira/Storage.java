@@ -15,17 +15,34 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.io.BufferedReader;
 
+/**
+ * Utility class for Tira chatbot.
+ * Manages reading and saving of output on text file.
+ * Manages conversion of Task to String of text and vice versa.
+ */
 public class Storage {
     private static DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
     private final String filePath;
     private final Ui ui = new Ui();
 
+    /**
+     * Initialises the Storage class using a specified filepath name.
+     *
+     * @param filePath Filepath specified by the user.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /*
     Solution below inspired by https://github.com/hansneddyanto/ip/blob/master/src/main/java/hana/Storage.java
+     */
+
+    /**
+     * Reads the String from the specified file.
+     *
+     * @return The tasks as list of tasks.
+     * @throws TiraException Exception class for Tira chatbot.
      */
     public ArrayList<Task> load() throws TiraException {
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -61,8 +78,11 @@ public class Storage {
         return tasks;
     }
 
-    /*
-    Takes the task in tasks, converts to String, then writes to the file
+    /**
+     * Writes the list of tasks onto the file as a text.
+     *
+     * @param tasks The list of tasks that need to be written on the file.
+     * @throws IOException
      */
     public void save(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(filePath);
@@ -76,6 +96,13 @@ public class Storage {
 
     //@@hansneddyanto-reused
     // Hans is my friend and he has allowed me to refer to parts of his code.
+
+    /**
+     * Converts Task objects into String.
+     *
+     * @param task Task that needs to be converted to a String.
+     * @return The formatted Task as a String.
+     */
     public String convertTaskToString(Task task) {
         String output = "";
         if (task instanceof ToDo) {
@@ -111,6 +138,13 @@ public class Storage {
         }
         return output;
     }
+
+    /**
+     * Converts the text on the file to an ArrayList of String.
+     *
+     * @param taskStringList The String of text read from the file.
+     * @return the ArrayList of Task objects.
+     */
 
     public ArrayList<Task> convertToTaskList(ArrayList<String> taskStringList) {
         ArrayList<Task> tasks = new ArrayList<Task>();
