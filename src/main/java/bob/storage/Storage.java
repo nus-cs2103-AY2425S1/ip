@@ -1,12 +1,13 @@
 package bob.storage;
 
-import java.util.ArrayList;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileReader;
-import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import bob.task.Deadline;
 import bob.task.Event;
 import bob.task.Task;
@@ -16,28 +17,26 @@ import bob.task.Todo;
 /**
  * Handles operations relating to saving or loading tasks in the file.
  */
-
-
 public class Storage {
 
-    private String FILE_PATH;
+    private String filePath;
 
     /**
      * Constructor for the Storage instance.
      * @param filePath File path to the location of the file where records are saved.
      */
     public Storage(String filePath) {
-        this.FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
     /**
      * Updates Bob's records and prints out all existing records.
      *
-     * @return
+     * @return Arraylist of tasks based on the previous instance when the chatBot was running.
      */
     public ArrayList<Task> loadTaskList() {
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
             if (!file.exists()) {
 
                 boolean isFileCreated = file.createNewFile();
@@ -79,7 +78,6 @@ public class Storage {
 
         switch (parts[0]) {
         case "T":
-//            System.out.println("parseDate description: " + parts[2]);
             return new Todo(parts[2], isDone);
         case "D":
             return new Deadline(parts[2], parts[3], isDone);
@@ -92,20 +90,20 @@ public class Storage {
 
     /**
      * Saves tasks updates by user to storage
+     * @param records records of the tasks currently tracked by the chatBot.
      */
     public void saveRecordsToStorage(ArrayList<Task> records) {
 
-        File file = new File (FILE_PATH);
+        File file = new File(filePath);
         try {
             File dataDir = file.getParentFile();
-            if(dataDir != null && !dataDir.exists()) {
+            if (dataDir != null && !dataDir.exists()) {
                 boolean isDirCreated = dataDir.mkdir();
-                if(!isDirCreated) {
+                if (!isDirCreated) {
                     System.out.println("Failed to create directory for saving records.");
                 }
             }
-
-            if(!file.exists()) {
+            if (!file.exists()) {
                 boolean isFileCreated = file.createNewFile();
                 if (!isFileCreated) {
                     System.out.println("Failed to create new file when saving records.");
@@ -120,7 +118,6 @@ public class Storage {
             }
             bufferedWriter.close();
         } catch (IOException e) {
-//            super.toString();
             System.err.println("Unable to save records to storage.");
         }
     }
