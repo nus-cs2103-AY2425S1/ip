@@ -2,6 +2,8 @@ package chatbuddy.ui;
 
 import chatbuddy.task.TaskList;
 import chatbuddy.task.Task;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -114,5 +116,17 @@ public class Ui {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    /**
+     * Displays the tasks that match the search keyword entered by the user.
+     *
+     * @param matchingTasks The list of tasks that match the search criteria.
+     */
+    public void showFindResult(ArrayList<Task> matchingTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        }
     }
 }
