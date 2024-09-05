@@ -75,6 +75,10 @@ public class Nave {
                 case UNSURE:
                     ui.unsureMessage();
                     break;
+                case FIND:
+                    String keyword = parser.parseFind(userInput);
+                    ui.showResponse(tasks.findTasks(keyword));
+                    break;
             }
             userInput = inputReader.nextLine();
         }

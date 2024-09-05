@@ -109,4 +109,21 @@ public class TaskList {
             return "This task does not exist!";
         }
     }
+
+    public String findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : list) {
+            if (task.toString().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            return "No tasks found containing the keyword: " + keyword;
+        }
+        StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            result.append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
+        }
+        return result.toString();
+    }
 }

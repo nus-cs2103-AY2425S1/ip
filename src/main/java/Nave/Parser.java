@@ -16,7 +16,7 @@ public class Parser {
      * that the {@code Parser} can recognize.
      */
     public enum Command {
-        LIST, HELP, MARK, UNMARK, TASK, DELETE, UNSURE
+        LIST, HELP, MARK, UNMARK, TASK, DELETE, UNSURE, FIND
     }
 
     /**
@@ -42,6 +42,10 @@ public class Parser {
         Pattern taskPattern = Pattern.compile("^(todo|deadline|event)\\s?(.*)$");
         Matcher taskMatcher = taskPattern.matcher(input);
 
+        //Regex checking for find
+        Pattern findPattern = Pattern.compile("^find (.+)$");
+        Matcher findMatcher = findPattern.matcher(input);
+
         if (input.equals("list")) {
             return Command.LIST;
         } else if (input.equals("/help")) {
@@ -53,6 +57,8 @@ public class Parser {
             return Command.TASK;
         } else if (deleteMatcher.matches()) {
             return Command.DELETE;
+        } else if (findMatcher.matches()) {
+            return Command.FIND;
         } else {
             return Command.UNSURE;
         }
@@ -114,5 +120,11 @@ public class Parser {
             case "event" -> Event.handleInput(taskMatcher.group(2));
             default -> throw new WrongInputException("Unknown task type");
         };
+    }
+
+    public String parseFind(String input) {
+        Pattern findPattern = Pattern.compile("^find (.+)$");
+        Matcher findMatcher = findPattern.matcher(input);
+        return findMatcher.matches() ? findMatcher.group(1) : "";
     }
 }

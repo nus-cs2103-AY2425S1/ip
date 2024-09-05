@@ -47,7 +47,8 @@ public class Ui {
             deadline [name] /by [date]: adds a deadline with associated name and date
             event [name] /from [date] /to [date]: adds an event with associated name,
                 start date and end date
-            bye: ends the Nave.Nave chatbot"""));
+            find [keyword]: finds tasks that contain the keyword in their name
+            bye: ends the Nave chatbot"""));
     }
 
     /**
