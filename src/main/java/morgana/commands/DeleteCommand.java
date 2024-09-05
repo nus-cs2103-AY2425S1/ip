@@ -3,8 +3,8 @@ package morgana.commands;
 import morgana.exceptions.MorganaException;
 import morgana.parser.Parser;
 import morgana.storage.Storage;
+import morgana.task.Task;
 import morgana.task.TaskList;
-import morgana.ui.Ui;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -22,13 +22,19 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MorganaException {
+    public String execute(TaskList tasks, Storage storage) throws MorganaException {
         int index = Parser.parseTaskIndex(args, tasks);
-        ui.showToUser(
-                "Noted. I've removed this task:",
-                "%d. %s".formatted(index + 1, tasks.remove(index)),
-                "Now you have %d task%s in the list.".formatted(tasks.size(),
-                        tasks.size() > 1 ? "s" : ""));
+        Task task = tasks.remove(index);
         storage.save(tasks);
+        return """
+                Noted. I've removed this task:
+                %d. %s
+                Now you have %d task%s in the list.
+                """.formatted(index + 1, task, tasks.size(), tasks.size() > 1 ? "s" : "");
+    }
+
+    @Override
+    public String getStyleClass() {
+        return "delete-label";
     }
 }

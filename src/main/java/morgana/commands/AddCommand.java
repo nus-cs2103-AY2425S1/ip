@@ -4,7 +4,6 @@ import morgana.exceptions.MorganaException;
 import morgana.storage.Storage;
 import morgana.task.Task;
 import morgana.task.TaskList;
-import morgana.ui.Ui;
 
 /**
  * Represents an abstract command to add a task to the task list.
@@ -24,15 +23,15 @@ public abstract class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MorganaException {
+    public String execute(TaskList tasks, Storage storage) throws MorganaException {
         Task task = createTask(args);
         tasks.add(task);
-        ui.showToUser(
-                "Got it. I've added this task:",
-                task.toString(),
-                "Now you have %d task%s in the list.".formatted(tasks.size(),
-                        tasks.size() > 1 ? "s" : ""));
         storage.save(tasks);
+        return """
+                Got it. I've added this task:
+                %s
+                Now you have %d task%s in the list.
+                """.formatted(task, tasks.size(), tasks.size() > 1 ? "s" : "");
     }
 
     /**
@@ -43,4 +42,9 @@ public abstract class AddCommand extends Command {
      * @throws MorganaException If an error occurs while creating the task.
      */
     abstract Task createTask(String args) throws MorganaException;
+
+    @Override
+    public String getStyleClass() {
+        return "add-label";
+    }
 }

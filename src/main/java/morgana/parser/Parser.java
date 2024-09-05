@@ -30,14 +30,14 @@ public class Parser {
     /**
      * Parses the user's input and returns the corresponding {@link Command}.
      *
-     * @param line The input string entered by the user.
+     * @param input The input string entered by the user.
      * @return The {@code Command} corresponding to the user's input.
      * @throws MorganaException If the command is not recognized.
      */
-    public static Command parse(String line) throws MorganaException {
-        String[] input = line.trim().split(" ", 2);
-        String cmd = input[0];
-        String args = input.length > 1 ? input[1].trim() : "";
+    public static Command parse(String input) throws MorganaException {
+        String[] tokens = input.trim().split(" ", 2);
+        String cmd = tokens[0];
+        String args = tokens.length > 1 ? tokens[1].trim() : "";
 
         return switch (cmd) {
             case "list" -> new ListCommand();
