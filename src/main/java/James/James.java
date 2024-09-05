@@ -33,31 +33,29 @@ class James {
      * Starts the application, showing the greeting and processing user commands.
      * Continues until the user types "bye" to exit.
      */
-    public void run() {
-        ui.showGreeting();
-        boolean isExit = false;
+//    public void run() {
+//        ui.showGreeting();
+//        boolean isExit = false;
+//
+//        while (!isExit) {
+//            try {
+//                String command = ui.readCommand();
+//                isExit = parser.parseAndExecute(command, taskList);
+//            } catch (JamesException e) {
+//                ui.showMessage(e.getMessage());
+//            }
+//        }
+//
+//        ui.close();
+//    }
 
-        while (!isExit) {
-            try {
-                String command = ui.readCommand();
-                isExit = parser.parseAndExecute(command, taskList);
-            } catch (JamesException e) {
-                ui.showMessage(e.getMessage());
-            }
+    public String getResponse(String input) {
+        String response;
+        try {
+            response = parser.parseAndExecute(input, taskList);
+        } catch (JamesException e) {
+            return e.getMessage();
         }
-
-        ui.close();
-    }
-
-    /**
-     * Entry point of the application.
-     * <p>
-     * Creates a new James instance and starts it.
-     * </p>
-     *
-     * @param args Command-line arguments (not used)
-     */
-    public static void main(String[] args) {
-        new James("data/james.txt").run();
+        return response;
     }
 }

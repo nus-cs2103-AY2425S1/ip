@@ -33,53 +33,52 @@ class Parser {
      * @return true if the command is "bye" and the application should exit, false otherwise
      * @throws JamesException If an error occurs during command execution
      */
-    public boolean parseAndExecute(String command, TaskList taskList) throws JamesException {
+    public String parseAndExecute(String command, TaskList taskList) throws JamesException {
         String[] words = command.split(" ");
         String action = words[0].toLowerCase();
+        StringBuilder stringBuilder = new StringBuilder();
 
         switch (action) {
         case "bye":
-            ui.showExitMessage();
-            return true;
+            return ui.showExitMessage();
 
         case "list":
-            taskList.printTasks();
-            break;
+            return taskList.printTasks();
 
         case "mark":
             int markTaskNum = Integer.parseInt(words[1]);
             taskList.markTask(markTaskNum - 1);
-            ui.showMessage("Task marked as done:");
-            ui.showMessage(taskList.getTask(markTaskNum - 1).printTask());
+            stringBuilder.append("Task marked as done:\n");
+            stringBuilder.append(taskList.getTask(markTaskNum - 1).printTask());
             storage.saveTasks(taskList.getTasks());
-            break;
+            return stringBuilder.toString();
 
         case "unmark":
             int unmarkTaskNum = Integer.parseInt(words[1]);
             taskList.unmarkTask(unmarkTaskNum - 1);
-            ui.showMessage("Task marked as not done:");
-            ui.showMessage(taskList.getTask(unmarkTaskNum - 1).printTask());
+            stringBuilder.append("Task marked as not done:\n");
+            stringBuilder.append(taskList.getTask(unmarkTaskNum - 1).printTask());
             storage.saveTasks(taskList.getTasks());
-            break;
+            return stringBuilder.toString();
 
         case "todo":
             String todoDescription = command.substring(4).trim();
             Task todoTask = new Todo(todoDescription, false);
             taskList.addTask(todoTask);
-            ui.showMessage("Task added:\n" + todoTask.printTask());
-            ui.showMessage(String.format("Now you have %d tasks in the list.", taskList.size()));
+            stringBuilder.append("Task added:\n" + todoTask.printTask() + "\n");
+            stringBuilder.append(String.format("Now you have %d tasks in the list.", taskList.size()));
             storage.saveTasks(taskList.getTasks());
-            break;
+            return stringBuilder.toString();
 
         case "deadline":
             String deadlineDescription = command.substring(8, command.lastIndexOf("/by")).trim();
             String deadline = command.substring(command.lastIndexOf("/by") + 4).trim();
             Task deadlineTask = new Deadline(deadlineDescription, false, LocalDateTime.parse(deadline));
             taskList.addTask(deadlineTask);
-            ui.showMessage("Task added:\n" + deadlineTask.printTask());
-            ui.showMessage(String.format("Now you have %d tasks in the list.", taskList.size()));
+            stringBuilder.append("Task added:\n" + deadlineTask.printTask() + "\n");
+            stringBuilder.append(String.format("Now you have %d tasks in the list.", taskList.size()));
             storage.saveTasks(taskList.getTasks());
-            break;
+            return stringBuilder.toString();
 
         case "event":
             String eventDescription = command.substring(5, command.lastIndexOf("/from")).trim();
@@ -89,29 +88,28 @@ class Parser {
             Task eventTask = new Event(eventDescription, false, LocalDateTime.parse(start),
                     LocalDateTime.parse(end));
             taskList.addTask(eventTask);
-            ui.showMessage("Task added:\n" + eventTask.printTask());
-            ui.showMessage(String.format("Now you have %d tasks in the list.", taskList.size()));
+            stringBuilder.append("Task added:\n" + eventTask.printTask() + "\n");
+            stringBuilder.append(String.format("Now you have %d tasks in the list.", taskList.size()));
             storage.saveTasks(taskList.getTasks());
-            break;
+            return stringBuilder.toString();
 
         case "delete":
             int deleteTaskNum = Integer.parseInt(words[1]);
-            ui.showMessage("Task removed:\n" + taskList.getTask(deleteTaskNum - 1).printTask());
+            stringBuilder.append("Task removed:\n" + taskList.getTask(deleteTaskNum - 1).printTask() + "\n");
             taskList.deleteTask(deleteTaskNum - 1);
-            ui.showMessage(String.format("Now you have %d tasks in the list.", taskList.size()));
+            stringBuilder.append(String.format("Now you have %d tasks in the list.", taskList.size()));
             storage.saveTasks(taskList.getTasks());
-            break;
+            return stringBuilder.toString();
 
         case "find":
             String keyWord = words[1];
-            ui.showMessage("Here are the matching tasks in your list:");
-            taskList.printMatchingTasks(keyWord);
-            break;
+            stringBuilder.append("Here are the matching tasks in your list:\n");
+            stringBuilder.append(taskList.printMatchingTasks(keyWord));
+            return stringBuilder.toString();
 
         default:
             throw new CommandNotFoundException("Sorry! I don't understand what you mean by (" + command + "). " +
                     "Please try a different command!");
         }
-        return false;
     }
 }

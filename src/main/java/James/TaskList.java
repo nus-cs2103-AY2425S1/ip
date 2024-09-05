@@ -75,10 +75,12 @@ class TaskList {
     /**
      * Prints all tasks in the TaskList to the console.
      */
-    public void printTasks() {
+    public String printTasks() {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).printTask());
+            stringBuilder.append((i + 1) + ". " + tasks.get(i).printTask() + "\n");
         }
+        return stringBuilder.toString();
     }
 
     /**
@@ -98,14 +100,16 @@ class TaskList {
      *
      * @param keyWord The keyword to search for in the task descriptions.
      */
-    public void printMatchingTasks(String keyWord) {
+    public String printMatchingTasks(String keyWord) {
         int count = 1;
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).matchKeyWord(keyWord)) {
-                System.out.println(count + ". " + tasks.get(i).printTask());
+                stringBuilder.append(count + ". " + tasks.get(i).printTask() + "\n");
                 count++;
             }
         }
+        return stringBuilder.toString();
     }
 
 }
