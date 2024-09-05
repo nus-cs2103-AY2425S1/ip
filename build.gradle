@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("rainy.database.Main")
+    mainClass.set("rainy.gui.Main")
 }
 
 checkstyle {
