@@ -1,11 +1,11 @@
 package yapbot.commands;
 
+import java.io.IOException;
+
 import yapbot.exceptions.YapBotException;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
 import yapbot.util.Ui;
-
-import java.io.IOException;
 
 public class ByeCommand extends Command {
 

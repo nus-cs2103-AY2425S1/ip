@@ -1,17 +1,14 @@
 package yapbot.tasks;
 
-import yapbot.exceptions.YapBotException;
-
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+
+import yapbot.exceptions.YapBotException;
 
 /**
  * Parent class of all tasks that can be created for YapBot.
  */
 public class Task {
-    private String description;
-    private boolean isDone;
-
     // Formats used for parsing of date and time from user input, locale is explicity set to en_sg for compatibility
     private static final Locale LOCALE = new Locale("en_sg");
     protected static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("ha yyyy/MM/dd",
@@ -21,6 +18,9 @@ public class Task {
 
     // Format for displaying date and time to user
     protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("ha dd MMM yyyy", LOCALE);
+
+    private String description;
+    private boolean isDone;
 
     /**
      * Returns a Task instance.

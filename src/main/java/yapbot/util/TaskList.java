@@ -1,10 +1,10 @@
 package yapbot.util;
 
-import yapbot.exceptions.YapBotException;
-import yapbot.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import yapbot.exceptions.YapBotException;
+import yapbot.tasks.Task;
 
 /**
  * Handles management of Tasks.

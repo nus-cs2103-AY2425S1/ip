@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
     public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
 
         Task task = tasks.deleteTask(index);
-        String successMessage =  "Finding Task...Success\nTask deleted from database:\n  " + task;
+        String successMessage = "Finding Task...Success\nTask deleted from database:\n  " + task;
         ui.printOutput(successMessage);
 
         return true;

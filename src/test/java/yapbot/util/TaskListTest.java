@@ -1,14 +1,15 @@
 package yapbot.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
+
 import yapbot.exceptions.YapBotException;
 import yapbot.tasks.Deadline;
 import yapbot.tasks.Event;
 import yapbot.tasks.Task;
 import yapbot.tasks.ToDo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
 
