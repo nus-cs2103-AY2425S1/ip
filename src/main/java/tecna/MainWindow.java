@@ -1,6 +1,9 @@
 package tecna;
 
+import javafx.application.Platform;
+
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -75,6 +78,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
         VBox.setVgrow(userDialogBox, Priority.ALWAYS);
         VBox.setVgrow(dukeDialogBox, Priority.ALWAYS);
+        if (response.equals("Pleased to help you! See you again ^_^")) {
+            Platform.exit();
+        }
     }
 
 }
