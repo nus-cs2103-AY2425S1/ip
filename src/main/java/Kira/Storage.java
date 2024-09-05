@@ -55,7 +55,7 @@ public class Storage {
     public void save(List list) throws IOException {
         FileWriter filewriter = new FileWriter(this.file, false);
 
-        for (int i=0; i < list.getTasks().size(); i++) {
+        for (int i = 0; i < list.getTasks().size(); i++) {
             String line = list.getTasks().get(i).displayTask();
             filewriter.write(line);
         }

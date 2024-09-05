@@ -110,6 +110,7 @@ public abstract class Task {
     public static Task intepreteTask(String description, String type) {
         if (Objects.equals(type, "T")) {    // To Do
             return new ToDo(description);
+
         } else if (Objects.equals(type, "D")) {     // Tasks.Deadline
             String input = description.split(" \\(by: ")[0];
             String deadlineInWords = description.split(" \\(by: ")[1]
