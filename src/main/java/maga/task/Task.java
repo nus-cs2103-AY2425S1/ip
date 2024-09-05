@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Constructs a {@code Task} with the given description.
@@ -81,22 +81,19 @@ public abstract class Task {
     public static Task fromString(String taskString) {
         String[] parts = taskString.split(" \\| ");
         if (parts.length == 3) {
-            String type = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
             return new TodoTask(isDone, description);
         } else if (parts.length == 4) {
-            String type = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
-            LocalDate dateTime = LocalDate.parse(parts[3], formatter); // need handle error
+            LocalDate dateTime = LocalDate.parse(parts[3], FORMATTER); // need handle error
             return new EventTask(isDone, description, dateTime);
         } else if (parts.length == 5) {
-            String type = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
-            LocalDate startDate = LocalDate.parse(parts[3], formatter); // need handle error
-            LocalDate endDate = LocalDate.parse(parts[4], formatter);
+            LocalDate startDate = LocalDate.parse(parts[3], FORMATTER); // need handle error
+            LocalDate endDate = LocalDate.parse(parts[4], FORMATTER);
             return new DeadlineTask(isDone, description, startDate, endDate);
         }
 
