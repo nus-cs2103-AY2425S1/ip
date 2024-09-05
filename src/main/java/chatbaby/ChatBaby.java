@@ -1,6 +1,8 @@
 package chatbaby;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintStream;
 import java.util.Locale;
 
 /**
@@ -11,6 +13,9 @@ import java.util.Locale;
 public class ChatBaby {
     private static final String FILE_PATH = "." + File.separator
             + "data" + File.separator + "chatBaby.txt";
+    private static final String GREETING_MESSAGE = "Hello! I'm ChatBaby, "
+            + "your task management assistant. What can I do for you?";
+    private static final String BYE_MESSAGE = "Bye! Hope to see you soon!";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -58,6 +63,47 @@ public class ChatBaby {
     }
 
     /**
+     * Returns greeting message.
+     */
+    public String greet() {
+        return GREETING_MESSAGE;
+    }
+
+    /**
+     * Returns bye message.
+     */
+    public String bye() {
+        return BYE_MESSAGE;
+    }
+    /**
+     * Returns response to show on the main window.
+     */
+    public String getResponse(String input) {
+        boolean isExit = false;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            String curCommand = input;
+            Command c = Parser.parse(curCommand);
+            c.execute(tasks, ui, storage);
+            isExit = c.isExit();
+        } catch (ChatBabyException e) {
+            ui.showError(e.getMessage());
+        }
+        try {
+            storage.save(tasks);
+        } catch (ChatBabyException e) {
+            ui.showError(e.getMessage());
+        }
+        if (isExit) {
+            return bye();
+        }
+        return outputStream.toString();
+    }
+
+    /**
      * Main method to run the ChatBaby application.
      * Sets the default locale to English to avoid issues with date and time formatting in other languages.
      *
@@ -65,6 +111,5 @@ public class ChatBaby {
      */
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
-        new ChatBaby().run();
     }
 }

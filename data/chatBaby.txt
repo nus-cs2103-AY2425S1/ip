@@ -1,3 +1,2 @@
-T | 0 | read
-E | 0 | sport | Sep 09 2024, 6:00 PM | Sep 09 2024, 7:00 PM
-D | 0 | coding | Sep 09 2024, 10:00 PM
+T | 0 | todo run
+D | 1 | deadline cs2103 homework | 9ÔÂ 06 2024, 2:00 ÏÂÎç

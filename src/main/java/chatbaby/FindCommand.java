@@ -32,7 +32,7 @@ public class FindCommand extends Command {
             boolean hasMatch = false;
             TaskList matchedList = new TaskList();
             for (Task task : tasks.getTasks()) {
-                if (task.name.contains(target)) {
+                if (task.getName().contains(target)) {
                     matchedList.addTask(task);
                     hasMatch = true;
                 }
