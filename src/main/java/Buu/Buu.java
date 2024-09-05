@@ -1,8 +1,9 @@
 package Buu;
 
+import java.util.List;
+
 import javafx.application.Platform;
 
-import java.util.List;
 
 /**
  * The main class for the GPT application, which handles the initialization of the
@@ -21,9 +22,8 @@ public class Buu {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.loadTasks());
-        // Show the welcome message when the GPT application starts
+        // Show the welcome message when the Buu application starts
         ui.showWelcomeMessage("Buu"); // This adds the welcome message
-
     }
 
     /**
