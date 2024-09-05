@@ -1,5 +1,6 @@
 package trackie.storage;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import trackie.tasks.Deadline;
 import trackie.tasks.Event;
 import trackie.tasks.Task;
@@ -211,5 +212,39 @@ public class TaskList {
         tasks.remove(index - 1);
         System.out.println("Yes boss, I have removed the following task:");
         System.out.println(String.format("[%s] %s", t.getStatusIcon(), t.getTaskInfo()));
+    }
+
+    public void findTasks(String[] arguments) {
+        int ptr = 1;
+        StringBuilder sb = new StringBuilder();
+        if (this.tasks.isEmpty()) {
+            System.out.println("Nothing to find =P");
+            return;
+        }
+
+        if (arguments.length == 1) {
+            System.out.println("Please provide a valid query!");
+            return;
+        }
+
+        while (ptr < arguments.length) {
+            sb.append(arguments[ptr]).append(" ");
+            ptr++;
+        }
+        String query = sb.substring(0, sb.length() - 1);
+
+        int noOfTasksFound = 0;
+        for (Task t : this.tasks) {
+            if (t.getDescription().contains(query)) {
+                System.out.println(t.getTaskInfo());
+                noOfTasksFound++;
+            }
+        }
+
+        if (noOfTasksFound == 0) {
+            System.out.println("No tasks matched your query.");
+        } else {
+            System.out.printf("%d matching task(s) found\n", noOfTasksFound);
+        }
     }
 }
