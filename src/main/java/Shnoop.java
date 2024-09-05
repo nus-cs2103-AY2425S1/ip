@@ -59,9 +59,6 @@ public class Shnoop {
 
         try () {
             String input;
-
-            shnoop.startIntroSpeech();
-
             // Load data up
 
                 try {
