@@ -1,7 +1,7 @@
 package commands;
 
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import tasks.Task;
 import ui.Ui;
 
@@ -12,6 +12,10 @@ import ui.Ui;
 public class UnmarkCommand extends Command {
     private final int taskIndex;
 
+    /**
+     * Unmarks a provided task index
+     * @param taskIndex the task index to unmark
+     */
     public UnmarkCommand(int taskIndex) {
         super();
         this.taskIndex = taskIndex;
@@ -28,6 +32,6 @@ public class UnmarkCommand extends Command {
         Task task = tasks.getTaskAt(taskIndex);
         task.markUndone();
         storage.writeToTextStorage(tasks);
-        ui.printGenericMessage( "Ok, I've marked this task as not done yet:\n  " + task);
+        ui.printGenericMessage("Ok, I've marked this task as not done yet:\n  " + task);
     }
 }

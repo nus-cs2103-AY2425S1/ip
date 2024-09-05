@@ -1,9 +1,12 @@
 package commands;
 
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ * Provides user input, listing available tasks and their state.
+ */
 public class ListCommand extends Command {
 
     public ListCommand() {

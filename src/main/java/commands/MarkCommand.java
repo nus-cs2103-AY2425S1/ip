@@ -1,7 +1,7 @@
 package commands;
 
 import storage.Storage;
-import taskList.TaskList;
+import tasklist.TaskList;
 import tasks.Task;
 import ui.Ui;
 
@@ -12,6 +12,10 @@ import ui.Ui;
 public class MarkCommand extends Command {
     private final int taskIndex;
 
+    /**
+     * Marks a provided task index
+     * @param taskIndex the task index to mark
+     */
     public MarkCommand(int taskIndex) {
         super();
         this.taskIndex = taskIndex;
@@ -28,6 +32,6 @@ public class MarkCommand extends Command {
         Task task = tasks.getTaskAt(taskIndex);
         task.markDone();
         storage.writeToTextStorage(tasks);
-        ui.printGenericMessage( "Nice! I've marked this task as done:\n  " + task);
+        ui.printGenericMessage("Nice! I've marked this task as done:\n  " + task);
     }
 }
