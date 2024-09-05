@@ -1,10 +1,7 @@
 package bobby.ui;
-
-import bobby.ui.ToDos;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
 /**
  * Tests the functionality of the {@link ToDos} class.
  * This class verifies the correct behavior of the bobby.ui.ToDos task class
@@ -13,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ToDosTest {
 
     //test setup
-    ToDos todo1 = new ToDos("Read book");
-
+    private ToDos todo1 = new ToDos("Read book");
+    private ToDos todo2 = new ToDos(null);
     @Test
     public void statusInitializeTest1() {
         assertEquals(todo1.getStatus(), "0");
@@ -28,8 +25,6 @@ public class ToDosTest {
     public void toStoreTest1() {
         assertEquals(todo1.toStore(), "T/0/Read book");
     }
-
-    ToDos todo2 = new ToDos(null);
     @Test
     public void statusInitializeTest2() {
         assertEquals(todo2.getStatus(), "0");

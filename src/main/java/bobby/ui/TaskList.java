@@ -54,16 +54,16 @@ public class TaskList {
      *
      * @param idx The index of the task to delete (1-based index).
      */
-    public static void delete_task(int idx) {
+    public static void deleteTask(int idx) {
         if (idx >= 0 && idx <= taskList.size()) {
-            Task deleted_task = taskList.remove(idx - 1);
-            System.out.println("Noted. I've removed this task:\n" +
-                    deleted_task.toString() + "\nNow you have "
+            Task deletedtask = taskList.remove(idx - 1);
+            System.out.println("Noted. I've removed this task:\n"
+                    + deletedtask.toString() + "\nNow you have "
                     + taskList.size() + " tasks in the list.\n");
         } else {
-            System.out.println("I can't find this task," +
-                    " please check which task you want to" +
-                    " delete by keying in list!");
+            System.out.println("I can't find this task,"
+                    + " please check which task you want to"
+                    + " delete by keying in list!");
         }
     }
 

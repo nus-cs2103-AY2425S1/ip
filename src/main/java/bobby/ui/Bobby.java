@@ -1,20 +1,13 @@
 package bobby.ui;
 
-import bobby.ui.ToDos;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Scanner;
 
 /**
- * Bobby is a chatbot that can manage a list of tasks, including bobby.ui.ToDos, Deadlines, and Events.
-<<<<<<< HEAD
+ * Bobby is a chatbot that can manage a list of tasks, ToDos, Deadlines, and Events.
  * It can mark tasks as done, unmark, delete and add tasks.
-=======
- * It can mark tasks as done, unmark, delete and find tasks.
->>>>>>> branch-Level-9
  */
 public class Bobby {
 
@@ -76,58 +69,45 @@ public class Bobby {
      *
      * @param desc The string description of the task.
      * @return A Task object corresponding to the description,
-     * or null if the input is invalid.
+     *      or null if the input is invalid
      */
 
     public static Task constructTask(String desc) {
         String details[] = desc.split("/");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         switch(SimpleType.valueOf(details[0])) {
-            case T:
-                Task task = new ToDos(details[2]);
-                if (details[1].equals("1")) {
-                    task.isDone = true;
-                } else {
-                    task.isDone = false;
-                }
-                return task;
-            case D:
-                task = new Deadlines(details[2],
-                        LocalDateTime.parse(details[3], formatter));
-                if (details[1].equals("1")) {
-                    task.isDone = true;
-                } else {
-                    task.isDone = false;
-                }
-                return task;
-            case E:
-                task = new Events(details[2],
-                        LocalDateTime.parse(details[3], formatter),
-                        LocalDateTime.parse(details[4], formatter));
-                if (details[1].equals("1")) {
-                    task.isDone = true;
-                } else {
-                    task.isDone = false;
-                }
-                return task;
-            default:
-                System.out.println("GG!! your code is buggy");
-                return null;
+        case T:
+            Task task = new ToDos(details[2]);
+            if (details[1].equals("1")) {
+                task.isDone = true;
+            } else {
+                task.isDone = false;
+            }
+            return task;
+        case D:
+            task = new Deadlines(details[2],
+                    LocalDateTime.parse(details[3], formatter));
+            if (details[1].equals("1")) {
+                task.isDone = true;
+            } else {
+                task.isDone = false;
+            }
+            return task;
+        case E:
+            task = new Events(details[2],
+                    LocalDateTime.parse(details[3], formatter),
+                    LocalDateTime.parse(details[4], formatter));
+            if (details[1].equals("1")) {
+                task.isDone = true;
+            } else {
+                task.isDone = false;
+            }
+            return task;
+        default:
+            System.out.println("GG!! your code is buggy");
+            return null;
         }
     }
-
-//    public static Task check_task(String description) {
-//        for (int x = 0; x < counter; x++) {
-//            Task t = list[x];
-//            if(t.description.equals(description)) {
-//                return t;
-//            }
-//        }
-//        Task new_t = new Task(description);
-//        return new_t;
-//    }
-
-
     /**
      * Handles the "bye" command by saving all tasks to
      * the file and printing the exit message.
@@ -164,8 +144,8 @@ public class Bobby {
      * @throws Exception if there is an issue processing the next action.
      */
     private static void handleDelete() throws Exception {
-        int curr_task_index = scan.nextInt();
-        taskList.delete_task(curr_task_index);
+        int currIndex = scan.nextInt();
+        taskList.deleteTask(currIndex);
         check_action(parser.getActionType(scan.next()));
     }
 
@@ -187,9 +167,9 @@ public class Bobby {
      * @throws Exception if there is an issue processing the next action.
      */
     private static void handleMark() throws Exception {
-        Task curr_task;
+        Task currTask;
         if (scan.hasNextInt()) {
-            curr_task = taskList.retrive_task(scan.nextInt());
+            currTask = taskList.retrive_task(scan.nextInt());
         } else {
             System.out.println("OOPS! Integer not found! Please input mark x. (e.g mark 1)\n");
             scan.nextLine();
@@ -201,14 +181,14 @@ public class Bobby {
             check_action(parser.getActionType(scan.next()));
             return;
         }
-        if (curr_task == null) {
-            System.out.println("I can't find this task," +
-                    " please check which task you want to" +
-                    " mark by keying in list! \n");
+        if (currTask == null) {
+            System.out.println("I can't find this task,"
+                    + " please check which task you want to"
+                    + " mark by keying in list! \n");
             check_action(parser.getActionType(scan.next()));
             return;
         }
-        curr_task.markAsDone();
+        currTask.markAsDone();
         check_action(parser.getActionType(scan.next()));
     }
 
@@ -218,9 +198,9 @@ public class Bobby {
      * @throws Exception if there is an issue processing the next action.
      */
     private static void handleUnmark() throws Exception {
-        Task curr_task;
+        Task currTask;
         if (scan.hasNextInt()) {
-            curr_task = taskList.retrive_task(scan.nextInt());
+            currTask = taskList.retrive_task(scan.nextInt());
         } else {
             System.out.println("OOPS! Integer not found! Please input unmark x. (e.g unmark 1)\n");
             scan.nextLine();
@@ -232,14 +212,14 @@ public class Bobby {
             check_action(parser.getActionType(scan.next()));
             return;
         }
-        if (curr_task == null) {
-            System.out.println("I can't find this task," +
-                    " please check which task you want to" +
-                    " unmark by keying in list! \n");
+        if (currTask == null) {
+            System.out.println("I can't find this task,"
+                    + " please check which task you want to"
+                    + " unmark by keying in list! \n");
             check_action(parser.getActionType(scan.next()));
             return;
         }
-        curr_task.unMark();
+        currTask.unMark();
         check_action(parser.getActionType(scan.next()));
     }
 
@@ -255,11 +235,11 @@ public class Bobby {
             check_action(parser.getActionType(scan.next()));
             return;
         }
-        ToDos curr_ToDos = new ToDos(input.trim());
-        taskList.add_task(curr_ToDos);
-        System.out.println("Got it. I've added this task:\n" +
-                curr_ToDos.toString() + "\n" +
-                "Now you have " + taskList.getSize() + " tasks in the list.\n");
+        ToDos currToDo = new ToDos(input.trim());
+        taskList.add_task(currToDo);
+        System.out.println("Got it. I've added this task:\n"
+                + currToDo.toString() + "\n"
+                + "Now you have " + taskList.getSize() + " tasks in the list.\n");
         check_action(parser.getActionType(scan.next()));
     }
 
@@ -272,23 +252,23 @@ public class Bobby {
         String input = scan.nextLine();
         String details[] = input.split("/by");
         if (details.length < 2 || details[0].trim().isEmpty() || details[1].trim().isEmpty()) {
-            System.out.println("OOPS!!! Format of deadline should be " +
-                    "(deadline xxx /by yyyy-MM-dd HHmm)\n");
+            System.out.println("OOPS!!! Format of deadline should be "
+                    + "(deadline xxx /by yyyy-MM-dd HHmm)\n");
             check_action(parser.getActionType(scan.next()));
             return;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
             LocalDateTime by = LocalDateTime.parse(details[1].trim(), formatter);
-            Deadlines curr_deadlines = new Deadlines(details[0].trim(), by);
-            taskList.add_task(curr_deadlines);
-            System.out.println("Got it. I've added this task:\n" +
-                    curr_deadlines.toString() + "\n" +
-                    "Now you have " + taskList.getSize() + " tasks in the list.\n");
+            Deadlines currDeadline = new Deadlines(details[0].trim(), by);
+            taskList.add_task(currDeadline);
+            System.out.println("Got it. I've added this task:\n"
+                    + currDeadline.toString() + "\n"
+                    + "Now you have " + taskList.getSize() + " tasks in the list.\n");
             check_action(parser.getActionType(scan.next()));
-        }catch (DateTimeParseException e) {
-            System.out.println("OOPS!!! Format of deadline should be " +
-                    "(deadline xxx /by yyyy-MM-dd HHmm)\n");
+        } catch (DateTimeParseException e) {
+            System.out.println("OOPS!!! Format of deadline should be "
+                    + "(deadline xxx /by yyyy-MM-dd HHmm)\n");
             check_action(parser.getActionType(scan.next()));
         }
     }
@@ -302,16 +282,16 @@ public class Bobby {
         String input = scan.nextLine();
         String details[] = input.split("/from");
         if (details.length < 2 || details[0].trim().isEmpty()) {
-            System.out.println("OOPS!!! Format of events should be " +
-                    "(event xxx /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)\n");
+            System.out.println("OOPS!!! Format of events should be "
+                    + "(event xxx /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)\n");
             check_action(parser.getActionType(scan.next()));
             return;
         }
         String duration[] = details[1].split("/to");
         if (duration.length < 2 || duration[0].trim().isEmpty()
                 || duration[1].trim().isEmpty()) {
-            System.out.println("OOPS!!! Format of events should be " +
-                    "(event xxx /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)\n");
+            System.out.println("OOPS!!! Format of events should be "
+                    + "(event xxx /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)\n");
             check_action(parser.getActionType(scan.next()));
             return;
         }
@@ -319,15 +299,15 @@ public class Bobby {
         try {
             LocalDateTime from = LocalDateTime.parse(duration[0].trim(), formatter);
             LocalDateTime to = LocalDateTime.parse(duration[1].trim(), formatter);
-            Events curr_events = new Events(details[0].trim(), from, to);
-            taskList.add_task(curr_events);
-            System.out.println("Got it. I've added this task:\n" +
-                    curr_events.toString() + "\n" +
-                    "Now you have " + taskList.getSize() + " tasks in the list.\n");
+            Events currEvent = new Events(details[0].trim(), from, to);
+            taskList.add_task(currEvent);
+            System.out.println("Got it. I've added this task:\n"
+                    + currEvent.toString() + "\n"
+                    + "Now you have " + taskList.getSize() + " tasks in the list.\n");
             check_action(parser.getActionType(scan.next()));
         } catch (DateTimeParseException e) {
-            System.out.println("OOPS!!! Format of event should be " +
-                    "(event xxx /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)\n");
+            System.out.println("OOPS!!! Format of event should be "
+                    + "(event xxx /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)\n");
             check_action(parser.getActionType(scan.next()));
         }
     }
@@ -339,40 +319,40 @@ public class Bobby {
      */
     private static void check_action(ActionType action) throws Exception {
         switch (action) {
-            case bye:
-                handleBye();
-                break;
-            case list:
-                handleList();
-                break;
-            case delete:
-                handleDelete();
-                break;
-            case find:
-                handleFind();
-                break;
-            case mark:
-                handleMark();
-                return;
-            case unmark:
-                handleUnmark();
-                return;
-            case todo:
-                handleTodo();
-                break;
-            case deadline:
-                handleDeadline();
-                break;
-            case event:
-                handleEvent();
-                break;
-            case retry:
-            default:
-                System.out.println("HELP!! I do not recognise this action as of now.\n" +
-                        "You can try: todo xxx, event xxx /from xxx /to xxx, " +
-                        "deadline xxx /by xxx, unmark x, mark x, list, bye\n");
-                check_action(parser.getActionType(scan.next()));
-                break;
+        case bye:
+            handleBye();
+            break;
+        case list:
+            handleList();
+            break;
+        case delete:
+            handleDelete();
+            break;
+        case find:
+            handleFind();
+            break;
+        case mark:
+            handleMark();
+            return;
+        case unmark:
+            handleUnmark();
+            return;
+        case todo:
+            handleTodo();
+            break;
+        case deadline:
+            handleDeadline();
+            break;
+        case event:
+            handleEvent();
+            break;
+        case retry:
+        default:
+            System.out.println("HELP!! I do not recognise this action as of now.\n"
+                    + "You can try: todo xxx, event xxx /from xxx /to xxx, "
+                    + "deadline xxx /by xxx, unmark x, mark x, list, bye\n");
+            check_action(parser.getActionType(scan.next()));
+            break;
         }
     }
     public static void main(String[] args) throws Exception {

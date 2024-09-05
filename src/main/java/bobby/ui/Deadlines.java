@@ -27,13 +27,13 @@ public class Deadlines extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")" ;
+        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }
 
     @Override
-    public String toStore(){
+    public String toStore() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-        return "D/"+ super.getStatus()+ "/" + description + "/" + by.format(formatter);
+        return "D/" + super.getStatus() + "/" + description + "/" + by.format(formatter);
     }
 
 }

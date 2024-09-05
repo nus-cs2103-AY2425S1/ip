@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents an event task that occurs within a specific time range.
  * An Event task has a description, a start time, and an end time.
  */
-public class Events extends Task{
+public class Events extends Task {
 
     /**
      * The start time of the Event
@@ -36,11 +36,11 @@ public class Events extends Task{
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
         return "[E]" + super.toString() + " (from: " + start.format(formatter)
-                + " to: " + end.format(formatter) + ")" ;
+                + " to: " + end.format(formatter) + ")";
     }
 
     @Override
-    public String toStore(){
+    public String toStore() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         return "E/" + super.getStatus() + "/" + description + "/"
                 + start.format(formatter) + "/" + end.format(formatter);

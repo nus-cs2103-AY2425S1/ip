@@ -17,7 +17,7 @@ public class Parser {
      *
      * @param input The string representing the action to perform.
      * @return The corresponding ActionType enum value, or ActionType.retry
-     * if the input does not match any ActionType.
+     *      if the input does not match any ActionType.
      */
     static Bobby.ActionType getActionType(String input) {
         try {

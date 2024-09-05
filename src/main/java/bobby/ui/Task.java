@@ -55,7 +55,7 @@ public abstract class Task {
     public void markAsDone() {
         if (!this.isDone) {
             this.isDone = true;
-            System.out.println("Nice! I've marked this task as done:" );
+            System.out.println("Nice! I've marked this task as done:");
             System.out.println("[" + this.getStatusIcon() + "] " + this.description + "\n");
         } else {
             System.out.println("This tasked has been already been completed!\n");
@@ -79,7 +79,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " +  this.description;
+        return "[" + getStatusIcon() + "] " + this.description;
     }
 
     /**

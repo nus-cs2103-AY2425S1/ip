@@ -20,7 +20,7 @@ public class ToDos extends Task {
         return "[T]" + super.toString();
     }
     @Override
-    public String toStore(){
+    public String toStore() {
         return "T/" + super.getStatus() + "/" + description;
     }
 }

@@ -2,7 +2,6 @@ package bobby.ui;
 
 import java.io.File;
 import java.io.FileWriter;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +15,7 @@ public class Storage {
     /**
      * File path to store task data
      */
-    private static String filePath= null;
+    private static String filePath = null;
 
     /**
      * Arraylist to keep track of what to store to disck
@@ -44,8 +43,8 @@ public class Storage {
     public static void writeToFile(TaskList local) throws Exception {
         FileWriter fw = new FileWriter(filePath, true);
         for (int x = 0; x < local.getSize(); x++) {
-            Task curr_task = local.get(x);
-            listForDisk.add(curr_task.toStore());
+            Task currTask = local.get(x);
+            listForDisk.add(currTask.toStore());
         }
 
         for (int x = 0; x < listForDisk.size(); x++) {
