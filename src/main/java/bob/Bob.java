@@ -9,6 +9,7 @@ public class Bob {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private ExitFlag guiExitFlag;
 
     /**
      * Constructs a {@code Bob} object by initializing its {@code Storage}, {@code TaskList}, and {@code Ui} components.
@@ -19,6 +20,7 @@ public class Bob {
     public Bob(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
+        this.guiExitFlag = new ExitFlag();
         try {
             this.tasks = this.storage.loadFile();
         } catch (IllegalInputException e) {
@@ -48,6 +50,16 @@ public class Bob {
         }
     }
 
+    public boolean getGuiExitFlag() {
+        return this.guiExitFlag.getFlag();
+    }
+
+    private void setGuiExitFlag(boolean isExit) {
+        if (isExit) {
+            this.guiExitFlag.raise();
+        }
+    }
+
     /**
      * Generates a response for the user's chat message.
      */
@@ -57,6 +69,7 @@ public class Bob {
             Command c = Parser.parse(input);
             String response = c.execute(tasks, ui, storage);
             isExit = c.isExit();
+            this.setGuiExitFlag(isExit);
             return response;
         } catch (IllegalInputException e) {
             return e.getMessage();

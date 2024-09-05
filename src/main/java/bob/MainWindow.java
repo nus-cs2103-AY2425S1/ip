@@ -7,6 +7,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.application.Platform;
+
+import java.util.concurrent.TimeUnit;
+import java.lang.InterruptedException;
+
+
 /**
  * Controller for the main GUI.
  */
@@ -28,6 +34,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBobDialog(Ui.getWelcomeMessage(), dukeImage)
+        );
     }
 
     /** Injects the Bob instance */
@@ -48,5 +57,14 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getBobDialog(response, dukeImage)
         );
         userInput.clear();
+        // Work in progress
+        /*if (this.bob.getGuiExitFlag()) {
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                // Do nothing
+            }
+            Platform.exit();
+        }*/
     }
 }

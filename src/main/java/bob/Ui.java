@@ -8,18 +8,18 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String[] welcome = {
-        "Hello! I'm bob.Bob", "What can I do for you?"
+        "Hello! I'm Bob!", "What can I do for you?"
     };
     private static final String[] farewell = {
         " Bye. Hope to see you again soon!"
     };
 
     public static String getWelcomeMessage() {
-        return Ui.welcome[0];
+        return Ui.welcome[0] + "\n" + Ui.welcome[1];
     }
 
     public static String getFarewellMessage() {
-        return Ui.welcome[0];
+        return Ui.farewell[0];
     }
 
     /**

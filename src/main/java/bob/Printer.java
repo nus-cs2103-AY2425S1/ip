@@ -20,7 +20,7 @@ public class Printer {
         System.out.println(Printer.format(texts));
     }
 
-    public static String format(String[] texts) {
+    /*public static String format(String[] texts) {
         String separator = Printer.lineIndent + Printer.line;
         StringBuilder result = new StringBuilder(separator);
         result.append('\n');
@@ -30,6 +30,15 @@ public class Printer {
             result.append('\n');
         }
         result.append(separator);
+        return result.toString();
+    }*/
+
+    public static String format(String[] texts) {
+        StringBuilder result = new StringBuilder();
+        for (String text: texts) {
+            result.append(text);
+            result.append('\n');
+        }
         return result.toString();
     }
 }
