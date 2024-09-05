@@ -1,10 +1,11 @@
 package nayana.command;
 
+import nayana.NayanaException;
+import nayana.Storage;
 import nayana.TaskList;
 import nayana.Ui;
-import nayana.Storage;
-import nayana.NayanaException;
-import nayana.task.*;
+import nayana.task.Task;
+
 /**
  * Command to mark a task as done.
  */

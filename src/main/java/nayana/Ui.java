@@ -1,13 +1,26 @@
 package nayana;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import nayana.task.*;
-import nayana.command.*;
+
+import nayana.task.Task;
 
 /**
  * Handles interactions with the user in the console.
  */
 public class Ui {
+    private static final String WELCOME_MESSAGE = "\n"
+          + " ___ .-.     .---.   ___  ___    .---.   ___ .-.     .---.\n"
+          + "(   )   \\   / .-, \\ (   )(   )  / .-, \\ (   )   \\   / .-,\\\n"
+          + " |  .-. .  (__) ; |  | |  | |  (__) ; |  |  .-. .  (__) ; |\n"
+          + " | |  | |    .'  |   | |  | |  .'  |  |  | |  | |  .'  |  |\n"
+          + " | |  | |   / .'| |  | '  | |  / .'|  |  | |  | |   / .'| |\n"
+          + " | |  | |  | /  | |  '  -' |  | /  |  |  | |  | |  | /  | |\n"
+          + " | |  | |  ; |  ; |   .__. |  ; |  ;  |  | |  | |  ; |  ; |\n"
+          + " | |  | |  ' -'  |   ___ | |  ' -'    |  | |  | |  ' -'  |\n"
+          + "(___)(___) .__.'_.  (   )' |  .__.'_.   (___)(___) .__.'_.\n"
+          + "                      ; -' '\n"
+          + "                       .__.'";
     private Scanner scanner;
 
     /**
@@ -17,20 +30,6 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-
-    private static final String  WELCOME_MESSAGE=
-          "\n" +
-          " ___ .-.     .---.   ___  ___    .---.   ___ .-.     .---.\n" +
-          "(   )   \\   / .-, \\ (   )(   )  / .-, \\ (   )   \\   / .-,\\\n" +
-          " |  .-. .  (__) ; |  | |  | |  (__) ; |  |  .-. .  (__) ; |\n" +
-          " | |  | |    .'  |   | |  | |  .'  |  |  | |  | |  .'  |  |\n" +
-          " | |  | |   / .'| |  | '  | |  / .'|  |  | |  | |   / .'| |\n" +
-          " | |  | |  | /  | |  '  -' |  | /  |  |  | |  | |  | /  | |\n" +
-          " | |  | |  ; |  ; |   .__. |  ; |  ;  |  | |  | |  ; |  ; |\n" +
-          " | |  | |  ' -'  |   ___ | |  ' -'    |  | |  | |  ' -'  |\n" +
-          "(___)(___) .__.'_.  (   )' |  .__.'_.   (___)(___) .__.'_.\n" +
-          "                      ; -' '\n" +
-          "                       .__.'";
     /**
      * Displays an error message when loading tasks fails.
      */

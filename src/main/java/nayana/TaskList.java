@@ -1,8 +1,8 @@
 package nayana;
 
-import nayana.task.*;
-
 import java.util.ArrayList;
+
+import nayana.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -116,7 +116,12 @@ public class TaskList {
         }
         return listOfTasks.toString();
     }
-
+    /**
+     * Finds and returns a list of tasks that contain the specified search query in their description.
+     *
+     * @param findValue The search query to look for in task descriptions.
+     * @return An ArrayList of tasks that match the search query.
+     */
     public ArrayList<Task> findTasks(String findValue) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
