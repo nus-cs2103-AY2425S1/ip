@@ -19,6 +19,7 @@ public class Task {
      * @param description Description of the task.
      */
     public Task(String description) {
+        assert description != null : "Task description cannot be null!";
         this.description = description;
         this.isDone = false;
     }
@@ -51,6 +52,7 @@ public class Task {
             throw new MatchaException("Task is already marked as done!");
         }
         this.isDone = true;
+        assert this.isDone : "Task should be marked as done!";
     }
 
     /**
@@ -63,6 +65,7 @@ public class Task {
             throw new MatchaException("Task is already marked as not done!");
         }
         this.isDone = false;
+        assert !this.isDone : "Task should be marked as not done!";
     }
 
     /**

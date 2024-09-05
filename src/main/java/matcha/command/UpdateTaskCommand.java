@@ -67,7 +67,7 @@ public class UpdateTaskCommand extends Command {
         } catch (NumberFormatException e) {
             throw new MatchaException("Please enter the task number of the task you want to\nmark as done.");
         }
-
+        assert taskNum >= tasks.getSize() || taskNum < 0 : "Task number is invalid";
         if (taskNum < 0 || taskNum >= tasks.getSize()) {
             throw new MatchaException("This task does not exist!");
         }
@@ -89,7 +89,7 @@ public class UpdateTaskCommand extends Command {
         } catch (NumberFormatException e) {
             throw new MatchaException("Please enter the task number of the task you want to\nmark as not done.");
         }
-
+        assert taskNum >= tasks.getSize() || taskNum < 0 : "Task number is invalid";
         if (taskNum < 0 || taskNum >= tasks.getSize()) {
             throw new MatchaException("This task does not exist!");
         }

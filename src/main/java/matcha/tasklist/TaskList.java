@@ -79,12 +79,15 @@ public class TaskList {
      * @return String representation of the tasks in the list.
      */
     public String listTasks() {
+        assert tasks != null : "Task list should not be null";
         if (tasks.size() <= 0) {
             return "You have no tasks in the list.";
         }
         String str = ("Here are your tasks:");
         for (int i = 0; i < tasks.size(); i++) {
-            String task = (i + 1) + ". " + tasks.get(i);
+            Task t = tasks.get(i);
+            assert t != null : "Task should not be null";
+            String task = (i + 1) + ". " + t;
             str += ("\n\t" + task);
         }
         return str;
@@ -99,6 +102,7 @@ public class TaskList {
     public ArrayList<Task> findMatchingTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
+            assert task != null : "Task should not be null";
             if (task.containsKeyword(keyword)) {
                 matchingTasks.add(task);
             }
