@@ -8,12 +8,12 @@
 
 .text-field {
     -fx-background-color: #d9ffe2;
-    -fx-font: 20px "Arial";
+    -fx-font: 20px "Helvetica";
 }
 
 .button {
     -fx-background-color: mediumspringgreen;
-    -fx-font: italic bold 16px "Arial";
+    -fx-font: italic bold 16px "Helvetica";
 }
 
 .button:hover {
@@ -27,7 +27,7 @@
 }
 
 .scroll-pane {
-    -fx-background-color: rgba(0,0,0,.5);
+    -fx-background-color: rgba(0,0,0,.75);
 }
 
 .scroll-pane .viewport {
@@ -36,7 +36,7 @@
 
 .scroll-bar {
     -fx-font-size: 10px;  /* Change width of scroll bar. */
-    -fx-background-color: main-color;
+    -fx-background-color: black;
 }
 
 .scroll-bar .thumb {

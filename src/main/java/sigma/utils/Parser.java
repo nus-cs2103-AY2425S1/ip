@@ -6,6 +6,7 @@ import sigma.command.DeadlineCommand;
 import sigma.command.DeleteCommand;
 import sigma.command.EventCommand;
 import sigma.command.FindCommand;
+import sigma.command.HelpCommand;
 import sigma.command.ListCommand;
 import sigma.command.MarkCommand;
 import sigma.command.ToDoCommand;
@@ -24,12 +25,13 @@ public class Parser {
 
     /**
      * Parses the user input and returns the corresponding command.
+     *
      * @param command User input.
      * @return Corresponding command.
      */
     public static Command parse(String command) {
         String[] split = command.split(" ", 2);
-        String cmd = split[0]; // Convert input to uppercase to match enum
+        String cmd = split[0].toLowerCase();
         switch (cmd) {
         case "todo":
             return new ToDoCommand(split);
@@ -49,6 +51,8 @@ public class Parser {
             return new ByeCommand(split);
         case "find":
             return new FindCommand(split);
+        case "help":
+            return new HelpCommand(split);
         default:
             return new UnrecognisedCommand(split);
         }
@@ -56,6 +60,7 @@ public class Parser {
 
     /**
      * Parses the date and time input and returns a LocalDateTime object.
+     *
      * @param timing Date and time input.
      * @return LocalDateTime object.
      * @throws SigmaException If the date and time input is invalid.

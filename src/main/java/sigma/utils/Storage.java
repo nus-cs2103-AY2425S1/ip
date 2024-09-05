@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,17 +33,19 @@ import java.util.Scanner;
 public class Storage {
 
     private String filePath;
+    private Ui ui = new Ui();
     public Storage(String filePath) {
         this.filePath = filePath;
-        load(filePath);
+        ui.print(load(filePath));
     }
 
     /**
      * Writes the tasks to the file.
-     * @param data File to write to.
+     *
      * @param items List of tasks to write to the file.
      */
-    public void write(File data, ArrayList<Task> items) {
+    public void write(ArrayList<Task> items) {
+        File data = new File(filePath);
         try {
             FileWriter writer = new FileWriter(data);
             for (Task item : items) {
@@ -67,15 +70,23 @@ public class Storage {
     /**
      * Loads the file to store data.
      * Creates a file to store data if none exists.
+     *
      * @param filePath File path to store data.
+     * @return Success message
      */
-    private void load(String filePath) {
+    private String load(String filePath) {
         // Creates a file to store data if none exists
-        try {
-            Files.createFile(Paths.get(filePath));
-        } catch (IOException e) {
-            System.out.println("SLAY! Loading up your saved tasks!");
+        Path path = Paths.get(filePath);
+        if (!Files.exists(path)) {
+            try {
+                Files.createFile(path);
+            } catch (IOException e) {
+                return "What the sigma? Error creating file!";
+            }
+        } else {
+            return "SLAY! Loading up your saved tasks!";
         }
+        return "SLAY! File created!";
     }
 
     /**

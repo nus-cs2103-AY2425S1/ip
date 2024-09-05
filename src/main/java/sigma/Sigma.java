@@ -1,5 +1,6 @@
 package sigma;
 
+import javafx.application.Platform;
 import sigma.command.Command;
 import sigma.exception.SigmaException;
 import sigma.utils.Parser;
@@ -8,6 +9,8 @@ import sigma.utils.TaskList;
 import sigma.utils.Ui;
 
 import java.io.File;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Represents the main class of Sigma.
@@ -54,6 +57,8 @@ public class Sigma {
      * Runs Sigma.
      * Reads the user's input and executes the command.
      * Writes the data to the file.
+     * Not used in GUI.
+     *
      * @throws SigmaException
      * @throws NumberFormatException
      */
@@ -73,7 +78,7 @@ public class Sigma {
                 ui.print("What the sigma? I need a number!");
             } finally {
             }
-            storage.write(this.data, tasks.getTasks());
+            storage.write(tasks.getTasks());
         }
     }
 
@@ -85,10 +90,11 @@ public class Sigma {
         try {
             Command c = Parser.parse(input);
             commandType = c.toString();
+            String response = c.execute(tasks, ui, storage);
             if (c.isExit()) {
-                System.exit(0);
+                Platform.exit();
             }
-            return c.execute(tasks, ui, storage);
+            return response;
         } catch (SigmaException e) {
             return e.getMessage();
         } catch (NumberFormatException e) {
@@ -98,6 +104,10 @@ public class Sigma {
 
     public String getCommandType() {
         return commandType;
+    }
+
+    public Ui getUi() {
+        return this.ui;
     }
 }
 
