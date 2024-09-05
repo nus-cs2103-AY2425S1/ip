@@ -1,5 +1,7 @@
 package janet;
 
+import javafx.application.Platform;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -15,24 +17,37 @@ public class Janet {
     Janet(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.textFileToArrayList());
-        } catch (JanetException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
+        tasks = new TaskList();
     }
 
     /**
      * Returns the response based on the user input.
      *
-     * @param input A string input from the user
-     * @return A string message
+     * @param input A string input from the user.
+     * @return A string message.
      */
     public String getResponse(String input) {
         return runProgram(input);
     }
 
+    public String startMessage() {
+        // if janet.txt cannot be found, ui.showLoadingError() is appended to the message.
+        String message = ui.showWelcome();
+        try {
+            tasks = new TaskList(storage.textFileToArrayList());
+        } catch (JanetException e) {
+            message += ui.showLoadingError();
+        }
+        return message;
+    }
+
+
+    /**
+     * Returns the appropriate string message based on the user's command.
+     *
+     * @param userCommand A string input from the user.
+     * @return A string response based on string input.
+     */
     public String runProgram(String userCommand) {
         String response = "";
         String[] commandDetails = Parser.getCommandDetails(userCommand);    // converts user input into a String array
@@ -82,7 +97,7 @@ public class Janet {
                 break;
             }
         } catch (JanetException e) {
-            response  = e.getMessage();
+            response  = e.getMessage();     // returns a message for any invalid user command
         }
         try {
             storage.saveToJanetTextFile(tasks.getListOfTasks());
@@ -91,80 +106,4 @@ public class Janet {
         }
         return response;
     }
-
-    /**
-     * Runs the Janet program.
-     */
-    public void run() {
-        ui.showWelcome();
-        Scanner input = new Scanner(System.in);
-        boolean hasTypedBye = false;
-
-        while (input.hasNext()) {
-            String userCommand = input.nextLine();
-            String[] commandDetails = Parser.getCommandDetails(userCommand);    // converts user input into a String array
-            try {
-                Parser.userInputChecker(commandDetails, tasks.getNumberOfTasks());    // runs all the checks to verify user input
-
-                CommandType commandType = Parser.getCommand(commandDetails);    // get the CommandType
-                switch (commandType) {
-                case BYE:
-                    ui.exitMessage();
-                    hasTypedBye = true;
-                    break;
-                case LIST:
-                    ui.showTasks(tasks);
-                    break;
-                case MARK:
-                    String markedResult = tasks.markAsDone(Integer.parseInt(commandDetails[1]));
-                    ui.showMarkedMessage(markedResult, tasks.getTask(Integer.parseInt(commandDetails[1]) - 1));
-                    break;
-                case UNMARK:
-                    String unmarkResult = tasks.unmark(Integer.parseInt(commandDetails[1]));
-                    ui.showUnmarkedMessage(unmarkResult, tasks.getTask(Integer.parseInt(commandDetails[1]) - 1));
-                    break;
-                case DELETE:
-                    ui.showDeleteTaskMessage(tasks.getTask(Integer.parseInt(commandDetails[1]) - 1),
-                            tasks.getNumberOfTasks() - 1);
-                    tasks.deleteTask(Integer.parseInt(commandDetails[1]));
-                    break;
-                case TODO:
-                    Task todo = new ToDo(userCommand);
-                    tasks.addTaskToList(todo);
-                    ui.showSuccessfulTaskAddition(todo, tasks.getNumberOfTasks());
-                    break;
-                case DEADLINE:
-                    Task deadline = new Deadline(userCommand);
-                    tasks.addTaskToList(deadline);
-                    ui.showSuccessfulTaskAddition(deadline, tasks.getNumberOfTasks());
-                    break;
-                case EVENT:
-                    Task event = new Event(userCommand);
-                    tasks.addTaskToList(event);
-                    ui.showSuccessfulTaskAddition(event, tasks.getNumberOfTasks());
-                    break;
-                case FIND:
-                    String keyword = String.join(" ",
-                            Arrays.copyOfRange(commandDetails, 1, commandDetails.length));
-                    ui.showFindMessage(tasks.findTasks(keyword));
-                    break;
-                }
-                if (hasTypedBye) {
-                    break;
-                }
-            } catch (JanetException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        try {
-            storage.saveToJanetTextFile(tasks.getListOfTasks());
-        } catch (JanetException e) {
-            ui.showSavingError();
-        }
-    }
-
-    public static void main(String[] args) {
-        new Janet("janet.txt").run();
-    }
-
 }
