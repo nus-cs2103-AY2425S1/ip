@@ -41,6 +41,9 @@ public class Parser {
         case "event":
             handleAddEventCommand(arguments, tasks, ui);
             break;
+        case "find":
+            handleFindCommand(arguments, tasks);
+            break;
         default:
             throw new VoidException("AH!! My apologies, I don't know what that means =T^T=");
         }
@@ -129,6 +132,14 @@ public class Parser {
                     Ui.showMessageAndLines("AH! Check if:\n\t1. Input time is valid\n\t2. Format of the 24h date time is in yyyy-mm-dd hhmm");
                 }
             }
+        }
+    }
+
+    private void handleFindCommand(String arguments, TaskList tasks) throws VoidException {
+        if (arguments.isBlank()) {
+            throw new VoidException("Please provide a keyword to find.");
+        } else {
+            tasks.findTasks(arguments);
         }
     }
 
