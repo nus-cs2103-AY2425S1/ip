@@ -1,5 +1,11 @@
 package trackbot.ui;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import trackbot.TrackBotException;
 import trackbot.commands.AddCommand;
 import trackbot.commands.Command;
@@ -11,9 +17,6 @@ import trackbot.commands.UnmarkCommand;
 import trackbot.task.Deadline;
 import trackbot.task.Event;
 import trackbot.task.ToDo;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
     private final Parser parser = new Parser();
@@ -43,7 +46,7 @@ public class ParserTest {
         assertInstanceOf(AddCommand.class, command);
         assertInstanceOf(Deadline.class, ((AddCommand) command).getTask());
         assertEquals("return book", ((AddCommand) command).getTask().getDesc());
-        assertEquals("Dec 29 2024", ((Deadline)((AddCommand) command).getTask()).getBy());
+        assertEquals("Dec 29 2024", ((Deadline) ((AddCommand) command).getTask()).getBy());
     }
 
     @Test
@@ -52,8 +55,8 @@ public class ParserTest {
         assertInstanceOf(AddCommand.class, command);
         assertInstanceOf(Event.class, ((AddCommand) command).getTask());
         assertEquals("project zoom", ((AddCommand) command).getTask().getDesc());
-        assertEquals("Dec 2 2024", ((Event)((AddCommand) command).getTask()).getFrom());
-        assertEquals("Dec 3 2024", ((Event)((AddCommand) command).getTask()).getTo());
+        assertEquals("Dec 2 2024", ((Event) ((AddCommand) command).getTask()).getFrom());
+        assertEquals("Dec 3 2024", ((Event) ((AddCommand) command).getTask()).getTo());
     }
 
     @Test

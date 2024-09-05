@@ -11,7 +11,7 @@ import trackbot.ui.Ui;
 
 
 /**
- * The main class for trackbot.
+ * The main class for TrackBot.
  * This class initializes the storage, tasks list, parser and UI.
  * It also contains the main loop to handle user commands.
  */
@@ -22,7 +22,7 @@ public class TrackBot {
     private final Parser parser;
 
     /**
-     * Constructs a trackbot object and initializes storage, tasks list, UI, and parser.
+     * Constructs a TrackBot object and initializes storage, tasks list, UI, and parser.
      *
      * @param filePath The file path to the storage file.
      */
@@ -39,7 +39,6 @@ public class TrackBot {
             System.out.println("Failed to initialize TrackList.");
         }
     }
-
 
     /**
      * Runs trackbot, stays in the loop until user input exit command.
@@ -62,6 +61,13 @@ public class TrackBot {
         }
 
         scanner.close();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
     public static void main(String[] args) {
         String filePath = "src/main/java/trackbot/data/trackbot.txt";
