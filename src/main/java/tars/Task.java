@@ -20,15 +20,18 @@ public class Task {
      *             {@code false} if the task is not done.
      */
     public Task(String name, boolean isDone) {
+        assert name != null && !name.trim().isEmpty() : "Task name should not be null or empty.";
         this.name = name;
         this.isDone = isDone;
     }
 
     public void setName(String newName) {
+        assert newName != null && !newName.trim().isEmpty() : "New task name should not be null or empty.";
         this.name = newName;
     }
 
     public String getName() {
+        assert this.name != null : "Task name should not be null when retrieving.";
         return this.name;
     }
 
@@ -46,6 +49,7 @@ public class Task {
 
     @Override
     public String toString() {
+        assert this.name != null : "Task name should not be null when generating string representation.";
         return ("[" + (this.isDone ? "X" : " ") + "] " + this.name);
     }
 }

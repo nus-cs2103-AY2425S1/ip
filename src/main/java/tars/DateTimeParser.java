@@ -28,11 +28,14 @@ public class DateTimeParser {
     public static LocalDateTime parse(String dateTimeString) throws DateTimeParseException {
         try {
             System.out.println("Attempting to parse date: " + dateTimeString);
-            return LocalDateTime.parse(dateTimeString.trim(), DATE_TIME_FORMATTER);
+            LocalDateTime parsedDate = LocalDateTime.parse(dateTimeString.trim(), DATE_TIME_FORMATTER);
+            assert parsedDate != null : "Parsed date should not be null.";
+            return parsedDate;
         } catch (DateTimeParseException e) {
             // If parsing with "yyyy-MM-dd HHmm" fails, try parsing with "dd MMM yyyy, HH:mm"
-            System.out.println("Failed to parse with date-time formatter, trying stored format...");
-            return LocalDateTime.parse(dateTimeString.trim(), STORED_FORMATTER);
+            LocalDateTime parsedDate = LocalDateTime.parse(dateTimeString.trim(), STORED_FORMATTER);
+            assert parsedDate != null : "Parsed date with stored format should not be null.";
+            return parsedDate;
         }
     }
 
@@ -43,7 +46,10 @@ public class DateTimeParser {
      * @return The formatted date-time string.
      */
     public static String format(LocalDateTime dateTime) {
-        return dateTime.format(OUTPUT_FORMATTER);
+        String formattedDate = dateTime.format(OUTPUT_FORMATTER);
+        assert formattedDate != null && !formattedDate.isEmpty() : "Formatted date should not be null or empty.";
+        return formattedDate;
+
     }
 }
 

@@ -29,6 +29,8 @@ public class Tars {
             loadedTasks = new TaskList(storage);
         }
         tasks = loadedTasks;
+        assert tasks != null : "Task list should not be null after initialization.";
+        assert ui != null : "UI should be initialized.";
     }
 
     /**
@@ -42,7 +44,9 @@ public class Tars {
      * @return a response message based on the command executed.
      */
     public String getResponse(String input) {
+        assert input != null && !input.trim().isEmpty() : "Input should not be null or empty.";
         String[] parsedInput = Parser.parse(input);
+        assert parsedInput.length == 2 : "Parsed input should have two elements: command and arguments.";
         String command = parsedInput[0];
         String arguments = parsedInput[1];
 

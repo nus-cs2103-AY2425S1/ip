@@ -18,6 +18,7 @@ public class Todo extends Task {
      */
     public Todo(String name, boolean done) {
         super(name, done);
+        assert name != null && !name.trim().isEmpty() : "Todo task name should not be null or empty.";
     }
 
     /**
@@ -30,7 +31,9 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T] " + super.toString();
+        String taskString = super.toString();
+        assert taskString != null && !taskString.trim().isEmpty() : "Task string representation should not be null or empty.";
+        return "[T] " + taskString;
     }
 
 }

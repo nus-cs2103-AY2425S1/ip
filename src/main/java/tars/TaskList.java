@@ -19,6 +19,7 @@ public class TaskList {
      * @param storage the Storage object used to save and load tasks.
      */
     public TaskList(Storage storage) {
+        assert storage != null : "Storage should not be null.";
         this.tasks = new ArrayList<>();
         this.storage = storage;
     }
@@ -31,6 +32,8 @@ public class TaskList {
      * @param storage the Storage object used to save and load tasks.
      */
     public TaskList(List<Task> tasks, Storage storage) {
+        assert tasks != null : "Tasks list should not be null.";
+        assert storage != null : "Storage should not be null.";
         this.tasks = tasks;
         this.storage = storage;
     }
@@ -42,6 +45,7 @@ public class TaskList {
      * @throws TarsException if there is an error saving the tasks.
      */
     public void addTask(Task task) throws TarsException {
+        assert task != null : "Task should not be null.";
         tasks.add(task);
         saveTasks();
     }
@@ -66,6 +70,7 @@ public class TaskList {
      * @throws TarsException if there is an error during the save process.
      */
     private void saveTasks() throws TarsException {
+        assert tasks != null : "Tasks list should not be null when saving.";
         try {
             storage.saveTasks(this.tasks);
         } catch (TarsException e) {
@@ -85,6 +90,7 @@ public class TaskList {
             throw new TarsException("The specified task number is out of bounds.");
         }
         Task task = tasks.get(index);
+        assert task != null : "Task at index should not be null.";
         task.setDone();
         saveTasks();
         return task;
@@ -102,6 +108,7 @@ public class TaskList {
             throw new TarsException("The specified task number is out of bounds.");
         }
         Task task = tasks.get(index);
+        assert task != null : "Task at index should not be null.";
         task.setUndone();
         saveTasks();
         return task;
@@ -130,6 +137,7 @@ public class TaskList {
     public List<Task> findTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
+            assert task.getName() != null : "Task name should not be null.";
             if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.add(task);
             }
@@ -139,6 +147,7 @@ public class TaskList {
 
 
     public int getSize() {
+        assert tasks != null : "Tasks list should not be null when getting size.";
         return tasks.size();
     }
 
