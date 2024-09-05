@@ -1,6 +1,8 @@
 package james;
 
 import java.time.LocalDateTime;
+import java.lang.NumberFormatException;
+import java.lang.IndexOutOfBoundsException;
 
 /**
  * Handles parsing and executing user commands.
@@ -30,7 +32,8 @@ class Parser {
      *
      * @param command The user command to be parsed and executed
      * @param taskList The TaskList instance to modify based on the command
-     * @return true if the command is "bye" and the application should exit, false otherwise
+     * @return A string response based on the executed command, such as task details, confirmation messages,
+     *         or the exit message when the command is "bye".
      * @throws JamesException If an error occurs during command execution
      */
     public String parseAndExecute(String command, TaskList taskList) throws JamesException {
@@ -46,20 +49,41 @@ class Parser {
             return taskList.printTasks();
 
         case "mark":
-            int markTaskNum = Integer.parseInt(words[1]);
-            taskList.markTask(markTaskNum - 1);
-            stringBuilder.append("Task marked as done:\n");
-            stringBuilder.append(taskList.getTask(markTaskNum - 1).printTask());
-            storage.saveTasks(taskList.getTasks());
-            return stringBuilder.toString();
+            if (words.length < 2) {
+                throw new IncorrectIdentifierException("Oops! Looks like you missed out the task number. " +
+                        "Please enter the task number after the command");
+            }
+            try {
+                int markTaskNum = Integer.parseInt(words[1]);
+                taskList.markTask(markTaskNum - 1);
+                stringBuilder.append("Task marked as done:\n");
+                stringBuilder.append(taskList.getTask(markTaskNum - 1).printTask());
+                storage.saveTasks(taskList.getTasks());
+                return stringBuilder.toString();
+            } catch (NumberFormatException e) {
+                throw new IncorrectIdentifierException("Oops! Please enter a number after the command");
+            } catch (IndexOutOfBoundsException e) {
+                throw new IncorrectIdentifierException("Oops! Please enter a valid task number after the command");
+            }
+
 
         case "unmark":
-            int unmarkTaskNum = Integer.parseInt(words[1]);
-            taskList.unmarkTask(unmarkTaskNum - 1);
-            stringBuilder.append("Task marked as not done:\n");
-            stringBuilder.append(taskList.getTask(unmarkTaskNum - 1).printTask());
-            storage.saveTasks(taskList.getTasks());
-            return stringBuilder.toString();
+            if (words.length < 2) {
+                throw new IncorrectIdentifierException("Oops! Looks like you missed out the task number. " +
+                        "Please enter the task number after the command");
+            }
+            try {
+                int unmarkTaskNum = Integer.parseInt(words[1]);
+                taskList.unmarkTask(unmarkTaskNum - 1);
+                stringBuilder.append("Task marked as not done:\n");
+                stringBuilder.append(taskList.getTask(unmarkTaskNum - 1).printTask());
+                storage.saveTasks(taskList.getTasks());
+                return stringBuilder.toString();
+            } catch (NumberFormatException e) {
+                throw new IncorrectIdentifierException("Oops! Please enter a number after the command");
+            } catch (IndexOutOfBoundsException e) {
+                throw new IncorrectIdentifierException("Oops! Please enter a valid task number after the command");
+            }
 
         case "todo":
             String todoDescription = command.substring(4).trim();
@@ -94,12 +118,22 @@ class Parser {
             return stringBuilder.toString();
 
         case "delete":
-            int deleteTaskNum = Integer.parseInt(words[1]);
-            stringBuilder.append("Task removed:\n" + taskList.getTask(deleteTaskNum - 1).printTask() + "\n");
-            taskList.deleteTask(deleteTaskNum - 1);
-            stringBuilder.append(String.format("Now you have %d tasks in the list.", taskList.size()));
-            storage.saveTasks(taskList.getTasks());
-            return stringBuilder.toString();
+            if (words.length < 2) {
+                throw new IncorrectIdentifierException("Oops! Looks like you missed out the task number. " +
+                        "Please enter the task number after the command");
+            }
+            try {
+                int deleteTaskNum = Integer.parseInt(words[1]);
+                stringBuilder.append("Task removed:\n" + taskList.getTask(deleteTaskNum - 1).printTask() + "\n");
+                taskList.deleteTask(deleteTaskNum - 1);
+                stringBuilder.append(String.format("Now you have %d tasks in the list.", taskList.size()));
+                storage.saveTasks(taskList.getTasks());
+                return stringBuilder.toString();
+            } catch (NumberFormatException e) {
+                throw new IncorrectIdentifierException("Oops! Please enter a number after the command");
+            } catch (IndexOutOfBoundsException e) {
+                throw new IncorrectIdentifierException("Oops! Please enter a valid task number after the command");
+            }
 
         case "find":
             String keyWord = words[1];

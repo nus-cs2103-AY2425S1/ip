@@ -48,13 +48,28 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a DialogBox representing the user's input.
+     *
+     * @param text The text to be displayed in the user's dialog box.
+     * @param img The image (e.g., user's profile picture) to be shown alongside the text.
+     * @return A DialogBox object containing the user's input text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a DialogBox representing Duke's response.
+     *
+     * @param text The text to be displayed in Duke's dialog box.
+     * @param img The image (e.g., Duke's avatar) to be shown alongside the text.
+     * @return A DialogBox object containing Duke's response text and image, flipped horizontally.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
     }
+
 }
