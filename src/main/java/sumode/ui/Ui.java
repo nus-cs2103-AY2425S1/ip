@@ -30,8 +30,8 @@ public class Ui {
 
     private SumoDE sumoDE;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/kangaroo.png"));
-    private Image sumoImage = new Image(this.getClass().getResourceAsStream("/images/sumoDE.png"));
+    private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/kangaroo.png"));
+    private final Image SUMO_IMAGE = new Image(this.getClass().getResourceAsStream("/images/sumoDE.png"));
 
     /** Initialise the property for scroll bar to always scroll down and for SumoDE to greet */
     @FXML
@@ -52,7 +52,7 @@ public class Ui {
      */
     @FXML
     private void respond(String response) {
-        dialogContainer.getChildren().addAll(DialogBox.getSumoDialog(response, sumoImage));
+        dialogContainer.getChildren().addAll(DialogBox.getSumoDialog(response, SUMO_IMAGE));
     }
 
     /**
@@ -61,7 +61,7 @@ public class Ui {
      */
     @FXML
     private void respondDanger(String response) {
-        dialogContainer.getChildren().addAll(DialogBox.getSumoAngryDialog(response, sumoImage));
+        dialogContainer.getChildren().addAll(DialogBox.getSumoAngryDialog(response, SUMO_IMAGE));
     }
 
     /**
@@ -71,7 +71,7 @@ public class Ui {
     @FXML
     private void echo(String input) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage)
+                DialogBox.getUserDialog(input, USER_IMAGE)
         );
     }
 
@@ -101,7 +101,7 @@ public class Ui {
     /**
      * Prints a notice that command is wrong.
      */
-    public void unknownCommand(String commandString) {
+    public void warnUnknownCommand(String commandString) {
         this.respondDanger("Sumo dunno your command \"" + commandString + "\" ! Check spelling of your first word.");
     }
 
@@ -115,7 +115,7 @@ public class Ui {
     /**
      * Prints a query asking for next command.
      */
-    public void next() {
+    public void requestNext() {
         this.respond("""
                             ------------------------------------
                             Do you need anything else from SUMO?
@@ -136,7 +136,7 @@ public class Ui {
     /**
      * Prints a notice that user won't be able to save any data in this session.
      */
-    public void unknownSaveError() {
+    public void warnUnknownSaveError() {
         this.respondDanger("Help! Sumo unable to save data due to unknown error!\n"
                         + "Please exit and try again if u wanna save");
     }
@@ -145,7 +145,7 @@ public class Ui {
      * Prints a notice that user's saved file is corrupted and inform user which line it is at.
      * @param line line where the file is corrupted.
      */
-    public void corruptedSaveFile(int line) {
+    public void warnCorruptedSaveFile(int line) {
         this.respondDanger("Your saved file at line " + (line) + " is corrupted. "
                         + "Sumo cannot read so Sumo will skip that and continue with the rest!");
     }
@@ -176,7 +176,7 @@ public class Ui {
      * @param task task added.
      * @param count total task after adding.
      */
-    public void addTask(Task task, int count) {
+    public void printTaskAdded(Task task, int count) {
         this.respond("Sumo has added this task for you.\n"
                 + task
                 + "\n"
@@ -190,7 +190,7 @@ public class Ui {
      * @param task task removed.
      * @param count total task after removing.
      */
-    public void removeTask(Task task, int count) {
+    public void printTaskRemoved(Task task, int count) {
         this.respond("Sumo removed this task for you.\n"
                         + task
                         + "\n"
@@ -200,18 +200,18 @@ public class Ui {
     }
 
     /**
-     * Prints a notice that user's task is marked.
-     * @param task task marked.
+     * Prints a notice that user's task is unmarked.
+     * @param task task unmarked.
      */
-    public void unmark(Task task) {
+    public void printTaskUnmarked(Task task) {
         this.respond("Sumo has marked this task as NOT done.\n" + task);
     }
 
     /**
-     * Prints a notice that user's task is unmarked.
-     * @param task task unmarked.
+     * Prints a notice that user's task is marked.
+     * @param task task marked.
      */
-    public void mark(Task task) {
+    public void printTaskMarked(Task task) {
         this.respond("Sumo has marked this task as done.\n" + task);
     }
 }
