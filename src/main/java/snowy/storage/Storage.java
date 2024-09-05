@@ -1,23 +1,15 @@
 package snowy.storage;
 
 import snowy.tasklist.Task;
-import snowy.tasklist.TaskList;
 import snowy.data.SnowyException;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Handles saving and loading of tasks from a file.
- */
 public class Storage {
 
     private final Path taskFilePath;
@@ -55,15 +47,18 @@ public class Storage {
      */
     private void clearFile() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(taskFilePath.toString(), false))) {
-            writer.write(""); // Write an empty string to clear the file
+            writer.write("");
         }
     }
 
+<<<<<<< HEAD
     /**
      * Writes a task to the file. The task is appended to the end of the file.
      *
      * @param task the task to be written to the file
      */
+=======
+>>>>>>> branch-A-CodingStandard
     public void writeTaskToFile(Task task) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(taskFilePath.toString(), true))) {
             writer.write(task.toString());
@@ -83,10 +78,8 @@ public class Storage {
         Path tempFilePath = taskFilePath.getParent().resolve("temp.txt");
         String search = task.toString();
 
-        try (
-                BufferedReader br = new BufferedReader(new FileReader(taskFilePath.toString()));
-                BufferedWriter bw = new BufferedWriter(new FileWriter(tempFilePath.toString()))
-        ) {
+        try (BufferedReader br = new BufferedReader(new FileReader(taskFilePath.toString()));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFilePath.toString()))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (!line.equals(search)) {
@@ -99,7 +92,6 @@ public class Storage {
             return;
         }
 
-        // Replace the original file with the temporary file
         try {
             Files.delete(taskFilePath);
             Files.move(tempFilePath, taskFilePath);

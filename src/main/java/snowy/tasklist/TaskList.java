@@ -4,7 +4,6 @@ import snowy.data.SnowyException;
 import snowy.storage.Storage;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TaskList {
     private final ArrayList<Task> taskList;
@@ -13,7 +12,6 @@ public class TaskList {
     public TaskList(Storage storage) {
         this.storage = storage;
         taskList = new ArrayList<>();
-
     }
 
     /**

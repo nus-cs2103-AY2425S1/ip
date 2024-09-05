@@ -1,7 +1,6 @@
 package snowy.common;
 
 import snowy.data.SnowyException;
-import snowy.tasklist.TaskList;
 
 /**
  * Represents a command to delete a task from the task list.

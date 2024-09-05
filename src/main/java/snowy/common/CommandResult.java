@@ -7,7 +7,7 @@ package snowy.common;
  * executed a command. It provides methods to retrieve the message. It extends the Command class but only returns
  * the result of other command execution.
  */
-public class CommandResult extends Command {
+public class CommandResult {
     private final String feedbackToUser;
 
     /**

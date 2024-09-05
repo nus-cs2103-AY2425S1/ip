@@ -36,7 +36,7 @@ public class Command {
      */
     public CommandResult execute() throws SnowyException {
         throw new SnowyException("No execution");
-    };
+    }
 
     /**
      * Indicates whether the command should cause the application to exit.
@@ -48,4 +48,3 @@ public class Command {
         return false;
     }
 }
-

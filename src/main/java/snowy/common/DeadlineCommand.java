@@ -8,7 +8,7 @@ import snowy.tasklist.Deadline;
  * The DeadlineCommand class allows the user to add a task with a specific deadline to the task list.
  * */
 public class DeadlineCommand extends Command {
-    public static final String DEADLINE = "deadline";
+
     private final String description;
     private final String date;
 
@@ -30,4 +30,3 @@ public class DeadlineCommand extends Command {
         return new CommandResult("Added a task with a deadline to your list of tasks");
     }
 }
-
