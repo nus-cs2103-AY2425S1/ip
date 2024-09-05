@@ -39,22 +39,29 @@ public class Parser {
         } else if (reply.equals("list")) {
             return new ListCommand();
         } else if (words[0].equals("unmark")) {
-            if (words.length != 2) {
+            if (words.length == 1) {
                 throw new BarcusException("please have an integer after 'unmark'");
             } else {
                 try {
-                    int pos = Integer.parseInt(words[1]);
+                    int[] pos = new int[words.length - 1];
+                    for (int i = 1; i < words.length; i++) {
+                        pos[i - 1] = Integer.parseInt(words[i]);
+                    }
                     return new UnmarkCommand(pos);
                 } catch (NumberFormatException e) {
                     throw new BarcusException("please have an integer after 'unmark'");
                 }
             }
         } else if (words[0].equals("mark")) {
-            if (words.length != 2) {
+            if (words.length == 1) {
                 throw new BarcusException("please have an integer after 'mark'");
             } else {
                 try {
-                    int pos = Integer.parseInt(words[1]);
+                    int[] pos = new int[words.length - 1];
+                    for (int i = 1; i < words.length; i++) {
+                        pos[i - 1] = Integer.parseInt(words[i]);
+                    }
+                    //int pos = Integer.parseInt(words[1]);
                     return new MarkCommand(pos);
                 } catch (NumberFormatException e) {
                     throw new BarcusException("please have an integer after 'mark'");
@@ -90,11 +97,14 @@ public class Parser {
                         String.join(" ", Arrays.copyOfRange(words, toI + 1, words.length)));
             }
         } else if (words[0].equals("delete")) {
-            if (words.length != 2) {
+            if (words.length == 1) {
                 throw new BarcusException("please have an integer after 'delete'");
             } else {
                 try {
-                    int pos = Integer.parseInt(words[1]);
+                    int[] pos = new int[words.length - 1];
+                    for (int i = 1; i < words.length; i++) {
+                        pos[i - 1] = Integer.parseInt(words[i]);
+                    }
                     return new DeleteCommand(pos);
                 } catch (NumberFormatException e) {
                     throw new BarcusException("please have an integer after 'delete'");
