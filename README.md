@@ -1,8 +1,25 @@
-# Duke project template
+# D++e
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+**D++e** is a *homework project* created by ***a student***. It has the following advantage:
+- Runs completely on CLI, friendly to users who type fast
+- Neat user interface
 
 ## Setting up in Intellij
+The code is written in Java and you can edit it if you want. Here is a sample code:
+```Java
+ public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+```
+With this code, `Task("hi")` creates a new task.
+- [X] It is open-source
+- [X] It still has room for improvement
+- [ ] It has you involved as a member of project! :sweat_smile:
+
+> To code, or not to code, that is the question --- me
+
+[If you like my project, then click here!](https://github.com/nus-cs2103-AY2425S1/ip)
 
 Prerequisites: JDK 17, update Intellij to the most recent version.
 
