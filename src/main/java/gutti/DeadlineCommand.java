@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 import java.time.format.DateTimeParseException;
 
@@ -25,7 +25,9 @@ public class DeadlineCommand extends Command {
         try {
             DateTimeUtil.parseDateTime(by);
         } catch (DateTimeParseException e) {
-            throw new GuttiException("Invalid date/time format. Accepted formats: yyyy-MM-dd HHmm, d/MM/yyyy HHmm, MMM dd yyyy h:mma, dd/mm/yyyy HHmm");
+            throw new GuttiException("Invalid date/time format. Accepted formats: "
+                    + "yyyy-MM-dd HHmm, d/MM/yyyy HHmm, MMM dd yyyy h:mma, dd/mm/yyyy HHmm");
+
         }
     }
 

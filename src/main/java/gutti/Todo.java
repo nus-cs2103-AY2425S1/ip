@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 /**
  * The {@code Todo} class represents a type of task that only has a description and no specific deadline or time frame.
@@ -14,7 +14,7 @@ public class Todo extends Task {
      * @param description The description of the Todo task.
      */
     public Todo(String description, boolean isDone) {
-        super(description,isDone);
+        super(description, isDone);
     }
 
     /**

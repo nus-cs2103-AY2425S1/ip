@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 import java.time.format.DateTimeParseException;
 
@@ -19,11 +19,13 @@ public class EventCommand extends Command {
     public EventCommand(String input) throws GuttiException {
         String[] parts = input.split("/from");
         if (parts.length != 2) {
-            throw new GuttiException("Invalid format. Use: event <task description> /from <start date/time> /to <end date/time>");
+            throw new GuttiException("Invalid format. Use: "
+                    + "event <task description> /from <start date/time> /to <end date/time>");
         }
         String[] fromToParts = parts[1].split("/to");
         if (fromToParts.length != 2) {
-            throw new GuttiException("Invalid format. Use: event <task description> /from <start date/time> /to <end date/time>");
+            throw new GuttiException("Invalid format. Use: "
+                    + "event <task description> /from <start date/time> /to <end date/time>");
         }
         this.description = parts[0].trim();
         this.from = fromToParts[0].trim();
@@ -32,7 +34,8 @@ public class EventCommand extends Command {
             DateTimeUtil.parseDateTime(from);
             DateTimeUtil.parseDateTime(to);
         } catch (DateTimeParseException e) {
-            throw new GuttiException("Invalid date/time format. Accepted formats: yyyy-MM-dd HHmm, d/MM/yyyy HHmm, MMM dd yyyy h:mma , dd/mm/yyyy HHmm");
+            throw new GuttiException("Invalid date/time format. Accepted formats: "
+                    + "yyyy-MM-dd HHmm, d/MM/yyyy HHmm, MMM dd yyyy h:mma , dd/mm/yyyy HHmm");
         }
     }
 

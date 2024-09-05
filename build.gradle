@@ -2,6 +2,22 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '10.2' // Specify the version of Checkstyle you want to use
+    configDirectory = file("${rootDir}/config/checkstyle") // Set the directory containing the Checkstyle config files
+    configProperties = [
+            'checkstyle.suppressions.file': file("${rootDir}/config/checkstyle/suppressions.xml") // Set the suppressions file
+    ]
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled = false
+        html.enabled = true // Enables the HTML report format
+    }
 }
 
 repositories {

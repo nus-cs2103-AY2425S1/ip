@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 /**
  * Represents a command to exit the application.

@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 import java.io.File;
 import java.io.FileWriter;

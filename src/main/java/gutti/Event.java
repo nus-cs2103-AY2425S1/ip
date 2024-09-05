@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,16 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * The {@code Event} class represents a task that spans a specific period of time, starting and ending at particular dates/times.
+ * The {@code Event} class represents a task that spans a specific period of time,
+ * starting and ending at particular dates/times.
  * <p>
  * It extends the {@code Task} class and is marked with an "E" to indicate that it is an Event task.
  * </p>
  */
 public class Event extends Task {
-    /** The start date/time of the event. */
-    protected LocalDateTime from;
-    /** The end date/time of the event. */
-    protected LocalDateTime  to;
 
     private static final List<DateTimeFormatter> FORMATTERS = Arrays.asList(
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
@@ -24,6 +21,12 @@ public class Event extends Task {
             DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"),
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")
     );
+
+    /** The start date/time of the event. */
+    protected LocalDateTime from;
+    /** The end date/time of the event. */
+    protected LocalDateTime to;
+
 
 
     /**
@@ -33,8 +36,8 @@ public class Event extends Task {
      * @param from The start date/time of the event.
      * @param to The end date/time of the event.
      */
-    public Event(String description, String from, String to,boolean isDone) {
-        super(description,isDone);
+    public Event(String description, String from, String to, boolean isDone) {
+        super(description, isDone);
         this.from = parseDateTime(from);
         this.to = parseDateTime(to);
     }
@@ -54,7 +57,8 @@ public class Event extends Task {
                 // Continue trying other formats
             }
         }
-        System.out.println("Invalid date format. Please use yyyy-MM-dd HHmm,d/MM/yyyy HHmm, dd/MM/yyyy HHmm format or MMM dd yyyy h:mma.");
+        System.out.println("Invalid date format. Please use "
+                + "yyyy-MM-dd HHmm,d/MM/yyyy HHmm, dd/MM/yyyy HHmm format or MMM dd yyyy h:mma.");
         return null; // Return null if no format matched
     }
 
@@ -70,8 +74,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
-        return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: " +
-                (from != null ? from.format(formatter) : "Invalid date")
+        return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: "
+                + (from != null ? from.format(formatter) : "Invalid date")
                         + " to: " + (to != null ? to.format(formatter) : "Invalid date") + ")";
     }
 }

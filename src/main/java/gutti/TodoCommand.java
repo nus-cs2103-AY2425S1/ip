@@ -1,4 +1,4 @@
-package Gutti;
+package gutti;
 
 /**
  * Represents a command to add a Todo task.
@@ -26,9 +26,9 @@ public class TodoCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws GuttiException {
         Task todoTask = new Todo(description, false);
-        tasks.addTask(todoTask);  // Corrected method name
-        storage.saveTasksToFile(tasks.getTasks());  // Pass tasks to save
-        ui.showTaskList(tasks);  // Show updated task list
+        tasks.addTask(todoTask); // Corrected method name
+        storage.saveTasksToFile(tasks.getTasks()); // Pass tasks to save
+        ui.showTaskList(tasks); // Show updated task list
     }
 
     /**
