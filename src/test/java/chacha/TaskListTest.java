@@ -2,6 +2,7 @@ package chacha;
 
 import chacha.task.Task;
 
+import chacha.task.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TaskListTest {
 
     TaskList tasks = new TaskList();
-    private ChaCha chacha = new ChaCha("./src/main/java/chacha/data/chacha.txt");
+    private ChaCha chacha = new ChaCha();
     Ui ui = chacha.ui;
     Storage storage = chacha.storage;
 

@@ -1,5 +1,9 @@
 package chacha;
 
+import chacha.command.Parser;
+import chacha.task.Task;
+import chacha.task.TaskList;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -14,14 +18,24 @@ public class ChaCha {
     protected TaskList tasks;
     protected Ui ui;
 
-    public ChaCha(String filePath) {
+    private boolean isEnd;
+
+    public ChaCha() {
         try {
-            ui = new Ui();
-            storage = new Storage(filePath);
-            tasks = new TaskList(storage.load());
+            Path filePath = Paths.get("./src/main/java/chacha/data/chacha.txt");
+
+            Files.createDirectories(filePath.getParent());
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
+
+            this.ui = new Ui();
+            this.storage = new Storage(String.valueOf(filePath));
+            this.tasks = new TaskList(storage.load());
+            this.isEnd = false;
 
         } catch (FileNotFoundException e) {
-            tasks = new TaskList();
+            this.tasks = new TaskList();
         } catch (IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
@@ -34,7 +48,7 @@ public class ChaCha {
      */
     public void run() {
         // make scanner and find commands --> parse commands
-        Parser parser = new Parser(this);
+        Parser parser = new Parser(this, this.storage, this.tasks, this.ui);
         Scanner scanner = new Scanner(System.in);
         System.out.println(this.ui.printGreeting());
         while (scanner.hasNextLine()) {
@@ -42,13 +56,27 @@ public class ChaCha {
             String output = parser.parseCommand(userInput);
             System.out.println(output);
 
-            if (output.equals(this.ui.printExit())) {
+            if (this.isEnd) {
                 break;
             }
 
             scanner = new Scanner(System.in);
         }
     }
+
+    /**
+     * Generates a response for the user input.
+     * @param input
+     * @return
+     */
+    public String getResponse(String input) {
+        return "ChaCha responds: " + input;
+    }
+
+    public void updateIsEnd() {
+        this.isEnd = true;
+    }
+
 
     /**
      * Checks if chacha.txt file exists in ./data.
@@ -58,19 +86,7 @@ public class ChaCha {
      * @throws IOException if an I/O exception occurs.
      */
     public static void main(String[] args) {
-        try {
-            Path filePath = Paths.get("./src/main/java/chacha/data/chacha.txt");
-
-            Files.createDirectories(filePath.getParent());
-            if (!Files.exists(filePath)) {
-                Files.createFile(filePath);
-            }
-
-            ChaCha chatbot = new ChaCha(String.valueOf(filePath));
-            chatbot.run();
-
-        } catch (IOException e) {
-            System.out.println("An error occurred: " + e.getMessage());
-        }
+        ChaCha chatbot = new ChaCha();
+        chatbot.run();
     }
 }

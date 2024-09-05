@@ -1,5 +1,8 @@
-package chacha;
+package chacha.task;
 
+import chacha.ChaChaException;
+import chacha.Storage;
+import chacha.Ui;
 import chacha.task.DeadlineTask;
 import chacha.task.EventTask;
 import chacha.task.Task;

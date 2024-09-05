@@ -1,6 +1,7 @@
 package chacha;
 
 import chacha.task.Task;
+import chacha.task.TaskList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -115,6 +116,9 @@ public class Ui {
         return result + LINE;
     }
 
+    public String printError() {
+        return LINE + "     Hmmm... I don't seem to understand this. Please input another command! \n" + LINE;
+    }
     /**
      * Returns string representation for the array of String..
      *
