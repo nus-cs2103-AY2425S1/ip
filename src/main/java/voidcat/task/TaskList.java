@@ -37,6 +37,7 @@ public class TaskList {
         return tasks.get(index);
     }
 
+
     public void listTasks() throws VoidException {
         if (tasks.isEmpty()) {
             throw new VoidException("No tasks found in list yet!");
@@ -60,5 +61,31 @@ public class TaskList {
             bw.newLine();
         }
         bw.close();
+    }
+
+    /**
+     * Finds and lists tasks that match the keyword.
+     *
+     * @param keyword The keyword to find in description of task.
+     */
+    public void findTasks(String keyword) throws VoidException {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.description.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            throw new VoidException("Aww..no matching tasks found for keyword: " + keyword);
+        } else {
+            Ui.showLine();
+            System.out.printf(FORMAT, "Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.printf("\t%d. %s%n", i + 1, matchingTasks.get(i));
+            }
+            Ui.showLine();
+        }
     }
 }
