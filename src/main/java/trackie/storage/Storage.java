@@ -9,23 +9,32 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Represents a storage mechanism that can load data into <code>tasklist</code> and
+ * save data to the <code>tasklist</code>.
+ */
 public class Storage {
     private TaskList taskList;
     private File fPtr;
-    public Storage(String filepath, TaskList taskList) {
+
+    /**
+     * Constructs a new Storage object.
+     *
+     * @param dirpath The path where the storage file will be created or accessed.
+     * @param taskList The TaskList object to be associated with this storage.
+     */
+    public Storage(String dirpath, TaskList taskList) {
         try {
             String filename = "data.txt";
-            fPtr = new File(filepath);
+            fPtr = new File(dirpath);
             if (!fPtr.exists()) {
                 fPtr.mkdirs();
             }
-            fPtr = new File(filepath + File.separatorChar + filename);
+            fPtr = new File(dirpath + File.separatorChar + filename);
             fPtr.createNewFile();
-
         } catch (IOException e) {
             System.out.println("Error creating file =(");
         }
@@ -33,9 +42,12 @@ public class Storage {
         this.taskList = taskList;
     }
 
-    //loads data from txt file into memory
+    /**
+     * Loads task data from the storage file into memory.
+     * This method reads the file and populates the associated TaskList with the stored tasks.
+     * After loading, it displays the list of loaded tasks.
+     */
     public void load() {
-        System.out.println(fPtr.getAbsolutePath());
         try {
             Scanner sc = new Scanner(fPtr);
             while (sc.hasNextLine()) {
@@ -57,7 +69,11 @@ public class Storage {
         }
     }
 
-    //saves data from memory to txt file
+    /**
+     * Saves the current state of the TaskList to the storage file.
+     * This method writes all tasks from the TaskList to the file, overwriting any existing content.
+     * Each task is saved with its type, status, description, and any additional type-specific information.
+     */
     public void save() {
         try {
             PrintWriter pw = new PrintWriter(fPtr);
