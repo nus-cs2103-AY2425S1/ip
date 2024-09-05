@@ -29,7 +29,7 @@ public class Storage {
      */
     public Storage(String s) {
         memory = new File(s);
-        parent = new File("src/main/java/Memory");
+        parent = memory.getParentFile();
         try {
             if (!parent.exists()) {
                 //create parent directory
