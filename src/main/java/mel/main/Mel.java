@@ -5,6 +5,7 @@ import java.util.Scanner;
 import mel.exceptions.MelException;
 import mel.exceptions.TaskException;
 import mel.tasks.TaskList;
+import mel.utils.Gui;
 import mel.utils.Storage;
 import mel.utils.Ui;
 
@@ -14,6 +15,9 @@ import mel.utils.Ui;
 public class Mel {
     private final TaskList taskList;
     private final Ui ui;
+    private final Gui gui;
+    private boolean isUsingGui;
+    private String response = "";
 
     /**
      * Constructor for Mel chatbot, instantiates
@@ -23,6 +27,7 @@ public class Mel {
         Storage storage = new Storage();
         taskList = new TaskList(this, storage);
         ui = new Ui(this);
+        gui = new Gui(this);
     }
 
     /**
@@ -30,11 +35,11 @@ public class Mel {
      * @param input task input string.
      * @see TaskList
      */
-    public void taskAction(String input) {
+    public void executeTask(String input) {
         try {
             taskList.executeTask(input);
         } catch (MelException | TaskException e) {
-            ui.println(e.toString());
+            println(e.toString());
         }
     }
 
@@ -44,14 +49,20 @@ public class Mel {
      * @see Ui
      */
     public void println(String str) {
-        ui.println(str);
+        if (isUsingGui) {
+            response += str + "\n";
+        } else {
+            ui.println(str);
+        }
     }
 
     /**
      * Starts Mel chatbot session, and handles
      * session's read-response sequence until session end.
+     * Not used in GUI.
      */
     public void run() {
+        isUsingGui = false;
         ui.hello();
         Scanner scanner = new Scanner(System.in);
         boolean isBye = false;
@@ -62,7 +73,22 @@ public class Mel {
     }
 
     /**
+     * Generates Mel chatbot response from user input,
+     * handles session's read-response sequence.
+     * Only used in GUI.
+     * @param input user input.
+     */
+    public String getResponse(String input) {
+        isUsingGui = true;
+        gui.read(input);
+        String s = response;
+        response = "";
+        return s;
+    }
+
+    /**
      * Main method to start up Mel chatbot.
+     * Not used in GUI.
      */
     public static void main(String[] args) {
         new Mel().run();

@@ -5,7 +5,7 @@ import java.util.Objects;
 import mel.main.Mel;
 
 /**
- * UI class handles the user interface of Mel
+ * Ui class handles the user interface of Mel
  * chatbot, to receive and respond to user input.
  */
 public class Ui {
@@ -18,7 +18,7 @@ public class Ui {
     private final Mel mel;
 
     /**
-     * Constructor for UI.
+     * Constructor for Ui.
      * @param mel Mel chatbot instance.
      */
     public Ui(Mel mel) {
@@ -52,7 +52,7 @@ public class Ui {
             System.out.println("Buh-bye :)");
             isBye = true;
         } else {
-            mel.taskAction(input);
+            mel.executeTask(input);
             isBye = false;
         }
         System.out.println(LINE);

@@ -38,7 +38,7 @@ public class TaskList {
         String cmd = input.split(" ", 2)[0];
         if (Objects.equals(input, "list")) {
             printAll();
-        } else if (cmd.equals("mark")) {
+        } else if (cmd.contains("mark")) {
             markTaskAsDone(input);
         } else if (cmd.equals("delete")) {
             deleteTask(input);
@@ -109,13 +109,15 @@ public class TaskList {
         String m = temp[0];
         int idx = Integer.parseInt(temp[1]) - 1;
         try {
+            Task task = tasks.get(idx);
             if (Objects.equals(m, "mark")) {
                 mel.println("Mel sees you completed your task!");
-                tasks.get(idx).markTaskAsDone();
+                task.markTaskAsDone();
             } else {
                 mel.println("Mel wonders how you undid your task...");
-                tasks.get(idx).markTaskAsNotDone();
+                task.markTaskAsNotDone();
             }
+            mel.println("  " + task);
             updateTasks();
         } catch (IndexOutOfBoundsException e) {
             mel.println("Mel's brain explodes in anger?! "

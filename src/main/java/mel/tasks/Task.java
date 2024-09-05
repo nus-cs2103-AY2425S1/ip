@@ -30,7 +30,6 @@ public class Task {
      */
     public void markTaskAsDone() {
         isDone = true;
-        System.out.println("  " + this);
     }
 
     /**
@@ -38,7 +37,6 @@ public class Task {
      */
     public void markTaskAsNotDone() {
         isDone = false;
-        System.out.println("  " + this);
     }
 
     /**
@@ -53,7 +51,10 @@ public class Task {
         return task.contains(str);
     }
 
-    @Override
+    /**
+     * Returns status of task as string.
+     * @return String status of task as string.
+     */
     public String toString() {
         String s = isDone ? "X" : " ";
         return "[" + s + "] ";
