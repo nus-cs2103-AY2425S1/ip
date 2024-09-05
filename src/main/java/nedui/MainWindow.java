@@ -1,5 +1,7 @@
 package nedui;
+
 import java.util.Objects;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

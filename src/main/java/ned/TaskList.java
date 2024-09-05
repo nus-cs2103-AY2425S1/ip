@@ -1,5 +1,7 @@
 package ned;
+
 import java.util.ArrayList;
+
 import ned.exceptions.NedException;
 import ned.tasks.Task;
 

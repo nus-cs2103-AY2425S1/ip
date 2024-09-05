@@ -1,6 +1,8 @@
 package ned;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import ned.tasks.Task;
 
 public class Ui {

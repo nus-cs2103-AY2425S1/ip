@@ -1,6 +1,8 @@
 package ned;
+
 import java.util.regex.Pattern;
-import ned.commands.*; // to import all existing ned commands
+
+import ned.commands.*;
 
 /**
  * Represents the different types of commands.

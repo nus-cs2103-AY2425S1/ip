@@ -1,4 +1,5 @@
 package ned;
+
 import ned.commands.Command;
 import ned.exceptions.NedException;
 import ned.tasks.Deadline;
@@ -68,5 +69,4 @@ public class Parser {
                             , savedLine));
         }
     }
-
 }

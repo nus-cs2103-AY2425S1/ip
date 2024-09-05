@@ -1,11 +1,12 @@
 package nedui;
 import java.io.IOException;
-import ned.Ned;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import ned.Ned;
 
 /**
  * A GUI for Duke using FXML.

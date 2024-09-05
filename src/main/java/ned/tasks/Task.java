@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 
 public abstract class Task {
 
-//    protected static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("")
     protected boolean isDone;
     protected String taskDescription;
     protected String taskType;
