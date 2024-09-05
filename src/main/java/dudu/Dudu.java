@@ -28,24 +28,26 @@ public class Dudu {
     }
 
     /**
-     * Starts the chatbot and persistently takes in user input until a "bye" command is issued
+     * Returns a welcome message
+     *
+     * @return Welcome message
      */
-    public void run() {
-        ui.welcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (IOException e) {
-                ui.showError(e);
-            }
-        }
+    public String welcomeUser() {
+        return ui.welcomeMessage();
     }
 
-    public static void main(String[] args) {
-        new Dudu("./data/dudu.txt").run();
+    /**
+     * Returns a response to a user input
+     *
+     * @param input User input
+     * @return Response to user
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (IOException e) {
+            return ui.showError(e);
+        }
     }
 }

@@ -32,10 +32,10 @@ public class CommandDelete extends Command {
      * @throws IOException If there is an error during saving the task to storage.
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         Task deletedTask = taskList.deleteTask(this.index);
         storage.rewriteFile(taskList);
-        ui.deleteTask(deletedTask);
+        return ui.deleteTask(deletedTask);
     }
 
     /**

@@ -19,7 +19,7 @@ public abstract class Command {
      * @param storage The storage to save tasks.
      * @throws IOException If there is an error during rewriting the local data.
      */
-    public abstract void execute(TaskList taskList, UI ui, Storage storage) throws IOException;
+    public abstract String execute(TaskList taskList, UI ui, Storage storage) throws IOException;
 
     /**
      * Determines if this command will cause the application to exit.
