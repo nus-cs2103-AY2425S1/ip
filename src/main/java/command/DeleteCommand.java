@@ -1,3 +1,8 @@
+package command;
+
+import main.Storage;
+import main.TaskList;
+
 public class DeleteCommand extends Command {
     private final String input;
     public DeleteCommand(String input) {

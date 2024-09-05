@@ -1,3 +1,11 @@
+package main;
+
+import command.*;
+import exception.DashException;
+import exception.EmptyDescriptionException;
+import exception.IncorrectCommandUseException;
+import exception.UnknownCommandException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

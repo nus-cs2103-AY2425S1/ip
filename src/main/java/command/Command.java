@@ -1,3 +1,8 @@
+package command;
+
+import main.Storage;
+import main.TaskList;
+
 import java.io.IOException;
 
 public abstract class Command {
