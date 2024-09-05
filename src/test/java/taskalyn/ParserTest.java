@@ -15,7 +15,7 @@ public class ParserTest {
      * Verifies that the Parser properly handles the bye command.
      */
     @Test
-    public void testParseByeCommand() {
+    public void parse_byeCommand_exitsGracefully() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
         System.setIn(new ByteArrayInputStream("bye\n".getBytes()));

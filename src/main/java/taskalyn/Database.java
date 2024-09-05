@@ -20,7 +20,7 @@ public class Database {
      */
     public Database() {
         try {
-            List<String> txtLines = Files.readAllLines(FILE_PATH);
+            List<String> textLines = Files.readAllLines(FILE_PATH);
             if (Files.notExists(FILE_PATH)) {
                 Files.createDirectory(Paths.get(DIRECTORY));
                 Files.createFile(FILE_PATH);
@@ -74,7 +74,7 @@ public class Database {
      * @throws IOException If an error happens while reading.
      */
     public int getDatabaseSize() throws IOException {
-        List<String> txtLines = readFromDatabase();
-        return txtLines.size();
+        List<String> textLines = readFromDatabase();
+        return textLines.size();
     }
 }

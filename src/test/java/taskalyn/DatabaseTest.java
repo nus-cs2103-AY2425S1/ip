@@ -54,7 +54,7 @@ public class DatabaseTest {
      * Verifies that tasks written to database are described correctly in database file.
      */
     @Test
-    public void testWriteToDatabase() {
+    public void writeToDatabase_multipleTasks_writtenSuccessfully() {
         // Arrange
         List<Task> tasks = Arrays.asList(
                 new TodoTask("Test Task 1", false),

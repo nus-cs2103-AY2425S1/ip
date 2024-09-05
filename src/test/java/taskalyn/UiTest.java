@@ -21,7 +21,7 @@ public class UiTest {
      * Verifies that the welcome message is shown correctly.
      */
     @Test
-    public void testWelcomeMessage() {
+    public void printWelcome_displaysCorrectMessage() {
         String input = "Hey! I'm Taskalyn, your personal Task Manager :)\n" +
                 "    What can I do for you?";
         outContent = new ByteArrayOutputStream();
@@ -46,7 +46,7 @@ public class UiTest {
      * Verifies that the todo command is scanned correctly.
      */
     @Test
-    public void testScanningOfTodoCommand() {
+    public void readCommand_todoCommand_scannedCorrectly() {
         String input = "todo eat";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         Ui ui = new Ui();
@@ -59,7 +59,7 @@ public class UiTest {
      * Verifies that any user input is trimmed before being parsed.
      */
     @Test
-    public void testScanningOfCommandWithSpaceInfront() {
+    public void readCommand_todoCommand_ignoredCorrectly() {
         String input = " todo eat";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         Ui ui = new Ui();
