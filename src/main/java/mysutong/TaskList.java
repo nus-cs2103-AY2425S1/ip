@@ -1,13 +1,17 @@
+package mysutong;
+
+import mysutong.Task;
+
 import java.util.List;
 import java.util.ArrayList;
 
 public class TaskList {
-    // Change tasks to be a List<Task> instead of ArrayList<Task>
+    // Change tasks to be a List<mysutong.Task> instead of ArrayList<mysutong.Task>
     private final List<Task> tasks;
 
-    // Constructor that accepts any List<Task>
+    // Constructor that accepts any List<mysutong.Task>
     public TaskList(List<Task> tasks) {
-        this.tasks = tasks; // Use a general List<Task>
+        this.tasks = tasks; // Use a general List<mysutong.Task>
     }
 
     // Default constructor initializes an empty ArrayList

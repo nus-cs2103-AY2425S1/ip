@@ -1,3 +1,5 @@
+package mysutong;
+
 import java.io.FileNotFoundException;
 
 public class MySutong {

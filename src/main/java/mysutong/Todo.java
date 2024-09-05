@@ -1,3 +1,7 @@
+package mysutong;
+
+import mysutong.Task;
+
 class Todo extends Task {
 
     public Todo(String description) {
