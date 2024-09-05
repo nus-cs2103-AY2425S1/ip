@@ -245,12 +245,14 @@ public class WenJigglyBot {
         if (action.equals("mark")) {
             ui.showLine();
             task.markTask();
+            Storage.saveTasksToFile(tasks);
             output.append(ui.showCompletedTask(task));
             ui.showLine();
         } else {
             ui.showLine();
             task.unmarkTask();
             output.append(ui.showUncompletedTask(task));
+            Storage.saveTasksToFile(tasks);
             ui.showLine();
         }
         return output.toString();

@@ -79,12 +79,15 @@ public class Parser {
         }
 
         String taskType = parts[1].substring(1, 2);
-        boolean isDone = parts[1].charAt(3) == 'X';
+        boolean isDone = false;
+        if (parts[1].length() >= 5) {
+            isDone = parts[1].charAt(4) == 'X';
+        }
         String description = parts[2];
 
         switch (taskType) {
         case "T": // ToDo task
-            ToDoTask todo = new ToDoTask(description.split(" ")[1]);
+            ToDoTask todo = new ToDoTask(description);
             if (isDone) {
                 todo.markTask();
             }
@@ -115,6 +118,7 @@ public class Parser {
             String[] eventParts = description.split("\\(from: ");
             if (eventParts.length == 2) {
                 String taskDescription = eventParts[0].trim();
+                taskDescription = taskDescription.substring(2);
                 String[] timeParts = eventParts[1].split(" to: ");
                 if (timeParts.length == 2) {
                     String startTime = timeParts[0].trim();
