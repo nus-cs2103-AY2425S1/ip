@@ -1,12 +1,16 @@
 package CancelGPT.core;
 
 import CancelGPT.command.Command;
+
 import CancelGPT.exception.task.TaskDoesNotExist;
+
 import CancelGPT.task.Task;
 
 import java.io.IOException;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,7 +21,7 @@ public class CancelGPT {
     private final String CHATBOT_NAME;
     private final TasksList TASKS_LIST;
     private TasksStorage tasksStorage;
-    private CommandParser commandParser;
+    private final CommandParser COMMAND_PARSER;
 
     /**
      * Initialises the chatbot with given storage directory path.
@@ -33,7 +37,7 @@ public class CancelGPT {
             UI.printMessageToConsole("Unable to use TASKS STORAGE. Exiting program");
             System.exit(1);
         }
-        this.commandParser = new CommandParser(this);
+        this.COMMAND_PARSER = new CommandParser(this);
     }
 
     /**
@@ -104,7 +108,7 @@ public class CancelGPT {
      * @param command command entered by user
      */
     public void handleCommand(String command) {
-        this.commandParser.parseAndHandle(command);
+        this.COMMAND_PARSER.parseAndHandle(command);
     }
 
     /**

@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
  * a LocalDateTimeHandler object.
  */
 public class LocalDateTimeHandler {
-    private LocalDateTime localDateTime;
+    private final LocalDateTime LOCAL_DATE_TIME;
 
     /**
      * Initialises the local date time and sets
@@ -22,18 +22,19 @@ public class LocalDateTimeHandler {
      * @param localDateTime the local date time to set to
      */
     public LocalDateTimeHandler(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+        this.LOCAL_DATE_TIME = localDateTime;
     }
 
     /**
      * Returns a LocalDateTimeHandler by parsing the input local date time string
      * in yyyy-MM-dd HHmm format.
-     * 
+     *
      * @param input the string representation of the local date time
      * @return LocalDateTimeHandler object with the parsed local date time string
      * @throws DateTimeParseException if the input date cannot be parsed
      */
-    public static LocalDateTimeHandler parseLocalDateTime(String input) throws DateTimeParseException {
+    public static LocalDateTimeHandler parseLocalDateTimeStringToHandler(String input) 
+            throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return new LocalDateTimeHandler(LocalDateTime.parse(input, formatter));
     }
@@ -47,7 +48,7 @@ public class LocalDateTimeHandler {
      */
     public String getDisplayedLocalDateTime() throws DateTimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-        return this.localDateTime.format(formatter);
+        return this.LOCAL_DATE_TIME.format(formatter);
     }
 
     /**
@@ -59,6 +60,6 @@ public class LocalDateTimeHandler {
      */
     public String getLocalDateTimeOriginal() throws DateTimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return this.localDateTime.format(formatter);
+        return this.LOCAL_DATE_TIME.format(formatter);
     }
 }

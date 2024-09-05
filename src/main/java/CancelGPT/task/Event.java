@@ -8,21 +8,21 @@ import java.time.format.DateTimeParseException;
  * Represents an event task, with a from date and a to date.
  */
 public class Event extends Task {
-    protected LocalDateTimeHandler from;
-    protected LocalDateTimeHandler to;
+    protected LocalDateTimeHandler fromDate;
+    protected LocalDateTimeHandler toDate;
 
     /**
      * Initialises Event with a description, a from date, and a to date,
      * with initial status of not done.
      * 
      * @param description the description of the event
-     * @param from the from date of deadline
-     * @param to the to date of deadline
+     * @param fromDate the from date of deadline
+     * @param toDate the to date of deadline
      */
-    public Event(String description, LocalDateTimeHandler from, LocalDateTimeHandler to) {
+    public Event(String description, LocalDateTimeHandler fromDate, LocalDateTimeHandler toDate) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
     /**
@@ -30,24 +30,25 @@ public class Event extends Task {
      *
      * @param isDone the status of the event
      * @param description the description of the event
-     * @param from the from date of deadline
-     * @param to the to date of deadline
+     * @param fromDate the from date of deadline
+     * @param toDate the to date of deadline
      */
-    public Event(boolean isDone, String description, LocalDateTimeHandler from, LocalDateTimeHandler to) {
+    public Event(boolean isDone, String description, LocalDateTimeHandler fromDate, LocalDateTimeHandler toDate) {
         super(isDone, description);
-        this.from = from;
-        this.to = to;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.getDisplayedLocalDateTime() + " to: " + to.getDisplayedLocalDateTime() + ")";
+        return "[E]" + super.toString() + " (from: " + fromDate.getDisplayedLocalDateTime() 
+                + " to: " + toDate.getDisplayedLocalDateTime() + ")";
     }
 
     @Override
     public String getSavedDataString() {
-        return "E" + " | " + super.getSavedDataString() + " | " + from.getLocalDateTimeOriginal() + " | "
-                + to.getLocalDateTimeOriginal();
+        return "E" + " | " + super.getSavedDataString() + " | " + fromDate.getLocalDateTimeOriginal() + " | "
+                + toDate.getLocalDateTimeOriginal();
     }
 
     /**
@@ -59,7 +60,7 @@ public class Event extends Task {
      */
     public static Task getTaskFromSavedDataStringArr(String[] savedDataArr) throws DateTimeParseException {
         return new Event(getStatusBoolean(Integer.parseInt(savedDataArr[1])), savedDataArr[2],
-                LocalDateTimeHandler.parseLocalDateTime(savedDataArr[3]),
-                LocalDateTimeHandler.parseLocalDateTime(savedDataArr[4]));
+                LocalDateTimeHandler.parseLocalDateTimeStringToHandler(savedDataArr[3]),
+                LocalDateTimeHandler.parseLocalDateTimeStringToHandler(savedDataArr[4]));
     }
 }

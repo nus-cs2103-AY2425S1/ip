@@ -8,18 +8,18 @@ import java.time.format.DateTimeParseException;
  * Represents a deadline task.
  */
 public class Deadline extends Task {
-    protected LocalDateTimeHandler by;
+    protected LocalDateTimeHandler byDate;
 
     /**
      * Initialises Deadline with a description and a date to complete the deadline,
      * with an initial status of not done.
      * 
      * @param description the description of the deadline
-     * @param by the date to complete by
+     * @param byDate the date to complete by
      */
-    public Deadline(String description, LocalDateTimeHandler by) {
+    public Deadline(String description, LocalDateTimeHandler byDate) {
         super(description);
-        this.by = by;
+        this.byDate = byDate;
     }
 
     /**
@@ -28,21 +28,22 @@ public class Deadline extends Task {
      *
      * @param isDone the status of the deadline
      * @param description the description of the deadline
-     * @param by the date to complete by
+     * @param byDate the date to complete by
      */
-    public Deadline(boolean isDone, String description, LocalDateTimeHandler by) {
+    public Deadline(boolean isDone, String description, LocalDateTimeHandler byDate) {
         super(isDone, description);
-        this.by = by;
+        this.byDate = byDate;
     }
     
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.getDisplayedLocalDateTime() + ")";
+        return "[D]" + super.toString() + " (by: " 
+                + byDate.getDisplayedLocalDateTime() + ")";
     }
 
     @Override
     public String getSavedDataString() {
-        return "D" + " | " + super.getSavedDataString() + " | " + by.getLocalDateTimeOriginal();
+        return "D" + " | " + super.getSavedDataString() + " | " + byDate.getLocalDateTimeOriginal();
     }
 
     /**
@@ -54,6 +55,6 @@ public class Deadline extends Task {
      */
     public static Task getTaskFromSavedDataStringArr(String[] savedDataArr) throws DateTimeParseException {
         return new Deadline(getStatusBoolean(Integer.parseInt(savedDataArr[1])),
-                savedDataArr[2], LocalDateTimeHandler.parseLocalDateTime(savedDataArr[3]));
+                savedDataArr[2], LocalDateTimeHandler.parseLocalDateTimeStringToHandler(savedDataArr[3]));
     }
 }
