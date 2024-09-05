@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * Represents a deadline task in the Lexi application.
  * A deadline has a due date and time in addition to a name and status.
  */
-public class Deadline extends DatedTask{
+public class Deadline extends DatedTask {
     private final LocalDateTime by;
 
 
@@ -36,7 +36,7 @@ public class Deadline extends DatedTask{
      * @return The formatted due date and time as a string.
      */
     public String getFormattedDateAndTime() {
-        return this.by.format(DatedTask.outputFormatter);
+        return this.by.format(super.getOutputFormatter());
     }
 
     /**

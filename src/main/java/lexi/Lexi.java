@@ -40,14 +40,14 @@ public class Lexi {
      * and executes the corresponding actions until the user decides to exit.
      */
     public String getResponse(String input) {
-            try {
-                Command c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                this.commandType = c.getClass().getSimpleName();
-                return c.getString();
-            } catch (LexiException e) {
-                return ui.showError(e.getMessage());
-            }
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            this.commandType = c.getClass().getSimpleName();
+            return c.getString();
+        } catch (LexiException e) {
+            return ui.showError(e.getMessage());
+        }
     }
     public String getCommandType() {
         return commandType;

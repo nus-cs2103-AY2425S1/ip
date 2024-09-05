@@ -15,7 +15,7 @@ public abstract class DatedTask extends Task {
      * This static formatter can be used by subclasses to ensure consistent formatting
      * across all date-related tasks.
      */
-    public static DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy, HH:mm");
+    private static DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy, HH:mm");
 
     /**
      * Constructs a new {@code DatedTask} with the specified task name.
@@ -25,5 +25,9 @@ public abstract class DatedTask extends Task {
      */
     public DatedTask(String taskName) {
         super(taskName);
+    }
+
+    public DateTimeFormatter getOutputFormatter() {
+        return DatedTask.outputFormatter;
     }
 }

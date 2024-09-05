@@ -1,23 +1,24 @@
 package lexi.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import lexi.exception.LexiException;
 import lexi.task.Deadline;
 import lexi.task.Event;
 import lexi.task.Task;
 import lexi.task.Todo;
 
-import java.util.ArrayList;
-import java.time.format.DateTimeFormatter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Scanner;
-
 /**
  * Handles the loading and saving of tasks to and from a file.
- * This class manages the persistence of task data, including reading tasks from a file and writing tasks back to the file.
+ * This class manages the persistence of task data,
+ * including reading tasks from a file and writing tasks back to the file.
  */
 public class Storage {
     private final File dataFile;

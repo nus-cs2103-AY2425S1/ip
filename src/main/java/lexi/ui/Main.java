@@ -1,6 +1,7 @@
 package lexi.ui;
 
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setLexi(lexi);  // inject the Lexi instance
+            fxmlLoader.<MainWindow>getController().setLexi(lexi); // inject the Lexi instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

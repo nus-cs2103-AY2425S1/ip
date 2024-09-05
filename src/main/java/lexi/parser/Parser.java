@@ -1,5 +1,9 @@
 package lexi.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import lexi.command.AddCommand;
 import lexi.command.ByeCommand;
 import lexi.command.Command;
@@ -8,24 +12,19 @@ import lexi.command.DeleteCommand;
 import lexi.command.FindCommand;
 import lexi.command.ListCommand;
 import lexi.command.MarkCommand;
-
 import lexi.exception.LexiException;
-
 import lexi.task.Deadline;
 import lexi.task.Event;
 import lexi.task.Todo;
 
-import java.time.LocalDateTime;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Parser class handles the parsing of user input commands.
  * It interprets the commands and returns the corresponding Command objects.
  */
 public class Parser {
-    private final static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * Parses the user input and returns the appropriate Command object.
@@ -87,15 +86,15 @@ public class Parser {
      */
     private static DeleteCommand handleDelete(String[] parts) throws LexiException {
         if (parts.length != 2) {
-            throw new LexiException("Please key in the command in this format " +
-                    "\"delete <task number>\"\n");
+            throw new LexiException("Please key in the command in this format "
+                    + "\"delete <task number>\"\n");
         }
         try {
             int taskNumber = Integer.parseInt(parts[1]);
             return new DeleteCommand(taskNumber);
         } catch (NumberFormatException e) {
-            throw new LexiException("Please enter a valid task number as follows:\n" +
-                    "\"delete <task number>\"\n");
+            throw new LexiException("Please enter a valid task number as follows:\n"
+                    + "\"delete <task number>\"\n");
         }
     }
 
@@ -170,8 +169,8 @@ public class Parser {
      * @throws LexiException If the command format is incorrect or if the description is empty.
      */
     private static AddCommand handleTodo(String response) throws LexiException {
-        String errorMessage = "Sorry! The description of a todo cannot be empty\n" +
-                "Please write in this format \"todo <description>\"\n";
+        String errorMessage = "Sorry! The description of a todo cannot be empty\n"
+                + "Please write in this format \"todo <description>\"\n";
         if (response.length() < 6) {
             throw new LexiException(errorMessage);
         }
@@ -193,8 +192,8 @@ public class Parser {
      */
     private static MarkCommand handleMark(String[] parts) throws LexiException {
         if (parts.length != 2 || parts[1].isEmpty() || parts[1].isBlank()) {
-            throw new LexiException("Please enter your command in this format\n" +
-                    "\"mark <number>\"");
+            throw new LexiException("Please enter your command in this format\n"
+                    + "\"mark <number>\"");
         }
         int taskNumber = Integer.parseInt(parts[1]) - 1;
         if (parts[0].equals("unmark")) {
