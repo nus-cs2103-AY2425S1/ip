@@ -21,6 +21,11 @@ public class Storage {
     private String filePath;
     private DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     
+    /**
+     * Initiates the storage class using the specified file name 
+     * 
+     * @param filePath the string form of the file path to the chat's history text file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
 
@@ -39,7 +44,8 @@ public class Storage {
     }
 
     /**
-     * Converts date in text file to LocalDate object 
+     * Converts date in text file to LocalDate object
+     * 
      * @return LocalDate object in the dd-MM-yyyy format
      */
     private LocalDate parseData(String dateToParse) throws DateTimeParseException {
@@ -49,6 +55,7 @@ public class Storage {
 
     /**
      * Loads the existing file data into the toDoList
+     * 
      * @return a loaded to-do list
      * @throws FileNotFoundException If the data file is not found 
      */
@@ -81,6 +88,7 @@ public class Storage {
 
     /**
      * Saves the toDoList and writes it to the data file
+     * 
      * @param toDoList the toDoList that will be saved 
      */
     public void writeToFile(ArrayList<Task> toDoList) throws IOException {

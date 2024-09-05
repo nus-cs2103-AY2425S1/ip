@@ -1,5 +1,8 @@
 package sirpotato;
 
+/**
+ * Class that handles the adding of a task to the tasklist
+ */
 public class AddCommand extends Command {
     private Task task;
 
@@ -8,7 +11,9 @@ public class AddCommand extends Command {
     }
 
     /**
-     * For testing purposes, to test the parser
+     * Returns the task being added
+     * 
+     * @return The task being added
      */
     public Task getTask() {
         return task;

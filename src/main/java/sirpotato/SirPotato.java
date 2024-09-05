@@ -15,6 +15,8 @@ import java.util.Scanner;
 /**
 * SirPotato is the name of the chatbot 
 * that we will be using in this project
+* Contains the method to start the chat 
+* 
 * @author Rahul Agarwal
 */
 public class SirPotato {
