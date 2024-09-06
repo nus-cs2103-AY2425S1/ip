@@ -51,19 +51,19 @@ public class Ui {
      * Prints a welcome message to the console.
      * The message is displayed in cyan color.
      */
-    public void printWelcome() {
+    public String printWelcome() {
         String greetings = "Domo! Same desu~ I am shrimp, and I am happy to assist you! Hewwo? <3";
-        System.out.println(AnsiCode.CYAN + greetings);
+        return AnsiCode.CYAN + greetings;
     }
 
     /**
      * Prints an exit message to the console.
      * The message signals the end of the session.
      */
-    public void printExit() {
+    public String printExit() {
         String exit = "Byebye~ It's time to say goodbye for the day~ Hope you enjoyed and had fuuun~ "
                 + "I'll see you later~";
-        System.out.println(exit);
+        return exit;
     }
 
     /**
@@ -72,14 +72,14 @@ public class Ui {
      *
      * @param taskList The {@code TaskList} containing the tasks to be displayed.
      */
-    public void printTaskList(TaskList taskList) {
-        System.out.println("Gotchaaa~ Here's the list so far:");
+    public String printTaskList(TaskList taskList) {
+        String output = "Gotchaaa~ Here's the list so far:";
         for (int i = 0; i < taskList.getCount(); i++) {
             Task task = taskList.getTask(i);
-            String output = String.format("    %s.%s", i + 1, task);
-            System.out.println(AnsiCode.PURPLE + output + AnsiCode.CYAN);
+            output += String.format("\n    %s.%s", i + 1, task);
         }
-        printTaskCount(taskList);
+        output = output + printTaskCount(taskList);
+        return AnsiCode.PURPLE + output + AnsiCode.CYAN;
     }
 
     /**
@@ -87,8 +87,8 @@ public class Ui {
      *
      * @param taskList The {@code TaskList} containing the tasks to be counted.
      */
-    private void printTaskCount(TaskList taskList) {
-        System.out.printf("Lemme count~ You now have %s item(s) in your list!%n", taskList.getCount());
+    private String printTaskCount(TaskList taskList) {
+        return String.format("\nLemme count~ You now have %s item(s) in your list!%n", taskList.getCount());
     }
 
     /**
@@ -96,10 +96,10 @@ public class Ui {
      *
      * @param task The {@code Task} that was marked as complete.
      */
-    public void printMark(Task task) {
+    public String printMark(Task task) {
         String output = "heya~ I've checked this task as complete! Feels good, right?";
-        System.out.println(output);
-        System.out.println("    " + task);
+        output = output + "\n    " + task;
+        return output;
     }
 
     /**
@@ -107,10 +107,10 @@ public class Ui {
      *
      * @param task The {@code Task} that was unmarked.
      */
-    public void printUnmark(Task task) {
+    public String printUnmark(Task task) {
         String output = "Whoops~ I've unchecked the task as incomplete! Be careful next time~";
-        System.out.println(output);
-        System.out.println("    " + task);
+        output = output + "\n    " + task;
+        return output;
     }
 
     /**
@@ -120,11 +120,11 @@ public class Ui {
      * @param task The {@code Task} that was deleted.
      * @param taskList The {@code TaskList} after the task was deleted.
      */
-    public void printDelete(Task task, TaskList taskList) {
+    public String printDelete(Task task, TaskList taskList) {
         String output = "Done! The task has been deleted!";
-        System.out.println(output);
-        System.out.println("    " + task);
-        printTaskCount(taskList);
+        output = output + "\n    " + task;
+        output += printTaskCount(taskList);
+        return output;
     }
 
     /**
@@ -134,19 +134,19 @@ public class Ui {
      * @param task The {@code Task} that was added.
      * @param taskList The {@code TaskList} after the task was added.
      */
-    public void printAdd(Task task, TaskList taskList) {
+    public String printAdd(Task task, TaskList taskList) {
         String output = "rawr! '" + task + "' has been added to the list~";
-        System.out.println(output);
-        printTaskCount(taskList);
+        output += printTaskCount(taskList);
+        return output;
     }
 
-    public void printFind(TaskList taskList) {
-        System.out.println("Heya~ Here's all the tasks I found matches your description~");
+    public String printFind(TaskList taskList) {
+        String output = "Heya~ Here's all the tasks I found matches your description~";
         for (int i = 0; i < taskList.getCount(); i++) {
             Task task = taskList.getTask(i);
-            String output = String.format("    %s.%s", i + 1, task);
-            System.out.println(AnsiCode.PURPLE + output + AnsiCode.CYAN);
+            output += String.format("\n    %s.%s", i + 1, task);
         }
+        return AnsiCode.PURPLE + output + AnsiCode.CYAN;
     }
 
     /**
@@ -155,7 +155,7 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void printError(String message) {
-        System.out.println(AnsiCode.RED + "Oh nyoo~ " + message);
+    public String printError(String message) {
+        return AnsiCode.RED + "Oh nyoo~ " + message;
     }
 }
