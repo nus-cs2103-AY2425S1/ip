@@ -31,7 +31,7 @@ public class Task implements Serializable {
         return this.toString();
     }
 
-    public boolean compareDates(String date) {
+    public boolean compareDate(String date) throws KieTwoForOneException {
         return false;
     }
 

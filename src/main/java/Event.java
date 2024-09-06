@@ -1,6 +1,7 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task{
 
@@ -42,8 +43,13 @@ public class Event extends Task{
     }
 
     @Override
-    public boolean compareDates(String date) {
-        LocalDate newDate = LocalDate.parse(date);
+    public boolean compareDate(String date) throws KieTwoForOneException {
+        LocalDate newDate;
+        try {
+            newDate = LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            throw new KieTwoForOneException("Date must be valid and in the form YYYY-MM-DD!");
+        }
         return (this.startDate.isBefore(newDate) && this.endDate.isAfter(newDate)) ||
                 this.startDate.equals(newDate) || this.endDate.equals(newDate);
     }

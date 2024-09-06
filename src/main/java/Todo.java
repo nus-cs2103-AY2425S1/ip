@@ -18,7 +18,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public boolean compareDates(String date) {
+    public boolean compareDate(String date) {
         return false;
     }
 
