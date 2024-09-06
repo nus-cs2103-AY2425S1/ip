@@ -2,8 +2,6 @@ package utility;
 
 public class Ui {
 
-    public Ui() {}
-
     public static void say(String textToSay) {
         String line = "____________________________________________________________\n";
         System.out.print(textToSay);
