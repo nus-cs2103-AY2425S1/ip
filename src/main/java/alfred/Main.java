@@ -2,6 +2,7 @@ package alfred;
 
 import java.io.IOException;
 
+import alfred.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,12 +25,13 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setAlfred(alfred);  // inject the alfred instance
+
+            // inject the alfred instance
+            fxmlLoader.<MainWindow>getController().setAlfred(alfred);
 
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            // stage.setMaxWidth(417); // Add this if you didn't automatically resize elements
-            fxmlLoader.<MainWindow>getController().setAlfred(alfred);
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

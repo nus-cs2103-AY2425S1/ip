@@ -1,5 +1,8 @@
-package alfred;
+package alfred.ui;
 
+import alfred.Alfred;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 /**
  * Controller for the main GUI.
  */
@@ -33,6 +38,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the alfred instance */
     public void setAlfred(Alfred alfred) {
         this.alfred = alfred;
+        displayAlfredResponse(AlfredResponse.greet());
     }
 
     /**
@@ -48,5 +54,23 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getAlfredDialog(response, alfredImage)
         );
         userInput.clear();
+
+        // Stop the JavaFX application after time delay if bye command given
+        if (input.equals("bye")) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+            pause.setOnFinished(event -> Platform.exit());
+            pause.play();
+        }
+    }
+
+    /**
+     * Displays a message from Alfred without any user input.
+     *
+     * @param response The message that Alfred will send.
+     */
+    public void displayAlfredResponse(String response) {
+        dialogContainer.getChildren().add(
+                DialogBox.getAlfredDialog(response, alfredImage)
+        );
     }
 }

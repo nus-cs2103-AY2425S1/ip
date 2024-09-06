@@ -76,7 +76,7 @@ class TaskListTest {
     @Test
     void markTask_valid() {
         taskList.addTask(task1);
-        taskList.updateTaskStatus(1, true);
+        taskList.markTask(1);
         assertTrue(task1.isDone);
     }
 
@@ -84,7 +84,7 @@ class TaskListTest {
     void markTask_outOfBounds() {
         taskList.addTask(task1);
 
-        assertThrows(IndexOutOfBoundsException.class, () -> taskList.updateTaskStatus(3, true));
+        assertThrows(IndexOutOfBoundsException.class, () -> taskList.markTask(3));
         assertFalse(task1.isDone);
     }
 }

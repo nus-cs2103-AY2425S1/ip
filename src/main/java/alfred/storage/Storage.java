@@ -11,7 +11,6 @@ import java.util.List;
 
 import alfred.exception.AlfredException;
 import alfred.task.Task;
-import alfred.ui.Ui;
 
 /**
  * Handles the loading and saving of tasks to and from a file.
@@ -59,18 +58,14 @@ public class Storage {
      *
      * @param taskList The list of tasks to be saved to the file.
      */
-    public void saveTasks(List<Task> taskList) {
-        try {
-            Files.createDirectories(filePath.getParent()); // Ensure the folder exists
-            BufferedWriter writer = Files.newBufferedWriter(filePath);
-            for (Task task : taskList) {
-                writer.write(task.toFileFormat());
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException e) {
-            Ui.showSavingError(e);
+    public void saveTasks(List<Task> taskList) throws IOException {
+        Files.createDirectories(filePath.getParent()); // Ensure the folder exists
+        BufferedWriter writer = Files.newBufferedWriter(filePath);
+        for (Task task : taskList) {
+            writer.write(task.toFileFormat());
+            writer.newLine();
         }
+        writer.close();
     }
 
     /**
@@ -81,7 +76,7 @@ public class Storage {
         try {
             Files.delete(filePath);
         } catch (IOException e) {
-            Ui.showDeletionError(e);
+            System.out.println(e.getMessage());
         }
     }
 }

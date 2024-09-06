@@ -3,7 +3,7 @@ package alfred.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import alfred.ui.Ui;
+import alfred.ui.AlfredResponse;
 
 /**
  * Provides methods to parse user input commands and extract relevant information.
@@ -42,24 +42,26 @@ public class Parser {
      * @param input The user input string containing the command and task number.
      * @param action The expected action keyword to match in the input string.
      * @param listSize The current size of the task list to validate the task number.
-     * @return true if the input is a valid command and the task number is within bounds; false otherwise.
+     * @return A string containing the error message if validation fails, or an empty string if valid.
      */
-    public static boolean isValidCommand(String input, String action, int listSize) {
+    public static String validateCommand(String input, String action, int listSize) {
         String regex = "^" + action + " \\d+$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
 
+        // Check if the input matches the expected command pattern
         if (!matcher.matches()) {
-            Ui.showInvalidCommandFormat();
-            return false;
+            return AlfredResponse.showInvalidCommandFormat();
         }
 
+        // Extract the task number and validate it is within the bounds of the task list
         int taskNumber = Parser.getTaskNumberFromInput(input);
         if (taskNumber <= 0 || taskNumber > listSize) {
-            Ui.showInvalidTaskNumber(listSize);
-            return false;
+            return AlfredResponse.showInvalidTaskNumber(listSize);
         }
-        return true;
+
+        // Return an empty string indicating everything is valid
+        return "";
     }
 
     /**
