@@ -31,12 +31,19 @@ public class MarkCommand implements Command {
             if (i < 0 || i >= taskList.getTasks().size()) {
                 throw new InvalidInputException("Task index out of bounds!");
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch-A-CodingStandard
             taskList.markTask(i);
             ui.showMarkedTaskMessage(taskList.getTask(i));
             storage.write(taskList);
         } catch (NumberFormatException e) {
             throw new InvalidInputException("Task index must be a number!");
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch-A-CodingStandard
     }
 }

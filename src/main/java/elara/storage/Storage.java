@@ -1,11 +1,5 @@
 package elara.storage;
 
-import elara.task.DeadlineTask;
-import elara.task.EventTask;
-import elara.task.Task;
-import elara.task.TaskList;
-import elara.task.ToDoTask;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,11 +8,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+<<<<<<< HEAD
 /**
  * Handles the storage of tasks in a file. Responsible for loading tasks from the file and saving tasks to the file.
  */
+=======
+import elara.task.DeadlineTask;
+import elara.task.EventTask;
+import elara.task.Task;
+import elara.task.TaskList;
+import elara.task.ToDoTask;
+
+>>>>>>> branch-A-CodingStandard
 public class Storage {
-    private final String FILE_PATH;
+    private final String filePath;
 
     /**
      * Constructs a new instance of Storage
@@ -26,7 +29,7 @@ public class Storage {
      * @param filePath The path to the file where tasks are stored.
      */
     public Storage(String filePath) {
-        FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -36,7 +39,7 @@ public class Storage {
      * @return A list of tasks loaded from the file. If the file does not exist, returns an empty list.
      */
     public ArrayList<Task> load() {
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
 
         if (!file.exists()) {
@@ -63,7 +66,7 @@ public class Storage {
      * @param tasks The TaskList object containing tasks to be written to the file.
      */
     public void write(TaskList tasks) {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+        try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks.getTasks()) {
                 writer.write(task.toFileFormat() + System.lineSeparator());
             }

@@ -1,7 +1,10 @@
 package elara.command;
 
-import elara.storage.Storage;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
+import elara.storage.Storage;
 import elara.task.DeadlineException;
 import elara.task.DeadlineTask;
 import elara.task.EventException;
@@ -11,9 +14,9 @@ import elara.task.Task;
 import elara.task.TaskList;
 import elara.task.ToDoException;
 import elara.task.ToDoTask;
-
 import elara.ui.Ui;
 
+<<<<<<< HEAD
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -21,6 +24,8 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents a command that adds a task to the task list that can be executed in the Elara chatbot.
  */
+=======
+>>>>>>> branch-A-CodingStandard
 public class AddCommand implements Command {
     private final String commandType;
     private final String details;

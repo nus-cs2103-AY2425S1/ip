@@ -1,18 +1,23 @@
 package elara.ui;
 
+import java.util.Scanner;
+
 import elara.task.InvalidInputException;
 import elara.task.Task;
 import elara.task.TaskList;
 
+<<<<<<< HEAD
 import java.util.Scanner;
 
 /**
  * Represents the user interface of the Elara chatbot.
  * Handles interactions with the user by displaying messages and reading input.
  */
+=======
+>>>>>>> branch-A-CodingStandard
 public class Ui {
     private static final String LINE = "____________________________________________________________";
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Constructs a new Ui instance and initializes the scanner for reading user input.
