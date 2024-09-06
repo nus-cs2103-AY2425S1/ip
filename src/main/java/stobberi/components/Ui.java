@@ -9,7 +9,9 @@ public class Ui {
     private static final String HELLO_GREETING =
             "Hello! I'm " + NAME_OF_CHATBOT + ".\n"
                     + "What can I do for you?";
-    private static final String GOODBYE_GREETING = "Byeeeeeeeeeeeeeeee! :)\n";
+    private static final String GOODBYE_GREETING = "Byyyyeeeeeeeeeeeeeeee!\n" +
+            "\n" +
+            "Hope to talk to you again! :)";
 
     /**
      * Constructs a new Ui object with an initialized scanner for user input.

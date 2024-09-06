@@ -25,7 +25,11 @@ public class TaskListTest {
         taskList.addTask(task1);
         taskList.addTask(task2);
         taskList.addTask(task3);
-        taskList.markTask(2);
+        try {
+            taskList.markTask(2);
+        } catch (StobberiException e) {
+            System.out.println(e.getMessage());
+        }
 
         assertTrue(task2.getDone());
     }

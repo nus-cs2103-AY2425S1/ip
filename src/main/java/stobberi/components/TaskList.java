@@ -2,6 +2,7 @@ package stobberi.components;
 
 import java.util.ArrayList;
 
+import stobberi.stobberiexception.InvalidNumberStobberiException;
 import stobberi.stobberiexception.StobberiException;
 import stobberi.task.Deadline;
 import stobberi.task.Event;
@@ -25,7 +26,13 @@ public class TaskList {
      *
      * @param number The number of the task to mark as done.
      */
-    public String markTask(int number) {
+    public String markTask(int number) throws StobberiException {
+        if (number > listOfTasks.size()) {
+            throw new InvalidNumberStobberiException("I'm sorry. The number you gave is too big!");
+        }
+        if (number < 1) {
+            throw new InvalidNumberStobberiException("I'm sorry. The number you gave is too small!");
+        }
         listOfTasks.get(number - 1).setDone();
         String done = "Nice! I've marked this task as done:\n"
                 + "  ";
@@ -38,7 +45,13 @@ public class TaskList {
      *
      * @param number The number of the task to mark as not done.
      */
-    public String unmarkTask(int number) {
+    public String unmarkTask(int number) throws StobberiException {
+        if (number > listOfTasks.size()) {
+            throw new InvalidNumberStobberiException("I'm sorry. The number you gave is too big!");
+        }
+        if (number < 1) {
+            throw new InvalidNumberStobberiException("I'm sorry. The number you gave is too small!");
+        }
         listOfTasks.get(number - 1).setNotDone();
         String done = "OK, I've marked this task as not done yet:\n"
                 + "  ";

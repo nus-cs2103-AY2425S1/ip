@@ -1,6 +1,7 @@
 package stobberi.command;
 
 import stobberi.components.TaskList;
+import stobberi.stobberiexception.StobberiException;
 
 /**
  * Represents a command to mark a task as incomplete in a {@link TaskList}.
@@ -31,7 +32,7 @@ public class UnmarkCommand extends Command {
      * Executes the command by marking the specified task as incomplete in the {@link TaskList}.
      */
     @Override
-    public String execute() {
+    public String execute() throws StobberiException {
         return taskList.unmarkTask(taskNumber);
     }
 }
