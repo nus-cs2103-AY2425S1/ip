@@ -1,10 +1,5 @@
 package socchat;
 
-import socchat.task.Task;
-import socchat.task.todo.*;
-import socchat.task.deadline.*;
-import socchat.task.event.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,6 +7,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import socchat.task.Task;
+import socchat.task.deadline.Deadline;
+import socchat.task.event.Event;
+import socchat.task.todo.Todo;
+
 
 /**
  * Handles the loading and saving of tasks from/to a file.
@@ -42,7 +43,7 @@ public class Storage {
         try {
             File file = new File(filePath);
             Scanner s = new Scanner(file);
-            while(s.hasNextLine()) {
+            while (s.hasNextLine()) {
                 String line = s.nextLine();
                 String[] strToken = line.split("\\|");
                 String type = strToken[0].trim();
@@ -58,16 +59,16 @@ public class Storage {
                 } else {
                     isDone = false;
                 }
-                if(type.equals("T")) {
-                    t = new Todo(des,isDone);
+                if (type.equals("T")) {
+                    t = new Todo(des, isDone);
                 } else if (type.equals("E")) {
-                    String date =strToken[3].trim();
+                    String date = strToken[3].trim();
                     String[] dateToken = date.split("to");
                     LocalDateTime from = Parser.parseDate(dateToken[0].trim());
                     LocalDateTime to = Parser.parseDate(dateToken[1].trim());
                     t = new Event(des, from, to, isDone);
                 } else {
-                    String date =strToken[3].trim();
+                    String date = strToken[3].trim();
                     LocalDateTime by = Parser.parseDate(date);
 
                     t = new Deadline(des, by, isDone);
@@ -75,7 +76,7 @@ public class Storage {
                 tasks.add(t);
             }
         } catch (FileNotFoundException e) {
-              throw  new SocchatException("Storage file not found");
+            throw new SocchatException("Storage file not found");
         }
 
         return tasks;
@@ -96,7 +97,7 @@ public class Storage {
         } else {
             content = tasks; // Rewrite the tasks
         }
-        try(FileWriter writer = new FileWriter(filePath, needAppend)) {
+        try (FileWriter writer = new FileWriter(filePath, needAppend)) {
             for (Task t : content) {
                 writer.write(t.toSave());
                 writer.write(System.lineSeparator());

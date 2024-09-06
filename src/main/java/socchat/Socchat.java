@@ -8,15 +8,15 @@ import java.util.Scanner;
  */
 public class Socchat {
 
+    private static Scanner scanner = new Scanner(System.in);
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    private static Scanner scanner = new Scanner(System.in);
 
     /**
      * Enum representing all available commands in the Socchat application.
      */
-    enum Command{
+    enum Command {
         BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, FIND
     }
 
@@ -48,7 +48,7 @@ public class Socchat {
         chatLoop:
         while (true) {
             String[] strToken;
-            try{
+            try {
                 String input = scanner.next();
                 Command command = getCommand(input);
                 System.out.print("> ");
@@ -61,7 +61,7 @@ public class Socchat {
                     break;
                 case MARK:
                     String taskIndexString = scanner.nextLine().trim();
-                    taskList.setMark(taskIndexString,true);
+                    taskList.setMark(taskIndexString, true);
                     break;
                 case UNMARK:
                     taskIndexString = scanner.nextLine().trim();
@@ -89,6 +89,9 @@ public class Socchat {
                 case FIND:
                     str = scanner.nextLine().trim();
                     taskList.find(str);
+                    break;
+                default:
+                    System.out.println("Unrecognized command. Please try again.");
                     break;
                 }
             } catch (SocchatException e) {

@@ -1,10 +1,10 @@
 package socchat.task.event;
 
+import java.time.LocalDateTime;
 
 import socchat.Parser;
 import socchat.task.Task;
 
-import java.time.LocalDateTime;
 
 /**
  * Represents an 'Event' task, which is a type of task that includes a description,
@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
  * to 'Event' tasks.
  */
 public class Event extends Task {
-    private Parser parser = new Parser();
     protected LocalDateTime from;
     protected LocalDateTime to;
+    private Parser parser = new Parser();
 
     /**
      * Constructs a new 'Event' task with the specified description, start time, and end time.
@@ -48,9 +48,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " +
-                parser.dateToString(from) + ", to: " +
-                        parser.dateToString(to) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + parser.dateToString(from) + ", to: "
+                + parser.dateToString(to) + ")";
     }
 
     /**
