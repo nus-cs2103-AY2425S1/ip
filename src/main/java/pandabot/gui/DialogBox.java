@@ -17,7 +17,7 @@ import javafx.scene.layout.HBox;
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
  * and a Label containing text from the speaker. This class handles the layout of
- * dialogs between the user and main.PandaBot, placing text and images appropriately
+ * dialogs between the user and PandaBot, placing text and images appropriately
  * depending on the speaker.
  */
 public class DialogBox extends HBox {
@@ -49,7 +49,7 @@ public class DialogBox extends HBox {
 
     /**
      * Flips the dialog box such that the ImageView is on the left and the text is on the right.
-     * This is used to differentiate between the user and main.PandaBot's messages.
+     * This is used to differentiate between the user and PandaBot's messages.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -70,12 +70,12 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a dialog box for main.PandaBot, with the ImageView on the left and the text on the right.
+     * Creates a dialog box for PandaBot, with the ImageView on the left and the text on the right.
      * This is achieved by flipping the dialog box after creating it.
      *
-     * @param text The text message from main.PandaBot.
-     * @param img  The image representing main.PandaBot.
-     * @return A gui.DialogBox object representing main.PandaBot's dialog.
+     * @param text The text message from PandaBot.
+     * @param img  The image representing PandaBot.
+     * @return A gui.DialogBox object representing PandaBot's dialog.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);

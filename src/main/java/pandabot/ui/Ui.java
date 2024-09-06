@@ -31,7 +31,7 @@ public class Ui {
      */
     public static String showWelcome() {
         return """
-                Hello! I'm main.PandaBot.
+                Hello! I'm PandaBot.
                 What can I do for you?
                 Type 'help' if you are unsure of how to get started!""";
     }
