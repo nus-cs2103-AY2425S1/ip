@@ -1,10 +1,10 @@
-package Commands;
+package kietwoforone.commands;
 
-import Exceptions.KieTwoForOneException;
-import Storage.Storage;
-import Tasks.Task;
-import Tasks.TaskList;
-import UI.UI;
+import kietwoforone.exceptions.KieTwoForOneException;
+import kietwoforone.storage.Storage;
+import kietwoforone.tasks.Task;
+import kietwoforone.tasks.TaskList;
+import kietwoforone.ui.UI;
 
 public class DeleteCommand extends Command {
 

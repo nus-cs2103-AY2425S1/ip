@@ -1,4 +1,4 @@
-package Exceptions;
+package kietwoforone.exceptions;
 
 public class KieTwoForOneException extends Exception {
 

@@ -1,8 +1,8 @@
-package Commands;
+package kietwoforone.commands;
 
-import Tasks.TaskList;
-import UI.UI;
-import Storage.Storage;
+import kietwoforone.tasks.TaskList;
+import kietwoforone.ui.UI;
+import kietwoforone.storage.Storage;
 
 public class ListCommand extends Command {
 

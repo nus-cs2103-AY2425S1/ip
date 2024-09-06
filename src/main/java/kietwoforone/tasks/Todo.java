@@ -1,4 +1,4 @@
-package Tasks;
+package kietwoforone.tasks;
 
 public class Todo extends Task {
 

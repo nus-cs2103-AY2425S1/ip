@@ -1,7 +1,7 @@
-package Storage;
+package kietwoforone.storage;
 
-import Exceptions.KieTwoForOneException;
-import Tasks.Task;
+import kietwoforone.exceptions.KieTwoForOneException;
+import kietwoforone.tasks.Task;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectOutputStream;

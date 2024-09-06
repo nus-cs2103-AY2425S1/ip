@@ -1,10 +1,12 @@
-import Commands.Command;
-import Exceptions.KieTwoForOneException;
-import Parser.Parser;
-import Storage.Storage;
-import Tasks.Task;
-import Tasks.TaskList;
-import UI.UI;
+package kietwoforone;
+
+import kietwoforone.commands.Command;
+import kietwoforone.exceptions.KieTwoForOneException;
+import kietwoforone.parser.Parser;
+import kietwoforone.storage.Storage;
+import kietwoforone.tasks.Task;
+import kietwoforone.tasks.TaskList;
+import kietwoforone.ui.UI;
 
 import java.util.ArrayList;
 

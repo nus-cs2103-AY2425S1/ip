@@ -1,9 +1,9 @@
-package Commands;
+package kietwoforone.commands;
 
-import Exceptions.KieTwoForOneException;
-import Storage.Storage;
-import Tasks.TaskList;
-import UI.UI;
+import kietwoforone.exceptions.KieTwoForOneException;
+import kietwoforone.storage.Storage;
+import kietwoforone.tasks.TaskList;
+import kietwoforone.ui.UI;
 
 public class MarkCommand extends Command {
 

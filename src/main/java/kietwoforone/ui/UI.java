@@ -1,7 +1,7 @@
-package UI;
+package kietwoforone.ui;
 
-import Exceptions.KieTwoForOneException;
-import Tasks.Task;
+import kietwoforone.exceptions.KieTwoForOneException;
+import kietwoforone.tasks.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 

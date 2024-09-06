@@ -1,10 +1,10 @@
-package Parser;
+package kietwoforone.parser;
 
-import Commands.*;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Todo;
-import Exceptions.KieTwoForOneException;
+import kietwoforone.tasks.Deadline;
+import kietwoforone.tasks.Event;
+import kietwoforone.tasks.Todo;
+import kietwoforone.commands.*;
+import kietwoforone.exceptions.KieTwoForOneException;
 import java.time.DateTimeException;
 
 public class Parser {

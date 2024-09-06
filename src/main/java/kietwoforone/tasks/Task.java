@@ -1,6 +1,6 @@
-package Tasks;
+package kietwoforone.tasks;
 
-import Exceptions.KieTwoForOneException;
+import kietwoforone.exceptions.KieTwoForOneException;
 import java.io.Serializable;
 
 public class Task implements Serializable {
