@@ -1,6 +1,7 @@
 package derek.javafx;
 import derek.Derek;
 import derek.Ui;
+import derek.exception.IncorrectCommandException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
@@ -9,6 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.time.format.DateTimeParseException;
+
 /**
  * Controller for the main GUI.
  */
@@ -55,32 +59,47 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = "";
+        try {
+            String input = userInput.getText();
+            String response = "";
 
-        if (isWaitingforUserName) {
-            this.userName = input;
-            response = this.ui.initiateUserInteraction(this.userName);
-            this.isWaitingforUserName = false;
+            if (isWaitingforUserName) {
+                this.userName = input;
+                response = this.ui.initiateUserInteraction(this.userName);
+                this.isWaitingforUserName = false;
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getDerekDialog(response, derekImage)
+                );
+                userInput.clear();
+            } else if (isWaitingforConsent) {
+                response = this.ui.processCommands(input);
+                isWaitingforConsent = false;
+                isWaitingforUserName = true;
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getDerekDialog(response, derekImage)
+                );
+                userInput.clear();
+            } else if (isWaitingforResponse) {
+                response = this.ui.processCommands(input);
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getDerekDialog(response, derekImage)
+                );
+                userInput.clear();
+            }
+        } catch (IncorrectCommandException e) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDerekDialog(response, derekImage)
+                    DialogBox.getUserDialog(userInput.getText(), userImage),
+                    DialogBox.getDerekDialog(e.getMessage(), derekImage)
             );
             userInput.clear();
-        } else if (isWaitingforConsent) {
-            response = this.ui.processCommands(input);
-            isWaitingforConsent = false;
-            isWaitingforUserName = true;
+        } catch (DateTimeParseException e) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDerekDialog(response, derekImage)
-            );
-            userInput.clear();
-        } else if (isWaitingforResponse) {
-            response = this.ui.processCommands(input);
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDerekDialog(response, derekImage)
+                    DialogBox.getUserDialog(userInput.getText(), userImage),
+                    DialogBox.getDerekDialog("Please enter your date in the correct format: " +
+                            "DD/MM/YYYY HH:MM", derekImage)
             );
             userInput.clear();
         }

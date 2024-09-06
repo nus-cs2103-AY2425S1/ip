@@ -1,5 +1,6 @@
 package derek;
 
+import java.time.format.DateTimeParseException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -109,7 +110,7 @@ public class Ui {
     /**
      * Accepts commands from the user and processes them.
      */
-    public String processCommands(String command) {
+    public String processCommands(String command) throws IncorrectCommandException, DateTimeParseException  {
         Parser parser = new Parser(command, this.storage, this);
         return parser.getCommand();
 
