@@ -20,26 +20,26 @@ public class Parser {
                 case("mark"):
                     int position = Integer.parseInt(userInput.split(" ")[1]);
                     taskList.get(position - 1).markDone();
-                    ui.markedDone(taskList.get(position - 1));
+                    ui.markDone(taskList.get(position - 1));
                     storage.save(taskList);
                     break;
                 case("unmark"):
                     int pos = Integer.parseInt(userInput.split(" ")[1]);
                     taskList.get(pos - 1).undo();
-                    ui.markedUndone(taskList.get(pos - 1));
+                    ui.markUndone(taskList.get(pos - 1));
                     storage.save(taskList);
                     break;
                 case("todo"):
                     Task todo = new Todo(description);
                     taskList.addTask(todo);
-                    ui.taskAddedMessage(todo, taskList.size());
+                    ui.printTaskAddedMessage(todo, taskList.size());
                     storage.save(taskList);
                     break;
-                case("Bellroy.deadline"):
+                case("deadline"):
                     String dueDate = input[1].split(" ", 2)[1].trim();
                     Task deadline = new deadline(description, dueDate);
                     taskList.addTask(deadline);
-                    ui.taskAddedMessage(deadline, taskList.size());
+                    ui.printTaskAddedMessage(deadline, taskList.size());
                     storage.save(taskList);
                     break;
                 case("event"):
@@ -47,14 +47,14 @@ public class Parser {
                     String endTime = input[1].split(" /", 2)[1].split(" ", 2)[1].trim();
                     Task event = new Event(description, startTime, endTime);
                     taskList.addTask(event);
-                    ui.taskAddedMessage(event,taskList.size());
+                    ui.printTaskAddedMessage(event,taskList.size());
                     storage.save(taskList);
                     break;
                 case("delete"):
                     int target = Integer.parseInt(userInput.split(" ")[1]);
                     Task temp = taskList.get(target - 1);
                     taskList.removeTask(target - 1);
-                    ui.taskDeleted(temp, taskList.size());
+                    ui.printTaskDeleted(temp, taskList.size());
                     storage.save(taskList);
                     break;
             }

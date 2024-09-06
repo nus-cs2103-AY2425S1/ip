@@ -21,7 +21,7 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void taskAddedMessage(Task task, int size) {
+    public void printTaskAddedMessage(Task task, int size) {
         System.out.printf("    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
                 "     %s\n" +
@@ -37,21 +37,21 @@ public class Ui {
         System.out.println("____________________________________________________________\n");
     }
 
-    public void markedDone(Task task) {
+    public void markDone(Task task) {
         System.out.println("    ____________________________________________________________\n" +
                 "     Nice! I've marked this task as done:\n" +
                 "     " + task.toString() + "\n" +
                 "    ____________________________________________________________\n");
     }
 
-    public void markedUndone(Task task) {
+    public void markUndone(Task task) {
         System.out.println("    ____________________________________________________________\n" +
                 "     OK, I've marked this task as not done yet:\n" +
                 "     " + task.toString() + "\n" +
                 "    ____________________________________________________________\n");
     }
 
-    public void taskDeleted(Task task, int size) {
+    public void printTaskDeleted(Task task, int size) {
         System.out.printf("    ____________________________________________________________\n" +
                 "     Got it. I've removed this task:\n" +
                 "       " + task + "\n" +
