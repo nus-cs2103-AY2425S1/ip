@@ -23,20 +23,22 @@ public class Parser {
      * @param entry
      * @param tasks
      */
-    public void checkEntry(String[] entryParts, String entry, TaskList tasks) {
+    public String checkEntry(String[] entryParts, String entry, TaskList tasks) {
+        String result = "";
         try {
             if (entry.equals("todo") || entry.equals("deadLINE") || entry.equals("event")) {
                 throw new TarsException(LINE + "\n" + "    OOPS! Describe the task/event/deadLINE/todo or list"
                         + "\n" + LINE);
             } else if (entryParts[0].equals("list")) {
-                this.listPrint(tasks);
+                result = this.listPrint(tasks);
             } else {
                 throw new TarsException(LINE + "\n" + "    OOPS! Only accept a task/event/deadLINE/todo as input"
                         + "\n" + LINE);
             }
         } catch (TarsException e) {
-            System.out.println(e.getMessage());
+            result = e.getMessage();
         }
+        return result;
     }
 
     /**
@@ -44,16 +46,19 @@ public class Parser {
      *
      * @param tasks
      */
-    public void listPrint(TaskList tasks) {
+    public String listPrint(TaskList tasks) {
+        String result = "";
+        StringBuilder strBuild = new StringBuilder();
+
         if (tasks.getList().size() == 0) {
-            System.out.println("No tasks added to list. Please add events/deadLINE/todos!");
+            result = "No tasks added to list. Please add3 events/deadLINE/todos!";
         } else {
-            System.out.println(LINE + "\n" + "    Here are the tasks in your list:");
             for (int i = 0; i < tasks.getList().size(); i++) {
-                System.out.println("    " + (i + 1) + ". " + tasks.getList().get(i));
+                strBuild.append("    " + (i + 1) + ". " + tasks.getList().get(i) + "\n");
             }
-            System.out.println(LINE);
+            result = LINE + "\n" + "    Here are the tasks in your list:" + strBuild.toString() + "\n" + LINE;
         }
+        return result;
     }
 
     /**
@@ -63,27 +68,28 @@ public class Parser {
      * @param entryParts
      * @param tasks
      */
-    public void findTask(String[] entryParts, TaskList tasks) {
+    public String findTask(String[] entryParts, TaskList tasks) {
+        String result = "";
+        StringBuilder strBuild = new StringBuilder();
         ArrayList<Task> resultList = new ArrayList<>();
         String taskPrefix = entryParts[1];
 
         for (int i = 0; i < tasks.getList().size(); i++) {
             String[] j = tasks.getList().get(i).toString().split(" ");
-            System.out.println(j[3]);
 
             for (int k = 3; k < j.length; k++) {
                 if (j[k].equals(taskPrefix)) {
-                    System.out.println(taskPrefix);
-                    System.out.println(j[k]);
                     resultList.add(tasks.getList().get(i));
                 }
             }
         }
 
-        System.out.println(LINE + "\n" + "    Here are the matching tasks in your list");
         for (int i = 0; i < resultList.size(); i++) {
-            System.out.println("    " + (i + 1) + ". " + resultList.get(i));
+            strBuild.append("    " + (i + 1) + ". " + resultList.get(i) + "\n");
         }
-        System.out.println(LINE);
+        result = (LINE + "\n" + "    Here are the matching tasks in your list" + "\n" + strBuild.toString() + "\n"
+                + LINE);
+
+        return result;
     }
 }

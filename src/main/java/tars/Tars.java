@@ -41,7 +41,7 @@ public class Tars {
      *
      * @throws IOException
      */
-    public void run() throws IOException {
+    /*public void run() throws IOException {
         ui.welcome();
         Scanner scanner = new Scanner(System.in); //initalising input scanner
 
@@ -64,6 +64,27 @@ public class Tars {
 
         Storage.writeFile("./data/Tars.txt", taskList.getList());
         ui.bye();
+    }*/
+
+    public String getResponse(String entry) throws IOException {
+        String[] entryParts = entry.split(" ");
+        String result = "";
+
+        if (entryParts.length < 2) {
+            if (entry.equals("bye")) {
+                result = ui.bye();
+            } else {
+                result = parserHelp.checkEntry(entryParts, entry, taskList);
+            }
+        } else if (entryParts[0].equals("find")) {
+            result = parserHelp.findTask(entryParts, taskList);
+        } else {
+            result = taskList.addTask(entryParts, entry);
+        }
+
+        Storage.writeFile("./data/Tars.txt", taskList.getList());
+
+        return result;
     }
 
     /**
@@ -71,7 +92,8 @@ public class Tars {
     *
     * @param args
     */
-    public static void main(String[] args) throws IOException {
+
+    /*public static void main(String[] args) throws IOException {
         new Tars("./data/Tars.txt").run();
-    }
+    }*/
 }

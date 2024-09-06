@@ -33,42 +33,40 @@ public class TaskList {
      * @param task
      * @param entry
      */
-    public void addTask(String[] task, String entry) {
+    public String addTask(String[] task, String entry) {
+        String result = "";
         if (task[0].equals("mark")) {
             Integer index = Integer.parseInt(task[task.length - 1]); //convert string format of number to Integer
             taskList.get(index - 1).mark(); //marking TASK as done
 
-            System.out.println(LINE);
-            System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("        " + taskList.get(index - 1) + "\n" + LINE);
+            result = LINE + "\n" + "    Nice! I've marked this task as done:" + taskList.get(index - 1) + "\n" + LINE;
         } else if (task[0].equals("unmark")) {
             Integer index = Integer.parseInt(task[task.length - 1]); //convert str format of number to Integer
             taskList.get(index - 1).unmark(); //unmarking TASK as not done
 
-            System.out.println(LINE);
-            System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("        " + taskList.get(index - 1) + "\n" + LINE);
+            result = LINE + "    OK, I've marked this task as not done yet:" + taskList.get(index - 1) + "\n" + LINE;
         } else if (task[0].equals("todo")) {
-            this.addToDos(task, entry);
+            result = this.addToDos(task, entry);
         } else if (task[0].equals("deadLINE")) {
-            this.addDeadline(task, entry);
+            result = this.addDeadline(task, entry);
         } else if (task[0].equals("event")) {
-            this.addEvent(task, entry);
+            result = this.addEvent(task, entry);
         } else if (task[0].equals("delete")) {
             Integer index = Integer.parseInt(task[task.length - 1]);
             Task temp = taskList.get(index - 1);
             taskList.remove(taskList.get(index - 1));
 
-            System.out.println(LINE);
-            System.out.println("    Noted. I've removed this task:");
-            System.out.println("        " + temp);
-            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE);
+            result = LINE + "    Noted. I've removed this task:" + temp + "    Now you have "
+                    + taskList.size() + " tasks in the list" + "\n" + LINE;
+
         } else {
             Task t = new Task(entry);
             taskList.add(t);
 
-            System.out.println(LINE + "\n" + "    added: " + entry + "\n" + LINE);
+            result = LINE + "\n" + "    added: " + entry + "\n" + LINE;
         }
+
+        return result;
     }
 
     /**
@@ -77,7 +75,8 @@ public class TaskList {
      * @param task
      * @param entry
      */
-    public void addToDos(String[] task, String entry) {
+    public String addToDos(String[] task, String entry) {
+        String result = "";
         StringBuilder strBuild = new StringBuilder();
 
         for (int i = 1; i < task.length; i++) {
@@ -87,11 +86,10 @@ public class TaskList {
         ToDos todo = new ToDos(strBuild.toString().trim());
         taskList.add(todo);
 
-        System.out.println(LINE);
-        System.out.println("    Got it. I've added this task:");
-        System.out.println("        " + todo);
-        System.out.println("    Now you have " + taskList.size() + " tasks in the list");
-        System.out.println(LINE);
+        result = LINE + "    Got it. I've added this task:" + todo + "    Now you have "
+                            + taskList.size() + " tasks in the list" + LINE;
+
+        return result;
     }
 
     /**
@@ -100,10 +98,12 @@ public class TaskList {
      *
      * @param task
      * @param entry
+     * @return string representation of task
      */
-    public void addDeadline(String[] task, String entry) {
+    public String addDeadline(String[] task, String entry) {
         StringBuilder strBuild = new StringBuilder();
         StringBuilder dateStr = new StringBuilder();
+        String result = "";
 
         int next = 2; //index to check for "/by" keyword
         for (int i = 1; i < task.length; i++) {
@@ -126,14 +126,19 @@ public class TaskList {
 
             taskList.add(deadlineTask);
 
-            System.out.println(LINE);
+            result = LINE + "    Got it. I've added this task:" + deadlineTask + "    Now you have "
+                    + taskList.size() + " tasks in the list" + "\n" + LINE;
+
+            /*System.out.println(LINE);
             System.out.println("    Got it. I've added this task:");
             System.out.println("        " + deadlineTask);
-            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE);
+            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE);*/
         } else {
-            System.out.println(LINE + "\n" + "  Please state date and time of deadLINE"
-                    + "\n" + "in YYYY-dd-MM HH:mm format" + "\n" + LINE);
+            result = LINE + "\n" + "  Please state date and time of deadLINE"
+                    + "\n" + "in YYYY-dd-MM HH:mm format" + "\n" + LINE;
         }
+
+        return result;
     }
 
     /**
@@ -143,10 +148,11 @@ public class TaskList {
      * @param task
      * @param entry
      */
-    public void addEvent(String[] task, String entry) {
+    public String addEvent(String[] task, String entry) {
         StringBuilder strBuild = new StringBuilder();
         StringBuilder toStr = new StringBuilder();
         StringBuilder fromStr = new StringBuilder();
+        String result = " ";
 
         int next = 2;
         int toNext = 3;
@@ -176,13 +182,18 @@ public class TaskList {
             Event eventTask = new Event(strBuild.toString(), dateTime, toTime);
             taskList.add(eventTask);
 
-            System.out.println(LINE);
+            result = LINE + "    Got it. I've added this task:" + eventTask
+                    + "    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE;
+
+            /*System.out.println(LINE);
             System.out.println("    Got it. I've added this task:");
             System.out.println("        " + eventTask);
-            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE);
+            System.out.println("    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE);*/
         } else {
-            System.out.println(LINE + "\n" + "  Please state date and time of from and to of event"
-                    + "in YYYY-dd-MM HH:mm format" + "\n" + LINE);
+            result = LINE + "\n" + "  Please state date and time of from and to of event"
+                    + "in YYYY-dd-MM HH:mm format" + "\n" + LINE;
         }
+
+        return result;
     }
 }
