@@ -5,7 +5,7 @@ package wiggly.commands;
  */
 public class InvalidCommand extends Command {
 
-	public InvalidCommand() {
+    public InvalidCommand() {
 
-	}
+    }
 }
