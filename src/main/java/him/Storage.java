@@ -24,16 +24,11 @@ public class Storage {
     /**
      * Initialises the storage.
      */
-    public void initStorage() {
-        try {
-            File path = new File(DIRECTORY_PATH);
-            path.mkdir();
-            File file = new File(FILE_PATH);
-            file.createNewFile();
-        } catch (IOException e) {
-            System.out.println("Error initializing storage");
-            System.exit(0);
-        }
+    public void initStorage() throws IOException {
+        File path = new File(DIRECTORY_PATH);
+        path.mkdir();
+        File file = new File(FILE_PATH);
+        file.createNewFile();
     }
 
     /**

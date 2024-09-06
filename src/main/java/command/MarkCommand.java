@@ -23,12 +23,12 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list) {
+    public String execute(TaskList list) {
         try {
             list.complete(this.index);
-            him.Ui.sayCompleted(list.taskAt(this.index));
+            return him.Ui.sayCompleted(list.taskAt(this.index));
         } catch (AlreadyCompletedException | TaskDoesNotExistException e) {
-            him.Ui.say(e.getMessage());
+            return him.Ui.say(e.getMessage());
         }
     }
 }

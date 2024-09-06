@@ -21,7 +21,7 @@ public class UnknownCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list) {
-        him.Ui.sayInvalidCommand(command);
+    public String execute(TaskList list) {
+        return him.Ui.sayInvalidCommand(command);
     }
 }

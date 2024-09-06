@@ -11,113 +11,123 @@ import task.TaskList;
 public class Ui {
 
     /**
-     * Prints a message as if Him is saying it.
+     * Returns a message as if Him is saying it.
      *
      * @param message Message string to be said.
+     * @return Formatted message.
      */
-    public static void say(String message) {
-        System.out.println("\nHim: " + message + "\n");
+    public static String say(String message) {
+        return say(message.split("\n"));
     }
 
     /**
-     * Prints a multi-line message as if Him is saying it.
+     * Returns a multi-line message as if Him is saying it.
      *
      * @param message String array where each element is printed on a new line.
+     * @return Formatted message.
      */
-    public static void say(String[] message) {
-        System.out.println("\nHim: " + message[0]);
+    public static String say(String[] message) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Him: ").append(message[0]).append("\n");
         for (int i = 1; i < message.length; i++) {
-            System.out.print("     " + message[i] + "\n");
+            sb.append("        ").append(message[i]).append("\n");
         }
-        System.out.print("\n");
+        return sb.toString();
     }
 
     /**
-     * Prints "User: ".
+     * Returns greeting for when Him is first booted up.
+     *
+     * @return Greeting.
      */
-    public static void printUser() {
-        System.out.print("User: ");
+    public static String greet() {
+        return say(new String[]{"Hello! I'm Him", "What can I do for you?"});
     }
 
     /**
-     * Prints greeting for when Him is first booted up.
+     * Returns exit message for when Him is being exited.
+     *
+     * @return Exit message.
      */
-    public static void greet() {
-        say(new String[]{"Hello! I'm Him", "What can I do for you?"});
+    public static String exit() {
+        return say("WAIT NO! DON'T LEAVE ME ALON-");
     }
 
     /**
-     * Prints exit message for when Him is being exited.
-     */
-    public static void exit() {
-        say("WAIT NO! DON'T LEAVE ME ALON-");
-    }
-
-    /**
-     * Prints completion message for a specified task.
+     * Returns completion message for a specified task.
      *
      * @param task Task which has been completed.
+     * @return Completion message.
      */
-    public static void sayCompleted(String task) {
-        say("LET'S GOOOOO! " + task.toString() + " has been completed!");
+    public static String sayCompleted(String task) {
+        return say("LET'S GOOOOO! " + task.toString() + " has been completed!");
     }
 
     /**
-     * Prints deletion message for a specified task.
+     * Returns deletion message for a specified task.
      *
      * @param task Task which has been deleted.
+     * @return Deletion message.
      */
-    public static void sayDeleted(String task) {
-        say("Got it. \"" + task + "\" has been snapped from existence");
+    public static String sayDeleted(String task) {
+        return say("Got it. \"" + task + "\" has been snapped from existence");
     }
 
     /**
-     * Prints message for when tasks have failed to load from disk.
-     */
-    public static void showLoadingFailure() {
-        System.out.println("Failed to load tasks make sure tasks file is not corrupted");
-    }
-
-    /**
-     * Prints empty list message.
-     */
-    public static void sayEmptyList() {
-        say("How about you add some tasks first");
-    }
-
-    /**
-     * Prints specified list.
+     * Returns message for when tasks have failed to load from disk.
      *
-     * @param list List to be printed.
+     * @return Failed to load message.
      */
-    public static void sayList(TaskList list) {
-        say("Sure! Here's your list!");
-        System.out.println(list.toString());
+    public static String sayLoadingFailure() {
+        return say("Failed to load tasks make sure tasks file is not corrupted");
     }
 
     /**
-     * Prints added message for specified task.
+     * Returns empty list message.
+     *
+     * @return Empty list message.
+     */
+    public static String sayEmptyList() {
+        return say("How about you add some tasks first");
+    }
+
+    /**
+     * Returns specified list formatted as a message.
+     *
+     * @param list List to be returned.
+     * @return Formatted list.
+     */
+    public static String sayList(TaskList list) {
+        return say("Sure! Here's your list!\n" + list.toString());
+    }
+
+    /**
+     * Returns added message for specified task.
      *
      * @param task Task which has been added.
+     * @return Added message.
      */
-    public static void sayAdded(Task task) {
-        say("added \"" + task + "\" to list");
+    public static String sayAdded(Task task) {
+        return say("added \"" + task + "\" to list");
     }
 
     /**
-     * Prints invalid command message.
+     * Returns invalid command message.
      *
      * @param command Invalid command string received.
+     * @return Invalid command message.
      */
-    public static void sayInvalidCommand(String command) {
-        say(command + "? What are you saying????");
+    public static String sayInvalidCommand(String command) {
+        return say(command + "? What are you saying????");
     }
 
     /**
-     * Prints message for when tasks have failed to save to disk.
+     * Returns message for when tasks have failed to save to disk.
+     *
+     * @returns Failed save failure message.
      */
-    public static void showSaveFailure() {
-        System.out.println("Tasks could not be saved! Please check tasks file");
+    public static String showSaveFailure() {
+        return say("Tasks could not be saved! Please check tasks file");
     }
 
 }

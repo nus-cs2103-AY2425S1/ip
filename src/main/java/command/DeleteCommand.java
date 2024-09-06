@@ -23,12 +23,12 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list) {
+    public String execute(TaskList list) {
         try {
             String task = list.delete(index);
-            him.Ui.sayDeleted(task);
+            return him.Ui.sayDeleted(task);
         } catch (TaskDoesNotExistException e) {
-            him.Ui.say(e.getMessage());
+            return him.Ui.say(e.getMessage());
         }
     }
 }

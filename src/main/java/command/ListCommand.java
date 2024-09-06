@@ -3,18 +3,18 @@ package command;
 import task.TaskList;
 
 /**
- * Command which prints the task list when executed.
+ * Command which returns the task list when executed.
  *
  * @author IsaacPangTH
  */
 public class ListCommand extends Command {
 
     @Override
-    public void execute(TaskList list) {
+    public String execute(TaskList list) {
         if (list.isEmpty()) {
-            him.Ui.sayEmptyList();
+            return him.Ui.sayEmptyList();
         } else {
-            him.Ui.sayList(list);
+            return him.Ui.sayList(list);
         }
     }
 }

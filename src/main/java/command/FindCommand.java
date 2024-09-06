@@ -3,7 +3,7 @@ package command;
 import task.TaskList;
 
 /**
- * Command that prints out list of tasks containing a certain keyword when executed.
+ * Command that returns list of tasks containing a certain keyword when executed.
  */
 public class FindCommand extends Command {
 
@@ -19,8 +19,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list) {
-        him.Ui.say(list.find(keyword));
+    public String execute(TaskList list) {
+        return him.Ui.say(list.find(keyword));
     }
 
 }

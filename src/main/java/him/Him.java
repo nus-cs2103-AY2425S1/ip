@@ -6,7 +6,6 @@ import task.TaskList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Entry point for Him chatbot.
@@ -15,40 +14,32 @@ import java.util.Scanner;
  */
 public class Him {
 
-    private static TaskList list = new TaskList();
-    private static final Storage storage = new Storage();
+    private TaskList list = new TaskList();
+    private final Storage storage = new Storage();
 
-    public static void main(String[] args) {
+    public String getResponse(String input) {
         try {
             list = storage.loadTaskList();
         } catch (FileNotFoundException e) {
-            storage.initStorage();
+            try {
+                storage.initStorage();
+            } catch (IOException ex) {
+                return him.Ui.say("Error initializing storage");
+            }
         } catch (HimException e) {
-            him.Ui.showLoadingFailure();
-            System.exit(0);
+            return him.Ui.sayLoadingFailure();
         }
-        Scanner sc = new Scanner(System.in);
-        him.Ui.greet();
-        him.Ui.printUser();
-        String userInput = sc.nextLine();
 
-        while (!userInput.equals("bye")) {
-            try {
-                Command c = Parser.parseUserInput(userInput);
-                c.execute(list);
-            } catch (HimException e) {
-                him.Ui.say(e.getMessage().split("\n"));
-            }
-
-            try {
-                storage.saveTaskList(list);
-            } catch (IOException e) {
-                him.Ui.showSaveFailure();
-            }
-            him.Ui.printUser();
-            userInput = sc.nextLine();
+        try {
+            Command c = Parser.parseUserInput(input);
+            String message = c.execute(list);
+            storage.saveTaskList(list);
+            return message;
+        } catch (IOException e) {
+            return him.Ui.showSaveFailure();
+        } catch (HimException e) {
+            return him.Ui.say(e.getMessage().split("\n"));
         }
-        sc.close();
-        him.Ui.exit();
+
     }
 }
