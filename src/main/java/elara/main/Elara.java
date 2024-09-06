@@ -10,7 +10,7 @@ import elara.ui.Ui;
 
 /**
  * The main class for the Elara chatbot application.
- * This class manages the overall programe flow, handling user input,
+ * This class manages the overall program flow, handling user input,
  * executing commands, and interacting with the task list and storage.
  */
 public class Elara {
@@ -53,7 +53,7 @@ public class Elara {
 
     /**
      * The main method that starts the Elara chatbot program.
-     * Initializes the chatbot wiht the given file path to store tasks.
+     * Initializes the chatbot with the given file path to store tasks.
      *
      * @param args Command-line arguments (not used in this program).
      */

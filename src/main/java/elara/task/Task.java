@@ -61,15 +61,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns whether the task is completed.
-     *
-     * @return true if the task is completed, false otherwise.
-     */
-    public boolean isDone() {
-        return isDone;
-    }
-
-    /**
      * Returns the string format of the task to be saved in a file.
      * This method must be implemented by subclasses to provide the correct file format for different task types.
      *

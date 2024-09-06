@@ -87,23 +87,23 @@ public class Storage {
         DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; // yyyy-MM-dd'T'HH:mm format
 
         return switch (taskType) {
-            case "T" -> new ToDoTask(description, isDone);
-            case "D" -> {
-                if (taskDetails.length == 4) {
-                    LocalDateTime deadline = LocalDateTime.parse(taskDetails[3].trim(), isoFormatter);
-                    yield new DeadlineTask(description, deadline, isDone);
-                }
-                throw new IllegalArgumentException("Invalid deadline task format");
+        case "T" -> new ToDoTask(description, isDone);
+        case "D" -> {
+            if (taskDetails.length == 4) {
+                LocalDateTime deadline = LocalDateTime.parse(taskDetails[3].trim(), isoFormatter);
+                yield new DeadlineTask(description, deadline, isDone);
             }
-            case "E" -> {
-                if (taskDetails.length == 5) {
-                    LocalDateTime startTime = LocalDateTime.parse(taskDetails[3].trim(), isoFormatter);
-                    LocalDateTime endTime = LocalDateTime.parse(taskDetails[4].trim(), isoFormatter);
-                    yield new EventTask(description, startTime, endTime, isDone);
-                }
-                throw new IllegalArgumentException("Invalid event task format");
+            throw new IllegalArgumentException("Invalid deadline task format");
+        }
+        case "E" -> {
+            if (taskDetails.length == 5) {
+                LocalDateTime startTime = LocalDateTime.parse(taskDetails[3].trim(), isoFormatter);
+                LocalDateTime endTime = LocalDateTime.parse(taskDetails[4].trim(), isoFormatter);
+                yield new EventTask(description, startTime, endTime, isDone);
             }
-            default -> throw new IllegalArgumentException("Invalid task type");
+            throw new IllegalArgumentException("Invalid event task format");
+        }
+        default -> throw new IllegalArgumentException("Invalid task type");
         };
     }
 }
