@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 /**
  * Represents the main class of the program.
+ * Friday is a chatbot that helps you manage your tasks.
  */
 public class Friday {
     private Storage storage;
@@ -12,6 +13,10 @@ public class Friday {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructor for Friday class.
+     * @param filePathString The file path to store the tasks.
+     */
     public Friday(String filePathString) {
         ui = new Ui();
         storage = new Storage(filePathString);
@@ -29,6 +34,7 @@ public class Friday {
      */
     public void run() {
         ui.displayWelcome();
+        @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();

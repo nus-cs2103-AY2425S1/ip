@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /*
  * Represents the user interface of the program.
+ * Ui deals with interactions with the user.
  */
 public class Ui {
     private static final String LINE = "_________________________________________";
