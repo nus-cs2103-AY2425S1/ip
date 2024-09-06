@@ -8,26 +8,19 @@ import bmo.task.Task;
  * Represents the user interface of BMO.
  */
 public class Ui {
-    public static void printLine() {
-        System.out.println("____________________________________________________________\n");
-    }
 
     /**
      * Prints the welcome message when the program starts.
      */
-    public void printWelcome() {
-        printLine();
-        System.out.println("Hello! I'm BMO!\nWhat can I do for you?\n");
-        printLine();
+    public String printWelcome() {
+        return  "Hello! I'm BMO!\nWhat can I do for you?\n";
     }
 
     /**
      * Prints the goodbye message when the program ends.
      */
-    public void printGoodbye() {
-        printLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
+    public String printGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -36,12 +29,9 @@ public class Ui {
      * @param task the task that was added
      * @param taskCount the number of tasks in the list
      */
-    public void printTaskAdded(Task task, int taskCount) {
-        printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        printLine();
+    public String printTaskAdded(Task task, int taskCount) {
+        return "Got it. I've added this task:\n" + task + "\nNow you have " + taskCount
+            + " tasks in the list.";
     }
 
     /**
@@ -50,12 +40,9 @@ public class Ui {
      * @param task the task that was removed
      * @param taskCount the number of tasks in the list
      */
-    public void printTaskRemoved(Task task, int taskCount) {
-        printLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-        printLine();
+    public String printTaskRemoved(Task task, int taskCount) {
+        return "Noted. I've removed this task:\n" + task + "\nNow you have " + taskCount
+            + " tasks in the list.";
     }
 
     /**
@@ -63,11 +50,8 @@ public class Ui {
      *
      * @param task the task that was marked as done
      */
-    public void printTaskMarked(Task task) {
-        printLine();
-        System.out.println("OK, I've marked this task as done:");
-        System.out.println("  " + task);
-        printLine();
+    public String printTaskMarked(Task task) {
+        return "OK, I've marked this task as done:\n" + task;
     }
 
     /**
@@ -75,11 +59,8 @@ public class Ui {
      *
      * @param task the task that was unmarked
      */
-    public void printTaskUnmarked(Task task) {
-        printLine();
-        System.out.println("Nice! I've unmarked this task:");
-        System.out.println("  " + task);
-        printLine();
+    public String printTaskUnmarked(Task task) {
+        return "Nice! I've unmarked this task:\n" + task;
     }
 
     /**
@@ -87,13 +68,12 @@ public class Ui {
      *
      * @param tasks the list of tasks
      */
-    public void printList(ArrayList<Task> tasks) {
-        printLine();
-        System.out.println("Here are the tasks in your list:");
+    public String printList(ArrayList<Task> tasks) {
+        String str = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            str += (i + 1) + ". " + tasks.get(i) + "\n";
         }
-        printLine();
+        return str;
     }
 
     /**
@@ -101,12 +81,11 @@ public class Ui {
      *
      * @param tasks the task that was found
      */
-    public void printMatchingTasks(TaskList tasks) {
-        printLine();
-        System.out.println("Here are the matching tasks in your list:");
+    public String printMatchingTasks(TaskList tasks) {
+        String str = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println((i + 1) + ". " + tasks.getTask(i));
+            str += (i + 1) + ". " + tasks.getTask(i) + "\n";
         }
-        printLine();
+        return str;
     }
 }

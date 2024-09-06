@@ -46,7 +46,7 @@ public class Storage {
      */
     public void updateStorageFile(TaskList tasks) throws IOException {
         this.writer.close();
-        FileWriter writer = new FileWriter("ip/data/BMO.txt");
+        FileWriter writer = new FileWriter("data/BMO.txt");
         this.writer = writer;
         for (Task task : tasks.getTasks()) {
             this.writer.write(task.getSavedFormat());

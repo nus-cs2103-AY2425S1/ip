@@ -1,6 +1,9 @@
 package bmo;
 
-import java.util.Scanner;
+import java.io.IOException;
+
+import bmo.gui.Launcher;
+import bmo.gui.Main;
 
 import bmo.task.Task;
 
@@ -9,7 +12,7 @@ import bmo.task.Task;
  */
 public class Bmo {
 
-    private static String filePath = "ip/data/BMO.txt";
+    private static String filePath = "data/BMO.txt";
     private Storage storage;
     private Ui ui;
     private Parser parser;
@@ -39,22 +42,17 @@ public class Bmo {
      * @throws IOException if unable to read or write to file
      * @throws BmoException if the user input is invalid
      */
-    public void run() throws Exception {
+    public String run(String userInput) throws Exception {
         storage.readStorageFile(taskList, filePath);
-        ui.printWelcome();
-        Scanner sc = new Scanner(System.in);
 
-        loop:
         while (true) {
-            String userInput = sc.nextLine();
             String[] input = parser.parse(userInput);
 
             //Switch statement to handle different commands
             switch (input[0]) {
             //Lists all the tasks in the list
             case "list":
-                ui.printList(taskList.getTasks());
-                break;
+                return ui.printList(taskList.getTasks());
 
             //Marks a task as completed
             case "mark":
@@ -66,8 +64,7 @@ public class Bmo {
                 }
                 taskList.markTask(index);
                 storage.updateStorageFile(taskList);
-                ui.printTaskMarked(taskList.getTask(index));
-                break;
+                return ui.printTaskMarked(taskList.getTask(index));
 
             //Unmarks a completed task as incomplete
             case "unmark":
@@ -79,30 +76,26 @@ public class Bmo {
                 }
                 taskList.unmarkTask(index2);
                 storage.updateStorageFile(taskList);
-                ui.printTaskUnmarked(taskList.getTask(index2));
-                break;
+                return ui.printTaskUnmarked(taskList.getTask(index2));
 
             //Adds a todo task (no deadline) to the list
             case "todo":
                 taskList.addTodo(input[1]);
                 storage.saveTask(taskList.getTask(taskList.getSize() - 1));
-                ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
-                break;
+                return ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
 
             //Adds a deadline task (with deadline) to the list
             case "deadline":
                 taskList.addDeadline(input[1], input[2]);
                 storage.saveTask(taskList.getTask(taskList.getSize() - 1));
-                ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
-                break;
+                return ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
 
             //Adds an event task (with start and end timings) to the list
             case "event":
                 //Splits the description into task description and event timings
                 taskList.addEvent(input[1], input[2], input[3]);
                 storage.saveTask(taskList.getTask(taskList.getSize() - 1));
-                ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
-                break;
+                return ui.printTaskAdded(taskList.getTask(taskList.getSize() - 1), taskList.getSize());
 
             //Deletes a task from the list
             case "delete":
@@ -115,20 +108,17 @@ public class Bmo {
                 Task taskToDelete = taskList.getTask(index3);
                 taskList.deleteTask(index3);
                 storage.updateStorageFile(taskList);
-                ui.printTaskRemoved(taskToDelete, taskList.getSize());
-                break;
+                return ui.printTaskRemoved(taskToDelete, taskList.getSize());
 
             //Finds tasks with descriptions containing the keyword
             case "find":
                 TaskList matchingTasks = taskList.findMatchingTasks(input[1]);
-                ui.printMatchingTasks(matchingTasks);
-                break;
+                return ui.printMatchingTasks(matchingTasks);
 
             case "bye":
-                ui.printGoodbye();
-                sc.close();
+                storage.updateStorageFile(taskList);
                 storage.closeWriter();
-                break loop;
+                return ui.printGoodbye();
             //Catches unknown commands
             default:
                 throw new BmoException("\nOh no! I do not recognise that command, please try again!");
@@ -136,9 +126,21 @@ public class Bmo {
         }
     }
 
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            return run(input);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
     public static void main(String[] args) {
         try {
-            new Bmo(filePath).run();
+            Main.setBmo(new Bmo(filePath)); // Set the BMO instance
+            Launcher.main(args); // Launch the Bmo Chatbot GUI
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
