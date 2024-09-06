@@ -1,6 +1,10 @@
 package zaibot.utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import zaibot.command.Command;
 import zaibot.command.ExitCommand;
@@ -56,27 +60,49 @@ public class Parser {
         case "deadline":
             // fallthrough
         case "event":
-            String optionString = command.substring(command.indexOf(' '));
-            String[] options = optionString.split(" /");
-
-            if (optionString.isEmpty() || options[0].isEmpty()) {
-                throw new ZaibotException("Name cannot be empty.");
-            }
-
-            arguments.put("name", options[0].trim());
-
-            for (int i = 1; i < options.length; i++) {
-                String option = options[i];
-                String optionName = option.substring(0, option.indexOf(' ')).trim();
-                String optionValue = option.substring(option.indexOf(' ')).trim();
-                if (optionValue.isEmpty()) {
-                    throw new ZaibotException(String.format("Option %s cannot be empty.", optionName));
-                }
-                arguments.put(optionName, optionValue);
-            }
+            arguments = getOptionSet(command);
             return new TaskAdditionCommand(commandName, arguments);
         default:
             throw new ZaibotException("Unknown command.");
         }
+    }
+
+    private static List<String> splitOptionString(String option) {
+        String optionName = option.substring(0, option.indexOf(' ')).trim();
+        String optionValue = option.substring(option.indexOf(' ')).trim();
+        System.out.println(Arrays.asList(optionName, optionValue));
+        return Arrays.asList(optionName, optionValue);
+    }
+
+    private static HashMap<String, String> getOptionSet(String command) throws ZaibotException {
+        HashMap<String, String> arguments = new HashMap<>();
+        String optionString = command.substring(command.indexOf(' '));
+
+        String[] options = optionString.split(" /");
+        int length = options.length;
+
+        options = Arrays.stream(options)
+                .map(String::trim)
+                .collect(Collectors.toCollection(ArrayList::new))
+                .toArray(new String[length]);
+
+        if (optionString.isEmpty() || options[0].isEmpty()) {
+            throw new ZaibotException("Name cannot be empty.");
+        }
+
+        arguments.put("name", options[0]);
+
+        // Filter out all options with empty values, and adds them to optionSet
+        Arrays.stream(options)
+                .skip(1)
+                .map(Parser::splitOptionString)
+                .filter(o -> !(o.get(1).isBlank()))
+                .forEach(o -> arguments.put(o.get(0), o.get(1)));
+
+        /* Checks if filtered option set is the same size as non-filtered */
+        if (arguments.size() != length) {
+            throw new ZaibotException("Options cannot be empty");
+        }
+        return arguments;
     }
 }
