@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private Tuesday tuesday;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image tuesdayImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Tuesday d) {
+    public void setTuesday(Tuesday d) {
         tuesday = d;
     }
 
@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
         String commandType = tuesday.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage, commandType)
+                DialogBox.getTuesdayDialog(response, tuesdayImage, commandType)
         );
         userInput.clear();
     }

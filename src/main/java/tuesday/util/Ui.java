@@ -1,6 +1,7 @@
 package tuesday.util;
 
 import java.util.Scanner;
+import java.lang.StringBuilder;
 
 import tuesday.task.Task;
 
@@ -13,30 +14,31 @@ public class Ui {
     }
 
     /**
-     *  Prints an error message when there is no data file
+     *  Returns an error message when there is no data file
      */
-    public void showLoadingError() {
-        this.showLine();
-        System.out.println("    Hey there! It does not seem like you have a datafile. I will make one for you :D");
-        this.showLine();
+    public String showLoadingError() {
+        return this.showLine()
+                + "    Hey there! It does not seem like you have a datafile. I will make one for you :D\n"
+                + this.showLine();
     }
 
     /**
-     *  Prints a welcome message
+     *  Returns a welcome message
      */
-    public void showWelcome() {
-        this.showLine();
-        System.out.println("    Hello! I'm Tuesday, a randomly created bot.\n    What can I do for you?");
-        this.showLine();
+    public String showWelcome() {
+        return this.showLine()
+                + "    Hello! I'm Tuesday, a randomly created bot."
+                + "\n    You may type 'help' to show what functions are available\n"
+                + this.showLine();
     }
 
     /**
-     *  Prints a goodbye message
+     *  Returns a goodbye message
      */
-    public void showBye() {
-        this.showLine();
-        System.out.println("    Bye bye. Hope to see you again soon!");
-        this.showLine();
+    public String showBye() {
+        return this.showLine()
+                + "    Bye bye. Hope to see you again soon!\n"
+                + this.showLine();
     }
 
     /**
@@ -48,45 +50,54 @@ public class Ui {
     }
 
     /**
-     *  Reads the lines typed out & returns the command
+     *  Returns the current task added
      */
-    public void showTaskCount() {
-        this.showLine();
-        System.out.println("    Got it. I've added this task:\n     "
+    public String showTaskCount() {
+        return this.showLine()
+                + "    Got it. I've added this task:\n     "
                 + Task.getTaskArrayList().get(Task.getCount() - 1).toString()
-                + "\n    Now you have " + Task.getCount() + " task(s) in the list.");
-        this.showLine();
+                + "\n    Now you have " + Task.getCount() + " task(s) in the list.\n"
+                + this.showLine();
     }
 
     /**
-     *  Prints the current list of tasks
+     *  Returns the current list of tasks
      */
-    public void showList() {
-        this.showLine();
+    public String showList() {
+        StringBuilder msg = new StringBuilder();
+
         if (Task.getCount() == 0) {
-            System.out.println("    You have no task in your list");
+            msg.append("    You have no task in your list\n");
         } else {
-            System.out.println("    Here are the task(s) in your list:");
+            msg.append("    Here are the task(s) in your list:\n");
             for (int n = 0; n < Task.getCount(); n++) {
-                System.out.println("    " + (n + 1) + "." + Task.getTaskArrayList().get(n).toString());
+                msg.append("\n    " + (n + 1) + "." + Task.getTaskArrayList().get(n).toString());
             }
         }
-        this.showLine();
+
+        return this.showLine()
+                + msg
+                + "\n"
+                + this.showLine();
     }
 
     /**
      *  Prints the current list of tasks
      */
-    public void showMarkMessage(int index, boolean isMarked) {
-        this.showLine();
+    public String showMarkMessage(int index, boolean isMarked) {
         if (isMarked) {
-            System.out.println("    Nice! I've marked this task as done: \n    "
-                    + Task.getTaskArrayList().get(index).toString());
+            return this.showLine()
+                    + "    Nice! I've marked this task as done: \n    "
+                    + Task.getTaskArrayList().get(index).toString()
+                    + "\n"
+                    + this.showLine();
         } else {
-            System.out.println("    OK, I've marked this task as not done yet: \n    "
-                    + Task.getTaskArrayList().get(index).toString());
+            return this.showLine()
+                    + "    OK, I've marked this task as not done yet: \n    "
+                    + Task.getTaskArrayList().get(index).toString()
+                    + "\n"
+                    + this.showLine();
         }
-        this.showLine();
     }
 
     /**
@@ -94,12 +105,12 @@ public class Ui {
      *
      * @param index Index of the object that will be deleted
      */
-    public void showDeleteMessage(int index) {
-        this.showLine();
-        System.out.println("    Got it. I've deleted this task:\n      "
+    public String showDeleteMessage(int index) {
+        return this.showLine()
+                + "    Got it. I've deleted this task:\n    "
                 + Task.getTaskArrayList().get(index).toString()
-                + "\n    Now you have " + (Task.getCount() - 1) + " task(s) in the list.");
-        this.showLine();
+                + "\n    Now you have " + (Task.getCount() - 1) + " task(s) in the list.\n"
+                + this.showLine();
     }
 
     /**
@@ -107,29 +118,34 @@ public class Ui {
      *
      * @param keyMessageToFind Key to find
      */
-    public void showFindMessage(String keyMessageToFind) {
-        this.showLine();
+    public String showFindMessage(String keyMessageToFind) {
+        StringBuilder msg = new StringBuilder();
         int n = 1;
+
         for (Task tasks : Task.getTaskArrayList()) {
             if (tasks.getDescription().contains(keyMessageToFind)) {
                 if (n == 1) {
-                    System.out.println("    Here are the matching tasks in your list");
+                    msg.append("    Here are the matching tasks in your list\n");
                 }
-                System.out.println("    " + (n) + "." + tasks.toString());
+                msg.append("    " + (n) + "." + tasks.toString() + "\n");
                 n++;
             }
         }
         if (n == 1) {
-            System.out.println("    There are no matching tasks in your list");
+            msg.append("    There are no matching tasks in your list\n");
         }
-        this.showLine();
+
+        return this.showLine()
+                + msg
+                + this.showLine();
     }
 
     /**
-     *  prints a divider line
+     *  returns a divider line
      */
-    public void showLine() {
-        System.out.println("    _______________________________");
+    private String showLine() {
+        //System.out.println("    _______________________________");
+        return "    _______________________________\n";
     }
 
     /**
@@ -137,7 +153,7 @@ public class Ui {
      *
      * @param errorMsg Error message
      */
-    public void showError(String errorMsg) {
-        System.out.println("Error: There is a problem " + errorMsg);
+    public String showError(String errorMsg) {
+        return "Error: There is a problem " + errorMsg;
     }
 }

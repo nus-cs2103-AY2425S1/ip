@@ -18,6 +18,7 @@ public class MarkCommand extends Command {
     // variable
     private int taskIndex;
     private boolean isMarked;
+    private String responseMessage;
 
     /**
      * Constructor for MarkCommand
@@ -42,7 +43,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(Task task, Ui ui, Storage storage) {
         Task.getTaskArrayList().get(this.taskIndex - 1).changeDone(this.isMarked);
-        ui.showMarkMessage(this.taskIndex - 1, this.isMarked);
+        this.responseMessage = ui.showMarkMessage(this.taskIndex - 1, this.isMarked);
         changeDataFromFile();
     }
 
@@ -86,6 +87,10 @@ public class MarkCommand extends Command {
         } catch (IOException e) {
             System.out.println("Error: IOException");
         }
+    }
+
+    public String getString() {
+        return this.responseMessage;
     }
 
     /**

@@ -8,7 +8,7 @@ import tuesday.util.Ui;
  * Represents a command to exit the system
  */
 public class ExitCommand extends Command {
-
+    private String responseMessage;
     /**
      * Constructor for ExitCommand
      *
@@ -27,7 +27,11 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(Task task, Ui ui, Storage storage) {
-        ui.showBye();
+        this.responseMessage = ui.showBye();
+    }
+
+    public String getString() {
+        return this.responseMessage;
     }
 
     /**

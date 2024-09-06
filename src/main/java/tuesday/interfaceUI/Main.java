@@ -15,7 +15,7 @@ import tuesday.Tuesday;
  */
 public class Main extends Application {
 
-    private Tuesday duke = new Tuesday("src/main/data/tuesday.txt");
+    private Tuesday tuesday = new Tuesday();
 
     @Override
     public void start(Stage stage) {
@@ -27,7 +27,7 @@ public class Main extends Application {
             stage.setMinWidth(417);
             stage.setScene(scene);
             // stage.setMaxWidth(417); // Add this if you didn't automatically resize elements
-            fxmlLoader.<MainWindow>getController().setDuke(duke);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setTuesday(tuesday);  // inject the tuesday instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

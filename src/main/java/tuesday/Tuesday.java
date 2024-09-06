@@ -29,7 +29,22 @@ public class Tuesday {
             // Add all the tasks in the data file to the Tasks class
             tasks = new Task(storage.load());
         } catch (TuesdayException e) {
-            ui.showLoadingError();
+            System.out.println(ui.showLoadingError());
+            tasks = new Task(storage); // Create a new data file
+        }
+    }
+
+    /**
+     * Constructor for Tuesday
+     * Used by the GUI
+     */
+    public Tuesday() {
+        ui = new Ui();
+        storage = new Storage("src/main/data/tuesday.txt");
+        try {
+            // Add all the tasks in the data file to the Tasks class
+            tasks = new Task(storage.load());
+        } catch (TuesdayException e) {
             tasks = new Task(storage); // Create a new data file
         }
     }
@@ -38,7 +53,7 @@ public class Tuesday {
      * Main function
      */
     public void run() {
-        ui.showWelcome();
+        System.out.println(ui.showWelcome());
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -47,7 +62,7 @@ public class Tuesday {
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (TuesdayException e) {
-                ui.showError(e.getMessage());
+                System.out.println(ui.showError(e.getMessage()));
             }
         }
     }
@@ -60,7 +75,7 @@ public class Tuesday {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
             commandType = c.getClass().getSimpleName();
-            return "hi";
+            return c.getString();
         } catch (TuesdayException e) {
             return "Error: " + e.getMessage();
         }

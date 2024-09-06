@@ -9,6 +9,7 @@ import tuesday.util.Ui;
  */
 public class FindCommand extends Command {
     private final String commandPostfix;
+    private String responseMessage;
 
     /**
      * Constructor for FindCommand
@@ -23,6 +24,10 @@ public class FindCommand extends Command {
 
     public void execute(Task task, Ui ui, Storage storage) {
         ui.showFindMessage(this.commandPostfix);
+    }
+
+    public String getString() {
+        return this.responseMessage;
     }
 
     public boolean isExit() {

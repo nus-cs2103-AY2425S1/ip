@@ -8,6 +8,7 @@ import tuesday.util.Ui;
  * Represents a command to list all the tasks in the list
  */
 public class ListCommand extends Command {
+    private String responseMessage;
     /**
      * Constructor for ListCommand
      *
@@ -26,7 +27,11 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(Task task, Ui ui, Storage storage) {
-        ui.showList();
+        this.responseMessage = ui.showList();
+    }
+
+    public String getString() {
+        return this.responseMessage;
     }
 
     /**

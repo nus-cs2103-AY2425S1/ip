@@ -14,6 +14,7 @@ public class AddCommand extends Command {
     // variables
     private final String commandType;
     private final String commandPostfix;
+    private String responseMessage;
 
     /**
      * Constructor for AddCommand
@@ -40,24 +41,28 @@ public class AddCommand extends Command {
         case "todo":
             ToDo taskItem = new ToDo(this.commandPostfix);
             storage.saveToDatafile(taskItem);
-            ui.showTaskCount();
+            this.responseMessage = ui.showTaskCount();
             break;
         case "deadline":
             String[] commandPostfixSplitBy = this.commandPostfix.split("/by ", 2);
             Deadline deadlineItem = new Deadline(commandPostfixSplitBy[0], commandPostfixSplitBy[1]);
             storage.saveToDatafile(deadlineItem);
-            ui.showTaskCount();
+            this.responseMessage = ui.showTaskCount();
             break;
         case "event":
             String[] splitFrom = this.commandPostfix.split("/from ", 2);
             String[] splitTo = splitFrom[1].split(" /to ", 2);
             Event eventItem = new Event(splitFrom[0], splitTo[0], splitTo[1]);
             storage.saveToDatafile(eventItem);
-            ui.showTaskCount();
+            this.responseMessage = ui.showTaskCount();
             break;
         default:
             break;
         }
+    }
+
+    public String getString() {
+        return this.responseMessage;
     }
 
     /**

@@ -17,5 +17,7 @@ public abstract class Command {
 
     public abstract void execute(Task task, Ui ui, Storage storage);
 
+    public abstract String getString();
+
     public abstract boolean isExit();
 }
