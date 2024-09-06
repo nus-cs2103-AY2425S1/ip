@@ -3,6 +3,7 @@ package utility;
 import task.Task;
 import java.util.List;
 import java.io.Serializable;
+import java.util.Iterator;
 
 /**
  * This class serves as a central management object to manage all {@link Task}.
@@ -84,6 +85,13 @@ public class TaskList implements Serializable {
      */
     public boolean isValidIndex(int taskIndex) {
         return taskIndex < imTaskList.size() && taskIndex >= 0;
+    }
+
+    /**
+     * Returns the iterator for the {@link TaskList}.
+     */
+    public Iterator<Task> iterator() {
+        return imTaskList.iterator();
     }
 
     /**

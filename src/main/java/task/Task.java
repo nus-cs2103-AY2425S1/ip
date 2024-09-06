@@ -2,6 +2,7 @@ package task;
 
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
 
 /**
  * Provides a single task in a form of an object with properties such as task description and
@@ -25,6 +26,15 @@ public class Task implements Serializable {
     protected Task(boolean isDone, String taskDescription) {
         this.isDone = isDone;
         this.taskDescription = taskDescription;
+    }
+
+    /**
+     * Using regex to find match on the task description.
+     *
+     * @return boolean if regex match found or not
+     */
+    public boolean findMatch(Pattern searchTerm) {
+        return searchTerm.matcher(taskDescription).find();
     }
 
     /**
