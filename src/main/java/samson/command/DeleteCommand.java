@@ -33,14 +33,14 @@ public class DeleteCommand extends Command {
      * @throws IOException If an I/O error occurs while saving the tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
         if (index < 0 || index >= taskList.size()) {
-            ui.showTaskNumInvalid();
-            return;
+            return ui.showTaskNumInvalid();
         }
         Task removedTask = taskList.deleteTask(index);
-        ui.showTaskDeleted(removedTask, taskList);
         storage.saveTasksToFile(taskList.getTasks());
+        return ui.showTaskDeleted(removedTask, taskList);
+
     }
 
     /**
