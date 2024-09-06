@@ -40,6 +40,11 @@ public class MainWindow extends AnchorPane {
 
         String greeting = Ui.showWelcome();
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(greeting, azirImage));
+
+        String loadMessage = azir.getLoadMessage();
+        if (!loadMessage.isEmpty()) {
+            dialogContainer.getChildren().add(DialogBox.getDukeDialog(loadMessage, azirImage));
+        }
     }
 
     /**
