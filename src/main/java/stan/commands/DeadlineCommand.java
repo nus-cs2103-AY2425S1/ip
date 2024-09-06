@@ -1,13 +1,15 @@
 package stan.commands;
 
-import stan.TaskList;
-import stan.ui.Ui;
 import stan.Storage;
-import stan.tasks.Task;
-import stan.tasks.Deadline;
-import stan.exceptions.StanMissingArgumentException;
+import stan.TaskList;
 import stan.exceptions.StanInvalidArgumentException;
 import stan.exceptions.StanInvalidDateTimeFormatException;
+import stan.exceptions.StanMissingArgumentException;
+import stan.tasks.Deadline;
+import stan.tasks.Task;
+import stan.ui.Ui;
+
+
 
 /**
  * Represents a command to add a deadline task.
@@ -29,7 +31,8 @@ public class DeadlineCommand extends Command {
         }
 
         if (!words[1].contains("/by")) {
-            throw new StanInvalidArgumentException("The deadline description is present but the '/by' clause is missing. Please add the '/by' clause followed by the time.");
+            throw new StanInvalidArgumentException("The deadline description is present but the '/by' "
+                    + "clause is missing. Please add the '/by' clause followed by the time.");
         }
 
         String[] parts = words[1].split(" /by ", 2);

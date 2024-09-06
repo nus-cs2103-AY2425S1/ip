@@ -1,8 +1,9 @@
 package stan.commands;
 
+import stan.Storage;
 import stan.TaskList;
 import stan.ui.Ui;
-import stan.Storage;
+
 
 /**
  * Represents a command to list all tasks.

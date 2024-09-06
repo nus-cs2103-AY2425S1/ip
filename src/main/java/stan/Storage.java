@@ -1,9 +1,4 @@
 package stan;
-import stan.exceptions.StanInvalidDateTimeFormatException;
-import stan.tasks.Deadline;
-import stan.tasks.Event;
-import stan.tasks.Task;
-import stan.tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,16 +9,24 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import stan.exceptions.StanInvalidDateTimeFormatException;
+import stan.tasks.Deadline;
+import stan.tasks.Event;
+import stan.tasks.Task;
+import stan.tasks.Todo;
+
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
 
 /**
  * This class represents the storage to read and save tasks from the hard disk.
  */
 public class Storage {
-    private String filePath;
+
     private static final String DIR_PATH = "data/";
     private static final String FILE_PATH = DIR_PATH + "stan.txt";
-
+    private String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
