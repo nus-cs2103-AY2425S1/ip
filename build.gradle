@@ -48,7 +48,8 @@ checkstyle {
 }
 
 application {
-    mainClass.set("Tuesday.Tuesday")
+    //mainClass.set("tuesday.Tuesday")
+    mainClass.set("tuesday.interfaceUI.Launcher")
 }
 
 shadowJar {
