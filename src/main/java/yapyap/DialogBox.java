@@ -50,14 +50,11 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.getStyleClass().add("circular-image");
-        return db;
+        return new DialogBox(text, img);
     }
 
     public static DialogBox getYapperBotDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.getStyleClass().add("circular-image");
         db.flip();
         return db;
     }

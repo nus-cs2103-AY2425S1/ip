@@ -11,23 +11,18 @@
     -fx-border-radius: 1em 1em 1em 0;
 }
 
-.circular-image {
-    -fx-background-radius: 50%; /* Make the shape circular */
-    -fx-background-color: transparent; /* Set background to transparent */
-    -fx-padding: 0; /* Remove padding */
-    -fx-border-radius: 50%; /* Ensure border follows the circular shape */
-    -fx-border-width: 0; /* No border */
-}
-
 #displayPicture {
     /* Shadow effect on image. */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
 
-    /* Change size of image. */
-    -fx-scale-x: 1;
-    -fx-scale-y: 1;
-
     /* Rotate image clockwise by degrees. */
     -fx-rotate: 0;
+
+    /* Ensure the image is clipped to be circular */
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-fit-width: 50px;  /* Ensure width and height are equal */
+    -fx-fit-height: 50px; /* Match fit width for circle */
+    -fx-clip: null;  /* Remove clipping shapes if any */
 }
 
