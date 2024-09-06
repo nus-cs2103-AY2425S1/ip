@@ -1,4 +1,4 @@
-package Bob.Tasks;
+package bob.Tasks;
 
 public class Task {
     protected String description;

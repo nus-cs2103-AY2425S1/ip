@@ -20,16 +20,19 @@ public class Ui {
     /**
      * Displays welcome message and logo when the chatbot starts.
      */
-    public void showWelcome() {
+    public String showWelcome() {
         String logo = " ____        ____\n"
                 + "| __ )  ___ | __ )\n"
                 + "|  _ \\ / _ \\|  _ \\\n"
                 + "| |_) | (_) | |_) |\n"
                 + "|____/ \\___/|____/\n";
         printLine();
-        System.out.println("Hello! I'm Bob!\nHow can I help you today?");
+        System.out.println("Bello! I'm Bob!\nHow can I help you today?");
         System.out.println(logo);
         printLine();
+
+        // to support GUI
+        return "Bello! I'm Bob!\nHow can I help you today?";
     }
 
     public String readCommand() {
@@ -50,10 +53,12 @@ public class Ui {
      * Displays error message when there is an error.
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
+    public String showError(String message) {
         printLine();
-        System.out.println("Wait a minute.." + message);
+        System.out.println("Wait a minute..." + message);
         printLine();
+
+        return "Wait a minute..." + message;
     }
 
     /**
@@ -67,7 +72,6 @@ public class Ui {
             System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
 
-        // logic to support GUI
         StringBuilder response = new StringBuilder();
         response.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
@@ -91,7 +95,7 @@ public class Ui {
 
         StringBuilder response = new StringBuilder();
         response.append("Got it. I've added this task:\n");
-        response.append("    ").append(task);
+        response.append("    ").append(task).append("\n");
         response.append("Now you have ").append(size).append(" task(s) in the list.");
         return response.toString();
     }

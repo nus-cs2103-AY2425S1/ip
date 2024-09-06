@@ -1,11 +1,11 @@
-package Bob.Command;
+package bob.Command;
 
-import Bob.Exception.BobException;
-import Bob.Storage.Storage;
-import Bob.Tasks.Task;
-import Bob.Tasks.Todo;
-import Bob.Ui.Ui;
-import Bob.TaskList.TaskList;
+import bob.Exception.BobException;
+import bob.Storage.Storage;
+import bob.Tasks.Task;
+import bob.Tasks.Todo;
+import bob.Ui.Ui;
+import bob.TaskList.TaskList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
