@@ -12,12 +12,12 @@ public class Event extends Task {
     /**
      * The start time of the event.
      */
-    protected LocalDateTime from;
+    protected LocalDateTime startTime;
 
     /**
      * The end time of the event.
      */
-    protected LocalDateTime to;
+    protected LocalDateTime endTime;
 
     /**
      * Creates an event task with the given description, start time and end time.
@@ -28,8 +28,8 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.startTime = from;
+        this.endTime = to;
     }
 
     /**
@@ -39,6 +39,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(FORMATTER) + " to: " + to.format(FORMATTER) + ")";
+        return "[E]" + super.toString() + " (from: " + startTime.format(FORMATTER) + " to: " + endTime.format(FORMATTER) + ")";
     }
 }
