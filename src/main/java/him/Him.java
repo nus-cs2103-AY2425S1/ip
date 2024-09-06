@@ -1,9 +1,7 @@
 package him;
 
 import command.Command;
-import exceptions.AlreadyCompletedException;
 import exceptions.HimException;
-import exceptions.StartAfterEndException;
 import task.TaskList;
 
 import java.io.FileNotFoundException;
