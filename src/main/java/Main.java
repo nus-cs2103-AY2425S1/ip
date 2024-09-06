@@ -1,9 +1,10 @@
+import diomon.Commands;
+import diomon.Storage;
+import diomon.TaskList;
+
 import java.util.Scanner;
-import Diomon.*;
 
 public class Main {
-    private Storage storage;
-    private Commands commands;
     private static void greeting() {
         String greetingMessage = "________________________________________________________________\nHello! I'm Diomon\nWhat do you need recorded?\n________________________________________________________________\n";
         System.out.print(greetingMessage);
@@ -11,7 +12,7 @@ public class Main {
     private void run() {
         // Initialise instance
         Storage storage = new Storage("data/data.txt");
-        commands = new Commands();
+        Commands commands = new Commands();
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList(storage.load());
         greeting();
@@ -20,7 +21,7 @@ public class Main {
             System.out.println("________________________________________________________________");
             commands.run(input,taskList);
             System.out.println("________________________________________________________________");
-            if (commands.isExit()) {
+            if (commands.isCanExitExit()) {
                 storage.save(taskList.toStorageString());
                 break;
             }

@@ -1,4 +1,4 @@
-package Diomon;
+package diomon;
 
 public class Todo extends Task{
     public static final String TYPEICON = "T";

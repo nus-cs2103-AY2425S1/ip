@@ -1,4 +1,4 @@
-package Diomon;
+package diomon;
 
 import java.time.LocalDate;
 

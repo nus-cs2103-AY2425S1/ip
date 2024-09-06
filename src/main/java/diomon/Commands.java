@@ -1,7 +1,7 @@
-package Diomon;
+package diomon;
 
 public class Commands {
-    private boolean exit;
+    private boolean canExit;
     public enum Types {
         TODO,
         DEADLINE,
@@ -15,11 +15,11 @@ public class Commands {
     }
 
     public Commands() {
-        this.exit = false;
+        this.canExit = false;
     }
 
-    public boolean isExit() {
-        return exit;
+    public boolean isCanExitExit() {
+        return canExit;
     }
 
     public static Types checkType(String command) {
@@ -34,37 +34,37 @@ public class Commands {
         if (input == null) {
             switch (t) {
             case LIST:
-                list(taskList);
-                return;
+                runList(taskList);
+                break;
             case BYE:
-                bye();
-                return;
+                runBye();
+                break;
             case HELP:
-                help();
-                return;
+                runHelp();
+                break;
             default:
                 throw new RuntimeException("Missing argument/ Function not implemented");
             }
         } else {
             switch (t) {
             case TODO:
-                todo(taskList, input);
-                return;
+                runTodo(taskList, input);
+                break;
             case DEADLINE:
-                deadline(taskList, input);
-                return;
+                runDeadline(taskList, input);
+                break;
             case EVENT:
-                event(taskList, input);
-                return;
+                runEvent(taskList, input);
+                break;
             case MARK:
-                mark(taskList, input);
-                return;
+                runMark(taskList, input);
+                break;
             case UNMARK:
-                unmark(taskList, input);
-                return;
+                runUnmark(taskList, input);
+                break;
             case DELETE:
-                delete(taskList, input);
-                return;
+                runDelete(taskList, input);
+                break;
             default:
                 throw new RuntimeException("Unknown argument/ Function not implemented yet");
                 }
@@ -85,13 +85,13 @@ public class Commands {
     }
 
     //Command Logic
-    public void todo(TaskList taskList, String input) {
+    public void runTodo(TaskList taskList, String input) {
         Task newTask = Task.of(input, Task.TaskType.TODO);
         taskList.add(newTask);
         System.out.printf("New Diomon.Task: [%s] has been added.\n", newTask);
         System.out.print(taskList);
     }
-    public void deadline(TaskList taskList, String input) {
+    public void runDeadline(TaskList taskList, String input) {
         try {
             Task newTask = Task.of(input, Task.TaskType.DEADLINE);
             taskList.add(newTask);
@@ -102,7 +102,7 @@ public class Commands {
         }
 
     }
-    public void event(TaskList taskList, String input) {
+    public void runEvent(TaskList taskList, String input) {
         try {
             Task newTask = Task.of(input, Task.TaskType.EVENT);
             taskList.add(newTask);
@@ -112,11 +112,11 @@ public class Commands {
             System.out.println("Incorrect/ missing details given");
         }
     }
-    public void list(TaskList taskList) {
+    public void runList(TaskList taskList) {
         System.out.println("Diomon.TaskList:");
         System.out.print(taskList);
     }
-    public void mark(TaskList taskList, String input) {
+    public void runMark(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
             System.out.printf("Diomon.Task %d: [%s] has been marked", i, taskList.get(i - 1));
@@ -127,7 +127,7 @@ public class Commands {
             System.out.println("Index out of bound, please try again");
         }
     }
-    public void unmark(TaskList taskList, String input) {
+    public void runUnmark(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
             System.out.printf("Diomon.Task %d: [%s] has been unmarked\n", i, taskList.get(i - 1));
@@ -138,16 +138,16 @@ public class Commands {
             System.out.println("Index out of bound");
         }
     }
-    public void bye() {
+    public void runBye() {
         String byeMessage = "Bye. Hope to see you again soon!";
         System.out.println(byeMessage);
-        this.exit = true;
+        this.canExit = true;
     }
-    public void help() {
+    public void runHelp() {
         String helpMessage = "Diomon.Commands:\n-TODO\n-DEADLINE\n-EVENT\n-LIST\n-MARK\n-UNMARK\n-BYE\n-HELP";
         System.out.print(helpMessage);
     }
-    public void delete(TaskList taskList, String input) {
+    public void runDelete(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
             System.out.printf("Diomon.Task %d: [%s] has been deleted", i, taskList.get(i - 1));
