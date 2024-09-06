@@ -48,6 +48,9 @@ public class SumoDE extends Application {
         }
     }
 
+    /**
+     * Default constructor for SumoDE to allow launcher to launch this file.
+     */
     public SumoDE() {
         // this is just so that launcher can launch this
     }
