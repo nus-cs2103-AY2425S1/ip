@@ -1,5 +1,6 @@
 package carly;
 
+import carly.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,10 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import carly.ui.Ui;
-/**
- * Controller for the main GUI.
- */
+/** Controller for the main GUI.*/
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -21,27 +19,26 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    @FXML
-    private TextField nameInput;
-
-    private String userName;
 
     private Carly carly;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/elephanticon.jpg"));
     private Image carlyImage = new Image(this.getClass().getResourceAsStream("/images/penguinicon.jpg"));
 
+    /**
+     * Initializes the main window by setting up the scroll pane to automatically scroll
+     * to the bottom of the dialog container. It also triggers the start of the chat
+     * session with a welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         startChat();
     }
 
-    /** Injects the Carly instance */
     public void setCarly(Carly c) {
         carly = c;
     }
-
 
     private void startChat() {
         Ui ui = new Ui();

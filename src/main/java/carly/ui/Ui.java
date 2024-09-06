@@ -29,12 +29,12 @@ public class Ui {
 
     /** Displays a welcome message to the user with the current username. */
     public String welcomeMsg() {
-        return("Hey " + username + "! I'm Carly.\n" + "What can I do for you?");
+        return ("Hey " + username + "! I'm Carly.\n" + "What can I do for you?");
     }
 
     /** Displays a farewell message to the user with the current username. */
     public String byeMsg() {
-        return("Bye " + username + ". I'll see you next time!");
+        return ("Bye " + username + ". I'll see you next time!");
     }
 
     /** Reads input when user types into the chatbot. */
