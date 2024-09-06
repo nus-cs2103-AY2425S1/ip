@@ -2,7 +2,7 @@
 
 > "_Productivity is never an accident. It is always the result of a commitment to excellence, intelligent planning, and focused effort._" – Paul J. Meyer [(source)](https://dansilvestre.com/productivity-quotes/)
 
-Prerequisites: [JDK 17 (Azul)](https://se-education.org/guides/tutorials/javaInstallationMac.html)
+Prerequisites: JDK 17. **For Mac Users:** [JDK 17 (Azul)](https://se-education.org/guides/tutorials/javaInstallationMac.html)
 
 PandaBot frees your mind from remembering tasks and lets you focus on what truly matters. It's:
 
