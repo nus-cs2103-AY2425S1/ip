@@ -52,7 +52,8 @@ public class Ui {
      * Displays the welcome message when the application starts.
      */
     public String showWelcome() {
-        return "Greetings, I'm Sigma!\n" + LOGO + "\nWhat can I do for you?";
+        return "Skibidi bop bop! It's the legend27 himself, Sigma!\n"
+                + LOGO + "\nReady to hit the grind and go sigma mode?";
     }
 
     /**
@@ -68,7 +69,8 @@ public class Ui {
      * Displays a goodbye message when the application is about to exit.
      */
     public String showGoodbye() {
-        return "Catch ya on the flip side, my dude! See ya soon!\nClosing in 3 seconds...";
+        return "Skedaddling outta here, my dude! See you in the Matrix or when baby Gronk rizzes up Livvy Dunne!"
+                + "\nExiting in 3...2...1...";
     }
 
     /**
@@ -78,14 +80,14 @@ public class Ui {
      */
     public String showList(TaskList tasks) {
         if (tasks.getSize() == 0) {
-            return "There are no tasks in your list.";
+            return "Ayo, ain't no tasks on your sigma grindset, dawg. You're moving like a sussy imposter!";
         }
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.getSize(); i++) {
             sb.append(String.format("%d. %s\n", i + 1, tasks.getTask(i + 1)));
         }
-        return "Here are the tasks in your list:\n" + sb;
+        return "Yo, here's the list of your goon cave missions, king:\n" + sb + "Get that grind on, fam!";
     }
 
     /**
@@ -94,7 +96,8 @@ public class Ui {
      * @param task The task that has been marked as done.
      */
     public String showMarkedTask(Task task) {
-        return "Nice! I've marked this task as done:\n" + String.format("  %s", task);
+        return "Rizzed up and ready to go! Task has been marked as done like a true sigma:\n"
+                + String.format("  %s", task);
     }
 
     /**
@@ -103,7 +106,7 @@ public class Ui {
      * @param task The task that has been marked as not done.
      */
     public String showUnmarkedTask(Task task) {
-        return "OK, I've marked this task as not done yet:\n" + String.format("  %s", task);
+        return "L, blud. I've marked this task as not done yet:\n" + String.format("  %s", task);
     }
 
     /**
@@ -113,8 +116,8 @@ public class Ui {
      * @param numberOfTasks The current number of tasks in the list.
      */
     public String showAddedTask(Task task, int numberOfTasks) {
-        return "Got it. I've added this task:\n" + String.format("  %s\n", task)
-            + "Now you have " + numberOfTasks + " tasks in the list.";
+        return "Ayy, task added to the grindset! Check it out:\n" + String.format("  %s\n", task)
+                + "You are now dripping with rizz: " + numberOfTasks + " tasks in your epic collection.";
     }
 
     /**
@@ -124,12 +127,20 @@ public class Ui {
      * @param numberOfTasks The current number of tasks in the list.
      */
     public String showDeletedTask(Task task, int numberOfTasks) {
-        return "Noted. I've removed this task:\n" + String.format("  %s\n", task)
-                + "Now you have " + numberOfTasks + " tasks in the list.";
+        return "Alright, I’ve yeeted this task out of your list:\n" + String.format("  %s\n", task)
+                + "You’re down to " + numberOfTasks + " tasks now — keep hustling, champ!";
     }
 
+    /**
+     * Updates the specified task and shows the updated details.
+     *
+     * @param task The task that has been updated.
+     * @param taskNumber The number assigned to the updated task.
+     * @return A message confirming the task update with its number and details.
+     */
     public String showUpdatedTask(Task task, int taskNumber) {
-        return String.format("Got it. I've updated task number %d:\n  %s\n", taskNumber, task);
+        return String.format("Ayo, task number %d just got a major glow-up:\n  %s\n",
+                taskNumber, task);
     }
 
     /**
@@ -139,14 +150,15 @@ public class Ui {
      */
     public String showSearchedTasks(TaskList tasks) {
         if (tasks.getSize() == 0) {
-            return "  No matching tasks found.";
+            return "Ayo, no matching tasks found, fam. Looks like the search was a total flop!";
         }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.getSize(); i++) {
             sb.append(String.format("%d. %s\n", i + 1, tasks.getTask(i + 1)));
         }
 
-        return "Here are the matching tasks in your list:\n" + sb;
+        return "Boom! Check out these epic tasks that match your search quest:\n" + sb;
     }
 
     /**

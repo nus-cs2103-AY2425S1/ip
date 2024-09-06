@@ -1,9 +1,10 @@
 package sigma;
 
-import org.junit.jupiter.api.Test;
-import sigma.task.Todo;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import sigma.task.Todo;
 
 public class TodoTest {
     @Test

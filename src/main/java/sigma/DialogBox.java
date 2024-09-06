@@ -108,7 +108,8 @@ public class DialogBox extends HBox {
      * @return a new DialogBox instance with a welcome message and Sigma's image
      */
     public static DialogBox getSigmaWelcome(Image img) {
-        String welcome = "Greetings, I'm Sigma!\n" + "What can I do for you?";
+        String welcome = "Skibidi bop bop! It's the legend27 himself, Sigma!\n"
+                + "Ready to hit the grind and go sigma mode?";
         var db = new DialogBox(welcome, img);
         db.flip();
         return db;

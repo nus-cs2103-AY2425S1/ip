@@ -30,6 +30,7 @@ import sigma.task.Todo;
  */
 public class Sigma {
     private static final String FILEPATH = "./data/sigma.txt";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -190,12 +191,11 @@ public class Sigma {
     private String handleDeadlineCommand(String userInput) throws SigmaException {
         try {
             String[] parts = userInput.split(" /by ");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
             if (parts.length < 2) {
                 throw new SigmaMissingArgException(CommandType.DEADLINE);
             }
             String description = parts[0].trim();
-            LocalDateTime by = LocalDateTime.parse(parts[1], formatter);
+            LocalDateTime by = LocalDateTime.parse(parts[1], FORMATTER);
             Task deadline = new Deadline(description, by);
             taskList.addTask(deadline);
             return this.ui.showAddedTask(deadline, taskList.getSize());
@@ -216,9 +216,8 @@ public class Sigma {
      */
     private String handleEventCommand(String userInput) throws SigmaException {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
             String[] parts = userInput.split(" /from ");
-            Task event = createEvent(parts, formatter);
+            Task event = createEvent(parts);
             taskList.addTask(event);
             return this.ui.showAddedTask(event, taskList.getSize());
         } catch (StringIndexOutOfBoundsException e) {
@@ -233,12 +232,11 @@ public class Sigma {
      *
      * @param parts An array containing the description and time range of the event,
      *              split by the "/from" and "/to" delimiters.
-     * @param formatter The formatter used to parse the date-time strings.
      * @return The created event task.
      * @throws SigmaMissingArgException If any required argument (description, start time, or end time) is missing.
      * @throws SigmaInvalidDateRangeException If the end time is before the start time.
      */
-    private static Task createEvent(String[] parts, DateTimeFormatter formatter) throws SigmaMissingArgException,
+    private static Task createEvent(String[] parts) throws SigmaMissingArgException,
             SigmaInvalidDateRangeException {
         if (parts.length < 2) {
             throw new SigmaMissingArgException(CommandType.EVENT);
@@ -248,8 +246,8 @@ public class Sigma {
         if (timeParts.length < 2) {
             throw new SigmaMissingArgException(CommandType.EVENT);
         }
-        LocalDateTime from = LocalDateTime.parse(timeParts[0], formatter);
-        LocalDateTime to = LocalDateTime.parse(timeParts[1], formatter);
+        LocalDateTime from = LocalDateTime.parse(timeParts[0], FORMATTER);
+        LocalDateTime to = LocalDateTime.parse(timeParts[1], FORMATTER);
         if (description.isEmpty()) {
             throw new SigmaMissingArgException(CommandType.EVENT);
         }
@@ -358,8 +356,7 @@ public class Sigma {
         String[] updateParts = updateDetails.split("/by");
         if (updateParts.length >= 2) {
             if (!updateParts[1].trim().isEmpty()) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
-                LocalDateTime newDueDate = LocalDateTime.parse(updateParts[1].trim(), formatter);
+                LocalDateTime newDueDate = LocalDateTime.parse(updateParts[1].trim(), FORMATTER);
                 deadline.setBy(newDueDate);
             } else {
                 throw new SigmaInvalidDateException(CommandType.UPDATE);
@@ -379,13 +376,12 @@ public class Sigma {
      * @throws SigmaException If the date format is invalid or if the end time is before the start time.
      */
     private void updateEvent(Event event, String updateDetails) throws SigmaException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
         String[] updateParts = updateDetails.split("/from");
         if (updateParts.length >= 2) {
             String[] timeParts = updateParts[1].split("/to");
             if (timeParts.length == 2) {
-                LocalDateTime newStartTime = LocalDateTime.parse(timeParts[0].trim(), formatter);
-                LocalDateTime newEndTime = LocalDateTime.parse(timeParts[1].trim(), formatter);
+                LocalDateTime newStartTime = LocalDateTime.parse(timeParts[0].trim(), FORMATTER);
+                LocalDateTime newEndTime = LocalDateTime.parse(timeParts[1].trim(), FORMATTER);
                 if (newEndTime.isBefore(newStartTime)) {
                     throw new SigmaInvalidDateRangeException();
                 }
