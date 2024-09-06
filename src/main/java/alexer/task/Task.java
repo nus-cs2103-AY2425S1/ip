@@ -23,6 +23,11 @@ public class Task {
         type = TaskType.TASK;
     }
 
+    /**
+     * Gets the task description
+     *
+     * @return the task description
+     */
     public String getDescription() {
         return description;
     }
