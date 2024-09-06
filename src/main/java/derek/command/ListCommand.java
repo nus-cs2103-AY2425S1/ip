@@ -24,7 +24,7 @@ public class ListCommand extends Command {
      * @param storage the storage object containing the task list
      * @param ui the UI object to interact with the user
      */
-    public void execute(Storage storage, Ui ui) {
-        ui.returnList();
+    public String execute(Storage storage, Ui ui) {
+        return ui.returnList();
     }
 }

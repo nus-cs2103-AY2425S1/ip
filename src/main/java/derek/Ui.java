@@ -7,6 +7,7 @@ import derek.command.Command;
 import derek.exception.IncorrectCommandException;
 import derek.task.Task;
 import derek.task.TaskList;
+import javafx.application.Platform;
 
 
 /**
@@ -26,9 +27,7 @@ public class Ui {
             + "    ----\n"
             + "  /      \\\n";
     private static String leavingMessage = String.format("Ok...\n" + sadLogo);
-    private String user;
 
-    private boolean isRunning;
     private Storage storage;
     private TaskList taskList;
 
@@ -46,7 +45,9 @@ public class Ui {
     /**
      * Introduces Derek and initiates user interaction to become friends.
      */
-    public void introduce() {
+    public String introduce() {
+        return "Hello! I'm Derek! Can we be friends?\n" + logo + "\nYour response (Y/N):";
+        /**
         try {
             this.isRunning = true;
             System.out.println("Hello! I'm Derek! Can we be friends?\n" + logo);
@@ -66,26 +67,31 @@ public class Ui {
             System.out.println(e.getMessage() + "\n");
             this.introduce();
         }
-
+    */
     }
 
     /**
      * Prompts the user to enter their name and starts the main user interaction loop.
      */
-    public void getUserName() {
+    public String getUserName() {
+
+        return "Great! I have always wanted a friend!\n"
+                + "What do I call you?";
+        /**
         System.out.println("Great! I have always wanted a friend!\n"
                 + "What do I call you?");
         Scanner name = new Scanner(System.in);
         this.user = name.nextLine();
         initiateUserInteraction();
+         */
     }
 
     /**
      * Displays a welcome message and provides instructions for the user to enter commands.
      * It then starts accepting user commands.
      */
-    public void initiateUserInteraction() {
-        System.out.println("\n" + "Hi! " + this.user
+    public String initiateUserInteraction(String user) {
+        return "\n" + "Hi! " + user
                 + "! So, I guess as a friend I become your little slave!\n"
                 + "What do you want me to do?\n"
                 + "----------------------------------------------------------------------\n"
@@ -96,57 +102,65 @@ public class Ui {
                 + "mark (task number)\n"
                 + "unmark (task number)\n"
                 + "delete (task number)\n"
-                + "find (keyword)"
-                + "bye");
-        this.acceptCommands();
+                + "find (keyword)\n"
+                + "bye";
     }
 
     /**
      * Accepts commands from the user and processes them.
      */
-    public void acceptCommands() {
-        Scanner sc = new Scanner(System.in);
+    public String processCommands(String command) {
+        Parser parser = new Parser(command, this.storage, this);
+        return parser.getCommand();
 
-        while (isRunning) {
-            String name = sc.nextLine();
-            Parser parser = new Parser(name, this.storage, this);
-            parser.getCommand();
-
-        }
     }
 
-    public void printLeavingMessage() {
-        System.out.println(leavingMessage);
-        this.isRunning = false;
+    public String printLeavingMessage() {
+        Platform.exit();
+        return leavingMessage;
+       // System.out.println(leavingMessage);
     }
 
-    public void returnList() {
+    public String returnList() {
+        return "I think these are your tasks! Please don't leave me!!\n"
+                + this.taskList;
+        /**
         System.out.println("I think these are your tasks! Please don't leave me!!\n"
                 + this.taskList);
+         */
     }
 
-    public void removeTask(Task task) {
+    public String removeTask(Task task) {
+        return "phew! that list was looooonngggg... i was getting tired of remembering it!"
+                + "\n"
+                + task.toString();
+        /**
         System.out.println("phew! that list was looooonngggg... i was getting tired of remembering it!"
                 + "\n"
                 + task.toString());
+         */
     }
 
-    public void completeTask(Task task) {
+    public String completeTask(Task task) {
         String celebration = generateRandomCelebration();
-        System.out.println(celebration + " you slayed that!" + "\n" + task.toString());
+        return celebration + " you slayed that!" + "\n" + task.toString();
+        //System.out.println(celebration + " you slayed that!" + "\n" + task.toString());
     }
 
-    public void incompleteTask(Task task) {
-        System.out.println("You'll get 'em next time!" + "\n" + task.toString());
+    public String incompleteTask(Task task) {
+        return "You'll get 'em next time!" + "\n" + task.toString();
+        //System.out.println("You'll get 'em next time!" + "\n" + task.toString());
     }
 
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         String celebration = generateRandomCelebration();
-        System.out.println(celebration + "\n" + task + "\n");
+        return celebration + "\n" + task + "\n";
+        //System.out.println(celebration + "\n" + task + "\n");
     }
 
-    public void printTask(Task task) {
-        System.out.println("Here you are!" + "\n" + task);
+    public String printTask(Task task) {
+        return "Here you are!" + "\n" + task;
+        //System.out.println("Here you are!" + "\n" + task);
     }
 
     public String generateRandomCelebration() {

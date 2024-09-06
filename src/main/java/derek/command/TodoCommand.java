@@ -28,10 +28,10 @@ public class TodoCommand extends TaskCommand {
      * @param storage the storage object containing the task list
      * @param ui the UI object to interact with the user
      */
-    public void execute(Task task, Storage storage, Ui ui) {
+    public String execute(Task task, Storage storage, Ui ui) {
         TaskList taskList = storage.getTaskList();
         taskList.add(task);
-        ui.addTask(task);
+        return ui.addTask(task);
 
     }
 

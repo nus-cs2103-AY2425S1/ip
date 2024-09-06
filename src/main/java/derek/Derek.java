@@ -18,9 +18,8 @@ public class Derek {
     }
 
 
-    public void handleUserInteraction() {
-        Ui ui = new Ui(storage, taskList);
-        ui.introduce();
+    public Ui handleUserInteraction() {
+        return new Ui(storage, taskList);
     }
 
     public static void main(String[] args) {

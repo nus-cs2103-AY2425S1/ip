@@ -27,10 +27,10 @@ public class CompleteCommand extends Command {
      * @param index the index of the task to be marked as completed
      * @param ui the UI object to interact with the user
      */
-    public void execute(Storage storage, int index, Ui ui) {
+    public String execute(Storage storage, int index, Ui ui) {
         TaskList taskList = storage.getTaskList();
         Task task = taskList.get(index - 1);
         task.markCompleted();
-        ui.completeTask(task);
+        return ui.completeTask(task);
     }
 }

@@ -28,10 +28,10 @@ public class IncompleteCommand extends Command {
      * @param index the index of the task to be marked as incomplete
      * @param ui the UI object to interact with the user
      */
-    public void execute(Storage storage, int index, Ui ui) {
+    public String execute(Storage storage, int index, Ui ui) {
         TaskList taskList = storage.getTaskList();
         Task task = taskList.get(index - 1);
         task.markIncomplete();
-        ui.incompleteTask(task);
+        return ui.incompleteTask(task);
     }
 }

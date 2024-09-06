@@ -21,14 +21,14 @@ public class FindCommand extends Command {
 
     }
 
-    public void execute(Storage storage, Ui ui) {
+    public String execute(Storage storage, Ui ui) {
         try {
             TaskList taskList = storage.getTaskList();
             this.getTaskDescription();
             Task task = taskList.find(this.taskDescription);
-            ui.printTask(task);
+            return ui.printTask(task);
         } catch (TaskNotFoundException e) {
-            System.out.println(e.getMessage());
+           return e.getMessage();
         }
     }
 }

@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
@@ -12,7 +11,7 @@
             prefHeight="600.0" prefWidth="400.0"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="MainWindow">
+            fx:controller="derek.javafx.MainWindow">
     <children>
         <TextField fx:id="userInput"
                    layoutY="558.0"

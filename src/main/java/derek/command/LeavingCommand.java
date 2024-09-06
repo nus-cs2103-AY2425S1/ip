@@ -25,8 +25,8 @@ public class LeavingCommand extends Command {
      * @param storage the storage object containing the task list
      * @param ui the UI object to interact with the user
      */
-    public void execute(Storage storage, Ui ui) {
+    public String execute(Storage storage, Ui ui) {
         storage.storeInFile();
-        ui.printLeavingMessage();
+        return ui.printLeavingMessage();
     }
 }
