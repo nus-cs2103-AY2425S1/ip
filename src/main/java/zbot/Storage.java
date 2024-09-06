@@ -30,9 +30,10 @@ public class Storage {
 
     /**
      * Creates the file if it does not exist.
-     *
+     * <p>
      * If the file does not exist, the folder containing the file will be created as
      * well.
+     * <p>
      * If the file already exists, nothing will be done.
      */
     public void createFileIfNotExists() {
@@ -58,7 +59,7 @@ public class Storage {
      *
      * @param text Text to write to the file.
      */
-    public void writeToFile(String text) {
+    public void writeToTextFile(String text) {
         try {
             FileWriter fw = new FileWriter(filePath);
             fw.write(text);
@@ -96,7 +97,7 @@ public class Storage {
             sb.append("\n");
         }
 
-        writeToFile(sb.toString());
+        writeToTextFile(sb.toString());
     }
 
     /**

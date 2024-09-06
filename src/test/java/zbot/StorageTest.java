@@ -49,7 +49,7 @@ public class StorageTest {
 
         // write to file
         Storage storage = new Storage(tmpFilePath);
-        storage.writeToFile("test");
+        storage.writeToTextFile("test");
         assertTrue(file.exists());
 
         // check content
