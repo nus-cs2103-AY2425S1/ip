@@ -53,9 +53,6 @@ public class Grok {
         } catch (GrokInvalidUserInputException e) {
             return e.getMessage();
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Hello!");
+        return "a";
     }
 }

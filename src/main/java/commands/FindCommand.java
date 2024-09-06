@@ -26,7 +26,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.length() == 0) {
-            ui.printGenericMessage("There are no tasks in the list.");
+            ui.printGenericFeedback("There are no tasks in the list.");
             return;
         }
 
@@ -49,7 +49,7 @@ public class FindCommand extends Command {
         }
 
         // remove the last character, which is a new line.
-        ui.printGenericMessage(
+        ui.printGenericFeedback(
                 listOfTasks.substring(0, Math.max(0, listOfTasks.length() - 1))
         );
     }

@@ -24,7 +24,7 @@ public abstract class Command {
     }
 
     /**
-     * Carry out the required actions of the command, including UI input, task list updating, and storage.
+     * Carry out the required actions of the command of task list updating, and storage.
      * Unifying under a single method allows for abstraction of the effects of the command from the caller.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);

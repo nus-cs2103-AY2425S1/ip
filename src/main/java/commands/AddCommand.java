@@ -30,7 +30,7 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(task);
         storage.writeToTextStorage(tasks);
-        ui.printGenericMessage("Got it. I've added this task:\n  "
+        ui.printGenericFeedback("Got it. I've added this task:\n  "
                 + task
                 + "\nNow you have " + tasks.length() + " tasks in the list.");
     }
