@@ -28,7 +28,7 @@ public class AddCommand extends Command {
      * yyyy-MM-ddThh:mm format.
      * @throws ArrayIndexOutOfBoundsException If the command is in inappropriate format.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task taskToAdd;
         try {
             if (this.verb == CommandVerb.TODO) {
@@ -42,12 +42,12 @@ public class AddCommand extends Command {
             }
             tasks.add(taskToAdd);
             storage.save(taskToAdd);
-            ui.showAdd(taskToAdd, tasks);
+            return ui.showAdd(taskToAdd, tasks);
         } catch (DateTimeParseException e) {
-            System.out.println("knight2103.tasks.Deadline format is wrong during input. " + "Please follow " +
-                    "yyyy-mm-dd or with the time format");
+            return "knight2103.tasks.Deadline format is wrong during input. " + "Please follow " +
+                    "yyyy-mm-dd or with the time format";
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("There's an issue in the instruction format. Please check.");
+            return "There's an issue in the instruction format. Please check.";
         }
     }
 

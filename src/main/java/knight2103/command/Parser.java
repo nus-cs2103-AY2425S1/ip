@@ -42,7 +42,7 @@ public class Parser {
             default:
                 throw new InstructionInvalid();
             }
-        } catch (InstructionInvalid e) {
+        } catch (InstructionInvalid e) { // HMM
             System.out.println("Invalid Instruction. Only valid Instructions are "
                     + "list, todo, deadline, event, mark, unmark, delete, find");
             return Optional.empty();

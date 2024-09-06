@@ -17,8 +17,8 @@ public class ListCommand extends Command {
      * @param ui The user interface of the bot.
      * @param storage The class containing the file that saves the list of tasks.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showList(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showList(tasks);
     };
 
     /**

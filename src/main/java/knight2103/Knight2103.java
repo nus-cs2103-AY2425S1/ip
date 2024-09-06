@@ -25,25 +25,19 @@ public class Knight2103 {
         }
     }
 
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        String output;
             try {
-                String fullCommand = this.ui.readCommand();
-                this.ui.showLine();
-                Command c = Parser.parse(fullCommand).orElseThrow(() -> new MissingCommand());
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                Command c = Parser.parse(input).orElseThrow(() -> new MissingCommand());
+                output = c.execute(tasks, ui, storage);
+                return this.ui.showLine() + output;
             } catch (MissingCommand e) {
-                System.out.println(e);
+                return e.getMessage();
             } catch (InstructionInvalid e) {
-                System.out.println("Instruction wrong format.");
+                return "Instruction wrong format.";
             }
-        }
-    }
-
-    public static void main(String[] args) {
-        new Knight2103("./savedTaskList.txt").run(); // in ip folder, not main/java folder
     }
 }

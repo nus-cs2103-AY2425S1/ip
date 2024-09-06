@@ -17,8 +17,8 @@ public class FindCommand extends Command {
      * @param ui The user interface of the bot.
      * @param storage The class containing the file that saves the list of tasks.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showFind(tasks, this.predicate);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showFind(tasks, this.predicate);
     };
 
     public boolean isExit() {
