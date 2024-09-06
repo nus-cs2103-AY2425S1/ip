@@ -36,6 +36,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs.
      */
     public void add(Task task) throws IOException {
+        assert task != null;
+
         FileWriter fw = new FileWriter(this.path, true);
         fw.write(task.toString() + System.getProperty("line.separator"));
         fw.close();
@@ -49,6 +51,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs.
      */
     public void mark(int itemNum, boolean isCompleted) throws IOException, BobException {
+        assert itemNum > 0;
+
         File inputFile = new File(this.path);
         File tempFile = new File("temp.txt");
 
@@ -80,6 +84,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs.
      */
     public void delete(int itemNum) throws IOException {
+        assert itemNum > 0;
+
         File inputFile = new File(this.path);
         File tempFile = new File("temp.txt");
 
@@ -119,6 +125,7 @@ public class Storage {
                     continue;
                 }
                 Task task = Parser.parseStorage(line);
+                assert task != null;
                 tasks.add(task);
             }
 
