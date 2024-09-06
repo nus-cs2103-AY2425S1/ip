@@ -31,7 +31,7 @@ public class MainWindow {
     public void setShrimp(Shrimp s) {
         shrimp = s;
         String error = shrimp.runChatBot();
-        if (error.isEmpty()) {
+        if (!error.isEmpty()) {
             showMessage(error);
         }
         showMessage(shrimp.showWelcome());
@@ -47,7 +47,7 @@ public class MainWindow {
         String response = shrimp.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getShrimpDialog(response, shrimp)
+                DialogBox.getShrimpDialog(response, shrimpImage)
         );
         userInput.clear();
     }

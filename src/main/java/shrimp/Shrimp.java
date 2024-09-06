@@ -43,7 +43,7 @@ public class Shrimp {
             return "";
         } catch (IOException | ShrimpException e) {
             taskList = new TaskList();
-            return ui.printError("Couldn't load tasks... Starting with an empty list.") + AnsiCode.CYAN;
+            return ui.printError("Couldn't load tasks... Starting with an empty list.");
         }
     }
 
@@ -150,10 +150,14 @@ public class Shrimp {
             }
 
         } catch (ShrimpException e) {
-            return ui.printError(e.getMessage() + String.format(" (%s)", e.getErrorCode())) + AnsiCode.CYAN;
+            return ui.printError(e.getMessage() + String.format(" (%s)", e.getErrorCode()));
         } catch (Exception e) {
-            return ui.printError("Something went wrong... Try again!") + AnsiCode.CYAN;
+            return ui.printError("Something went wrong... Try again!");
         }
+    }
+
+    public static void saveTasks() {
+        Storage.saveTasks(taskList);
     }
 
     /**
