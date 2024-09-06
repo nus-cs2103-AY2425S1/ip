@@ -4,9 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 public class MainWindow {
 
@@ -21,8 +20,8 @@ public class MainWindow {
 
     private Yapper yapper;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image yapperImage = new Image(this.getClass().getResourceAsStream("/images/yapper.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image yapperImage = new Image(this.getClass().getResourceAsStream("/images/yapper.png"));
 
     @FXML
     public void initialize() {

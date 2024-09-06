@@ -12,7 +12,12 @@ import javafx.stage.Stage;
  * The type Main.
  */
 public class Main extends Application {
-    private Yapper yapper = new Yapper("data/tasks.txt");
+    private final Yapper yapper = new Yapper("data/tasks.txt");
+
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
+    }
+
     @Override
     public void start(Stage stage) {
         try {
@@ -20,15 +25,12 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setYapper(yapper); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setYapper(yapper);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-    }
-    public static void main(String[] args) {
-        Application.launch(Main.class, args);
     }
 
 }

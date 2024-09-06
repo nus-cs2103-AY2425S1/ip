@@ -3,6 +3,7 @@ package yapper;
 import java.io.IOException;
 import java.util.List;
 
+import javafx.application.Platform;
 import yapper.command.CommandType;
 import yapper.command.Parser;
 import yapper.exception.EmptyDescriptionException;
@@ -113,7 +114,7 @@ public class Yapper {
         task.markAsDone();
         return "Nice! I've marked this task as done:\n  " + task;
     }
-    
+
     private String handleUnmark(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
@@ -127,7 +128,6 @@ public class Yapper {
         task.markAsNotDone();
         return "OK, I've marked this task as not done yet:\n  " + task;
     }
-    
 
     private String handleTodo(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ", 2);
@@ -138,7 +138,6 @@ public class Yapper {
         tasks.addTask(task);
         return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
-    
 
     private String handleDeadline(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" /by ");
@@ -150,7 +149,6 @@ public class Yapper {
         tasks.addTask(task);
         return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
-    
 
     private String handleEvent(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" /from ");
@@ -166,7 +164,6 @@ public class Yapper {
         tasks.addTask(task);
         return "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
-    
 
     private String handleDelete(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
@@ -181,7 +178,6 @@ public class Yapper {
         tasks.deleteTask(taskIndex);
         return "Noted. I've removed this task:\n  " + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
-    
 
     private String handleFind(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ", 2);
@@ -190,7 +186,7 @@ public class Yapper {
         }
         String keyword = parts[1];
         List<Task> matchingTasks = tasks.findTasks(keyword);
-    
+
         if (matchingTasks.isEmpty()) {
             return "I couldn't find any tasks matching the keyword '" + keyword + "'.";
         } else {
@@ -201,10 +197,10 @@ public class Yapper {
             return result.toString();
         }
     }
-    
-        /**
+
+    /**
      * Handles user input and returns the response from Bopes.
-     * 
+     *
      * @param input The user input.
      * @return The response from Bopes.
      */
@@ -216,41 +212,67 @@ public class Yapper {
         }
     }
 
+    /**
+     * Parses the user's command and executes the appropriate action.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @param tasks       The task list that stores all the tasks.
+     * @param storage     The storage mechanism to save and load tasks.
+     * @return The result of executing the command as a string message.
+     * @throws YapperException If an error occurs while processing the command.
+     */
     private String parse(String fullCommand, TaskList tasks, Storage storage) throws YapperException {
-        String[] parts = fullCommand.split(" ", 2);  
-        String command = parts[0].toLowerCase();    
-        
+        String[] parts = fullCommand.split(" ", 2);
+        String command = parts[0].toLowerCase();
+
         try {
             switch (command) {
-                case "list":
-                    return tasks.listTasks(); 
-                case "mark":
-                    return handleMark(fullCommand);  // Remove 'tasks' from the argument list
-                case "unmark":
-                    return handleUnmark(fullCommand);  // Remove 'tasks'
-                case "todo":
-                    return handleTodo(fullCommand);  // Remove 'tasks'
-                case "deadline":
-                    return handleDeadline(fullCommand);  // Remove 'tasks'
-                case "event":
-                    return handleEvent(fullCommand);  // Remove 'tasks'
-                case "delete":
-                    return handleDelete(fullCommand);  // Remove 'tasks'
-                case "find":
-                    return handleFind(fullCommand);  // Remove 'tasks'
-                case "bye":
-                    storage.save(tasks.getTasks());  // Save the current tasks and exit
-                    return "Bye! Hope to see you again soon!";
-                default:
-                    throw new UnknownCommandException();
+            case "list":
+                return tasks.listTasks();
+            case "mark":
+                return handleMark(fullCommand);
+            case "unmark":
+                return handleUnmark(fullCommand);
+            case "todo":
+                return handleTodo(fullCommand);
+            case "deadline":
+                return handleDeadline(fullCommand);
+            case "event":
+                return handleEvent(fullCommand);
+            case "delete":
+                return handleDelete(fullCommand);
+            case "find":
+                return handleFind(fullCommand);
+            case "bye":
+                storage.save(tasks.getTasks());
+                return exitApplication();
+            default:
+                throw new UnknownCommandException();
             }
         } catch (IOException e) {
             throw new YapperException("Sorry boss, there was an error saving your data.");
         }
     }
 
-    public static void main(String[] args) {
-        new Yapper("data/tasks.txt").run();
+    /**
+     * Exits the application after displaying a goodbye message.
+     *
+     * @return The goodbye message to be displayed to the user.
+     */
+    private String exitApplication() {
+
+        String goodbyeMessage = "Bye Boss! Hope to see you again soon! Exiting in 3 Secodns!";
+
+        Platform.runLater(() -> {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            Platform.exit();
+        });
+
+        return goodbyeMessage;
     }
 }
 
