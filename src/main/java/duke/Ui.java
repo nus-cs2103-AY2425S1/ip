@@ -13,10 +13,14 @@ public class Ui {
     private BlockingQueue<String> inputQueue;
     private BlockingQueue<String> outputQueue;
     private Formatter formatter = msg -> msg;
+
     /**
      * Constructor for a user interface.
      */
     public Ui(BlockingQueue<String> inputQueue, BlockingQueue<String> outputQueue) {
+        assert inputQueue != null;
+        assert outputQueue != null;
+
         this.inputQueue = inputQueue;
         this.outputQueue = outputQueue;
     }
@@ -56,6 +60,8 @@ public class Ui {
      * @param f The formatter to use.
      */
     public void useFormatter(Formatter f) {
+        assert f != null;
+
         this.formatter = f;
     }
 

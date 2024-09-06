@@ -35,7 +35,9 @@ public class Storage {
      * @param task The task to add.
      * @throws BobException If an I/O error occurs.
      */
-    public void add(Task task) throws BobException {
+    void add(Task task) throws BobException {
+        assert task != null;
+
         try {
             FileWriter fw = new FileWriter(this.path, true);
             fw.write(task.toString() + System.getProperty("line.separator"));
@@ -53,6 +55,8 @@ public class Storage {
      * @throws BobException If an I/O error occurs.
      */
     public void mark(int itemNum, boolean isCompleted) throws BobException {
+        assert itemNum > 0;
+
         modifyItem(itemNum, (line) -> {
             Task task = Parser.parseStorage(line);
             task.mark(isCompleted);
@@ -67,6 +71,8 @@ public class Storage {
      * @throws BobException If an I/O error occurs.
      */
     public void delete(int itemNum) throws BobException {
+            assert itemNum > 0;
+
         modifyItem(itemNum, (line) -> "");
     }
 
@@ -116,6 +122,7 @@ public class Storage {
                     continue;
                 }
                 Task task = Parser.parseStorage(line);
+                assert task != null;
                 tasks.add(task);
             }
 
