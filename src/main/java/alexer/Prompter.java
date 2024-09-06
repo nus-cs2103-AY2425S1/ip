@@ -19,6 +19,10 @@ public class Prompter {
         printResponse("Sure thing! Here is your task list:\n\n" + tasks);
     }
 
+    public void printFilteredTaskList(String tasks) {
+        printResponse("I got you! Here is what I found:\n" + tasks);
+    }
+
     /**
      * Prints the chatbot response with break lines
      * @param response The message to be printed
