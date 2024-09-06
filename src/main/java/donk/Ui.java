@@ -36,27 +36,24 @@ public class Ui {
     /**
      * Bids farewell to the user when the application is closed.
      */
-    public void bye() {
-        String byeMsg = "    Bye bro, catch 'ya later\n"
+    public String bye() {
+        String byeMsg = "Bye bro, catch 'ya later\n"
                 + "____________________________________________________________\n";
-        System.out.println(byeMsg);
+        return byeMsg;
     }
 
     /**
      * Prints error message and indicates correct input format
      * @param taskType
      */
-    public void invalidFormat(TaskType taskType) {
+    public String invalidFormat(TaskType taskType) {
         if (taskType == TaskType.DEADLINE) {
             System.out.println("invalid format, require /by <date-time>");
-            return;
-        }
-        if (taskType == TaskType.EVENT) {
-            System.out.println("    Invalid Format man. You need a /start and a /end");
-            return;
-        }
-        if (taskType == TaskType.TODO) {
-            System.out.println("    Bruh todo task cannot be empty.\nExample:\n    todo homework");
+            return "invalid format, require /by <date-time>";
+        } else if (taskType == TaskType.EVENT) {
+            return "Invalid Format man. You need a /start and a /end";
+        } else {
+            return "Bruh todo task cannot be empty.\nExample:\n    todo homework";
         }
     }
 
@@ -99,13 +96,18 @@ public class Ui {
      * Show list of tasks, if empty, show message
      * @param tasks TaskList to display
      */
-    public void listTasks(TaskList tasks) {
+    public String listTasks(TaskList tasks) {
         if (tasks.size() == 0) {
-            System.out.println("    You've got not tasks yet bro. Add todo, deadline, or event tasks.");
+            return "    You've got not tasks yet bro. Add todo, deadline, or event tasks.";
         }
+
+        String tasksString = "";
+
         for (int i = 1; i <= tasks.size(); i++) {
-            System.out.println("    " + i + ": " + tasks.getTask(i - 1).toString());
+            tasksString += "\n" + i + ": " + tasks.getTask(i - 1).toString();
         }
+
+        return tasksString;
     }
 
 
