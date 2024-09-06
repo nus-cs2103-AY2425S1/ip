@@ -9,6 +9,7 @@ import joe.commands.QueryCommand;
 import joe.commands.UnmarkCommand;
 import joe.exceptions.CorruptedFileException;
 import joe.exceptions.InvalidCommandException;
+import joe.exceptions.InvalidIndexException;
 import joe.tasks.Deadline;
 import joe.tasks.Event;
 import joe.tasks.Task;
@@ -74,7 +75,7 @@ public class Parser {
      * @param userCmd the String representation of the user input
      * @return the numerical substring as an integer
      */
-    public int getDigits(String userCmd) {
+    public int getDigits(String userCmd) throws InvalidIndexException {
         int idx = -1;
         int n = userCmd.length();
         for (int i = 0; i < n; i++) {
@@ -85,7 +86,12 @@ public class Parser {
                 idx = idx * 10 + (userCmd.charAt(i++) - '0');
             }
         }
-        return idx;
+
+        if (idx < 0) {
+            throw new InvalidIndexException(idx);
+        }
+
+        return idx ;
     }
 
     /**
