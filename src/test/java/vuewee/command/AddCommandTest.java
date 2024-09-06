@@ -16,6 +16,8 @@ public class AddCommandTest {
         TaskList taskList = new TaskList();
         TaskListCli taskListUI = TaskListCli.getTaskListInstance(taskList);
 
+        System.out.println(taskList);
+
         TodoCommand command = new TodoCommand();
         assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
                 "todo")));
@@ -23,6 +25,8 @@ public class AddCommandTest {
         command.execute(taskListUI, taskList, new CommandParser("todo task"));
         assertEquals(1, taskList.size());
         assertEquals("T | 0 | task\n", taskList.serialize());
+
+        taskListUI.close();
     }
 
     @Test
@@ -46,6 +50,8 @@ public class AddCommandTest {
         command.execute(taskListUI, taskList, new CommandParser("deadline a /by 2020-08-01"));
         assertEquals(1, taskList.size());
         assertEquals("D | 0 | a | 2020-08-01\n", taskList.serialize());
+
+        taskListUI.close();
     }
 
     @Test
@@ -74,5 +80,7 @@ public class AddCommandTest {
         assertEquals(2, taskList.size());
         assertEquals("E | 0 | a | 2020-08-01 | 2020-09-01\nE | 0 | b | 2020-08-01 | 2020-09-01\n", taskList
                 .serialize());
+
+        taskListUI.close();
     }
 }

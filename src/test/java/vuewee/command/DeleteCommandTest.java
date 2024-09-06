@@ -37,5 +37,6 @@ public class DeleteCommandTest {
         assertEquals(1, taskList.size());
         assertEquals("T | 0 | task2\n", taskList.serialize());
 
+        taskListUI.close();
     }
 }

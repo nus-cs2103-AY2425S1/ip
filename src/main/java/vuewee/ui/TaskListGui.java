@@ -143,6 +143,7 @@ public class TaskListGui extends TaskListUi {
 
     @Override
     public void close() {
+        TaskListGui.instance = null;
         this.storage.storeTasks(this.taskList);
     }
 }

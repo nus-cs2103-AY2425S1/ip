@@ -28,8 +28,8 @@ public abstract class TaskListUi {
      * @param taskList Existing task list to be used
      */
     public TaskListUi(TaskList taskList) {
-        this();
         this.taskList = taskList;
+        this.storage = TasksStorage.getInstance();
     }
 
     /**

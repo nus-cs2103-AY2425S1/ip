@@ -28,9 +28,8 @@ public class TaskListCli extends TaskListUi {
         super(taskList);
     }
 
-    private TaskListCli(Scanner scanner) {
+    private TaskListCli() {
         super();
-        this.scanner = scanner;
     }
 
     /**
@@ -50,9 +49,9 @@ public class TaskListCli extends TaskListUi {
      *
      * @param scanner Input scanner for reading user input
      */
-    public static TaskListCli getScannerInstance(Scanner scanner) {
+    public static TaskListCli getScannerInstance() {
         if (instance == null) {
-            instance = new TaskListCli(scanner);
+            instance = new TaskListCli();
         }
         return instance;
     }
@@ -166,12 +165,13 @@ public class TaskListCli extends TaskListUi {
         } catch (EndProgramException e) {
             System.out.println("Bye. Hope to see you again soon!");
             System.out.println("____________________________________________________________");
-            scanner.close();
+            this.close();
         }
     }
 
     @Override
     public void close() {
+        TaskListCli.instance = null;
         this.storage.storeTasks(this.taskList);
         this.scanner.close();
     }

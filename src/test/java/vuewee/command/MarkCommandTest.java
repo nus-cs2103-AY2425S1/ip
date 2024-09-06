@@ -56,5 +56,6 @@ public class MarkCommandTest {
         unmarkCommand.execute(taskListUI, taskList, new CommandParser("unmark 3"));
         assertEquals("T | 0 | task1\nT | 0 | task2\nT | 0 | task3\n", taskList.serialize());
 
+        taskListUI.close();
     }
 }

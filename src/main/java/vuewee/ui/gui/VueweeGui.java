@@ -38,7 +38,7 @@ public class VueweeGui extends Application {
             stage.setScene(scene);
             VueweeGui.window = fxmlLoader.<MainWindow>getController();
             stage.show();
-
+            VueweeGui.sendMessage("Hello! I'm Vuewee\nWhat can I do for you?");
         } catch (IOException e) {
             e.printStackTrace();
 

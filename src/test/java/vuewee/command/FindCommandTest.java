@@ -26,5 +26,7 @@ public class FindCommandTest {
 
         // Can only test successful execution
         command.execute(taskListUI, taskList, new CommandParser("find task2"));
+
+        taskListUI.close();
     }
 }

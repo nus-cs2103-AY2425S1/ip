@@ -43,7 +43,18 @@ test {
 }
 
 application {
-    mainClass.set("vuewee.Vuewee")
+    mainClass = "vuewee.Vuewee"
+}
+
+run {
+    standardInput = System.in
+}
+
+task runCli(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = application.mainClass
+    standardInput = System.in
+    args = ['--cli']
 }
 
 shadowJar {
@@ -53,8 +64,4 @@ shadowJar {
 
 checkstyle {
     toolVersion = '10.2'
-}
-
-run{
-    standardInput = System.in
 }
