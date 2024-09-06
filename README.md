@@ -1,6 +1,17 @@
-# Duke project template
+# Stobberi Project
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+   ```
+   Hello from
+   
+   SSSSS  TTTTT   OOO   BBBBB   BBBBB   EEEEE  RRRRR   IIIII  
+   S        T    O   O  B     B B     B E      R    R    I   
+    SSS     T    O   O  BBBBB   BBBBB   EEEEE  RRRRR     I   
+        S   T    O   O  B     B B     B E      R    R    I   
+   SSSSS    T     OOO   BBBBB   BBBBB   EEEEE  R     R IIIII   
+
+   ```
+
+This is a project template for a greenfield Java project. It's named after the fruit Strawberry but made into more life like. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
@@ -13,12 +24,4 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+3. After that, locate the `src/main/java/Launcher.java` file, right-click it, and choose `Run Launcher.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see the app appearing!
