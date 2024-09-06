@@ -1,3 +1,4 @@
+package crack;
 import java.util.Scanner;
 
 public class Ui {

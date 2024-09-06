@@ -1,3 +1,4 @@
+package crack;
 public class Parser {
 
     // Parses the user input and returns the command in the form of a string
