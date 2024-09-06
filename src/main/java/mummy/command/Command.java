@@ -6,7 +6,6 @@ import java.util.HashMap;
 import mummy.task.Task;
 import mummy.task.TaskList;
 import mummy.ui.MummyException;
-import mummy.ui.Ui;
 import mummy.utility.Parser;
 import mummy.utility.Storage;
 
@@ -19,7 +18,7 @@ public abstract class Command {
 
     private final HashMap<String, String> arguments;
 
-    private enum CommandType {
+    public enum CommandType {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE,
         EVENT, DELETE, FIND, UNKNOWN
     }
@@ -82,11 +81,10 @@ public abstract class Command {
      * Executes the command.
      *
      * @param taskList the task list to be modified
-     * @param ui the user interface for displaying messages
      * @param storage the storage for saving and loading tasks
      * @throws MummyException if there is an error executing the command
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws MummyException;
+    public abstract String execute(TaskList taskList, Storage storage) throws MummyException;
 
     /**
      * Returns a boolean value indicating whether the command is an exit command.
@@ -94,6 +92,8 @@ public abstract class Command {
      * @return true if the command is an exit command, false otherwise.
      */
     public abstract boolean isExit();
+
+    public abstract CommandType getCommandType();
 
     /**
      * Retrieves the value associated with the specified key from the arguments map.
@@ -137,16 +137,15 @@ public abstract class Command {
      *
      * @param task the task to be added
      * @param taskList the task list to add the task to
-     * @param ui the user interface to display messages
      * @param storage the storage to save the task list
      * @throws MummyException if there is an error adding the task or saving the task list
      */
-    public void addTask(Task task, TaskList taskList, Ui ui, Storage storage) throws MummyException {
+    public String addTask(Task task, TaskList taskList, Storage storage) throws MummyException {
         taskList.add(task);
         saveTaskListToStorage(taskList, storage);
-        ui.show(String.format(
+        return String.format(
                 "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                task, taskList.getCount()
-        ));
+                task, taskList.count()
+        );
     }
 }

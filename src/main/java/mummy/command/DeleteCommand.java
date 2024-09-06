@@ -6,7 +6,6 @@ import mummy.task.Task;
 import mummy.task.TaskList;
 import mummy.task.TaskListException;
 import mummy.ui.MummyException;
-import mummy.ui.Ui;
 import mummy.utility.Parser;
 import mummy.utility.Storage;
 
@@ -22,7 +21,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws MummyException {
+    public String execute(TaskList taskList, Storage storage) throws MummyException {
         String taskIndexString = this.getArgument("description");
 
         if (taskIndexString == null) {
@@ -36,10 +35,10 @@ public class DeleteCommand extends Command {
         try {
             Task task = taskList.remove(taskIndex);
             saveTaskListToStorage(taskList, storage);
-            ui.show(String.format(
+            return String.format(
                     "Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                    task, taskList.getCount()
-            ));
+                    task, taskList.count()
+            );
         } catch (TaskListException exception) {
             throw new MummyException("Something went wrong when deleting task: "
                     + exception.getMessage());
@@ -49,5 +48,10 @@ public class DeleteCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.DELETE;
     }
 }

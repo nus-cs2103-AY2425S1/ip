@@ -1,7 +1,6 @@
 package mummy.command;
 
 import mummy.task.TaskList;
-import mummy.ui.Ui;
 import mummy.utility.Storage;
 
 import java.util.HashMap;
@@ -17,12 +16,17 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.show(taskList.toString());
+    public String execute(TaskList taskList, Storage storage) {
+        return taskList.toString();
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.LIST;
     }
 }

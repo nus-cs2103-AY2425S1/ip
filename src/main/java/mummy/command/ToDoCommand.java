@@ -5,7 +5,6 @@ import java.util.HashMap;
 import mummy.task.TaskList;
 import mummy.task.ToDo;
 import mummy.ui.MummyException;
-import mummy.ui.Ui;
 import mummy.utility.Storage;
 
 /**
@@ -19,13 +18,18 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws MummyException {
+    public String execute(TaskList taskList, Storage storage) throws MummyException {
         String description = this.getArgument("description", "");
-        addTask(new ToDo(description), taskList, ui, storage);
+        return this.addTask(new ToDo(description), taskList, storage);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.TODO;
     }
 }

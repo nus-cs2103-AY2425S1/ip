@@ -13,20 +13,17 @@ import org.junit.jupiter.api.Test;
 
 import mummy.task.TaskList;
 import mummy.ui.MummyException;
-import mummy.ui.Ui;
 import mummy.utility.Storage;
 
 
 public class CommandTest {
 
     private TaskList taskList;
-    private Ui ui;
     private Storage storage;
 
     @BeforeEach
     public void setup() {
         this.taskList = new TaskList();
-        this.ui = new Ui("Test");
         this.storage = new Storage("data/test.txt");
     }
 
@@ -82,8 +79,8 @@ public class CommandTest {
         }
 
         @Override
-        public void execute(TaskList taskList, Ui ui, Storage storage) {
-            // Do nothing
+        public String execute(TaskList taskList, Storage storage) {
+            return "This is a stub command";
         }
 
         @Override

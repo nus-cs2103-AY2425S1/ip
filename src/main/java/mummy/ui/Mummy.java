@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import mummy.command.Command;
 import mummy.task.TaskList;
-import mummy.utility.Parser;
 import mummy.utility.Storage;
 
 
@@ -14,55 +13,44 @@ import mummy.utility.Storage;
  * and handling user commands.
  */
 public class Mummy {
-    private static final String LOGO = " __  __\n"
-            + "|  \\/  |_   _ _ __ ___  _ __ ___  _   _\n"
-            + "| |\\/| | | | | '_ ` _ \\| '_ ` _ \\| | | |\n"
-            + "| |  | | |_| | | | | | | | | | | | |_| |\n"
-            + "|_|  |_|\\__,_|_| |_| |_|_| |_| |_|\\__, |\n"
-            + "                                  |___/ \n";
+    private static final String LOGO = "Mummy";
 
-    private static final String ioPath = "./data/mummy.txt";
+    private static final String IO_Path = "./data/mummy.txt";
 
     private Storage storage;
 
     private TaskList taskList;
 
-    private Ui ui;
+    private Command currentCommand;
 
-    private Mummy(String filePath) {
-        this.storage = new Storage(filePath);
+    public Mummy() {
+        this.storage = new Storage(IO_Path);
 
         try {
             this.taskList = new TaskList(this.storage.load());
         } catch (IOException e) {
             this.taskList = new TaskList();
         }
-
-        this.ui = new Ui(LOGO);
     }
 
-    private void run() {
-        ui.showWelcome();
+    public String getResponse(String input) {
+        try {
+            this.currentCommand = Command.of(input);
+            return this.currentCommand.execute(this.taskList, this.storage);
+        } catch (MummyException exception) {
+            return exception.getMessage();
+        }
+    }
 
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command command = Command.of(fullCommand);
-                command.execute(this.taskList, this.ui, this.storage);
-                isExit = command.isExit();
-            } catch (MummyException exception) {
-                ui.showError(exception.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    public Command.CommandType getCommandType() {
+        if (this.currentCommand == null) {
+            return Command.CommandType.UNKNOWN;
         }
 
-        ui.closeScanner();
+        return this.currentCommand.getCommandType();
     }
 
-    public static void main(String[] args) {
-        new Mummy(ioPath).run();
+    public String generateWelcomeMessage() {
+        return String.format("Hello from %s\nWhat can I do for you?", LOGO);
     }
 }

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import mummy.task.Deadline;
 import mummy.task.TaskList;
 import mummy.ui.MummyException;
-import mummy.ui.Ui;
 import mummy.utility.Storage;
 
 
@@ -20,7 +19,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws MummyException {
+    public String execute(TaskList taskList, Storage storage) throws MummyException {
         String description = this.getArgument("description", "");
         String dueBy = this.getArgument("by");
 
@@ -28,11 +27,16 @@ public class DeadlineCommand extends Command {
             throw new MummyException("/by is required");
         }
 
-        this.addTask(new Deadline(description, dueBy), taskList, ui, storage);
+        return this.addTask(new Deadline(description, dueBy), taskList, storage);
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.DEADLINE;
     }
 }

@@ -3,7 +3,7 @@ package mummy.command;
 import java.util.HashMap;
 
 import mummy.task.TaskList;
-import mummy.ui.Ui;
+import mummy.ui.MummyException;
 import mummy.utility.Storage;
 
 /**
@@ -17,21 +17,25 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws MummyException {
         String keyword = this.getArgument("description");
 
         if (keyword == null) {
-            ui.showError("Keyword must be provided");
-            return;
+            throw new MummyException("Keyword must be provided");
         }
 
-        ui.show(taskList
+        return taskList
                 .filter(task -> task.getDescription().contains(keyword))
-                .toString());
+                .toString();
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.FIND;
     }
 }
