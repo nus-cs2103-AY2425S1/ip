@@ -15,6 +15,7 @@ public class Tuesday {
     private Storage storage;
     private Task tasks;
     private Ui ui;
+    private String commandType;
 
     /**
      * Constructor for Tuesday
@@ -55,7 +56,18 @@ public class Tuesday {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Tuesday heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            commandType = c.getClass().getSimpleName();
+            return "hi";
+        } catch (TuesdayException e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 
     public static void main(String[] args) {
