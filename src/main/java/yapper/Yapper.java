@@ -275,5 +275,3 @@ public class Yapper {
         return goodbyeMessage;
     }
 }
-
-//write a readme
