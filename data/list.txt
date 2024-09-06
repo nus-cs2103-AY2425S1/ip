@@ -4,3 +4,5 @@ T | unplayyy | 0
 T | sleepppp | 1
 T | playyyy | 1
 T | play | 0
+T | study | 0
+T | watch lecturess | 0

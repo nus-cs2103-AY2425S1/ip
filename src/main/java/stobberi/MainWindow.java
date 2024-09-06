@@ -1,5 +1,6 @@
 package stobberi;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import stobberi.components.Ui;
 
 /**
@@ -46,16 +48,26 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if (input.equals("bye")) {
-            dialogContainer.getChildren().addAll(DialogBox.getStobberiDialog(Ui.sayGoodbye(), userImage));
-            stobberi.saveList();
-            Platform.exit();
-        }
         String response = stobberi.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getStobberiDialog(response, stobberiImage)
         );
+
         userInput.clear();
+
+        if (input.equals("bye")) {
+            delay();
+        }
+    }
+
+    @FXML
+    private void delay() {
+        stobberi.saveList();
+        PauseTransition pause = new PauseTransition(Duration.seconds(4));
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
+        pause.setOnFinished(event -> Platform.exit());
+        pause.play();
     }
 }
