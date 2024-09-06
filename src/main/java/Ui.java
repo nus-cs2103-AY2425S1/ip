@@ -1,9 +1,18 @@
+/**
+ * The Ui class handles user interface interactions.
+ */
 public class Ui {
 
-    public Ui(){
-
+    /**
+     * Constructs a new Ui instance.
+     */
+    public Ui() {
     }
-    public void showLoadingError(){
+
+    /**
+     * Displays an error message indicating a loading error.
+     */
+    public void showLoadingError() {
         System.out.println("Error loading file");
     }
 }

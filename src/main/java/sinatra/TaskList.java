@@ -2,32 +2,80 @@ package sinatra;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks in the Sinatra application.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
-    public TaskList(){
-        this.tasks = new ArrayList<Task>();
 
+    /**
+     * Constructs a new TaskList instance.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
     }
-    public void addTask(Task task){
+
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task the task to add
+     */
+    public void addTask(Task task) {
         System.out.println("Sinatra.Task added");
     }
-    public void removeTask(Task task){
+
+    /**
+     * Removes a task from the task list.
+     *
+     * @param task the task to remove
+     */
+    public void removeTask(Task task) {
         System.out.println("Sinatra.Task removed");
     }
-    public void extend(ArrayList<Task> tasks){
+
+    /**
+     * Extends the task list with another list of tasks.
+     *
+     * @param tasks the list of tasks to add
+     */
+    public void extend(ArrayList<Task> tasks) {
         this.tasks.addAll(tasks);
     }
-    public int size(){
+
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return the number of tasks
+     */
+    public int size() {
         return this.tasks.size();
     }
-    public Task get(int index){
+
+    /**
+     * Returns the task at the specified index.
+     *
+     * @param index the index of the task to return
+     * @return the task at the specified index
+     */
+    public Task get(int index) {
         return this.tasks.get(index);
     }
-    public void add(Task task){
+
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task the task to add
+     */
+    public void add(Task task) {
         this.tasks.add(task);
     }
-    public void remove(Task task){
+
+    /**
+     * Removes a task from the task list.
+     *
+     * @param task the task to remove
+     */
+    public void remove(Task task) {
         this.tasks.remove(task);
     }
-
 }
