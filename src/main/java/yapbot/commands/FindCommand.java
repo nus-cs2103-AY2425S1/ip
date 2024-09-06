@@ -4,11 +4,20 @@ import yapbot.exceptions.YapBotException;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
 
+/**
+ * Command for finding a task.
+ */
 public class FindCommand extends Command {
 
     private String query;
     private boolean multiwordQuery;
 
+    /**
+     * Creates an EventCommand instance.
+     *
+     * @param query Keyword that YapBot searches for in its tasks.
+     * @throws YapBotException If task details are empty.
+     */
     public FindCommand(String query) throws YapBotException {
         if (query.isEmpty()) {
             throw new YapBotException("Error, Automated Search Completion module offline."

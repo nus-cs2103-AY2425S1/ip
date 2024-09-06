@@ -6,6 +6,9 @@ import yapbot.tasks.Task;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
 
+/**
+ * Command for creation of Event tasks.
+ */
 public class EventCommand extends Command {
 
     private String taskDetails;

@@ -11,9 +11,8 @@ public abstract class Command {
 
     /**
      * @param tasks TaskList to be called for any task-related functions.
-     * @param ui ui to be called for any printing of messages to the user.
      * @param storage storage to be called for any file interactions.
-     * @return true if the command was executed successfully and false otherwise.
+     * @return Response String for YapBot.
      */
     public abstract String execute(TaskList tasks, Storage storage) throws YapBotException;
 

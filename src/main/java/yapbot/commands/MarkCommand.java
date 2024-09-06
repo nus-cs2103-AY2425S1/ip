@@ -5,6 +5,9 @@ import yapbot.tasks.Task;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
 
+/**
+ * Command for marking a task as completed.
+ */
 public class MarkCommand extends Command {
     private int index;
 

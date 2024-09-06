@@ -6,6 +6,9 @@ import yapbot.tasks.ToDo;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
 
+/**
+ * Command for creation of ToDo tasks.
+ */
 public class ToDoCommand extends Command {
     private String taskDetails;
 

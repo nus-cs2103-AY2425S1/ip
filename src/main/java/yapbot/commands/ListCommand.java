@@ -4,6 +4,9 @@ import yapbot.exceptions.YapBotException;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
 
+/**
+ * Command for listing all tasks.
+ */
 public class ListCommand extends Command {
 
     /**

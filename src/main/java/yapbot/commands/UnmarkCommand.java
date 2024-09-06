@@ -5,6 +5,9 @@ import yapbot.tasks.Task;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
 
+/**
+ * Command for marking a task as incomplete.
+ */
 public class UnmarkCommand extends Command {
     private int index;
 

@@ -5,6 +5,9 @@ import yapbot.tasks.Task;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
 
+/**
+ * Command for deleting a task.
+ */
 public class DeleteCommand extends Command {
     private int index;
 

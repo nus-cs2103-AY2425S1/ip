@@ -6,6 +6,9 @@ import yapbot.exceptions.YapBotException;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
 
+/**
+ * This command signals YapBot to carry out closing tasks and terminate afterwards.
+ */
 public class ByeCommand extends Command {
 
     /**

@@ -1,5 +1,7 @@
 package yapbot.main;
 
+import java.time.format.DateTimeParseException;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,8 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import yapbot.exceptions.YapBotException;
-
-import java.time.format.DateTimeParseException;
 
 /**
  * Controller for the main GUI.
@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the YapBot instance */
     public void setYapBot(YapBot yapBot) {
         this.yapBot = yapBot;
     }
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing YapBot's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -69,7 +69,7 @@ public class MainWindow extends AnchorPane {
 
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getYapBotDialog(message, errorImage,true)
+                    DialogBox.getYapBotDialog(message, errorImage, true)
             );
         } catch (DateTimeParseException e) {
             String message = "Error, Dynamic DateTime Module offline."

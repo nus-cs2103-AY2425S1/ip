@@ -43,6 +43,12 @@ public class YapBot {
                 + "\nCore Systems 28% functional.";
     }
 
+    /**
+     * Saves tasks to file.
+     * Intended for use when YapBot app is not closed using ByeCommand.
+     *
+     * @return true if tasks are saved and false otherwise.
+     */
     public boolean close() {
         try {
             new ByeCommand().execute(taskList, storage);
@@ -52,6 +58,16 @@ public class YapBot {
         }
     }
 
+    /**
+     * Returns the String response of YapBot based on input supplied.
+     *
+     * @param input User input
+     * @return Response from YapBot
+     *
+     * @throws YapBotException If user input is invalid, eg. invalid command or insufficient arguments
+     * @throws NumberFormatException When input uses strings instead of numbers, causing Integer parse to fail.
+     * @throws DateTimeParseException When Dates and Times are not inputted in the correct format.
+     */
     public String getResponse(String input) throws YapBotException, NumberFormatException, DateTimeParseException {
         Command c = Parser.parse(input);
         shouldExit = c.isExit();
@@ -59,6 +75,9 @@ public class YapBot {
         return c.execute(taskList, storage);
     }
 
+    /**
+     * Returns if this YapBot instance should be terminated.
+     */
     public boolean shouldExit() {
         return this.shouldExit;
     }
