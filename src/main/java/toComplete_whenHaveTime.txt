@@ -2,7 +2,7 @@ To complete:
 - Already mark items shouldn’t be marked again. Give warning message.
 - check for duplicate items
 - exceptions: event /from /to (empty description)
-
+- GUI: when bye is entered, carly should return bye before exiting.
 
 /*String logo = " ,-----.              ,--.          \n"
                 + "'  .--./,--,--.,--.--.|  |,--. ,--. \n"

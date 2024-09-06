@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 
 import carly.ui.Ui;
 /**
@@ -29,8 +28,8 @@ public class MainWindow extends AnchorPane {
 
     private Carly carly;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image carlyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/elephanticon.jpg"));
+    private Image carlyImage = new Image(this.getClass().getResourceAsStream("/images/penguinicon.jpg"));
 
     @FXML
     public void initialize() {

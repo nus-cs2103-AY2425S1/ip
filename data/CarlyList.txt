@@ -1,1 +1,3 @@
-T | 0 | sleep
+T | 1 | cook pasta
+E | 1 | meeting | 8pm to 10pm
+T | 0 | writing
