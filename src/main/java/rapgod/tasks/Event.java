@@ -5,14 +5,54 @@ import rapgod.utils.Parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event with a description and a time range.
+ * This subclass of {@link Task} includes information about when the event starts and ends.
+ */
 public class Event extends Task{
     protected LocalDateTime from;
     protected LocalDateTime to;
+
+    /**
+     * Constructs an Event with the specified description, start time, and end time.
+     * The times are parsed into {@link LocalDateTime} objects using the {@link Parser} class.
+     *
+     * @param description The description of the event.
+     * @param from The start time of the event, provided as a string.
+     * @param to The end time of the event, provided as a string.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = Parser.parseToDateTime(from);
         this.to = Parser.parseToDateTime(to);
     }
+
+    /**
+     * Returns the start time of the event.
+     *
+     * @return The start time of the event as a {@link LocalDateTime} object.
+     */
+    public LocalDateTime getFrom() {
+        return this.from;
+    }
+
+    /**
+     * Returns the end time of the event.
+     *
+     * @return The end time of the event as a {@link LocalDateTime} object.
+     */
+    public LocalDateTime getTo() {
+        return this.to;
+    }
+
+    /**
+     * Returns a string representation of the Event.
+     * The string includes the task type identifier "[E]", the completion status, the description of the event,
+     * and the start and end times formatted as "MMM dd yyyy hh:mma".
+     * If the time is "12:00am", it is omitted from the display.
+     *
+     * @return A string representation of the Event in the format "[E] [status] description (from: startTime to: endTime)".
+     */
     @Override
     public String toString() {
         String mark = isDone ? "X" : " ";
@@ -29,11 +69,4 @@ public class Event extends Task{
         return String.format("[E] [%s] %s (from: %s to: %s)", mark, super.description, from, to);
     }
 
-    public LocalDateTime getFrom() {
-        return this.from;
-    }
-
-    public LocalDateTime getTo() {
-        return this.to;
-    }
 }

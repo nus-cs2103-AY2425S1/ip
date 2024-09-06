@@ -1,18 +1,21 @@
 package rapgod.storage;
 
-import rapgod.tasks.Task;
-import rapgod.utils.Parser;
-
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import rapgod.tasks.Task;
+import rapgod.utils.Parser;
+
 /**
- * A class to manage task data stored in a file.
- * Provides functionality to read from and update the task data file.
+ * Manages task data stored in a file, providing functionality to read from and update the task data file.
+ * This class handles file operations to persist task data, validates task entry formats, and maintains
+ * a list of tasks.
  */
 public class DataManager {
     /**
@@ -21,6 +24,12 @@ public class DataManager {
     private final Path DATA_FILE_PATH;
     private final TaskList taskList;
 
+    /**
+     * Constructs a DataManager to manage task data stored at the specified file path.
+     * Initializes the task list by reading existing data from the file.
+     *
+     * @param path The path to the file where task data is stored.
+     */
     public DataManager(String path) {
         this.DATA_FILE_PATH = Path.of(path);
         this.taskList = new TaskList(this.readMemory());
@@ -36,8 +45,8 @@ public class DataManager {
 
     /**
      * Reads task data from the file and returns it as a list of {@link Task} objects.
-     * If the file does not exist, it creates an empty file.
-     * Validates each line against the expected format and adds valid tasks to the list.
+     * Creates an empty file if it does not exist. Validates each line against the expected format and
+     * adds valid tasks to the list. Prints the current list of tasks to the console.
      *
      * @return A list of {@link Task} objects read from the file.
      */
@@ -76,7 +85,8 @@ public class DataManager {
     }
 
     /**
-     *
+     * Updates the task data file with the current list of tasks.
+     * Converts the list of tasks to a string and writes it to the file, overwriting the existing content.
      */
     public void updateMemory() {
         StringBuilder updatedList = new StringBuilder();
@@ -91,6 +101,11 @@ public class DataManager {
         }
     }
 
+    /**
+     * Returns the task list managed by this DataManager.
+     *
+     * @return The {@link TaskList} instance containing the current list of tasks.
+     */
     public TaskList getTaskList() {
         return this.taskList;
     }

@@ -8,14 +8,21 @@ import rapgod.storage.DataManager;
 import java.util.Scanner;
 
 /**
- * A class that handles user commands for task management using the ListBot Bot.
- * It supports commands to list, mark, unmark, delete tasks, and add deadlines, events, or todos.
+ * A class that provides a command-line interface for managing tasks with the ListBot Bot.
+ * It processes user commands to perform various task management operations, including:
+ * - Listing all tasks
+ * - Marking tasks as completed or incomplete
+ * - Deleting tasks
+ * - Adding new deadlines, events, or to-dos
  */
 public class ListBot {
 
     /**
-     * Runs the ListBot Bot, which processes user commands to manage tasks.
-     * It initializes the bot, processes user input in a loop, and handles various commands to manage tasks.
+     * Starts the ListBot Bot, which provides a command-line interface for managing tasks.
+     * It initializes the bot, displays available commands, and enters a loop to continuously process user input.
+     * The method handles commands for listing tasks, marking tasks as done or undone, deleting tasks,
+     * and adding new deadlines, events, or to-dos. It also processes special commands and handles errors
+     * such as invalid input or rude commands.
      */
     public static void run() {
 
@@ -117,16 +124,18 @@ public class ListBot {
     }
 
     /**
-     * Enum representing the types of commands that can be issued to manage tasks.
+     * Enum representing the various command types that can be used for task management in the ListBot Bot.
+     * Commands include listing tasks, marking/unmarking tasks, deleting tasks, and adding deadlines, events, or to-dos.
      */
     public enum CommandType {
         LIST, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO;
 
         /**
-         * Determines the command type based on user input.
+         * Determines the {@link CommandType} based on the provided user input string.
+         * The method analyzes the input to identify and return the appropriate command type.
          *
-         * @param input The user input string.
-         * @return The corresponding CommandType.
+         * @param input The user input string to be analyzed.
+         * @return The corresponding {@link CommandType} based on the input.
          */
         public static CommandType getCommand(String input) {
             if (input.equalsIgnoreCase("list")) {
@@ -149,12 +158,14 @@ public class ListBot {
         }
 
         /**
-         * Extracts the index from a command string.
+         * Extracts and returns the index from a command string based on the given {@link CommandType}.
+         * The index is parsed from the input string following the command keyword.
          *
-         * @param input The user input string.
-         * @param command The CommandType.
+         * @param input The user input string containing the index.
+         * @param command The {@link CommandType} that specifies the type of command requiring an index.
          * @return The extracted index as an integer.
-         * @throws NumberFormatException If the input is not a valid number.
+         * @throws NumberFormatException If the substring following the command keyword cannot be parsed as an integer.
+         * @throws IllegalArgumentException If the {@link CommandType} does not require an index.
          */
         public static int extractIndex(String input, CommandType command) throws NumberFormatException {
             switch (command) {
