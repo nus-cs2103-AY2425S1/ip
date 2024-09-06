@@ -17,8 +17,6 @@ public class Ui {
     private final String UNMARK_MSG = " OK, I've marked this task as not done yet:";
     private final String ADD_TASK_MSG = " Got it. I've added this task:";
     private final String DELETE_TASK_MSG = " Noted. I've removed this task:";
-    private final String MATCHING_TASK_MSG = " Here are the matching tasks in your list:";
-    private final String NO_MATCHING_MSG = " Didnt manage to find any matching tasks :c";
 
     /**
      * Prints the intro message
