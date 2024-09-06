@@ -27,3 +27,7 @@ java.util.NoSuchElementException: No line found
 	at java.base/java.util.Scanner.nextLine(Scanner.java:1651)
 	at duke.ui.Parser.parse(Parser.java:22)
 	at duke.ui.Notgpt.main(Notgpt.java:46)
+java.util.NoSuchElementException: No line found
+	at java.base/java.util.Scanner.nextLine(Scanner.java:1651)
+	at duke.ui.Parser.parse(Parser.java:22)
+	at duke.ui.Notgpt.main(Notgpt.java:46)
