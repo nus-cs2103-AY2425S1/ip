@@ -3,6 +3,7 @@ package utility;
 import task.Task;
 import java.util.List;
 import java.io.Serializable;
+import java.util.Iterator;
 
 public class TaskList implements Serializable {
     private final ImList<Task> imTaskList;
@@ -49,6 +50,10 @@ public class TaskList implements Serializable {
 
     public boolean isValidIndex(int taskIndex) {
         return taskIndex < imTaskList.size() && taskIndex >= 0;
+    }
+
+    public Iterator<Task> iterator() {
+        return imTaskList.iterator();
     }
 
     @Override

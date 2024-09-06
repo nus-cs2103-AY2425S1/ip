@@ -11,7 +11,8 @@ public enum CommandType {
     TODO("todo", new TodoCommand()),
     DEADLINE("deadline", new DeadlineCommand()),
     EVENT("event", new EventCommand()),
-    BYE("bye", new ByeCommand());
+    BYE("bye", new ByeCommand()),
+    FIND("find", new FindCommand());
 
     private final String commandString;
     private final Command command;

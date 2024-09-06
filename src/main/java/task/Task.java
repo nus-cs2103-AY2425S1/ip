@@ -2,6 +2,7 @@ package task;
 
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
 
 public class Task implements Serializable {
     protected final boolean isDone;
@@ -15,6 +16,10 @@ public class Task implements Serializable {
     protected Task(boolean isDone, String taskDescription) {
         this.isDone = isDone;
         this.taskDescription = taskDescription;
+    }
+
+    public boolean findMatch(Pattern searchTerm) {
+        return searchTerm.matcher(taskDescription).find();
     }
 
     public Task markAsDone() {
