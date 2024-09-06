@@ -3,7 +3,7 @@ package bill;
 /**
  * The ToDo class extends the Task class, and allows creating tasks with a description.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     /**
      * Initializes Todo.
      *

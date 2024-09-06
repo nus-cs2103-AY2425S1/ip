@@ -1,7 +1,6 @@
 package bill;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 
 /**
@@ -80,7 +79,8 @@ public class TaskList {
                 }
             }
             if (hasNoMatch) {
-                System.out.println("There are no matching tasks in your list currently matching the keyword " + keyWord);
+                System.out.println("There are no matching tasks in your list currently matching the keyword "
+                            + keyWord);
             }
         }
     }

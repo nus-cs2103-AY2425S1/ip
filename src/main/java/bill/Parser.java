@@ -1,11 +1,11 @@
 package bill;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 
 /**
- * The Parser class offers helper functions to help parse user input based on the commands of the user and when reading from bill.txt.
+ * The Parser class offers helper functions to help parse user input based on the commands of the user
+ * and when reading from bill.txt.
  */
 public class Parser {
 
@@ -53,11 +53,11 @@ public class Parser {
 
         // data parsing
         // remove deadline, trim white spaces and delimit by /by
-            String[] trimmedUserCommand = userCommand.replaceFirst("deadline", "")
-                        .trim().split(" /by ");
-            String deadlineDescription = trimmedUserCommand[0];
-            String deadlineBy = trimmedUserCommand[1];
-            return new String[]{deadlineDescription, deadlineBy};
+        String[] trimmedUserCommand = userCommand.replaceFirst("deadline", "")
+                    .trim().split(" /by ");
+        String deadlineDescription = trimmedUserCommand[0];
+        String deadlineBy = trimmedUserCommand[1];
+        return new String[]{deadlineDescription, deadlineBy};
     }
 
     public String[] handleEventParser(String userCommand) throws BillException, IOException {
@@ -85,7 +85,7 @@ public class Parser {
         String eventFrom = furtherTrimmedUserCommand[0];
         String eventTo = furtherTrimmedUserCommand[1];
 
-       return new String[]{eventDescription, eventFrom, eventTo};
+        return new String[]{eventDescription, eventFrom, eventTo};
     }
 
     public int handleDeleteParser(String[] parsedInput, ArrayList<Task> userList) throws BillException, IOException {
