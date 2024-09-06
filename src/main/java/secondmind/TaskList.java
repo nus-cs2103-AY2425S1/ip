@@ -5,13 +5,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Manages a list of tasks, providing methods to add, retrieve, and manipulate tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 
+    /**
+     * Constructor for the TaskList class.
+     *
+     * @param taskList An ArrayList of tasks to initialize the task list.
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Gets the number of tasks in the list.
+     *
+     * @return The count of tasks in the list.
+     */
     public int getTaskCount() {
         return taskList.size();
     }
@@ -74,6 +87,16 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new task to the list.
+     *
+     * @param task The task description to be added.
+     * @return The created Task object.
+     * @throws EmptyCommandException If the command is empty.
+     * @throws EmptyToDoException If the ToDo task description is empty.
+     * @throws UnknownCommandException If the command is unknown.
+     * @throws DateTimeParseException If the date-time format is invalid.
+     */
     public Task addToTaskList(String task) 
             throws EmptyCommandException, EmptyToDoException,  UnknownCommandException, DateTimeParseException  {
         Task curr = createTask(task);
@@ -81,10 +104,21 @@ public class TaskList {
         return curr;
     }
 
+    /**
+     * Gets the list of tasks.
+     *
+     * @return An ArrayList of Task objects.
+     */
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param taskNumber The number of the task to mark as done.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
     public void markAsDone(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber <= 0 || taskNumber > getTaskCount()) {
             throw new InvalidTaskNumberException(taskNumber);
@@ -94,6 +128,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as undone.
+     *
+     * @param taskNumber The number of the task to mark as undone.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
     public void markAsUndone(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber <= 0 || taskNumber > getTaskCount()) {
             throw new InvalidTaskNumberException(taskNumber);
@@ -103,6 +143,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the list.
+     *
+     * @param taskNumber The number of the task to delete.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
     public void delete(int taskNumber) throws InvalidTaskNumberException {
         try {
             this.taskList.remove(taskNumber-1);
@@ -111,6 +157,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Retrieves a task from the list.
+     *
+     * @param taskNumber The number of the task to retrieve. (1-Indexed)
+     * @return The Task object.
+     */
     public Task getTask(int taskNumber) {
         return this.taskList.get(taskNumber-1);
     }
