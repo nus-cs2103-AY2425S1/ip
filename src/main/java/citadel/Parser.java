@@ -23,6 +23,9 @@ public class Parser {
      * @throws CitadelException If the input does not match any valid command.
      */
     public static Commands parseCommand(String input) throws CitadelException {
+        assert input != null : "Input string cannot be null";
+        assert !input.isEmpty() : "Input string cannot be empty";
+
         try {
             String command = input.split(" ")[0].toUpperCase();
             return Commands.valueOf(command.toUpperCase());

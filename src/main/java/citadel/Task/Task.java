@@ -49,6 +49,7 @@ public abstract class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
+        assert !this.isDone : "Task is already marked as done";
         this.isDone = true;
     }
 
@@ -56,6 +57,7 @@ public abstract class Task {
      * Marks the task as not done.
      */
     public void unMark() {
+        assert this.isDone : "Task is already marked as not done";
         this.isDone = false;
     }
 

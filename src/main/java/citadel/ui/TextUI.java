@@ -57,9 +57,12 @@ public class TextUI {
      * @param items The {@link TaskList} containing the tasks to be printed.
      */
     public String printTasks(TaskList items) {
+        assert items != null : "Task list cannot be null";
+
         StringBuilder tasksToString = new StringBuilder();
         for (int i = 0; i < items.size(); i++) {
             String printString = (i + 1) + ". " + items.get(i).printTask();
+            assert printString != null : "Task string representation cannot be null";
             System.out.println(printString);
             tasksToString.append(printString).append("\n");
         }
@@ -125,6 +128,9 @@ public class TextUI {
      * @param items The {@link TaskList} to which the task was added.
      */
     public static String printTask(Task t, TaskList items) {
+        assert t != null : "Task to be printed cannot be null";
+        assert items != null : "Task list cannot be null";
+
         String addedSuccess = "Got it! I have added: " + t;
         String printTaskCount = "Now you have " + items.size()
                 + " tasks in the list";
