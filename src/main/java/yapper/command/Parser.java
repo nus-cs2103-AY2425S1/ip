@@ -1,5 +1,8 @@
 package yapper.command;
 
+import yapper.exception.YapperException;
+import yapper.storage.Storage;
+import yapper.task.TaskList;
 /**
  * Interprets user commands and returns the corresponding {@link CommandType}.
  */
@@ -40,8 +43,11 @@ public class Parser {
             return CommandType.EVENT;
         case "delete":
             return CommandType.DELETE;
+        case "find":
+            return CommandType.FIND;
         default:
             return CommandType.UNKNOWN;
         }
     }
+
 }
