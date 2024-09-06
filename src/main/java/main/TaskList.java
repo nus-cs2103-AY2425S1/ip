@@ -31,21 +31,25 @@ public class TaskList {
     /**
      * Displays the list of tasks in taskList
      */
-    public void list() {
+    public String list() {
         System.out.println("________________________________");
+        String output = "";
         for (int i = 0; i < taskList.size(); i++) {
-            String output = String.valueOf(i + 1) + ". " + taskList.get(i).getString();
-            System.out.println(output);
+            String display = String.valueOf(i + 1) + ". " + taskList.get(i).getString();
+            System.out.println(display);
+            output += display + "\n";
         }
         System.out.println("________________________________");
+        return output;
     }
 
     /**
      * Displays the list of task where description contains the word
      * @param word String to be found that exists in description of task
      */
-    public void searchTask(String word) {
+    public String searchTask(String word) {
         ArrayList<Task> foundTask = new ArrayList<>();
+        String output = "";
         for (Task i: taskList) {
             if (i.getString().contains(word)) {
                 foundTask.add(i);
@@ -54,15 +58,18 @@ public class TaskList {
         System.out.println("________________________________");
         if (foundTask.isEmpty()) {
             System.out.println("No such task found!");
+            return "No such task found!";
         } else {
             int counter = 1;
             for (Task i : foundTask) {
-                String output = String.valueOf(counter) + ". " + i.getString();
-                System.out.println(output);
+                String current = String.valueOf(counter) + ". " + i.getString();
+                System.out.println(current);
                 counter += 1;
+                output += current + "\n";
             }
         }
         System.out.println("________________________________");
+        return output;
     }
 
     /**
@@ -155,7 +162,7 @@ public class TaskList {
      */
     public Task delete(int index) {
         try {
-            if (index < 0 || index >= taskList.size()){
+            if (index < 0 || index >= taskList.size()) {
                 throw new DukeException("Invalid position!");
             }
             return taskList.remove(index);

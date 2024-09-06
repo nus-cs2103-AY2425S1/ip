@@ -19,7 +19,7 @@ public class Ui {
         String greeting = "________________________________\n"
                 + "Hello! I'm main.Bean\n"
                 + "What can i do for you?\n"
-                +"________________________________";
+                + "________________________________";
         System.out.println(greeting);
     }
 
@@ -27,12 +27,13 @@ public class Ui {
     /**
      * Displays a farewell message when program terminates
      */
-    public void displayByeMessage() {
+    public String displayByeMessage() {
         String byeMsg =
                 "________________________________\n"
                         + "Bye. Hope to see you again soon!\n"
                         + "________________________________";
         System.out.println(byeMsg);
+        return byeMsg;
     }
 
     /**
@@ -41,12 +42,12 @@ public class Ui {
      * @param task the task that is being added
      * @param size size of current task list
      */
-    public void displayAddMessage(Task task, int size) {
-        String output = "________________________________\n" + "Got it. I've added this task:";
+    public String displayAddMessage(Task task, int size) {
+        String output = "Got it. I've added this task:\n" + task.getString() + "\n"
+                + "Now you have " + String.valueOf(size) + " tasks in the list.";
         System.out.println(output);
-        System.out.println(task.getString());
-        output = "Now you have " + String.valueOf(size) + " tasks in the list.\n" + "________________________________";
-        System.out.println(output);
+        System.out.println("________________________________");
+        return output;
     }
 
 
@@ -54,22 +55,24 @@ public class Ui {
      * Displays acknowledgement of task being marked as done
      * @param task the task that is being marked
      */
-    public void displayMarkedMessage(Task task) {
+    public String displayMarkedMessage(Task task) {
         System.out.println("________________________________");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.getString());
+        String output = "Nice! I've marked this task as done:\n" + task.getString();
+        System.out.println(output);
         System.out.println("________________________________");
+        return output;
     }
 
     /**
      * Displays acknowledgement of task being unmarked as undone
      * @param task the task that is being unmarked
      */
-    public void displayUnmarkedMessage(Task task) {
+    public String displayUnmarkedMessage(Task task) {
         System.out.println("________________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.getString());
+        String output = "OK, I've marked this task as not done yet:\n" + task.getString();
+        System.out.println(output);
         System.out.println("________________________________");
+        return output;
     }
 
     /**
@@ -79,12 +82,13 @@ public class Ui {
      * @param size size of current task list
      */
 
-    public void displayDeletedMessage(Task task, int size) {
+    public String displayDeletedMessage(Task task, int size) {
         System.out.println("________________________________");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.getString());
-        System.out.println( "Now you have " + String.valueOf(size)
-                + " tasks in the list.\n"
-                    + "________________________________");
+        String output = "Noted. I've removed this task:\n" + task.getString() + "\n";
+        output += "Now you have " + String.valueOf(size)
+                + " tasks in the list.";
+        System.out.println(output);
+        System.out.println("________________________________");
+        return output;
     }
 }

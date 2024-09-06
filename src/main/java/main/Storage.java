@@ -21,6 +21,7 @@ public class Storage {
     private final String path;
     FileWriter fw;
     File f;
+
     public Storage(String path) {
         this.path = path;
         f = new File(this.path);
