@@ -43,7 +43,6 @@ public class Storage {
                     currTask.setNotDone();
                 }
                 taskList.add(currTask);
-                System.out.println(currTask);
             } else if (arr[0].equals("D")) {
                 Task currTask = new Deadline(arr[2], LocalDate.parse(arr[3], DateTimeFormatter.ofPattern("MMM d yyyy")));
                 if (arr[1].equals("Complete")) {
@@ -52,7 +51,6 @@ public class Storage {
                     currTask.setNotDone();
                 }
                 taskList.add(currTask);
-                System.out.println(currTask);
             } else {
                 Task currTask = new Event(arr[2], arr[3], arr[4]);
                 if (arr[1].equals("Complete")) {
@@ -61,11 +59,7 @@ public class Storage {
                     currTask.setNotDone();
                 }
                 taskList.add(currTask);
-                System.out.println(currTask);
             }
-        }
-        if (taskList.isEmpty()) {
-            System.out.println("Your current list does not have any tasks");
         }
         return taskList;
     }
