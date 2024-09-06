@@ -1,17 +1,19 @@
 package karen.util;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.Path;
-import java.io.IOException;
-
+import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import karen.tasks.Task;
 import karen.tasks.TaskList;
 
+/**
+ * Class which handles logic relating to file I/O
+ */
 public class Storage {
     private static final Path DIRPATH = Paths.get("./data");
     private static final Path FILEPATH = Paths.get("./data/Karen.txt");

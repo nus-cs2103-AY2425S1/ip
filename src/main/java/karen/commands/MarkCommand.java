@@ -5,7 +5,10 @@ import karen.tasks.TaskList;
 import karen.util.Storage;
 import karen.util.Ui;
 
-public class MarkCommand extends Command{
+/**
+ * Handles marking a <code>Task</code> in a <code>TaskList</code> and prints the appropriate message
+ */
+public class MarkCommand extends Command {
     private int index;
 
     public MarkCommand(int i) {

@@ -3,6 +3,9 @@ package karen.tasks;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TaskList class which manages the List of Tasks and contains methods to modify it
+ */
 public class TaskList {
     private List<Task> tasks;
 
@@ -66,6 +69,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches the List by name with the specified substring
+     * @param searchWord String representing the substring to search with
+     * @return a List of Task containing <code>Tasks</code> which satisfy the search condition
+     */
     public List<Task> searchTasks(String searchWord) {
         List<Task> result = new ArrayList<>();
         for (Task t : this.tasks) {
@@ -77,6 +85,10 @@ public class TaskList {
         return result;
     }
 
+    /**
+     * A utility method to convert a List of Task into a <code>TaskList</code>
+     * @param listOfTask the <code>List</code> to convert
+     */
     public static TaskList fromList(List<Task> listOfTask) {
         TaskList taskList = new TaskList();
         for (Task t : listOfTask) {

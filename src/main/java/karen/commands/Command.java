@@ -3,6 +3,9 @@ package karen.commands;
 import karen.tasks.TaskList;
 import karen.util.Ui;
 
+/**
+ * Abstract class for various Commands to inherit from
+ */
 public abstract class Command {
 
     /**

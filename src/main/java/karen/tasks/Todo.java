@@ -1,5 +1,8 @@
 package karen.tasks;
 
+/**
+ * Class representing a Todo task
+ */
 public class Todo extends Task {
     public Todo(String name) {
         super(name);

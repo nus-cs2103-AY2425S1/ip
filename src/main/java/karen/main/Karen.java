@@ -6,10 +6,16 @@ import karen.util.Parser;
 import karen.util.Storage;
 import karen.util.Ui;
 
+/**
+ * The main class containing the logic of Karen
+ */
 public class Karen {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructor to initialize the <code>TaskList</code>, <code>Ui</code> and <code>Storage</code>
+     */
     public Karen() {
         this.taskList = new TaskList();
         Storage.initFile();
@@ -17,6 +23,9 @@ public class Karen {
         this.ui = new Ui();
     }
 
+    /**
+     * Starts the main loop
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

@@ -1,9 +1,16 @@
 package karen.tasks;
 
+/**
+ * Abstract class Task which keeps track of its name and whether it is marked as complete
+ */
 public abstract class Task {
     private String name;
     private boolean isDone;
 
+    /**
+     * Constructor to initialize the Task's name
+     * @param name String representing the Task name
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false;
@@ -47,14 +54,13 @@ public abstract class Task {
      */
     public abstract String toFileString();
 
-
     /**
-     *
-     * @param s String containing text to parse into a Task
-     * @return A <code>Task</code> corresponding to the parsed text
-     * @throws IllegalArgumentException if input string has invalid format
+     * Returns a <code>Task</code> from parsing a String retrieved from Karen.txt
+     * @param s A String to be parsed
+     * @return <code>Task</code> corresponding to the parsed String
+     * @throws IllegalArgumentException if the String is not in the correct format
      */
-    public static Task fromFileString(String s) throws IllegalArgumentException{
+    public static Task fromFileString(String s) throws IllegalArgumentException {
         String[] params = s.split(" \\| ");
         String type = params[0];
 

@@ -5,6 +5,9 @@ import karen.tasks.TaskList;
 import karen.util.Storage;
 import karen.util.Ui;
 
+/**
+ * Handles deleting a <code>Task</code> from the <code>TaskList</code> and prints the appropriate message
+ */
 public class DeleteCommand extends Command {
     private int index;
 

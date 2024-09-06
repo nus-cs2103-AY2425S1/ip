@@ -5,7 +5,10 @@ import karen.tasks.TaskList;
 import karen.util.Storage;
 import karen.util.Ui;
 
-public class AddTaskCommand extends Command{
+/**
+ * Handles adding a new <code>Task</code> to the <code>TaskList</code> and prints the appropriate message
+ */
+public class AddTaskCommand extends Command {
     private Task task;
 
     public AddTaskCommand(Task t) {

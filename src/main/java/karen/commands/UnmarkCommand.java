@@ -5,7 +5,10 @@ import karen.tasks.TaskList;
 import karen.util.Storage;
 import karen.util.Ui;
 
-public class UnmarkCommand extends Command{
+/**
+ * Handles unmarking a <code>Task</code> in a <code>TaskList</code> and prints the appropriate message
+ */
+public class UnmarkCommand extends Command {
     private int index;
 
     public UnmarkCommand(int i) {
