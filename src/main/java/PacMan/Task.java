@@ -1,4 +1,4 @@
-package PacMan;
+package pacman;
 
 public class Task {
     private final String taskName;

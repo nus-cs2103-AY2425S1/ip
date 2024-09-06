@@ -1,4 +1,4 @@
-package PacMan;
+package pacman;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

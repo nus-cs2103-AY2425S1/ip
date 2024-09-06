@@ -1,4 +1,4 @@
-package PacMan;
+package pacman;
 
 public class Parser {
     private static Ui ui;

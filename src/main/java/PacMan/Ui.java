@@ -1,4 +1,4 @@
-package PacMan;
+package pacman;
 
 import java.util.Scanner;
 

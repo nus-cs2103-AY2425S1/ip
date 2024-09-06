@@ -1,4 +1,4 @@
-package PacMan;
+package pacman;
 
 public class Todo extends Task {
     Todo(String task) {
