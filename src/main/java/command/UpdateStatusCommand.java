@@ -3,6 +3,7 @@ package command;
 import java.util.Arrays;
 
 import exception.InvalidArgumentException;
+import exception.LevelHundredException;
 import exception.MissingArgumentException;
 import task.Storage;
 import task.Task;
@@ -26,12 +27,16 @@ public class UpdateStatusCommand extends UserCommand {
         String command = words[0];
 
         if (words.length == 1) {
-            ui.printException(new MissingArgumentException(command, "task index"));
+            LevelHundredException e = new MissingArgumentException(command, "task index");
+            this.setResponse(e.toString());
+            ui.printException(e);
             return;
         }
         if (words.length > 2) {
             String invalidString = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-            ui.printException(new InvalidArgumentException(command, invalidString));
+            LevelHundredException e = new InvalidArgumentException(command, invalidString);
+            this.setResponse(e.toString());
+            ui.printException(e);
             return;
         }
 
@@ -40,14 +45,18 @@ public class UpdateStatusCommand extends UserCommand {
             Task t = taskList.getTaskList().get(idx);
             if (command.equals("mark")) {
                 t.mark();
+                this.setResponse("Nice! I've marked this task as done:\n" + t);
                 ui.printSuccessfulMark(t);
             } else {
                 t.unmark();
+                this.setResponse("OK, I've marked this task as not done yet:\n" + t);
                 ui.printSuccessfulUnmark(t);
             }
             storage.update(taskList.getTaskList());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            ui.printException(new InvalidArgumentException("task index", words[1]));
+            LevelHundredException exception = new InvalidArgumentException("task index", words[1]);
+            this.setResponse(exception.toString());
+            ui.printException(exception);
         }
     }
 }

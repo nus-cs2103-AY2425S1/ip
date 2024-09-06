@@ -108,9 +108,16 @@ public class AddCommand extends UserCommand {
             Task newTask = createTask(words, command);
             taskList.addTask(newTask);
             storage.update(taskList.getTaskList());
+
+            StringBuilder res = new StringBuilder("Got it. I've added this task:\n");
+            res.append(newTask + "\n");
+            res.append("Now you have " + taskList.size() + " tasks in the list.");
+            this.setResponse(res.toString());
+
             ui.printAddTask(newTask, taskList.size());
         } catch (LevelHundredException e) {
             ui.printException(e);
+            this.setResponse(e.toString());
         }
     }
 }

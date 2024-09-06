@@ -3,6 +3,7 @@ package command;
 import java.util.Arrays;
 
 import exception.InvalidArgumentException;
+import exception.LevelHundredException;
 import exception.MissingArgumentException;
 import task.Storage;
 import task.Task;
@@ -25,12 +26,16 @@ public class DeleteCommand extends UserCommand {
         String[] words = userInput.split(" ");
 
         if (words.length == 1) {
-            ui.printException(new MissingArgumentException("delete", "task index"));
+            LevelHundredException e = new MissingArgumentException("delete", "task index");
+            this.setResponse(e.toString());
+            ui.printException(e);
             return;
         }
         if (words.length > 2) {
             String invalidString = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-            ui.printException(new InvalidArgumentException("delete", invalidString));
+            LevelHundredException e = new InvalidArgumentException("delete", invalidString);
+            this.setResponse(e.toString());
+            ui.printException(e);
             return;
         }
 
@@ -38,9 +43,17 @@ public class DeleteCommand extends UserCommand {
             int idx = Integer.parseInt(words[1]) - 1;
             Task t = taskList.removeTask(idx);
             storage.update(taskList.getTaskList());
+
+            StringBuilder res = new StringBuilder("Noted. I've removed this task:\n");
+            res.append(t + "\n");
+            res.append("Now your have " + taskList.size() + " tasks in the list.");
+            this.setResponse(res.toString());
+
             ui.printDeleteTask(t, taskList.size());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            ui.printException(new InvalidArgumentException("task index", words[1]));
+            LevelHundredException exception = new InvalidArgumentException("task index", words[1]);
+            this.setResponse(exception.toString());
+            ui.printException(exception);
         }
     }
 }

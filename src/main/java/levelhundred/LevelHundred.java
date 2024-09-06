@@ -29,6 +29,7 @@ public class LevelHundred {
         this.ui = new Ui();
         this.storage = new Storage();
         this.taskList = new TaskList();
+        this.initialiseTaskList();
     }
 
     private void initialiseTaskList() {
@@ -41,8 +42,6 @@ public class LevelHundred {
     }
 
     private void run() {
-        this.initialiseTaskList();
-
         this.ui.greet(this.name);
 
         Scanner sc = new Scanner(System.in);
@@ -66,11 +65,18 @@ public class LevelHundred {
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
+    public String getResponse(String userInput) {
+        try {
+            UserCommand c = Parser.parseUserCommand(userInput);
+            c.execute(userInput, this.ui, this.storage, this.taskList);
+            return c.getResponse();
+        } catch (LevelHundredException e) {
+            return "Error: " + e.toString();
+        }
     }
 
     public static void main(String[] args) {
+        // For the CLI version of chatbot
         LevelHundred chatbot = new LevelHundred();
         chatbot.run();
     }

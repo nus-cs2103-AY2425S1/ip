@@ -3,6 +3,7 @@ package command;
 import java.util.ArrayList;
 
 import exception.InvalidArgumentException;
+import exception.LevelHundredException;
 import task.Storage;
 import task.Task;
 import task.TaskList;
@@ -25,11 +26,24 @@ public class FindCommand extends UserCommand {
         int keywordIdx = userInput.indexOf(" ");
         String keyword = userInput.substring(keywordIdx + 1);
         if (keyword.isEmpty()) {
-            ui.printException(new InvalidArgumentException("find", keyword));
+            LevelHundredException e = new InvalidArgumentException("find", keyword);
+            this.setResponse(e.toString());
+            ui.printException(e);
             return;
         }
 
         ArrayList<Task> tasks = taskList.filterByKeyword(keyword);
+
+        if (tasks.isEmpty()) {
+            this.setResponse("No matching tasks found...");
+        } else {
+            StringBuilder res = new StringBuilder("Here are the matching tasks in your list\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                res.append((i + 1) + ". " + tasks.get(i).toString() + "\n");
+            }
+            this.setResponse(res.toString());
+        }
+
         ui.printMatchingTasks(tasks);
     }
 }

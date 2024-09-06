@@ -29,9 +29,9 @@ public class Ui {
     /**
      * Prints an exit message upon termination of bot
      */
-    public void exit() {
+    public void exit(String exitMessage) {
         this.printHorizontalLine();
-        System.out.println("\t" + "Bye. Hope to see you again soon!");
+        System.out.println("\t" + exitMessage);
         this.printHorizontalLine();
     }
 

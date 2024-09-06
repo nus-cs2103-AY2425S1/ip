@@ -21,6 +21,17 @@ public class ListCommand extends UserCommand {
     @Override
     public void execute(String userInput, Ui ui, Storage storage, TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTaskList();
+
+        if (tasks.size() == 0) {
+            this.setResponse("No tasks yet...");
+        } else {
+            StringBuilder res = new StringBuilder();
+            for (int i = 0; i < tasks.size(); i++) {
+                res.append((i + 1) + ". " + tasks.get(i).toString() + "\n");
+            }
+            this.setResponse(res.toString());
+        }
+
         ui.printTasks(tasks);
     }
 }

@@ -9,6 +9,7 @@ import ui.Ui;
  * The UserCommand interface deals with executing user commands
  */
 public abstract class UserCommand {
+    private String response = "";
 
     /**
      * Creates the appropriate UserCommand based on the command name
@@ -54,4 +55,12 @@ public abstract class UserCommand {
      * @param taskList Task list of current tasks
      */
     public abstract void execute(String userInput, Ui ui, Storage storage, TaskList taskList);
+
+    public String getResponse() {
+        return this.response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
 }

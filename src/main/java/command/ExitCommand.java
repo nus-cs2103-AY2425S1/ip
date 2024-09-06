@@ -22,6 +22,7 @@ public class ExitCommand extends UserCommand {
      */
     @Override
     public void execute(String userInput, Ui ui, Storage storage, TaskList taskList) {
-        ui.exit();
+        this.setResponse("Bye. Hope to see you again soon!");
+        ui.exit(this.getResponse());
     }
 }
