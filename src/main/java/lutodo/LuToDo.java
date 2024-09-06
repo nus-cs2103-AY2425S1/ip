@@ -52,6 +52,15 @@ public class LuToDo {
         }
     }
 
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return Ui.LINE + "\n" + c.executeAndRespond(tasks, storage) + "\n" + Ui.LINE;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
     public static void main(String[] args) {
         new LuToDo("taskListFile.txt").run();
     }

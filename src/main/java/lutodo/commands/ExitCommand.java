@@ -22,6 +22,17 @@ public class ExitCommand extends Command{
     }
 
     /**
+     * Shows bye to the user and exits.
+     *
+     * @param tasks The TaskList the method interacts with.
+     * @param storage The Storage object used to save the new task list.
+     */
+    @Override
+    public String executeAndRespond(TaskList tasks, Storage storage) {
+        return "Bye, hope to see you again!";
+    }
+
+    /**
      * Returns true since this type of command is the exit command.
      *
      * @return whether this is an exit command.

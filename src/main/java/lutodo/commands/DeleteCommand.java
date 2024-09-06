@@ -2,6 +2,7 @@ package lutodo.commands;
 
 import lutodo.tasklist.TaskList;
 import lutodo.storage.Storage;
+import lutodo.tasks.Task;
 
 /**
  * Represents the command of deleting a task in the task list.
@@ -34,6 +35,25 @@ public class DeleteCommand extends Command{
             System.out.println("The task you want to delete is not in task list, please try again.");
         }
         storage.save(tasks);
+    }
+
+    /**
+     * Deletes a task in the task list, informs the user and saves the new task list.
+     *
+     * @param tasks   The TaskList that has some task to be deleted.
+     * @param storage The Storage object used to save the new task list.
+     */
+    @Override
+    public String executeAndRespond(TaskList tasks, Storage storage) {
+        try {
+            Task removedTask = tasks.get(index);
+            tasks.deleteTask(index);
+            storage.save(tasks);
+            return "Noted. I've removed this task:\n" + removedTask
+                    + "\nNow you have " + tasks.size() + " tasks in the list.";
+        } catch(IndexOutOfBoundsException e) {
+            return "The task you want to delete is not in task list, please try again.";
+        }
     }
 
     /**

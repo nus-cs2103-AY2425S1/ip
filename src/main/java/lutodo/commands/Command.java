@@ -17,6 +17,15 @@ public abstract class Command {
     public abstract void execute(TaskList tasks, Storage storage);
 
     /**
+     * Executes the command, return the String to be displayed on UI,
+     * and save changes to the task list file if needed.
+     *
+     * @param tasks The TaskList the method interacts with.
+     * @param storage The Storage object used to save the new task list.
+     */
+    public abstract String executeAndRespond(TaskList tasks, Storage storage);
+
+    /**
      * Returns whether this is an exit command.
      *
      * @return whether this is an exit command.
