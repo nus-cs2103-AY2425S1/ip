@@ -1,17 +1,17 @@
 package atreides.ui;
 
-import atreides.task.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import atreides.task.TaskList;
+
 /**
  * Represents the storage for the list of tasks written to .txt file
  */
-public class Storage  {
+public class Storage {
     private final String fileName;
 
     Storage(String fileName) {
@@ -19,7 +19,6 @@ public class Storage  {
     }
 
     /**
-     *
      * @return a list of arrays of strings. Each string array corresponds to a command and task
      * @throws AtreidesException if file not found
      */

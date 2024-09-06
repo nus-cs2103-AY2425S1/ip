@@ -1,15 +1,16 @@
 package atreides.ui;
 
+import java.util.Set;
+
 import atreides.command.AddCommand;
 import atreides.command.Command;
 import atreides.command.DeleteCommand;
 import atreides.command.ErrorCommand;
 import atreides.command.ExitCommand;
+import atreides.command.FindCommand;
 import atreides.command.ListCommand;
 import atreides.command.MarkCommand;
 import atreides.command.UnMarkCommand;
-
-import java.util.Set;
 
 /**
  * Represents the class to parse commands and creates relevant commands

@@ -24,7 +24,7 @@ public class UnMarkCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
         tasks.unmark(index);
-        Task task = tasks.getTask(index);
+        Task task = tasks.getTaskAtIndex(index);
         ui.showMessage("Noted, this task has been unmarked\n"
                 + task);
     }

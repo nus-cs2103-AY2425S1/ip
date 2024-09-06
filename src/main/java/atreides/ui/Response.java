@@ -1,8 +1,8 @@
 package atreides.ui;
 
 public class Response {
-    String msg;
-    String LINE = "____________________________________________________________";
+    private static final String LINE = "____________________________________________________________";
+    private final String msg;
 
     Response(String msg) {
         this.msg = msg;

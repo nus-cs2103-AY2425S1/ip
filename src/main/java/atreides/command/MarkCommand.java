@@ -24,7 +24,7 @@ public class MarkCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
         tasks.mark(index);
-        Task task = tasks.getTask(index);
+        Task task = tasks.getTaskAtIndex(index);
         ui.showMessage("Thank you, one task completed: \n"
                 + task);
     }

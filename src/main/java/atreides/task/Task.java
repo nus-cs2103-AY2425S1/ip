@@ -39,7 +39,6 @@ public class Task {
     }
 
     /**
-     *
      * @return string to write into the .txt file for storage and subsequent reading
      */
     public String write() {
@@ -47,7 +46,6 @@ public class Task {
     }
 
     /**
-     *
      * @return the representation of the task and whether its completed
      */
     @Override

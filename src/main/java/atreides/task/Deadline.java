@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
+    static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     protected String by;
     protected LocalDateTime deadline;
-    protected final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
     public Deadline(String description, String by) {
         super(description);

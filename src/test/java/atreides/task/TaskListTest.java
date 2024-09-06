@@ -1,28 +1,29 @@
 package atreides.task;
 
-import atreides.ui.AtreidesException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import atreides.ui.AtreidesException;
 
 
 public class TaskListTest {
 
     @Test
-    public void mark_success() throws AtreidesException {
-            String[] task = {"T", "1", "read book"};
-            ArrayList<String[]> tasks = new ArrayList<>();
-            tasks.add(task);
-            TaskList taskList = new TaskList(tasks);
-            String printList = "T | 1 | read book";
-            assertEquals(printList, taskList.writeList());
+    public void markSuccess() throws AtreidesException {
+        String[] task = {"T", "1", "read book"};
+        ArrayList<String[]> tasks = new ArrayList<>();
+        tasks.add(task);
+        TaskList taskList = new TaskList(tasks);
+        String printList = "T | 1 | read book";
+        assertEquals(printList, taskList.writeList());
     }
 
     @Test
-    public void mark_fail() throws AtreidesException {
+    public void markFail() throws AtreidesException {
         try {
             TaskList taskList = new TaskList();
             taskList.mark(4);

@@ -1,6 +1,6 @@
 package atreides.ui;
 
-public class AtreidesException extends Exception{
+public class AtreidesException extends Exception {
     private final String description;
 
     public AtreidesException(String description) {

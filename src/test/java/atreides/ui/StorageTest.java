@@ -1,24 +1,20 @@
 package atreides.ui;
 
-import atreides.ui.AtreidesException;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
 public class StorageTest {
 
     @Test
-    public void load_success() throws AtreidesException {
+    public void loadSuccess() throws AtreidesException {
         Storage storage = new Storage("C:\\Users\\patyu\\Desktop\\2103\\ip\\src\\main\\atreides.ui.Atreides.txt");
         storage.load();
     }
 
     @Test
-    public void save_fail()  {
+    public void saveFail() {
         try {
             Storage storage = new Storage("random_file.txt");
             storage.load();

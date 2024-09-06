@@ -1,14 +1,39 @@
 package atreides.task;
 
-import atreides.ui.AtreidesException;
-
 import java.util.ArrayList;
+
+import atreides.ui.AtreidesException;
 
 /**
  * Represents the list of tasks that can be added
  */
 public class TaskList {
     protected ArrayList<Task> list;
+
+    public TaskList() {
+        this.list = new ArrayList<>();
+    }
+
+    public TaskList(ArrayList<String[]> tasks) {
+        this.list = new ArrayList<>();
+        for (String[] words : tasks) {
+            Task newTask = new Task();
+            Boolean isDone = words[1].equals("1");
+            if (words[0].equals("T")) {
+                newTask = new ToDo(words[2]);
+            } else if (words[0].equals("D")) {
+                String description = words[2];
+                String by = words[3];
+                newTask = new Deadline(description, by);
+            } else if (words[0].equals("E")) {
+                String description = words[2];
+                String[] startEnd = words[3].split("-");
+                newTask = new Events(description, startEnd);
+            }
+            newTask.markDone(isDone);
+            this.list.add(newTask);
+        }
+    }
 
     /**
      * parses the string msg and words and creates the relevant Task object
@@ -35,31 +60,6 @@ public class TaskList {
             throw new AtreidesException("I dont know what u mean, please give me a todo, event or deadline");
         }
         return newTask;
-    }
-
-    public TaskList(ArrayList<String[]> tasks) {
-        this.list = new ArrayList<>();
-        for (String[] words : tasks) {
-            Task newTask = new Task();
-            Boolean isDone = words[1].equals("1");
-            if (words[0].equals("T")) {
-                newTask = new ToDo(words[2]);
-            } else if (words[0].equals("D")) {;
-                String description = words[2];
-                String by = words[3];
-                newTask = new Deadline(description, by);
-            } else if (words[0].equals("E")) {
-                String description = words[2];
-                String[] startEnd = words[3].split("-");
-                newTask = new Events(description, startEnd);
-            }
-            newTask.markDone(isDone);
-            this.list.add(newTask);
-        }
-    }
-
-    public TaskList() {
-        this.list = new ArrayList<>();
     }
 
     /**
@@ -92,11 +92,11 @@ public class TaskList {
         return tasks.toString();
     }
 
-    public void mark(int index) throws AtreidesException{
+    public void mark(int index) throws AtreidesException {
         markBool(index, true);
     }
 
-    public void unmark(int index) throws AtreidesException{
+    public void unmark(int index) throws AtreidesException {
         markBool(index, false);
     }
 
@@ -106,7 +106,7 @@ public class TaskList {
      * @param bool
      * @throws AtreidesException If index out of bounds
      */
-    public void markBool(int index, boolean bool) throws AtreidesException{
+    public void markBool(int index, boolean bool) throws AtreidesException {
         checkIndexPresent(index);
         list.get(index).markDone(bool);
     }
@@ -117,7 +117,7 @@ public class TaskList {
         }
     }
 
-    public Task getTask(int index) {
+    public Task getTaskAtIndex(int index) {
         return list.get(index);
     }
 
