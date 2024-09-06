@@ -12,8 +12,8 @@ import sumode.util.Parser;
  * A class for various tasks.
  */
 public class Task {
-    private static final String done = "[X]";
-    private static final String undone = "[ ]";
+    private static final String DONE = "[X]";
+    private static final String UNDONE = "[ ]";
     private boolean isCompleted;
     private final String name;
 
@@ -88,9 +88,8 @@ public class Task {
     public void mark() throws AlreadyMarkedException {
         if (isCompleted) {
             throw new AlreadyMarkedException(this);
-        } else {
-            this.isCompleted = true;
         }
+        this.isCompleted = true;
     }
 
     /**
@@ -99,9 +98,8 @@ public class Task {
     public void unmark() throws AlreadyUnmarkedException {
         if (!isCompleted) {
             throw new AlreadyUnmarkedException(this);
-        } else {
-            this.isCompleted = false;
         }
+        this.isCompleted = false;
     }
 
     /**
@@ -114,6 +112,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return (isCompleted ? done : undone) + this.name;
+        return (isCompleted ? DONE : UNDONE) + this.name;
     }
 }
