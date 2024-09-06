@@ -25,7 +25,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setTitle("Rex");
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setRex(rex);  // inject the Rex instance
+            fxmlLoader.<MainWindow>getController().setRex(rex); // inject the Rex instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
