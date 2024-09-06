@@ -32,16 +32,14 @@ public class Ui {
 
     /**
      * Displays the list of tasks in the user's task list.
-     * @param tasks The TaskList containing all the tasks to be displayed. 
-     */
-    public void showList(TaskList tasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are the tasks in your list:");
+
+    public String showList(TaskList tasks) {
+        return "Here are the tasks in your list:" +
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.getTask(i).printTaskOnList());
+            (i + 1) + ". " + tasks.getTask(i).printTaskOnList();
         }
-        System.out.println("____________________________________________________________");
     }
+    */
 
     public void showMark(Task task) {
         System.out.println("____________________________________________________________");

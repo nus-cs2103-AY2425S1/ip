@@ -1,5 +1,12 @@
 package cloudy;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
@@ -13,7 +20,6 @@ public class Cloudy {
 
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
     private Parser parser;
 
     /**
@@ -22,164 +28,169 @@ public class Cloudy {
      * @param filePath The file path to load and save tasks.
      */
     public Cloudy(String filePath) {
-        ui = new Ui();
+
         storage = new Storage(filePath);
         parser = new Parser();
         try {
             tasks = new TaskList(Storage.loadTasksFromFile());
         } catch (Exception e) {
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
+    public String showGreeting() {
+        return "Hello! I'm Cloudy.\n What can I do for you today?";
+    }
+
     /**
-     * Runs the main program loop, processing user input until the program ends.
+     * Processes input from the GUI and returns the corresponding response.
+     * @param userInput The input entered by the user.
+     * @return The response to be displayed in the GUI.
      */
-    public void run() {
-        ui.showGreeting();
-        Scanner echo = new Scanner(System.in);
-        String userInput;
+    public String getResponse(String userInput) {
+        Command command = parser.parseCommand(userInput);
 
-        // main program loop
-        while (true) {
-            userInput = echo.nextLine();
-            Command command = parser.parseCommand(userInput);
-
-            switch (command.getType()) {
-                case "bye":
-                    ui.showBye();
-                    return;
-                case "list":
-                    ui.showList(tasks);
-                    break;
-                case "find":
-                    handleFindCommand(command);
-                    break;
-                case "mark":
-                    handleMarkCommand(command);
-                    break;
-                case "unmark":
-                    handleUnmarkCommand(command);
-                    break;
-                case "todo":
-                    handleTodoCommand(command);
-                    break;
-                case "deadline":
-                    handleDeadlineCommand(command);
-                    break;
-                case "event":
-                    handleEventCommand(command);
-                    break;
-                case "delete":
-                    handleDeleteCommand(command);
-                    break;
-                case "invalid":
-                    ui.showInvalidCommand();
-                    break;
-                case "invalidTaskNum":
-                    ui.showInvalidTaskNum();
-                    break;
-                case "invalidTaskFormat":
-                    ui.showInvalidTaskFormat();
-                    break;
-                case "invalidDeadline":
-                    ui.showInvalidDeadline();
-                    break;
-                case "invalidEvent":
-                    ui.showInvalidEvent();
-                    break;
-                default:
-                    ui.showInvalidCommand();
-            }
+        switch (command.getType()) {
+            case "bye":
+                return "Bye. Hope to see you again soon!";
+            case "list":
+                return showList(tasks);
+            case "find":
+                return handleFindCommand(command);
+            case "mark":
+                return handleMarkCommand(command);
+            case "unmark":
+                return handleUnmarkCommand(command);
+            case "todo":
+                return handleTodoCommand(command);
+            case "deadline":
+                return handleDeadlineCommand(command);
+            case "event":
+                return handleEventCommand(command);
+            case "delete":
+                return handleDeleteCommand(command);
+            default:
+                return showInvalidCommand();
         }
     }
 
-    private void handleMarkCommand(Command command) {
+
+
+
+    /**
+     * Returns a string of the list of tasks in the user's task list.
+     * @param tasks The TaskList containing all the tasks to be displayed.
+     */
+    public String showList(TaskList tasks) {
+        StringBuilder output = new StringBuilder("Here are the tasks in your list:\n");
+
+        for (int i = 0; i < tasks.size(); i++) {
+            output.append(i + 1)
+                    .append(". ")
+                    .append(tasks.getTask(i).printTaskOnList())
+                    .append("\n");
+        }
+        return output.toString();
+    }
+
+    private String handleFindCommand(Command command) {
+        ArrayList<Task> matchingTasks = tasks.findTasks(command.getTaskDescription());
+
+        StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
+
+        for (int i = 0; i < tasks.size(); i++) {
+            output.append(i + 1)
+                    .append(". ")
+                    .append(tasks.getTask(i).printTaskOnList())
+                    .append("\n");
+        }
+        return output.toString();
+    }
+
+    private String handleMarkCommand(Command command) {
         try {
             int taskNumber = command.getTaskNumber();
             if (taskNumber > 0 && taskNumber <= tasks.size()) {
                 Task taskToMark = tasks.getTask(taskNumber - 1);
                 taskToMark.markTask();
                 storage.saveTasksToFile(tasks.getAllTasks());
-                ui.showMark(taskToMark);
+                return "Nice! I've marked this task as done:\n" + taskToMark.printTaskOnList();
             } else {
-                ui.showInvalidTaskNum();
+                return "Invalid task format. Please enter a valid task.";
             }
         } catch (NumberFormatException e) {
-            ui.showInvalidTaskNum();
+            return "Invalid task format. Please enter a valid task.";
         }
     }
 
-    private void handleUnmarkCommand(Command command) {
+    private String handleUnmarkCommand(Command command) {
         try {
             int taskNumber = command.getTaskNumber();
             if (taskNumber > 0 && taskNumber <= tasks.size()) {
                 Task taskToUnmark = tasks.getTask(taskNumber - 1);
                 taskToUnmark.unmarkTask();
-                ui.showUnmark(taskToUnmark);
+                return "OK, I've marked this task as not done yet:\n" + taskToUnmark.printTaskOnList();
             } else {
-                ui.showInvalidTaskNum();
+                return "Please enter a valid task number.";
             }
         } catch (NumberFormatException e) {
-            ui.showInvalidTaskNum();
+            return "Please enter a valid task number.";
         }
     }
 
-    private void handleTodoCommand(Command command) {
+    private String handleTodoCommand(Command command) {
         String taskDescription = command.getTaskDescription();
         Task newTask = new Todo(taskDescription, false);
         tasks.addTask(newTask);
         storage.saveTasksToFile(tasks.getAllTasks());
-        ui.showAddTask(newTask, tasks.size());
+        return "Got it. I've added this task:\n"
+                + newTask.printTaskOnList() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
-    private void handleDeadlineCommand(Command command) {
+    private String handleDeadlineCommand(Command command) {
         String taskDescription = command.getTaskDescription();
         LocalDate deadline = command.getDeadline();
         Task newTask = new Deadline(taskDescription, deadline, false);
         tasks.addTask(newTask);
         storage.saveTasksToFile(tasks.getAllTasks());
-        ui.showAddTask(newTask, tasks.size());
+        return "Got it. I've added this task:\n"
+                + newTask.printTaskOnList() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
-    private void handleEventCommand(Command command) {
+    private String handleEventCommand(Command command) {
         String taskDescription = command.getTaskDescription();
         LocalDate startTime = command.getStartTime();
         LocalDate endTime = command.getEndTime();
         Task newTask = new Event(taskDescription, startTime, endTime, false);
         tasks.addTask(newTask);
         storage.saveTasksToFile(tasks.getAllTasks());
-        ui.showAddTask(newTask, tasks.size());
+        return "Got it. I've added this task:\n"
+                + newTask.printTaskOnList() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
-    private void handleDeleteCommand(Command command) {
+    private String handleDeleteCommand(Command command) {
         try {
             int taskNumber = command.getTaskNumber();
             if (taskNumber > 0 && taskNumber <= tasks.size()) {
                 Task taskToDelete = tasks.getTask(taskNumber - 1);
                 tasks.removeTask(taskNumber - 1);
                 storage.saveTasksToFile(tasks.getAllTasks());
-                ui.showDeleteTask(taskToDelete, tasks.size());
+                return "Noted. I've removed this task:\n"
+                        + "Now you have " + tasks.size() + " tasks in the list.";
             } else {
-                ui.showInvalidTaskNum();
+                return "Please enter a valid task number.";
             }
         } catch (NumberFormatException e) {
-            ui.showInvalidTaskNum();
+            return "Please enter a valid task number.";
         }
     }
 
-    private void handleFindCommand(Command command) {
-        ArrayList<Task> matchingTasks = tasks.findTasks(command.getTaskDescription());
-        ui.showFindTask(matchingTasks);
+
+    public String showInvalidCommand() {
+        return "Invalid command. Try again.";
     }
 
-    /**
-     * The main entry point of the Cloudy application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Cloudy("data/tasks.txt").run();
-    }
 }
