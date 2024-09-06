@@ -32,8 +32,12 @@ application {
     mainClass.set("Papagu.Ui.Papagu.Main")
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
+
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Papagu"
     archiveClassifier = null
 }
 
