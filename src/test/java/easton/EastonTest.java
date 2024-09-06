@@ -1,12 +1,14 @@
 package easton;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import easton.exception.DateTimeFormatException;
 import easton.exception.EmptyDescriptionException;
 import easton.exception.InvalidFormatException;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class EastonTest {
 
