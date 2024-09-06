@@ -1,7 +1,6 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -15,7 +14,16 @@ import javafx.application.Application;
  * Represents the Bob Chatbot application.
  */
 public class Bob {
+    /**
+     * Whether the app use the gui or cli.
+     */
     private static final boolean isGui = true;
+
+    /**
+     * The maximum capacity of the input and output message queues.
+     */
+    private static final int queueCapacity = 10;
+
     private TaskList tasks;
 
     private Ui ui;
@@ -54,6 +62,7 @@ public class Bob {
                 ui.write(e.toString());
             }
         }
+        System.exit(0);
     }
 
     /**
@@ -62,33 +71,19 @@ public class Bob {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        BlockingQueue<String> inputQueue = new ArrayBlockingQueue<>(10);
-        BlockingQueue<String> outputQueue = new ArrayBlockingQueue<>(10);
+        BlockingQueue<String> inputQueue = new ArrayBlockingQueue<>(queueCapacity);
+        BlockingQueue<String> outputQueue = new ArrayBlockingQueue<>(queueCapacity);
+        Bob bob = new Bob("./data/bob.txt", inputQueue, outputQueue);
+
         if (isGui) {
             Main.connect(inputQueue, outputQueue);
-            new Thread(() -> {
-                Application.launch(Main.class, args);
-            }).start();
-            new Bob("./data/bob.txt", inputQueue, outputQueue).run();
+            new Thread(() -> Application.launch(Main.class, args)).start();
         } else {
-            new Thread(() -> {
-                Scanner in = new Scanner(System.in);
-                while (true) {
-                    String inputMessage = in.nextLine();
-                    inputQueue.add(inputMessage);
-                }
-            }).start();
-            new Thread(() -> {
-                while (true) {
-                    try {
-                        String outputMessage = outputQueue.take();
-                        System.out.println(outputMessage);
-                    } catch (InterruptedException e) {
-                        ;
-                    }
-                }
-            }).start();
-            new Bob("./data/bob.txt", inputQueue, outputQueue).run();
+            Ui.useStdio(inputQueue, outputQueue);
+            bob.ui.useFormatter((msg) -> "____________________________________________________________\n"
+                    + msg + "\n____________________________________________________________\n");
         }
+
+        bob.run();
     }
 }

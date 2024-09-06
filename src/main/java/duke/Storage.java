@@ -33,12 +33,16 @@ public class Storage {
      * Add a task to the storage.
      *
      * @param task The task to add.
-     * @throws IOException If an I/O error occurs.
+     * @throws BobException If an I/O error occurs.
      */
-    public void add(Task task) throws IOException {
-        FileWriter fw = new FileWriter(this.path, true);
-        fw.write(task.toString() + System.getProperty("line.separator"));
-        fw.close();
+    public void add(Task task) throws BobException {
+        try {
+            FileWriter fw = new FileWriter(this.path, true);
+            fw.write(task.toString() + System.getProperty("line.separator"));
+            fw.close();
+        } catch (IOException e) {
+            throw new BobException("Oh no! An IO error has occured.");
+        }
     }
 
     /**
@@ -46,58 +50,51 @@ public class Storage {
      *
      * @param itemNum The item number of the task to update.
      * @param isCompleted Whether to mark the task as completed or not completed.
-     * @throws IOException If an I/O error occurs.
+     * @throws BobException If an I/O error occurs.
      */
-    public void mark(int itemNum, boolean isCompleted) throws IOException, BobException {
-        File inputFile = new File(this.path);
-        File tempFile = new File("temp.txt");
-
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-        int lineNum = 1;
-        String line;
-
-        while ((line = reader.readLine()) != null) {
-            if (lineNum == itemNum) {
-                Task task = Parser.parseStorage(line);
-                task.mark(isCompleted);
-                writer.write(task + System.getProperty("line.separator"));
-            } else {
-                writer.write(line + System.getProperty("line.separator"));
-            }
-            lineNum++;
-        }
-        writer.close();
-        reader.close();
-        tempFile.renameTo(inputFile);
+    public void mark(int itemNum, boolean isCompleted) throws BobException {
+        modifyItem(itemNum, (line) -> {
+            Task task = Parser.parseStorage(line);
+            task.mark(isCompleted);
+            return task.toString();
+        });
     }
 
     /**
      * Delete a task in the storage by item number.
      *
      * @param itemNum The item number of the task to delete.
-     * @throws IOException If an I/O error occurs.
+     * @throws BobException If an I/O error occurs.
      */
-    public void delete(int itemNum) throws IOException {
+    public void delete(int itemNum) throws BobException {
+        modifyItem(itemNum, (line) -> "");
+    }
+
+    private void modifyItem(int itemNum, LineEditor editor) throws BobException {
         File inputFile = new File(this.path);
         File tempFile = new File("temp.txt");
 
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
-        int lineNum = 1;
-        String currentLine;
+            int lineNum = 1;
+            String currentLine;
 
-        while ((currentLine = reader.readLine()) != null) {
-            if (lineNum != itemNum) {
-                writer.write(currentLine + System.getProperty("line.separator"));
+            while ((currentLine = reader.readLine()) != null) {
+                if (lineNum != itemNum) {
+                    writer.write(editor.editLine(currentLine));
+                } else {
+                    writer.write(currentLine + System.getProperty("line.separator"));
+                }
+                lineNum++;
             }
-            lineNum++;
+            writer.close();
+            reader.close();
+            tempFile.renameTo(inputFile);
+        } catch (IOException e) {
+            throw new BobException("Oh no! An IO error has occurred.");
         }
-        writer.close();
-        reader.close();
-        tempFile.renameTo(inputFile);
     }
 
     /**
