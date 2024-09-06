@@ -9,8 +9,6 @@ public class Ui {
                   |     \\ | |_| |   |  |   |   <  | |_| |
                   |__|\\__\\ \\____|   |__|   |_|\\ \\  \\____|
                 """;
-    public final String unfinishedTaskDetails = "  It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?";
-
 
     public void greet() {
         System.out.println("  Hello from\n" + logo);

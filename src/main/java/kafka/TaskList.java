@@ -11,7 +11,7 @@ public class TaskList {
     }
 
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     public void addTask(Task task) {
@@ -19,6 +19,9 @@ public class TaskList {
     }
 
     public void printList() {
+        if (tasks.isEmpty()) {
+            return;
+        }
         for (int i = 0; i < this.tasks.size(); i++) {
             Task t = this.tasks.get(i);
             String listMessage = "  " + (i + 1) + "." + t;
