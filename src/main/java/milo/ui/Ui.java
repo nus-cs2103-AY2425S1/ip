@@ -7,9 +7,9 @@ import milo.tasks.TaskList;
 import milo.tasks.TaskTypes;
 
 /**
-* Milo Ui system
-* sets how Milo interacts with user
-* as well as passing on user input to Parser
+ * Milo Ui system
+ * sets how Milo interacts with user
+ * as well as passing on user input to Parser
  */
 public class Ui {
     private final Scanner myScanner = new Scanner(System.in);
@@ -24,18 +24,16 @@ public class Ui {
                 ( ̳• · •̳)
                 /    づ♡
                 """;
-    private final String hLine = "____________________________________________________________\n";
-    private final String greeting = "Hello! I'm Milo.Milo\nWhat can I do for you?\n" + cat0;
+    private final String greeting = "Hello! I'm Milo.\nWhat can I do for you?\n" + cat0;
     private final String bye = "Bye. Hope to see you again soon!\n" + cat1;
-    private final String greetingMessage = hLine + greeting + hLine;
-    private final String byeMessage = hLine + bye + hLine;
+    private final String greetingMessage = greeting;
+    private final String byeMessage = bye;
 
     /**
-    * Milo greets user
+     * Milo greets user
      */
-    public void greetUser() {
-        // Greet user
-        System.out.println(greetingMessage);
+    public String greetUser() {
+        return greetingMessage;
     }
 
     /**
@@ -48,124 +46,124 @@ public class Ui {
     /**
      * Milo says bye to user
      */
-    public void byeUser() {
-        System.out.print(byeMessage);
+    public String byeUser() {
+        return byeMessage;
     }
 
     /**
-     * Milo prints all task in the array list
+     * Milo prints all tasks in the array list
      *
-     * @param todoList of task
+     * @param todoList list of tasks
      */
-    public void printList(TaskList todoList) {
-        System.out.print(hLine);
-        System.out.println("Here are the tasks in your list:");
+    public String printList(TaskList todoList) {
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the tasks in your list:\n");
         for (int i = 0; i < todoList.getNumberOfTasks(); i++) {
-            System.out.println(i + 1 + "." + todoList.get(i).toString());
+            response.append(i + 1).append(".").append(todoList.get(i).toString()).append("\n");
         }
-        System.out.println(hLine);
+        return response.toString();
     }
 
     /**
-     * Milo prints feedback message on marking completion
+     * Milo prints feedback message on marking task as done
      *
      * @param curTask object that system marked as done
      */
-    public void printMark(Task curTask) {
-        System.out.print(hLine);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + curTask.toString());
-        System.out.print(hLine);
+    public String printMark(Task curTask) {
+        StringBuilder response = new StringBuilder();
+        response.append("Nice! I've marked this task as done:\n");
+        response.append("  ").append(curTask.toString()).append("\n");
+        return response.toString();
     }
 
     /**
-     * Milo prints feedback message on marking task as incomplete
+     * Milo prints feedback message on marking task as not done
      *
      * @param curTask object that system marked as not done
      */
-    public void printUnmark(Task curTask) {
-        System.out.print(hLine);
-        System.out.println("Ok, I've marked this as not done yet:");
-        System.out.println("  " + curTask.toString());
-        System.out.print(hLine);
+    public String printUnmark(Task curTask) {
+        StringBuilder response = new StringBuilder();
+        response.append("Ok, I've marked this as not done yet:\n");
+        response.append("  ").append(curTask.toString()).append("\n");
+        return response.toString();
     }
 
     /**
-     * Milo prints feedback message on marking task as incomplete
+     * Milo prints feedback message on deleting task
      *
      * @param curTask object that system deleted
-     * @param numberOfTask left in the todolist
+     * @param numberOfTasks left in the todo list
      */
-    public void printDelete(Task curTask, int numberOfTask) {
-        System.out.print(hLine);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + curTask.toString());
-        if (numberOfTask == 1) {
-            System.out.println("Now you have " + numberOfTask + " task in the list.");
+    public String printDelete(Task curTask, int numberOfTasks) {
+        StringBuilder response = new StringBuilder();
+        response.append("Noted. I've removed this task:\n");
+        response.append("  ").append(curTask.toString()).append("\n");
+        if (numberOfTasks == 1) {
+            response.append("Now you have ").append(numberOfTasks).append(" task in the list.\n");
         } else {
-            System.out.println("Now you have " + numberOfTask + " tasks in the list.");
+            response.append("Now you have ").append(numberOfTasks).append(" tasks in the list.\n");
         }
-        System.out.print(hLine);
+        return response.toString();
     }
 
     /**
-    * Milo prints task details
-    *
-    * @param curTask object that system wants to print to user
-     * @param numberOfTask left in todolist
+     * Milo prints task details when added
+     *
+     * @param curTask object added to the list
+     * @param numberOfTasks left in todo list
      */
-    public void printTask(Task curTask, int numberOfTask) {
-        System.out.print(hLine);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + curTask.toString());
-        if (numberOfTask == 1) {
-            System.out.println("Now you have " + numberOfTask + " task in the list.");
+    public String printTask(Task curTask, int numberOfTasks) {
+        StringBuilder response = new StringBuilder();
+        response.append("Got it. I've added this task:\n");
+        response.append("  ").append(curTask.toString()).append("\n");
+        if (numberOfTasks == 1) {
+            response.append("Now you have ").append(numberOfTasks).append(" task in the list.\n");
         } else {
-            System.out.println("Now you have " + numberOfTask + " tasks in the list.");
+            response.append("Now you have ").append(numberOfTasks).append(" tasks in the list.\n");
         }
-        System.out.print(hLine);
+        return response.toString();
     }
 
     /**
-     * A method that prints matching task to the keyword input
+     * Milo prints matching tasks to the keyword input
      *
      * @param todoList list of matching tasks
-     * @param tasksFounded number of matching tasks found
+     * @param tasksFound number of matching tasks found
      */
-    public void printFoundTask(TaskList todoList, int tasksFounded) {
-        System.out.print(hLine);
-        System.out.println("Here are the matching tasks in your list:");
-        for (int i = 0; i < tasksFounded; i++) {
-            System.out.println(i + 1 + "." + todoList.get(i).toString());
+    public String printFoundTask(TaskList todoList, int tasksFound) {
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasksFound; i++) {
+            response.append(i + 1).append(".").append(todoList.get(i).toString()).append("\n");
         }
-        System.out.println(hLine);
+        return response.toString();
     }
 
     /**
-    * Milo prints error
-    *
-    * @param tasktype type of the task that caused the error
-    * @param desc of error
+     * Milo prints error message
+     *
+     * @param taskType type of the task that caused the error
+     * @param desc description of the error
      */
-
-    public void printError(TaskTypes.TaskType tasktype, String desc) {
+    public String printError(TaskTypes.TaskType taskType, String desc) {
         String oops = "OOPS!!! ";
-        switch (tasktype) {
-        case TODO, EVENT, DEADLINE:
-            System.out.println(hLine + oops + desc + "\n" + hLine);
-            break;
-        case INVALID:
-            String invalidMessage = oops + "I'm sorry, but I don't know what that means ;-;\n";
-            System.out.println(hLine + invalidMessage + hLine);
-            break;
-        case DATE:
-            String invalidDateMessage = oops + "date is not properly formatted\n "
-                    + "It should be formatted as follow: YYYY-MM-DD\n";
-            System.out.println(hLine + invalidDateMessage + hLine);
-            break;
-        default:
-            String defaultMessage = oops + "I'm sorry, I don't know what that means ;-;\n";
-            System.out.println(hLine + defaultMessage + hLine);
+        StringBuilder response = new StringBuilder();
+        switch (taskType) {
+            case TODO, EVENT, DEADLINE:
+                response.append(oops).append(desc).append("\n");
+                break;
+            case INVALID:
+                String invalidMessage = oops + "I'm sorry, but I don't know what that means ;-;\n";
+                response.append(invalidMessage);
+                break;
+            case DATE:
+                String invalidDateMessage = oops + "Date is not properly formatted.\nIt should be formatted as: YYYY-MM-DD\n";
+                response.append(invalidDateMessage);
+                break;
+            default:
+                String defaultMessage = oops + "I'm sorry, I don't know what that means ;-;\n";
+                response.append(defaultMessage);
         }
+        return response.toString();
     }
 }
