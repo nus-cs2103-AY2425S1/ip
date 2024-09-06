@@ -65,6 +65,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes task from userList and calls storage to save current state of list of tasks.
+     *
+     * @param keyWord The keyword that the user want to match.
+     */
     public void showFilterList(String keyWord) {
         // similar to show list but filter by description to contains the keyword searched by the user
         if (userList.isEmpty()) {

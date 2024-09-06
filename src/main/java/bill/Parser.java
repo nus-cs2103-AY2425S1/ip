@@ -16,6 +16,14 @@ public class Parser {
 
     }
 
+    /**
+     * Gets index to targeted task to mark or unmark.
+     *
+     * @param parsedInput Input of user in array format seperated by blank spaces.
+     * @param userList Current accessible state of mutable list.
+     * @return Index of targeted task to mark or unmark.
+     * @throws BillException If there is an error handling the parsing of the targeted task.
+     */
     public int handleMarkOfTaskParser(String[] parsedInput, ArrayList<Task> userList) throws BillException {
         // data validation
         if (parsedInput.length < 2) {
@@ -29,6 +37,17 @@ public class Parser {
         return Integer.parseInt(parsedInput[1]) - 1;
     }
 
+    /**
+     * Gets the task description of todo commands.
+     *
+     * @param userCommand Input of user.
+     * @param userList Current accessible state of mutable list.
+     * @param storage All helper methods associated with storing tasks
+     * @param tasks All helper methods associated with userList, such as getters.
+     * @return Index of targeted task to mark or unmark.
+     * @throws BillException If there is an error handling the parsing of the targeted task.
+     * @throws IOException If there is an error reading from the bill.txt file.
+     */
     public String handleToDoParser(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks)
                 throws BillException, IOException {
         // data validation
@@ -39,6 +58,14 @@ public class Parser {
         return userCommand.replaceFirst("todo", "").trim();
     }
 
+    /**
+     * Gets an array, with index 0 being the task and index 1 being the date for deadlines.
+     *
+     * @param userCommand Input of user.
+     * @return array of task and date of deadline.
+     * @throws BillException If there is an error handling the parsing of the targeted task.
+     * @throws IOException If there is an error reading from the bill.txt file.
+     */
     public String[] handleDeadlineParser(String userCommand) throws BillException, IOException {
         // data validation
         String[] parsedInput = userCommand.split(" ");
@@ -60,6 +87,14 @@ public class Parser {
         return new String[]{deadlineDescription, deadlineBy};
     }
 
+    /**
+     * Gets an array, index 0 is task, index 1 is from date and index 2 is to date for events.
+     *
+     * @param userCommand Input of user.
+     * @return array of task, from date and to date of event.
+     * @throws BillException If there is an error handling the parsing of the targeted task.
+     * @throws IOException If there is an error reading from the bill.txt file.
+     */
     public String[] handleEventParser(String userCommand) throws BillException, IOException {
         // data validation
         String[] parsedInput = userCommand.split(" ");
@@ -88,6 +123,15 @@ public class Parser {
         return new String[]{eventDescription, eventFrom, eventTo};
     }
 
+    /**
+     * Gets an index of the targeted task to delete.
+     *
+     * @param parsedInput Input of user in array format seperated by blank spaces.
+     * @param userList Current accessible state of mutable list.
+     * @return index of task the user wants to delete
+     * @throws BillException If there is an error handling the parsing of the targeted task.
+     * @throws IOException If there is an error reading from the bill.txt file.
+     */
     public int handleDeleteParser(String[] parsedInput, ArrayList<Task> userList) throws BillException, IOException {
         // data validation
         if (parsedInput.length < 2) {
@@ -107,10 +151,23 @@ public class Parser {
         return Integer.parseInt(parsedInput[1]) - 1;
     }
 
+    /**
+     * Gets an array of the user command delimited by white spaces.
+     *
+     * @param userCommand Input of user.
+     * @return array of the user commands seperated by whitespaces
+     */
     public String[] handleRouteParser(String userCommand) {
         return userCommand.split(" ");
     }
 
+    /**
+     * Gets a string that the user wants to match that is used in find tasks
+     *
+     * @param parsedInput Input of user in array format seperated by blank spaces.
+     * @return the keyword the user wants to match from the list of items
+     * @throws BillException If there is an error handling the parsing of the targeted task.
+     */
     public String handleFindParser(String[] parsedInput) throws BillException {
         // data validation
         if (parsedInput.length < 2) {

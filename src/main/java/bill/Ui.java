@@ -26,11 +26,17 @@ public class Ui {
         parser = new Parser();
     }
 
+    /**
+     * Introduces to the user
+     */
     public void introduce() {
         System.out.println("Hello! I'm Bill");
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Says bye to the user
+     */
     public void conclude() {
         System.out.println("Bye. Hope to see you again soon!");
     }
@@ -39,6 +45,12 @@ public class Ui {
         return userScanner.nextLine().trim();
     }
 
+    /**
+     * Starts an infinite loop to get user commands until user says bye which terminates the chatbot.
+     *
+     * @param storage All helper methods associated with storing tasks
+     * @param tasks ALl helper methods associate with manipulating and showing tasks
+     */
     public void handleUserCommands(Storage storage, TaskList tasks) {
         String userCommand = getUserCommand();
         while (!userCommand.equals("bye")) {
@@ -47,6 +59,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Gets the enum of the targeted user route.
+     *
+     * @param route All helper methods associated with storing tasks
+     */
     private Route getRouteEnum(String route) {
         String routeValue = route.toUpperCase();
         try {
@@ -56,6 +73,16 @@ public class Ui {
         }
     }
 
+    /**
+     * Marks the tasks, update the state of the list and save to bill.txt.
+     *
+     * @param parsedInput Input of user in array format seperated by blank spaces.
+     * @param userList Current accessible state of mutable list.
+     * @param tasks All helper methods associated with userList, such as getters.
+     * @param storage All helper methods associated with storing tasks
+     * @throws BillException If there is an error handling the parsing of the targeted task.
+     * @throws IOException If there is an error reading from the bill.txt file.
+     */
     public void handleMarkOfTask(String[] parsedInput, ArrayList<Task> userList, TaskList tasks, Storage storage)
                 throws BillException, IOException {
         int targetTaskNumber = parser.handleMarkOfTaskParser(parsedInput, userList);
@@ -65,12 +92,32 @@ public class Ui {
         storage.saveList(userList);
     }
 
+    /**
+     * Adds the todo task, update the state of the list and save to bill.txt
+     *
+     * @param userCommand Input of user.
+     * @param userList Current accessible state of mutable list.
+     * @param storage All helper methods associated with storing tasks
+     * @param tasks All helper methods associated with userList, such as getters.
+     * @throws BillException If there is an error handling the parsing of the targeted task.
+     * @throws IOException If there is an error reading from the bill.txt file.
+     */
     public void handleToDo(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks)
                 throws BillException, IOException {
         String trimmedUserCommand = parser.handleToDoParser(userCommand, userList, storage, tasks);
         tasks.addTask(new ToDo(trimmedUserCommand), userList, storage);
     }
 
+    /**
+     * Adds the deadline task, update the state of the list and save to bill.txt
+     *
+     * @param userCommand Input of user.
+     * @param userList Current accessible state of mutable list.
+     * @param storage All helper methods associated with storing tasks
+     * @param tasks All helper methods associated with userList, such as getters.
+     * @throws BillException If there is an error handling the parsing of the targeted task.
+     * @throws IOException If there is an error reading from the bill.txt file.
+     */
     public void handleDeadline(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks)
                 throws BillException, IOException {
         // data validation
@@ -89,6 +136,17 @@ public class Ui {
         }
     }
 
+
+    /**
+     * Adds the event task, update the state of the list and save to bill.txt
+     *
+     * @param userCommand Input of user.
+     * @param userList Current accessible state of mutable list.
+     * @param storage All helper methods associated with storing tasks
+     * @param tasks All helper methods associated with userList, such as getters.
+     * @throws BillException If there is an error handling the parsing of the targeted task.
+     * @throws IOException If there is an error reading from the bill.txt file.
+     */
     public void handleEvent(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks)
                 throws BillException, IOException {
         try {
@@ -121,6 +179,14 @@ public class Ui {
         tasks.showFilterList(keyWord);
     }
 
+    /**
+     * Handles routing based on user command, to call appropriate functions
+     *
+     * @param userCommand Input of user.
+     * @param userList Current accessible state of mutable list.
+     * @param storage All helper methods associated with storing tasks
+     * @param tasks All helper methods associated with userList, such as getters.
+     */
     public void handleRoute(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks) {
         String[] parsedInput = parser.handleRouteParser(userCommand);
         Route route = getRouteEnum(parsedInput[0]);
@@ -157,8 +223,14 @@ public class Ui {
         }
     }
 
+    /**
+     * Loads data in, but silence print messages, as leveraging custom functions which have print statements
+     *
+     * @param storage All helper methods associated with storing tasks
+     * @param userList Current accessible state of mutable list.
+     * @param tasks All helper methods associated with userList, such as getters.
+     */
     public void silenceLoadingData(Storage storage, ArrayList<Task> userList, TaskList tasks) {
-        // load data in, but silence print messages, as leveraging custom functions which have print statements
         PrintStream originalOutput = System.out;
         // temp output to hide print messages, so can leverage previously built methods which have print statements
         OutputStream silence = new OutputStream() {
