@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class UiTest {
 
     @Test
-    public void greetTest() {
+    public void testGreet() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(outputStream);
         System.setOut(printStream);

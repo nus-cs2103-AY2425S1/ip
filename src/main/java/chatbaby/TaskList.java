@@ -32,7 +32,7 @@ public class TaskList {
      * @param index The index of the task to retrieve.
      * @return The task at the specified index.
      */
-    public Task taskAt(int index) {
+    public Task getTaskAt(int index) {
         return tasks.get(index);
     }
 

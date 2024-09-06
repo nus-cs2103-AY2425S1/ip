@@ -27,9 +27,9 @@ public class UnmarkCommand extends Command {
         try {
             int index = Integer.parseInt(commandBody.substring(7).trim()) - 1;
             if (index >= 0 && index < tasks.size()) {
-                tasks.taskAt(index).unMarkAsDone();
+                tasks.getTaskAt(index).unMarkAsDone();
                 System.out.println("OK, I've marked this task as not done yet:\n"
-                        + tasks.taskAt(index).toString());
+                        + tasks.getTaskAt(index).toString());
             } else {
                 throw new ChatBabyException("Oh no!!! The task index is invalid.");
             }

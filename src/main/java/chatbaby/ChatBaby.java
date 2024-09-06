@@ -75,6 +75,7 @@ public class ChatBaby {
     public String bye() {
         return BYE_MESSAGE;
     }
+
     /**
      * Returns response to show on the main window.
      */

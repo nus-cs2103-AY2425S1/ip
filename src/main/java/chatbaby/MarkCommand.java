@@ -28,9 +28,9 @@ public class MarkCommand extends Command {
         try {
             int index = Integer.parseInt(commandBody.substring(5).trim()) - 1;
             if (index >= 0 && index < tasks.size()) {
-                tasks.taskAt(index).markAsDone();
+                tasks.getTaskAt(index).markAsDone();
                 System.out.println("Nice! I've marked this task as done:\n"
-                        + tasks.taskAt(index).toString());
+                        + tasks.getTaskAt(index).toString());
             } else {
                 throw new ChatBabyException("Oh no!!! The task index is invalid.");
             }

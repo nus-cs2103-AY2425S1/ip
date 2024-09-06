@@ -13,6 +13,6 @@ public class TaskListTest {
         taskList.addTask(task);
 
         assertEquals(1, taskList.size());
-        assertEquals(task, taskList.taskAt(0));
+        assertEquals(task, taskList.getTaskAt(0));
     }
 }
