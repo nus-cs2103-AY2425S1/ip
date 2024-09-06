@@ -7,6 +7,7 @@ public class ToDo extends Task {
 
     /**
      * Creates a {@code ToDo} instance containing the description
+     *
      * @param description The description of the {@code ToDo} instance
      */
     public ToDo(String description) {

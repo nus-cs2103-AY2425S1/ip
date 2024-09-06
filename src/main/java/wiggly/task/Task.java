@@ -10,7 +10,13 @@ public class Task {
 
     private final String description;
     private boolean isDone;
-
+    /**
+     * Creates a {@code Task} instance with the given description
+     * @param description The description of the task
+     */
+    public Task(String description) {
+        this.description = description;
+    }
     /**
      * Creates a new {@code Task} instance based on the following String format:
      * {@code TaskType|isDone|Description|Date|Date}
@@ -48,15 +54,7 @@ public class Task {
             throw new IllegalArgumentException("Invalid date format found in save file");
         }
 
-	    return task;
-    }
-
-    /**
-     * Creates a {@code Task} instance with the given description
-     * @param description The description of the task
-     */
-    public Task(String description) {
-        this.description = description;
+        return task;
     }
 
     /**
@@ -76,6 +74,7 @@ public class Task {
     /**
      * Returns the string representation of the done status of the task, if the task is done, it will be represented as
      * {@code X}, if the task is not done, it will be represented as {@code " "}
+     *
      * @return The String representation of the done status of the task
      */
     private String getStatusIcon() {
@@ -84,6 +83,7 @@ public class Task {
 
     /**
      * Returns a String representation of the task to be stored in a data file
+     *
      * @return The converted string
      */
     public String toFileFormat() {
@@ -92,15 +92,17 @@ public class Task {
 
     /**
      * Returns a boolean result if the task description contains the given keyword
+     *
      * @param keyword The string to check
      * @return {@code True} if the task contains the given keyword
      */
     public boolean contains(String keyword) {
-	    return this.description.contains(keyword);
+        return this.description.contains(keyword);
     }
 
     /**
      * Returns a String representation of the task
+     *
      * @return a String representation of the task
      */
     @Override

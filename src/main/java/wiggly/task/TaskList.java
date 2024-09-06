@@ -12,6 +12,7 @@ public class TaskList {
 
     /**
      * Creates a {@code TaskList} instance from a {@code List<Task>}
+     *
      * @param tasks the specified {@code List<Task>}
      */
     public TaskList(List<Task> tasks) {
@@ -27,18 +28,20 @@ public class TaskList {
 
     /**
      * Adds a {@code Task} into the {@code TaskList}
+     *
      * @param task the {@code Task} to be added
      * @return a message to indicate the added {@code Task}
      */
     public String addTask(Task task) {
         tasks.add(task);
-	    String sb = "Got it. I've added this task:\n" + task + "\n" +
-			    "Now you have " + tasks.size() + " tasks in the list!";
+        String sb = "Got it. I've added this task:\n" + task + "\n"
+            + "Now you have " + tasks.size() + " tasks in the list!";
         return sb;
     }
 
     /**
      * Returns the {@code Task} at the specified index of {@code TaskList}
+     *
      * @param index The index of {@code Task} to return
      * @return The {@code Task} at the specified index
      */
@@ -48,6 +51,7 @@ public class TaskList {
 
     /**
      * Marks the {@code Task} of the given taskNumber as done. If the task is already done, it will remain the same
+     *
      * @param taskNumber the task number of the {@code Task}
      * @return a message to indicate that the mark was successful
      */
@@ -63,6 +67,7 @@ public class TaskList {
     /**
      * Marks the {@code Task} of the given taskNumber as undone.
      * If the task is already marked as undone, it will remain the same
+     *
      * @param taskNumber the task number of the {@code Task}
      * @return a message to indicate that the mark was successful
      */
@@ -77,6 +82,7 @@ public class TaskList {
 
     /**
      * Deletes the {@code Task} of the given taskNumber.
+     *
      * @param taskNumber the task number of the {@code Task}
      * @return a message to indicate that the task has been deleted
      */
@@ -92,6 +98,7 @@ public class TaskList {
 
     /**
      * Returns a String representation of the entire task list to be stored in a data file
+     *
      * @return The converted string
      */
     public String toFileFormat() {
@@ -104,6 +111,7 @@ public class TaskList {
 
     /**
      * Returns a String representation of the task list
+     *
      * @return a String representation of the task list
      */
     @Override
@@ -121,6 +129,7 @@ public class TaskList {
 
     /**
      * Returns a String representation of a filtered task list with tasks that passed {@code task.contains(keyword)}
+     *
      * @param keyword The string to check
      * @return The String representation of the filtered task list
      */

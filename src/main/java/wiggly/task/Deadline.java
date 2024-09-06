@@ -12,8 +12,9 @@ public class Deadline extends Task {
 
     /**
      * Creates a {@code Deadline} instance containing the description and the due date
+     *
      * @param description The description of the {@code Deadline} instance
-     * @param by The due date of the {@code Deadline} instance
+     * @param by          The due date of the {@code Deadline} instance
      */
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -22,8 +23,9 @@ public class Deadline extends Task {
 
     @Override
     public String toFileFormat() {
-        return  "D|" + super.toFileFormat() + "|" + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return "D|" + super.toFileFormat() + "|" + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
