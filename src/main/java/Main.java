@@ -75,6 +75,11 @@ public class Main extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        //Greeting the user
+
+        String greetingText = "Hello, I'm Lutchat! What can I do for you?";
+        dialogContainer.getChildren().add(DialogBox.getLutchatDialog(greetingText, lutchatImage));
+
         //Handling user input
 
         sendButton.setOnMouseClicked((event) -> {
@@ -96,7 +101,7 @@ public class Main extends Application {
         String lutchatText = lutchat.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(lutchatText, lutchatImage)
+                DialogBox.getLutchatDialog(lutchatText, lutchatImage)
         );
         userInput.clear();
     }
