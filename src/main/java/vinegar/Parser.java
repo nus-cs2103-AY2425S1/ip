@@ -38,6 +38,9 @@ public class Parser {
                 return new AddEventCommand(inputParts);
             case "delete":
                 return new DeleteCommand(inputParts);
+            case "find":
+                return new FindCommand(inputParts);
+            // Other cases
             default:
                 throw new VinegarException("Please use these commands: todo, deadline, event, list, mark, unmark, bye");
         }

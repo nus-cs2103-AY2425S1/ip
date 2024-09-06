@@ -3,6 +3,7 @@ package vinegar.ui;
 import vinegar.task.TaskList;
 import vinegar.task.Task;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -132,5 +133,21 @@ public class Ui {
         System.out.println("   " + task);
         System.out.println(" Now you have " + size + " tasks in the list.");
         showLine();
+    }
+
+    /**
+     * Displays the list of tasks.
+     *
+     * @param tasks The list of tasks to display.
+     */
+    public void showMatchingTaskList(List<Task> tasks) {
+        System.out.println(" Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
+    }
+
+    public void showMessage(String message) {
+        System.out.println(message);
     }
 }
