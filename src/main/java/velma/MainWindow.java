@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 
 public class MainWindow extends AnchorPane{
     @FXML
@@ -44,7 +45,14 @@ public class MainWindow extends AnchorPane{
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getVelmaDialog(response, velmaImage)
         );
+        playSendMessageSound();
         userInput.clear();
+    }
+
+    private void playSendMessageSound() {
+        String soundPath = this.getClass().getResource("/sounds/fart-01.wav").toString();
+        AudioClip sendSound = new AudioClip(soundPath);
+        sendSound.play();
     }
 
 }
