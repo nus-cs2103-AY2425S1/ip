@@ -5,7 +5,7 @@ import java.util.Scanner;  // Import the Scanner class
 
 public class Meerkat {
 
-    private static final String STORAGEFILEPATH = "Meerkat.txt";
+    private static final String STORAGE_FILE_PATH = "Meerkat.txt";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
@@ -14,7 +14,7 @@ public class Meerkat {
         TaskList taskList = new TaskList();
         Parser parser = new Parser();
         try {
-            storage.readFromFile(STORAGEFILEPATH);
+            storage.readFromFile(STORAGE_FILE_PATH);
         } catch (FileNotFoundException e) {
             ui.printFileNonexistentMessage();
         }

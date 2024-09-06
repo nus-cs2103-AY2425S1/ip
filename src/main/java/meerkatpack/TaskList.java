@@ -9,7 +9,7 @@ public class TaskList {
     private Storage storage;
     private Ui ui;
     private static List<Task> listOfTasks = new ArrayList<>();
-    private final String STORAGEFILEPATH = "Meerkat.txt";
+    private final String STORAGE_FILE_PATH = "Meerkat.txt";
 
     public TaskList() {
         this.storage = new Storage();
@@ -36,7 +36,7 @@ public class TaskList {
     public void createTodoTask(String name, boolean fromSave) throws IOException {
         Task thisTask = new Todo(name);
         listOfTasks.add(thisTask);
-        storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
+        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
         if (!fromSave) {
             ui.printTaskCreationMessage(thisTask, this);
         }
@@ -54,7 +54,7 @@ public class TaskList {
     public void createEventTask(String name, String start, String end, boolean fromSave) throws IOException {
         Task thisTask = new Event(name, start, end);
         listOfTasks.add(thisTask);
-        storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
+        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
         if (!fromSave) {
             ui.printTaskCreationMessage(thisTask, this);
         }
@@ -72,7 +72,7 @@ public class TaskList {
     public void createDeadlineTask(String name, LocalDateTime duedate, boolean fromSave) throws IOException {
         Task thisTask = new Deadline(name, duedate);
         listOfTasks.add(thisTask);
-        storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
+        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
         if (!fromSave) {
             ui.printTaskCreationMessage(thisTask, this);
         }
@@ -92,7 +92,7 @@ public class TaskList {
         } else {
             ui.printTaskNonMarkableMessage();
         }
-        storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
+        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
     }
 
     /**
@@ -109,7 +109,7 @@ public class TaskList {
         } else {
             ui.printTaskNonUnmarkableMessage();
         }
-        storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
+        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
     }
 
     /**
@@ -126,7 +126,7 @@ public class TaskList {
         } else {
             ui.printUndeletableMessage();
         }
-        storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
+        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
     }
 
     /**

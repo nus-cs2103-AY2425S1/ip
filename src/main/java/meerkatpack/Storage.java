@@ -8,8 +8,6 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private Parser parser ;
-
     /**
      * Writes to the updated taskList whenever changes are made.
      * @param filePath The destination of file to write to.
