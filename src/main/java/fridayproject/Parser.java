@@ -64,7 +64,8 @@ public class Parser {
 
     private void markTask(String input) throws FridayException, IOException {
         if (input.length() < 6) {
-            throw new FridayException("I'm sorry, but I don't know what that means :(((\n Please enter a valid task number.");
+            throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
+            + "Please enter a valid task number.");
         }
         int taskNumber = Integer.parseInt(input.substring(5));
         taskList.markTaskAsDone(taskNumber);
@@ -75,18 +76,21 @@ public class Parser {
 
     private void unmarkTask(String input) throws FridayException, IOException {
         if (input.length() < 8) {
-            throw new FridayException("I'm sorry, but I don't know what that means :(((\n Please enter a valid task number.");
+            throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
+            + "Please enter a valid task number.");
         }
         int taskNumber = Integer.parseInt(input.substring(7));
         taskList.markTaskAsUndone(taskNumber);
         storage.saveTasksToFile(taskList.getTasks());
-        ui.displayMessage("OK, I've marked this task as not done yet:\n  " + taskList.getTask(taskNumber).getTypeIcon() 
+        ui.displayMessage("OK, I've marked this task as not done yet:\n  " 
+        + taskList.getTask(taskNumber).getTypeIcon() 
         + taskList.getTask(taskNumber).toString());
     }
 
     private void deleteTask(String input) throws FridayException, IOException {
         if (input.length() < 8) {
-            throw new FridayException("I'm sorry, but I don't know what that means :(((\n Please enter a valid task number.");
+            throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
+            + "Please enter a valid task number.");
         }
         int taskNumber = Integer.parseInt(input.substring(7)) - 1;
         if (taskNumber >= 0 && taskNumber < taskList.size() && taskList.getTask(taskNumber) != null) {
@@ -99,7 +103,8 @@ public class Parser {
 
     private void addTodo(String input) throws FridayException, IOException {
         if (input.length() < 6) {
-            throw new FridayException("I'm sorry, but I don't know what that means :(((\n Please enter a valid task description.");
+            throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
+            + "Please enter a valid task description.");
         }
         Tasks todo = new Todo(input.substring(5).trim());
         taskList.addTask(todo);
@@ -110,7 +115,8 @@ public class Parser {
 
     private void addDeadline(String input) throws FridayException, IOException {
         if (input.length() < 10) {
-            throw new FridayException("I'm sorry, but I don't know what that means :(((\n Please enter a valid task description.");
+            throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
+            + "Please enter a valid task description.");
         }
         String remainingInput = input.substring(input.indexOf(" ") + 1);
         String[] deadlineParts = remainingInput.split(" /by ");
@@ -130,7 +136,8 @@ public class Parser {
 
     private void addEvent(String input) throws FridayException, IOException {
         if (input.length() < 7) {
-            throw new FridayException("I'm sorry, but I don't know what that means :(((\n Please enter a valid task description.");
+            throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
+            + "Please enter a valid task description.");
         }
         String remainingInput = input.substring(input.indexOf(" ") + 1);
         String[] eventParts = remainingInput.split(" /at ");

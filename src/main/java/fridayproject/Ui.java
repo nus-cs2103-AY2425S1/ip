@@ -21,7 +21,7 @@ public class Ui {
     * Displays the farewell message when the program ends.
     */
     public void displayFarewell() {
-        String farewell = "Bye. Hope to see you again soon!";
+        String farewell = "Bye. Hope to see you again soon!\n";
         System.out.println(farewell + LINE);
     }
 
@@ -46,7 +46,8 @@ public class Ui {
      * Displays an unknown command error message.
      */
     public void displayUnknownCommandError() {
-        System.out.println("I'm sorry, but I don't know what that means :(((\n Please enter a valid task description.");
+        System.out.println("I'm sorry, but I don't know what that means :(((\n" 
+        + "Please enter a valid task description.");
         System.out.println(LINE);
     }
     /*
@@ -58,6 +59,10 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /*
+     * Displays the tasks in the list.
+     * @param tasks The list of tasks to be displayed.
+     */
     public void displayTasks(ArrayList<Tasks> tasks) {
         if (tasks.size() == 0) {
             System.out.println("You have no tasks in the list.");

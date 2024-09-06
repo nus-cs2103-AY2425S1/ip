@@ -40,7 +40,6 @@ public class Storage {
      * @return The list of loaded tasks.
      * @throws IOException
      */
-
      public ArrayList<Tasks> loadTasks() throws IOException {
         File file = new File(filePath);
         ArrayList<Tasks> tasks = new ArrayList<>();
