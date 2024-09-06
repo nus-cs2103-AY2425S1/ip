@@ -96,7 +96,7 @@ public class Ui {
         if (userInput.startsWith("find")) {
             System.out.println("Test");
             taskList.listMatchingDescriptionTasks(Parser.getStringFromFindCommand(userInput));
-            System.out.println(separator);
+            System.out.println(SEPARATOR);
             return 1;
         }
 

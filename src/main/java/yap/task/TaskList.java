@@ -3,9 +3,6 @@ package yap.task;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-<<<<<<< HEAD
-=======
->>>>>>> branch-A-CodingStandard
 
 import yap.storage.Storage;
 import yap.storage.BadDataFormatException;
