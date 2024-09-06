@@ -33,14 +33,17 @@ public class Task {
     /**
      * Allows the user to toggle whether the task is marked as completed or not.
      */
-    public void toggleTaskDone() {
+    public String toggleTaskDone() {
+        StringBuilder toggleResponse = new StringBuilder();
         if (this.taskIsDone) {
-            System.out.println("OK, I've marked this task as not done yet:");
+            toggleResponse.append("OK, I've marked this task as not done yet:").append("\n");
         } else {
-            System.out.println("Nice! I've marked this task as done:");
+            toggleResponse.append("Nice! I've marked this task as done:").append("\n");
         }
         this.taskIsDone = !this.taskIsDone;
-        System.out.println(this.toString());
+        toggleResponse.append(this.toString()).append("\n");
+
+        return toggleResponse.toString();
 
     }
 

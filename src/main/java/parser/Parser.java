@@ -22,7 +22,9 @@ public class Parser {
      * @throws MollyException
      */
 
-    public void handleUserInput(String userInput) throws MollyException {
+    public String handleUserInput(String userInput) throws MollyException {
+        StringBuilder mollyResponse = new StringBuilder();
+
         if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
             String[] markParts = userInput.split(" ");
             if (markParts.length == 2) {
@@ -31,8 +33,9 @@ public class Parser {
                     if (taskToMark > taskList.getBotMemory().size() - 1 || taskToMark < 0) {
                         throw new MollyException("Please select a valid task number.");
                     } else {
-                        taskList.toggleTaskDone(taskToMark);
+                        mollyResponse.append(taskList.toggleTaskDone(taskToMark)).append("\n");
                         storage.saveTasks(taskList);
+                        //return mollyResponse.toString();
                     }
 
                 } catch (NumberFormatException e) {
@@ -52,15 +55,13 @@ public class Parser {
                     if (taskToDelete > taskList.getBotMemory().size() - 1 || taskToDelete < 0) {
                         throw new MollyException("Please select a valid task number.");
                     } else {
-                        taskList.removeTask(taskToDelete);
+                        mollyResponse.append(taskList.removeTask(taskToDelete)).append("\n");
                         storage.saveTasks(taskList);
                     }
                 } catch (NumberFormatException e) {
-                    Ui.printLine();
                     throw new MollyException("Invalid command. Please enter a valid task number.");
                 }
             } else {
-                Ui.printLine();
                 throw new MollyException("Invalid  delete command. Please use 'delete (task number)'.");
             }
 
@@ -68,25 +69,23 @@ public class Parser {
             String[] queryParts = userInput.split(" ");
             if (queryParts.length == 2) {
                 String searchTerm = queryParts[1];
-                taskList.findTerm(searchTerm);
+                mollyResponse.append(taskList.findTerm(searchTerm)).append("\n");
+                //return mollyResponse.toString();
             } else {
-                Ui.printLine();
                 throw new MollyException("Invalid find command. Please use 'find (search term)'.");
             }
 
         } else if (!userInput.toLowerCase().equals("list")) {
             if (userInput.startsWith("todo")) {
                 if (userInput.equals("todo")) {
-                    Ui.printLine();
                     throw new MollyException("Yikes! Sorry, the todo description cannot be empty.");
                 } else {
                     Task newToDo = new Task(userInput.substring(5));
-                    taskList.addTask(newToDo);
+                    mollyResponse.append(taskList.addTask(newToDo));
                     storage.saveTasks(taskList);
                 }
             } else if (userInput.startsWith("deadline")) {
                 if (userInput.equals("deadline")) {
-                    Ui.printLine();
                     throw new MollyException("Yikes! Sorry, the description of a deadline cannot be empty.");
                 } else {
                     String[] deadlineDetails = userInput.substring(9).split( " /by ");
@@ -94,7 +93,7 @@ public class Parser {
                         String description = deadlineDetails[0].trim();
                         String by = deadlineDetails[1].trim();
                         Deadline newDeadline = new Deadline(description, by);
-                        taskList.addTask(newDeadline);
+                        mollyResponse.append(taskList.addTask(newDeadline));
                         storage.saveTasks(taskList);
                     } else {
                         Ui.printLine();
@@ -103,9 +102,7 @@ public class Parser {
                 }
             } else if (userInput.startsWith("event")) {
                 if (userInput.equals("event")) {
-                    Ui.printLine();
-                    System.out.println("Yikes! Sorry, the description of an event cannot be empty.");
-                    Ui.printLine();
+                    throw new MollyException("Yikes! Sorry, the description of an event cannot be empty.");
                 } else {
                     String[] eventDetails = userInput.substring(6).split( " /from | /to ");
                     if (eventDetails.length == 3) {
@@ -113,25 +110,24 @@ public class Parser {
                         String from = eventDetails[1].trim();
                         String to = eventDetails[2].trim();
                         Event newEvent = new Event(description, from, to);
-                        taskList.addTask(newEvent);
+                        mollyResponse.append(taskList.addTask(newEvent));
                         storage.saveTasks(taskList);
                     } else {
-                        Ui.printLine();
                         throw new MollyException("Sorry, invalid format for event. Please follow the format: event (description) /from (start date or time) /to (end date or time). The start and end date/times can be in the format DD-MM-YYYY HHmm (24 hour format)");
                     }
                 }
             } else if (userInput.equals("/help")) {
-                Ui.printHelpCommands();
+                return Ui.printHelpCommands();
 
             } else {
                 throw new MollyException("I'm sorry, I do not know how to respond to that. Type '/help' for the list of allowed commands.");
             }
 
         } else {
-            Ui.printLine();
-            taskList.listToString();
-            Ui.printLine();
+            mollyResponse.append(taskList.listToString()).append("\n");
         }
+
+        return mollyResponse.toString().trim();
 
     }
 

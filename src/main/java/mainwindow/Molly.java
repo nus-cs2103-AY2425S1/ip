@@ -1,10 +1,10 @@
+package mainwindow;
+
 import mollyexception.MollyException;
 import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
-
-import java.util.Scanner;
 
 /**
  * Molly bot class containing static methods that help Molly interact with user.
@@ -19,45 +19,41 @@ public class Molly {
             "delete (task number) - removes a task"
     };
     private Storage storage;
+    private TaskList taskList;
+
+    private Parser mollyParser;
 
 
     public Molly(String filePath) {
         this.storage = new Storage(filePath);
+        this.taskList = new TaskList(storage.loadTasks());
+        this.mollyParser = new Parser(this.storage, this.taskList);
     }
 
 
     /**
      * Processes user inputs and manipulates the task array accordingly.
      */
-    public void assistUser() throws MollyException {
+    public String assistUser(String userInput) throws MollyException {
         //ArrayList<task.Task> botMemory = new ArrayList<>();
-        Ui.greetUser();
-        TaskList taskList = new TaskList(storage.loadTasks());
-        Scanner botScanner = new Scanner(System.in);
-        Parser mollyParser = new Parser(storage, taskList);
-        String userInput = "";
-        Ui.printLine();
-        while (!userInput.toLowerCase().equals("bye")) {
-            try {
-                userInput = botScanner.nextLine();
-
-                if (userInput.toLowerCase().equals("bye")) {
-                    break;
-                }
-                mollyParser.handleUserInput(userInput);
-
-            } catch (MollyException e) {
-                System.out.println(e.getMessage());
-                Ui.printLine();
-            }
+        //Ui.greetUser();
+        //String userInput = "";
+        //Ui.printLine();
+        if (userInput.toLowerCase().equals("bye")) {
+            storage.saveTasks(taskList);
+            return Ui.sayBye();
         }
-        storage.saveTasks(taskList);
-        Ui.sayBye();
+
+        try {
+            return mollyParser.handleUserInput(userInput);
+        } catch (MollyException e) {
+            return e.getMessage();
+        }
 
     }
 
 
     public static void main(String[] args) throws MollyException {
-        new Molly("./data/Molly.txt").assistUser();
+        new Molly("./data/Molly.txt").assistUser("");
     }
 }

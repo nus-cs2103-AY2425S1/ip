@@ -13,36 +13,33 @@ public class Ui {
     /**
      * This static method prints a line for Molly's user interface
      */
-    public static void printLine() {
-        System.out.println("____________________________________________________________");
+    public static String printLine() {
+        return "____________________________________________________________";
     }
 
     /**
      * This is a public static method that makes Molly greet the user.
      */
-    public static void greetUser() {
-        Ui.printLine();
-        System.out.println("Hello! I'm Molly.");
-        System.out.println("I am a virtual assistant designed to help you plan your tasks.");
-        System.out.println("What can I do for you? For a guide, enter the '/help' command");
+    public static String greetUser() {
+        return "Hello! I'm Molly.\n" +
+                "I am a virtual assistant designed to help you plan your tasks.\n" +
+                "What can I do for you? For a guide, enter the '/help' command\n";
     }
 
 
     /**
      * This is a public static method that makes Molly say bye.
      */
-    public static void sayBye() {
-        Ui.printLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        Ui.printLine();
+    public static String sayBye() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
-    public static void printHelpCommands() {
-        System.out.println("These are Molly's help commands.");
+    public static String printHelpCommands() {
+        StringBuilder helpCommandsString = new StringBuilder("These are Molly's help commands.\n");
         for (int i = 0; i < helpCommands.length; i++) {
-            System.out.println((i + 1) + ". " + helpCommands[i]);
+            helpCommandsString.append((i + 1)).append(". ").append(helpCommands[i]).append("\n");
         }
-        Ui.printLine();
+        return helpCommandsString.toString();
 
     }
 

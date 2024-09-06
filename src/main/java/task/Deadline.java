@@ -31,6 +31,7 @@ public class Deadline extends Task {
         }
     }
 
+    @SuppressWarnings("checkstyle:LineLength")
     @Override
     public String toString() {
         if (this.deadlineDateTime != null) {
