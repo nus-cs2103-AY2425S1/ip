@@ -1,4 +1,5 @@
 package lolo;
+
 import lolo.command.Command;
 import lolo.command.Parser;
 import lolo.storage.Storage;
@@ -9,49 +10,39 @@ import lolo.task.TaskList;
  * Responsible for initializing the application, handling user commands,
  * and managing the flow of the program.
  */
-
 public class Lolo {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     /**
      * Constructs a Lolo object with the specified file path.
-     * Initializes the UI, storage, and task list. If the task list
+     * Initializes the storage and task list. If the task list
      * cannot be loaded from the specified file, a new empty task list is created.
      *
      * @param filePath The file path to load tasks from.
      */
     public Lolo(String filePath) {
-        ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (LoloException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
+            tasks = new TaskList(); // Create an empty task list if loading fails
         }
     }
 
     /**
-     * Runs the Lolo chatbot application.
-     * Continuously reads and executes user commands until the exit command is given.
+     * Returns a response to the user input.
+     * Processes the input, executes the corresponding command, and returns feedback.
+     *
+     * @param input The user input to be processed.
+     * @return The response from Lolo based on the command executed.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (LoloException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, storage);  // Execute and return the response
+        } catch (LoloException e) {
+            return "Error: " + e.getMessage();  // Return error message
         }
     }
 
@@ -62,8 +53,9 @@ public class Lolo {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        new Lolo("./data/lolo.txt").run();
+        new Lolo("./data/lolo.txt");  // Initialize Lolo
     }
 }
+
 
 
