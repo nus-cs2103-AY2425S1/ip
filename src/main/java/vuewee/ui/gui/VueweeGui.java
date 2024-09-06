@@ -1,29 +1,22 @@
 package vuewee.ui.gui;
 
+import java.io.IOException;
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import vuewee.ui.TaskListGui;
 
+/**
+ * The VueweeGui class is a controller for the GUI of Vuewee. It contains
+ * methods to send messages to the user and to handle user input.
+ */
 public class VueweeGui extends Application {
-    private static TaskListGui taskListGui;
-
-    private static ScrollPane scrollPane;
-    private static VBox dialogContainer;
-    private static TextField userInput;
-    private static Button sendButton;
-    private static Scene scene;
-
-    private static Image userImage = new Image(VueweeGui.class.getResourceAsStream("/images/DaUser.png"));
-    private static Image botImage = new Image(VueweeGui.class.getResourceAsStream("/images/DaDuke.png"));
+    public static TaskListGui taskListGui;
+    private static MainWindow window;
 
     public VueweeGui() {
     }
@@ -33,78 +26,22 @@ public class VueweeGui extends Application {
     }
 
     public static void sendMessage(String message) {
-        VueweeGui.dialogContainer.getChildren().addAll(DialogBox.getBotDialog(message, VueweeGui.botImage));
+        VueweeGui.window.sendBotMessage(message);
     }
 
     @Override
     public void start(Stage stage) {
-        // Setting up required components
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(VueweeGui.class.getResource("/views/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            VueweeGui.window = fxmlLoader.<MainWindow>getController();
+            stage.show();
 
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
+        } catch (IOException e) {
+            e.printStackTrace();
 
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-        stage.setTitle("Vuewee");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput, 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-
-        // Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        // Send a welcome message
-        VueweeGui.sendMessage("Hello! I'm Vuewee\nWhat can I do for you?");
+        }
     }
-
-    /**
-     * Creates a dialog box containing user input, and appends it to the dialog
-     * container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        String userText = userInput.getText();
-        VueweeGui.dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userText, userImage));
-        userInput.clear();
-        VueweeGui.taskListGui.processInput(userText);
-    }
-
 }
