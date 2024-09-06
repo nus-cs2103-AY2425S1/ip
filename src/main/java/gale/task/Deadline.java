@@ -1,6 +1,9 @@
-package gale;
+package gale.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import gale.parser.Parser;
 
 /**
  * Represents a deadline task that has a due date and time.

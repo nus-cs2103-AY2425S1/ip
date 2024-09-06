@@ -3,6 +3,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import gale.exception.GaleException;
+import gale.parser.Parser;
+import gale.storage.Storage;
+import gale.task.Task;
+import gale.task.TaskList;
+import gale.ui.Ui;
 
 /**
  * A simple task manager that allows users to manage their tasks such as ToDo's,

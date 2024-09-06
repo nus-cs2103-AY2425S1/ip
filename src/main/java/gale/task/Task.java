@@ -1,4 +1,4 @@
-package gale;
+package gale.task;
 
 /**
  * Represents a task in a task list.

@@ -1,4 +1,4 @@
-package gale;
+package gale.exception;
 
 /**
  * Represents an exception that occurs when running the main application.

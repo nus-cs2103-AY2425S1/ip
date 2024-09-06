@@ -1,4 +1,4 @@
-package gale;
+package gale.storage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -6,6 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import gale.task.Deadline;
+import gale.task.Event;
+import gale.task.Task;
+import gale.task.ToDo;
 
 /**
  * Represents the storage that handles the loading and saving of tasks to a file.

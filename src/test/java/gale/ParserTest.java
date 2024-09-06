@@ -8,6 +8,9 @@ import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
 
+import gale.exception.GaleException;
+import gale.parser.Parser;
+
 public class ParserTest {
 
     @Test

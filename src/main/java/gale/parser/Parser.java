@@ -1,9 +1,16 @@
-package gale;
+package gale.parser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import gale.exception.GaleException;
+import gale.task.Deadline;
+import gale.task.Event;
+import gale.task.Task;
+import gale.task.ToDo;
 
 /**
  * Represents a parser that parses user input into tasks.

@@ -1,5 +1,9 @@
-package gale;
+package gale.ui;
+
 import java.util.ArrayList;
+
+import gale.task.Task;
+import gale.task.TaskList;
 
 /**
  * Represents the user interface of the application. A Ui object is responsible for

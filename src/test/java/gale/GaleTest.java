@@ -9,6 +9,8 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import gale.exception.GaleException;
+
 public class GaleTest {
     private Gale gale;
     private ByteArrayOutputStream outputCapture;

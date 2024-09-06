@@ -1,4 +1,4 @@
-package gale;
+package gale.task;
 import java.util.ArrayList;
 
 /**

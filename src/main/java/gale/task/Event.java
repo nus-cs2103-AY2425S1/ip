@@ -1,7 +1,9 @@
-package gale;
+package gale.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import gale.parser.Parser;
 
 /**
  * Represents an event task that has a starting and ending date and time.

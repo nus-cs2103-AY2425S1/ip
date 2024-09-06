@@ -1,4 +1,4 @@
-package gale;
+package gale.task;
 
 /**
  * Represents a to-do task that has no due date or time.
