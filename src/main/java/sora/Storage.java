@@ -1,16 +1,16 @@
 package sora;
 
-import sora.Tasks.Deadline;
-import sora.Tasks.Event;
-import sora.Tasks.Task;
-import sora.Tasks.TaskList;
-import sora.Tasks.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import sora.Tasks.Deadline;
+import sora.Tasks.Event;
+import sora.Tasks.Task;
+import sora.Tasks.TaskList;
+import sora.Tasks.ToDo;
 
 /**
  * Storage stores TaskList.
@@ -48,13 +48,13 @@ public class Storage {
      *
      * @param taskList TaskList.
      */
-    public void saveTaskList(TaskList taskList) {
+    public void saveTaskList(TaskList taskList) throws SoraException {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
             fileWriter.write(obtainTaskString(taskList));
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("\tSora is unable to write to file" + Ui.HORIZONTAL_LINE);
+            throw new SoraException("Sora is unable to write to file\n");
         }
     }
 
@@ -71,7 +71,7 @@ public class Storage {
                 try {
                     file.createNewFile();
                 } catch (IOException e) {
-                    System.out.println(e.getMessage());
+                    throw new SoraException("Sora is unable to create new file\n");
                 }
             }
             Scanner fileScanner = new Scanner(file);
@@ -80,13 +80,13 @@ public class Storage {
                 try {
                     loadTaskListHelper(lineNumber, fileScanner.nextLine(), taskList);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    throw new SoraException("Sora is unable to load from file\n");
                 } finally {
                     lineNumber++;
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            throw new SoraException("Sora is unable to find file\n");
         }
     }
 
@@ -104,25 +104,27 @@ public class Storage {
         switch (parsedFileTaskDetails[0]) {
         case "T":
             if (parsedFileTaskDetails.length != 3) {
-                throw new SoraException("\tSora is unable to read file from line " + lineNumber);
+                throw new SoraException("Sora is unable to read file from line " + lineNumber);
             }
             taskList.getTaskList().add(new ToDo(parsedFileTaskDetails[2]));
             break;
         case "D":
             if (parsedFileTaskDetails.length != 4) {
-                throw new SoraException("\tSora is unable to read file from line " + lineNumber);
+                throw new SoraException("Sora is unable to read file from line " + lineNumber);
             }
             taskList.getTaskList().add(new Deadline(parsedFileTaskDetails[2],
                     parsedFileTaskDetails[3]));
             break;
         case "E":
             if (parsedFileTaskDetails.length != 5) {
-                throw new SoraException("\tSora is unable to read file from line " + lineNumber);
+                throw new SoraException("Sora is unable to read file from line " + lineNumber);
             }
             taskList.getTaskList().add(new Event(parsedFileTaskDetails[2],
                     parsedFileTaskDetails[3],
                     parsedFileTaskDetails[4]));
             break;
+        default:
+            throw new SoraException("Sora is unable to understand file from line " + lineNumber);
         }
         if (parsedFileTaskDetails[1].equalsIgnoreCase("X")) {
             taskList.getTaskList().get(taskList.getSize() - 1).markAsDone();
