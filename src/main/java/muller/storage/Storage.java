@@ -32,12 +32,12 @@ public class Storage {
      * @return An ArrayList of Task objects loaded from the file.
      * @throws MullerException If there is an issue loading the tasks.
      */
-    public ArrayList<Task> load() throws MullerException {
-        ArrayList<Task> list = new ArrayList<>();
+    public ArrayList<Task> loadTasks() throws MullerException {
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
             if (!file.exists()) {
-                return list; // No tasks to load, return empty list
+                return tasks; // No tasks to load, return empty list
             }
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
@@ -48,14 +48,14 @@ public class Storage {
                     throw new MullerException("File is corrupted at line " + lineNumber + ".");
                 }
                 Task task = parseTask(parts);
-                list.add(task);
+                tasks.add(task);
                 lineNumber++;
             }
             reader.close();
         } catch (IOException e) {
             throw new MullerException("Error loading tasks: " + e.getMessage());
         }
-        return list;
+        return tasks;
     }
 
     /**
@@ -64,7 +64,7 @@ public class Storage {
      * @param tasks The TaskList containing the tasks to save.
      * @throws MullerException If there is an issue saving the tasks.
      */
-    public void save(TaskList tasks) throws MullerException {
+    public void saveTasks(TaskList tasks) throws MullerException {
         try {
             File file = new File(filePath);
             File directory = new File(file.getParent());
@@ -73,7 +73,7 @@ public class Storage {
             }
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             for (Task task : tasks.getTasks()) {
-                writer.write(task.toFileString());
+                writer.write(task.convertToFileString());
                 writer.newLine();
             }
             writer.close();

@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= tasks.getSize()) {
             throw new MullerException("Invalid task number!");
         }
 
@@ -33,10 +33,10 @@ public class DeleteCommand extends Command {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + tasks.get(index));
         tasks.deleteTask(index);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
         ui.showLine();
 
-        storage.save(tasks);
+        storage.saveTasks(tasks);
     }
 
     /**
