@@ -40,7 +40,8 @@ public class Alex {
      * Executes the command and returns a pair containing the response and the command type.
      *
      * @param input The user's chat message.
-     * @return A pair where the first element is the response to the user's input and the second element is the command type.
+     * @return A pair where the first element is the response to the user's input and the second element is the command
+     *     type.
      */
     public Pair<String, String> getResponse(String input) {
         try {

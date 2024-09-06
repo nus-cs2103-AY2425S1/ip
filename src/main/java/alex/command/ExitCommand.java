@@ -1,7 +1,7 @@
 package alex.command;
 
-import alex.Ui;
 import alex.Storage;
+import alex.Ui;
 import alex.task.TaskList;
 
 /**

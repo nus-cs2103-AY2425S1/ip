@@ -3,8 +3,8 @@ package alex.command;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import alex.Ui;
 import alex.Storage;
+import alex.Ui;
 import alex.task.TaskList;
 
 /**

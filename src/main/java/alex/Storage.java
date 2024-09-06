@@ -40,26 +40,34 @@ public class Storage {
         while (s.hasNext()) {
             Scanner lineScanner = new Scanner(s.nextLine());
             String category = lineScanner.next();
+            Task task = new Task("", false);
 
             ArrayList<String> arrOfStr = new ArrayList<>();
-            Task task = switch (category) {
-                case "[T][" -> {
-                    lineScanner.next();
-                    yield Parser.makeTodoTask(lineScanner, arrOfStr, false);
-                }
-                case "[T][X]" -> Parser.makeTodoTask(lineScanner, arrOfStr, true);
-                case "[D][" -> {
-                    lineScanner.next();
-                    yield Parser.makeDeadlineTask(lineScanner, arrOfStr, false);
-                }
-                case "[D][X]" -> Parser.makeDeadlineTask(lineScanner, arrOfStr, true);
-                case "[E][" -> {
-                    lineScanner.next();
-                    yield Parser.makeEventTask(lineScanner, arrOfStr, false);
-                }
-                case "[E][X]" -> Parser.makeEventTask(lineScanner, arrOfStr, true);
-                default -> new Task("", false);
-            };
+            switch (category) {
+            case "[T][":
+                lineScanner.next();
+                task = Parser.makeTodoTask(lineScanner, arrOfStr, false);
+                break;
+            case "[T][X]":
+                task = Parser.makeTodoTask(lineScanner, arrOfStr, true);
+                break;
+            case "[D][":
+                lineScanner.next();
+                task = Parser.makeDeadlineTask(lineScanner, arrOfStr, false);
+                break;
+            case "[D][X]":
+                task = Parser.makeDeadlineTask(lineScanner, arrOfStr, true);
+                break;
+            case "[E][":
+                lineScanner.next();
+                task = Parser.makeEventTask(lineScanner, arrOfStr, false);
+                break;
+            case "[E][X]":
+                Parser.makeEventTask(lineScanner, arrOfStr, true);
+                break;
+            default:
+                //do nothing
+            }
             list.add(task);
         }
         return list;

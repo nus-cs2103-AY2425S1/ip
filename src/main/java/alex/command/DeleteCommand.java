@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
      * @param storage Storage object that saves changes to the file.
      * @return A message indicating the result of the delete operation.
      * @throws AlexException If the user provides incorrect input, such as not providing an integer number or
-     * providing a number that is too small or too big.
+     *     providing a number that is too small or too big.
      * @throws IOException If there are issues saving the changes to the file.
      */
     @Override

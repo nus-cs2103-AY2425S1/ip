@@ -42,8 +42,8 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException {
         if (!lineScanner.hasNext()) {
-            throw new AlexException("Oh no! Please provide an integer number after 'mark' or 'unmark'\n" +
-                    "indicating the task number to mark or unmark!");
+            throw new AlexException("Oh no! Please provide an integer number after 'mark' or 'unmark' "
+                    + "indicating the task number to mark or unmark!");
         }
         String taskNumberStr = lineScanner.next();
         int taskNumber;
@@ -57,8 +57,8 @@ public class MarkCommand extends Command {
         try {
             taskNumber = Integer.valueOf(taskNumberStr);
         } catch (NumberFormatException e) {
-            throw new AlexException("Oh no! Please only provide an integer number after 'mark' or 'unmark'\n" +
-                    "indicating the task number to mark or unmark!");
+            throw new AlexException("Oh no! Please only provide an integer number after 'mark' or 'unmark' "
+                    + "indicating the task number to mark or unmark!");
         }
 
         if (taskNumber < 1 || taskNumber > tasks.getSize()) {
