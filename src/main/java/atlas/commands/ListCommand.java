@@ -8,9 +8,10 @@ import atlas.tasks.TaskList;
  */
 public class ListCommand extends Command {
     /**
+     * Lists all tasks in the task list.
+     *
      * @param tasks The current list of tasks in the chatbot.
      * @param storage The storage object the chatbot uses to store and load tasks
-     *
      * @return String The message returned to be displayed on the chatbot GUI.
      */
     @Override

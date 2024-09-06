@@ -11,11 +11,12 @@ public abstract class Command {
     private boolean isExit = false;
 
     /**
+     * Executes a set of steps according to the command.
+     *
      * @param tasks The current list of tasks in the chatbot.
      * @param storage The storage object the chatbot uses to store and load tasks
-     * @throws AtlasException The exception to be thrown in the event of any error.
-     *
      * @return String The message returned to be displayed on the chatbot GUI.
+     * @throws AtlasException The exception to be thrown in the event of any error.
      */
     public abstract String execute(TaskList tasks, Storage storage) throws AtlasException;
 

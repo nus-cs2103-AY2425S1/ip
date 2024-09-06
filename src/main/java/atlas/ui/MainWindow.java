@@ -26,18 +26,23 @@ public class MainWindow extends AnchorPane {
     private Atlas atlas;
 
     // User Image reference: https://stock.adobe.com/search?k=user+icon&asset_id=229758328
-    private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
 
     // Atlas Image reference: https://www.vecteezy.com/vector-art/7225199-robot-vector-chat-bot-concept-illustration
-    private final Image ATLAS_IMAGE = new Image(this.getClass().getResourceAsStream("/images/Atlas.png"));
+    private final Image atlasImage = new Image(this.getClass().getResourceAsStream("/images/Atlas.png"));
 
+    /**
+     * Initializes the GUI Main Window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         sendButton.getStyleClass().add("button");
     }
 
-    /** Injects the Atlas instance, loads tasks and displays the welcome message */
+    /**
+     * Injects the Atlas instance, loads tasks and displays the welcome message
+     */
     public void setAtlas(Atlas a) {
         atlas = a;
         this.handleWelcome();
@@ -52,8 +57,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = atlas.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, USER_IMAGE),
-                DialogBox.getAtlasDialog(response, ATLAS_IMAGE)
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getAtlasDialog(response, atlasImage)
         );
         userInput.clear();
     }
@@ -63,7 +68,7 @@ public class MainWindow extends AnchorPane {
      */
     private void handleWelcome() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getAtlasDialog(atlas.init(), ATLAS_IMAGE)
+                DialogBox.getAtlasDialog(atlas.init(), atlasImage)
         );
     }
 

@@ -9,9 +9,10 @@ import atlas.ui.MainWindow;
  */
 public class ExitCommand extends Command {
     /**
+     * Closes the GUI and exits the chatbot.
+     *
      * @param tasks The current list of tasks in the chatbot.
      * @param storage The storage object the chatbot uses to store and load tasks
-     *
      * @return String The message returned to be displayed on the chatbot GUI.
      */
     @Override

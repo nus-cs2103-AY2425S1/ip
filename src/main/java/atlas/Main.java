@@ -13,8 +13,8 @@ import javafx.stage.Stage;
  * A GUI for Atlas using FXML.
  */
 public class Main extends Application {
-    private final String FILEPATH = "./data/atlas.txt";
-    private final Atlas atlas = new Atlas(FILEPATH);
+    private final String filepath = "./data/atlas.txt";
+    private final Atlas atlas = new Atlas(filepath);
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setAtlas(atlas);  // inject the Atlas instance
+            fxmlLoader.<MainWindow>getController().setAtlas(atlas); // inject the Atlas instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

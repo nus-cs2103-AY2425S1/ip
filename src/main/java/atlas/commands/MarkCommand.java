@@ -15,11 +15,12 @@ public class MarkCommand extends Command {
     }
 
     /**
+     * Marks a task.
+     *
      * @param tasks The current list of tasks in the chatbot.
      * @param storage The storage object the chatbot uses to store and load tasks
-     * @throws AtlasException The exception to be thrown in the event of any error.
-     *
      * @return String The message returned to be displayed on the chatbot GUI.
+     * @throws AtlasException The exception to be thrown in the event of any error.
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws AtlasException {

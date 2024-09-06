@@ -14,9 +14,7 @@ public class Atlas {
     private TaskList tasks;
 
     /**
-     * Initialises the Atlas chatbot with the filepath for Storage. Creates a new Ui instance.
-     * Attempts to load a previously saved list of tasks. If there are no previous tasks then it
-     * initialises an empty ArrayList. If there is any error, it will be caught and displayed.
+     * Initialises the Atlas chatbot with the filepath for Storage.
      *
      * @param filepath The filepath of the file where tasks will be loaded from and saved to.
      */
@@ -25,6 +23,12 @@ public class Atlas {
         this.tasks = new TaskList();
     }
 
+
+    /**
+     * Attempts to load a previously saved list of tasks. If there is any error, it will be caught and displayed.
+     *
+     * @return String The message to be displayed to the user when the chatbot is initialized.
+     */
     public String init() {
         StringBuilder s = new StringBuilder();
         try {
