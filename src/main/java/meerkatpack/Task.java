@@ -35,6 +35,13 @@ public class Task {
         return this.name;
     }
 
+    /**
+     * Returns a string that is more easily parseable by Parser when file is read upon start.
+     * It takes the current task traits and stores them into a string. Similar to toString
+     * method. Uses polymorphism, so this method body is a filler one, actual implementation
+     * in the task subclasses.
+     * @return The String to be saved into the write file
+     */
     public String toParseableString() {
         return "hello";
     }

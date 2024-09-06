@@ -10,10 +10,14 @@ public class Parser {
     private static Ui ui;
 
     public Parser() {
-        this.taskList = new TaskList();
-        this.ui = new Ui();
+        taskList = new TaskList();
+        ui = new Ui();
     }
 
+    /**
+     * Reads the save file line by line, creates the relevant task with appropriate information.
+     * @param thisTask Takes in a String that represents a task in the save file.
+     */
     public static void parseSaveFile(String thisTask) {
         String[] strArray = thisTask.split(",", 5);
         switch (strArray.length) {
@@ -66,6 +70,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts the string of input into a relevant task.
+     * @param taskName String of input, the entire line given by user.
+     */
     public void parse(String taskName) {
         String[] strArray = taskName.split(" ", 2);
 

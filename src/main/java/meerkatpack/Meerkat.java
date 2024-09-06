@@ -2,13 +2,12 @@ package meerkatpack;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;  // Import the Scanner class
-import java.io.IOException;
 
 public class Meerkat {
 
     private static final String STORAGEFILEPATH = "Meerkat.txt";
 
-    public static void main(String[] args) throws IOException, FileNotFoundException {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
         Ui ui = new Ui();
         Storage storage = new Storage();

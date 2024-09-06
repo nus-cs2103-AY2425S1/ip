@@ -23,6 +23,16 @@ public class TaskList {
         }
         return s.toString();
     }
+
+    /**
+     * Creates a todo Task and adds it to the ArrayList of tasks. Also
+     * writes to the save file in storage as there is a change in the taskList.
+     * Prints UI creation message only if the file is created during the run instead
+     * of when reading tasks from save file.
+     * @param name The name of the task.
+     * @param fromSave Check if the task is created from an input or through parsing file.
+     * @throws IOException If there are any errors in reading or writing the file.
+     */
     public void createTodoTask(String name, boolean fromSave) throws IOException {
         Task thisTask = new Todo(name);
         listOfTasks.add(thisTask);
@@ -32,6 +42,15 @@ public class TaskList {
         }
     }
 
+    /**
+     * Creates an Event Task and adds it to the ArrayList of tasks. Also
+     * writes to the save file in storage as there is a change in the taskList.
+     * Prints UI creation message only if the file is created during the run instead
+     * of when reading tasks from save file.
+     * @param name The name of the task.
+     * @param fromSave Check if the task is created from an input or through parsing file.
+     * @throws IOException If there are any errors in reading or writing the file.
+     */
     public void createEventTask(String name, String start, String end, boolean fromSave) throws IOException {
         Task thisTask = new Event(name, start, end);
         listOfTasks.add(thisTask);
@@ -41,6 +60,15 @@ public class TaskList {
         }
     }
 
+    /**
+     * Creates a Deadline Task and adds it to the ArrayList of tasks. Also
+     * writes to the save file in storage as there is a change in the taskList.
+     * Prints UI creation message only if the file is created during the run instead
+     * of when reading tasks from save file.
+     * @param name The name of the task.
+     * @param fromSave Check if the task is created from an input or through parsing file.
+     * @throws IOException If there are any errors in reading or writing the file.
+     */
     public void createDeadlineTask(String name, LocalDateTime duedate, boolean fromSave) throws IOException {
         Task thisTask = new Deadline(name, duedate);
         listOfTasks.add(thisTask);
@@ -50,6 +78,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks task as done when parser receives the mark input.
+     * @param taskNum Determines the task number to fetch the right task to mark.
+     * @throws IOException When the file cannot be written to.
+     */
     public void markTaskAsDone(int taskNum) throws IOException {
         if (taskNum > 0 && taskNum <= listOfTasks.size()) {
             Task thisTask = listOfTasks.get(taskNum - 1);
@@ -62,6 +95,11 @@ public class TaskList {
         storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
     }
 
+    /**
+     * Marks task as undone when parser receives the unmark input.
+     * @param taskNum Determines the task number to fetch the right task to unmark.
+     * @throws IOException When the file cannot be written to.
+     */
     public void markTaskAsUndone(int taskNum) throws IOException {
         if (taskNum > 0 && taskNum <= listOfTasks.size()) {
             Task thisTask = listOfTasks.get(taskNum - 1);
@@ -74,6 +112,11 @@ public class TaskList {
         storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
     }
 
+    /**
+     * Deletes and removes task from taskList when parser receives the delete input.
+     * @param taskNum Determines the task number to fetch the right task to delete.
+     * @throws IOException When the file cannot be written to.
+     */
     public void deleteTask(int taskNum) throws IOException {
         if (taskNum > 0 && taskNum <= listOfTasks.size()) {
             Task thisTask = listOfTasks.get(taskNum - 1);
@@ -86,14 +129,27 @@ public class TaskList {
         storage.writeToFile(STORAGEFILEPATH, taskListToString(listOfTasks));
     }
 
+    /**
+     * Returns the number of tasks in the taskList.
+     * @return The integer size of the taskList.
+     */
     public int getSize() {
         return listOfTasks.size();
     }
 
+    /**
+     * Provides access to the private taskList
+     * @return The taskList.
+     */
     public List<Task> getTaskList() {
         return listOfTasks;
     }
 
+    /**
+     * Sets the most recently created task to have either marked or unmarked status.
+     * Used during creation of tasks from reading save file.
+     * @param bool Determines whether to mark task as completed
+     */
     public void setMostRecentTaskCompletionStatus(boolean bool) {
         int size = getSize();
         if (bool) {

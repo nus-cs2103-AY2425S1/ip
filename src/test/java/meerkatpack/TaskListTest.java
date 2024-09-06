@@ -2,8 +2,6 @@ package meerkatpack;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
