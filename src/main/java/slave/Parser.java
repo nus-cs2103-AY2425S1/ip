@@ -11,23 +11,23 @@ import java.util.Scanner;
 public class Parser {
     private List<Task> list;
 
+    public enum TaskType {
+        TODO,
+        EVENT,
+        DEADLINE
+    }
+
     public Parser(List<Task> list) {
         this.list = list;
     }
 
     /**
-     * prompts the user for input
+     * Carries out the corresponding action to the user's input.
      *
-     * @return a Pair<Boolean, Boolean> indicating if there are more actions, and if there is a need for storage
-     * to call the save() method respectively
+     * @return Slave's response to the user's input.
      */
-    public Pair<Boolean, Boolean> getUserInput() {
+    public String[] handleUserInput(String input) {
         try {
-            boolean hasMoreInputs = true;
-            boolean needToSave = false;
-            Scanner sc = new Scanner(System.in);
-            String input = sc.nextLine();
-            echo(input);
             Scanner inputScanner = new Scanner(input);
             String command = inputScanner.next();
             String body = "";
@@ -37,150 +37,122 @@ public class Parser {
             inputScanner.close();
             switch (command) {
             case "bye":
-                hasMoreInputs = false;
-                break;
+                return new String[]{Ui.goodbye()};
             case "list":
-                listItems();
-                break;
+                return listTasks();
             case "mark":
-                needToSave = markAsDone(body);
-                break;
+                return new String[]{markAsDone(body)};
             case "unmark":
-                needToSave = markAsIncomplete(body);
-                break;
+                return new String[]{markAsIncomplete(body)};
             case "todo":
-                needToSave = addToList(0, body);
-                break;
+                return addToList(TaskType.TODO, body);
             case "deadline":
-                needToSave = addToList(1, body);
-                break;
+                return addToList(TaskType.DEADLINE, body);
             case "event":
-                needToSave = addToList(2, body);
-                break;
+                return addToList(TaskType.EVENT, body);
             case "delete":
-                needToSave = deleteTask(body);
-                break;
+                return deleteTask(body);
             case "clear":
-                needToSave = clear();
-                break;
+                return clear();
             case "schedule":
-                scheduleOn(body);
-                break;
+                return scheduleOn(body);
             case "find":
-                find(body);
-                break;
+                return find(body);
             default:
-                System.out.println("You're spouting gibberish...");
-                break;
+                return new String[]{"You're spouting gibberish..."};
             }
-            pageBreakLine();
-            return new Pair<>(hasMoreInputs, needToSave);
+
         } catch (NoSuchElementException e) {
             // handle empty inputs / only spaces (" ")
             // wait for next user input
             // no need to save as nothing has been done
-            return new Pair<>(true, false);
+            return new String[]{"Why are you so quiet?"};
         }
+
     }
 
+
     /**
-     * Prints the user's input
+     * Lists all the tasks in the list.
      *
-     * @param s is the user's input
+     * @return a String representation of all the tasks in the list.
      */
-    protected static void echo(String s) {
-        System.out.println(s);
-        pageBreakLine();
-    }
-
-    /**
-     * used to separate the different print statements
-     */
-    protected static void pageBreakLine() {
-        System.out.println("_______________________________________________________________________________________");
-    }
-
-    /**
-     * Prints out the items in the list of items provided by the user
-     */
-    protected void listItems() {
-        System.out.println("Can you not even remember the things you need to do?" +
-                " That should be your job, not mine!");
+    protected String[] listTasks() {
+        String[] result = new String[2];
+        StringBuilder sb = new StringBuilder();
+        result[0] = ("Can you not even remember the things you need to do?" +
+                " That should be your job, not mine!\n");
         if (list.isEmpty()) {
-            System.out.println("You don't have anything on your list, and you can't even remember that?");
-            return;
+            result[1] = ("You don't have anything on your list, and you can't even remember that?");
+            return result;
         }
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + "." + list.get(i).toString());
+            sb.append(i + 1);
+            sb.append(".");
+            sb.append(list.get(i).toString());
+            sb.append("\n");
         }
+        result[1] = sb.toString();
+        return result;
     }
 
     /**
-     * marks the task as completed by changing the boolean value to true
+     * Marks the task as done by changing the Task's isCompleted value
      *
-     * @param s is the task index in String format
-     * @return a boolean representing if storage.save() needs to be called after this method
-     * @throws IllegalArgumentException in the event that event index is out of the range of the task list
+     * @param s is the index of the task as a String.
+     * @return Slave's response to the user.
      */
-    protected boolean markAsDone(String s) {
+    protected String markAsDone(String s) {
         try {
             int i = Integer.parseInt(s);
 
             if (i < 1 || i > list.size()) {
-                System.out.println("You don't have a task number " + i);
-                return false;
+                return "You don't have a task number " + i;
             }
             Task t = list.get(i - 1);
             t.setAsCompleted();
-            System.out.println("Finally doing something useful with your life eh...");
-            System.out.println(t);
-            return true;
+            return "Finally doing something useful with your life eh...\n" + t;
         } catch (NumberFormatException nfe) {
-            System.out.println("That's not a task number");
-            return false;
+            return "That's not a task number";
         }
     }
 
     /**
-     * marks the task as incomplete by changing the boolean value to false
+     * Marks the task as incomplete by changing the Task's isCompleted value.
      *
-     * @param s is the task index in String format
-     * @return a boolean indicating if storage.save() needs to be called after this method
+     * @param s is the index of the task as a String.
+     * @return Slave's response to the user.
      */
-    protected boolean markAsIncomplete(String s) {
+    protected String markAsIncomplete(String s) {
         try {
             int i = Integer.parseInt(s);
             if (i < 1 || i > list.size()) {
-                System.out.println("You don't have a task number " + i);
-                return false;
+                return "You don't have a task number " + i;
             }
             Task t = list.get(i - 1);
             t.setAsIncomplete();
-            System.out.println("Slacking off now, are you?");
-            System.out.println(t);
-            return true;
+            return "Slacking off now, are you?\n" + t;
         } catch (NumberFormatException nfe) {
-            System.out.println("That's not a task number");
-            return false;
+            return "That's not a task number";
         }
     }
 
     /**
-     * adds the item specified by the user to the list
+     * Adds the task to the list of tasks.
      *
-     * @param s is te item to be added
-     * @return a boolean indicating if storage.save() needs to be called after this method
+     * @param task is the type of task to be addded.
+     * @param s    is the details of the task to be added.
+     * @return Slave's response to the user.
      */
-    protected boolean addToList(int i, String s) {
+    protected String[] addToList(TaskType task, String s) {
         /*
         0 - Todo
         1 - Deadline
         2 - Event
          */
-        boolean didInsert = true;
         try {
-            switch (i) {
-            case 0:
+            switch (task) {
+            case TODO:
                 // todo
                 //@@ author Carl Smotricz -reused
                 // String.trim() method used to remove all whitespaces from a string to check if the string only
@@ -191,7 +163,7 @@ public class Parser {
                 }
                 list.add(new Todo(s));
                 break;
-            case 1:
+            case DEADLINE:
                 // deadline
                 String[] details = s.split(" /by ");
                 if (details.length == 1) {
@@ -201,7 +173,7 @@ public class Parser {
                 LocalDate by = LocalDate.parse(details[1]);
                 list.add(new Deadline(details[0], by));
                 break;
-            case 2:
+            case EVENT:
                 // event
                 // only accepts time in format yyyy-mm-dd
                 String[] eventArr = s.split(" /from ");
@@ -217,126 +189,135 @@ public class Parser {
                 list.add(new Event(eventArr[0], start, end));
                 break;
             default:
-                System.out.println("invalid Task code");
-                didInsert = false;
-                break;
+                return new String[]{"That's not a type of task... you're wasting my time!"};
             }
-            return didInsert;
+
+            String[] result = new String[2];
+            result[0] = "Hey maybe try using some of that memory of yours to remember these things...";
+            result[1] = "added: " + list.get(list.size() - 1).toString();
+            return result;
         } catch (InvalidTaskFormatException e) {
-            System.out.println("Can you not even tell me all the details for your event? Do you even want my help?");
-            didInsert = false;
-            return didInsert;
+            return new String[]{"Can you not even tell me all the details for your event? Do you even want my help?"};
         } catch (DateTimeParseException dtpe) {
-            didInsert = false;
-            System.out.println("Give me the date in yyyy-mm-dd or I won't remember it for you");
-            return didInsert;
+            return new String[]{"Give me the date in yyyy-mm-dd or I won't remember it for you"};
         } catch (InvalidChronologicalOrderException icoe) {
-            didInsert = false;
-            System.out.println("How can your event end before it started?");
-            return didInsert;
-        } finally {
-            if (didInsert) {
-                System.out.println("Hey maybe try using some of that memory of yours to remember these things...");
-                System.out.println("added: " + list.get(list.size() - 1));
-            }
+            return new String[]{"How can your event end before it started?"};
         }
     }
 
     /**
-     * removes the Task from list
+     * Removes the task from the list of tasks.
      *
-     * @param s is the index of the Task to be removed
+     * @param s is the index of the task as a String.
+     * @return Slave's response to the user.
      */
-    protected boolean deleteTask(String s) {
+    protected String[] deleteTask(String s) {
         try {
             int i = Integer.parseInt(s);
             if (i < 1 || i > list.size()) {
-                System.out.println("You don't have a task number " + i);
-                return false;
+                return new String[]{"You don't have a task number " + i};
             }
-            System.out.println("Good to know that I have less things to remember now...");
-            System.out.println("I'll forget about " + list.get(i - 1));
+            String[] result = new String[2];
+            result[0] = "Good to know that I have less things to remember now...";
+            result[1] = "I'll forget about " + list.get(i - 1);
             list.remove(i - 1);
-            return true;
+            return result;
         } catch (NumberFormatException nfe) {
-            System.out.println("That's not a task number");
-            return false;
+            return new String[]{"That's not a task number"};
         }
     }
 
     /**
-     * Finds all tasks containing the user provided string in the task description
-     * Prints all relevant tasks
+     * Finds all the tasks with a description containing the substring.
      *
-     * @param substring is the task description which the user is looking for
+     * @param substring is the substring to be matched with the tasks' description.
+     * @return a String representation of all the matching tasks.
      */
-    protected void find(String substring) {
+    protected String[] find(String substring) {
         // There is a slight difference in this implementation compared to ab3
         // In ab3, calling DELETE after FIND deletes the task with the index provided by FIND
         // However, in this version, calling in order to delete the task, the user has to use the original
         // index of the task, provided by LIST, instead of that provided by FIND
 
         if (substring.isEmpty() | substring.trim().isEmpty()) {
-            System.out.println("Quit wasting my time... Tell me what you want found");
-            return;
+            return new String[]{"Quit wasting my time... Tell me what you want found"};
         }
+        String[] result = new String[4];
+        StringBuilder sb = new StringBuilder();
 
-        System.out.println("What's the point of that brain of yours if you don't use it");
-        System.out.println("Fine I'll look for tasks related to [" + substring + "]");
+        result[0] = "What's the point of that brain of yours if you don't use it\n";
+        result[1] = "Fine I'll look for tasks related to [" + substring + "]";
 
         int count = 1;
 
         for (int i = 0; i < list.size(); i++) {
             Task t = list.get(i);
             if (t.getTask().contains(substring)) {
-                System.out.println(count + ". " + t);
+                sb.append(count);
+                sb.append(". ");
+                sb.append(t);
+                sb.append("\n");
                 count++;
             }
         }
 
         if (count == 1) {
-            System.out.println("\nThere's nothing related to [" + substring + "]");
-            System.out.println("Should have known better than to waste time trying to help you...");
+            result[2] = "\nThere's nothing related to [" + substring + "]";
+            result[3] = "Should have known better than to waste time trying to help you...";
+        } else {
+            result[2] = sb.toString();
+            result[3] = "That's all";
         }
+        return result;
     }
 
 
     /**
-     * deletes all tasks from the list
-     */
-    protected boolean clear() {
-        list.clear();
-        System.out.println("Starting off on a clean slate now are we, " +
-                "guess your previous tasks were too much for you to handle");
-        return true;
-    }
-
-    /**
-     * prints all deadlines / events occuring on the specified date
+     * Deletes all tasks from the list of tasks.
      *
-     * @param s is the date input provided by user
+     * @return Slave's response to the user.
      */
-    protected void scheduleOn(String s) {
+    protected String[] clear() {
+        list.clear();
+        String[] result = new String[2];
+        result[0] = "Starting off on a clean slate now are we?";
+        result[1] = "Guess your previous tasks were too much for you to handle";
+        return result;
+    }
+
+    /**
+     * Finds all the timed events (e.g. Deadlines / Events) that are happening / yet to be due on the provided date.
+     *
+     * @param s is the string representation of the date.
+     * @return Slave's response containing
+     * a String representation of all timed events yet happening / yet to be due on the provided date.
+     */
+    protected String[] scheduleOn(String s) {
         if (s.isEmpty()) {
             throw new NoSuchElementException();
         }
-        System.out.println("Your tasks are :");
+        StringBuilder sb = new StringBuilder();
+        String[] result = new String[3];
+        result[0] = "Your tasks are :";
         try {
             LocalDate target = LocalDate.parse(s);
             list.forEach(task -> {
                 if (task instanceof Event) {
                     if (((Event) task).getRawStart().isBefore(target) && ((Event) task).getRawEnd().isAfter(target)) {
-                        System.out.println(task);
+                        sb.append(task);
                     }
                 } else if (task instanceof Deadline) {
                     if (((Deadline) task).getRawDeadline().isAfter(target) || ((Deadline) task).getRawDeadline().isEqual(target)) {
-                        System.out.println(task);
+                        sb.append(task);
                     }
                 }
+                sb.append("\n");
             });
-            System.out.println("That's all your tasks for " + target.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
+            result[1] = sb.toString();
+            result[2] = "That's all your tasks for " + target.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+            return result;
         } catch (DateTimeParseException | NoSuchElementException e) {
-            System.out.println("Give me the date in yyyy-mm-dd or I won't check your schedule");
+            return new String[]{"Give me the date in yyyy-mm-dd or I won't check your schedule"};
         }
     }
 }

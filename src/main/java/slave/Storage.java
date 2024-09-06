@@ -25,10 +25,10 @@ public class Storage {
     }
 
     /**
-     * converts the List<Task> to a string format and writes it to the savefile "./src/main/data/savefile.txt"
-     * every line contains only 1 task
-     * string format is as per the return value of toString() method of the respective task
-     * creates a new file at "./src/main/data" called "savefile.txt" in the event of a missing save file
+     * Converts the List<Task> to a string format and writes it to the savefile "./src/main/data/savefile.txt".
+     * Every line contains only 1 task.
+     * String format is as per the return value of toString() method of the respective task.
+     * Creates a new file at "./src/main/data" called "savefile.txt" in the event of a missing save file.
      */
     public void save() {
         try {

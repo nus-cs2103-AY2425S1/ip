@@ -31,15 +31,17 @@ public abstract class Task {
     /**
      * sets the task as completed
      */
-    public void setAsCompleted() {
+    public Task setAsCompleted() {
         this.isCompleted = true;
+        return this;
     }
 
     /**
      * sets the task as incomplete
      */
-    public void setAsIncomplete() {
+    public Task setAsIncomplete() {
         this.isCompleted = false;
+        return this;
     }
 
     /**

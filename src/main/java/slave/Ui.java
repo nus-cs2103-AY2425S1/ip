@@ -2,41 +2,35 @@ package slave;
 
 import java.util.List;
 
+/**
+ * Ui object contains the name which slave uses to address the user by
+ * and a parser object. It contains the method to run the program
+ */
 public class Ui {
-    private String user = "slave driver";
+    private static String user = "slave driver";
     private Parser parser;
 
     public Ui(List<Task> tasklist) {
         parser = new Parser(tasklist);
     }
 
-    public Pair<Boolean, Boolean> getUserInputs() {
-        return parser.getUserInput();
-
-    }
-
     /**
-     * Prints the greeting message
+     * Stores the welcome messages in a String[]
+     *
+     * @return an array of Strings containing the welcome messages
      */
-    public void welcome() {
-        Parser.pageBreakLine();
-        // @@author ASCII Figlet Generator -reused
-        // logo sourced from: https://www.askapache.com/online-tools/figlet-ascii/
-        String logo
-                = "_______        _______ _    _ _______\n"
-                + "|______ |      |_____|  \\  /  |______\n"
-                + "______| |_____ |     |   \\/   |______\n";
-        //@@author
-        System.out.println("Ugh... why did you wake me up...\nGuess I am now your personal\n" + logo);
-        System.out.println("What do you want from me? Say it now, I don't have all day...");
-        Parser.pageBreakLine();
+    public static String[] appWelcomeMsg() {
+        String[] result = new String[3];
+        result[0] = "Ugh... why did you wake me up...";
+        result[1] = "Guess I am now your personal Slave";
+        result[2] = "What do you want from me? Say it now, I don't have all day...";
+        return result;
     }
 
     /**
      * Prints the goodbye message in response to the user inputting "bye"
      */
-    public void goodbye() {
-        System.out.println("Good riddance " + user + ", try not to bother me in the future...");
-        Parser.pageBreakLine();
+    public static String goodbye() {
+        return "Good riddance " + user + ", try not to bother me in the future...";
     }
 }
