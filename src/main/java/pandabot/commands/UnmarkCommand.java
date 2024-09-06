@@ -38,7 +38,7 @@ public class UnmarkCommand extends Command {
             tasks.get(taskIndex).unmark();
             storage.saveTaskList(tasks.getTasks());
 
-            return "OK, I've marked this task as not done yet:"
+            return "OK, I've marked this task as not done yet:\n"
                     + tasks.get(taskIndex).toString();
         } else {
             return "The specified task does not exist.";
