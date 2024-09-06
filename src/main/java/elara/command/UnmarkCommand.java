@@ -18,12 +18,16 @@ public class UnmarkCommand implements Command {
             throw new InvalidInputException("Append task index after command!");
         }
 
-        int i = Integer.parseInt(fullInput.split(" ", 2)[1]) - 1;
-        if (i < 0 || i >= taskList.getTasks().size()) {
-            throw new InvalidInputException("Task index out of bounds!");
+        try {
+            int i = Integer.parseInt(fullInput.split(" ", 2)[1]) - 1;
+            if (i < 0 || i >= taskList.getTasks().size()) {
+                throw new InvalidInputException("Task index out of bounds!");
+            }
+            taskList.unmarkTask(i);
+            ui.showUnmarkedTaskMessage(taskList.getTask(i));
+            storage.write(taskList);
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException("Task index must be a number!");
         }
-        taskList.unmarkTask(i);
-        ui.showUnmarkedTaskMessage(taskList.getTask(i));
-        storage.write(taskList);
     }
 }
