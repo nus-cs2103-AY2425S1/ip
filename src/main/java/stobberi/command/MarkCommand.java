@@ -1,6 +1,7 @@
 package stobberi.command;
 
 import stobberi.components.TaskList;
+import stobberi.stobberiexception.StobberiException;
 
 /**
  * Represents a command to mark a task as completed in a {@link TaskList}.
@@ -31,7 +32,7 @@ public class MarkCommand extends Command {
      * Executes the command by marking the specified task as completed in the {@link TaskList}.
      */
     @Override
-    public String execute() {
+    public String execute() throws StobberiException {
         return taskList.markTask(taskNumber);
     }
 }
