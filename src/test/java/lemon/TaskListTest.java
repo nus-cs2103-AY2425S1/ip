@@ -35,4 +35,20 @@ public class TaskListTest {
         assertEquals(test, tl.deleteTask(1));
         assertEquals(0, tl.size());
     }
+
+    @Test
+    public void findTasksTest() {
+        Task test = new TaskStub();
+        TaskList tl = new TaskList();
+        TaskList found = new TaskList();
+
+        try {
+            tl.addNewTask(test);
+            found = tl.findTasks("Test");
+        } catch (DescriptionException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals(tl.toString(), found.toString());
+    }
 }
