@@ -84,8 +84,8 @@ public class TaskList {
         taskToMark.markAsDone();
         storage.saveTasks(tasks);
 
-        return "Nice! I've marked this task as done:\n" +
-                "  " + taskToMark;
+        return "Nice! I've marked this task as done:\n"
+                + "  " + taskToMark;
     }
 
     /**
@@ -104,8 +104,8 @@ public class TaskList {
         taskToUnmark.unmark();
         storage.saveTasks(tasks);
 
-        return "OK, I've marked this task as not done yet:\n" +
-                "  " + taskToUnmark;
+        return "OK, I've marked this task as not done yet:\n"
+                + "  " + taskToUnmark;
     }
 
     /**

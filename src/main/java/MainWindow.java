@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -6,8 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import luna.Luna;
-
-import java.util.Objects;
 
 /**
  * Controller for the main GUI.
@@ -29,12 +29,13 @@ public class MainWindow extends AnchorPane {
     private final Image lunaImage = new Image(Objects.requireNonNull(this.getClass()
             .getResourceAsStream("/images/Luna.jpg")));
 
+    /** Initialise Luna GUI with dialog */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        String greetings = "Hello! I'm Luna. What can I do for you?\n" +
-                "If you are new or unsure how I can help you, press enter to view a list of commands.";
+        String greetings = "Hello! I'm Luna. What can I do for you?\n"
+                + "If you are new or unsure how I can help you, press enter to view a list of commands.";
         dialogContainer.getChildren().addAll(DialogBox.getLunaDialog(greetings, lunaImage));
     }
 
