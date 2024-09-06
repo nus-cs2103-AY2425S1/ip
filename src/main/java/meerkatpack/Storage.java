@@ -6,6 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Used to write to and read from saved txt file during the running
+ * of the application.
+ */
 public class Storage {
 
     /**

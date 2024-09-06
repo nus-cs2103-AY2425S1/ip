@@ -1,5 +1,8 @@
 package meerkatpack;
 
+/**
+ * Used to represent a Todo task.
+ */
 public class Todo extends Task {
     public Todo(String name) {
         super(name);
@@ -20,8 +23,7 @@ public class Todo extends Task {
         String s = "t,";
         if (this.isCompleted()) {
             s += "m,";
-        }
-        else {
+        } else {
             s += "u,";
         }
         s += this.getName();

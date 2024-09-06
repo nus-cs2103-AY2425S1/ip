@@ -5,17 +5,28 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Used to store a list of Tasks.
+ */
 public class TaskList {
+    private static List<Task> listOfTasks = new ArrayList<>();
+    private static final String STORAGE_FILE_PATH = "Meerkat.txt";
     private Storage storage;
     private Ui ui;
-    private static List<Task> listOfTasks = new ArrayList<>();
-    private final String STORAGE_FILE_PATH = "Meerkat.txt";
 
+    /**
+     * Sole constructor.
+     */
     public TaskList() {
         this.storage = new Storage();
         this.ui = new Ui();
     }
 
+    /**
+     * Creates a String to be written to save file from given TaskList.
+     * @param taskList TaskList provided as input with tasks.
+     * @return String to be written into save file.
+     */
     public String taskListToString(List<Task> taskList) {
         StringBuilder s = new StringBuilder();
         for (Task task : taskList) {
@@ -159,6 +170,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for tasks based on keyword name.
+     * @param name Keyword given to find matching tasks.
+     * @return List of Tasks that match keyword.
+     */
     public List<Task> findMatchingTasks(String name) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : listOfTasks) {

@@ -3,16 +3,26 @@ package meerkatpack;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Used to represent a Deadline task.
+ */
 public class Deadline extends Task {
-    private LocalDateTime duedate;
+
+    private LocalDateTime dueDate;
+
+    /**
+     * Constructor for a deadline task.
+     * @param name Name of the deadline task.
+     * @param dueDate Deadline of the deadline task.
+     */
     public Deadline(String name, LocalDateTime dueDate) {
         super(name);
-        this.duedate = dueDate;
+        this.dueDate = dueDate;
     }
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
-        return "[D]" + super.toString() + " (by: " + this.duedate.format(formatter) + ")";
+        return "[D]" + super.toString() + " (by: " + this.dueDate.format(formatter) + ")";
     }
 
     /**
@@ -26,11 +36,10 @@ public class Deadline extends Task {
         String s = "d,";
         if (this.isCompleted()) {
             s += "m,";
-        }
-        else {
+        } else {
             s += "u,";
         }
-        s += this.getName() + "," + this.duedate;
+        s += this.getName() + "," + this.dueDate;
         return s;
     }
 }

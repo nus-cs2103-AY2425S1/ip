@@ -1,13 +1,25 @@
 package meerkatpack;
 
+/**
+ * Used to represent an Event task.
+ */
 public class Event extends Task {
+
     private String start;
     private String end;
+
+    /**
+     * Constructor for Event task.
+     * @param name Name of the task.
+     * @param start Start time of the task.
+     * @param end End time of the task.
+     */
     public Event(String name, String start, String end) {
         super(name);
         this.start = start;
         this.end = end;
     }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
@@ -24,8 +36,7 @@ public class Event extends Task {
         String s = "e,";
         if (this.isCompleted()) {
             s += "m,";
-        }
-        else {
+        } else {
             s += "u,";
         }
         s += this.getName() + "," + this.start + "," + this.end;

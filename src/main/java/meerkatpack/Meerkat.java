@@ -1,14 +1,17 @@
 package meerkatpack;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;  // Import the Scanner class
+import java.util.Scanner; // Import the Scanner class
 
+/**
+ * Main class that runs the program.
+ */
 public class Meerkat {
 
     private static final String STORAGE_FILE_PATH = "Meerkat.txt";
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);  // Create a Scanner object
+        Scanner sc = new Scanner(System.in); // Create a Scanner object
         Ui ui = new Ui();
         Storage storage = new Storage();
         TaskList taskList = new TaskList();

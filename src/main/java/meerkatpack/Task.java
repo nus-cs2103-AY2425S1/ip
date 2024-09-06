@@ -1,25 +1,32 @@
 package meerkatpack;
 
+/**
+ * Parent class for tasks, has its own subclass tasks.
+ */
 public class Task {
-    private boolean completed;
+    private boolean isCompleted;
     private String name;
 
+    /**
+     * Constructor for Task, usually gets called by subclasses.
+     * @param name Name of the task.
+     */
     public Task(String name) {
-        this.completed = false;
+        this.isCompleted = false;
         this.name = name;
     }
 
-    public void markAsCompleted() {
-        this.completed = true;
+    protected void markAsCompleted() {
+        this.isCompleted = true;
     }
 
-    public void markAsIncomplete() {
-        this.completed = false;
+    protected void markAsIncomplete() {
+        this.isCompleted = false;
     }
     @Override
     public String toString() {
         String box;
-        if (this.completed) {
+        if (this.isCompleted) {
             box = "[X]";
         } else {
             box = "[ ]";
@@ -27,10 +34,18 @@ public class Task {
         return box + " " + this.name;
     }
 
+    /**
+     * Returns task completion status.
+     * @return Boolean value on whether task is completed.
+     */
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
+    /**
+     * Returns task name.
+     * @return Task name as a String.
+     */
     public String getName() {
         return this.name;
     }

@@ -1,4 +1,1 @@
 t,u,eat
-t,u,eat 2
-t,u,buy 3
-t,u,eat 4
