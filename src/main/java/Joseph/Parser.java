@@ -93,8 +93,8 @@ public class Parser {
             throws InsufficientDetailsException {
         String[] details = input.substring(commandText.length()).trim().split(" /");
         if (details.length < 2) {
-            throw new InsufficientDetailsException("You need to provide a description " +
-                    "and a due date for a deadline!");
+            throw new InsufficientDetailsException("You need to provide a description "
+                    + "and a due date for a deadline!");
         }
         return details;
     }
@@ -110,8 +110,8 @@ public class Parser {
             throws InsufficientDetailsException {
         String[] details = input.substring(commandText.length()).trim().split(" /");
         if (details.length < 3) {
-            throw new InsufficientDetailsException("You need to provide a description, " +
-                    "a start and an end for an event!");
+            throw new InsufficientDetailsException("You need to provide a description, "
+                    + "a start and an end for an event!");
         }
         return details;
     }
