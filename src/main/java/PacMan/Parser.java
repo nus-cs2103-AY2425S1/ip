@@ -1,3 +1,5 @@
+package PacMan;
+
 public class Parser {
     private static Ui ui;
     private static TaskList list;

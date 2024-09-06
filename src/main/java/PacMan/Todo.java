@@ -1,3 +1,5 @@
+package PacMan;
+
 public class Todo extends Task {
     Todo(String task) {
         super(task);

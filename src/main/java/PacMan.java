@@ -1,3 +1,8 @@
+import PacMan.Parser;
+import PacMan.Storage;
+import PacMan.TaskList;
+import PacMan.Ui;
+
 public class PacMan {
     private static final Storage storage = new Storage("data/PacMan.txt");
     private static final TaskList list = new TaskList(storage.load());

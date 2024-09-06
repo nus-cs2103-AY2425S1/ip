@@ -1,3 +1,5 @@
+package PacMan;
+
 import java.util.Scanner;
 
 public class Ui {
