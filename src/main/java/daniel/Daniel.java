@@ -11,8 +11,9 @@ public class Daniel {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
+    private Boolean isInitialised;
     public Daniel(String filePath) {
+        isInitialised = true;
         ui = new Ui();
         storage = new Storage(filePath);
         File folder = new File("./data");
@@ -25,7 +26,7 @@ public class Daniel {
             this.tasks = new TaskList(new ArrayList<>());
         }
     }
-    public void run() {
+    /*public void run() {
         ui.uiGreet();
         Scanner scanner = new Scanner(System.in);
         boolean val = true;
@@ -34,9 +35,14 @@ public class Daniel {
             val = Parse.initialParse(input, ui, tasks, storage);
         }
         storage.writeFile(tasks.getArray());
+    }*/
+    public String getWelcomeMessage() {
+        return ui.uiGreet();
     }
-
+    public String getResponse(String input) {
+        return Parse.initialParse(input, ui, tasks, storage);
+    }
     public static void main(String[] args) {
-        new Daniel("data/daniel.txt").run();
+        new Daniel("data/daniel.txt");
     }
 }

@@ -45,36 +45,30 @@ public class Parse {
      * @param storage the storage class instance
      * @return false if user entered "bye" and true oterwise
      */
-    public static Boolean initialParse(String input, Ui ui, TaskList tasks, Storage storage) {
+    public static String initialParse(String input, Ui ui, TaskList tasks, Storage storage) {
         if (input.equals("bye")) {
-            ui.uiBye();
-            return false;
+            return ui.uiBye();
         } else if (input.equals("list")) {
-            tasks.handleList();
-            return true;
+            return tasks.handleList();
         } else if (input.startsWith("mark")) {
-            tasks.markDone(input);
             storage.writeFile(tasks.getArray());
-            return true;
+            return tasks.markDone(input);
         } else if (input.startsWith("unmark")) {
-            tasks.markUnDone(input);
             storage.writeFile(tasks.getArray());
-            return true;
+            return tasks.markUnDone(input);
         } else if (input.startsWith("delete")) {
-            tasks.delete(input);
             storage.writeFile(tasks.getArray());
-            return true;
+            return tasks.delete(input);
         } else if (input.startsWith("find")) {
-            tasks.search(input);
+            return tasks.search(input);
         } else {
             try {
-                tasks.handleTask(input);
                 storage.writeFile(tasks.getArray());
-                return true;
+                return tasks.handleTask(input);
             } catch (WrongKeyword | MissingArg e) {
                 System.out.println(e.getMessage());
             }
         }
-        return true;
+        return "a";
     }
 }

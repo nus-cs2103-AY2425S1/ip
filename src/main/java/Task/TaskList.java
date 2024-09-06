@@ -13,8 +13,8 @@ public class TaskList {
     /**
      * Displays the list of tasks after user types lists
      */
-    public void handleList(){
-        Ui.uiList(array);
+    public String handleList(){
+        return Ui.uiList(array);
     }
     /**
      * Checks for the type of task and handle them accordingly
@@ -26,12 +26,12 @@ public class TaskList {
      * @throws WrongKeyword if the input string does not start with a valid task keyword
      * @throws MissingArg if there are wrong number of arguments in the input string
      */
-    public void handleTask(String input) throws WrongKeyword, MissingArg {
+    public String handleTask(String input) throws WrongKeyword, MissingArg {
         if (input.startsWith("todo")) {
             try {
                 Todo x = new Todo(Parse.parseTodo(input));
                 array.add(x);
-                Ui.uiTodo(array.size(), x);
+                return Ui.uiTodo(array.size(), x);
             } catch(Exception e) {
                 throw new MissingArg("Wrong number of Arguments");
             }
@@ -40,7 +40,7 @@ public class TaskList {
                 String[] split = Parse.parseDeadline(input);
                 Deadline x = new Deadline(split[0], split[1]);
                 array.add(x);
-                Ui.uiDeadline(array.size(), x);
+                return Ui.uiDeadline(array.size(), x);
             } catch (Exception e) {
                 throw new MissingArg("Wrong number of Arguments");
             }
@@ -49,7 +49,7 @@ public class TaskList {
                 String[] split = Parse.parseEvent(input);
                 Event x = new Event(split[0], split[1], split[2]);
                 array.add(x);
-                Ui.uiEvent(array.size(), x);
+                return Ui.uiEvent(array.size(), x);
             } catch (Exception e) {
                 throw new MissingArg("Wrong number of Arguments");
             }
@@ -62,36 +62,36 @@ public class TaskList {
      *
      * @param input the input string containing the index of the task to be marked as done
      */
-    public void markDone(String input) {
+    public String markDone(String input) {
         int index = input.charAt(input.length() - 1) - '0';
         array.get(index - 1).markAsDone();
-        Ui.uiMark(array.get(index - 1));
+        return Ui.uiMark(array.get(index - 1));
     }
     /**
      * Marks a task as not done.
      *
      * @param input the input string containing the index of the task to be marked as not done
      */
-    public void markUnDone(String input) {
+    public String markUnDone(String input) {
         int index = input.charAt(input.length() - 1) - '0';
         array.get(index - 1).markAsNotDone();
-        Ui.uiUnMark(array.get(index - 1));
+        return Ui.uiUnMark(array.get(index - 1));
     }
     /**
      * Deletes a task from the list.
      *
      * @param input the input string containing the index of the task to be deleted
      */
-    public void delete(String input) {
+    public String delete(String input) {
         int index = input.charAt(input.length() - 1) - '0';
         Task t = array.get(index - 1);
         array.remove(index - 1);
-        Ui.uiDelete(t, array.size());
+        return Ui.uiDelete(t, array.size());
     }
     public List<Task> getArray() {
         return this.array;
     }
-    public void search(String input) {
+    public String search(String input) {
         String matchingWord = Parse.parseFind(input);
         List<Task> match = new ArrayList<>();
         for (Task t : this.array) {
@@ -99,6 +99,6 @@ public class TaskList {
                 match.add(t);
             }
         }
-        Ui.uiList(match);
+        return Ui.uiList(match);
     }
 }
