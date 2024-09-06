@@ -19,25 +19,13 @@ public class Taskalyn {
     }
 
     /**
-     * Starts the Taskalyn application by initialising other classes.
-     *
-     * @param args Command-line arguments (unused)
-     */
-    public static void main(String[] args) {
-        Ui ui = new Ui();
-        Database database = new Database();
-        TaskManager taskManager = new TaskManager(database, ui);
-        Parser parser = new Parser(ui, taskManager);
-    }
-
-    /**
      * Returns a response from Taskalyn for a given user input.
      *
      * @param input User input.
      * @return Response from Taskalyn.
      */
     public String getResponse(String input) {
-        if (Objects.equals(input, "bye")) {
+        if (Objects.equals(input.trim(), "bye")) {
             return ui.showByeMessage();
         } else {
             return parser.parse(taskManager, input);
