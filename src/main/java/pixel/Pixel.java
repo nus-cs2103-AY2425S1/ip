@@ -3,8 +3,8 @@ package pixel;
 import java.io.FileNotFoundException;
 
 public class Pixel {
-    private Storage storage;
-    private TaskList tasks;
+    private static Storage storage;
+    private static TaskList tasks;
     private Ui ui;
 
     public Pixel(String filePath) {
@@ -19,6 +19,7 @@ public class Pixel {
         }
     }
 
+    /*
     public void run() {
         Ui.printGreeting();
         while (true) {
@@ -26,8 +27,12 @@ public class Pixel {
             Parser.parse(command, tasks, storage);
         }
     }
+    */
+
+    public static String getResponse(String command) {
+        return Parser.parse(command, tasks, storage);
+    }
 
     public static void main(String[] args) {
-        new Pixel("../data/pixel.txt").run();
     }
 }
