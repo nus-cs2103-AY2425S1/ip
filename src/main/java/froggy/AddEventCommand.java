@@ -12,7 +12,7 @@ public class AddEventCommand extends Command {
      *
      * @param input raw input.
      */
-    public AddEventCommand(String input){
+    public AddEventCommand(String input) {
         this.input = input;
     }
 
