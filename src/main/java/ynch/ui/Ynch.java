@@ -97,6 +97,10 @@ public class Ynch {
         
     }
 
+    public String getResponse(String input) {
+        return "Ynch heard: " + input;
+    }
+
     private static void checkForEmpty(String userInput) throws EmptyTaskException {
         if (userInput.equals("todo")) {
             throw new EmptyTaskException();
