@@ -1,10 +1,14 @@
 package rotodo;
+
+import javafx.application.Application;
+
 import rotodo.commands.Command;
 import rotodo.exception.InvalidInputException;
 import rotodo.processes.Parser;
 import rotodo.processes.Storage;
-import rotodo.processes.Ui;
+import rotodo.processes.Gui;
 import rotodo.tasklist.TaskList;
+import rotodo.view.Main;
 
 /**
  * __________       __________            __   _____
@@ -21,7 +25,8 @@ import rotodo.tasklist.TaskList;
 public class RoTodo {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private Gui gui;
+    private boolean hasExited = false;
 
     /**
      * Initialise Storage, TaskList and Ui. Saved data
@@ -29,7 +34,7 @@ public class RoTodo {
      */
     public RoTodo() {
         storage = new Storage("./data/rotodo.txt");
-        ui = new Ui();
+        gui = new Gui();
         tasks = new TaskList();
         storage.loadList(tasks);
     }
@@ -38,24 +43,45 @@ public class RoTodo {
      * Starts RoTodo's CLI
      */
     public void run() {
-        ui.showMessage();
+        gui.showMessage();
         boolean hasExited = false;
         while (!hasExited) {
             try {
-                String command = ui.readCommand();
+                String command = gui.readCommand();
                 Command c = Parser.process(command);
-                c.execute(tasks, ui, storage);
+                c.execute(tasks, gui, storage);
                 hasExited = c.isExit();
             } catch (InvalidInputException e) {
-                ui.addMessage(e.toString());
+                gui.addMessage(e.toString());
             } finally {
-                ui.showMessage();
+                gui.showMessage();
             }
         }
     }
 
+    public String getResponse() {
+        return gui.getMessage();
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.process(input);
+            c.execute(tasks, gui, storage);
+            hasExited = c.isExit();
+        } catch (InvalidInputException e) {
+            gui.addMessage(e.toString());
+        }
+        return gui.getMessage();
+    }
+
+    public boolean hasExited() {
+        return this.hasExited;
+    }
+
     public static void main(String[] args) {
-        RoTodo rotodo = new RoTodo();
-        rotodo.run();
+        if (args.length > 0) {
+            Main.setUserName(args[0]);
+        }
+        Application.launch(Main.class, args);
     }
 }

@@ -2,7 +2,7 @@ package rotodo.commands;
 
 import rotodo.exception.InvalidInputException;
 import rotodo.processes.Storage;
-import rotodo.processes.Ui;
+import rotodo.processes.Gui;
 import rotodo.tasklist.TaskList;
 
 /**
@@ -29,7 +29,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tl, Ui ui, Storage st) {
+    public void execute(TaskList tl, Gui ui, Storage st) {
         try {
             if (asStatus) {
                 ui.addMessage(tl.markDone(idx));

@@ -8,14 +8,14 @@ import java.util.Scanner;
  * @author Ng Kay Hian
  * @version CS2103T AY24/25 Semester 1
  */
-public class Ui {
+public class Gui {
     private String text;
     private Scanner sc;
 
     /**
      * Initialise Ui object
      */
-    public Ui() {
+    public Gui() {
         text = "";
         this.banner();
         sc = new Scanner(System.in); // Create a Scanner object
@@ -32,6 +32,12 @@ public class Ui {
         text = "";
     }
 
+    public String getMessage() {
+        String tmp = text.replace("\u001B[31m", "").replace("\u001B[0m", "");
+        text = "";
+        return tmp;
+    }
+
     /**
      * Prints chatbot banner.
      */
@@ -41,12 +47,13 @@ public class Ui {
         String ansiRed = "\u001B[31m";
 
         text += "Hello! I'm \n"
-            + ("R__________E       __________            __   _____\n"
-            + "R\\______   \\E  ____\\__   ___/____    ___|  | /  _  \\   ____\n"
-            + " R|       _/E /  _ \\ |   |  /  _ \\  /  _   ||  / \\  | /  _ \\   ___\n"
-            + " R|    |   \\E(  <_> ||   | (  <_> |(  <_>  ||  \\_/  |(  <_> | / o \\  _\n"
-            + " R|____|_  /E \\____/ |___|  \\____/  \\_____/  \\_____/  \\____/  \\___/ (_) O o .\n"
-            + "        R\\/E\n").replace("R", ansiRed).replace("E", ansiReset)
+            //+ ("R__________E       __________            __   _____\n"
+            //+ "R\\______   \\E  ____\\__   ___/____    ___|  | /  _  \\   ____\n"
+            //+ " R|       _/E /  _ \\ |   |  /  _ \\  /  _   ||  / \\  | /  _ \\   ___\n"
+            //+ " R|    |   \\E(  <_> ||   | (  <_> |(  <_>  ||  \\_/  |(  <_> | / o \\  _\n"
+            //+ " R|____|_  /E \\____/ |___|  \\____/  \\_____/  \\_____/  \\____/  \\___/ (_) O o .\n"
+            //+ "        R\\/E\n").replace("R", ansiRed).replace("E", ansiReset)
+            + "RoTodo!\n"
             + "Your very own Robot Todo List!\n"
             + "How can I help you help yourself?";
     }
@@ -61,16 +68,16 @@ public class Ui {
             + "  mark INDEX    Mark task as done\n"
             + "  unmark INDEX  Mark task as undone\n"
             + "  bye           Exit program\n\n"
-            + "  Supported Task commands:\n"
-            + "    todo TASK_DESCRIPTION\n"
+            + "Supported Task commands:\n"
+            + "  todo TASK\n"
             + "                Add new ToDo task to tasklist\n"
-            + "    deadline TASK_DESCRIPTION /by DEADLINE\n"
+            + "  deadline TASK /by DEADLINE\n"
             + "                Add new Deadline task to tasklist,\n"
             + "                with due by date/time\n"
-            + "    event TASK_DESCRIPTION /from START /to END\n"
+            + "  event TASK /from START /to END\n"
             + "                Add new Event task to tasklist,\n"
             + "                with start and end date/time\n\n"
-            + "    * datetime format: dd/MM/yyyy HHmm";
+            + "  * datetime format: dd/MM/yyyy HHmm";
     }
 
     public String readCommand() {

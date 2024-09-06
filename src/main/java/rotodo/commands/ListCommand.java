@@ -1,7 +1,7 @@
 package rotodo.commands;
 
 import rotodo.processes.Storage;
-import rotodo.processes.Ui;
+import rotodo.processes.Gui;
 import rotodo.tasklist.TaskList;
 
 /**
@@ -13,7 +13,7 @@ import rotodo.tasklist.TaskList;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tl, Ui ui, Storage st) {
+    public void execute(TaskList tl, Gui ui, Storage st) {
         ui.addMessage(tl.toString());
     }
 }
