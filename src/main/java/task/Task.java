@@ -54,12 +54,32 @@ public abstract class Task {
     }
 
     /**
+     * Marks the task as done and returns a confirmation message.
+     *
+     * @return Confirmation message that task has been marked as done.
+     */
+    public String stringMarkAsDone() {
+        this.isDone = true;
+        return "     Nice! I've marked this task as done:\n       " + this.toString();
+    }
+
+    /**
      * Unmarks the task as not done and prints a confirmation message.
      */
     public void unmark() {
         System.out.println("     OK, I've marked this task as not done yet:");
         this.isDone = false;
         System.out.println("       " + this.toString());
+    }
+
+    /**
+     * Unmarks the task as not done and returns a confirmation message.
+     *
+     * @return Confirmation message that task has been unmarked.
+     */
+    public String stringUnmark() {
+        this.isDone = false;
+        return "     OK, I've marked this task as not done yet:\n       " + this.toString();
     }
 
     /**
@@ -106,6 +126,25 @@ public abstract class Task {
     }
 
     /**
+     * Returns a confirmation message that the task has been added.
+     *
+     * @param taskCount The current number of tasks in the list.
+     * @return Confirmation message that task has been added.
+     */
+    public String stringPrintTaskAddedMessage(int taskCount) {
+        StringBuilder message = new StringBuilder();
+        message.append("     Got it. I've added this task:\n       ").append(this).append("\n");
+
+        if (taskCount == 1) {
+            message.append("     Now you have 1 task in the list.");
+        } else {
+            message.append("     Now you have ").append(taskCount).append(" tasks in the list.");
+        }
+
+        return message.toString();
+    }
+
+    /**
      * Prints a confirmation message that the task has been removed.
      *
      * @param taskCount The current number of tasks in the list.
@@ -118,5 +157,24 @@ public abstract class Task {
         } else {
             System.out.println("     Now you have " + taskCount + " tasks in the list.");
         }
+    }
+
+    /**
+     * Returns a confirmation message that the task has been removed.
+     *
+     * @param taskCount The current number of tasks in the list.
+     * @return Confirmation message that task has been removed.
+     */
+    public String stringPrintTaskRemovedMessage(int taskCount) {
+        StringBuilder message = new StringBuilder();
+        message.append("     Noted. I've removed this task:\n       ").append(this).append("\n");
+
+        if (taskCount == 1) {
+            message.append("     Now you have 1 task in the list.");
+        } else {
+            message.append("     Now you have ").append(taskCount).append(" tasks in the list.");
+        }
+
+        return message.toString();
     }
 }
