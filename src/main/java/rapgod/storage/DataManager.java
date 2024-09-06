@@ -1,5 +1,9 @@
 package rapgod.storage;
 
+import rapgod.tasks.Task;
+
+import rapgod.utils.Parser;
+
 import java.io.IOException;
 
 import java.nio.file.Files;

@@ -38,9 +38,11 @@ public class TaskList {
     public void showList() {
         System.out.println("-----------------------------------------------");
         System.out.println("Displaying ListBot:");
+
         for (int i = 0; i < list.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, list.get(i));
         }
+
         System.out.println("-----------------------------------------------");
     }
 

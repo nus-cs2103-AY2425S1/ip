@@ -1,6 +1,5 @@
 package rapgod.exceptions;
 
-
 /**
  * Exception thrown when no input is provided by the user.
  * This class extends {@link RuntimeException} and represents an error condition
