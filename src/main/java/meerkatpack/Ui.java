@@ -14,7 +14,8 @@ public class Ui {
     }
 
     public void printTaskCreationMessage(Task thisTask, TaskList taskList) {
-        System.out.println(LINES + "\nGot it. I've added this task:\n  " + thisTask + "\nNow you have " + taskList.getSize() + " tasks in the list\n" + LINES);
+        System.out.println(LINES + "\nGot it. I've added this task:\n  " + thisTask + "\nNow you have "
+                + taskList.getSize() + " tasks in the list\n" + LINES);
     }
 
     public void printTaskMarkedMessage(Task thisTask) {
