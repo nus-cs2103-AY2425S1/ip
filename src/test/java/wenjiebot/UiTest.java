@@ -1,13 +1,14 @@
 package wenjiebot;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 public class UiTest {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -22,9 +23,9 @@ public class UiTest {
     @Test
     public void testShowFarewell() {
         ui.showFarewell();
-        String expectedOutput = "____________________________________________________________\r\n" +
-                "Paiseh bro I zao liao, see you around ah bro.\r\n" +
-                "____________________________________________________________\r\n";
+        String expectedOutput = "____________________________________________________________\r\n"
+                + "Paiseh bro I zao liao, see you around ah bro.\r\n"
+                + "____________________________________________________________\r\n";
         assertEquals(expectedOutput, outputStream.toString());
     }
 
@@ -39,9 +40,9 @@ public class UiTest {
     public void testShowError() {
         String errorMessage = "Error: Something went wrong!";
         ui.showError(errorMessage);
-        String expectedOutput = "____________________________________________________________\r\n" +
-                "Error: Something went wrong!\r\n" +
-                "____________________________________________________________\r\n";
+        String expectedOutput = "____________________________________________________________\r\n"
+                + "Error: Something went wrong!\r\n"
+                + "____________________________________________________________\r\n";
         assertEquals(expectedOutput, outputStream.toString());
     }
 

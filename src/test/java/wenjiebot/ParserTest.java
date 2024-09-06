@@ -1,11 +1,18 @@
 package wenjiebot;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import wenjiebot.commands.*;
 
+import wenjiebot.commands.ByeCommand;
+import wenjiebot.commands.Command;
+import wenjiebot.commands.DeleteCommand;
+import wenjiebot.commands.ListCommand;
+import wenjiebot.commands.MarkCommand;
+import wenjiebot.commands.UnmarkCommand;
 import wenjiebot.exceptions.UnknownCommandException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
     @Test

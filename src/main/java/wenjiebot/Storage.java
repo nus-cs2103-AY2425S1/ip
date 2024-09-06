@@ -1,19 +1,19 @@
 package wenjiebot;
 
-import wenjiebot.tasks.Deadline;
-import wenjiebot.tasks.Event;
-import wenjiebot.tasks.Task;
-import wenjiebot.tasks.ToDo;
-import wenjiebot.exceptions.NoFileException;
-
+import java.io.BufferedWriter;
 import java.io.File;
-import java.nio.file.Paths;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.io.BufferedWriter;
+
+import wenjiebot.exceptions.NoFileException;
+import wenjiebot.tasks.Deadline;
+import wenjiebot.tasks.Event;
+import wenjiebot.tasks.Task;
+import wenjiebot.tasks.ToDo;
 
 /**
  * The Storage class handles the reading and writing of tasks to and from a file.
@@ -35,8 +35,8 @@ public class Storage {
         try {
             readTasks();
         } catch (NoFileException e) {
-            System.out.println("Bro I can't find a file to retrieve the data, \n" +
-                    " can help lobang me and create a file pls");
+            System.out.println("Bro I can't find a file to retrieve the data, \n"
+                    + " can help lobang me and create a file pls");
         }
     }
 
@@ -100,7 +100,7 @@ public class Storage {
         case 'D':
             String[] deadlineSegments = description.split("/");
             int index = 0;
-            for(int i = 0; i < description.length(); i++) {
+            for (int i = 0; i < description.length(); i++) {
                 if (description.charAt(i) == '/') {
                     index = i + 4;
                     break;
@@ -118,6 +118,8 @@ public class Storage {
 
             break;
 
+        default:
+            System.out.println("Invalid type of task in .txt file");
         }
 
         if (isDone) {
@@ -158,8 +160,8 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Bro I can't find a file to store the data, \n" +
-                    " can help lobang me and create a file pls");
+            System.out.println("Bro I can't find a file to store the data, \n"
+                    + " can help lobang me and create a file pls");
         }
     }
 }

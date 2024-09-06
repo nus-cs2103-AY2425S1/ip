@@ -1,20 +1,28 @@
 package wenjiebot;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import wenjiebot.exceptions.NoFileException;
-import wenjiebot.tasks.Deadline;
-import wenjiebot.tasks.Event;
-import wenjiebot.tasks.Task;
-import wenjiebot.tasks.ToDo;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import wenjiebot.exceptions.NoFileException;
+import wenjiebot.tasks.Deadline;
+import wenjiebot.tasks.Event;
+import wenjiebot.tasks.Task;
+import wenjiebot.tasks.ToDo;
+
+
+
 
 public class StorageTest {
     private static final String TEST_FILE_PATH = "testStorage.txt";
@@ -42,9 +50,9 @@ public class StorageTest {
 
     @Test
     public void testReadTasksFromFile() throws IOException, NoFileException {
-        String fileContent = "T | 1 | read book\n" +
-                "D | 0 | return book /by 2/12/2019 1800\n" +
-                "E | 1 | project meeting /from: Mon 2pm /to: 4pm\n";
+        String fileContent = "T | 1 | read book\n"
+                + "D | 0 | return book /by 2/12/2019 1800\n"
+                + "E | 1 | project meeting /from: Mon 2pm /to: 4pm\n";
 
         Files.write(new File(TEST_FILE_PATH).toPath(), fileContent.getBytes());
 
@@ -76,9 +84,9 @@ public class StorageTest {
 
         storage.writeTasks();
 
-        String expectedContent = "T | 1 | read book\n" +
-                "D | 0 | submit assignment /by: 2/12/2019 1800\n" +
-                "E | 1 | project meeting /from: Mon 2pm /to: 4pm\n";
+        String expectedContent = "T | 1 | read book\n"
+                + "D | 0 | submit assignment /by: 2/12/2019 1800\n"
+                + "E | 1 | project meeting /from: Mon 2pm /to: 4pm\n";
 
         String actualContent = new String(Files.readAllBytes(new File(TEST_FILE_PATH).toPath()));
         assertEquals(expectedContent, actualContent);

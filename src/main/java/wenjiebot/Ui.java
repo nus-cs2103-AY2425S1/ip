@@ -36,7 +36,7 @@ public class Ui {
      * This line is used to separate different sections of output for clarity.
      */
     public void showLine() {
-        String line =  "____________________________________________________________";
+        String line = "____________________________________________________________";
         System.out.println(line);
     }
 

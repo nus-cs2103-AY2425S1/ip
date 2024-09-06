@@ -1,8 +1,8 @@
 package wenjiebot;
 
-import wenjiebot.tasks.Task;
 import java.util.ArrayList;
 
+import wenjiebot.tasks.Task;
 /**
  * The TaskList class manages a list of tasks in the wenjiebot application.
  * It provides methods to retrieve and manage the list of tasks.

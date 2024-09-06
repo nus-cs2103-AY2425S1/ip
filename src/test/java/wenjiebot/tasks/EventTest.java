@@ -1,9 +1,9 @@
 package wenjiebot.tasks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTest {
 
@@ -22,7 +22,7 @@ public class EventTest {
 
     @Test
     public void testToString() {
-        String expected = "[E][ ] Project Meeting(from: 2023-08-31 10:00to: 2023-08-31 12:00)";
+        String expected = "[E][ ] Project Meeting(from: 2023-08-31 10:00 to: 2023-08-31 12:00)";
         assertEquals(expected, event.toString());
     }
 }

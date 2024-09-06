@@ -1,9 +1,9 @@
 package wenjiebot;
 
+import java.util.Scanner;
+
 import wenjiebot.commands.Command;
 import wenjiebot.exceptions.DukeException;
-
-import java.util.Scanner;
 
 /**
  * The WenJie class represents the main application for the wenjiebot individual project.
