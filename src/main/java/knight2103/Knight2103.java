@@ -25,6 +25,14 @@ public class Knight2103 {
         }
     }
 
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        // string parsing functionality
+        return "Knight2103: " + input;
+    }
+
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -43,7 +51,8 @@ public class Knight2103 {
         }
     }
 
+    /*
     public static void main(String[] args) {
         new Knight2103("./savedTaskList.txt").run(); // in ip folder, not main/java folder
-    }
+    }*/
 }

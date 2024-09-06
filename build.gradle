@@ -52,7 +52,7 @@ application {
 }*/
 
 application {
-    mainClass.set("Launcher") // change
+    mainClass.set("knight2103.Launcher") // change
 }
 
 shadowJar {

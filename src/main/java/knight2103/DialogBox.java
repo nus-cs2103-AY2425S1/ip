@@ -1,3 +1,5 @@
+package knight2103;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -21,18 +23,10 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     private void flip() {
-
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-
-        /*
-        this.setAlignment(Pos.TOP_LEFT);
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        FXCollections.reverse(tmp);
-        this.getChildren().setAll(tmp);
-        */
     }
 
     // no change
@@ -59,18 +53,5 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-
-        /*
-        dialog = new Label(s);
-        displayPicture = new ImageView(i);
-
-        //Styling the dialog box
-        dialog.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
-        this.setAlignment(Pos.TOP_RIGHT);
-
-        this.getChildren().addAll(dialog, displayPicture);
-        */
     }
 }
