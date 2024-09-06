@@ -30,13 +30,13 @@ public class DeleteCommand extends Command {
      * @param storage The storage to save the task list to.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task task = tasks.remove(index - 1);
-            ui.showTaskDeleted(task, tasks.size());
             storage.save(tasks);
+            return ui.showTaskDeleted(task, tasks.size());
         } catch (IndexOutOfBoundsException | IOException e) {
-            ui.showSavingError();
+            return ui.showSavingError();
         }
     }
 }

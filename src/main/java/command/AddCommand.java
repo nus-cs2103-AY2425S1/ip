@@ -38,15 +38,16 @@ public class AddCommand extends Command {
      * @param tasks   The task list to which the task is to be added.
      * @param ui      The UI object to interact with the user.
      * @param storage The storage object to save the task list to the storage file.
+     * @return        The response to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
-        ui.showTaskAdded(task, tasks.size());
         try {
             storage.save(tasks);
         } catch (IOException e) {
-            ui.showSavingError();
+            return ui.showSavingError();
         }
+        return ui.showTaskAdded(task, tasks.size());
     }
 }

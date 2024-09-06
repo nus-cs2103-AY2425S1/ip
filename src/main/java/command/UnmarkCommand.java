@@ -30,14 +30,14 @@ public class UnmarkCommand extends Command {
      * @param storage Storage object to save tasks to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task task = tasks.get(index - 1);
             task.markAsNotDone();
-            ui.showTaskUnmarked(task);
             storage.save(tasks);
+            return ui.showTaskUnmarked(task);
         } catch (IndexOutOfBoundsException | IOException e) {
-            ui.showSavingError();
+            return ui.showSavingError();
         }
     }
 }

@@ -14,8 +14,9 @@ public abstract class Command {
      * @param tasks   TaskList containing the tasks.
      * @param ui      Ui object to interact with the user.
      * @param storage Storage object to save the tasks.
+     * @return        The response to the user.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Returns true if the command is an exit command.

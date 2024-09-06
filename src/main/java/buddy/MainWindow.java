@@ -36,6 +36,17 @@ public class MainWindow extends AnchorPane {
      */
     public void setBuddy(Buddy b) {
         buddy = b;
+        showWelcome();
+    }
+
+    /**
+     * Displays the welcome message.
+     */
+    public void showWelcome() {
+        String welcomeMessage = buddy.getWelcome();
+        dialogContainer.getChildren().add(
+            DialogBox.getBuddyDialog(welcomeMessage, dukeImage)
+        );
     }
 
     /**

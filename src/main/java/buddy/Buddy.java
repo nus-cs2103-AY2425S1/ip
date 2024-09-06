@@ -49,14 +49,25 @@ public class Buddy {
         ui.showGoodbye();
     }
 
-    public static void main(String[] args) {
-        new Buddy("./data/tasks.txt").run();
+    /**
+     * Returns the welcome message.
+     */
+    public String getWelcome() {
+        return ui.showWelcome();
+    }
+
+    /**
+     * Returns the goodbye message.
+     */
+    public String getGoodbye() {
+        return ui.showGoodbye();
     }
 
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Buddy heard: " + input;
+        Command command = Parser.parse(input);
+        return command.execute(tasks, ui, storage);
     }
 }

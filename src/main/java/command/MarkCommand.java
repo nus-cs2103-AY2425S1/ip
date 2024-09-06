@@ -30,14 +30,14 @@ public class MarkCommand extends Command {
      * @param storage The storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task task = tasks.get(index - 1);
             task.markAsDone();
-            ui.showTaskMarked(task);
             storage.save(tasks);
+            return ui.showTaskMarked(task);
         } catch (IndexOutOfBoundsException | IOException e) {
-            ui.showSavingError();
+            return ui.showSavingError();
         }
     }
 }
