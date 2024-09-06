@@ -50,11 +50,15 @@ public class TextUI {
      * @return A string representation of tasks.
      */
     public String printTasks(TaskList items) {
+        assert items != null : "Task list cannot be null";
+
         StringBuilder tasksToString = new StringBuilder();
         // Generate and accumulate all of the task strings together into a string
         for (int i = 0; i < items.size(); i++) {
-            String taskString = String.format("%d. %s%n", i + 1, items.get(i).printTask());
-            tasksToString.append(taskString);
+            String printString = String.format("%d. %s%n", i + 1, items.get(i).printTask());
+            assert printString != null : "Task string representation cannot be null";
+            System.out.println(printString);
+            tasksToString.append(printString).append("\n");
         }
         return printMessage(tasksToString.toString());
     }
@@ -100,9 +104,15 @@ public class TextUI {
      * @param items The {@link TaskList} containing the tasks.
      */
     public static String printTask(Task t, TaskList items) {
-        String addedSuccess = String.format("Got it! I have added: %s", t);
-        String taskCount = String.format("Now you have %d tasks in the list", items.size());
-        return printMessage(addedSuccess + "\n" + taskCount);
+        assert t != null : "Task to be printed cannot be null";
+        assert items != null : "Task list cannot be null";
+
+        String addedSuccess = "Got it! I have added: " + t;
+        String printTaskCount = "Now you have " + items.size()
+                + " tasks in the list";
+        System.out.println(addedSuccess);
+        System.out.println(printTaskCount);
+        return addedSuccess + "\n" + printTaskCount;
     }
 
     /**
