@@ -43,7 +43,7 @@ public class Friday {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                isExit = c.shouldExit();
             } catch (Exception e) {
                 ui.showError(e.getMessage());
             }
@@ -58,5 +58,28 @@ public class Friday {
     public static void main(String[] args) {
         Friday friday = new Friday("./data/friday.txt");
         friday.run();
+    }
+
+    /**
+     * Generates a response to the user input.
+     *
+     * @param input The user input as a string.
+     * @return The response from the Friday application.
+     */
+    public String getResponse(String input) {
+        try {
+            if (input.equals("hi")) {
+                return ui.greet();
+            } else {
+                Command c = Parser.parse(input);
+                String response = c.execute(tasks, ui, storage);
+                if (c.shouldExit()) {
+                    return response + "\nEXIT";
+                }
+                return response;
+            }
+        } catch (Exception e) {
+            return ui.showError(e.getMessage());
+        }
     }
 }

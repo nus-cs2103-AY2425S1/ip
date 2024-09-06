@@ -14,27 +14,30 @@ public class Ui {
 
     /**
      * Greets the user with a welcome message.
+     *
+     * @return The greeting message as a String.
      */
-    public void greet() {
-        System.out.println(
-                "    ____________________________________________________________\n"
-                        + "     Hello! I'm Friday\n"
-                        + "     What can I do for you?\n"
-                        + "    ____________________________________________________________"
-        );
+    public String greet() {
+        String greeting = "     Hello! I'm Friday\n"
+                + "     What can I do for you?\n";
+        System.out.println("    ____________________________________________________________\n"
+                + greeting
+                + "    ____________________________________________________________");
+        return greeting;
     }
 
     /**
      * Displays an error message.
      *
      * @param message The error message to display.
+     * @return The error message as a String.
      */
-    public void showError(String message) {
-        System.out.println(
-                "    ____________________________________________________________\n"
-                        + "     " + message + "\n"
-                        + "    ____________________________________________________________"
-        );
+    public String showError(String message) {
+        String error = "     " + message + "\n";
+        System.out.println("    ____________________________________________________________\n"
+                + error
+                + "    ____________________________________________________________");
+        return message;
     }
 
     /**
@@ -49,9 +52,15 @@ public class Ui {
 
     /**
      * Displays an error message indicating a loading failure.
+     *
+     * @return The loading error message as a String.
      */
-    public void showLoadingError() {
-        System.out.println("Error loading file.");
+    public String showLoadingError() {
+        String loadingError = "     Error loading tasks from file. Starting with an empty task list.\n";
+        System.out.println("    ____________________________________________________________\n"
+                + loadingError
+                + "    ____________________________________________________________");
+        return loadingError;
     }
 
     /**
@@ -59,15 +68,16 @@ public class Ui {
      *
      * @param task      The task that was added.
      * @param noOfTasks The current number of tasks in the list.
+     * @return The message indicating the task was added as a String.
      */
-    public void showAddedTask(Task task, int noOfTasks) {
-        System.out.println(
-                "    ____________________________________________________________\n"
-                        + "     Got it. I've added this task:\n"
-                        + "       " + task + "\n"
-                        + "     Now you have " + noOfTasks + " tasks in the list.\n"
-                        + "    ____________________________________________________________"
-        );
+    public String showAddedTask(Task task, int noOfTasks) {
+        String message = "     Got it. I've added this task:\n"
+                + "       " + task + "\n"
+                + "     Now you have " + noOfTasks + " tasks in the list.\n";
+        System.out.println("    ____________________________________________________________\n"
+                + message
+                + "    ____________________________________________________________");
+        return message;
     }
 
     /**
@@ -75,61 +85,68 @@ public class Ui {
      *
      * @param task      The task that was deleted.
      * @param noOfTasks The current number of tasks remaining in the list.
+     * @return The message indicating the task was deleted as a String.
      */
-    public void showDeletedTask(Task task, int noOfTasks) {
-        System.out.println(
-                "    ____________________________________________________________\n"
-                        + "     Noted. I've removed this task:\n"
-                        + "       " + task + "\n"
-                        + "     Now you have " + noOfTasks + " tasks in the list.\n"
-                        + "    ____________________________________________________________"
-        );
+    public String showDeletedTask(Task task, int noOfTasks) {
+        String message = "     Noted. I've removed this task:\n"
+                + "       " + task + "\n"
+                + "     Now you have " + noOfTasks + " tasks in the list.\n";
+        System.out.println("    ____________________________________________________________\n"
+                + message
+                + "    ____________________________________________________________");
+        return message;
     }
 
     /**
      * Displays a message indicating that a task has been marked as done.
      *
      * @param task The task that was marked as done.
+     * @return The message indicating the task was marked as done as a String.
      */
-    public void showMarkedTask(Task task) {
-        System.out.println(
-                "    ____________________________________________________________\n"
-                        + "     Nice! I've marked this task as done:\n"
-                        + "       " + task + "\n"
-                        + "    ____________________________________________________________"
-        );
+    public String showMarkedTask(Task task) {
+        String message = "     Nice! I've marked this task as done:\n"
+                + "       " + task + "\n";
+        System.out.println("    ____________________________________________________________\n"
+                + message
+                + "    ____________________________________________________________");
+        return message;
     }
 
     /**
      * Displays a message indicating that a task has been unmarked as done.
      *
      * @param task The task that was unmarked as done.
+     * @return The message indicating the task was unmarked as done as a String.
      */
-    public void showUnmarkedTask(Task task) {
-        System.out.println(
-                "    ____________________________________________________________\n"
-                        + "     OK, I've marked this task as not done yet:\n"
-                        + "       " + task + "\n"
-                        + "    ____________________________________________________________"
-        );
+    public String showUnmarkedTask(Task task) {
+        String message = "     Nice! I've unmarked this task:\n"
+                + "       " + task + "\n";
+        System.out.println("    ____________________________________________________________\n"
+                + message
+                + "    ____________________________________________________________");
+        return message;
     }
 
     /**
      * Displays the list of all tasks.
      *
      * @param tasks The TaskList containing all tasks to be displayed.
+     * @return The list of tasks as a String.
      */
-    public void showTasks(TaskList tasks) {
-        System.out.println("    ____________________________________________________________");
+    public String showTasks(TaskList tasks) {
+        StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
-            System.out.println("     Your task list is empty.");
+            output.append("     Your task list is empty.\n");
         } else {
-            System.out.println("     Here are the tasks in your list:");
+            output.append("     Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                System.out.println("     " + (i + 1) + "." + tasks.getTask(i));
+                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
             }
         }
-        System.out.println("    ____________________________________________________________");
+        System.out.println("    ____________________________________________________________\n"
+                + output
+                + "    ____________________________________________________________");
+        return output.toString();
     }
 
     /**
@@ -137,47 +154,58 @@ public class Ui {
      *
      * @param tasks The TaskList containing the tasks to be displayed.
      * @param date  The date for which tasks need to be listed.
+     * @return The list of tasks on the specified date as a String.
      */
-    public void showSpecificTasks(TaskList tasks, LocalDate date) {
-        System.out.println("    ____________________________________________________________");
+    public String showSpecificTasks(TaskList tasks, LocalDate date) {
+        StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
-            System.out.println("     No tasks found on this date.");
+            output.append("     No tasks found on this date.\n");
         } else {
-            System.out.println("     Here are your tasks on "
-                    + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+            output.append("     Here are your tasks on ")
+                    .append(date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")))
+                    .append(":\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                System.out.println("     " + (i + 1) + "." + tasks.getTask(i));
+                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
             }
         }
-        System.out.println("    ____________________________________________________________");
+        System.out.println("    ____________________________________________________________\n"
+                + output
+                + "    ____________________________________________________________");
+        return output.toString();
     }
 
     /**
      * Displays the list of tasks that match the search criteria.
      *
      * @param tasks The TaskList containing the matching tasks to be displayed.
+     * @return The list of matching tasks as a String.
      */
-    public void showMatchingTasks(TaskList tasks) {
-        System.out.println("    ____________________________________________________________");
+    public String showMatchingTasks(TaskList tasks) {
+        StringBuilder output = new StringBuilder();
         if (tasks.isTaskListEmpty()) {
-            System.out.println("     No matching tasks found.");
+            output.append("     No matching tasks found.\n");
         } else {
-            System.out.println("     Here are the matching tasks in your list:");
+            output.append("     Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.getSize(); i++) {
-                System.out.println("     " + (i + 1) + "." + tasks.getTask(i));
+                output.append("     ").append(i + 1).append(".").append(tasks.getTask(i)).append("\n");
             }
         }
-        System.out.println("    ____________________________________________________________");
+        System.out.println("    ____________________________________________________________\n"
+                + output
+                + "    ____________________________________________________________");
+        return output.toString();
     }
 
     /**
      * Displays a goodbye message when the user exits the application.
+     *
+     * @return The goodbye message as a String.
      */
-    public void sayGoodbye() {
-        System.out.println(
-                "    ____________________________________________________________\n"
-                        + "     Bye. Hope to see you again soon!\n"
-                        + "    ____________________________________________________________"
-        );
+    public String sayGoodbye() {
+        String message = "    ____________________________________________________________\n"
+                + "     Bye. Hope to see you again soon!\n"
+                + "    ____________________________________________________________";
+        System.out.println(message);
+        return message;
     }
 }

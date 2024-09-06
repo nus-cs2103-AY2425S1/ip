@@ -23,13 +23,13 @@ public class OnCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList specificTasks = tasks.findTasksByDate(date);
-        ui.showSpecificTasks(specificTasks, date);
+        return ui.showSpecificTasks(specificTasks, date);
     }
 
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

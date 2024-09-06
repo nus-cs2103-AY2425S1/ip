@@ -21,12 +21,12 @@ public class InvalidCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showError(message);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showError(message);
     }
 
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }
