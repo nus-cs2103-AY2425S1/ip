@@ -24,7 +24,7 @@ public class Muller {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.loadTasks());
+            tasks = new TaskList(storage.load());
         } catch (MullerException e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -37,14 +37,14 @@ public class Muller {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
-        Parser parser = new Parser();
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
-                Command command = parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
+                Parser p = new Parser();
+                Command c = p.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
             } catch (MullerException e) {
                 ui.showError(e.getMessage());
             } finally {

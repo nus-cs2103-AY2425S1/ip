@@ -36,14 +36,14 @@ public class OnCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showLine();
         System.out.println("Tasks on " + date.format(Task.OUTPUT_DATE_FORMATTER) + ":");
-        boolean isFound = false;
+        boolean found = false;
         for (Task task : tasks.getTasks()) {
             if (task.isOnDate(date)) {
                 System.out.println("  " + task);
-                isFound = true;
+                found = true;
             }
         }
-        if (!isFound) {
+        if (!found) {
             System.out.println("  No tasks found.");
         }
         ui.showLine();

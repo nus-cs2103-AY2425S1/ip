@@ -11,12 +11,12 @@ import muller.task.TaskList;
  * Handles all user interactions, including displaying messages and reading user input.
  */
 public class Ui {
-    private Scanner scanner;
+    private Scanner sc;
     /**
      * Constructs a Ui object with a new Scanner for reading input.
      */
     public Ui() {
-        scanner = new Scanner(System.in);
+        sc = new Scanner(System.in);
     }
     /**
      * Displays the welcome message to the user.
@@ -31,23 +31,13 @@ public class Ui {
      * @return The command entered by the user.
      */
     public String readCommand() {
-        return scanner.nextLine();
+        return sc.nextLine();
     }
     /**
      * Displays a line divider to separate sections of output.
      */
     public void showLine() {
         System.out.println("____________________________________________________________");
-    }
-    /**
-     * Displays a confirmation of the task added.
-     * @param task the task to add
-     * @param tasks the list of tasks currently on the list
-     */
-    public void showTaskAdded(Task task, TaskList tasks) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
     }
     /**
      * Displays an error message when there is an issue loading tasks.
@@ -74,7 +64,7 @@ public class Ui {
                 System.out.println("No tasks found.");
             } else {
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 1; i <= tasks.getSize(); i++) {
+                for (int i = 1; i <= tasks.size(); i++) {
                     System.out.println(i + ": " + tasks.get(i - 1));
                 }
             }

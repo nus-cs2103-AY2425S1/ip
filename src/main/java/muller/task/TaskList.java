@@ -86,7 +86,7 @@ public class TaskList {
      *
      * @return The size of the task list.
      */
-    public int getSize() {
+    public int size() {
         return tasks.size();
     }
 

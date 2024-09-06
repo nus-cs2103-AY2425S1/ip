@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
         System.out.println("  " + tasks.get(index));
         ui.showLine();
 
-        storage.saveTasks(tasks);
+        storage.save(tasks);
     }
 
     /**

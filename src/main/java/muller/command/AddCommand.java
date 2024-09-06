@@ -11,30 +11,30 @@ import muller.ui.Ui;
  * Command to add a task (Todo, Deadline, or Event) to the task list.
  */
 public class AddCommand extends Command {
-    private String[] commandInputs;
-    private String taskType;
+    private String[] inputs;
+    private String type;
 
     /**
      * Constructs an AddCommand with the specified inputs and task type.
      *
-     * @param commandInputs The command inputs.
-     * @param taskType   The type of task to add (T, D, E).
+     * @param inputs The command inputs.
+     * @param type   The type of task to add (T, D, E).
      */
-    public AddCommand(String[] commandInputs, String taskType) {
-        this.commandInputs = commandInputs;
-        this.taskType = taskType;
+    public AddCommand(String[] inputs, String type) {
+        this.inputs = inputs;
+        this.type = type;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MullerException {
-        if (commandInputs.length < 2) {
-            throw new MullerException(taskType.equals("T") ? "Todo what?"
-                    : taskType.equals("D") ? "Deadline for what?" : "Event for what?");
+        if (inputs.length < 2) {
+            throw new MullerException(type.equals("T") ? "Todo what?"
+                    : type.equals("D") ? "Deadline for what?" : "Event for what?");
         }
-        String details = commandInputs[1].trim();
+        String details = inputs[1].trim();
         Task task;
 
-        switch (taskType) {
+        switch (type) {
         case "T":
             task = new Task(details);
             task.setType("T");
@@ -51,11 +51,13 @@ public class AddCommand extends Command {
 
         tasks.addTask(task);
         ui.showLine();
-        ui.showTaskAdded(task, tasks);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         ui.showLine();
 
         // Save the updated task list to the storage
-        storage.saveTasks(tasks);
+        storage.save(tasks);
     }
 
     /**

@@ -23,14 +23,14 @@ class TaskListTest {
 
     @Test
     void testAddTask() throws MullerException {
-        assertEquals(1, taskList.getSize());
+        assertEquals(1, taskList.size());
         assertEquals(task, taskList.get(0));
     }
 
     @Test
     void testDeleteTask() throws Exception {
         taskList.deleteTask(0);
-        assertEquals(0, taskList.getSize());
+        assertEquals(0, taskList.size());
     }
 }
 
