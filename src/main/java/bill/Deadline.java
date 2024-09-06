@@ -18,10 +18,10 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = parseUserDateHelper(by);
+        this.by = parseUserData(by);
     }
 
-    private LocalDate parseUserDateHelper(String dateStr) {
+    private LocalDate parseUserData(String dateStr) {
         // Allow two types of inputs, second format is what is from Bill.txt, user can use that format too for cml
         // Can improve this, ideally don't use try catch as control flow, could also try just allowing one input
         DateTimeFormatter formatterUserInput = DateTimeFormatter.ofPattern("yyyy-MM-dd");

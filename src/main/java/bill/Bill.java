@@ -21,7 +21,7 @@ public class Bill {
      * Starts Bill chatbot when called.
      */
     public void start() {
-        ui.silentLoadingData(storage, tasks.getUserList(), tasks);
+        ui.silenceLoadingData(storage, tasks.getUserList(), tasks);
         ui.introduce();
         ui.handleUserCommands(storage, tasks);
         ui.conclude();

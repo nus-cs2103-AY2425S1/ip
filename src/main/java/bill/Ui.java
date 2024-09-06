@@ -159,7 +159,7 @@ public class Ui {
         }
     }
 
-    public void silentLoadingData(Storage storage, ArrayList<Task> userList, TaskList tasks) {
+    public void silenceLoadingData(Storage storage, ArrayList<Task> userList, TaskList tasks) {
         // load data in, but silence print messages, as leveraging custom functions which have print statements
         PrintStream originalOutput = System.out;
         // temp output to hide print messages, so can leverage previously built methods which have print statements
