@@ -40,7 +40,7 @@ public class AddCommand extends Command {
      * @throws IOException If there are issues saving changes to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException {
         ArrayList<String> arrOfStr = new ArrayList<>();
         Task task = new Task("", false);
 
@@ -63,7 +63,7 @@ public class AddCommand extends Command {
 
         }
         tasks.add(task, storage);
-        ui.showMessage("Got it. I've added this task: ", task, tasks.getSize());
+        return ui.showMessage("Got it. I've added this task: ", task, tasks.getSize());
     }
 
     /**
@@ -74,5 +74,10 @@ public class AddCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getCommandType() {
+        return "AddCommand";
     }
 }

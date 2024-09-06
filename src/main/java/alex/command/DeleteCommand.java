@@ -32,7 +32,7 @@ public class DeleteCommand extends Command {
      * @throws IOException If there are issues saving the changes to file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException {
         if (!lineScanner.hasNext()) {
             throw new AlexException("Oh no! Please provide an integer number after 'delete' indicating the " +
                     "task number to delete!");
@@ -57,7 +57,7 @@ public class DeleteCommand extends Command {
             throw new AlexException("Oh no! Please provide a correct task number to delete!");
         }
 
-        tasks.delete(taskNumber, storage, ui);
+        return tasks.delete(taskNumber, storage, ui);
     }
 
     /**
@@ -68,5 +68,10 @@ public class DeleteCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public String getCommandType() {
+        return "DeleteCommand";
     }
 }
