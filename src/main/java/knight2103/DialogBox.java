@@ -6,8 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
-// Level 3c: allows "flipping" - align left
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -35,7 +33,7 @@ public class DialogBox extends HBox {
     }
 
     // no change
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getKnight2103Dialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
@@ -50,7 +48,6 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         displayPicture.setImage(img);
     }

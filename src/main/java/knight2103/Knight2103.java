@@ -29,46 +29,15 @@ public class Knight2103 {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        // string parsing functionality
-        String welcomeMessage = ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
+        String output;
             try {
-                this.ui.showLine();
                 Command c = Parser.parse(input).orElseThrow(() -> new MissingCommand());
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                output = c.execute(tasks, ui, storage);
+                return this.ui.showLine() + output;
             } catch (MissingCommand e) {
-                System.out.println(e);
+                return e.getMessage();
             } catch (InstructionInvalid e) {
-                System.out.println("Instruction wrong format.");
+                return "Instruction wrong format.";
             }
-        }
-
-
-        return "Knight2103: " + input + ui.showWelcome();
     }
-
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = this.ui.readCommand();
-                this.ui.showLine();
-                Command c = Parser.parse(fullCommand).orElseThrow(() -> new MissingCommand());
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (MissingCommand e) {
-                System.out.println(e);
-            } catch (InstructionInvalid e) {
-                System.out.println("Instruction wrong format.");
-            }
-        }
-    }
-
-    /*
-    public static void main(String[] args) {
-        new Knight2103("./savedTaskList.txt").run(); // in ip folder, not main/java folder
-    }*/
 }

@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for the main GUI.
  */
@@ -30,9 +31,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(DialogBox.getKnight2103Dialog(
+                "_____________\nHello! I'm Knight2103\nWhat can I do for you?\n_____________",
+                knight2103Image));
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Knight2103 instance */
     public void setKnight2103(Knight2103 chatbot) {
         knight2103 = chatbot;
     }
@@ -47,8 +51,13 @@ public class MainWindow extends AnchorPane {
         String response = knight2103.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, knight2103Image)
+                DialogBox.getKnight2103Dialog(response, knight2103Image)
         );
         userInput.clear();
+
+        /*
+        if (input.contains("Bye. Hope to see you again soon!")) {
+            Platform.exit();
+        }*/
     }
 }
