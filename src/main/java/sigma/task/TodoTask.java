@@ -3,9 +3,9 @@ package sigma.task;
 /**
  * Represents a to-do task.
  */
-public class ToDoTask extends Task {
+public class TodoTask extends Task {
 
-    public ToDoTask(String desc) {
+    public TodoTask(String desc) {
         super(desc);
     }
 

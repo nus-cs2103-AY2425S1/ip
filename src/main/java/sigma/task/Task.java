@@ -3,7 +3,7 @@ package sigma.task;
 /**
  * Represents a task.
  */
-public class Task {
+public abstract class Task {
     private boolean status;
     private String desc;
 
@@ -23,6 +23,7 @@ public class Task {
     public String getDesc() {
         return desc;
     }
+
 
     /**
      * Returns the status of the task.

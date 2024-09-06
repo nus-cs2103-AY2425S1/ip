@@ -3,7 +3,7 @@ package sigma.command;
 import org.junit.jupiter.api.Test;
 import sigma.utils.TaskList;
 import sigma.exception.SigmaException;
-import sigma.task.ToDoTask;
+import sigma.task.TodoTask;
 
 import java.util.ArrayList;
 
@@ -15,8 +15,8 @@ public class DeleteCommandTest {
     @Test
     public void deleteCommand_normalDeletion_deletesTaskSuccessfully() {
         TaskList tl = new TaskList(new ArrayList<>());
-        tl.add(new ToDoTask("buy groceries"));
-        tl.add(new ToDoTask("read a book"));
+        tl.add(new TodoTask("buy groceries"));
+        tl.add(new TodoTask("read a book"));
 
         DeleteCommand dc = new DeleteCommand(new String[]{"delete", "1"});
         try {
@@ -39,7 +39,7 @@ public class DeleteCommandTest {
     @Test
     public void deleteCommand_negativeIndex_throwsException() {
         TaskList tl = new TaskList(new ArrayList<>());
-        tl.add(new ToDoTask("buy groceries"));
+        tl.add(new TodoTask("buy groceries"));
 
         DeleteCommand dc = new DeleteCommand(new String[]{"delete", "-1"});
         SigmaException thrown = assertThrows(SigmaException.class, () -> dc.execute(tl, null, null));
@@ -49,7 +49,7 @@ public class DeleteCommandTest {
     @Test
     public void deleteCommand_indexGreaterThanSize_throwsException() {
         TaskList tl = new TaskList(new ArrayList<>());
-        tl.add(new ToDoTask("buy groceries"));
+        tl.add(new TodoTask("buy groceries"));
 
         DeleteCommand dc = new DeleteCommand(new String[]{"delete", "2"});
         SigmaException thrown = assertThrows(SigmaException.class, () -> dc.execute(tl, null, null));

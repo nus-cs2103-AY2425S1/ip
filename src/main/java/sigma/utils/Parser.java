@@ -9,7 +9,7 @@ import sigma.command.FindCommand;
 import sigma.command.HelpCommand;
 import sigma.command.ListCommand;
 import sigma.command.MarkCommand;
-import sigma.command.ToDoCommand;
+import sigma.command.TodoCommand;
 import sigma.command.UnmarkCommand;
 import sigma.command.UnrecognisedCommand;
 import sigma.exception.SigmaException;
@@ -34,7 +34,7 @@ public class Parser {
         String cmd = split[0].toLowerCase();
         switch (cmd) {
         case "todo":
-            return new ToDoCommand(split);
+            return new TodoCommand(split);
         case "deadline":
             return new DeadlineCommand(split);
         case "event":

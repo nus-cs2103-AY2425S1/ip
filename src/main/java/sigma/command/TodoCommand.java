@@ -4,14 +4,14 @@ import sigma.utils.Storage;
 import sigma.utils.TaskList;
 import sigma.utils.Ui;
 import sigma.exception.SigmaException;
-import sigma.task.ToDoTask;
+import sigma.task.TodoTask;
 
 /**
  * Represents the command to add a todo task.
  */
-public class ToDoCommand extends Command {
+public class TodoCommand extends Command {
 
-    public ToDoCommand(String[] split) {
+    public TodoCommand(String[] split) {
         super(split);
     }
 
@@ -24,12 +24,12 @@ public class ToDoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
-        ToDoTask toDoTask = null;
+        TodoTask toDoTask = null;
         try {
             if (split.length < 2 || split[1].strip() == "") {
                 ui.throwError("???? You're missing the task! Write \"todo <task>\"!");
             }
-            toDoTask = new ToDoTask(split[1].strip());
+            toDoTask = new TodoTask(split[1].strip());
         } catch (NullPointerException e) {
             ui.throwError("Please don't run me on null!");
         }

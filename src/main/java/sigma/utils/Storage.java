@@ -4,7 +4,7 @@ import sigma.exception.SigmaException;
 import sigma.task.DeadlineTask;
 import sigma.task.EventTask;
 import sigma.task.Task;
-import sigma.task.ToDoTask;
+import sigma.task.TodoTask;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -138,7 +137,7 @@ public class Storage {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
         switch (type) {
         case "T":
-            item = new ToDoTask(desc);
+            item = new TodoTask(desc);
             break;
         case "D":
             LocalDateTime dateTime;
