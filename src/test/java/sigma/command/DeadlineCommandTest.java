@@ -1,11 +1,15 @@
 package sigma.command;
 
-import org.junit.jupiter.api.Test;
-import sigma.utils.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import sigma.utils.TaskList;
+
+
+
 
 public class DeadlineCommandTest {
 

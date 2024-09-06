@@ -1,7 +1,6 @@
 package sigma.gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -11,7 +10,6 @@ import javafx.scene.layout.VBox;
 import sigma.Sigma;
 import sigma.utils.Ui;
 
-import java.io.IOException;
 
 /**
  * Controller for the main GUI.
@@ -28,30 +26,24 @@ public class MainWindow extends AnchorPane {
     private Sigma sigma;
     private Ui ui;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image sigmaImage = new Image(this.getClass().getResourceAsStream("/images/sigma.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image sigmaImage = new Image(this.getClass().getResourceAsStream("/images/sigma.png"));
 
-    public MainWindow() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
-        fxmlLoader.setRoot(this); // Set the root
-        fxmlLoader.setController(this); // Set the controller, optional if it's already set in FXML
-        try {
-            fxmlLoader.load(); // Load the FXML file
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getSigmaDialog(ui.welcome(), sigmaImage, "welcome")
+                DialogBox.getSigmaDialog(Ui.welcome(), sigmaImage, "welcome")
         );
 
     }
 
-    /** Injects the Sigma instance */
+    /**
+     * Injects the Sigma instance
+     */
     public void setSigma(Sigma s) {
         sigma = s;
         this.ui = sigma.getUi();

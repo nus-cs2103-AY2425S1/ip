@@ -1,17 +1,19 @@
 package sigma.command;
 
-import org.junit.jupiter.api.Test;
-import sigma.utils.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import sigma.utils.TaskList;
 
 public class EventCommandTest {
 
     @Test
     public void eventCommand_normalEvent_normalResponse() {
-        EventCommand ec = new EventCommand(new String[]{"event", "go library /from 2024-08-30 1800 /to 2024-08-30 2000"});
+        EventCommand ec = new EventCommand(
+                new String[]{"event", "go library /from 2024-08-30 1800 /to 2024-08-30 2000"});
         TaskList tl = new TaskList(new ArrayList<>());
         try {
             ec.execute(tl, null, null);
@@ -28,8 +30,10 @@ public class EventCommandTest {
         try {
             ec.execute(tl, null, null);
         } catch (Exception e) {
-            assertEquals("What the sigma? You're missing the end timing! Write \"event <task> /from <start time> /to " +
-                    "<end time>\"!", e.getMessage());
+            assertEquals(
+                    "What the sigma? You're missing the end timing! "
+                            + "Write \"event <task> /from <start time> /to "
+                            + "<end time>\"!", e.getMessage());
         }
     }
 
@@ -40,8 +44,9 @@ public class EventCommandTest {
         try {
             ec.execute(tl, null, null);
         } catch (Exception e) {
-            assertEquals("What the sigma? You're missing the timing! Write \"event <task> /from <start time> /to <end" +
-                    " time>\"!", e.getMessage());
+            assertEquals(
+                    "What the sigma? You're missing the timing! Write \"event <task> /from <start time> /to <end"
+                    + " time>\"!", e.getMessage());
         }
     }
 
@@ -52,7 +57,8 @@ public class EventCommandTest {
         try {
             ec.execute(tl, null, null);
         } catch (Exception e) {
-            assertEquals("What the sigma? You're missing the task! Write \"event <task> /from <start time> /to <end time>\"!",
+            assertEquals("What the sigma? You're missing the task! Write \"event <task> /from <start time> /to <end "
+                            + "time>\"!",
                     e.getMessage());
         }
     }
@@ -64,18 +70,21 @@ public class EventCommandTest {
         try {
             ec.execute(tl, null, null);
         } catch (Exception e) {
-            assertEquals("What the sigma? Invalid date format! Write the date in the format YYYY-MM-DD HHmm!", e.getMessage());
+            assertEquals("What the sigma? Invalid date format! Write the date in the format YYYY-MM-DD HHmm!",
+                    e.getMessage());
         }
     }
 
     @Test
     public void eventCommand_invalidDateTime_exceptionThrown() {
-        EventCommand ec = new EventCommand(new String[]{"event", "go library /from 2024-08-30 1800 /to 2024123-08-308127 2000"});
+        EventCommand ec = new EventCommand(new String[]{"event", "go library /from 2024-08-30 1800 /to "
+                + "2024123-08-308127 2000"});
         TaskList tl = new TaskList(new ArrayList<>());
         try {
             ec.execute(tl, null, null);
         } catch (Exception e) {
-            assertEquals("What the sigma? Invalid date format! Write the date in the format YYYY-MM-DD HHmm!", e.getMessage());
+            assertEquals("What the sigma? Invalid date format! Write the date in the format YYYY-MM-DD HHmm!",
+                    e.getMessage());
         }
     }
 }

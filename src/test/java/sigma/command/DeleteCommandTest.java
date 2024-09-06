@@ -1,14 +1,16 @@
 package sigma.command;
 
-import org.junit.jupiter.api.Test;
-import sigma.utils.TaskList;
-import sigma.exception.SigmaException;
-import sigma.task.TodoTask;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import sigma.exception.SigmaException;
+import sigma.task.TodoTask;
+import sigma.utils.TaskList;
+
 
 public class DeleteCommandTest {
 
