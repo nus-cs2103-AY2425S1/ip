@@ -1,4 +1,4 @@
-package meerkatpack;
+package taskpack;
 
 /**
  * Parent class for tasks, has its own subclass tasks.

@@ -1,4 +1,4 @@
-package meerkatpack;
+package taskpack;
 
 /**
  * Used to represent a Todo task.

@@ -1,1 +1,2 @@
-t,u,eat
+t,u,buy 1
+t,u,buy 2

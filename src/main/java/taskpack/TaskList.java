@@ -1,4 +1,6 @@
-package meerkatpack;
+package taskpack;
+
+import meerkatpack.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -44,13 +46,14 @@ public class TaskList {
      * @param fromSave Check if the task is created from an input or through parsing file.
      * @throws IOException If there are any errors in reading or writing the file.
      */
-    public void createTodoTask(String name, boolean fromSave) throws IOException {
+    public String createTodoTask(String name, boolean fromSave) throws IOException {
         Task thisTask = new Todo(name);
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
         if (!fromSave) {
-            ui.printTaskCreationMessage(thisTask, this);
+            return ui.showTaskCreationMessage(thisTask, this);
         }
+        return "";
     }
 
     /**
@@ -62,13 +65,14 @@ public class TaskList {
      * @param fromSave Check if the task is created from an input or through parsing file.
      * @throws IOException If there are any errors in reading or writing the file.
      */
-    public void createEventTask(String name, String start, String end, boolean fromSave) throws IOException {
+    public String createEventTask(String name, String start, String end, boolean fromSave) throws IOException {
         Task thisTask = new Event(name, start, end);
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
         if (!fromSave) {
-            ui.printTaskCreationMessage(thisTask, this);
+            return ui.showTaskCreationMessage(thisTask, this);
         }
+        return "";
     }
 
     /**
@@ -80,13 +84,14 @@ public class TaskList {
      * @param fromSave Check if the task is created from an input or through parsing file.
      * @throws IOException If there are any errors in reading or writing the file.
      */
-    public void createDeadlineTask(String name, LocalDateTime duedate, boolean fromSave) throws IOException {
+    public String createDeadlineTask(String name, LocalDateTime duedate, boolean fromSave) throws IOException {
         Task thisTask = new Deadline(name, duedate);
         listOfTasks.add(thisTask);
         storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
         if (!fromSave) {
-            ui.printTaskCreationMessage(thisTask, this);
+            return ui.showTaskCreationMessage(thisTask, this);
         }
+        return "";
     }
 
     /**
@@ -94,16 +99,16 @@ public class TaskList {
      * @param taskNum Determines the task number to fetch the right task to mark.
      * @throws IOException When the file cannot be written to.
      */
-    public void markTaskAsDone(int taskNum) throws IOException {
+    public String markTaskAsDone(int taskNum) throws IOException {
         if (taskNum > 0 && taskNum <= listOfTasks.size()) {
             Task thisTask = listOfTasks.get(taskNum - 1);
             thisTask.markAsCompleted();
-            ui.printTaskMarkedMessage(thisTask);
+            storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
+            return ui.showTaskMarkedMessage(thisTask);
             // task number is not within range
         } else {
-            ui.printTaskNonMarkableMessage();
+            return ui.showTaskNonMarkableMessage();
         }
-        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
     }
 
     /**
@@ -111,16 +116,17 @@ public class TaskList {
      * @param taskNum Determines the task number to fetch the right task to unmark.
      * @throws IOException When the file cannot be written to.
      */
-    public void markTaskAsUndone(int taskNum) throws IOException {
+    public String markTaskAsUndone(int taskNum) throws IOException {
         if (taskNum > 0 && taskNum <= listOfTasks.size()) {
             Task thisTask = listOfTasks.get(taskNum - 1);
             thisTask.markAsIncomplete();
-            ui.printTaskUnmarkedMessage(thisTask);
+            storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
+            return ui.showTaskUnmarkedMessage(thisTask);
             // task number is not within range
         } else {
-            ui.printTaskNonUnmarkableMessage();
+            return ui.showTaskNonUnmarkableMessage();
         }
-        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
+
     }
 
     /**
@@ -128,16 +134,16 @@ public class TaskList {
      * @param taskNum Determines the task number to fetch the right task to delete.
      * @throws IOException When the file cannot be written to.
      */
-    public void deleteTask(int taskNum) throws IOException {
+    public String deleteTask(int taskNum) throws IOException {
         if (taskNum > 0 && taskNum <= listOfTasks.size()) {
             Task thisTask = listOfTasks.get(taskNum - 1);
             listOfTasks.remove(taskNum - 1);
-            ui.printDeleteMessage(thisTask);
+            storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
+            return ui.showDeleteMessage(thisTask);
             // task number is not within range
         } else {
-            ui.printUndeletableMessage();
+            return ui.showUndeletableMessage();
         }
-        storage.writeToFile(STORAGE_FILE_PATH, taskListToString(listOfTasks));
     }
 
     /**

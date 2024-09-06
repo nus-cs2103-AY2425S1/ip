@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import taskpack.Task;
+import taskpack.TaskList;
 
 /**
  * Used to parse inputs provided by user and calls the relevant task
@@ -40,10 +42,10 @@ public class Parser {
                     taskList.setMostRecentTaskCompletionStatus(false);
                     break;
                 default:
-                    ui.printNoIdeaMessage();
+                    ui.showNoIdeaMessage();
                 }
             } catch (IOException e) {
-                ui.printErrorWritingFileMessage();
+                ui.showErrorWritingFileMessage();
             }
             break;
         case 4:
@@ -58,10 +60,10 @@ public class Parser {
                     taskList.setMostRecentTaskCompletionStatus(false);
                     break;
                 default:
-                    ui.printNoIdeaMessage();
+                    ui.showNoIdeaMessage();
                 }
             } catch (IOException e) {
-                ui.printErrorWritingFileMessage();
+                ui.showErrorWritingFileMessage();
             }
             break;
         case 5:
@@ -75,14 +77,14 @@ public class Parser {
                     taskList.setMostRecentTaskCompletionStatus(false);
                     break;
                 default:
-                    ui.printNoIdeaMessage();
+                    ui.showNoIdeaMessage();
                 }
             } catch (IOException e) {
-                ui.printErrorWritingFileMessage();
+                ui.showErrorWritingFileMessage();
             }
             break;
         default:
-            ui.printNoIdeaMessage();
+            ui.showNoIdeaMessage();
         }
     }
 
@@ -90,18 +92,18 @@ public class Parser {
      * Converts the string of input into a relevant task.
      * @param taskName String of input, the entire line given by user.
      */
-    protected void parse(String taskName) {
+    protected String parse(String taskName) {
         String[] strArray = taskName.split(" ", 2);
 
 
         // create new todo task
         if (strArray[0].equalsIgnoreCase("todo")) {
             try {
-                taskList.createTodoTask(strArray[1], false);
+                return taskList.createTodoTask(strArray[1], false);
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.printNeedMoreInfoTodoMessage();
+                return ui.showNeedMoreInfoTodoMessage();
             } catch (IOException e) {
-                ui.printErrorWritingFileMessage();
+                return ui.showErrorWritingFileMessage();
             }
 
             // create new deadline task
@@ -113,9 +115,9 @@ public class Parser {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kkmm");
                 taskList.createDeadlineTask(name, LocalDateTime.parse(dueDate, formatter), false);
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.printNeedMoreInfoDeadlineMessage();
+                return ui.showNeedMoreInfoDeadlineMessage();
             } catch (IOException e) {
-                ui.printErrorWritingFileMessage();
+                return ui.showErrorWritingFileMessage();
             }
 
             // create new event task
@@ -126,19 +128,18 @@ public class Parser {
                 String name = eventStringArray[0].split(" ", 2)[1];
                 taskList.createEventTask(name, duration[0], duration[1], false);
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.printNeedMoreInfoEventMessage();
+                return ui.showNeedMoreInfoEventMessage();
             } catch (IOException e) {
-                ui.printErrorWritingFileMessage();
+                return ui.showErrorWritingFileMessage();
             }
 
             // to end program
         } else if (taskName.equalsIgnoreCase("bye")) {
-            ui.printGoodbyeMessage();
-            System.exit(0);
+            return ui.showGoodbyeMessage();
 
             // to display list of items
         } else if (taskName.equalsIgnoreCase("list")) {
-            ui.printList(taskList);
+            return ui.showList(taskList);
 
             // mark task as done
         } else if (strArray.length == 2 && strArray[0].equals("mark")) {
@@ -146,9 +147,9 @@ public class Parser {
                 int taskNum = Integer.parseInt(strArray[1]);
                 taskList.markTaskAsDone(taskNum);
             } catch (NumberFormatException e) {
-                ui.printTaskNonMarkableMessage();
+                return ui.showTaskNonMarkableMessage();
             } catch (IOException e) {
-                ui.printErrorWritingFileMessage();
+                return ui.showErrorWritingFileMessage();
             }
             // mark item as not done
         } else if (strArray.length == 2 && strArray[0].equals("unmark")) {
@@ -156,9 +157,9 @@ public class Parser {
                 int taskNum = Integer.parseInt(strArray[1]);
                 taskList.markTaskAsUndone(taskNum);
             } catch (NumberFormatException e) {
-                ui.printTaskNonUnmarkableMessage();
+                return ui.showTaskNonUnmarkableMessage();
             } catch (IOException e) {
-                ui.printErrorWritingFileMessage();
+                return ui.showErrorWritingFileMessage();
             }
 
             // delete task
@@ -167,19 +168,20 @@ public class Parser {
                 int taskNum = Integer.parseInt(strArray[1]);
                 taskList.deleteTask(taskNum);
             } catch (NumberFormatException e) {
-                ui.printUndeletableMessage();
+                return ui.showUndeletableMessage();
             } catch (IOException e) {
-                ui.printErrorWritingFileMessage();
+                return ui.showErrorWritingFileMessage();
             }
 
             //find task
         } else if (strArray.length == 2 && strArray[0].equals("find")) {
             List<Task> matchingTaskList = taskList.findMatchingTasks(strArray[1]);
-            ui.printMatchingTasks(matchingTaskList);
+            return ui.showMatchingTasks(matchingTaskList);
 
             // invalid input
         } else {
-            ui.printNoIdeaMessage();
+            return ui.showNoIdeaMessage();
         }
+        return "";
     }
 }
