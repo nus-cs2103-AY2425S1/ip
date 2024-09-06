@@ -1,12 +1,12 @@
 package commands;
 
+import java.io.IOException;
+
 import skibidi.Command;
 import skibidi.SkibidiException;
 import skibidi.Ui;
 import storage.Task;
 import storage.TaskStorage;
-
-import java.io.IOException;
 
 /**
  * Represents a command to mark a task as done.
@@ -32,7 +32,7 @@ public class MarkCommand extends Command {
      * @throws SkibidiException If the task number is in an invalid format.
      */
     @Override
-    public boolean execute(Ui ui, TaskStorage storage) throws SkibidiException{
+    public boolean execute(Ui ui, TaskStorage storage) throws SkibidiException {
         try {
             int taskIndex = Integer.parseInt(taskInput) - 1; // Convert to 0-based index
             if (taskIndex < 0 || taskIndex >= storage.getTasks().size()) {

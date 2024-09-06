@@ -3,7 +3,7 @@ package skibidi;
 /**
  * Represents the user interface of the Skibidi program.
  */
-public class Ui {   
+public class Ui {
     private final String logo = "   _____ _  _______ ____ _____ _____ _____\n"
             + "  / ____| |/ /_   _|  _ \\_   _|  __ \\_   _|\n"
             + " | (___ | ' /  | | | |_) || | | |  | || |\n"
