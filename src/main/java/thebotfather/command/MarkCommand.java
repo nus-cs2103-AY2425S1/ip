@@ -14,10 +14,10 @@ public class MarkCommand extends Command {
     private final boolean isDone;
 
     /**
-     * Constructs a MarkCommand object with the specified task index and marking status.
+     * Constructs a {@code MarkCommand} with the specified task index and marking status.
      *
      * @param stringIndex The index of the task to be marked or unmarked.
-     * @param isDone Indicates whether the task should be marked as done or unmarked.
+     * @param isDone {@code true} if the task should be marked as done, {@code false} if unmarked.
      * @throws TheBotFatherException If the provided index is not a valid number.
      */
     public MarkCommand(String stringIndex, boolean isDone) throws TheBotFatherException {
@@ -25,30 +25,33 @@ public class MarkCommand extends Command {
             this.index = Integer.parseInt(stringIndex) - 1;
         } catch (NumberFormatException e) {
             throw new TheBotFatherException("How do you not know what a number is, jeez\n"
-                    + "\tTo mark/unmark a task enter \"mark/unmark <index>\"");
+                    + "To mark/unmark a task enter \"mark/unmark <index>\"");
         }
         this.isDone = isDone;
     }
 
     /**
-     * Executes the mark/unmark command by updating the task's status in the task list
-     * and saving the updated task list to storage.
+     * Executes the command to mark or unmark the task, updates the task's status in the task list,
+     * and saves the updated list to storage.
      *
      * @param taskList The task list containing the task to be marked or unmarked.
      * @param ui The user interface used to print the task's updated status.
      * @param storage The storage system used to save the updated task list.
-     * @throws TheBotFatherException If an error occurs while updating the task list or saving it to storage.
+     * @return A string representing the task's updated status.
+     * @throws TheBotFatherException If an error occurs while updating the task list or saving to storage.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
         if (isDone) {
             taskList.markAsDone(index);
-            ui.printMarked(taskList.getTaskDescAtIndex(index));
+            storage.toFile(taskList);
+            return "It will be done\n"
+                    + taskList.getTaskDescAtIndex(index);
         } else {
             taskList.unmark(index);
-            ui.printUnmarked(taskList.getTaskDescAtIndex(index));
+            storage.toFile(taskList);
+            return "A man who doesn't spend time with his family can never be a real man.\n"
+                    + taskList.getTaskDescAtIndex(index);
         }
-        storage.toFile(taskList);
-
     }
 }

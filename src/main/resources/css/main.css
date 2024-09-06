@@ -1,0 +1,78 @@
+.root {
+    main-color: rgb(35, 45, 50); /* Dark muted background color */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #2a383b; /* Dark greenish-gray for text field */
+    -fx-font: 20px "Arial";
+    -fx-border-color: #546e7a; /* Muted dark cyan */
+    -fx-border-radius: 0.5em;
+    -fx-padding: 5px;
+    -fx-prompt-text-fill: #8fa58c; /* Soft muted green for placeholder */
+    -fx-text-fill: #c7d4d9; /* Light desaturated text color */
+}
+
+.button {
+    -fx-background-color: #4e5d4f; /* Muted olive green */
+    -fx-font: italic bold 13px "Arial";
+    -fx-text-fill: #d1d1d1; /* Pale white text */
+    -fx-background-radius: 0.5em;
+    -fx-padding: 10px 20px;
+    -fx-transition: background-color 0.3s ease, font-size 0.3s ease; /* Smooth transition */
+}
+
+.button:hover {
+    -fx-background-color: #3c4a40; /* Darker olive for hover */
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #533b3e; /* Muted dark red for pressed */
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent; /* Keep background clean and dark */
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-border-radius: 1em;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #6e5575; /* Dark purple for scrollbar thumb */
+    -fx-background-radius: 1em;
+    -fx-padding: 2px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.text-field:focused {
+    -fx-border-color: #808c82; /* Subtle dark green border on focus */
+    -fx-background-color: #323e40; /* Even darker background */
+}
+
+.button:focused {
+    -fx-border-color: #74615b; /* Muted brownish border for spooky effect */
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #8c6e92; /* Lighten the purple thumb slightly on hover */
+}
+
+/* Optional additional spooky effects: */
+.button:hover {
+    -fx-background-color: #444c45; /* Darken on hover */
+    -fx-text-fill: #eeeeee; /* Slightly lighter text for contrast */
+}
+
+.text-field:focused {
+    -fx-effect: dropshadow(gaussian, rgba(255, 69, 0, 0.4), 10, 0.5, 0, 0); /* Subtle reddish shadow on focus */
+}

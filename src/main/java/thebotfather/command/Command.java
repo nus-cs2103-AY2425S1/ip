@@ -14,14 +14,16 @@ import thebotfather.util.Ui;
 public abstract class Command {
 
     /**
-     * Executes the command with the given task list, user interface, and storage.
+     * Executes this command, performing operations on the provided task list, interacting with the user through the
+     * user interface, and saving or loading data using the storage system.
      *
-     * @param taskList The list of tasks to be manipulated by the command.
-     * @param ui The user interface to interact with the user.
-     * @param storage The storage used for reading from and writing to the file.
-     * @throws TheBotFatherException If there is an error during command execution.
+     * @param taskList The list of tasks on which the command will operate.
+     * @param ui The user interface that facilitates interaction with the user.
+     * @param storage The storage system responsible for saving and loading task data.
+     * @return A string message representing the result of the command execution, typically displayed to the user.
+     * @throws TheBotFatherException If an error occurs while executing the command, particularly during data storage.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException;
 
     /**
      * Returns whether the command signifies an exit command.

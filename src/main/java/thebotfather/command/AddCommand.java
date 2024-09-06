@@ -7,37 +7,41 @@ import thebotfather.util.TheBotFatherException;
 import thebotfather.util.Ui;
 
 /**
- * Represents a command to add a task to the task list.
+ * A command that adds a new task to the task list.
  */
 public class AddCommand extends Command {
 
-    /**
-     * The task to be added to the task list.
-     */
+    /** The task to be added to the task list. */
     private final Task task;
 
+    /** A message to be printed to the user upon adding the task. */
+    private final String toPrint;
+
     /**
-     * Constructs an {@code AddCommand} with the specified task.
+     * Constructs an {@code AddCommand} with the specified task and confirmation message.
      *
      * @param task The task to be added to the task list.
+     * @param toPrint The message to be displayed to the user upon adding the task.
      */
-    public AddCommand(Task task) {
+    public AddCommand(Task task, String toPrint) {
         this.task = task;
+        this.toPrint = toPrint;
     }
 
     /**
-     * Executes the add task command by adding the task to the task list, saving the updated task list to storage,
-     * and printing the current task count.
+     * Executes the command to add the task to the task list. It saves the updated list to storage and
+     * provides a user-facing confirmation message.
      *
-     * @param taskList The task list where the task will be added.
-     * @param ui The user interface used to interact with the user.
-     * @param storage The storage system used to save the task list.
-     * @throws TheBotFatherException If an error occurs while saving the task list to storage.
+     * @param taskList The task list where the new task will be added.
+     * @param ui The user interface for interaction with the user.
+     * @param storage The storage system to save the task list.
+     * @return A string that contains the user-facing confirmation message and the added task details.
+     * @throws TheBotFatherException If an error occurs during saving to storage.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
         taskList.addTask(task);
         storage.toFile(taskList);
-        ui.printCount();
+        return this.toPrint + task.toString();
     }
 }

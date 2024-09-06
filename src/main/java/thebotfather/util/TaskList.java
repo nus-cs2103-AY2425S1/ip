@@ -52,11 +52,12 @@ public class TaskList {
         if (size < 1) {
             throw new TheBotFatherException("How do I print what is not there?");
         }
-        StringBuilder string = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < size; i++) {
-            string.append(i + 1).append(". ").append(taskArrayList.get(i)).append("\n");
+            stringBuilder.append(i + 1).append(". ").append(taskArrayList.get(i)).append("\n");
         }
-        return string.toString();
+        stringBuilder.append("Task Count: ").append(size);
+        return stringBuilder.toString();
     }
 
     /**
@@ -76,7 +77,7 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new TheBotFatherException("To be a real man you need to know how to count, "
                     + "you don't even have those many tasks son.\n"
-                    + "\tTo mark a task as done enter \"mark <index>\"");
+                    + "To mark a task as done enter \"mark <index>\"");
         }
     }
 
@@ -97,7 +98,7 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new TheBotFatherException("To be a real man you need to know how to count, "
                     + "you don't even have those many tasks son.\n"
-                    + "\tTo unmark a task enter \"unmark <index>\"");
+                    + "To unmark a task enter \"unmark <index>\"");
         }
     }
 
@@ -120,7 +121,7 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new TheBotFatherException("To be a real man you need to know how to count, "
                     + "you don't even have those many tasks son.\n"
-                    + "\tTo delete a task enter \"delete <index>\"");
+                    + "To delete a task enter \"delete <index>\"");
         }
     }
 
