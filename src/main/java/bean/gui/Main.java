@@ -1,3 +1,5 @@
+package bean.gui;
+
 import java.io.IOException;
 
 import bean.Bean;
@@ -8,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * Main application class for Bean's GUI.
+ * bean.gui.Main application class for Bean's GUI.
  */
 public class Main extends Application {
 

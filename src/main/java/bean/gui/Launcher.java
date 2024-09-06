@@ -1,3 +1,5 @@
+package bean.gui;
+
 import javafx.application.Application;
 
 /**

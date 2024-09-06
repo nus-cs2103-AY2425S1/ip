@@ -1,3 +1,5 @@
+package bean.gui;
+
 import bean.Bean;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,10 +25,10 @@ public class MainWindow extends AnchorPane {
     private Bean bean;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image beanImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image beanImage = new Image(this.getClass().getResourceAsStream("/images/DaBean.png"));
 
     /**
-     * Initializes the MainWindow, setting up necessary bindings.
+     * Initializes the bean.gui.MainWindow, setting up necessary bindings.
      */
     @FXML
     public void initialize() {

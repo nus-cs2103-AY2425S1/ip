@@ -1,3 +1,5 @@
+package bean.gui;
+
 import java.io.IOException;
 import java.util.Collections;
 
@@ -23,7 +25,7 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * Constructs a DialogBox with the specified text and image.
+     * Constructs a bean.gui.DialogBox with the specified text and image.
      *
      * @param text The text to display in the dialog.
      * @param img  The image to display alongside the dialog text.
@@ -59,7 +61,7 @@ public class DialogBox extends HBox {
      *
      * @param text The text to display.
      * @param img  The user's profile image.
-     * @return A new DialogBox configured for the user.
+     * @return A new bean.gui.DialogBox configured for the user.
      */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
@@ -70,7 +72,7 @@ public class DialogBox extends HBox {
      *
      * @param text The text to display.
      * @param img  Bean's profile image.
-     * @return A new DialogBox configured for Bean with the layout flipped.
+     * @return A new bean.gui.DialogBox configured for Bean with the layout flipped.
      */
     public static DialogBox getBeanDialog(String text, Image img) {
         var db = new DialogBox(text, img);
