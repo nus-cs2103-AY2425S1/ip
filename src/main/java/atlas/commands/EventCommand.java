@@ -6,7 +6,6 @@ import atlas.exceptions.AtlasException;
 import atlas.storage.Storage;
 import atlas.tasks.Event;
 import atlas.tasks.TaskList;
-import atlas.ui.Ui;
 
 /**
  * Creates an event when this class is instantiated.
@@ -30,18 +29,19 @@ public class EventCommand extends Command {
     }
 
     /**
+     * Creates a new event and adds it to the task list.
+     *
      * @param tasks The current list of tasks in the chatbot.
-     * @param ui The current ui object the chatbot uses to display messages
      * @param storage The storage object the chatbot uses to store and load tasks
+     * @return String The message returned to be displayed on the chatbot GUI.
      * @throws AtlasException The exception to be thrown in the event of any error.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AtlasException {
+    public String execute(TaskList tasks, Storage storage) throws AtlasException {
         Event event = new Event(this.name, this.startTime, this.endTime);
         tasks.add(event);
         storage.save();
-        String message = String.format("Got it. I've added this task:\n\t%s\n Now you have %s tasks in the list.",
+        return String.format("Got it. I've added this task:\n\t%s\n Now you have %s tasks in the list.",
                 event, tasks.size());
-        ui.print(message);
     }
 }
