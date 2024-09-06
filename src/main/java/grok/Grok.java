@@ -20,8 +20,7 @@ public class Grok {
     private final Ui ui;
     private final TaskList taskList;
     private final Parser parser;
-    private final Scanner scanner;
-
+//    private final Scanner scanner;
 
     /**
      * The main coordinator of this application. Contains the boot-up sequence to start different classes and
@@ -32,23 +31,31 @@ public class Grok {
         taskList = new TaskList(storage.parseTextStorage());
         ui = new Ui();
         parser = new Parser();
-        scanner = new Scanner(System.in);
+//        scanner = new Scanner(System.in);
+//
+//        ui.printWelcomeMessage();
+//        while (true) {
+//            try {
+//
+//            } catch (GrokInvalidUserInputException e) {
+//                ui.printErrorMessage(e.getMessage());
+//            }
+//        }
+    }
 
-        ui.printWelcomeMessage();
-        while (true) {
-            try {
-                Command c = parser.parseUserInput(scanner.nextLine(), taskList);
-                c.execute(taskList, ui, storage);
-                if (c.isExit()) {
-                    break;
-                }
-            } catch (GrokInvalidUserInputException e) {
-                ui.printErrorMessage(e.getMessage());
+    public String processResponse(String input) {
+        try {
+            Command c = parser.parseUserInput(input, taskList);
+            c.execute(taskList, ui, storage);
+            if (c.isExit()) {
+
             }
+        } catch (GrokInvalidUserInputException e) {
+            return e.getMessage();
         }
     }
 
     public static void main(String[] args) {
-        new Grok();
+        System.out.println("Hello!");
     }
 }
