@@ -8,9 +8,10 @@ import task.Event;
 import java.time.LocalDateTime;
 
 /**
- * Represents a command to add an Event task to the TaskList.
+ * Represents a command to add an Event task to the task list.
  */
 public class EventCommand extends Command {
+
     private final String description;
     private final LocalDateTime from;
     private final LocalDateTime to;
@@ -29,11 +30,11 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Executes the EventCommand, adding an Event task to the TaskList, saving it to storage,
+     * Executes the EventCommand by adding an Event task to the TaskList, saving it to storage,
      * and displaying the event details to the user.
      *
-     * @param tasks The TaskList to add the event to.
-     * @param storage The Storage to save the event to.
+     * @param tasks The TaskList to which the event will be added.
+     * @param storage The Storage to save the event details.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) {
@@ -42,3 +43,4 @@ public class EventCommand extends Command {
         Ui.printEvent(tasks);
     }
 }
+
