@@ -13,10 +13,10 @@ import javafx.scene.layout.VBox;
 /**
  * Encapsulates the application and the means to communicate with users using messages.
  */
-/**
- * Controller for the main GUI.
- */
 public class Ui extends AnchorPane {
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaBot.png"));
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -25,7 +25,6 @@ public class Ui extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Grok grok;
 
     /**
@@ -44,23 +43,16 @@ public class Ui extends AnchorPane {
         return indentSpaces.concat(msgWithHLines.replace("\n", "\n".concat(indentSpaces)));
     }
 
+    /**
+     * Generates a response by the bot that is visible in the GUI.
+     * @param response - response (as a string) that the bot should return.
+     */
     @FXML
     public void printGenericFeedback(String response) {
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getGrokDialog(response, botImage)
         );
     }
-
-    public void printByeMessage() {
-        printGenericFeedback("Bye. Hope to see you again soon!");
-    }
-
-    public void printErrorMessage(String s) {
-        printGenericFeedback("Error! " + s);
-    }
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {

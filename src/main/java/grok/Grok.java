@@ -1,7 +1,5 @@
 package grok;
 
-import java.util.Scanner;
-
 import commands.Command;
 import exceptions.GrokInvalidUserInputException;
 import parser.Parser;
@@ -20,7 +18,6 @@ public class Grok {
     private final Ui ui;
     private final TaskList taskList;
     private final Parser parser;
-//    private final Scanner scanner;
 
     /**
      * The main coordinator of this application. Contains the boot-up sequence to start different classes and
@@ -31,16 +28,6 @@ public class Grok {
         taskList = new TaskList(storage.parseTextStorage());
         ui = new Ui();
         parser = new Parser();
-//        scanner = new Scanner(System.in);
-//
-//        ui.printWelcomeMessage();
-//        while (true) {
-//            try {
-//
-//            } catch (GrokInvalidUserInputException e) {
-//                ui.printErrorMessage(e.getMessage());
-//            }
-//        }
     }
 
     /**
@@ -52,8 +39,7 @@ public class Grok {
     public String processResponse(String input) {
         try {
             Command c = parser.parseUserInput(input, taskList);
-            String output = c.execute(taskList, ui, storage);
-            return output;
+            return c.execute(taskList, ui, storage);
         } catch (GrokInvalidUserInputException e) {
             return "Error! " + e.getMessage();
         }

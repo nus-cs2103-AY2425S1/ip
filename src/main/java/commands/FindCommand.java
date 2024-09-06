@@ -46,7 +46,8 @@ public class FindCommand extends Command {
                 counter++;
             }
         }
+
         // remove the last character, which is a new line.
-       return listOfTasks.substring(0, Math.max(0, listOfTasks.length() - 1));
+        return listOfTasks.substring(0, Math.max(0, listOfTasks.length() - 1));
     }
 }

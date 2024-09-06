@@ -1,6 +1,5 @@
 package grok;
 
-import grok.Main;
 import javafx.application.Application;
 
 /**
