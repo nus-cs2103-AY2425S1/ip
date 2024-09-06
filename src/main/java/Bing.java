@@ -118,6 +118,24 @@ public class Bing {
                     System.out.println("______________________________\n");
                 }
 
+            } else if (input.startsWith("delete")) {
+                try {
+                    int x = Integer.parseInt(input.substring(7).trim());
+                    if (x>0 && x<=tasks.size()) {
+                        Task removedTask = tasks.remove(x - 1);
+                        System.out.println("______________________________\n");
+                        System.out.println("Task removed :");
+                        System.out.println(removedTask.toString());
+                        System.out.println("Total tasks - " + tasks.size() + "\n");
+                        System.out.println("______________________________\n");
+                    } else {
+                        System.out.println("Invalid Input.\n");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("______________________________\n");
+                    System.out.println("Invalid Format");
+                    System.out.println("______________________________\n");
+                }
             } else {
                 System.out.println("Invalid Input.\n");
             }
