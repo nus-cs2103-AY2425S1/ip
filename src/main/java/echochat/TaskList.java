@@ -3,30 +3,30 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private ArrayList<Task> lst = new ArrayList<>();
+    private ArrayList<Task> taskList = new ArrayList<>();
     private Storage storage = new Storage();
 
     /**
      * Save tasks to file using Storage.
      */
     public void saveTasksToFile() {
-        storage.save(lst);
+        storage.save(taskList);
     }
 
     /**
      * Loads tasks from saved file using Storage.
      */
     public void loadTasksFromFile() {
-        lst = storage.load();
+        taskList = storage.load();
     }
 
     public ArrayList<Task> getTaskList() {
-        return lst;
+        return taskList;
     }
 
     public void addToList(Task task){
         try {
-            lst.add(task);
+            taskList.add(task);
             saveTasksToFile();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -39,7 +39,7 @@ public class TaskList {
      * @return The deleted task
      */
     public Task delete(int idx) {
-        Task task = lst.remove(idx - 1);
+        Task task = taskList.remove(idx - 1);
         saveTasksToFile();
         return task;
     }

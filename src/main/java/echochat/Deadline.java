@@ -4,12 +4,12 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
     protected String by;
-    protected LocalDateTime dt;
+    protected LocalDateTime dateTime;
 
     public Deadline(String by, String desc) {
         super('D', desc);
         this.by = by;
-        this.dt = parseDateTime(by);
+        this.dateTime = parseDateTime(by);
     }
 
     /**
@@ -18,9 +18,9 @@ public class Deadline extends Task{
      */
     @Override
     public String getDesc() {
-        if (dt != null) {
+        if (dateTime != null) {
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
-            return super.getDesc() + " (by: " + dt.format(outputFormatter) + ")";
+            return super.getDesc() + " (by: " + dateTime.format(outputFormatter) + ")";
         }
         return super.getDesc() + " (by: " + by + ")";
     }
