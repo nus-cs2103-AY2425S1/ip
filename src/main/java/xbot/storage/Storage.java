@@ -1,22 +1,21 @@
 package xbot.storage;
 
-import xbot.task.Task;
-import xbot.TaskList;
-import xbot.parser.Parser;
-
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.Scanner;
+
+import xbot.TaskList;
+import xbot.parser.Parser;
+import xbot.task.Task;
 
 /**
  * The Storage class handles loading and saving tasks to and from a file in the XBot application.
- * It manages file operations such as reading existing tasks, saving new tasks, and creating the necessary files and directories.
+ * It manages file operations such as reading existing tasks, saving new tasks,
+ * and creating the necessary files and directories.
  */
 public class Storage {
     private static final Path DATA_PATH = Paths.get("data", "XBot.txt");

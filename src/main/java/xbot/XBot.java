@@ -1,10 +1,10 @@
 package xbot;
 
-import xbot.ui.Ui;
-import xbot.storage.Storage;
-import xbot.parser.Parser;
-
 import java.io.IOException;
+
+import xbot.parser.Parser;
+import xbot.storage.Storage;
+import xbot.ui.Ui;
 
 /**
  * The XBot class is the entry point of the chatbot application.
@@ -34,7 +34,7 @@ public class XBot {
 
         ui.showWelcome();
         String input = ui.readCommand();
-        while(!input.equalsIgnoreCase("bye")) {
+        while (!input.equalsIgnoreCase("bye")) {
             try {
                 parser.processInput(input, list, ui, storage);
             } catch (XBotException e) {

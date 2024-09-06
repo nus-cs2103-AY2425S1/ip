@@ -1,15 +1,14 @@
 package xbot;
 
-import xbot.task.Task;
-import xbot.task.ToDo;
-import xbot.task.Event;
-import xbot.task.Deadline;
+import java.util.ArrayList;
+import java.util.List;
 
 import xbot.parser.Parser;
+import xbot.task.Deadline;
+import xbot.task.Event;
+import xbot.task.Task;
+import xbot.task.ToDo;
 import xbot.ui.Ui;
-
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * The TaskList class manages the list of tasks in the XBot application.
@@ -135,7 +134,7 @@ public class TaskList {
      * @param rest The description and time period of the task.
      * @throws XBotException If the input format is invalid or the dates are in an incorrect format.
      */
-    public void addEvent(String rest) throws XBotException{
+    public void addEvent(String rest) throws XBotException {
         String[] parts = rest.split("/from", 2);
         if (parts.length == 2) {
             String taskDescription = parts[0].trim();
@@ -158,7 +157,8 @@ public class TaskList {
                 }
             }
         } else {
-            throw new XBotException("Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
+            throw new XBotException(
+                    "Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
         }
     }
 
@@ -202,6 +202,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds and displays tasks that match the given keyword.
+     *
+     * @param keyword the keyword to search for in task descriptions
+     */
     public void findTask(String keyword) {
         TaskList specificTasks = new TaskList();
         for (Task task : list) {

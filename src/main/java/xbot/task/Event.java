@@ -2,20 +2,13 @@ package xbot.task;
 
 import xbot.parser.Parser;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-import java.util.List;
-import java.util.ArrayList;
-
 /**
  * Represents a task with a event in the XBot application.
  * A {@code Event} task has a description, a start time and an end time.
  */
 public class Event extends Task {
-    protected String from, to;
+    protected String from;
+    protected String to;
 
     /**
      * Constructs a new {@code Event} task with the specified description, start time and end time.
@@ -50,6 +43,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + Parser.changeDateFormat(from) + " to: " + Parser.changeDateFormat(to) + ")";
+        return "[E]"
+                + super.toString()
+                + " (from: " + Parser.changeDateFormat(from)
+                + " to: " + Parser.changeDateFormat(to) + ")";
     }
 }

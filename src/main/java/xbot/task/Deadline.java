@@ -2,14 +2,6 @@ package xbot.task;
 
 import xbot.parser.Parser;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-import java.util.List;
-import java.util.ArrayList;
-
 /**
  * Represents a task with a deadline in the XBot application.
  * A {@code Deadline} task has a description and a deadline by which it should be completed.

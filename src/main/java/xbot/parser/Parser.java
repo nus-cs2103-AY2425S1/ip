@@ -1,22 +1,20 @@
 package xbot.parser;
 
-import xbot.storage.Storage;
-import xbot.ui.Ui;
-import xbot.XBotException;
-import xbot.TaskList;
-
-import xbot.task.Task;
-import xbot.task.ToDo;
-import xbot.task.Event;
-import xbot.task.Deadline;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+import xbot.TaskList;
+import xbot.XBotException;
+import xbot.storage.Storage;
+import xbot.task.Deadline;
+import xbot.task.Event;
+import xbot.task.Task;
+import xbot.task.ToDo;
+import xbot.ui.Ui;
 
 /**
  * The Parser class provides utility methods to parse user input and tasks
@@ -39,18 +37,24 @@ public class Parser {
             switch (type) {
             case "T":
                 Task todo = new ToDo(description);
-                if (isDone) todo.setIsDone();
+                if (isDone) {
+                    todo.setIsDone();
+                }
                 return todo;
             case "D":
                 String deadline = parts[3].trim();
                 Task deadlineTask = new Deadline(description, deadline);
-                if (isDone) deadlineTask.setIsDone();
+                if (isDone) {
+                    deadlineTask.setIsDone();
+                }
                 return deadlineTask;
             case "E":
                 String from = parts[3].trim();
                 String to = parts[4].trim();
                 Task eventTask = new Event(description, from, to);
-                if (isDone) eventTask.setIsDone();
+                if (isDone) {
+                    eventTask.setIsDone();
+                }
                 return eventTask;
             default:
                 System.out.println("Unknown task type: " + type);

@@ -1,6 +1,7 @@
 package xbot.ui;
 
 import java.util.Scanner;
+
 import xbot.TaskList;
 import xbot.XBotException;
 
@@ -29,6 +30,14 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the list of tasks that match the search keyword.
+     *
+     * If the list is empty, it prints a message indicating no matching tasks were found.
+     * Otherwise, it prints a numbered list of the matching tasks.
+     *
+     * @param list the list of tasks to display
+     */
     public static void showMatchingTaskList(TaskList list) {
         if (list.size() == 0) {
             System.out.println("There is no task description containing this keyword :(");

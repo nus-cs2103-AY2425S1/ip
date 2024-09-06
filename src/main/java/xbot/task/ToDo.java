@@ -8,7 +8,7 @@ public class ToDo extends Task {
 
     /**
      * Constructs the {@code ToDo} task with the specified description.
-     * @param description The description of the task. 
+     * @param description The description of the task.
      */
     public ToDo(String description) {
         super(description, TaskType.T);
