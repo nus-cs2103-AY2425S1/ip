@@ -5,7 +5,7 @@
   |     \ | |_| |   |  |   |   <  | |_| |
   |__|\__\ \____|   |__|   |_|\ \  \____|
 
-  Hello. Kafka here.
+  Hello. kafka.Kafka here.
   We meet again.
 
   What do you need me for?

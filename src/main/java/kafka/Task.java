@@ -1,3 +1,5 @@
+package kafka;
+
 public class Task {
     public final String description;
     public boolean isDone;

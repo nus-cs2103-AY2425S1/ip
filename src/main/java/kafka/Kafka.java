@@ -1,3 +1,5 @@
+package kafka;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
@@ -44,6 +46,6 @@ public class Kafka {
     }
 
     public static void main(String[] args) {
-        new Kafka("C:/Users/Nicholas/Downloads/Kafka.txt").run();
+        new Kafka("C:/Users/Nicholas/Downloads/kafka.Kafka.txt").run();
     }
 }

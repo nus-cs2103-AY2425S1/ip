@@ -1,3 +1,5 @@
+package kafka;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {

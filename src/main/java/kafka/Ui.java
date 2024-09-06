@@ -1,3 +1,5 @@
+package kafka;
+
 public class Ui {
 
     public final String logo = """
