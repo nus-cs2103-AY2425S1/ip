@@ -34,13 +34,13 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Charlotte instance */
     public void setCharlotte(Charlotte c) {
         charlotte = c;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Charlotte's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
