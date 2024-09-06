@@ -27,19 +27,19 @@ public class TaskList {
             }
         }
         System.out.println(outputString.toString());
-        return outputString.toString().trim();
+        return outputString.toString();
     }
 
     public ArrayList<Task> getBotMemory() {
         return this.botMemory;
     }
 
-    public void findTerm(String searchTerm) {
+    public String findTerm(String searchTerm) {
+        StringBuilder findResponse = new StringBuilder();
         ArrayList<Task> resultArray = new ArrayList<>();
         if (this.botMemory.isEmpty()) {
-            Ui.printLine();
-            System.out.println("There are no items in the list at the moment, enter '/help' to find out how to enter them.");
-            Ui.printLine();
+           findResponse.append("There are no items in the list at the moment, enter '/help' to find out how to enter them.\n");
+           return findResponse.toString();
         } else {
             for (int i = 0; i < this.botMemory.size(); i++) {
                 if (this.botMemory.get(i).description.contains(searchTerm)) {
@@ -49,14 +49,14 @@ public class TaskList {
         }
 
         if (resultArray.size() > 0) {
-            Ui.printLine();
-            System.out.println("Here are the matching tasks in your list: ");
+            findResponse.append("Here are the matching tasks in your list:\n");
             for (int j = 0; j < resultArray.size(); j++) {
-                System.out.println((j + 1) + ". " + resultArray.get(j).toString());
+                findResponse.append((j + 1)).append(". ").append(resultArray.get(j).toString()).append("\n");
             }
-            Ui.printLine();
+            return findResponse.toString();
         } else {
-            System.out.println("No matching tasks found.");
+            findResponse.append("No matching tasks found.");
+            return findResponse.toString();
         }
 
 
@@ -67,37 +67,44 @@ public class TaskList {
      * @param taskNumber
      */
 
-    public void toggleTaskDone(int taskNumber) {
-        botMemory.get(taskNumber).toggleTaskDone();
-        Ui.printLine();
+    public String toggleTaskDone(int taskNumber) {
+        StringBuilder response = new StringBuilder();
+        response.append(botMemory.get(taskNumber).toggleTaskDone()).append("\n");
+        return response.toString();
     }
 
     /**
      * Removes tasks from the ArrayList and informs the user.
      * @param taskToRemove
      */
-    public void removeTask(int taskToRemove) {
-        Ui.printLine();
-        System.out.println("Noted. I've removed this task: ");
-        System.out.println(" " + botMemory.get(taskToRemove).toString());
+    public String removeTask(int taskToRemove) {
+        StringBuilder response = new StringBuilder();
+
+        response.append("Noted. I've removed this task:\n")
+                .append(" ").append(botMemory.get(taskToRemove).toString()).append("\n");
+
         botMemory.remove(taskToRemove);
-        System.out.println("Now you have " + botMemory.size() + " tasks in the list.");
-        Ui.printLine();
+
+        response.append("Now you have ").append(botMemory.size()).append(" tasks in the list.\n");
+
+        return response.toString();
     }
 
     /**
      * Adds tasks to the ArrayList and informs the user.
      * @param newTask
      */
-    public void addTask(Task newTask) {
+    public String addTask(Task newTask) {
+        StringBuilder response = new StringBuilder();
+
         botMemory.add(newTask);
-        Ui.printLine();
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(" " + newTask.toString());
-        System.out.println("Now you have " + botMemory.size() + " task(s) in the list.");
-        System.out.println();
-        this.listToString();
-        Ui.printLine();
+
+        response.append("Got it. I've added this task:\n")
+                .append(newTask.toString()).append("\n")
+                .append("Now you have ").append(botMemory.size()).append(" task(s) in the list.")
+                .append(this.listToString()).append("\n");
+
+        return response.toString();
 
     }
 
