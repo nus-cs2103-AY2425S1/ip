@@ -1,4 +1,4 @@
-package task;
+package seedu.task;
 
 /**
  * Abstract class containing what task needs

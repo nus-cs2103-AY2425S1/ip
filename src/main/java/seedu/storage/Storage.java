@@ -1,4 +1,4 @@
-package storage;
+package seedu.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,13 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.TaskList;
-import task.ToDo;
-import ui.Ui;
-
+import seedu.task.Deadline;
+import seedu.task.Event;
+import seedu.task.Task;
+import seedu.task.TaskList;
+import seedu.task.ToDo;
+import seedu.ui.Formatter;
 
 /**
  * The {@code Storage} class handles the loading and saving of tasks to and from a file.
@@ -24,7 +23,7 @@ public class Storage {
 
     // The file path where tasks are saved and loaded from
     static final String FILE_PATH = "data/bob.txt";
-    private Ui ui = new Ui();
+    private Formatter formatter = new Formatter();
 
     /**
      * Loads tasks from the specified file into the given {@code TaskList}.
@@ -74,7 +73,7 @@ public class Storage {
             FileWriter fw = new FileWriter(FILE_PATH);
             fw.close(); // Clear the file contents by closing the newly created FileWriter
         } catch (IOException ignored) {
-            this.ui.savingErrorUi();
+            this.formatter.savingErrorUi();
         }
     }
 
@@ -90,7 +89,7 @@ public class Storage {
             fw.write(s + System.lineSeparator());
             fw.close();
         } catch (IOException ignored) {
-            this.ui.savingErrorUi();
+            this.formatter.savingErrorUi();
         }
     }
 }

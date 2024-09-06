@@ -1,4 +1,4 @@
-package task;
+package seedu.task;
 
 /**
  * The {@code ToDo} class represents a task that only has a description with no specific time associated with it.

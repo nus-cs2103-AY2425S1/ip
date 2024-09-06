@@ -1,9 +1,10 @@
-package task;
+package seedu.task;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import storage.Storage;
-import ui.Ui;
+import seedu.storage.Storage;
+import seedu.ui.Formatter;
 
 /**
  * The {@code TaskList} class manages a list of tasks and provides methods to add, list, mark, unmark,
@@ -11,30 +12,24 @@ import ui.Ui;
  */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
-    private Ui ui = new Ui();
+    private Formatter formatter = new Formatter();
 
     /**
      * Adds a task to the task list and updates the UI with the new task.
      *
      * @param t The task to be added.
      */
-    public void addTask(Task t) {
+    public String addTask(Task t) {
         this.tasks.add(t);
-        this.ui.addTaskUi(t, this.tasks.size());
+        return this.formatter.addTaskUi(t, this.tasks.size());
     }
 
     /**
      * Lists all tasks currently in the task list. If the task list is empty,
      * a message is sent to the UI indicating that there are no tasks.
      */
-    public void listTasks() {
-        if (this.tasks.isEmpty()) {
-            this.ui.sendMessage("No items yet!");
-        } else {
-            for (int i = 0; i < this.tasks.size(); i++) {
-                this.ui.sendMessage((i + 1) + ". " + this.tasks.get(i));
-            }
-        }
+    public String listTasks() {
+        return this.formatter.listTaskUi(this.tasks);
     }
 
     /**
@@ -42,10 +37,11 @@ public class TaskList {
      *
      * @param num The index of the task to be marked as done (0-based index).
      */
-    public void markTask(int num) {
+    public String markTask(int num) {
         Task t = this.tasks.get(num);
         t.markAsDone();
-        this.ui.markTaskUi(t);
+        return this.formatter.markTaskUi(t);
+
     }
 
     /**
@@ -53,10 +49,10 @@ public class TaskList {
      *
      * @param num The index of the task to be unmarked as not done (0-based index).
      */
-    public void unmarkTask(int num) {
+    public String unmarkTask(int num) {
         Task t = this.tasks.get(num);
         t.markAsNotDone();
-        this.ui.unmarkTaskUi(t);
+        return this.formatter.unmarkTaskUi(t);
     }
 
     /**
@@ -64,10 +60,10 @@ public class TaskList {
      *
      * @param num The index of the task to be deleted (0-based index).
      */
-    public void deleteTask(int num) {
+    public String deleteTask(int num) {
         Task t = this.tasks.get(num);
         this.tasks.remove(num);
-        this.ui.deleteTaskUi(t, this.tasks.size());
+        return this.formatter.deleteTaskUi(t, this.tasks.size());
     }
 
     /**
@@ -76,10 +72,9 @@ public class TaskList {
      * @param description The description of the ToDo task.
      * @return The created ToDo task.
      */
-    public Task addToDo(String description) {
+    public String addToDo(String description) {
         Task t = new ToDo(description);
-        this.addTask(t);
-        return t;
+        return this.addTask(t);
     }
 
     /**
@@ -89,10 +84,9 @@ public class TaskList {
      * @param end The end date/time of the Deadline task.
      * @return The created Deadline task.
      */
-    public Task addDeadline(String description, String end) {
+    public String addDeadline(String description, String end) {
         Task t = new Deadline(description, end);
-        this.addTask(t);
-        return t;
+        return this.addTask(t);
     }
 
     /**
@@ -103,10 +97,9 @@ public class TaskList {
      * @param end The end date/time of the Event.
      * @return The created Event task.
      */
-    public Task addEvent(String description, String start, String end) {
+    public String addEvent(String description, String start, String end) {
         Task t = new Event(description, start, end);
-        this.addTask(t);
-        return t;
+        return this.addTask(t);
     }
 
     /**
@@ -121,15 +114,13 @@ public class TaskList {
         }
     }
 
-    public void findTasks(String name) {
-        int i = 1;
+    public String findTasks(String name) {
+        ArrayList<Task> temp = new ArrayList<>();
         for (Task t: this.tasks) {
             if (t.getDescription().toLowerCase().contains(name.toLowerCase())) {
-                this.ui.sendMessage((i++) + ". " + t);
+                temp.add(t);
             }
         }
-        if (i == 0) {
-            this.ui.sendMessage("No items yet!");
-        }
+        return formatter.listTaskUi(temp);
     }
 }

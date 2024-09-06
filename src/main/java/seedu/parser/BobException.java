@@ -1,4 +1,4 @@
-package parser;
+package seedu.parser;
 
 public class BobException extends Exception {
     public BobException(String msg) {
