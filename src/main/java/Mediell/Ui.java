@@ -1,4 +1,4 @@
-package Mediell;
+package mediell;
 
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
@@ -38,7 +38,7 @@ public class Ui {
                 tasks.markItem(index);
             } else if (message.startsWith("unmark")) {
                 int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
-                tasks.unMarkItem(index);
+                tasks.unmarkItem(index);
             } else if (message.startsWith("delete")) {
                 int index = Integer.parseInt(message.split(" ", 2)[1]) - 1;
                 tasks.deleteTask(index);

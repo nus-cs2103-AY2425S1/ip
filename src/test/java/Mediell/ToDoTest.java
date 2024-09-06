@@ -1,4 +1,4 @@
-package Mediell;
+package mediell;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +28,7 @@ public class ToDoTest {
         assertEquals("T|0|task", todo.taskToStorageFormat());
 
         // a marked task
-        todo.markAsCompleted();
+        todo.markCompleted();
         assertEquals("T|1|task", todo.taskToStorageFormat());
     }
 }

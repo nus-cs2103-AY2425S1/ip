@@ -1,4 +1,4 @@
-package Mediell;
+package mediell;
 
 import java.time.LocalDate;
 

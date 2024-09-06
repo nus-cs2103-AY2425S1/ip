@@ -1,4 +1,4 @@
-package Mediell;
+package mediell;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +27,7 @@ public class EventTest {
         assertEquals("E|2023-01-01|2024-01-02|0|task", event.taskToStorageFormat());
 
         // a marked task
-        event.markAsCompleted();
+        event.markCompleted();
         assertEquals("E|2023-01-01|2024-01-02|1|task", event.taskToStorageFormat());
     }
 }

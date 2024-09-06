@@ -1,4 +1,4 @@
-package Mediell;
+package mediell;
 
 /** Represents an array of Task. */
 public class TaskList {
@@ -74,21 +74,21 @@ public class TaskList {
             System.out.println("OOPS!! please enter a valid number");
             return;
         }
-        listItems[index].markAsCompleted();
+        listItems[index].markCompleted();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(listItems[index]);
     }
 
     /**
      * Marks a task in the list as uncompleted.
-     * @param index the index to unMark
+     * @param index the index to unmark
      */
-    public void unMarkItem(int index) {
+    public void unmarkItem(int index) {
         if (index >= size) {
             System.out.println("OOPS!! please enter a valid number");
             return;
         }
-        listItems[index].markAsUncompleted();
+        listItems[index].markUncompleted();
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.println(listItems[index]);
     }
