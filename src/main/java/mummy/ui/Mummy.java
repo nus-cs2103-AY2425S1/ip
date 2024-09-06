@@ -53,4 +53,12 @@ public class Mummy {
     public String generateWelcomeMessage() {
         return String.format("Hello from %s\nWhat can I do for you?", LOGO);
     }
+
+    public boolean hasExitCommand() {
+        if (this.currentCommand == null) {
+            return false;
+        }
+
+        return this.currentCommand.isExit();
+    }
 }

@@ -1,5 +1,6 @@
 package mummy.ui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import mummy.command.Command;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Controller for the main GUI.
@@ -54,7 +58,17 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getMummyDialog(response, mummyImage, commandType)
         );
         userInput.clear();
+
+        if (mummy.hasExitCommand()) {
+            exitProgram();
+        }
     }
+
+    private void exitProgram() {
+        CompletableFuture.delayedExecutor(500, TimeUnit.MILLISECONDS).execute(Platform::exit);
+    }
+
+
 
 
 }
