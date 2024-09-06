@@ -14,14 +14,16 @@ import puke.exceptions.UnknownCommandException;
 import puke.message.MessageBuilder;
 
 /**
- * Manages user input by parsing and executing commands.
+ * Parses user input and executes corresponding commands.
+ * The Parser class is responsible for handling user input, interpreting commands,
+ * and delegating the execution of these commands to the appropriate Command objects.
  */
 public class Parser {
     private TaskList taskList;
     private MessageBuilder messageBuilder;
 
     /**
-     * Constructs an Parser with the specified TaskList and MessageBuilder.
+     * Constructs a Parser with the specified TaskList and MessageBuilder.
      *
      * @param taskList the TaskList to handle task operations
      * @param messageBuilder the MessageBuilder to construct and send messages
@@ -32,27 +34,25 @@ public class Parser {
     }
 
     /**
-     * Handles the input by parsing the command and its arguments, and executing the corresponding command.
+     * Processes the user input by parsing the command and its arguments, then executes the corresponding command.
      *
      * @param input the user input to be processed
-     * @throws PukeException if an error occurs during command execution
+     * @return a message resulting from the execution of the command
      */
-    public void handleInput(String input) throws PukeException {
+    public String handleInput(String input) {
         input = input.trim();
         if (input.isEmpty()) {
-            messageBuilder.sendMessage(new EmptyInputException().getMessage());
-            throw new EmptyInputException();
+            return messageBuilder.sendMessage(new EmptyInputException().getMessage());
         }
 
-        String command = input.split("\\s+")[0];
-        String args = input.substring(command.length()).trim();
+        String commandType = input.split("\\s+")[0];
+        String args = input.substring(commandType.length()).trim();
 
         try {
-            Command commandObject = parseCommand(command, args);
-            commandObject.execute(taskList, messageBuilder);
+            Command commandObject = parseCommand(commandType, args);
+            return commandObject.execute(taskList, messageBuilder);
         } catch (PukeException e) {
-            messageBuilder.sendMessage(e.getMessage());
-            throw e;
+            return messageBuilder.sendMessage(e.getMessage());
         }
     }
 
