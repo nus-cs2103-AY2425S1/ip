@@ -41,7 +41,6 @@ public class Milo {
     public void run() {
         ui.greetUser();
         runCommandLoopTilBye();
-        ui.byeUser();
     }
 
     /**
@@ -57,5 +56,17 @@ public class Milo {
         storage.saveData(this.tasks);
     }
 
-
+    /**
+     * method to return Milo response from user input
+     *
+     * @param input user text input
+     */
+    public String getResponse(String input) {
+        // Check if input equals to bye
+        if (input.toLowerCase().strip().equals("bye")) {
+            // Save data to storage
+            storage.saveData(this.tasks);
+        }
+        return parser.readInput(input, this.tasks);
+    }
 }

@@ -1,0 +1,5 @@
+.dialog-container {
+    -fx-background-image: url("../images/MiloBg.jpeg"); /* Set image */
+    -fx-background-size: 400px 600px;
+    -fx-background-repeat: repeat;
+}
