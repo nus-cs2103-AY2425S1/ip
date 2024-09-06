@@ -39,6 +39,7 @@ public class Bob {
         this.storage = new Storage(path);
         try {
             ArrayList<Task> tasks = this.storage.load();
+            assert tasks != null;
             this.tasks = new TaskList(tasks);
         } catch (BobException e) {
             ui.write(e.toString());
@@ -56,6 +57,7 @@ public class Bob {
             try {
                 String input = ui.read();
                 Command command = Parser.parseInput(input);
+                assert command != null;
                 command.execute(this.tasks, this.ui, this.storage);
                 isExit = command.isExit();
             } catch (BobException e) {
