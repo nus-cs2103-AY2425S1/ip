@@ -80,7 +80,7 @@ public class EventTest {
         Event event = new Event(false, description,
                 LocalDateTime.parse(validStartTime, fileDateTimeFormatter),
                 LocalDateTime.parse(validEndTime, fileDateTimeFormatter));
-        assertEquals("The appropriate question is: ‘When the hell are they?’ "
+        assertEquals("The appropriate question is: 'When the hell are they?' "
                 + "Your event is now set in time!\n", event.toUiString());
     }
 

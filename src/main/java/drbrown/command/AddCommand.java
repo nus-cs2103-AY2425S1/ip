@@ -7,6 +7,9 @@ import drbrown.utils.Ui;
 
 /**
  * Represents a command to add a task to the task list.
+ * This command encapsulates the task to be added and provides the logic
+ * for executing the addition of the task to the task list and displaying
+ * relevant messages to the user.
  */
 public class AddCommand extends Command {
 
@@ -15,7 +18,7 @@ public class AddCommand extends Command {
     /**
      * Constructs an AddCommand with the specified task.
      *
-     * @param task The task to be added.
+     * @param task The task to be added to the task list.
      */
     public AddCommand(Task task) {
         this.task = task;
@@ -23,23 +26,24 @@ public class AddCommand extends Command {
 
     /**
      * Executes the add command by adding the task to the task list,
-     * displaying the task creation message and updating the task count.
+     * displaying a message indicating that the task has been successfully added,
+     * and updating the task count display.
      *
      * @param tasks   The TaskList to which the task is added.
-     * @param ui      The UI object to display messages to the user.
-     * @param storage The Storage object for saving tasks to a file.
+     * @param ui      The UI object used to display messages to the user.
+     * @param storage The Storage object used for saving tasks to a file.
+     * @return A string message that confirms the task addition and shows the updated task count.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) {
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);
-        ui.showTaskCreation(task);
-        ui.showCount(tasks);
+        return ui.showTaskCreation(task) + "\n" + ui.showCount(tasks);
     }
 
     /**
-     * Indicates whether this command exits the program.
+     * Indicates whether this command results in the termination of the program.
      *
-     * @return false, as this command does not exit the program.
+     * @return false, as this command does not cause the program to exit.
      */
     @Override
     public boolean shouldExit() {

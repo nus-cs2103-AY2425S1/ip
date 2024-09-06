@@ -7,32 +7,34 @@ import drbrown.utils.Ui;
 
 /**
  * Represents a command to exit the DrBrown application.
+ * This command handles the process of saving the current state of the task list
+ * and provides a message indicating that the application is closing.
  */
 public class ExitCommand extends Command {
 
     /**
-     * Executes the exit command by showing the end message, closing the command UI,
-     * and updating the task list in storage.
+     * Executes the exit command by saving the current state of the task list to storage
+     * and displaying an exit message to the user. It ensures that all tasks are properly
+     * updated in the storage before the application exits.
      *
      * @param tasks   The TaskList containing the current tasks.
      * @param ui      The UI object to display messages to the user and handle UI closure.
-     * @param storage The Storage object to update the saved tasks.
+     * @param storage The Storage object used to update the saved tasks.
+     * @return A string message indicating that the application is exiting.
      * @throws DrBrownException If there is an error updating the storage.
      */
-
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
-        ui.showEnd();
-        ui.closeCommand();
+    public String executeCommand(TaskList tasks, Ui ui, Storage storage) throws DrBrownException {
         storage.update(tasks);
+        return ui.showEnd();
     }
 
     /**
      * Indicates whether this command exits the program.
+     * This method is always true for ExitCommand as its purpose is to terminate the application.
      *
      * @return true, as this command exits the program.
      */
-
     @Override
     public boolean shouldExit() {
         return true;

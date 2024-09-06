@@ -20,12 +20,11 @@ public class DrBrown {
     /**
      * Constructs a new DrBrown instance with the specified file path for storage.
      * Initializes the UI, loads the task list from storage, and handles any exceptions during loading.
-     *
-     * @param filePath the file path to load and save tasks.
+     * If loading fails, an empty task list is initialized.
      */
-    public DrBrown(String filePath) {
+    public DrBrown() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("data/DrBrown.txt");
         try {
             tasks = storage.load();
         } catch (DrBrownException e) {
@@ -38,6 +37,7 @@ public class DrBrown {
      * Runs the main loop of the DrBrown application.
      * Continuously reads user input, parses commands, executes them, and handles exceptions.
      * The loop terminates when the user issues an exit command.
+     * The user is prompted for input, and appropriate messages are displayed for each action.
      */
     public void run() {
         ui.showGreeting();
@@ -59,12 +59,37 @@ public class DrBrown {
     }
 
     /**
-     * The main method to start the DrBrown application.
-     * It creates a new instance of DrBrown with the specified file path and runs the application.
+     * Returns a greeting message to be displayed in the GUI.
      *
-     * @param args command-line arguments (not used).
+     * @return A string containing the greeting message.
+     */
+    public String showGreeting() {
+        return ui.showGreeting();
+    }
+
+    /**
+     * Processes user input and returns the output message after executing the corresponding command.
+     * If an exception occurs, an error message is returned.
+     *
+     * @param userInput The input provided by the user.
+     * @return A string containing the result of the command execution or an error message.
+     */
+    public String showOutput(String userInput) {
+        try {
+            Command command = Parser.parse(userInput);
+            return command.executeCommand(tasks, ui, storage);
+        } catch (DrBrownException e) {
+            return ui.showError(e.getMessage());
+        }
+    }
+
+    /**
+     * The main method to start the DrBrown application.
+     * It creates a new instance of DrBrown and runs the application.
+     *
+     * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new DrBrown("data/DrBrown.txt").run();
+        new DrBrown().run();
     }
 }

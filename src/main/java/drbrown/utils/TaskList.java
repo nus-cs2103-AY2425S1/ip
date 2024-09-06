@@ -3,6 +3,7 @@ package drbrown.utils;
 import java.util.ArrayList;
 
 import drbrown.task.Task;
+
 /**
  * Represents a list of tasks in the DrBrown application.
  * Provides methods to add, remove, mark, unmark, find, and list tasks.
@@ -60,10 +61,12 @@ public class TaskList {
      *
      * @param index The index of the task to be removed.
      * @param ui    The Ui object to display messages to the user.
+     * @return A string message confirming the deletion of the task.
      */
-    public void removeItem(int index, Ui ui) {
-        ui.showDeleteTask(this.tasks.get(index));
-        tasks.remove(index);
+    public String removeItem(int index, Ui ui) {
+        Task deleteTask = this.tasks.get(index);
+        tasks.remove(deleteTask);
+        return ui.showDeleteTask(deleteTask);
     }
 
     /**
@@ -72,22 +75,26 @@ public class TaskList {
      *
      * @param keyword The keyword to search for in the tasks' descriptions.
      * @param ui      The Ui object to display messages to the user.
+     * @return A string containing the list of matching tasks or a message indicating no matches.
      */
-    public void findMatching(String keyword, Ui ui) {
+    public String findMatching(String keyword, Ui ui) {
+        StringBuilder result = new StringBuilder();
         boolean isMatching = false;
         int listCount = 1;
         for (Task item : this.tasks) {
             if (item.getDescription().contains(keyword)) {
                 if (!isMatching) {
-                    ui.showFind();
+                    result.append(ui.showFind()).append("\n");
                     isMatching = true;
                 }
-                System.out.println(listCount + ". " + item);
+                result.append(listCount).append(". ").append(item).append("\n");
                 listCount++;
             }
         }
         if (!isMatching) {
-            System.out.println("Oops! Seems like there are no matching tasks.");
+            return "Oops! Seems like there are no matching tasks.";
+        } else {
+            return result.toString();
         }
     }
 
@@ -96,14 +103,16 @@ public class TaskList {
      * If the list is empty, it informs the user.
      *
      * @param ui The Ui object to display messages to the user.
+     * @return A string containing all tasks in the TaskList.
      */
-    public void listOut(Ui ui) {
-        ui.showList();
+    public String listOut(Ui ui) {
+        StringBuilder result = new StringBuilder();
         int listCount = 1;
         for (Task item : this.tasks) {
-            System.out.println(listCount + ". " + item);
+            result.append(listCount).append(". ").append(item).append("\n");
             listCount++;
         }
+        return ui.showList() + result.toString();
     }
 
     /**
@@ -112,11 +121,12 @@ public class TaskList {
      *
      * @param itemIndex The index of the task to be marked as completed.
      * @param ui        The Ui object to display messages to the user.
+     * @return A string message confirming the task has been marked as completed.
      */
-    public void markTask(int itemIndex, Ui ui) {
+    public String markTask(int itemIndex, Ui ui) {
         Task markTask = this.tasks.get(itemIndex);
         markTask.setStatus(true);
-        ui.showMarkTask(markTask);
+        return ui.showMarkTask(markTask);
     }
 
     /**
@@ -125,10 +135,11 @@ public class TaskList {
      *
      * @param itemIndex The index of the task to be unmarked as incomplete.
      * @param ui        The Ui object to display messages to the user.
+     * @return A string message confirming the task has been unmarked as incomplete.
      */
-    public void unmarkTask(int itemIndex, Ui ui) {
+    public String unmarkTask(int itemIndex, Ui ui) {
         Task unmarkTask = this.tasks.get(itemIndex);
         unmarkTask.setStatus(false);
-        ui.showUnmarkTask(unmarkTask);
+        return ui.showUnmarkTask(unmarkTask);
     }
 }
