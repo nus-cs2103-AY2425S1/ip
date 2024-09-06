@@ -71,6 +71,17 @@ public class Ui {
         }
     }
 
+    public void showFound(TaskList tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("\tNothing with that keyword was found");
+        } else {
+            System.out.println("\tHere are the matching tasks in your list:");
+        }
+        for (int i = 0; i < tasks.size(); i++){
+            System.out.println("\t" + (i+1) + ". " + tasks.get(i).toString());
+        }
+    }
+
     public void showLoadingError() {
         showLine();
         System.out.println("\tThere was a problem with the save file");

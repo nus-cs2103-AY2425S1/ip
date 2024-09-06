@@ -11,7 +11,8 @@ public abstract class Parser {
         TODO,
         DEADLINE,
         EVENT,
-        DELETE;
+        DELETE,
+        FIND;
     }
 
     public static Command parse(String fullCommand) throws ChatBotException {
@@ -26,6 +27,7 @@ public abstract class Parser {
                 case MARK -> new CompleteCommand(Integer.parseInt(inputs[1]), true);
                 case UNMARK -> new CompleteCommand(Integer.parseInt(inputs[1]), false);
                 case DELETE -> new DeleteCommand(Integer.parseInt(inputs[1]));
+                case FIND -> new FindCommand(inputs[1]);
             };
         } catch (IllegalArgumentException e) {
             throw new ChatBotException("\t Oops!! I don't understand what that means :((");
