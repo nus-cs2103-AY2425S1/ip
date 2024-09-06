@@ -1,9 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -74,57 +68,7 @@ public class PacMan {
         echo("Now you have " + list.size() + " tasks in the list.");
     }
 
-    private static void taskParser() {
-        File directory = new java.io.File("data");
-        directory.mkdir();
-        File file = new java.io.File("data/PacMan.txt");
-        try {
-            if (!file.createNewFile()) {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    String data = scanner.nextLine();
-                    String type = data.split("/")[0];
-                    boolean isTaskDone = data.split("/")[1].equals("1");
-                    String task = data.split("/")[2];
-                    if (type.equals("T")) {
-                        list.add(new Todo(task));
-                    } else if (type.equals("D")) {
-                        String by = data.split("/")[3];
-                        list.add(new Deadline(task, by));
-                    } else if (type.equals("E")){
-                        String from = data.split("/")[3];
-                        String to = data.split("/")[4];
-                        list.add(new Event(task, from, to));
-                    }
-                    list.get(list.size() - 1).setMarkDone(isTaskDone);
-                }
-                scanner.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void taskSaver() {
-        File directory = new java.io.File("data");
-        directory.mkdir();
-        try {
-            Files.delete(Paths.get("data/PacMan.txt"));
-            FileWriter writer = new FileWriter("data/PacMan.txt", true);
-            for (int index = 1; index <= list.size(); index = index + 1) {
-                writer.write(list.get(index - 1).toFile());
-                if (index != list.size()) {
-                    writer.write(System.lineSeparator());
-                }
-            }
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) {
-        taskParser();
         Scanner scanner = new Scanner(System.in);
         greet();
         while (true) {
@@ -172,6 +116,5 @@ public class PacMan {
             }
         }
         exit();
-        taskSaver();
     }
 }
