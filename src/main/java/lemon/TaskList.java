@@ -45,6 +45,12 @@ public class TaskList {
         return t;
     }
 
+    /**
+     * Find tasks from the list with description of matching keyword
+     * @param text keyword to find
+     * @return TaskList that contain tasks with matching keyword
+     * @throws DescriptionException Error when adding a task with empty description
+     */
     public TaskList findTasks(String text) throws DescriptionException {
         TaskList matchingTasks = new TaskList();
         for (Task task : list) {

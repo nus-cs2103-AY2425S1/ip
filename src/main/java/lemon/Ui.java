@@ -93,11 +93,18 @@ public class Ui {
         System.out.println(" Now you have " + numTasks + " tasks in the list.");
     }
 
+    /**
+     * Prints message with all tasks that have matching keyword
+     * @param matchingTasks String representation of the found tasks
+     */
     public void printMatchingTaskMsg(String matchingTasks) {
         System.out.println(MATCHING_TASK_MSG);
         System.out.println(matchingTasks);
     }
 
+    /**
+     * Prints message when there is no matching tasks found
+     */
     public void printNoMatchingMsg() {
         System.out.println(NO_MATCHING_MSG);
     }
