@@ -53,6 +53,6 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadlineDateTime
-            .format(CustomDateTimeFormatter.PRETTY_DATE_TIME_FORMATTER) + ")";
+            .format(CustomDateTimeFormatter.DATE_TIME_FORMATTER_PRETTY) + ")";
     }
 }

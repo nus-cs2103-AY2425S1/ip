@@ -5,8 +5,6 @@ package utility;
  */
 public class Ui {
 
-    public Ui() {}
-
     /**
      * Prints string to stdout without endline, followed by a visual line.
      *

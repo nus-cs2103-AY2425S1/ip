@@ -9,8 +9,6 @@ import exception.ElliotException;
  */
 public abstract class Command {
 
-    protected Command() {}
-
     /**
      * Abstract method for classes to implement how arguments are to be parsed.
      *

@@ -58,7 +58,7 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " 
-            + fromDateTime.format(CustomDateTimeFormatter.PRETTY_DATE_TIME_FORMATTER) + " to: " 
-            + toDateTime.format(CustomDateTimeFormatter.PRETTY_DATE_TIME_FORMATTER) + ")";
+            + fromDateTime.format(CustomDateTimeFormatter.DATE_TIME_FORMATTER_PRETTY) + " to: " 
+            + toDateTime.format(CustomDateTimeFormatter.DATE_TIME_FORMATTER_PRETTY) + ")";
     }
 }
