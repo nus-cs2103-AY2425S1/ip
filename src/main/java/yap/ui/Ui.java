@@ -1,12 +1,13 @@
 package yap.ui;
+
 import yap.storage.Storage;
-import yap.task.TaskList;
 import yap.task.Task;
+import yap.task.TaskList;
 
 public class Ui {
     private Storage storage;
     private TaskList taskList;
-    private final String separator = "_____________________________________";
+    private final String SEPARATOR = "_____________________________________";
     public Ui(Storage storage, TaskList taskList) {
         this.storage = storage;
         this.taskList = taskList;
@@ -30,7 +31,7 @@ public class Ui {
             try {
                 int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 taskList.markTask(taskIndex);
-                System.out.println(separator);
+                System.out.println(SEPARATOR);
             } catch (IndexOutOfBoundsException | NumberFormatException exception) {
                 throw new InputException("You did not provide a valid task index to mark!");
             }
@@ -42,7 +43,7 @@ public class Ui {
             try {
                 int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 taskList.unmarkTask(taskIndex);
-                System.out.println(separator);
+                System.out.println(SEPARATOR);
             } catch (IndexOutOfBoundsException | NumberFormatException exception) {
                 throw new InputException("You did not provide a valid task index to mark!");
             }
@@ -54,7 +55,7 @@ public class Ui {
             try {
                 int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 taskList.deleteTask(taskIndex);
-                System.out.println(separator);
+                System.out.println(SEPARATOR);
             } catch (IndexOutOfBoundsException | NumberFormatException exception) {
                 throw new InputException("You did not provide a valid task index to mark!");
             }
@@ -65,7 +66,7 @@ public class Ui {
         if (userInput.startsWith("todo")) {
             Task task = Parser.parseInputAsToDo(userInput);
             taskList.addTask(task);
-            System.out.println(separator);
+            System.out.println(SEPARATOR);
             return 1;
         }
 
@@ -73,7 +74,7 @@ public class Ui {
         if (userInput.startsWith("deadline")) {
             Task task = Parser.parseInputAsDeadline(userInput);
             taskList.addTask(task);
-            System.out.println(separator);
+            System.out.println(SEPARATOR);
             return 1;
         }
 
@@ -81,14 +82,14 @@ public class Ui {
         if (userInput.startsWith("event")) {
             Task task = Parser.parseInputAsEvent(userInput);
             taskList.addTask(task);
-            System.out.println(separator);
+            System.out.println(SEPARATOR);
             return 1;
         }
 
         // List functionality
         if (userInput.startsWith("list")) {
             taskList.listTasks();
-            System.out.println(separator);
+            System.out.println(SEPARATOR);
             return 1;
         }
         throw new InputException();
