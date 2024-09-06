@@ -1,5 +1,7 @@
 package rizzler;
 
+import javafx.util.Pair;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
@@ -55,22 +57,7 @@ public class AddCommand implements Command {
                 return output;
             }
         case "deadline":
-            int indexOfBy = 0;
-            boolean byInInput = false;
-            for (int i = 1; i < this.fullCommand.length; i++) {
-                if (this.fullCommand[i].equals("/by")) {
-                    indexOfBy = i;
-                    byInInput = true;
-                    break;
-                }
-            }
-            if (indexOfBy == 1 || !byInInput ||
-                    (indexOfBy == this.fullCommand.length - 1)) {
-                throw new RizzlerException(
-                        "This command was entered incorrectly\n"
-                        + "Format:\n"
-                        + "deadline [task name] /by [yyyy-mm-dd]");
-            }
+            int indexOfBy = this.checkDeadlineInput();
             try {
                 String deadline = this.fullCommand[1];
                 for (int i = 2; i < indexOfBy; i++) {
@@ -89,30 +76,10 @@ public class AddCommand implements Command {
                         + "deadline [task name] /by [yyyy-mm-dd]");
             }
         case "event":
-            int indexOfFrom = 0;
-            int indexOfTo = 0;
-            boolean hasFrom = false;
-            boolean hasTo = false;
-            for (int i = 1; i < this.fullCommand.length; i++) {
-                if (!hasFrom && this.fullCommand[i].equals("/from")) {
-                    indexOfFrom = i;
-                    hasFrom = true;
-                }
-                if (!hasTo && this.fullCommand[i].equals("/to")) {
-                    indexOfTo = i;
-                    hasTo = true;
-                }
-            }
-            if (!hasFrom ||
-                    !hasTo ||
-                    (indexOfFrom == 1) ||
-                    (indexOfTo - indexOfFrom == 1) ||
-                    (indexOfTo == this.fullCommand.length - 1)) {
-                throw new RizzlerException(
-                        "This command was entered incorrectly\n"
-                        + "Format:\n"
-                        + "event [task name] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
-            }
+            Pair<Integer, Integer> fromToPair = this.checkEventInput();
+            int indexOfFrom = fromToPair.getKey();
+            int indexOfTo = fromToPair.getValue();
+
             String event = this.fullCommand[1];
             for (int i = 2; i < indexOfFrom; i++) {
                 event += " " + this.fullCommand[i];
@@ -136,6 +103,55 @@ public class AddCommand implements Command {
         default:
             throw new RizzlerException("Something went wrong with the addition");
         }
+    }
+
+    private int checkDeadlineInput() throws RizzlerException {
+        int indexOfBy = 0;
+        boolean byInInput = false;
+        for (int i = 1; i < this.fullCommand.length; i++) {
+            if (this.fullCommand[i].equals("/by")) {
+                indexOfBy = i;
+                byInInput = true;
+                break;
+            }
+        }
+        boolean errorInName = (indexOfBy == 1);
+        boolean errorInBy = (!byInInput) || (indexOfBy == this.fullCommand.length - 1);
+        if (errorInName || errorInBy) {
+            throw new RizzlerException(
+                    "This command was entered incorrectly\n"
+                            + "Format:\n"
+                            + "deadline [task name] /by [yyyy-mm-dd]");
+        }
+        return indexOfBy;
+    }
+
+    private Pair<Integer, Integer> checkEventInput() throws RizzlerException {
+        int indexOfFrom = 0;
+        int indexOfTo = 0;
+        boolean hasFrom = false;
+        boolean hasTo = false;
+        for (int i = 1; i < this.fullCommand.length; i++) {
+            if (!hasFrom && this.fullCommand[i].equals("/from")) {
+                indexOfFrom = i;
+                hasFrom = true;
+            }
+            if (!hasTo && this.fullCommand[i].equals("/to")) {
+                indexOfTo = i;
+                hasTo = true;
+            }
+        }
+
+        boolean errorInName = (indexOfFrom == 1);
+        boolean errorInFrom = (!hasFrom) || (indexOfTo - indexOfFrom == 1);
+        boolean errorInTo = (!hasTo) || (indexOfTo == this.fullCommand.length - 1);
+        if (errorInName || errorInFrom || errorInTo) {
+            throw new RizzlerException(
+                    "This command was entered incorrectly\n"
+                            + "Format:\n"
+                            + "event [task name] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
+        }
+        return new Pair<>(indexOfFrom, indexOfTo);
     }
 
     /**
