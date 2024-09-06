@@ -1,4 +1,6 @@
-package Bellroy;
+package Bellroy.task;
+
+import Bellroy.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,14 +67,30 @@ public class TaskList {
         return this.taskList;
     }
 
-    public List<Task> findTask(String keyword) {
-        List<Task> matchingTask = new ArrayList<>();
+    public TaskList findTask(String keyword) {
+        TaskList matchingTask = new TaskList();
         for (Task task: taskList) {
             if (task.description.contains(keyword)) {
-                matchingTask.add(task);
+                matchingTask.addTask(task);
             }
         }
         return matchingTask;
+    }
+
+    public boolean isEmpty() {
+        return taskList.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            s += String.format("%d.%s", i+ 1, taskList.get(i));
+            if (i < taskList.size() - 1) {
+                s += "\n";
+            }
+        }
+        return s;
     }
 
 }

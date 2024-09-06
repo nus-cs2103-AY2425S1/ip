@@ -1,4 +1,4 @@
-package Bellroy;
+package Bellroy.task;
 
 /**
  * Encapsulates an Event Task

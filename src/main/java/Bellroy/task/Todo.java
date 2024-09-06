@@ -1,4 +1,6 @@
-package Bellroy;
+package Bellroy.task;
+
+import Bellroy.task.Task;
 
 /**
  * Encapsulates a Todo Task
