@@ -15,10 +15,6 @@ public class Colby {
         taskList = new TaskList();
     }
 
-    public Colby(){
-        ui = new Ui();
-        taskList = new TaskList();
-    }
 
     /*public void run() throws IOException {
         ui.showWelcomeMessage();

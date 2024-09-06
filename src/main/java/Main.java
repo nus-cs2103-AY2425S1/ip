@@ -13,7 +13,7 @@ import colby.Colby;
  */
 public class Main extends Application {
 
-    private Colby colby = new Colby();
+    private Colby colby = new Colby("Data.txt");
 
     @Override
     public void start(Stage stage) {
