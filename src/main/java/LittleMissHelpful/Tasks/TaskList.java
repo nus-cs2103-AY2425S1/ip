@@ -1,8 +1,7 @@
-package LittleMissHelpful;
+package LittleMissHelpful.Tasks;
 import java.util.ArrayList;
 
 import LittleMissHelpful.Exception.InvalidTaskFormatException;
-import LittleMissHelpful.Task.Task;
 
 public class TaskList {
     private ArrayList<Task> tasks;

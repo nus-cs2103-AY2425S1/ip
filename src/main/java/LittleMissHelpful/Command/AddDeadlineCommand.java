@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import LittleMissHelpful.Storage;
-import LittleMissHelpful.TaskList;
-import LittleMissHelpful.Ui;
+import LittleMissHelpful.Storage.Storage;
+import LittleMissHelpful.Tasks.TaskList;
+import LittleMissHelpful.Ui.Ui;
 import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Task.Deadline;
+import LittleMissHelpful.Tasks.Deadline;
 
 public class AddDeadlineCommand extends Command {
     private String description;
@@ -20,7 +20,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         LocalDateTime by;
         try {
             if (byString.equalsIgnoreCase("today")) {
@@ -42,8 +42,8 @@ public class AddDeadlineCommand extends Command {
 
         Deadline deadline = new Deadline(this.description, by);
         tasks.add(deadline);
-        ui.showAddedNewTask(deadline, tasks);
         storage.save(tasks.getTasks());
+        return ui.showAddedNewTask(deadline, tasks);
     }
 
     @Override

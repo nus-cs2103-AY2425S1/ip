@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import LittleMissHelpful.Storage;
-import LittleMissHelpful.TaskList;
-import LittleMissHelpful.Ui;
+import LittleMissHelpful.Storage.Storage;
+import LittleMissHelpful.Tasks.TaskList;
+import LittleMissHelpful.Ui.Ui;
 import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Task.Event;
+import LittleMissHelpful.Tasks.Event;
 
 public class AddEventCommand extends Command {
     private final String description;
@@ -22,7 +22,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         LocalDateTime from;
         LocalDateTime to;
 
@@ -32,8 +32,8 @@ public class AddEventCommand extends Command {
 
             Event event = new Event(description, from, to);
             tasks.add(event);
-            ui.showAddedNewTask(event, tasks);
             storage.save(tasks.getTasks());
+            return ui.showAddedNewTask(event, tasks);
 
         } catch (DateTimeParseException e) {
             throw new InvalidCommandException("Invalid date format. Please use 'yyyy-MM-ddTHH:mm' or 'yyyy-MM-dd'.");

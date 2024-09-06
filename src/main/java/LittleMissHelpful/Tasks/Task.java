@@ -1,4 +1,4 @@
-package LittleMissHelpful.Task;
+package LittleMissHelpful.Tasks;
 
 import java.time.LocalDateTime;
 

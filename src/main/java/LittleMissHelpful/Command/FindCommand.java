@@ -2,10 +2,10 @@ package LittleMissHelpful.Command;
 
 import LittleMissHelpful.Exception.InvalidTaskFormatException;
 import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Task.Task;
-import LittleMissHelpful.TaskList;
-import LittleMissHelpful.Ui;
-import LittleMissHelpful.Storage;
+import LittleMissHelpful.Tasks.Task;
+import LittleMissHelpful.Tasks.TaskList;
+import LittleMissHelpful.Ui.Ui;
+import LittleMissHelpful.Storage.Storage;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
 
         ArrayList<Task> searchResults = new ArrayList<Task>();
 
@@ -28,7 +28,7 @@ public class FindCommand extends Command {
                     searchResults.add(t);
                 }
             }
-            ui.showSearchResults(searchResults);
+            return ui.showSearchResults(searchResults);
             
         } catch (InvalidTaskFormatException e) {
             throw new InvalidCommandException("Task number out of range. Please provide a valid task number.");

@@ -1,11 +1,11 @@
 package LittleMissHelpful.Command;
 
-import LittleMissHelpful.Storage;
-import LittleMissHelpful.TaskList;
-import LittleMissHelpful.Ui;
+import LittleMissHelpful.Storage.Storage;
+import LittleMissHelpful.Tasks.TaskList;
+import LittleMissHelpful.Ui.Ui;
 import LittleMissHelpful.Exception.InvalidCommandException;
 import LittleMissHelpful.Exception.InvalidTaskFormatException;
-import LittleMissHelpful.Task.Task;
+import LittleMissHelpful.Tasks.Task;
 
 public class MarkTaskCommand extends Command {
     private final int taskIndex;
@@ -15,12 +15,13 @@ public class MarkTaskCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         try {
             Task task = tasks.get(this.taskIndex);
             tasks.markTask(this.taskIndex);
-            ui.showMarkedTask(task);
             storage.save(tasks.getTasks());
+            return ui.showMarkedTask(task);
+
         } catch (InvalidTaskFormatException e) {
             throw new InvalidCommandException("Task number out of range. Please provide a valid task number.");
         }

@@ -1,4 +1,4 @@
-package LittleMissHelpful;
+package LittleMissHelpful.Parser;
 
 import LittleMissHelpful.Command.AddDeadlineCommand;
 import LittleMissHelpful.Command.AddEventCommand;

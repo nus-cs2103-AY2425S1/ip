@@ -1,13 +1,11 @@
 package LittleMissHelpful;
 
-import LittleMissHelpful.TaskList;
 import LittleMissHelpful.Exception.InvalidTaskFormatException;
-import LittleMissHelpful.Task.Task;
+import LittleMissHelpful.Tasks.Task;
+import LittleMissHelpful.Tasks.TaskList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
 
 public class TaskListTest {
 

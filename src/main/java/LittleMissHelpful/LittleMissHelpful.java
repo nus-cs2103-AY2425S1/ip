@@ -2,19 +2,12 @@ package LittleMissHelpful;
 
 import java.io.IOException;
 
-import LittleMissHelpful.*;
-import LittleMissHelpful.Command.AddDeadlineCommand;
-import LittleMissHelpful.Command.AddEventCommand;
-import LittleMissHelpful.Command.AddTodoCommand;
 import LittleMissHelpful.Command.Command;
-import LittleMissHelpful.Command.DeleteTaskCommand;
-import LittleMissHelpful.Command.ExitCommand;
-import LittleMissHelpful.Command.ListCommand;
-import LittleMissHelpful.Command.MarkTaskCommand;
-import LittleMissHelpful.Command.UnmarkTaskCommand;
 import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Exception.InvalidTaskFormatException;
-import LittleMissHelpful.Task.*;
+import LittleMissHelpful.Parser.Parser;
+import LittleMissHelpful.Storage.Storage;
+import LittleMissHelpful.Tasks.TaskList;
+import LittleMissHelpful.Ui.Ui;
 
 public class LittleMissHelpful {
     private Storage storage;
@@ -32,32 +25,51 @@ public class LittleMissHelpful {
         }
     }
 
-    public void run() {
-        /**
-         * Runs the simulation of LittleMissHelpful
-         */
-        ui.showWelcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-
-            } catch (InvalidCommandException e) {
-                ui.showError(e.getMessage());
-            } catch (IOException e) {
-                ui.showError("An error occurred while reading the command. Please try again.");
-            }
+    public String getGreeting() {
+        try {
+            return ui.showWelcome();
+        } catch (Exception e) {
+            return e.getMessage();
         }
     }
 
-    public static void main(String[] args) {
-        new LittleMissHelpful("data/LittleMissHelpful.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            String response = command.execute(tasks, ui, storage);
+            return response;
+        } catch (InvalidCommandException e) {
+            return e.getMessage();
+        }
     }
 }
+
+//     public void run() {
+//         /**
+//          * Runs the simulation of LittleMissHelpful
+//          */
+//         ui.showWelcome();
+//         boolean isExit = false;
+
+//         while (!isExit) {
+//             try {
+//                 String fullCommand = ui.readCommand();
+//                 Command c = Parser.parse(fullCommand);
+//                 c.execute(tasks, ui, storage);
+//                 isExit = c.isExit();
+
+//             } catch (InvalidCommandException e) {
+//                 ui.showError(e.getMessage());
+//             } catch (IOException e) {
+//                 ui.showError("An error occurred while reading the command. Please try again.");
+//             }
+//         }
+//     }
+
+//     public static void main(String[] args) {
+//         new LittleMissHelpful("data/LittleMissHelpful.txt").run();
+//     }
+// }
 
 
 // public class LittleMissHelpful {

@@ -1,15 +1,15 @@
 package LittleMissHelpful.Command;
 
-import LittleMissHelpful.Storage;
-import LittleMissHelpful.TaskList;
-import LittleMissHelpful.Ui;
+import LittleMissHelpful.Storage.Storage;
+import LittleMissHelpful.Tasks.TaskList;
+import LittleMissHelpful.Ui.Ui;
 import LittleMissHelpful.Exception.InvalidCommandException;
 
 public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
-        ui.showExit();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         storage.save(tasks.getTasks());
+        return ui.showExit();
     }
 
     @Override

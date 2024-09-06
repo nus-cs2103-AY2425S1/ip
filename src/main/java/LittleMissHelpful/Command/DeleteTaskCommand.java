@@ -1,26 +1,26 @@
 package LittleMissHelpful.Command;
 
-import LittleMissHelpful.Storage;
-import LittleMissHelpful.TaskList;
-import LittleMissHelpful.Ui;
+import LittleMissHelpful.Storage.Storage;
+import LittleMissHelpful.Tasks.TaskList;
+import LittleMissHelpful.Ui.Ui;
 import LittleMissHelpful.Exception.InvalidCommandException;
 import LittleMissHelpful.Exception.InvalidTaskFormatException;
-import LittleMissHelpful.Task.Task;
+import LittleMissHelpful.Tasks.Task;
 
 public class DeleteTaskCommand extends Command {
     private final int taskIndex;
 
-    public DeleteTaskCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+    public DeleteTaskCommand(int listIndex) {
+        this.taskIndex = listIndex - 1;
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         try {
             Task task = tasks.get(taskIndex);
             tasks.delete(taskIndex);
-            ui.showDeletedTask(task, tasks);
             storage.save(tasks.getTasks());
+            return (ui.showDeletedTask(task, tasks));
 
         } catch (InvalidTaskFormatException e) {
             throw new InvalidCommandException("Task number out of range. Please provide a valid task number.");
