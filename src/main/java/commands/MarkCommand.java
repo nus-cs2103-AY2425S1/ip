@@ -28,10 +28,10 @@ public class MarkCommand extends Command {
      * - Print updated task
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.getTaskAt(taskIndex);
         task.markDone();
         storage.writeToTextStorage(tasks);
-        ui.printGenericFeedback("Nice! I've marked this task as done:\n  " + task);
+        return "Nice! I've marked this task as done:\n  " + task;
     }
 }

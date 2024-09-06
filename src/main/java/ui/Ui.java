@@ -44,6 +44,7 @@ public class Ui extends AnchorPane {
         return indentSpaces.concat(msgWithHLines.replace("\n", "\n".concat(indentSpaces)));
     }
 
+    @FXML
     public void printGenericFeedback(String response) {
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(response, dukeImage)
@@ -82,8 +83,7 @@ public class Ui extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage)
         );
 
-        String response = grok.processResponse(input);
-        printGenericFeedback(response);
+        printGenericFeedback(grok.processResponse(input));
 
         userInput.clear();
     }

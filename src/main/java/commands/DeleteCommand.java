@@ -28,11 +28,11 @@ public class DeleteCommand extends Command {
      * - Print deleted task and inform user on total tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.deleteTaskAt(taskIndex);
         storage.writeToTextStorage(tasks);
-        ui.printGenericFeedback("Got it. I've deleted this task:\n  "
+        return "Got it. I've deleted this task:\n  "
                 + task
-                + "\nNow you have " + tasks.length() + " tasks in the list.");
+                + "\nNow you have " + tasks.length() + " tasks in the list.";
     }
 }

@@ -43,16 +43,19 @@ public class Grok {
 //        }
     }
 
+    /**
+     * Processes some user input, and returns the feedback to return to the user.
+     * Consider: Abstraction of user feedback into the command itself (need to handle javafx access issues.)
+     * @param input - raw user input
+     * @return the feedback to be provided back to the user.
+     */
     public String processResponse(String input) {
         try {
             Command c = parser.parseUserInput(input, taskList);
-            c.execute(taskList, ui, storage);
-            if (c.isExit()) {
-
-            }
+            String output = c.execute(taskList, ui, storage);
+            return output;
         } catch (GrokInvalidUserInputException e) {
-            return e.getMessage();
+            return "Error! " + e.getMessage();
         }
-        return "a";
     }
 }
