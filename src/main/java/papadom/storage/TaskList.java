@@ -24,6 +24,7 @@ public class TaskList {
     private final ArrayList<Task> tasks;
 
     public TaskList(Storage storage) {
+        assert storage != null : "Storage cannot be null";
         this.tasks = storage.getTasks();
         this.STORAGE = storage;
     }
@@ -61,6 +62,7 @@ public class TaskList {
      * @return The message confirming the addition of the task.
      */
     public String addToList(Task task) {
+        assert task != null : "Task cannot be null";
         this.TASKS_LIST.add(task);
         this.STORAGE.addTaskToDatabase(task);
         String response = " Got it. I've added this task:\n  " + task.toString() + "\n"

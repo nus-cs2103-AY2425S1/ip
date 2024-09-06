@@ -11,6 +11,7 @@ public class Ui {
      * @param message The message to be displayed.
      */
     public String output(String message) {
+        assert !message.isEmpty() : "Message cannot be empty";
         return OPENING_LINE + message + CLOSING_LINE;
     }
     /**
