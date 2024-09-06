@@ -6,7 +6,7 @@ import stobberi.stobberiexception.StobberiException;
  * Represents a command that can be executed. The command has an exit flag that indicates
  * whether the command should terminate the application or not.
  */
-public class Command {
+public abstract class Command {
     /**
      * Indicates whether the command should exit the application.
      */

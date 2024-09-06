@@ -87,7 +87,7 @@ public class TaskList {
     /**
      * Displays the last added task.
      */
-    public String displayLastAdded() {
+    public String displayLastAddedTask() {
         return "Got it. I've added this task:\n    "
                 + listOfTasks.get(listOfTasks.size() - 1)
                 + "\n"
@@ -144,7 +144,7 @@ public class TaskList {
      */
     public String addTask(Task task) {
         listOfTasks.add(task);
-        return displayLastAdded();
+        return displayLastAddedTask();
     }
 
     /**

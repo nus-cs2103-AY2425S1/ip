@@ -104,7 +104,7 @@ public class Storage {
                     taskLine += " | ";
                     taskLine += event.getEndOfEvent();
                 }
-                if (task.getDone()) {
+                if (task.isDone()) {
                     taskLine += " | 1\n";
                 } else {
                     taskLine += " | 0\n";
