@@ -2,6 +2,9 @@ package charlotte.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import charlotte.exception.CharlotteException;
 
 /**
  * Represents a task that has a deadline.
@@ -16,10 +19,14 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param by The due date of the task in the format "yyyy-MM-dd".
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws CharlotteException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.by = LocalDate.parse(by, formatter);
+        try {
+            this.by = LocalDate.parse(by, formatter);
+        } catch (DateTimeParseException e) {
+            throw new CharlotteException("Invalid date format! Use yyyy-MM-dd instead");
+        }
     }
 
     /**

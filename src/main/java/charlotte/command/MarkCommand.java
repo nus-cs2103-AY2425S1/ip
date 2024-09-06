@@ -36,14 +36,14 @@ public class MarkCommand extends Command {
      * @throws CharlotteException If the provided index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
         if (index < 1 || index > tasks.getSize()) {
             throw new CharlotteException("Task number is invalid. Please try again");
         }
 
         Task task = tasks.getTask(index - 1);
         task.markAsDone();
-        ui.showMessage("Nice! I've marked this task as done:\n " + task);
         storage.saveTasks(tasks);
+        return ui.showMessage("Nice! I've marked this task as done:\n " + task);
     }
 }

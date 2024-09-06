@@ -30,36 +30,32 @@ public class Ui {
      * Prints a horizontal line to the console for formatting purposes.
      * This line is used to separate different sections of the UI output.
      */
-    public void printLine() {
-        System.out.println("__________________________________________________________________");
+    public String printLine() {
+        return "________________________________________";
     }
 
     /**
      * Prints a welcome message to the console when the application starts.
      * This method displays a greeting and prompts the user to enter commands.
      */
-    public void printWelcome() {
-        printLine();
-        System.out.println("Hello! I'm Charlotte!\nWhat can I do for you?");
-        printLine();
+    public String printWelcome() {
+        return printLine() + "\nHello! I'm Charlotte!\nWhat can I do for you?\n" + printLine();
     }
 
     /**
      * Prints an exit message to the console when the application is about to close.
      * This method displays a goodbye message to the user.
      */
-    public void printExit() {
-        printLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
+    public String printExit() {
+        return printLine() + "\nBye. Hope to see you again soon!\n" + printLine();
     }
 
     /**
      * Displays an error message indicating that no data file was found.
      * This method is called when the application fails to locate the existing data file.
      */
-    public void showLoadingError() {
-        System.out.println("No existing data file found");
+    public String showLoadingError() {
+        return "No existing data file found";
     }
 
     /**
@@ -67,10 +63,8 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
-        printLine();
-        System.out.println(message);
-        printLine();
+    public String showError(String message) {
+        return printLine() + "\n" + message + "\n" + printLine();
     }
 
     /**
@@ -78,9 +72,7 @@ public class Ui {
      *
      * @param message The message to be displayed.
      */
-    public void showMessage(String message) {
-        printLine();
-        System.out.println(message);
-        printLine();
+    public String showMessage(String message) {
+        return printLine() + "\n" + message + "\n" + printLine();
     }
 }

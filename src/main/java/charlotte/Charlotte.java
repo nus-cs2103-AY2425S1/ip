@@ -56,6 +56,19 @@ public class Charlotte {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String response = c.execute(tasks, ui, storage);
+            return response;
+        } catch (CharlotteException e) {
+            return ui.showError(e.getMessage());
+        }
+    }
+
+    /**
      * The main method to start the Charlotte chatbot.
      * <p>
      * This method creates an instance of the Charlotte chatbot with the specified data file path and

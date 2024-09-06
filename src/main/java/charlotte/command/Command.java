@@ -27,7 +27,7 @@ public abstract class Command {
      * @param storage The Storage object responsible for saving and loading tasks.
      * @throws CharlotteException If an error occurs during the execution of the command.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException;
 
     /**
      * Returns whether this command is an exit command.

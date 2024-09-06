@@ -30,8 +30,11 @@ public class FindCommand extends Command {
      * @throws CharlotteException If an error occurs during the execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
         TaskList matchingTasks = new TaskList();
+        StringBuilder result = new StringBuilder();
+
+        //find matching tasks
         for (Task task : tasks.getTasks()) {
             if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.addTask(task);
@@ -39,14 +42,16 @@ public class FindCommand extends Command {
         }
 
         if (matchingTasks.isEmpty()) {
-            ui.showMessage("No tasks found matching the keyword: " + keyword);
+            result.append(ui.showMessage("No tasks found matching the keyword: " + keyword));
         } else {
-            ui.printLine();
-            System.out.println("Here are the matching tasks in your list:");
+            result.append(ui.printLine()).append("\n");
+            result.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.getSize(); i++) {
-                System.out.println((i + 1) + ". " + matchingTasks.getTask(i));
+                result.append((i + 1)).append(". ").append(matchingTasks.getTask(i)).append("\n");
             }
-            ui.printLine();
+            result.append(ui.printLine()).append("\n");
         }
+
+        return result.toString();
     }
 }

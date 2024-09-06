@@ -15,8 +15,8 @@ public class ExitCommand extends Command {
      * @param ui The Ui object used to display messages to the user.
      * @param storage The Storage object, which is not used in this command.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         this.isExit = true;
-        ui.printExit();
+        return ui.printExit();
     }
 }

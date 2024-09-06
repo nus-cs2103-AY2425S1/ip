@@ -21,16 +21,23 @@ public class ListCommand extends Command {
      * @param storage The Storage object, which is not used in this command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder result = new StringBuilder();
+
+        //check if task list is empty
         if (tasks.isEmpty()) {
-            ui.showMessage("Your task list is currently empty");
+            result.append("Your task list is currently empty\n");
         } else {
-            ui.printLine();
-            System.out.println("Here are the tasks in your list:");
+            result.append(ui.printLine()).append("\n");
+            result.append("Here are the tasks in your list:\n");
+
+            //Add each task to the result string
             for (int i = 0; i < tasks.getSize(); i++) {
-                System.out.println((i + 1) + ". " + tasks.getTask(i));
+                result.append((i + 1)).append(". ").append(tasks.getTask(i)).append("\n");
             }
-            ui.printLine();
+            result.append(ui.printLine()).append("\n");
         }
+
+        return result.toString();
     }
 }

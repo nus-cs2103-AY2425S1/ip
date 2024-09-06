@@ -1,7 +1,11 @@
 package charlotte.task;
 
+import charlotte.exception.CharlotteException;
+
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task that spans a period of time, with a start and end date.
@@ -18,11 +22,16 @@ public class Event extends Task {
      * @param from The start date of the event in the format "yyyy-MM-dd".
      * @param to The end date of the event in the format "yyyy-MM-dd".
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws CharlotteException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.from = LocalDate.parse(from, formatter);
-        this.to = LocalDate.parse(to, formatter);
+        try {
+            this.from = LocalDate.parse(from, formatter);
+            this.to = LocalDate.parse(to, formatter);
+        } catch (DateTimeParseException e) {
+            throw new CharlotteException("Invalid date format! Use yyyy-MM-dd instead");
+        }
+
     }
 
     /**

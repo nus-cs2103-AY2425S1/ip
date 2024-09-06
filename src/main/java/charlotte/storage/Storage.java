@@ -71,6 +71,7 @@ public class Storage {
     public ArrayList<Task> loadTasks() throws CharlotteException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
+        System.out.println(file);
 
         if (!file.exists()) {
             throw new CharlotteException("No existing data file found");
@@ -97,11 +98,12 @@ public class Storage {
                     task = new Deadline(description, by);
                     break;
                 case "E":
-                    if (taskData.length < 5) {
+                    if (taskData.length < 4) {
                         throw new CharlotteException("Invalid format for an event task");
                     }
-                    String from = taskData[3];
-                    String to = taskData[4];
+                    String[] eventParts = taskData[3].split(" to ");
+                    String from = eventParts[0];
+                    String to = eventParts[1];
                     task = new Event(description, from, to);
                     break;
                 default:

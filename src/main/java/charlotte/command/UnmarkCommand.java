@@ -36,14 +36,14 @@ public class UnmarkCommand extends Command {
      * @throws CharlotteException If the provided index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
         if (index < 1 || index > tasks.getSize()) {
             throw new CharlotteException("Task number is invalid. Please try again");
         }
 
         Task task = tasks.getTask(index - 1);
         task.unmark();
-        ui.showMessage("OK, I've marked this task as not done yet:\n  " + task);
         storage.saveTasks(tasks);
+        return ui.showMessage("OK, I've marked this task as not done yet:\n  " + task);
     }
 }

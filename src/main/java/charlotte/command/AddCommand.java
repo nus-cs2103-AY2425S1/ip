@@ -44,10 +44,10 @@ public class AddCommand extends Command {
      * @throws CharlotteException If an error occurs while saving the task list to storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
         tasks.addTask(task);
-        ui.showMessage("Got it. I've added this task:\n  " + task
-                + "\n Now you have " + tasks.getSize() + " tasks in the list.");
         storage.saveTasks(tasks);
+        return ui.showMessage("Got it. I've added this task:\n  " + task
+                + "\n Now you have " + tasks.getSize() + " tasks in the list.");
     }
 }
