@@ -37,7 +37,6 @@ public class Parser {
             return Command.NOOP;
         }
 
-        String response;
         String command = input.split(" ")[0];
         return switch (command) {
         case "bye" -> new ExitCommand();
@@ -204,41 +203,90 @@ public class Parser {
      * @throws BobException If the task string is invalid.
      */
     public static Task parseStorage(String taskString) throws BobException {
+        ToDo todo = parseTodo(taskString);
+        if (todo != null) {
+            return todo;
+        }
+
+        Deadline deadline = parseDeadline(taskString);
+        if (deadline != null) {
+            return deadline;
+        }
+
+        Event event = parseEvent(taskString);
+        if (event != null) {
+            return event;
+        }
+
+        throw new BobException("Could not parse task.");
+    }
+
+    private static ToDo parseTodo(String taskString) {
         Matcher todoMatcher = Pattern.compile("^\\[T]\\[([X ])] (.*)$").matcher(taskString);
+
+        if (!todoMatcher.find()) {
+            return null;
+        }
+
+        boolean isCompleted = Objects.equals(todoMatcher.group(1), "X");
+        String name = todoMatcher.group(2);
+
+        ToDo task = new ToDo(name);
+        if (isCompleted) {
+            task.mark(true);
+        }
+
+        return task;
+    }
+
+    private static Deadline parseDeadline(String taskString) throws BobException {
         Matcher deadlineMatcher = Pattern.compile("^\\[D]\\[([X ])] (.*) \\(by: (.*)\\)$").matcher(taskString);
-        Matcher eventMatcher = Pattern.compile("^\\[E]\\[([X ])] (.*) \\(from: (.*) to: (.*)\\)$").matcher(taskString);
-
-        boolean isCompleted;
-        Task task;
         DateTimeFormatter f = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+
+        if (!deadlineMatcher.find()) {
+            return null;
+        }
+
+        boolean isCompleted = Objects.equals(deadlineMatcher.group(1), "X");
+        String name = deadlineMatcher.group(2);
+        LocalDateTime deadline;
         try {
-            if (todoMatcher.find()) {
-                isCompleted = Objects.equals(todoMatcher.group(1), "X");
-                String name = todoMatcher.group(2);
-
-                task = new ToDo(name);
-            } else if (deadlineMatcher.find()) {
-                isCompleted = Objects.equals(deadlineMatcher.group(1), "X");
-                String name = deadlineMatcher.group(2);
-                LocalDateTime deadline = LocalDateTime.parse(deadlineMatcher.group(3), f);
-
-                task = new Deadline(name, deadline);
-            } else if (eventMatcher.find()) {
-                isCompleted = Objects.equals(eventMatcher.group(1), "X");
-                String name = eventMatcher.group(2);
-                LocalDateTime start = LocalDateTime.parse(eventMatcher.group(3), f);
-                LocalDateTime end = LocalDateTime.parse(eventMatcher.group(4), f);
-
-                task = new Event(name, start, end);
-            } else {
-                throw new BobException("Could not parse task.");
-            }
-
-            if (isCompleted) {
-                task.mark(true);
-            }
+            deadline = LocalDateTime.parse(deadlineMatcher.group(3), f);
         } catch (DateTimeParseException e) {
             throw new BobException("Could not parse task.");
+        }
+
+        Deadline task = new Deadline(name, deadline);
+        if (isCompleted) {
+            task.mark(true);
+        }
+
+        return task;
+    }
+
+    private static Event parseEvent(String taskString) throws BobException {
+        Matcher eventMatcher = Pattern.compile("^\\[E]\\[([X ])] (.*) \\(from: (.*) to: (.*)\\)$")
+                .matcher(taskString);
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+
+        if (!eventMatcher.find()) {
+            return null;
+        }
+
+        boolean isCompleted = Objects.equals(eventMatcher.group(1), "X");
+        String name = eventMatcher.group(2);
+        LocalDateTime start;
+        LocalDateTime end;
+        try {
+            start = LocalDateTime.parse(eventMatcher.group(3), f);
+            end = LocalDateTime.parse(eventMatcher.group(4), f);
+        } catch (DateTimeParseException e) {
+            throw new BobException("Could not parse task.");
+        }
+
+        Event task = new Event(name, start, end);
+        if (isCompleted) {
+            task.mark(true);
         }
 
         return task;
