@@ -35,5 +35,5 @@ public abstract class Command {
      * @param ui Ui object that handles the user interface.
      * @throws DemureBotException If an error occurs during the execution of the command.
      */
-    public abstract void execute(TaskList list, Ui ui) throws DemureBotException;
+    public abstract String execute(TaskList list, Ui ui) throws DemureBotException;
 }

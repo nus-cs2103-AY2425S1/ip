@@ -20,11 +20,10 @@ public class ListCommand extends Command {
      * @return String representation of the ListCommand object.
      */
     @Override
-    public void execute(TaskList list, Ui ui) {
+    public String execute(TaskList list, Ui ui) {
         if (list.getSize() == 0) {
-            ui.displayEmptyList();
-        } else {
-            ui.displayList(list);
+            return ui.displayEmptyList();
         }
+        return ui.displayList(list);
     }
 }

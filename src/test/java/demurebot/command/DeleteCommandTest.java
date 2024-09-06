@@ -31,13 +31,9 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand("1");
         command.execute(taskList, ui);
         assertEquals("""
-                ____________________________________________________________
                  Noted. I've removed this task:
                    [T][ ] Sample Task 1
                  Now you have 0 tasks in the list.
-                ____________________________________________________________
-
-
                 """, outContent.toString());
     }
 

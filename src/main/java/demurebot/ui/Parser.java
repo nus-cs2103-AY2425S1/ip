@@ -11,6 +11,7 @@ import demurebot.command.TodoCommand;
 import demurebot.command.DeadlineCommand;
 import demurebot.command.EventCommand;
 import demurebot.command.InvalidCommand;
+import demurebot.command.FindCommand;
 import demurebot.task.Deadline;
 import demurebot.task.Event;
 

@@ -21,12 +21,12 @@ public class InvalidCommand extends Command {
      * @param list TaskList containing the list of tasks.
      * @param ui Ui object to interact with the user.
      * @throws DemureBotException If an invalid command is entered.
+     * @return Error message to inform the user of the invalid command.
      */
     @Override
-    public void execute(TaskList list, Ui ui) throws DemureBotException {
+    public String execute(TaskList list, Ui ui) throws DemureBotException {
         throw new DemureBotException(
                 "Invalid command\nCreate a new task starting with the command todo, deadline or event.\n"
         );
-
     }
 }

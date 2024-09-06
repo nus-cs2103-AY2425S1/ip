@@ -10,27 +10,11 @@ import demurebot.task.TaskList;
 public class Ui {
     /**
      * Displays the end message when the user exits the application.
+     * @return The end message.
      */
-    public void displayEnd() {
-        System.out.println("""
-                ____________________________________________________________
+    public String displayEnd() {
+        return("""
                  Bye. Hope to see you again soon!
-                ____________________________________________________________
-        
-                """
-        );
-    }
-
-    /**
-     * Displays the start message when the user starts the application.
-     */
-    public void displayStart() {
-        System.out.println("""
-                ____________________________________________________________
-                 Hello! I'm DemureBot
-                 What can I do for you?
-                ____________________________________________________________
-    
                 """
         );
     }
@@ -39,12 +23,11 @@ public class Ui {
      * Displays a message indicating that a task has been marked as done.
      *
      * @param task The task that has been marked as done.
+     * @return The message indicating that a task has been marked as done.
      */
-    public void displayMarkTask(Task task) {
-        System.out.println("____________________________________________________________\n"
-                + " Nice! I've marked this task as done:\n   "
+    public String displayMarkTask(Task task) {
+        return(" Nice! I've marked this task as done:\n   "
                 + task + "\n"
-                + "____________________________________________________________\n\n"
         );
     }
 
@@ -52,12 +35,11 @@ public class Ui {
      * Displays a message indicating that a task has been marked as not done.
      *
      * @param task The task that has been marked as not done.
+     * @return The message indicating that a task has been marked as not done.
      */
-    public void displayUnmarkTask(Task task) {
-        System.out.println("____________________________________________________________\n"
-                + " OK, I've marked this task as not done yet:\n   "
+    public String displayUnmarkTask(Task task) {
+        return(" OK, I've marked this task as not done yet:\n   "
                 + task + "\n"
-                + "____________________________________________________________\n\n"
         );
     }
 
@@ -66,13 +48,12 @@ public class Ui {
      *
      * @param task The task that has been deleted.
      * @param size The current number of tasks in the list.
+     * @return The message indicating that a task has been deleted.
      */
-    public void displayDeleteTask(Task task, int size) {
-        System.out.println("____________________________________________________________\n"
-                + " Noted. I've removed this task:\n   "
+    public String displayDeleteTask(Task task, int size) {
+        return(" Noted. I've removed this task:\n   "
                 + task + "\n"
                 + " Now you have " + size + " tasks in the list.\n"
-                + "____________________________________________________________\n\n"
         );
     }
 
@@ -81,25 +62,22 @@ public class Ui {
      *
      * @param task The task that has been added.
      * @param size The current number of tasks in the list.
+     * @return The message indicating that a task has been added.
      */
-    public void displayAddTask(Task task, int size) {
-        System.out.println("____________________________________________________________\n"
-                + "Got it. I've added this task:\n  "
+    public String displayAddTask(Task task, int size) {
+        return("Got it. I've added this task:\n  "
                 + task + "\n"
                 + "Now you have " + size + " tasks in the list.\n"
-                + "____________________________________________________________\n\n"
         );
     }
 
     /**
      * Displays a message indicating that the task list is empty.
+     * @return The message indicating that the task list is empty.
      */
-    public void displayEmptyList() {
-        System.out.println("""
-            ____________________________________________________________
+    public String displayEmptyList() {
+        return("""
             There are no tasks in the list.
-            ____________________________________________________________
-
             """
         );
     }
@@ -108,11 +86,14 @@ public class Ui {
      * Displays the list of tasks.
      *
      * @param list The TaskList containing the tasks to be displayed.
+     * @return The list of tasks.
      */
-    public void displayList(TaskList list) {
+    public String displayList(TaskList list) {
+        StringBuilder response = new StringBuilder();
         for (int i = 0; i < list.getSize(); i++) {
             Task task = list.getTask(i);
-            System.out.println((i + 1) + "." + task);
+            response.append((i + 1)).append(".").append(task);
         }
+        return response.toString();
     }
 }

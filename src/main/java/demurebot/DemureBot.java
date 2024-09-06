@@ -8,7 +8,6 @@ import demurebot.ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Main class for the DemureBot application.
@@ -18,6 +17,7 @@ public class DemureBot {
     private TaskList list;
     private final Storage storage;
     private final Ui ui;
+    private final String FILEPATH = "./data/tasks.txt";
 
     /**
      * Constructs a new DemureBot instance.
@@ -27,34 +27,19 @@ public class DemureBot {
         this.storage = new Storage();
         this.ui = new Ui();
         this.list = null;
-    }
-
-    /**
-     * Runs the main loop of the DemureBot application.
-     * Handles user input, command execution, and data persistence.
-     */
-    private void run() {
-        Scanner scanner = new Scanner(System.in);
-
-        // check if user ended session
-        boolean isFinished = false;
-
-        // introduction to chatbot
-        this.ui.displayStart();
 
         // check if data folder exists if not create it
         String folderPath = "./data";
         this.storage.checkFolder(folderPath);
 
         // check if saved data exists if not create it
-        String filePath = "./data/tasks.txt";
-        boolean savedDataExists = this.storage.checkFile(filePath);
+        boolean savedDataExists = this.storage.checkFile(FILEPATH);
 
         // load saved data if exists
         if (savedDataExists) {
             try {
                 // fetch list of items to do
-                this.list = new TaskList(this.storage.load(filePath));
+                this.list = new TaskList(this.storage.load(FILEPATH));
             } catch (IOException e) {
                 System.out.println("Error reading file: " + e.getMessage());
             } catch (DemureBotException e) {
@@ -65,32 +50,20 @@ public class DemureBot {
         if (this.list == null) {
             this.list = new TaskList(new ArrayList<>());
         }
-
-        // while user hasn't ended session
-        while (!isFinished) {
-            String input = scanner.nextLine();
-            try {
-                Command command = Parser.parse(input);
-                command.execute(this.list, this.ui);
-                isFinished = command.isExit();
-            } catch (DemureBotException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        // close scanner and end session
-        scanner.close();
-
-        // save task list
-        this.storage.save(filePath, this.list);
     }
 
     /**
-     * Main method to start the DemureBot application.
-     *
-     * @param args Command line arguments.
+     * Runs the main loop of the DemureBot application.
+     * Handles user input, command execution, and data persistence.
      */
-    public static void main(String[] args) {
-        new DemureBot().run();
+    public String run(String input) {
+        try {
+            Command command = Parser.parse(input);
+            String response = command.execute(this.list, this.ui);
+            this.storage.save(FILEPATH, this.list);
+            return response;
+        } catch (DemureBotException e) {
+            return(e.getMessage());
+        }
     }
 }

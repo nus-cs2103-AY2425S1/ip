@@ -19,9 +19,10 @@ public class EndCommand extends Command{
      *
      * @param list The task list.
      * @param ui The user interface to display the result of the command.
+     * @return The result of the command.
      */
     @Override
-    public void execute(TaskList list, Ui ui) {
-        ui.displayEnd();
+    public String execute(TaskList list, Ui ui) {
+        return ui.displayEnd();
     }
 }

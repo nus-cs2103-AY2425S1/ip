@@ -25,10 +25,11 @@ public class EventCommand extends Command {
      *
      * @param list Task list containing all tasks.
      * @param ui Ui to interact with the user.
+     * @return Success message after adding the event task.
      */
     @Override
-    public void execute(TaskList list, Ui ui) {
+    public String execute(TaskList list, Ui ui) {
         list.addTask(event);
-        ui.displayAddTask(event, list.getSize());
+        return ui.displayAddTask(event, list.getSize());
     }
 }

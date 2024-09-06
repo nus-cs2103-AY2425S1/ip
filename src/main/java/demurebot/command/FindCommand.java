@@ -24,13 +24,16 @@ public class FindCommand extends Command {
      *
      * @param tasks List of tasks.
      * @param ui Ui to interact with user.
+     * @return String representation of tasks with the keyword.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String execute(TaskList tasks, Ui ui) {
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.getTask(i).getDescription().contains(keyword)) {
-                System.out.println(tasks.getTask(i));
+                result.append(tasks.getTask(i));
             }
         }
+        return result.toString();
     }
 }

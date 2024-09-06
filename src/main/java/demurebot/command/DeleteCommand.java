@@ -25,18 +25,19 @@ public class DeleteCommand extends Command {
      *
      * @param list The task list.
      * @param ui The user interface to display the result of the command.
+     * @return The result of the command.
      */
     @Override
-    public void execute(TaskList list, Ui ui) {
+    public String execute(TaskList list, Ui ui) {
         try {
             int index = Integer.parseInt(remainder) - 1;
             Task task = list.getTask(index);
             list.removeTask(index);
-            ui.displayDeleteTask(task, list.getSize());
+            return ui.displayDeleteTask(task, list.getSize());
         } catch (NumberFormatException e) {
-            System.out.println("Please enter a positive integer after delete.\n");
+            return("Please enter a positive integer after delete.\n");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid index: " +
+            return("Invalid index: " +
                 (Integer.parseInt(remainder)) +
                 "\n" +
                 "Please enter a number within 1 to number of current tasks.\n"
