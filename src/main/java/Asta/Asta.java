@@ -4,6 +4,9 @@ import Asta.command.Command;
 import Asta.command.Parser;
 import Asta.task.Task;
 import Asta.task.TaskList;
+import Asta.ui.Main;
+import Asta.ui.Ui;
+import javafx.application.Application;
 
 import java.util.ArrayList;
 
@@ -13,9 +16,9 @@ public class Asta {
     private final Ui ui;
     private TaskList tasks;
 
-    public Asta(String filePath) {
+    public Asta() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (AstaException e) {
@@ -30,87 +33,80 @@ public class Asta {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        new Asta(FILE_PATH).run();
+        Application.launch(Main.class, args);
     }
 
     /**
      * Runs the main logic of the application. Reads user input and processes commands.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            String fullCommand = ui.readCommand();
-            Command command = Parser.parse(fullCommand);
-            ui.showLine();
-            try {
-                switch (command) {
-                case BYE:
-                    isExit = true;
-                    ui.showMessage("Bye. Hope to see you again soon!");
-                    break;
-                case LIST:
-                    tasks.listTasks(ui);
-                    break;
-                case MARK:
-                    int markTaskNumber = tasks.getTaskNumber(fullCommand, "mark");
-                    tasks.markTask(markTaskNumber, true);
-                    ui.showMessage("Nice! I've marked this task as done:");
-                    ui.showMessage(tasks.getTask(markTaskNumber).toString());
-                    storage.save(tasks.getTasks());
-                    break;
-                case UNMARK:
-                    int unmarkTaskNumber = tasks.getTaskNumber(fullCommand, "unmark");
-                    tasks.markTask(unmarkTaskNumber, false);
-                    ui.showMessage("OK, I've marked this task as not done yet:");
-                    ui.showMessage(tasks.getTask(unmarkTaskNumber).toString());
-                    storage.save(tasks.getTasks());
-                    break;
-                case TODO:
-                    String todoDescription = fullCommand.substring(5).trim();
-                    tasks.addTodoTask(todoDescription);
-                    ui.showMessage("Got it. I've added this task:");
-                    ui.showMessage("[T][ ] " + todoDescription);
-                    storage.save(tasks.getTasks());
-                    break;
-                case DEADLINE:
-                    String[] deadlineParts = fullCommand.substring(9).split(" /by ");
-                    tasks.addDeadlineTask(deadlineParts[0].trim(), deadlineParts[1].trim());
-                    ui.showMessage("Got it. I've added this task:");
-                    ui.showMessage(tasks.getTask(tasks.getSize() - 1).toString());
-                    storage.save(tasks.getTasks());
-                    break;
-                case EVENT:
-                    String[] eventParts = fullCommand.substring(6).split(" /from | /to ");
-                    tasks.addEventTask(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
-                    ui.showMessage("Got it. I've added this task:");
-                    ui.showMessage(tasks.getTask(tasks.getSize() - 1).toString());
-                    storage.save(tasks.getTasks());
-                    break;
-                case DELETE:
-                    int deleteTaskNumber = tasks.getTaskNumber(fullCommand, "delete");
-                    Task removedTask = tasks.deleteTask(deleteTaskNumber);
-                    ui.showMessage("Noted. I've removed this task:");
-                    ui.showMessage(removedTask.toString());
-                    storage.save(tasks.getTasks());
-                    break;
-                case FIND:
-                    String keyword = fullCommand.substring(5).trim();
-                    ArrayList<Task> matchingTasks = tasks.findTasks(keyword, ui);
-                    ui.showMessage("Here are the matching tasks in your list:");
-                    for (int i = 0; i < matchingTasks.size(); i++) {
-                        ui.showMessage((i + 1) + ". " + matchingTasks.get(i));
-                    }
-                    break;
-                default:
-                    AstaException.handleInvalidCommand();
-                    break;
+    public String getResponse(String fullCommand) {
+        StringBuilder response = new StringBuilder();
+        Command command = Parser.parse(fullCommand);
+        try {
+            switch (command) {
+            case BYE:
+                response.append("Bye. Hope to see you again soon!");
+                break;
+            case LIST:
+                response.append(tasks.listTasks());
+                break;
+            case MARK:
+                int markTaskNumber = tasks.getTaskNumber(fullCommand, "mark");
+                tasks.markTask(markTaskNumber, true);
+                response.append("Nice! I've marked this task as done:\n");
+                response.append(tasks.getTask(markTaskNumber)).append("\n");
+                storage.save(tasks.getTasks());
+                break;
+            case UNMARK:
+                int unmarkTaskNumber = tasks.getTaskNumber(fullCommand, "unmark");
+                tasks.markTask(unmarkTaskNumber, false);
+                response.append("OK, I've marked this task as not done yet:\n");
+                response.append(tasks.getTask(unmarkTaskNumber)).append("\n");
+                storage.save(tasks.getTasks());
+                break;
+            case TODO:
+                String todoDescription = fullCommand.substring(5).trim();
+                tasks.addTodoTask(todoDescription);
+                response.append("Got it. I've added this task:\n");
+                response.append("[T][ ] ").append(todoDescription).append("\n");
+                storage.save(tasks.getTasks());
+                break;
+            case DEADLINE:
+                String[] deadlineParts = fullCommand.substring(9).split(" /by ");
+                tasks.addDeadlineTask(deadlineParts[0].trim(), deadlineParts[1].trim());
+                response.append("Got it. I've added this task:\n");
+                response.append(tasks.getTask(tasks.getSize() - 1)).append("\n");
+                storage.save(tasks.getTasks());
+                break;
+            case EVENT:
+                String[] eventParts = fullCommand.substring(6).split(" /from | /to ");
+                tasks.addEventTask(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
+                response.append("Got it. I've added this task:\n");
+                response.append(tasks.getTask(tasks.getSize() - 1)).append("\n");
+                storage.save(tasks.getTasks());
+                break;
+            case DELETE:
+                int deleteTaskNumber = tasks.getTaskNumber(fullCommand, "delete");
+                Task removedTask = tasks.deleteTask(deleteTaskNumber);
+                response.append("Noted. I've removed this task:\n");
+                response.append(removedTask).append("\n");
+                storage.save(tasks.getTasks());
+                break;
+            case FIND:
+                String keyword = fullCommand.substring(5).trim();
+                ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+                response.append("Here are the matching tasks in your list:\n");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    response.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
                 }
-            } catch (AstaException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
+                break;
+            default:
+                AstaException.handleInvalidCommand();
+                break;
             }
+        } catch (AstaException e) {
+            return ui.showError(e.getMessage());
         }
+        return response.toString();
     }
 }
