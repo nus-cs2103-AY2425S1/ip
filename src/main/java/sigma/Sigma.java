@@ -44,10 +44,12 @@ public class Sigma {
         tasks = new TaskList(storage.read(data));
     }
 
+
     /**
      * sigma.gui.Main method to run Sigma.
      * @param args
      */
+    /*
     public static void main(String[] args) {
         Sigma sigma = new Sigma("data.txt");
         sigma.run();
@@ -62,6 +64,7 @@ public class Sigma {
      * @throws SigmaException
      * @throws NumberFormatException
      */
+    /*
     public void run() {
         ui.welcome();
         boolean isExit = false;
@@ -81,6 +84,7 @@ public class Sigma {
             storage.write(tasks.getTasks());
         }
     }
+    */
 
     /**
      * Generates a response for the user's chat message.
