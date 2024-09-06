@@ -1,11 +1,12 @@
 package alfred.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import alfred.ui.AlfredResponse;
 
 class ParserTest {
 
@@ -32,38 +33,42 @@ class ParserTest {
     }
 
     @Test
-    void isValidCommand_validInput() {
+    void validateCommand_validInput() {
         String input = "mark 2";
-        boolean isValid = Parser.isValidCommand(input, "mark", 3);
-        assertTrue(isValid);
+        String validationResult = Parser.validateCommand(input, "mark", 3);
+        assertTrue(validationResult.isEmpty(), "Expected command to be valid");
     }
 
     @Test
-    void isValidCommand_invalidCommandFormat() {
+    void validateCommand_invalidCommandFormat() {
         String input = "mark2";
-        boolean isValid = Parser.isValidCommand(input, "mark", 3);
-        assertFalse(isValid);
+        String validationResult = Parser.validateCommand(input, "mark", 3);
+        assertEquals(AlfredResponse.showInvalidCommandFormat(),
+                validationResult, "Expected invalid command format error message");
     }
 
     @Test
-    void testInvalidTaskNumber_tooHigh() {
+    void validateCommand_taskNumberTooHigh() {
         String input = "mark 5";
-        boolean isValid = Parser.isValidCommand(input, "mark", 3);
-        assertFalse(isValid);
+        String validationResult = Parser.validateCommand(input, "mark", 3);
+        assertEquals(AlfredResponse.showInvalidTaskNumber(3),
+                validationResult, "Expected invalid task number error message (too high)");
     }
 
     @Test
-    void testInvalidTaskNumber_tooLow() {
+    void validateCommand_taskNumberTooLow() {
         String input = "mark 0";
-        boolean isValid = Parser.isValidCommand(input, "mark", 3);
-        assertFalse(isValid);
+        String validationResult = Parser.validateCommand(input, "mark", 3);
+        assertEquals(AlfredResponse.showInvalidTaskNumber(3),
+                validationResult, "Expected invalid task number error message (too low)");
     }
 
     @Test
-    void testInvalidTaskNumber_negative() {
+    void validateCommand_negativeTaskNumber() {
         String input = "mark -1";
-        boolean isValid = Parser.isValidCommand(input, "mark", 3);
-        assertFalse(isValid);
+        String validationResult = Parser.validateCommand(input, "mark", 3);
+        assertEquals(AlfredResponse.showInvalidCommandFormat(),
+                validationResult, "Expected invalid task number error message (negative)");
     }
 }
 
