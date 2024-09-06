@@ -1,3 +1,7 @@
+package Storage;
+
+import Exceptions.KieTwoForOneException;
+import Tasks.Task;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
@@ -37,7 +41,7 @@ public class Storage {
         } catch (IOException e) {
             throw new KieTwoForOneException("File not found!");
         } catch (ClassNotFoundException e) {
-            throw new KieTwoForOneException("Not a Task!");
+            throw new KieTwoForOneException("Not a task!");
         }
     }
 }
