@@ -164,6 +164,11 @@ public class Parser {
                 throw new InvalidInputException("Too MANY arguments!\nUsage: " + usageMessage);
             }
             break;
+        case FIND:
+            if (inputTokens.length == 1) {
+                String usageMessage = Command.usageMessage(command);
+                throw new InvalidInputException("No keyword entered!\nUsage: " + usageMessage);
+            }
         case MARK:
         case UNMARK:
         case DELETE:
