@@ -1,11 +1,13 @@
 package sumode.util;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import sumode.exception.AlreadyMarkedException;
 import sumode.exception.AlreadyUnmarkedException;
+import sumode.exception.LatestSaveException;
 import sumode.exception.NonExistentTaskException;
 import sumode.exception.SumoDException;
 import sumode.exception.UnknownCommandException;
@@ -33,18 +35,24 @@ public class SumoTaskList {
         this.tasks = new ArrayList<>();
         this.storage = storage;
         this.ui = ui;
+        loadDataFromStorage();
+    }
 
-        //adding tasks based on data
-        String[] datas = storage.load();
-        for (int i = 0; i < datas.length; i++) {
+    /**
+     * Updates the task list with data from internal storage.
+     */
+    private void loadDataFromStorage() throws FileNotFoundException {
+        if (this.storage == null) {
+            return;
+        }
+        String[] data = storage.load();
+        for (int i = 0; i < data.length; i++) {
             try {
-                tasks.add(Task.createFromData(datas[i]));
+                this.tasks.add(Task.createFromData(data[i]));
             } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                ui.warnCorruptedSaveFile(i + 1);
+                this.ui.warnCorruptedSaveFile(i + 1);
             }
         }
-
-
     }
 
 
@@ -68,48 +76,37 @@ public class SumoTaskList {
             this.ui.printTask(this.tasks, false);
             break;
         case FIND:
-            List<Task> filtered = this.tasks.stream()
-                    .filter(task -> task.toString().contains(item))
-                    .toList();
+            List<Task> filtered = getFilteredTasks(item);
             this.ui.printTask(filtered, true);
             break;
         case MARK: {
             int index = getIndex(command, item);
             tasks.get(index - 1).mark();
             ui.printTaskMarked(tasks.get(index - 1));
-        }
-            if (storage != null) {
-                storage.save(this.tasks);
-            }
+            tryToSave();
             break;
+        }
         case UNMARK: {
             int index = getIndex(command, item);
             tasks.get(index - 1).unmark();
             ui.printTaskUnmarked(tasks.get(index - 1));
-        }
-            if (storage != null) {
-                storage.save(this.tasks);
-            }
-
+            tryToSave();
             break;
+        }
         case DELETE: {
             int index = getIndex(command, item);
             ui.printTaskRemoved(tasks.get(index - 1), tasks.size() - 1);
             tasks.remove(index - 1);
-        }
-            if (storage != null) {
-                storage.save(this.tasks);
-            }
+            tryToSave();
             break;
+        }
         case TODO:
         case DEADLINE:
         case EVENT:
             Task newlyAdded = Task.of(command, item);
             tasks.add(newlyAdded); // used factory method to be more neat and OOP
             ui.printTaskAdded(newlyAdded, tasks.size());
-            if (storage != null) {
-                storage.save(this.tasks);
-            }
+            tryToSave();
             break;
         default:
             throw new UnknownCommandException(command);
@@ -117,6 +114,31 @@ public class SumoTaskList {
         return false;
     }
 
+    /**
+     * Returns a filtered task lists containing tasks matching the String given.
+     * @param item The string which we try to match to.
+     */
+    private List<Task> getFilteredTasks(String item) {
+        return this.tasks.stream()
+                .filter(task -> task.toString().contains(item))
+                .toList();
+    }
+
+    /**
+     * Attempts to save data to storage if it exists.
+     */
+    private void tryToSave() throws LatestSaveException {
+        if (storage != null) {
+            storage.save(this.tasks);
+        }
+    }
+
+    /**
+     * Returns an int for index of task to be deleted/marked/unmarked.
+     *
+     * @param command DELETE/MARK/UNMARK
+     * @param item String to be parsed to index
+     */
     private int getIndex(Command command, String item) throws WrongSyntaxForCommandException, NonExistentTaskException {
         int index;
         try {

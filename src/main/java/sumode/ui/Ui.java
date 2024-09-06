@@ -30,8 +30,8 @@ public class Ui {
 
     private SumoDE sumoDE;
 
-    private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/kangaroo.png"));
-    private final Image SUMO_IMAGE = new Image(this.getClass().getResourceAsStream("/images/sumoDE.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/kangaroo.png"));
+    private final Image sumoImage = new Image(this.getClass().getResourceAsStream("/images/sumoDE.png"));
 
     /** Initialise the property for scroll bar to always scroll down and for SumoDE to greet */
     @FXML
@@ -52,7 +52,7 @@ public class Ui {
      */
     @FXML
     private void respond(String response) {
-        dialogContainer.getChildren().addAll(DialogBox.getSumoDialog(response, SUMO_IMAGE));
+        dialogContainer.getChildren().addAll(DialogBox.getSumoDialog(response, sumoImage));
     }
 
     /**
@@ -61,7 +61,7 @@ public class Ui {
      */
     @FXML
     private void respondDanger(String response) {
-        dialogContainer.getChildren().addAll(DialogBox.getSumoAngryDialog(response, SUMO_IMAGE));
+        dialogContainer.getChildren().addAll(DialogBox.getSumoAngryDialog(response, sumoImage));
     }
 
     /**
@@ -71,7 +71,7 @@ public class Ui {
     @FXML
     private void echo(String input) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, USER_IMAGE)
+                DialogBox.getUserDialog(input, userImage)
         );
     }
 

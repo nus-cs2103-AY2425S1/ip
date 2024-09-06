@@ -137,7 +137,7 @@ public class Parser {
         if (fromLocation == -1 || toLocation == -1) {
             throw new WrongSyntaxForCommandException(Command.EVENT);
         }
-        if (fromLocation < toLocation) {
+        if (fromLocation < toLocation) { // To handle both cases where /from is entered before /to and vice versa
             name = item.substring(0, fromLocation).trim();
             start = item.substring(fromLocation + 7, toLocation).trim();
             end = item.substring(toLocation + 5).trim();
