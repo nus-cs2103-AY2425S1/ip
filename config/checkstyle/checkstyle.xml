@@ -87,6 +87,7 @@
         <module name="AbbreviationAsWordInName">
             <property name="ignoreFinal" value="false"/>
             <property name="allowedAbbreviationLength" value="1"/>
+            <property name="allowedAbbreviations" value="TWO_INDENT,ONE_INDENT"/>
         </module>
 
         <module name="PackageName">
@@ -122,7 +123,9 @@
             <metadata name="altname" value="MemberName"/>
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
             <property name="severity" value="warning"/>
+            <property name="allowMultiple" value="true"/>
         </module>
+
 
         <module name="MethodName">
             <!-- Validates identifiers for method names against the supplied expression. -->

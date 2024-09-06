@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
     private Carly carly;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/resources/images/DaUser.png"));
-    private Image CarlyImage = new Image(this.getClass().getResourceAsStream("/images/Dacarly.png"));
+    private Image carlyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
         String response = carly.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getCarlyDialog(response, CarlyImage)
+                DialogBox.getCarlyDialog(response, carlyImage)
         );
         userInput.clear();
     }

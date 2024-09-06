@@ -29,6 +29,7 @@ dependencies {
 
 checkstyle {
     toolVersion = '10.2'
+    configFile = file('config/checkstyle/checkstyle.xml')
 }
 
 test {
@@ -46,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("carly.ui.Main")
+    mainClass.set("carly.ui.Launcher")
 }
 
 shadowJar {
