@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Task implements Serializable {
-    private Boolean done;
+    private Boolean isDone;
     private String desc;
     private Category taskType;
 
@@ -19,12 +19,12 @@ public class Task implements Serializable {
 
     public Task(String desc) {
         this.desc = desc;
-        this.done = false;
+        this.isDone = false;
     }
 
     public Task(char c, String desc) {
         this.desc = desc;
-        this.done = false;
+        this.isDone = false;
         if (c == 'T') {
             this.taskType = Category.T;
         } else if (c == 'D') {
@@ -38,14 +38,14 @@ public class Task implements Serializable {
      * Marks this task as done/completed.
      */
     public void markDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks this task as not done/completed.
      */
     public void markUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -53,7 +53,7 @@ public class Task implements Serializable {
      * @return Task description
      */
     public String getDesc() {
-        return done.equals(true) ? "[" + taskType.name() + "]"+ "[X] " + this.desc
+        return isDone.equals(true) ? "[" + taskType.name() + "]"+ "[X] " + this.desc
                                  : "[" + taskType.name() + "]"+ "[ ] " + this.desc;
     }
 

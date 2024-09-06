@@ -25,15 +25,19 @@ public class Ui {
     /**
      * Greets the user with a welcome message.
      */
-    public void greet() {
-        System.out.println("Hello! I'm " + this.name + "\nWhat can I do for you?");
+    public String greet() {
+        String greetMessage = "Hello! I'm " + this.name + "\nWhat can I do for you?";
+        System.out.println(greetMessage);
+        return greetMessage;
     }
 
     /**
      * Bids farewell to the user with a goodbye message.
      */
-    public void goodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String goodbye() {
+        String goodbyeMessage = "Bye. Hope to see you again soon!";
+        System.out.println(goodbyeMessage);
+        return goodbyeMessage;
     }
 
     /**
@@ -50,13 +54,15 @@ public class Ui {
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void showTaskList(ArrayList<Task> tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public String showTaskList(ArrayList<Task> tasks) {
+        String outputMessage = "Here are the tasks in your list:";
         int num = 1;
         for (Task task : tasks) {
-            System.out.println(num + ". " + task.getDesc());
+            outputMessage += ("\n" + num + ". " + task.getDesc());
             num++;
         }
+        System.out.println(outputMessage);
+        return outputMessage;
     }
 
     /**
@@ -64,9 +70,10 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void showTaskMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.getDesc());
+    public String showTaskMarked(Task task) {
+        String outputMessage = ("Nice! I've marked this task as done:" + "\n" + task.getDesc());
+        System.out.println(outputMessage);
+        return outputMessage;
     }
 
     /**
@@ -74,9 +81,10 @@ public class Ui {
      *
      * @param task The task that was marked as not done.
      */
-    public void showTaskUnmarked(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.getDesc());
+    public String showTaskUnmarked(Task task) {
+        String outputMessage = ("OK, I've marked this task as not done yet:" + "\n" + task.getDesc());
+        System.out.println(outputMessage);
+        return outputMessage;
     }
 
     /**
@@ -85,10 +93,12 @@ public class Ui {
      * @param task      The task that was deleted.
      * @param taskCount The number of tasks remaining in the list.
      */
-    public void showTaskDeleted(Task task, int taskCount) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.getDesc());
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String showTaskDeleted(Task task, int taskCount) {
+        String outputMessage = ("Noted. I've removed this task:" + "\n" + task.getDesc() +
+                "\n" + "Now you have " + taskCount + " tasks in the list.");
+        System.out.println(outputMessage);
+        return outputMessage;
+
     }
 
     /**
@@ -97,13 +107,15 @@ public class Ui {
      * @param task      The task that was added.
      * @param taskCount The number of tasks in the list after adding the new task.
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:" + "\n" + task.getDesc());
+    public String showTaskAdded(Task task, int taskCount) {
+        String outputMessage = ("Got it. I've added this task:" + "\n" + task.getDesc());
         if (taskCount == 1) {
-            System.out.println("Now you have " + taskCount + " task in the list.");
+            outputMessage += ("\n" + "Now you have " + taskCount + " task in the list.");
         } else {
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            outputMessage += ("\n" + "Now you have " + taskCount + " tasks in the list.");
         }
+        System.out.println(outputMessage);
+        return outputMessage;
     }
 
     /**
@@ -111,18 +123,21 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
+    public String showError(String message) {
         System.out.println(message);
+        return message;
     }
 
-    public void showFoundTasks(String description, ArrayList<Task> tasks) {
-        System.out.println("Here are the matching tasks in you list:");
+    public String showFoundTasks(String description, ArrayList<Task> tasks) {
+        String outputMessage = ("Here are the matching tasks in you list:");
         int idx = 0;
         for (Task task : tasks) {
             String desc = task.getDesc();
             if (desc.contains(description)) {
-                System.out.println(idx + "." + desc);
+                outputMessage += ("\n"+ idx + "." + desc);
             }
         }
+        System.out.println(outputMessage);
+        return outputMessage;
     }
 }
