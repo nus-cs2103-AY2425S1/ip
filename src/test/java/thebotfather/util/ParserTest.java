@@ -131,11 +131,13 @@ public class ParserTest {
      */
     @Test
     void testParseEventCommand() throws TheBotFatherException {
-        Command command = Parser.parse("event project meeting /from 01-09-2024 12:00 /to 02-09-2024 23:59", ui);
+        Command command = Parser.parse("event project meeting /from 01-09-2024 12:00 /to 02-09-2024 23:59",
+                ui);
         assertInstanceOf(AddCommand.class, command);
         AddCommand addCommand = (AddCommand) command;
         addCommand.execute(taskList, ui, storage);
-        assertEquals("[E][ ] project meeting (from: 01 Sep 2024, 12:00 to: 02 Sep 2024, 23:59)", taskList.getTaskDescAtIndex(taskList.numberOfElements() - 1));
+        assertEquals("[E][ ] project meeting (from: 01 Sep 2024, 12:00 to: 02 Sep 2024, 23:59)",
+                taskList.getTaskDescAtIndex(taskList.numberOfElements() - 1));
     }
 
     /**
@@ -159,8 +161,8 @@ public class ParserTest {
     void testParseInvalidCommand() {
         TheBotFatherException exception = assertThrows(TheBotFatherException.class, () ->
                 Parser.parse("invalidCommand", ui));
-        assertEquals("OOPS!!! I'm sorry, but I don't know what that means :-(.\n" +
-                "\tUse \"bye\" if you want to exit the program", exception.getMessage());
+        assertEquals("OOPS!!! I'm sorry, but I don't know what that means :-(.\n"
+                + "\tUse \"bye\" if you want to exit the program", exception.getMessage());
     }
 
     /**
@@ -170,8 +172,8 @@ public class ParserTest {
     void testParseMarkCommandWithoutIndex() {
         TheBotFatherException exception = assertThrows(TheBotFatherException.class, () ->
                 Parser.parse("mark", ui));
-        assertEquals("Skill issue: Atleast enter a number.\n" +
-                "\tTo mark a task as done enter \"mark <index>\"", exception.getMessage());
+        assertEquals("Skill issue: Atleast enter a number.\n"
+                + "\tTo mark a task as done enter \"mark <index>\"", exception.getMessage());
     }
 
     /**
@@ -181,8 +183,8 @@ public class ParserTest {
     void testParseUnmarkCommandWithoutIndex() {
         TheBotFatherException exception = assertThrows(TheBotFatherException.class, () ->
                 Parser.parse("unmark", ui));
-        assertEquals("Skill issue: Atleast enter a number.\n" +
-                "\tTo unmark a task enter \"unmark <index>\"", exception.getMessage());
+        assertEquals("Skill issue: Atleast enter a number.\n"
+                + "\tTo unmark a task enter \"unmark <index>\"", exception.getMessage());
     }
 
     /**
@@ -192,7 +194,7 @@ public class ParserTest {
     void testParseDeleteCommandWithoutIndex() {
         TheBotFatherException exception = assertThrows(TheBotFatherException.class, () ->
                 Parser.parse("delete", ui));
-        assertEquals("Skill issue: Atleast enter a number.\n" +
-                "\tTo unmark a task enter \"unmark <index>\"", exception.getMessage());
+        assertEquals("Skill issue: Atleast enter a number.\n"
+                + "\tTo unmark a task enter \"unmark <index>\"", exception.getMessage());
     }
 }

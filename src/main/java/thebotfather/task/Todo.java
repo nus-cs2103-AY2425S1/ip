@@ -41,7 +41,7 @@ public class Todo extends Task {
             return new Todo(description.toString().trim());
         } catch (NoSuchElementException e) {
             throw new TheBotFatherException("Why to do a todo if there is no todo to do :/ \n"
-                    + "\tIf you have a todo, type : \"todo <description>\"");
+                    + "If you have a todo, type : \"todo <description>\"");
         }
     }
 }

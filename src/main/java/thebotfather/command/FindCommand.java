@@ -18,15 +18,11 @@ public class FindCommand extends Command {
     private final String word;
 
     /**
-     * Constructs a {@code FindCommand} with the specified command input.
-     * <p>
-     * The constructor parses the input tokens to extract the word to be searched
-     * in the task descriptions. If no word is provided, it throws a
-     * {@link TheBotFatherException}.
+     * Constructs a {@code FindCommand} by parsing the input tokens to extract the word to be searched.
+     * If no word is provided, an exception is thrown.
      *
-     * @param tokens The tokens from the command input. The word to search for is expected
-     *               to be contained in these tokens.
-     * @throws TheBotFatherException If the word to search for is not specified in the input.
+     * @param tokens The input tokens containing the word to search for.
+     * @throws TheBotFatherException If the word to search is not specified.
      */
     public FindCommand(StringTokenizer tokens) throws TheBotFatherException {
         StringBuilder builder = new StringBuilder();
@@ -36,24 +32,22 @@ public class FindCommand extends Command {
         word = builder.toString().trim();
         if (word.isEmpty()) {
             throw new TheBotFatherException("What word you you want me to find bruh\n"
-                    + "\tIf you want me to find a specific word type \"find <word>\"");
+                    + "If you want me to find a specific word type \"find <word>\"");
         }
     }
 
     /**
-     * Executes the find command, searching for tasks containing the specified word.
-     * <p>
-     * This method filters tasks in the {@code taskList} by checking if their descriptions
-     * contain the specified word. It then uses the {@code PrintTaskListCommand} to display
-     * the filtered list of tasks.
+     * Executes the find command by searching for tasks that contain the specified word
+     * in their descriptions. The filtered list of tasks is then displayed.
      *
      * @param taskList The list of tasks to search through.
-     * @param ui       The user interface to print the result.
-     * @param storage  The storage to persist changes (not used in this command).
-     * @throws TheBotFatherException If an error occurs while executing the command.
+     * @param ui       The user interface to display the results.
+     * @param storage  The storage system (not used in this command).
+     * @return A string representing the filtered list of tasks that match the search criteria.
+     * @throws TheBotFatherException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
-        new PrintTaskListCommand().execute(taskList.findWord(word), ui, storage);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
+        return new PrintTaskListCommand().execute(taskList.findWord(word), ui, storage);
     }
 }

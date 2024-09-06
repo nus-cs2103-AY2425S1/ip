@@ -3,7 +3,6 @@ package thebotfather;
 import java.util.ArrayList;
 
 import thebotfather.command.Command;
-import thebotfather.task.Task;
 import thebotfather.util.Parser;
 import thebotfather.util.Storage;
 import thebotfather.util.TaskList;
@@ -13,7 +12,7 @@ import thebotfather.util.Ui;
 /**
  * The main class for TheBotFather application.
  * TheBotFather is a task management application that allows users to manage their tasks
- * through a command-line interface.
+ * through a GUI interface.
  * <p>
  * The class initializes the necessary components for the application, such as
  * storage, task list, and user interface, and runs the main loop of the program.
@@ -37,13 +36,16 @@ public class TheBotFather {
 
     /**
      * Constructs a new TheBotFather instance.
+     * Initializes the user interface, task list, and storage components.
+     * It attempts to load any existing tasks from the provided file path.
+     * If there's an error loading the file, a loading error message is shown.
      *
      * @param filePath The file path where the task data is stored.
      */
     public TheBotFather(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        taskList = new TaskList(new ArrayList<Task>());
+        taskList = new TaskList(new ArrayList<>());
         try {
             taskList = storage.load();
         } catch (TheBotFatherException e) {
@@ -52,33 +54,29 @@ public class TheBotFather {
     }
 
     /**
-     * Runs the main loop of TheBotFather application.
-     * Continuously reads user input, processes commands, and executes them
-     * until the exit command is issued.
+     * Processes the user's input and returns the response from TheBotFather.
+     * It parses the input into a command, executes it, and returns the response.
+     * If the command is an exit command, it returns a special "EXIT-CODE".
+     *
+     * @param input The user's input.
+     * @return The response from TheBotFather, or "EXIT-CODE" if the input is an exit command.
+     * @throws TheBotFatherException If there is an error while processing the command.
      */
-    public void run() {
-        boolean isExit = false;
-        ui.printGreeting();
-        while (!isExit) {
-            try {
-                String completeLine = ui.readCommand();
-                Command command = Parser.parse(completeLine, ui);
-                command.execute(taskList, ui, storage);
-                isExit = command.isExit();
-            } catch (TheBotFatherException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.printLine();
-            }
+    public String getResponse(String input) throws TheBotFatherException {
+        Command command = Parser.parse(input, ui);
+        String response = command.execute(taskList, ui, storage);
+        if (command.isExit()) {
+            return "EXIT-CODE";
         }
+        return response;
     }
 
     /**
-     * The main method to start TheBotFather application.
+     * Returns the greeting message to be displayed when the application starts.
      *
-     * @param args Command-line arguments (not used).
+     * @return A string containing the greeting message.
      */
-    public static void main(String[] args) {
-        new TheBotFather("./data/TheBotFather.txt").run();
+    public String getGreeting() {
+        return ui.getGreeting();
     }
 }

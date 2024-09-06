@@ -17,9 +17,9 @@ public class DeleteCommand extends Command {
     private final int index;
 
     /**
-     * Constructs a {@code DeleteCommand} with the specified task index.
+     * Constructs a {@code DeleteCommand} using the specified string representation of the task index.
      *
-     * @param stringIndex The string representation of the task index to be deleted.
+     * @param stringIndex The string representing the index of the task to be removed.
      * @throws TheBotFatherException If the string cannot be parsed into a valid integer.
      */
     public DeleteCommand(String stringIndex) throws TheBotFatherException {
@@ -32,19 +32,20 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the delete task command by removing the task from the task list,
-     * saving the updated task list to storage,
-     * and printing the deleted task information.
+     * Executes the delete command by removing the task from the task list, saving the updated list to storage,
+     * and returning information about the deleted task.
      *
      * @param taskList The task list from which the task will be deleted.
-     * @param ui The user interface used to interact with the user.
-     * @param storage The storage system used to save the task list.
+     * @param ui The user interface used to communicate with the user.
+     * @param storage The storage system to persist the changes to the task list.
+     * @return A string representation of the deleted task.
      * @throws TheBotFatherException If an error occurs while saving the task list to storage.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
         Task deletedTask = taskList.delete(index);
         storage.toFile(taskList);
-        ui.printDeleted(deletedTask);
+        return "You are sure you wanted to do that right? Anyways... too late\n"
+                + deletedTask.toString() + " is deleted";
     }
 }

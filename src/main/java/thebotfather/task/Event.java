@@ -74,7 +74,7 @@ public class Event extends Task {
 
             if (Objects.equals(from.toString(), "")) {
                 throw new TheBotFatherException("Kid, look at what you have written... is that a valid event?? *sigh*\n"
-                        + "\tIf you have an event, "
+                        + "If you have an event, "
                         + "type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"");
             }
 
@@ -83,7 +83,7 @@ public class Event extends Task {
                     LocalDateTime.parse(to.toString().trim(), Task.DATE_STRING_FORMATTER));
         } catch (NoSuchElementException | DateTimeException e) {
             throw new TheBotFatherException("Kid, look at what you have written... is that a valid event?? *sigh*\n"
-                    + "\tIf you have an event, "
+                    + "If you have an event, "
                     + "type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"");
         }
     }

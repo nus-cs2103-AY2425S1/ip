@@ -1,0 +1,42 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #3a3f47, #2e3135); /* Dark, eerie gradient */
+    -fx-border-color: #8c6e92 #667d6d #7a4b69 #485a74; /* Muted, spooky tones */
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial", sans-serif;
+    -fx-text-fill: #d1d1d1; /* Pale gray text for a ghostly feel */
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to top left, #494d5c, #34363d); /* Dark gradient */
+    -fx-border-color: #5b3a56; /* Muted dark pinkish-purple */
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial", sans-serif;
+    -fx-text-fill: #c7c7c7; /* Slightly lighter gray text */
+}
+
+#displayPicture {
+    /* Subtle eerie shadow effect */
+    -fx-effect: dropshadow(gaussian, rgba(50, 50, 50, 0.3), 20, 0.5, 4, 4);
+
+    /* Smooth transitions for scale and rotation */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+    -fx-transition: scale 0.3s ease-in-out, rotate 0.3s ease-in-out;
+}
+
+#displayPicture:hover {
+    /* Hover effect with subtle eerie rotation */
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-rotate: 3; /* Slight rotation for an unsettling vibe */
+    -fx-effect: dropshadow(gaussian, rgba(100, 0, 0, 0.4), 20, 0.5, 6, 6); /* Dark red shadow on hover */
+}
