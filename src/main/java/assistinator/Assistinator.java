@@ -46,6 +46,15 @@ public class Assistinator {
         }
     }
 
+    public String getResponse(String input) {
+        try {
+            Command command = parser.parseCommand(input);
+            return executeCommand(command, input);
+        } catch (AssitinatorExceptions e) {
+            return e.getMessage();
+        }
+    }
+
     private String executeCommand(Command command, String fullCommand) throws AssitinatorExceptions {
         switch (command) {
         case BYE:
