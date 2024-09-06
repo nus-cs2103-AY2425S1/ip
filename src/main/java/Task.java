@@ -1,27 +1,21 @@
 public abstract class Task {
     private String info;
-    private boolean isDone;
+    private TaskStatus isDone;
 
     public Task(String info) {
         this.info = info;
-        this.isDone = false;
+        this.isDone = TaskStatus.UNDONE;
     }
 
     public String getInfo() {
         return info;
     }
-    public String getStatus() {
-        if (isDone) {
-            return "X";
-        } else {
-            return " ";
-        }
+    public TaskStatus getStatus() {
+        return isDone;
     }
-    public void setToDone() {
-        this.isDone = true;
+    public void setStatus(TaskStatus status) {
+        this.isDone = status;
     }
-    public void setToUndone() {
-        this.isDone = false;
-    }
+
     public abstract String toString();
 }

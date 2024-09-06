@@ -29,7 +29,7 @@ public class Bing {
                 try {
                     int x = Integer.parseInt(input.substring(5).trim());
                     if (x > 0 && x<=tasks.size()) {
-                        tasks.get(x - 1).setToDone();
+                        tasks.get(x - 1).setStatus(TaskStatus.DONE);
                         System.out.println("______________________________\n");
                         System.out.println("This task is marked as done :");
                         System.out.println(tasks.get(x-1).toString());
@@ -47,7 +47,7 @@ public class Bing {
                 try {
                     int x = Integer.parseInt(input.substring(7));
                     if (x>0 && x<=tasks.size()) {
-                        tasks.get(x-1).setToUndone();
+                        tasks.get(x-1).setStatus(TaskStatus.UNDONE);
                         System.out.println("______________________________\n");
                         System.out.println("This task is marked as undone :");
                         System.out.println(tasks.get(x-1).toString());
@@ -142,5 +142,3 @@ public class Bing {
         }
     }
 }
-
-

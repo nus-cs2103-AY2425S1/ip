@@ -1,3 +1,5 @@
+import java.nio.charset.StandardCharsets;
+
 public class ToDo extends Task {
 
     public ToDo(String info) {
@@ -6,6 +8,6 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + "["+ getStatus() + "]" + " " + getInfo();
+        return "[T]" + "[" + getStatus().getStatusSymbol() + "]" + " " + getInfo();
     }
 }

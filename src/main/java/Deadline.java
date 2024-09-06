@@ -8,7 +8,7 @@ public class Deadline extends Task {
     }
     @Override
     public String toString() {
-        return "[D]" + "[" + getStatus() + "]" + " " + getInfo() + " (by: " + deadline + ")";
+        return "[D]" + "[" + getStatus().getStatusSymbol() + "]" + " " + getInfo() + " (by: " + deadline + ")";
     }
 
 }
