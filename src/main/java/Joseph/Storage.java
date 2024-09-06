@@ -97,29 +97,29 @@ public class Storage {
                 String desc = parts[2];
 
                 switch (taskType) {
-                    case "T":
-                        ToDo todo = new ToDo(desc);
-                        if (isDone) {
-                            todo.setDone();
-                        }
-                        list.add(todo);
-                        break;
-                    case "D":
-                        String[] deadlineDesc = desc.split(" /");
-                        Deadline deadline = new Deadline(deadlineDesc[0], deadlineDesc[1]);
-                        if (isDone) {
-                            deadline.setDone();
-                        }
-                        list.add(deadline);
-                        break;
-                    case "E":
-                        String[] eventDesc = desc.split(" /");
-                        JEvent event = new JEvent(eventDesc[0], eventDesc[1], eventDesc[2]);
-                        if (isDone) {
-                            event.setDone();
-                        }
-                        list.add(event);
-                        break;
+                case "T":
+                    ToDo todo = new ToDo(desc);
+                    if (isDone) {
+                        todo.setDone();
+                    }
+                    list.add(todo);
+                    break;
+                case "D":
+                    String[] deadlineDesc = desc.split(" /");
+                    Deadline deadline = new Deadline(deadlineDesc[0], deadlineDesc[1]);
+                    if (isDone) {
+                        deadline.setDone();
+                    }
+                    list.add(deadline);
+                    break;
+                case "E":
+                    String[] eventDesc = desc.split(" /");
+                    JEvent event = new JEvent(eventDesc[0], eventDesc[1], eventDesc[2]);
+                    if (isDone) {
+                        event.setDone();
+                    }
+                    list.add(event);
+                    break;
                 }
             }
         } catch (IOException e) {

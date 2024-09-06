@@ -19,7 +19,7 @@ public class UI {
      * Prints a line separator.
      */
     public void printLine() {
-        String LINE = "----------------------------------";
+        final String LINE = "----------------------------------";
         System.out.println(LINE);
     }
 
