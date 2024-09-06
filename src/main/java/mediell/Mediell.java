@@ -1,11 +1,14 @@
 package mediell;
 
+import javafx.application.Application;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 /** The main class Mediell. */
 public class Mediell {
     public static void main(String[] args) throws IOException {
+        Application.launch(Main.class, args);
         Scanner scanner = new Scanner(System.in);
         String message = "";
         Storage storage = new Storage();
