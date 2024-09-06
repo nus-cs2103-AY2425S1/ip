@@ -15,23 +15,12 @@ import java.util.*;
  */
 
 public class Torne {
-    private ChatOutput output;
-    private TaskHandler taskHandler;
-    private Storage storage;
-    private Parser parser;
+    private final ChatOutput output;
+    private final TaskHandler taskHandler;
+    private final Storage storage;
+    private final Parser parser;
     private static final String[] NO_ARGS = new String[0];
     private static final String[] DEFAULT_ARG = {""};
-    private static final Map<String, String[]> COMMANDS = Map.of(
-            "bye", NO_ARGS,
-            "list", NO_ARGS,
-            "help", NO_ARGS,
-            "mark",DEFAULT_ARG,
-            "unmark", DEFAULT_ARG,
-            "todo", NO_ARGS,
-            "deadline", new String[]{"", "by"},
-            "event", new String[]{"", "from", "to"},
-            "delete", DEFAULT_ARG
-    );
 
     public Torne() {
         output = new ChatOutput();
