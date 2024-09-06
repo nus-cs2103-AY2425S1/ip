@@ -26,8 +26,8 @@ public class Parser {
      * @param input The user's input string.
      * @return The command type determined from the input.
      */
-    public static Sentinel.CommandType parseForCommand(String input) throws SentinelException {
-        String[] arr = input.split(" ");
+    public static Sentinel.CommandType parseForCommand(String ... input) throws SentinelException {
+        String[] arr = input[0].split(" ");
         try {
             return Sentinel.CommandType.valueOf(arr[0].toLowerCase());
         } catch (IllegalArgumentException e) {
@@ -50,7 +50,6 @@ public class Parser {
             ui.showEmptyTaskNameError(commandType);
             return null;
         }
-
         switch (commandType) {
         case todo -> {
             return new ToDo(taskName);
