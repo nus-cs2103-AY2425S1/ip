@@ -8,7 +8,7 @@ public class MissingTaskNameException extends Exception {
      * Constructor for MissingTaskNameException
      */
     public MissingTaskNameException() {
-        super(" oops! task name cannot be empty! please enter a task name after the type of task. "
+        super("oops! task name cannot be empty! please enter a task name after the type of task. "
                 + "for example:\n\n"
                 + "      todo cs2103t quiz");
     }

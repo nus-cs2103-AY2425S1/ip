@@ -8,7 +8,7 @@ public class MissingKeywordException extends Exception {
      * Constructor for MissingKeywordException
      */
     public MissingKeywordException() {
-        super(" oops! you are missing a keyword. to search tasks based on keyword, please use this format: find XXX."
+        super("oops! you are missing a keyword. to search tasks based on keyword, please use this format: find XXX."
                 + "for example:\n\n"
                 + "      find book");
     }

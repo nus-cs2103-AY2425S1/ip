@@ -7,29 +7,37 @@ import java.util.Scanner;
  * This class is the entry point for chatbot Edith.
  */
 public class Edith {
+    private static final Scanner SCANNER = new Scanner(System.in);
+    private static final ToDoList TO_DO_LIST = new ToDoList();
 
     /**
      * Handles all user inputs.
      * @param args User input.
      */
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        ToDoList todoList = new ToDoList();
-        Storage.loadTasks(todoList);
+        Storage.loadTasks(TO_DO_LIST);
 
         // print out greeting when bot first starts up
         Ui.greetUser();
 
-        String userInput = scanner.nextLine();
+        String userInput = SCANNER.nextLine();
 
         // break out of loop when user inputs bye
         while (!Objects.equals(userInput, "bye")) {
             Ui.showLine();
-            Ui.handleUserInput(userInput, todoList);
+            Ui.handleUserInput(userInput, TO_DO_LIST);
             Ui.showLine();
-            userInput = scanner.nextLine();
+            userInput = SCANNER.nextLine();
         }
 
         Ui.bidFarewell();
+    }
+
+    public String getResponse(String input) {
+        return Ui.handleUserInput(input, TO_DO_LIST);
+    }
+
+    public void loadTasks() {
+        Storage.loadTasks(TO_DO_LIST);
     }
 }

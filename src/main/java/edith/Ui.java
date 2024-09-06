@@ -19,8 +19,8 @@ import edith.task.ToDoTask;
 public class Ui {
     private static final String HORIZONTAL = "______________________________________________________"
             + "_________________________________________________";
-    private static final String GREETING = " heyyy im edith!\n what can I do for you?";
-    private static final String FAREWELL = " bye!! see you soon love <3";
+    private static final String GREETING = "heyyy im edith!\nwhat can I do for you?";
+    private static final String FAREWELL = "bye!! see you soon love <3";
     private static final String LINEBREAK = "\n";
 
     /**
@@ -29,43 +29,50 @@ public class Ui {
      * @param userInput User input.
      * @param toDoList User's to-do list.
      */
-    public static void handleUserInput(String userInput, ToDoList toDoList) {
+    public static String handleUserInput(String userInput, ToDoList toDoList) {
         String command = Parser.getCommand(userInput);
 
         if (Objects.equals(command, "list")) { // check if user wants the todo list
-            System.out.println(" tasks in your todo list!" + LINEBREAK + toDoList.toString());
+            System.out.println("tasks in your todo list!" + LINEBREAK + toDoList);
+            return "tasks in your todo list!" + LINEBREAK + toDoList;
         } else if (Objects.equals(command, "mark") || Objects.equals(command, "unmark")) {
-            changeTaskStatus(userInput, toDoList);
+            return changeTaskStatus(userInput, toDoList);
         } else if (Objects.equals(command, "todo") || Objects.equals(command, "deadline")
                 || Objects.equals(command, "event")) {
-            addTask(userInput, toDoList);
+            return addTask(userInput, toDoList);
         } else if (Objects.equals(command, "delete")) {
-            delete(userInput, toDoList);
+            return delete(userInput, toDoList);
         } else if (Objects.equals(command, "find")) {
-            find(userInput, toDoList);
+            return find(userInput, toDoList);
+        } else if (Objects.equals(command, "bye")) {
+            return bidFarewell();
         } else {
             try {
                 otherCommand();
             } catch (InvalidCommandException e) {
                 showError(e.getMessage());
+                return e.getMessage();
             }
         }
+        return null;
     }
 
     /**
      * Greets user when Edith first starts up.
      */
-    public static void greetUser() {
+    public static String greetUser() {
         System.out.println(HORIZONTAL + LINEBREAK + GREETING + LINEBREAK + HORIZONTAL);
+        return GREETING;
     }
 
     /**
      * Bids farewell when user inputs "bye".
      */
-    public static void bidFarewell() {
+    public static String bidFarewell() {
         showLine();
         System.out.println(FAREWELL + LINEBREAK);
         showLine();
+        return FAREWELL;
     }
 
     /**
@@ -74,7 +81,8 @@ public class Ui {
      * @param userInput User input.
      * @param toDoList User's to-do list.
      */
-    public static void changeTaskStatus(String userInput, ToDoList toDoList) {
+    public static String changeTaskStatus(String userInput, ToDoList toDoList) {
+        String returnStatement;
         try {
             int taskNumber = Parser.getTaskNumber(userInput);
             String command = Parser.getCommand(userInput);
@@ -83,15 +91,22 @@ public class Ui {
                 toDoList.markTaskAsCompleted(taskNumber); // may throw Edith.InvalidTaskNumberException
                 System.out.println(" " + "yay! i've marked this task as done #productive:" + LINEBREAK
                         + "   " + toDoList.getTask(taskNumber) + LINEBREAK);
+                returnStatement = "yay! i've marked this task as done #productive:" + LINEBREAK
+                        + "   " + toDoList.getTask(taskNumber) + LINEBREAK;
             } else { // unmarking a task
                 toDoList.unmarkTaskAsCompleted(taskNumber); // may throw Edith.InvalidTaskNumberException
                 System.out.println(" " + "aw, i've marked this task as undone:" + LINEBREAK
                         + "   " + toDoList.getTask(taskNumber) + LINEBREAK);
+                returnStatement = "aw, i've marked this task as undone:" + LINEBREAK
+                        + "   " + toDoList.getTask(taskNumber) + LINEBREAK;
             }
 
         } catch (MissingTaskNumberException | InvalidTaskNumberException e) { // if there is a missing task number
             showError(e.getMessage());
+            return e.getMessage();
         }
+
+        return returnStatement;
     }
 
     /**
@@ -99,22 +114,24 @@ public class Ui {
      * @param userInput User input.
      * @param toDoList User's to-do list.
      */
-    public static void addTask(String userInput, ToDoList toDoList) {
+    public static String addTask(String userInput, ToDoList toDoList) {
         String taskType = Parser.getCommand(userInput);
         try {
             String taskDetails = Parser.getTaskDetails(userInput, taskType);
             if (Objects.equals(taskType, "todo")) {
-                addToDoTask(taskDetails, toDoList);
+                return addToDoTask(taskDetails, toDoList);
             }
             if (Objects.equals(taskType, "deadline")) {
-                addDeadlineTask(taskDetails, taskType, toDoList);
+                return addDeadlineTask(taskDetails, taskType, toDoList);
             }
             if (Objects.equals(taskType, "event")) {
-                addEventTask(taskDetails, taskType, toDoList);
+                return addEventTask(taskDetails, taskType, toDoList);
             }
         } catch (MissingTaskNameException e) {
             showError(e.getMessage());
+            return e.getMessage();
         }
+        return null;
     }
 
     /**
@@ -122,11 +139,13 @@ public class Ui {
      * @param taskName Task's name.
      * @param toDoList User's to-do list.
      */
-    public static void addToDoTask(String taskName, ToDoList toDoList) {
+    public static String addToDoTask(String taskName, ToDoList toDoList) {
         ToDoTask task = new ToDoTask(taskName);
         toDoList.add(task);
-        System.out.println(" " + "nice! i've added this task:" + LINEBREAK + " " + task + LINEBREAK
+        System.out.println(" nice! i've added this task:" + LINEBREAK + " " + task + LINEBREAK
                 + " there are currently " + toDoList.getNumberOfTasks() + " tasks in your todo list." + LINEBREAK);
+        return "nice! i've added this task:" + LINEBREAK + " " + task + LINEBREAK
+                + "there are currently " + toDoList.getNumberOfTasks() + " tasks in your todo list.";
     }
 
     /**
@@ -135,7 +154,7 @@ public class Ui {
      * @param taskType Task's type: "deadline".
      * @param toDoList User's to-do list.
      */
-    public static void addDeadlineTask(String taskDetails, String taskType, ToDoList toDoList) {
+    public static String addDeadlineTask(String taskDetails, String taskType, ToDoList toDoList) {
         try {
             String taskName = Parser.getTaskName(taskDetails, taskType);
             String taskDeadline = Parser.getTaskDeadline(taskDetails);
@@ -143,8 +162,11 @@ public class Ui {
             toDoList.add(task);
             System.out.println(" " + "nice! i've added this task:" + LINEBREAK + " " + task + LINEBREAK
                     + " there are currently " + toDoList.getNumberOfTasks() + " tasks in your todo list." + LINEBREAK);
+            return "nice! i've added this task:" + LINEBREAK + " " + task + LINEBREAK
+                    + "there are currently " + toDoList.getNumberOfTasks() + " tasks in your todo list.";
         } catch (MissingDeadlineException e) {
             showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -154,7 +176,7 @@ public class Ui {
      * @param taskType Task's type: "duration".
      * @param toDoList User's to-do list.
      */
-    public static void addEventTask(String taskDetails, String taskType, ToDoList toDoList) {
+    public static String addEventTask(String taskDetails, String taskType, ToDoList toDoList) {
         try {
             String taskName = Parser.getTaskName(taskDetails, taskType);
             String taskDuration = Parser.getTaskDuration(taskDetails);
@@ -164,8 +186,11 @@ public class Ui {
             toDoList.add(task);
             System.out.println(" " + "nice! i've added this task:" + LINEBREAK + " " + task + LINEBREAK
                     + " there are currently " + toDoList.getNumberOfTasks() + " tasks in your todo list." + LINEBREAK);
+            return "nice! i've added this task:" + LINEBREAK + " " + task + LINEBREAK
+                    + "there are currently " + toDoList.getNumberOfTasks() + " tasks in your todo list.";
         } catch (MissingEventDurationException e) {
             showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -182,16 +207,21 @@ public class Ui {
      * @param userInput User input.
      * @param toDoList User's to-do list.
      */
-    public static void delete(String userInput, ToDoList toDoList) {
+    public static String delete(String userInput, ToDoList toDoList) {
         try {
             int taskNumber = Parser.getTaskNumber(userInput);
             System.out.println(" okay! i've deleted this task:" + LINEBREAK
                     + "   " + toDoList.getTask(taskNumber) + LINEBREAK
                     + " you currently have " + (toDoList.getNumberOfTasks() - 1) + " tasks in your todo list"
                     + LINEBREAK);
+            String returnStatement = "okay! i've deleted this task:" + LINEBREAK + "   " + toDoList.getTask(taskNumber)
+                    + LINEBREAK + "you currently have " + (toDoList.getNumberOfTasks() - 1)
+                    + " tasks in your todo list";
             toDoList.delete(taskNumber);
+            return returnStatement;
         } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
             showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -201,18 +231,22 @@ public class Ui {
      * @param userInput User input.
      * @param toDoList List of user's current tasks.
      */
-    public static void find(String userInput, ToDoList toDoList) {
+    public static String find(String userInput, ToDoList toDoList) {
         try {
             String keyword = Parser.getKeyword(userInput);
             ToDoList tasksMatchingKeyword = toDoList.getListOfTasksMatchingKeyword(keyword);
             if (tasksMatchingKeyword.getNumberOfTasks() == 0) {
                 System.out.println(" there are no tasks matching the description you gave: " + keyword + " :(\n");
+                return "there are no tasks matching the description you gave: \" + keyword";
             } else {
                 System.out.println(" here is a list of tasks matching the description you gave: " + keyword + LINEBREAK
                         + tasksMatchingKeyword + LINEBREAK);
+                return "here is a list of tasks matching the description you gave: " + keyword
+                        + LINEBREAK + tasksMatchingKeyword;
             }
         } catch (MissingKeywordException e) {
             showError(e.getMessage());
+            return e.getMessage();
         }
     }
 

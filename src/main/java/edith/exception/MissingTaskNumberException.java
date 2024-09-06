@@ -8,7 +8,7 @@ public class MissingTaskNumberException extends Exception {
      * Constructor for MissingTaskNumberException
      */
     public MissingTaskNumberException() {
-        super(" which task would you like to mark/unmark/delete? Please specify with the task number. "
+        super("which task would you like to mark/unmark/delete? Please specify with the task number. "
                 + "for example:\n\n"
                 + "      mark 3");
     }
