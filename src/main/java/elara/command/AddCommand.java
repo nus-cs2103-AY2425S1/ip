@@ -1,7 +1,10 @@
 package elara.command;
 
-import elara.storage.Storage;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
+import elara.storage.Storage;
 import elara.task.DeadlineException;
 import elara.task.DeadlineTask;
 import elara.task.EventException;
@@ -11,12 +14,8 @@ import elara.task.Task;
 import elara.task.TaskList;
 import elara.task.ToDoException;
 import elara.task.ToDoTask;
-
 import elara.ui.Ui;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class AddCommand implements Command {
     private final String commandType;

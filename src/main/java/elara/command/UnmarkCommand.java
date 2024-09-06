@@ -28,6 +28,7 @@ public class UnmarkCommand implements Command {
 
         try {
             int i = Integer.parseInt(fullInput.split(" ", 2)[1]) - 1;
+
             if (i < 0 || i >= taskList.getTasks().size()) {
                 throw new InvalidInputException("Task index out of bounds!");
             }

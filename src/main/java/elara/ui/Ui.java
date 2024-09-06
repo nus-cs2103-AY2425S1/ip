@@ -1,11 +1,11 @@
 package elara.ui;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import elara.task.InvalidInputException;
 import elara.task.Task;
 import elara.task.TaskList;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Ui {
     private static final String LINE = "____________________________________________________________";
