@@ -10,6 +10,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import serenity.task.Deadline;
+import serenity.task.Event;
+import serenity.task.Task;
+import serenity.task.TaskList;
+import serenity.task.Todo;
+
+
 /**
  * Handles the storing, loading and saving of tasks to data file.
  */
@@ -34,9 +41,10 @@ public class Storage {
      * @throws SerenityException If there are issues with loading a task.
      */
     public ArrayList<Task> loadFile() throws IOException, SerenityException {
-        //create directory if directory does not exist
-        Files.createDirectories(Paths.get("data"));
         File f = new File(filePath);
+        //create directory if directory does not exist
+        File directory = new File(f.getParentFile().getAbsolutePath());
+        directory.mkdirs();
 
         //create file if file does not exist
         if (!f.exists()) {

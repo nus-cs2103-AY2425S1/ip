@@ -1,4 +1,4 @@
-package serenity;
+package serenity.task;
 
 /**
  * Represents a general task with a description that can be marked done or undone.

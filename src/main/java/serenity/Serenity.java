@@ -2,12 +2,18 @@ package serenity;
 
 import java.io.IOException;
 
+import serenity.task.TaskList;
+
+
+
 /**
  * Represents a chatbot used for task management.
  */
 
+@SuppressWarnings("checkstyle:Regexp")
 public class Serenity {
 
+    private static final String DEFAULT_FILE_PATH = "./data/serenity.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -32,6 +38,32 @@ public class Serenity {
     }
 
     /**
+     * Constructs a Serenity object with default file path.
+     */
+    public Serenity() {
+        ui = new Ui();
+        storage = new Storage(DEFAULT_FILE_PATH);
+        try {
+            tasks = new TaskList(storage.loadFile());
+        } catch (SerenityException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        } catch (IOException e) {
+            ui.showMessage(e.getMessage());
+        }
+    }
+
+    /**
+     * Generates response to user's input in chat.
+     *
+     * @param input User's input
+     */
+    public String getResponse(String input) {
+        return Parser.parseToString(input, tasks, ui, storage);
+    }
+
+
+    /**
      * Runs the Serenity chatbot
      */
 
@@ -51,6 +83,8 @@ public class Serenity {
         }
     }
 
+
+
     /**
      * The main method that runs the Serenity chatbot.
      *
@@ -58,7 +92,7 @@ public class Serenity {
      */
 
     public static void main(String[] args) {
-        new Serenity("data/serenity.txt").run();
+        new Serenity("./data/serenity.txt").run();
     }
 
 }

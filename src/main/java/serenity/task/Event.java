@@ -1,4 +1,4 @@
-package serenity;
+package serenity.task;
 
 /**
  * Represents a type of Task that has start and end timings.
