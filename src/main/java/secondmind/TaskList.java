@@ -85,6 +85,17 @@ public class TaskList {
         return this.taskList;
     }
 
+    public ArrayList<Task> getMatchingTasks(String match) {
+        ArrayList<Task> filteredTaskList = new ArrayList<>();
+        for (int i = 1; i <= this.getTaskCount(); i++) {
+            Task curr = this.getTask(i);
+            if (curr.getDescription().contains(match)) {
+                filteredTaskList.add(curr);
+            }
+        }
+        return filteredTaskList;
+    }
+
     public void markAsDone(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber <= 0 || taskNumber > getTaskCount()) {
             throw new InvalidTaskNumberException(taskNumber);
