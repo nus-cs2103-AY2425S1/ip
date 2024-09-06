@@ -2,13 +2,14 @@ package gui;
 
 import chatterbox.ChatterboxGui;
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 /**
  * Controller for the main GUI.
  */
@@ -34,7 +35,12 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Duke instance */
     public void setChatterbox(ChatterboxGui c) {
+
         chatter = c;
+        if (c.hasTasks()) {
+            dialogContainer.getChildren()
+                    .add(DialogBox.getChatterboxDialog("History found!", chatterImage));
+        }
     }
 
     /**
@@ -52,7 +58,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, chatterImage)
+                DialogBox.getChatterboxDialog(response, chatterImage)
         );
         userInput.clear();
     }

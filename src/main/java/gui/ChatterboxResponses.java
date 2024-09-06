@@ -90,7 +90,7 @@ public class ChatterboxResponses {
      * @return standard template for displaying added task
      */
     public String addTaskMsg(String type, int size) {
-        return  String.format("Added %s to Tasks", type) + "\n"
+        return String.format("Added %s to Tasks", type) + "\n"
                 + String.format("Currently %d tasks in List", size);
 
     }
@@ -104,7 +104,7 @@ public class ChatterboxResponses {
     public String delTaskMsg(Task task, int size) {
 
 
-        return  "Deleting Task: " + task.getDescription()
+        return "Deleting Task: " + task.getDescription()
                 + "\n" + String.format("%d tasks left", size);
     }
 
@@ -114,12 +114,12 @@ public class ChatterboxResponses {
      * @return String representation of matching search
      */
     public String getSearchList(ArrayList<Task> matches) {
-        StringBuilder toReturn = new StringBuilder("Displaying All Matching Tasks:");
+        StringBuilder toReturn = new StringBuilder("Displaying All Matching Tasks: +\n");
         for (int i = 0; i < matches.size(); i++) {
             toReturn.append(String.format(i + 1 + ". " + "[%s][%s] %s",
                     matches.get(i).getTaskSymbol(),
                     matches.get(i).getStatus() ? "X" : " ",
-                    matches.get(i).getDescription())+ "\n");
+                    matches.get(i).getDescription()) + "\n");
         }
         return toReturn.toString();
 

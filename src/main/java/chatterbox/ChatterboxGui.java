@@ -16,7 +16,7 @@ import tasks.Task;
 import tasks.Todo;
 
 /**
- * main class that encapsulates all chatbot functionality
+ * main class that encapsulates all gui chatbot functionality
  */
 public class ChatterboxGui {
     private final ChatterboxResponses guiResponses;
@@ -54,13 +54,28 @@ public class ChatterboxGui {
 
         this.parser = new Parser();
         this.storage = new Storage();
+        ArrayList<Task> loaded = new ArrayList<>();
+        try {
+            loaded = storage.load(parser);
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: No history file found at path");
+        }
 
-
-        this.tasks = new TaskList(new ArrayList<Task>());
+        this.tasks = new TaskList(loaded);
 
     }
 
 
+    /**
+     * checks if the Chatterbox instance has any tasks
+     * @return true if there are tasks else false
+     */
+    public boolean hasTasks() {
+        if (tasks.size() > 0) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Class UI used to handle the printing and formatting of text in the UI
@@ -199,39 +214,43 @@ public class ChatterboxGui {
     public String processInput(String input) {
 
 
+        String result;
 
         try {
             Parser.ValidCommand command = parser.parseCommand(input);
-            System.out.println(command);
 
 
             int index;
             switch (command) {
 
             case BYE:
-                return null;
-
+                result = null;
+                break;
             case LIST:
 
-                return guiResponses.displayList(tasks.getTasks());
+                result = guiResponses.displayList(tasks.getTasks());
+                break;
 
             case MARK:
                 input = input.trim();
                 index = parser.extractNum(input) - 1; // -1 as the display  start from 1
-                return guiResponses.markMsg(tasks.markTask(index));
+                result = guiResponses.markMsg(tasks.markTask(index));
+                break;
 
 
             case UNMARK:
                 input = input.trim();
                 index = parser.extractNum(input) - 1; // -1 as the display  start from 1
-                return guiResponses.unmarkMsg(tasks.unmarkTask(index));
+                result = guiResponses.unmarkMsg(tasks.unmarkTask(index));
+                break;
 
 
             case TODO:
 
 
                 tasks.addTodo(parser.parseTodo(input.trim()));
-                return guiResponses.addTaskMsg("Todo", tasks.size());
+                result = guiResponses.addTaskMsg("Todo", tasks.size());
+                break;
 
             case DEADLINE:
                 String[] parsed = parser.parseDeadline(input);
@@ -250,8 +269,8 @@ public class ChatterboxGui {
                     tasks.addDeadline(parsed[0], deadlineDate);
                 }
 
-                return guiResponses.addTaskMsg("Deadline", tasks.size());
-
+                result = guiResponses.addTaskMsg("Deadline", tasks.size());
+                break;
 
             case EVENT:
                 String[] eventParsed = parser.parseEvent(input);
@@ -266,31 +285,36 @@ public class ChatterboxGui {
                 } else {
                     tasks.addEvent(eventParsed[0].trim(), startDate, endDate);
                 }
-                return guiResponses.addTaskMsg("Event", tasks.size());
+                result = guiResponses.addTaskMsg("Event", tasks.size());
+                break;
 
             case DELETE:
                 input = input.trim();
                 int delIndex = parser.extractNum(input) - 1;
-                return guiResponses.delTaskMsg(tasks.deleteTask(delIndex), tasks.size());
+                result = guiResponses.delTaskMsg(tasks.deleteTask(delIndex), tasks.size());
+                break;
 
             case FIND:
                 String keywords = parser.parseFind(input).trim();
 
                 ArrayList<Task> matches = tasks.findTasks(keywords);
-                return guiResponses.getSearchList(matches);
-
+                result = guiResponses.getSearchList(matches);
+                break;
 
             default:
+                result = "Error occuring...";
                 ChatterboxExceptions.checkMessage(input);
 
                 break;
 
             }
-            storage.saveHistory(tasks.getTasks());
+
         } catch (ChatterboxExceptions.ChatterBoxError e) {
-            return ("Sorry there was an error: " + e.getMessage());
+            result = ("Sorry there was an error: " + e.getMessage());
         }
-        return "Error occurring !!";
+
+        storage.saveHistory(tasks.getTasks());
+        return result;
     }
 
 
