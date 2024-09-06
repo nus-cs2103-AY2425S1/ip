@@ -1,4 +1,4 @@
-package main.java.impl;
+package chatbot.impl;
 
 public enum Command {
     Exit,

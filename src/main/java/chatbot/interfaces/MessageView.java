@@ -1,4 +1,4 @@
-package main.java.interfaces;
+package chatbot.interfaces;
 
 import java.util.Scanner;
 

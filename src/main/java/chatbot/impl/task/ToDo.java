@@ -1,4 +1,4 @@
-package main.java.impl.task;
+package chatbot.impl.task;
 
 public class ToDo extends Task{
     private static final String TYPE = "T";

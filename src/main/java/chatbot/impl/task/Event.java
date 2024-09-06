@@ -1,8 +1,8 @@
-package main.java.impl.task;
+package chatbot.impl.task;
 
 import java.time.LocalDate;
 
-import main.java.impl.utils.DateTime;
+import chatbot.impl.utils.DateTime;
 
 public class Event extends Task {
     private static final String TYPE = "E";

@@ -1,8 +1,8 @@
-package main.java.impl;
+package chatbot.impl;
 
-import main.java.interfaces.ChatBot;
-import main.java.interfaces.MessageView;
-import main.java.interfaces.TaskStorage;
+import chatbot.interfaces.ChatBot;
+import chatbot.interfaces.MessageView;
+import chatbot.interfaces.TaskStorage;
 
 import java.util.Scanner;
 

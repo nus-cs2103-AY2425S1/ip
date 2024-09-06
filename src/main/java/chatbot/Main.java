@@ -1,12 +1,12 @@
-package main.java;
+package chatbot;
 
-import main.java.impl.AtlasView;
-import main.java.impl.Command;
-import main.java.impl.Atlas;
-import main.java.impl.TaskStorageImpl;
-import main.java.interfaces.ChatBot;
-import main.java.interfaces.MessageView;
-import main.java.interfaces.TaskStorage;
+import chatbot.impl.ui.AtlasView;
+import chatbot.impl.Command;
+import chatbot.impl.Atlas;
+import chatbot.impl.TaskStorageImpl;
+import chatbot.interfaces.ChatBot;
+import chatbot.interfaces.MessageView;
+import chatbot.interfaces.TaskStorage;
 
 import java.util.Scanner;
 

@@ -1,11 +1,11 @@
-package main.java.impl;
+package chatbot.impl;
 
-import main.java.impl.task.Deadline;
-import main.java.impl.task.Event;
-import main.java.impl.task.Task;
-import main.java.impl.task.ToDo;
-import main.java.interfaces.TaskStorage;
-import main.java.interfaces.TaskStorageResult;
+import chatbot.impl.task.Deadline;
+import chatbot.impl.task.Event;
+import chatbot.impl.task.Task;
+import chatbot.impl.task.ToDo;
+import chatbot.interfaces.TaskStorage;
+import chatbot.interfaces.TaskStorageResult;
 
 import java.io.File;
 import java.io.FileWriter;

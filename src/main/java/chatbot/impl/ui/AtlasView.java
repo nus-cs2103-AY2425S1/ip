@@ -1,6 +1,6 @@
-package main.java.impl;
+package chatbot.impl;
 
-import main.java.interfaces.MessageView;
+import chatbot.interfaces.MessageView;
 
 import java.util.Scanner;
 

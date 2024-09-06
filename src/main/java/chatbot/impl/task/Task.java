@@ -1,6 +1,6 @@
-package main.java.impl.task;
+package chatbot.impl.task;
 
-import main.java.interfaces.AbstractTask;
+import chatbot.interfaces.AbstractTask;
 
 public class Task implements AbstractTask {
     private final String description;

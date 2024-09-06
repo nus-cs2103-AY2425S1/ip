@@ -1,4 +1,4 @@
-package main.java.interfaces;
+package chatbot.interfaces;
 
 public interface ChatBot {
     void start();

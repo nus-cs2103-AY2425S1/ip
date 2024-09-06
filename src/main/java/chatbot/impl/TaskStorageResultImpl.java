@@ -1,7 +1,7 @@
-package main.java.impl;
+package chatbot.impl;
 
-import main.java.interfaces.MessageView;
-import main.java.interfaces.TaskStorageResult;
+import chatbot.interfaces.MessageView;
+import chatbot.interfaces.TaskStorageResult;
 
 public class TaskStorageResultImpl implements TaskStorageResult<Command> {
 
