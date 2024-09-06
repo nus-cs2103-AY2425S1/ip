@@ -1,4 +1,4 @@
-package Milo.TaskObj;
+package Milo.Tasks;
 import java.time.LocalDate;
 
 /**
@@ -6,7 +6,7 @@ import java.time.LocalDate;
 * an additional field deadline containing a date in LocalDate form
 * and methods to display task in different string format
  */
-public class Deadlines extends Task {
+public class Deadline extends Task {
     private final LocalDate deadline;
 
     /*
@@ -16,8 +16,7 @@ public class Deadlines extends Task {
     * @param description of the deadline task
     * @param deadline date
      */
-
-    public Deadlines(String desc, LocalDate deadline) {
+    public Deadline(String desc, LocalDate deadline) {
         super(desc);
         this.deadline = deadline;
     }
@@ -30,7 +29,7 @@ public class Deadlines extends Task {
      * @param deadline date
      * @param task completion status
      */
-    public Deadlines(String desc, LocalDate deadline, Boolean isCompleted) {
+    public Deadline(String desc, LocalDate deadline, Boolean isCompleted) {
         super(desc, isCompleted);
         this.deadline = deadline;
     }

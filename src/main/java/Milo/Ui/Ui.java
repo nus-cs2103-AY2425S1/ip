@@ -1,7 +1,8 @@
-package Milo;
+package Milo.Ui;
 
-import Milo.TaskObj.Task;
-import Milo.TaskObj.TaskType;
+import Milo.Tasks.Task;
+import Milo.Tasks.TaskList;
+import Milo.Tasks.TaskType;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,11 +25,11 @@ public class Ui {
                 ( ̳• · •̳)
                 /    づ♡
                 """;
-    private static final String hLine = "____________________________________________________________\n";
-    String greeting = "Hello! I'm Milo.Milo\nWhat can I do for you?\n" + cat0;
-    String bye = "Bye. Hope to see you again soon!\n" + cat1;
-    String greetingMessage = hLine + greeting + hLine;
-    String byeMessage = hLine + bye + hLine;
+    private final String hLine = "____________________________________________________________\n";
+    private final String greeting = "Hello! I'm Milo.Milo\nWhat can I do for you?\n" + cat0;
+    private final String bye = "Bye. Hope to see you again soon!\n" + cat1;
+    private final String greetingMessage = hLine + greeting + hLine;
+    private final String byeMessage = hLine + bye + hLine;
 
     /*
     * Milo greets user
@@ -57,10 +58,10 @@ public class Ui {
      *
      * @param array of task
      */
-    public static void printList(ArrayList<Task> todoList) {
+    public void printList(TaskList todoList) {
         System.out.print(hLine);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < Task.taskNumber; i++) {
+        for (int i = 0; i < todoList.getNumberOfTasks(); i++) {
             System.out.println(i+1 + "." + todoList.get(i).toString());
         }
         System.out.println(hLine);
@@ -71,7 +72,7 @@ public class Ui {
      *
      * @param task object that system marked as done
      */
-    public static void printMark(Task curTask) {
+    public void printMark(Task curTask) {
         System.out.print(hLine);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + curTask.toString());
@@ -83,7 +84,7 @@ public class Ui {
      *
      * @param task object that system marked as not done
      */
-    public static void printUnmark(Task curTask) {
+    public void printUnmark(Task curTask) {
         System.out.print(hLine);
         System.out.println("Ok, I've marked this as not done yet:");
         System.out.println("  " + curTask.toString());
@@ -95,15 +96,14 @@ public class Ui {
      *
      * @param task object that system deleted
      */
-    public static void printDelete(Task curTask) {
+    public void printDelete(Task curTask, int numberOfTask) {
         System.out.print(hLine);
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + curTask.toString());
-        int curTaskNumber = Task.taskNumber;
-        if (curTaskNumber == 1) {
-            System.out.println("Now you have " + curTaskNumber + " task in the list.");
+        if (numberOfTask == 1) {
+            System.out.println("Now you have " + numberOfTask + " task in the list.");
         } else {
-            System.out.println("Now you have " + curTaskNumber + " tasks in the list.");
+            System.out.println("Now you have " + numberOfTask + " tasks in the list.");
         }
         System.out.print(hLine);
     }
@@ -113,20 +113,19 @@ public class Ui {
     *
     * @param task object that system wants to print to user
      */
-    public static void printTask(Task curTask) {
+    public void printTask(Task curTask, int numberOfTask) {
         System.out.print(hLine);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + curTask.toString());
-        int curTaskNumber = Task.taskNumber;
-        if (curTaskNumber == 1) {
-            System.out.println("Now you have " + curTaskNumber + " task in the list.");
+        if (numberOfTask == 1) {
+            System.out.println("Now you have " + numberOfTask + " task in the list.");
         } else {
-            System.out.println("Now you have " + curTaskNumber + " tasks in the list.");
+            System.out.println("Now you have " + numberOfTask + " tasks in the list.");
         }
         System.out.print(hLine);
     }
 
-    public static void printFoundTask(ArrayList<Task> todoList, int tasksFounded) {
+    public void printFoundTask(TaskList todoList, int tasksFounded) {
         System.out.print(hLine);
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < tasksFounded; i++) {
@@ -142,7 +141,7 @@ public class Ui {
     * @param error description
      */
 
-    public static void printError(TaskType.taskType tasktype, String desc) {
+    public void printError(TaskType.taskType tasktype, String desc) {
         String oops = "OOPS!!! ";
         switch (tasktype) {
             case TODO, EVENT, DEADLINE:

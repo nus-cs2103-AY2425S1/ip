@@ -1,10 +1,10 @@
-package Milo.TaskObj;
+package Milo.Tasks;
 
 /**
  * Represents a to-do task, inheriting from task object, which contains
  * methods to display task in different string format
  */
-public class Todos extends Task {
+public class Todo extends Task {
 
     /*
      * initialise a deadline task object
@@ -12,7 +12,7 @@ public class Todos extends Task {
      *
      * @param description of the to-do task
      */
-    public Todos(String desc) {
+    public Todo(String desc) {
         super(desc);
     }
 
@@ -22,7 +22,7 @@ public class Todos extends Task {
      *
      * @param description of the to-do task
      */
-    public Todos(String desc, Boolean isCompleted) {
+    public Todo(String desc, Boolean isCompleted) {
         super(desc, isCompleted);
     }
 

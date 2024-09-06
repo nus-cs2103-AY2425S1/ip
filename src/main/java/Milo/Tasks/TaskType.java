@@ -1,4 +1,4 @@
-package Milo.TaskObj;
+package Milo.Tasks;
 
 /*
  * Represents the different possible task type of the task object

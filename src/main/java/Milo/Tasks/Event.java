@@ -1,4 +1,4 @@
-package Milo.TaskObj;
+package Milo.Tasks;
 import java.time.LocalDate;
 
 /**
@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * an additional field toDate containing a date in LocalDate form
  * and methods to display task in different string format
  */
-public class Events extends Task {
+public class Event extends Task {
 
     public final LocalDate fromDate;
 
@@ -21,7 +21,7 @@ public class Events extends Task {
      * @param from date
      * @param to date
      */
-    public Events(String desc, LocalDate from, LocalDate to) {
+    public Event(String desc, LocalDate from, LocalDate to) {
         super(desc);
         this.fromDate = from;
         this.toDate = to;
@@ -35,7 +35,7 @@ public class Events extends Task {
      * @param from date
      * @param to date
      */
-    public Events(String desc, LocalDate from, LocalDate to, Boolean isCompleted) {
+    public Event(String desc, LocalDate from, LocalDate to, Boolean isCompleted) {
         super(desc, isCompleted);
         this.fromDate = from;
         this.toDate = to;

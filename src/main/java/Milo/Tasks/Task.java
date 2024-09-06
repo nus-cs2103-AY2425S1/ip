@@ -1,11 +1,10 @@
-package Milo.TaskObj;
+package Milo.Tasks;
 /*
  * Represents a task event containing
  * completion status, deletion status and description
  * also contains a static count of the task number
  */
 public class Task {
-    public static int taskNumber = 0;
     private final String description;
     private Boolean isCompleted = false;
 
@@ -19,7 +18,6 @@ public class Task {
      */
     public Task(String desc) {
         this.description = desc;
-        taskNumber++;
     }
 
     /*
@@ -32,7 +30,6 @@ public class Task {
     public Task(String desc, Boolean isCompleted) {
         this.description = desc;
         this.isCompleted = isCompleted;
-        taskNumber++;
     }
 
     /*
@@ -59,7 +56,6 @@ public class Task {
      */
     public void delete() {
         this.isDeleted = true;
-        taskNumber--;
     }
 
     public Boolean isSameTask(String taskDesc) {
