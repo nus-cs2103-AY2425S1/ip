@@ -8,12 +8,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import duke.command.AddCommand;
+import duke.command.ArchiveCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.RestoreCommand;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -48,6 +50,8 @@ public class Parser {
         case "event" -> event(input);
         case "delete" -> delete(input);
         case "find" -> find(input);
+        case "archive" -> new ArchiveCommand();
+        case "restore" -> new RestoreCommand();
         default -> throw new BobException("I'm sorry, I did not understand your message.");
         };
     }

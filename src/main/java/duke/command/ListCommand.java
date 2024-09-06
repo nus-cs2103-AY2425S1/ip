@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Archive;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
@@ -20,9 +21,10 @@ public class ListCommand extends Command {
      * @param tasks The list of tasks to get the tasks from.
      * @param ui The ui to write the response message.
      * @param storage The storage for the command to interact with.
+     * @param archive The archive for the command to interact with.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Archive archive) {
         ui.list(tasks.all());
     }
 }

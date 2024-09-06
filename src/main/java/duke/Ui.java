@@ -177,4 +177,22 @@ public class Ui {
         }
         this.write(listMsg.toString());
     }
+
+    /**
+     * Writes the response message for an archive command.
+     *
+     * @param numArchived The number of tasks archived.
+     */
+    public void archive(int numArchived) {
+        this.write(" Ok! I've archived " + numArchived + " tasks.");
+    }
+
+    /**
+     * Writes the response message for a restore command.
+     *
+     * @param numRestored The number of tasks restored.
+     */
+    public void restore(int numRestored) {
+        this.write(" Ok! I've restored " + numRestored + " tasks.");
+    }
 }

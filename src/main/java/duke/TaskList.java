@@ -41,6 +41,15 @@ public class TaskList {
     }
 
     /**
+     * Adds multiple tasks to the task list.
+     *
+     * @param tasks The list of tasks to add.
+     */
+    public void add(ArrayList<Task> tasks) {
+        this.tasks.addAll(tasks);
+    }
+
+    /**
      * Returns a task by item number.
      *
      * @param itemNum The item number of the task to return.
@@ -97,5 +106,12 @@ public class TaskList {
      */
     public ArrayList<Task> all() {
         return this.tasks;
+    }
+
+    /**
+     * Clears the list of tasks.
+     */
+    public void clear() {
+        this.tasks = new ArrayList<>();
     }
 }

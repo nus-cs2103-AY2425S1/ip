@@ -2,6 +2,7 @@ package duke.command;
 
 import java.util.ArrayList;
 
+import duke.Archive;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
@@ -31,9 +32,10 @@ public class FindCommand extends Command {
      * @param tasks The list of tasks to search from.
      * @param ui The ui to write the message.
      * @param storage The storage for the command to interact with.
+     * @param archive The archive for the command to interact with.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Archive archive) {
         ArrayList<Task> taskArray = tasks.all();
         ArrayList<Task> results = new ArrayList<>();
 

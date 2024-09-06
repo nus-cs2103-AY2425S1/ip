@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Archive;
 import duke.BobException;
 import duke.Storage;
 import duke.TaskList;
@@ -17,8 +18,9 @@ public abstract class Command {
      * @param tasks The list of tasks for the command to interact with.
      * @param ui The ui for the command to interact with.
      * @param storage The storage for the command to interact with.
+     * @param archive The archive for the command to interact with.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BobException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage, Archive archive) throws BobException;
 
     /**
      * Returns whether the program should exit after execution.
