@@ -25,7 +25,6 @@ public class TheOrangeRatchetCat {
      */
     public String getResponse(String input) {
         List<Task> tasks = new ArrayList<>();
-        //Task.taskCount = 0;
         Task.assignTaskCountZero(0);
         Storage.loadTasks(tasks);
         Parser.initialiseMap(); // To add all the command key-value pairs in Parser

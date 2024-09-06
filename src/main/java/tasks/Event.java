@@ -23,7 +23,6 @@ public class Event extends Task {
         this.toDuration = toDuration;
         this.fromDuration = fromDuration;
         Task.incrementTaskCount();
-        //Task.taskCount++;
     }
 
     @Override

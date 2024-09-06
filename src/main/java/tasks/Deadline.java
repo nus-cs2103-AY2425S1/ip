@@ -20,7 +20,6 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
         Task.incrementTaskCount();
-        //Task.taskCount++;
     }
 
 
