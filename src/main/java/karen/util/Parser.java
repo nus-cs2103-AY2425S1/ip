@@ -1,20 +1,23 @@
 package karen.util;
 
+import java.time.format.DateTimeParseException;
+
+import karen.commands.AddTaskCommand;
+import karen.commands.Command;
+import karen.commands.DeleteCommand;
+import karen.commands.ExitCommand;
+import karen.commands.FindCommand;
+import karen.commands.ListCommand;
+import karen.commands.MarkCommand;
+import karen.commands.UnknownCommand;
+import karen.commands.UnmarkCommand;
 import karen.tasks.Deadline;
 import karen.tasks.Event;
 import karen.tasks.Todo;
-import karen.commands.Command;
-import karen.commands.ListCommand;
-import karen.commands.ExitCommand;
-import karen.commands.DeleteCommand;
-import karen.commands.AddTaskCommand;
-import karen.commands.FindCommand;
-import karen.commands.MarkCommand;
-import karen.commands.UnmarkCommand;
-import karen.commands.UnknownCommand;
 
-import java.time.format.DateTimeParseException;
-
+/**
+ * Handles all logic relevant to string processing of the user input, such as extracting keywords and parameters
+ */
 public class Parser {
 
     private enum Keywords {

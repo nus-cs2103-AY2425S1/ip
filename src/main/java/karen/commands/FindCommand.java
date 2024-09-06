@@ -1,12 +1,15 @@
 package karen.commands;
 
+import java.util.List;
+
 import karen.tasks.Task;
 import karen.tasks.TaskList;
 import karen.util.Ui;
 
-import java.util.List;
-
-public class FindCommand extends Command{
+/**
+ * Handles searching a <code>TaskList</code> by name and prints the appropriate message
+ */
+public class FindCommand extends Command {
     private String searchWord;
 
     public FindCommand(String searchWord) {

@@ -3,9 +3,19 @@ package karen.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Event class containing the Event's name, start and end LocalDateTimes
+ */
 public class Event extends Task {
-    private LocalDateTime from, to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
+    /**
+     * Constructor to initialize the name, from and to attributes
+     * @param name String representing the Event's name
+     * @param from a <code>LocalDateTime</code> representing the start of the Event
+     * @param to a <code>LocalDateTime</code> representing the end of the Event
+     */
     public Event(String name, String from, String to) {
         super(name);
 
