@@ -218,7 +218,6 @@
 
 package blacknut.ui;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import blacknut.ui.BlacknutExceptions.InvalidCommandException;
@@ -330,4 +329,12 @@ public class Blacknut {
     public static void main(String[] args) {
         new Blacknut().run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Blacknut heard: " + input;
+    }
 }
+
