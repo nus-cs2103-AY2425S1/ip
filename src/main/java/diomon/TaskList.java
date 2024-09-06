@@ -57,16 +57,23 @@ public class TaskList {
         return this.tasks.get(i);
     }
 
+    /**
+     * Performs a fuzzy search on the tasks in the list by checking if each task's description contains the given input string.
+     * Returns a {@link TaskList} containing all tasks that match the input.
+     *
+     * @param input The string to search for in the task descriptions.
+     * @return A {@link TaskList} containing tasks whose descriptions contain the input string.
+     */
     public TaskList fuzzyFind(String input) {
         TaskList temp = new TaskList();
         for (Task i : tasks) {
-            if (i.toString().contains(input)){
+            if (i.description.contains(input)){
                 temp.add(i);
             }
         }
         return temp;
     }
-    
+
     /**
      * Marks the task at the specified index as completed.
      *
