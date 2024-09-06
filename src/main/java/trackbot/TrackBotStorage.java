@@ -17,8 +17,8 @@ import trackbot.ui.Parser;
  * file and directories are created when needed.
  */
 public class TrackBotStorage {
-    private final String filePath;
-    private final File file;
+    private final String taskfilePath;
+    private final File taskfile;
 
     /**
      * Constructs a TrackBotStorage object for a specified file path.
@@ -28,8 +28,8 @@ public class TrackBotStorage {
      * @throws IOException If an I/O error occurs while creating the file or directories.
      */
     public TrackBotStorage(String filePath) throws IOException {
-        this.filePath = filePath;
-        this.file = new File(filePath);
+        this.taskfilePath = filePath;
+        this.taskfile = new File(filePath);
         createNewFile();
     }
 
@@ -39,12 +39,12 @@ public class TrackBotStorage {
      * @throws IOException If an I/O error occurs while creating the file or directories.
      */
     public void createNewFile() throws IOException {
-        File directory = file.getParentFile();
+        File directory = taskfile.getParentFile();
         if (!directory.exists()) {
             directory.mkdirs();
         }
-        if (!file.exists()) {
-            file.createNewFile();
+        if (!taskfile.exists()) {
+            taskfile.createNewFile();
         }
     }
 
@@ -56,35 +56,35 @@ public class TrackBotStorage {
      * @throws FileNotFoundException If the file is not found.
      */
     public List<Task> loadContents() throws FileNotFoundException {
-        List<Task> list = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
 
-        if (!file.exists()) {
+        if (!taskfile.exists()) {
             System.out.println("Data file does not exist. A new file will be created.");
-            return list;
+            return tasks;
         }
 
-        Scanner s = new Scanner(file);
+        Scanner s = new Scanner(taskfile);
         while (s.hasNext()) {
             String line = s.nextLine();
             Task task = Parser.parseTask(line);
             if (task != null) {
-                list.add(task);
+                tasks.add(task);
             }
         }
         s.close();
-        return list;
+        return tasks;
     }
     /**
      * Saves the tasks from a list into the storage file.
      *
-     * @param list The list of tasks to save.
+     * @param tasks The list of tasks to save.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public void saveContents(List<Task> list) throws IOException {
-        FileWriter fw = new FileWriter(this.filePath);
-        for (Task task : list) {
-            fw.write(task.toStorageFormat() + System.lineSeparator());
+    public void saveContents(List<Task> tasks) throws IOException {
+        FileWriter fileWriter = new FileWriter(this.taskfilePath);
+        for (Task task : tasks) {
+            fileWriter.write(task.toStorageFormat() + System.lineSeparator());
         }
-        fw.close();
+        fileWriter.close();
     }
 }

@@ -55,8 +55,8 @@ public class ParserTest {
         assertInstanceOf(AddCommand.class, command);
         assertInstanceOf(Event.class, ((AddCommand) command).getTask());
         assertEquals("project zoom", ((AddCommand) command).getTask().getDesc());
-        assertEquals("Dec 2 2024", ((Event) ((AddCommand) command).getTask()).getFrom());
-        assertEquals("Dec 3 2024", ((Event) ((AddCommand) command).getTask()).getTo());
+        assertEquals("Dec 2 2024", ((Event) ((AddCommand) command).getTask()).getDateFrom());
+        assertEquals("Dec 3 2024", ((Event) ((AddCommand) command).getTask()).getDateTo());
     }
 
     @Test
