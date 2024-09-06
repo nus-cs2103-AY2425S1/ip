@@ -35,29 +35,17 @@ public class Storage {
 
         switch (type) {
             case "T":
-                // Todo tasks should have 3 parts
-                if (parts.length != 3) {
-                    throw new NaegaException("Invalid data format for Todo task.");
-                }
                 Task todo = new Todo(description);
                 if (isDone) todo.markAsDone();
                 return todo;
 
             case "D":
-                // Deadline tasks should have 4 parts
-                if (parts.length != 4) {
-                    throw new NaegaException("Invalid data format for Deadline task.");
-                }
-                Task deadline = new Deadline(description, parts[3]);
+                Task deadline = new Deadline(description, parts[3]);  // parts[3] contains the date in yyyy-mm-dd format
                 if (isDone) deadline.markAsDone();
                 return deadline;
 
             case "E":
-                // Event tasks should have 5 parts
-                if (parts.length != 5) {
-                    throw new NaegaException("Invalid data format for Event task.");
-                }
-                Task event = new Event(description, parts[3], parts[4]);
+                Task event = new Event(description, parts[3], parts[4]);  // parts[3] and parts[4] contain dates
                 if (isDone) event.markAsDone();
                 return event;
 

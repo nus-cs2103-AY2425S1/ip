@@ -108,7 +108,7 @@ public class Naega {
         if (parts.length < 2) {
             throw new NaegaException("The deadline must include a '/by' keyword.");
         }
-        Task newTask = new Deadline(parts[0], parts[1]);
+        Task newTask = new Deadline(parts[0], parts[1]);  // parts[1] is the date
         tasks.add(newTask);
         printTaskAdded(tasks, newTask);
     }
@@ -123,7 +123,7 @@ public class Naega {
         if (timeParts.length < 2) {
             throw new NaegaException("The event must include a '/to' keyword.");
         }
-        Task newTask = new Event(description, timeParts[0], timeParts[1]);
+        Task newTask = new Event(description, timeParts[0], timeParts[1]);  // timeParts contain the dates
         tasks.add(newTask);
         printTaskAdded(tasks, newTask);
     }
