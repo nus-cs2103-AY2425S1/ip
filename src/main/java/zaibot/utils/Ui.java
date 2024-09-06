@@ -1,5 +1,7 @@
 package zaibot.utils;
 
+import java.util.ArrayList;
+
 import zaibot.exception.ZaibotException;
 import zaibot.task.Task;
 
@@ -55,7 +57,9 @@ public class Ui {
                                      TaskList taskList) throws ZaibotException {
         switch (type) {
         case "mark":
+            // fallthrough
         case "unmark":
+            // fallthrough
         case "add":
             return task.toString()
                     + "\n" + Message.valueOf(type.toUpperCase())
