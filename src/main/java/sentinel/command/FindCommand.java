@@ -3,6 +3,7 @@ package sentinel.command;
 import sentinel.ui.Ui;
 import sentinel.utils.Parser;
 import sentinel.utils.SentinelList;
+import sentinel.utils.SentinelString;
 
 /**
  * The FindCommand class is responsible for displaying the filtered list of tasks to the user.
@@ -26,8 +27,9 @@ public class FindCommand extends Command {
      * @param input The user's input keyword string
      */
     @Override
-    public void execute(String input) {
+    public String execute(String input) {
         String keyword = Parser.parseKeyword(input);
         ui.showFilteredList(list, keyword);
+        return SentinelString.stringFilteredList(list, keyword);
     }
 }

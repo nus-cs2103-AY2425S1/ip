@@ -2,6 +2,7 @@ package sentinel.command;
 
 import sentinel.ui.Ui;
 import sentinel.utils.SentinelList;
+import sentinel.utils.SentinelString;
 
 /**
  * The ListCommand class is responsible for displaying the list of tasks to the user.
@@ -25,7 +26,8 @@ public class ListCommand extends Command {
      * @param input The user's input string (not used in this command).
      */
     @Override
-    public void execute(String input) {
+    public String execute(String input) {
         ui.showList(list);
+        return SentinelString.stringList(list);
     }
 }

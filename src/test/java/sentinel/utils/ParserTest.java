@@ -25,7 +25,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseForCommand() {
+    public void testParseForCommand() throws SentinelException {
         Sentinel.CommandType commandType = Parser.parseForCommand("todo Task description");
         assertEquals(Sentinel.CommandType.todo, commandType);
     }
@@ -46,8 +46,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseTaskNameInvalidDeadline()
-            throws SentinelException {
+    public void testParseTaskNameInvalidDeadline() {
         String input = "deadline Test Deadline";
         Sentinel.CommandType commandType = Sentinel.CommandType.deadline;
         Exception exception = assertThrows(DeadlineException.class, ()
@@ -56,8 +55,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseTaskNameInvalidEvent()
-            throws SentinelException {
+    public void testParseTaskNameInvalidEvent() {
         String input = "event Test Event";
         Sentinel.CommandType commandType = Sentinel.CommandType.event;
         Exception exception = assertThrows(EventException.class, ()
