@@ -16,11 +16,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        System.out.println("start");
         try {
-            System.out.println("yo");
             azir = new Azir();
-            System.out.println("reached");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
