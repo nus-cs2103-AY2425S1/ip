@@ -10,11 +10,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import puke.exceptions.EmptyInputException;
-import puke.exceptions.MissingEventTimeException;
-import puke.exceptions.MissingTimeException;
 import puke.exceptions.PukeException;
-import puke.exceptions.TaskNumberOutOfBoundsException;
 import puke.message.MessageBuilder;
 import puke.task.Deadline;
 import puke.task.Event;
@@ -32,10 +28,8 @@ public class ParserTest {
     @Test
     public void testEmptyInput() {
         Parser parser = new Parser(new TaskList(new ArrayList<>()), new MessageBuilder());
-        Exception exception = assertThrows(EmptyInputException.class, () -> {
-            parser.handleInput(" ");
-        });
-        assertTrue(exception.getMessage().contains("OOPS!!! You need to enter a command."));
+        String result = parser.handleInput(" ");
+        assertTrue(result.contains("OOPS!!! You need to enter a command."));
     }
 
     /**
@@ -99,11 +93,8 @@ public class ParserTest {
     public void deadlineWithoutDateThrowsException() {
         TaskList taskList = new TaskList(new ArrayList<>());
         Parser parser = new Parser(taskList, new MessageBuilder());
-
-        Exception exception = assertThrows(MissingTimeException.class, () -> {
-            parser.handleInput("deadline Task #4");
-        });
-        assertEquals("OOPS!!! The deadline must have a specified time.", exception.getMessage());
+        String resultWithoutTime = parser.handleInput("deadline Task #4");
+        assertTrue(resultWithoutTime.contains("OOPS!!! The deadline must have a specified time."));
     }
 
     /**
@@ -113,16 +104,10 @@ public class ParserTest {
     public void eventWithoutStartOrEndTimeThrowsException() {
         TaskList taskList = new TaskList(new ArrayList<>());
         Parser parser = new Parser(taskList, new MessageBuilder());
-
-        Exception exception1 = assertThrows(MissingEventTimeException.class, () -> {
-            parser.handleInput("event Task #5 /from /to 02/02/2024 1200");
-        });
-        assertEquals("OOPS!!! An event must have both start and end times specified.", exception1.getMessage());
-
-        Exception exception2 = assertThrows(MissingEventTimeException.class, () -> {
-            parser.handleInput("event Task #5 /from 01/01/2024 1800 /to");
-        });
-        assertEquals("OOPS!!! An event must have both start and end times specified.", exception2.getMessage());
+        String resultWithoutFrom = parser.handleInput("event Task #5 /from /to 02/02/2024 1200");
+        assertTrue(resultWithoutFrom.contains("OOPS!!! An event must have both start and end times specified."));
+        String resultWithoutTo = parser.handleInput("event Task #5 /from 01/01/2024 1800 /to");
+        assertTrue(resultWithoutTo.contains("OOPS!!! An event must have both start and end times specified."));
     }
 
     /**
@@ -171,11 +156,8 @@ public class ParserTest {
     public void markTaskIndexOutOfBounds() {
         TaskList taskList = new TaskList(new ArrayList<>());
         Parser parser = new Parser(taskList, new MessageBuilder());
-
-        Exception exception = assertThrows(TaskNumberOutOfBoundsException.class, () -> {
-            parser.handleInput("mark 2");
-        });
-        assertEquals("OOPS!!! The task number " + 2 + " is out of bounds.", exception.getMessage());
+        String result = parser.handleInput("mark 2");
+        assertTrue(result.contains("OOPS!!! The task number " + 2 + " is out of bounds."));
     }
 
     /**

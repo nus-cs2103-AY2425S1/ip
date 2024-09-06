@@ -13,24 +13,29 @@ public class AddTodoCommand extends Command {
     /**
      * Constructs an AddTodoCommand with the specified description.
      *
-     * @param description the description of the Todo task to be added
+     * @param description the description of the Todo task to be added.
+     * @throws EmptyDescriptionException if the description is empty.
      */
-    public AddTodoCommand(String description) {
+    public AddTodoCommand(String description) throws EmptyDescriptionException {
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException("Todo description cannot be empty.");
+        }
         this.description = description;
     }
 
     /**
      * Executes the command to add a Todo task to the TaskList and sends a confirmation message.
      *
-     * @param taskList the TaskList to which the Todo task will be added
-     * @param messageBuilder the MessageBuilder used to construct and send a confirmation message
-     * @throws EmptyDescriptionException if the description is empty
+     * @param taskList the TaskList to which the Todo task will be added.
+     * @param messageBuilder the MessageBuilder used to construct and send the confirmation message.
+     * @return the confirmation message after adding the Todo task.
+     * @throws EmptyDescriptionException if the description is empty.
      */
     @Override
-    public void execute(TaskList taskList, MessageBuilder messageBuilder) throws EmptyDescriptionException {
+    public String execute(TaskList taskList, MessageBuilder messageBuilder) throws EmptyDescriptionException {
         if (description.isEmpty()) {
-            throw new EmptyDescriptionException("tasks.Todo description cannot be empty.");
+            throw new EmptyDescriptionException("Todo description cannot be empty.");
         }
-        messageBuilder.sendMessage(taskList.addTask("todo", description));
+        return messageBuilder.sendMessage(taskList.addTask("todo", description));
     }
 }

@@ -33,14 +33,15 @@ public class AddDeadlineCommand extends Command {
 
     /**
      * Executes the add deadline command.
-     * This method adds a new deadline task to the task manager and sends a confirmation message
+     * This method adds a new deadline task to the task list and sends a confirmation message
      * using the message builder.
      *
-     * @param taskList the task manager to add the task to.
-     * @param messageBuilder the message builder to send confirmation message.
+     * @param taskList the task list to which the deadline task will be added.
+     * @param messageBuilder the message builder used to generate and send the confirmation message.
+     * @return the confirmation message after adding the deadline task.
      */
     @Override
-    public void execute(TaskList taskList, MessageBuilder messageBuilder) {
-        messageBuilder.sendMessage(taskList.addTask("deadline", description, by));
+    public String execute(TaskList taskList, MessageBuilder messageBuilder) {
+        return messageBuilder.sendMessage(taskList.addTask("deadline", description, by));
     }
 }

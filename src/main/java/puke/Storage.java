@@ -34,6 +34,7 @@ public class Storage {
                     try {
                         tasks.add(parseTask(line));
                     } catch (Exception e) {
+                        System.out.println(e.getMessage());
                         System.out.println("Skipping corrupt task: " + line);
                     }
                 }
@@ -52,7 +53,7 @@ public class Storage {
     public static void saveTasks(ArrayList<Task> tasks) {
         Path path = Paths.get(FILE_PATH);
         try {
-            Files.createDirectories(path.getParent()); // Ensure directory exists
+            Files.createDirectories(path.getParent());
             try (BufferedWriter writer = Files.newBufferedWriter(path)) {
                 for (Task task : tasks) {
                     writer.write(task.toFileFormat());
@@ -89,4 +90,5 @@ public class Storage {
             throw new IllegalArgumentException("Unsupported task type: " + type);
         }
     }
+
 }

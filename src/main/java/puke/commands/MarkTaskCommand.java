@@ -16,14 +16,14 @@ public class MarkTaskCommand extends Command {
     /**
      * Constructs a MarkTaskCommand with the specified task number string and completion status.
      *
-     * @param numberString the string representation of the task number to be marked
-     * @param isDone true to mark the task as completed, false to mark it as incomplete
-     * @throws InvalidTaskNumberFormatException if the numberString cannot be parsed as an integer
-     * @throws EmptyInputException if the numberString is empty
+     * @param numberString the string representation of the task number to be marked.
+     * @param isDone true to mark the task as completed, false to mark it as incomplete.
+     * @throws InvalidTaskNumberFormatException if the numberString cannot be parsed as an integer.
+     * @throws EmptyInputException if the numberString is null or empty.
      */
     public MarkTaskCommand(String numberString, boolean isDone)
             throws InvalidTaskNumberFormatException, EmptyInputException {
-        if (numberString.isEmpty()) {
+        if (numberString == null || numberString.trim().isEmpty()) {
             throw new EmptyInputException("You must specify a task number to mark.");
         }
         try {
@@ -37,15 +37,16 @@ public class MarkTaskCommand extends Command {
     /**
      * Executes the command to mark the specified task as completed or incomplete and sends a confirmation message.
      *
-     * @param taskList the TaskList to perform operations on
-     * @param messageBuilder the MessageBuilder used to construct and send a confirmation message
-     * @throws TaskNumberOutOfBoundsException if the taskNumber is outside the valid range of task numbers
+     * @param taskList the TaskList that contains the task to be marked.
+     * @param messageBuilder the MessageBuilder used to construct and send the confirmation message.
+     * @return the confirmation message after marking the task.
+     * @throws TaskNumberOutOfBoundsException if the taskNumber is outside the valid range of task numbers.
      */
     @Override
-    public void execute(TaskList taskList, MessageBuilder messageBuilder) throws TaskNumberOutOfBoundsException {
+    public String execute(TaskList taskList, MessageBuilder messageBuilder) throws TaskNumberOutOfBoundsException {
         if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
             throw new TaskNumberOutOfBoundsException(taskNumber);
         }
-        messageBuilder.sendMessage(taskList.markTask(taskNumber, isDone));
+        return messageBuilder.sendMessage(taskList.markTask(taskNumber, isDone));
     }
 }

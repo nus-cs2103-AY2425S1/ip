@@ -47,6 +47,7 @@ public class TaskList {
         default:
             return "Invalid task type!";
         }
+        System.out.println(task);
         tasks.add(task);
         Storage.saveTasks(tasks);
 

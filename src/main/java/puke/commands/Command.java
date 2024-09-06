@@ -6,16 +6,17 @@ import puke.message.MessageBuilder;
 
 /**
  * Abstract base class for all commands in the application.
- * Defines the common interface for executing a command.
+ * Defines the common interface for executing commands.
  */
 public abstract class Command {
 
     /**
      * Executes the command using the provided TaskList and MessageBuilder.
      *
-     * @param taskList the TaskList to perform operations on
-     * @param messageBuilder the MessageBuilder to construct and send messages
-     * @throws PukeException if an error occurs during command execution
+     * @param taskList the TaskList on which the command operates.
+     * @param messageBuilder the MessageBuilder used to construct and send messages.
+     * @return the result message after executing the command.
+     * @throws PukeException if an error occurs during command execution.
      */
-    public abstract void execute(TaskList taskList, MessageBuilder messageBuilder) throws PukeException;
+    public abstract String execute(TaskList taskList, MessageBuilder messageBuilder) throws PukeException;
 }

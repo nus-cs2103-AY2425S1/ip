@@ -35,14 +35,15 @@ public class AddEventCommand extends Command {
 
     /**
      * Executes the add event command.
-     * This method adds a new event task to the task manager with a specified duration and sends a confirmation
+     * This method adds a new event task to the task list with a specified duration and sends a confirmation
      * message using the message builder.
      *
-     * @param taskList the task manager to add the task to.
-     * @param messageBuilder the message builder to send the confirmation message.
+     * @param taskList the task list to add the event task to.
+     * @param messageBuilder the message builder to generate and send the confirmation message.
+     * @return the confirmation message after adding the task.
      */
     @Override
-    public void execute(TaskList taskList, MessageBuilder messageBuilder) {
-        messageBuilder.sendMessage(taskList.addTask("event", description, from, to));
+    public String execute(TaskList taskList, MessageBuilder messageBuilder) {
+        return messageBuilder.sendMessage(taskList.addTask("event", description, from, to));
     }
 }

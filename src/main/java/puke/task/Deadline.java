@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Deadline extends Task {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private LocalDateTime by; // Instance variable comes after static variables
+    private LocalDateTime by;
 
     /**
      * Constructs a Deadline with the specified description, completion status, and due date.
@@ -66,6 +66,6 @@ public class Deadline extends Task {
     @Override
     public String toFileFormat() {
         return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
-                + by.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 }
