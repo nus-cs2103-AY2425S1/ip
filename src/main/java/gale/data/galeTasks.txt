@@ -1,4 +1,2 @@
 T | 0 | gym
 E | 0 | head to the party | 2023-11-22 12:22 | 2023-11-23 12:22
-T | 0 | go to the gym tonight!
-T | 0 | go to the gym

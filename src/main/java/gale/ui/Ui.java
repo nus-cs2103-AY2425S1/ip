@@ -15,120 +15,128 @@ public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
     /**
-     * Displays a greeting message to the user when the application starts.
+     * Displays the greeting message to the user when the application starts.
+     *
      */
     public void greet() {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello! I'm Gale, your friendly windy assistant.");
+        System.out.println("Hello BladeRunner! I'm Gale, your friendly windy assistant.");
         System.out.println("I'll keep your deadlines, to-do's and events in my memory. What do you have to do?");
         System.out.println(HORIZONTAL_LINE);
     }
 
     /**
-     * Displays a goodbye message to the user when the application exits.
+     * Returns a String that contains the goodbye message to the user when the application exits.
+     * @return the goodbye message as a String
      */
-    public void exit() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Aw, it's time for you to go huh?");
-        System.out.println("Catch you on the next gust!");
-        System.out.println(HORIZONTAL_LINE);
+    public String exit() {
+        return HORIZONTAL_LINE + "\n"
+            + "Aw, it's time for you to go huh?\n"
+            + "Catch you on the next gust!\n"
+            + HORIZONTAL_LINE;
     }
 
     /**
-     * Displays a message to the user when a task is added to the task list.
+     * Returns a String that contains a message to the user when a task is added to the task list.
      * @param task the task that was added
      * @param taskCount the updated number of tasks in the task list
+     * @return the message to the user as a String
      */
-    public void printAddedTask(Task task, int taskCount) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Whoosh! Task \"" + task + "\" added to my windy memory.");
-        System.out.println("Now you have " + taskCount + " task" + (taskCount == 1 ? "" : "s")
-            + " in the air.");
-        System.out.println("Anything else?");
-        System.out.println(HORIZONTAL_LINE);
+    public String showAddedTask(Task task, int taskCount) {
+        return HORIZONTAL_LINE + "\n"
+            + "Whoosh! Task \"" + task + "\" added to my windy memory. \n"
+            + "Now you have " + taskCount + " task" + (taskCount == 1 ? "" : "s")
+            + " in the air.\n"
+            + "Anything else?\n"
+            + HORIZONTAL_LINE;
     }
 
     /**
-     * Displays a message to the user when a task is deleted from the task list.
+     * Returns a String that contains a message to the user when a task is deleted from the task list.
      * @param task the task that was deleted
      * @param taskCount the updated number of tasks in the task list
+     * @return the message to the user as a String
      */
-    public void showDeletedTask(Task task, int taskCount) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Poof! The wind has blown away this task:");
-        System.out.println(" " + task);
-        System.out.println("Now you have " + taskCount + " task" + (taskCount == 1 ? "" : "s")
-            + " in your windy list.");
-        System.out.println(HORIZONTAL_LINE);
+    public String showDeletedTask(Task task, int taskCount) {
+        return HORIZONTAL_LINE + "\n"
+            + "Poof! The wind has blown away this task:\n"
+            + " " + task + "\n"
+            + "Now you have " + taskCount + " task" + (taskCount == 1 ? "" : "s")
+            + " in your windy list.\n"
+            + HORIZONTAL_LINE;
     }
 
     /**
-     * Displays the list of tasks to the user when prompted by the user.
+     * Returns a String that contains the list of tasks to the user when prompted by the user.
      * @param taskList the list of tasks to be displayed
+     * @return the message to the user as a String
      */
-    public void displayTaskList(TaskList taskList) {
-        System.out.println(HORIZONTAL_LINE);
+    public String displayTaskList(TaskList taskList) {
+        StringBuilder sb = new StringBuilder(HORIZONTAL_LINE + "\n");
         if (taskList.isEmpty()) {
-            System.out.println("No tasks breezing around now!");
+            sb.append("No tasks breezing around now!\n");
         } else {
-            System.out.println("You are breezy with these tasks:");
+            sb.append("You are breezy with these tasks:\n");
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.println(" " + (i + 1) + ". " + taskList.getTask(i));
+                sb.append(" ").append(i + 1).append(". ").append(taskList.getTask(i)).append("\n");
             }
         }
-        System.out.println(HORIZONTAL_LINE);
+        sb.append(HORIZONTAL_LINE);
+        return sb.toString();
     }
 
     /**
-     * Displays a message to the user when a task is marked as done or undone.
+     * Returns a String that contains a message to the user when a task is marked as done or undone.
      * @param task the task that was marked
      * @param isDone the status of the task as a boolean (true if done, false if undone)
+     * @return the message to the user as a String
      */
-    public void showMarkedTask(Task task, boolean isDone) {
-        System.out.println(HORIZONTAL_LINE);
+    public String showMarkedTask(Task task, boolean isDone) {
+        StringBuilder sb = new StringBuilder(HORIZONTAL_LINE + "\n");
         if (isDone) {
-            System.out.println("Good work! You breezed through this task!");
+            sb.append("Good work! You breezed through this task!\n");
         } else {
-            System.out.println("Tough, this task is back in the windy realm.");
+            sb.append("Tough, this task is back in the windy realm.\n");
         }
-        System.out.println(" " + task);
-        System.out.println(HORIZONTAL_LINE);
+        sb.append(" ").append(task).append("\n").append(HORIZONTAL_LINE);
+        return sb.toString();
     }
 
     /**
-     * Displays an exception message to the user.
+     * Returns a String that contains an exception message to the user.
      * @param message the exception message to be displayed
+     * @return the String containing the exception message
      */
-    public void showException(String message) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(message);
-        System.out.println(HORIZONTAL_LINE);
+    public String showException(String message) {
+        return HORIZONTAL_LINE + "\n" + message + "\n" + HORIZONTAL_LINE;
     }
 
     /**
-     * Displays a message to the user when an error occurs while loading tasks from the file.
+     * Returns a String that contains a message to the user when an error occurs while loading tasks from the file.
      */
-    public void showLoadingError() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Oops! The wind blew away your tasks. Starting with a clean slate.");
-        System.out.println(HORIZONTAL_LINE);
+    public String showLoadingError() {
+        return HORIZONTAL_LINE + "\n"
+            + "Oops! The wind blew away your tasks. Starting with a clean slate.\n"
+            + HORIZONTAL_LINE;
     }
 
     /**
-     * Shows the tasks that contain the keyword in their description.
+     * Returns a String that contains a message to the user when they search for tasks with a keyword.
      * @param foundTasks the ArrayList of tasks that contain the keyword
      * @param keyword the keyword the user is searching for
+     * @return the message to the user as a String
      */
-    public void showFoundTasks(ArrayList<Task> foundTasks, String keyword) {
-        System.out.println(HORIZONTAL_LINE);
+    public String showFoundTasks(ArrayList<Task> foundTasks, String keyword) {
+        StringBuilder sb = new StringBuilder(HORIZONTAL_LINE + "\n");
         if (foundTasks.isEmpty()) {
-            System.out.println("Oops. I combed through the clouds, but there were no tasks found with that keyword.");
+            sb.append("Oops. I combed through the clouds, but there were no tasks found with that keyword.\n");
         } else {
-            System.out.println("Whoosh! Here are your matching tasks!");
+            sb.append("Whoosh! Here are your matching tasks!\n");
             for (int i = 0; i < foundTasks.size(); i++) {
-                System.out.println(" " + (i + 1) + ". " + foundTasks.get(i));
+                sb.append(" ").append(i + 1).append(". ").append(foundTasks.get(i)).append("\n");
             }
         }
-        System.out.println(HORIZONTAL_LINE);
+        sb.append(HORIZONTAL_LINE);
+        return sb.toString();
     }
 }

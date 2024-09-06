@@ -14,7 +14,7 @@ import gale.parser.Parser;
 public class ParserTest {
 
     @Test
-    public void taskCommand_wrongCommandFormat_exceptionThrown() {
+    public void userInput_wrongCommandFormat_exceptionThrown() {
         try {
             Parser.parseTask("hello");
             fail();
@@ -40,5 +40,4 @@ public class ParserTest {
         String invalidDate = "2023-12/31";
         assertThrows(DateTimeParseException.class, () -> Parser.parseDateTime(invalidDate));
     }
-
 }

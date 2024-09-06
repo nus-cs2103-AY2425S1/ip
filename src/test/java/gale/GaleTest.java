@@ -19,7 +19,7 @@ public class GaleTest {
     public void setUp() {
         outputCapture = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputCapture));
-        gale = new Gale("src/main/java/data/galeTest.txt");
+        gale = new Gale("src/main/java/gale/data/galeTest.txt");
     }
 
     public void simulateUserInput(String input) {
@@ -27,16 +27,18 @@ public class GaleTest {
     }
 
     @Test
-    public void testAddTask_success() throws GaleException {
+    public void addToDoTask_validInput_successMessage() throws GaleException {
         simulateUserInput("todo Test task\nbye\n");
         gale.run();
         String output = outputCapture.toString();
+        int taskCount = gale.getTaskList().size();
         assertTrue(output.contains("Whoosh! Task \"[T][ ] Test task\" added to my windy memory."));
-        assertTrue(output.contains("Now you have 1 task in the air."));
+        assertTrue(output.contains("Now you have " + taskCount
+            + (taskCount == 1 ? " task" : " tasks") + " in the air."));
     }
 
     @Test
-    public void testInvalidCommand_exceptionThrown() throws GaleException {
+    public void userInput_invalidCommand_exceptionThrown() throws GaleException {
         simulateUserInput("invalid command\nbye\n");
         gale.run();
         String output = outputCapture.toString();
