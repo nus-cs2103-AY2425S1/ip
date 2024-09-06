@@ -13,6 +13,10 @@ public class Task {
         type = TaskType.TASK;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }

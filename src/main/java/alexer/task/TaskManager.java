@@ -51,6 +51,18 @@ public class TaskManager {
         return event;
     }
 
+    public List<Task> findTask(String description) {
+        List<Task> tasks = new ArrayList<>();
+
+        for (Task task : taskList) {
+            if (task.getDescription().contains(description)) {
+                tasks.add(task);
+            }
+        }
+
+        return tasks;
+    }
+
     /**
      * Loads tasks from the task save file
      * @return boolean whether tasks loaded successfully
