@@ -10,14 +10,12 @@ public class Taskalyn {
     private Database database;
     private TaskManager taskManager;
     private Parser parser;
-    private boolean isRunning;
 
     public Taskalyn() {
         this.ui = new Ui();
         this.database = new Database();
         this.taskManager = new TaskManager(database, ui);
         this.parser = new Parser(ui, taskManager);
-        this.isRunning = true;
     }
 
     /**
