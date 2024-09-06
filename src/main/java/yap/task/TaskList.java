@@ -1,8 +1,11 @@
 package yap.task;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+<<<<<<< HEAD
+=======
+>>>>>>> branch-A-CodingStandard
 
 import yap.storage.Storage;
 import yap.storage.BadDataFormatException;
@@ -10,6 +13,7 @@ import yap.storage.BadDataFormatException;
 public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
+
     public TaskList(Storage storage) {
         try {
             this.storage = storage;

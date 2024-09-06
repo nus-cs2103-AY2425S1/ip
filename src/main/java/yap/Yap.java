@@ -18,10 +18,10 @@ public class Yap {
 //                    + "  || //____\\  ||\n"
 //                    + "  ||//      \\ ||\n";
         String logo = "Yap";
-        String separator = "_____________________________________";
+        String SEPARATOR = "_____________________________________";
         System.out.println("Hello from " + logo);
         System.out.println("What would you like me to do for you?");
-        System.out.println(separator);
+        System.out.println(SEPARATOR);
 
         // Infinite loop to get user input
         Storage storage = new Storage("yap.txt", "./data/");
@@ -37,7 +37,7 @@ public class Yap {
                 }
             } catch (InputException | DateTimeParseException exception) {
                 System.out.println(exception.getMessage());
-                System.out.println(separator);
+                System.out.println(SEPARATOR);
             }
         }
     }

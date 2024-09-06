@@ -1,5 +1,7 @@
 package yap.task;
+
 import yap.ui.InputException;
+
 public class EventException extends InputException {
     public enum EventExceptionType {
         NOFROM,

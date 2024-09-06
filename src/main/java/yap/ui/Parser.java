@@ -1,9 +1,10 @@
 package yap.ui;
-import yap.task.ToDo;
-import yap.task.Event;
-import yap.task.EventException;
+
 import yap.task.Deadline;
 import yap.task.DeadlineException;
+import yap.task.Event;
+import yap.task.EventException;
+import yap.task.ToDo;
 
 public class Parser {
     public static ToDo parseInputAsToDo(String input) throws InputException {
