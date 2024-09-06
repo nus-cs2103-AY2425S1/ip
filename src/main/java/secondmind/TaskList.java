@@ -97,7 +97,7 @@ public class TaskList {
      * @throws UnknownCommandException If the command is unknown.
      * @throws DateTimeParseException If the date-time format is invalid.
      */
-    public Task addToTaskList(String task) 
+    public Task addToTaskList(String task)
             throws EmptyCommandException, EmptyToDoException,  UnknownCommandException, DateTimeParseException  {
         Task curr = createTask(task);
         taskList.add(curr);
@@ -113,12 +113,17 @@ public class TaskList {
         return this.taskList;
     }
 
-    /**
-     * Marks a task as done.
-     *
-     * @param taskNumber The number of the task to mark as done.
-     * @throws InvalidTaskNumberException If the task number is invalid.
-     */
+    public ArrayList<Task> getMatchingTasks(String match) {
+        ArrayList<Task> filteredTaskList = new ArrayList<>();
+        for (int i = 1; i <= this.getTaskCount(); i++) {
+            Task curr = this.getTask(i);
+            if (curr.getDescription().contains(match)) {
+                filteredTaskList.add(curr);
+            }
+        }
+        return filteredTaskList;
+    }
+
     public void markAsDone(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber <= 0 || taskNumber > getTaskCount()) {
             throw new InvalidTaskNumberException(taskNumber);

@@ -102,6 +102,11 @@ public class SecondMind {
             }
         } else if (command.equals("list")) {
             this.ui.printTaskList(this.taskList.getTaskList(), this.taskList.getTaskCount());
+        } else if (command.equals("find")) {
+            instruction[0] = "";
+            String match = String.join(" ", instruction);
+            ArrayList<Task> filteredTaskList = this.taskList.getMatchingTasks(match);
+            this.ui.printTaskList(filteredTaskList, filteredTaskList.size());
         } else {
             try {
                 Task curr = taskList.addToTaskList(instruction[1]);
