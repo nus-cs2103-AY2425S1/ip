@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private Sora sora;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image soraImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
@@ -47,8 +47,15 @@ public class MainWindow extends AnchorPane {
         String response = sora.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, soraImage)
         );
         userInput.clear();
+    }
+
+    protected void greetUser() {
+        String response = sora.getResponse("welcome");
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(response, soraImage)
+        );
     }
 }

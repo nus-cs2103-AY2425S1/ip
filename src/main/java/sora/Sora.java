@@ -35,6 +35,9 @@ public class Sora {
         ArrayList<String> parsedCommand = Parser.parse(input);
         String mainCommand = parsedCommand.get(0).toLowerCase();
         switch (mainCommand) {
+        case "welcome":
+            res = Ui.greeting;
+            break;
         case "bye":
             res = Ui.farewell;
             break;
