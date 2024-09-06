@@ -5,7 +5,6 @@ import yapbot.tasks.Task;
 import yapbot.tasks.ToDo;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
-import yapbot.util.Ui;
 
 public class ToDoCommand extends Command {
     private String taskDetails;
@@ -26,19 +25,14 @@ public class ToDoCommand extends Command {
      * @throws YapBotException if task details is empty.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
+    public String execute(TaskList tasks, Storage storage) throws YapBotException {
         Task task = new ToDo(taskDetails);
         tasks.addTask(task);
 
         String successMessage = "Adding Task...\nSuccess\nTask added to database:\n" + "  "
                 + task + "\n" + "Total tasks: " + tasks.size();
-        ui.printOutput(successMessage);
 
-        return true;
+        return successMessage;
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

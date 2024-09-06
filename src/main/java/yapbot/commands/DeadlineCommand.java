@@ -5,7 +5,6 @@ import yapbot.tasks.Deadline;
 import yapbot.tasks.Task;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
-import yapbot.util.Ui;
 
 public class DeadlineCommand extends Command {
     private String taskDetails;
@@ -32,7 +31,7 @@ public class DeadlineCommand extends Command {
      * @throws YapBotException If task details do not contain a deadline.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
+    public String execute(TaskList tasks, Storage storage) throws YapBotException {
         if (!taskDetails.contains("/by")) {
             throw new YapBotException("Error, Deadline Prediction module offline.\nSupply a deadline using "
                     + "\"/by\" (eg. /by Monday 1pm).");
@@ -48,13 +47,8 @@ public class DeadlineCommand extends Command {
 
         String successMessage = "Adding Task...\nSuccess\nTask added to database:\n" + "  "
                 + task + "\n" + "Total tasks: " + tasks.size();
-        ui.printOutput(successMessage);
 
-        return true;
+        return successMessage;
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

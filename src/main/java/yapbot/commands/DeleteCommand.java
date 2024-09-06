@@ -4,7 +4,6 @@ import yapbot.exceptions.YapBotException;
 import yapbot.tasks.Task;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
-import yapbot.util.Ui;
 
 public class DeleteCommand extends Command {
     private int index;
@@ -35,17 +34,12 @@ public class DeleteCommand extends Command {
      * @throws YapBotException if the task cannot be found.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
+    public String execute(TaskList tasks, Storage storage) throws YapBotException {
 
         Task task = tasks.deleteTask(index);
         String successMessage = "Finding Task...Success\nTask deleted from database:\n  " + task;
-        ui.printOutput(successMessage);
 
-        return true;
+        return successMessage;
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

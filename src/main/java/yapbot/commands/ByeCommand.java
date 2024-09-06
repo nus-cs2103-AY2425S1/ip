@@ -5,7 +5,6 @@ import java.io.IOException;
 import yapbot.exceptions.YapBotException;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
-import yapbot.util.Ui;
 
 public class ByeCommand extends Command {
 
@@ -17,16 +16,13 @@ public class ByeCommand extends Command {
      * @throws YapBotException If Tasks could not be saved onto file.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
+    public String execute(TaskList tasks, Storage storage) throws YapBotException {
         try {
             storage.save(tasks.saveTasks());
-            ui.showShutdownMessage();
 
-            return true;
+            return "YapBot Shutting Down...";
         } catch (IOException e) {
             throw new YapBotException("Shutting down...\nError, failed to save tasks.\nYapBot process terminated.");
-        } finally {
-            ui.close();
         }
     }
 

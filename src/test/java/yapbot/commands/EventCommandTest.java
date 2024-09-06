@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import yapbot.exceptions.YapBotException;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
-import yapbot.util.Ui;
 
 public class EventCommandTest {
     @Test
@@ -30,10 +29,10 @@ public class EventCommandTest {
     public void execute_withFromandToinAnyOrder_success() {
         try {
             EventCommand command = new EventCommand("Find nemo /from 9pm  /to 10am");
-            assertTrue(command.execute(new TaskList(), new Ui(), new Storage("tasks.txt")));
+            assertTrue(command.execute(new TaskList(), new Storage("tasks.txt")));
 
             EventCommand command2 = new EventCommand("Find nemo /from 9pm  /to 10am");
-            assertTrue(command2.execute(new TaskList(), new Ui(), new Storage("tasks.txt")));
+            assertTrue(command2.execute(new TaskList(), new Storage("tasks.txt")));
         } catch (YapBotException e) {
             fail();
         }
@@ -45,7 +44,7 @@ public class EventCommandTest {
             EventCommand command = new EventCommand("Find nemo /from 9pm          /to          10am");
             TaskList tasks = new TaskList();
 
-            assertTrue(command.execute(tasks, new Ui(), new Storage("tasks.txt")));
+            assertTrue(command.execute(tasks, new Storage("tasks.txt")));
             assertEquals("  1.[E][ ] Find nemo (From: 9PM 03 Sep 2024 To: 10AM 03 Sep 2024)", tasks.listTasks());
         } catch (YapBotException e) {
             fail();
@@ -57,7 +56,7 @@ public class EventCommandTest {
         try {
             EventCommand command = new EventCommand("Find nemo /from   /to ");
 
-            command.execute(new TaskList(), new Ui(), new Storage("tasks.txt"));
+            command.execute(new TaskList(), new Storage("tasks.txt"));
             fail();
         } catch (YapBotException e) {
             assertEquals("Error, start and end times not detected.\nUse command \"todo\" for tasks "
@@ -70,7 +69,7 @@ public class EventCommandTest {
         try {
             EventCommand command = new EventCommand("Find nemo /from 1 march  /to 16 feb");
 
-            command.execute(new TaskList(), new Ui(), new Storage("tasks.txt"));
+            command.execute(new TaskList(), new Storage("tasks.txt"));
             fail();
         } catch (DateTimeParseException | YapBotException e) {
             assertEquals("Text '1 MARCH' could not be parsed at index 0", e.getMessage());

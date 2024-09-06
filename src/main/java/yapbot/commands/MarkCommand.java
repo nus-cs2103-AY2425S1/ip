@@ -4,7 +4,6 @@ import yapbot.exceptions.YapBotException;
 import yapbot.tasks.Task;
 import yapbot.util.Storage;
 import yapbot.util.TaskList;
-import yapbot.util.Ui;
 
 public class MarkCommand extends Command {
     private int index;
@@ -36,17 +35,13 @@ public class MarkCommand extends Command {
      * @throws YapBotException if the task cannot be found.
      */
     @Override
-    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws YapBotException {
+    public String execute(TaskList tasks, Storage storage) throws YapBotException {
 
         Task task = tasks.markTask(index);
         String successMessage = "Finding Task...Success\nTask Completed:\n  " + task;
-        ui.printOutput(successMessage);
 
-        return true;
+        return successMessage;
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
+
 }
