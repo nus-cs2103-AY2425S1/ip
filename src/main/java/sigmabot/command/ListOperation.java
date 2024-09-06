@@ -1,5 +1,7 @@
 package sigmabot.command;
 
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import sigmabot.task.Deadline;
 import sigmabot.task.Event;
 import sigmabot.task.Task;
@@ -12,14 +14,13 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * The {@code ListOperation} class provides functionality for managing a task list.
  * It includes methods for creating, querying, finding, marking, unmarking, and deleting tasks.
  * The tasks are read from and written to a file specified by the {@code filePath}.
  */
-public class ListOperation extends Command {
+public class ListOperation extends ChatCommand {
     private ListReader reader = new ListReader();
     private ListMapWriter writer = new ListMapWriter();
     private String filePath = System.getProperty("user.home") + "/tasks.txt";
@@ -29,15 +30,16 @@ public class ListOperation extends Command {
      * Executes the main command loop, providing options to create, query, mark, unmark, or delete tasks.
      * Also loads existing tasks from the file at startup.
      *
-     * @param sc The {@code Scanner} object for reading user input.
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
      */
     @Override
-    public void execute(Scanner sc) {
+    public void execute(TextArea displayArea, TextField inputField) {
         File file = new File(filePath);
 
         // Check if the file exists. If not, attempt to copy it from the JAR.
         if (!file.exists()) {
-            System.out.println("No tasks file found. Creating a new one...");
+            displayArea.appendText("No tasks file found. Creating a new one...\n");
             try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("tasks.txt")) {
                 if (inputStream != null) {
                     // Copy the file from the JAR to the user's home directory
@@ -48,268 +50,284 @@ public class ListOperation extends Command {
                             outputStream.write(buffer, 0, bytesRead);
                         }
                     }
-                    System.out.println("Default tasks file created at: " + filePath);
+                    displayArea.appendText("Default tasks file created at: " + filePath + "\n");
                 } else {
-                    System.out.println("No default tasks file found in JAR. A new one will be created upon saving tasks.");
+                    displayArea.appendText("No default tasks file found in JAR. A new one will be created upon saving tasks.\n");
                 }
             } catch (Exception e) {
-                System.out.println("An error occurred while creating the tasks file: " + e.getMessage());
+                displayArea.appendText("An error occurred while creating the tasks file: " + e.getMessage() + "\n");
             }
         } else if (file.length() == 0) {
-            System.out.println("Tasks file is empty. You can create a new task.");
+            displayArea.appendText("Tasks file is empty. You can create a new task.\n");
         } else {
             try {
-                taskList.putAll(reader.readTasksFromFile(filePath));
+                taskList.putAll(reader.readTasksFromFile(filePath)); // Using ListReader to load tasks
                 if (taskList.isEmpty()) {
-                    System.out.println("No tasks found. The file might be corrupted or empty.");
+                    displayArea.appendText("No tasks found. The file might be corrupted or empty.\n");
                 } else {
-                    System.out.println("Tasks loaded from file: " + filePath);
+                    displayArea.appendText("Tasks loaded from file: " + filePath + "\n");
                 }
             } catch (Exception e) {
-                System.out.println("An error occurred while reading the tasks file: " + e.getMessage());
+                displayArea.appendText("An error occurred while reading the tasks file: " + e.getMessage() + "\n");
             }
         }
 
-        // Main command loop remains unchanged...
-        while (true) {
-            System.out.println("Enter operation command (create, query, find, add, mark, unmark, delete, exit): ");
-            if (!sc.hasNextLine()) {
-                break;
-            }
-            String command = sc.nextLine();
-            switch (command) {
+        // Setup input field action handler
+        inputField.setOnAction(event -> {
+            String command = inputField.getText().trim();
+            inputField.clear();
+            switch (command.toLowerCase()) {
             case "create":
-                createNewTask(sc);
+                createNewTask(displayArea, inputField);
                 break;
             case "query":
-                queryTasks();
+                queryTasks(displayArea);
                 break;
             case "find":
-                findTasks(sc);
+                findTasks(displayArea, inputField);
                 break;
             case "add":
-                addTask(sc);
+                addTask(displayArea, inputField);
                 break;
             case "mark":
-                handleMarkDone(sc);
+                handleMarkDone(displayArea, inputField);
                 break;
             case "unmark":
-                handleMarkUndone(sc);
+                handleMarkUndone(displayArea, inputField);
                 break;
             case "delete":
-                handleDeleteTask(sc);
+                handleDeleteTask(displayArea, inputField);
                 break;
             case "exit":
-                System.out.println("Exiting List Operations...");
-                return;
+                displayArea.appendText("Exiting List Operations...\n");
+                break;
             default:
-                System.out.println("Invalid command. Please enter 'create', 'query', 'find', 'add', 'mark', 'unmark', 'delete', or 'exit'.");
+                displayArea.appendText("Invalid command. Please enter 'create', 'query', 'find', 'add', 'mark', 'unmark', 'delete', or 'exit'.\n");
             }
-        }
+        });
     }
 
     /**
      * Creates a new task based on user input and adds it to the task list.
      * The task list is then saved to the file.
      *
-     * @param sc The {@code Scanner} object for reading user input.
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
      */
-    public void createNewTask(Scanner sc) {
-        while (true) {
-            System.out.println("Enter task type (todo, deadline, event) or '/exit' to finish: ");
-            String input = sc.nextLine().trim();
+    public void createNewTask(TextArea displayArea, TextField inputField) {
+        displayArea.appendText("Enter task type (todo, deadline, event) or '/exit' to finish:\n");
+        inputField.setOnAction(event -> {
+            String input = inputField.getText().trim();
+            inputField.clear();
+
             if (input.equalsIgnoreCase("/exit")) {
-                break;
+                displayArea.appendText("Finished creating tasks.\n");
+                return;
             }
-            Task task = null;
+
             switch (input.toLowerCase()) {
             case "todo":
-                task = Todo.createTodo(sc);
+                Todo.createTodoGUI(displayArea, inputField, taskList);
                 break;
             case "deadline":
-                task = Deadline.createDeadline(sc);
+                Deadline.createDeadlineGUI(displayArea, inputField, taskList);
                 break;
             case "event":
-                task = Event.createEvent(sc);
+                Event.createEventGUI(displayArea, inputField, taskList);
                 break;
             default:
-                System.out.println("Invalid task type. Please enter 'todo', 'deadline', or 'event'.");
-                continue;
+                displayArea.appendText("Invalid task type. Please enter 'todo', 'deadline', or 'event'.\n");
             }
-            if (task != null) {
-                taskList.put(task.getName(), task);
-            }
-        }
-        System.out.println("New tasks added.");
-        writer.writeMapToFile(taskList, filePath);
+
+            writer.writeMapToFile(taskList, filePath); // Save tasks to file after creation
+            return;
+        });
     }
 
     /**
      * Prints the entries of the task list for debugging purposes.
      */
-    private void printTaskListDebug() {
-        System.out.println("Debug: Current Task List Contents:");
+    private void printTaskListDebug(TextArea displayArea) {
+        displayArea.appendText("Debug: Current Task List Contents:\n");
         for (Map.Entry<String, Task> entry : taskList.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+            displayArea.appendText("Key: " + entry.getKey() + ", Value: " + entry.getValue() + "\n");
         }
     }
 
     /**
      * Displays all tasks in the current task list.
      * If the task list is empty, prompts the user to create a new task.
+     *
+     * @param displayArea The {@code TextArea} object for displaying output.
      */
-    public void queryTasks() {
+    public void queryTasks(TextArea displayArea) {
         if (taskList.isEmpty()) {
-            System.out.println("No tasks available. You can create a new task.");
+            displayArea.appendText("No tasks available. You can create a new task.\n");
         } else {
-            System.out.println("Current tasks:");
+            displayArea.appendText("Current tasks:\n");
             for (Task task : taskList.values()) {
-                System.out.println(task.toString());
+                displayArea.appendText(task.toString() + "\n");
             }
         }
     }
 
     /**
-
      * Finds and displays tasks that contain a specific substring in their names.
      *
-     * @param sc The {@code Scanner} object for reading user input.
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
      */
-    public void findTasks(Scanner sc) {
-        System.out.println("Enter the substring to search for in task names: ");
-        String substring = sc.nextLine().trim().toLowerCase();
-        boolean found = false;
-        for (Task task : taskList.values()) {
-            if (task.getName().toLowerCase().contains(substring)) {
-                System.out.println(task.toString());
-                found = true;
+    public void findTasks(TextArea displayArea, TextField inputField) {
+        displayArea.appendText("Enter the substring to search for in task names:\n");
+        inputField.setOnAction(event -> {
+            String substring = inputField.getText().trim().toLowerCase();
+            inputField.clear();
+            boolean found = false;
+            for (Task task : taskList.values()) {
+                if (task.getName().toLowerCase().contains(substring)) {
+                    displayArea.appendText(task.toString() + "\n");
+                    found = true;
+                }
             }
-        }
-        if (!found) {
-            System.out.println("No tasks found containing the substring: " + substring);
-        }
+            if (!found) {
+                displayArea.appendText("No tasks found containing the substring: " + substring + "\n");
+            }
+        });
     }
 
     /**
      * Adds a new task to the existing task list based on user input.
      * The task list is then saved to the file.
      *
-     * @param sc The {@code Scanner} object for reading user input.
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
      */
-    public void addTask(Scanner sc) {
-        System.out.println("Enter task type to add (todo, deadline, event) or '/exit' to finish: ");
-        while (sc.hasNextLine()) {
-            String input = sc.nextLine().trim();
+    public void addTask(TextArea displayArea, TextField inputField) {
+        displayArea.appendText("Enter task type to add (todo, deadline, event) or '/exit' to finish:\n");
+        inputField.setOnAction(event -> {
+            String input = inputField.getText().trim();
+            inputField.clear();
             if (input.equalsIgnoreCase("/exit")) {
-                break;
+                displayArea.appendText("Finished adding tasks.\n");
+                return;
             }
-            Task task = null;
             switch (input.toLowerCase()) {
             case "todo":
-                task = Todo.createTodo(sc);
+                Todo.createTodoGUI(displayArea, inputField, taskList);
                 break;
             case "deadline":
-                task = Deadline.createDeadline(sc);
+                Deadline.createDeadlineGUI(displayArea, inputField, taskList);
                 break;
             case "event":
-                task = Event.createEvent(sc);
+                Event.createEventGUI(displayArea, inputField, taskList);
                 break;
+            case "/exit":
+                return;
             default:
-                System.out.println("Invalid task type. Please enter 'todo', 'deadline', 'event', or '/exit'.");
-                continue;
+                displayArea.appendText("Invalid task type. Please enter 'todo', 'deadline', or 'event'.\n");
             }
-            if (task != null) {
-                taskList.put(task.getName(), task);
-                System.out.println("Task added: " + task.getName());
-            }
-            System.out.println("Enter next task type to add or '/exit' to finish: ");
-        }
-        System.out.println("Tasks added.");
-        writer.writeMapToFile(taskList, filePath);
+            writer.writeMapToFile(taskList, filePath); // Save tasks to file after addition
+            displayArea.appendText("Enter task type to add (todo, deadline, event) or '/exit' to finish:\n");
+        });
     }
 
-   /**
+    /**
      * Marks a specified task as done based on user input.
      * The task list is then saved to the file.
      *
-     * @param sc The {@code Scanner} object for reading user input.
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
      */
-    public void markDone(Scanner sc) {
-        System.out.println("Enter the name of the task to mark as done: ");
-        String taskName = sc.nextLine().trim();
-        Task task = taskList.get(taskName);
-        if (task != null) {
-            task.markDone();
-            System.out.println("Task '" + taskName + "' marked as done.");
-        } else {
-            System.out.println("Task '" + taskName + "' not found.");
-        }
-        writer.writeMapToFile(taskList, filePath);
+    public void markDone(TextArea displayArea, TextField inputField) {
+        displayArea.appendText("Enter the name of the task to mark as done:\n");
+        inputField.setOnAction(event -> {
+            String taskName = inputField.getText().trim();
+            inputField.clear();
+            Task task = taskList.get(taskName);
+            if (task != null) {
+                task.markDone();
+                displayArea.appendText("Task '" + taskName + "' marked as done.\n");
+                writer.writeMapToFile(taskList, filePath); // Save tasks to file after modification
+            } else {
+                displayArea.appendText("Task '" + taskName + "' not found.\n");
+            }
+        });
     }
 
     /**
      * Marks a specified task as undone based on user input.
      * The task list is then saved to the file.
      *
-     * @param sc The {@code Scanner} object for reading user input.
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
      */
-    public void markUndone(Scanner sc) {
-        System.out.println("Enter the name of the task to mark as undone: ");
-        String taskName = sc.nextLine().trim();
-        Task task = taskList.get(taskName);
-        if (task != null) {
-            task.markUndone();
-            System.out.println("Task '" + taskName + "' marked as undone.");
-        } else {
-            System.out.println("Task '" + taskName + "' not found.");
-        }
-        writer.writeMapToFile(taskList, filePath);
+    public void markUndone(TextArea displayArea, TextField inputField) {
+        displayArea.appendText("Enter the name of the task to mark as undone:\n");
+        inputField.setOnAction(event -> {
+            String taskName = inputField.getText().trim();
+            inputField.clear();
+            Task task = taskList.get(taskName);
+            if (task != null) {
+                task.markUndone();
+                displayArea.appendText("Task '" + taskName + "' marked as undone.\n");
+                writer.writeMapToFile(taskList, filePath); // Save tasks to file after modification
+            } else {
+                displayArea.appendText("Task '" + taskName + "' not found.\n");
+            }
+        });
     }
 
     /**
      * Deletes a specified task based on user input.
      * The task list is then saved to the file.
      *
-     * @param sc The {@code Scanner} object for reading user input.
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
      */
-    public void deleteTask(Scanner sc) {
-        System.out.println("Enter the name of the task to delete: ");
-        String taskName = sc.nextLine().trim();
-        if (taskList.remove(taskName) != null) {
-            System.out.println("Task '" + taskName + "' deleted.");
-        } else {
-            System.out.println("Task '" + taskName + "' not found.");
-        }
-        writer.writeMapToFile(taskList, filePath);
+    public void deleteTask(TextArea displayArea, TextField inputField) {
+        displayArea.appendText("Enter the name of the task to delete:\n");
+        inputField.setOnAction(event -> {
+            String taskName = inputField.getText().trim();
+            inputField.clear();
+            if (taskList.remove(taskName) != null) {
+                displayArea.appendText("Task '" + taskName + "' deleted.\n");
+                writer.writeMapToFile(taskList, filePath); // Save tasks to file after deletion
+            } else {
+                displayArea.appendText("Task '" + taskName + "' not found.\n");
+            }
+        });
     }
 
     /**
      * Handles the process of marking a task as done.
      * Prompts the user to select the task to be marked as done.
      *
-     * @param sc The {@code Scanner} object for reading user input.
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
      */
-    private void handleMarkDone(Scanner sc) {
-        markDone(sc);
+    private void handleMarkDone(TextArea displayArea, TextField inputField) {
+        markDone(displayArea, inputField);
     }
 
     /**
      * Handles the process of marking a task as undone.
      * Prompts the user to select the task to be marked as undone.
      *
-     * @param sc The {@code Scanner} object for reading user input.
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
      */
-    private void handleMarkUndone(Scanner sc) {
-        markUndone(sc);
+    private void handleMarkUndone(TextArea displayArea, TextField inputField) {
+        markUndone(displayArea, inputField);
     }
 
     /**
      * Handles the process of deleting a task.
      * Prompts the user to select the task to be deleted.
      *
-     * @param sc The {@code Scanner} object for reading user input.
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
      */
-    private void handleDeleteTask(Scanner sc) {
-        deleteTask(sc);
+    private void handleDeleteTask(TextArea displayArea, TextField inputField) {
+        deleteTask(displayArea, inputField);
     }
 }
