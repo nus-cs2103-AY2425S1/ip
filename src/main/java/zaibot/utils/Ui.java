@@ -1,7 +1,5 @@
 package zaibot.utils;
 
-import java.util.ArrayList;
-
 import zaibot.exception.ZaibotException;
 import zaibot.task.Task;
 
