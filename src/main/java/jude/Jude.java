@@ -53,27 +53,20 @@ public class Jude {
         }
         ui.endChat();
     }
-
     private String commandType;
-
-    /**
-     * Generates a response for the user's chat message.
-     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
             commandType = c.getClass().getSimpleName();
-            return c.getString();
+            return c.getMessage();
         } catch (JudeException e) {
-            return "Error " + e.getMessage();
+            return "Error: " + e.getMessage();
         }
     }
-
     public String getCommandType() {
-        return commandType();
+        return commandType;
     }
-
 }
 
 

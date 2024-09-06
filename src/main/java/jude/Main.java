@@ -7,10 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Jude using FXML.
  */
 public class Main extends Application {
-    private static final String DEFAULT_FILE_PATH = "../../../data/jude.txt";
+    private static final String DEFAULT_FILE_PATH = "data/jude.txt";
 
     private Jude jude = new Jude(DEFAULT_FILE_PATH);
 

@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Jude jude;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image judeImage = new Image(this.getClass().getResourceAsStream("/images/DaJude.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image judeImage = new Image(this.getClass().getResourceAsStream("/images/jude.png"));
 
     public MainWindow() {
 
@@ -50,9 +50,11 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = jude.getResponse(input);
+        String commandType = jude.getCommandType();
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getJudeDialog(response, judeImage)
+                DialogBox.getJudeDialog(response, judeImage, commandType)
         );
         userInput.clear();
     }
