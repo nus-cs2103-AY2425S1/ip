@@ -1,7 +1,6 @@
 package bob.Ui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import bob.Tasks.Task;
 
@@ -12,7 +11,7 @@ import bob.Tasks.Task;
  */
 
 public class Ui {
-    
+
     /**
      * Displays welcome message and logo when the chatbot starts.
      */
