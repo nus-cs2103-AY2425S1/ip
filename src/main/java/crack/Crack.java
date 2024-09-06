@@ -109,6 +109,18 @@ public class Crack {
                         ui.showError(e.getMessage());
                     }
                     break;
+                case "find":
+                    try {
+                        String keyword = input.substring(5).trim();  // Extract the keyword
+                        if (keyword.isEmpty()) {
+                            throw new IllegalArgumentException("Keyword cannot be empty.");
+                        }
+                        ui.showMatchingTasks(tasks.findTasks(keyword));
+                    } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+                        ui.showError(e.getMessage());
+                    }
+                    break;
+                
                 case "delete":
                     try {
                         int index = Parser.parseTaskNumber(input);

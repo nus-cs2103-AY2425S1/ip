@@ -1,5 +1,6 @@
 package crack;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -80,6 +81,23 @@ public class Ui {
     public void showTaskAdded(Task task, int size) {
         System.out.println(DIVIDER + " Got it. I've added this task:\n   " + task + "\n"
                 + " Now you have " + size + " tasks in the list.\n" + DIVIDER);
+    }
+
+        /**
+     * Displays the list of tasks that match the search keyword.
+     *
+     * @param tasks the list of matching tasks.
+     */
+    public void showMatchingTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println(DIVIDER + " No tasks found with the given keyword.\n" + DIVIDER);
+        } else {
+            System.out.println(DIVIDER + " Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+            System.out.println(DIVIDER);
+        }
     }
 
     /**
