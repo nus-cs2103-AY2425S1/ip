@@ -13,7 +13,7 @@ public class EventTask extends Task {
     private final LocalDateTime toDateTime;
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      */
     public EventTask(String taskDescription, LocalDateTime fromDateTime,
             LocalDateTime toDateTime) {
@@ -30,7 +30,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      */
     @Override
     public Task markAsDone() {
@@ -40,7 +40,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      */
     @Override 
     public Task markAsUndone() {
@@ -50,7 +50,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      * Additionally, {@code "[E]"} is prepended to the string representation to indicate it
      * is a Event task. The date and time for the start and end times for the event task is
      * appended to the string representation also.

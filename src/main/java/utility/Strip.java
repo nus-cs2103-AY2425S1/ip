@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Strip {
 
     /**
-     * Using {@link Stream}, this function seeks to remove all prepending and appending white
+     * Using Stream, this function seeks to remove all prepending and appending white
      * spaces from each string in the array.
      *
      * @param strArray a String Array
