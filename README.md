@@ -26,11 +26,3 @@ And guess what? It's **FREE**!
 - [x] Finding tasks by keywords
 - [ ] Reminders (coming soon)
 
-### Code Example
-
-Here is the `main` method of the PandaBot that runs the program:
-
-```java
-public static void main(String[] args) {
-    new PandaBot("./data/PandaBot.txt").run();
-}
