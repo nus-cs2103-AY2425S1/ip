@@ -1,14 +1,21 @@
 package kotori.command;
 
-import kotori.taskList.TaskList;
 import static kotori.ui.Ui.printListWithMessages;
 import static kotori.ui.Ui.printMessages;
 
-public class FindCommand extends Command{
+import kotori.taskList.TaskList;
+
+/**
+ * This is a find command.
+ * */
+public class FindCommand extends Command {
     private TaskList taskList;
     private String target;
 
-    public FindCommand (TaskList taskList, String target) {
+    /**
+     * Create a find command
+     * */
+    public FindCommand(TaskList taskList, String target) {
         this.taskList = taskList;
         this.target = target;
     }

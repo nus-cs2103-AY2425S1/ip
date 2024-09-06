@@ -6,8 +6,7 @@ import kotori.ui.Ui;
  * This represents a command of greeting the user.
  **/
 
-public class GreetCommand extends Command{
-
+public class GreetCommand extends Command {
     /**
      * Activate the command and greet the user.
      * */

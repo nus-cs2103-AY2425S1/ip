@@ -1,21 +1,26 @@
 package kotori.command;
 
+import static kotori.ui.Ui.printMessages;
+
 import kotori.storage.Storage;
 import kotori.taskList.IncorrectStateException;
 import kotori.taskList.TaskList;
-import static kotori.ui.Ui.printMessages;
+
 
 /**
  * This represents a command of trying to mark a task
  * as complete.
  * */
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private Storage storage;
     private TaskList taskList;
     private int index;
 
-    public MarkCommand (Storage storage, TaskList taskList, int index) {
+    /**
+     * Create a mark command.
+     * */
+    public MarkCommand(Storage storage, TaskList taskList, int index) {
         this.taskList = taskList;
         this.index = index;
         this.storage = storage;
@@ -27,7 +32,7 @@ public class MarkCommand extends Command{
 
     @Override
     public String execute() {
-        if (taskList.size() < index || index <= 0 ) {
+        if (taskList.size() < index || index <= 0) {
             return printMessages("Sorry~ can not mark that task because it does not exist");
         } else {
             try {

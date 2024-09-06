@@ -1,24 +1,30 @@
 package kotori.command;
+import static kotori.ui.Ui.printMessages;
 
 import java.time.format.DateTimeParseException;
+
 import kotori.storage.Storage;
 import kotori.taskList.InvalidInputException;
 import kotori.taskList.MissingInformationException;
 import kotori.taskList.Task;
 import kotori.taskList.TaskList;
-import static kotori.ui.Ui.printMessages;
+
+
 
 /**
  * This class represents a command of trying to create
  * a task and add it into the task list.
  * */
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private Storage storage;
     private TaskList taskList;
     private String input;
 
-    public AddCommand (Storage storage, TaskList taskList, String input) {
+    /**
+     * Create an add-command
+     * */
+    public AddCommand(Storage storage, TaskList taskList, String input) {
         this.taskList = taskList;
         this.input = input;
         this.storage = storage;
@@ -42,8 +48,8 @@ public class AddCommand extends Command{
         } catch (InvalidInputException e) {
             return printMessages(e.getMessage());
         } catch (DateTimeParseException e) {
-            return printMessages("Sorry~ I can not recognize the time", "Please enter the time in the " +
-                    "YYYY-MM-DD format");
+            return printMessages("Sorry~ I can not recognize the time", "Please enter the time in the "
+                    + "YYYY-MM-DD format");
         }
     }
 }

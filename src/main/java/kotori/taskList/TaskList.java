@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
 
-    public TaskList () {
+    public TaskList() {
 
     }
 
@@ -24,21 +24,18 @@ public class TaskList {
         return taskList.size();
     }
 
-     public Task get(int i) {
+    public Task get(int i) {
         return taskList.get(i);
-     }
-
-     /**
-      * Adds a task into the list.
-      *
-      * @param t the task to be added.
-      * @return if the action is success.
-      * */
-
-     public boolean add(Task t) {
+    }
+    /**
+     * Adds a task into the list.
+     *
+     * @param t the task to be added.
+     * @return if the action is success.
+     * */
+    public boolean add(Task t) {
         return taskList.add(t);
-     }
-
+    }
     /**
      * Removes a task into the list.
      *
@@ -46,44 +43,40 @@ public class TaskList {
      * @return the removed task.
      * */
 
-     public Task remove(int i) {
+    public Task remove(int i) {
         return taskList.remove(i);
-     }
-
+    }
     /**
      * Marks a task into the list.
      *
      * @param i the index of target.
      * */
 
-     public void mark(int i) throws IncorrectStateException {
+    public void mark(int i) throws IncorrectStateException {
         taskList.get(i).mark();
-     }
-
+    }
     /**
      * Unmarks a task into the list.
      *
      * @param i the index of target.
      * */
 
-     public void unmark(int i) throws IncorrectStateException {
+    public void unmark(int i) throws IncorrectStateException {
         taskList.get(i).unmark();
-     }
-
-     /**
+    }
+    /**
       * checks if a list is empty.
       *
       * @return if the list is empty.
       * */
 
-     public boolean isEmpty() {
+    public boolean isEmpty() {
         return taskList.isEmpty();
-     }
-
+    }
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof TaskList) {
-            return this.taskList.equals(((TaskList)obj).taskList);
+            return this.taskList.equals(((TaskList) obj).taskList);
         } else {
             return false;
         }
@@ -107,13 +100,13 @@ public class TaskList {
     }
 
     @Override
-     public String toString() {
+    public String toString() {
         String result = "";
         for (int i = 0; i < taskList.size(); i++) {
             result += String.format("%s %s", i, taskList.get(i));
         }
         return result;
-     }
+    }
 
 
 }

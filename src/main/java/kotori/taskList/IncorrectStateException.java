@@ -1,4 +1,4 @@
-package kotori.taskList;//A-enum is used here
+package kotori.taskList;
 
 /**
  * This is the exception thrown when marking a marked task
@@ -6,8 +6,11 @@ package kotori.taskList;//A-enum is used here
  * */
 
 public class IncorrectStateException extends Exception {
-    enum State {mark, unmark}
-    State state;
+    enum State { mark, unmark }
+    private State state;
+    /**
+     * Make an exception object.
+     * */
     public IncorrectStateException(String message) {
         if (message.equals("mark")) {
             state = State.mark;
@@ -23,15 +26,15 @@ public class IncorrectStateException extends Exception {
      * */
     public String getMessage() {
         switch (state) {
-            case mark -> {
-                return "Sorry~ This task has already be marked.";
-            }
-            case unmark -> {
-                return "Sorry~ This take is not marked yet";
-            }
-            default -> {
-                return null;
-            }
+        case mark -> {
+            return "Sorry~ This task has already be marked.";
+        }
+        case unmark -> {
+            return "Sorry~ This take is not marked yet";
+        }
+        default -> {
+            return null;
+        }
         }
     }
 }

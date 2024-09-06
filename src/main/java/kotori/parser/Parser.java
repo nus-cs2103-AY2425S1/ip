@@ -7,8 +7,8 @@ import kotori.command.ExitCommand;
 import kotori.command.FindCommand;
 import kotori.command.MarkCommand;
 import kotori.command.PrintListCommand;
-import kotori.command.UnmarkCommand;
 import kotori.command.SearchCommand;
+import kotori.command.UnmarkCommand;
 import kotori.storage.Storage;
 import kotori.taskList.TaskList;
 /**
@@ -21,7 +21,10 @@ public class Parser {
     private TaskList list;
 
 
-    public Parser (Storage storage, TaskList list) {
+    /**
+     * Create a parser
+     * */
+    public Parser(Storage storage, TaskList list) {
         this.storage = storage;
         this.list = list;
     }
@@ -49,11 +52,11 @@ public class Parser {
             return new DeleteCommand(storage, list, index);
 
         } else if (input.startsWith("search ")) {
-            return new SearchCommand(list,input.substring(7));
+            return new SearchCommand(list, input.substring(7));
         } else if (input.startsWith("find ")) {
             return new FindCommand(list, input.substring(5));
         } else {
             return new AddCommand(storage, list, input);
-            }
         }
+    }
 }

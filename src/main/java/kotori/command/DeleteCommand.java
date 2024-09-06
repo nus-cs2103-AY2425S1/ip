@@ -1,21 +1,26 @@
 package kotori.command;
 
+import static kotori.ui.Ui.printMessages;
+
 import kotori.storage.Storage;
 import kotori.taskList.Task;
 import kotori.taskList.TaskList;
-import static kotori.ui.Ui.printMessages;
+
 
 /**
  * This class represents a command of trying to
  * delete the task at a certain position of the task list.
  * */
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private Storage storage;
     private TaskList taskList;
     private int index;
 
-    public DeleteCommand (Storage storage, TaskList list, int index) {
+    /**
+     * Create a delete command
+     * */
+    public DeleteCommand(Storage storage, TaskList list, int index) {
         this.taskList = list;
         this.index = index;
         this.storage = storage;

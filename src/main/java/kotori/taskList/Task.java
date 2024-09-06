@@ -1,7 +1,9 @@
 package kotori.taskList;
 
-import kotori.storage.CorruptedFileException;
 import java.time.LocalDate;
+
+import kotori.storage.CorruptedFileException;
+
 
 
 /**
@@ -12,6 +14,11 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    private Task(boolean isDone, String description) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     /**
      * Produce a corresponding task item based on the input string
      *
@@ -21,7 +28,7 @@ public abstract class Task {
      * @throws InvalidInputException if the input is invalid.
      * */
     public static Task of(String descriptions) throws MissingInformationException, InvalidInputException {
-        if (descriptions.equals("todo") || descriptions.equals("deadline") || descriptions.equals("event")){
+        if (descriptions.equals("todo") || descriptions.equals("deadline") || descriptions.equals("event")) {
             throw new MissingInformationException("description", descriptions);
         }
         if (descriptions.startsWith("todo ")) {
@@ -37,7 +44,7 @@ public abstract class Task {
             if (strings.length < 2 || !strings[1].startsWith("by ")) {
                 throw new MissingInformationException("by time", "deadline");
             }
-            return new DeadLine(false, strings[0],strings[1].substring(3));
+            return new DeadLine(false, strings[0], strings[1].substring(3));
         } else if (descriptions.startsWith("event ")) {
             if (descriptions.length() <= 6 || descriptions.charAt(6) == ' ') {
                 throw new MissingInformationException("description", "event");
@@ -48,7 +55,8 @@ public abstract class Task {
             } else if (strings.length < 3 || !strings[2].startsWith("to ")) {
                 throw new MissingInformationException("to time", "event");
             }
-            return new Event(false, strings[0],strings[1].substring(5),strings[2].substring(3));
+            return new Event(false, strings[0], strings[1].substring(5),
+                    strings[2].substring(3));
         } else {
             throw new InvalidInputException();
         }
@@ -83,16 +91,9 @@ public abstract class Task {
      * */
 
     public abstract String getStorageMessage();
-
     public boolean hasDescription(String description) {
         return this.description.contains(description);
     };
-
-    private Task(boolean isDone, String description) {
-        this.description = description;
-        this.isDone = isDone;
-    }
-
     /**
      * reads the status from a Icon.
      *
@@ -122,7 +123,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusIcon(),description);
+        return String.format("[%s] %s", getStatusIcon(), description);
     }
 
     /**
@@ -196,7 +197,7 @@ public abstract class Task {
     private static class DeadLine extends Task {
         private LocalDate deadLine;
 
-        public DeadLine(boolean isDone,String description, String deadLine) {
+        public DeadLine(boolean isDone, String description, String deadLine) {
             super(isDone, description);
             this.deadLine = LocalDate.parse(deadLine);
         }
@@ -245,7 +246,7 @@ public abstract class Task {
 
         @Override
         public String toString() {
-            return String.format("[E][%s] %s (from: %s to: %s)", getStatusIcon(), description,from,to);
+            return String.format("[E][%s] %s (from: %s to: %s)", getStatusIcon(), description, from, to);
         }
 
         /**

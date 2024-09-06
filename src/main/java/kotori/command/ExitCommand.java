@@ -1,14 +1,16 @@
 package kotori.command;
 
-import kotori.taskList.TaskList;
 import static kotori.ui.Ui.printExit;
+
+import kotori.taskList.TaskList;
+
 
 /**
  * This class represents a command of exiting the chatbot.
  * */
 
-public class ExitCommand extends Command{
-    TaskList taskList;
+public class ExitCommand extends Command {
+    private TaskList taskList;
 
     public ExitCommand(TaskList list) {
         this.taskList = list;
@@ -19,5 +21,5 @@ public class ExitCommand extends Command{
      * */
     public String execute() {
         return printExit();
-   }
+    }
 }

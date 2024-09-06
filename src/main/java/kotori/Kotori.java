@@ -1,15 +1,15 @@
 package kotori;
 
+import java.util.Scanner;
+
 import kotori.command.Command;
 import kotori.command.ExitCommand;
 import kotori.command.GreetCommand;
 import kotori.parser.Parser;
-import kotori.storage.CorruptedFileException;
 import kotori.storage.Storage;
 import kotori.taskList.TaskList;
 
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+
 
 /**
  * This class represents the bot.
@@ -20,7 +20,10 @@ public class Kotori {
     private TaskList taskList;
     private Parser parser;
 
-    public Kotori () {
+    /**
+     * Produce a bot.
+     * */
+    public Kotori() {
         this.storage = new Storage("data", "Kotori.txt");
         this.taskList = this.storage.load();
         this.parser = new Parser(storage, taskList);

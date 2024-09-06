@@ -1,8 +1,8 @@
 package kotori.command;
 
-import kotori.taskList.TaskList;
-
 import static kotori.ui.Ui.printList;
+
+import kotori.taskList.TaskList;
 
 /**
  * This class represents the command of printing the list.

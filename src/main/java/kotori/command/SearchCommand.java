@@ -1,20 +1,24 @@
 package kotori.command;
 
-import kotori.taskList.TaskList;
-import kotori.ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import kotori.taskList.TaskList;
+import kotori.ui.Ui;
+
 
 /**
  * This class represents a command of searching tasks
  * related to a specific date.
  * */
 
-public class SearchCommand extends Command{
+public class SearchCommand extends Command {
     private TaskList list;
     private String date;
-
-    public SearchCommand (TaskList list, String date) {
+    /**
+     * make a search command.
+     * */
+    public SearchCommand(TaskList list, String date) {
         this.list = list;
         this.date = date;
     }
@@ -39,8 +43,8 @@ public class SearchCommand extends Command{
                         date));
             }
         } catch (DateTimeParseException e) {
-            return Ui.printMessages("Sorry~ I can not recognize the time", "Please enter the time in the " +
-                    "YYYY-MM-DD format");
+            return Ui.printMessages("Sorry~ I can not recognize the time", "Please enter the time in the "
+                    + "YYYY-MM-DD format");
         }
     }
 }

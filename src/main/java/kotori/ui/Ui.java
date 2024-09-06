@@ -31,7 +31,7 @@ public class Ui {
     public static String printList(TaskList list) {
         String result = "";
         for (int i = 0; i < list.size(); i++) {
-            result += String.format("%s. %s\n",i + 1, list.get(i).toString());
+            result += String.format("%s. %s\n", i + 1, list.get(i).toString());
         }
         return result;
     }

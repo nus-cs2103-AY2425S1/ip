@@ -1,21 +1,25 @@
 package kotori.command;
+
+import static kotori.ui.Ui.printMessages;
+
 import kotori.storage.Storage;
 import kotori.taskList.IncorrectStateException;
 import kotori.taskList.TaskList;
 
-import static kotori.ui.Ui.printMessages;
 
 /**
  * This class represents a command trying to delete a
  * specific task from the list.
  * */
 
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private Storage storage;
     private TaskList taskList;
     private int index;
-
-    public UnmarkCommand (Storage storage, TaskList taskList, int index) {
+    /**
+     * Create a unmark command.
+     * */
+    public UnmarkCommand(Storage storage, TaskList taskList, int index) {
         this.taskList = taskList;
         this.index = index;
         this.storage = storage;

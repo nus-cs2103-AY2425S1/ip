@@ -1,7 +1,5 @@
 package kotori.storage;
 
-import kotori.taskList.Task;
-import kotori.taskList.TaskList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,6 +7,8 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+import kotori.taskList.Task;
+import kotori.taskList.TaskList;
 import kotori.ui.Ui;
 
 /**
@@ -20,7 +20,10 @@ public class Storage {
     private boolean isCorrupted = false;
     private boolean hasFile = true;
 
-    public Storage (String directoryName, String fileName) {
+    /**
+     * Create a storage
+     * */
+    public Storage(String directoryName, String fileName) {
 
         this.file = makeFile(directoryName, fileName);
     }
@@ -72,48 +75,45 @@ public class Storage {
      * */
     public void updateFile(TaskList tasks) {
         try {
-        FileWriter writer = new FileWriter(file);
-        String content = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            content += tasks.get(i).getStorageMessage() + "\n";
-        }
-        writer.write(content);
-        writer.close();
-    } catch (FileNotFoundException e) {
-        Ui.printMessages("Sorry~ I can not find the storage file",
+            FileWriter writer = new FileWriter(file);
+            String content = "";
+            for (int i = 0; i < tasks.size(); i++) {
+                content += tasks.get(i).getStorageMessage() + "\n";
+            }
+            writer.write(content);
+            writer.close();
+        } catch (FileNotFoundException e) {
+            Ui.printMessages("Sorry~ I can not find the storage file",
                 "Please ensure there is a file with path data/Kotori.Kotori.txt");
-    } catch (IOException e) {
-        Ui.printMessages(String.format("There is something wrong about: %s", e.getMessage()));
-    }
-
-
-}
-
-/**
- * makes a file with specific directory name and file name
- *
- * @param directoryName name of directory.
- * @param fileName name of the file
- * @return the file produced
- * @throws Error if the file does not exist and
- * can not create one.
- * */
-
-private static File makeFile (String directoryName, String fileName) {
-    File directory = new File(directoryName);
-    if (!directory.exists()) {
-        directory.mkdirs();
-    }
-    File file = new File(directory,fileName);
-    if (!file.exists()) {
-        try {
-            file.createNewFile();
         } catch (IOException e) {
-            throw new Error("A fatal error has occurs in creating the file");
+            Ui.printMessages(String.format("There is something wrong about: %s", e.getMessage()));
         }
     }
-    return file;
-}
+
+    /**
+     * makes a file with specific directory name and file name
+     *
+     * @param directoryName name of directory.
+     * @param fileName name of the file
+     * @return the file produced
+     * @throws Error if the file does not exist and can not create one.
+     * */
+
+    private static File makeFile(String directoryName, String fileName) {
+        File directory = new File(directoryName);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        File file = new File(directory, fileName);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new Error("A fatal error has occurs in creating the file");
+            }
+        }
+        return file;
+    }
 
 }
 
