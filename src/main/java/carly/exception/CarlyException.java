@@ -11,6 +11,6 @@ public class CarlyException extends Exception {
 
     /** Constructs a new CarlyException with the specified detail message. */
     public CarlyException(String message) {
-        super(Ui.getOutputForException(message));
+        super(message);
     }
 }

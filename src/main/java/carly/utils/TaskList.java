@@ -36,7 +36,7 @@ public class TaskList {
      * @param taskNumString The task number to be marked as done.
      * @throws CarlyException If the task number format is incorrect or out of bounds.
      */
-    public void mark(String taskNumString) throws CarlyException {
+    public String mark(String taskNumString) throws CarlyException {
         Integer taskNum = null;
         try {
             taskNum = Integer.parseInt(taskNumString);
@@ -44,7 +44,8 @@ public class TaskList {
             Task updatedT = t.markAsDone();
             this.taskList.set(taskNum - 1, updatedT);
             String msg = "Okiee! I've marked this task as done:\n" + TWO_INDENT + t;
-            Ui.printOutput(msg);
+            //Ui.printOutput(msg);
+            return msg;
         } catch (NumberFormatException e) {
             throw new CarlyIncorrectIndexFormat();
         } catch (IndexOutOfBoundsException e) {
@@ -58,7 +59,7 @@ public class TaskList {
      * @param taskNumString The task number to be unmarked.
      * @throws CarlyException If the task number is out of bounds.
      */
-    public void unmark(String taskNumString) throws CarlyException {
+    public String unmark(String taskNumString) throws CarlyException {
         Integer taskNum = null;
         try {
             taskNum = Integer.parseInt(taskNumString);
@@ -66,7 +67,8 @@ public class TaskList {
             Task updatedT = t.unmarkAsDone();
             this.taskList.set(taskNum - 1, updatedT);
             String msg = "Okiee! I've marked this task as not done yet:\n" + TWO_INDENT + t;
-            Ui.printOutput(msg);
+            //Ui.printOutput(msg);
+            return msg;
         } catch (IndexOutOfBoundsException e) {
             throw new CarlyIndexOutOfBoundsException(taskNum, this.getSize());
         }
@@ -78,14 +80,14 @@ public class TaskList {
      * @param taskNumString The task number to be deleted.
      * @throws CarlyException If the task number format is incorrect or out of bounds.
      */
-    public void delete(String taskNumString) throws CarlyException {
+    public String delete(String taskNumString) throws CarlyException {
         Integer taskNum = null;
         try {
             taskNum = Integer.parseInt(taskNumString);
             Task t = this.get(taskNum - 1);
             this.taskList.remove(taskNum - 1);
             String msg = "Okay, I've removed this task:\n" + TWO_INDENT + t;
-            Ui.printOutput(msg + "\n" + taskListSize());
+            return msg + "\n" + taskListSize();
         } catch (NumberFormatException e) {
             throw new CarlyIncorrectIndexFormat();
         } catch (IndexOutOfBoundsException e) {
@@ -100,14 +102,14 @@ public class TaskList {
      * @param word The word to search for in the task descriptions.
      * @throws CarlyException If an error occurs while processing the task list or printing the results.
      */
-    public void find(String word) throws CarlyException {
+    public String find(String word) throws CarlyException {
         TaskList filteredList = new TaskList();
         for (Task t: this.taskList) {
             if (t.getDescription().contains(word)) {
                 filteredList.taskList.add(t);
             }
         }
-        filteredList.printTaskList("Here are the matching returns for your list:");
+        return filteredList.printTaskList("Here are the matching returns for your list:");
     }
 
     /**
@@ -116,11 +118,12 @@ public class TaskList {
      * @param taskDescription The description of the task.
      * @throws CarlyException If there are issues with the task description.
      */
-    public void addToDo(String taskDescription) throws CarlyException {
+    public String addToDo(String taskDescription) throws CarlyException {
         Todo t = new Todo(taskDescription);
         this.taskList.add(t);
         String msg = "Got it. I've added this task:\n" + TWO_INDENT + t;
-        Ui.printOutput(msg + "\n" + taskListSize());
+        //Ui.printOutput(msg + "\n" + taskListSize());
+        return msg;
     }
 
     /**
@@ -129,7 +132,7 @@ public class TaskList {
      * @param taskDescription The description and due date of the task, formatted as "description /by dueDate".
      * @throws CarlyMissingDateTimeException If the task description or due date is missing.
      */
-    public void addDeadLine(String taskDescription) throws CarlyException {
+    public String addDeadLine(String taskDescription) throws CarlyException {
         try {
             String[] taskDueDate = taskDescription.split(" /by ");
             String task = taskDueDate[0];
@@ -138,8 +141,8 @@ public class TaskList {
             Deadline t = new Deadline(task, dueDate);
             this.taskList.add(t);
 
-            String msg = "Got it. I've added this task:\n" + TWO_INDENT + t;
-            Ui.printOutput(msg + "\n" + taskListSize());
+            return "Got it. I've added this task:\n" + TWO_INDENT + t;
+            //Ui.printOutput(msg + "\n" + taskListSize());
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CarlyMissingDateTimeException("task description or \"/by\" command");
         }
@@ -151,7 +154,7 @@ public class TaskList {
      * @param taskDescription The description, start time, and end time of the task.
      * @throws CarlyMissingDateTimeException If the task description, start time, or end time is missing.
      */
-    public void addEvent(String taskDescription) throws CarlyMissingDateTimeException {
+    public String addEvent(String taskDescription) throws CarlyMissingDateTimeException {
         try {
             String[] taskTimeParts = taskDescription.split(" /from ");
             String task = taskTimeParts[0];
@@ -163,7 +166,7 @@ public class TaskList {
             Event t = new Event(task, startTime, endTime);
             this.taskList.add(t);
             String msg = "Got it. I've added this task:\n" + TWO_INDENT + t;
-            Ui.printOutput(msg + "\n" + taskListSize());
+            return msg + "\n" + taskListSize();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CarlyMissingDateTimeException("\"/from\" or \"/to\" command");
         }
@@ -185,26 +188,28 @@ public class TaskList {
     }
 
     /** Prints list for Command FIND*/
-    public void printTaskList(String msg) {
-        if (this.taskList.isEmpty()) {
-            Ui.printOutput("Oh no. What you're looking for is not in the list :(");
-        } else {
-            Ui.printOutputTopLine(msg);
-            IntStream.range(0, this.getSize())
-                    .forEach(i -> Ui.printOutputNoLine(
-                            MessageFormat.format("{0}.{1}", i + 1, this.get(i).toString())));
-            Ui.printOutputBottomLine();
+    public String printTaskList(String msg) {
+        StringBuilder sb = new StringBuilder();
 
+        if (this.taskList.isEmpty()) {
+            sb.append("Oh no. What you're looking for is not in the list :(");
+        } else {
+            sb.append(msg).append("\n");
+            IntStream.range(0, this.getSize())
+                    .forEach(i -> sb.append(String.format("%d.%s\n", i + 1, this.get(i).toString())));
         }
+
+        return sb.toString();
     }
 
+
     /** Prints list for Command LIST*/
-    public void printTaskList() {
+    public String printTaskList() {
         if (this.taskList.isEmpty()) {
-            Ui.printOutput("There's nothing in your list yet.");
+            return "There's nothing in your list yet.";
         } else {
             String msg = "Here are the tasks in your list:";
-            this.printTaskList(msg);
+            return this.printTaskList(msg);
         }
     }
 
