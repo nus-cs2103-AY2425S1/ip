@@ -47,7 +47,7 @@ public class TaskListTest {
         Task task = new Task("Test task");
         taskList.add(task);
         taskList.markTask(0);
-        assertTrue(taskList.getTasks().get(0).checkIsDone());
+        assertTrue(taskList.getTasks().get(0).getIsDone());
     }
 
     @Test
@@ -56,6 +56,6 @@ public class TaskListTest {
         taskList.add(task);
         taskList.markTask(0);
         taskList.unmarkTask(0);
-        assertFalse(taskList.getTasks().get(0).checkIsDone());
+        assertFalse(taskList.getTasks().get(0).getIsDone());
     }
 }

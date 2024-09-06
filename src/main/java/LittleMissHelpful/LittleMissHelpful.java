@@ -39,7 +39,7 @@ public class LittleMissHelpful {
     }
 
     public static void main(String[] args) {
-        new LittleMissHelpful("./data/LittleMissHelpful.txt").run();
+        new LittleMissHelpful("data/LittleMissHelpful.txt").run();
     }
 }
 

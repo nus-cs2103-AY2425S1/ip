@@ -48,6 +48,21 @@ public class Ui {
         System.out.println(LINE_BREAK);
     }
 
+    public void showSearchResults(ArrayList<Task> tasks) {
+        System.out.println(LINE_BREAK);
+        if (tasks.size() == 0) {
+            System.out.println("Aiyo, got no matching tasks leh...");
+        } else {
+            System.out.println("Only got these few matching tasks ah...");
+            for (int i = 0; i < tasks.size(); i++) {
+                int listNumber = i + 1;
+                Task t = tasks.get(i);
+                System.out.println(listNumber + ". " + t.toString());
+            }
+        }
+        System.out.println(LINE_BREAK);
+    }
+
     public void showAddedNewTask(Task t, TaskList tasks) {
         System.out.println(LINE_BREAK);
         System.out.println("Added to list liao: " + t.toString());

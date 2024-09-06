@@ -1,18 +1,22 @@
 package LittleMissHelpful;
 
-import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Command.Command;
-import LittleMissHelpful.Command.ExitCommand;
-import LittleMissHelpful.Command.ListCommand;
-import LittleMissHelpful.Command.AddTodoCommand;
 import LittleMissHelpful.Command.AddDeadlineCommand;
 import LittleMissHelpful.Command.AddEventCommand;
+import LittleMissHelpful.Command.AddTodoCommand;
+import LittleMissHelpful.Command.Command;
+import LittleMissHelpful.Command.DeleteTaskCommand;
+import LittleMissHelpful.Command.ExitCommand;
+import LittleMissHelpful.Command.ListCommand;
 import LittleMissHelpful.Command.MarkTaskCommand;
 import LittleMissHelpful.Command.UnmarkTaskCommand;
-import LittleMissHelpful.Command.DeleteTaskCommand;
+import LittleMissHelpful.Exception.InvalidCommandException;
+import LittleMissHelpful.Command.FindCommand;
 
 public class Parser {
     public static Command parse(String fullCommand) throws InvalidCommandException {
+        /**
+         * Reads user input and returns command
+         */
         String[] inputList = fullCommand.split(" ", 2);
         String command = inputList[0].toLowerCase();
 
@@ -36,6 +40,9 @@ public class Parser {
 
             case "delete":
                 return new DeleteTaskCommand(Integer.parseInt(item));
+
+            case "find":
+                return new FindCommand(item);
 
             case "todo":
                 return new AddTodoCommand(item);

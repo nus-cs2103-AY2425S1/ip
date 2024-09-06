@@ -17,7 +17,17 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public boolean checkIsDone() {
+    public String getDescription() {
+        /**
+         * Returns description
+         */
+        return this.description;
+    }
+
+    public boolean getIsDone() {
+        /**
+         * Returns isDone status
+         */
         return isDone;
     }
 
