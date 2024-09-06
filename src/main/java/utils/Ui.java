@@ -120,7 +120,7 @@ public class Ui {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks due within the next 7 days:\n");
+        sb.append("Here are the tasks due within the next " + days + " days:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }

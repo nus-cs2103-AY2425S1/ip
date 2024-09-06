@@ -76,9 +76,21 @@ public class Parser {
 
     private Command parseReminderCommand(String input) throws DiegoException {
         String[] parts = input.split(" ");
-        int days = parts.length > 1 ? parseDays(parts[1]) : 7;
-        return new ReminderCommand(days);
+
+        // Default to 7 days if no number is provided
+        if (parts.length == 1) {
+            return new ReminderCommand(7);
+        }
+
+        // Try to parse the days; handle invalid number input
+        try {
+            int days = Integer.parseInt(parts[1]);
+            return new ReminderCommand(days);
+        } catch (NumberFormatException e) {
+            throw new DiegoException("Invalid number of days for remind command. Please provide a valid number.");
+        }
     }
+
 
     private int parseDays(String input) throws DiegoException {
         try {
