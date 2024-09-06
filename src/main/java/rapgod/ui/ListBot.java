@@ -24,6 +24,7 @@ public class ListBot {
                 Initialising ListBot Bot...
                 Special commands:
                 'LIST' -> Show full list
+                'FIND abc' -> Filters tasks with abc
                 'MARK n' -> Marks nth task as complete
                 'UNMARK n' -> Marks nth task as incomplete
                 'DELETE n' -> Deletes the nth task
@@ -53,51 +54,56 @@ public class ListBot {
                 CommandType command = CommandType.getCommand(input);
 
                 switch (command) {
-                    case LIST:
-                        dataManager.getTaskList().showList();
-                        break;
+                case LIST:
+                    dataManager.getTaskList().showList();
+                    break;
 
-                    case MARK:
-                        int markIndex = CommandType.extractIndex(input, command);
-                        dataManager.getTaskList().markTaskByIndex(markIndex);
-                        break;
+                case FIND:
+                    String keyword = CommandType.extractKeyword(input);
+                    dataManager.getTaskList().filterAndShowList(keyword);
+                    break;
 
-                    case UNMARK:
-                        int unmarkIndex = CommandType.extractIndex(input, command);
-                        dataManager.getTaskList().unmarkTaskByIndex(unmarkIndex);
-                        break;
+                case MARK:
+                    int markIndex = CommandType.extractIndex(input, command);
+                    dataManager.getTaskList().markTaskByIndex(markIndex);
+                    break;
 
-                    case DELETE:
-                        int deleteIndex = CommandType.extractIndex(input, command);
-                        dataManager.getTaskList().deleteTaskByIndex(deleteIndex);
-                        break;
+                case UNMARK:
+                    int unmarkIndex = CommandType.extractIndex(input, command);
+                    dataManager.getTaskList().unmarkTaskByIndex(unmarkIndex);
+                    break;
 
-                    case DEADLINE:
-                        String deadlineDesc = input.substring(0, input.toLowerCase().indexOf("/by"));
-                        String due = input.substring(input.toLowerCase().indexOf("/by") + 4);
-                        dataManager.getTaskList().addDeadlineTask(deadlineDesc, due);
-                        break;
+                case DELETE:
+                    int deleteIndex = CommandType.extractIndex(input, command);
+                    dataManager.getTaskList().deleteTaskByIndex(deleteIndex);
+                    break;
 
-                    case EVENT:
-                        String eventDesc = input.substring(0, input.toLowerCase().indexOf("/from"));
-                        String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
-                        String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
-                        dataManager.getTaskList().addEventTask(eventDesc, from, to);
-                        break;
+                case DEADLINE:
+                    String deadlineDesc = input.substring(0, input.toLowerCase().indexOf("/by"));
+                    String due = input.substring(input.toLowerCase().indexOf("/by") + 4);
+                    dataManager.getTaskList().addDeadlineTask(deadlineDesc, due);
+                    break;
 
-                    case TODO:
-                        dataManager.getTaskList().addToDoTask(input);
-                        break;
+                case EVENT:
+                    String eventDesc = input.substring(0, input.toLowerCase().indexOf("/from"));
+                    String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
+                    String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
+                    dataManager.getTaskList().addEventTask(eventDesc, from, to);
+                    break;
 
-                    case BYE:
-                        System.out.println("-----------------------------------------------");
-                        System.out.println("Bye! Hope to see you again soon!");
-                        System.out.println("-----------------------------------------------");
-                        return;
+                case TODO:
+                    dataManager.getTaskList().addToDoTask(input);
+                    break;
 
-                    default:
-                        System.out.println("Unknown command. Please try again.");
-                        break;
+                case BYE:
+                    System.out.println("-----------------------------------------------");
+                    System.out.println("Bye! Hope to see you again soon!");
+                    System.out.println("-----------------------------------------------");
+                    return;
+
+                default:
+                    System.out.println("Unknown command. Please try again.");
+                    break;
                 }
 
                 dataManager.updateMemory();
@@ -120,7 +126,7 @@ public class ListBot {
      * Enum representing the types of commands that can be issued to manage tasks.
      */
     public enum CommandType {
-        LIST, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO;
+        LIST, FIND, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO;
 
         /**
          * Determines the command type based on user input.
@@ -131,7 +137,9 @@ public class ListBot {
         public static CommandType getCommand(String input) {
             if (input.equalsIgnoreCase("list")) {
                 return LIST;
-            } else if (input.toLowerCase().startsWith("mark ")) {
+            } else if (input.toLowerCase().startsWith("find ")) {
+                return FIND;
+            }else if (input.toLowerCase().startsWith("mark ")) {
                 return MARK;
             } else if (input.toLowerCase().startsWith("unmark ")) {
                 return UNMARK;
@@ -158,15 +166,19 @@ public class ListBot {
          */
         public static int extractIndex(String input, CommandType command) throws NumberFormatException {
             switch (command) {
-                case MARK:
-                    return Integer.parseInt(input.substring(5).trim());
-                case UNMARK:
-                    return Integer.parseInt(input.substring(7).trim());
-                case DELETE:
-                    return Integer.parseInt(input.substring(7).trim());
-                default:
-                    throw new IllegalArgumentException("Command does not require an index.");
+            case MARK:
+                return Integer.parseInt(input.substring(5).trim());
+            case UNMARK:
+                return Integer.parseInt(input.substring(7).trim());
+            case DELETE:
+                return Integer.parseInt(input.substring(7).trim());
+            default:
+                throw new IllegalArgumentException("Command does not require an index.");
             }
+        }
+
+        public static String extractKeyword(String input) {
+            return input.substring(5).trim();
         }
     }
 
