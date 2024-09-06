@@ -1,15 +1,14 @@
-import ui.Ui;
 import parser.Parser;
 import storage.Storage;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import tasklist.TaskList;
 import task.Task;
 import exceptions.EmptyDescriptionException;
 import exceptions.MissingDeadlineException;
 import exceptions.TaskNotFoundException;
 import exceptions.MissingEventTimeException;
+
 
 /**
  * Represents the main application for managing tasks.
@@ -21,7 +20,7 @@ import exceptions.MissingEventTimeException;
 public class BeeBot {
     private static Storage storage;
     private static ArrayList<Task> taskList;
-    private final String FILEPATH;
+    private static String FILEPATH;
 
     /**
      * Constructs a {@code BeeBot} instance with the specified file path.
@@ -33,11 +32,11 @@ public class BeeBot {
      * @param filePath the path to the file used for loading and saving tasks
      */
     public BeeBot(String filePath) {
-        this.FILEPATH = filePath;
+        FILEPATH = filePath;
         storage = new Storage();
-        Ui ui = new Ui();
         try {
             taskList = storage.loadTaskListFromFile(filePath);
+            System.out.println(taskList);
         } catch (Exception e) {
             System.out.println("Error loading file: " + e.getMessage());
             taskList = new ArrayList<>();
@@ -45,66 +44,45 @@ public class BeeBot {
     }
 
     /**
-     * The entry point of the application.
-     * <p>
-     * Creates an instance of {@code BeeBot} with a predefined file path and starts the main loop to handle user input.
-     * </p>
-     *
-     * @param args command-line arguments (not used)
+     * Generates a response for the user's chat message.
      */
-    public static void main(String[] args) {
-        new BeeBot("/Users/beetee/Documents/NUS/CS/Y2S1/CS2103T/ip/data/BeeBot.txt").run();
-    }
-
-    /**
-     * Starts the main loop for handling user input.
-     * <p>
-     * Reads commands from the user, processes them, and updates the task list accordingly. It handles various commands,
-     * such as adding, marking, and deleting tasks, and interacts with the {@code Ui} and {@code Parser} classes.
-     * </p>
-     */
-    public void run() {
-        boolean exit_status = false;
-        while (!exit_status) {
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
-            String[] parts = input.split(" ");
-            String cmd = parts[0];
-
-            try {
-                switch (cmd) {
-                case "bye":
-                    Ui.exit();
-                    exit_status = true;
-                    break;
+    public static String getResponse(String input) {
+        String[] parts = input.split(" ");
+        String cmd = parts[0];
+        try {
+            switch (cmd) {
                 case "list":
                     int size = taskList.size();
-                    String listStr = "";
-                    for (int i = 0; i < size; i++) {
-                        int num = i + 1;
-                        listStr += (num + "." + taskList.get(i).toString());
+                    if (size == 0) {
+                        return "There is currently nothing on the list!";
+                    } else {
+                        String listStr = "";
+                        for (int i = 0; i < size; i++) {
+                            int num = i + 1;
+                            listStr += (num + "." + taskList.get(i).toString());
+                        }
+                        return listStr;
                     }
-                    Parser.speak(listStr);
-                    break;
                 case "mark":
                     int taskNum = Integer.parseInt(parts[1]);
-                    Task currTask = Parser.getTask(taskList, taskNum);
-                    currTask.markAsDone();
-                    Parser.speak("Nice! I've marked this task as done:\n" + currTask.toString());
-                    break;
+                    Task doneTask = Parser.getTask(taskList, taskNum);
+                    doneTask.markAsDone();
+                    storage.saveTaskListToFile(FILEPATH, taskList);
+                    return "🐝-utiful! Worker bee marked this task as done:\n" + doneTask;
                 case "unmark":
                     int taskNum2 = Integer.parseInt(parts[1]);
-                    Task curr = Parser.getTask(taskList, taskNum2);
-                    curr.markAsUndone();
-                    Parser.speak("Nice! I've marked this task as not done yet:\n" + curr.toString());
-                    break;
+                    Task undoneTask = Parser.getTask(taskList, taskNum2);
+                    undoneTask.markAsUndone();
+                    storage.saveTaskListToFile(FILEPATH, taskList);
+                    return "🐝-utiful! Worker bee marked this task as not done yet:\n" + undoneTask;
                 case "todo":
                     if (parts.length == 1) {
                         throw new EmptyDescriptionException("Enter a description for the Todo Task.\n");
                     }
-                    String name = Parser.concatenate(parts, 1);
-                    TaskList.createToDo(name, taskList);
-                    break;
+                    String todoName = Parser.concatenate(parts, 1);
+                    TaskList.createToDo(todoName, taskList);
+                    storage.saveTaskListToFile(FILEPATH, taskList);
+                    return "bzzzz... Worker bee added " + todoName + " to the list!";
                 case "deadline":
                     if (parts.length == 1) {
                         throw new EmptyDescriptionException("Enter a description for the Deadline Task.\n");
@@ -112,7 +90,8 @@ public class BeeBot {
                     String deadlineName = Parser.concatenateUntil(parts, "/by");
                     String deadlineDate = Parser.dateConverter(Parser.getFollowingDate(parts, "/by"));
                     TaskList.createDeadline(deadlineName, deadlineDate, taskList);
-                    break;
+                    storage.saveTaskListToFile(FILEPATH, taskList);
+                    return "BZZZZZ... Worker bee " + deadlineName + " to the list!";
                 case "event":
                     if (parts.length == 1) {
                         throw new EmptyDescriptionException("Enter a description for the Event Task.\n");
@@ -121,16 +100,16 @@ public class BeeBot {
                     String startTime = Parser.dateConverter(Parser.getFollowingDate(parts, "/from", "/to"));
                     String endTime = Parser.dateConverter(Parser.getFollowingDate(parts, "/to", ""));
                     TaskList.createEvent(eventName, startTime, endTime, taskList);
-                    break;
-
+                    storage.saveTaskListToFile(FILEPATH, taskList);
+                    return "buzzbuzzbuzz... Worker bee added " + eventName + " to the list!";
                 case "delete":
                     int deletionNumber = Integer.parseInt(parts[1]) - 1;
                     if (deletionNumber >= taskList.size()) {
                         throw new TaskNotFoundException("Task does not exist.\n");
                     }
                     TaskList.deleteEvent(deletionNumber, taskList);
-                    break;
-
+                    storage.saveTaskListToFile(FILEPATH, taskList);
+                    return "Yum yum in my tum tum! Task eaten!";
                 case "find":
                     String taskName = Parser.concatenate(parts, 1);
                     ArrayList<Task> searchResults = new ArrayList<>();
@@ -145,24 +124,28 @@ public class BeeBot {
                         int num = i + 1;
                         searchStr += (num + "." + searchResults.get(i).toString());
                     }
-                    Parser.speak(searchStr);
-                    break;
-
+                    return searchStr;
                 default:
-                    Parser.speak("Invalid command.\n");
-                }
-
-                storage.saveTaskListToFile(FILEPATH, taskList);
-            } catch (EmptyDescriptionException | MissingDeadlineException
-                     | MissingEventTimeException | TaskNotFoundException e) {
-                Parser.speak(e.getMessage());
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format. Enter date in YYYY-MM-DD format");
-            } catch (NumberFormatException e) {
-                Parser.speak("Please enter a valid task number.\n");
-            } catch (Exception e) {
-                Parser.speak("An error occurred: " + e.getMessage() + e + "\n");
+                    return """
+                            Please enter a valid command for worker bee to follow:
+                            1. todo [task-name]
+                            2. deadline [task-name] /by [due-date]
+                            3. event [task-name] /from [start-date] /to [end-date]
+                            4. mark [index]
+                            5. unmark [index]
+                            6. list
+                            7. find
+                            8. bye""";
             }
+        } catch (EmptyDescriptionException | MissingDeadlineException
+                 | MissingEventTimeException | TaskNotFoundException e) {
+           return e.getMessage();
+        } catch (DateTimeParseException e) {
+            return "Invalid date format. Enter date in YYYY-MM-DD format";
+        } catch (NumberFormatException e) {
+            return "Please enter a valid task number.\n";
+        } catch (Exception e) {
+            return "An error occurred: " + e.getMessage() + e + "\n";
         }
     }
 }
