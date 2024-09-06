@@ -13,12 +13,12 @@ import wenjiebot.WenJie;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
     private WenJie wenJie = new WenJie("./src/main/java/data/wenjie.txt");
-
     @Override
     public void start(Stage stage) {
         try {
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
