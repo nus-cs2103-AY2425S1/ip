@@ -33,7 +33,6 @@ public class Bob {
         String[] strArr = new String[]{cmd, rest};
         String retStr = "";
 
-        ui.retBlank();
         try {
             // main command control flow
             switch (strArr[0].toLowerCase()) {
@@ -83,7 +82,7 @@ public class Bob {
 
             }
         } catch (MissingParamsException | PositionException c) {
-            System.out.println(c + "\n" + ui.retBlank());
+            System.out.println(c);
         }
         return retStr;
     }

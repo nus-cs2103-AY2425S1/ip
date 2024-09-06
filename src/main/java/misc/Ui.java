@@ -12,8 +12,6 @@ import task.Tasklist;
 import task.Todo;
 
 public class Ui {
-    private String blankline = "____________________________________________________________ \s";
-
     /**
      * Prints a farewell message to the user.
      */
@@ -29,13 +27,6 @@ public class Ui {
             Hello! I'm Bob \s
             What can I do for you? \s
             """);
-    }
-
-    /**
-     * Return a blank line.
-     */
-    public String retBlank() {
-        return blankline;
     }
 
     /**
