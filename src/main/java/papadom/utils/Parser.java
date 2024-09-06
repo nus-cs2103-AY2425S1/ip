@@ -8,11 +8,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 /**
  * Parser class to handle parsing of user input into tasks.
  */
 public class Parser {
+    public static final String DATETIME_FORMAT_WITH_TIME = "yyyy-MM-dd HH-mm";
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+
     /**
      * Creates a Deadline task from the provided details.
      *
@@ -29,12 +33,12 @@ public class Parser {
             // Determine if the input includes a time
             if (parts[1].contains(" ")) {
                 // If it includes a time, parse it as LocalDateTime
-                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm");
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATETIME_FORMAT_WITH_TIME);
                 LocalDateTime dateTime = LocalDateTime.parse(parts[1], dateTimeFormatter);
                 return new Deadline(parts[0], dateTime);
             } else {
                 // If it doesn't include a time, parse it as LocalDate
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
                 LocalDate date = LocalDate.parse(parts[1], dateFormatter);
                 return new Deadline(parts[0], date);
             }
@@ -52,7 +56,8 @@ public class Parser {
      */
     public Event eventTaskCreator(String details) throws IncorrectTaskInputFormatException {
         String[] parts = details.split(" /from | /to ");
-        if (parts[0] == "" || parts.length <= 2) {
+        boolean isPartsLengthOne = parts.length == 1;
+        if (parts[0].isEmpty() || isPartsLengthOne) {
             throw new IncorrectTaskInputFormatException();
         }
         return new Event(parts[0], parts[1], parts[2]);
@@ -67,22 +72,6 @@ public class Parser {
             return words[1]; // Return the keyword after "find"
         } else {
             throw new IncorrectTaskInputFormatException();
-        }
-    }
-
-    /**
-     * Parses a date and time string into a LocalDateTime object.
-     *
-     * @param dateTimeStr The string containing the date and time.
-     * @return A LocalDateTime object, or null if parsing fails.
-     */
-    public static LocalDateTime parseDateTime(String dateTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        try {
-            return LocalDateTime.parse(dateTimeStr, formatter);
-        } catch (DateTimeParseException e) {
-            // handle the exception or return a default
-            return null;
         }
     }
 }

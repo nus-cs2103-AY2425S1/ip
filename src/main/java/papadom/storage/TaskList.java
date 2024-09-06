@@ -55,6 +55,18 @@ public class TaskList {
         return finalList;
     }
 
+    private int extractTaskIndex(String text) throws NoTaskNumberException {
+        String[] parts = text.split(" ");
+        if (parts.length <= 1) {
+            throw new NoTaskNumberException();
+        }
+        try {
+            return Integer.parseInt(parts[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new NoTaskNumberException();
+        }
+    }
+
     /**
      * Adds a task to the list and stores it in the database.
      *
@@ -79,23 +91,15 @@ public class TaskList {
      * @throws WrongTaskNumberException  If the task number does not exist.
      */
     public String deleteEvent(String text) throws NoTaskNumberException, WrongTaskNumberException {
-        String[] parts = text.split(" ");
-        if (parts.length <= 1) {
-            throw new NoTaskNumberException();
+        int taskIndex = extractTaskIndex(text);
+        if (taskIndex >= this.TASKS_LIST.size()) {
+            throw new WrongTaskNumberException();
         }
-        try {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= this.TASKS_LIST.size()) {
-                throw new WrongTaskNumberException();
-            }
-            Task taskToBeDeleted = this.TASKS_LIST.get(taskIndex);
-            this.TASKS_LIST.remove(taskIndex);
-            return " Noted. I've removed this task:\n  " + taskToBeDeleted
-                    + "\n Now you have " + this.TASKS_LIST.size() + " tasks in the list.";
+        Task taskToBeDeleted = this.TASKS_LIST.get(taskIndex);
+        this.TASKS_LIST.remove(taskIndex);
+        return " Noted. I've removed this task:\n  " + taskToBeDeleted
+                + "\n Now you have " + this.TASKS_LIST.size() + " tasks in the list.";
             // Proceed with your logic using taskIndex
-        } catch (NumberFormatException e) {
-            throw new NoTaskNumberException(); // Throw the custom exception if parts[1] is not an integer
-        }
     }
 
     /**
@@ -107,21 +111,13 @@ public class TaskList {
      * @throws WrongTaskNumberException  If the task number does not exist.
      */
     public String markTask(String text) throws NoTaskNumberException, WrongTaskNumberException {
-        String[] parts = text.split(" ");
-        if (parts.length <= 1) {
-            throw new NoTaskNumberException();
+        int taskIndex = extractTaskIndex(text);
+        if (taskIndex >= this.TASKS_LIST.size()) {
+            throw new WrongTaskNumberException();
         }
-        try {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= this.TASKS_LIST.size()) {
-                throw new WrongTaskNumberException();
-            }
-            Task task = this.TASKS_LIST.get(taskIndex);
-            task.markAsDone();
-            return " Nice! I've marked this task as done:\n  " + task;
-        } catch (NumberFormatException e) {
-            throw new NoTaskNumberException(); // Throw the custom exception if parts[1] is not an integer
-        }
+        Task task = this.TASKS_LIST.get(taskIndex);
+        task.markAsDone();
+        return " Nice! I've marked this task as done:\n  " + task;
     }
 
     /**
@@ -133,21 +129,12 @@ public class TaskList {
      * @throws WrongTaskNumberException  If the task number does not exist.
      */
     public String unmarkTask(String text) throws NoTaskNumberException, WrongTaskNumberException {
-        String[] parts = text.split(" ");
-        if (parts.length <= 1) {
-            throw new NoTaskNumberException();
+        int taskIndex = extractTaskIndex(text);
+        if (taskIndex >= this.TASKS_LIST.size()) {
+            throw new WrongTaskNumberException();
         }
-        try {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= this.TASKS_LIST.size()) {
-                throw new WrongTaskNumberException();
-            }
-            Task task = this.TASKS_LIST.get(taskIndex);
-            task.unmark();
-            return " OK, I've marked this task as not done yet:\n  " + task;
-            // Proceed with your logic using taskIndex
-        } catch (NumberFormatException e) {
-            throw new NoTaskNumberException(); // Throw the custom exception if parts[1] is not an integer
-        }
+        Task task = this.TASKS_LIST.get(taskIndex);
+        task.unmark();
+        return " OK, I've marked this task as not done yet:\n  " + task;
     }
 }
