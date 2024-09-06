@@ -36,7 +36,7 @@ public class FindCommand extends Command {
         }
 
         if (matchingTasks == null) {
-            return successMessage + "  No Matching Tasks found.";
+            return successMessage + "  -No Matching Tasks found-";
         } else {
             return successMessage + matchingTasks;
         }
