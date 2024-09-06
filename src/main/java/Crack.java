@@ -1,196 +1,113 @@
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Crack {
-    private static final String FILE_PATH = "./data/crack.txt";
-    public static void main(String[] args) {
-        String divider = "____________________________________________________________\n";
-        String greeting = divider
-                + " Hello! I'm Crack\n"
-                + " What can I do for you?\n"
-                + divider;
-        System.out.println(greeting);
 
-        Scanner scanner = new Scanner(System.in);
-        String input;
-        ArrayList<Task> tasks = new ArrayList<>();
-        loadTasksFromFile(tasks);
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Crack(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.loadTasks(ui));
+        } catch (IOException e) {
+            ui.showError("Unable to load tasks from file.");
+            tasks = new TaskList();  // Initialize with an empty task list if load fails
+        }
+    }
+
+    public void run() {
+        ui.showWelcome();
 
         while (true) {
-            System.out.print("You: ");
-            input = scanner.nextLine().trim();
+            String input = ui.readCommand();
+            String command = Parser.parseCommand(input);  // Get the command part of the input
 
-            if (input.equals("bye")) {
-                System.out.println("Goodbye!");
-                break;
-            } else if (input.equals("list")) {
-                if (tasks.isEmpty()) {
-                    System.out.println(divider + " Your task list is empty.\n" + divider);
-                } else {
-                    System.out.println(divider + " Here are the tasks in your list:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + "." + tasks.get(i));
-                    }
-                    System.out.println(divider);
-                }
-            } else if (input.startsWith("mark ")) {
-                try {
-                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index >= 0 && index < tasks.size()) {
-                        tasks.get(index).markAsDone();
-                        System.out.println(divider + " Nice! I've marked this task as done:\n   " + tasks.get(index) + "\n" + divider);
-                        saveTasksToFile(tasks);
+            switch (command) {
+                case "bye":
+                    ui.showGoodbye();
+                    ui.close();
+                    return;
+                case "list":
+                    if (tasks.isEmpty()) {
+                        ui.showMessage("Your task list is empty.");
                     } else {
-                        System.out.println(divider + " Error: Task number out of range.\n" + divider);
+                        ui.showMessage("Here are the tasks in your list:\n" + tasks.listTasks());
                     }
-                } catch (Exception e) {
-                    System.out.println(divider + " Error: Please provide a valid task number.\n" + divider);
-                }
-            } else if (input.startsWith("unmark ")) {
-                try {
-                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index >= 0 && index < tasks.size()) {
-                        tasks.get(index).unmark();
-                        System.out.println(divider + " OK, I've marked this task as not done yet:\n   " + tasks.get(index) + "\n" + divider);
-                        saveTasksToFile(tasks);
-                    } else {
-                        System.out.println(divider + " Error: Task number out of range.\n" + divider);
+                    break;
+                case "mark":
+                    try {
+                        int index = Parser.parseTaskNumber(input);
+                        tasks.getTask(index).markAsDone();
+                        ui.showMessage("Nice! I've marked this task as done:\n   " + tasks.getTask(index));
+                        storage.saveTasks(tasks.getTasks(), ui);
+                    } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                        ui.showError(e.getMessage());
                     }
-                } catch (Exception e) {
-                    System.out.println(divider + " Error: Please provide a valid task number.\n" + divider);
-                }
-            } else if (input.startsWith("todo ")) {
-                String description = input.substring(5).trim();
-                if (description.isEmpty()) {
-                    System.out.println(divider + " Error: The description of a todo cannot be empty.\n" + divider);
-                } else {
-                    tasks.add(new Todo(description));
-                    System.out.println(divider + " Got it. I've added this task:\n   [T][ ] " + description + "\n"
-                            + " Now you have " + tasks.size() + " tasks in the list.\n" + divider);
-                    saveTasksToFile(tasks);
-                }
-            } else if (input.startsWith("deadline ")) {
-                try {
-                    String[] parts = input.substring(9).split(" /by ");
-                    if (parts.length < 2 || parts[0].trim().isEmpty()) {
-                        throw new IllegalArgumentException();
+                    break;
+                case "unmark":
+                    try {
+                        int index = Parser.parseTaskNumber(input);
+                        tasks.getTask(index).unmark();
+                        ui.showMessage("OK, I've marked this task as not done yet:\n   " + tasks.getTask(index));
+                        storage.saveTasks(tasks.getTasks(), ui);
+                    } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                        ui.showError(e.getMessage());
                     }
-                    String description = parts[0].trim();
-                    String by = parts[1].trim();
-                    Deadline newDeadline = new Deadline(description, by);
-                    tasks.add(newDeadline);
-                    System.out.println(divider + " Got it. I've added this task:\n" + newDeadline + "\n"
-                            + " Now you have " + tasks.size() + " tasks in the list.\n" + divider);
-                    saveTasksToFile(tasks);
-                } catch (Exception e) {
-                    System.out.println(divider + " Error: Invalid format for deadline. Use: deadline <description> /by <yyyy-md-dd>.\n" + divider);
-                }
-            } else if (input.startsWith("event ")) {
-                try {
-                    String[] parts = input.substring(6).split(" /from | /to ");
-                    if (parts.length < 3 || parts[0].trim().isEmpty()) {
-                        throw new IllegalArgumentException();
+                    break;
+                case "todo":
+                    try {
+                        String description = Parser.parseTodoDescription(input);
+                        Todo newTodo = new Todo(description);
+                        tasks.addTask(newTodo);
+                        ui.showTaskAdded(newTodo, tasks.getSize());
+                        storage.saveTasks(tasks.getTasks(), ui);
+                    } catch (IllegalArgumentException e) {
+                        ui.showError(e.getMessage());
                     }
-                    String description = parts[0].trim();
-                    String from = parts[1].trim();
-                    String to = parts[2].trim();
-                    Event newEvent = new Event(description, from, to);
-                    tasks.add(newEvent);
-                    System.out.println(divider + " Got it. I've added this task:\n" + newEvent + "\n"
-                            + " Now you have " + tasks.size() + " tasks in the list.\n" + divider);
-                    saveTasksToFile(tasks);
-                } catch (Exception e) {
-                    System.out.println(divider + " Error: Invalid format for event. Use: event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>.\n" + divider);
-                }
-            } else if (input.startsWith("delete ")) {
-                try {
-                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index >= 0 && index < tasks.size()) {
-                        Task removedTask = tasks.remove(index);
-                        System.out.println(divider + " Noted. I've removed this task:\n   " + removedTask + "\n"
-                                + " Now you have " + tasks.size() + " tasks in the list.\n" + divider);
-                        saveTasksToFile(tasks);
-                    } else {
-                        System.out.println(divider + " Error: Task number out of range.\n" + divider);
+                    break;
+                case "deadline":
+                    try {
+                        String[] deadlineDetails = Parser.parseDeadline(input);
+                        Deadline newDeadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
+                        tasks.addTask(newDeadline);
+                        ui.showTaskAdded(newDeadline, tasks.getSize());
+                        storage.saveTasks(tasks.getTasks(), ui);
+                    } catch (IllegalArgumentException e) {
+                        ui.showError(e.getMessage());
                     }
-                } catch (Exception e) {
-                    System.out.println(divider + " Error: Please provide a valid task number.\n" + divider);
-                }
-            } else {
-                System.out.println(divider + " Error: Invalid Command.\n" + divider);
+                    break;
+                case "event":
+                    try {
+                        String[] eventDetails = Parser.parseEvent(input);
+                        Event newEvent = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
+                        tasks.addTask(newEvent);
+                        ui.showTaskAdded(newEvent, tasks.getSize());
+                        storage.saveTasks(tasks.getTasks(), ui);
+                    } catch (IllegalArgumentException e) {
+                        ui.showError(e.getMessage());
+                    }
+                    break;
+                case "delete":
+                    try {
+                        int index = Parser.parseTaskNumber(input);
+                        Task removedTask = tasks.removeTask(index);
+                        ui.showMessage("Noted. I've removed this task:\n   " + removedTask);
+                        storage.saveTasks(tasks.getTasks(), ui);
+                    } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                        ui.showError(e.getMessage());
+                    }
+                    break;
+                default:
+                    ui.showError("Invalid Command.");
+                    break;
             }
-        }
-
-        scanner.close();
-    }
-
-    private static void saveTasksToFile(ArrayList<Task> tasks) {
-        try {
-            File dir = new File("./data");
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-            
-
-            File file = new File(FILE_PATH);
-            System.out.println("File path: " + file.getAbsolutePath());
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            FileWriter writer = new FileWriter(FILE_PATH);
-            for (Task task : tasks) {
-                writer.write(task.toSaveString() + System.lineSeparator());
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println(e);
-            System.out.println("Error: Unable to save tasks.");
         }
     }
 
-    private static void loadTasksFromFile(ArrayList<Task> tasks) {
-        try {
-            File file = new File(FILE_PATH);
-            if (!file.exists()) {
-                return; // No file yet, nothing to load
-            }
-            Scanner fileScanner = new Scanner(file);
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                String[] parts = line.split(" \\| ");
-                switch (parts[0]) {
-                    case "T":
-                        Todo todo = new Todo(parts[2]);
-                        if (parts[1].equals("1")) {
-                            todo.markAsDone();
-                        }
-                        tasks.add(todo);
-                        break;
-                    case "D":
-                        Deadline deadline = new Deadline(parts[2], parts[3]);
-                        if (parts[1].equals("1")) {
-                            deadline.markAsDone();
-                        }
-                        tasks.add(deadline);
-                        break;
-                    case "E":
-                        Event event = new Event(parts[2], parts[3], parts[4]);
-                        if (parts[1].equals("1")) {
-                            event.markAsDone();
-                        }
-                        tasks.add(event);
-                        break;
-                    default:
-                        throw new IOException("Corrupted task format");
-                }
-            }
-            fileScanner.close();
-        } catch (IOException e) {
-            System.out.println("Error: Unable to load tasks or file is corrupted.");
-        }
+    // Main method to initialize Crack and run the application
+    public static void main(String[] args) {
+        new Crack("./data/crack.txt").run();  // Passes file path to the constructor
     }
 }
