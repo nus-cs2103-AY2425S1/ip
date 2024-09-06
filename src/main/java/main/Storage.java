@@ -14,45 +14,63 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the loading and saving of tasks to and from a file.
+ */
 public class Storage {
-    File file;
-    DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
+    private final File file;
+    private final DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
         try {
-            //Load file if file exists
+            // Load file if it exists
             if (file.exists()) {
-                Scanner s = new Scanner(file); // create a Scanner using the File as the source
-                while (s.hasNext()) {
-                    String line = s.nextLine();
-                    String[] stringArray = line.split("\\|");
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNext()) {
+                    String line = scanner.nextLine();
+                    String[] parts = line.split("\\|");
                     char type = line.charAt(0);
-                    if (type == 'T') {
-                        Todo t = new Todo(stringArray[2]);
-                        if (stringArray[1].equals("X")) {
-                            t.markTaskAsDone();
-                        }
-                        list.add(t);
-                    } else if (type == 'D') {
-                        Deadline d = new Deadline(stringArray[2], LocalDateTime.parse(stringArray[3], fileFormatter));
-                        if (stringArray[1].equals("X")) {
-                            d.markTaskAsDone();
-                        }
-                        list.add(d);
-                    } else if (type == 'E') {
-                        Event e = new Event(stringArray[2], LocalDateTime.parse(stringArray[3], fileFormatter),
-                                LocalDateTime.parse(stringArray[4], fileFormatter));
-                        if (stringArray[1].equals("X")) {
-                            e.markTaskAsDone();
-                        }
-                        list.add(e);
-                    } else {
-                        throw new CorruptedFileException("File is corrupted.");
+
+                    switch (type) {
+                        case 'T':
+                            Todo todo = new Todo(parts[2]);
+                            if (parts[1].equals("X")) {
+                                todo.markTaskAsDone();
+                            }
+                            list.add(todo);
+                            break;
+                        case 'D':
+                            Deadline deadline = new Deadline(parts[2], LocalDateTime.parse(parts[3], fileFormatter));
+                            if (parts[1].equals("X")) {
+                                deadline.markTaskAsDone();
+                            }
+                            list.add(deadline);
+                            break;
+                        case 'E':
+                            Event event = new Event(parts[2], LocalDateTime.parse(parts[3], fileFormatter),
+                                    LocalDateTime.parse(parts[4], fileFormatter));
+                            if (parts[1].equals("X")) {
+                                event.markTaskAsDone();
+                            }
+                            list.add(event);
+                            break;
+                        default:
+                            throw new CorruptedFileException("File is corrupted.");
                     }
                 }
                 System.out.println("Existing data file found. Data has been loaded.");
@@ -76,74 +94,88 @@ public class Storage {
     }
 
     /**
+     * Appends the given text to the file.
      *
-     * @param textToAppend String text to be added to file
+     * @param textToAppend The text to be added to the file.
      */
     public void appendToFile(String textToAppend) {
-        try {
-            FileWriter fw = new FileWriter(this.file.getPath(), true); // create a FileWriter in append mode
+        try (FileWriter fw = new FileWriter(this.file.getPath(), true)) {
             fw.write(textToAppend + System.lineSeparator());
-            fw.close();
         } catch (IOException e) {
             System.out.println("Append to file failed: " + e.getMessage());
         }
     }
 
     /**
+     * Writes the given text to the file, overwriting any existing content.
      *
-     * @param textToAdd String text to be written to file
+     * @param textToAdd The text to be written to the file.
      */
     public void writeToFile(String textToAdd) {
-        try {
-            FileWriter fw = new FileWriter(this.file.getPath());
+        try (FileWriter fw = new FileWriter(this.file.getPath())) {
             fw.write(textToAdd + System.lineSeparator());
-            fw.close();
         } catch (IOException e) {
             System.out.println("Write to file failed: " + e.getMessage());
         }
     }
 
+    /**
+     * Marks a task as done and updates the file.
+     *
+     * @param markNum The index of the task to be marked as done.
+     * @param tasks The TaskList containing the tasks.
+     */
     public void markTask(int markNum, TaskList tasks) {
         int num = tasks.size();
-        Task t = tasks.get(markNum - 1);
-        t.markTaskAsDone();
+        Task task = tasks.get(markNum - 1);
+        task.markTaskAsDone();
         writeToFile(tasks.get(0).toFile());
         for (int i = 1; i < num; i++) {
             appendToFile(tasks.get(i).toFile());
         }
         Ui.insertLine();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(t);
+        System.out.println(task);
         Ui.insertLine();
     }
 
+    /**
+     * Unmarks a task and updates the file.
+     *
+     * @param unmarkNum The index of the task to be unmarked.
+     * @param tasks The TaskList containing the tasks.
+     */
     public void unmarkTask(int unmarkNum, TaskList tasks) {
         int num = tasks.size();
-        Task t = tasks.get(unmarkNum - 1);
-        t.unmarkTask();
+        Task task = tasks.get(unmarkNum - 1);
+        task.unmarkTask();
         writeToFile(tasks.get(0).toFile());
         for (int i = 1; i < num; i++) {
             appendToFile(tasks.get(i).toFile());
         }
         Ui.insertLine();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(t);
+        System.out.println(task);
         Ui.insertLine();
     }
 
+    /**
+     * Deletes a task and updates the file.
+     *
+     * @param deleteNum The index of the task to be deleted.
+     * @param tasks The TaskList containing the tasks.
+     */
     public void deleteTask(int deleteNum, TaskList tasks) {
         int num = tasks.size();
-        Task t = tasks.removeTask(deleteNum - 1);
+        Task task = tasks.removeTask(deleteNum - 1);
         Ui.insertLine();
         System.out.println("Noted. I've removed this task.");
-        System.out.println(t);
+        System.out.println(task);
         System.out.println("Now you have " + (num - 1) + " tasks in the list.");
         if (!tasks.isEmpty()) {
             writeToFile(tasks.get(0).toFile());
-            if (tasks.size() > 1) {
-                for (int i = 1; i < num - 1; i++) {
-                    appendToFile(tasks.get(i).toFile());
-                }
+            for (int i = 1; i < num - 1; i++) {
+                appendToFile(tasks.get(i).toFile());
             }
         } else {
             writeToFile("");
