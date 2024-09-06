@@ -1,9 +1,9 @@
 package sigma.command;
 
+import sigma.exception.SigmaException;
 import sigma.utils.Storage;
 import sigma.utils.TaskList;
 import sigma.utils.Ui;
-import sigma.exception.SigmaException;
 
 /**
  * Represents the command to execute the user's input.
@@ -11,12 +11,14 @@ import sigma.exception.SigmaException;
 public abstract class Command {
 
     protected String[] split;
+
     public Command(String[] split) {
         this.split = split;
     }
 
     /**
      * Executes the command.
+     *
      * @param tasks
      * @param ui
      * @param storage
@@ -30,6 +32,7 @@ public abstract class Command {
 
     /**
      * Returns the string representation of the command.
+     *
      * @return String representation of the command.
      */
     @Override

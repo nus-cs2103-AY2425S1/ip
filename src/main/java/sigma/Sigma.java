@@ -1,5 +1,7 @@
 package sigma;
 
+import java.io.File;
+
 import javafx.application.Platform;
 import sigma.command.Command;
 import sigma.exception.SigmaException;
@@ -8,23 +10,22 @@ import sigma.utils.Storage;
 import sigma.utils.TaskList;
 import sigma.utils.Ui;
 
-import java.io.File;
-
-import static java.lang.Thread.sleep;
-
 /**
  * Represents the main class of Sigma.
  * Initializes the Ui, Storage, and TaskList.
  */
 public class Sigma {
 
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
-    private File data;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
+    private final File data;
     private String commandType;
 
-    // Default constructor
+    /**
+     * Constructor for Sigma.
+     * Initializes the Ui, Storage, and TaskList.
+     */
     public Sigma() {
         this.ui = new Ui();
         storage = new Storage("data.txt");
@@ -35,6 +36,7 @@ public class Sigma {
     /**
      * Constructor for Sigma.
      * Initializes the Ui, Storage, and TaskList.
+     *
      * @param filePath
      */
     public Sigma(String filePath) {
@@ -44,53 +46,10 @@ public class Sigma {
         tasks = new TaskList(storage.read(data));
     }
 
-
-    /**
-     * sigma.gui.Main method to run Sigma.
-     * @param args
-     */
-    /*
-    public static void main(String[] args) {
-        Sigma sigma = new Sigma("data.txt");
-        sigma.run();
-    }
-
-    /**
-     * Runs Sigma.
-     * Reads the user's input and executes the command.
-     * Writes the data to the file.
-     * Not used in GUI.
-     *
-     * @throws SigmaException
-     * @throws NumberFormatException
-     */
-    /*
-    public void run() {
-        ui.welcome();
-        boolean isExit = false;
-        while (!isExit) {
-            String fullCommand;
-            try {
-                fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (SigmaException e) {
-                ui.print(e.getMessage());
-            } catch (NumberFormatException e) {
-                ui.print("What the sigma? I need a number!");
-            } finally {
-            }
-            storage.write(tasks.getTasks());
-        }
-    }
-    */
-
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        // get first char of input as the command type
         try {
             Command c = Parser.parse(input);
             commandType = c.toString();

@@ -1,5 +1,7 @@
 package sigma.gui;
 
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,10 +13,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
-import sigma.command.Command;
 
-import java.io.IOException;
-
+/**
+ * Represents a dialog box consisting of an ImageView to represent the speaker's face and a label containing text from
+ * the speaker.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
@@ -36,6 +39,18 @@ public class DialogBox extends HBox {
         clipImageViewToCircle(displayPicture);
     }
 
+    public static DialogBox getUserDialog(String s, Image i) {
+        return new DialogBox(s, i);
+    }
+
+    // ...
+    public static DialogBox getSigmaDialog(String text, Image img, String commandType) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.changeDialogStyle(commandType);
+        return db;
+    }
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -47,10 +62,6 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
-    public static DialogBox getUserDialog(String s, Image i) {
-        return new DialogBox(s, i);
-    }
-
     private void clipImageViewToCircle(ImageView imageView) {
         double radius = Math.min(imageView.getFitWidth(), imageView.getFitHeight()) / 2;
         Circle clip = new Circle(radius, radius, radius);
@@ -58,11 +69,14 @@ public class DialogBox extends HBox {
     }
 
     private void changeDialogStyle(String commandType) {
-        switch(commandType) {
-        case "TodoCommand": case "DeadlineCommand": case "EventCommand":
+        switch (commandType) {
+        case "TodoCommand":
+        case "DeadlineCommand":
+        case "EventCommand":
             dialog.getStyleClass().add("add-label");
             break;
-        case "MarkCommand": case "UnmarkCommand":
+        case "MarkCommand":
+        case "UnmarkCommand":
             dialog.getStyleClass().add("marked-label");
             break;
         case "DeleteCommand":
@@ -71,13 +85,6 @@ public class DialogBox extends HBox {
         default:
             // Do nothing
         }
-    }
-    // ...
-    public static DialogBox getSigmaDialog(String text, Image img, String commandType) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        db.changeDialogStyle(commandType);
-        return db;
     }
 
 }

@@ -1,11 +1,5 @@
 package sigma.utils;
 
-import sigma.exception.SigmaException;
-import sigma.task.DeadlineTask;
-import sigma.task.EventTask;
-import sigma.task.Task;
-import sigma.task.TodoTask;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,6 +11,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import sigma.exception.SigmaException;
+import sigma.task.DeadlineTask;
+import sigma.task.EventTask;
+import sigma.task.Task;
+import sigma.task.TodoTask;
+
 
 /**
  * Represents the storage of tasks.
@@ -31,15 +32,23 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private String filePath;
-    private Ui ui = new Ui();
+    private final String filePath;
+    private final Ui ui = new Ui();
+
+    /**
+     * Constructor for Storage.
+     * Initializes the file path.
+     *
+     * @param filePath File path to store data.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
-        ui.print(load(filePath));
+        load(filePath);
     }
 
     /**
      * Writes the tasks to the file.
+     * Uses inheritance to get Date string.
      *
      * @param items List of tasks to write to the file.
      */
@@ -48,16 +57,9 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(data);
             for (Task item : items) {
-                String date;
-                if (item instanceof DeadlineTask) {
-                    date = ((DeadlineTask) item).getDate();
-                } else if (item instanceof EventTask) {
-                    date = ((EventTask) item).getFrom() + " - " + ((EventTask) item).getTo();
-                } else {
-                    date = "";
-                }
+                String date = item.getDate();
                 writer.write(String.format("%s | %s | %s | %s \n",
-                        item.getTaskType(), item.getStatusString(), item.getDesc(), date));
+                        item.getTaskType(), item.getStatusString(), item.getDescription(), date));
             }
             writer.close();
         } catch (IOException e) {
@@ -94,6 +96,7 @@ public class Storage {
      * Handles the reading of tasks from the file.
      * Handles the case where the file is not found.
      * Handles the case where the file is empty.
+     *
      * @param data File to read from.
      * @return List of tasks read from the file.
      */
@@ -111,7 +114,7 @@ public class Storage {
                 String desc = split[2];
                 String date = split[3];
                 Task item = createTaskFromFile(type, desc, date);
-                item.setStatus(status);
+                item.setCompleted(status);
                 items.add(item);
             }
             fileInput.close();
@@ -126,6 +129,7 @@ public class Storage {
 
     /**
      * Creates a task from the file.
+     *
      * @param type Task type.
      * @param desc Task description.
      * @param date Task date.

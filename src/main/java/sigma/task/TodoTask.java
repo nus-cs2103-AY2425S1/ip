@@ -12,9 +12,15 @@ public class TodoTask extends Task {
     public String getTaskType() {
         return "T";
     }
+
     @Override
     public String toString() {
-        return String.format("[T][%s] %s", getStatusString(), getDesc());
+        return String.format("[T][%s] %s", getStatusString(), getDescription());
+    }
+
+    @Override
+    public String getDate() {
+        return "";
     }
 
 }

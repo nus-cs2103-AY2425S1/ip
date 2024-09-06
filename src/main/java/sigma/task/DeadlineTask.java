@@ -7,8 +7,14 @@ import java.time.format.DateTimeFormatter;
  * Represents a deadline task.
  */
 public class DeadlineTask extends Task {
-    private LocalDateTime date;
+    private final LocalDateTime date;
 
+    /**
+     * Creates a deadline task with the given description and date.
+     *
+     * @param desc Description of the deadline task.
+     * @param date Date of the deadline task.
+     */
     public DeadlineTask(String desc, LocalDateTime date) {
         super(desc);
         this.date = date;
@@ -16,6 +22,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Returns the date of the deadline task.
+     *
      * @return Date of the deadline task.
      */
     public String getDate() {
@@ -25,6 +32,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Returns the type of the task.
+     *
      * @return String representation of type of the task.
      */
     public String getTaskType() {
@@ -33,11 +41,12 @@ public class DeadlineTask extends Task {
 
     /**
      * Returns the string representation of the task.
+     *
      * @return String representation of the task.
      */
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", getStatusString(), getDesc(), getDate());
+        return String.format("[D][%s] %s (by: %s)", getStatusString(), getDescription(), getDate());
     }
 
 }

@@ -15,6 +15,7 @@ public class ListCommand extends Command {
 
     /**
      * Lists all tasks in the task list.
+     *
      * @param tasks
      * @param ui
      * @param storage
@@ -22,10 +23,10 @@ public class ListCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
-            return ui.print("What the sigma? You have no tasks!");
+            return "What the sigma? You have no tasks!";
         } else {
-            StringBuilder s = ui.buildList(tasks);
-            return ui.print("You want a list? You got it!\n" + s.toString());
+            StringBuilder s = Ui.buildList(tasks);
+            return "You want a list? You got it!\n" + s.toString();
         }
     }
 

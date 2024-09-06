@@ -1,13 +1,14 @@
 package sigma.command;
 
-import org.junit.jupiter.api.Test;
-import sigma.utils.TaskList;
-import sigma.exception.SigmaException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import sigma.exception.SigmaException;
+import sigma.utils.TaskList;
 
 public class TodoCommandTest {
 
@@ -65,7 +66,8 @@ public class TodoCommandTest {
 
     @Test
     public void todoCommand_longTaskDescription_addsTaskSuccessfully() {
-        String longDescription = "This is a very long task description to see how the system handles large inputs without any issues";
+        String longDescription = ""
+                + "This is a very long task description to see how the system handles large inputs without any issues";
         TodoCommand tc = new TodoCommand(new String[]{"todo", longDescription});
         TaskList tl = new TaskList(new ArrayList<>());
         try {

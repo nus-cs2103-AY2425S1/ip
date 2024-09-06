@@ -1,10 +1,10 @@
 package sigma.command;
 
+import sigma.exception.SigmaException;
+import sigma.task.Task;
 import sigma.utils.Storage;
 import sigma.utils.TaskList;
 import sigma.utils.Ui;
-import sigma.exception.SigmaException;
-import sigma.task.Task;
 
 /**
  * Represents the command to delete a task from the list.
@@ -17,6 +17,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Deletes a task from the task list.
+     *
      * @param tasks
      * @param ui
      * @param storage
@@ -25,15 +26,14 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         if (split.length < 2) {
-            throw new SigmaException("What the sigma? You're missing the task! " +
-                    "Write \"delete <task>\"!");
+            throw new SigmaException("What the sigma? You're missing the task! " + "Write \"delete <task>\"!");
         }
         int index = Integer.parseInt(split[1]);
         if (index > 0 && index <= tasks.size()) {
             Task item = tasks.get(index - 1);
             tasks.remove(index - 1);
-            return ui.print(String.format("Dang, I'm going to delete this for you:\n %s\n " +
-                    "Now you have %d tasks!", item.toString(), tasks.size()));
+            return String.format("Dang, I'm going to delete this for you:\n %s\n "
+                    + "Now you have %d tasks!", item.toString(), tasks.size());
         } else {
             throw new SigmaException("What the skibidi? Invalid task number!");
         }

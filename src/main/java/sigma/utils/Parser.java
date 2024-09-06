@@ -1,5 +1,9 @@
 package sigma.utils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import sigma.command.ByeCommand;
 import sigma.command.Command;
 import sigma.command.DeadlineCommand;
@@ -13,10 +17,6 @@ import sigma.command.TodoCommand;
 import sigma.command.UnmarkCommand;
 import sigma.command.UnrecognisedCommand;
 import sigma.exception.SigmaException;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a parser that parses user input.
@@ -70,8 +70,8 @@ public class Parser {
         try {
             dateTime = LocalDateTime.parse(timing, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (DateTimeParseException e) {
-            throw new SigmaException("What the sigma? Invalid date format! " +
-                    "Write the date in the format YYYY-MM-DD HHmm!");
+            throw new SigmaException("What the sigma? Invalid date format! "
+                    + "Write the date in the format YYYY-MM-DD HHmm!");
         }
         return dateTime;
     }

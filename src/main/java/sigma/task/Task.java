@@ -2,44 +2,58 @@ package sigma.task;
 
 /**
  * Represents a task.
+ * A task has a description and a status.
+ * The status of a task can be either completed or not completed.
  */
 public abstract class Task {
-    private boolean status;
-    private String desc;
+    private boolean isCompleted;
+    private final String description;
 
     /**
      * Creates a task with the given description.
-     * @param desc Description of the task.
+     *
+     * @param description Description of the task.
      */
-    public Task(String desc) {
-        this.status = false;
-        this.desc = desc;
+    public Task(String description) {
+        this.isCompleted = false;
+        this.description = description;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    /**
+     * Setter for completed boolean
+     *
+     * @param completed
+     */
+    public void setCompleted(boolean completed) {
+        this.isCompleted = completed;
     }
 
-    public String getDesc() {
-        return desc;
+    /**
+     * Getter for the description of the task.
+     *
+     * @return Description of the task.
+     */
+    public String getDescription() {
+        return description;
     }
-
 
     /**
      * Returns the status of the task.
+     *
      * @return String representation of the status of the task.
      */
     public String getStatusString() {
-        return status ? "X" : " ";
+        return isCompleted ? "X" : " ";
     }
 
-    public String getTaskType() {
-        return " ";
-    }
+    public abstract String getTaskType();
+
+    public abstract String getDate();
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusString(), getDesc());
+        return String.format("[%s] %s", getStatusString(), getDescription());
     }
+
 
 }

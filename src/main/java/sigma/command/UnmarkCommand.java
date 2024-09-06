@@ -1,10 +1,10 @@
 package sigma.command;
 
+import sigma.exception.SigmaException;
+import sigma.task.Task;
 import sigma.utils.Storage;
 import sigma.utils.TaskList;
 import sigma.utils.Ui;
-import sigma.exception.SigmaException;
-import sigma.task.Task;
 
 /**
  * Represents the command to unmark a task from the list.
@@ -17,6 +17,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Unmarks a task from the task list.
+     *
      * @param tasks
      * @param ui
      * @param storage
@@ -29,12 +30,12 @@ public class UnmarkCommand extends Command {
             if (index > 0 && index <= tasks.size()) {
                 Task item = tasks.get(index - 1);
                 if (item.getStatusString() == " ") {
-                    ui.throwError("What the sigma? Task already unmarked!");
+                    Ui.throwError("What the sigma? Task already unmarked!");
                 }
-                item.setStatus(false);
-                return ui.print(String.format("Dang, I'm going to unmark this for you:\n [%s] %s",
+                item.setCompleted(false);
+                return String.format("Dang, I'm going to unmark this for you:\n [%s] %s",
                         item.getStatusString(),
-                        item.getDesc()));
+                        item.getDescription());
             } else {
                 throw new SigmaException("What the skibidi? Invalid task number!");
             }
