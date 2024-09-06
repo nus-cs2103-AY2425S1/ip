@@ -2,7 +2,7 @@ public class deadlineTask extends Task {
     private String dl;
 
     deadlineTask(String status, String dl) {
-        super(status);
+        super(status, TaskType.DEADLINE);
         this.dl = dl;
     }
 

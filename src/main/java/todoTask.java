@@ -1,6 +1,6 @@
 public class todoTask extends Task{
     public todoTask(String status) {
-        super(status);
+        super(status,TaskType.TODO);
     }
 
     @Override

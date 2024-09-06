@@ -2,7 +2,7 @@ public class eventTask extends Task{
     private String starts,ends;
 
     eventTask(String status, String starts, String ends){
-        super(status);
+        super(status, TaskType.EVENT);
         this.starts = starts;
         this.ends = ends;
     }
