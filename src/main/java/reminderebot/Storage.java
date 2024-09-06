@@ -51,6 +51,9 @@ public class Storage {
         //  System.out.println(Arrays.toString(fields));  // debug
         Task taskToAdd;
 
+        // @@author david-eom
+        // Reused from https://github.com/david-eom/CS2103T-IP
+        // with minor modifications
         switch (fields[0]) {
         case "E":
             taskToAdd = new Event(fields[2], LocalDateTime.parse(fields[3]), LocalDateTime.parse(fields[4]));
@@ -86,6 +89,9 @@ public class Storage {
 
             boolean dirCreated = dir.mkdirs();
 //            System.out.println(dirCreated);
+            // @@author david-eom
+            // Reused from https://github.com/david-eom/CS2103T-IP
+            // with minor modifications
             FileWriter fw = new FileWriter(filePath, false);
             BufferedWriter bw = new BufferedWriter(fw);
             for (int i = 0; i < tasklist.length(); i++) {

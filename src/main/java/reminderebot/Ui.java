@@ -28,11 +28,7 @@ public class Ui {
     public Ui() {
         this.input = new Scanner(System.in);
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> branch-Level-9
     /**
      * Prints greeting message.
      */
