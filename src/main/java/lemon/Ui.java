@@ -5,7 +5,7 @@ package lemon;
  */
 public class Ui {
     private final String INTRO_MSG = "____________________________________________________________\n"
-            + " Hello! I'm lemon.Lemon\n"
+            + " Hello! I'm Lemon\n"
             + " What can I do for you?\n";
     private final String END_MSG = " Bye. Hope to see you again soon!\n"
             + "____________________________________________________________\n";
