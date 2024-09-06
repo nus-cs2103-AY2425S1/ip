@@ -22,11 +22,12 @@ public class TaskList {
         if (tasks.isEmpty()) {
             return;
         }
+        String listMessage = "";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task t = this.tasks.get(i);
-            String listMessage = "  " + (i + 1) + "." + t;
-            System.out.println(listMessage);
+            listMessage += "  " + (i + 1) + "." + t + "\n";
         }
+        System.out.println(listMessage);
     }
 
     public void mark(Task t) {

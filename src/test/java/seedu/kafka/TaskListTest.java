@@ -4,6 +4,7 @@ import kafka.Deadline;
 import kafka.Event;
 import kafka.TaskList;
 import kafka.Todo;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
@@ -24,7 +25,7 @@ public class TaskListTest {
         System.setOut(new PrintStream(outputStream));
     }
 
-    @BeforeEach
+    @AfterEach
     public void restoreSystemOut() {
         System.setOut(originalOut);
     }
@@ -33,7 +34,7 @@ public class TaskListTest {
     public void printList_emptyTaskList_displaysNothing() {
         outputStream.reset();
         taskList.printList();
-        assertEquals("", taskList.toString().trim());
+        assertEquals("", outputStream.toString().trim());
     }
 
     @Test
@@ -46,9 +47,9 @@ public class TaskListTest {
 
         taskList.printList();
 
-        String expectedOutput = "  1.[T][ ] Todo sample\n"
-                + "  2.[D][ ] Deadline sample (by: January 01 2024 1200)\n"
-                + "  3.[E][ ] Event sample (from: January 01 2024 1200 to: January 01 2024 1400)";
+        String expectedOutput = "1.[T][ ] Todo sample\n"
+                + "  2.[D][ ] Deadline sample(by: January 01 2024 1200)\n"
+                + "  3.[E][ ] Event sample(from: January 01 2024 1200 to: January 01 2024 1400)";
 
         assertEquals(expectedOutput, outputStream.toString().trim());
     }
