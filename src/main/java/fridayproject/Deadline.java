@@ -28,6 +28,6 @@ public class Deadline extends Tasks {
 
     @Override 
     public String toFileString() {
-        return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + this.date;
+        return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + this.date;
     }
 }
