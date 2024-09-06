@@ -36,6 +36,11 @@ public class Hoodini {
 
     }
 
+    /**
+     * Handles the input from the user
+     * @param input String input by user
+     * @return String response to the user
+     */
     public String handleInput(String input) {
         return parser.handleInput(input);
     }

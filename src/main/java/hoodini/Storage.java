@@ -34,6 +34,7 @@ public class Storage {
      * Stores the input object into the Tasklist
      * Takes in the input object to be stored
      * @param input Object to be stored in the task list
+     * @return String representation of the task stored
      */
     public String store(Input input) {
         if (input.empty()) {
