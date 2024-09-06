@@ -7,7 +7,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Represents the main class of the program.
@@ -44,42 +43,42 @@ public class Friday {
 
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
-            String taskString = scanner.nextLine();
-            String[] parts = taskString.split(" \\| ");
+            String taskString = scanner.nextLine().trim();
+
+            if (taskString.isEmpty()) {
+                continue;
+            }
+
+            String[] parts = taskString.split("\\s*\\|\\s*");
+
             try {
                 switch (parts[0]) {
                 case "T":
-                    if (parts.length >= 3) {
+                    if (parts.length == 3) {
                         Tasks todo = new Todo(parts[2]);
                         if(parts[1].equals("1")) {
                             todo.markAsDone();
                         }
                         tasks.add(todo);
-                    } else {
-                        System.out.println("Error loading task: " + taskString);
-                    }
+                    } 
                     break;
                 case "D":
-                    if (parts.length >= 4) {
+                    if (parts.length == 4) {
                         Tasks deadline = new Deadline(parts[2], parts[3]);
                         if (parts[1].equals("1")) {
                             deadline.markAsDone();
                         }
                         tasks.add(deadline);
-                    } else {
-                        System.out.println("Error loading task: " + taskString);    
-                    }
+                    } 
                     break;
                 case "E":
-                    if (parts.length >= 5) {
+                    if (parts.length == 5) {
                         Tasks event = new Event(parts[2], parts[3], parts[4]);
                         if (parts[1].equals("1")) {
                             event.markAsDone();
                         }
                         tasks.add(event);
-                    } else {
-                        System.out.println("Error loading task: " + taskString);
-                    }
+                    } 
                     break;
                 default:
                     System.out.println("Error loading task: " + taskString);
@@ -143,7 +142,7 @@ public class Friday {
                     try {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                         LocalDate date = LocalDate.parse(deadlineParts[1], formatter);
-                        Tasks deadline = new Deadline(deadlineParts[0] , deadlineParts[1]);
+                        Tasks deadline = new Deadline(deadlineParts[0] , date.toString());
                         tasks.add(deadline);
                         saveTasksToFile(tasks);
                         System.out.println("Got it. I've added this task:\n  " + deadline.getTypeIcon() 

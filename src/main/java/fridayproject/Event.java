@@ -22,7 +22,8 @@ public class Event extends Tasks {
 
     @Override 
     public String toFileString() {
-        return "E | " + (this.isDone ? "1" : "0") + " | " + this.description;
+        return "E | " + (this.isDone ? "1" : "0") + " | " + this.description 
+        +  " | " + this.start + " | " + this.end;
     }
     
 }
