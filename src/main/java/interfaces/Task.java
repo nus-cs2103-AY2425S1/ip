@@ -1,4 +1,4 @@
-package impl.interfaces;
+package interfaces;
 
 public class Task {
     protected String description;

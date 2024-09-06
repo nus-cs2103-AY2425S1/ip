@@ -26,10 +26,11 @@ public class Ui {
         System.out.println(seperator);
     }
 
-    public void running(String in) {
+    public String running(String in) {
         System.out.println(seperator);
-        parser.handleInput(in);
+        String text = seperator + "\n" + parser.handleInput(in) + "\n" + seperator;
         System.out.println(seperator);
+        return text;
     }
 
     public void end() {

@@ -28,7 +28,16 @@ public class Danny {
         ui.end();
         return list;
     }
+    public String getResponse(String in){
+        if(in.equalsIgnoreCase("bye")){
+            return "Bye. Hope to see you again soon!";
+        }
+        return ui.running(in);
+    }
 
+    public void end(){
+        ui.end();
+    }
     public void parseString(String in) {
         parser.handleInput(in);
     }

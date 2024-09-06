@@ -1,4 +1,4 @@
-package impl.interfaces;
+package interfaces;
 
 public class Events extends Task {
     protected String to;

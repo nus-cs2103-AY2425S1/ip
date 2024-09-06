@@ -1,8 +1,8 @@
 package impl.ui;
 
-import impl.interfaces.Deadlines;
-import impl.interfaces.Events;
-import impl.interfaces.ToDos;
+import interfaces.Deadlines;
+import interfaces.Events;
+import interfaces.ToDos;
 import impl.storage.TaskList;
 import org.junit.jupiter.api.Test;
 

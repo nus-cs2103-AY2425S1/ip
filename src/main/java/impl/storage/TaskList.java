@@ -1,6 +1,6 @@
 package impl.storage;
 
-import impl.interfaces.Task;
+import interfaces.Task;
 
 import java.util.ArrayList;
 import java.util.List;

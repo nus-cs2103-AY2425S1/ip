@@ -1,18 +1,25 @@
+import gui.MainWindow;
 import impl.chatbot.Danny;
-import impl.interfaces.Task;
 import impl.storage.Storage;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
-public class Main {
+public class Main extends Application {
+    private final Danny danny;
+    private Stage stage;
+
+
     /**
      * Overview of the whole program.
      * Initialises Danny and Storage loader.
      */
-    public static void main(String[] args) {
-        Danny danny = new Danny();
-        List<Task> savedTasks = new ArrayList<>();
+    public Main() {
+        danny = new Danny();
         Storage loader = null;
         try {
             loader = new Storage("src/main/java/data/tasks.txt", danny);
@@ -23,14 +30,42 @@ public class Main {
             System.out.println(e.getMessage());
             System.out.println("Save not found, starting off with new list.");
         }
-        danny.run();
+//        danny.run();
+//        try {
+//            assert loader != null;
+//            loader.saveTask();
+//            System.out.println("Saving successful");
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            System.out.println("Saving unsuccessful :(");
+//        }
+    }
+    @Override
+    public void start(Stage stage) {
         try {
-            assert loader != null;
+            this.stage = stage;
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setVars(danny);  // inject the Danny instance
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void stop(){
+        try {
+            Storage loader = new Storage("src/main/java/data/tasks.txt", danny);
             loader.saveTask();
+            System.out.println("Saving successful");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Saving unsuccessful :(");
         }
     }
+
 
 }
