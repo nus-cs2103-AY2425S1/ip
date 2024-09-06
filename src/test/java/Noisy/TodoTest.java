@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
     @Test
-    public void dummyTest() {
-        assertEquals(2, 2);
+    public void todoTest() {
+        assertEquals(new Todo("test", true).formatTask(), "T | test | 1");
     }
 }
