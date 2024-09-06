@@ -21,12 +21,16 @@ public class TaskList {
      * @param t task that is added into the list
      * @throws DescriptionException Exception when the description of the task is empty
      */
-    public void addNewTask(Task t) throws DescriptionException {
-        if (t.getDescription().isEmpty() || t.getDescription().equals(" "))
+    public boolean addNewTask(Task t) throws DescriptionException {
+        if (t.getDescription().isEmpty() || t.getDescription().equals(" ")) {
             throw new DescriptionException(" OOPS!!! The description of a " + t.getType() + " cannot be empty");
+        }
+
 
         list.add(t);
         numTasks++;
+
+        return true;
     }
 
     /**

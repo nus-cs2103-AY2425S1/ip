@@ -4,7 +4,7 @@ package lemon;
  *
  */
 public class Parser {
-    enum Commands {
+    public enum Commands {
         BYE,
         LIST,
         MARK,

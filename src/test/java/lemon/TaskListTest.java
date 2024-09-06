@@ -1,0 +1,38 @@
+package lemon;
+
+import lemon.exception.DescriptionException;
+import lemon.task.Task;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class TaskListTest {
+    @Test
+    public void addTaskTest() {
+        Task test = new TaskStub();
+        TaskList tl = new TaskList();
+
+        try {
+            assertTrue(tl.addNewTask(test));
+        } catch (DescriptionException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void deleteTaskTest() {
+        Task test = new TaskStub();
+        TaskList tl = new TaskList();
+
+        try {
+            tl.addNewTask(test);
+        } catch (DescriptionException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        assertEquals(test, tl.deleteTask(1));
+        assertEquals(0, tl.size());
+    }
+}

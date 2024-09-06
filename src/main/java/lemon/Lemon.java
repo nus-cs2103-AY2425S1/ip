@@ -27,46 +27,11 @@ public class Lemon {
 
     Scanner systemScanner;
 
-    enum Commands {
-        BYE,
-        LIST,
-        MARK,
-        UNMARK,
-        TODO,
-        EVENT,
-        DEADLINE,
-        DELETE
-    }
-
     public Lemon(){
         systemScanner = new Scanner(System.in);
         tasks = new TaskList();
         isInitialised = s.loadTasks(tasks);
     }
-    /*
-    public Lemon(String newFileLocation){
-        try {
-            filePath = newFileLocation;
-            f = new File(filePath);
-            f.getParentFile().mkdirs();
-            f.createNewFile();
-            fileScanner = new Scanner(f);
-            systemScanner = new Scanner(System.in);
-
-            numTasks = 0;
-            tasks = new ArrayList<>();
-            while (fileScanner.hasNextLine()) {
-                numTasks++;
-                fileScanner.nextLine();
-            }
-
-            isInitialised = true;
-        } catch (IOException e) {
-            isInitialised = false;
-            System.out.print(" Im sowwy... Something went wrong, QwQ. Unable to create/find file.\n" +
-                    " I dont think i can do this anymore");
-        }
-    }*/
 
     /**
      * Execute lemon once initialization is done
@@ -88,7 +53,7 @@ public class Lemon {
             String input = systemScanner.next().toUpperCase();
             ui.printBarMsg();
             try {
-                Commands command = Commands.valueOf(input);
+                Parser.Commands command = Parser.Commands.valueOf(input);
                 switch (command) {
                 case BYE: {
                     boolean isAbleToSave = s.saveTasks(tasks);

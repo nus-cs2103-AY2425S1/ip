@@ -1,6 +1,6 @@
 package lemon;
 /**
- * Handle loading and saving of the list of tasks from a txt file
+ * Handle loading and saving of the list of tasks from a txt file to the TaskList
  * @author He Yiheng
  */
 
@@ -18,9 +18,15 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private String filePath = "data/lemonSaves.txt";
-    File f;
-    Scanner fileScanner;
+    private final String FILE_PATH;
+
+    public Storage() {
+        this.FILE_PATH = "data/lemonSaves.txt";
+    }
+
+    public Storage(String filePath){
+        this.FILE_PATH = filePath;
+    }
 
     /**
      * Loads the tasks from a txt file into the TaskList that is passed into
@@ -30,10 +36,10 @@ public class Storage {
      */
     public boolean loadTasks(TaskList tasks) {
         try {
-            f = new File(filePath);
+            File f = new File(FILE_PATH);
             f.getParentFile().mkdirs();
             f.createNewFile();
-            fileScanner = new Scanner(f);
+            Scanner fileScanner = new Scanner(f);
 
             while (fileScanner.hasNextLine()) {
                 String[] temp = fileScanner.nextLine().split("\\|");
@@ -73,7 +79,7 @@ public class Storage {
      */
     public boolean saveTasks(TaskList tasks) {
         try {
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(FILE_PATH);
 
             for (int i = 0; i < tasks.size(); i++) {
                 fw.write(tasks.get(i).toFileString());
@@ -84,7 +90,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Unable to save into file.\n" +
                     " Please make sure that \"lemonSaves.txt\" exists properly in\n" +
-                    filePath);
+                    FILE_PATH);
             return false;
         }
     }
