@@ -4,7 +4,6 @@ import stobberi.command.Command;
 import stobberi.components.Parser;
 import stobberi.components.Storage;
 import stobberi.components.TaskList;
-import stobberi.components.Ui;
 import stobberi.stobberiexception.StobberiException;
 
 /**
@@ -22,7 +21,6 @@ import stobberi.stobberiexception.StobberiException;
  */
 public class Stobberi {
     private TaskList taskList;
-    private Ui ui;
     private Storage storage;
 
     /**
@@ -31,33 +29,9 @@ public class Stobberi {
      */
     public Stobberi() {
         this.taskList = new TaskList();
-        this.ui = new Ui();
         this.storage = new Storage("data/list.txt");
         taskList.updateTaskList(storage.getList());
     }
-
-    /**
-     * Runs the main application loop.
-     * Loads tasks from storage, greets the user, processes user commands,
-     * and saves tasks to storage before exiting.
-     */
-//    public void run() {
-//        taskList.updateTaskList(storage.getList());
-//        ui.greet();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String fullCommand = ui.readCommand();
-//                Command c = Parser.parse(fullCommand, taskList);
-//                c.execute();
-//                isExit = c.isExit();
-//            } catch (StobberiException e) {
-//                Ui.displayForm(e.getMessage());
-//            }
-//        }
-//        ui.sayGoodbye();
-//        storage.saveList(taskList.getListOfTasks());
-//    }
 
     public String getResponse(String input) {
         try {
