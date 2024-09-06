@@ -7,3 +7,5 @@
 [T][ ] hail the king
 [T][ ] work
 [T][ ] water
+[T][ ] take a screenshot of my project
+[T][ ] watch lecture

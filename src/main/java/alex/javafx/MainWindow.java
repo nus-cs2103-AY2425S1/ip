@@ -28,14 +28,15 @@ public class MainWindow extends AnchorPane {
     private Ui ui = new Ui();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image alexImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image alexImage = new Image(this.getClass().getResourceAsStream("/images/Alex.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        this.userInput.setPromptText("Your wish is my command");
     }
 
-    /** Injects the Alex instance */
+    /** Injects the Alex instance*/
     public void setAlex(Alex d) {
         alex = d;
         dialogContainer.getChildren().addAll(

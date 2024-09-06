@@ -91,7 +91,10 @@ public class TaskList {
             sb.append(i);
             sb.append(". ");
             sb.append(this.list.get(i - 1));
-            sb.append("\n");
+
+            if (i != this.list.size()) {
+                sb.append("\n");
+            }
         }
         return sb.toString();
     }

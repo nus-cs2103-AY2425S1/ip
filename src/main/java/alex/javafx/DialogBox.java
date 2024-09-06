@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -38,6 +40,14 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    private void setCircularProfilePicture() {
+        // Create a Circle with radius half of ImageView's height
+        Circle clip = new Circle(displayPicture.getFitWidth() / 2, displayPicture.getFitHeight() / 2, displayPicture.getFitWidth() / 2);
+
+        // Apply the circle to the ImageView clip property
+        displayPicture.setClip(clip);
+    }
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -50,11 +60,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setCircularProfilePicture();
+        return db;
     }
 
     public static DialogBox getAlexDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
+        db.setCircularProfilePicture();
         db.flip();
         db.changeDialogStyle(commandType);
         return db;

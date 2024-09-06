@@ -8,36 +8,18 @@ import alex.task.Task;
  * Deals with interactions with the user.
  */
 public class Ui {
-    //Greet user
-    private String greeting =
-            """
-                     Hello! I'm Alex, your personal assistant
-                     What can I do for you today?
-                                                                """;
-
-    //Farewell message
-    private String farewell =
-            """
-                    Bye. Hope to see you again soon!
-                                                                """;
-
-//    //Create separation line
-//    private String line = "____________________________________________________________";
-
-    //private Scanner inputScanner = new Scanner(System.in);
-
     /**
      * Displays welcome greeting message when the chatbot is booted up.
      */
     public String showWelcome() {
-        return this.greeting;
+        return "Hello! I'm Alex, your personal assistant. What can I do for you today?";
     }
 
     /**
      * Displays goodbye message when user is done interacting with chatbot.
      */
     public String showGoodbye() {
-        return this.farewell;
+        return "Bye! Hope to see you again soon!";
     }
 
     /**
