@@ -40,7 +40,7 @@ public class Parser {
                 taskList.addDeadline(command, splitCommand);
                 break;
             case "event":
-                taskList.addDeadline(command, splitCommand);
+                taskList.addEvent(command, splitCommand);
                 break;
             case "find" :
                 taskList.findTask(command, splitCommand);
