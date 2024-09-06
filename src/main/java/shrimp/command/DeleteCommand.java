@@ -28,9 +28,9 @@ public class DeleteCommand implements Command {
      * @param ui    The user interface to print the result of the command.
      */
     @Override
-    public void run(TaskList tasks, Ui ui) {
+    public String run(TaskList tasks, Ui ui) {
         Task task = tasks.getTask(index);
         tasks.deleteTask(index);
-        ui.printDelete(task, tasks);
+        return ui.printDelete(task, tasks);
     }
 }

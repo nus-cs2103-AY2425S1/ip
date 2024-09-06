@@ -16,7 +16,7 @@ public class ListCommand implements Command {
      * @param ui    The user interface to print the list of tasks.
      */
     @Override
-    public void run(TaskList tasks, Ui ui) {
-        ui.printTaskList(tasks);
+    public String run(TaskList tasks, Ui ui) {
+        return ui.printTaskList(tasks);
     }
 }

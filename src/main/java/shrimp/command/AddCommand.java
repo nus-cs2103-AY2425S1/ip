@@ -29,8 +29,8 @@ public class AddCommand implements Command {
      * @param ui    The user interface to print the result of the command.
      */
     @Override
-    public void run(TaskList tasks, Ui ui) {
+    public String run(TaskList tasks, Ui ui) {
         tasks.addTask(task);
-        ui.printAdd(task, tasks);
+        return ui.printAdd(task, tasks);
     }
 }

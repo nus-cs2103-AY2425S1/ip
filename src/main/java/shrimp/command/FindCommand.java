@@ -27,7 +27,7 @@ public class FindCommand implements Command {
      * @param ui The user interface to interact with the user.
      */
     @Override
-    public void run(TaskList taskList, Ui ui) {
+    public String run(TaskList taskList, Ui ui) {
         TaskList matchingTasks = new TaskList();
 
         for (Task task : taskList) {
@@ -37,9 +37,9 @@ public class FindCommand implements Command {
         }
 
         if (matchingTasks.isEmpty()) {
-            ui.printError("Can't find any matching task...");
+            return ui.printError("Can't find any matching task...");
         } else {
-            ui.printFind(matchingTasks);
+            return ui.printFind(matchingTasks);
         }
     }
 }

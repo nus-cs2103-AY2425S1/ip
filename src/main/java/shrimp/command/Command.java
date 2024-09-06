@@ -14,5 +14,5 @@ public interface Command {
      * @param tasks The list of tasks to perform the command on.
      * @param ui    The user interface to interact with the user.
      */
-    void run(TaskList tasks, Ui ui);
+    String run(TaskList tasks, Ui ui);
 }
