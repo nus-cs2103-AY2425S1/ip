@@ -5,7 +5,7 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This class serves as a central management object to manage all {@link Tasks}.
+ * This class serves as a central management object to manage all {@link Task}.
  */
 public class TaskList implements Serializable {
     private final ImList<Task> imTaskList;

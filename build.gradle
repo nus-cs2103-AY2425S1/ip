@@ -40,3 +40,9 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+tasks.javadoc{
+    source = sourceSets.main.allJava
+    options.addStringOption('Xdoclint:-missing')
+    destinationDir = file("$buildDir/docs/javadoc")
+}

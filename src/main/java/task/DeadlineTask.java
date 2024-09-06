@@ -12,7 +12,7 @@ public class DeadlineTask extends Task {
     private final LocalDateTime deadlineDateTime;
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      */
     public DeadlineTask(String taskDescription, LocalDateTime deadlineDateTime) {
         super(taskDescription);
@@ -25,7 +25,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      */
     @Override
     public Task markAsDone() {
@@ -35,7 +35,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      */
     @Override
     public Task markAsUndone() {
@@ -45,7 +45,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      * Additionally, {@code "[D]"} is prepended to the string representation to
      * indicate this is a task with a deadline. The date and time of the deadline is
      * appended to the string representation also.

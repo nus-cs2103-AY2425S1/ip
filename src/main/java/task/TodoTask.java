@@ -6,7 +6,7 @@ package task;
 public class TodoTask extends Task {
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      */
     public TodoTask(String taskDescription) {
         super(taskDescription);
@@ -17,7 +17,7 @@ public class TodoTask extends Task {
     }
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      */
     @Override
     public Task markAsDone() {
@@ -27,7 +27,7 @@ public class TodoTask extends Task {
     }
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      */
     @Override 
     public Task markAsUndone() {
@@ -37,7 +37,7 @@ public class TodoTask extends Task {
     }
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      * Additionally, {@code "[T]"} is prepended to the string representation to
      * indicate this is a Todo Task.
      */
