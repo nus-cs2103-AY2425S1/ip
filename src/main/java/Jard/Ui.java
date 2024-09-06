@@ -1,44 +1,43 @@
 package Jard;
 
-import java.util.Scanner;
 import java.util.List;
 
 /**
  * Handles user interactions and displays messages to the user.
  */
 public class Ui {
-    private Scanner scanner;
+    private StringBuilder output;
 
     /**
-     * Construct an Ui instance with a scanner for user input..
+     * Construct a Ui instance.
      */
     public Ui() {
-        scanner = new Scanner(System.in);
+        output = new StringBuilder();
     }
 
     /**
      * Displays a welcome message with the Jard logo and a greeting.
      */
-    public void showWelcome() {
+    public String showWelcome() {
+        output.setLength(0);  // Clear previous output
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Jard.");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+        output.append("Hello from\n").append(logo)
+                .append("Hello! I'm Jard.\n")
+                .append("What can I do for you?");
+        return output.toString();
     }
 
     /**
      * Displays a goodbye message when the application is closed.
      */
-    public void showBye() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+    public String showBye() {
+        output.setLength(0);  // Clear previous output
+        output.append("Bye. Hope to see you again soon!");
+        return output.toString();
     }
 
     /**
@@ -46,17 +45,17 @@ public class Ui {
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void showTaskList(List<Task> tasks) {
+    public String showTaskList(List<Task> tasks) {
+        output.setLength(0);  // Clear previous output
         if (tasks.isEmpty()) {
-            System.out.println("Nothing in the list!");
+            output.append("Nothing in the list!");
         } else {
-            System.out.println("____________________________________________________________");
-            System.out.println("Here are the tasks in your list:");
+            output.append("Here are the tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(" " + (i + 1) + ". " + tasks.get(i));
+                output.append(" ").append(i + 1).append(". ").append(tasks.get(i)).append("\n");
             }
-            System.out.println("____________________________________________________________");
         }
+        return output.toString();
     }
 
     /**
@@ -65,12 +64,12 @@ public class Ui {
      * @param task The added task.
      * @param size The current number of tasks in the list.
      */
-    public void showAddTask(Task task, int size) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+    public String showAddTask(Task task, int size) {
+        output.setLength(0);  // Clear previous output
+        output.append("Got it. I've added this task:\n")
+                .append("   ").append(task).append("\n")
+                .append("Now you have ").append(size).append(" tasks in the list.");
+        return output.toString();
     }
 
     /**
@@ -78,11 +77,11 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void showMarkTask(Task task) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("   " + task);
-        System.out.println("____________________________________________________________");
+    public String showMarkTask(Task task) {
+        output.setLength(0);  // Clear previous output
+        output.append("Nice! I've marked this task as done:\n")
+                .append("   ").append(task);
+        return output.toString();
     }
 
     /**
@@ -90,11 +89,11 @@ public class Ui {
      *
      * @param task The task that was marked as not done.
      */
-    public void showUnmarkTask(Task task) {
-        System.out.println("____________________________________________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("   " + task);
-        System.out.println("____________________________________________________________");
+    public String showUnmarkTask(Task task) {
+        output.setLength(0);  // Clear previous output
+        output.append("OK, I've marked this task as not done yet:\n")
+                .append("   ").append(task);
+        return output.toString();
     }
 
     /**
@@ -103,12 +102,12 @@ public class Ui {
      * @param task The task that was deleted.
      * @param size The current number of tasks in the list.
      */
-    public void showDeleteTask(Task task, int size) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + size + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+    public String showDeleteTask(Task task, int size) {
+        output.setLength(0);  // Clear previous output
+        output.append("Noted. I've removed this task:\n")
+                .append("   ").append(task).append("\n")
+                .append("Now you have ").append(size).append(" tasks in the list.");
+        return output.toString();
     }
 
     /**
@@ -116,10 +115,10 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void showError(String message) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Jard! " + message);
-        System.out.println("____________________________________________________________");
+    public String showError(String message) {
+        output.setLength(0);  // Clear previous output
+        output.append("Jard! ").append(message);
+        return output.toString();
     }
 
     /**
@@ -127,29 +126,12 @@ public class Ui {
      *
      * @param tasks The list of tasks that match the search keyword.
      */
-    public void showFindResults(List<Task> tasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are the matching tasks in your list:");
+    public String showFindResults(List<Task> tasks) {
+        output.setLength(0);  // Clear previous output
+        output.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
-        System.out.println("____________________________________________________________");
-    }
-
-
-    /**
-     * Reads a command from the user input.
-     *
-     * @return The command input by the user.
-     */
-    public String readCommand() {
-        return scanner.nextLine().trim();
-    }
-
-    /**
-     * Closes the scanner to release resources.
-     */
-    public void close() {
-        scanner.close();
+        return output.toString();
     }
 }
