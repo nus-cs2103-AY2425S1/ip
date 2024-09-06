@@ -34,7 +34,7 @@ To build the project, you'll need to use Gradle as the build tool. Ensure that J
    ```bash
    ./gradlew run
    ```
-Alternatively, you can run the 'Launcher class' directly from your IDE.
+Alternatively, you can run the `Launcher` class directly from your IDE.
 
 ### Using the Application
 
@@ -43,12 +43,14 @@ Once the application starts, interact with ChatBaby by entering commands into th
 #### Available Commands:
 
 - **Add a task**: `todo <task description>`
-- **Add a deadline**: `deadline <task description> /by <yyyy-mm-dd>`
-- **Add an event**: `event <task description> /at <yyyy-mm-dd>`
+- **Add a deadline**: `deadline <task description> /by <yyyy-MM-dd HH:mm>`
+- **Add an event**: `event <task description> /from <yyyy-MM-dd HH:mm> /to <yyyy-MM-dd HH:mm>`
 - **List all tasks**: `list`
+- **List tasks that end on a date** (either deadline or event): `listEndingOn <yyyy-mm-dd>`
 - **Mark a task as done**: `mark <task number>`
 - **Unmark a task**: `unmark <task number>`
 - **Delete a task**: `delete <task number>`
+- **Find a task**: `find <task description>`
 - **Exit the application**: `bye`
 
 ### Saving and Loading Data
