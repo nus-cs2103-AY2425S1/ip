@@ -57,8 +57,7 @@ public class Ui {
     }
 
     /**
-     * Outputs the buffer content to the screen and clears the buffer.
-     * If the buffer is not empty, it prints the buffer content followed by a separator line.
+     * Clears the buffer content.
      */
     public void flushBuffer() {
         buffer = "";
