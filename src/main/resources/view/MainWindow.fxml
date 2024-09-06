@@ -36,7 +36,9 @@
             <content>
                 <VBox fx:id="dialogContainer"
                       prefHeight="552.0"
-                      prefWidth="388.0" />
+                      prefWidth="388.0"
+                      style="-fx-background-image: url('images/img.png'); -fx-padding: 10; -fx-spacing: 10;"
+                />
             </content>
         </ScrollPane>
     </children>
