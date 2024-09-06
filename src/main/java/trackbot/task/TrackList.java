@@ -54,7 +54,9 @@ public class TrackList {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter, true);
         if (task == null) {
-            throw new TrackBotException("No task found.");
+            // throw new TrackBotException("No task found.");
+            writer.println("No task found.");
+            return stringWriter.toString();
         }
         list.add(task);
         saveList();
@@ -77,7 +79,9 @@ public class TrackList {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter, true);
         if (num < 0 || num > list.size() - 1) {
-            throw new TrackBotException("Please enter a valid task number.");
+            // throw new TrackBotException("Please enter a valid task number.");
+            writer.println("Please enter a valid task number.");
+            return stringWriter.toString();
         }
         list.get(num).mark();
         saveList();
@@ -88,7 +92,6 @@ public class TrackList {
         writer.println("Successfully marked task " + (num + 1) + " as done:");
         writer.println("  " + list.get(num).toString());
         return stringWriter.toString();
-
     }
 
     /**
@@ -101,7 +104,9 @@ public class TrackList {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter, true);
         if (num < 0 || num > list.size() - 1) {
-            throw new TrackBotException("Please enter a valid task number.");
+            // throw new TrackBotException("Please enter a valid task number.");
+            writer.println("Please enter a valid task number.");
+            return stringWriter.toString();
         }
         list.get(num).unmark();
         saveList();
@@ -124,7 +129,9 @@ public class TrackList {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter, true);
         if (num < 0 || num > list.size() - 1) {
-            throw new TrackBotException("Please enter a valid task number.");
+            // throw new TrackBotException("Please enter a valid task number.");
+            writer.println("Please enter a valid task number.");
+            return stringWriter.toString();
         }
         String deletedTask = list.get(num).toString();
         list.remove(num);
@@ -190,7 +197,9 @@ public class TrackList {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter, true);
         if (list.isEmpty()) {
-            throw new TrackBotException("The list is currently empty.");
+            // throw new TrackBotException("The list is currently empty.");
+            writer.println("The list is currently empty.");
+            return stringWriter.toString();
         }
         // System.out.println("````````````````````````````````````````````````````````````\n" + "List:");
         writer.println("List:");
