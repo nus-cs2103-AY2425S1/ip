@@ -6,6 +6,16 @@ package sinatra;
 public class ToDo extends Task {
 
     /**
+     * Constructs a new ToDo object with the specified content and status.
+     *
+     * @param content the content of the ToDo task
+     * @param status the status of the ToDo task
+     */
+    public ToDo(String content, Boolean status) {
+        super(content, status);
+    }
+
+    /**
      * Creates a new ToDo object from a data string.
      *
      * @param data the data string containing the content and status separated by a comma
@@ -16,15 +26,6 @@ public class ToDo extends Task {
         return new ToDo(parts[0], Boolean.parseBoolean(parts[1]));
     }
 
-    /**
-     * Constructs a new ToDo object with the specified content and status.
-     *
-     * @param content the content of the ToDo task
-     * @param status the status of the ToDo task
-     */
-    public ToDo(String content, Boolean status) {
-        super(content, status);
-    }
 
     /**
      * Returns the data string for storage.

@@ -7,18 +7,6 @@ public class Event extends Task {
 
     private String from;
     private String to;
-
-    /**
-     * Creates a new Event object from a data string.
-     *
-     * @param data the data string containing the content, status, from, and to separated by commas
-     * @return a new Event object
-     */
-    public static Event newObjectFromData(String data) {
-        String[] parts = data.split(",");
-        return new Event(parts[0], Boolean.parseBoolean(parts[1]), parts[2], parts[3]);
-    }
-
     /**
      * Constructs a new Event object with the specified content, status, from, and to.
      *
@@ -32,7 +20,16 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
-
+    /**
+     * Creates a new Event object from a data string.
+     *
+     * @param data the data string containing the content, status, from, and to separated by commas
+     * @return a new Event object
+     */
+    public static Event newObjectFromData(String data) {
+        String[] parts = data.split(",");
+        return new Event(parts[0], Boolean.parseBoolean(parts[1]), parts[2], parts[3]);
+    }
     /**
      * Returns the data string for storage.
      *
@@ -41,7 +38,6 @@ public class Event extends Task {
     public String getDataForStorage() {
         return "Sinatra.Event:" + super.getContent() + "," + super.isMarkedString() + "," + from + "," + to;
     }
-
     /**
      * Returns the string representation of the Event object.
      *
