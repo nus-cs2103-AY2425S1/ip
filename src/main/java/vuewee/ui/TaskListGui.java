@@ -1,9 +1,7 @@
 package vuewee.ui;
 
-import java.util.Scanner;
-
 import javafx.application.Application;
-
+import javafx.application.Platform;
 import vuewee.EndProgramException;
 import vuewee.command.Command;
 import vuewee.command.CommandType;
@@ -19,7 +17,6 @@ import vuewee.ui.gui.VueweeGui;
  */
 public class TaskListGui extends TaskListUi {
     private static TaskListGui instance;
-    private Scanner scanner = new Scanner(System.in);
 
     /**
      * Private constructor to prevent instantiation from outside the class.
@@ -48,10 +45,8 @@ public class TaskListGui extends TaskListUi {
     @Override
     public void addTask(Task task) {
         super.addTask(task);
-
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task.toString());
-        System.out.println("Now you have " + super.taskList.size() + " " + this.taskWord() + " in the list.");
+        VueweeGui.sendMessage("Got it. I've added this task:\n " + task.toString() + "\nNow you have " + super.taskList
+                .size() + " " + this.taskWord() + " in the list.");
     }
 
     /**
@@ -63,10 +58,8 @@ public class TaskListGui extends TaskListUi {
     @Override
     public Task deleteTask(int taskNumber) throws IndexOutOfBoundsException {
         Task deletedTask = super.deleteTask(taskNumber);
-
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + deletedTask.toString());
-        System.out.println("Now you have " + this.taskList.size() + " " + super.taskWord() + " in the list.");
+        VueweeGui.sendMessage("Noted. I've removed this task:\n " + deletedTask.toString() + "\nNow you have "
+                + this.taskList.size() + " " + super.taskWord() + " in the list.");
 
         return deletedTask;
     }
@@ -84,11 +77,12 @@ public class TaskListGui extends TaskListUi {
             throw new IllegalCommandException("No tasks found.");
         }
 
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            VueweeGui.sendMessage("  " + (i + 1) + ". " + task.toString());
-
+            sb.append("  ").append(i + 1).append(". ").append(task.toString()).append("\n");
         }
+        VueweeGui.sendMessage(sb.toString());
     }
 
     /**
@@ -103,15 +97,38 @@ public class TaskListGui extends TaskListUi {
         try {
             super.markTask(taskNumber, isDone);
             if (isDone) {
-                System.out.println("Nice! I've marked this task as done:");
+                VueweeGui.sendMessage("Nice! I've marked this task as done:\n  " + this.taskList.get(taskNumber - 1)
+                        .toString());
             } else {
-                System.out.println("OK, I've marked this task as not done yet:");
+                VueweeGui.sendMessage("OK, I've marked this task as not done yet:\n  " + this.taskList.get(taskNumber
+                        - 1).toString());
             }
-            System.out.println("  " + this.taskList.get(taskNumber - 1).toString());
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalCommandException("Invalid task number. There are " + this.taskList.size() + " " + this
                     .taskWord() + " in your list.");
         }
+    }
+
+    /**
+     * Processes user input from GUI and executes the corresponding command.
+     *
+     * @param userInput User input
+     */
+    public void processInput(String userInput) {
+        try {
+            CommandParser parser = new CommandParser(userInput);
+            CommandType commandType = parser.getCommandType();
+            Command command = commandType.createCommand();
+            command.execute(this, taskList, parser);
+        } catch (IndexOutOfBoundsException | IllegalCommandException e) {
+            VueweeGui.sendMessage(e.getMessage());
+        } catch (EndProgramException e) {
+            VueweeGui.sendMessage("Bye. Hope to see you again soon!");
+            this.close();
+            Platform.exit();
+            System.exit(0);
+        }
+        storage.storeTasks(this.taskList);
     }
 
     /**
@@ -122,43 +139,10 @@ public class TaskListGui extends TaskListUi {
         this.taskList = this.storage.readTasks();
         VueweeGui.setTaskListGui(this);
         Application.launch(VueweeGui.class);
-
-        if (this.taskList.size() > 0) {
-            System.out.println("Loaded " + this.taskList.size() + " " + this.taskWord() + " into your task list.");
-        }
-
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Vuewee\nWhat can I do for you?");
-        System.out.println("____________________________________________________________");
-
-        // Echo input from user until user types "bye"
-        try {
-            while (true) {
-                String input = scanner.nextLine();
-                try {
-                    System.out.println("____________________________________________________________");
-
-                    CommandParser parser = new CommandParser(input);
-                    CommandType commandType = parser.getCommandType();
-                    Command command = commandType.createCommand();
-                    command.execute(this, taskList, parser);
-
-                } catch (IndexOutOfBoundsException | IllegalCommandException e) {
-                    System.out.println(e.getMessage());
-                }
-                System.out.println("____________________________________________________________");
-                storage.storeTasks(this.taskList);
-            }
-        } catch (EndProgramException e) {
-            System.out.println("Bye. Hope to see you again soon!");
-            System.out.println("____________________________________________________________");
-            scanner.close();
-        }
     }
 
     @Override
     public void close() {
         this.storage.storeTasks(this.taskList);
-        this.scanner.close();
     }
 }

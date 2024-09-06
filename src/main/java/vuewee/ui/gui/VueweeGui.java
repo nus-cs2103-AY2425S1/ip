@@ -91,6 +91,9 @@ public class VueweeGui extends Application {
 
         // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        // Send a welcome message
+        VueweeGui.sendMessage("Hello! I'm Vuewee\nWhat can I do for you?");
     }
 
     /**
@@ -100,8 +103,8 @@ public class VueweeGui extends Application {
     private void handleUserInput() {
         String userText = userInput.getText();
         VueweeGui.dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userText, userImage));
-        VueweeGui.taskListGui.displayTasks();
         userInput.clear();
+        VueweeGui.taskListGui.processInput(userText);
     }
 
 }
