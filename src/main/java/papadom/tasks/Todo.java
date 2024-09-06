@@ -12,7 +12,9 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+        assert !description.isEmpty() : "Description cannot be empty";
     }
+
 
     /**
      * Returns a string representation of the to-do task.

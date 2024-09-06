@@ -23,6 +23,7 @@ public class Storage {
      * @param filePath The path of the file used for storage.
      */
     public Storage(String filePath) {
+        assert !filePath.isEmpty() : "File path cannot be empty";
         this.FILE_PATH = filePath;
     }
 
@@ -33,6 +34,7 @@ public class Storage {
      */
     public void addTaskToDatabase(Task task) {
         try {
+            assert task != null : "Task cannot be null";
             FileWriter fw = new FileWriter(this.FILE_PATH, true);
             fw.write(task.toString() + "\n");
             fw.close();
