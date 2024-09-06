@@ -1,4 +1,4 @@
-# torne.ui.Torne
+# Torne
 
 This is the chatbot `torne.ui.Torne`, short for `Torment Nexus`. 
 
