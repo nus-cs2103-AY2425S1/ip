@@ -51,7 +51,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "main.PandaBot"
+    archiveBaseName = "PandaBot"
     archiveClassifier = null
 }
 
