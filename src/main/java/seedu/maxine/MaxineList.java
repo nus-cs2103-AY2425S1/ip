@@ -4,6 +4,7 @@ import seedu.maxine.exception.MaxineException;
 import seedu.maxine.task.Task;
 
 public interface MaxineList extends Iterable<Task> {
+    //TODO: Change these to java docs
     // Method to add a Todo task
     void addTodo(String[] arr);
 

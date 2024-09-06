@@ -20,6 +20,10 @@ public class Maxine {
         storage = new Storage("data/maxine.txt");
     }
 
+    public String getResponse(String input) {
+        return parser.parse(input);
+    }
+
     /**
      * Asks user for inputs, parses the inputs and sends response accordingly
      */

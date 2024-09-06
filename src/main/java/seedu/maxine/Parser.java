@@ -29,63 +29,47 @@ public class Parser {
      * 
      * @param input Input string that is to be parsed for corresponding action
      */
-    public void parse(String input) {
+    public String parse(String input) {
         try {
             String[] answer = input.split(" ");
             switch (answer[0]) {
             case ("bye"):
-                ui.goodbye();
                 isRunning = false;
-                break;
+                return ui.goodbye();
             case ("list"):
-                ui.showList(list);
-                break;
+                return ui.showList(list);
             case ("mark"):
             case ("unmark"):
                 int mark = Integer.parseInt(answer[1]) - 1;
                 Task curr = list.get(mark);
                 curr.changeStatus();
-                ui.changeMark(curr);
                 storage.refreshStorage(list);
-                break;
+                return ui.changeMark(curr);
             case ("todo"):
-                try {
-                    list.addTodo(answer);
-                    storage.refreshStorage(list);
-                } catch (Exception e) {
-                    System.out.println("Please follow this format: todo [enter maxine.task]");
-                }
-                break;
+                list.addTodo(answer);
+                storage.refreshStorage(list);
+                return "todo task added!";
             case ("deadline"):
-                try {
-                    list.addDeadline(answer);
-                    storage.refreshStorage(list);
-                } catch (Exception e) {
-                    System.out.println("Please follow this format: deadline [enter maxine.task] /by [enter deadline]");
-                }
-                break;
+                list.addDeadline(answer);
+                storage.refreshStorage(list);
+                return "deadline task added!";
             case ("event"):
-                try {
-                    list.addEvent(answer);
-                    storage.refreshStorage(list);
-                } catch (Exception e) {
-                    System.out.println("Please follow this format: event [enter event] /from [start date] /to [end date]");
-                }
-                break;
+                list.addEvent(answer);
+                storage.refreshStorage(list);
+                return "event added!";
             case ("delete"):
                 int key = Integer.parseInt(answer[1]) - 1;
                 list.delete(key);
-                ui.delete(list.get(key));
                 storage.refreshStorage(list);
-                break;
+                return ui.delete(list.get(key));
             case ("find"):
-                ui.search(input.substring(5));
-                break;
+                return ui.search(input.substring(5));
             default:
                 throw new MaxineException("Oh no.. this command is not recognised");
             }
         } catch (MaxineException e) {
             System.out.println(e.getMessage());
+            return "Oh no.. this command is not recognised";
         }
     }
 

@@ -22,16 +22,16 @@ public class Ui {
      * </p>
      * 
      * */
-    public void greet() {
-        System.out.println("Hi! Nice to meet you :) I am Maxine");
+    public String greet() {
+        return "Hi! Nice to meet you :) I am Maxine";
     }
 
     /**
      * Prints a farewell message to the console.
      */
-    public void goodbye() {
-        System.out.println("\nBye! I have been maxed out and am going to sleep. " +
-                "Hope to see you again soon!");
+    public String goodbye() {
+        return "\nBye! I have been maxed out and am going to sleep. " +
+                "Hope to see you again soon!";
     }
 
     /**
@@ -48,8 +48,8 @@ public class Ui {
      * @throws NullPointerException if {@code task} is {@code null}.
      * 
      */
-    public void delete(Task task) {
-        System.out.println("Deleting this task: " + task);
+    public String delete(Task task) {
+        return "Deleting this task: " + task;
     }
 
     /**
@@ -64,13 +64,11 @@ public class Ui {
      * @param task The task whose status is to be updated and displayed. 
      *             The task's status is used to determine which message to print.
      */
-    public void changeMark(Task task) {
+    public String changeMark(Task task) {
         if (task.getStatus()) {
-            System.out.println("Yay! You finally did something today");
-            System.out.println(task);
+            return "Yay! You finally did something today: " + task;
         } else {
-            System.out.println("Skill issue...");
-            System.out.println(task);
+            return "Undoing... this task? :'( :" + task;
         }
     }
 
@@ -85,10 +83,15 @@ public class Ui {
      * @param list The {@code TaskList} containing the tasks to be displayed.
      *             Each task in the list is printed with its index and details.
      */
-    public void showList(TaskList list) {
+    public String showList(TaskList list) {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + ". " + list.get(i));
+            sb.append(i + 1)
+                    .append(". ")
+                    .append(list.get(i))
+                    .append("\n");
         }
+        return sb.toString();
     }
 
     /**
@@ -99,8 +102,8 @@ public class Ui {
      * "I...can't...load...X_X".
      * </p>
      */
-    public void showLoadingError() {
-        System.out.println("I...can't...load...X_X");
+    public String showLoadingError() {
+        return "I...can't...load...X_X";
     }
 
     /**
@@ -114,8 +117,8 @@ public class Ui {
      * @param e The error message to be printed. Should be a descriptive string
      *          explaining the error encountered.
      */
-    public void showError(String e) {
-        System.out.print(e);
+    public String showError(String e) {
+        return e;
     }
 
     /**
@@ -130,13 +133,20 @@ public class Ui {
      * @param search The search term to use for querying tasks. Only tasks that contain this
      *               term in their description will be included in the results.
      */
-    public void search(String search) {
+    public String search(String search) {
         ArrayList<Task> results = storage.queryStorage(search);
-        System.out.println("Here are the results to your search:");
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Here are the results to your search:\n");
         int count = 1;
         for (Task task : results) {
-            System.out.println(count + ". " + task.toString());
+            sb.append(count)
+                    .append(". ")
+                    .append(task.toString())
+                    .append("\n");
             count++;
         }
+
+        return sb.toString();
     }
 }
