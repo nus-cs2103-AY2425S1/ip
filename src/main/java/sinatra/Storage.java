@@ -7,20 +7,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-//stores only 1 object
+/**
+ * The Storage class handles the reading and writing of tasks to a file.
+ */
 public class Storage {
 
     private String fileName = "";
 
+    /**
+     * Constructs a new Storage instance with the specified file name.
+     *
+     * @param fileName the name of the file to store tasks
+     */
     public Storage(String fileName) {
         this.fileName = fileName;
-        
     }
 
-
-    //referenced https://www.w3schools.com/java/java_files_create.asp
-    public void appendLine(String line) {
+    /**
+     * Appends a line to the text file.
+     *
+     * @param line the line to append to the file
+     */
+    public void appendLineToTxtFile(String line) {
         System.out.println("appending line");
         try {
             FileWriter file = new FileWriter(this.fileName, true);
@@ -36,19 +44,20 @@ public class Storage {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return a list of tasks loaded from the file
+     */
     public ArrayList<Task> loadTasksFromFile() {
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(this.fileName);
             Scanner myReader = new Scanner(file);
             while (myReader.hasNextLine()) {
                 String[] data = myReader.nextLine().split(":");
-
-
-
                 if (data.length == 0) {
                     break;
                 }
@@ -60,8 +69,6 @@ public class Storage {
                 } else if (className.equals("Sinatra.Deadline")) {
                     tasks.add(Deadline.newObjectFromData(data[1]));
                 }
-
-
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -72,10 +79,7 @@ public class Storage {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-
         }
         return tasks;
     }
-
-
 }
