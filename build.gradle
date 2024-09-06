@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("Azir.Azir")
+    mainClass.set("Azir.Launcher")
 }
 
 shadowJar {
