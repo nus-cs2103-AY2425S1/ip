@@ -1,17 +1,25 @@
 package main;
 
+import command.AddTaskCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.MiscCommand;
+import command.SearchCommand;
+import command.UnMarkCommand;
 import exception.DukeException;
-import task.Task;
+
 
 /**
  * The parser is used to breakdown user input and does different actions depending
  * on the input.
  */
 public class Parser {
-    TaskList taskList;
-    Ui ui;
+    private TaskList taskList;
+    private Ui ui;
 
-    Storage storage;
+    private Storage storage;
     public Parser(TaskList taskList, Ui ui, Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
@@ -24,30 +32,24 @@ public class Parser {
      * @param response user input
      * @return whether the program continues to run
      */
-    public boolean parse(String response) throws DukeException{
+    public static Command parse(String response) throws DukeException{
         String[] splitResponse = response.split(" ",2);
         switch (splitResponse[0]) {
         case "todo", "event", "deadline":
-            handleAdd(splitResponse);
-            break;
-        case "list" :
-            taskList.list();
-            break;
-        case "mark" :
-            handleMark(splitResponse[1]);
-            break;
-        case "unmark" :
-            handleUnmark(splitResponse[1]);
-            break;
-        case "delete" :
-            handleDelete(splitResponse[1]);
-            break;
-        case "find" :
-            handleSearch(splitResponse[1]);
-            break;
-        case "bye" :
+            return handleAdd(splitResponse);
+        case "list":
+            return handleList();
+        case "mark":
+            return handleMark(splitResponse[1]);
+        case "unmark":
+            return handleUnmark(splitResponse[1]);
+        case "delete":
+            return handleDelete(splitResponse[1]);
+        case "find":
+            return handleSearch(splitResponse[1]);
+        case "bye":
             return handleBye();
-        default : {
+        default: {
             try {
                 throw new DukeException("I dont understand what you are trying to say :(");
             } catch (DukeException e) {
@@ -56,41 +58,39 @@ public class Parser {
             }
         }
         }
-        return true;
+        return new MiscCommand("I dont understand what you are trying to say :(");
     }
     /**
      * Handles addition of task into tasklist depending on the input
      * @param splitResponse details of the task
      */
-    public void handleAdd(String[] splitResponse) {
-        Task currentTask = null;
+    public static Command handleAdd(String[] splitResponse) {
         try {
             switch (splitResponse[0]) {
             case "todo":
-                currentTask = taskList.addTodo(splitResponse[1]);
-                ui.displayAddMessage(currentTask, taskList.size());
-                break;
+                return new AddTaskCommand(splitResponse[1], "todo");
             case "event":
-                currentTask = taskList.addEvent(splitResponse[1]);
-                ui.displayAddMessage(currentTask, taskList.size());
-                break;
+                return new AddTaskCommand(splitResponse[1], "event");
             case "deadline":
-                currentTask = taskList.addDeadline(splitResponse[1]);
-                ui.displayAddMessage(currentTask, taskList.size());
-                break;
+                return new AddTaskCommand(splitResponse[1], "deadline");
             }
         } catch (DukeException e) {
             System.out.println("________________________________");
-            System.out.println(e.getMessage() + "________________________________");
+            System.out.println(e.getMessage() + "\n________________________________");
         }
+        return new MiscCommand("I dont understand what you are trying to say :(");
+    }
+
+    public static Command handleList() {
+        return new ListCommand();
     }
 
     /**
      * Handles the searching of word
      * @param word String to be found
      */
-    public void handleSearch(String word) {
-        taskList.searchTask(word);
+    public static Command handleSearch(String word) {
+        return new SearchCommand(word);
     }
 
 
@@ -98,44 +98,36 @@ public class Parser {
      * Handles the logic of marking a task as done
      * @param description index of task in list
      */
-    public void handleMark(String description) {
+    public static Command handleMark(String description) {
         int index = Integer.parseInt(description) - 1;
-        Task marked = taskList.mark(index);
-        if (marked != null) {
-            ui.displayMarkedMessage(marked);
-        }
+        return new MarkCommand(index);
     }
 
     /**
      * Handles the logic of unmarking a task as done
      * @param description index of task in list
      */
-    public void handleUnmark(String description) {
+    public static Command handleUnmark(String description) {
         int index = Integer.parseInt(description) - 1;
-        Task unmarked = taskList.unmark(index);
-        if (unmarked != null) {
-            ui.displayUnmarkedMessage(unmarked);
-        }
+        return new UnMarkCommand(index);
     }
     /**
      * Handles the logic of deleting a task from task list
      * @param description index of task in list
      */
-    public void handleDelete(String description) {
+    public static Command handleDelete(String description) {
         int index = Integer.parseInt(description) - 1;
-        Task deleted = taskList.delete(index);
-        if (deleted != null) {
-            ui.displayDeletedMessage(deleted, taskList.size());
-        }
+        return new DeleteCommand(index);
     }
 
     /**
      * Handles the logic when program terminating input is given
      * @return whether the program should continue to run
      */
-    public boolean handleBye() {
-        this.storage.writeStorage(taskList.getTaskList());
-        ui.displayByeMessage();
-        return false;
+    public static Command handleBye() {
+        return new MiscCommand("________________________________\n"
+                + "Bye. Hope to see you again soon!\n"
+                + "________________________________");
     }
 }
+

@@ -1,6 +1,7 @@
 package main;
 
-import java.util.Scanner;
+import command.Command;
+import exception.DukeException;
 
 /**
  * This class is used to control the main logical flow of the Bean program
@@ -10,35 +11,36 @@ public class Bean {
 
     private Storage storage;
     private Ui ui;
-    private Parser parser;
 
-    public static void main(String[] args) {
-        Bean bean = new Bean("src\\main\\java\\data\\tasks.txt");
-        bean.run();
-    }
+    private String commandType;
+
+    private String path = "src\\main\\java\\data\\tasks.txt";
 
     /**
      * Creates the program with the given storage path
-     * @param path location of the text file storage
      */
-    public Bean(String path) {
+    public Bean() {
         storage = new Storage(path);
         taskList = new TaskList(storage.readStorage());
         ui = new Ui();
-        parser = new Parser(taskList, ui, storage);
     }
 
     /**
      * Runs the logic of the program
      */
-    public void run() {
-        ui.displayGreetingMessage();
-        Scanner scanner = new Scanner(System.in);
-        Boolean isRunning = true;
-        while (isRunning) {
-            String response = scanner.nextLine();
-            isRunning = parser.parse(response);
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String output = c.execute(taskList, ui, storage);
+            commandType = c.getClass().getSimpleName();
+            return output;
+        } catch (DukeException e) {
+            return "Error: " + e.getMessage();
         }
+    }
+    public String getCommandType() {
+        return commandType;
     }
 
 }
