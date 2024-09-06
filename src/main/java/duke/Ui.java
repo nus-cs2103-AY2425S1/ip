@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 
 import duke.tasks.Task;
@@ -25,7 +26,36 @@ public class Ui {
     }
 
     /**
-     * Use a formatter for outputting messages.
+     * Connects an input and output queue to standard input and output.
+     *
+     * @param inputQueue The input queue to connect to standard input.
+     * @param outputQueue The output queue to connect to standard output.
+     */
+    public static void useStdio(BlockingQueue<String> inputQueue, BlockingQueue<String> outputQueue) {
+        // Connect the input queue to standard input.
+        new Thread(() -> {
+            Scanner in = new Scanner(System.in);
+            while (true) {
+                String inputMessage = in.nextLine();
+                inputQueue.add(inputMessage);
+            }
+        }).start();
+
+        // Connect the output queue to standard output.
+        new Thread(() -> {
+            while (true) {
+                try {
+                    String outputMessage = outputQueue.take();
+                    System.out.println(outputMessage);
+                } catch (InterruptedException e) {
+                    System.out.println("Oh no! An IO error has occurred.");
+                }
+            }
+        }).start();
+    }
+
+    /**
+     * Sets the formatter for outputting messages.
      *
      * @param f The formatter to use.
      */

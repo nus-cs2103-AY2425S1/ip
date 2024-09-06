@@ -19,8 +19,8 @@ public class Main extends Application {
     /**
      * Connect the input and output of the gui and bot.
      *
-     * @param inputQueue
-     * @param outputQueue
+     * @param inputQueue The queue that the gui pushes user input to.
+     * @param outputQueue The queue that the gui gets response message from.
      */
     public static void connect(BlockingQueue<String> inputQueue, BlockingQueue<String> outputQueue) {
         Main.inputQueue = inputQueue;
