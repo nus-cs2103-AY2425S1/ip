@@ -1,4 +1,8 @@
 package shnoop.exceptions;
+
+/**
+ * Obsolete Exception representing an IndexOutOfBounds situation when accessing TaskList.
+ */
 public class UnmarkableArrayException extends Exception {
 
     public UnmarkableArrayException(String message) {

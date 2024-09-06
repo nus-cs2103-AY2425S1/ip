@@ -7,10 +7,10 @@ import shnoop.ui.*;
 
 import java.io.IOException;
 
+/**
+ * Encapsulates all the relevant actions to be taken when a List Command is issued.
+ */
 public class ListCommand extends Command {
-
-    public ListCommand() {
-    }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

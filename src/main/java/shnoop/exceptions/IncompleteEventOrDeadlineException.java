@@ -1,4 +1,8 @@
 package shnoop.exceptions;
+
+/**
+ * Encapsulates the situations where an Event or Deadline Task was created with insufficient input.
+ */
 public class IncompleteEventOrDeadlineException extends Exception {
 
     public IncompleteEventOrDeadlineException(String message) {

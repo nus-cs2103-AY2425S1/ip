@@ -7,9 +7,18 @@ import shnoop.ui.*;
 
 import java.io.IOException;
 
+/**
+ * Encapsulates all the relevant actions to be taken when a Delete Command is issued.
+ */
 public class DeleteCommand extends Command {
     private int idx;
 
+    /**
+     * Creates an instance of a DeleteCommand to be executed after.
+     *
+     * @param input String command to be read.
+     * @throws ShnoopException If input was invalid and a number was not provided after the Command keyword.
+     */
     public DeleteCommand(String input) throws ShnoopException {
         try {
             idx = Integer.parseInt(input.split(" ")[1]) - 1;
