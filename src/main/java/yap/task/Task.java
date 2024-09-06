@@ -4,6 +4,13 @@ import yap.storage.BadDataFormatException;
 
 public class Task {
 
+    /**
+     * Converts the task string that is stored on a hard disk into a Task object.
+     *
+     * @param taskString the task in the form of a string, extracted from the hard disk.
+     * @return the task object created from the task string.
+     * @throws BadDataFormatException if the task string is invalid and could not be parsed.
+     */
     public static Task taskStringToTask(String taskString) throws BadDataFormatException {
         String[] taskDetails = taskString.split(" \\| ");
         try {
@@ -47,13 +54,25 @@ public class Task {
     }
 
     private String description;
+
     private boolean isDone; // true for done, false for not done
 
+    /**
+     * Constructs a generic task.
+     *
+     * @param description a description of what the task is.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Constructs a generic task.
+     *
+     * @param description a description of what the task is.
+     * @param isDone whether the task has been completed or not.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;

@@ -10,14 +10,16 @@ import java.util.ArrayList;
 import yap.task.Task;
 
 public class Storage {
+
     private String fileName;
     private String directoryPath;
     private String filePath;
+
     /**
      * Constructor for Storage, creates instance of storage with filepath.
      *
-     * @param fileName Name of the file: e.g. data.
-     * @param directoryPath relative directory path ending with a /
+     * @param fileName the name of the file: e.g. data.
+     * @param directoryPath the relative directory path ending with a /.
      */
     public Storage(String fileName, String directoryPath) {
         // Currently no code.
@@ -27,7 +29,9 @@ public class Storage {
     };
 
     /**
-     * Writes a list of tasks into the file.
+     * Writes a list of tasks into the data file.
+     *
+     * @param tasks the list of tasks to write to the file.
      */
     public void writeTasksToFile(ArrayList<Task> tasks) throws IOException {
         makeFolderFileIfNotExists();
@@ -40,6 +44,10 @@ public class Storage {
 
     /**
      * Reads the tasks from the saved file
+     *
+     * @return an ArrayList of tasks based on what was read from the data file.
+     * @throws FileNotFoundException if the data file does not exist.
+     * @throws BadDataFormatException if the data file is corrupted and has an incorrect string format.
      */
     public ArrayList<Task> readTasksFromFile() throws FileNotFoundException, BadDataFormatException {
         File file = new File(filePath);
