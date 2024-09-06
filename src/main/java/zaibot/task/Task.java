@@ -15,6 +15,7 @@ public class Task {
      * @param name A string representing the name
      */
     public Task(String name) {
+        assert !name.isEmpty();
         this.name = name;
         this.isDone = false;
     }

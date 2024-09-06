@@ -99,6 +99,7 @@ public class Storage {
      * @throws ZaibotException if the line is not formatted as expected.
      */
     public Task parseLine(String input) throws ZaibotException {
+        assert !input.isEmpty();
         String[] tokens = input.split(" \\| ");
 
         Status status = Status.valueOf(tokens[1].toUpperCase());
