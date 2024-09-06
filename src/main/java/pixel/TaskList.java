@@ -45,7 +45,7 @@ public class TaskList {
         tasks.remove(removedTask);
     }
 
-    public void printMatchingTasks(String searchKey) {
+    public String getMatchingTasksAsString(String searchKey) {
         TaskList matchingTasks = new TaskList(new ArrayList<>());
         for (Task currentTask : tasks) {
             if (currentTask.getDescription().contains(searchKey)) {
@@ -53,19 +53,21 @@ public class TaskList {
             }
         }
         if (matchingTasks.getSize() > 0) {
-            matchingTasks.printTasks();
+            return matchingTasks.getTasksAsString();
         } else {
-            System.out.println("\t" + "No tasks match your search key. Try another search key.");
+            return "No tasks match your search key. Try another search key.";
         }
     }
 
     /**
      * Prints all tasks in the ArrayList
      */
-    public void printTasks() {
+    public String getTasksAsString() {
+        String resultingString = "";
         for (int i = 1; i <= tasks.size(); i++) {
-            System.out.println("\t" + i + "." + tasks.get(i-1));
+            resultingString += i + "." + tasks.get(i-1) + "\n";
         }
+        return resultingString;
     }
 
     /**
