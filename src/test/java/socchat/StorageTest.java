@@ -1,26 +1,25 @@
 package socchat;
-import org.junit.jupiter.api.Test;
-import socchat.task.Task;
-import socchat.task.todo.Todo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
+import socchat.task.Task;
+import socchat.task.todo.Todo;
 
 public class StorageTest {
 
     @Test
     public void load_fileExist_success() throws Exception {
         File f = new File("test.txt");
-        if(!f.exists()) {
+        if (!f.exists()) {
             f.createNewFile();
         }
         Storage storage = new Storage("test.txt");
@@ -36,7 +35,7 @@ public class StorageTest {
             assertEquals(tasks, Storage.load());
             fail();
         } catch (SocchatException e) {
-            assertEquals( "Storage file not found", e.getMessage());
+            assertEquals("Storage file not found", e.getMessage());
         }
     }
 
