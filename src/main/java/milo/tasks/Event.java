@@ -1,4 +1,4 @@
-package Milo.Tasks;
+package milo.tasks;
 import java.time.LocalDate;
 
 /**
@@ -13,11 +13,11 @@ public class Event extends Task {
 
     public final LocalDate toDate;
 
-    /*
+    /**
      * initialise an event task object
      * task status set as not completed
      *
-     * @param description of the event
+     * @param desc of the event
      * @param from date
      * @param to date
      */
@@ -27,11 +27,11 @@ public class Event extends Task {
         this.toDate = to;
     }
 
-    /*
+    /**
      * initialise an event task object
      * task status may be set as completed
      *
-     * @param description of the event
+     * @param desc of the event
      * @param from date
      * @param to date
      */
@@ -41,7 +41,7 @@ public class Event extends Task {
         this.toDate = to;
     }
 
-    /*
+    /**
      * overrides the task toString() method
      * provides additional task type, fromDate and toDate information
      * format string for Ui
@@ -51,7 +51,7 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + fromDate + " to: " + toDate + ")";
     }
 
-    /*
+    /**
      * overrides the task toTextString() method
      * provides additional task type, fromDate and toDate information
      * format string for Storage

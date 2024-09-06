@@ -1,4 +1,4 @@
-package Milo.Tasks;
+package milo.tasks;
 
 /**
  * Represents a to-do task, inheriting from task object, which contains
@@ -6,27 +6,28 @@ package Milo.Tasks;
  */
 public class Todo extends Task {
 
-    /*
+    /**
      * initialise a deadline task object
      * task status set as not completed
      *
-     * @param description of the to-do task
+     * @param desc of the to-do task
      */
     public Todo(String desc) {
         super(desc);
     }
 
-    /*
+    /**
      * initialise a deadline task object
      * task status may be set as completed
      *
-     * @param description of the to-do task
+     * @param desc of the to-do task
+     * @param isCompleted completion status of the task
      */
     public Todo(String desc, Boolean isCompleted) {
         super(desc, isCompleted);
     }
 
-    /*
+    /**
      * overrides the task toString() method
      * provides additional task type information
      * format string for Ui
@@ -36,7 +37,7 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
-    /*
+    /**
      * overrides the task toTextString() method
      * provides additional task type information
      * format string for Storage

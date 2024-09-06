@@ -1,13 +1,12 @@
-package Milo.Ui;
+package milo.ui;
 
-import Milo.Tasks.Task;
-import Milo.Tasks.TaskList;
-import Milo.Tasks.TaskType;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
+import milo.tasks.Task;
+import milo.tasks.TaskList;
+import milo.tasks.TaskTypes;
+
+/**
 * Milo Ui system
 * sets how Milo interacts with user
 * as well as passing on user input to Parser
@@ -31,7 +30,7 @@ public class Ui {
     private final String greetingMessage = hLine + greeting + hLine;
     private final String byeMessage = hLine + bye + hLine;
 
-    /*
+    /**
     * Milo greets user
      */
     public void greetUser() {
@@ -39,38 +38,38 @@ public class Ui {
         System.out.println(greetingMessage);
     }
 
-    /*
+    /**
      * Milo gets user input
      */
     public String getUserInput() {
         return myScanner.nextLine();
     }
 
-    /*
+    /**
      * Milo says bye to user
      */
     public void byeUser() {
         System.out.print(byeMessage);
     }
 
-    /*
+    /**
      * Milo prints all task in the array list
      *
-     * @param array of task
+     * @param todoList of task
      */
     public void printList(TaskList todoList) {
         System.out.print(hLine);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < todoList.getNumberOfTasks(); i++) {
-            System.out.println(i+1 + "." + todoList.get(i).toString());
+            System.out.println(i + 1 + "." + todoList.get(i).toString());
         }
         System.out.println(hLine);
     }
 
-    /*
+    /**
      * Milo prints feedback message on marking completion
      *
-     * @param task object that system marked as done
+     * @param curTask object that system marked as done
      */
     public void printMark(Task curTask) {
         System.out.print(hLine);
@@ -79,10 +78,10 @@ public class Ui {
         System.out.print(hLine);
     }
 
-    /*
+    /**
      * Milo prints feedback message on marking task as incomplete
      *
-     * @param task object that system marked as not done
+     * @param curTask object that system marked as not done
      */
     public void printUnmark(Task curTask) {
         System.out.print(hLine);
@@ -91,10 +90,11 @@ public class Ui {
         System.out.print(hLine);
     }
 
-    /*
+    /**
      * Milo prints feedback message on marking task as incomplete
      *
-     * @param task object that system deleted
+     * @param curTask object that system deleted
+     * @param numberOfTask left in the todolist
      */
     public void printDelete(Task curTask, int numberOfTask) {
         System.out.print(hLine);
@@ -108,10 +108,11 @@ public class Ui {
         System.out.print(hLine);
     }
 
-    /*
+    /**
     * Milo prints task details
     *
-    * @param task object that system wants to print to user
+    * @param curTask object that system wants to print to user
+     * @param numberOfTask left in todolist
      */
     public void printTask(Task curTask, int numberOfTask) {
         System.out.print(hLine);
@@ -125,40 +126,46 @@ public class Ui {
         System.out.print(hLine);
     }
 
+    /**
+     * A method that prints matching task to the keyword input
+     *
+     * @param todoList list of matching tasks
+     * @param tasksFounded number of matching tasks found
+     */
     public void printFoundTask(TaskList todoList, int tasksFounded) {
         System.out.print(hLine);
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < tasksFounded; i++) {
-            System.out.println(i+1 + "." + todoList.get(i).toString());
+            System.out.println(i + 1 + "." + todoList.get(i).toString());
         }
         System.out.println(hLine);
     }
 
-    /*
+    /**
     * Milo prints error
     *
-    * @param task type of the task that caused the error
-    * @param error description
+    * @param tasktype type of the task that caused the error
+    * @param desc of error
      */
 
-    public void printError(TaskType.taskType tasktype, String desc) {
+    public void printError(TaskTypes.TaskType tasktype, String desc) {
         String oops = "OOPS!!! ";
         switch (tasktype) {
-            case TODO, EVENT, DEADLINE:
-                System.out.println(hLine + oops + desc + "\n" + hLine);
-                break;
-            case INVALID:
-                String invalidMessage = oops + "I'm sorry, but I don't know what that means ;-;\n";
-                System.out.println(hLine + invalidMessage + hLine);
-                break;
-            case DATE:
-                String invalidDateMessage = oops + "date is not properly formatted\n " +
-                        "It should be formatted as follow: YYYY-MM-DD\n";
-                System.out.println(hLine + invalidDateMessage + hLine);
-                break;
-            default:
-                String defaultMessage = oops + "I'm sorry, I don't know what that means ;-;\n";
-                System.out.println(hLine + defaultMessage + hLine);
+        case TODO, EVENT, DEADLINE:
+            System.out.println(hLine + oops + desc + "\n" + hLine);
+            break;
+        case INVALID:
+            String invalidMessage = oops + "I'm sorry, but I don't know what that means ;-;\n";
+            System.out.println(hLine + invalidMessage + hLine);
+            break;
+        case DATE:
+            String invalidDateMessage = oops + "date is not properly formatted\n "
+                    + "It should be formatted as follow: YYYY-MM-DD\n";
+            System.out.println(hLine + invalidDateMessage + hLine);
+            break;
+        default:
+            String defaultMessage = oops + "I'm sorry, I don't know what that means ;-;\n";
+            System.out.println(hLine + defaultMessage + hLine);
         }
     }
 }

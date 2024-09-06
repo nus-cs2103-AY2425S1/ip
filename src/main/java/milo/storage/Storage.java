@@ -1,6 +1,4 @@
-package Milo.Storage;
-
-import Milo.Tasks.*;
+package milo.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,7 +7,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
+import milo.tasks.Deadline;
+import milo.tasks.Event;
+import milo.tasks.Task;
+import milo.tasks.TaskList;
+import milo.tasks.Todo;
+
+
+/**
  * Represents the Milo's storage system
  * including fields such as filePath and task list
  */
@@ -21,34 +26,34 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    /*
+    /**
      * transform string into task object, taking into account
      * the different types of tasks
      *
-     * @param string containing details of the task
+     * @param task string containing details of the task
      */
     private Task formatterToTask(String task) {
         String[] taskDesc = task.split("\\|");
         Boolean curIsCompleted = Integer.parseInt(taskDesc[1].strip()) == 1;
         switch (taskDesc[0].strip()) {
-            // A to-do task
-            case "T":
-                return new Todo(taskDesc[2].strip(), curIsCompleted);
-            // A deadline task
-            case "D":
-                LocalDate curDate = LocalDate.parse(taskDesc[3].strip());
-                return new Deadline(taskDesc[2].strip(), curDate, curIsCompleted);
-            // An event task
-            case "E":
-                LocalDate fromDate = LocalDate.parse(taskDesc[3].strip());
-                LocalDate toDate = LocalDate.parse(taskDesc[4].strip());
-                return new Event(taskDesc[2].strip(), fromDate, toDate, curIsCompleted);
-            default:
-                return null;
+        // A to-do task
+        case "T":
+            return new Todo(taskDesc[2].strip(), curIsCompleted);
+        // A deadline task
+        case "D":
+            LocalDate curDate = LocalDate.parse(taskDesc[3].strip());
+            return new Deadline(taskDesc[2].strip(), curDate, curIsCompleted);
+        // An event task
+        case "E":
+            LocalDate fromDate = LocalDate.parse(taskDesc[3].strip());
+            LocalDate toDate = LocalDate.parse(taskDesc[4].strip());
+            return new Event(taskDesc[2].strip(), fromDate, toDate, curIsCompleted);
+        default:
+            return null;
         }
     }
 
-    /*
+    /**
      * transform task into string (formatted for Storage)
      *
      * @param task object that is to be converted to a String representation
@@ -57,7 +62,7 @@ public class Storage {
         return task.toTextString();
     }
 
-    /*
+    /**
      * Reads data of the storage file, i.e. miloData.txt, and iterate
      * through the String representation of task, transforming them into
      * respective task objects and then adding them to the array list
@@ -82,9 +87,9 @@ public class Storage {
         return new ArrayList<Task>();
     }
 
-    /*
-     * Iterates through task array transforming them each task into
-     * String representation (for Storage) and then adding them to
+    /**
+     * Method iterating through task array transforming them each task
+     * into String representation (for Storage) and then adding them to
      * the data file, miloData.txt
      */
     public void saveData(TaskList todoList) {

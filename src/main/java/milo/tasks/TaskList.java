@@ -1,9 +1,8 @@
-package Milo.Tasks;
+package milo.tasks;
 
-import Milo.Tasks.Task;
 import java.util.ArrayList;
 
-/*
+/**
 * Represents task list object
  */
 public class TaskList {
@@ -12,66 +11,72 @@ public class TaskList {
 
     private int numberOfTasks;
 
-    /*
+    /**
      * Initialise empty task list object
      */
     public TaskList() {
         this.todoList = new ArrayList<Task>();
     }
 
-    /*
+    /**
     * Initialise task list object
     *
-    * @param ArrayList<Task> to initialise TaskList object to
+    * @param todoList to initialise TaskList object to
      */
     public TaskList(ArrayList<Task> todoList) {
         this.numberOfTasks = todoList.size();
         this.todoList = todoList;
     }
 
-    /*
+    /**
     * A getter method returning the task list array
      */
     public ArrayList<Task> getList() {
         return this.todoList;
     }
 
-    /*
+    /**
     * A getter method returning the number of tasks
      */
     public int getNumberOfTasks() {
         return this.numberOfTasks;
     }
 
-    /*
+    /**
      * An add Task item method
      *
-     * @param Task item
+     * @param item to add to task list
      */
     public void add(Task item) {
         this.todoList.add(item);
         this.numberOfTasks++;
     }
 
-    /*
-    * A get element by index method
+    /**
+    * A get task by index method
     *
-    * @param Element index
+    * @param index of the task
      */
     public Task get(int index) {
         return this.todoList.get(index);
     }
 
-    /*
-     * A remove element by index method
+    /**
+     * A remove task by index method
      *
-     * @param Element index
+     * @param index of the task
      */
     public void remove(int index) {
         this.todoList.remove(index);
         this.numberOfTasks--;
     }
 
+    /**
+     * A method to find tasks matching the keyword
+     *
+     * @param keyword to search for in task list
+     * @return matching task list
+     */
     public TaskList findMatchingTask(String keyword) {
         TaskList matchingTaskList = new TaskList();
         for (int i = 0; i < this.numberOfTasks; i++) {

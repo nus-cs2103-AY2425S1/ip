@@ -1,9 +1,14 @@
-package Milo;
-import org.junit.jupiter.api.Test;
+package milo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+
+
 
 public class MiloTest {
     @Test
@@ -13,7 +18,7 @@ public class MiloTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         // Simulate user input with "bye" to immediately exit
         System.setIn(new ByteArrayInputStream("bye\n".getBytes()));
-        // Run the Milo application
+        // Run the milo application
         Milo milo = new Milo();
         milo.run();
 

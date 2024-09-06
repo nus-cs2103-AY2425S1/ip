@@ -1,11 +1,11 @@
-package Milo;
+package milo;
 
-import Milo.Parser.Parser;
-import Milo.Storage.Storage;
-import Milo.Tasks.TaskList;
-import Milo.Ui.Ui;
+import milo.parser.Parser;
+import milo.storage.Storage;
+import milo.tasks.TaskList;
+import milo.ui.Ui;
 
-/*
+/**
 * Represents the task bot programme
 * containing components such as
 * Storage, TaskList, Ui
@@ -16,7 +16,7 @@ public class Milo {
     private final Ui ui;
     private final Parser parser;
 
-    /*
+    /**
     * Initialise Milo bot and its Ui, Storage, TaskList field
      */
     public Milo() {
@@ -27,38 +27,31 @@ public class Milo {
         this.parser = new Parser(this.ui);
     }
 
-    /*
-    * Running Milo
+    /**
+    * Main method
      */
     public static void main(String[] args) {
         new Milo().run();
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * Method running Milo
+     */
     public void run() {
         ui.greetUser();
         runCommandLoopTilBye();
         ui.byeUser();
     }
 
-    // Loop for user input
+    /**
+     * Method looping for user input
+     */
     public void runCommandLoopTilBye() {
         String input;
         do {
             input = ui.getUserInput();
-            parser.readInput(input,this.tasks);
+            parser.readInput(input, this.tasks);
             // Save data to storage
         } while (!input.toLowerCase().strip().equals("bye"));
         storage.saveData(this.tasks);
