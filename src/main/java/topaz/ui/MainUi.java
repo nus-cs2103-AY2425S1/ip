@@ -10,9 +10,10 @@ import javafx.stage.Stage;
 import topaz.main.Topaz;
 
 /**
- * Load MainWindow object and add it to scene, then add it to stage.
+ * A GUI for Duke using FXML.
  */
 public class MainUi extends Application {
+
     private Topaz topaz = new Topaz("data/Topaz.txt");
     @Override
     public void start(Stage stage) {
@@ -21,7 +22,9 @@ public class MainUi extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Topaz");
             fxmlLoader.<MainWindow>getController().setTopaz(topaz);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

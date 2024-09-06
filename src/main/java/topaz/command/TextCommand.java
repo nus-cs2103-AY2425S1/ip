@@ -48,8 +48,8 @@ public class TextCommand extends Command {
         case "help":
             return ui.showHelp();
         case "list":
-            tasks.listTasks();
-            return ui.showTaskList();
+            String listString = tasks.listTasks();
+            return ui.showTaskList() + listString;
         default:
             return "";
         }
