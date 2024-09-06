@@ -1,14 +1,13 @@
+package components;
+
 import command.Command;
-import components.Parser;
-import components.Storage;
-import components.Ui;
 import exceptions.LightException;
 import task.TaskList;
 
 import java.util.NoSuchElementException;
 
 /**
- * Represents the main class of the Light program.
+ * Represents the main class of the components.Light program.
  */
 public class Light {
     private Storage storage;
@@ -16,7 +15,7 @@ public class Light {
     private Ui ui;
 
     /**
-     * Creates a Light object.
+     * Creates a components.Light object.
      *
      * @param filePath The file path of the storage file.
      */
@@ -27,7 +26,7 @@ public class Light {
     }
 
     /**
-     * The main method of the Light program.
+     * The main method of the components.Light program.
      *
      * @param args The command line arguments.
      */
@@ -54,6 +53,16 @@ public class Light {
                 ui.closeUI();
                 return;
             }
+        }
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String response = c.execute(tasks, ui, storage);
+            return response;
+        } catch (LightException e) {
+            return e.toString();
         }
     }
 }

@@ -25,7 +25,7 @@ public class ListCommand extends Command {
      * @throws LightException if an error occurs during execution
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
-        ui.showMessage(TaskList.arrayToNumberedString(tasks));
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws LightException {
+        return ui.beautifyMessage(TaskList.arrayToNumberedString(tasks));
     }
 }

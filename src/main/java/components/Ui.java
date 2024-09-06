@@ -20,17 +20,16 @@ public class Ui {
     /**
      * Displays a line break.
      */
-    private static void lineBreak() {
+    private static String lineBreak() {
         String lineBreak = "____________________________________________________________\n";
-        System.out.println(lineBreak);
+        return lineBreak;
     }
 
     /**
      * Displays a welcome message.
      */
-    public void welcome() {
-        System.out.println("Hello! I'm Light\nWhat can I do for you?");
-        lineBreak();
+    public String welcome() {
+        return "Hello! I'm Light\nWhat can I do for you?" + lineBreak();
     }
 
     /**
@@ -38,8 +37,8 @@ public class Ui {
      *
      * @param e The exception containing the error message to be displayed.
      */
-    public void showError(LightException e) {
-        System.out.println(e.toString());
+    public String showError(LightException e) {
+        return e.toString();
     }
 
     /**
@@ -47,10 +46,8 @@ public class Ui {
      *
      * @param message The message to be displayed.
      */
-    public void showMessage(String message) {
-        lineBreak();
-        System.out.println(message);
-        lineBreak();
+    public String beautifyMessage(String message) {
+        return message;
     }
 
     /**

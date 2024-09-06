@@ -19,7 +19,7 @@ abstract public class Command {
      * @param storage the storage
      * @throws LightException if an error occurs during execution
      */
-    abstract public void execute(TaskList tasks, Ui ui, Storage storage) throws LightException;
+    abstract public String execute(TaskList tasks, Ui ui, Storage storage) throws LightException;
 
     /**
      * Returns true if the command is an exit command.
