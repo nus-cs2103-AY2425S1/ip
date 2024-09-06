@@ -3,6 +3,7 @@ package meerkatpack;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class Parser {
 
@@ -138,9 +139,9 @@ public class Parser {
             } catch (IOException e) {
                 ui.printErrorWritingFileMessage();
             }
-
+        }
         // mark item as not done
-        } else if (strArray.length == 2 && strArray[0].equals("unmark")) {
+        else if (strArray.length == 2 && strArray[0].equals("unmark")) {
             try {
                 int taskNum = Integer.parseInt(strArray[1]);
                 taskList.markTaskAsUndone(taskNum);
@@ -149,9 +150,9 @@ public class Parser {
             } catch (IOException e) {
                 ui.printErrorWritingFileMessage();
             }
-
+        }
         // delete task
-        } else if (strArray.length == 2 && strArray[0].equals("delete")) {
+        else if (strArray.length == 2 && strArray[0].equals("delete")) {
             try {
                 int taskNum = Integer.parseInt(strArray[1]);
                 taskList.deleteTask(taskNum);
@@ -160,6 +161,12 @@ public class Parser {
             } catch (IOException e) {
                 ui.printErrorWritingFileMessage();
             }
+        }
+
+        //find task
+        else if (strArray.length == 2 && strArray[0].equals("find")) {
+            List<Task> matchingTaskList = taskList.findMatchingTasks(strArray[1]);
+            ui.printMatchingTasks(matchingTaskList);
         }
 
         // invalid input

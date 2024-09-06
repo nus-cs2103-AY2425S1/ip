@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private LocalDateTime duedate;
-    public Deadline(String name, LocalDateTime duedate) {
+    public Deadline(String name, LocalDateTime dueDate) {
         super(name);
-        this.duedate = duedate;
+        this.duedate = dueDate;
     }
     @Override
     public String toString() {

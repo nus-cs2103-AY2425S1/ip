@@ -1,5 +1,7 @@
 package meerkatpack;
 
+import java.util.List;
+
 public class Ui {
 
     private String LINES = "____________________________________________________________";
@@ -79,4 +81,12 @@ public class Ui {
         System.out.println(LINES + "\nerror in writing to file\n" + LINES);
     }
 
+    public void printMatchingTasks(List<Task> listOfTasks) {
+        System.out.println(LINES);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 1; i < (listOfTasks.size() + 1); i++) {
+            System.out.println(i + "." + listOfTasks.get(i-1).toString());
+        }
+        System.out.println(LINES);
+    }
 }

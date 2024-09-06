@@ -158,4 +158,14 @@ public class TaskList {
             listOfTasks.get(size - 1).markAsIncomplete();
         }
     }
+
+    public List<Task> findMatchingTasks(String name) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : listOfTasks) {
+            if (task.getName().contains(name)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }
