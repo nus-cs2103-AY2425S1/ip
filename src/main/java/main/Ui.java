@@ -88,6 +88,27 @@ public class Ui {
         Ui.insertLine();
     }
 
+    public static void showKeywordTasks(TaskList tasks, String keyword) {
+        Ui.insertLine();
+        System.out.println("Here are the matching tasks in your list: ");
+        boolean notFound = true;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            String[] words = t.getDescription().split(" ");
+            for (String word : words) {
+                if (word.equals(keyword)) {
+                    System.out.println(t);
+                    notFound = false;
+                    break;
+                }
+            }
+        }
+        if (notFound) {
+            System.out.println("Oops! Keyword not found!");
+        }
+        Ui.insertLine();
+    }
+
     public void showLoadingError(String message) {
         System.out.println("LOADING ERROR: " + message);
     }

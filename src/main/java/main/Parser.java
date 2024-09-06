@@ -79,6 +79,8 @@ public class Parser {
                 return new EventCommand(description, from, to);
             } else if (input.startsWith("delete")) {
                 return new DeleteCommand(input);
+            } else if (input.startsWith("find")) {
+                return new FindCommand(input);
             } else {
                 throw new UnknownCommandException("Unknown command.");
             }
