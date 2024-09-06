@@ -1,5 +1,7 @@
 package sora.GUI;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import sora.Sora;
 
 /**
@@ -50,6 +53,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, soraImage)
         );
         userInput.clear();
+
+        if (input.trim().equalsIgnoreCase("bye")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
+            delay.setOnFinished(e -> Platform.exit());
+            delay.play();
+        }
     }
 
     protected void greetUser() {
