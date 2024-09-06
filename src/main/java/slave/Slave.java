@@ -9,9 +9,15 @@ public class Slave {
     private static final LinkedList<Task> list = new LinkedList<>();
     private Storage storage;
     private Ui ui;
+    private Parser parser;
+    public static String SAVE_FILE_LOCATION = "./src/main/data/savefile.txt";
 
     /**
+     * <<<<<<< HEAD
      * creates a new Slave object which will save user interactions to
+     * =======
+     * Creates a new Slave object which will save user interactions to
+     * >>>>>>> Level-10
      * the specified file path
      *
      * @param filePath is the address of the save file
@@ -19,28 +25,31 @@ public class Slave {
     public Slave(String filePath) {
         storage = new Storage(list, filePath);
         ui = new Ui(list);
+        parser = new Parser(list);
         storage.load();
     }
 
     /**
-     * runs the program
+     * Returns Slave's response to the user's input.
+     *
+     * @param input is the user's input.
+     * @return Slave's response to the user's input.
      */
-    public void run() {
-        ui.welcome();
-        boolean hasMoreInputs;
-        do {
-            Pair<Boolean, Boolean> result = ui.getUserInputs();
-            if (result.getSecond()) {
-                storage.save();
-            }
-            hasMoreInputs = result.getFirst();
-        } while (hasMoreInputs);
-        ui.goodbye();
+    public String[] getResponse(String input) {
+        return parser.handleUserInput(input);
     }
 
-    public static void main(String[] args) {
-        String filePath = "./src/main/data/savefile.txt";
-        Slave slave = new Slave(filePath);
-        slave.run();
+    /**
+     * Saves any changes made to the list into the save file.
+     */
+    public void save() {
+        storage.save();
+    }
+
+    /**
+     * Loads all tasks from the save file into the list.
+     */
+    public void load() {
+        storage.load();
     }
 }
