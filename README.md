@@ -26,12 +26,12 @@ Shrimp is a fast and lightweight task manager designed to keep you organized wit
 3. Start adding tasks by typing commands like `add`, `mark`, `delete`, etc.
 4. Manage your tasks and let Shrimp take care of the details!
 
-## What's Next?
-- [x] **Add support for Deadline, Event and Todo**(https://github.com/RadieonAjax/ip/commit/658048f7d891096bbb656264484a1de87ffd6ec2)
-- [x] **Add support for deletion** (https://github.com/RadieonAjax/ip/commit/0a09b7289d7ff530eeb83ed5ecb5b4586454ae56)
-- [x] **Task persistence across sessions** (https://github.com/RadieonAjax/ip/commit/21151419eb56e0ccad72fcaf52cfe2f9fa317137)
-- [x] **Graphical User Interface for easier access** (https://github.com/RadieonAjax/ip/commit/9406fc7b5462360946aa23a5e5d2a7fc1e183b45)
-- [ ] **More to come...**
+## Feature Roadmap:
+- **Add support for Deadline, Event and Todo** 
+- **Add support for `delete` and `clear`**
+- **Task persistence across sessions** 
+- **Graphical User Interface for easier access**
+- **More to come...**
 
 ## Setting up in Intellij
 
