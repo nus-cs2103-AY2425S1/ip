@@ -1,0 +1,10 @@
+todo CS2103T Individual Project
+deadline CS2103T Quiz /by Sunday
+event Put a mentos in coke /from Mon 2pm /to 4pm
+mark 1
+list
+mark 2
+list
+unmark 1
+list
+bye
