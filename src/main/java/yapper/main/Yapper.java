@@ -17,18 +17,18 @@ import yapper.task.TaskList;
 import yapper.task.Todo;
 import yapper.ui.Ui;
 
-    /**
-     * The Yapper class serves as the main entry point for the application.
-     * It manages user input, processes commands, and interacts with the task list,
-     * user interface, and storage components to provide the full functionality
-     * of the Yapper task management application.
-     */
+/**
+ * The Yapper class serves as the main entry point for the application.
+ * It manages user input, processes commands, and interacts with the task list,
+ * user interface, and storage components to provide the full functionality
+ * of the Yapper task management application.
+ */
 public class Yapper {
     private final Storage storage;
-    private TaskList tasks;
     private final Ui ui;
+    private TaskList tasks;
 
-    
+
     public Yapper(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -38,6 +38,10 @@ public class Yapper {
             ui.printLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    public static void main(String[] args) {
+        new Yapper("data/tasks.txt").run();
     }
 
     /**
@@ -178,14 +182,13 @@ public class Yapper {
         }
         String keyword = parts[1];
         List<Task> matchingTasks = tasks.findTasks(keyword);
-        
+
         if (matchingTasks.isEmpty()) {
             ui.showNoMatchingTasksMessage();
         } else {
             ui.showMatchingTasks(matchingTasks);
         }
     }
-    public static void main(String[] args) {
-        new Yapper("data/tasks.txt").run();
-    }
 }
+
+//write a readme

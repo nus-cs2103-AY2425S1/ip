@@ -3,6 +3,7 @@ package yapper.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import yapper.exception.YapperException;
 
 /**
@@ -10,13 +11,13 @@ import yapper.exception.YapperException;
  * this class stores the date and time by which the task should be completed.
  */
 public class Deadline extends Task {
-    private LocalDateTime by;
+    private final LocalDateTime by;
 
     /**
      * Constructs a Deadline task with the specified description and deadline.
-     * 
+     *
      * @param description The description of the task.
-     * @param by The deadline of the task in the format yyyy-MM-dd HHmm.
+     * @param by          The deadline of the task in the format yyyy-MM-dd HHmm.
      * @throws YapperException If the date and time format is incorrect.
      */
     public Deadline(String description, String by) throws YapperException {
@@ -30,17 +31,18 @@ public class Deadline extends Task {
 
     /**
      * Returns the string representation of the task for saving to a file.
-     * 
+     *
      * @return A string in the format "D | status | description | deadline".
      */
     @Override
     public String toSaveFormat() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
+            + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
      * Returns the string representation of the task for display.
-     * 
+     *
      * @return A string in the format "[D][status] description (by: deadline)".
      */
     @Override
