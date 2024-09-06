@@ -10,6 +10,9 @@ public class GreetingCommand extends ChatCommand {
         greet(displayArea);
     }
 
+    /**
+     * Executes the greeting command.
+     */
     public static void greet(TextArea displayArea) {
         displayArea.appendText("Hello! Welcome to SigmaBot. How can I assist you today?\n");
     }
