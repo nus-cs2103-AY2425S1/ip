@@ -26,6 +26,7 @@ public class Main extends Application {
             stage.setMinHeight(300);
             stage.setMinWidth(500);
             fxmlLoader.<MainWindow>getController().setBocchiWrapper(bocchiWrapper);  // inject the Duke instance
+            bocchiWrapper.setStage(stage);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
