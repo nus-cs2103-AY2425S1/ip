@@ -1,10 +1,10 @@
-package Bob.Command;
+package bob.Command;
 
-import Bob.Exception.BobException;
-import Bob.Storage.Storage;
-import Bob.Tasks.Deadline;
-import Bob.Tasks.Task;
-import Bob.Ui.Ui;
+import bob.Exception.BobException;
+import bob.Storage.Storage;
+import bob.Tasks.Deadline;
+import bob.Tasks.Task;
+import bob.Ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +19,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage, Ui ui) throws BobException {
+    public String execute(ArrayList<Task> tasks, Storage storage, Ui ui) throws BobException {
         if (taskDescription.isEmpty()) {
             throw new BobException("Missing deadline description :(");
         }
@@ -34,7 +34,7 @@ public class DeadlineCommand extends Command {
             Task deadline = new Deadline(dlParts[0], deadlineDateTime);
             tasks.add(deadline);
             storage.save(tasks);
-            ui.showAddedTask(deadline, tasks.size());
+            return ui.showAddedTask(deadline, tasks.size());
         } catch (DateTimeParseException e) {
             throw new BobException("Invalid date format! Please use dd/MM/yyyy HHmm :(");
         }

@@ -1,8 +1,8 @@
-package Bob.Command;
+package bob.Command;
 
-import Bob.Storage.Storage;
-import Bob.Tasks.Task;
-import Bob.Ui.Ui;
+import bob.Storage.Storage;
+import bob.Tasks.Task;
+import bob.Ui.Ui;
 
 import java.util.ArrayList;
 
@@ -10,8 +10,9 @@ import java.util.ArrayList;
 public class ExitCommand extends Command {
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage, Ui ui) {
-        ui.showGoodbye();
+    public String execute(ArrayList<Task> tasks, Storage storage, Ui ui) {
+
+        return ui.showGoodbye();
     }
 
 }

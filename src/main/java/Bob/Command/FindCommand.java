@@ -1,15 +1,14 @@
-package Bob.Command;
+package bob.Command;
 
-import Bob.Exception.BobException;
-import Bob.Tasks.Task;
-import Bob.Storage.Storage;
-import Bob.Ui.Ui;
+import bob.Exception.BobException;
+import bob.Tasks.Task;
+import bob.Storage.Storage;
+import bob.Ui.Ui;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors; // collectors
 
-public class FindCommand implements Command {
+public class FindCommand extends Command {
     private final String keyword;
 
     public FindCommand(String keyword) {
@@ -17,15 +16,15 @@ public class FindCommand implements Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage, Ui ui) throws BobException {
+    public String execute(ArrayList<Task> tasks, Storage storage, Ui ui) throws BobException {
         ArrayList<Task> matchingTasks = tasks.stream()
                 .filter(task -> task.getDescription().toLowerCase().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new)); // () -> new ArrayList<>()
 
         if (matchingTasks.isEmpty()) {
-            ui.showError("I can't find any task with matching keyword... Try again");
+            return ui.showError("Bob can't find any task with matching keyword... Try again");
         } else {
-            ui.showMatchingTasks(matchingTasks);
+            return ui.showMatchingTasks(matchingTasks);
         }
     }
 }

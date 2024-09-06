@@ -1,9 +1,9 @@
-package Bob.Command;
+package bob.Command;
 
-import Bob.Exception.BobException;
-import Bob.Storage.Storage;
-import Bob.Tasks.Task;
-import Bob.Ui.Ui;
+import bob.Exception.BobException;
+import bob.Storage.Storage;
+import bob.Tasks.Task;
+import bob.Ui.Ui;
 
 import java.util.ArrayList;
 
@@ -16,11 +16,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage, Ui ui) throws BobException {
+    public String execute(ArrayList<Task> tasks, Storage storage, Ui ui) throws BobException {
         if (taskIndexDelete < tasks.size() && taskIndexDelete >= 0) {
             Task removedTask = tasks.remove(taskIndexDelete);
             storage.save(tasks);
-            ui.showRemovedTask(removedTask, tasks.size());
+            return ui.showRemovedTask(removedTask, tasks.size());
         } else {
             throw new BobException("Invalid index :(");
         }

@@ -1,9 +1,9 @@
-package Bob.Command;
+package bob.Command;
 
-import Bob.Exception.BobException;
-import Bob.Storage.Storage;
-import Bob.Ui.Ui;
-import Bob.Tasks.Task;
+import bob.Exception.BobException;
+import bob.Storage.Storage;
+import bob.Ui.Ui;
+import bob.Tasks.Task;
 import java.util.ArrayList;
 
 public class UnmarkCommand extends Command {
@@ -14,11 +14,11 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage, Ui ui) throws BobException {
+    public String execute(ArrayList<Task> tasks, Storage storage, Ui ui) throws BobException {
         if (taskIndexUnmark < tasks.size() && taskIndexUnmark >= 0) {
             tasks.get(taskIndexUnmark).unmark();
             storage.save(tasks);
-            ui.showTaskUnmarked(tasks.get(taskIndexUnmark));
+            return ui.showTaskUnmarked(tasks.get(taskIndexUnmark));
         } else {
             throw new BobException("Invalid index :(");
         }
