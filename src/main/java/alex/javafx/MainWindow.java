@@ -1,8 +1,10 @@
 package alex.javafx;
 
 import alex.Alex;
+import alex.Pair;
 import alex.Ui;
-import alex.task.Pair;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -10,8 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 /**
- * Controller for the main GUI.
+ * Controller for the main GUI of the chatbot application.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -30,13 +34,21 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image alexImage = new Image(this.getClass().getResourceAsStream("/images/Alex.png"));
 
+    /**
+     * Initializes the MainWindow by binding the scroll pane's vertical value to the height of the dialog container
+     * and setting the prompt text for the user input field.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         this.userInput.setPromptText("Your wish is my command");
     }
 
-    /** Injects the Alex instance*/
+    /**
+     * Sets the Alex instance for the controller and initializes the dialog container with a welcome message from Alex.
+     *
+     * @param d The Alex instance to be used by the controller.
+     */
     public void setAlex(Alex d) {
         alex = d;
         dialogContainer.getChildren().addAll(
@@ -45,8 +57,9 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by creating and displaying two dialog boxes: one for the user's input and one for Alex's
+     * response. Clears the user input field after processing. If the command type indicates an exit command, a delay
+     * is introduced before the application exits.
      */
     @FXML
     private void handleUserInput() {
@@ -59,5 +72,14 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getAlexDialog(response, alexImage, commandType)
         );
         userInput.clear();
+
+        if (commandType.equals("ExitCommand")) {
+            // Create a PauseTransition to delay the exit
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> Platform.exit()); // Exit after the delay
+
+            delay.play(); // Start the delay
+        }
     }
 }
+

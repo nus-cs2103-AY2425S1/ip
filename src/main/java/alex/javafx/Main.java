@@ -3,14 +3,10 @@ package alex.javafx;
 import java.io.IOException;
 
 import alex.Alex;
-import alex.Ui;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -29,7 +25,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setAlex(alex);  // inject the Alex instance
+            fxmlLoader.<MainWindow>getController().setAlex(alex); // inject the Alex instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

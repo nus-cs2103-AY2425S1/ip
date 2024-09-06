@@ -1,8 +1,8 @@
 package alex.command;
 
-import alex.TaskList;
-import alex.Ui;
 import alex.Storage;
+import alex.Ui;
+import alex.task.TaskList;
 
 /**
  * Represents the command by user to list out all the tasks present in the Tasklist.

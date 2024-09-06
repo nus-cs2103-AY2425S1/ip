@@ -1,8 +1,8 @@
 package alex.command;
 
-import alex.TaskList;
-import alex.Ui;
 import alex.Storage;
+import alex.Ui;
+import alex.task.TaskList;
 
 /**
  * Represents the command by user to exit the chatbot.
@@ -12,11 +12,12 @@ public class ExitCommand extends Command {
     /**
      * {@inheritDoc}
      *
-     * Displays the goodbye message to user.
+     * Displays the goodbye message to the user.
      *
-     * @param tasks Tasklist that holds the list of Tasks.
-     * @param ui Ui object that displays messages to user based on action taken by chatbot.
-     * @param storage Storage object that saves changes to file.
+     * @param tasks TaskList that holds the list of Tasks.
+     * @param ui Ui object that displays messages to the user based on the action taken by the chatbot.
+     * @param storage Storage object that saves changes to the file.
+     * @return A goodbye message.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
@@ -26,7 +27,7 @@ public class ExitCommand extends Command {
     /**
      * {@inheritDoc}
      *
-     * @return true as user wishes to exit the chatbot.
+     * @return true as the user wishes to exit the chatbot.
      */
     @Override
     public boolean isExit() {
@@ -35,6 +36,7 @@ public class ExitCommand extends Command {
 
     @Override
     public String getCommandType() {
-        return "";
+        return "ExitCommand";
     }
 }
+

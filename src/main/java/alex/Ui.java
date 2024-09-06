@@ -1,8 +1,7 @@
 package alex;
 
-import java.util.Scanner;
-
 import alex.task.Task;
+import alex.task.TaskList;
 
 /**
  * Deals with interactions with the user.

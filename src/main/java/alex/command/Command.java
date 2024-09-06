@@ -2,32 +2,41 @@ package alex.command;
 
 import java.io.IOException;
 
-
-import alex.TaskList;
-import alex.Ui;
-import alex.Storage;
 import alex.AlexException;
+import alex.Storage;
+import alex.Ui;
+import alex.task.TaskList;
 
 /**
  * Encapsulates a user command to be executed.
  */
 public abstract class Command {
     /**
-     * Executes user command.
+     * Executes the user command.
      * Takes different forms based on the type of command.
      *
-     * @param tasks Tasklist that holds the list of Tasks.
-     * @param ui Ui object that displays messages to user based on action taken by chatbot.
-     * @param storage Storage object that saves changes to file.
-     * @throws AlexException If there are issues that occur when trying to execute user command.
-     * @throws IOException If there are issues when trying to save changes to file.
+     * @param tasks TaskList that holds the list of Tasks.
+     * @param ui Ui object that displays messages to the user based on the action taken by the chatbot.
+     * @param storage Storage object that saves changes to the file.
+     * @return A string representing the result of the command execution.
+     * @throws AlexException If there are issues that occur when trying to execute the user command.
+     * @throws IOException If there are issues when trying to save changes to the file.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException;
 
     /**
      * Returns a boolean value that tells the chatbot whether to terminate its operations or not.
+     *
+     * @return True if the chatbot should terminate operations, otherwise false.
      */
     public abstract boolean isExit();
 
+    /**
+     * Returns the type of the command.
+     *
+     * @return A string representing the command type.
+     */
     public abstract String getCommandType();
 }
+
+
