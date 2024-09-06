@@ -8,9 +8,22 @@ import vinegar.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Marks a task in the task list as completed.
+ * <p>
+ * The MarkCommand class is responsible for marking a task as done based on the task number provided by the user.
+ * It validates the input, ensures the task number is within bounds, marks the task as done,
+ * and then saves the updated list to storage.
+ */
 public class MarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a new MarkCommand with the specified input parts.
+     *
+     * @param inputParts The command input parts, where inputParts[1] contains the task number.
+     * @throws VinegarException If the input is invalid or the task number is not a valid integer.
+     */
     public MarkCommand(String[] inputParts) throws VinegarException {
         Validator.validateParts(inputParts, 2, "Please specify which task to mark.");
         try {
@@ -20,6 +33,15 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Executes the mark command by marking the task as done and updating the task list.
+     *
+     * @param tasks   The TaskList containing all tasks.
+     * @param ui      The Ui for displaying messages to the user.
+     * @param storage The Storage for saving the updated task list.
+     * @throws VinegarException If the task number is invalid.
+     * @throws IOException      If an error occurs while saving the task list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws VinegarException, IOException {
         if (index < 0 || index >= tasks.size()) {

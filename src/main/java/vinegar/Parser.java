@@ -2,7 +2,21 @@ package vinegar;
 
 import vinegar.command.*;
 
+/**
+ * Parses user commands and returns the appropriate Command object.
+ * <p>
+ * This class handles converting raw user input into actionable commands, ensuring that
+ * the correct Command object is returned based on the user's input.
+ */
 public class Parser {
+
+    /**
+     * Parses the user's full command and returns the corresponding Command object.
+     *
+     * @param fullCommand The complete input from the user.
+     * @return The Command object corresponding to the user's input.
+     * @throws VinegarException If the command is invalid or unrecognized.
+     */
     public static Command parse(String fullCommand) throws VinegarException {
         String[] inputParts = fullCommand.split(" ", 2);
         String instruction = inputParts[0].toLowerCase();

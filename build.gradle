@@ -33,6 +33,7 @@ application {
 
 shadowJar {
     archiveBaseName = "vinegar"
+    archiveFileName = "vinegar.jar"
     archiveClassifier = null
     archiveVersion = "1.0"
 }

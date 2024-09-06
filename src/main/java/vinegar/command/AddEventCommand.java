@@ -13,11 +13,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles the addition of a new event task.
+ * <p>
+ * This command allows the user to specify the description of an event task along with its start time (/from)
+ * and end time (/to) using the format yyyy-MM-dd HH:mm. The event is then added to the task list.
+ */
 public class AddEventCommand extends Command {
     private String description;
     private LocalDateTime from;
     private LocalDateTime to;
 
+    /**
+     * Constructs an AddEventCommand with the user input.
+     *
+     * @param inputParts The user's input split into parts containing the description, from time, and to time.
+     * @throws VinegarException If the input is invalid or dates are not in the correct format.
+     */
     public AddEventCommand(String[] inputParts) throws VinegarException {
         Validator.validateParts(inputParts, 2, "Please specify the description and event time.");
         String[] eventParts = inputParts[1].split(" /from | /to ");
@@ -42,6 +54,15 @@ public class AddEventCommand extends Command {
         this.description = eventParts[0];
     }
 
+    /**
+     * Executes the AddEventCommand, adding the event to the task list.
+     *
+     * @param tasks    The task list where the event will be added.
+     * @param ui       The UI component to display feedback to the user.
+     * @param storage  The storage component to save the updated task list.
+     * @throws VinegarException If there is an issue with task execution.
+     * @throws IOException      If there is an I/O error during file operations.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws VinegarException, IOException {
         Task eventTask = new Event(description, from, to);
