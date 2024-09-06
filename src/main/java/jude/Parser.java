@@ -19,8 +19,7 @@ import jude.task.Todo;
  * If the input is not valid, it throws JudeException.
  */
 public class Parser {
-    private String command;
-    private String[] descriptions;
+
 
     /** Identifies the Command from the user input and returns the identified command.
      * throws a JudeException if the command is not valid.
@@ -29,8 +28,11 @@ public class Parser {
      * @return Command from the user.
      * @throws JudeException if the command is not valid, containing the possible reason for invalidity.
      */
-    public Command parse(String input) throws JudeException {
+    public static Command parse(String input) throws JudeException {
         int index;
+
+        String command;
+        String[] descriptions;
 
         // Handle null input.
         if (input == null) {
@@ -39,7 +41,7 @@ public class Parser {
 
         // Perform split of command, and a description, if present.
         String[] split = input.split(" ", 2);
-        this.command = split[0];
+        command = split[0];
 
         try {
             switch (command) {
