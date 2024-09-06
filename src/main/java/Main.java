@@ -1,13 +1,14 @@
+import diomon.Commands;
+import diomon.Storage;
+import diomon.TaskList;
+
 import java.util.Scanner;
-import Diomon.*;
 
 /**
  * The {@code Main} class is the entry point for the Diomon application, which manages a task list.
  * It handles user input, interacts with the storage to save and load tasks, and executes commands.
  */
 public class Main {
-    private Storage storage;
-    private Commands commands;
 
     /**
      * Prints a greeting message when the application starts.
@@ -23,8 +24,8 @@ public class Main {
      */
     private void run() {
         // Initialise instance
-        storage = new Storage("data/data.txt");
-        commands = new Commands();
+        Storage storage = new Storage("data/data.txt");
+        Commands commands = new Commands();
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList(storage.load());
         greeting();
@@ -33,7 +34,7 @@ public class Main {
             System.out.println("________________________________________________________________");
             commands.run(input,taskList);
             System.out.println("________________________________________________________________");
-            if (commands.isExit()) {
+            if (commands.isCanExit()) {
                 storage.save(taskList.toStorageString());
                 break;
             }

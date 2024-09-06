@@ -1,8 +1,6 @@
-package Diomon;
+package diomon;
 
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -24,7 +22,7 @@ public class CommandTest {
     public void markTest1() {
         TaskList taskList = new TaskList(new Task[] {new Todo("weee")});
         Commands c = new Commands();
-        c.mark(taskList, "1");
+        c.runMark(taskList, "1");
         assertEquals(new Todo(true, "weee"), taskList.get(0));
     }
 
@@ -32,7 +30,7 @@ public class CommandTest {
     public void markTest2() {
         TaskList taskList = new TaskList(new Task[] {new Todo(false, "weee")});
         Commands c = new Commands();
-        c.mark(taskList, "s");
+        c.runMark(taskList, "s");
         assertEquals(new Todo(false, "weee"), taskList.get(0));
     }
 
@@ -40,7 +38,7 @@ public class CommandTest {
     public void unmarkTest1() {
         TaskList taskList = new TaskList(new Task[] {new Todo(true, "weee")});
         Commands c = new Commands();
-        c.unmark(taskList, "1");
+        c.runUnmark(taskList, "1");
         assertEquals(new Todo(false, "weee"), taskList.get(0));
     }
 
@@ -48,7 +46,7 @@ public class CommandTest {
     public void unmarkTest2() {
         TaskList taskList = new TaskList(new Task[] {new Todo(true, "weee")});
         Commands c = new Commands();
-        c.unmark(taskList, "s");
+        c.runUnmark(taskList, "s");
         assertEquals(new Todo(true, "weee"), taskList.get(0));
     }
 }

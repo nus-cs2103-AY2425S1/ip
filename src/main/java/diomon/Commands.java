@@ -1,4 +1,4 @@
-package Diomon;
+package diomon;
 
 /**
  * The {@code Commands} class represents a collection of commands that can be executed
@@ -7,7 +7,7 @@ package Diomon;
  * support for handling user inputs and running the appropriate command based on the input.
  */
 public class Commands {
-    private boolean exit;
+    private boolean canExit;
     public enum Types {
         TODO,
         DEADLINE,
@@ -24,7 +24,7 @@ public class Commands {
      * Initializes a new {@code Commands} object with the exit flag set to false.
      */
     public Commands() {
-        this.exit = false;
+        this.canExit = false;
     }
 
     /**
@@ -32,8 +32,8 @@ public class Commands {
      *
      * @return {@code true} if the exit flag is set, {@code false} otherwise.
      */
-    public boolean isExit() {
-        return exit;
+    public boolean isCanExit() {
+        return canExit;
     }
 
     /**
@@ -63,37 +63,37 @@ public class Commands {
         if (input == null) {
             switch (t) {
             case LIST:
-                list(taskList);
-                return;
+                runList(taskList);
+                break;
             case BYE:
-                bye();
-                return;
+                runBye();
+                break;
             case HELP:
-                help();
-                return;
+                runHelp();
+                break;
             default:
                 throw new RuntimeException("Missing argument/ Function not implemented");
             }
         } else {
             switch (t) {
             case TODO:
-                todo(taskList, input);
-                return;
+                runTodo(taskList, input);
+                break;
             case DEADLINE:
-                deadline(taskList, input);
-                return;
+                runDeadline(taskList, input);
+                break;
             case EVENT:
-                event(taskList, input);
-                return;
+                runEvent(taskList, input);
+                break;
             case MARK:
-                mark(taskList, input);
-                return;
+                runMark(taskList, input);
+                break;
             case UNMARK:
-                unmark(taskList, input);
-                return;
+                runUnmark(taskList, input);
+                break;
             case DELETE:
-                delete(taskList, input);
-                return;
+                runDelete(taskList, input);
+                break;
             default:
                 throw new RuntimeException("Unknown argument/ Function not implemented yet");
                 }
@@ -121,13 +121,15 @@ public class Commands {
 
     //Command Logic
 
+
     /**
      * Adds a new "todo" task to the task list.
      *
      * @param taskList The task list to add the task to.
      * @param input The task description.
      */
-    public void todo(TaskList taskList, String input) {
+
+    public void runTodo(TaskList taskList, String input) {
         Task newTask = Task.of(input, Task.TaskType.TODO);
         taskList.add(newTask);
         System.out.printf("New Diomon.Task: [%s] has been added.\n", newTask);
@@ -140,7 +142,7 @@ public class Commands {
      * @param taskList The task list to add the task to.
      * @param input The task description and deadline.
      */
-    public void deadline(TaskList taskList, String input) {
+    public void runDeadline(TaskList taskList, String input) {
         try {
             Task newTask = Task.of(input, Task.TaskType.DEADLINE);
             taskList.add(newTask);
@@ -158,7 +160,7 @@ public class Commands {
      * @param taskList The task list to add the task to.
      * @param input The event description.
      */
-    public void event(TaskList taskList, String input) {
+    public void runEvent(TaskList taskList, String input) {
         try {
             Task newTask = Task.of(input, Task.TaskType.EVENT);
             taskList.add(newTask);
@@ -174,7 +176,7 @@ public class Commands {
      *
      * @param taskList The task list to display.
      */
-    public void list(TaskList taskList) {
+    public void runList(TaskList taskList) {
         System.out.println("Diomon.TaskList:");
         System.out.print(taskList);
     }
@@ -185,7 +187,7 @@ public class Commands {
      * @param taskList The task list to operate on.
      * @param input The task index to mark.
      */
-    public void mark(TaskList taskList, String input) {
+    public void runMark(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
             System.out.printf("Diomon.Task %d: [%s] has been marked", i, taskList.get(i - 1));
@@ -203,7 +205,7 @@ public class Commands {
      * @param taskList The task list to operate on.
      * @param input The task index to unmark.
      */
-    public void unmark(TaskList taskList, String input) {
+    public void runUnmark(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
             System.out.printf("Diomon.Task %d: [%s] has been unmarked\n", i, taskList.get(i - 1));
@@ -218,16 +220,16 @@ public class Commands {
     /**
      * Exits the program.
      */
-    public void bye() {
+    public void runBye() {
         String byeMessage = "Bye. Hope to see you again soon!";
         System.out.println(byeMessage);
-        this.exit = true;
+        this.canExit = true;
     }
 
     /**
      * Displays help information.
      */
-    public void help() {
+    public void runHelp() {
         String helpMessage = "Diomon.Commands:\n-TODO\n-DEADLINE\n-EVENT\n-LIST\n-MARK\n-UNMARK\n-BYE\n-HELP";
         System.out.print(helpMessage);
     }
@@ -238,7 +240,7 @@ public class Commands {
      * @param taskList The task list to operate on.
      * @param input The task index to delete.
      */
-    public void delete(TaskList taskList, String input) {
+    public void runDelete(TaskList taskList, String input) {
         try {
             int i = Integer.parseInt(input);
             System.out.printf("Diomon.Task %d: [%s] has been deleted", i, taskList.get(i - 1));

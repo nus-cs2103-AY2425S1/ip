@@ -1,4 +1,4 @@
-package Diomon;
+package diomon;
 
 /**
  * The {@code Todo} class represents a task that has no specific date or deadline.
