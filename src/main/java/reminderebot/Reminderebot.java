@@ -75,4 +75,11 @@ public class Reminderebot {
             }
         }
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Reminderebot heard: " + input;
+    }
 }
