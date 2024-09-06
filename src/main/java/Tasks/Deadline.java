@@ -1,3 +1,6 @@
+package Tasks;
+
+import Exceptions.KieTwoForOneException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -31,7 +34,7 @@ public class Deadline extends Task {
         return String.format("[D] %s (by: %s %s)", this.task.unmarkTask(), this.getDate(), this.deadlineTime);
     }
     @Override
-    public boolean compareDate(String date) throws KieTwoForOneException{
+    public boolean compareDate(String date) throws KieTwoForOneException {
         try {
             return this.deadlineDate.equals(LocalDate.parse(date));
         } catch (DateTimeParseException e) {

@@ -1,15 +1,22 @@
-public class AddCommand extends Command {
+package Commands;
 
-    private Task task;
+import Exceptions.KieTwoForOneException;
+import Storage.Storage;
+import Tasks.TaskList;
+import UI.UI;
 
-    public AddCommand(Task task) {
-        this.task = task;
+public class MarkCommand extends Command {
+
+    private int position;
+
+    public MarkCommand(int position) {
+        this.position = position;
     }
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws KieTwoForOneException {
-        tasks.addTasks(this.task);
-        ui.showAddTasks(tasks.getTaskList(), this.task);
+        String markedTask = tasks.markTask(position);
+        ui.showMarkTask(markedTask);
         try {
             storage.saveFile(tasks.getTaskList());
         } catch (KieTwoForOneException e) {

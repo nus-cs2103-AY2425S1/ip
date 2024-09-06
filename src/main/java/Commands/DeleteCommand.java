@@ -1,15 +1,23 @@
-public class UnmarkCommand extends Command {
+package Commands;
 
-    private int position;
+import Exceptions.KieTwoForOneException;
+import Storage.Storage;
+import Tasks.Task;
+import Tasks.TaskList;
+import UI.UI;
 
-    public UnmarkCommand(int position) {
+public class DeleteCommand extends Command {
+
+    int position;
+
+    public DeleteCommand(int position) {
         this.position = position;
     }
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws KieTwoForOneException {
-        String unmarkedTask = tasks.unmarkTask(this.position);
-        ui.showUnmarkTask(unmarkedTask);
+        Task deletedTask = tasks.deleteTask(this.position);
+        ui.showDeleteTask(tasks.getTaskList(), deletedTask);
         try {
             storage.saveFile(tasks.getTaskList());
         } catch (KieTwoForOneException e) {
