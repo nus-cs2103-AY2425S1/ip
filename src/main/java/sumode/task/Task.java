@@ -71,10 +71,12 @@ public class Task {
             return new Todo(item.trim());
         case DEADLINE: {
             String[] parsed = Parser.parseDeadline(item);
+            assert (parsed.length == 2);
             return new Deadline(parsed[0], parsed[1]);
         }
         case EVENT: {
             String[] parsed = Parser.parseEvent(item);
+            assert (parsed.length == 3);
             return new Event(parsed[0], parsed[1], parsed[2]);
         }
         default:
