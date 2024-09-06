@@ -1,5 +1,8 @@
 package talker.command;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import talker.Storage;
 import talker.TalkerException;
 import talker.Ui;
@@ -22,6 +25,12 @@ public class ExitCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
         storage.writeFile(list);
+        // Create a PauseTransition to wait before closing application
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(event -> {
+            Platform.exit();
+        });
+        pause.play();
         return ui.printGoodBye();
     }
 

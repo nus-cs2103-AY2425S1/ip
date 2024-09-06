@@ -1,6 +1,5 @@
 package talker;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import talker.task.Task;
