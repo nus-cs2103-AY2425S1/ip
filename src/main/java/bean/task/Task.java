@@ -7,7 +7,7 @@ package bean.task;
 public abstract class Task {
     protected String name;
     protected boolean isDone;
-    protected String icon;
+    protected String icon = " ";
 
     /**
      * Constructs a Task with the specified name and blank icon.

@@ -1,0 +1,45 @@
+.root {
+    main-color: rgb(200, 220, 255);  /* Light blue */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #a3c9ff;  /* Light blue for text fields */
+    -fx-font: 20px "Arial";
+}
+
+.button {
+    -fx-background-color: #3a77d6;  /* Medium blue for buttons */
+    -fx-font: italic bold 16px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: #1c54a3;  /* Darker blue on hover */
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #0d355f;  /* Dark blue on press */
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Keep scrollbar size the same */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #0072b2;  /* Blue for scrollbar thumb */
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
