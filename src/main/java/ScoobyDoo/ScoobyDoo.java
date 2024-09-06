@@ -20,7 +20,7 @@ public class ScoobyDoo {
     /** The name of the application. */
     private final String name = "Scooby-Doo";
     /** The list of tasks managed by the application. */
-    private TaskList taskList = new TaskList();
+    private TaskList taskList;
     /** The storage component for saving and loading tasks. */
     private final Storage storage;
     /** The UI component for handling user interface operations. */
