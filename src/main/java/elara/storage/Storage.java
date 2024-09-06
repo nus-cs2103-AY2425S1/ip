@@ -14,17 +14,30 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the storage of tasks in a file. Responsible for loading tasks from the file and saving tasks to the file.
+ */
 public class Storage {
     private final String FILE_PATH;
 
+    /**
+     * Constructs a new instance of Storage
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         FILE_PATH = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     * Parses each line in the file to create Task objects and adds them to the task list.
+     *
+     * @return A list of tasks loaded from the file. If the file does not exist, returns an empty list.
+     */
     public ArrayList<Task> load() {
         File file = new File(FILE_PATH);
         ArrayList<Task> tasks = new ArrayList<>();
-        DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; // yyyy-MM-dd'T'HH:mm format
 
         if (!file.exists()) {
             return tasks;
@@ -44,6 +57,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes the current task list to the file.
+     *
+     * @param tasks The TaskList object containing tasks to be written to the file.
+     */
     public void write(TaskList tasks) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             for (Task task : tasks.getTasks()) {
@@ -54,6 +72,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line from the file and converts it into a Task object.
+     *
+     * @param taskDetails The String array representing the task details.
+     * @return A Task object created from the parsed details.
+     * @throws IllegalArgumentException If the task type or format is invalid.
+     */
     private Task parseTask(String[] taskDetails) {
         String taskType = taskDetails[0];
         boolean isDone = taskDetails[1].trim().equals("1");

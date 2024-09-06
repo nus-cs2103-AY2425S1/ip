@@ -18,14 +18,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command that adds a task to the task list that can be executed in the Elara chatbot.
+ */
 public class AddCommand implements Command {
     private final String commandType;
-    private final String fullInput;
     private final String details;
 
+    /**
+     * Constructs an instance of the AddCommand class
+     *
+     * @param commandType String representing the type of task to be added to the task list.
+     * @param fullInput The full string inputted by the user.
+     */
     public AddCommand(String commandType, String fullInput) {
         this.commandType = commandType;
-        this.fullInput = fullInput;
         this.details = (fullInput.split(" ", 2).length > 1) ?  fullInput.split(" ", 2)[1] : null;
     }
 
