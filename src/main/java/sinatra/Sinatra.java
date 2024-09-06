@@ -88,18 +88,18 @@ public class Sinatra {
             } else if (message.equals("bye")) {
                 output.add("Bye. Hope to see you again soon!");
                 System.exit(0);
-            } else if (message.length() > 4 && message.substring(0, 4).equals("mark")) {
+            } else if (message.startsWith("mark")) {
                 Task currTask = tasks.get(Integer.parseInt(message.substring(5)) - 1);
                 currTask.setStatus(true);
                 output.add("Nice! I've marked this task as done: ");
                 output.add("  " + currTask);
 
-            } else if (message.length() > 6 && message.substring(0, 6).equals("unmark")) {
+            } else if (message.startsWith("unmark")) {
                 Task currTask = tasks.get(Integer.parseInt(message.substring(7)) - 1);
                 currTask.setStatus(false);
                 output.add("OK, I've marked this task as not done yet: ");
                 output.add("  " + currTask);
-            } else if (message.length() >= 4 && message.substring(0, 4).equals("todo")) {
+            } else if (message.startsWith("todo")) {
                 if (message.length() <= 4) {
                     throw new SinatraException("OOPS!!! The description of a event cannot be empty.");
                 }
@@ -109,7 +109,7 @@ public class Sinatra {
                 output.add("Got it. I've added this task:");
                 output.add("  " + tasks.get(tasks.size() - 1));
                 output.add("Now you have " + tasks.size() + " tasks in the list.");
-            } else if (message.length() >= 8 && message.substring(0, 8).equals("deadline")) {
+            } else if (message.startsWith("deadline")) {
                 if (message.length() <= 8) {
                     throw new SinatraException("OOPS!!! The description of a deadline cannot be empty.");
                 }
@@ -122,7 +122,7 @@ public class Sinatra {
                 output.add("Got it. I've added this task:");
                 output.add("  " + tasks.get(tasks.size() - 1));
                 output.add("Now you have " + tasks.size() + " tasks in the list.");
-            } else if (message.length() >= 5 && message.substring(0, 5).equals("event")) {
+            } else if (message.startsWith("event")) {
                 if (message.length() <= 5) {
                     throw new SinatraException("OOPS!!! The description of a event cannot be empty.");
                 }
@@ -137,7 +137,7 @@ public class Sinatra {
                 output.add("Got it. I've added this task:");
                 output.add("  " + tasks.get(tasks.size() - 1));
                 output.add("Now you have " + tasks.size() + " tasks in the list.");
-            } else if (message.length() >= 6 && message.substring(0, 6).equals("delete")) {
+            } else if (message.startsWith("delete")) {
                 Task currTask = tasks.get(Integer.parseInt(message.substring(7)) - 1);
                 tasks.remove(currTask);
                 output.add("Noted. I've removed this task:");
