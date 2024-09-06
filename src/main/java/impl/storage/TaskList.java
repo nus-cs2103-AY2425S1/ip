@@ -10,7 +10,7 @@ public class TaskList {
      * Handles all List processes by the user.
      * Works as a ArrayList under the hood.
      */
-    private List<Task> list;
+    private final List<Task> list;
 
     public TaskList() {
         list = new ArrayList<>();

@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Danny {
     Ui ui;
     Parser parser;
-    private TaskList list; // Array to keep all the Tasks
+    private final TaskList list; // Array to keep all the Tasks
 
     public Danny() {
         list = new TaskList();

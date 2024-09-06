@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class Main extends Application {
     private final Danny danny;
-    private Stage stage;
 
 
     /**
@@ -20,7 +19,7 @@ public class Main extends Application {
      */
     public Main() {
         danny = new Danny();
-        Storage loader = null;
+        Storage loader;
         try {
             loader = new Storage("src/main/java/data/tasks.txt", danny);
             System.out.println("Loading previous lists...");
@@ -43,7 +42,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            this.stage = stage;
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
