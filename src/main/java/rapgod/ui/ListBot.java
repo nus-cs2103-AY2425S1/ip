@@ -33,7 +33,7 @@ public class ListBot {
                 Initialising List Bot...
                 Special commands:
                 'LIST' -> Show full list
-                'FIND abc' -> Filters tasks with abc
+                'FIND abc, def' -> Filters tasks with abc or def
                 'MARK n' -> Marks nth task as complete
                 'UNMARK n' -> Marks nth task as incomplete
                 'DELETE n' -> Deletes the nth task
@@ -68,8 +68,8 @@ public class ListBot {
                     break;
 
                 case FIND:
-                    String keyword = CommandType.extractKeyword(input);
-                    dataManager.getTaskList().filterAndShowList(keyword);
+                    String[] keywords = CommandType.extractKeywords(input);
+                    dataManager.getTaskList().filterAndShowList(keywords);
                     break;
 
                 case MARK:
@@ -190,8 +190,9 @@ public class ListBot {
             }
         }
 
-        public static String extractKeyword(String input) {
-            return input.substring(5).trim();
+        public static String[] extractKeywords(String input) {
+            String substring = input.substring(5);
+            return substring.split(",\\s*");
         }
     }
 

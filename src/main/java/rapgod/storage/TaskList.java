@@ -47,16 +47,26 @@ public class TaskList {
     }
 
     /**
-     * Marks a task as done by its index.
+     * Filters and displays tasks from the list that contain any of the specified keywords.
+     * <p>
+     * This method iterates through the list of tasks and checks if the description of each
+     * task contains any of the provided keywords. If a match is found, the task is displayed
+     * with its index.
+     * </p>
      *
-     * @param index The index of the task to be marked as done.
+     * @param keywords An array of keywords to search for in the task descriptions.
+     *                 The method will display tasks that contain at least one of these keywords.
+     *                 This parameter can be an empty array, in which case no tasks will be displayed.
      */
-    public void filterAndShowList(String keyword) {
+    public void filterAndShowList(String ... keywords) {
         System.out.println("-----------------------------------------------");
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getDescription().contains(keyword)) {
-                System.out.printf("%d. %s\n", i + 1, list.get(i));
+            for (int j = 0; j < keywords.length; j++) {
+                if (list.get(i).getDescription().contains(keywords[j])) {
+                    System.out.printf("%d. %s\n", i + 1, list.get(i));
+                    break;
+                }
             }
         }
         System.out.println("-----------------------------------------------");
