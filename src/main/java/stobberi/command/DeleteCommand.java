@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
      * Executes the command by deleting the task from the {@link TaskList} based on the task number.
      */
     @Override
-    public void execute() {
-        taskList.delete(taskNumber);
+    public String execute() {
+        return taskList.delete(taskNumber);
     }
 }

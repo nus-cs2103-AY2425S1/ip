@@ -27,24 +27,24 @@ public class Ui {
      *
      * @param phrase The phrase to display.
      */
-    public static void displayForm(String phrase) {
-        System.out.println("_________________________________________________________\n"
-                + phrase
-                + "\n_________________________________________________________\n");
-    }
+//    public static void displayForm(String phrase) {
+//        System.out.println("_________________________________________________________\n"
+//                + phrase
+//                + "\n_________________________________________________________\n");
+//    }
 
     /**
      * Displays a greeting message to the user.
      */
-    public void greet() {
-        Ui.displayForm(HELLO_GREETING);
+    public static String greet() {
+        return HELLO_GREETING;
     }
 
     /**
      * Displays a farewell message to the user.
      */
-    public void goodbye() {
-        Ui.displayForm(GOODBYE_GREETING);
+    public static String sayGoodbye() {
+        return GOODBYE_GREETING;
     }
 
     /**

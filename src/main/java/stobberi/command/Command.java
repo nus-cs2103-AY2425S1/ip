@@ -25,7 +25,9 @@ public class Command {
      *
      * @throws StobberiException if an error occurs during command execution
      */
-    public void execute() throws StobberiException {};
+    public String execute() throws StobberiException {
+        return "";
+    };
 
     /**
      * Sets the exit flag to true, indicating that the command should terminate the application.

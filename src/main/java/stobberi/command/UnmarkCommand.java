@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
      * Executes the command by marking the specified task as incomplete in the {@link TaskList}.
      */
     @Override
-    public void execute() {
-        taskList.unmarkTask(taskNumber);
+    public String execute() {
+        return taskList.unmarkTask(taskNumber);
     }
 }

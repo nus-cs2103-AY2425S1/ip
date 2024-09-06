@@ -34,7 +34,7 @@ public class FindCommand extends Command {
      * @throws StobberiException if an error occurs during filtering.
      */
     @Override
-    public void execute() throws StobberiException {
-        taskList.filterListByWord(word);
+    public String execute() throws StobberiException {
+        return taskList.filterListByWord(word);
     }
 }
