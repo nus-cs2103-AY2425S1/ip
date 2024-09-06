@@ -10,7 +10,7 @@ import java.nio.file.Paths;
  * It ensures that task data is persisted between sessions.
  */
 public class Storage {
-    public Path path;
+    private Path path;
 
     /**
      * Constructs a {@code BottleOpener.Storage} object with the specified file path.

@@ -10,6 +10,8 @@ import java.io.IOException;
  * until the user decides to exit the application.
  */
 public class BottleOpener {
+    private static final String BOT_NAME = "BottleOpener";
+    private static final String FILE_PATH = "data/BottleOpener.txt";
 
     /**
      * The main method of the BottleOpener.BottleOpener chatbot. It sets up the user interface, loads tasks from storage,
@@ -18,10 +20,8 @@ public class BottleOpener {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        String botName = "BottleOpener";
-        String filepath = "data/BottleOpener.txt";
-        Ui ui = new Ui(botName);
-        Storage storage = new Storage(filepath);
+        Ui ui = new Ui(BOT_NAME);
+        Storage storage = new Storage(FILE_PATH);
 
         System.out.println(ui.showGreeting());
 
@@ -29,19 +29,19 @@ public class BottleOpener {
 
         Tasklist tasks = new Tasklist();
         tasks = storage.load(tasks);
-        boolean flag = false;
-        while (!flag) {
+        boolean hasExited = false;
+        while (!hasExited) {
             storage.save(tasks);
-            String inp = "";
+            String userInput = "";
             try {
-                inp = br.readLine();
+                userInput = br.readLine();
             } catch (IOException e) {
                 System.out.println("Invalid entry!\n");
             }
 
-            Parser parser = new Parser(inp, tasks, ui);
+            Parser parser = new Parser(userInput, tasks, ui);
             parser.execute();
-            flag = parser.checkExit();
+            hasExited = parser.checkExit();
         }
     }
 }

@@ -2,9 +2,7 @@ package BottleOpener;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
 
 /**
  * Represents a task with a deadline.
@@ -14,39 +12,14 @@ import java.time.temporal.ChronoField;
  * </p>
  */
 public class Deadline extends Task {
-    private static final DateTimeFormatter FORMATTER;
-
-    static {
-        FORMATTER = new DateTimeFormatterBuilder()
-                .appendOptional(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"))
-                .appendOptional(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
-                .appendOptional(DateTimeFormatter.ofPattern("dd MMM yyyy"))
-                .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy HHmm"))
-                .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy HH:mm"))
-                .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy"))
-                .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy"))
-                .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy HH:mm"))
-                .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM/dd/yyyy HHmm"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM-dd-yyyy HHmm"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM-dd-yyyy"))
-                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .toFormatter();
-    }
-
     private static final DateTimeFormatter OUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-
-    public LocalDateTime deadline;
+    private LocalDateTime deadline;
 
     /**
      * Constructs a new BottleOpener.Deadline task with the specified description and deadline.
      * The task is initially marked as not done.
      * <p>
-     * The deadline is parsed from the given string using the defined {@link #FORMATTER}.
+     * The deadline is parsed from the given string using the defined {@link #Util.FORMATTER}.
      * </p>
      *
      * @param description The description of the BottleOpener.Deadline task.
@@ -55,17 +28,16 @@ public class Deadline extends Task {
     public Deadline(String description, String deadline) {
         super(description);
         try {
-            this.deadline = LocalDateTime.parse(deadline, FORMATTER);
+            this.deadline = LocalDateTime.parse(deadline, Util.FORMATTER);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid deadline format!");
-            this.deadline = LocalDateTime.now();
+            throw new IllegalArgumentException();
         }
     }
 
     /**
      * Constructs a new BottleOpener.Deadline task with the specified description, status, and deadline.
      * <p>
-     * The deadline is parsed from the given string using the defined {@link #FORMATTER}.
+     * The deadline is parsed from the given string using the defined {@link #Util.FORMATTER}.
      * If the deadline is not in a valid format, the current date and time will be used.
      * </p>
      *
@@ -76,7 +48,7 @@ public class Deadline extends Task {
     public Deadline(String description, boolean status, String deadline) {
         super(description, status);
         try {
-            this.deadline = LocalDateTime.parse(deadline, FORMATTER);
+            this.deadline = LocalDateTime.parse(deadline, Util.FORMATTER);
         } catch (DateTimeParseException e) {
             System.out.println("Invalid deadline format!");
             this.deadline = LocalDateTime.now();

@@ -6,7 +6,7 @@ package BottleOpener;
  */
 public class Ui {
     private static final String SPACER = "-----------------------------------\n";
-    public String botName;
+    private String botName;
 
     /**
      * Constructs a new {@code BottleOpener.Ui} object with the specified bot name.
@@ -107,6 +107,10 @@ public class Ui {
 
     public String showFoundTasks() {
         return "Here are all the tasks I could find!\n";
+    }
+
+    public String showInvalidDateFormatError() {
+        return wrapSpacer("Please use the correct date/time format!\n");
     }
 
 }

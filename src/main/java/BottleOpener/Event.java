@@ -14,34 +14,9 @@ import java.time.temporal.ChronoField;
  * </p>
  */
 public class Event extends Task {
-    private static final DateTimeFormatter FORMATTER;
-
-    static {
-        FORMATTER = new DateTimeFormatterBuilder()
-                .appendOptional(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"))
-                .appendOptional(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
-                .appendOptional(DateTimeFormatter.ofPattern("dd MMM yyyy"))
-                .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy HHmm"))
-                .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy HH:mm"))
-                .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy"))
-                .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy"))
-                .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy HH:mm"))
-                .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM/dd/yyyy HHmm"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM-dd-yyyy HHmm"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"))
-                .appendOptional(DateTimeFormatter.ofPattern("MM-dd-yyyy"))
-                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .toFormatter();
-    }
-
     private static final DateTimeFormatter OUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-
-    public LocalDateTime start;
-    public LocalDateTime end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     /**
      * Constructs a new BottleOpener.Event task with the specified description, start, and end times.
@@ -54,15 +29,13 @@ public class Event extends Task {
      * @param start       The start time of the event as a string.
      * @param end         The end time of the event as a string.
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, String start, String end) throws IllegalArgumentException {
         super(description);
         try {
-            this.start = LocalDateTime.parse(start, FORMATTER);
-            this.end = LocalDateTime.parse(end, FORMATTER);
+            this.start = LocalDateTime.parse(start, Util.FORMATTER);
+            this.end = LocalDateTime.parse(end, Util.FORMATTER);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid event format!");
-            this.start = LocalDateTime.now();
-            this.end = LocalDateTime.now();
+            throw new IllegalArgumentException();
         }
     }
 
@@ -81,8 +54,8 @@ public class Event extends Task {
     public Event(String description, boolean status, String start, String end) {
         super(description, status);
         try {
-            this.start = LocalDateTime.parse(start, FORMATTER);
-            this.end = LocalDateTime.parse(end, FORMATTER);
+            this.start = LocalDateTime.parse(start, Util.FORMATTER);
+            this.end = LocalDateTime.parse(end, Util.FORMATTER);
         } catch (DateTimeParseException e) {
             System.out.println("Invalid event format!");
             this.start = LocalDateTime.now();

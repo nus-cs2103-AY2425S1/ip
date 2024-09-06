@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * task list and retrieve information about the tasks.
  */
 public class Tasklist {
-    public int index;
-    public ArrayList<Task> tasklist;
+    private int index;
+    private ArrayList<Task> tasklist;
 
     /**
      * Constructs an empty {@code BottleOpener.Tasklist} with an initial index of 0.

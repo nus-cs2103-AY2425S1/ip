@@ -6,11 +6,11 @@ package BottleOpener;
  * action, and interacts with the task list and user interface to provide feedback.
  */
 public class Parser {
-    public boolean isExitCalled;
-    public String[] userInput;
-    public String instruction;
-    public Tasklist tasklist;
-    public Ui ui;
+    private boolean isExitCalled;
+    private String[] userInput;
+    private String instruction;
+    private Tasklist tasklist;
+    private Ui ui;
 
     /**
      * Constructs a {@code BottleOpener.Parser} object with the given user input, task list, and user interface.
@@ -120,6 +120,8 @@ public class Parser {
                         System.out.println(ui.wrapSpacer(String.format("added: %s%n", newDeadline)));
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(ui.showCommandFormatError());
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(ui.showInvalidDateFormatError());
                     }
                     break;
                 case "event":
@@ -133,6 +135,8 @@ public class Parser {
                         System.out.println(ui.wrapSpacer(String.format("added: %s%n", newEvent)));
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(ui.showCommandFormatError());
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(ui.showInvalidDateFormatError());
                     }
                     break;
                 default:
