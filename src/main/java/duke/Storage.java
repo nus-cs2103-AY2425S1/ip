@@ -35,12 +35,32 @@ public class Storage {
      * @param task The task to add.
      * @throws BobException If an I/O error occurs.
      */
-    void add(Task task) throws BobException {
+    public void add(Task task) throws BobException {
         assert task != null;
 
         try {
             FileWriter fw = new FileWriter(this.path, true);
             fw.write(task.toString() + System.getProperty("line.separator"));
+            fw.close();
+        } catch (IOException e) {
+            throw new BobException("Oh no! An IO error has occured.");
+        }
+    }
+
+    /**
+     * Add multiple tasks to the storage.
+     *
+     * @param tasks The list of tasks to add.
+     * @throws BobException If an I/O error occurs.
+     */
+    public void add(ArrayList<Task> tasks) throws BobException {
+        assert tasks != null;
+
+        try {
+            FileWriter fw = new FileWriter(this.path, true);
+            for (Task task : tasks) {
+                fw.write(task.toString() + System.getProperty("line.separator"));
+            }
             fw.close();
         } catch (IOException e) {
             throw new BobException("Oh no! An IO error has occured.");
@@ -99,7 +119,7 @@ public class Storage {
             reader.close();
             tempFile.renameTo(inputFile);
         } catch (IOException e) {
-            throw new BobException("Oh no! An IO error has occurred.");
+            throw new BobException("Oh no! Something went wrong when updating your storage.");
         }
     }
 
@@ -108,6 +128,7 @@ public class Storage {
      *
      * @throws BobException If an I/O error occurred or a task cannot be parsed.
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public ArrayList<Task> load() throws BobException {
         try {
             File f = new File(this.path);
@@ -128,7 +149,23 @@ public class Storage {
 
             return tasks;
         } catch (IOException e) {
-            throw new BobException("Sorry, something went wrong when reading from your storage.");
+            throw new BobException("Oh no! something went wrong when reading from your storage.");
+        }
+    }
+
+    /**
+     * Clear the storage.
+     *
+     * @throws BobException If an IO error occurs.
+     */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public void clear() throws BobException {
+        try {
+            File f = new File(this.path);
+            f.delete();
+            f.createNewFile();
+        } catch (IOException e) {
+            throw new BobException("Oh no! Something went wrong when clearing your storage.");
         }
     }
 }
