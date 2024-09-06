@@ -6,7 +6,7 @@ import barney.data.task.Task;
 /**
  * Represents the user interface of the application.
  */
-public class Ui {
+public abstract class Ui {
 
     /**
      * Constructs a new Ui object.
@@ -15,152 +15,269 @@ public class Ui {
     }
 
     /**
-     * Prints a long line separator.
+     * Function to return a long line separator.
+     *
+     * @return The long line separator.
      */
-    public void printLongLine() {
-        System.out.println("____________________________________________________________");
+    String longLineString() {
+        return "____________________________________________________________";
     }
 
     /**
-     * Prints the welcome message.
+     * Abstract method to print a long line separator.
      */
-    public void printWelcome() {
-        System.out.println("Hello, I am Barney <RAWR>, what can I do for you?");
-        printLongLine();
+    public abstract String printLongLine();
+
+
+    /**
+     * Function to return the welcome string.
+     *
+     * @return The welcome string.
+     */
+    String welcomeString() {
+        return "Hello, I am Barney <RAWR>, what can I do for you?";
     }
 
     /**
-     * Prints the message after loading data.
+     * Abstract method to print the welcome message.
+     *
+     * @return The welcome message.
+     */
+    public abstract String printWelcome();
+
+    /**
+     * Function to return the message after loading data.
      *
      * @param tasks The task list.
+     * @return The message after loading data.
      */
-    public void printLoadData(TaskList tasks) {
-        System.out.println("Data loaded successfully!");
-        System.out.println("You have " + tasks.size() + " tasks in the list.");
-        printLongLine();
+    String loadDataString(TaskList tasks) {
+        return "Data loaded successfully!\nYou have " + tasks.size() + " tasks in the list.";
     }
 
     /**
-     * Prints the input prompt.
+     * Abstract method to print the message after loading data.
+     *
+     * @param tasks The task list.
+     * @return The message after loading data.
      */
-    public void printInput() {
-        System.out.print(">>> ");
+    public abstract String printLoadData(TaskList tasks);
+
+
+    /**
+     * Returns the input prompt.
+     *
+     * @return The input prompt.
+     */
+    String inputString() {
+        return ">>> ";
     }
 
     /**
-     * Prints the goodbye message.
+     * Abstract method to print the input prompt.
+     *
+     * @return The input prompt.
      */
-    public void printBye() {
-        System.out.println("Goodbye, I am Barney <RAWR>, see you next time!");
-        printLongLine();
+    public abstract String printInput();
+
+    /**
+     * String when saying bye
+     *
+     * @return The bye string.
+     */
+    String byeString() {
+        return "Goodbye, I am Barney <RAWR>, see you next time!";
     }
 
     /**
-     * Prints the error message when loading data.
+     * Abstract method to print the bye string.
+     *
+     * @return The bye string.
+     */
+    public abstract String printBye();
+
+    /**
+     * String of loading error
+     *
+     * @param message The error message.
+     * @return The error string.
+     */
+    String loadingErrorString(String message) {
+        return "Error loading data: " + message;
+    }
+
+    /**
+     * Abstract method to print the error String.
+     *
+     * @param message The error message.
+     * @return The error string.
+     */
+    public abstract String printLoadingError(String message);
+
+    /**
+     * String of the error when running a command.
      *
      * @param errorMessage The error message.
+     * @return The error string.
      */
-    public void printLoadingError(String errorMessage) {
-        System.out.println("Error when loading data from file: " + errorMessage);
-        System.out.println("Loading with empty task list");
-        printLongLine();
+    String chatErrorString(String errorMessage) {
+        return "Error when running: " + errorMessage;
     }
 
     /**
      * Prints the error message when running a command.
      *
      * @param errorMessage The error message.
+     * @return The error string.
      */
-    public void printChatError(String errorMessage) {
-        System.out.println("Error when running: " + errorMessage);
-        printLongLine();
+    public abstract String printChatError(String errorMessage);
+
+
+    /**
+     * The error message when saving data.
+     *
+     * @param errorMessage The error message.
+     * @return The error string.
+     */
+
+    String saveErrorString(String errorMessage) {
+        return "Saving data to file: " + errorMessage;
     }
 
     /**
      * Prints the error message when saving data.
      *
      * @param errorMessage The error message.
+     * @return The error string.
      */
-    public void printSaveError(String errorMessage) {
-        System.out.println("Saving data to file: " + errorMessage);
-        printLongLine();
+
+    public abstract String printSaveError(String errorMessage);
+
+
+    /**
+     * String of the list of tasks.
+     *
+     * @param tasks The list of tasks.
+     * @return the list of tasks String.
+     */
+
+    String listString(TaskList tasks) {
+        return "Here are the tasks in your list:\n" + tasks.toStringList();
     }
 
     /**
      * Prints the list of tasks.
      *
-     * @param tasks The task list.
+     * @param tasks The list of tasks.
+     * @return the list of tasks String.
      */
-    public void printList(TaskList tasks) {
-        System.out.println("Here are the tasks in your list:");
-        System.out.println(tasks.toStringList());
-        printLongLine();
-    }
+    public abstract String printList(TaskList tasks);
 
     /**
-     * Prints the marked task.
+     * String of the marked tasks.
      *
      * @param task The marked task.
+     * @return The marked task string.
      */
-    public void printMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
-        printLongLine();
+    String markedTaskString(Task task) {
+        return "Nice! I've marked this task as done:\n" + task.toString();
     }
 
     /**
-     * Prints the unmarked task.
+     * Abstract method to print the marked task.
+     *
+     * @param task The marked task.
+     * @return The marked task string.
+     */
+    public abstract String printMarkedTask(Task task);
+
+
+    /**
+     * String of the unmarked tasks.
      *
      * @param task The unmarked task.
+     * @return The unmarked task string.
      */
-    public void printUnmarked(Task task) {
-        System.out.println("OK, I've unmarked this task as not done yet:");
-        System.out.println(task.toString());
-        printLongLine();
+
+    String unmarkedTaskString(Task task) {
+        return "Nice! I've unmarked this task as undone:\n" + task.toString();
     }
 
+
+    public abstract String printUnmarkedTask(Task task);
+
     /**
-     * Prints the added task.
+     * String of the added tasks.
      *
      * @param task The added task.
      * @param size The size of the task list.
+     * @return The added task string.
      */
-    public void printAddedTask(Task task, int size) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.printf("Now you have %d tasks in the list.%n", size);
-        printLongLine();
+    String addedTaskString(Task task, int size) {
+        return "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
-     * Prints the deleted task.
+     * Abstract method to print the added task.
+     *
+     * @param task The added task.
+     * @param size The size of the task list.
+     * @return The added task string.
+     */
+    public abstract String printAddedTask(Task task, int size);
+
+    /**
+     * String of the deleted tasks.
      *
      * @param task The deleted task.
      * @param size The size of the task list.
+     * @return The deleted task string.
      */
-    public void printDeleteTask(Task task, int size) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.printf("Now you have %d tasks in the list.%n", size);
-        printLongLine();
+    String deleteTaskString(Task task, int size) {
+        return "Noted. I've removed this task:\n" + task.toString() + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
-     * Prints the tasks that match the keyword
+     * Abstract method to print the deleted task.
      *
-     * @param tasks
+     * @param task The deleted task.
+     * @param size The size of the task list.
+     * @return The deleted task string.
      */
-    public void printMatchingTasks(TaskList tasks) {
-        System.out.println("Here are the matching tasks in your list:");
-        System.out.println(tasks.toStringList());
-        printLongLine();
+    public abstract String printDeleteTask(Task task, int size);
+
+
+    /**
+     * String of the tasks that match the keyword.
+     *
+     * @param tasks The list of tasks that match the keyword.
+     * @return The tasks that match the keyword string.
+     */
+    String matchingTasksString(TaskList tasks) {
+        return "Here are the matching tasks in your list:\n" + tasks.toStringList();
     }
 
     /**
-     * Prints the invalid command message.
+     * Abstract method to print the tasks that match the keyword.
+     *
+     * @param tasks The list of tasks that match the keyword.
+     * @return The tasks that match the keyword string.
      */
-    public void printInvalidCommand() {
-        System.out.println("Invalid command, please try again!");
-        printLongLine();
+    public abstract String printMatchingTasks(TaskList tasks);
+
+    /**
+     * String of the invalid command.
+     *
+     * @return The invalid command string.
+     */
+    String invalidCommandString() {
+        return "Invalid command, please try again!";
     }
+
+    /**
+     * Abstract method to print the invalid command.
+     *
+     * @return The invalid command string.
+     */
+    public abstract String printInvalidCommand();
 }

@@ -1,18 +1,20 @@
 package barney;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 import barney.action.commands.TodoCommand;
 import barney.data.TaskList;
 import barney.data.exception.InvalidArgumentException;
 import barney.data.task.TodoTask;
+import barney.ui.SystemOutUI;
 import barney.ui.Ui;
 
 /**
@@ -23,7 +25,7 @@ public class TodoCommandTest {
     @Test
     public void execute_validArguments_addsTodoTask() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
+        Ui ui = new SystemOutUI();
         HashMap<String, String> argumentMap = new HashMap<>();
         argumentMap.put("description", "borrow book");
 
@@ -42,9 +44,9 @@ public class TodoCommandTest {
             // Verify the output
 
             String expectedOutput = """
-                Got it. I've added this task:\r
-                [T][ ] borrow book\r
-                Now you have 1 tasks in the list.""";
+                    Got it. I've added this task:
+                    [T][ ] borrow book
+                    Now you have 1 tasks in the list.""";
 
             assertTrue(outContent.toString().contains(expectedOutput));
         } catch (InvalidArgumentException e) {
@@ -62,7 +64,7 @@ public class TodoCommandTest {
     @Test
     public void execute_missingDescription_throwsInvalidArgumentException() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
+        Ui ui = new SystemOutUI();
         HashMap<String, String> argumentMap = new HashMap<>();
 
         try {
@@ -80,7 +82,7 @@ public class TodoCommandTest {
     @Test
     public void execute_emptyDescription_throwsInvalidArgumentException() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
+        Ui ui = new SystemOutUI();
         HashMap<String, String> argumentMap = new HashMap<>();
         argumentMap.put("description", "");
 
@@ -100,7 +102,7 @@ public class TodoCommandTest {
     @Test
     public void execute_extraArguments_throwsInvalidArgumentException() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
+        Ui ui = new SystemOutUI();
         HashMap<String, String> argumentMap = new HashMap<>();
         argumentMap.put("command", "todo");
         argumentMap.put("description", "borrow book");

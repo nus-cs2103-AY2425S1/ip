@@ -48,7 +48,7 @@ public class MarkCommand extends Command {
         Task task = tasks.get(index);
         task.mark();
 
-        ui.printMarked(task);
+        ui.printMarkedTask(task);
 
         return true;
     }

@@ -8,6 +8,8 @@ import barney.data.TaskList;
 import barney.data.exception.BarneyException;
 import barney.data.exception.InvalidArgumentException;
 import barney.storage.Storage;
+import barney.ui.Gui;
+import barney.ui.SystemOutUI;
 import barney.ui.Ui;
 
 /**
@@ -19,8 +21,8 @@ public class Barney {
 
     private final Scanner scanner;
     private final CommandManager commandManager;
-    private final Ui ui;
     private final Storage storage;
+    private Ui ui;
     private TaskList tasks;
 
     /**
@@ -31,8 +33,24 @@ public class Barney {
     public Barney(String filePath) {
         scanner = new Scanner(System.in);
         commandManager = new CommandManager();
-        ui = new Ui();
         storage = new Storage(filePath);
+
+
+    }
+
+    /**
+     * Runs the Barney application for GUI.
+     */
+    public void runGui() {
+        this.ui = new Gui();
+    }
+
+    /**
+     * Runs the Barney application for System.out.
+     */
+    public void runSystemOut() {
+        this.ui = new SystemOutUI();
+        TaskList tasks;
         try {
             tasks = new TaskList(storage.loadData());
             ui.printLoadData(tasks);
@@ -41,25 +59,6 @@ public class Barney {
             tasks = new TaskList();
         }
 
-    }
-
-    /**
-     * The main entry point for the Barney application.
-     *
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
-        String saveFilePath = "list.txt";
-        if (args.length > 0) {
-            saveFilePath = args[0];
-        }
-        new Barney(saveFilePath).run();
-    }
-
-    /**
-     * Runs the Barney application.
-     */
-    public void run() {
         ui.printWelcome();
 
         boolean isChatting = true;

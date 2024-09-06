@@ -48,7 +48,7 @@ public class UnmarkCommand extends Command {
         Task task = tasks.get(index);
         task.unmark();
 
-        ui.printUnmarked(task);
+        ui.printUnmarkedTask(task);
 
         return true;
     }

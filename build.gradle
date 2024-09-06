@@ -44,14 +44,12 @@ test {
 }
 
 application {
-    mainClass.set("barney.Barney")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
-    mainClassName = "barney.Barney"
-    archiveBaseName = "Barney"
+    archiveBaseName = "barney"
     archiveClassifier = null
-    archiveFileName = "Barney.jar"
 }
 
 run {

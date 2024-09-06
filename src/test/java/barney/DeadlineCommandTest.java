@@ -1,18 +1,20 @@
 package barney;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 import barney.action.commands.DeadlineCommand;
 import barney.data.TaskList;
 import barney.data.exception.InvalidArgumentException;
 import barney.data.task.DeadlineTask;
+import barney.ui.SystemOutUI;
 import barney.ui.Ui;
 
 /**
@@ -26,7 +28,7 @@ public class DeadlineCommandTest {
     @Test
     public void execute_validArguments_addsDeadlineTask() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
+        Ui ui = new SystemOutUI();
         HashMap<String, String> argumentMap = new HashMap<>();
         argumentMap.put("description", "return book");
         argumentMap.put("by", "June 6th");
@@ -45,10 +47,9 @@ public class DeadlineCommandTest {
             assertTrue(tasks.get(0) instanceof DeadlineTask);
             // Verify the output
             String expectedOutput = """
-                Got it. I've added this task:\r
-                [D][ ] return book (by: June 6th)\r
-                Now you have 1 tasks in the list.""";
-
+                    Got it. I've added this task:
+                    [D][ ] return book (by: June 6th)
+                    Now you have 1 tasks in the list.""";
 
             assertTrue(outContent.toString().contains(expectedOutput));
         } catch (InvalidArgumentException e) {
@@ -56,6 +57,7 @@ public class DeadlineCommandTest {
         } finally {
             // Restore the original System.out
             System.setOut(originalOut);
+            System.out.println(outContent.toString());
         }
     }
 
@@ -66,7 +68,7 @@ public class DeadlineCommandTest {
     @Test
     public void execute_missingDescription_throwsInvalidArgumentException() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
+        Ui ui = new SystemOutUI();
         HashMap<String, String> argumentMap = new HashMap<>();
         argumentMap.put("by", "June 6th");
 
@@ -85,7 +87,7 @@ public class DeadlineCommandTest {
     @Test
     public void execute_missingBy_throwsInvalidArgumentException() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
+        Ui ui = new SystemOutUI();
         HashMap<String, String> argumentMap = new HashMap<>();
         argumentMap.put("description", "return book");
 
@@ -105,7 +107,7 @@ public class DeadlineCommandTest {
     @Test
     public void execute_emptyDescription_throwsInvalidArgumentException() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
+        Ui ui = new SystemOutUI();
         HashMap<String, String> argumentMap = new HashMap<>();
         argumentMap.put("description", "");
         argumentMap.put("by", "June 6th");
@@ -125,7 +127,7 @@ public class DeadlineCommandTest {
     @Test
     public void execute_emptyBy_throwsInvalidArgumentException() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
+        Ui ui = new SystemOutUI();
         HashMap<String, String> argumentMap = new HashMap<>();
         argumentMap.put("description", "return book");
         argumentMap.put("by", "");
@@ -146,7 +148,7 @@ public class DeadlineCommandTest {
     @Test
     public void execute_extraArguments_throwsInvalidArgumentException() {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
+        Ui ui = new SystemOutUI();
         HashMap<String, String> argumentMap = new HashMap<>();
         argumentMap.put("command", "deadline");
         argumentMap.put("description", "return book");
