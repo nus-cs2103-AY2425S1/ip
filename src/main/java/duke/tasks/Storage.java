@@ -1,6 +1,8 @@
 package duke.tasks;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -58,8 +60,15 @@ public class Storage {
             Files.write(filePath, new byte[0]);
             Files.writeString(filePath, this.toString());
         } catch (IOException e) {
-            System.err.println("An error occurred: " + e.getMessage());
             e.printStackTrace();
+            try (FileWriter fw = new FileWriter("error.log", true);
+                 PrintWriter pw = new PrintWriter(fw)) {
+                e.printStackTrace(pw);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+            System.out.println("An error occurred. Press Enter to exit.");
+            System.err.println("An error occurred: " + e.getMessage());
         }
     }
 

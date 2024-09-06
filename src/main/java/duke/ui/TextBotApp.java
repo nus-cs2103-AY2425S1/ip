@@ -1,30 +1,37 @@
 package duke.ui;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+
 public class TextBotApp extends Application {
 
+    private Parser parser = new Parser();
     private VBox chatBox;
     private TextField inputField;
     private Button sendButton;
     private Image userAvatar;
     private Image botAvatar;
+    private final int FONT_SIZE_INPUT = 25;
+    private final int FONT_SIZE = 16;
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Notgpt");
 
+
         // Load avatar images
         userAvatar = new Image(getClass().getResourceAsStream("/user_avatar.png"));
-        botAvatar = new Image(getClass().getResourceAsStream("/bot_avatar.jpg"));
+        botAvatar = new Image(getClass().getResourceAsStream("/bot_avatar2.jpg"));
 
         // Create UI components
         chatBox = new VBox(10);
@@ -37,7 +44,8 @@ public class TextBotApp extends Application {
 
         inputField = new TextField();
         inputField.setPromptText("Type a message");
-        inputField.setPrefHeight(40);
+        inputField.setPrefHeight(80);
+        inputField.setFont(Font.font("System", FontWeight.NORMAL, FONT_SIZE_INPUT));
 
         sendButton = new Button("Send");
         sendButton.setPrefHeight(40);
@@ -56,15 +64,22 @@ public class TextBotApp extends Application {
         root.getChildren().addAll(scrollPane, inputBox);
 
         // Set up the scene
-        Scene scene = new Scene(root, 350, 600);
+        Scene scene = new Scene(root, 500, 800);
         primaryStage.setScene(scene);
 
         // Event handling
         sendButton.setOnAction(e -> sendMessage());
         inputField.setOnAction(e -> sendMessage());
 
+        String logo = "_   _       _                       _\n"
+                + "| \\ | |  _  | |_        __  __    | |__\n"
+                + "|  \\| |/ _ \\  __|    / _` | '_ \\ |  __|\n"
+                + "| |\\  | (_) | |_     | (_|  | |_)  |  |_\n"
+                + "|_| \\_|\\__/ \\__|   \\__, | __/  \\__|\n"
+                + "                       |___/|_|\n";
         // Initial message
-        displayMessage("Hi, I'm Not-GPT. Do you really need me to do something for you?", false);
+        displayMessage(logo + "\n" + "hi, I'm Not-gpt,\ndo you really need me to do sth for you?", false);
+
 
         primaryStage.show();
     }
@@ -74,8 +89,9 @@ public class TextBotApp extends Application {
         if (!userInput.isEmpty()) {
             displayMessage(userInput, true);
             inputField.clear();
-
-            // Process the user input and generate a response
+//            if(userInput.split("\\s+", 2)[0].toLowerCase() == "bye") {
+//                Platform.exit();
+//            }
             String response = processInput(userInput);
             displayMessage(response, false);
         }
@@ -86,13 +102,14 @@ public class TextBotApp extends Application {
         messageLabel.setWrapText(true);
         messageLabel.setPadding(new Insets(8));
         messageLabel.setMaxWidth(220);
+        messageLabel.setFont(Font.font("System", FontWeight.NORMAL, FONT_SIZE));
 
         ImageView avatarView = new ImageView(isUser ? userAvatar : botAvatar);
-        avatarView.setFitHeight(40);
-        avatarView.setFitWidth(40);
+        avatarView.setFitHeight(90);
+        avatarView.setFitWidth(90);
 
         HBox messageBox = new HBox(10);
-        messageBox.setAlignment(isUser ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+        messageBox.setAlignment(isUser ? Pos.BOTTOM_RIGHT : Pos.BOTTOM_LEFT);
 
         if (isUser) {
             messageLabel.setStyle("-fx-background-color: #DCF8C6; -fx-background-radius: 10;");
@@ -106,9 +123,7 @@ public class TextBotApp extends Application {
     }
 
     private String processInput(String input) {
-        // Here you can integrate your existing Parser logic
-        // For now, we'll just echo the input
-        return "You said: " + input;
+        return parser.parse(input);
     }
 
     public static void main(String[] args) {
