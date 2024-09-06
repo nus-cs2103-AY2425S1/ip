@@ -18,7 +18,8 @@ public class ByeCommand extends Command {
      * @param ui The UI object to give user feedback.
      * @param storage The storage object to save/load tasks.
      */
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    public String execute(TaskList tasklist, Ui ui, Storage storage) {
+        return "Bye!";
     }
 
     /**

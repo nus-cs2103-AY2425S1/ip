@@ -26,11 +26,12 @@ public class UnmarkCommand extends Command {
      * @param storage The storage object to save/load tasks.
      * @throws AsuraException If saving user data fails.
      */
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws AsuraException {
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws AsuraException {
         tasklist.unMark(selection);
         storage.save(tasklist.getTaskList());
         output.append("OK, I've marked this task as not done yet:").append("\n").append(tasklist.get(selection).toString());
-        ui.printString(output.toString());
+        //ui.printString(output.toString());
+        return output.toString();
     }
 
     /**

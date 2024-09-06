@@ -27,10 +27,11 @@ public class FindCommand extends Command {
      * @param ui The UI object to give user feedback.
      * @param storage The storage object to save/load tasks.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         List<Task> filtered = taskList.find(description);
         TaskList temp = new TaskList(filtered);
-        ui.printString(temp.toString());
+        //ui.printString(temp.toString());
+        return temp.toString();
     }
 
     /**

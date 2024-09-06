@@ -27,12 +27,13 @@ public class DeleteCommand extends Command {
      * @param storage The storage object to save/load tasks.
      * @throws AsuraException If saving user tasks fails.
      */
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws AsuraException {
+    public String execute(TaskList tasklist, Ui ui, Storage storage) throws AsuraException {
         Task removedTask = tasklist.removeAt(selection);
         output.append("Noted! I've removed this task :").append("\n").append(removedTask.toString()).append("\n")
                 .append("Now you have ").append(tasklist.size()).append(" tasks in your list.\n");
         storage.save(tasklist.getTaskList());
-        ui.printString(output.toString());
+        return output.toString();
+        //ui.printString(output.toString());
     }
 
     /**
