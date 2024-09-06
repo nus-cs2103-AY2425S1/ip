@@ -51,6 +51,17 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      */
+    public void filterAndShowList(String keyword) {
+        System.out.println("-----------------------------------------------");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getDescription().contains(keyword)) {
+                System.out.printf("%d. %s\n", i + 1, list.get(i));
+            }
+        }
+        System.out.println("-----------------------------------------------");
+    }
+
     public void markTaskByIndex(int index) {
         list.get(index - 1).setIsDone(true);
         System.out.println("-----------------------------------------------");

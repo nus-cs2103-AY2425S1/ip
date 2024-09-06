@@ -33,6 +33,7 @@ public class ListBot {
                 Initialising ListBot Bot...
                 Special commands:
                 'LIST' -> Show full list
+                'FIND abc' -> Filters tasks with abc
                 'MARK n' -> Marks nth task as complete
                 'UNMARK n' -> Marks nth task as incomplete
                 'DELETE n' -> Deletes the nth task
@@ -64,6 +65,11 @@ public class ListBot {
                 switch (command) {
                 case LIST:
                     dataManager.getTaskList().showList();
+                    break;
+
+                case FIND:
+                    String keyword = CommandType.extractKeyword(input);
+                    dataManager.getTaskList().filterAndShowList(keyword);
                     break;
 
                 case MARK:
@@ -130,7 +136,7 @@ public class ListBot {
      * Commands include listing tasks, marking/unmarking tasks, deleting tasks, and adding deadlines, events, or to-dos.
      */
     public enum CommandType {
-        LIST, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO;
+        LIST, FIND, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO;
 
         /**
          * Determines the {@link CommandType} based on the provided user input string.
@@ -142,7 +148,9 @@ public class ListBot {
         public static CommandType getCommand(String input) {
             if (input.equalsIgnoreCase("list")) {
                 return LIST;
-            } else if (input.toLowerCase().startsWith("mark ")) {
+            } else if (input.toLowerCase().startsWith("find ")) {
+                return FIND;
+            }else if (input.toLowerCase().startsWith("mark ")) {
                 return MARK;
             } else if (input.toLowerCase().startsWith("unmark ")) {
                 return UNMARK;
@@ -180,6 +188,10 @@ public class ListBot {
             default:
                 throw new IllegalArgumentException("Command does not require an index.");
             }
+        }
+
+        public static String extractKeyword(String input) {
+            return input.substring(5).trim();
         }
     }
 
