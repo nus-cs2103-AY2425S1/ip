@@ -57,6 +57,13 @@ public class Duck {
         printAsResponse(response);
     }
 
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duck heard: " + input;
+    }
+
     public static void main(String[] args) {
         // Get saved tasks
         TASKS.getTaskListFromFile();
