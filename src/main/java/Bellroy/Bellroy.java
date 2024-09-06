@@ -1,5 +1,10 @@
 package Bellroy;
 
+import Bellroy.GUI.Ui;
+import Bellroy.parser.Parser;
+import Bellroy.storage.Storage;
+import Bellroy.task.TaskList;
+
 import java.io.IOException;
 
 /**
@@ -33,7 +38,7 @@ public class Bellroy {
      * Starts the Chatbot and asks the user for an input.
      */
     public void run() {
-        ui.printWelcomeMessage();
+        System.out.println(ui.welcomeMessage());
         boolean isRunning = true;
         while(isRunning) {
             String userInput = ui.getInput();
@@ -42,5 +47,9 @@ public class Bellroy {
     }
     public static void main(String[] args) {
         new Bellroy("Bellroy.txt").run();
+    }
+
+    public String getResponse(String input) {
+        return parser.parse(input, this.taskList, this.ui, this.storage);
     }
 }

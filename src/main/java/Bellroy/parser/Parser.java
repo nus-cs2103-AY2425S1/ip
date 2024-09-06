@@ -1,11 +1,20 @@
-package Bellroy;
+package Bellroy.parser;
+
+import Bellroy.storage.Storage;
+import Bellroy.task.TaskList;
+import Bellroy.GUI.Ui;
+import Bellroy.task.Event;
+import Bellroy.task.Task;
+import Bellroy.task.Todo;
+import Bellroy.task.Deadline;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.util.List;
 
 public class Parser {
 
-    public void parse(String userInput, TaskList taskList, Ui ui, Storage storage) {
+    public String parse(String userInput, TaskList taskList, Ui ui, Storage storage) {
         String[] input;
         if (userInput.startsWith("find ")) {
             input = userInput.split(" ", 2);
@@ -17,59 +26,52 @@ public class Parser {
         try {
             switch (type) {
                 case("bye"):
-                    ui.printByeMessage();
-                    System.exit(0);
-                    break;
+                    Platform.exit();
+                    return ui.byeMessage();
                 case("list"):
-                    ui.printTaskList(taskList);
-                    break;
+                    return ui.printTaskList(taskList);
                 case("mark"):
                     int position = Integer.parseInt(userInput.split(" ")[1]);
                     taskList.get(position - 1).markDone();
-                    ui.markedDone(taskList.get(position - 1));
                     storage.save(taskList);
-                    break;
+                    return ui.markedDone(taskList.get(position - 1));
                 case("unmark"):
                     int pos = Integer.parseInt(userInput.split(" ")[1]);
                     taskList.get(pos - 1).undo();
-                    ui.markedUndone(taskList.get(pos - 1));
                     storage.save(taskList);
-                    break;
+                    return ui.markedUndone(taskList.get(pos - 1));
                 case("todo"):
                     Task todo = new Todo(description);
                     taskList.addTask(todo);
-                    ui.taskAddedMessage(todo, taskList.size());
                     storage.save(taskList);
-                    break;
+                    return ui.taskAddedMessage(todo, taskList.size());
                 case("deadline"):
                     String dueDate = input[1].split(" ", 2)[1].trim();
-                    Task deadline = new deadline(description, dueDate);
+                    Task deadline = new Deadline(description, dueDate);
                     taskList.addTask(deadline);
-                    ui.taskAddedMessage(deadline, taskList.size());
                     storage.save(taskList);
-                    break;
+                    return ui.taskAddedMessage(deadline, taskList.size());
                 case("event"):
                     String startTime = input[1].split(" /", 2)[0].split(" ", 2)[1].trim();
                     String endTime = input[1].split(" /", 2)[1].split(" ", 2)[1].trim();
                     Task event = new Event(description, startTime, endTime);
                     taskList.addTask(event);
-                    ui.taskAddedMessage(event,taskList.size());
                     storage.save(taskList);
-                    break;
+                    return ui.taskAddedMessage(event,taskList.size());
                 case("delete"):
                     int target = Integer.parseInt(userInput.split(" ")[1]);
                     Task temp = taskList.get(target - 1);
                     taskList.removeTask(target - 1);
-                    ui.taskDeleted(temp, taskList.size());
                     storage.save(taskList);
-                    break;
+                    return ui.taskDeleted(temp, taskList.size());
                 case("find"):
                     String keyword = input[1].trim();
-                    List<Task> output = taskList.findTask(keyword);
-                    ui.findTask(output);
+                    TaskList output = taskList.findTask(keyword);
+                    return ui.findTask(output);
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            return e.getMessage();
         }
+        return ("ERROR: Invalid Input!");
     }
 }

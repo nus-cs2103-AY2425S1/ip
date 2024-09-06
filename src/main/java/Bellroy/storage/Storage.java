@@ -1,4 +1,10 @@
-package Bellroy;
+package Bellroy.storage;
+
+import Bellroy.task.TaskList;
+import Bellroy.task.Deadline;
+import Bellroy.task.Event;
+import Bellroy.task.Task;
+import Bellroy.task.Todo;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,7 +51,7 @@ public class Storage {
                         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                         LocalDateTime dateTime = LocalDateTime.parse(by, inputFormat);
                         String dueDate = dateTime.format(outputFormat);
-                        Task tempDeadline = new deadline(deadlineDescription, dueDate);
+                        Task tempDeadline = new Deadline(deadlineDescription, dueDate);
                         if (isDone) {
                             tempDeadline.markDone();
                         }

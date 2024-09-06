@@ -1,11 +1,11 @@
-package Bellroy;
+package Bellroy.task;
 
 /**
  * Abstract Task Class
  */
-abstract class Task {
+public abstract class Task {
     protected String description;
-    protected boolean isDone;
+    public boolean isDone;
     protected String type;
 
     public Task(String type, String description) {

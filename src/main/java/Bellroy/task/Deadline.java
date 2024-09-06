@@ -1,4 +1,4 @@
-package Bellroy;
+package Bellroy.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,9 +6,9 @@ import java.time.format.DateTimeFormatter;
 /**
  * Encapsulates a Deadline task
  */
-public class deadline extends Task {
+public class Deadline extends Task {
     protected LocalDateTime dueDate;
-    public deadline(String description, String dueDate){
+    public Deadline(String description, String dueDate){
         super("D", description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.dueDate = LocalDateTime.parse(dueDate, formatter);
