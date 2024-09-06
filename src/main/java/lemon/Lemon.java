@@ -1,7 +1,6 @@
 package lemon;
 /**
- * Lemon chatbot that can be used to track tasks given to it
- * @author He Yiheng
+ *
  */
 
 import lemon.exception.DescriptionException;
@@ -33,9 +32,6 @@ public class Lemon {
         isInitialised = s.loadTasks(tasks);
     }
 
-    /**
-     * Execute lemon once initialization is done
-     */
     public void runLemon() {
         if (!isInitialised) {
             System.out.print(" Ouhiiee, my head hurrrtt, i dont think im initialized properly ;-;\n" +

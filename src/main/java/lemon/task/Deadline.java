@@ -1,8 +1,4 @@
 package lemon.task;
-/**
- * Represent the deadline tasks that includes a date for the task to be done by
- * @author He Yiheng
- */
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,12 +6,6 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     protected LocalDate by;
 
-    /**
-     * Constructor for the Deadline task
-     * @param description description of the task
-     * @param by date the task must be completed by
-     * @param isDone whether the task is completed
-     */
     public Deadline(String description, LocalDate by, boolean isDone) {
         super(description, "deadline", isDone);
         this.by = by;
