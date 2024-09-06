@@ -5,6 +5,9 @@ package papadom.tasks;
  * A to-do task only contains a description and does not include any date or time information.
  */
 public class Todo extends Task {
+
+    public static final String TODO_ICON = "[T]";
+
     /**
      * Constructs a to-do task with the specified description.
      *
@@ -21,6 +24,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return TODO_ICON + super.toString();
     }
 }

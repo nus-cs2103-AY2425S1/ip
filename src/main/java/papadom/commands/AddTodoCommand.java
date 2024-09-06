@@ -30,7 +30,8 @@ public class AddTodoCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws IncorrectTaskInputFormatException {
         // Check if the text is only "todo" or "todo " without a meaningful task description
-        if (this.TEXT.equals("todo") || this.TEXT.equals("todo ")) {
+        boolean isTextOnlyTodo = this.TEXT.equals("todo") || this.TEXT.equals("todo ");
+        if (isTextOnlyTodo) {
             throw new IncorrectTaskInputFormatException();
         }
         String taskDescription = this.TEXT.substring(5).trim();

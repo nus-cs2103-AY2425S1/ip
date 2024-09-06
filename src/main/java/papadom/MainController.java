@@ -16,6 +16,10 @@ import papadom.utils.Ui;
 
 public class MainController {
 
+    public static final String USER_MESSAGE_COLOR = "#DCF8C6";
+    public static final String BOT_MESSAGE_COLOR = "#FFFFFF";
+    public static final String GOODBYE_MESSAGE = "Session ended. Goodbye!";
+    public static final String BYE = "bye";
     @FXML
     private VBox chatArea;
 
@@ -36,7 +40,7 @@ public class MainController {
     @FXML
     public void initialize() {
         // Display welcome message on the left
-        addMessage(Ui.welcomeMessage(), Pos.CENTER_LEFT, "#FFFFFF");
+        addMessage(Ui.welcomeMessage(), Pos.CENTER_LEFT, BOT_MESSAGE_COLOR);
 
         // Scroll to the bottom whenever the chat area changes its height (new messages added)
         chatArea.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -50,18 +54,18 @@ public class MainController {
         String userInput = inputField.getText().trim();
         if (!userInput.isEmpty()) {
             // Add the user's message to the chat area (on the right side)
-            addMessage(userInput, Pos.CENTER_RIGHT, "#DCF8C6"); // User message on the right
+            addMessage(userInput, Pos.CENTER_RIGHT, USER_MESSAGE_COLOR); // User message on the right
 
             // Get the chatbot's response and add it to the chat area (on the left side)
             String response = Papadom.getResponse(userInput);
-            addMessage(response, Pos.CENTER_LEFT, "#FFFFFF"); // Bot message on the left
+            addMessage(response, Pos.CENTER_LEFT, BOT_MESSAGE_COLOR); // Bot message on the left
 
             // Clear the input field after sending
             inputField.clear();
 
             // If the command is "bye", disable further input
-            if (userInput.equalsIgnoreCase("bye")) {
-                addMessage("Session ended. Goodbye!", Pos.CENTER_LEFT, "#FFFFFF");
+            if (userInput.equalsIgnoreCase(BYE)) {
+                addMessage(GOODBYE_MESSAGE, Pos.CENTER_LEFT, BOT_MESSAGE_COLOR);
                 inputField.setDisable(true); // Disable further input
             }
         }

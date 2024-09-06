@@ -39,7 +39,8 @@ public class Papadom {
         }
     }
     private static final Ui UI = new Ui();
-    private static final Storage STORAGE = new Storage("./src/main/java/papadom/Storage/tasks.txt");
+    public static final String STORAGE_PATH = "./src/main/java/papadom/Storage/tasks.txt";
+    private static final Storage STORAGE = new Storage(STORAGE_PATH);
     private static final TaskList TASK_LIST = new TaskList(STORAGE);
     private static final Scanner SCANNER = new Scanner(System.in);
 
@@ -47,7 +48,7 @@ public class Papadom {
      * Runs the Papadom chatbot, handling user input and executing commands in a loop. Not required actually
      */
     private static void run() {
-        UI.welcomeMessage();
+        System.out.println(Ui.welcomeMessage());
         STORAGE.createFileIfNotPresent();
 
         while (true) {

@@ -5,7 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class PapadomApp extends Application {
+
+    public static final int WINDOW_WIDTH = 600;
+    public static final int WINDOW_HEIGHT = 400;
 
     @Override
     public void start(Stage primaryStage) {
@@ -14,7 +20,7 @@ public class PapadomApp extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
 
             // Create a scene using the loaded FXML, setting the window size (600x400)
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            Scene scene = new Scene(fxmlLoader.load(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
             // Set the title of the window
             primaryStage.setTitle("Papadom Chatbot");
@@ -23,7 +29,7 @@ public class PapadomApp extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(PapadomApp.class.getName()).log(Level.SEVERE, "Failed to load FXML", e);
         }
     }
 

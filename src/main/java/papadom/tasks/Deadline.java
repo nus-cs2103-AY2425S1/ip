@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
  * A deadline task contains a description and a deadline date, with or without a specific time.
  */
 public class Deadline extends Task {
+    public static final String DEADLINE_ICON = "[D]";
     protected LocalDateTime localDateTime;
     protected LocalDate localDate;
     protected boolean hasTime;
@@ -44,10 +45,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (hasTime) {
-            return "[D]" + super.toString() + " (by: "
+            return DEADLINE_ICON + super.toString() + " (by: "
                     + localDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")) + ")";
         } else {
-            return "[D]" + super.toString() + " (by: "
+            return DEADLINE_ICON + super.toString() + " (by: "
                     + localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }
     }

@@ -16,6 +16,7 @@ public class FindEventCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws IncorrectTaskInputFormatException {
         try {
+            // Extract out keyword to be searched
             String keyword = PARSER.findKeyword(this.TEXT);
             return ui.output(storage.findTaskBySearching(keyword));
         } catch (IndexOutOfBoundsException e) {
