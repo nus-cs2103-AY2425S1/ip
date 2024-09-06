@@ -1,5 +1,8 @@
 package Arona;
 
+import Arona.AronaExceptions.AronaException;
+
+import Arona.Tasks.Task;
 import java.util.ArrayList;
 
 public class Ui {
@@ -9,33 +12,35 @@ public class Ui {
      */
     public Ui() {}
 
-    public void showGreeting() {
-        print("Hello! I'm Arona.");
-        print("What can I do for you?");
+    public String showGreeting() {
+        return "Hello! I'm Arona." + "/n" + "What can I do for you?";
     }
 
-    public void showFarewell() {
-        print("Bye. Hope to see you again soon!");
+    public String showFarewell() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Debug: method to print absolute location of data.txt file
      */
-    public void showStorage(Storage storage) {
-        print(storage.getStorageLocation());
+    public String showStorage(Storage storage) {
+        return storage.getStorageLocation();
     }
 
     /**
      * Used for list command
      * @param  taskList  a TaskList object containing the current instance's list
      */
-    public void showList(TaskList taskList) throws AronaException {
+    public String showList(TaskList taskList) throws AronaException {
         if (taskList.size() == 0) {
-            print("The task list is empty!");
-        }
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
-            print(i + 1 + ". " + task.getStatusIcon() + task.getCategory() + " " + task.toFriendlyString());
+            return "The task list is empty!";
+        } else {
+            StringBuilder s = new StringBuilder();
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.get(i);
+                s.append(i + 1).append(". ").append(task.toFriendlyString()).append("\n");
+            }
+            return s.toString();
         }
     }
 
@@ -43,55 +48,56 @@ public class Ui {
      * Used for find command
      * @param  taskList  an arraylist of filtered Task objects
      */
-    public void showFilterList(ArrayList<Task> taskList) throws AronaException {
+    public String showFilterList(ArrayList<Task> taskList) throws AronaException {
         if (taskList.isEmpty()) {
-            print("The task list is empty!");
-        }
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.get(i);
-            print(i + 1 + ". " + task.getStatusIcon() + task.getCategory() + " " + task.toFriendlyString());
-        }
-    }
-
-    public void showDelete(int size, Task task) {
-        print("Got it. I've removed this task:");
-        print(task.getStatusIcon() + task.getCategory() + ": " + task.toFriendlyString());
-        print("Now you have " + size + " tasks in the list.");
-    }
-
-    public void showMark(Task task, boolean action) {
-        if (action) {
-            print("Nice! I've marked this task as done:");
+            return "The task list is empty!";
         } else {
-            print("OK, I've marked this task as not done yet:");
+            StringBuilder s = new StringBuilder();
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.get(i);
+                s.append(i + 1).append(". ").append(task.toFriendlyString()).append("\n");
+            }
+            return s.toString();
         }
-        print(task.getStatusIcon() + task.getCategory() + ": " + task.toFriendlyString());
     }
 
-    public void showAdd(int size, Task task) {
-        print("Got it. I've added this task:");
-        print(task.getStatusIcon() + task.getCategory() + ": " + task.toFriendlyString());
-        print("Now you have " + size + " tasks in the list.");
+    public String showDelete(int size, Task task) {
+        String s = "";
+        s += "Got it. I've removed this task:" + "\n";
+        s += task.toFriendlyString() + "\n";
+        s += "Now you have " + size + " tasks in the list.";
+        return s;
+    }
+
+    public String showMark(Task task, boolean action) {
+        String s = "";
+        if (action) {
+            s += "Nice! I've marked this task as done:" + "\n";
+        } else {
+            s += "OK, I've marked this task as not done yet:" + "\n";
+        }
+        s += task.toFriendlyString();
+        return s;
+    }
+
+    public String showAdd(int size, Task task) {
+        String s = "";
+        s += "Got it. I've added this task:" + "\n";
+        s += task.toFriendlyString() + "\n";
+        s += "Now you have " + size + " tasks in the list.";
+        return s;
     }
 
 
-    public void showException(Exception e) {
-        print(e.getMessage());
+    public String showException(Exception e) {
+        return (e.getMessage());
     }
 
-    public void showNumberException() {
-        print("Error! Please input a valid number.");
+    public String showFileException() {
+        return ("Error! data.txt file or folder cannot be read.");
     }
 
-    public void showFileException() {
-        print("Error! data.txt file missing or cannot be read.");
-    }
-
-    public void showPathException() {
-        print("Error! Invalid path provided in main function.");
-    }
-
-    private static void print(String message) {
-        System.out.println(message);
+    public String showPathException() {
+        return ("Error! Invalid path provided in main function.");
     }
 }

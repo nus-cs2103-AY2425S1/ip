@@ -1,81 +1,78 @@
 package Arona;
 
+import Arona.AronaExceptions.AronaException;
+import Arona.AronaExceptions.DateFormatException;
+import Arona.AronaExceptions.MissingArgumentException;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
-    public Parser() {}
+    private TaskList taskList;
+    private Ui ui;
+
+    public Parser(TaskList taskList, Ui ui) {
+        this.taskList = taskList;
+        this.ui = ui;
+    }
 
     /**
      * Handles processing of input by calling the necessary classes
-     * @param  storage  should only be initiated once at the start of the programme
-     * @param  taskList  should only be initiated once at the start of the programme
-     * @param  ui  should only be initiated once at the start of the programme
+     * @param  input  String input from user
      */
-    public static void parse(String input, Storage storage, TaskList taskList, Ui ui) throws Exception {
+    public String parse(String input) throws Exception {
 
         // Bye command
         if (input.equalsIgnoreCase("bye")) {
-            // Save task list to data.txt
-            storage.save(taskList);
-
             // Reply
-            ui.showFarewell();
-        }
-
-        // Debug: print data location
-        else if (input.equalsIgnoreCase("storage")) {
-            ui.showStorage(storage);
+            return ui.showFarewell();
         }
 
         // List command
         else if (input.equalsIgnoreCase("list")) {
-            ui.showList(taskList);
+            // Reply
+            return ui.showList(taskList);
         }
 
         // Delete command
         else if (input.toLowerCase().startsWith("delete ")) {
 
             // Extract and save task number
-            String[] data = input.split("delete", 2);
+            String[] data = input.split("delete ", 2);
 
-            // Check if number
-            if (!data[1].stripLeading().matches("^[1-9]\\d*$")) {
-                throw new AronaException("Error! Please input a positive number.");
+            // Check if number and save index
+            int index;
+            try {
+                index = Integer.parseInt(data[1]);
+            }
+            catch (NumberFormatException e) {
+                throw new MissingArgumentException(Command.DELETE);
             }
 
-            // Save index as integer
-            int index = Integer.parseInt(data[1].stripLeading());
-
-            // Process
-            Task task = taskList.remove(index - 1);
-
             // Reply
-            ui.showDelete(taskList.size(), task);
+            return ui.showDelete(taskList.size() - 1, taskList.remove(index - 1));
         }
 
         // Mark and unmark command
         else if (input.toLowerCase().startsWith("mark ") || input.toLowerCase().startsWith("unmark ")) {
 
             // Extract and save task number
-            String[] data = input.split("mark", 2);
+            String[] data = input.split("mark ", 2);
 
             // Extract and save action
             boolean action = input.toLowerCase().startsWith("mark");
 
-            // Check if number
-            if (!data[1].stripLeading().matches("^[1-9]\\d*$")) {
-                throw new AronaException("Error! Please input a positive number.");
+            // Check if number and save index
+            int index;
+            try {
+                index = Integer.parseInt(data[1]);
+            }
+            catch (NumberFormatException e) {
+                throw new MissingArgumentException(Command.DELETE);
             }
 
-            // Save index as integer
-            int index = Integer.parseInt(data[1].stripLeading());
-
-            // Process
-            Task task = taskList.setStatus(index - 1, action);
-
             // Reply
-            ui.showMark(task, action);
+            return ui.showMark(taskList.setStatus(index - 1, action), action);
         }
 
         // Todos or events or deadline command
@@ -87,15 +84,14 @@ public class Parser {
             // Extract and save description
             data = input.split(" ", 2);
 
-            // Check if empty
-            if (data.length == 1 || data[1].isBlank()) {
-                throw new AronaException("Error! Please input a task description.");
-            }
-
             // Process
             switch (data[0]) {
                 case "todo": {
-                    taskList.add(data[1]);
+                    if (data.length == 2 && !data[1].isEmpty()) {
+                        taskList.add(data[1]);
+                    } else {
+                        throw new MissingArgumentException(Command.TODO);
+                    }
                     break;
                 }
                 case "deadline": {
@@ -104,12 +100,12 @@ public class Parser {
                     if (taskData.length == 2) {
                         try {
                             byDate = LocalDate.parse(taskData[1]);
-                        } catch (Exception e) {
-                            throw new AronaException("Please input your date in yyyy-mm-dd format.");
+                        } catch (DateTimeParseException e) {
+                            throw new DateFormatException();
                         }
                         taskList.add(taskData[0], byDate);
                     } else {
-                        throw new AronaException("Error! Please input description and by date.");
+                        throw new MissingArgumentException(Command.DEADLINE);
                     }
                     break;
                 }
@@ -121,19 +117,19 @@ public class Parser {
                         try {
                             fromDate = LocalDate.parse(taskData[1]);
                             toDate = LocalDate.parse(taskData[2]);
-                        } catch (Exception e) {
-                            throw new AronaException("Please input your date in yyyy-mm-dd format.");
+                        } catch (DateTimeParseException e) {
+                            throw new DateFormatException();
                         }
                         taskList.add(taskData[0], fromDate, toDate);
                     } else {
-                        throw new AronaException("Error! Please input description, from date, and to date.");
+                        throw new MissingArgumentException(Command.EVENT);
                     }
                     break;
                 }
             }
 
             // Reply
-            ui.showAdd(taskList.size(), taskList.peek());
+            return ui.showAdd(taskList.size(), taskList.peek());
         }
 
         // Find command
@@ -143,15 +139,12 @@ public class Parser {
             String keyword = input.split("find", 2)[1].strip().toLowerCase();
 
             // Check if empty
-            if (keyword.isBlank()) {
-                throw new AronaException("Error! Please input a keyword");
+            if (keyword.isEmpty()) {
+                throw new MissingArgumentException(Command.FIND);
             }
 
-            // Process
-            ArrayList<Task> filterTaskList = taskList.filter(keyword);
-
             // Reply
-            ui.showFilterList(filterTaskList);
+            return ui.showFilterList(taskList.filter(keyword));
         }
 
         // All other unrecognised commands

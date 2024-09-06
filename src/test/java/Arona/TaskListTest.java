@@ -14,20 +14,21 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class TaskListTest {
     // Set up dummy main class
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
     private Ui ui;
+    private Parser parser;
 
     public void DummyArona(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            taskList = new TaskList(storage.load());
         } catch (Exception e) {
             ui.showException(e);
-            tasks = new TaskList(new ArrayList<>());
+            taskList = new TaskList();
         }
+        parser = new Parser(taskList, ui);
     }
-
 
     @Test
     public void get_test_exception(){
@@ -35,15 +36,15 @@ public class TaskListTest {
 
         // Delete negative task index
         try {
-            tasks.get(-1);
+            taskList.get(-1);
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Error! Please input a positive number.", e.getMessage());
+            assertEquals("Error! This task does not exist!", e.getMessage());
         }
 
         // Delete a task that doesn't exist
         try {
-            tasks.get(100);
+            taskList.get(100);
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("Error! This task does not exist!", e.getMessage());
@@ -55,27 +56,26 @@ public class TaskListTest {
         DummyArona(".\\testdata.txt");
 
         // Get current task length
-        assertEquals(0, tasks.size());
+        assertEquals(0, taskList.size());
 
         // Add a task
         try {
-            tasks.add("a");
+            taskList.add("a");
         } catch (Exception e) {
             fail();
         }
 
         // Get task length after addition
-        assertEquals(1, tasks.size());
+        assertEquals(1, taskList.size());
 
         // Delete a task
         try {
-            tasks.remove(0);
+            taskList.remove(0);
         } catch (Exception e) {
             fail();
         }
 
         // Get task length after deletion
-        assertEquals(0, tasks.size());
-
+        assertEquals(0, taskList.size());
     }
 }

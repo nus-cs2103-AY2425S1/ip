@@ -1,32 +1,38 @@
 package Arona;
 
-import java.nio.file.*;
+import java.nio.file.FileAlreadyExistsException;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Storage {
-    private final String filePath;
+    private final String FILEPATH;
 
     /**
      * Handles storing and loading data from data.txt file
      * @param  filePath  a relative filepath giving the location that data.txt should be stored in
      */
     public Storage(String filePath) {
-        this.filePath = filePath;
+        this.FILEPATH = filePath;
     }
 
     /**
      * Loads lines from data.txt and directly copies each line to arraylist
      * @return An arraylist where each element is a line in data.txt
-     * @exception java.io.IOException thrown when file can't be opened due to corrupt data or related
+     * @exception InvalidPathException thrown when filepath isn't in the correct format
+     * @exception java.io.IOException thrown when file can't be opened or parent directory doesn't exit
      * @exception SecurityException thrown when file can't be accessed due to system security settings
      */
     public ArrayList<String> load() throws Exception {
         // String array of data.txt
         ArrayList<String> data = new ArrayList<>();
         // Current data.txt directory
-        Path dataDir = Paths.get(filePath);
+        Path dataDir = Paths.get(FILEPATH);
 
         // Make data.txt file if it doesn't exist
         try {
@@ -49,12 +55,13 @@ public class Storage {
     /**
      * Saves tasks from taskList as text in data.txt
      * @param  taskList  arraylist where each element is from Task class
-     * @exception java.io.IOException thrown when file can't be opened due to corrupt data or related
+     * @exception InvalidPathException thrown when filepath isn't in the correct format
+     * @exception java.io.IOException thrown when file can't be opened or parent directory doesn't exit
      * @exception SecurityException thrown when file can't be accessed due to system security settings
      */
     public void save(TaskList taskList) throws Exception {
         // Current data.txt directory
-        Path dataDir = Paths.get(filePath);
+        Path dataDir = Paths.get(FILEPATH);
 
         // Write data to file
         Files.write(dataDir, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
@@ -69,7 +76,7 @@ public class Storage {
      * @return A string that shows the absolute file path of data.txt
      */
     public String getStorageLocation() {
-        Path dataDir = Paths.get(filePath);
+        Path dataDir = Paths.get(FILEPATH);
         return dataDir.toAbsolutePath().toString();
     }
 }

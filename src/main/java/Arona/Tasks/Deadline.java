@@ -1,4 +1,4 @@
-package Arona;
+package Arona.Tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,11 +25,12 @@ public class Deadline extends Task {
      * @return String that looks like: [X][D] Deadline by 9 Aug 2024
      */
     public String toFriendlyString() {
-        return super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
+        return getStatusIcon() + getCategory() + " " + getDescription()
+                + " (by: " + by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + by + ")";
+        return getStatusIcon() + getCategory() + " " + getDescription() + " (by: " + by + ")";
     }
 }

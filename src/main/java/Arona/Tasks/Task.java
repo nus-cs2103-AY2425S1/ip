@@ -1,4 +1,4 @@
-package Arona;
+package Arona.Tasks;
 
 public class Task {
     protected String description;
@@ -25,13 +25,17 @@ public class Task {
         isDone = newStatus;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String toFriendlyString() {
         return this.toString();
     }
 
     @Override
     public String toString() {
-        return description;
+        return getStatusIcon() + getCategory() + " " + getDescription();
     }
 
 }

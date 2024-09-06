@@ -1,9 +1,9 @@
-package Arona;
+package Arona.Tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Events extends Task {
+public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
@@ -13,7 +13,7 @@ public class Events extends Task {
      * @param  from  the start date given in LocalDate readable format, time not included
      * @param  to  the start date given in LocalDate readable format, time not included
      */
-    public Events(String description, LocalDate from, LocalDate to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -28,12 +28,13 @@ public class Events extends Task {
      * @return String that looks like: [X][E] Event from 1 Aug 2024 to 11 Aug 2024
      */
     public String toFriendlyString() {
-        return super.toString() + " (by: " + from.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " to: "
-                + to.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
+        return getStatusIcon() + getCategory() + " " + getDescription()
+                + " (from: " + from.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + from + " to: " + to + ")";
+        return getStatusIcon() + getCategory() + " " + getDescription() + " (from: " + from + " to: " + to + ")";
     }
 }

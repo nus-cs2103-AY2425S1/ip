@@ -1,13 +1,13 @@
 package Arona;
 
+import Arona.AronaExceptions.AronaException;
 import java.nio.file.InvalidPathException;
-import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Arona {
 
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
+    private Parser parser;
     private Ui ui;
 
     /**
@@ -19,68 +19,55 @@ public class Arona {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            taskList = new TaskList(storage.load());
         } catch (Exception e) {
             ui.showException(e);
-            tasks = new TaskList(new ArrayList<String>());
+            taskList = new TaskList();
         }
+        parser = new Parser(taskList, ui);
     }
 
     /**
-     * The main loop of the chatbot
-     * <p>
-     * 1. Scans for user input
-     * <p>
-     * 2. Parses input and process them
-     * <p>
-     * 3. Catch exceptions
-     * <p>
-     * 4. Break loop when bye command is send
+     * Overloaded constructor for JavaFX
      */
-    public void run() {
-        ui.showGreeting();
-
-        // For user input
-        Scanner in = new Scanner(System.in);
-
-        // Process inputs
-        while (true) {
-            try {
-                String input = in.nextLine();
-                Parser.parse(input, storage, tasks, ui);
-
-                // Exit loop
-                if (input.equalsIgnoreCase("bye")) {
-                    // Exit programme
-                    break;
-                }
-            } catch (Exception e) {
-                // User Error
-                if (e instanceof AronaException) {
-                    ui.showException(e);
-                }
-                // Integer.parseInt() receives too long number
-                else if (e instanceof NumberFormatException) {
-                    ui.showNumberException();
-                }
-                // File not found or cant be read/write to
-                else if (e instanceof java.io.IOException || e instanceof SecurityException) {
-                    ui.showFileException();
-                }
-                // Path in arona::main not correct
-                else if (e instanceof InvalidPathException) {
-                    ui.showPathException();
-                }
-                // Other exception
-                else {
-                    //e.printStackTrace();
-                    ui.showException(e);
-                }
-            }
-        }
+    public Arona() {
+        this(".\\data.txt");
     }
 
-    public static void main(String[] args) {
-        new Arona(".\\data.txt").run();
+    /**
+     * Entry to main logic from GUI
+     *
+     */
+    public String getResponse(String input) {
+        String reply = "";
+
+        // Process inputs
+        try {
+            reply = parser.parse(input);
+            // Exit when bye sent
+            if (input.equalsIgnoreCase("bye")) {
+                // Save list of tasks to file
+                storage.save(taskList);
+            }
+            return reply;
+        } catch (Exception e) {
+            // User Error
+            if (e instanceof AronaException) {
+                return ui.showException(e);
+            }
+            // File not found or cant be read/write to
+            else if (e instanceof java.io.IOException || e instanceof SecurityException) {
+                return ui.showFileException();
+            }
+            // Path in arona::main not correct
+            else if (e instanceof InvalidPathException) {
+                return ui.showPathException();
+            }
+            // Other exception
+            else {
+                //e.printStackTrace();
+                return ui.showException(e);
+            }
+        }
     }
 }
