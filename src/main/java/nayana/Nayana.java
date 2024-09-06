@@ -11,6 +11,8 @@ public class Nayana {
     private TaskList tasks;
     private Ui ui;
 
+    boolean isExit = false;
+
     /**
      * Constructs a Nayana instance with the specified file path for task storage.
      *
@@ -57,4 +59,36 @@ public class Nayana {
         String filePath = "data/nayana.txt";
         new Nayana(filePath).run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Nayana heard: " + input;
+    }
+
+    public Ui getUi() {
+        return this.ui;
+    }
+
+    public Storage getStorage() {
+        return this.storage;
+    }
+
+    public TaskList getTaskList() {
+        return this.tasks;
+    }
+
+    public boolean parseCommand(String command){
+        try {
+            Command c = Parser.parse(command);
+            c.execute(tasks, ui, storage);
+            isExit = c.isExit();
+            return isExit;
+        } catch (NayanaException e) {
+            ui.showError(e.getMessage());
+        }
+        return isExit;
+    }
+
 }

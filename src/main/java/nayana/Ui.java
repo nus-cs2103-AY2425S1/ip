@@ -3,25 +3,18 @@ package nayana;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import nayana.task.Task;
 
 /**
  * Handles interactions with the user in the console.
  */
 public class Ui {
-    private static final String WELCOME_MESSAGE = "\n"
-          + " ___ .-.     .---.   ___  ___    .---.   ___ .-.     .---.\n"
-          + "(   )   \\   / .-, \\ (   )(   )  / .-, \\ (   )   \\   / .-,\\\n"
-          + " |  .-. .  (__) ; |  | |  | |  (__) ; |  |  .-. .  (__) ; |\n"
-          + " | |  | |    .'  |   | |  | |  .'  |  |  | |  | |  .'  |  |\n"
-          + " | |  | |   / .'| |  | '  | |  / .'|  |  | |  | |   / .'| |\n"
-          + " | |  | |  | /  | |  '  -' |  | /  |  |  | |  | |  | /  | |\n"
-          + " | |  | |  ; |  ; |   .__. |  ; |  ;  |  | |  | |  ; |  ; |\n"
-          + " | |  | |  ' -'  |   ___ | |  ' -'    |  | |  | |  ' -'  |\n"
-          + "(___)(___) .__.'_.  (   )' |  .__.'_.   (___)(___) .__.'_.\n"
-          + "                      ; -' '\n"
-          + "                       .__.'";
+    private Image nayanaDoneImage = new Image(this.getClass().getResourceAsStream("/images/NayanaDone.png"));
+    private Image nayanaImage = new Image(this.getClass().getResourceAsStream("/images/Nayana.png"));
     private Scanner scanner;
+    private VBox dialogContainer;
 
     /**
      * Initializes the Ui class with a Scanner for user input.
@@ -30,22 +23,26 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    public void print(String text, Image image) {
+        dialogContainer.getChildren().addAll(
+              DialogBox.getNayanaDialog(text, image)
+        );
+    }
+
     /**
      * Displays an error message when loading tasks fails.
      */
     public void showLoadingError() {
-        System.out.println("OOPS!!! There was an error loading the tasks. Starting with an empty list.");
+        String text = "OOPS!!! There was an error loading the tasks. Starting with an empty list.";
+        print(text, this.nayanaImage);
     }
 
     /**
      * Displays the welcome message and application introduction.
      */
     public void showWelcomeMessage() {
-        System.out.println("Hello from" + WELCOME_MESSAGE);
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Nayana");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        String text = "Hello! I'm Nayana\nWhat can I do for you? ";
+        print(text, this.nayanaImage);
     }
 
     /**
@@ -70,7 +67,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public void showError(String message) {
-        System.out.println("OOPS!!! " + message);
+        print(message, this.nayanaDoneImage);
     }
 
     /**
@@ -80,9 +77,10 @@ public class Ui {
      * @param size The current number of tasks in the list.
      */
     public void printAddTask(Task task, int size) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks left in the list.%n", size);
+        String text = "Got it. I've added this task:\n"
+        + task
+        + "\nNow you have " + size +  " tasks left in the list.";
+        print(text, this.nayanaImage);
     }
 
     /**
@@ -92,9 +90,10 @@ public class Ui {
      * @param size The current number of tasks in the list.
      */
     public void printDeleteTask(Task task, int size) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks left in the list.%n", size);
+        String text = "Noted. I've removed this task:\n"
+              + task
+              + "\nNow you have " + size +  " tasks left in the list.";
+        print(text, this.nayanaImage);
     }
 
     /**
@@ -103,8 +102,9 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public void printMarkTask(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+        String text = "Nice! I've marked this task as done:\n"
+              + task;
+        print(text, this.nayanaImage);
     }
 
     /**
@@ -113,8 +113,9 @@ public class Ui {
      * @param task The task that was marked as not done.
      */
     public void printUnmarkTask(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+        String text = "OK, I've marked this task as not done yet:\n"
+              + task;
+        print(text, this.nayanaImage);
     }
 
     /**
@@ -123,15 +124,15 @@ public class Ui {
      * @param tasks The TaskList object containing the tasks.
      */
     public void printTaskList(TaskList tasks) {
-        System.out.println(tasks);
+        print(tasks.toString(), this.nayanaImage);
     }
 
     /**
      * Prints a message indicating that the application is exiting.
      */
     public void printExit() {
-        System.out.println("Bye!!! Hope to help you again soon!");
-        scanner.close();
+        String text = "Bye!!! Hope to help you again soon!";
+        print(text, this.nayanaImage);
     }
 
     /**
@@ -140,13 +141,19 @@ public class Ui {
      * @param foundTasks An ArrayList of tasks that match the search query.
      */
     public void printFoundTasks(ArrayList<Task> foundTasks) {
+        String text = "";
         if (foundTasks.size() > 0) {
-            System.out.println("Here are the matching tasks in your list:");
+            text += "Here are the matching tasks in your list:\n";
             for (int i = 0; i < foundTasks.size(); i++) {
-                System.out.println((i + 1) + "." + foundTasks.get(i));
+               text +=  (i + 1) + "." + foundTasks.get(i) + "\n";
             }
         } else {
-            System.out.println("There are no matching tasks in your list.");
+            text += "There are no matching tasks in your list.";
         }
+        print(text, this.nayanaImage);
+    }
+
+    public void setVbox(VBox dialogContainer) {
+        this.dialogContainer = dialogContainer;
     }
 }

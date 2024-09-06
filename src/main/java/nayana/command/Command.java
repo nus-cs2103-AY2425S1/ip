@@ -16,8 +16,8 @@ public abstract class Command {
     /**
      * Executes the command with the given task list, user interface, and storage.
      *
-     * @param tasks The task list to be manipulated by the command.
-     * @param ui The user interface for displaying messages.
+     * @param tasks   The task list to be manipulated by the command.
+     * @param ui      The user interface for displaying messages.
      * @param storage The storage for saving tasks.
      * @throws NayanaException If an error occurs while executing the command.
      */
