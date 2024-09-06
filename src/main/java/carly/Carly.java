@@ -22,6 +22,10 @@ public class Carly {
         this.taskList = new TaskList();
     }
 
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
     /**
      * Initiates a conversation with the user. Can use commands to do various tasks.
      * The conversation continues until the user inputs the "BYE" command.

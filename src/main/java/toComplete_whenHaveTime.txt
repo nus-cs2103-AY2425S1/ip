@@ -24,13 +24,3 @@ gradle tools:
 
 shortcut:
 - double click on code -> softwrap
-
-
-public static void main(String[] args) {
-    Carly carly = new Carly();
-    try {
-        carly.chat();
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
-    }
-}

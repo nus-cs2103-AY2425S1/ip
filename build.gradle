@@ -46,14 +46,15 @@ test {
 }
 
 application {
-    mainClass.set("carly.Carly")
+    mainClass.set("carly.ui.Main")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "carly"
     archiveClassifier = null
 }
 
 run{
     standardInput = System.in
 }
+
