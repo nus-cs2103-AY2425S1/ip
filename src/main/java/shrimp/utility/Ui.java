@@ -53,7 +53,7 @@ public class Ui {
      */
     public String printWelcome() {
         String greetings = "Domo! Same desu~ I am shrimp, and I am happy to assist you! Hewwo? <3";
-        return AnsiCode.CYAN + greetings;
+        return greetings;
     }
 
     /**
@@ -76,10 +76,10 @@ public class Ui {
         String output = "Gotchaaa~ Here's the list so far:";
         for (int i = 0; i < taskList.getCount(); i++) {
             Task task = taskList.getTask(i);
-            output += String.format("\n    %s.%s", i + 1, task);
+            output += String.format("\n    %s. %s", i + 1, task);
         }
         output = output + printTaskCount(taskList);
-        return AnsiCode.PURPLE + output + AnsiCode.CYAN;
+        return output;
     }
 
     /**
@@ -146,7 +146,7 @@ public class Ui {
             Task task = taskList.getTask(i);
             output += String.format("\n    %s.%s", i + 1, task);
         }
-        return AnsiCode.PURPLE + output + AnsiCode.CYAN;
+        return output;
     }
 
     /**
@@ -156,6 +156,6 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public String printError(String message) {
-        return AnsiCode.RED + "Oh nyoo~ " + message;
+        return "Oh nyoo~ " + message;
     }
 }
