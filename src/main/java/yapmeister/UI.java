@@ -15,6 +15,7 @@ public class UI {
     private TaskList tasks;
 
     private boolean isRunning;
+    private String currentReply = "";
 
     /**
      * Creates a new UI
@@ -47,11 +48,19 @@ public class UI {
         scanner.close();
     }
 
+    public String getResponse(String input) {
+        parser.processInput(input);
+        String ret = currentReply;
+        currentReply = "";
+        return ret;
+    }
+
     public void exit() {
         isRunning = false;
     }
 
     public void displayString(String s) {
         System.out.println(s);
+        currentReply += currentReply + "\n" + s;
     }
 }
