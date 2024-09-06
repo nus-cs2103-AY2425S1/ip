@@ -1,9 +1,4 @@
-/**
- * Parses String input from the user and returns ValidCommand
- *
- */
-
-import java.util.Scanner;
+package ynch.ui;
 
 /**
  * Parses user input and identifies valid commands.

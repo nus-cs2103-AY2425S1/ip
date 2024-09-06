@@ -1,3 +1,5 @@
+package ynch.ui;
+
 import java.util.ArrayList;
 
 /**

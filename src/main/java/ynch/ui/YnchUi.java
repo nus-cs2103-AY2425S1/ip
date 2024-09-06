@@ -1,3 +1,5 @@
+package ynch.ui;
+
 /**
  * Represents the user interface for YNCH chatbot.
  */
@@ -64,9 +66,8 @@ class YnchUi {
      * Prints a greeting message.
      */
     void greet() {
-        System.out.println("Meow! I'm YNCH. What can I do for you?");
+        System.out.println("Meow! How can I help you today?");
     }
-    
     /**
      * Prints an exit message.
      */

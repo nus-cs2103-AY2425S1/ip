@@ -1,7 +1,29 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Meow! I'm YNCH. What can I do for you?
+Meow! I've added this task: 
+[T][ ] sleep
+ Now you have 1 tasks in the list.
+Meow! I've added this task: 
+[D][ ] cs2103 homework  (by: today 10pm)
+ Now you have 2 tasks in the list.
+Meow! I've added this task: 
+[E][ ] meeting  (from:  sunday 1pm  to: 3pm)
+ Now you have 3 tasks in the list.
+Meow! I've added this task: 
+[T][ ] meow
+ Now you have 4 tasks in the list.
+Meow! I've added this task: 
+[D][ ] dba assignment  (by: 5pm)
+ Now you have 5 tasks in the list.
+Meow! I've marked this task as done: 
+[D][X] cs2103 homework  (by: today 10pm)
+Meow! I've marked this task as done: 
+[E][X] meeting  (from:  sunday 1pm  to: 3pm)
+Meow! I've marked this task as not done yet: 
+[D][ ] cs2103 homework  (by: today 10pm)
+1. [T][ ] sleep
+2. [D][ ] cs2103 homework  (by: today 10pm)
+3. [E][X] meeting  (from:  sunday 1pm  to: 3pm)
+4. [T][ ] meow
+5. [D][ ] dba assignment  (by: 5pm)
 
+Bye. Hope to see you again soon meow!

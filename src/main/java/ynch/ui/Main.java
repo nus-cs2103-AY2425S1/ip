@@ -1,125 +1,42 @@
-import java.util.Scanner;
-import java.util.ArrayList;
+package ynch.ui;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.io.File;
-import java.io.FileWriter;
 
-import java.nio.file.Paths;
+public class Main extends Application {
 
-public class Main {
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
 
-    public static void main(String[] args) {
-        // Storage will load and save tasks
-        // TaskList will store tasks
-        // Parser will tell Main what operations to call for TaskList
-        // YnchUi will print statements
+    @Override
+    public void start(Stage stage) {
+        //Setting up required components
 
-        // initialize
-        String filePath = Paths.get("").toAbsolutePath().toString();
-        String filename = "Ynch.txt";
-        Storage storage = new Storage(filePath, filename);
-        TaskList taskList = storage.load();
-        Parser parser = new Parser();
-        YnchUi ui = new YnchUi();
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
 
-        Scanner scanner = new Scanner(System.in);
+        userInput = new TextField();
+        sendButton = new Button("Send");
 
-        ui.greet();
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-        while (true) {
-            String userInput = scanner.nextLine();
-            
-            if (userInput.equals("bye")) {
-                storage.save(taskList);
-                ui.exit();
-                break;
-            } 
+        scene = new Scene(mainLayout);
 
-            try {
-                checkForEmpty(userInput);
-                checkForInvalid(userInput);
-            } catch (EmptyTaskException e) {
-                System.out.println(e.getMessage());
-                continue;
-            } catch (InvalidCommandException e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
-            
-            switch (parser.processInput(userInput)) {
-            case ValidCommand.list: {
-                System.out.println(taskList.list());
-                break;
-            }
-            case ValidCommand.mark: {
-                int i = Integer.valueOf(userInput.split(" ")[1]);
-                ui.printMark(taskList.mark(i));
-                break;
-            }
-            case ValidCommand.unmark: {
-                int i = Integer.valueOf(userInput.split(" ")[1]);
-                ui.printUnmark(taskList.unmark(i));
-                break;
-            }
-            case ValidCommand.todo: {
-                String task = userInput.split(" ", 2)[1];
-                ui.printAdd(taskList.add(task), taskList.getSize());
-                break;
-            }
-            case ValidCommand.deadline: {
-                System.out.println("deadline");
-                userInput = userInput.split(" ", 2)[1];
-                String task = userInput.split("/by")[0];
-                String deadline = userInput.split("/by")[1];
-                ui.printAdd(taskList.add(task, deadline), taskList.getSize());
-                break;
-            }
-            case ValidCommand.event: {
-                userInput = userInput.split(" ", 2)[1];
-                String task = userInput.split("/from")[0];
-                String fromAndTo = userInput.split("/from")[1];
-                String from = fromAndTo.split("/to")[0];
-                String to = fromAndTo.split("/to")[1];
-                ui.printAdd(taskList.add(task, from, to), taskList.getSize());
-                break;
-            }
-            case ValidCommand.delete: {
-                int i = Integer.valueOf(userInput.split(" ")[1]);
-                ui.printDelete(taskList.delete(i), taskList.getSize());
-                break;
-            }
-            case ValidCommand.find: {
-                String keyword = userInput.split(" ", 2)[1];
-                ui.printFind(taskList.find(keyword));
-            }
-            }
+        stage.setScene(scene);
+        stage.show();
 
-        }
-        scanner.close(); 
-        
+        //More code to be added here later
     }
-
-    private static void checkForEmpty(String userInput) throws EmptyTaskException {
-        if (userInput.equals("todo")) {
-            throw new EmptyTaskException();
-        }
-    }
-
-    private static void checkForInvalid(String userInput) throws InvalidCommandException {
-        if (!isValidInput(userInput)) {
-            throw new InvalidCommandException();
-        }
-    }
-
-    private static boolean isValidInput(String userInput) { 
-        try {
-            ValidCommand.valueOf(userInput.split(" ")[0]); 
-            return true; // valid enum
-        } catch (IllegalArgumentException e) {
-            return false; // invalid enum
-        }
-    }
-
-    
 }
+
