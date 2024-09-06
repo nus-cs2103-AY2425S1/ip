@@ -61,7 +61,7 @@ public class MainWindow extends AnchorPane {
      *
      * @param event The KeyEvent sent
      */
-    public void sendCommandFromKeyboard(KeyEvent event) {
+    public void sendCommandFromKeyboardEnter(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             sendCommand();
         }

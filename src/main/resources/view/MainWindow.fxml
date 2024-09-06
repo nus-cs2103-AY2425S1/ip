@@ -22,7 +22,7 @@
             </content>
         </ScrollPane>
         <TextField fx:id="message" layoutX="14.0" layoutY="555.0"
-                   onKeyPressed="#sendCommandFromKeyboard" prefHeight="31.0"
+                   onKeyPressed="#sendCommandFromKeyboardEnter" prefHeight="31.0"
                    prefWidth="305.0" AnchorPane.bottomAnchor="14.0"
                    AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="81.0"/>
         <Button fx:id="sendButton" alignment="CENTER" graphicTextGap="2.0"
