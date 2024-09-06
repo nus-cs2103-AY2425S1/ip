@@ -57,6 +57,8 @@ public class TaskList {
 
     /**
      * Prints the current list of tasks.
+     *
+     * @return List of tasks
      */
     public String list() {
         if (tasks.isEmpty()) {
@@ -90,8 +92,8 @@ public class TaskList {
         taskToMark.markAsDone();
         storage.saveTasks(tasks);
 
-        return "Nice! I've marked this task as done:\n" +
-                "  " + taskToMark;
+        return "Nice! I've marked this task as done:\n"
+                + "  " + taskToMark;
     }
 
     /**
@@ -111,8 +113,8 @@ public class TaskList {
         taskToUnmark.unmark();
         storage.saveTasks(tasks);
 
-        return "OK, I've marked this task as not done yet:\n" +
-                "  " + taskToUnmark;
+        return "OK, I've marked this task as not done yet:\n"
+                + "  " + taskToUnmark;
     }
 
     /**
@@ -124,10 +126,11 @@ public class TaskList {
     public String find(String query) {
         assert !query.isEmpty();
         String matched = "";
-        String queryCapitalised = query.toUpperCase();
+        String queryUpperCase = query.toUpperCase();
 
         for (Task task : tasks) {
-            if (task.toString().substring(7).toUpperCase().contains(queryCapitalised)) {
+            String taskUppercase = task.toString().substring(7).toUpperCase();
+            if (taskUppercase.contains(queryUpperCase)) {
                 matched += String.format("%s\n", task);
             }
         }

@@ -43,15 +43,15 @@ public class Storage {
             Scanner sc = new Scanner(file);
 
             while (sc.hasNextLine()) {
-                String input = sc.nextLine();
-                String[] taskInfo = input.split("\\|");
-                String taskType = taskInfo[0];
-                int taskStatus = Integer.parseInt(taskInfo[1]);
+                String task = sc.nextLine();
+                String[] taskInputs = task.split("\\|");
+                String taskType = taskInputs[0];
+                int taskStatus = Integer.parseInt(taskInputs[1]);
                 assert (taskStatus == 0 || taskStatus == 1);
 
                 switch (taskType) {
                 case "T":
-                    Todo todo = new Todo(taskInfo[2]);
+                    Todo todo = new Todo(taskInputs[2]);
                     if (taskStatus == 1) {
                         todo.markAsDone();
                     }
@@ -59,7 +59,7 @@ public class Storage {
                     break;
 
                 case "D":
-                    Deadline deadline = new Deadline(taskInfo[2], LocalDateTime.parse(taskInfo[3]));
+                    Deadline deadline = new Deadline(taskInputs[2], LocalDateTime.parse(taskInputs[3]));
                     if (taskStatus == 1) {
                         deadline.markAsDone();
                     }
@@ -67,8 +67,8 @@ public class Storage {
                     break;
 
                 case "E":
-                    Event event = new Event(taskInfo[2], LocalDateTime.parse(taskInfo[3]),
-                            LocalDateTime.parse(taskInfo[4]));
+                    Event event = new Event(taskInputs[2], LocalDateTime.parse(taskInputs[3]),
+                            LocalDateTime.parse(taskInputs[4]));
                     if (taskStatus == 1) {
                         event.markAsDone();
                     }

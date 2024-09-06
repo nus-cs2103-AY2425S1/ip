@@ -85,8 +85,8 @@ public class Parser {
 
         case MARK:
             if (commands.length == 1) {
-                throw new LunaException("Indicate the task number to mark as done\n" +
-                        "e.g. mark 2");
+                throw new LunaException("Indicate the task number to mark as done\n"
+                        + "e.g. mark 2");
             }
 
             int taskToMark;
@@ -101,8 +101,8 @@ public class Parser {
 
         case UNMARK:
             if (commands.length == 1) {
-                throw new LunaException("Indicate the task number to unmark\n" +
-                        "e.g. unmark 2");
+                throw new LunaException("Indicate the task number to unmark\n"
+                        + "e.g. unmark 2");
             }
 
             int taskToUnmark;
@@ -117,8 +117,8 @@ public class Parser {
 
         case DELETE:
             if (commands.length == 1) {
-                throw new LunaException("Indicate the task number to delete\n" +
-                        "e.g. delete 2");
+                throw new LunaException("Indicate the task number to delete\n"
+                        + "e.g. delete 2");
             }
 
             int taskToDelete;
@@ -133,31 +133,32 @@ public class Parser {
 
         case FIND:
             if (commands.length == 1 || commands[1].trim().isEmpty()) {
-                throw new LunaException("Enter task description to search\n" +
-                        "e.g. find book");
+                throw new LunaException("Enter task description to search\n"
+                        + "e.g. find book");
             }
             return new FindCommand(commands[1].trim());
 
         case TODO:
             if (commands.length == 1 || commands[1].trim().isEmpty()) {
-                throw new LunaException("Enter description for todo\n" +
-                        "e.g. todo [description]");
+                throw new LunaException("Enter description for todo\n"
+                        + "e.g. todo [description]");
             }
 
             Todo todo = new Todo(commands[1].trim());
             return new TodoCommand(todo);
 
         case DEADLINE:
-            if (commands.length == 1 || commands[1].trim().isEmpty() || commands[1].trim().indexOf("/") == 0) {
-                throw new LunaException("Enter description for deadline\n" +
-                        "e.g. deadline return book /by 12/12/2024 12:00");
+            if (commands.length == 1 || commands[1].trim().isEmpty()
+                    || commands[1].trim().indexOf("/") == 0) {
+                throw new LunaException("Enter description for deadline\n"
+                        + "e.g. deadline return book /by 12/12/2024 12:00");
             }
 
             String[] deadline = commands[1].split(" /");
 
             if (deadline.length == 1) {
-                throw new LunaException("Enter deadline for task\n" +
-                        "e.g. deadline [task] /by [deadline]");
+                throw new LunaException("Enter deadline for task\n"
+                        + "e.g. deadline [task] /by [deadline]");
             }
 
             if (!deadline[1].contains("by ") || deadline[1].trim().length() <= 2) {
@@ -184,8 +185,8 @@ public class Parser {
 
         case EVENT:
             if (commands.length == 1 || commands[1].trim().isEmpty() || commands[1].trim().indexOf("/") == 0) {
-                throw new LunaException("Enter description for event\n" +
-                        "e.g. event project meeting /from 12/12/2024 12:00 /to 12/12/2024 16:00");
+                throw new LunaException("Enter description for event\n"
+                        + "e.g. event project meeting /from 12/12/2024 12:00 /to 12/12/2024 16:00");
             }
 
             if (!commands[1].contains("/from ") || !commands[1].contains("/to ")) {
