@@ -55,7 +55,7 @@ Once the application starts, interact with ChatBaby by entering commands into th
 
 ### Saving and Loading Data
 
-ChatBaby automatically saves your task list to a file and loads it when you restart the application. The data is stored in `./data/duke.txt`.
+ChatBaby automatically saves your task list to a file and loads it when you restart the application. The data is stored in `./data/chatBaby.txt`.
 
 ### Troubleshooting
 
