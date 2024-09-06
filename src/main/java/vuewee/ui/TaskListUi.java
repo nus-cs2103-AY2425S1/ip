@@ -14,7 +14,7 @@ public abstract class TaskListUi {
     protected TasksStorage storage;
 
     /**
-     * Creates a new TaskListUI object.
+     * Creates a new TaskListUI object with an empty task list.
      */
     public TaskListUi() {
         this.taskList = new TaskList();

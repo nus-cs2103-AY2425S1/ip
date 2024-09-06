@@ -15,6 +15,7 @@ import vuewee.task.TaskList;
  * methods to add, delete, display, and mark tasks as done or not done.
  */
 public class TaskListCli extends TaskListUi {
+    private static TaskListCli instance;
     private Scanner scanner = new Scanner(System.in);
 
     /**
@@ -23,8 +24,25 @@ public class TaskListCli extends TaskListUi {
      *
      * @param taskList Existing task list to be used
      */
-    public TaskListCli(TaskList taskList) {
+    private TaskListCli(TaskList taskList) {
         super(taskList);
+    }
+
+    private TaskListCli(Scanner scanner) {
+        super();
+        this.scanner = scanner;
+    }
+
+    /**
+     * Returns the singleton instance of TaskListCli.
+     *
+     * @return The singleton instance
+     */
+    public static TaskListCli getTaskListInstance(TaskList taskList) {
+        if (instance == null) {
+            instance = new TaskListCli(taskList);
+        }
+        return instance;
     }
 
     /**
@@ -32,9 +50,11 @@ public class TaskListCli extends TaskListUi {
      *
      * @param scanner Input scanner for reading user input
      */
-    public TaskListCli(Scanner scanner) {
-        super();
-        this.scanner = scanner;
+    public static TaskListCli getScannerInstance(Scanner scanner) {
+        if (instance == null) {
+            instance = new TaskListCli(scanner);
+        }
+        return instance;
     }
 
     /**

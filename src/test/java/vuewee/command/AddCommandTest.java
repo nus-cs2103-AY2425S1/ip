@@ -14,7 +14,7 @@ public class AddCommandTest {
     @Test
     public void testTodoTask() {
         TaskList taskList = new TaskList();
-        TaskListCli taskListUI = new TaskListCli(taskList);
+        TaskListCli taskListUI = TaskListCli.getTaskListInstance(taskList);
 
         TodoCommand command = new TodoCommand();
         assertThrows(IllegalCommandException.class, () -> command.execute(taskListUI, taskList, new CommandParser(
@@ -28,7 +28,7 @@ public class AddCommandTest {
     @Test
     public void testDeadlineTask() {
         TaskList taskList = new TaskList();
-        TaskListCli taskListUI = new TaskListCli(taskList);
+        TaskListCli taskListUI = TaskListCli.getTaskListInstance(taskList);
 
         DeadlineCommand command = new DeadlineCommand();
         // Test missing params
@@ -51,7 +51,7 @@ public class AddCommandTest {
     @Test
     public void testEventTask() {
         TaskList taskList = new TaskList();
-        TaskListCli taskListUI = new TaskListCli(taskList);
+        TaskListCli taskListUI = TaskListCli.getTaskListInstance(taskList);
 
         EventCommand command = new EventCommand();
         // Test missing params

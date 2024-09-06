@@ -12,8 +12,8 @@ import vuewee.ui.TaskListUi;
 public class Vuewee {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        // TaskListUi ui = new TaskListCli(scanner);
-        TaskListUi ui = new TaskListGui();
+        // TaskListUi ui = TaskListCli.getScannerInstance(scanner);
+        TaskListUi ui = TaskListGui.getInstance();
         ui.run();
         ui.close();
     }

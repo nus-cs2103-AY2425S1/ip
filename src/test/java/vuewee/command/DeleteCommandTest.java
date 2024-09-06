@@ -17,7 +17,7 @@ public class DeleteCommandTest {
         taskList.add(new TodoTask("task1"));
         taskList.add(new TodoTask("task2"));
         taskList.add(new TodoTask("task3"));
-        TaskListCli taskListUI = new TaskListCli(taskList);
+        TaskListCli taskListUI = TaskListCli.getTaskListInstance(taskList);
 
         DeleteCommand command = new DeleteCommand();
 
