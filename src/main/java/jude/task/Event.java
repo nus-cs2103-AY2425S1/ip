@@ -16,7 +16,7 @@ public class Event extends Task {
     private LocalDateTime toDateTime;
 
     /**
-     * Creates the Deadline object.
+     * Creates the Event object.
      * @param description of the Task.
      * @param from represents the starting time, which the format is expected to be of the direct user input.
      * @param to represents the ending time, which the format is expected to be of the direct user input.
@@ -28,7 +28,7 @@ public class Event extends Task {
     }
 
     /**
-     * Creates the Deadline object.
+     * Creates the Event object.
      * @param description of the Task.
      * @param fromDateTime represents the starting time, which the format is expected to be of the save file format.
      * @param toDateTime represents the ending time, which the format is expected to be of the save file format.

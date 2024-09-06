@@ -35,15 +35,16 @@ public class Jude {
     public void run() {
 
         ui.startChat();
-        boolean isExit = false;
 
-        while (!isExit) {
+        while (true) {
 
             try {
                 String fullCommand = ui.readCommand();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                if (c.isExit()) {
+                    break;
+                }
             } catch (JudeException je) {
                 ui.showError(je);
             } finally {
