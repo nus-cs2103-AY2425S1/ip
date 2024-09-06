@@ -17,7 +17,6 @@ import java.util.Map;
  */
 
 public class GeminiApi {
-
     /**
      * @param input The prompt sent to Gemini.
      * @return The text result from Gemini.

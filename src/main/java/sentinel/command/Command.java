@@ -1,6 +1,7 @@
 package sentinel.command;
 
 import sentinel.Sentinel;
+import sentinel.exception.InvalidCommandException;
 import sentinel.exception.SentinelException;
 import sentinel.ui.Ui;
 import sentinel.utils.SentinelList;
@@ -28,9 +29,10 @@ public abstract class Command {
      * Executes the command with the given input.
      *
      * @param input The user's input string.
+     * @return String to be displayed on GUI depending on Command.
      * @throws SentinelException If an error occurs during command execution.
      */
-    public abstract void execute(String input) throws SentinelException;
+    public abstract String execute(String input) throws SentinelException;
 
     /**
      * Factory method for creating specific Command instances based on the command type.
@@ -41,7 +43,8 @@ public abstract class Command {
      * @return The created Command instance.
      * @throws IllegalArgumentException If the command type is unknown.
      */
-    public static Command createCommand(Sentinel.CommandType commandType, Ui ui, SentinelList list) {
+    public static Command createCommand(Sentinel.CommandType commandType, Ui ui, SentinelList list)
+            throws SentinelException {
         return switch (commandType) {
         case list -> new ListCommand(ui, list);
         case find -> new FindCommand(ui, list);
@@ -49,6 +52,7 @@ public abstract class Command {
         case todo, deadline, event -> new CreateTaskCommand(ui, list, commandType);
         case help -> new HelpCommand(ui, list);
         case bye -> new ByeCommand(ui, list);
+        default -> throw new InvalidCommandException("Unable to create command");
         };
     }
 }

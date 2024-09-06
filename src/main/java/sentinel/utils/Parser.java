@@ -7,6 +7,7 @@ import sentinel.Sentinel;
 import sentinel.api.GeminiApi;
 import sentinel.exception.DeadlineException;
 import sentinel.exception.EventException;
+import sentinel.exception.InvalidCommandException;
 import sentinel.exception.SentinelException;
 import sentinel.task.Deadline;
 import sentinel.task.Event;
@@ -25,9 +26,13 @@ public class Parser {
      * @param input The user's input string.
      * @return The command type determined from the input.
      */
-    public static Sentinel.CommandType parseForCommand(String input) {
+    public static Sentinel.CommandType parseForCommand(String input) throws SentinelException {
         String[] arr = input.split(" ");
-        return Sentinel.CommandType.valueOf(arr[0].toLowerCase());
+        try {
+            return Sentinel.CommandType.valueOf(arr[0].toLowerCase());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidCommandException("Unable to parse");
+        }
     }
 
     /**

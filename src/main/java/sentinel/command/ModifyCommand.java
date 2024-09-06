@@ -1,9 +1,11 @@
 package sentinel.command;
 
 import sentinel.Sentinel;
+import sentinel.task.Task;
 import sentinel.ui.Ui;
 import sentinel.utils.Parser;
 import sentinel.utils.SentinelList;
+import sentinel.utils.SentinelString;
 
 /**
  * The ModifyCommand class is responsible for modifying tasks in the list.
@@ -31,25 +33,33 @@ public class ModifyCommand extends Command {
      * @param input The user's input string containing the task index.
      */
     @Override
-    public void execute(String input) {
+    public String execute(String input) {
         int num;
         try {
             num = Parser.parseIndex(input);
         } catch (Exception e) {
             ui.showError(e);
-            return;
+            return e.getMessage();
         }
         if (num > list.size()) {
             ui.showNoItemExists();
-            return;
+            return SentinelString.stringNoItemExists();
         } else if (num <= 0) {
             ui.showModifyGuidelines();
-            return;
+            return SentinelString.stringModifyGuidelines();
         }
         switch (commandType) {
-        case delete -> ui.showRemovedAndRemaining(list, list.remove(num - 1));
-        case mark -> toggleTaskMark(num - 1, true);
-        case unmark -> toggleTaskMark(num - 1, false);
+        case delete -> {
+            Task removed = list.remove(num - 1);
+            ui.showRemovedAndRemaining(list, removed);
+            return SentinelString.stringRemovedAndRemaining(list, removed);
+        }
+        case mark -> {
+            return toggleTaskMark(num - 1, true);
+        }
+        case unmark -> {
+            return toggleTaskMark(num - 1, false);
+        }
         default -> throw new IllegalArgumentException("Unknown command");
         }
     }
@@ -61,12 +71,14 @@ public class ModifyCommand extends Command {
      * @param index The index of the task to be marked or unmarked.
      * @param mark  Whether to mark (true) or unmark (false) the task.
      */
-    private void toggleTaskMark(int index, boolean mark) {
+    private String toggleTaskMark(int index, boolean mark) {
         if (mark == list.isTaskDone(index)) {
             ui.showAlreadyMarked(list.get(index));
+            return SentinelString.stringAlreadyMarked(list.get(index));
         } else {
             list.toggleMark(index);
             ui.showTaskMark(list.get(index));
+            return SentinelString.stringTaskMark(list.get(index));
         }
     }
 }

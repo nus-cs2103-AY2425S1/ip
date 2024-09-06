@@ -5,6 +5,7 @@ import java.util.Scanner;
 import sentinel.Sentinel;
 import sentinel.task.Task;
 import sentinel.utils.SentinelList;
+import sentinel.utils.SentinelString;
 
 /**
  * Provides the user interface for the Sentinel application.
@@ -12,46 +13,6 @@ import sentinel.utils.SentinelList;
  * reading user input, and providing guidance on how to use the application's features.
  */
 public class Ui {
-    @SuppressWarnings("checkstyle:LineLength")
-    private static final String logo =
-            "       _____                                                                                      _____\n"
-        + "      ( ___ )                                                                                    ( ___ )\n"
-        + "       |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   |\n"
-        + "       |   |                                                                                      |   |\n"
-        + "       |   |   ________  _______   ________   _________  ___  ________   _______   ___            |   |\n"
-        + "       |   |  |\\   ____\\|\\  ___ \\ |\\   ___  \\|\\___   ___\\\\  \\|\\   ___  \\|\\  ___ \\ |\\  \\   "
-                    + "        |   |\n"
-        + "       |   |  \\ \\  \\___|\\ \\   __/|\\ \\  \\\\ \\  \\|___ \\  \\_\\ \\  \\ \\  \\\\ \\  \\ \\   __/|\\"
-                    + " \\  \\          |   |\n"
-        + "       |   |   \\ \\_____  \\ \\  \\_|/_\\ \\  \\\\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\\\ \\  \\ \\  \\_|/"
-                    + "_\\ \\  \\         |   |\n"
-        + "       |   |    \\|____|\\  \\ \\  \\_|\\ \\ \\  \\\\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\\\ \\  \\ \\  \\_"
-                    + "|\\ \\ \\  \\____    |   |\n"
-        + "       |   |      ____\\_\\  \\ \\_______\\ \\__\\  \\__\\   \\ \\__\\ \\ \\__\\ \\__\\\\ \\__\\ \\_______"
-                    + "\\ \\_______\\  |   |\n"
-        + "       |   |     |\\_________\\|_______|\\|__| \\|__|    \\|__|  \\|__|\\|__| \\|_______|\\|_______|      "
-                    + "|   |\n"
-        + "       |   |     \\|_________|                                                                     |   |\n"
-        + "       |   |                                                                                      |   |\n"
-        + "       |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___|\n"
-        + "      (_____)                                                                                    (_____)\n";
-
-
-    private static final String helpText = """
-                    1. todo <task>                                Adds tasks without any date/time attached to list.
-                    2. deadline <task> /by <date>                 Adds tasks that need to be done before a specific
-                                                                  date/time to list.
-                    3. event <event> /from <date> /to <date>      Adds tasks that start at a specific date/time and
-                                                                  ends at a specific date/time to list.
-                    4. list                                       List all tasks.
-                    5. mark <index>                               Mark task as done.
-                    6. unmark <index>                             Mark task as undone.
-                    7. delete <index>                             Deletes task.
-                    8. bye                                        Ends the chatbot.
-                    """;
-
-    private static final String line = "____________________________________________________________\n";
-
     private final Scanner sc;
 
     /**
@@ -65,16 +26,14 @@ public class Ui {
      * Displays a welcome message and application logo.
      */
     public void showWelcome() {
-        System.out.println("Hello from\n" + logo);
-        System.out.println("\nWhat can I do for you?");
-        showLine();
+        System.out.println(SentinelString.stringWelcome());
     }
 
     /**
      * Prints a horizontal line for visual separation in the UI.
      */
     public void showLine() {
-        System.out.println(line);
+        System.out.println(SentinelString.stringLine());
     }
 
     /**
@@ -92,59 +51,56 @@ public class Ui {
      * @param e The exception to display.
      */
     public void showError(Exception e) {
-        System.err.println("Sentinel just experienced an error! " + e.getMessage());
-        showLine();
+        System.out.println(SentinelString.stringError(e));
     }
 
     /**
      * Displays a goodbye message when the application ends.
      */
     public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(SentinelString.stringGoodbye());
     }
 
     /**
      * Displays help information for the user, listing all available commands and their descriptions.
      */
     public void showHelp() {
-        System.out.println(helpText);
+        System.out.println(SentinelString.stringHelp());
     }
 
     /**
      * Displays guidelines for using the 'event' command.
      */
     public void showEventCommandGuidelines() {
-        System.out.println("Please state the start and end date using /from <date> and /to <date> respectively "
-                + "(e.g., event project meeting /from 30 Aug 2024 2pm /to 30 Aug 2024 4pm)");
+        System.out.println(SentinelString.stringEventCommandGuidelines());
     }
 
     /**
      * Displays an error message when the start date is after the end date for an event.
      */
     public void showEventDateOrder() {
-        System.out.println("Start Date cannot be after End Date. Please try again.");
+        System.out.println(SentinelString.stringEventDateOrder());
     }
 
     /**
      * Displays guidelines for using the 'deadline' command.
      */
     public void showDeadlineCommandGuidelines() {
-        System.out.println("Please state the deadline using /by <date> "
-                + "(e.g., deadline return book /by 30 Aug 2024 5pm)");
+        System.out.println(SentinelString.stringDeadlineCommandGuidelines());
     }
 
     /**
      * Displays guidelines for modifying tasks (marking, unmarking, deleting).
      */
     public void showModifyGuidelines() {
-        System.out.println("Please state a valid index you wish to mark/unmark/delete with the command (e.g.: mark 1)");
+        System.out.println(SentinelString.stringModifyGuidelines());
     }
 
     /**
      * Displays an error message when an invalid index is provided.
      */
     public void showNoItemExists() {
-        System.out.println("No such item in the list!");
+        System.out.println(SentinelString.stringNoItemExists());
     }
 
     /**
@@ -153,15 +109,14 @@ public class Ui {
      * @param commandType The type of command that requires a task name.
      */
     public void showEmptyTaskNameError(Sentinel.CommandType commandType) {
-        System.out.println(commandType.name().substring(0, 1).toUpperCase()
-                + commandType.name().substring(1) + " name cannot be empty");
+        System.out.println(SentinelString.stringEmptyTaskNameError(commandType));
     }
 
     /**
      * Displays an error message for unrecognized commands.
      */
     public void showUnrecognisedCommand() {
-        System.out.println("Unrecognised Sentinel command. Type \"help\" to list all commands.");
+        System.out.println(SentinelString.stringUnrecognisedCommand());
     }
 
     /**
@@ -170,8 +125,7 @@ public class Ui {
      * @param t The task that was marked or unmarked.
      */
     public void showTaskMark(Task t) {
-        System.out.println("Alright! I've marked this task as " + (t.isDone() ? "done" : "undone") + ":");
-        System.out.println("\t" + t.getStatusIcon() + " " + t);
+        System.out.println(SentinelString.stringTaskMark(t));
     }
 
     /**
@@ -180,11 +134,7 @@ public class Ui {
      * @param lst The list of tasks to display.
      */
     public void showList(SentinelList lst) {
-        System.out.println("Here " + (lst.isSizeOne() ? "is" : "are") + " the "
-                + (lst.isSizeOne() ? "task" : "tasks") + " in your list:");
-        for (int i = 0; i < lst.size(); i++) {
-            System.out.println("\t" + (i + 1) + "." + lst.getListedString(i));
-        }
+        System.out.println(SentinelString.stringList(lst));
     }
 
     /**
@@ -193,13 +143,7 @@ public class Ui {
      * @param lst The list of tasks to filter from.
      */
     public void showFilteredList(SentinelList lst, String keyword) {
-        lst = lst.filter(keyword);
-        System.out.println("Here " + (lst.isSizeOne() ? "is" : "are") + " the " + (lst.isSizeOne() ? "task" : "tasks")
-                + " in your list that " + (lst.isSizeOne() ? "contains" : "contain")
-                + " the keyword \"" + keyword + "\":");
-        for (int i = 0; i < lst.size(); i++) {
-            System.out.println("\t" + (i + 1) + "." + lst.getListedString(i));
-        }
+        System.out.println(SentinelString.stringFilteredList(lst, keyword));
     }
 
     /**
@@ -209,8 +153,7 @@ public class Ui {
      * @param removed The task that was removed.
      */
     public void showRemovedAndRemaining(SentinelList list, Task removed) {
-        System.out.println("I have deleted the following task:\n\t" + removed.listedString()
-                + "\nYou have " + list.size() + " remaining " + (list.isSizeOne() ? "task" : "tasks") + ".");
+        System.out.println(SentinelString.stringRemovedAndRemaining(list, removed));
     }
 
     /**
@@ -219,11 +162,7 @@ public class Ui {
      * @param t The task that is already marked.
      */
     public void showAlreadyMarked(Task t) {
-        if (t.isDone()) {
-            System.out.println(t + " has already been marked as done.");
-        } else {
-            System.out.println(t + " has already been marked as undone.");
-        }
+        System.out.println(SentinelString.stringAlreadyMarked(t));
     }
 
     /**
@@ -232,7 +171,6 @@ public class Ui {
      * @param t The task that was added.
      */
     public void showAddedTask(Task t) {
-        System.out.println("Got it. I've added this task: " + t);
-        System.out.println("\t" + t.listedString());
+        System.out.println(SentinelString.stringAddedTask(t));
     }
 }

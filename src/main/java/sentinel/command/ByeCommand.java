@@ -2,6 +2,7 @@ package sentinel.command;
 
 import sentinel.ui.Ui;
 import sentinel.utils.SentinelList;
+import sentinel.utils.SentinelString;
 
 /**
  * The ByeCommand class handles the "bye" command, which is used to end the session.
@@ -25,7 +26,8 @@ public class ByeCommand extends Command {
      * @param input The user's input string (not used in this command).
      */
     @Override
-    public void execute(String input) {
+    public String execute(String input) {
         ui.showGoodbye();
+        return SentinelString.stringGoodbye();
     }
 }
