@@ -1,7 +1,8 @@
 package LittleMissHelpful.Task;
 
-import LittleMissHelpful.Exception.InvalidTaskFormatException;
 import java.time.LocalDateTime;
+
+import LittleMissHelpful.Exception.InvalidTaskFormatException;
 
 public class Task {
     protected String description;
@@ -15,10 +16,6 @@ public class Task {
     public Task (String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
-    }
-
-    public boolean checkIsDone() {
-        return isDone;
     }
 
     public Task markTask() {

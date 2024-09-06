@@ -1,9 +1,9 @@
 package LittleMissHelpful.Command;
 
-import LittleMissHelpful.Exception.InvalidCommandException;
+import LittleMissHelpful.Storage;
 import LittleMissHelpful.TaskList;
 import LittleMissHelpful.Ui;
-import LittleMissHelpful.Storage;
+import LittleMissHelpful.Exception.InvalidCommandException;
 
 public class ListCommand extends Command {
     @Override

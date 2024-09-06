@@ -1,10 +1,9 @@
 package LittleMissHelpful.Command;
 
-import LittleMissHelpful.Exception.InvalidCommandException;
-import LittleMissHelpful.Task.Event;
+import LittleMissHelpful.Storage;
 import LittleMissHelpful.TaskList;
 import LittleMissHelpful.Ui;
-import LittleMissHelpful.Storage;
+import LittleMissHelpful.Exception.InvalidCommandException;
 
 public class ExitCommand extends Command {
     @Override
