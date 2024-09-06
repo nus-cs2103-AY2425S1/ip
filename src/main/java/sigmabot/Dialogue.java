@@ -4,10 +4,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import sigmabot.command.Command;
-import sigmabot.command.Greeting;
+import sigmabot.command.ChatCommand;
+import sigmabot.command.GreetingCommand;
 import sigmabot.command.ListOperation;
-import sigmabot.command.Terminate;
+import sigmabot.command.TerminateCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Map;
 public class Dialogue {
     private TextArea displayArea;
     private TextField inputField;
-    private Map<String, Command> commands;
+    private Map<String, ChatCommand> commands;
 
     /**
      * Private constructor to prevent direct instantiation.
@@ -28,7 +28,7 @@ public class Dialogue {
     private Dialogue() {
         this.commands = new HashMap<>();
         this.commands.put("/list", new ListOperation());
-        this.commands.put("/exit", new Terminate());
+        this.commands.put("/exit", new TerminateCommand());
     }
 
     /**
@@ -59,7 +59,7 @@ public class Dialogue {
         // Add components to the layout
         root.getChildren().addAll(displayArea, inputField, sendButton);
         // Initial greeting
-        Greeting.greet(displayArea);
+        GreetingCommand.greet(displayArea);
     }
 
     /**
@@ -69,13 +69,29 @@ public class Dialogue {
         String input = inputField.getText().trim();
         if (!input.isEmpty()) {
             displayArea.appendText("User: " + input + "\n");
-            Command command = commands.getOrDefault(input, null);
+            ChatCommand command = commands.getOrDefault(input, null);
             if (command != null) {
-                command.execute(displayArea, inputField); // Pass both displayArea and inputField
+                disableInputHandler();  // Temporarily disable the main input handler
+                command.execute(displayArea, inputField);
+                enableInputHandler();  // Re-enable the main input handler after execution
             } else {
                 displayArea.appendText("Unknown command. Please enter '/list' or '/exit'.\n");
             }
             inputField.clear();
         }
+    }
+
+    /**
+     * Disables the input field's main action handler.
+     */
+    private void disableInputHandler() {
+        inputField.setOnAction(null);  // Disable the current input handler
+    }
+
+    /**
+     * Re-enables the input field's main action handler.
+     */
+    private void enableInputHandler() {
+        inputField.setOnAction(event -> handleInput());
     }
 }

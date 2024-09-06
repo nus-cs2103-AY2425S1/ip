@@ -103,45 +103,90 @@ public class Event extends Task {
      * @param inputField  The {@code TextField} object for reading user input.
      * @param taskMap     The map to store the created {@code Event} object.
      */
+    /**
+     * Creates a new {@code Event} object using GUI input components and stores it in the provided map.
+     *
+     * @param displayArea The {@code TextArea} object for displaying output.
+     * @param inputField  The {@code TextField} object for reading user input.
+     * @param taskMap     The map to store the created {@code Event} object.
+     */
     public static void createEventGUI(TextArea displayArea, TextField inputField, Map<String, Task> taskMap) {
-        displayArea.appendText("Enter name for Event:\n");
+        displayArea.appendText("Enter name for Event or '/exit' to cancel:\n");
 
         // Handle name input
         inputField.setOnAction(event -> {
             String name = inputField.getText().trim();
             inputField.clear();
-            displayArea.appendText("Enter description for Event:\n");
+
+            if (name.equalsIgnoreCase("/exit")) {
+                displayArea.appendText("Event creation canceled.\n");
+                resetInputHandler(displayArea, inputField, taskMap);  // Reset input handler
+                return;
+            }
+
+            displayArea.appendText("Enter description for Event or '/exit' to cancel:\n");
 
             // Handle description input
             inputField.setOnAction(eventDesc -> {
                 String description = inputField.getText().trim();
                 inputField.clear();
-                displayArea.appendText("Enter start time (yyyy-MM-dd) for Event:\n");
+
+                if (description.equalsIgnoreCase("/exit")) {
+                    displayArea.appendText("Event creation canceled.\n");
+                    resetInputHandler(displayArea, inputField, taskMap);  // Reset input handler
+                    return;
+                }
+
+                displayArea.appendText("Enter start time (yyyy-MM-dd) for Event or '/exit' to cancel:\n");
 
                 // Handle start time input
                 inputField.setOnAction(eventStart -> {
+                    String startStr = inputField.getText().trim();
+                    inputField.clear();
+
+                    if (startStr.equalsIgnoreCase("/exit")) {
+                        displayArea.appendText("Event creation canceled.\n");
+                        resetInputHandler(displayArea, inputField, taskMap);  // Reset input handler
+                        return;
+                    }
+
                     try {
-                        LocalDate startTime = LocalDate.parse(inputField.getText().trim());
-                        inputField.clear();
-                        displayArea.appendText("Enter end time (yyyy-MM-dd) for Event:\n");
+                        LocalDate startTime = LocalDate.parse(startStr);
+                        displayArea.appendText("Enter end time (yyyy-MM-dd) for Event or '/exit' to cancel:\n");
 
                         // Handle end time input
                         inputField.setOnAction(eventEnd -> {
+                            String endStr = inputField.getText().trim();
+                            inputField.clear();
+
+                            if (endStr.equalsIgnoreCase("/exit")) {
+                                displayArea.appendText("Event creation canceled.\n");
+                                resetInputHandler(displayArea, inputField, taskMap);  // Reset input handler
+                                return;
+                            }
+
                             try {
-                                LocalDate endTime = LocalDate.parse(inputField.getText().trim());
+                                LocalDate endTime = LocalDate.parse(endStr);
                                 if (endTime.isBefore(startTime)) {
-                                    displayArea.appendText("End time cannot be before start time. Please enter a valid end time:\n");
+                                    displayArea.appendText("End time cannot be before start time. Please enter a valid end time or '/exit' to cancel:\n");
                                 } else {
-                                    inputField.clear();
-                                    displayArea.appendText("Enter location for Event:\n");
+                                    displayArea.appendText("Enter location for Event or '/exit' to cancel:\n");
 
                                     // Handle location input
                                     inputField.setOnAction(eventLocation -> {
                                         String location = inputField.getText().trim();
                                         inputField.clear();
+
+                                        if (location.equalsIgnoreCase("/exit")) {
+                                            displayArea.appendText("Event creation canceled.\n");
+                                            resetInputHandler(displayArea, inputField, taskMap);  // Reset input handler
+                                            return;
+                                        }
+
                                         Event newEvent = new Event(name, description, startTime, endTime, location);
                                         taskMap.put(name, newEvent);  // Store the new Event in the map
                                         displayArea.appendText("Event created: " + newEvent.toString() + "\n");
+                                        resetInputHandler(displayArea, inputField, taskMap);  // Reset input handler
                                     });
                                 }
                             } catch (DateTimeParseException e) {
@@ -153,6 +198,34 @@ public class Event extends Task {
                     }
                 });
             });
+        });
+    }
+
+    // Utility method to reset input handler
+    private static void resetInputHandler(TextArea displayArea, TextField inputField, Map<String, Task> taskMap) {
+        // Re-enable the main input handler
+        inputField.setOnAction(event -> {
+            String input = inputField.getText().trim();
+            inputField.clear();
+
+            if (input.equalsIgnoreCase("/exit")) {
+                displayArea.appendText("Finished adding tasks.\n");
+                return;
+            }
+
+            switch (input.toLowerCase()) {
+            case "todo":
+                Todo.createTodoGUI(displayArea, inputField, taskMap);
+                break;
+            case "deadline":
+                Deadline.createDeadlineGUI(displayArea, inputField, taskMap);
+                break;
+            case "event":
+                createEventGUI(displayArea, inputField, taskMap);
+                break;
+            default:
+                displayArea.appendText("Invalid task type. Please enter 'todo', 'deadline', or 'event'.\n");
+            }
         });
     }
 

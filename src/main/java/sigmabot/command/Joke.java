@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
  * It provides the functionality to execute the joke-telling process,
  * which outputs a joke to the GUI.
  */
-public class Joke extends Command {
+public class Joke extends ChatCommand {
 
     /**
      * Executes the joke command.

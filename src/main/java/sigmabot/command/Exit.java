@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
  * It provides the functionality to execute the exit process,
  * which in this case, terminates the JavaFX application.
  */
-public class Exit extends Command {
+public class Exit extends ChatCommand {
 
     /**
      * Executes the exit command.

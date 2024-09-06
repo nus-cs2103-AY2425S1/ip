@@ -50,6 +50,37 @@ public class Todo extends Task {
     }
 
     /**
+     * Resets the input field handler to the main command handler.
+     */
+    private static void resetInputHandler(TextArea displayArea, TextField inputField, Map<String, Task> taskMap) {
+        displayArea.appendText("Enter task type to add (todo, deadline, event) or '/exit' to finish:\n");
+        inputField.setOnAction(event -> {
+            String input = inputField.getText().trim();
+            inputField.clear();
+
+            // Main input handling logic
+            if (input.equalsIgnoreCase("/exit")) {
+                displayArea.appendText("Finished adding tasks.\n");
+                return;
+            }
+
+            switch (input.toLowerCase()) {
+            case "todo":
+                createTodoGUI(displayArea, inputField, taskMap);
+                break;
+            case "deadline":
+                Deadline.createDeadlineGUI(displayArea, inputField, taskMap);
+                break;
+            case "event":
+                Event.createEventGUI(displayArea, inputField, taskMap);
+                break;
+            default:
+                displayArea.appendText("Invalid task type. Please enter 'todo', 'deadline', or 'event'.\n");
+            }
+        });
+    }
+
+    /**
      * Creates a new {@code Todo} object using GUI input components and stores it in the provided map.
      *
      * @param displayArea The {@code TextArea} object for displaying output.
@@ -63,15 +94,27 @@ public class Todo extends Task {
         inputField.setOnAction(event -> {
             String name = inputField.getText().trim();
             inputField.clear();
+            if (name.equalsIgnoreCase("/exit")) {
+                displayArea.appendText("Todo creation canceled.\n");
+                resetInputHandler(displayArea, inputField, taskMap);
+                return;
+            }
             displayArea.appendText("Enter description for Todo:\n");
 
             // Handle description input
             inputField.setOnAction(eventDesc -> {
                 String description = inputField.getText().trim();
                 inputField.clear();
+                // Check if the user wants to exit
+                if (description.equalsIgnoreCase("/exit")) {
+                    displayArea.appendText("Todo creation canceled.\n");
+                    resetInputHandler(displayArea, inputField, taskMap);
+                    return;
+                }
                 Todo newTodo = new Todo(name, description);
                 taskMap.put(name, newTodo);  // Store the new Todo in the map
                 displayArea.appendText("Todo created: " + newTodo.toString() + "\n");
+                resetInputHandler(displayArea, inputField, taskMap);
             });
         });
     }

@@ -20,7 +20,7 @@ import java.util.Map;
  * It includes methods for creating, querying, finding, marking, unmarking, and deleting tasks.
  * The tasks are read from and written to a file specified by the {@code filePath}.
  */
-public class ListOperation extends Command {
+public class ListOperation extends ChatCommand {
     private ListReader reader = new ListReader();
     private ListMapWriter writer = new ListMapWriter();
     private String filePath = System.getProperty("user.home") + "/tasks.txt";
@@ -140,6 +140,7 @@ public class ListOperation extends Command {
             }
 
             writer.writeMapToFile(taskList, filePath); // Save tasks to file after creation
+            return;
         });
     }
 
@@ -206,12 +207,10 @@ public class ListOperation extends Command {
         inputField.setOnAction(event -> {
             String input = inputField.getText().trim();
             inputField.clear();
-
             if (input.equalsIgnoreCase("/exit")) {
                 displayArea.appendText("Finished adding tasks.\n");
                 return;
             }
-
             switch (input.toLowerCase()) {
             case "todo":
                 Todo.createTodoGUI(displayArea, inputField, taskList);
@@ -222,11 +221,13 @@ public class ListOperation extends Command {
             case "event":
                 Event.createEventGUI(displayArea, inputField, taskList);
                 break;
+            case "/exit":
+                return;
             default:
                 displayArea.appendText("Invalid task type. Please enter 'todo', 'deadline', or 'event'.\n");
             }
-
             writer.writeMapToFile(taskList, filePath); // Save tasks to file after addition
+            displayArea.appendText("Enter task type to add (todo, deadline, event) or '/exit' to finish:\n");
         });
     }
 

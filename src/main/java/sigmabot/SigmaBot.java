@@ -7,19 +7,20 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sigmabot.command.Command;
+import sigmabot.command.ChatCommand;
+import sigmabot.command.GreetingCommand;
 import sigmabot.command.ListOperation;
-import sigmabot.command.Terminate;
+import sigmabot.command.TerminateCommand;
 
 public class SigmaBot extends Application {
 
-    private Command currentCommand;
+    private ChatCommand currentCommand;
 
     @Override
     public void start(Stage primaryStage) {
         TextArea displayArea = new TextArea();
         displayArea.setEditable(false);
-
+        GreetingCommand.greet(displayArea);
         TextField inputField = new TextField();
         inputField.setPromptText("Type your command here...");
 
@@ -32,7 +33,7 @@ public class SigmaBot extends Application {
                 currentCommand = new ListOperation();
                 break;
             case "/exit":
-                currentCommand = new Terminate();
+                currentCommand = new TerminateCommand();
                 break;
             default:
                 displayArea.appendText("Unknown command. Please enter '/list' or '/exit'.\n");

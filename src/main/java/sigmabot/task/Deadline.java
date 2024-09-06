@@ -76,33 +76,84 @@ public class Deadline extends Task {
      * @param taskMap     The map to store the created {@code Deadline} object.
      */
     public static void createDeadlineGUI(TextArea displayArea, TextField inputField, Map<String, Task> taskMap) {
-        displayArea.appendText("Enter name for Deadline:\n");
+        displayArea.appendText("Enter name for Deadline or '/exit' to cancel:\n");
 
         // Handle name input
         inputField.setOnAction(event -> {
             String name = inputField.getText().trim();
             inputField.clear();
-            displayArea.appendText("Enter description for Deadline:\n");
+
+            if (name.equalsIgnoreCase("/exit")) {
+                displayArea.appendText("Deadline creation canceled.\n");
+                resetInputHandler(displayArea, inputField, taskMap);  // Reset input handler
+                return;
+            }
+
+            displayArea.appendText("Enter description for Deadline or '/exit' to cancel:\n");
 
             // Handle description input
             inputField.setOnAction(eventDesc -> {
                 String description = inputField.getText().trim();
                 inputField.clear();
-                displayArea.appendText("Enter deadline (yyyy-MM-dd) for Deadline:\n");
+
+                if (description.equalsIgnoreCase("/exit")) {
+                    displayArea.appendText("Deadline creation canceled.\n");
+                    resetInputHandler(displayArea, inputField, taskMap);  // Reset input handler
+                    return;
+                }
+
+                displayArea.appendText("Enter deadline (yyyy-MM-dd) for Deadline or '/exit' to cancel:\n");
 
                 // Handle deadline date input
                 inputField.setOnAction(eventDeadline -> {
+                    String deadlineStr = inputField.getText().trim();
+                    inputField.clear();
+
+                    if (deadlineStr.equalsIgnoreCase("/exit")) {
+                        displayArea.appendText("Deadline creation canceled.\n");
+                        resetInputHandler(displayArea, inputField, taskMap);  // Reset input handler
+                        return;
+                    }
+
                     try {
-                        LocalDate byTime = LocalDate.parse(inputField.getText().trim());
-                        inputField.clear();
+                        LocalDate byTime = LocalDate.parse(deadlineStr);
                         Deadline newDeadline = new Deadline(name, description, byTime);
                         taskMap.put(name, newDeadline);  // Store the new Deadline in the map
                         displayArea.appendText("Deadline created: " + newDeadline.toString() + "\n");
+                        resetInputHandler(displayArea, inputField, taskMap);  // Reset input handler
                     } catch (DateTimeParseException e) {
                         displayArea.appendText("Invalid date format. Please enter in the format yyyy-MM-dd.\n");
                     }
                 });
             });
+        });
+    }
+
+    // Utility method to reset input handler
+    private static void resetInputHandler(TextArea displayArea, TextField inputField, Map<String, Task> taskMap) {
+        // Re-enable the main input handler
+        inputField.setOnAction(event -> {
+            String input = inputField.getText().trim();
+            inputField.clear();
+
+            if (input.equalsIgnoreCase("/exit")) {
+                displayArea.appendText("Finished adding tasks.\n");
+                return;
+            }
+
+            switch (input.toLowerCase()) {
+            case "todo":
+                Todo.createTodoGUI(displayArea, inputField, taskMap);
+                break;
+            case "deadline":
+                createDeadlineGUI(displayArea, inputField, taskMap);
+                break;
+            case "event":
+                Event.createEventGUI(displayArea, inputField, taskMap);
+                break;
+            default:
+                displayArea.appendText("Invalid task type. Please enter 'todo', 'deadline', or 'event'.\n");
+            }
         });
     }
 
